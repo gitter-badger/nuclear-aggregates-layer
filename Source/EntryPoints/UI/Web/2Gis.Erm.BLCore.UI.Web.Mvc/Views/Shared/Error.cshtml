@@ -1,0 +1,48 @@
+﻿@model ViewModels.ErrorHandlerModel
+
+<html>
+<head>
+    <title>@Model.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    
+    <link rel="stylesheet" type="text/css" href="/Content/ErrorPage.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/CRM4.css?@SolutionInfo.ProductVersion.Build" />
+    
+    <script src="/Scripts/ext-base.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/ext-all.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/ErrorPage.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+</head>
+<body>
+    <!-- Outer div -->
+    <div class="errorPage">
+        <!-- Information outer div -->
+        <div>
+            <!-- Picture outer div -->
+            <div class="imageOuter floatLeft icon_error"></div>
+            <!-- Text outer div -->
+            <div class="textOuter floatLeft">
+                <!-- Title div -->
+                <div class="title">
+                    @Model.Title
+                </div>
+                <!-- Title div -->
+                <div class="errorText">
+                    @Model.Text
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <!-- Button div -->
+        <div style="padding-left: 300px">
+            <input type="button" onclick="tryAgain();" value="@BLResources.RepeatAttempts" />
+            &nbsp;
+            <input type="button" onclick="goBack();" value="@BLResources.Close" />
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</body>
+</html>

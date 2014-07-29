@@ -1,0 +1,140 @@
+﻿@model Models.GroupOperation.ChangeClientViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.ChangeClient }
+@section TopBarTitle { @BLResources.ChangeClient }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@SolutionInfo.ProductVersion.Build" />
+    
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Deal');
+
+        Ext.DoubleGis.UI.Deal.ChangeClientProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            ClientId: -1,
+            ClientLookup: {},
+            constructor: function (config) {
+                Ext.apply(config,
+                {
+                    listeners:
+                    {
+                        configspecificcontrols: function () {
+                            this.ConfigCustomControls();
+                        },
+                        applyusersettings: function () {
+                            this.ApplyUserSettings();
+                        }
+                    }
+                });
+                Ext.DoubleGis.UI.Deal.ChangeClientProcessor.superclass.constructor.call(this, config);
+            },
+            ConfigCustomControls: function () {
+                this.ClientLookup = Ext.getCmp("Client");
+            },
+            IsUserSettingsValid: function () {
+                this.ClientId = this.ClientLookup.getValue() ? this.ClientLookup.getValue().id : this.ClientId;
+
+                if (this.ClientId === -1) {
+                    Ext.MessageBox.show({
+                        title: '',
+                        // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                        // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                        msg: '@BLResources.NeedToSelectOneOrMoreItems',
+                        buttons: window.Ext.MessageBox.OK,
+                        width: 300,
+                        icon: window.Ext.MessageBox.ERROR
+                    });
+                    return false;
+                }
+
+                if (!this.Config || !this.Config.Entities || this.Config.Entities.length == 0) {
+                    Ext.MessageBox.show({
+                        title: '',
+                        msg: 'Необходимо указать клиента',
+                        buttons: window.Ext.MessageBox.OK,
+                        width: 300,
+                        icon: window.Ext.MessageBox.ERROR
+                    });
+                    return false;
+                }
+
+                return true;
+            },
+            ApplyUserSettings: function () {
+                this.ClientLookup.disable();
+            },
+            CreateParamsForControllerCall: function (entityId) {
+                return { entityId: entityId, clientId: this.ClientId };
+            }
+        });
+
+        Ext.onReady(function () {
+
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+
+            var config =
+            {
+                Entities: ids,
+                OperationName: '@Model.OperationName',
+                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+            };
+
+            var changeClientProcessor = new Ext.DoubleGis.UI.Deal.ChangeClientProcessor(config);
+            if (!changeClientProcessor.CheckProcessingPossibility())
+                return;
+
+            changeClientProcessor.Process();
+        });
+
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+        <colgroup>
+            <col width="26" />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <div style="height: 24px;" id="Notifications">@Model.Message</div>
+                </td>
+            </tr>
+            <tr>
+                <td>Клиент:</td>
+                <td>
+                    <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client})
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr style="display: none">
+                <td colspan="2">
+                    <div id="pbDiv">
+                        <div id="pbInner">
+                        </div>
+                    </div>
+                    @Html.HiddenFor(m => m.EntityTypeName)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

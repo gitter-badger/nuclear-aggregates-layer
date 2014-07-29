@@ -1,0 +1,772 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{97992802-C651-46E9-AD0D-2C273152566B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.Operations</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.Operations</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.InternalsVisibleTo.cs">
+      <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
+    <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
+    <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\DenialReasonIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\PositionChildrenOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\PositionOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\PriceOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\PricePositionOperationsExportService.cs" />
+    <Compile Include="Concrete\Integration\Export\OperationsProcessingsStoreService.cs" />
+    <Compile Include="Concrete\Integration\Export\Exporters\ExportableEntityDto.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\AdvertismentIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ClientIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\FirmAddressIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ImportedFirmAddressIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\IntegrationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\InvoiceIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\LegalPersonIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\IntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\OrderIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeOrganizationUnitIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Processors\Concrete\ThemeTemplateIntegrationProcessorOperationService.cs" />
+    <Compile Include="Concrete\Integration\Export\Exporters\ImportedFirmAddressOperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
+    <Compile Include="Concrete\Integration\Export\Exporters\OperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFirmContactsService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportDepCardsService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportCategoryFirmAddressService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFirmAddressService.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\IImportMetadataProvider.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\ImportMetadataProvider.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\ServiceBusFlowDescriptor.cs" />
+    <Compile Include="Concrete\Integration\Import\Infrastructure\ServiceBusObjectDescriptor.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowBilling\Processors\ImportChargesInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowBilling\Deserializers\DeserializeChargesInfoService.cs" />
+    <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandler.cs" />
+    <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
+    <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
+    <Compile Include="Concrete\Old\AfterSalesService\CreateAfterSaleServiceActivitiesHandler.cs" />
+    <Compile Include="Concrete\Old\AfterSalesService\CrmCreateAfterSaleServiceActivitiesHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplateHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\CreateBillsHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\DeleteBillsHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\DistributeBillPaymentsHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\GetDistributedPaymentsInfoHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\GetInitPaymentsInfoHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBillHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBillHandler.cs" />
+    <Compile Include="Concrete\Old\Bills\PrintJointBillHandler.cs" />
+    <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimary.cs" />
+    <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSales.cs" />
+    <Compile Include="Concrete\Old\Clients\ActivityHelper.cs" />
+    <Compile Include="Concrete\Old\Clients\AssignMsCrmClientRelatedEntities.cs" />
+    <Compile Include="Concrete\Old\Clients\CheckIsWarmClientHandler.cs" />
+    <Compile Include="Concrete\Old\Clients\MergeClientsHandler.cs" />
+    <Compile Include="Concrete\Old\CrmActivities\UpdateRelatedCrmActivitiesHandler.cs" />
+    <Compile Include="Concrete\Old\Deals\ActualizeDealProfitIndicatorsHandler.cs" />
+    <Compile Include="Concrete\Old\Deals\CheckDealHandler.cs" />
+    <Compile Include="Concrete\Old\Deals\CloseDealHandler.cs" />
+    <Compile Include="Concrete\Old\Deals\ReopenDealHandler.cs" />
+    <Compile Include="Concrete\Old\Firms\CheckMsCrmFirmActivitiesHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\LocalMessageHelper.cs" />
+    <Compile Include="Concrete\Old\Integration\Olap\CalculateClientPromisingHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\AccountDetailsFrom1CHelper.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForBranchHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForFranchiseesHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsToServiceBusForBranchHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsToServiceBusForFranchiseesHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ExportLegalPersonsHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ImportAccountDetailsFrom1CHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\OneC\ValidateLegalPersonsFor1CHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\RabbitMq\ImportlocalMessagesFromRabbitMqHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAdvertisementHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeClientHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeFirmAddressHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeLegalPersonHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeObjectsHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeInvoicesHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeOrdersHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeOrganizationUnitHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeThemeTemplateHandler.cs" />
+    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\WriteMessageToServiceBusHandler.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Deserializers\DeserializeCardForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Processors\ImportCardForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserealizeReferenceItemService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeCardRelationService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeFirmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Deserializers\DeserializeReferenceService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportCardRelationService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportFirmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportReferenceItemService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportReferenceService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowFinancialData1C\Deserializers\DeserializeOperationsInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowFinancialData1C\Processors\ImportOperationsInfoService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowGeoClassifier\Deseirailzers\DeserealizeBranchService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowGeoClassifier\Processors\ImportBranchService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowPhoneZones\Deserializers\DeserializeCityPhoneZoneService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowPhoneZones\Processors\ImportCityPhoneZoneService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowRubrics\Deserializers\DeserializeRubricService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowRubrics\Processors\ImportRubricService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowStickers\Deserializers\DeserializeHotClientService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowStickers\Processors\ImportHotClientService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFromServiceBusService.cs" />
+    <Compile Include="Concrete\Old\Journal\Concrete\IJournalMakeRegionalAdsDocsService.cs" />
+    <Compile Include="Concrete\Old\Journal\Concrete\JournalMakeRegionalAdsDocsService.cs" />
+    <Compile Include="Concrete\Old\Journal\Infrastructure\IJournalBusinessOperationsService.cs" />
+    <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBag.cs" />
+    <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBagContainer.cs" />
+    <Compile Include="Concrete\Old\Journal\Infrastructure\NullJournalBusinessOperationsService.cs" />
+    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationAttribute.cs" />
+    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationHandler.cs" />
+    <Compile Include="Concrete\Old\Journal\Infrastructure\PropertyBag.cs" />
+    <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandler.cs" />
+    <Compile Include="Concrete\Old\Limits\PrintLimitsHandler.cs" />
+    <Compile Include="Concrete\Old\Limits\RecalculateLimitHandler.cs" />
+    <Compile Include="Concrete\Old\Limits\SetLimitStatusHandler.cs" />
+    <Compile Include="Concrete\Old\LocalMessages\CreateLocalMessageHandler.cs" />
+    <Compile Include="Concrete\Old\LocalMessages\ExportLocalMessageHandler.cs" />
+    <Compile Include="Concrete\Old\LocalMessages\ProcessLocalMessagesHandler.cs" />
+    <Compile Include="Concrete\Old\LocalMessages\ReprocessLocalMessagesHandler.cs" />
+    <Compile Include="Concrete\Old\LocalMessages\SaveLocalMessageHandler.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesHandler.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\ChangeBindingObjectsHandler.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\CheckIsBindingObjectChangeAllowedHandler.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\AvailableTransitionsHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\CanCreateOrderPositionForOrderHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\ChangeOrderDealHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\CloseOrderHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\MakeRegionalAdsDocsHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToRejectedHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnRegistrationHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnTerminationHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnArchiveToApprovedHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnRejectedToOnRegistrationHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToArchiveHandler.cs" />
+    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToOnApprovedHandler.cs" />
+    <Compile Include="Concrete\Old\Prices\PublishPriceHandler.cs" />
+    <Compile Include="Concrete\Old\Prices\UnpublishPriceHandler.cs" />
+    <Compile Include="Concrete\Old\Printing\PrintDocumentHandler.cs" />
+    <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesExpressionHandler.cs" />
+    <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesHandler.cs" />
+    <Compile Include="Concrete\Old\Territories\SelectOrganizationUnitTerritoriesHandler.cs" />
+    <Compile Include="Concrete\Old\Territories\ValidateTerritoryAvailabilityHandler.cs" />
+    <Compile Include="Concrete\Old\UserOperations\UpdateUserCrmRelatedEntitiesHandler.cs" />
+    <Compile Include="Concrete\Old\UserProfiles\SyncUserProfilesHandler.cs" />
+    <Compile Include="Concrete\OrderPositions\CalculateCategoryRateOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\ViewOrderPositionOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bargains\DetermineOrderBargainOperationService.cs" />
+    <Compile Include="Concrete\Orders\Bargains\CloseClientBargainsOperationService.cs" />
+    <Compile Include="Concrete\Orders\CopyOrderOperationService.cs" />
+    <Compile Include="Concrete\Orders\Processing\OrderCreationStrategy.cs" />
+    <Compile Include="Concrete\Orders\Processing\OrderEditingStrategy.cs" />
+    <Compile Include="Concrete\Orders\Processing\OrderProcessingService.cs" />
+    <Compile Include="Concrete\Orders\Processing\OrderProcessingStrategy.cs" />
+    <Compile Include="Concrete\Orders\Processing\OrderWorkflowProcessingStrategy.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourApproved.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourArchive.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourOnApproval.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourOnRegistration.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourOnTermination.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourRejected.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviour.cs" />
+    <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviourFactory.cs" />
+    <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
+    <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
+    <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
+    <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
+    <Compile Include="Concrete\Processing\Final\ReplicateHotClientMessageAggregatedProcessingResultHandler.cs" />
+    <Compile Include="Concrete\Processing\Final\ReplicateHotClientPerformedOperationsFinalProcessor.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Projects\ProjectService.cs" />
+    <Compile Include="Concrete\Withdrawals\CreateLockDetailsDuringWithdrawalOperationService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Concrete\Withdrawals\DeleteChargesForPeriodAndProjectOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\DeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Crosscutting\SupportedCategoriesChecker.cs" />
+    <Compile Include="Concrete\Prices\GetRatedPricesForCategoryOperationService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Bargains\BargainTypeService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Categories\CategoryService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\ContributionTypeService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Countries\CountryService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Currency\CurrencyService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Currency\GetBaseCurrencyService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Platforms\PlatformService.cs" />
+    <Compile Include="Concrete\Simplified\MS CRM\CrmTaskUtils.cs" />
+    <Compile Include="Concrete\Simplified\NoteService.cs" />
+    <Compile Include="Concrete\Simplified\OperationService.cs" />
+    <Compile Include="Concrete\Simplified\PrintFormTemplateService.cs" />
+    <Compile Include="Concrete\Simplified\ReportSimplifiedModel.cs" />
+    <Compile Include="Concrete\Users\UserEntityService.cs" />
+    <Compile Include="Concrete\Users\UserProfileService.cs" />
+    <Compile Include="Concrete\Withdrawals\ActualizeAccountsDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\ActualizeAccountsDuringWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\ActualizeDealsDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\ActualizeDealsDuringWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\ActualizeOrdersDuringRevertingWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\ActualizeOrdersDuringWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\RevertWithdrawalOperationService.cs" />
+    <Compile Include="Concrete\Withdrawals\WithdrawalOperationService.cs" />
+    <Compile Include="Crosscutting\AdvertisementElements\AdvertisementElementPlainTextHarmonizer.cs" />
+    <Compile Include="Crosscutting\AdvertisementElements\IAdvertisementElementPlainTextHarmonizer.cs" />
+    <Compile Include="Crosscutting\FirmWorkingTimeLocalizer.cs" />
+    <Compile Include="Crosscutting\CardLink\WebClientLinkToEntityCardFactory.cs" />
+    <Compile Include="Generic\ActionHistory\ActionsHistoryService.cs" />
+    <Compile Include="Generic\Activate\ActivateAssociatedPositionsGroupService.cs" />
+    <Compile Include="Generic\Activate\ActivateBranchOfficeOrganizationUnitService.cs" />
+    <Compile Include="Generic\Activate\ActivateDeniedPositionService.cs" />
+    <Compile Include="Generic\Activate\ActivateDepartmentService.cs" />
+    <Compile Include="Generic\Activate\ActivateGenericEntityService.cs" />
+    <Compile Include="Generic\Activate\ActivateLimitService.cs" />
+    <Compile Include="Generic\Activate\ActivateOrganizationUnitService.cs" />
+    <Compile Include="Generic\Activate\ActivatePositionService.cs" />
+    <Compile Include="Generic\Activate\ActivatePricePositionService.cs" />
+    <Compile Include="Generic\Activate\ActivatePriceService.cs" />
+    <Compile Include="Generic\Activate\ActivateUserService.cs" />
+    <Compile Include="Generic\Activate\ActivateBargainOperationService.cs" />
+    <Compile Include="Generic\Append\AppendThemeCategoryService.cs" />
+    <Compile Include="Generic\Append\AppendThemeOrganizationUnitService.cs" />
+    <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
+    <Compile Include="Generic\Append\AppendUserRoleService.cs" />
+    <Compile Include="Generic\Append\AppendUserTerritoryService.cs" />
+    <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
+    <Compile Include="Generic\Assign\AssignAccountService.cs" />
+    <Compile Include="Generic\Assign\AssignClientService.cs" />
+    <Compile Include="Generic\Assign\AssignContactService.cs" />
+    <Compile Include="Generic\Assign\AssignDealService.cs" />
+    <Compile Include="Generic\Assign\AssignFirmService.cs" />
+    <Compile Include="Generic\Assign\AssignGenericEntityService.cs" />
+    <Compile Include="Generic\Assign\AssignLegalPersonService.cs" />
+    <Compile Include="Generic\Assign\AssignOrderService.cs" />
+    <Compile Include="Generic\ChangeClient\ChangeDealClientService.cs" />
+    <Compile Include="Generic\ChangeClient\ChangeFirmClientService.cs" />
+    <Compile Include="Generic\ChangeClient\ChangeGenericEntityClientService.cs" />
+    <Compile Include="Generic\ChangeClient\ChangeLegalPersonClientService.cs" />
+    <Compile Include="Generic\ChangeTerritory\ChangeClientTerritoryService.cs" />
+    <Compile Include="Generic\ChangeTerritory\ChangeFirmTerritoryService.cs" />
+    <Compile Include="Generic\ChangeTerritory\ChangeGenericEntityTerritoryService.cs" />
+    <Compile Include="Generic\CheckForDebts\CheckAccountForDebtsService.cs" />
+    <Compile Include="Generic\CheckForDebts\CheckClientForDebtsService.cs" />
+    <Compile Include="Generic\CheckForDebts\CheckGenericEntityForDebtsService.cs" />
+    <Compile Include="Generic\CheckForDebts\CheckLegalPersonForDebtsService.cs" />
+    <Compile Include="Generic\Create\CreateAdvertisementElementOperationService.cs" />
+    <Compile Include="Generic\Create\CreateOperationServiceBase.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionsGroupService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateBranchOfficeService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateBargainOperationService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateDeniedPositionService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateDepartmentService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateGenericEntityService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateLegalPersonService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateLimitService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateOrganizationUnitService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivatePositionService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivatePricePositionService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivatePriceService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateTerritoryService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateUserService.cs" />
+    <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
+    <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
+    <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
+    <Compile Include="Generic\Delete\DeleteAdvertisementElementTemplateService.cs" />
+    <Compile Include="Generic\Delete\DeleteAdvertisementService.cs" />
+    <Compile Include="Generic\Delete\DeleteAdvertisementTemplateService.cs" />
+    <Compile Include="Generic\Delete\DeleteBillService.cs" />
+    <Compile Include="Generic\Delete\DeleteCategoryGroupService.cs" />
+    <Compile Include="Generic\Delete\DeleteCurrencyService.cs" />
+    <Compile Include="Generic\Delete\DeleteGenericEntityService.cs" />
+    <Compile Include="Generic\Delete\DeleteLimitService.cs" />
+    <Compile Include="Generic\Delete\DeleteLockDetailService.cs" />
+    <Compile Include="Generic\Delete\DeleteOperationTypeService.cs" />
+    <Compile Include="Generic\Delete\DeleteOrderPositionService.cs" />
+    <Compile Include="Generic\Delete\DeleteOrganizationUnitService.cs" />
+    <Compile Include="Generic\Delete\DeletePlatformService.cs" />
+    <Compile Include="Generic\Delete\DeletePositionCategoryService.cs" />
+    <Compile Include="Generic\Delete\DeletePositionService.cs" />
+    <Compile Include="Generic\Delete\DeletePriceService.cs" />
+    <Compile Include="Generic\Delete\DeleteRoleService.cs" />
+    <Compile Include="Generic\Delete\DeleteThemeCategoryService.cs" />
+    <Compile Include="Generic\Delete\DeleteThemeOrganizationUnitService.cs" />
+    <Compile Include="Generic\Delete\DeleteUserOrganizationUnitService.cs" />
+    <Compile Include="Generic\Delete\DeleteUserRoleService.cs" />
+    <Compile Include="Generic\Disqualify\DisqualifyClientService.cs" />
+    <Compile Include="Generic\Disqualify\DisqualifyFirmService.cs" />
+    <Compile Include="Generic\Disqualify\DisqualifyGenericEntityService.cs" />
+    <Compile Include="Generic\File\AdvertisementElements\IUploadingAdvertisementElementValidator.cs" />
+    <Compile Include="Generic\File\AdvertisementElements\UploadingAdvertisementElementValidator.cs" />
+    <Compile Include="Generic\File\DownloadFileGenericService.cs" />
+    <Compile Include="Generic\File\DownloadNoteFileService.cs" />
+    <Compile Include="Generic\File\DownloadPrintFormTemplateFileService.cs" />
+    <Compile Include="Generic\File\FileService.cs" />
+    <Compile Include="Generic\File\AdvertisementElements\UploadAdvertisementElementFileOperationService.cs" />
+    <Compile Include="Generic\File\UploadFileGenericService.cs" />
+    <Compile Include="Generic\File\UploadNoteFileService.cs" />
+    <Compile Include="Generic\File\UploadPrintFormTemplateFileService.cs" />
+    <Compile Include="Generic\File\ValidateFileService.cs" />
+    <Compile Include="Generic\Get\GetAccountDetailDtoService.cs" />
+    <Compile Include="Generic\Get\GetAccountDtoService.cs" />
+    <Compile Include="Generic\Get\GetAdditionalFirmServiceDtoService.cs" />
+    <Compile Include="Generic\Get\GetAdsTemplatesAdsElementTemplateDtoService.cs" />
+    <Compile Include="Generic\Get\GetAdvertisementDtoService.cs" />
+    <Compile Include="Generic\Get\GetAdvertisementElementDtoService.cs" />
+    <Compile Include="Generic\Get\GetAdvertisementElementTemplateDtoService.cs" />
+    <Compile Include="Generic\Get\GetAdvertisementTemplateDtoService.cs" />
+    <Compile Include="Generic\Get\GetAssociatedPositionDtoService.cs" />
+    <Compile Include="Generic\Get\GetAssociatedPositionsGroupDtoService.cs" />
+    <Compile Include="Generic\Get\GetBargainDtoService.cs" />
+    <Compile Include="Generic\Get\GetBargainFileDtoService.cs" />
+    <Compile Include="Generic\Get\GetBillDtoService.cs" />
+    <Compile Include="Generic\Get\GetCategoryDtoService.cs" />
+    <Compile Include="Generic\Get\GetCategoryGroupDtoService.cs" />
+    <Compile Include="Generic\Get\GetCategoryOrganizationUnitDtoService.cs" />
+    <Compile Include="Generic\Get\GetContactDtoService.cs" />
+    <Compile Include="Generic\Get\GetContributionTypeDtoService.cs" />
+    <Compile Include="Generic\Get\GetCoutryDtoService.cs" />
+    <Compile Include="Generic\Get\GetCurrencyDtoService.cs" />
+    <Compile Include="Generic\Get\GetCurrencyRateDtoService.cs" />
+    <Compile Include="Generic\Get\GetDealDtoService.cs" />
+    <Compile Include="Generic\Get\GetDeniedPositionDtoService.cs" />
+    <Compile Include="Generic\Get\GetDepartmentDtoSerivce.cs" />
+    <Compile Include="Generic\Get\GetDomainEntityDtoServiceBase.cs" />
+    <Compile Include="Generic\Get\GetFirmContactDtoService.cs" />
+    <Compile Include="Generic\Get\GetFirmDtoService.cs" />
+    <Compile Include="Generic\Get\GetGenericDomainEntityDtoService.cs" />
+    <Compile Include="Generic\Get\GetLimitDtoService.cs" />
+    <Compile Include="Generic\Get\GetLocalMessageDtoService.cs" />
+    <Compile Include="Generic\Get\GetLockDetailDtoService.cs" />
+    <Compile Include="Generic\Get\GetLockDtoService.cs" />
+    <Compile Include="Generic\Get\GetNoteDtoService.cs" />
+    <Compile Include="Generic\Get\GetOperationDtoService.cs" />
+    <Compile Include="Generic\Get\GetOperationTypeDtoService.cs" />
+    <Compile Include="Generic\Get\GetOrderFileDtoService.cs" />
+    <Compile Include="Generic\Get\GetOrderPositionDtoService.cs" />
+    <Compile Include="Generic\Get\GetOrganizationUnitDtoService.cs" />
+    <Compile Include="Generic\Get\GetPlatfromDtoService.cs" />
+    <Compile Include="Generic\Get\GetPositionCategoryDtoService.cs" />
+    <Compile Include="Generic\Get\GetPositionChildrenDtoService.cs" />
+    <Compile Include="Generic\Get\GetPositionDtoService.cs" />
+    <Compile Include="Generic\Get\GetPriceDtoService.cs" />
+    <Compile Include="Generic\Get\GetPricePositionDtoService.cs" />
+    <Compile Include="Generic\Get\GetPrintFormTemplateDtoService.cs" />
+    <Compile Include="Generic\Get\GetProjectDtoService.cs" />
+    <Compile Include="Generic\Get\GetReleaseInfoDtoService.cs" />
+    <Compile Include="Generic\Get\GetRoleDtoService.cs" />
+    <Compile Include="Generic\Get\GetTerritoryDtoService.cs" />
+    <Compile Include="Generic\Get\GetThemeDtoService.cs" />
+    <Compile Include="Generic\Get\GetThemeTemplateDtoService.cs" />
+    <Compile Include="Generic\Get\GetUserDtoService.cs" />
+    <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
+    <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AdditionalFirmServiceObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AdsTemplatesAdsElementTemplateObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementTemplateObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementTemplateObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\ContactObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\ContributionTypeObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\CountryObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\CurrencyObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\CurrencyRateObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\DealObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\DeniedPositionObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\DepartmentObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\FirmAddressObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\FirmObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\LegalPersonObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\LimitObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\LockDetailObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\NoteObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\OperationObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\OperationTypeObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\OrderFileObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\OrderObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\OrderPositionObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\OrganizationUnitObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\PlatformObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\PositionCategoryObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\PositionChildrenObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\PositionObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\PriceObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\PricePositionObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\PrintFormTemplateObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\ProjectObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\RoleObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\TerritoryObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\ThemeObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\ThemeTemplateObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\UserObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\UserProfileObtainer.cs" />
+    <Compile Include="Generic\Modify\ModifyBargainService.cs" />
+    <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAccountHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAdditionalFirmServiceHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAdsTemplatesAdsElementTemplateHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAdvertisementElementTemplateHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAdvertisementHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAdvertisementTemplateHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAssociatedPositionGroupHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditAssociatedPositionHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditBargainFileHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditBargainTypeHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditBillHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditCategoryGroupHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditContactHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditContributionTypeHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditCountryHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditCurrencyHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditCurrencyRateHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditDealHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditDeniedPositionHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditDepartmentHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditFirmAddressHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditFirmHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditLimitHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditNoteHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditOperationTypeHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditOrderFileHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditOrderHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditOrganizationUnitHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditPlatformHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditPositionCategoryHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditPositionChildrenHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditPositionHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditPriceHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditPricePositionHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditPrintFormTemplateHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditProjectHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditRoleHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditTerritoryHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditThemeHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditThemeTemplateHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditUserHandler.cs" />
+    <Compile Include="Generic\Modify\Old\EditUserProfileHandler.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyAccountUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementOperationService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyAdvertisementUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyBusinessModelEntityUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyLegalPersonUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyNoteUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyOrderPositionUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyOrderUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifyProjectUsingHandlerService.cs" />
+    <Compile Include="Generic\Modify\UsingHandler\ModifySimplifiedModelEntityUsingHandlerService.cs" />
+    <Compile Include="Generic\Old\ValidateOwnerIsNotReserve.cs" />
+    <Compile Include="Generic\OperationSession.cs" />
+    <Compile Include="Generic\Qualify\QualifyClientService.cs" />
+    <Compile Include="Generic\Qualify\QualifyFirmService.cs" />
+    <Compile Include="Generic\Qualify\QualifyGenericEntityService.cs" />
+    <Compile Include="Concrete\Themes\SetDefaultThemeOperation.cs" />
+    <Compile Include="Generic\Update\AdvertisementElements\IModifyingAdvertisementElementValidator.cs" />
+    <Compile Include="Generic\Update\AdvertisementElements\UpdateAdvertisementElementOperationService.cs" />
+    <Compile Include="Generic\Update\AdvertisementElements\ModifyingAdvertisementElementValidator.cs" />
+    <Compile Include="Generic\Update\UpdateOperationServiceBase.cs" />
+    <Compile Include="Crosscutting\PaymentsDistributor.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Crosscutting\EmailResolvers\MsCrmEmployeeEmailResolveStrategy.cs" />
+    <Compile Include="Crosscutting\EmailResolvers\UserProfileEmployeeEmailResolveStrategy.cs" />
+    <Compile Include="Crosscutting\AD\GetUserInfoFromAdService.cs" />
+    <Compile Include="Crosscutting\ReplicationCodeConverter.cs" />
+    <Compile Include="Concrete\Deals\GenerateDealNameService.cs" />
+    <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\AdvertisementTemplateMatchesPositionTemplateOrderPositionAdvertisementValidationRule.cs" />
+    <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\CorrectAddressOrderPositionAdvertisementValidationRule.cs" />
+    <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\IsTemplatePublishedOrderPositionAdvertisementValidationRule.cs" />
+    <Compile Include="Concrete\OrderPositionAdvertisementValidation\Rules\RequiredAdvertisementOrderPositionAdvertisementValidationRule.cs" />
+    <Compile Include="Concrete\OrderPositionAdvertisementValidation\ValidateOrderPositionAdvertisementsService.cs" />
+    <Compile Include="Concrete\Orders\ObtainDealForBizzacountOrderOperationService.cs" />
+    <Compile Include="Concrete\Deals\ClientDealSelectionService.cs" />
+    <Compile Include="DI\BlCoreOperationsAssembly.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="microsoft.crm.sdk">
+      <HintPath>..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.crm.sdktypeproxy">
+      <HintPath>..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdktypeproxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.xrm.client">
+      <HintPath>..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
+    </Reference>
+    <Reference Include="SevenZipSharp">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
+      <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
+      <Name>2Gis.Erm.Platform.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
+      <Project>{a0c25240-0c68-4434-94c0-f35b0806fe5b}</Project>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
+      <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.ServiceBusBroker\2Gis.Erm.Platform.API.ServiceBusBroker.csproj">
+      <Project>{a92719ff-b1fd-459b-88de-f0b2ce23903e}</Project>
+      <Name>2Gis.Erm.Platform.API.ServiceBusBroker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.GeoMaster\2Gis.Erm.Platform.API.GeoMaster.csproj">
+      <Project>{B0425CB3-C6A3-4C79-BBC3-07BF53826A21}</Project>
+      <Name>2Gis.Erm.Platform.API.GeoMaster</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650ea07f-6725-46e5-b996-b5882e4fcd33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
+      <Project>{133c0a52-2556-4b09-a046-1beda9aa3ae4}</Project>
+      <Name>2Gis.Erm.BLCore.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ru.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Concrete\Integration\Schemas\flowCardExtensions.CardCommercial.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowDeliveryData.SendingGroup.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowFinancialData.Client.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowFinancialData.DebitsInfo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowFinancialData.LegalEntity.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowOrders.AdvMaterial.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowOrders.Invoice.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowOrders.Order.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowOrders.Resource.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowOrders.Theme.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Concrete\Integration\Schemas\flowOrders.ThemeBranch.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
+    <Folder Include="Generic\Modify\SimplifiedModel\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

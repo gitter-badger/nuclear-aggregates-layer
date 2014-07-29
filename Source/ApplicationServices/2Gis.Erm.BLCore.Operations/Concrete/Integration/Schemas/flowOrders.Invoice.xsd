@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="OrderStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OnRegistration"/>
+      <xs:enumeration value="OnApproval"/>
+      <xs:enumeration value="Rejected"/>
+      <xs:enumeration value="OnTermination"/>
+      <xs:enumeration value="Approved"/>
+      <xs:enumeration value="Archive"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LinkObjectType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Firm"/>
+      <xs:enumeration value="CategorySingle"/>
+      <xs:enumeration value="CategoryMultiple"/>
+      <xs:enumeration value="CategoryMultipleAsterix"/>
+      <xs:enumeration value="AddressSingle"/>
+      <xs:enumeration value="AddressMultiple"/>
+      <xs:enumeration value="AddressCategorySingle"/>
+      <xs:enumeration value="AddressCategoryMultiple"/>
+      <xs:enumeration value="AddressFirstLevelCategorySingle"/>
+      <xs:enumeration value="AddressFirstLevelCategoryMultiple"/>
+      <xs:enumeration value="ThemeMultiple"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OrderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sale"/>
+      <xs:enumeration value="SelfAds"/>
+      <xs:enumeration value="ProductAdsService"/>
+      <xs:enumeration value="AdsBarter"/>
+      <xs:enumeration value="ProductBarter"/>
+      <xs:enumeration value="ServiceBarter"/>
+      <xs:enumeration value="SocialAds"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="Invoice" type="Invoice">
+    <xs:annotation>
+      <xs:documentation>Коммерческий заказ</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="Invoice">
+    <xs:all>
+      <xs:element name="InvoiceItems" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="InvoiceItem" type ="InvoiceItem" minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Информация о позиции заказа</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Number" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Номер бланка заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="OrderType" type="OrderType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="UserCode" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Код пользователя куратора БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="EndDatePlan" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата план окончания размещения БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FirmCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор фирмы</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FirmName" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Имя фирмы</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BranchSrcCode" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор проекта-источника заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BranchDestCode" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор проекта-назначения заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LegalEntityCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор юридического лица клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LegalEntityBranchCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор юридического лица отделения организации</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CreatedDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата создания заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ApprovedDate" type="xs:dateTime" use="optional">
+      <xs:annotation>
+        <xs:documentation>Дата одобрения заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="StartDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата начала размещения заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="EndDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата окончания размещения заказа (фактическая)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Status" type="OrderStatus" use="required">
+      <xs:annotation>
+        <xs:documentation>Статус заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>
+          Признак активности заказа.
+          Если атрибут пришел со значением true, то считаем, что заказ неактивный.
+          В противном случае считаем, что заказ активный
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="InvoiceItem">
+    <xs:all>
+      <xs:element name="SubInvoiceItems" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SubInvoiceItem" type="SubInvoiceItem" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Информация о позиции заказа</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+
+    <xs:attribute name="PriceListPositionCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Позиция прайса на которую ссылается позиция БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NomenclatureElementCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Id простой позиции, либо Id пакета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Amount" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Кол-во в позиции БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DiscountPercent" type="xs:float" use="required">
+      <xs:annotation>
+        <xs:documentation>Скидка по позиции БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CategoryRate" type="xs:float" use="required">
+      <xs:annotation>
+        <xs:documentation>Коэф. группы рубрики по позиции БЗ</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="SubInvoiceItem">
+
+    <xs:sequence>
+      <xs:element name="LinkObject" type="LinkObject" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Информация о позиции заказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+
+    <xs:attribute name="NomenclatureElementCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Код дочернего элемента номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+  </xs:complexType>
+
+  <xs:complexType name="LinkObject">
+    <xs:attribute name="LinkObjectType" type="LinkObjectType" use="optional">
+      <xs:annotation>
+        <xs:documentation>Тип объекта привязки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RubricCode" type="xs:long" use="optional">
+      <xs:annotation>
+        <xs:documentation>Код объекта привязки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RubricName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Название объекта привязки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,162 @@
+﻿@model AccessSharingModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.AccessSharingFormHeader }
+@section TopBarTitle { @BLResources.AccessSharingFormHeader }
+@section TopBarMessage { @BLResources.AccessSharingFormDescription }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/GridStyle.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/EditAccessSharingList.css?@SolutionInfo.ProductVersion.Build" />
+
+    <script src="/Scripts/Ext.grid.CheckColumn.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.grid.CheckColumn.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.Security.AccessSharingGrid.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <style type="text/css">
+        body
+        {
+            font-family: Tahoma;
+        }
+        
+        .controlPanel a
+        {
+            text-decoration: none;
+            font-weight: normal;
+            color: Black;
+        }
+        
+        .controlpanel td.header
+        {
+            padding: 5px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .controlPanel td.image
+        {
+            padding-left: 5px;
+        }
+        
+        .controlPanel td.link
+        {
+            padding-right: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+
+        Ext.onReady(function ()
+        {
+            window.name = "accessSharingWindow";
+            var data = Ext.decode(Ext.getDom('JsonData').value, true);
+            Ext.DoubleGis.UI.Security.AccessSharingInstance = new Ext.DoubleGis.UI.Security.AccessSharing(data);
+
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", function ()
+            {
+                var sharingsData = Ext.DoubleGis.UI.Security.AccessSharingInstance.GetData();
+                Ext.getDom('JsonData').value = Ext.encode(sharingsData);
+                theForm.submit();
+                return true;
+            });
+        });
+
+        function addNewClick()
+        {
+            var url = '/Grid/Search/User';
+            var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
+            if (result && result.items)
+            {
+                for (var i = 0; i < result.items.length; i++)
+                {
+                    var item = result.items[i];
+                    Ext.DoubleGis.UI.Security.AccessSharingInstance.InsertNew(item.id, item.name);
+                }
+            }
+        }
+
+        function removeSelectedClick()
+        {
+            Ext.DoubleGis.UI.Security.AccessSharingInstance.RemoveSelected();
+        }
+
+        function invertSelectedClick()
+        {
+            Ext.DoubleGis.UI.Security.AccessSharingInstance.InvertSelectedRows();
+        }
+
+        function resetClick()
+        {
+            Ext.DoubleGis.UI.Security.AccessSharingInstance.Clear();
+        }
+
+    </script>
+    @using (Html.BeginForm("EditAccessSharings", Model.EntityTypeName.ToString(), FormMethod.Post, new Dictionary<string, object>{{"id", "theForm"}, {"target", "accessSharingWindow"} } ))
+    {
+    @Html.HiddenFor(m => m.EntityTypeName)
+    @Html.HiddenFor(m => m.EntityId)
+    @Html.HiddenFor(m => m.EntityOwnerId)
+    @Html.HiddenFor(m => m.EntityReplicationCode)
+    @Html.HiddenFor(m => m.JsonData)
+
+    <!-- Control panel div -->
+    <div style="width: 165px; height: 370px; float: left; table-layout: fixed; margin-left: 5px;
+        margin-right: 5px; background-color: White; border: 1px solid #6489D4">
+        <table class="controlPanel" cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="header" colspan="2" style="color: White; background-color: #6693CF; height: 20px;
+                    vertical-align: middle;">
+                    Общие задачи
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30px;" class="image">
+                    <div class="icon_16 icon_user" />
+                </td>
+                <td style="width: 135px;" class="link">
+                    <a href="#" onclick="addNewClick();">
+                        @BLResources.AccessSharingAddUser</a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30px;" class="image">
+                    <div class="icon_16 icon_delete" />
+                </td>
+                <td style="width: 135px;" class="link">
+                    <a href="#" onclick="removeSelectedClick();">
+                        @BLResources.AccessSharingDeleteUser</a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30px;" class="image">
+                    <div class="icon_16 icon_check" />
+                </td>
+                <td style="width: 135px;" class="link">
+                    <a href="#" onclick="invertSelectedClick();">
+                        @BLResources.AccessSharingInvertSelectedRows</a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30px;" class="image">
+                    <div class="icon_16 icon_clear" />
+                </td>
+                <td style="width: 135px;" class="link">
+                    <a href="#" onclick="resetClick();">
+                        @BLResources.AccessSharingReset</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- Grid div -->
+    <div id="accessSharingGrid" style="width: 615px; float: left; margin-right: 5px;
+        border: 1px solid #999999">
+    </div>
+    <div style="clear: both; border-bottom: 1px solid #FFFFFF; border-top: 1px solid #A7CDF0;
+        width: 100%; height: 0px; line-height: 0px; margin-top: 5px;">
+    </div>
+    }
+}

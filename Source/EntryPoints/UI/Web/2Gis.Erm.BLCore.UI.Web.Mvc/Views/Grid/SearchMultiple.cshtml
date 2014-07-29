@@ -1,0 +1,70 @@
+﻿@model Settings.ConfigurationDto.EntityViewSet
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@BLResources.RecordsSearch</title>
+    <meta id="meta_IsDebug" name="meta_IsDebug" content="@HttpContext.Current.IsDebuggingEnabled" />
+    <meta id="meta_Revision" name="meta_Revision" content="@SolutionInfo.ProductVersion.Build" />
+    
+    <link rel="stylesheet" type="text/css" href="/Content/ext-all.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/CRM4.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/MainPage.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/ext-mask.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/LookupStyle.css?@SolutionInfo.ProductVersion.Build" />
+
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="/Scripts/ext-base-debug.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all-debug-w-comments.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    }
+    else
+    {
+        <script src="/Scripts/ext-base.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    }
+
+    <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.USER_ID = @ViewData.GetUserIdentityInfo().Code;
+        Ext.USER_NAME = @ViewData.GetUserIdentityDisplayName();
+        Ext.CultureInfo = @Html.WriteJson(ViewData.GetUserLocaleInfo());
+        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
+        Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
+        Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
+    </script>
+    
+    <script src="/Scripts/DoubleGis.GlobalVariables.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Common.ErrorHandler.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.FitToParent.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.SearchControl.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.TabularButton.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.MultiSelectionList.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.SearchFormMultiple.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    
+    @foreach (var script in Model.DataViews.First().Scripts)
+    {
+        <script src="/Scripts/@script.FileName?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    }
+    <script type="text/javascript">
+
+        Ext.onReady(function ()
+            {
+            var settings = @Html.WriteJson(Model);
+            var qstring = Ext.urlDecode(location.search.substring(1));
+            window.Entity = new Ext.ux.SearchFormMultiple(
+                {
+                    applyTo: Ext.getBody(),
+                    plugins: [new window.Ext.ux.FitToParent(document.body)],
+                    searchFormSettings: settings,
+                    extendedInfo: qstring.extendedInfo,
+                    existingItem: window.dialogArguments,
+                    readOnly: qstring.ReadOnly === "true",
+                    nameLocaleResourceId: qstring.NameLocaleResourceId
+                });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

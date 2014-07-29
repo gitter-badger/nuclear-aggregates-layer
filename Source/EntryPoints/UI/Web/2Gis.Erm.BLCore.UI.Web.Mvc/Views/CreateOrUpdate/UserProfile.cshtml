@@ -1,0 +1,171 @@
+﻿@model UserProfileViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Silverlight.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var silverlightControl = null;
+        window.InitPage = function() {
+            this.on("beforebuild", function(card) {
+                Ext.apply(this, {
+                    Save: function() {
+                        this.Items.Toolbar.disable();
+                        this.submitMode = this.submitModes.SAVE;
+                        if (this.fireEvent('beforepost', this) === false) {
+                            this.Items.Toolbar.enable();
+                            return;
+                        }
+                        if (this.normalizeForm() !== false) {
+                            var profileId = Ext.getDom("Id").value;
+                            var response = silverlightControl.Content.SLMainViewModel.Save(profileId);
+                            response = { responseText: response.ResponseText, isSuccessful: response.IsSuccessful, statusText: response.StatusText };
+                            if (response.isSuccessful === true) {
+                                this.postFormSuccess.call(this, response, response.isSuccessful);
+                            } else {
+                                this.postFormFailure.call(this, response);
+                            }
+                        }
+                        else {
+                            this.Items.Toolbar.enable();
+                        }
+                        this.Items.Toolbar.enable();
+                    },
+                    SaveAndClose: function() {
+                        this.Items.Toolbar.disable();
+                        this.submitMode = this.submitModes.SAVE_AND_CLOSE;
+                        if (this.fireEvent('beforepost', this) === false) {
+                            this.Items.Toolbar.enable();
+                            return;
+                        }
+                        if (this.normalizeForm() !== false) {
+                            var profileId = Ext.getDom("Id").value;
+                            var response = silverlightControl.Content.SLMainViewModel.Save(profileId);
+                            response = { responseText: response.ResponseText, isSuccessful: response.IsSuccessful, statusText: response.StatusText };
+                            if (response.isSuccessful === true) {
+                                this.postFormSuccess.call(this, response, response.isSuccessful);
+                            } else {
+                                this.postFormFailure.call(this, response);
+                            }
+                        }
+                        else {
+                            this.Items.Toolbar.enable();
+                        }
+                        this.Items.Toolbar.enable();
+                        this.Close();
+                    },
+                    Close: function() {
+                        silverlightControl.Content.SLMainViewModel.Close();
+                        window.close();
+                    }
+                });
+            });
+        };
+        function SilverlightError(sender, args) {
+            var appSource = "";
+            if (sender != null && sender != 0) {
+                appSource = sender.getHost().Source;
+            }
+
+            var errorType = args.ErrorType;
+            var iErrorCode = args.ErrorCode;
+
+            if (errorType == "ImageError" || errorType == "MediaError") {
+                return;
+            }
+
+            var errMsg = "Unhandled Error in Silverlight Application " + appSource + "\n";
+
+            errMsg += "Code: " + iErrorCode + "    \n";
+            errMsg += "Category: " + errorType + "       \n";
+            errMsg += "Message: " + args.ErrorMessage + "     \n";
+
+            if (errorType == "ParserError") {
+                errMsg += "File: " + args.xamlFile + "     \n";
+                errMsg += "Line: " + args.lineNumber + "     \n";
+                errMsg += "Position: " + args.charPosition + "     \n";
+            } else if (errorType == "RuntimeError") {
+                if (args.lineNumber != 0) {
+                    errMsg += "Line: " + args.lineNumber + "     \n";
+                    errMsg += "Position: " + args.charPosition + "     \n";
+                }
+                errMsg += "MethodName: " + args.methodName + "     \n";
+            }
+
+            throw new Error(errMsg);
+        }
+        
+        function onSilverlightControlLoaded(sender, args) {
+            silverlightControl = sender.getHost();
+            var viewConfigTemplate = 'ViewConfig.';
+            var viewModel = {};
+            var viewConfig = {};
+            Ext.each(Ext.query("input"), function (el) {
+                
+                if (el.id && !Ext.isEmpty(el.name) && el.name !== 'ViewConfig_DependencyList') {
+                    var field = Ext.get(el.name);
+                    if (!field) {
+                        return;
+                    }
+                    
+                    if (field.hasClass('x-calendar')) {
+                        var calendar = Ext.getCmp(field.id);
+                        var calendarValue = calendar.getValue();
+                        viewModel[field.dom.name] = !Ext.isEmpty(calendarValue)
+                            ? calendarValue//.format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern)
+                            : null;
+                    }
+                    else if (field.hasClass('x-lookup')) {
+                        var lookupValue = Ext.getCmp(field.id).getValue();
+                        viewModel[field.dom.name] = !Ext.isEmpty(lookupValue)
+                            ? { Key: lookupValue.id, Value: lookupValue.name }
+                            : null;
+                    }
+                    else if (field.dom.name.lastIndexOf(viewConfigTemplate, 0) === 0) {
+                        viewConfig[field.dom.name.slice(viewConfigTemplate.length)] = field.dom.value;
+                    }
+                    else if (field.dom.name == "Id" && field.dom.value == "") {
+                        viewModel[field.dom.name] = "0";
+                    }
+                    else {
+                        viewModel[field.dom.name] = field.dom.value;
+                    }
+                }
+            }, this);
+            viewModel.ViewConfig = viewConfig;
+            var wrappedViewModel = silverlightControl.Content.services.createObject("UserProfileViewModel", viewModel);
+            silverlightControl.Content.SLMainViewModel.Init(wrappedViewModel);
+        }
+    </script>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            <div class="row-wrapper">
+                @Html.EditableId(m => m.Id)
+            </div>
+            @Html.VersionedSilverlightControl(
+                new SilverlightControlSettings
+                    {
+                        AutoUpgrade = true,
+                        BackgroundColor = "#FFEAF3FF",
+                        ControlCulture = ViewData.GetUserLocaleInfo().CultureName,
+                        ControlXapFileName = "2Gis.Erm.BLCore.UI.Web.Silverlight.xap",
+                        InitParams = @Model.InitParams,
+                        MinRuntimeVersion = SilverlightControlSettings.Silverlight5ReleaseVersionNumberString,
+                        OnLoadedJsHandlerName = "onSilverlightControlLoaded",
+                        OnErrorJsHandlerName = "onSilverlightError"
+                    })
+        }
+
+        
+    </div>
+}

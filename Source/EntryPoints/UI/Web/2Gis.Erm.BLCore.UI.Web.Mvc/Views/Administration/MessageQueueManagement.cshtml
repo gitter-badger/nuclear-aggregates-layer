@@ -1,0 +1,173 @@
+﻿@model Models.Administration.MessageQueueManagementViewModel
+           
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@BLResources.MessageQueueManagementPage_Header</title>
+
+    <meta id="meta_IsDebug" name="meta_IsDebug" content="@HttpContext.Current.IsDebuggingEnabled" />
+    <meta id="meta_Revision" name="meta_Revision" content="@SolutionInfo.ProductVersion.Build" />
+    
+    <link rel="stylesheet" type="text/css" href="/Content/Global.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/Administration.css?@SolutionInfo.ProductVersion.Build"/>
+    
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="/Scripts/ext-base-debug.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all-debug-w-comments.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    }
+    else
+    {
+        <script src="/Scripts/ext-base.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    }
+
+    <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.USER_ID = @ViewData.GetUserIdentityInfo().Code;
+        Ext.USER_NAME = @ViewData.GetUserIdentityDisplayName();
+        Ext.CultureInfo = @Html.WriteJson(ViewData.GetUserLocaleInfo());
+        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
+        Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
+        Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
+    </script>
+    
+    <script src="/Scripts/DoubleGis.GlobalVariables.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <style type="text/css">
+        .style1
+        {
+            width: 48px;
+        }
+    </style>
+</head>
+<body>
+    <table cellspacing="0" cellpadding="0" width="100%" height="100%">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="content">
+                        @if (Model.HasAccessToCorporateQueue)
+                        {
+                        <div class="subtitle">@BLResources.SecurityAdministrationPage_HeaderExternalSystems</div>
+                        <div class="headline" />
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table style="cursor: hand" id="_L01" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td onclick="window.location.href = '../Grid/View/LocalMessage' " class="style1">
+                                                        <div class="icon_48 icon_default" />
+                                                    </td>
+                                                    <td style="padding-left: 2px">
+                                                        <a id="_A01" class="linktitle ms-crm-Link" onclick=" window.location.href = '../Grid/View/LocalMessage' " href="#">@BLResources.SecurityAdministrationPage_LocalMessages</a>
+                                                        <div id="_I01" class="linkhelp" onclick=" window.location.href = '../Grid/View/LocalMessage'">@BLResources.SecurityAdministrationPage_LocalMessageDetails</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table style="cursor: hand" id="Table10" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="style1"></td>
+                                                    <td style="padding-left: 2px"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        }
+
+                        @if (Model.HasAccessToRelease || Model.HasAccessToWithdrawal)
+                        {
+                        <div class="subtitle">@BLResources.SecurityAdministrationPage_HeaderReleasing</div>
+                        <div class="headline" />
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @if (Model.HasAccessToRelease)
+                                        {
+                                            <table style="cursor: hand" id="Table13" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td onclick="" width="48">
+                                                            <div class="icon_48 icon_default" />
+                                                        </td>
+                                                        <td style="padding-left: 2px">
+                                                            <a id="A11" class="linktitle ms-crm-Link" onclick="window.location.href = '../Grid/View/ReleaseInfo'" href="#">@BLResources.SecurityAdministrationPage_ReleaseInfos</a>
+                                                            <div id="Div11" class="linkhelp" onclick="window.location.href = '../Grid/View/ReleaseInfo'">@BLResources.SecurityAdministrationPage_ReleaseInfoDetails</div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.HasAccessToWithdrawal)
+                                        {
+                                        <table style="cursor: hand" id="Table12" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td onclick="" width="48">
+                                                        <div class="icon_48 icon_default" />
+                                                    </td>
+                                                    <td style="padding-left: 2px">
+                                                        <a id="A8" class="linktitle ms-crm-Link" onclick="window.location.href = '../Grid/View/WithdrawalInfo'" href="#">@BLResources.SecurityAdministrationPage_WithdrawalInfos</a>
+                                                        <div id="Div8" class="linkhelp" onclick="window.location.href = '../Grid/View/WithdrawalInfo'">@BLResources.SecurityAdministrationPage_WithdrawalInfoDetails</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>                                                 
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        }
+                        <div class="subtitle">@BLResources.SecurityAdministrationPage_HeaderOthers</div>
+                        <div class="headline" />
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table style="cursor: hand" id="Table1" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td onclick="window.location.href = '../Grid/View/RegionalAdvertisingSharing'" class="style1">
+                                                        <div class="icon_48 icon_default" />
+                                                    </td>
+                                                    <td style="padding-left: 2px">
+                                                        <a id="A1" class="linktitle ms-crm-Link" onclick="window.location.href = '../Grid/View/RegionalAdvertisingSharing'" href="#">@BLResources.SecurityAdministrationPage_RegionalAdvertisingSharings</a>
+                                                        <div id="Div1" class="linkhelp" onclick="javascript:window.location.href = '../Grid/View/RegionalAdvertisingSharing'">@BLResources.SecurityAdministrationPage_RegionalAdvertisingSharingDetails</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table style="cursor: hand" id="Table2" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="style1"></td>
+                                                    <td style="padding-left: 2px"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

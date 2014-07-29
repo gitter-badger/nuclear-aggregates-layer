@@ -1,0 +1,91 @@
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
+{
+    public sealed class LocalMessageExportViewModel : EntityViewModelBase
+    {
+        [RequiredLocalized, ExcludeZeroValue]
+        [Dependency(DependencyType.NotRequiredDisableHide, "PeriodStart", "this.value=='FirmsWithActiveOrdersToDgpp' || this.value=='LegalPersonsTo1C'")]
+        [Dependency(DependencyType.NotRequiredDisableHide, "PeriodStartFor1C", "this.value!='LegalPersonsTo1C'")]
+        [Dependency(DependencyType.NotRequiredDisableHide, "OrganizationUnit", "this.value=='FirmsWithActiveOrdersToDgpp' || this.value=='DataForAutoMailer'")]
+        [Dependency(DependencyType.NotRequiredDisableHide, "MailSendingType", "this.value!='DataForAutoMailer'")]
+        [Dependency(DependencyType.NotRequiredDisableHide, "IncludeRegionalAdvertisement", "this.value!='DataForAutoMailer'")]
+        [Dependency(DependencyType.DisableAndHide, "CreateCsvFile", "this.value!='AccountDetailsToServiceBus'")]
+        public IntegrationTypeExport IntegrationType { get; set; }
+
+        [RequiredLocalized]
+        public LookupField OrganizationUnit { get; set; }
+
+        [RequiredLocalized]
+        [DisplayNameLocalized("PaymentMonth")]
+        public DateTime PeriodStart { get; set; }
+
+        [RequiredLocalized]
+        [DisplayNameLocalized("ExportLegalPersonsTo1CPeriodStart")]
+        public DateTime PeriodStartFor1C { get; set; }
+
+        [RequiredLocalized]
+        public MailSendingType MailSendingType { get; set; }
+
+        [RequiredLocalized]
+        public bool IncludeRegionalAdvertisement { get; set; }
+
+        public bool CreateCsvFile { get; set; }
+
+        public override bool IsNew
+        {
+            get { return false; }
+        }
+
+        public override bool IsAuditable
+        {
+            get { return false; }
+        }
+
+        public override bool IsDeletable
+        {
+            get { return false; }
+        }
+
+        public override bool IsCurated
+        {
+            get { return false; }
+        }
+
+        public override bool IsDeactivatable
+        {
+            get { return false; }
+        }
+
+        public override LookupField CreatedBy { get; set; }
+        public override LookupField ModifiedBy { get; set; }
+        public override DateTime CreatedOn { get; set; }
+        public override DateTime? ModifiedOn { get; set; }
+        public override bool IsActive { get; set; }
+        public override bool IsDeleted { get; set; }
+        public override LookupField Owner { get; set; }
+        public override long OwnerCode { get; set; }
+        public override long OldOwnerCode { get; set; }
+        public override byte[] Timestamp { get; set; }
+
+        public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
+        {
+            throw new NotSupportedException();
+        }
+
+        public override IDomainEntityDto TransformToDomainEntityDto()
+        {
+            throw new NotSupportedException();
+        }
+    }
+}

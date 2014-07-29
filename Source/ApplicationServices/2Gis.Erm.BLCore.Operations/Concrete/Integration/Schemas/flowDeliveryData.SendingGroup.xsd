@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:simpleType name="SendingType">
+		<xs:annotation>
+			<xs:documentation>Типы выгрузки группы рассылки</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Statistic" />
+			<xs:enumeration value="Celebration" />
+			<xs:enumeration value="Payment" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Sex">
+		<xs:annotation>
+			<xs:documentation>Пол контакта клиента</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Male" />
+			<xs:enumeration value="Female" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="SendingGroup">
+		<xs:sequence>
+			<xs:element name="Recipients" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Информация о получателях рассылки</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Recipient" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:attribute name="BranchName" type="xs:string" use="required">
+									<xs:annotation>
+										<xs:documentation>Наименование проекта</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="ContactClientName" type="xs:string" use="optional">
+									<xs:annotation>
+										<xs:documentation>ФИО клиента</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="ContactClientEmail" type="xs:string" use="optional">
+									<xs:annotation>
+										<xs:documentation>Электронная почта клиента</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="ContactClientSex" type="Sex" use="optional">
+									<xs:annotation>
+										<xs:documentation>Пол контакта клиента</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="FirmCode" type="xs:long" use="required">
+									<xs:annotation>
+										<xs:documentation>Стабильный идентификатор фирмы</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="FirmName" type="xs:string" use="required">
+									<xs:annotation>
+										<xs:documentation>Наименование фирмы</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="CuratorEmail" type="xs:string" use="optional">
+									<xs:annotation>
+										<xs:documentation>Электронная почта куратора фирмы</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LegalEntityBranchDirectorName" type="xs:string" use="optional">
+									<xs:annotation>
+										<xs:documentation>ФИО директора юридического лица отделения организации</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="LegalEntityBranchEmail" type="xs:string" use="optional">
+									<xs:annotation>
+										<xs:documentation>Электронная почта юридического лица отделения организации</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="IsClientActually" type="xs:boolean" use="optional" default="true">
+									<xs:annotation>
+										<xs:documentation>Признак актуальности клиента</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="IsOrdersOfWebAPI" type="xs:boolean" use="optional" default="false">
+									<xs:annotation>
+										<xs:documentation>Признак того, что у получателя рассылки есть заказы, оформленные для платформы WebAPI</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="TypeCode" type="SendingType" use="required">
+			<xs:annotation>
+				<xs:documentation>Код типа рассылки</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="StartDate" type="xs:dateTime" use="required">
+			<xs:annotation>
+				<xs:documentation>Дата начала периода выгрузки рассылки</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="EndDate" type="xs:dateTime" use="required">
+			<xs:annotation>
+				<xs:documentation>Дата окончания периода выгрузки рассылки</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:element name="SendingGroup" type="SendingGroup">
+		<xs:annotation>
+			<xs:documentation>Объект передачи группы рассылки</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

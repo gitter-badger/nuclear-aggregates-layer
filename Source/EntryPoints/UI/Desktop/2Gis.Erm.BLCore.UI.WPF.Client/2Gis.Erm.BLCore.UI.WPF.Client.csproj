@@ -1,0 +1,1065 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07E4256F-EB26-42B1-9B67-626ED1C156BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.UI.WPF.Client</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.UI.WPF.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <ExpressionBlendVersion>5.2.30810.0</ExpressionBlendVersion>
+    <SccAuxPath>SAK</SccAuxPath>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FirstFloor.ModernUI, Version=1.0.3.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\ModernUI.WPF.1.0.3\lib\net45\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=3.4.6.0, Culture=neutral, PublicKeyToken=a82054b837897c66, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\FluentValidation-Signed.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\ModernUI.WPF.1.0.3\lib\net45\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nJupiter.Configuration, Version=4.0.1.308, Culture=neutral, PublicKeyToken=3d82e1eef729f753, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\nJupiter.Configuration.4.0.4.516\lib\net40\nJupiter.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.14.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.Tpl.Dataflow.4.5.14\lib\portable-net45+win8\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="APIInteraction\Operations\\Assign\SoapApiAssignGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\List\RestApiListNonGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\List\SoapApiListNonGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\ActionHistory\ApiActionHistoryGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\Activate\RestApiActivateGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\Append\RestApiAppendGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\Assign\RestApiAssignGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\ChangeClient\RestApiChangeClientGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\ChangeTerritory\RestApiChangeTerritoryGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\CheckForDebts\RestApiCheckForDebtsGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\Deactivate\RestApiDeactivateGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\Delete\RestApiDeleteGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\Disqualify\RestApiDisqualifyGenericEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\List\RestApiListEntityServiceBase.cs" />
+    <Compile Include="APIInteraction\Operations\\List\ListResultJsonParsers.cs" />
+    <Compile Include="APIInteraction\Operations\\Modify\SoapApiModifySimplifiedModelEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\Get\SoapApiGetDomainEntityDtoService.cs" />
+    <Compile Include="APIInteraction\Operations\\Modify\SoapApiModifyBusinessModelEntityService.cs" />
+    <Compile Include="APIInteraction\Operations\\List\RestApiListGenericEntityDtoService.cs" />
+    <Compile Include="APIInteraction\Operations\\Qualify\RestApiQualifyGenericEntityService.cs" />
+    <Compile Include="Blendability\Cards\DesignTimeDataContainer.cs" />
+    <Compile Include="Blendability\Documents\DesignTimeDataContainer.cs" />
+    <Compile Include="Blendability\Navigation\DesignTimeDataContainer.cs" />
+    <Compile Include="Blendability\Notifications\DesignTimeDataContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blendability\Notifications\FakeNotificationsProvider.cs" />
+    <Compile Include="Blendability\UserInfo\DesignTimeDataContainer.cs" />
+    <Compile Include="DI\MetadataZonePartAssembly.cs" />
+    <Compile Include="DI\OperationsZonePartAssembly.cs" />
+    <Compile Include="DI\Config\CustomLifetime.cs" />
+    <Compile Include="DI\Config\ServiceClientConfig.cs" />
+    <Compile Include="DI\UseCase\UnityUseCaseFactory.cs" />
+    <Compile Include="DI\UseCase\UseCaseDIUtils.cs" />
+    <Compile Include="DI\UseCase\UseCaseResolversRegistry.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\IViewModelAspectResolver.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\ResolverUtils.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\UnityViewModelActionsResolver.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\UnityViewModelAspectResolverBase.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\UnityViewModelContextualNavigationResolver.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\UnityViewModelLocalizerResolver.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\UnityViewModelPropertiesResolver.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\UnityViewModelTitleResolver.cs" />
+    <Compile Include="DI\UseCase\ViewModel\Aspects\UnityViewModelValidatorsResolver.cs" />
+    <Compile Include="DI\UseCase\ViewModel\UnityByTypeViewModelFactory.cs" />
+    <Compile Include="DI\UseCase\ViewModel\UnityCardDocumentViewModelFactory.cs" />
+    <Compile Include="DI\UseCase\ViewModel\UnityCardViewModelFactory.cs" />
+    <Compile Include="DI\UseCase\ViewModel\UnityGridViewModelFactory.cs" />
+    <Compile Include="DI\UseCase\ViewModel\UnityLookupFactory.cs" />
+    <Compile Include="DI\UseCase\ViewModel\UnityViewModelMapperFactory.cs" />
+    <Compile Include="DI\WpfClientRoot.cs" />
+    <Compile Include="Modules\Documents\ViewModels\Contextual\IContextualDocumentViewModel.cs" />
+    <Compile Include="Modules\Documents\ViewModels\ICompositeDocumentViewModel.cs" />
+    <Compile Include="Modules\Toolbar\ToolbarModule.cs" />
+    <Compile Include="PresentationMetadata\Cards\CardsMetadataValidator.cs" />
+    <Compile Include="PresentationMetadata\Cards\MetadataCardsIdentity.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.OrderPosition.cs" />
+    <Compile Include="PresentationMetadata\Cards\UseGeneratorView.xaml.cs">
+      <DependentUpon>UseGeneratorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.Account.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.LegalPerson.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.Order.cs" />
+    <Compile Include="PresentationMetadata\Common\HandlerFeatureAspectExtensions.cs" />
+    <Compile Include="PresentationMetadata\Common\HierarchyElementsBuilder.cs" />
+    <Compile Include="PresentationMetadata\Documents\AttachedMetadata.cs" />
+    <Compile Include="PresentationMetadata\Documents\AttachedMetadataBuilder.cs" />
+    <Compile Include="PresentationMetadata\Documents\DocumentMetadata.cs" />
+    <Compile Include="PresentationMetadata\Documents\DocumentMetadataBuilder.cs" />
+    <Compile Include="PresentationMetadata\Documents\DocumentMetadataSource.cs" />
+    <Compile Include="PresentationMetadata\Documents\IDocumentElementMetadata.cs" />
+    <Compile Include="PresentationMetadata\Documents\MetadataDocumentsIdentity.cs" />
+    <Compile Include="PresentationMetadata\Documents\Processors\DocumentsTitlesProcessor.cs" />
+    <Compile Include="PresentationMetadata\Documents\Settings\DocumentStructures.Card.Order.cs" />
+    <Compile Include="PresentationMetadata\Documents\Settings\DocumentStructures.cs" />
+    <Compile Include="PresentationMetadata\Navigation\MetadataNavigationIdentity.cs" />
+    <Compile Include="PresentationMetadata\Navigation\Processors\NavigationRestrictionsProcessor.cs" />
+    <Compile Include="Settings\ApiSettings.cs" />
+    <Compile Include="Settings\CommonSettings.cs" />
+    <Compile Include="UseCases\Handlers\Actions\CanExecute\CanExecuteAssignMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\Actions\Confirmation\ConfirmMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\Actions\CanExecute\CanExecuteAlwaysFalseMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\Actions\CanExecute\CanExecuteCloseMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\Actions\CanExecute\CanExecuteSaveMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\Actions\CanExecute\CanExecuteResult.cs" />
+    <Compile Include="UseCases\Handlers\Actions\Execute\OperationMessageHandlerBase.cs" />
+    <Compile Include="UseCases\Handlers\Actions\Execute\ExecuteAssignMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\CloseMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\OperationProgressMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\UseCaseHandlersRegistry.cs" />
+    <Compile Include="UseCases\Messages\CanExecuteActionMessage.cs" />
+    <Compile Include="UseCases\Handlers\Actions\Execute\ExecuteCloseMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\EntitySelectedMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\Actions\Execute\ExecuteSaveMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\LookupSearchHandler.cs" />
+    <Compile Include="UseCases\Handlers\NavigationRelatedItemMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\NavigationShowMainContentMessageHandler.cs" />
+    <Compile Include="UseCases\Handlers\NavigationPaneActionHandler2.cs" />
+    <Compile Include="UseCases\Handlers\NotificationFeedbackHandler.cs" />
+    <Compile Include="UseCases\Handlers\NotificationMessageHandler.cs" />
+    <Compile Include="UseCases\Messages\CloseMessage.cs" />
+    <Compile Include="UseCases\Messages\ModifyBusinessModelEntityMessage.cs" />
+    <Compile Include="UseCases\Messages\NavigationRelatedItemMessage.cs" />
+    <Compile Include="UseCases\Messages\NavigationShowMainContentMessage.cs" />
+    <Compile Include="UseCases\Resolvers\OperationProgressUseCaseResolver.cs" />
+    <Compile Include="UseCases\Resolvers\NotificationFeedbackUseCaseResolver.cs" />
+    <Compile Include="ViewModels\Card\DynamicCardViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\Card\ICardDocumentViewModelFactory.cs" />
+    <Compile Include="ViewModels\Card\ICardViewModel.cs" />
+    <Compile Include="ViewModels\Card\ICardViewModelIdentity.cs" />
+    <Compile Include="PresentationMetadata\Cards\CardMetadataBuilder.cs" />
+    <Compile Include="ViewModels\Card\CardMetadata2ViewModelPropertiesMapper.cs" />
+    <Compile Include="Modules\Documents\ViewModels\CompositeDocumentViewModel.cs" />
+    <Compile Include="Modules\Documents\ViewModels\NullDocumentsStateInfo.cs" />
+    <Compile Include="Modules\Documents\ViewModels\NullDocumentViewModel.cs" />
+    <Compile Include="Modules\Documents\Views\CompositeDocumentView.xaml.cs">
+      <DependentUpon>CompositeDocumentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Documents\Views\Contextual\TitleOnlyContextView.xaml.cs">
+      <DependentUpon>TitleOnlyContextView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationMetadata\Cards\CardMetadata.cs" />
+    <Compile Include="PresentationMetadata\Cards\CardMetadataSource.cs" />
+    <Compile Include="ViewModels\Card\ICardViewModelFactory.cs" />
+    <Compile Include="Blendability\Documents\FakeDocumentsProvider.cs" />
+    <Compile Include="PresentationMetadata\Navigation\NavigationMetadataSource.cs" />
+    <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.Administration.cs" />
+    <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.cs" />
+    <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.Reports.cs" />
+    <Compile Include="PresentationMetadata\Navigation\Settings\NavigationSettings.Billing.cs" />
+    <Compile Include="ViewModels\Card\CardViewModelIdentity.cs" />
+    <Compile Include="Modules\Documents\ViewModels\Contextual\ContextualDocumentViewModel.cs" />
+    <Compile Include="Modules\Documents\ViewModels\Contextual\ContextualDocumentProvider.cs" />
+    <Compile Include="Modules\Documents\ViewModels\Contextual\IContextualDocumentProvider.cs" />
+    <Compile Include="Blendability\Navigation\FakeNavigationItem.cs" />
+    <Compile Include="Modules\Navigation\ViewModels\NavigationAreasRegistry.cs" />
+    <Compile Include="Modules\Navigation\ViewModels\NavigationItemsCommands.cs" />
+    <Compile Include="Modules\Navigation\ViewModels\NavigationItemUtils.cs" />
+    <Compile Include="UseCases\Messages\NavigationMessage.cs" />
+    <Compile Include="Modules\Navigation\ViewModels\ContextualNavigationArea.cs" />
+    <Compile Include="Blendability\Navigation\FakeNavigationAreasProvider.cs" />
+    <Compile Include="Modules\Navigation\ViewModels\NavigationItem.cs" />
+    <Compile Include="Modules\Navigation\ViewModels\OrdinaryNavigationArea.cs" />
+    <Compile Include="Modules\Navigation\Views\ContextualNavigationAreaControl.xaml.cs">
+      <DependentUpon>ContextualNavigationAreaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Notifications\ViewModels\NotificationsListViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Notifications\Views\ImageSourceContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Notifications\Views\NotificationsListEntryIconConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Test\CreateOrUpdate\CreateOrUpdateTestModule.cs" />
+    <Compile Include="Modules\Test\CreateOrUpdate\ViewModels\CreateOrUpdateTestViewModel.cs" />
+    <Compile Include="Modules\Test\CreateOrUpdate\Views\CreateOrUpdateTestControl.xaml.cs">
+      <DependentUpon>CreateOrUpdateTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Blendability\UserInfo\FakeUserInfoProvider.cs" />
+    <Compile Include="UseCases\Handlers\NavigationPaneActionHandler.cs" />
+    <Compile Include="UseCases\Resolvers\NavigationUsecaseResolver.cs" />
+    <Compile Include="Modules\Notifications\Views\NotificationsListControl.xaml.cs">
+      <DependentUpon>NotificationsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Test\Lookup\Views\LookupTestControl.xaml.cs">
+      <DependentUpon>LookupTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Test\Lookup\ViewModels\LookupTestViewModel.cs" />
+    <Compile Include="Modules\CommonGrid\CommonGridModule.cs" />
+    <Compile Include="Modules\Documents\Views\Contextual\ContextualDocumentControl.xaml.cs">
+      <DependentUpon>ContextualDocumentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Documents\Views\Contextual\ContextualDocumentHeaderControl.xaml.cs">
+      <DependentUpon>ContextualDocumentHeaderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Documents\Views\DocumentHeaderControl.xaml.cs">
+      <DependentUpon>DocumentHeaderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Documents\DocumentsModule.cs" />
+    <Compile Include="Modules\Navigation\Views\NavigationAreaControl.xaml.cs">
+      <DependentUpon>NavigationAreaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Navigation\NavigationModule.cs" />
+    <Compile Include="Modules\Notifications\NotificationsModule.cs" />
+    <Compile Include="Modules\Test\Lookup\LookupTestModule.cs" />
+    <Compile Include="Modules\Test\Api\Settings\IApiTestModuleSettings.cs" />
+    <Compile Include="Modules\Test\Api\Settings\ApiTestModuleSettings.cs" />
+    <Compile Include="Modules\UserInfo\ViewModels\UserInfo.cs" />
+    <Compile Include="Modules\UserInfo\Views\UserInfoControl.xaml.cs">
+      <DependentUpon>UserInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UserInfo\UserInfoModule.cs" />
+    <Compile Include="Modules\WpfClientModulesContainer.cs" />
+    <Compile Include="Modules\Test\Api\ApiTestModule.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Card\OrderPosition\DTOs\DebugDataProvider.cs" />
+    <Compile Include="ViewModels\Card\OrderPosition\DTOs\LinkingObjectType.cs" />
+    <Compile Include="ViewModels\Card\OrderPosition\DTOs\OrderPositionAdvertisementDto.cs" />
+    <Compile Include="ViewModels\Card\OrderPosition\DTOs\OrderPositionDto.cs" />
+    <Compile Include="ViewModels\Card\OrderPosition\DTOs\OrderPositionPriceDto.cs" />
+    <Compile Include="ViewModels\Card\OrderPosition\OrderPositionAdvertisementViewModel.cs" />
+    <Compile Include="ViewModels\Card\OrderPosition\OrderPositionViewModel.cs" />
+    <Compile Include="ViewModels\Card\OrderPosition\OrderPositionViewModelMapper.cs" />
+    <Compile Include="ViewModels\Grid\GridViewModel.cs" />
+    <Compile Include="ViewModels\Operations\Concrete\AssignConfiguratorViewModel.cs" />
+    <Compile Include="ViewModels\Operations\IOperationConfiguratorViewModel.cs" />
+    <Compile Include="ViewModels\Operations\IOperationConfiguratorViewModelFactory.cs" />
+    <Compile Include="ViewModels\Operations\OperationItemViewModel.cs" />
+    <Compile Include="ViewModels\Operations\OperationConfiguratorViewModel.cs" />
+    <Compile Include="ViewModels\Operations\OperationProcessingStatus.cs" />
+    <Compile Include="DI\UseCase\ViewModel\UnityOperationConfiguratorViewModelFactory.cs" />
+    <Compile Include="ViewModels\ViewModelUtils.cs" />
+    <Compile Include="Views\Cards\Custom\OrderPosition\OrderPositionAdvertisementStyleSelector.cs" />
+    <Compile Include="Views\Cards\Custom\OrderPosition\OrderPositionAdvertisementsView.xaml.cs">
+      <DependentUpon>OrderPositionAdvertisementsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cards\Custom\OrderPosition\OrderPositionView.xaml.cs">
+      <DependentUpon>OrderPositionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AccountDetailView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AccountView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AdditionalFirmServiceView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AdsTemplatesAdsElementTemplateView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AdvertisementElementTemplateView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AdvertisementElementView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AdvertisementTemplateView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AdvertisementView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AssociatedPositionsGroupView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\AssociatedPositionView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\BargainFileView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\BargainTypeView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\BargainView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\BillView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\BranchOfficeOrganizationUnitView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\BranchOfficeView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\CategoryGroupView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\CategoryView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\ClientView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\ContactView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\ContributionTypeView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\CountryView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\CurrencyRateView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\CurrencyView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\DealView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\DeniedPositionView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\DepartmentView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\FirmAddressView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\FirmContactView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\FirmView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\LegalPersonProfileView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\LegalPersonView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\LimitView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\LocalMessageView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\LockDetailView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\LockView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\NoteView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\OperationTypeView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\OperationView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\OrderFileView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\OrderPositionView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\OrderView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\OrganizationUnitView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\PlatformView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\PositionCategoryView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\PositionChildrenView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\PositionView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\PricePositionView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\PriceView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\PrintFormTemplateView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\ReleaseInfoView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\RoleView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\TerritoryView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\ThemeTemplateView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\ThemeView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\UserView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Cards\Generated\WithdrawalInfoView.xaml.cs">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Operations\AssignConfiguratorView.xaml.cs">
+      <DependentUpon>AssignConfiguratorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\OperationConfiguratorView.xaml.cs">
+      <DependentUpon>OperationConfiguratorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PropertyTypeToControlMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLFlex\Source\EntryPoints\UI\Common\2Gis.Erm.BLFlex.UI.Metadata\2Gis.Erm.BLFlex.UI.Metadata.csproj">
+      <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
+      <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
+      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
+      <Name>2Gis.Erm.Qds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{CBA45CBD-C200-4F16-86E9-301D76AE6021}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\EntryPoints\UI\Common\2Gis.Erm.BLQuerying.UI.Metadata\2Gis.Erm.BLQuerying.UI.Metadata.csproj">
+      <Project>{8C7E352B-1450-4C92-9F53-EABEB51E1F79}</Project>
+      <Name>2Gis.Erm.BLQuerying.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
+      <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
+      <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6b8617e4-f688-45ed-a874-6692806dbf71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Client\2Gis.Erm.Platform.Resources.Client.csproj">
+      <Project>{B12C39B4-050B-476F-9C80-E5757226B926}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
+      <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
+      <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
+      <Name>2Gis.Erm.BLCore.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{f662d986-079c-469c-8a01-0d2cd1092eab}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Desktop\2Gis.Erm.Platform.UI.WPF.Infrastructure\2Gis.Erm.Platform.UI.WPF.Infrastructure.csproj">
+      <Project>{6f93125e-9962-41a7-acf7-56d0f31610a4}</Project>
+      <Name>2Gis.Erm.Platform.UI.WPF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Desktop\2Gis.Platform.UI.WPF.Infrastructure\2Gis.Platform.UI.WPF.Infrastructure.csproj">
+      <Project>{fb8a0f30-2084-405f-831e-fea5a0d3c0b5}</Project>
+      <Name>2Gis.Platform.UI.WPF.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="App.Production.Russia.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.06.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Test.07.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="RegisterHttpUrlAcl.cmd" />
+    <None Include="Views\Cards\Generated\Manager.ttinclude" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Cards\Generated\ViewsGenerator.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+    </None>
+    <None Include="Views\Cards\Generated\ViewsGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewsGenerator.log</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="PresentationMetadata\Cards\UseGeneratorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Documents\Views\CompositeDocumentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Documents\Views\Contextual\TitleOnlyContextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Navigation\Views\ContextualNavigationAreaControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Notifications\Views\NotificationsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Test\CreateOrUpdate\Views\CreateOrUpdateTestControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Test\Lookup\Views\LookupTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Documents\Views\DocumentHeaderControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Documents\Views\Contextual\ContextualDocumentHeaderControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Documents\Views\Contextual\ContextualDocumentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Navigation\Views\NavigationAreaControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\UserInfo\Views\UserInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Custom\OrderPosition\OrderPositionAdvertisementsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Cards\Custom\OrderPosition\OrderPositionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Cards\Generated\AccountDetailView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AccountView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AdditionalFirmServiceView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AdsTemplatesAdsElementTemplateView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AdvertisementElementTemplateView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AdvertisementElementView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AdvertisementTemplateView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AdvertisementView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AssociatedPositionsGroupView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\AssociatedPositionView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\BargainFileView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\BargainTypeView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\BargainView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\BillView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\BranchOfficeOrganizationUnitView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\BranchOfficeView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\CategoryGroupView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\CategoryView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\ClientView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\ContactView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\ContributionTypeView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\CountryView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\CurrencyRateView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\CurrencyView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\DealView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\DeniedPositionView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\DepartmentView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\FirmAddressView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\FirmContactView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\FirmView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\LegalPersonProfileView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\LegalPersonView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\LimitView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\LocalMessageView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\LockDetailView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\LockView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\NoteView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\OperationTypeView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\OperationView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\OrderFileView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\OrderPositionView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\OrderView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\OrganizationUnitView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\PlatformView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\PositionCategoryView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\PositionChildrenView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\PositionView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\PricePositionView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\PriceView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\PrintFormTemplateView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\ReleaseInfoView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\RoleView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\TerritoryView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\ThemeTemplateView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\ThemeView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\UserView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cards\Generated\WithdrawalInfoView.xaml">
+      <DependentUpon>ViewsGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\AssignConfiguratorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Operations\OperationConfiguratorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(ProjectDir)..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Desktop.WPF\Scripts\StopXDesProc.cmd</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

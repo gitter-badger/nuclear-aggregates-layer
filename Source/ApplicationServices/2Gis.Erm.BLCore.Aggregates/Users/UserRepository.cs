@@ -1,0 +1,1137 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Transactions;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
+using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using Microsoft.Crm.SdkTypeProxy;
+using Microsoft.Xrm.Client.Data.Services;
+
+using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
+
+namespace DoubleGis.Erm.BLCore.Aggregates.Users
+{
+    public sealed class UserRepository : IUserRepository
+    {
+        private readonly IMsCrmSettings _msCrmSettings;
+        private readonly IUserPersistenceService _userPersistenceService;
+
+        private readonly IFinder _finder;
+
+        private readonly IRepository<User> _userGenericRepository;
+        private readonly IRepository<UserRole> _userRoleGenericRepository;
+        private readonly IRepository<UserOrganizationUnit> _userOrganizationUnitGenericRepository;
+        private readonly IRepository<UserTerritory> _userTerritoryGenericRepository;
+        private readonly IRepository<Department> _departmentGenericRepository;
+        private readonly IRepository<UserProfile> _userProfileGenericRepository;
+
+        private readonly IRepository<OrganizationUnit> _organizationUnitGenericRepository;
+        private readonly IRepository<Territory> _territoryGenericRepository;
+
+        private readonly IRepository<Client> _clientGenericRepository;
+        private readonly IRepository<Firm> _firmGenericRepository;
+        private readonly IRepository<Deal> _dealGenericRepository;
+        private readonly IRepository<LegalPerson> _legalPersonGenericRepository;
+        private readonly IRepository<LegalPersonProfile> _legalPersonProfileGenericRepository;
+        private readonly IRepository<Bargain> _bargainGenericRepository;
+        private readonly IRepository<Contact> _contactGenericRepository;
+        private readonly IRepository<Order> _orderGenericRepository;
+        private readonly IRepository<OrderPosition> _orderPositionGenericRepository;
+        private readonly IRepository<Account> _accountGenericRepository;
+        private readonly IRepository<Limit> _limitGenericRepository;
+        private readonly IIdentityProvider _identityProvider;
+        private readonly IOperationScopeFactory _operationScopeFactory;
+
+        public UserRepository(
+            IRepository<User> userGenericRepository,
+            IRepository<UserRole> userRoleGenericRepository,
+            IRepository<OrganizationUnit> organizationUnitGenericRepository,
+            IRepository<LegalPersonProfile> legalPersonProfileGenericRepository,
+            IRepository<UserOrganizationUnit> userOrganizationUnitGenericRepository,
+            IRepository<Territory> territoryGenericRepository,
+            IRepository<Department> departmentGenericRepository,
+            IRepository<UserTerritory> userTerritoryGenericRepository,
+            IMsCrmSettings msCrmSettings,
+            IRepository<UserProfile> userProfileGenericRepository,
+            IFinder finder,
+            IRepository<Client> clientGenericRepository,
+            IRepository<Firm> firmGenericRepository,
+            IRepository<Deal> dealGenericRepository,
+            IRepository<LegalPerson> legalPersonGenericRepository,
+            IRepository<Bargain> bargainGenericRepository,
+            IRepository<Contact> contactGenericRepository,
+            IRepository<Order> orderGenericRepository,
+            IRepository<OrderPosition> orderPositionGenericRepository,
+            IRepository<Account> accountGenericRepository,
+            IRepository<Limit> limitGenericRepository,
+            IUserPersistenceService userPersistenceService,
+            IIdentityProvider identityProvider,
+            IOperationScopeFactory operationScopeFactory)
+        {
+            _userGenericRepository = userGenericRepository;
+            _userRoleGenericRepository = userRoleGenericRepository;
+            _organizationUnitGenericRepository = organizationUnitGenericRepository;
+            _territoryGenericRepository = territoryGenericRepository;
+            _userOrganizationUnitGenericRepository = userOrganizationUnitGenericRepository;
+            _departmentGenericRepository = departmentGenericRepository;
+            _userTerritoryGenericRepository = userTerritoryGenericRepository;
+            _msCrmSettings = msCrmSettings;
+            _userProfileGenericRepository = userProfileGenericRepository;
+            _finder = finder;
+            _clientGenericRepository = clientGenericRepository;
+            _firmGenericRepository = firmGenericRepository;
+            _dealGenericRepository = dealGenericRepository;
+            _legalPersonGenericRepository = legalPersonGenericRepository;
+            _bargainGenericRepository = bargainGenericRepository;
+            _contactGenericRepository = contactGenericRepository;
+            _orderGenericRepository = orderGenericRepository;
+            _orderPositionGenericRepository = orderPositionGenericRepository;
+            _accountGenericRepository = accountGenericRepository;
+            _limitGenericRepository = limitGenericRepository;
+            _userPersistenceService = userPersistenceService;
+            _identityProvider = identityProvider;
+            _operationScopeFactory = operationScopeFactory;
+            _legalPersonProfileGenericRepository = legalPersonProfileGenericRepository;
+        }
+
+        public int Activate(User user)
+        {
+            user.IsActive = true;
+            _userGenericRepository.Update(user);
+            return _userGenericRepository.Save();
+        }
+
+        public int Activate(Department department)
+        {
+            var childrenDepartments =
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<Department>() 
+                                && UserSpecs.Departments.Find.ChildrensOf(department))
+                    .ToArray();
+
+            var departmentIds = childrenDepartments.Select(x => x.Id).ToList();
+            departmentIds.Add(department.Id);
+
+            var userInfos = _finder
+                .Find(Specs.Find.InactiveEntities<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
+                .ToArray();
+
+            // Активировать неактивных пользователей
+            foreach (var user in userInfos)
+            {
+                user.IsActive = true;
+                _userGenericRepository.Update(user);
+            }
+
+            _userGenericRepository.Save();
+
+            // Активировать неактивные дочерние подразделения
+            foreach (var departmentInfo in childrenDepartments)
+            {
+                departmentInfo.IsActive = true;
+                _departmentGenericRepository.Update(departmentInfo);
+            }
+
+            // Активировать подразделение
+            department.IsActive = true;
+            _departmentGenericRepository.Update(department);
+            return _departmentGenericRepository.Save();
+        }
+
+        public int Activate(OrganizationUnit organizationUnit)
+        {
+            organizationUnit.IsActive = true;
+            _organizationUnitGenericRepository.Update(organizationUnit);
+            return _organizationUnitGenericRepository.Save();
+        }
+
+        public int Deactivate(User user)
+        {
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, UserRole>())
+            {
+                var userRoles = _finder.Find(UserSpecs.UserRoles.Find.ForUser(user.Id)).ToArray();
+                foreach (var userRole in userRoles)
+                {
+                    _userRoleGenericRepository.Delete(userRole);
+                    operationScope.Deleted<UserRole>(userRole.Id);
+                }
+                _userRoleGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            user.IsActive = false;
+            _userGenericRepository.Update(user);
+            return _userGenericRepository.Save();
+        }
+
+        public void AssignUserRelatedEntites(long userId, long newOwnerCode)
+        {
+            var clients = _finder.FindMany(Specs.Find.Owned<Client>(userId));
+            var firms = _finder.FindMany(Specs.Find.Owned<Firm>(userId));
+            var deals = _finder.FindMany(Specs.Find.Owned<Deal>(userId) && Specs.Find.ActiveAndNotDeleted<Deal>());
+            var legalPersons = _finder.FindMany(Specs.Find.Owned<LegalPerson>(userId));
+            var legalPersonProfiles = _finder.FindMany(Specs.Find.Owned<LegalPersonProfile>(userId));
+            var accounts = _finder.FindMany(Specs.Find.Owned<Account>(userId));
+            var limits = _finder.FindMany(Specs.Find.Owned<Limit>(userId) && Specs.Find.ActiveAndNotDeleted<Limit>());
+            var bargains = _finder.FindMany(Specs.Find.Owned<Bargain>(userId));
+            var contacts = _finder.FindMany(Specs.Find.Owned<Contact>(userId));
+
+            // Критерии поиска заказов учитываются при экспорте. Если меняешь - меняй и там.
+            var ordersWithPositions = _finder.Find(Specs.Find.Owned<Order>(userId) &&
+                                                   Specs.Find.ActiveAndNotDeleted<Order>() &&
+                                                   OrderSpecs.Orders.Find.NotInArchive())
+                                             .Select(o => new { Order = o, o.OrderPositions })
+                                             .ToArray();
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Client>())
+            {
+                foreach (var client in clients)
+                {
+                    client.OwnerCode = newOwnerCode;
+                    _clientGenericRepository.Update(client);
+                    operationScope.Updated<Client>(client.Id);
+                }
+
+                _clientGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Firm>())
+            {
+                foreach (var firm in firms)
+                {
+                    firm.OwnerCode = newOwnerCode;
+                    _firmGenericRepository.Update(firm);
+                    operationScope.Updated<Firm>(firm.Id);
+                }
+
+                _firmGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Deal>())
+            {
+                foreach (var deal in deals)
+                {
+                    deal.OwnerCode = newOwnerCode;
+                    _dealGenericRepository.Update(deal);
+                    operationScope.Updated<Deal>(deal.Id);
+                }
+
+                _dealGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, LegalPerson>())
+            {
+                foreach (var legalPerson in legalPersons)
+                {
+                    legalPerson.OwnerCode = newOwnerCode;
+                    _legalPersonGenericRepository.Update(legalPerson);
+                    operationScope.Updated<LegalPerson>(legalPerson.Id);
+                }
+
+                _legalPersonGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, LegalPersonProfile>())
+            {
+                foreach (var legalPersonProfile in legalPersonProfiles)
+                {
+                    legalPersonProfile.OwnerCode = newOwnerCode;
+                    _legalPersonProfileGenericRepository.Update(legalPersonProfile);
+                    operationScope.Updated<LegalPersonProfile>(legalPersonProfile.Id);
+                }
+
+                _legalPersonProfileGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Account>())
+            {
+                foreach (var account in accounts)
+                {
+                    account.OwnerCode = newOwnerCode;
+                    _accountGenericRepository.Update(account);
+                    operationScope.Updated<Account>(account.Id);
+                }
+
+                _accountGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Limit>())
+            {
+                foreach (var limit in limits)
+                {
+                    limit.OwnerCode = newOwnerCode;
+                    _limitGenericRepository.Update(limit);
+                    operationScope.Updated<Limit>(limit.Id);
+                }
+
+                _limitGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Bargain>())
+            {
+                foreach (var bargain in bargains)
+                {
+                    bargain.OwnerCode = newOwnerCode;
+                    _bargainGenericRepository.Update(bargain);
+                    operationScope.Updated<Bargain>(bargain.Id);
+                }
+
+                _bargainGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Contact>())
+            {
+                foreach (var contact in contacts)
+                {
+                    contact.OwnerCode = newOwnerCode;
+                    _contactGenericRepository.Update(contact);
+                    operationScope.Updated<Contact>(contact.Id);
+                }
+
+                _contactGenericRepository.Save();
+                operationScope.Complete();
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Order>())
+            {
+                foreach (var orderWithPositions in ordersWithPositions)
+                {
+                    foreach (var orderPosition in orderWithPositions.OrderPositions)
+                    {
+                        orderPosition.OwnerCode = newOwnerCode;
+                        _orderPositionGenericRepository.Update(orderPosition);
+                        operationScope.Updated<OrderPosition>(orderPosition.Id);
+                    }
+
+                    orderWithPositions.Order.OwnerCode = newOwnerCode;
+                    _orderGenericRepository.Update(orderWithPositions.Order);
+                    operationScope.Updated<Order>(orderWithPositions.Order.Id);
+                }
+
+                _orderGenericRepository.Save();
+                _orderPositionGenericRepository.Save();
+                operationScope.Complete();
+            }
+        }
+
+        public bool TryGetSingleUserOrganizationUnit(long userId, out OrganizationUnit organizationUnit)
+        {
+            organizationUnit = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == userId).Select(x => x.OrganizationUnitId).Distinct().Count() == 1
+                                   ? _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == userId).Select(x => x.OrganizationUnit).First()
+                                   : null;
+
+            return organizationUnit != null;
+        }
+
+        public OrganizationUnit GetFirstUserOrganizationUnit(long userId)
+        {
+            var organizationUnits = _finder.Find<UserOrganizationUnit>(unit => unit.UserId == userId)
+                                           .Select(unit => unit.OrganizationUnitId)
+                                           .ToArray();
+
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
+                          .FirstOrDefault(unit => unit.ErmLaunchDate != null && organizationUnits.Contains(unit.Id));
+        }
+
+        public int Deactivate(OrganizationUnit organizationUnit)
+        {
+            var isLinkedWithUsers = _finder.Find<UserOrganizationUnit>(x => x.OrganizationUnitId == organizationUnit.Id).Any();
+            if (isLinkedWithUsers)
+            {
+                throw new ArgumentException(BLResources.OrgUnitLinkedWithActiveUsers);
+            }
+
+            organizationUnit.IsActive = false;
+            _organizationUnitGenericRepository.Update(organizationUnit);
+            return _organizationUnitGenericRepository.Save();
+        }
+
+        public int Deactivate(Territory territory)
+        {
+            using (var scope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, Territory>())
+            {
+                var isLinkedWithUsers = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.TerritoryId == territory.Id).Any();
+                if (isLinkedWithUsers)
+                {
+                    throw new ArgumentException(BLResources.TerritoryLinkedWithActiveUser);
+                }
+
+                territory.IsActive = false;
+                _territoryGenericRepository.Update(territory);
+                _territoryGenericRepository.Save();
+                
+                scope.Updated<Territory>(territory.Id)
+                     .Complete();
+            }
+
+            return 1;
+        }
+
+        public int Deactivate(Department department)
+        {
+            var hasChildrenDepartments = 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<Department>()
+                                && UserSpecs.Departments.Find.ChildrensOf(department))
+                    .Any();
+            if (hasChildrenDepartments)
+            {
+                throw new ArgumentException(BLResources.CannotDeactivateOrgUnitWithChildren);
+            }
+
+            var userInfos = 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<User>() 
+                            && UserSpecs.Users.Find.ByDepartment(department.Id))
+                    .Select(x => new
+                        {
+                            User = x,
+                            x.UserRoles
+                        })
+                    .ToArray();
+
+            // Удалить привязку ролей у пользователей
+            foreach (var userRole in userInfos.SelectMany(x => x.UserRoles))
+            {
+                _userRoleGenericRepository.Delete(userRole);
+            }
+
+            _userRoleGenericRepository.Save();
+
+            // Деактивировать активных пользователей
+            foreach (var userInfo in userInfos)
+            {
+                var user = userInfo.User;
+
+                user.IsActive = false;
+                _userGenericRepository.Update(user);
+            }
+
+            _userGenericRepository.Save();
+
+            // Деактивировать подразделение
+            department.IsActive = false;
+            _departmentGenericRepository.Update(department);
+            return _departmentGenericRepository.Save();
+        }
+
+        public int Delete(OrganizationUnit unit)
+        {
+            _organizationUnitGenericRepository.Delete(unit);
+            return _organizationUnitGenericRepository.Save();
+        }
+
+        public int Delete(UserOrganizationUnit userOrganizationUnit)
+        {
+            _userOrganizationUnitGenericRepository.Delete(userOrganizationUnit);
+            return _userOrganizationUnitGenericRepository.Save();
+        }
+
+        public int Delete(UserTerritory userTerritory)
+        {
+            _userTerritoryGenericRepository.Delete(userTerritory);
+            return _userTerritoryGenericRepository.Save();
+        }
+
+        public int DeleteUserRole(long userId, long roleId)
+        {
+            var userRole = _finder.Find<UserRole>(x => x.UserId == userId && x.RoleId == roleId).SingleOrDefault();
+            if (userRole == null)
+            {
+                throw new NotificationException(BLResources.UserRoleNotFound);
+            }
+
+            return Delete(userRole);
+        }
+
+        public int DeleteUserOrganizationUnit(long userId, long organizationUnitId)
+        {
+            var userOrganizationUnit =
+                _finder.Find<UserOrganizationUnit>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId).SingleOrDefault();
+            if (userOrganizationUnit == null)
+            {
+                throw new NotificationException(BLResources.UserOrgUnitNotFound);
+            }
+
+            return Delete(userOrganizationUnit);
+        }
+
+        public int DeleteUserTerritory(long userId, long territoryId)
+        {
+            var userTerritory = _finder.Find<UserTerritory>(x => x.UserId == userId && x.TerritoryId == territoryId).SingleOrDefault();
+            if (userTerritory == null)
+            {
+                throw new NotificationException(BLResources.UserTerritoryNotFound);
+            }
+
+            return Delete(userTerritory);
+        }
+
+        public int Delete(UserRole userRole)
+        {
+            _userRoleGenericRepository.Delete(userRole);
+
+            var isServiceUser = _finder.Find<User>(x => x.Id == userRole.UserId).Select(x => x.IsServiceUser).Single();
+            if (!isServiceUser)
+            {
+                DeleteRoleFromCrm(userRole);
+            }
+
+            return _userRoleGenericRepository.Save();
+        }
+
+        public OrganizationUnit GetOrganizationUnit(long orgUnitId)
+        {
+            return _finder.Find(Specs.Find.ById<OrganizationUnit>(orgUnitId)).SingleOrDefault();
+        }
+
+        public OrganizationUnitWithUsersDto GetOrganizationUnitDetails(long entityId)
+        {
+            return _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId))
+                .Select(unit => new OrganizationUnitWithUsersDto
+                {
+                    Unit = unit,
+                    HasLinkedUsers = unit.UserTerritoriesOrganizationUnits.Any()
+                })
+                .SingleOrDefault();
+        }
+
+        public IEnumerable<CategoryGroup> GetCategoryGroups()
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryGroup>()).OrderBy(x => x.GroupRate).ToArray();
+        }
+
+        public IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId)
+        {
+            return _finder.Find<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted
+                                                               && x.Category.IsActive && !x.Category.IsDeleted)
+                          .Select(x => new CategoryGroupMembershipDto
+                              {
+                                  Id = x.Id,
+                                  CategoryGroupId = x.CategoryGroupId,
+                                  CategoryId = x.CategoryId,
+                                  CategoryName = x.Category.Name,
+                                  CategoryLevel = x.Category.Level
+                              }).ToArray();
+        }
+
+        public void CreateOrUpdate(UserRole userRole)
+        {
+            var userRoleAlreadyAdded = _finder.Find<UserRole>(x => x.RoleId == userRole.RoleId && x.UserId == userRole.UserId && x.Id != userRole.Id).Any();
+            if (userRoleAlreadyAdded)
+            {
+                throw new NotificationException(BLResources.RoleAlreadyAdded);
+            }
+
+            _identityProvider.SetFor(userRole);
+            _userRoleGenericRepository.Add(userRole);
+
+            var isServiceUser = _finder.Find<User>(x => x.Id == userRole.UserId).Select(x => x.IsServiceUser).Single();
+            if (!isServiceUser)
+            {
+                AddRoleToCrm(userRole);
+            }
+
+            _userRoleGenericRepository.Save();
+        }
+
+        public void CreateOrUpdate(UserOrganizationUnit userOrganizationUnit)
+        {
+            var organizationUnitExist = _finder.Find<UserOrganizationUnit>(x => x.UserId == userOrganizationUnit.UserId &&
+                                                                                         x.OrganizationUnitId == userOrganizationUnit.OrganizationUnitId)
+                .Any();
+            if (organizationUnitExist)
+            {
+                throw new ArgumentException(BLResources.EditUserOrganizationUnitHandler_WarningOrganizationUnitAlreadyExists);
+            }
+
+            _identityProvider.SetFor(userOrganizationUnit);
+            _userOrganizationUnitGenericRepository.Add(userOrganizationUnit);
+            _userOrganizationUnitGenericRepository.Save();
+        }
+
+        public void CreateOrUpdate(UserTerritory userTerritory)
+        {
+            var territoryExist = _finder.Find<UserTerritory>(x => x.UserId == userTerritory.UserId &&
+                                                                           x.TerritoryId == userTerritory.TerritoryId && !x.IsDeleted)
+                .Any();
+            if (territoryExist)
+            {
+                throw new ArgumentException(BLResources.EditUserTerritoryHandler_WarningUserTerritoryAlreadyExists);
+            }
+
+            var userTerritoryBelongsToUserOrganizationUnits = _finder.Find(Specs.Find.ById<User>(userTerritory.UserId))
+                .SelectMany(x => x.UserOrganizationUnits)
+                .Select(x => x.OrganizationUnitDto)
+                .SelectMany(x => x.Territories)
+                .Select(x => x.Id)
+                .Distinct()
+                .Contains(userTerritory.TerritoryId);
+
+            if (!userTerritoryBelongsToUserOrganizationUnits)
+            {
+                throw new ArgumentException(BLResources.EditUserTerritoryHandler_WarningWrongTerritory);
+            }
+
+            _identityProvider.SetFor(userTerritory);
+            _userTerritoryGenericRepository.Add(userTerritory);
+            _userTerritoryGenericRepository.Save();
+        }
+
+        public void CreateOrUpdate(User user)
+        {
+            var userExist = _finder.Find<User>(x => x.Account == user.Account && x.Id != user.Id).Any();
+            if (userExist)
+            {
+                throw new ArgumentException(BLResources.UserAlreadyExists);
+            }
+
+            using (var scope = _operationScopeFactory.CreateOrUpdateOperationFor(user))
+            {
+                if (user.IsNew())
+                {
+                    _userGenericRepository.Add(user);
+                    scope.Added<User>(user.Id);
+                }
+                else
+                {
+                    // проверка руководителя
+                    if (user.ParentId != null)
+                    {
+                        var recursion = _userPersistenceService.CheckUserParentnessRecursion(user.Id, user.ParentId.Value);
+                        if (recursion > 0)
+                        {
+                            throw new ArgumentException(BLResources.UserParentnessRecursionError);
+                        }
+                    }
+
+                    _userGenericRepository.Update(user);
+                    scope.Updated<User>(user.Id);
+                }
+
+                scope.Complete();
+            }
+
+            _userGenericRepository.Save();
+        }
+
+        public void CreateOrUpdate(Department department)
+        {
+            var departmentExist = _finder.Find<Department>(x => x.Name == department.Name && x.Id != department.Id && x.IsActive && !x.IsDeleted).Any();
+            if (departmentExist)
+            {
+                throw new ArgumentException(BLResources.RecordAlreadyExists);
+            }
+
+            if (department.ParentId == null)
+            {
+                var departmentRootExist = _finder.Find<Department>(x => x.ParentId == null && x.Id != department.Id && x.IsActive && !x.IsDeleted).Any();
+                if (departmentRootExist)
+                {
+                    throw new ArgumentException(BLResources.EditDepartmentSingleParentlessError);
+                }
+            }
+
+            if (department.IsNew())
+            {
+                _departmentGenericRepository.Add(department);
+            }
+            else
+            {
+                _departmentGenericRepository.Update(department);
+            }
+
+            _departmentGenericRepository.Save();
+        }
+
+        public UserProfile GetProfileForUser(long userCode)
+        {
+            return 
+                _finder
+                    .Find(Specs.Find.ActiveAndNotDeleted<UserProfile>() 
+                                    && UserSpecs.UserProfiles.Find.ForUser(userCode))
+                    .FirstOrDefault();
+        }
+
+        public UserProfileDto[] GetAllUserProfiles()
+        {
+            return _finder.Find<User>(x => true)
+                .OrderBy(x => x.ModifiedOn)
+                .Select(x => new UserProfileDto
+                {
+                    UserAccountName = x.Account,
+                    UserProfile = x.UserProfiles.FirstOrDefault(),
+                })
+                .Where(x => x.UserProfile != null)
+                .ToArray();
+        }
+
+        // TODO: {all, 14.02.2013}: вынести методы для работы с профилями пользователей в SimplifiedModel service (см. например ContributionTypeService)
+        public void UpdateUserProfiles(UserProfileDto[] userProfileDtos)
+        {
+            foreach (var userProfileDto in userProfileDtos)
+            {
+                _userProfileGenericRepository.Update(userProfileDto.UserProfile);
+            }
+
+            _userProfileGenericRepository.Save();
+        }
+
+        public void CreateOrUpdate(UserProfile userProfile)
+        {
+            if (userProfile.IsNew())
+            {
+                _userProfileGenericRepository.Add(userProfile);
+            }
+            else
+            {
+                _userProfileGenericRepository.Update(userProfile);
+            }
+
+            _userProfileGenericRepository.Save();
+        }
+
+        public LocaleInfo GetUserLocaleInfo(long userCode)
+        {
+            var userProfileDto = _finder.Find<User>(x => x.Id == userCode).SelectMany(x => x.UserProfiles).Select(x => new
+            {
+                x.CultureInfoLCID,
+                x.TimeZone.TimeZoneId,
+            }).SingleOrDefault();
+
+            LocaleInfo localeInfo;
+            if (userProfileDto == null)
+            {
+                var timeZoneId = GetUserTimeZoneHeuristic(userCode);
+                localeInfo = (timeZoneId != null)
+                                 ? new LocaleInfo(timeZoneId, LocaleInfo.Default.UserCultureInfo.LCID)
+                                 : LocaleInfo.Default;
+            }
+            else
+            {
+                localeInfo = new LocaleInfo(userProfileDto.TimeZoneId, userProfileDto.CultureInfoLCID);
+            }
+
+            return localeInfo;
+        }
+
+        public bool IsUserLinkedWithOrganizationUnit(long userId, long organizationUnitId)
+        {
+            return _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId).Any();
+        }
+
+        public OrganizationUnitDto GetSingleOrDefaultOrganizationUnit(long userId)
+        {
+            // Запрос идет по линии раздела edmx, поэтому после удаления ErmSecurity.edmx можно будет обойтись одним.
+            var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))
+                .SelectMany(x => x.UserOrganizationUnits)
+                .Select(x => x.OrganizationUnitId)
+                .Take(2)
+                .ToArray();
+
+            if (singleOrganizationUnitIds.Length == 0 || singleOrganizationUnitIds.Length > 1)
+            {
+                return null;
+            }
+
+            var organizationUnitDto = _finder.Find(Specs.Find.ById<OrganizationUnit>(singleOrganizationUnitIds[0]))
+            .Select(x => new OrganizationUnitDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+
+                CurrencyId = x.Country.Currency.Id,
+                CurrencyName = x.Country.Currency.Name,
+
+                ProjectExists = x.Projects.Any(),
+            })
+            .Single();
+
+            return organizationUnitDto;
+        }
+
+        int IActivateAggregateRepository<User>.Activate(long entityId)
+        {
+            var entity = _finder.Find(Specs.Find.ById<User>(entityId)).Single();
+            return Activate(entity);
+        }
+
+        int IActivateAggregateRepository<Department>.Activate(long entityId)
+        {
+            var entity = _finder.Find(Specs.Find.ById<Department>(entityId)).Single();
+            return Activate(entity);
+        }
+
+        int IActivateAggregateRepository<OrganizationUnit>.Activate(long entityId)
+        {
+            var entity = _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
+            return Activate(entity);
+        }
+
+        public IEnumerable<User> GetUsersByDepartments(IEnumerable<long> departmentIds)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
+                          .ToArray();
+        }
+
+        int IDeactivateAggregateRepository<User>.Deactivate(long entityId)
+        {
+            var entity = _finder.Find(Specs.Find.ById<User>(entityId)).Single();
+            return Deactivate(entity);
+        }
+
+        int IDeactivateAggregateRepository<OrganizationUnit>.Deactivate(long entityId)
+        {
+            var entity = _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
+            return Deactivate(entity);
+        }
+
+        int IDeactivateAggregateRepository<Territory>.Deactivate(long entityId)
+        {
+            var entity = _finder.Find(Specs.Find.ById<Territory>(entityId)).Single();
+            return Deactivate(entity);
+        }
+
+        int IDeactivateAggregateRepository<Department>.Deactivate(long entityId)
+        {
+            var entity = _finder.Find(Specs.Find.ById<Department>(entityId)).Single();
+            return Deactivate(entity);
+        }
+
+        int IDeleteAggregateRepository<OrganizationUnit>.Delete(long entityId)
+        {
+            var unit = _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
+            return Delete(unit);
+        }
+
+        int IDeleteAggregateRepository<UserOrganizationUnit>.Delete(long entityId)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            {
+                var userOrganizationUnit = _finder.Find(Specs.Find.ById<UserOrganizationUnit>(entityId)).Single();
+
+                var territoryIds = _finder.Find(TerritoryDtoSpecifications.TerritoriesFromOrganizationUnit(userOrganizationUnit.OrganizationUnitId)).Select(x => x.Id);
+
+                // Удаление территорий пользователя данной территории организации
+                var userTerritories = _finder
+                    .Find(new FindSpecification<UserTerritory>(x => x.UserId == userOrganizationUnit.UserId && territoryIds.Contains(x.TerritoryId) && !x.IsDeleted))
+                    .ToArray();
+
+                foreach (var userTerritory in userTerritories)
+                {
+                    _userTerritoryGenericRepository.Delete(userTerritory);
+                }
+
+                _userTerritoryGenericRepository.Save();
+
+                _userOrganizationUnitGenericRepository.Delete(userOrganizationUnit);
+
+                var result = _userOrganizationUnitGenericRepository.Save();
+                transaction.Complete();
+
+                return result;
+            }
+        }
+
+        public void CreateOrUpdate(Territory territory)
+        {
+            using (var scope = _operationScopeFactory.CreateOrUpdateOperationFor(territory))
+            {
+                if (territory.IsNew())
+                {
+                    _territoryGenericRepository.Add(territory);
+                    scope.Added<Territory>(territory.Id);
+                }
+                else
+                {
+                    _territoryGenericRepository.Update(territory);
+                    scope.Updated<Territory>(territory.Id);
+                }
+                
+                _territoryGenericRepository.Save();
+
+                scope.Complete();
+            }
+        }
+
+        public Territory GetTerritory(long territoryId)
+        {
+            return _finder.Find<Territory>(x => territoryId == x.Id).SingleOrDefault();
+        }
+
+        public IEnumerable<User> GetUsersByTerritory(long territoryId)
+        {
+            return _finder.Find<User>(x => x.UserTerritories.Any(y => y.TerritoryId == territoryId)).ToArray();
+        }
+
+        public IEnumerable<User> GetUsersByOrganizationUnit(long organizationUnitId)
+        {
+            return
+                _finder.Find<User>(
+                    x => x.IsActive && x.UserOrganizationUnits.Any(y => y.OrganizationUnitId == organizationUnitId))
+                    .ToArray();
+        }
+
+        public IEnumerable<long> GetUserTerritoryIds(long userId)
+        {
+            // Представление vwTerritories уже включает в себя фильтр по неактивным
+            return _finder.Find(Specs.Find.ById<User>(userId))
+                .SelectMany(user => user.UserTerritories)
+                .Select(territory => territory.TerritoryDto)
+                .Select(dto => dto.Id)
+                .ToArray();
+        }
+
+        public IEnumerable<long> GetUserOrganizationUnitsTerritoryIds(long userId)
+        {
+            // Представления vwTerritories, vwOrganizationUnits на которых основаны dto-сущности не содержат удаленных или неактивых записей.
+            return _finder.Find(Specs.Find.ById<User>(userId))
+                .SelectMany(user => user.UserOrganizationUnits)
+                .Select(unit => unit.OrganizationUnitDto)
+                .SelectMany(unitDto => unitDto.Territories)
+                .Select(territoryDto => territoryDto.Id)
+                .ToArray();
+        }
+
+        public IEnumerable<long> GetAllTerritoryIds()
+        {
+            return _finder.Find<Territory>(territory => territory.IsActive)
+                .Select(territory => territory.Id)
+                .ToArray();
+        }
+
+        public void ChangeUserTerritory(IEnumerable<User> users, long oldTerritoryId, long newTerritoryId)
+        {
+            var userIds = users.Select(user => user.Id);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<ChangeTerritoryIdentity, User>())
+            {
+                // Все существующие ссылки на старую территорию удаляем
+                var linksToRemove = _finder.Find<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == oldTerritoryId).ToArray();
+                foreach (var userTerritory in linksToRemove)
+                {
+                    _userTerritoryGenericRepository.Delete(userTerritory);
+                    operationScope.Deleted<UserTerritory>(userTerritory.Id);
+                }
+
+                // Новые ссылки добавляем только тем, у кого этоё территории не было
+                var usersHavingNewTerritory = _finder.Find<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == newTerritoryId)
+                                                     .Select(territory => territory.UserId)
+                                                     .ToArray();
+                var usersNeedNewTerritory = userIds.Except(usersHavingNewTerritory).ToArray();
+                foreach (var userId in usersNeedNewTerritory)
+                {
+                    var link = new UserTerritory
+                    {
+                        UserId = userId,
+                        TerritoryId = newTerritoryId,
+                    };
+
+                    _identityProvider.SetFor(link);
+                    _userTerritoryGenericRepository.Add(link);
+                    operationScope.Added<UserTerritory>(link.Id);
+                }
+
+                _userTerritoryGenericRepository.Save();
+                operationScope.Complete();
+            }
+        }
+
+        public void CreateOrUpdate(OrganizationUnit organizationUnit)
+        {
+            var dgppIdNotUnique = _finder.Find<OrganizationUnit>(x => x.DgppId == organizationUnit.DgppId && x.Id != organizationUnit.Id).Any();
+            if (dgppIdNotUnique)
+            {
+                throw new NotificationException(string.Format(CultureInfo.CurrentCulture, BLResources.OrganizationUnitNonUniqueDgppId, organizationUnit.DgppId));
+            }
+
+            var notUniqueSyncCode1C = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
+                .Any(x => x.SyncCode1C == organizationUnit.SyncCode1C && x.Id != organizationUnit.Id);
+
+            if (!organizationUnit.IsNew())
+            {
+                var organizationUnitDatesInfo = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnit.Id)).Select(x => new
+                {
+                    x.FirstEmitDate,
+                    x.ErmLaunchDate,
+                    x.InfoRussiaLaunchDate
+                }).Single();
+
+                if (organizationUnitDatesInfo.FirstEmitDate.Date != organizationUnit.FirstEmitDate.Date &&
+                    (organizationUnitDatesInfo.ErmLaunchDate.HasValue || organizationUnit.InfoRussiaLaunchDate.HasValue))
+                {
+                    throw new BusinessLogicException(BLResources.CanNotChangeFirstEmitDateSinceOrganizationUnitIsLaunchedOnErmOrInfoRussia);
+                }
+            }
+
+            if (notUniqueSyncCode1C)
+            {
+                throw new NotificationException(string.Format(
+                    CultureInfo.CurrentCulture,
+                    BLResources.OrganizationUnitNonUniqueSyncCode1C,
+                    organizationUnit.SyncCode1C));
+            }
+
+            if (organizationUnit.IsNew())
+            {
+                _organizationUnitGenericRepository.Add(organizationUnit);
+            }
+            else
+            {
+                _organizationUnitGenericRepository.Update(organizationUnit);
+            }
+
+            _organizationUnitGenericRepository.Save();
+        }
+
+        private static Guid GetCrmRoleId(CrmDataContext crmDataContext, string crmRoleName, CrmDataContextExtensions.CrmUserInfo crmUserInfo)
+        {
+            Guid crmRoleId;
+            if (!crmDataContext.TryGetCrmRoleId(crmUserInfo.BusinessUnitId, crmRoleName, out crmRoleId))
+            {
+                throw new ArgumentException(BLResources.RoleNotExistInCRM);
+            }
+
+            return crmRoleId;
+        }
+
+        private string GetCrmRoleName(UserRole userRole)
+        {
+            var crmRoleName = _finder.Find<Role>(x => x.Id == userRole.RoleId).Select(x => x.Name).FirstOrDefault();
+            if (crmRoleName == null)
+            {
+                throw new ArgumentException(BLResources.RoleNotMappedToCRMRole);
+            }
+
+            return crmRoleName;
+        }
+
+        private void AddRoleToCrm(UserRole userRole)
+        {
+            if (!_msCrmSettings.EnableReplication)
+            {
+                return;
+            }
+
+            try
+            {
+                var crmRoleName = GetCrmRoleName(userRole);
+
+                var crmDataContext = _msCrmSettings.CreateDataContext();
+                var crmUserInfo = GetCrmUserInfo(crmDataContext, userRole.UserId);
+                var crmRoleId = GetCrmRoleId(crmDataContext, crmRoleName, crmUserInfo);
+
+                crmDataContext.UsingService(x => x.Execute(new AssignUserRolesRoleRequest { UserId = crmUserInfo.UserId, RoleIds = new[] { crmRoleId } }));
+            }
+            catch (WebException ex)
+            {
+                throw new NotificationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
+            }
+        }
+
+        private void DeleteRoleFromCrm(UserRole userRole)
+        {
+            if (!_msCrmSettings.EnableReplication)
+            {
+                return;
+            }
+
+            try
+            {
+                var crmRoleName = GetCrmRoleName(userRole);
+
+                var crmDataContext = _msCrmSettings.CreateDataContext();
+                var crmUserInfo = GetCrmUserInfo(crmDataContext, userRole.UserId);
+                var crmRoleId = GetCrmRoleId(crmDataContext, crmRoleName, crmUserInfo);
+
+                crmDataContext.UsingService(x => x.Execute(new RemoveUserRolesRoleRequest { UserId = crmUserInfo.UserId, RoleIds = new[] { crmRoleId } }));
+            }
+            catch (WebException ex)
+            {
+                throw new NotificationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
+            }
+        }
+
+        private CrmDataContextExtensions.CrmUserInfo GetCrmUserInfo(ICrmDataContext crmDataContext, long userId)
+        {
+            var userAccount = _finder.Find(Specs.Find.ById<User>(userId)).Select(x => x.Account).Single();
+            var userInfo = crmDataContext.GetSystemUserByDomainName(userAccount, true);
+
+            return userInfo;
+        }
+
+        private string GetUserTimeZoneHeuristic(long userCode)
+        {
+            var organizationUnits = _finder.Find<OrganizationUnit>(x => x.IsActive && !x.IsDeleted).Select(x => new { x.Name, x.TimeZoneId }).ToArray();
+
+            var timezones = _finder.FindAll<DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone>().ToArray();
+            var organizationUnitimeZones = organizationUnits.Join(
+                timezones,
+                x => x.TimeZoneId,
+                x => x.Id,
+                (x, y) => new
+                {
+                    x.Name,
+                    y.TimeZoneId,
+                }).ToArray();
+
+            // TODO: убрать это УГ
+            var userDepartments = _finder.Find(Specs.Find.ById<User>(userCode)).Select(x => new
+            {
+                UserId = x.Id,
+                DepartmentName = (x.Department.Name == "2ГИС")
+                                     ? "Новосибирск"
+                                     : (x.Department.Name == "Алтай")
+                                           ? "Барнаул"
+                                           : x.Department.Name,
+            }).ToArray();
+
+            var timeZoneId = userDepartments.SelectMany(
+                x => organizationUnitimeZones.DefaultIfEmpty(),
+                (x, y) => new
+                {
+                    x.DepartmentName,
+                    y.Name,
+
+                    y.TimeZoneId,
+                })
+                    .Where(x => x.DepartmentName.Contains(x.Name))
+                    .Select(x => x.TimeZoneId)
+                    .FirstOrDefault();
+
+            return timeZoneId;
+        }
+    }
+}

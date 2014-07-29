@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exchange>
+    <header>
+        <mguid>{A3FB8E88-8336-43C6-8D7C-16FC6AAD2594}</mguid>
+        <createDate>2013-02-08T08:23:41Z</createDate>
+        <exportDate>2013-02-08T08:23:41Z</exportDate>
+        <organizationUnitId>33</organizationUnitId>
+    </header>
+    <territories>
+        <territory>
+            <id>1</id>
+            <name>Региональная территория</name>
+            <isDeleted>false</isDeleted>
+            <firms>
+                <firm id="4644873986664030" />
+                <firm id="4644873986664038" />
+                <firm id="4644873986675994" />
+                <firm id="4644873986671926" />
+                <firm id="4644873986681214" />
+            </firms>
+        </territory>
+        <territory>
+            <id>2</id>
+            <name>Волгоград. Территория1</name>
+            <isDeleted>false</isDeleted>
+            <firms>
+                <firm id="4644873986703112" />
+                <firm id="4644873986681784" />
+                <firm id="4644873986652286" />
+                <firm id="4644873986638199" />
+                <firm id="4644873986642113" />
+                <firm id="4644873986681214" />
+            </firms>
+        </territory>
+        <territory>
+            <id>3</id>
+            <name>Волгоград. Территория2</name>
+            <isDeleted>false</isDeleted>
+            <firms>
+                <firm id="4644873986651731" />
+                <firm id="4644873986673731" />
+                <firm id="4644873986672348" />
+                <firm id="4644873986676840" />
+                <firm id="4644873986671387" />
+                <firm id="4644873986681214" />
+                <firm id="4644873986651731" />
+                <firm id="4644873986673731" />
+                <firm id="4644873986672348" />
+                <firm id="4644873986676840" />
+                <firm id="4644873986671387" />
+            </firms>
+        </territory>
+        <territory>
+            <id>4</id>
+            <name>Волгоград.Территория3</name>
+            <isDeleted>false</isDeleted>
+            <firms>
+            </firms>
+        </territory>
+        <territory>
+            <id>5</id>
+            <name>Волгоград.Территория4</name>
+            <isDeleted>false</isDeleted>
+            <firms />
+        </territory>
+    </territories>
+</exchange>

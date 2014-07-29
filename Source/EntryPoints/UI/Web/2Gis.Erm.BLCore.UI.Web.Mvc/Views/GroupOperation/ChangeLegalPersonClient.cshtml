@@ -1,0 +1,137 @@
+﻿@model Models.GroupOperation.ChangeClientViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.ChangeClient }
+@section TopBarTitle { @BLResources.ChangeClient }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@SolutionInfo.ProductVersion.Build" />
+
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Client');
+        Ext.DoubleGis.UI.Client.ChangeClientProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            constructor: function (config)
+            {
+                Ext.apply(config, {
+                    listeners: {
+                    }
+                });
+                Ext.DoubleGis.UI.Client.ChangeClientProcessor.superclass.constructor.call(this, config);
+            },
+            IsUserSettingsValid: function ()
+            {
+                return true;
+            },
+            CreateParamsForControllerCall: function (entityId)
+            {
+                var clientId = Ext.getDom("ClientId").value;
+                return { entityId: entityId, clientId: clientId };
+            },
+            ValidateEntryProcessingSuccessStatus: function (message)
+            {
+                var bypassValidationInfo = window.Ext.decode(message);
+                if (bypassValidationInfo.CanProceed && bypassValidationInfo.CanProceed == true)
+                {
+                    var isOperationContinue = confirm(bypassValidationInfo.Message);
+                    if (isOperationContinue)
+                    {
+                        var params = this.CreateParamsForControllerCall(bypassValidationInfo.EntityId);
+                        params.bypassValidation = true;
+                        var url = this.EvaluateOperationUrl(null);
+                        this.ProcessSingleEntity(url, params);
+
+                        return this.SuccessStatus.ReprocessingRequired;
+                    }
+
+                    return this.SuccessStatus.Rejected;
+                }
+                return this.SuccessStatus.Approved;
+            }
+        });
+
+
+        Ext.onReady(function ()
+        {
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+
+            var config = {
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+            };
+            var changeClientProcessor = new Ext.DoubleGis.UI.Client.ChangeClientProcessor(config);
+            if (!changeClientProcessor.CheckProcessingPossibility())
+            {
+                return;
+            }
+
+            changeClientProcessor.Process();
+        });
+
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+        <colgroup>
+            <col width="26" />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+                        @Model.Message
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                </td>
+                <td valign="top">
+                    <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client})
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr style="display: none">
+                <td>
+                    <div id="pbDiv">
+                        <div id="pbInner">
+                        </div>
+                    </div>
+                    @Html.HiddenFor(m => m.EntityTypeName)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

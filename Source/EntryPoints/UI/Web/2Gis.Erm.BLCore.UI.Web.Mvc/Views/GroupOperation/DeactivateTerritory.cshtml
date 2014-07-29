@@ -1,0 +1,135 @@
+﻿@model Models.GroupOperation.DeactivateTerritoryViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.DeactivateConfirmation }
+@section TopBarTitle { @BLResources.DeactivateConfirmation }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    
+    <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@SolutionInfo.ProductVersion.Build" />
+    
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Tooltip.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Deactivate');
+        Ext.DoubleGis.UI.Deactivate.DeactivateTerritoryProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            FailedEntitiesMessages: [],
+            OwnerCode: 0,
+            IsPartialAssign: false,
+            NewTerritoryIdLookup: { },
+            constructor: function(config) {
+                Ext.apply(config, {
+                    listeners: {
+                        configspecificcontrols: function() {
+                            this.ConfigCustomControls();
+                        },
+                        applyusersettings: function() {
+                            this.ApplyUserSettings();
+                        }
+                    }
+                });
+                Ext.DoubleGis.UI.Deactivate.DeactivateTerritoryProcessor.superclass.constructor.call(this, config);
+            },
+            ConfigCustomControls: function() {
+                this.NewTerritoryIdLookup = Ext.getCmp("NewTerritoryId");
+            },
+            IsUserSettingsValid: function() {
+                if (Ext.getDom("NewTerritoryId").value == "") {
+                    Ext.MessageBox.show({
+                        title: '',
+                        // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                        // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                        msg: '@BLResources.DeactivateMustPickTerritory',
+                        buttons: window.Ext.MessageBox.OK,
+                        width: 300,
+                        icon: window.Ext.MessageBox.ERROR
+                    });
+                    return false;
+                }
+
+                return true;
+            },
+            ApplyUserSettings: function() {
+                this.OwnerCode = this.NewTerritoryIdLookup.getValue().id;
+
+                this.NewTerritoryIdLookup.disable();
+            },
+            CreateParamsForControllerCall: function(entityId) {
+                return { entityId: entityId, ownerCode: this.OwnerCode };
+            }
+        });
+
+        Ext.onReady(function() {
+            //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(document);
+
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+
+            Ext.getDom('PageContentCell').style["vertical-align"] = "top";
+            var config = {
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+            };
+            var deactivateTerritoryProcessor = new Ext.DoubleGis.UI.Deactivate.DeactivateTerritoryProcessor(config);
+            if (!deactivateTerritoryProcessor.CheckProcessingPossibility()) {
+                return;
+            }
+            deactivateTerritoryProcessor.Process();
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> {{"id", "EntityForm"}}))
+    {
+        <table cellspacing="5" cellpadding="5" width="100%" height="100%" style="position: fixed">
+            <colgroup>
+                <col width="26" />
+                <col />
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div style="height: 30px;" id="Notifications" 
+                             onmouseover="AddTooltip(@Model.Message);" 
+                             onmouseout="RemoveTooltip();">
+                            @Model.Message
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label style="font-weight: bold">@BLResources.AssignToOtherTerritory</label>
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LookupFor(k => k.NewTerritoryId, new LookupSettings {EntityName = EntityName.Territory})
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="pbDiv">
+                            <div id="pbInner">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @Html.HiddenFor(x => x.EntityTypeName)
+    }
+}

@@ -1,0 +1,2800 @@
+<ImportExportXml version="4.0.0.0" languagecode="1049" generatedBy="OnPremise">
+  <Entities>
+    <Entity>
+      <Name LocalizedName="Сделка" OriginalName="Opportunity">Opportunity</Name>
+      <ObjectTypeCode>3</ObjectTypeCode>
+      <EntityInfo>
+        <entity Name="Opportunity">
+          <HasRelatedNotes>True</HasRelatedNotes>
+          <HasRelatedActivities>True</HasRelatedActivities>
+          <ObjectTypeCode>3</ObjectTypeCode>
+          <CollectionName>Opportunities</CollectionName>
+          <LogicalCollectionName>opportunities</LogicalCollectionName>
+          <BaseTableName>OpportunityBase</BaseTableName>
+          <WorkflowEventMask>-1</WorkflowEventMask>
+          <IsCustomizable>1</IsCustomizable>
+          <IsMappable>1</IsMappable>
+          <IsImportable>1</IsImportable>
+          <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
+          <OwnershipTypeMask>UserOwned</OwnershipTypeMask>
+          <IsAudited>1</IsAudited>
+          <IsParented>1</IsParented>
+          <EntityMask>ActivityPointer</EntityMask>
+          <IsReplicated>1</IsReplicated>
+          <IsReplicationUserFiltered>1</IsReplicationUserFiltered>
+          <IsActivityParty>1</IsActivityParty>
+          <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
+          <ExtensionTableName>OpportunityExtensionBase</ExtensionTableName>
+          <ReportViewName>FilteredOpportunity</ReportViewName>
+          <IsRenameable>1</IsRenameable>
+          <CanTriggerWorkflow>1</CanTriggerWorkflow>
+          <CanBeChildInCustomRelationship>1</CanBeChildInCustomRelationship>
+          <CanBeInCustomEntityAssociation>1</CanBeInCustomEntityAssociation>
+          <CanBeInCustomReflexiveRelationship>1</CanBeInCustomReflexiveRelationship>
+          <IsMailMergeEnabled>1</IsMailMergeEnabled>
+          <EntityClassName>Microsoft.Crm.Entities.Opportunity</EntityClassName>
+          <EntityAssembly>Microsoft.Crm.Entities</EntityAssembly>
+          <ServiceClassName>Microsoft.Crm.ObjectModel.OpportunityService</ServiceClassName>
+          <ServiceAssembly>Microsoft.Crm.ObjectModel</ServiceAssembly>
+          <WorkflowSupport>15</WorkflowSupport>
+          <DbCascadeMask>0</DbCascadeMask>
+          <LocalizedNames>
+            <LocalizedName description="Сделка" languagecode="1049" />
+          </LocalizedNames>
+          <LocalizedCollectionNames>
+            <LocalizedCollectionName description="Сделки" languagecode="1049" />
+          </LocalizedCollectionNames>
+          <Descriptions>
+            <Description description="Реплика сделки из Erm" languagecode="1049" />
+          </Descriptions>
+          <attributes>
+            <attribute PhysicalName="ActualCloseDate">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Date when the opportunity was closed." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Фактическая дата закрытия" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ActualValue">
+              <Type>money</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001a</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Actual revenue for the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1000000000000</MinValue>
+              <MaxValue>1000000000000</MaxValue>
+              <Accuracy>2</Accuracy>
+              <AccuracySource>1</AccuracySource>
+              <displaynames>
+                <displayname description="Фактический доход" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ActualValue_Base">
+              <Type>money</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001a</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <CalculationOf>ActualValue</CalculationOf>
+              <Descriptions>
+                <Description description="Эквивалент фактического дохода от возможной сделки в базовой валюте." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-922337203685477</MinValue>
+              <MaxValue>922337203685477</MaxValue>
+              <Accuracy>4</Accuracy>
+              <AccuracySource>0</AccuracySource>
+              <displaynames>
+                <displayname description="Фактический доход (базовый)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="CloseProbability">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Likelihood of closing the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>0</MinValue>
+              <MaxValue>100</MaxValue>
+              <Accuracy>0</Accuracy>
+              <displaynames>
+                <displayname description="Вероятность" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="CreatedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Unique identifier of the user who created the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="4040b506-2341-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Создано" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="CreatedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Date and time when the opportunity was created." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата создания" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="CustomerIdDsc">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <AttributeOf>CustomerId</AttributeOf>
+              <XmlAbbreviation>dsc</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="CustomerIdName">
+              <Type>nvarchar</Type>
+              <Length>320</Length>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>CustomerId</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+            </attribute>
+            <attribute PhysicalName="CustomerIdType">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ObjectTypeCode</DisplayMask>
+              <AttributeOf>CustomerId</AttributeOf>
+              <XmlAbbreviation>type</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="CustomerIdYomiName">
+              <Type>nvarchar</Type>
+              <Length>320</Length>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>CustomerId</AttributeOf>
+              <XmlAbbreviation>yomi</XmlAbbreviation>
+              <YomiOf>CustomerIdName</YomiOf>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+            </attribute>
+            <attribute PhysicalName="DeletionStateCode">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="Description">
+              <Type>ntext</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001c</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Description of the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>textarea</Format>
+              <MaxLength>2000</MaxLength>
+              <displaynames>
+                <displayname description="Описание" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_actualprofit">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Рассчитывается автоматически по сумме всех списаний по Заказам, связанным с данной Сделкой." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <displaynames>
+                <displayname description="Фактический доход" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_closereason">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Заполняется при выполнении операции &quot;Закрытие сделки&quot;." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Временный отказ. Нет человека ПР" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Временный отказ. Сомнения в эффективности" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Временный отказ. Нет денег" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Временный отказ. Неудовлетворен продуктом" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Временный отказ. Другое (указать в комментарии)" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="6">
+                  <labels>
+                    <label description="Категорический отказ. Негатив клиента" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="7">
+                  <labels>
+                    <label description="Категорический отказ. Не совпадает целевая аудитория" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="8">
+                  <labels>
+                    <label description="Категорический отказ. Размещает у конкурентов" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="9">
+                  <labels>
+                    <label description="Категорический отказ. Нет интереса" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="10">
+                  <labels>
+                    <label description="Категорический отказ. Другое (указать в комментарии)" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Причина закрытия" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_closereasonName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_closereason</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_closereasonother">
+              <Type>nvarchar</Type>
+              <Length>512</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Заполняется при выполнении операции &quot;Закрытие сделки&quot; в случае если в качестве причины закрытия выбрано значение &quot;Другое&quot;." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>256</MaxLength>
+              <displaynames>
+                <displayname description="Другая причина закрытия" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_dealstage">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Сбор информации" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Проведение презентации" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Согласование КП" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="7">
+                  <labels>
+                    <label description="Сформирован Заказ" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="8">
+                  <labels>
+                    <label description="Заказ одобрен в выпуск" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="9">
+                  <labels>
+                    <label description="Сервис" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Этап сделки" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_dealstageName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_dealstage</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_estimatedprofit">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Рассчитывается автоматически по сумме значений полей &quot;К оплате (факт)&quot; Заказов, со статусом &quot;Активный&quot;, связанных с данной Сделкой." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <displaynames>
+                <displayname description="Предполагаемый доход" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_isactive">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Замена полю &quot;активна&quot; стандартному для объектов CRM." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Активна" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_isactiveName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_isactive</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_startreason">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Теплый клиент" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Инициатива Менеджера Звонок" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Инициатива Менеджера Визит" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Инициатива Клиента Звонок" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Инициатива Клиента Визит" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="6">
+                  <labels>
+                    <label description="Инициатива Клиента E-mail" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="7">
+                  <labels>
+                    <label description="Личный кабинет" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Причина начала" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_startreasonName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_startreason</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="EstimatedCloseDate">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Estimated date on which the opportunity is expected to close." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Предполагаемая дата закрытия" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="EstimatedValue">
+              <Type>money</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001a</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Estimated value of the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1000000000000</MinValue>
+              <MaxValue>1000000000000</MaxValue>
+              <Accuracy>2</Accuracy>
+              <AccuracySource>1</AccuracySource>
+              <displaynames>
+                <displayname description="Предполагаемый доход" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="EstimatedValue_Base">
+              <Type>money</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001a</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <CalculationOf>EstimatedValue</CalculationOf>
+              <Descriptions>
+                <Description description="Эквивалент предполагаемой стоимости возможной сделки в базовой валюте." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-922337203685477</MinValue>
+              <MaxValue>922337203685477</MaxValue>
+              <Accuracy>4</Accuracy>
+              <AccuracySource>0</AccuracySource>
+              <displaynames>
+                <displayname description="Предполагаемый доход (базовый)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ExchangeRate">
+              <Type>decimal</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Обменный курс валюты, связанной с возможной сделкой, по отношению к базовой валюте." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>1E-10</MinValue>
+              <MaxValue>100000000000</MaxValue>
+              <Accuracy>10</Accuracy>
+              <displaynames>
+                <displayname description="Курс обмена" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ImportSequenceNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Уникальный идентификатор импорта или переноса данных, создавшего эту запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <displaynames>
+                <displayname description="Порядковый номер импорта" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="IsPrivate">
+              <Type>bit</Type>
+              <DefaultValue>(0)</DefaultValue>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+            </attribute>
+            <attribute PhysicalName="IsPrivateName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>IsPrivate</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="IsRevenueSystemCalculated">
+              <Type>bit</Type>
+              <DefaultValue>(0)</DefaultValue>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+              <Descriptions>
+                <Description description="Specifies whether estimated revenue is to be calculated by the system or provided by the user." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Рассчитывается системой" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="0">
+                  <labels>
+                    <label description="Предоставляется пользователем" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Доход" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="IsRevenueSystemCalculatedName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>IsRevenueSystemCalculated</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="ModifiedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Unique identifier of the user who last modified the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="c61ed7e8-2241-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Изменено" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ModifiedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Date and time when the opportunity was last modified." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата изменения" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Name">
+              <Type>nvarchar</Type>
+              <Length>600</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ActivityRegardingName|QueueItemTitle|ActivityPointerRegardingName|PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm|RequiredForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Name of the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>300</MaxLength>
+              <displaynames>
+                <displayname description="Название сделки" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OpportunityId">
+              <Type>primarykey</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsPKAttribute>1</IsPKAttribute>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000032</AttributeTypeId>
+              <DisplayMask>RequiredForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Unique identifier of the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <displaynames>
+                <displayname description="Возможная сделка" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OpportunityRatingCode">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Quality of the opportunity, such as hot." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>2</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="высокая" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="средняя" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="низкая" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Оценка" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OpportunityRatingCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>OpportunityRatingCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="OverriddenCreatedOn">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время переноса записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата создания записи" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwnerId">
+              <Type>owner</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000035</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+              <Descriptions>
+                <Description description="Unique identifier of the user who owns the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>BasicOwner</LookupClass>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="14cfe1dc-2241-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Куратор" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwnerIdDsc">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>dsc</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="OwnerIdName">
+              <Type>nvarchar</Type>
+              <Length>320</Length>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+            </attribute>
+            <attribute PhysicalName="OwnerIdType">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ObjectTypeCode</DisplayMask>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>type</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="OwnerIdYomiName">
+              <Type>nvarchar</Type>
+              <Length>320</Length>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>yomi</XmlAbbreviation>
+              <YomiOf>OwnerIdName</YomiOf>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+            </attribute>
+            <attribute PhysicalName="OwningBusinessUnit">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>10</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <Descriptions>
+                <Description description="Unique identifier of the business unit that owns the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="2c54c2fa-2241-db11-898a-0007e9e17ebd">10</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Ответственное подразделение" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwningUser">
+              <Type>lookup</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <AggregateOf>OwnerId</AggregateOf>
+              <Descriptions>
+                <Description description="Unique identifier of the user who owns the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="fb1c9b1e-2341-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+            </attribute>
+            <attribute PhysicalName="ParticipatesInWorkflow">
+              <Type>bit</Type>
+              <DefaultValue>(0)</DefaultValue>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <Descriptions>
+                <Description description="Information about whether the opportunity participates in workflow rules." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Участвует в бизнес-процессах" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ParticipatesInWorkflowName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>ParticipatesInWorkflow</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="PricingErrorCode">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <Descriptions>
+                <Description description="Pricing error for the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Сведения об ошибке" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Отсутствует уровень цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Неактивный уровень цен" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Отсутствует количество" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Отсутствует цена за единицу" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="6">
+                  <labels>
+                    <label description="Отсутствует продукт" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="7">
+                  <labels>
+                    <label description="Недопустимый продукт" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="8">
+                  <labels>
+                    <label description="Отсутствует код ценообразования" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="9">
+                  <labels>
+                    <label description="Недопустимый код ценообразования" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="10">
+                  <labels>
+                    <label description="Отсутствует единица измерения" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="11">
+                  <labels>
+                    <label description="Продукт отсутствует в уровне цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="12">
+                  <labels>
+                    <label description="Отсутствует объем уровня цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="13">
+                  <labels>
+                    <label description="Отсутствует процент уровня цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="14">
+                  <labels>
+                    <label description="Отсутствует цена" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="15">
+                  <labels>
+                    <label description="Отсутствует текущая стоимость" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="16">
+                  <labels>
+                    <label description="Отсутствует нормативная стоимость" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="17">
+                  <labels>
+                    <label description="Недопустимый объем уровня цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="18">
+                  <labels>
+                    <label description="Недопустимый процент уровня цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="19">
+                  <labels>
+                    <label description="Недопустимая цена" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="20">
+                  <labels>
+                    <label description="Недопустимая текущая стоимость" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="21">
+                  <labels>
+                    <label description="Недопустимая нормативная стоимость" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="22">
+                  <labels>
+                    <label description="Недопустимое правило округления" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="23">
+                  <labels>
+                    <label description="Недопустимый тип округления" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="24">
+                  <labels>
+                    <label description="Недопустимая величина округления" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="25">
+                  <labels>
+                    <label description="Ошибка расчета цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="26">
+                  <labels>
+                    <label description="Недопустимый тип скидки" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="27">
+                  <labels>
+                    <label description="Недопустимое состояние типа скидки" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="28">
+                  <labels>
+                    <label description="Недопустимая скидка" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="29">
+                  <labels>
+                    <label description="Недопустимое количество" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="30">
+                  <labels>
+                    <label description="Недопустимая точность ценообразования" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="31">
+                  <labels>
+                    <label description="Отсутствует единица измерения продукта по умолчанию" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="32">
+                  <labels>
+                    <label description="Отсутствует перечень единиц измерения продукта " languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="33">
+                  <labels>
+                    <label description="Неактивный тип скидки" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="34">
+                  <labels>
+                    <label description="Недопустимая валюта уровня цены" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="35">
+                  <labels>
+                    <label description="Значение атрибута &quot;Цена&quot; выходит за границы допустимого диапазона" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="36">
+                  <labels>
+                    <label description="Переполнение атрибута &quot;Базовая валюта&quot;" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="37">
+                  <labels>
+                    <label description="Недостаточное заполнение атрибута &quot;Базовая валюта&quot;" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Ошибка ценообразования " languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="PricingErrorCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>PricingErrorCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="PriorityCode">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>QueueItemPriority|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Priority of the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Значение по умолчанию" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Приоритет" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="PriorityCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>PriorityCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="SalesStageCode">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Customizable code that represents the current stage of an opportunity in a manual sales process. Designed to support manual sales processes upgraded from earlier versions of Microsoft Dynamics CRM." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Значение по умолчанию" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Код процесса" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="SalesStageCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>SalesStageCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="StateCode">
+              <Type>state</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000036</AttributeTypeId>
+              <DisplayMask>QueueItemState|ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Status of the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <states>
+                <state value="0" defaultstatus="1" invariantname="Open">
+                  <labels>
+                    <label description="Открыть" languagecode="1049" />
+                  </labels>
+                </state>
+                <state value="1" defaultstatus="3" invariantname="Won">
+                  <labels>
+                    <label description="Выигрыш" languagecode="1049" />
+                  </labels>
+                </state>
+                <state value="2" defaultstatus="4" invariantname="Lost">
+                  <labels>
+                    <label description="Потеряно" languagecode="1049" />
+                  </labels>
+                </state>
+              </states>
+              <displaynames>
+                <displayname description="Статус" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="StateCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>StateCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="StatusCode">
+              <Type>status</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000037</AttributeTypeId>
+              <DisplayMask>QueueItemStatus|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Reason for the status of the opportunity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>-1</AppDefaultValue>
+              <statuses>
+                <status value="1" state="0">
+                  <labels>
+                    <label description="Выполняется" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="2" state="0">
+                  <labels>
+                    <label description="Отложенный" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="3" state="1">
+                  <labels>
+                    <label description="Выигрыш" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="4" state="2">
+                  <labels>
+                    <label description="Отменено" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="5" state="2">
+                  <labels>
+                    <label description="Все продано" languagecode="1049" />
+                  </labels>
+                </status>
+              </statuses>
+              <displaynames>
+                <displayname description="Состояние" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="StatusCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>StatusCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="StepId">
+              <Type>uniqueidentifier</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000027</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Unique identifier of the step in the sales process." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <displaynames>
+                <displayname description="Шаг" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="StepName">
+              <Type>nvarchar</Type>
+              <Length>400</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Current phase in the sales pipeline for the opportunity. Designed to be updated by using workflows." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+              <displaynames>
+                <displayname description="Фаза конвейерной обработки" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="TimeZoneRuleVersionNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Только для внутреннего использования." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="UTCConversionTimeZoneCode">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Код часового пояса, используемый при создании записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="VersionNumber">
+              <Type>timestamp</Type>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000025</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+          </attributes>
+        </entity>
+      </EntityInfo>
+      <FormXml id="{EE17F712-76D6-4747-B73B-C9274A13232F}">
+        <forms>
+          <entity name="opportunity" objecttypecode="3">
+            <form type="main" id="{a2a56263-ec37-4991-a3b0-e7b37a71d818}" enablerelatedinformation="true">
+              <tabs>
+                <tab verticallayout="true" id="{a9dd8610-71e3-4fe3-93d6-cee419cd614d}" IsUserDefined="0">
+                  <labels>
+                    <label description="Общие сведения" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="false" showbar="false" id="{2fda664a-00d2-4b22-a68f-24983962bdfe}" IsUserDefined="0">
+                      <labels>
+                        <label description="Сведения о возможной сделке" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="2" id="{a90a6223-6904-443c-b40f-de1e8ad44285}">
+                            <labels>
+                              <label description="Название сделки" languagecode="1049" />
+                            </labels>
+                            <control id="name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="name" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell id="{446de635-748f-463e-8be6-a2d0a8d4954b}">
+                            <labels>
+                              <label description="Клиент" languagecode="1049" />
+                            </labels>
+                            <control id="customerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="customerid" />
+                          </cell>
+                          <cell id="{2bf4485c-3d3e-444f-ac11-8a6262083d88}">
+                            <labels>
+                              <label description="Прайс-лист" languagecode="1049" />
+                            </labels>
+                            <events>
+                              <event name="setadditionalparams" application="true" active="true">
+                                <script><![CDATA[
+																	var oLookup = event.srcElement;
+																	AddTransactionCurrencyParam(oLookup);
+																	]]></script>
+                                <dependencies>
+                                  <dependency id="transactioncurrencyid" />
+                                </dependencies>
+                              </event>
+                            </events>
+                            <control id="pricelevelid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="pricelevelid" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell id="{3e4b0cae-518d-4316-8c9f-93077723b7d8}">
+                            <labels>
+                              <label description="Валюта" languagecode="1049" />
+                            </labels>
+                            <control id="transactioncurrencyid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="transactioncurrencyid" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{654a8cd2-d91c-4c31-aef2-7c5d1f136ac5}">
+                            <labels>
+                              <label description="Этап сделки" languagecode="1049" />
+                            </labels>
+                            <control id="dg_dealstage" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="dg_dealstage" disabled="false" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    <section showlabel="true" showbar="true" id="{abcd867b-8348-4483-8345-c4decb74d2c2}" IsUserDefined="0">
+                      <labels>
+                        <label description="Предполагаемый доход" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="2" id="{13653c24-5e5f-4b04-bd2f-f412dac510aa}">
+                            <labels>
+                              <label description="Доход" languagecode="1049" />
+                            </labels>
+                            <events>
+                              <event name="onchange" application="true" active="true">
+                                <script><![CDATA[
+													crmForm.all.estimatedvalue.Disabled = crmForm.all.isrevenuesystemcalculated.DataValue;
+												]]></script>
+                                <dependencies>
+                                  <dependency id="estimatedvalue" />
+                                </dependencies>
+                              </event>
+                            </events>
+                            <control id="isrevenuesystemcalculated" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="isrevenuesystemcalculated" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell id="{86b312ed-1350-4e19-808e-d2ab62307f20}">
+                            <labels>
+                              <label description="Предполагаемый доход" languagecode="1049" />
+                            </labels>
+                            <control id="estimatedvalue" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="estimatedvalue" />
+                          </cell>
+                          <cell id="{a0b50c8e-7824-4454-b392-b71183500267}">
+                            <labels>
+                              <label description="Вероятность" languagecode="1049" />
+                            </labels>
+                            <control id="closeprobability" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="closeprobability" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell id="{a5213a6c-fa8d-49a1-84c8-5f66267aebe5}">
+                            <labels>
+                              <label description="Предполагаемая дата закрытия" languagecode="1049" />
+                            </labels>
+                            <control id="estimatedclosedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="estimatedclosedate" />
+                          </cell>
+                          <cell id="{4b055ff0-055c-404a-b036-9554c09db219}">
+                            <labels>
+                              <label description="Оценка" languagecode="1049" />
+                            </labels>
+                            <control id="opportunityratingcode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="opportunityratingcode" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    <section showlabel="true" showbar="true" id="{45d9225b-8b15-4b05-869f-e04f835e12ae}" IsUserDefined="0" height="auto">
+                      <labels>
+                        <label description="Описание" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="2" showlabel="false" rowspan="5" auto="true" id="{8fc2b533-4b2b-40d5-9416-d267788a451d}">
+                            <labels>
+                              <label description="Описание" languagecode="1049" />
+                            </labels>
+                            <control id="description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="description" />
+                          </cell>
+                        </row>
+                        <row />
+                        <row />
+                        <row />
+                        <row height="auto" />
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+                <tab id="{4f0d6fd2-1e7d-45ad-9127-0aca662b616c}" IsUserDefined="0">
+                  <labels>
+                    <label description="Администрирование" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="false" showbar="false" id="{4078013e-a827-4bec-bd46-97340b1e0785}" IsUserDefined="0">
+                      <labels>
+                        <label description="Внутренние сведения" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell id="{f1d62eb4-e48c-478d-8f24-8cbfd9a72c50}">
+                            <labels>
+                              <label description="Куратор" languagecode="1049" />
+                            </labels>
+                            <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                          </cell>
+                          <cell id="{6ef46c40-8ca5-4039-8812-49d08ad74431}">
+                            <labels>
+                              <label description="Источник интереса" languagecode="1049" />
+                            </labels>
+                            <control id="originatingleadid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="originatingleadid" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell id="{f6ea7615-6bc6-4b7a-b22f-b0113777d76d}">
+                            <labels>
+                              <label description="Состояние" languagecode="1049" />
+                            </labels>
+                            <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{86d68687-d31b-4529-8f26-93f86be83c9d}">
+                            <labels>
+                              <label description="Исходная кампания" languagecode="1049" />
+                            </labels>
+                            <control id="campaignid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="campaignid" disabled="true" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+                <tab id="{25A511F6-4CF0-4c5e-838F-1AEB9BC07ED9}" IsUserDefined="0">
+                  <labels>
+                    <label description="Примечания" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="true" showbar="true" locklevel="1" id="{58433D50-760E-4e03-BB38-DA312B950253}" IsUserDefined="0" height="auto">
+                      <labels>
+                        <label description="Примечания" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="2" showlabel="false" rowspan="5" auto="true" id="{3c5ebdcd-dfd9-47f5-b091-6312b1483757}">
+                            <labels>
+                              <label description="Текст примечания" languagecode="1049" />
+                            </labels>
+                            <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" />
+                          </cell>
+                        </row>
+                        <row />
+                        <row />
+                        <row />
+                        <row height="auto" />
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+          <entity objecttypecode="3" name="opportunity">
+            <form type="preview" id="{8a08ef84-694c-4f39-aea4-e97b56dd7be8}">
+              <tabs showlabels="false">
+                <tab name="general" verticallayout="true" id="{e204daf9-519f-442f-908c-c17df522b83b}" IsUserDefined="0">
+                  <labels>
+                    <label description="Общие сведения" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section name="information" id="{5fc91d24-7890-4186-bcb9-ba4672f6babd}" IsUserDefined="0" showlabel="false" showbar="false">
+                      <labels>
+                        <label description="Сведения" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell id="{ea111a74-d0f3-4101-83f3-3fcf26d19a88}">
+                            <labels>
+                              <label description="Оценка" languagecode="1049" />
+                            </labels>
+                            <control id="opportunityratingcode" datafieldname="opportunityratingcode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" />
+                          </cell>
+                          <cell id="{0068d916-3020-452b-b01e-e0e0519fcb30}">
+                            <labels>
+                              <label description="Состояние" languagecode="1049" />
+                            </labels>
+                            <control id="statuscode" datafieldname="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell id="{fdcb8e23-2f53-46c4-8e18-ec2dd760a8ab}">
+                            <labels>
+                              <label description="Вероятность" languagecode="1049" />
+                            </labels>
+                            <control id="closeprobability" datafieldname="closeprobability" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" />
+                          </cell>
+                          <cell id="{0dfff83c-1e55-42f6-8d19-c5d1d9632c8b}">
+                            <labels>
+                              <label description="" languagecode="1049" />
+                            </labels>
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+        </forms>
+      </FormXml>
+      <SavedQueries>
+        <savedqueries entity="SavedQuery" morerecords="0" paging-cookie="" version="3.0">
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="3">3</returnedtypecode>
+            <savedqueryid>{00000000-0000-0000-00AA-000010003001}</savedqueryid>
+            <savedqueryidunique>{F4E92B13-E33C-4AFD-873F-BDB9E910C815}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="3" jump="name" select="1" icon="1" preview="1">
+                <row name="result" id="opportunityid">
+                  <cell name="name" width="300" />
+                  <cell name="customerid" width="150" />
+                  <cell name="ownerid" width="150" />
+                  <cell name="dg_dealstage" width="150" />
+                  <cell name="dg_startreason" width="150" />
+                  <cell name="dg_closereason" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+                <entity name="opportunity">
+                  <attribute name="name" />
+                  <attribute name="customerid" />
+                  <attribute name="dg_dealstage" />
+                  <attribute name="dg_startreason" />
+                  <attribute name="dg_closereason" />
+                  <attribute name="ownerid" />
+                  <order attribute="name" descending="false" />
+                  <attribute name="opportunityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Все сделки" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="3">3</returnedtypecode>
+            <savedqueryid>{00000000-0000-0000-00AA-000000666800}</savedqueryid>
+            <queryapi />
+            <savedqueryidunique>{14D122DB-8B41-4A8A-B1D6-A261554A92D2}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="3" jump="name" select="1" icon="1" preview="1">
+                <row name="result" id="opportunityid">
+                  <cell name="name" width="300" />
+                  <cell name="customerid" width="150" />
+                  <cell name="estimatedvalue" width="100" />
+                  <cell name="statuscode" width="100" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="1">1</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical">
+                <entity name="opportunity">
+                  <attribute name="name" />
+                  <attribute name="customerid" />
+                  <attribute name="estimatedvalue" />
+                  <attribute name="statuscode" />
+                  <order attribute="name" descending="false" />
+                  <attribute name="opportunityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Представление для расширенного поиска сделок" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset version="3.0">
+                <column>estimatedvalue</column>
+                <column>name</column>
+                <column>statuscode</column>
+                <column>estimatedclosedate</column>
+                <column>opportunityid</column>
+                <ascend>name</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="3">3</returnedtypecode>
+            <savedqueryid>{00000000-0000-0000-00AA-000010001203}</savedqueryid>
+            <queryapi>AUTO</queryapi>
+            <savedqueryidunique>{052B17EE-0CB4-4655-B5ED-A1C23B544999}</savedqueryidunique>
+            <layoutxml>
+              <grid name="opportunities" object="3" jump="name" select="1" icon="1" preview="1">
+                <row name="opportunity" id="opportunityid">
+                  <cell name="name" width="300" />
+                  <cell name="estimatedvalue" width="100" />
+                  <cell name="statuscode" width="100" />
+                  <cell name="estimatedclosedate" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="2">2</querytype>
+            <LocalizedNames>
+              <LocalizedName description="Представление связанных сделок" languagecode="1049" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Отображение подробных сведений о возможных сделках из любой связанной записи о конкуренте." languagecode="1049" />
+            </Descriptions>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset version="3.0" distinct="true">
+                <column>name</column>
+                <column>estimatedvalue</column>
+                <column>statuscode</column>
+                <column>estimatedclosedate</column>
+                <column>opportunityid</column>
+                <ascend>name</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="3">3</returnedtypecode>
+            <savedqueryid>{DC35F396-6A35-4B3F-BE27-3F2F7BD9D8C4}</savedqueryid>
+            <queryapi>AUTO</queryapi>
+            <savedqueryidunique>{7A6164F3-233F-43BB-8312-C32F5B77EA0B}</savedqueryidunique>
+            <layoutxml>
+              <grid name="opportunities" object="3" jump="name" select="1" icon="1" preview="1">
+                <row name="opportunity" id="opportunityid">
+                  <cell name="name" />
+                  <cell name="estimatedvalue" width="100" />
+                  <cell name="statuscode" width="100" />
+                  <cell name="estimatedclosedate" width="125" />
+                  <cell name="opportunityroleidname" width="100" disableMetaDataBinding="1" LabelId="query.DC35F396-6A35-4b3f-BE27-3F2F7BD9D8C4.cell.opportunityroleidname.label" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="2">2</querytype>
+            <LocalizedNames>
+              <LocalizedName description="Расширенное представление связанных возможных сделок" languagecode="1049" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Отображение подробных сведений о возможных сделках в для любой связанной записи организации или контакта. В этом представлении также отображаются сведения о партнерских отношениях между организацией или контактом и возможной сделкой." languagecode="1049" />
+            </Descriptions>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Да">1</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="3">3</returnedtypecode>
+            <savedqueryid>{3F6D889E-6549-4025-9CE0-4C4103EFB6A3}</savedqueryid>
+            <savedqueryidunique>{06363ABE-2AA0-4B02-9030-58C8E60BBE44}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="3" jump="name" select="1" icon="1" preview="1">
+                <row name="result" id="opportunityid">
+                  <cell name="name" width="300" />
+                  <cell name="customerid" width="150" />
+                  <cell name="dg_dealstage" width="200" />
+                  <cell name="ownerid" width="150" />
+                  <cell name="estimatedvalue" width="100" />
+                  <cell name="estimatedclosedate" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="4">4</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical">
+                <entity name="opportunity">
+                  <attribute name="name" />
+                  <attribute name="estimatedvalue" />
+                  <attribute name="estimatedclosedate" />
+                  <order attribute="name" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="0" />
+                  </filter>
+                  <filter type="or" isquickfindfields="1">
+                    <condition attribute="name" operator="like" value="{0}" />
+                  </filter>
+                  <attribute name="customerid" />
+                  <attribute name="dg_dealstage" />
+                  <attribute name="ownerid" />
+                  <attribute name="opportunityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Быстрый поиск активных сделок" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="3">3</returnedtypecode>
+            <savedqueryid>{9EB361B4-67AC-4830-8ABF-2D29EFBAEE2C}</savedqueryid>
+            <queryapi />
+            <savedqueryidunique>{1D679A76-218B-44AD-A629-998F099782CE}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="3" jump="name" select="1" preview="0" icon="1">
+                <row name="result" id="opportunityid">
+                  <cell name="name" width="100" />
+                  <cell name="customerid" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="64">64</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="opportunity">
+                  <attribute name="name" />
+                  <attribute name="customerid" />
+                  <attribute name="opportunityid" />
+                  <filter type="or" isquickfindfields="1">
+                    <condition attribute="name" operator="like" value="{0}" />
+                  </filter>
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Представление для поиска сделок" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+        </savedqueries>
+      </SavedQueries>
+      <Strings>
+        <Strings ResourceKey="Error_Message_0x80042646" />
+        <Strings ResourceKey="Error_Message_0x80048cef" />
+        <Strings ResourceKey="Error_Message_0x80040500" />
+        <Strings ResourceKey="Error_Message_0x80040504" />
+        <Strings ResourceKey="Error_Message_0x80040505" />
+        <Strings ResourceKey="Error_Message_0x80040506" />
+        <Strings ResourceKey="Error_Message_0x8004050e" />
+        <Strings ResourceKey="Error_Message_0x8004050f" />
+        <Strings ResourceKey="Error_Message_0x80040512" />
+        <Strings ResourceKey="Error_Message_0x80040513" />
+        <Strings ResourceKey="Error_Title_0x80040515" />
+        <Strings ResourceKey="Error_Message_0x80040515" />
+        <Strings ResourceKey="Error_Message_0x8004051a" />
+        <Strings ResourceKey="Error_Message_0x80051002" />
+        <Strings ResourceKey="Error_Message_0x80040807" />
+        <Strings ResourceKey="Error_Message_0x80048202" />
+        <Strings ResourceKey="MenuItem_Label_AddToExistingOpportunity" />
+        <Strings ResourceKey="Dialog_CreateOpportunity_Title" />
+        <Strings ResourceKey="Dialog_CreateOpportunity_Description" />
+        <Strings ResourceKey="Dialog_CreateOpportunity_ActionStringCreateOpportunity" />
+        <Strings ResourceKey="Close_Opportunity_Activity_Subject" />
+        <Strings ResourceKey="Close_Opp_Dlg_Title" />
+        <Strings ResourceKey="Close_Opp_Dlg_Desc" />
+        <Strings ResourceKey="Close_Opp_Confirm_Quote" />
+        <Strings ResourceKey="Quote_Product_Dlg_Desc" />
+        <Strings ResourceKey="Homepage_Label_nav_oppts" />
+        <Strings ResourceKey="Dialog_CreateOpportunityForList_Title" />
+        <Strings ResourceKey="Dialog_CreateOpportunityForList_Header" />
+        <Strings ResourceKey="Dialog_CreateOpportunityForList_Description" />
+        <Strings ResourceKey="MA_MenuItem_CreateOpportunityForMembers" />
+        <Strings ResourceKey="Sales_Description" />
+        <Strings ResourceKey="MenuItem_ToolTip_Convert_Entity_Mask" />
+        <Strings ResourceKey="MenuItem_ToolTip_Convert_Email_Mask" />
+        <Strings ResourceKey="MenuItem_Label_ConvertToOpportunity" />
+        <Strings ResourceKey="MenuItem_ToolTip_ConvertToOpportunity" />
+        <Strings ResourceKey="Convert_Activity_To_Oppo_Dlg_Title" />
+        <Strings ResourceKey="Convert_Activity_To_Oppo_Dlg_Desc" />
+        <Strings ResourceKey="ConvertActivity_Action_OpenNewRecord" />
+        <Strings ResourceKey="MA.CampaignResponse.Dialogs.conv_response.aspx_Opportunity" />
+        <Strings ResourceKey="RelatedInformation_Tips_opportunity_originatingleadid" />
+        <Strings ResourceKey="RelatedInformation_Tips_opportunity_customerid" />
+        <Strings ResourceKey="RelatedInformation_Tips_opportunity_pricelevelid" />
+        <Strings ResourceKey="RelatedInformation_Tips_quote_opportunityid" />
+        <Strings ResourceKey="RelatedInformation_Tips_salesorder_opportunityid" />
+        <Strings ResourceKey="RelatedInformation_Tips_invoice_opportunityid" />
+        <Strings ResourceKey="Web.SFA.opps.dlg_reopen.aspx_44" />
+        <Strings ResourceKey="Web.SFA.opps.dlg_reopen.aspx_35" />
+        <Strings ResourceKey="Web.SFA.quotes.aspx_243.dlg_accept" />
+        <Strings ResourceKey="Web.SFA.quotes.aspx_266.dlg_accept" />
+        <Strings ResourceKey="Web.SFA.quotes.dlg_close.aspx_75" />
+        <Strings ResourceKey="Web.SFA.quotes.dlg_close.aspx_178" />
+        <Strings ResourceKey="Web.SFA.quotes.dlg_products.aspx_26" />
+        <Strings ResourceKey="Web.SFA.opps.dlg_closeopp.aspx_37" />
+        <Strings ResourceKey="RelationshipRole_Help" />
+        <Strings ResourceKey="Web._grid.cmds.dlg_delete_account.aspx_54" />
+        <Strings ResourceKey="Web._grid.cmds.dlg_delete_contact.aspx_54" />
+        <Strings ResourceKey="Web._grid.cmds.bulkemail.xsl_36" />
+        <Strings ResourceKey="Lead_SubArea_Description" />
+        <Strings ResourceKey="Competitor_SubArea_Description" />
+      </Strings>
+    </Entity>
+  </Entities>
+  <Roles>
+  </Roles>
+  <Workflows>
+  </Workflows>
+  <EntityMaps>
+    <EntityMap>
+      <EntitySource>opportunity</EntitySource>
+      <EntityTarget>salesorder</EntityTarget>
+      <AttributeMaps>
+        <AttributeMap>
+          <AttributeSource>campaignid</AttributeSource>
+          <AttributeTarget>campaignid</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>pricelevelid</AttributeSource>
+          <AttributeTarget>pricelevelid</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>name</AttributeSource>
+          <AttributeTarget>name</AttributeTarget>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>contact</EntitySource>
+      <EntityTarget>opportunity</EntityTarget>
+      <AttributeMaps>
+        <AttributeMap>
+          <AttributeSource>defaultpricelevelid</AttributeSource>
+          <AttributeTarget>pricelevelid</AttributeTarget>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>opportunity</EntitySource>
+      <EntityTarget>customeropportunityrole</EntityTarget>
+      <AttributeMaps />
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>account</EntitySource>
+      <EntityTarget>opportunity</EntityTarget>
+      <AttributeMaps>
+        <AttributeMap>
+          <AttributeSource>defaultpricelevelid</AttributeSource>
+          <AttributeTarget>pricelevelid</AttributeTarget>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>opportunity</EntitySource>
+      <EntityTarget>invoice</EntityTarget>
+      <AttributeMaps>
+        <AttributeMap>
+          <AttributeSource>pricelevelid</AttributeSource>
+          <AttributeTarget>pricelevelid</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>name</AttributeSource>
+          <AttributeTarget>name</AttributeTarget>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>opportunity</EntitySource>
+      <EntityTarget>opportunityproduct</EntityTarget>
+      <AttributeMaps />
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>campaign</EntitySource>
+      <EntityTarget>opportunity</EntityTarget>
+      <AttributeMaps />
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>lead</EntitySource>
+      <EntityTarget>opportunity</EntityTarget>
+      <AttributeMaps>
+        <AttributeMap>
+          <AttributeSource>campaignid</AttributeSource>
+          <AttributeTarget>campaignid</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>prioritycode</AttributeSource>
+          <AttributeTarget>prioritycode</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>subject</AttributeSource>
+          <AttributeTarget>name</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>leadqualitycode</AttributeSource>
+          <AttributeTarget>opportunityratingcode</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>ownerid</AttributeSource>
+          <AttributeTarget>ownerid</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>description</AttributeSource>
+          <AttributeTarget>description</AttributeTarget>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>opportunity</EntitySource>
+      <EntityTarget>quote</EntityTarget>
+      <AttributeMaps>
+        <AttributeMap>
+          <AttributeSource>campaignid</AttributeSource>
+          <AttributeTarget>campaignid</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>pricelevelid</AttributeSource>
+          <AttributeTarget>pricelevelid</AttributeTarget>
+        </AttributeMap>
+        <AttributeMap>
+          <AttributeSource>name</AttributeSource>
+          <AttributeTarget>name</AttributeTarget>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+  </EntityMaps>
+  <EntityRelationships>
+    <EntityRelationship Name="campaign_opportunities">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>Campaign</ReferencedEntityName>
+      <ReferencingAttributeName>campaignid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier for the source campaign associated with the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="campaignid" requiredlevel="none" imemode="auto" lookupclass="NonTemplateCampaign" lookupstyle="single" lookupbrowse="0" lookuptypes="4400">
+        <displaynames>
+          <displayname description="Исходная кампания" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Phonecalls">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>PhoneCall</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие звонка." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_AsyncOperations">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>AsyncOperation</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано это системное задание." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="team_opportunities">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>Team</ReferencedEntityName>
+      <ReferencingAttributeName>owningteam</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the team that owns the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="owningteam" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="9">
+        <displaynames />
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_originating_lead">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>Lead</ReferencedEntityName>
+      <ReferencingAttributeName>originatingleadid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the lead that originated the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="originatingleadid" requiredlevel="none" imemode="auto" lookupclass="Lead" lookupstyle="single" lookupbrowse="0" lookuptypes="4">
+        <displaynames>
+          <displayname description="Источник интереса" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_primary_contacts">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>Contact</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>contactid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the contact associated with the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="contactid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="2">
+        <displaynames />
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Faxes">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Fax</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие факса." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="product_opportunities">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>OpportunityProduct</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>opportunityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the opportunity with which the opportunity product is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="opportunityid" requiredlevel="required" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="3">
+        <displaynames>
+          <displayname description="Возможная сделка" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="business_unit_opportunities">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>BusinessUnit</ReferencedEntityName>
+      <ReferencingAttributeName>owningbusinessunit</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the business unit that owns the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="owningbusinessunit" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="10">
+        <displaynames>
+          <displayname description="Ответственное подразделение" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Emails">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Email</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object with which the e-mail is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_owning_user">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>owninguser</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the user who owns the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="owninguser" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="8">
+        <displaynames />
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_ActivityPointers">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ActivityPointer</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Tasks">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Task</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана задача." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegardingForTask" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_DuplicateBaseRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>baserecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор базовой записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="baserecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор базовой записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_customer_accounts">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>Account</ReferencedEntityName>
+      <ReferencingAttributeName>customerid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the account or contact associated with the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="customerid" requiredlevel="none" imemode="auto" lookupclass="BasicCustomer" lookupstyle="single" lookupbrowse="0" lookuptypes="1, 2">
+        <displaynames>
+          <displayname description="Клиент" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_DuplicateMatchingRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>duplicaterecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор возможной повторной записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="duplicaterecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор повторной записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_invoices">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Invoice</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>opportunityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the opportunity with which the invoice is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="opportunityid" requiredlevel="none" imemode="auto" lookupclass="OpportunityByCurrency" lookupstyle="single" lookupbrowse="0" lookuptypes="3">
+        <displaynames>
+          <displayname description="Возможная сделка" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_BulkDeleteFailures">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>BulkDeleteFailure</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор записи, которая не может быть удалена." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="Имя" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="lk_opportunitybase_modifiedby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>modifiedby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the user who last modified the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="modifiedby" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="8">
+        <displaynames>
+          <displayname description="Изменено" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_OpportunityClose">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>OpportunityClose</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>opportunityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор закрытой возможной сделки." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="opportunityid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="3">
+        <displaynames>
+          <displayname description="Возможная сделка" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="CreatedOpportunity_BulkOperationLogs">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>BulkOperationLog</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>createdobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object created by the bulk operation." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="createdobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Созданный объект" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="lk_opportunitybase_createdby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>createdby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the user who created the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="createdby" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="8">
+        <displaynames>
+          <displayname description="Создано" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_ServiceAppointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ServiceAppointment</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>RemoveLink</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие сервиса." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="transactioncurrency_opportunity">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>TransactionCurrency</ReferencedEntityName>
+      <ReferencingAttributeName>transactioncurrencyid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор валюты, связанной с возможной сделкой." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="transactioncurrencyid" requiredlevel="required" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="9105">
+        <displaynames>
+          <displayname description="Валюта" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Letters">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Letter</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие письма." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_activity_parties">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ActivityParty</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>partyid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the party associated with the activity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="partyid" requiredlevel="none" imemode="auto" lookupclass="alllookups" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Сторона" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="price_level_opportunties">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>PriceLevel</ReferencedEntityName>
+      <ReferencingAttributeName>pricelevelid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the price list associated with the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="pricelevelid" requiredlevel="none" imemode="auto" lookupclass="PriceLevelByCurrency" lookupstyle="single" lookupbrowse="0" lookuptypes="1022">
+        <displaynames>
+          <displayname description="Прайс-лист" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_sales_orders">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>SalesOrder</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>opportunityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the opportunity with which the order is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="opportunityid" requiredlevel="none" imemode="auto" lookupclass="OpportunityByCurrency" lookupstyle="single" lookupbrowse="0" lookuptypes="3">
+        <displaynames>
+          <displayname description="Возможная сделка" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_customer_opportunity_roles">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>CustomerOpportunityRole</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>opportunityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the opportunity for the opportunity relationship." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="opportunityid" requiredlevel="required" imemode="auto" lookupclass="Opportunity" lookupstyle="single" lookupbrowse="0" lookuptypes="3">
+        <displaynames>
+          <displayname description="Возможная сделка" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_primary_accounts">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>Account</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>accountid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the account with which the opportunity is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="accountid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="1">
+        <displaynames />
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_customer_contacts">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Opportunity</ReferencingEntityName>
+      <ReferencedEntityName>Contact</ReferencedEntityName>
+      <ReferencingAttributeName>customerid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the account or contact associated with the opportunity." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="customerid" requiredlevel="none" imemode="auto" lookupclass="BasicCustomer" lookupstyle="single" lookupbrowse="0" lookuptypes="1, 2">
+        <displaynames>
+          <displayname description="Клиент" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="opportunity_quotes">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Quote</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <ReferencingAttributeName>opportunityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the opportunity with which the quote is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="opportunityid" requiredlevel="none" imemode="auto" lookupclass="OpportunityByCurrency" lookupstyle="single" lookupbrowse="0" lookuptypes="3">
+        <displaynames>
+          <displayname description="Возможная сделка" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Annotation">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Annotation</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>objectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object with which the note is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="objectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+  </EntityRelationships>
+  <Languages>
+    <Language>1049</Language>
+  </Languages>
+</ImportExportXml>

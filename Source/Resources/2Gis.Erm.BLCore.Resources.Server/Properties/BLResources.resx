@@ -1,0 +1,5211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessSharingUpdate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsAccessDeniedError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyPickClientLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyController_BaseCurrencyIsExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LocalMessageController_AdsToErm_Orders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditClientMainFirmDoesNotExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidRequestMethod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileKindAlreadyUploaded" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrimaryStreet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsDifferentTypesError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportAllOrdersWithAdvertisementMaterialsNoReleaseInfo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceNotFoundException" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsDurable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotificationAboutRegionalTermination" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyController_RelatedCountryExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsEmptyAttributeError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyFirmHasClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAssignClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CheckingOrdersHasFinishedWithErrors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateOrganizationUnitBranchOffice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InputValidationInvalidEmail" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameOfTheFirmMustBeLessThan20Characters" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityPrivileges" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReleaseIsInProgressForOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessMessagesLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementChoosenForWhitelist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChekedOrdersCount_NoErrors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainAttribute" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportFtpFolderName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeFirmClientIsNotPossibleDueToErrors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AreYouSureYouWantToDeleteCurrency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="KeywordList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedAssociatedPositionAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckNameMustBeUnique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsAccountsError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CriticalError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementIsSelectedToWhiteList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableToGetExisitingPricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNotSupportsChangeClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessMessagesConfirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupOperationResultsTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LocalMessageController_DgppToErm_Firms" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckInvalidImageHeight" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorInPublishedPricesPlatform" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Entity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Emails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="XsltTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidOrderWorkflowSate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyMustSelectOneFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequiredLastDayOfMonthMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UploadAccountDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmContactOrFirmAddressOrFirmIsDeletedAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChildCardId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsVolatile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ListDoesNotSupportAppend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyAssignToOtherUserLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WarrantyBeginDateMustBeGreaterOrEqualThanEndDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequestError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderDeleteNonTerminatedDisallowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateDepartmentConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceIsInactiveAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderNumberAndRegionalNumberFormatsDoesNotMatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateAssociatedPositionsGroupWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivatorName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedAdvertisementDoesNotBelongToFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckBargainIsOutOfDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BlockingError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoVatText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountJournal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateTerritoryConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustPickUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionWasNotUpgraded" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorDuringOperation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HiddenForever" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DotNetTypeName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedObjectsForActivation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotFindOrgUnitById" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CheckingIsFinished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddAssociatedPositionToGroupWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnpublishPriceLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditPricePositionInDeactivatedPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderHasLinkedDeal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAssignToMeLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PayablePriceBudget" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ArgumentExceptionMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MatchesNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImportTerritoryDivisionInfo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckAssociatedPositionIsMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillRegistrationTypeSeparateByManyBillsLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportFirmsWithActiveOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DirectoryNotExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertismentEditBodyTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InputValidationInvalidUrl" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperatesOnBasisOfCertificateTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReferenceKeyField" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitNonUniqueDgppId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ShowReadOnlyCard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingFormHeader" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HouseNumberNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderAndBillHaveDifferentPeriods" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoFunctionalPrivilegeForChangingClientForLegalPerson" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotFindOrgUnitWithDgppIdWhileCreatingFirmAddressWithDgppId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Executant" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmOfCurrentOrderHiddenForAscertainmentTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyFirmHaveClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotRevertReleaseBecausePreviousReleaseIsRunning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDeniedChangeOrderDeal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockStatus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperatesOnBasisOfCharterTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlElementType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderApproval_NotInWhiteList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MixedOrderPlatforms" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CommunicationError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderStateFromOnApprovalToRejectedSubjectTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrevFireTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultPositionTypeTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeRecords" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateOrganizationUnitConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UploadFileQuestion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeClientOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonCanBeCreatedFromTheClientCardOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PlatfromAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceIsAlreadyActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateAdvertisementConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintFormTemplateNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LoadAdvertisementResults" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndPeriodDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreateOderInsteadOfTerminatedIfSourceOrderIsnNotOnTermination" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitlePlacement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitlePlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitlePurpose" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleRegarding" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SumRemaining" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PickReasonForNewDeal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodEndDateMustBeGreaterThenBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TheClientFirmIsTheOnlyOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsStateful" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseBargains_AccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionsDoesntCorrespontToActualWorkPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsoCode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleOrderHasAtLeastOnePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintOrderHandler_PaltformNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Charge" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderValidationFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ResultOfCheck" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustPickCloseReason" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditGroupWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrentDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDateIsLessThanStartDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SearchRecords" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MethodCannotBeDeferred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustBePositive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockAmountCurrent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePublishConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckTextIsTooLong" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyDirectory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNamesShouldBeUserAndOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReserveIdentityIsNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="JointBill" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HouseNumberIncorrectFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementPeriodEndsBeforeReleasePeriodBegins" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReleaseValidationResultsNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ADPCheckModeSpecificOrder_MessageTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IdentifierNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReportParametersAcceptingLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockCreateDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyRateForDateAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CountMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSalesServiceOperationDescriptionFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableToDeleteAssignedAdvertisementElementTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementElementTemplateIsLinkIsFormattedError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetAsPrimaryForRegSales" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecondLevel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderValidateSignupDateMustBeLessThanBeginDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainBeginDateMustBeGreaterOrEqualThanEndDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustBePositiveDigit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeClientsAlert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OfFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionForPositionAlreadyCreated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionPlatformIsNotSupportedByExport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckThereIsDeniedPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingAddUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCloseWithBargainDeletionConformation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealCodeInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleReleasesCount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleOrderHasAnAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThirdLevel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignPlatform" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmIsInactiveAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderDescriptionTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmIsPermanentlyClosed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DetailsTabTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceForOrganizationUnitNotExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotEditOrderBecauseReleaseIsRunning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderValidateDiscountNegative" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassCreateBillsOperationName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportLegalPersonError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderEditBlockedByRelease" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorRetrievingDataFromServer" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillRegistrationTypeSeparateByManyBills" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IncorrectDBVersion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnderConstruction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationIsDisabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditBillsWhenOrderIsNotOnRegistration" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UploadSucceed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckPositionContainsEmptyAdvertisements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleFirmsAreValid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouldNotFindBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionAddressHidden" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleLinkingObjectsCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifiedSourceOrgUnitHaventBranchOfficeOrgUnitForRegSales" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmDeletion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageXmlIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionHasNoLinkingObjects" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequiredFieldMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyFirmSyncronizationError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouldNotFindClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InsufficientAccountBalanceToCreateLock" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeRecordsLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAssignToOther" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckThereAreBannersWithDifferentAdvertisements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectTerritoryToAssignCurrentEntities" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditDealMainFirmNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IdentifierOfTheCategoryNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyController_RelatedCurrencyRateExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDeniedChangeFirmTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorPositionIsNotComposite" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyNeedToCloseAllOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckNeedToCreateBills" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillPaymentTypeSingleLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonProfileNameIsNotUnique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UniqueId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillPaymentDatePlanMustBeInCorrectPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Hidden" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequiredFirstDayOfMonthMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignInAllHierarchy" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErorrWhileUserAuthentication" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleRequiredFieldsArentEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckWhiteListedAdvertisementIsRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotRevertReleaseBecausePreviousReleaseEndedWithErrors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAccountAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BeginDistributionDatePlanMustBeLessThanEndDistributionDateForPayment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodValidationEndDateIsIncorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreateOrderPositionTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ParamIsNull" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LocalMessageProcessingResultTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementElements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActionsHistory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementCheckResults" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceInActionCannotBeDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdditionalStreet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedToWhiteList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodClosing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderSellCanAcceptOnlySellPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SignsOfHidden" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillsPayableSumNotEqualsToOrderPayable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckDestOrganizationUnitDoesntMatchFirmsOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditCurrencyRate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultFilter" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderBudgetCanAcceptOnlyBudgetPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsDifferentINNError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnrecognizedOrderState" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Qualify" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CountryNameError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LocalMessageController_Billing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderApproval_NotActiveAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantChangeCompositePositionToSimpleWithoutDeletingChildrenPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionViolatesPlatformRestriction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RepeatInterval" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotApproved" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExtTypeName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmContactOrFirmAddressOrFirmIsInactiveAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeFirmAndClientOwnerMustBeEqual" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IncorrectBeginDistributionDateMin" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IncorrectBeginDistributionDateMax" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSalesServiceOperationErrorsMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockListByAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TypeOfBuilding" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableToDeleteAdvertisementTemplateWhileUsedInPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditAssociatedPositionInGroupWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateAdvertisementConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RevertReleaseRejectedOrdersNotification" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportCodeRangeMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BeginDateMustBeGreaterOrEqualThenPublishDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderSum" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DumpAccountDetails_AccountDetailsNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToRepeatRevertReleaseOperation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExpressionPath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StreetNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InsufficientAccountBalanceToCreateLocks" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnknownLegalPersonType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SearchInstructions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ToFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DataType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DataList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnrecognizedEntityState" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsAlert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeInfo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DgppImportHandler_CantResurrectOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyFirmNotActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllClientsDebtReport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleNoReleaseExistsForThPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnrecognizedUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserIdOtTerritoryIdIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitSuccessfullyCreated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IncorrectBeginDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyReserveOperationDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitNonUniqueSyncCode1C" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddCompositePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeleteOperationType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameOfTheCategoryMustBeLessThan20Characters" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequestUrl" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Skypes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentReceivedSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmIsDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceN" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClickHereToAddNote" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDeniedCreateOrderFromList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ADPValidation_AppendTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNotSupportsQualify" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Parent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmHasNotLastQualifyTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeLegalPersonClientAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyCantFindFirmClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCalculateOrderPositionAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Phones" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WorkInProgressPleaseStandBy" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateAssociatedPositionsGroupWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RevertWithdraw" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IdentifierOfTheFirmAddressNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdditionalTabTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockEndDatePlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionContainsDeletedFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealNotSpecifiedDuringOrderCreation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongOrderId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StringLengthLocalizedAttribute_ValidationErrorEqualsLimitations" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnauthenticatedAccess" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChooseLegalPersonProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CronExpression" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperatesOnBasisOfFoundingBargainTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCouldntAccessClientOnThisTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StringLengthLocalizedAttribute_ValidationError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreatePrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReleaseCountPlanRangeMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderThereIsReleaseForSpecifiedPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderHasNoBargainScans" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StartPeriodDateMustBeFirstMonthDay" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidRequestMethodForController" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingUserAlreadyInListMessageFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LastPaymentPeriodEndMustBeEqualToOrderEndDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrgUnitLinkedWithActiveUsers" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableToDeleteAssignedAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditUserTerritoryHandler_WarningUserTerritoryAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseDealNeedToCloseAllOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorCantDeletePositionInPublishedPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetAsPrimaryForRegSalesLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CopyPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserWithIdHasNullOrEmptyAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeleteMainLegalPersonProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityDoesNotSupportEdit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityDoesNotSupportActionHistory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityDoesNotSupportFileOperations" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckInvalidFileExtension" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImportAccountsFrom1C" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CountryIsoCodeError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeOrderOwner" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockUsageList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssociatedPositionWithoutPrincipalTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotSupportedEnumerationValue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IncorrectBeginDistributionDateMinRegionalOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintLimits_NoLimitsSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BaseCurrencyName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BaseCurrencyList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotStartReleaseBecauseNoOrdersIsFoundForRelease" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteAllBillsConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillRegistrationType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LargeIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OnLegalPersonRequisitesChangedMessageSync1C" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddressEdit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreatePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyAssignToOtherUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillPaymentTypeByPlanLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleReleasesPlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessedWithErrors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryGroupDeleteConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitCategoryGroupsCardTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OfFirmAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssemblyPath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DocumentType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockOrderPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeleteLegalPersonWhenItIsSyncedWith1C" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateUserConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeDeal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContactContent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifiedBillNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeRecordsNotification" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantExportDataRelatedToNotMovedToCrmOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ADPValidation_Template" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorWhenProcessingMessages" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingRead" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileUploadCompleteText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleCategoriesLinkedToDestOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyRestorePeriodAndOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TheAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LimitCanBeCreatedFromTheAccountCardOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DiscountPercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignToOtherTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectToWhiteList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeativateObjectLinkedWithActiveOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNotSupportsChangeTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionAddressNotBelongsToFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ShipmentFact" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyClientNotActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NonBlockingError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditCurrency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignMustPickUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealClosing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintWithLegalPersonProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportOrdersToBilling" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustBeDigit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCouldntAccessFirmOnThisTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HouseNumber" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllExistingBillsWillBeDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsEventsTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotFindOrgUnitWithDgppId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidBindingObjectCount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetCategoryByIdFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MuiltipleUserProfilesConfiguredForSpecifiedUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckHasReleases" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RichChildPositionTypeTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseBargains_BargainsPeriodConstraintNotFullfilled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BeginMonthMustBeGreaterOrEqualThanNextMonth" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitHasUsers" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserHasNoCreatePermission" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeClientProcessingData" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyOwnerNotReserved" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyMustPickClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContentIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableToGetExisitingPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderApproval_PositionsMustBeFromPublishedPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssociatedPositionIsInactiveAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveAndNotDeletedBranchOfficeRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MonthlyUpperBoundText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoFileAccessPermission" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyAssignToOtherUserClientLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LocalMessageController_DgppToErm_Orders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateOperationTypeConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleControl" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeClientsSameIdError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateMustPickTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PayableBudgetFact" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PayableBudgetPlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoreThanOneAdvertisementChoosenForWhitelist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Disqualify" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AcceptableFileExtensions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Errors_DynamicsCrmConectionFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmActivationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_OrderHasReleasesWhenRejectedToApproved" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsCancelled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WarningOrderIsRejected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAssignLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OriginalValue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingInvertSelectedRows" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WebSites" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleBillsSumsAreCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleCouponPeriodIsCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_FirmAddressCategoryInactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleNoLockExistsForThePeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RecordProcessingResult" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_LockExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessAccountsWithDebtsOperationIsNotAllowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PropertyName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyController_BaseCurrencyCannotBeDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderHasAlreadyBeenClosed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingDeleteUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LinkingParameters" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDeniedCreateOrderForFuture" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNamesShouldBeUserAndTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SaveAndClose" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllOrdersReportType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckIncorrectEndDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderApproval_PositionMustBe" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterExpression" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LimitEditBlockedByRelease" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContributionTypeNotSpecifiedForOrgUnitWithId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NextFireTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ParameterIsRequiredForConfigFileButMissed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ManagerFullName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionCanNotBeProhibitedForASelf" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillRegistrationTypeSingleBillWithPaymentPlanLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSalesServiceCreationErrorFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserIsNotAllowedToRecalculateLimit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreatedOnOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckPositionMustHaveAdvertisements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TerminationReasonIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditLegalPersonWhenDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidOrderPositionBindingType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleDiscount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CardIsReadOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAccess_HasNoReadPlivilege" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ModelNotValid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableToDeactivateAssignedAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyClientHasOnlyOneFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NecessaryToCreateAtLeastOneBill" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationCouldntCompleteMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencySuccessfullyChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CopyPriceCreateNew" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotRemoveOrderPositionOfRegisteredOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CheckProducedTheFollowingErrors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RowsPerPage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TerritoryMustBeSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignToOtherUserClientLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonProfileIsMain" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllowMultiple" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CrmCode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChildPositionTypeTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongDomainName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitSuccessfullyChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantGetOrderIdentifier" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonIsInactiveAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetAddressByIdFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeleteObjectLinkedWithActiveOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantCreateProfileForUnspecifiedUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustSelectOnlyOneObject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetLimitStatusDialogTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LookupEmptyValue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitWithIdDoesNotHaveDgppId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckFileNameTooLong" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessMessages" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionDoesntCorrespontToActualPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionCorrespontToInactivePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrepareJointBill" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditUserOrganizationUnitHandler_WarningOrganizationUnitAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ForWhomAssignClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Structure" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmAddressOrFirmIsInactiveAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReleaseBlockedError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateRangeError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultSortDir" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotWindRubricWithDgppId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedObjectsForRemoval" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderShouldBeTerminatedOrArchive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyProcessingData" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseBargains_DateNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SymbolRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderChangesDeniedByRelease" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PayableNonBudgetFact" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PayableNonBudgetPlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckDestOrganizationUnitDoesntMatchFirmsOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderValidationMessageFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAccountDetailAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleOrdersAndBargainsScansExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirstLevel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="No" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotRevertReleaseBecausePreviousReleaseWasTechnical" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegexpNotValid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNotSupportsDisqualify" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckInvalidDateRange" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsAnotherLockAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedObjectsForDeactivation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnpublishPriceConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ADPCheckModeOrderBeingReapproved_MessageTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RepeatAttempts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReleaseInfoResults" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PutMessageFromDgppToBilling_StartAndEndDateRestriction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TypeMustBeAnEnum" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RevertAssembly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TerritioryIdNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeOrganizationUnitNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmIsClosedForAscertainmentButHasOrdersForRelease" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AppendableEntityId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderContainsPositionWithoutExportCodeForCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderContainsPositionWithoutExportCodeForType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderAmountFact" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateAfterSaleServiceActivitiesEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Withdrawal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyQuestion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorsAreInTheFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustMakeLegalPersonProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GeneralTabTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckTooLongWord" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InPricePositionOf_Price_ContaiedMoreThanOneAssociatedPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StringLengthLocalizedAttribute_ValidationErrorIncludingMinimum" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultSortField" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionController_WrongCost" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Error404" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CrmOwner" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateOrEditLockDetailFromUINotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyPositionForNewPricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmIsDeletedAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditDealClientNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotValidateOrderWithoutFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotGetEbtityTypeCodeByEntityTypeName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TheClientFirmIsTheOnlyOneWarning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreatePricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TerritoryChangeAccessRightsNotEnought" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Not" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditCountry" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderHasInsufficientBalance" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotFoundLinkBetweenUserAndOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillPaymentType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Faxes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateOrEditLockFromUINotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Debit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportLegalPersons" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProfileForUserNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCloseIncorrectState" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LayoutOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderValidateDiscountPercentInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleFirmBelongsToOrdersDestOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value />
+  </data>
+  <data name="State" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Spent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BaseCurrencyNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveExistingOpderPositionsWithZeroCount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorInPublishedPricesCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDateMustBeGreaterThenBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckArticleContainsIndexFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RecordAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmIsClosedForAscertainmentAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserIdOrRoleIdIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CheckedOrdersCount_ThereAreErorrs" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeOwner" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MultipleNameLocaleResourceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotStartReleaseBecauseAnotherReleaseIsRunning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IdentifierOfTheFirmNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SystemName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportCouldnotFindLegalPersons" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Analytics" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteCurrency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderHasNoAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyAssignToMe" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignForWhomAssignClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongMessageXmlFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionWasRemoved" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementCheckFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyEntityMustNotInReserve" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorWhileSavingLegalPerson" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeForOrgUnitAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmptyFileName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyPickClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PutMessageFromDgppToBilling_ClosePeriodRestriction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmYourAction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProfileWarrantyEndDateIsLessThanSignDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClientTerritoryChangeLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionsDoesntCorrespontToActualPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddNewGroupWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheck" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementCheck" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceCopyNewConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreateBargainAsLegalPersonsAlreadyHaveBargain" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderState" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeNeedToPickClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionAddressDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCouldntAccessClientOnThisOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateAssociatedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeedToSelectOneItem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateRoleConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OfCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ModifiedValue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceForOrgUnitExistsForDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImportWithdrawalsFromBilling" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IncorrectCategoryLevel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountInLegalPersonHasDebts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonIsDeletedAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrimaryPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CopyPricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UrlDoesNotExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessingSucceed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderValidateDiscountReasonRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeativatePricePositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateBill" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionCategoryNotBelongsToFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoleAlreadyAdded" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPrintFormAddressFormatString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MultipleMatchesFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderPositionContainsDeletedCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateLegalPersonError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckIncorrectBeginDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LinkedObjectsMissedInPrincipals" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditGroupWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HiddenToAscertain" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AmountFact" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AmountFree" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AmountPlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeedToCloseAllActivities" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifiedDestOrgUnitHaventBranchOfficeOrgUnitForRegSales" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouHasNoEntityAccessPrivilege" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LinkingObject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateBranchOffice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionCategoryNotActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NameLocaleResourceId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AlreadyExistsPricePositionWithSamePositionNotification" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirstPaymentPeriodStartMustBeEqualToOrderBeginDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePublishConfirmationLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyAssemblyPeriodAndOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileSizeMustBeLessThan5MB" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidReleasePeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyNeedToCloseAllOpportunities" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateUserAssignToOtherLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementTemplateNameMustBeUnique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorEntityIsAlreadyDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleFinances" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckOnlyOneSelectedToWhiteListAllowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationTabTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditOrganizationUnitBranchOffice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateUserCannotDeactivateYourself" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RemovedAdvertisemendSpecifiedForPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DebtTypes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditPricePositionInPublishedPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StableFirmIdNotSpecifiedForFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetAsPrimary" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyErrorWhenCheckClientFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddPricePositionToDeactivatedPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DiscountReasonIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodIsInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SystemID" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSaleServiceActivitiesCreate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckWhiteListedAdvertismentIsRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReportParametersAccepting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustSelectOneOrMoreObject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateCurrency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RepeatCount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionNotInWhiteList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveOrderPositionWithNegativeValueOfPayablePrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsSameIdError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeleteInactiveLimit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealFinancialIndicatorsHead" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAssignMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StartSearch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotChoosePrintformBecauseBranchOfficeIsNotSpecifiedForOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserProfileCantCreateForUnspecifiedUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityIsInactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsDifferentKPPINNError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AreYouSureYouWantToDeleteOU" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAssignToMe" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BeginDateMustBeNotLessThan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategorySuccessfullyChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCloseConformation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCurrentUserIsNotOwnerForClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectToWhiteListMatherial" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TerritoryLinkedWithActiveUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetAsPrimaryLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeedToSelectOneOrTwoItems" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StringLengthLocalizedAttribute_InvalidMaxLength" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckCompositePositionMustHaveAdvertisements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NonAuthenticated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderOrganizationUnitDiffersFromPricesOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupOperationTopBarTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddressNumber" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionNameError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeYouHaventRightToAppendToFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckDistributionDatesAreInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_WrongFirmOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyClientMustInReserve" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsAppendedNotFoundError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FunctionalPrivileges" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DoExport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GenericConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealMustBeActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotUpdatePositionOfOrderNotOnRegistration" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateOrganizationUnitLinkedWithActiveUsers" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderStateFromOnApprovalToRejectedBodyTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Firm_PleaseUseQualifyOperstion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderApproval_NeedToCreateBillsWhenProcessingOrderOnApproval" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContinueOperationQuestion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DestinationOrganizationUnitHasNotFirstReleaseDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderIsAlreadyDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperatesOnBasisOfBargainTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNotSupportsAssign" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorPositionIsComposite" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateUserConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionCategoryNotBelongsToAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ParentElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyAssignToMeClientLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ErrorWhileReadingChmFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectOneOrMoreRecords" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmActivationLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryCreationIsNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportAllOrdersWithAdvertisementMaterials" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderHasUnspecifiedFields" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BindingObjectChange" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeativatePricePositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderFieldsMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonOrderFieldName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeOrganizationUnitOrderFieldName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmOrderFieldName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseBargains_Completed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditPriceWhenPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Modified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequestsRecovery" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsGlobal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementForWhitelistDoesNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotFindEntityByReplicationCode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleSameAdvertisements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeniedPositionsReferencesToInactivePositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrivilegeName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeededToUseSetGoupAsInvalid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderPositionDoesntCorrespontToActualPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditDepartmentSingleParentlessError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderSholdBeRegional" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckPositionMustHaveAdvertisements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderPositionContainsDeletedFirmAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCreateNewClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderHasAssignedIncorrectCurrency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditDeactivatedAssociatedPositionsGroup" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControllerAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsDifferentPassportError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsDifferentPassportNumberError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersReadinessForReleaseReportTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderIsCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockAmountFact" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockAmountPlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangingLevelOfRubricIsNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TimesTriggered" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessToClientIsDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrivilegeDepth" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderHasLock" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateTerritoryConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealCloseInfoHead" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReferenceWithIdNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeFirmTerritoryFirmNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditPricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LimitStatusChangeIsNotSupportedAsTheGroupOperation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PlannedDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperatesOnBasisOfWarantyTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDatePlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDateFact" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeClientLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleAdministration" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainCardId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotFindAppropriateOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongLimitAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserIsNotAllowedToCopyOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotStartReleaseBecausePreviousReleaseWasFinal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintOrderHandler_RegionalPaltformNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderShouldBeTerminated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNamesShouldBeUserAndRole" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TerritoryChangeDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessDirectory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UploadedImage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifySecuritySyncronizationError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Filtered" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotFoundAnySuccesfulWithdrawalForOrgUnitAndPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SameAdvertisementOrderHaventFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CrmClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityWithTypeAndIdIsNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreatebargainAsRequiredFieldIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitDirectory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantDeactivateAssociatedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RenderFn" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndPeriodDateMustBeLastMonthDay" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateCannotPickSameUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupOperationConfirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCouldntAssignUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ForWhomAssignFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateCountry" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MonthlyLowerBoundText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectFieldsWithData" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceCopyNewConfirmationLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControllerAction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportSucceeded" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidPrivelegeDepthMask" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CardIsDirtyAlert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmTerritoryChangeLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FindMoreRecords" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CopyPricetReplaceExistingLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoMessages" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionAddressNotActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InnMustContainNumbersOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionEditBlockedByRelease" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CardIsUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllFieldsRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoFunctionalPrivilegeForChangingClientOfFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderAndOrgUnitAndOwnerAreNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EventsCount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionContainsClosedFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="message" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmationMessageFormatString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AcquireOrderExtensionFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonProfileIsDeletedAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouldNotFindEntityInDataBase" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleAllRequiredAdvertisementsAttached" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantPublishInactivePrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_FirmAddressCategoryNotExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateRoleConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeedToFillRequiredAdvertisementElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PleaseUseQualifyOperation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChargeAsPaymentForOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegionalAdvertisingSharing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckResults" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddChildPositionWithDifferentAccountingMethod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountingSystemId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealMustPickOtherReason" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionIsInactiveAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderInsufficientFunds" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckHasWhiteListedAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ApplicationError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NumberOfLimitsWillBePrinted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InactiveLocksExistsForPeriodAndOrganizatonUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignToMeClientLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementPeriodError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditUserTerritoryHandler_WarningWrongTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetFirmByIdFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleRequiredWhiteListedAdvertisementSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderIsNotRelatedToAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClientCalculationsAreIncorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WarningOrderSignupDateLessThanCreationDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ServerRuntimeError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationIsDiabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoFirmsSelected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetDataError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAccess_HasNoCreatePlivilege" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FieldMustMatchImageDimensionRegex" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDeniedMergeClients" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeRecordsSelectMainRecord" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingAssign" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouldNotFindDeal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouldNotFindFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleOrderPositionsRefereceCurrentPriceList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationTypeNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnknownFileSize" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeClientTerritoryClientNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreatingLimitImpossibleBecauseAnotherLimitExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillPaymentTypeByPlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SureWantToChangeOrderState" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceIsNeedToBeSavedBeforePublishing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintLimits" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TimeZoneIsUnsupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CardIsNewAlert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckTooMuchLineBreaks" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveAndNotDeletedOrganizationUnitRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleDistributionDatesAreCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeFirmClientIgnoreWarnings" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisqualifyFirmNeedToCloseAllOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderBudgetCanHaveOnlyOnePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlChangeLegalPersonRequisites" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditDeactivatedDeniedPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MultipleBaseCurrencyFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CopyPriceCreateNewLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CrmEntityCode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TerritoryWithDgppIdNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ParentCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeYouHaventRightToAppendClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignToOtherUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingDelete" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmPrimaryAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodValidationSameMonthIsRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderHasNoScans" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeTerritoryProcessingData" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_FirmAddressCategoryIncorrectDesctination" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ShortComment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrganizationUnitSuccessfullyDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillRegistrationTypeSingleBillWithPaymentPlan" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssociatedPositionsGroupIsInactiveAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ItsReadOnlyMode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateDepartmentConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddressSuccessfullyChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCreateNewClientLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyTerritoryIsNull" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserIdOrOrgUnitIdIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequiredPeriodEndDateMustBeGreaterThenBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceIsAlreadyPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RichDefaultPositionTypeTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentDatePlanMustBeLessThanBeginDistributionDateForPayment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SumRemainingMustBeNull" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisabledExpression" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodAssembling" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyFilePath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoMessageAvailable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantPublishOverduePrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertismentEditSubjectTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmActivation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OriginalStateRestoring" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDistributionDateCanOnlyMatchEndDistributionDateOfLastPayment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_FirmAddressInactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonIsDeletedAlready" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationNotAllowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CalendarName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HasComments" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionIsUsedInCompositePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersReadinessForReleaseReportParametersInformation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCantAssignClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectedPaymentDatesAreOutOfOrderPeriodBound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Error_DynamicsCrmUserNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeniedPositionAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyAssignToMeLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmSuccessfullyChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderHasReleaseInfo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PayablePricePositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleAdvertisementsElementsNotEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPositionWasReplaced" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderApproval_BillsSumDoesntMatchWhenProcessingOrderOnApproval" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsNecessaryChooseLimitForStatusChange" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CRMLegalPersonNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateOrder_WrongCurrency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="C1SCode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeLegalPersonsMainNotFoundError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodValidationStartDateIsIncorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssingOrderAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DgppIdRangeMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OutgoinRegionalAdvertismentsMakeUp" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainRecord" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouldNotFindPickedClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmAddressOrFirmIsDeletedAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckInvalidImageDimension" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserControllerDefaultDeactivateError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SqlTypeName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupOperationTopBarMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementSpecifiedForPositionDoesNotBelongToFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectUserForWhomAssignCurrentUserEntities" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelectObjectsToProcess" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ToCorporateQueue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseCardConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeDealLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LocalMessageController_DgppToErm_Categories" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CopyPricetReplaceExisting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyMustPickUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckUnableToCheckAssociatedAndDeniedPositionDueToUnspecifiedFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AcceptableFileDimensions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseBargains_DialogTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoleNotMappedToCRMRole" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleTermination" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitlePlacementPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CrmTerritory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckElemIsRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SpecifyClosePerionAndOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TabTitleFinanceTermination" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PutMessageFromDgppToBilling_PrevMessageRestriction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentPeriodStartMustBeLessThanPaymentPeriodEnd" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintOrderHandler_FirmInfoNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileUploadText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileSavedSucessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleCancellation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleServiceInformation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleEmployeeInformation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TitleDgppIntegration" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Title1CIntegration" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SaveError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccesDeniedForMergingClients" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrepareJointBillRelatedOrdersGrid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongFileFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RelatedToBargainInfoTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BeginFactPeriodDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReleaseOperationFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteValue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveOrderPositionsWithInvalidDiscountRate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonWithTheSameInnKppAndAccountExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WorkingWithDgpp" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderPositionContainsClosedFirmAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyYouNotOwnerOfClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Workflow" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonIsInactiveAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignApproveAssign" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileSizeMustBeLessThan10MB" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderFirmHiddenForAscertainmentTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCouldntAccessFirmOnThisOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckOrderHasNoPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckFileNameTooBig" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouldNotCreateCrmClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MergeSelectAllInThisSection" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivateOrganizationUnitConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserRoleControllerDefaultDeletionError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditBranchOffice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintFormTemplateWithSameTypeExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainFirmForDealNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProcessOrder_LastRelease" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealMustBeNonActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupOperationResultsMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmEdit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InnMustConsistOf10Or12Digits" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PickCloseDealReason" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryEdit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DiscountValue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SignsOfActivity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InsufficientRightsWarning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QualifyCouldnotPickReserveClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssociatedPositionMustDifferFromPricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingReset" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckAssociatedPositionsInSameFirmOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingShare" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUploadFileForNewAdvertisementElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EnteredInnIsNotCorrect" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttemptToSaveBudgeteOrderPositionWithNegativePrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PeriodDateMustBeEqualToMonth" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TheFollowingFieldsCannotBeChangedWhenOrderHasPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainAttributeForEntityIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OnLegalPersonRequisitesChangedMessageNotSync1C" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LockBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillPaymentTypeSingle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeactivateOrgUnitWithChildren" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditDeactivatedPricePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WindowsIdentityNotFoundInContext" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealForOrderNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CorrespondentAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReferenceTo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateCurrencyRate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckOrderPositionContainsInactiveOrDeletedLinkingParameters" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileUploadDoesnotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WatNotSpecifiedForOrgUnitOrBranchOfficeNotSpecifiedForRegionalSales" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConflictingPrincipalPositionTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoteCreated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignAssignToOtherLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeactivateUserAssignToMeLegend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ListSeparator" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderContainsPositionWithoutDgppId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckPositionMustHaveAdvertisementElements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Icqs" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoleNotExistInCRM" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleAssociatedAndDeniedPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderInfoNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillingSync" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AmountLocked" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnableToDeleteAssignedAdvertisementTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessSharingFormDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TabTitleInformation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceIsLinkedWithActiveOrdersAndCannotBeDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserParentnessRecursionError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DataHasBeenChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountIsMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserRepository_DeleteUserRole_UserRoleNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserRepository_DeleteUserOrganizationUnit_UserOrgUnitNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserRepository_DeleteUserTerritory_UserTerritoryNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperatesOnBasisOfWarantyTemplateForNaturalPerson" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeletePlatformService_Delete_CannotDeleteLinkidPlatform" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InconsistentData" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderTypeHasBeenChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidAppendThemeCategoryParamTypes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidAppendThemeOrganizationUnitParamTypes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotAttachOrganizationUnitToDeafaultTheme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeleteUsedTheme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreateTemplateAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotSetThemeAsDefault" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDistributionDateMustBeGreaterOrEqualThanBeginDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotChangeThemePeriodStart" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotChangeThemePeriodEnd" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotAppendMoreCategories" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Unlimited" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementAmountErrorMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmContactContainsSponsoredLinkError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MaxAdvertisementAmountCantBeLessThanMinAdvertisementAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MinAdvertisementAmountCantbeLessThanZero" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NonBreakingSpaceError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionCategeryOfOrderPositionIsNotSupportedByExport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionHasNoMinAdvertisementAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RestrictedSymbolsInAdvertisementElementText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThereIsNoAdvantageousPurchasesCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThereIsNoAdvertisementForAdvantageousPurchasesCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThereIsNoFirmWithAdvantageousPurchasesCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TooLongWordInAdvertisementElementError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TooManyAdvertisementForCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TooManyCategorieForFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementIsLinkedWithEmptyAddressError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThemeSalesExceedsLimit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThemeUsesInactiveCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThemePeriodDoesNotOverlapOrderPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultThemeIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoreThanOneDefaultTheme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeafaultThemeMustContainOnlySelfAds" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongDtoType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObjectForCompositePosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="XSDValidationError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExportLocalMessageError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotApppendMoreThemesToOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotSaveThemeOrganizationUnitThemeLimitReached" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionCannotBeChoosedSinceThereIsNoFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PricePositionCannotBeChoosedSinceThereIsNoFirmCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DownloadReport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReportDialogError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TooLongTimestamp" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BirthDateShouldBeMssqlDatetype" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotSaveBranchOfficeInnExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotReplaceTerritories" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegisteredPositionIsNotSupportedByExport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReportUIGenerationError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidPeriodsArgument" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmDoesntHaveActiveAddresses" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidArchiveFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidArchiveContent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegionalNumberNotSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RestrictedSymbolInAdvertisementElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NonBreakingSpace" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FailedToGenerateOrderNumber" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderNumberIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegionalOrderNumberIsEmpty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="JointBillFileNameTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdditionalTextForMicrocomment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddiotionalLayoutForBanner" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionRequiredTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CouponIsBoundToMultiplePositionTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SelfAdvertisementOrderValidationRuleMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotDefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintformTemplateNotFoundForOrgUnitTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityNameNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OwnerNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoleIsLinkedWithActiveUsers" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreateOrderPositionWhenOrderIsNotOnRegistration" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyNotSpecifiedForPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserRoleNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserOrgUnitNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserTerritoryNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DoubleGisDepartmentName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AltayDepartmentName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NovosibirskDepartmentName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BarnaulDepartmentName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CheckForDebtsHelper_ClientTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongOrderType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InappropriateValueForField" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileContainsErrors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageImported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageExported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IdForOperationNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationWithIdNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReportServerURLNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PlanningReport" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongReportModelFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TemplateIsUsedInThemes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileFiledIsRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FiledThemeTemplateIsRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserLocaleInfoNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThereIsNoSuitableThemes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileTooLarge" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidFirmRubricUsage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ApprovalDateMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LaunchTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderValidateDestOrganizationUnitHasNoProject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCheckCompositePositionMustHaveLinkingObject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateOrUpdateServiceUnknownEntityError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CurrencyRateViewModel_ChoosenRateIsAlreadyCurrent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_ErmAdministration" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_Header" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_Country" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_CountryDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_Currency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_CurrencyDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_OrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_OrganizationUnitDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_BranchOffice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_BranchOfficeDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_BargainType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_BargainTypeDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_ContributionType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_ContributionTypeDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_OperationType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_OperationTypeDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_Territory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_Project" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_ProjectDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_ProductVersion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_FileVersion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_ServerName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewSphereOfActivityOne" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewSphereOfActivityMany" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewShowFils" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewCouponText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewPaymentText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewMore" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_Header" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_Paltforms" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_PaltformDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_Prices" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_PriceDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_Positions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_PositionDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_PositionCategories" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_PositionCategoryDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_Categories" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_CategoryDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_AdvertisementTemplates" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_AdvertisementTemplateDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_AdvertisementElementTemplates" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_AdvertisementElementTemplateDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_PrintFormTemplates" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_PrintFormTemplateDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_Themes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_ThemeDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_ThemeTemplates" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CatalogueManagement_ThemeTemplateDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_Header" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_Departments" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_DepartmentDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_Roles" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_RoleDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_Users" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_UserDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageQueueManagementPage_Header" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_HeaderExternalSystems" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_LocalMessages" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_LocalMessageDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_HeaderReleasing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_ReleaseInfos" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_ReleaseInfoDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_WithdrawalInfos" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_WithdrawalInfoDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="List" xml:space="preserve">
+    <value />
+  </data>
+  <data name="View" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SystemViews" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RecordsSearch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainPageHeader" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisplayErrorsList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoDiUnknownError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreateObjectWithSpecifiedId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OriginalOrderStateNotSetDuringWorkflowProcessing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChooseLegalPersonProfileDialogTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LoadLocalMessageFromFileDialogTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DummyValue" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReferenceItemDoesntContainName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviewIsNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountIsInactiveAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccountIsDeletedAlertText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintTerminationNoticeFileNameFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrintAdditionalAgreementFileNameFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderRejectDateFieldIsNotFilled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCreateOrderForFirmWithoutClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RubricDoesntContainName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouHaveNotPublishAdvertisementTemplatesFunctionalPrivelege" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouHaveNotUnpublishAdvertisementTemplatesFunctionalPrivelege" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouMustFillInAllDummyValuesToPublishAdvertisementTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderBeginDistibutionDateIsTooSmall" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderBeginDistibutionDateIsTooLarge" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GroupOperationTopBarMessage2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditAdvertisementWithUnpublishedTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ThereIsNoAdvertisementsForSomeLinkingObjects" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderContainsDummyAdvertisementError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantEditDummyAdvertisementWithPublishedTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouHaveNoPrivelegeToEditDummyAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementWithUnpublishedTemplateIsChosen" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CanNotChangePublishedAdvertisementTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CanNotChangeDummyAdvertisementWithPublishedTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CanNotDeleteAdsTemplatesAdsElementTemplateSinceThereIsAdvertisementMaterialsWithContent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetOrdersWithDummyAdvertisementParametersInformation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetOrdersWithDummyAdvertisementReportTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CanNotChangeFirstEmitDateSinceOrganizationUnitIsLaunchedOnErmOrInfoRussia" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CanNotRepairOutadatedOrderPositionsSinceThereIsNoSomeAdvertisements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DifferenceBetweenAccountDetailAndPlatformDistibutionsIsTooBig" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCopyOrderSinceRecordInOrderPositionAdvertisementsTableIsMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotChangePositionAdvertisementTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotChangeAdvertisementSinceItsTemplateWasChanged" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementTemplateDifferentFromPositionAdvertisementTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CompositePositionCannotBeWithAdvertisementTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckAdvertisementElemenWasNotValid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StatusTransitionIsNotAllowedForAdvElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckAdvertisementElementWasInvalidated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvElementStatusNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HotClientSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HotClientDescriptionTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImportHotClientRequiredAttributeNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImportHotClientCardCodeAndBranchCodeAreNull" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryGroupInfoMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoundTheClock" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lunch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotWorkingDay" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisabledFunctionality" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssignOrderAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementIsInvalidSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotPublishAdvertisementTemplateWithNoElements" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteCategoryGroupConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MultipleAccountsForLegalPersonAndBranchOfficeOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActualPriceNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllowedFileExtensions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotUnpublishActualPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmAddressIsNotLinkedWithMap" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedInnAndKppAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedPassportNumberAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedInnAndKppAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedPassportNumberAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedInnAndKppAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedPassportNumberAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedPassportSeriesAndNumberAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegionalApiError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillsMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OpenOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InTheCostCalculationServiceErrorOccured" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PositionIsNotInPrice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementIsInvalidMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersWillNotBePublishedMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProlongation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NewOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InTheOrderProcessingRequestsServiceErrorOccured" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderToProlongateDoesntHaveAnyPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderForProlongationNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PlatformMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OutdatedPositionDoesntHaveDummyAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoDebitsForSpecifiedPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GeneralMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StringContainsControlCharacters" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FieldValueContainsControlCharacters" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestProcessedSuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestWasCancelled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCancelCanceledOrderRequest" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotCancelCompletedOrderRequest" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClientOfFirmOrderMissingTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProjectHasNoOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotGetActualPriceListForOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestNotProcessedClientNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestNotProcessedBranchOrganizationUnitNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationReserveUserNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationReserveUserFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationOrganizationUnitDirectorNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationOrganizationUnitDirectorFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationClientOwnerNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationClientOwnerFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationExistingAccountNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestInformationExistingAccountFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustBeExistingEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MustBeNewEntity" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderCreationRequestTypeMismatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProlongationRequestTypeMismatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProlongationRequestInformationBaseOrderOwnerFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProlongationRequestInformationBaseOrderOwnerNotFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReleaseCountPlanValueErrorTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ValidOwnerForOrderProcessingRequestMissingErrorTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonProfileMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BeginDateMustNotBeInPast" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestCreationResultEmailSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestProlongationResultEmailSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestCreationResultEmailHeader" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestProlongationResultEmailHeaderTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestResultEmailDataTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestResultEmailDescriptionTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestResultEmailErrorMessagePrefixTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestResultEmailErrorsEnumerationTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestResultEmailRenewedOrderTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestCreationResultEmailFooter" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OutdatedPositionHasInvalidAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementAmountShortErrorMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProlongationRequestInformationDealExistingReused" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProlongationRequestInformationDealNewCreated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddressesNotBelongToFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityIsInactiveError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DestOrganizationUnitIsInactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SourceOrganizationUnitIsInactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessagesNotSendedBecauseNotificationIsDisabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderProcessingRequestSendNotificationErrorEmailMissingTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OutdatedPositionDoesntHaveAdvertisement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormatErrorMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClientDisqualificationIsDeniedForTheUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CloseWithDenial" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotUseRateTypeForBindingObjectType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryShouldBeSpecifiedForTheBoundCategoryRateType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CompositePositionLinkingObjectTypeMustOneOf" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderLegalPersonProfileShouldBelongToOrderLegalPerson" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="File" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantActivatePricePositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HiddenPricePositionForPositionAlreadyCreated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDateMustntBeLessThanBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeToRestoreIsAlreadyActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotActivateBranchOfficeSinceThereIsADuplicate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConnotCreateClientForFirmSinceItAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonHasSeveralMainProfiles" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdministrationPage_DenialReason" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DenialReasonNameIsNotUnique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AgentBargainCanBeForBranchOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AgentBargainIsNotUnique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchOfficeOrganizationUnitCodeIsUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonOrganizationUnitCodeIsUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotDeactivateBargainBecauseItIsLinkedWithOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainCloseDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainEndDateIsLessThanOrderEndDistributionDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainKindChangingIsNotAllowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EndDistributionDateOfSomeOrdersIsGreaterThanBargainEndDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PrivilegeToCreateAgentBargainIsMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
+    <value />
+  </data>
+</root>

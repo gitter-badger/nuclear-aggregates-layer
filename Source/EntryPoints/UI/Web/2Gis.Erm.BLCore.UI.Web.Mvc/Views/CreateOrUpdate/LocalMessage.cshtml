@@ -1,0 +1,68 @@
+﻿
+@model LocalMessageViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script type="text/javascript">
+        window.InitPage = function ()
+        {
+            window.Card.on("beforebuild", function (card)
+            {
+                // hidden form, used to "save as" messages
+                Ext.getBody().createChild({ tag: "form", id: "SaveMessageForm", method: "post", action: "/LocalMessage/SaveAs" });
+
+                Ext.apply(this,
+                {
+                    SaveAs: function ()
+                    {
+                        var saveMessageForm = document.forms.SaveMessageForm;
+
+                        var element = document.createElement("input");
+                        element.setAttribute("name", "Ids");
+                        element.setAttribute("type", "hidden");
+                        element.setAttribute("value", Ext.get("Id").dom.value);
+
+                        saveMessageForm.appendChild(element);
+
+                        saveMessageForm.submit();
+
+                        while (saveMessageForm.hasChildNodes())
+                        {
+                            saveMessageForm.removeChild(saveMessageForm.firstChild);
+                        }
+                    }
+                });
+            });
+        };
+    </script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @Html.HiddenFor(m => m.Id)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.SenderSystem, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.ReceiverSystem, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins)
+            @Html.TemplateField(m => m.ProcessDate, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IntegrationTypeImport, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.IntegrationTypeExport, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.Status, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ProcessResult, FieldFlex.lone, new Dictionary<string, object> { { "rows", "25" } })
+        </div>
+    </div>
+}

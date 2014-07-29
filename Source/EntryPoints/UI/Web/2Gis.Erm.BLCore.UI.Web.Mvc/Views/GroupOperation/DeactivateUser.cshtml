@@ -1,0 +1,185 @@
+﻿@model Models.GroupOperation.OwnerGroupOperationViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.DeactivateConfirmation }
+@section TopBarTitle { @BLResources.DeactivateConfirmation }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    
+    <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@SolutionInfo.ProductVersion.Build" />
+
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Tooltip.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Deactivate');
+        Ext.DoubleGis.UI.Deactivate.DeactivateUserProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            FailedEntitiesMessages: [],
+            OwnerCode: 0,
+            IsPartialAssign: false,
+            UserCodeLookup: {},
+            constructor: function (config) {
+                Ext.apply(config, {
+                    listeners: {
+                        configspecificcontrols: function () {
+                            this.ConfigCustomControls();
+                        },
+                        applyusersettings: function () {
+                            this.ApplyUserSettings();
+                        }
+                    }
+                });
+                Ext.DoubleGis.UI.Deactivate.DeactivateUserProcessor.superclass.constructor.call(this, config);
+            },
+            ConfigCustomControls: function () {
+                var onRadioClick = this.RadioClick.createDelegate(this);
+                Ext.get("rdoAssignToMe").on("click", onRadioClick);
+                Ext.get("rdoAssignToUser").on("click", onRadioClick);
+                this.UserCodeLookup = Ext.getCmp("UserCode");
+            },
+            RadioClick: function () {
+                if (Ext.getDom("rdoAssignToMe").checked) {
+                    this.UserCodeLookup.disable();
+                }
+                else if (Ext.getDom("rdoAssignToUser").checked) {
+                    this.UserCodeLookup.enable();
+                }
+            },
+            IsUserSettingsValid: function () {
+                if (Ext.getDom("rdoAssignToUser").checked) {
+                    if (Ext.getDom("UserCode").value == "") {
+                        Ext.MessageBox.show({
+                            title: '',
+                            msg: '@BLResources.AssignMustPickUser',
+                            buttons: window.Ext.MessageBox.OK,
+                            width: 300,
+                            icon: window.Ext.MessageBox.ERROR
+                        });
+                        return false;
+                    }
+                }
+
+                return true;
+            },
+            ApplyUserSettings: function () {
+                this.OwnerCode = Ext.getDom("rdoAssignToUser").checked ? this.UserCodeLookup.getValue().id : "";
+
+                Ext.getDom("rdoAssignToMe").disabled = "disabled";
+                Ext.getDom("rdoAssignToUser").disabled = "disabled";
+                this.UserCodeLookup.disable();
+            },
+            CreateParamsForControllerCall: function (entityId) {
+                return { entityId: entityId, ownerCode: this.OwnerCode };
+            }
+        });
+
+        Ext.onReady(function () {
+            var iWidth = 500;
+            var iHeight = 300;
+            window.dialogWidth = iWidth + "px";
+            window.dialogHeight = iHeight + "px";
+
+            //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(document);
+            Ext.getDom('PageContentCell').style["vertical-align"] = "top";
+
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+
+            var config = {
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
+                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+            };
+            var deactivateUserProcessor = new Ext.DoubleGis.UI.Deactivate.DeactivateUserProcessor(config);
+            if (!deactivateUserProcessor.CheckProcessingPossibility()) {
+                return;
+            }
+            deactivateUserProcessor.Process();
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <table cellspacing="5" cellpadding="5" width="100%" height="100%" style="position: fixed">
+            <colgroup>
+                <col width="26" />
+                <col />
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div style="height: 30px;" id="Notifications" 
+                             onmouseover="AddTooltip(@Model.Message);" 
+                             onmouseout="RemoveTooltip();">
+                            @Model.Message
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToMe" class="radio" checked="checked" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignTome">
+                            @BLResources.AssignAssignToMe</label>
+                        <br />
+                        <div style="color: #444444; padding-top: 5px">
+                            @BLResources.DeactivateUserAssignToMeLegend
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToUser" class="radio" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignToUser">@BLResources.AssignAssignToOther</label>
+                        <br />
+                        <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
+                            <label for="rdoAssignToUser">@BLResources.DeactivateUserAssignToOtherLegend</label>
+                        </div>
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'"})
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="pbDiv">
+                            <div id="pbInner">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @Html.HiddenFor(x => x.EntityTypeName)
+    }
+}

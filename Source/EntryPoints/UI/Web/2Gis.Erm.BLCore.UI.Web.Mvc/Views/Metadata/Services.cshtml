@@ -1,0 +1,34 @@
+﻿@model ServicesViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { Состояние служб ERM }
+@section TopBarTitle { Состояние служб ERM }
+
+@section PageScript
+{
+    <script src="/Scripts/DoubleGis.UI.Services.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var control = new Ext.DoubleGis.UI.Services({
+                renderTo: 'placeholder',
+                url: '@Model.IntrospectionServiceAddress' + '/GetAvailableServices',
+                maskPanel: 'PageContentCell',
+                errorImage: '/Content/images/Erm/red.png',
+                successImage: '/Content/images/Erm/green.png'
+            });
+        });
+        
+    </script>
+}
+
+@section PageContent
+{
+    <div id="placeholder"></div>
+}
+
+@section PageButtons
+{
+}

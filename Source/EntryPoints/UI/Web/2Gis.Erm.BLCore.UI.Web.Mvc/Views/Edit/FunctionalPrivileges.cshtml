@@ -1,0 +1,33 @@
+﻿@model EditPrivilegeViewModel
+
+@{
+    Layout = "../Shared/_SiteLayout.cshtml";
+}
+
+@section TitleContent { }
+
+@section HeadContent
+{
+    <script type="text/javascript">
+        window.BeforeSave = function (onSuccess, onFailure)
+        {
+            if (Ext.DoubleGis.UI.FunctionalPermissionControlInstance)
+            {
+                Ext.DoubleGis.UI.FunctionalPermissionControlInstance.Save(onSuccess, onFailure);
+            }
+        }
+    </script>
+    
+    <script src="/Scripts/Ext.grid.CheckColumn.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.Security.FunctionalPrivilegeControl.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section MainContent
+{
+    @Html.HiddenFor(m => m.RoleId)
+    @Html.Hidden("privilegeNameLocalized", BLResources.PrivilegeName)
+    @Html.Hidden("valueLocalized", BLResources.Value)
+    <div class="Tab" id="FunctionalPermission" title="@BLResources.FunctionalPrivileges">
+        <div id="funcPermissionPanel"/>
+    </div>
+}
