@@ -504,9 +504,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLQuerying.TaskSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.API.Aggregates", "..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj", "{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MW", "MW", "{F4B02A1C-48BB-4313-B34D-93C86AFF81E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A2AC44EE-17E8-44DF-9410-F931B9141E71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.MW.Migrations", "..\..\MW\Source\Data\2Gis.Erm.MW.Migrations\2Gis.Erm.MW.Migrations.csproj", "{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 124
+		SccNumberOfProjects = 125
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -1002,6 +1008,10 @@ Global
 		SccProjectTopLevelParentUniqueName123 = 2GIS.ERM.VS2012.sln
 		SccProjectName123 = Tests/2Gis.Erm.TaskService.Tests.Unit
 		SccLocalPath123 = Tests\\2Gis.Erm.TaskService.Tests.Unit
+		SccProjectUniqueName124 = ..\\..\\MW\\Source\\Data\\2Gis.Erm.MW.Migrations\\2Gis.Erm.MW.Migrations.csproj
+		SccProjectTopLevelParentUniqueName124 = 2GIS.ERM.VS2012.sln
+		SccProjectName124 = ../../MW/Source/Data/2Gis.Erm.MW.Migrations
+		SccLocalPath124 = ..\\..\\MW\\Source\\Data\\2Gis.Erm.MW.Migrations
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2242,6 +2252,16 @@ Global
 		{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}.Release|x64.ActiveCfg = Release|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2444,6 +2464,8 @@ Global
 		{9667BA50-3972-429A-AC48-5A659DAF7364} = {B7350B55-E42B-4058-B7A1-C674528FCE4E}
 		{3F72E975-ADC6-43DD-AC1D-3F90ABFBB97D} = {9667BA50-3972-429A-AC48-5A659DAF7364}
 		{C5E52A19-8EAC-45C1-BA71-ED86F9B89989} = {86A16E04-CA0B-4892-A54B-A05D4816A76F}
+		{A2AC44EE-17E8-44DF-9410-F931B9141E71} = {F4B02A1C-48BB-4313-B34D-93C86AFF81E4}
+		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D} = {A2AC44EE-17E8-44DF-9410-F931B9141E71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35

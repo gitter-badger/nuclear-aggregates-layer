@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.TaskService.DI
             container.InitializeDIInfrastructure();
             
             var massProcessors = new IMassProcessor[]
-                { 
+                {
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new CheckApplicationServicesConventionsMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
@@ -105,16 +105,16 @@ namespace DoubleGis.Erm.TaskService.DI
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TaskServiceRoot.Instance,
-                                                    settingsContainer,
-                                                    massProcessors,
-                                                    // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                            settingsContainer,
+                            massProcessors,
+                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                                     c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                                                          settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
+                                settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>()))
-                            .ConfigureServiceClient();
+                     .ConfigureServiceClient();
 
             container.ConfigureQds(EntryPointSpecificLifetimeManagerFactory, settingsContainer.AsSettings<INestSettings>());
 
@@ -138,17 +138,17 @@ namespace DoubleGis.Erm.TaskService.DI
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
-                    .CreateSecuritySpecific()
+                .CreateSecuritySpecific()
                     .ConfigureCacheAdapter(cachingSettings)
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .ConfigureIdentityInfrastructure()
-                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureIdentityInfrastructure()
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()
-                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .RegisterCorporateQueues(connectionStringSettings)
-                    .ConfigureQuartz()
+                .ConfigureQuartz()
                     .ConfigureEAV()
                     .ConfigurePerformedOperationsProcessing();
         }
@@ -326,11 +326,9 @@ namespace DoubleGis.Erm.TaskService.DI
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
             return container
-                .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                
-                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+				.RegisterType<IDynamicEntityPropertiesConverter<Appointment, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
+				.RegisterType<IDynamicEntityPropertiesConverter<Phonecall, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
+				.RegisterType<IDynamicEntityPropertiesConverter<Task, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton);
         }
     }
 }
