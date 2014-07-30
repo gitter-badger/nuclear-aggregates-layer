@@ -168,7 +168,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\AssignClientRelatedEntitiesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CheckClientActivitiesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CheckIsWarmClientHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CreateHotClientHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\GetHotClientTaskToReplicateOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\MergeClientsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\ActualizeDealProfitIndicatorsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\CheckDealHandlerTest.cs" />
