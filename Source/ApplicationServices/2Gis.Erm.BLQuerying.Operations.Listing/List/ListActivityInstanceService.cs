@@ -20,7 +20,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public sealed class ListActivityInstanceService : ListEntityDtoServiceBase<ActivityInstance, ListActivityInstanceDto>
+    public sealed class ListActivityInstanceService : ListEntityDtoServiceBase<ActivityBase, ListActivityInstanceDto>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
