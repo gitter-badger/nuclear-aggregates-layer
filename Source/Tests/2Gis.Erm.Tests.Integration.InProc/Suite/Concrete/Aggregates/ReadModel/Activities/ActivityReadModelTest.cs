@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -28,7 +27,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
             var appropriatePhonecall = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.Type == (int)ActivityType.Phonecall));
             var activityWithClient = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.ClientId != null));
 
-
             if (appropriateAppointment == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
             {
                 return OrdinaryTestResult.As.NotExecuted;
@@ -41,23 +39,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
             // ReSharper disable once PossibleInvalidOperationException
             _activityReadModel.CheckIfRelatedActivitiesExists(activityWithClient.ClientId.Value);
 
-			// TODO: fix
-//            var appointmentDto = _activityReadModel.GetActivityInstanceDto(appointment);
-//            var activityDto = _activityReadModel.GetActivityInstanceDto(task);
-//            var phonecallDto = _activityReadModel.GetActivityInstanceDto(phonecall);
-            var appointmentDto = new object();
-            var activityDto = new object();
-            var phonecallDto = new object();
-
-            IEnumerable<ActivityInstance> relatedActivities = new ActivityInstance[0];
-//            _activityReadModel.TryGetRelatedActivities(activityWithClient.ClientId.Value, out relatedActivities);
-
             return new object[]
                 {
-                    appointmentDto,
-                    activityDto,
-                    phonecallDto,
-                    relatedActivities
+                    appointment,
+                    task,
+                    phonecall
                 }.Any(x => x == null)
                        ? OrdinaryTestResult.As.Failed
                        : OrdinaryTestResult.As.Succeeded;
