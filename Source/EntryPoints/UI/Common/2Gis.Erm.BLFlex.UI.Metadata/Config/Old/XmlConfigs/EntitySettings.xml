@@ -100,7 +100,7 @@
 			</DataList>
 		</DataLists>
 	</Entity>
-	<Entity Name="ActivityInstance">
+	<Entity Name="ActivityBase">
 		<DataLists>
 			<DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="*" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
 				<Scripts>
