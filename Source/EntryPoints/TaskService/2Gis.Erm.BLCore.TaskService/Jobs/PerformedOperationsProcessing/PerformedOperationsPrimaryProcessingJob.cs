@@ -13,7 +13,7 @@ using Quartz;
 
 namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 {
-    public sealed class PerformedOperationsReceiverJob : TaskServiceJobBase, IInterruptableJob
+    public sealed class PerformedOperationsPrimaryProcessingJob : TaskServiceJobBase, IInterruptableJob
     {
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IMessageFlowRegistry _messageFlowRegistry;
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
         private readonly object _performedOperationsProcessorSync = new object();
         private IAsyncMessageFlowProcessor _performedOperationsProcessor;
 
-        public PerformedOperationsReceiverJob(
+        public PerformedOperationsPrimaryProcessingJob(
             IIntegrationSettings integrationSettings,
             IMessageFlowRegistry messageFlowRegistry,
             IMessageFlowProcessorFactory messageFlowProcessorFactory,

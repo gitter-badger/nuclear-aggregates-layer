@@ -15,8 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId);
         long GetOrgUnitId(long firmId);
         bool HasFirmClient(long firmId);
-        IEnumerable<CategoryGroup> GetFirmAddressCategoryGroups(long firmAddressId);
-        FirmAndClientDto GetFirmAndClientByFirmAddress(long firmAddressCode);
+        bool TryGetFirmAndClientByFirmAddress(long firmAddressCode, out FirmAndClientDto dto);
         IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId);
         IEnumerable<FirmContact> GetContacts(long firmAddressId);
         IDictionary<long, IEnumerable<FirmContact>> GetFirmContactsByAddresses(long firmId);
@@ -44,5 +43,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
 
 
         HotClientRequest GetHotClientRequest(long hotClientRequestId);
+        bool IsTelesaleFirmAddress(long firmAddressId);
     }
 }

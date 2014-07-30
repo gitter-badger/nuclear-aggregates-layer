@@ -14,7 +14,6 @@
         ExportFlowOrdersTheme = 7,
         ExportFlowOrdersThemeBranch = 8,
         ImportFirmAddressNames = 9,
-        CreateHotClientTask = 10,
         ExportFlowFinancialDataClient = 11,
         ExportFlowPriceListsPriceList = 12,
         ExportFlowPriceListsPriceListPosition = 13,

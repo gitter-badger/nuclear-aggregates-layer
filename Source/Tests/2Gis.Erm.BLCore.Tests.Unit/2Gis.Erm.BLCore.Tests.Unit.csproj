@@ -117,8 +117,7 @@
     </Compile>
     <Compile Include="BL\CostCalculationService\OrderPositionCostCalculationOperationServiceSpecs.cs" />
     <Compile Include="BL\CreateAfterSaleServiceActivitiesHandlerSpecs.cs" />
-    <Compile Include="BL\Export\CreateHotClientHandlerSpecs.cs" />
-    <Compile Include="BL\Export\HotClientRequestOperationsExporterSpecs.cs" />
+    <Compile Include="BL\Export\GetHotClientTaskToReplicateOperationServiceSpecs.cs" />
     <Compile Include="BL\Export\OperationsExportServiceSpecs.cs" />
     <Compile Include="BL\FirmWorkingTimeLocalizerSpecs.cs" />
     <Compile Include="BL\Import\FakeAccountRepository.cs" />
