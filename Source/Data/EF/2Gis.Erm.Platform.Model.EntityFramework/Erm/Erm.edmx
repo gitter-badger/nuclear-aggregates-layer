@@ -5,35 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
   <Schema Namespace="ErmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ActivityInstances">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="ClientId" Type="bigint" />
-          <Property Name="ContactId" Type="bigint" />
-          <Property Name="FirmId" Type="bigint" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ActivityPropertyInstances">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="ActivityId" Type="bigint" Nullable="false" />
-          <Property Name="PropertyId" Type="int" Nullable="false" />
-          <Property Name="TextValue" Type="nvarchar(max)" />
-          <Property Name="NumericValue" Type="decimal" Precision="9" Scale="2" />
-          <Property Name="DateTimeValue" Type="datetime2" Precision="2" />
-        </EntityType>
         <EntityType Name="AccountDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -2116,54 +2087,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ActivityInstances_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="ActivityInstances" Type="Self.ActivityInstances" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ActivityInstances">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ActivityInstances_Contacts">
-          <End Role="Contacts" Type="Self.Contacts" Multiplicity="0..1" />
-          <End Role="ActivityInstances" Type="Self.ActivityInstances" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contacts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ActivityInstances">
-              <PropertyRef Name="ContactId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ActivityInstances_Firms">
-          <End Role="Firms" Type="Self.Firms" Multiplicity="0..1" />
-          <End Role="ActivityInstances" Type="Self.ActivityInstances" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Firms">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ActivityInstances">
-              <PropertyRef Name="FirmId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ActivityPropertyInstances_ActivityInstances">
-          <End Role="ActivityInstances" Type="Self.ActivityInstances" Multiplicity="1" />
-          <End Role="ActivityPropertyInstances" Type="Self.ActivityPropertyInstances" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ActivityInstances">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ActivityPropertyInstances">
-              <PropertyRef Name="ActivityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AdsTemplatesAdsElementTemplates_AdvertisementElementTemplates">
           <End Role="AdvertisementElementTemplates" Type="Self.AdvertisementElementTemplates" Multiplicity="1" />
           <End Role="AdsTemplatesAdsElementTemplates" Type="Self.AdsTemplatesAdsElementTemplates" Multiplicity="*" />
@@ -3920,8 +3843,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Parameter Name="Id" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="ErmModelStoreContainer">
-          <EntitySet Name="ActivityInstances" EntityType="Self.ActivityInstances" Schema="Activity" store:Type="Tables" />
-          <EntitySet Name="ActivityPropertyInstances" EntityType="Self.ActivityPropertyInstances" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="AccountDetails" EntityType="Self.AccountDetails" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdsTemplatesAdsElementTemplates" EntityType="Self.AdsTemplatesAdsElementTemplates" Schema="Billing" store:Type="Tables" />
@@ -4087,22 +4008,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_ActionsHistory_ActionsHistoryDetails" Association="Self.FK_ActionsHistory_ActionsHistoryDetails">
             <End Role="ActionsHistory" EntitySet="ActionsHistory" />
             <End Role="ActionsHistoryDetails" EntitySet="ActionsHistoryDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ActivityInstances_Clients" Association="Self.FK_ActivityInstances_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="ActivityInstances" EntitySet="ActivityInstances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ActivityInstances_Contacts" Association="Self.FK_ActivityInstances_Contacts">
-            <End Role="Contacts" EntitySet="Contacts" />
-            <End Role="ActivityInstances" EntitySet="ActivityInstances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ActivityInstances_Firms" Association="Self.FK_ActivityInstances_Firms">
-            <End Role="Firms" EntitySet="Firms" />
-            <End Role="ActivityInstances" EntitySet="ActivityInstances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ActivityPropertyInstances_ActivityInstances" Association="Self.FK_ActivityPropertyInstances_ActivityInstances">
-            <End Role="ActivityInstances" EntitySet="ActivityInstances" />
-            <End Role="ActivityPropertyInstances" EntitySet="ActivityPropertyInstances" />
           </AssociationSet>
           <AssociationSet Name="FK_AdsTemplatesAdsElementTemplates_AdvertisementElementTemplates" Association="Self.FK_AdsTemplatesAdsElementTemplates_AdvertisementElementTemplates">
             <End Role="AdvertisementElementTemplates" EntitySet="AdvertisementElementTemplates" />
@@ -5400,24 +5305,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <End Role="ReleasesWithdrawalsPosition" EntitySet="ReleasesWithdrawalsPositions" />
         </AssociationSet>
         <EntitySet Name="CardRelations" EntityType="ErmModel.CardRelation" />
-        <EntitySet Name="ActivityPropertyInstances" EntityType="ErmModel.ActivityPropertyInstance" />
-        <EntitySet Name="ActivityInstances" EntityType="ErmModel.ActivityInstance" />
-        <AssociationSet Name="FK_ActivityInstances_Clients" Association="ErmModel.FK_ActivityInstances_Clients">
-          <End Role="Client" EntitySet="Clients" />
-          <End Role="ActivityInstance" EntitySet="ActivityInstances" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ActivityInstances_Contacts" Association="ErmModel.FK_ActivityInstances_Contacts">
-          <End Role="Contact" EntitySet="Contacts" />
-          <End Role="ActivityInstance" EntitySet="ActivityInstances" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ActivityInstances_Firms" Association="ErmModel.FK_ActivityInstances_Firms">
-          <End Role="Firm" EntitySet="Firms" />
-          <End Role="ActivityInstance" EntitySet="ActivityInstances" />
-        </AssociationSet>
-        <AssociationSet Name="FK_ActivityPropertyInstances_ActivityInstances" Association="ErmModel.FK_ActivityPropertyInstances_ActivityInstances">
-          <End Role="ActivityInstance" EntitySet="ActivityInstances" />
-          <End Role="ActivityPropertyInstance" EntitySet="ActivityPropertyInstances" />
-        </AssociationSet>
         <EntitySet Name="ExportFlowCardExtensionsCardCommercials" EntityType="ErmModel.ExportFlowCardExtensionsCardCommercial" />
         <EntitySet Name="ExportFlowFinancialDataLegalEntities" EntityType="ErmModel.ExportFlowFinancialDataLegalEntity" />
         <EntitySet Name="ExportFlowOrdersAdvMaterials" EntityType="ErmModel.ExportFlowOrdersAdvMaterial" />
@@ -7058,7 +6945,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="DateTime" Name="ModifiedOn" Precision="2" />
         <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <NavigationProperty Name="Client" Relationship="ErmModel.FK_Contacts_Clients" FromRole="Contact" ToRole="Client" />
-        <NavigationProperty Name="ActivityInstances" Relationship="ErmModel.FK_ActivityInstances_Contacts" FromRole="Contact" ToRole="ActivityInstance" />
       </EntityType>
       <EntityType Name="Note">
         <Key>
@@ -7640,7 +7526,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="Firm" Relationship="ErmModel.FK_Clients_Firms" FromRole="Client" ToRole="Firm" />
         <NavigationProperty Name="Firms" Relationship="ErmModel.FK_Firms_Clients" FromRole="Client" ToRole="Firm" />
         <NavigationProperty Name="LegalPersons" Relationship="ErmModel.FK_LegalPersons_Clients" FromRole="Client" ToRole="LegalPerson" />
-        <NavigationProperty Name="ActivityInstances" Relationship="ErmModel.FK_ActivityInstances_Clients" FromRole="Client" ToRole="ActivityInstance" />
           <Property Name="IsAdvertisingAgency" Type="Boolean" Nullable="false" />
       </EntityType>
       <Association Name="FK_Bargains_BranchOffices">
@@ -7882,7 +7767,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="OrganizationUnit" Relationship="ErmModel.FK_Firms_OrganizationUnits" FromRole="Firm" ToRole="OrganizationUnit" />
         <NavigationProperty Name="FirmAddresses" Relationship="ErmModel.FK_FirmAddresses_Firms" FromRole="Firm" ToRole="FirmAddress" />
         <NavigationProperty Name="Territory" Relationship="ErmModel.FK_Firms_Territories" FromRole="Firm" ToRole="Territory" />
-        <NavigationProperty Name="ActivityInstances" Relationship="ErmModel.FK_ActivityInstances_Firms" FromRole="Firm" ToRole="ActivityInstance" />
           <NavigationProperty Name="OrderProcessingRequests" Relationship="ErmModel.FK_OrderProcessingRequests_Firms" FromRole="Firm" ToRole="OrderProcessingRequest" />
       </EntityType>
       <Association Name="FK_Advertisements_Firms">
@@ -9207,88 +9091,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           </Principal>
           <Dependent Role="ReleasesWithdrawalsPosition">
             <PropertyRef Name="ReleasesWithdrawalId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <EntityType Name="ActivityPropertyInstance">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="Int64" Name="ActivityId" Nullable="false" />
-        <Property Type="Int32" Name="PropertyId" Nullable="false" />
-        <Property Type="String" Name="TextValue" MaxLength="Max" FixedLength="false" Unicode="true" />
-        <Property Type="Decimal" Name="NumericValue" Precision="9" Scale="2" />
-        <Property Type="DateTime" Name="DateTimeValue" Precision="2" />
-        <NavigationProperty Name="ActivityInstance" Relationship="ErmModel.FK_ActivityPropertyInstances_ActivityInstances" FromRole="ActivityPropertyInstance" ToRole="ActivityInstance" />
-      </EntityType>
-      <EntityType Name="ActivityInstance">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="Int32" Name="Type" Nullable="false" />
-        <Property Type="Int64" Name="ClientId" />
-        <Property Type="Int64" Name="ContactId" />
-        <Property Type="Int64" Name="FirmId" />
-        <Property Type="Boolean" Name="IsActive" Nullable="false" />
-        <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
-        <Property Type="Int64" Name="OwnerCode" Nullable="false" />
-        <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-        <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="2" />
-        <Property Type="Int64" Name="ModifiedBy" />
-        <Property Type="DateTime" Name="ModifiedOn" Precision="2" />
-        <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <NavigationProperty Name="Client" Relationship="ErmModel.FK_ActivityInstances_Clients" FromRole="ActivityInstance" ToRole="Client" />
-        <NavigationProperty Name="Contact" Relationship="ErmModel.FK_ActivityInstances_Contacts" FromRole="ActivityInstance" ToRole="Contact" />
-        <NavigationProperty Name="Firm" Relationship="ErmModel.FK_ActivityInstances_Firms" FromRole="ActivityInstance" ToRole="Firm" />
-        <NavigationProperty Name="ActivityPropertyInstances" Relationship="ErmModel.FK_ActivityPropertyInstances_ActivityInstances" FromRole="ActivityInstance" ToRole="ActivityPropertyInstance" />
-      </EntityType>
-      <Association Name="FK_ActivityInstances_Clients">
-        <End Type="ErmModel.Client" Role="Client" Multiplicity="0..1" />
-        <End Type="ErmModel.ActivityInstance" Role="ActivityInstance" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="Client">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ActivityInstance">
-            <PropertyRef Name="ClientId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ActivityInstances_Contacts">
-        <End Type="ErmModel.Contact" Role="Contact" Multiplicity="0..1" />
-        <End Type="ErmModel.ActivityInstance" Role="ActivityInstance" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="Contact">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ActivityInstance">
-            <PropertyRef Name="ContactId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ActivityInstances_Firms">
-        <End Type="ErmModel.Firm" Role="Firm" Multiplicity="0..1" />
-        <End Type="ErmModel.ActivityInstance" Role="ActivityInstance" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="Firm">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ActivityInstance">
-            <PropertyRef Name="FirmId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_ActivityPropertyInstances_ActivityInstances">
-        <End Type="ErmModel.ActivityInstance" Role="ActivityInstance" Multiplicity="1" />
-        <End Type="ErmModel.ActivityPropertyInstance" Role="ActivityPropertyInstance" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="ActivityInstance">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="ActivityPropertyInstance">
-            <PropertyRef Name="ActivityId" />
           </Dependent>
         </ReferentialConstraint>
       </Association>
@@ -11531,37 +11333,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
               <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
               <ScalarProperty Name="PosCardCode" ColumnName="PosCardCode" />
               <ScalarProperty Name="DepCardCode" ColumnName="DepCardCode" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="ActivityPropertyInstances">
-          <EntityTypeMapping TypeName="ErmModel.ActivityPropertyInstance">
-            <MappingFragment StoreEntitySet="ActivityPropertyInstances">
-              <ScalarProperty Name="DateTimeValue" ColumnName="DateTimeValue" />
-              <ScalarProperty Name="NumericValue" ColumnName="NumericValue" />
-              <ScalarProperty Name="TextValue" ColumnName="TextValue" />
-              <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-              <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="ActivityInstances">
-          <EntityTypeMapping TypeName="ErmModel.ActivityInstance">
-            <MappingFragment StoreEntitySet="ActivityInstances">
-              <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-              <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-              <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-              <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-              <ScalarProperty Name="OwnerCode" ColumnName="OwnerCode" />
-              <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              <ScalarProperty Name="FirmId" ColumnName="FirmId" />
-              <ScalarProperty Name="ContactId" ColumnName="ContactId" />
-              <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-              <ScalarProperty Name="Type" ColumnName="Type" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
           </EntityTypeMapping>
         </EntitySetMapping>

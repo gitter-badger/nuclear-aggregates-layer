@@ -177,14 +177,6 @@
       <Link>Entities\Erm\ActionsHistoryDetail.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityInstance.cs">
-      <Link>Entities\Erm\ActivityInstance.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityPropertyInstance.cs">
-      <Link>Entities\Erm\ActivityPropertyInstance.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdditionalFirmService.cs">
       <Link>Entities\Erm\AdditionalFirmService.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -785,8 +777,6 @@
     <Compile Include="Entities\Erm\Parts\Emirates\EmiratesClientPart.cs" />
     <Compile Include="Entities\Erm\Parts\Emirates\EmiratesLegalPersonPart.cs" />
     <Compile Include="Entities\Erm\Parts\Ukraine\UkraineLegalPersonProfilePart.cs" />
-    <Compile Include="Entities\Erm\Partial\ActivityInstance.cs" />
-    <Compile Include="Entities\Erm\Partial\ActivityPropertyInstance.cs" />
     <Compile Include="Entities\Erm\Partial\BranchOfficeOrganizationUnit.cs" />
     <Compile Include="Entities\Erm\Partial\BusinessEntityInstance.cs" />
     <Compile Include="Entities\Erm\Partial\BusinessEntityPropertyInstance.cs" />
@@ -949,14 +939,6 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistoryDomainEntityDto.cs">
       <Link>Entities\DTOs\ActionsHistoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\ActivityInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityPropertyInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\ActivityPropertyInstanceDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdditionalFirmServiceDomainEntityDto.cs">

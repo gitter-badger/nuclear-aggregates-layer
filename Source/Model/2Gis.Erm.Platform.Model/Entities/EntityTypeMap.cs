@@ -112,8 +112,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Building, typeof(Building) },
 
                 // Activity subsystem
-                { EntityName.ActivityInstance, typeof(ActivityInstance) },
-                { EntityName.ActivityPropertyInstance, typeof(ActivityPropertyInstance) },
                 { EntityName.ActivityBase, typeof(ActivityBase) },
                 { EntityName.Appointment, typeof(Appointment) },
                 { EntityName.Phonecall, typeof(Phonecall) },

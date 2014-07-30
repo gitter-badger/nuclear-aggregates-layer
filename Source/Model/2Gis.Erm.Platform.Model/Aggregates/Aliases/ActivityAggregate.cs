@@ -8,8 +8,5 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Appointment = EntityName.Appointment,
         PhoneCall = EntityName.Phonecall,
         Task = EntityName.Task,
-
-        ActivityInstance = EntityName.ActivityInstance,
-        ActivityPropertyInstance = EntityName.ActivityPropertyInstance
     }
 }

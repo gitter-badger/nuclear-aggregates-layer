@@ -21,8 +21,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(AccountDetail),
     		typeof(ActionsHistory),
     		typeof(ActionsHistoryDetail),
-    		typeof(ActivityInstance),
-    		typeof(ActivityPropertyInstance),
     		typeof(AdditionalFirmService),
     		typeof(AdsTemplatesAdsElementTemplate),
     		typeof(Advertisement),

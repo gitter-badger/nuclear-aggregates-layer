@@ -163,8 +163,6 @@
         // Ambivalent
         FileWithContent = 400,
 
-        ActivityInstance = 498,
-        ActivityPropertyInstance = 499,
         ActivityBase = 500,
         Appointment = 501,
         Phonecall = 502,
