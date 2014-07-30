@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
@@ -12,9 +14,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
     public class ActivityReadModelTest : IIntegrationTest
     {
         private readonly IActivityReadModel _activityReadModel;
-        private readonly IAppropriateEntityProvider<ActivityInstance> _activityInstanceProvider;
+		private readonly IAppropriateEntityProvider<DictionaryEntityInstance> _activityInstanceProvider;
 
-        public ActivityReadModelTest(IActivityReadModel activityReadModel, IAppropriateEntityProvider<ActivityInstance> activityInstanceProvider)
+        public ActivityReadModelTest(IActivityReadModel activityReadModel, IAppropriateEntityProvider<DictionaryEntityInstance> activityInstanceProvider)
         {
             _activityReadModel = activityReadModel;
             _activityInstanceProvider = activityInstanceProvider;
@@ -22,10 +24,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 
         public ITestResult Execute()
         {
-            var appropriateAppointment = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.Type == (int)ActivityType.Appointment));
-            var appropriateTask = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.Type == (int)ActivityType.Task));
-            var appropriatePhonecall = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.Type == (int)ActivityType.Phonecall));
-            var activityWithClient = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.ClientId != null));
+            var appropriateAppointment = _activityInstanceProvider.Get(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Appointment));
+			var appropriateTask = _activityInstanceProvider.Get(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Task));
+			var appropriatePhonecall = _activityInstanceProvider.Get(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Phonecall));
+			var activityWithClient = _activityInstanceProvider.Get(ActivitySpecs.Activity.Find.OnlyActivities() &&
+					new FindSpecification<DictionaryEntityInstance>(
+						entity => entity.DictionaryEntityPropertyInstances.Any(
+						property => property.PropertyId == ClientIdIdentity.Instance.Id && property.NumericValue.HasValue)));
 
             if (appropriateAppointment == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
             {
@@ -37,7 +42,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
             var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
 
             // ReSharper disable once PossibleInvalidOperationException
-            _activityReadModel.CheckIfRelatedActivitiesExists(activityWithClient.ClientId.Value);
+			_activityReadModel.CheckIfRelatedActivitiesExists(
+				(long)activityWithClient.DictionaryEntityPropertyInstances
+				.First(property => property.PropertyId == ClientIdIdentity.Instance.Id).NumericValue.Value);
 
             return new object[]
                 {
