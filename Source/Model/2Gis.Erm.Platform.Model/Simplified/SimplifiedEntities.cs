@@ -49,7 +49,6 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
                 EntityName.ExportFlowNomenclaturesNomenclatureElementRelation,
                 EntityName.ImportedFirmAddress,
                 EntityName.ExportFailedEntity,
-                EntityName.ExportToMsCrmHotClients,
                 EntityName.UserEntity,
                 EntityName.FileWithContent,
                 EntityName.OrderProcessingRequest,

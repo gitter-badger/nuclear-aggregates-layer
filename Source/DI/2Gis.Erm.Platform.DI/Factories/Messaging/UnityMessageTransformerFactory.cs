@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Transformers;
@@ -18,10 +19,10 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 {
     public sealed class UnityMessageTransformerFactory : IMessageTransformerFactory
     {
-        private readonly IUnityContainer _unityContainer;
         private readonly IPerformedOperationsTransportSettings _performedOperationsTransportSettings;
 
         private readonly IReadOnlyDictionary<IMessageFlow, Func<Type, IMessage, Type>> _resolversMap;
+        private readonly IUnityContainer _unityContainer;
 
         public UnityMessageTransformerFactory(
             IUnityContainer unityContainer, 
@@ -33,6 +34,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             _resolversMap = new Dictionary<IMessageFlow, Func<Type, IMessage, Type>> 
                 {
                     { PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance, PerformedOperations },
+                    { PrimaryReplicateHotClientPerformedOperationsFlow.Instance, PerformedOperations },
                     { PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance, PerformedOperations },
                 };
         }
@@ -80,7 +82,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
                 }
                 default:
                 {
-                    throw new NotSupportedException("Specified " + typeof(PerformedOperationsTransport).Name + " settings value " + _performedOperationsTransportSettings.OperationsTransport + " is not supported");
+                    throw new NotSupportedException("Specified " + typeof(PerformedOperationsTransport).Name + " settings value " +
+                                                    _performedOperationsTransportSettings.OperationsTransport + " is not supported");
                 }
             }
         }

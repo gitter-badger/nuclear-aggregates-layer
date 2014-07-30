@@ -457,10 +457,6 @@
       <Link>Entities\DTOs\ExportFlowOrders_DenialReasonDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportToMsCrm_HotClients.cs">
-      <Link>Entities\Erm\ExportToMsCrm_HotClients.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\File.cs">
       <Link>Entities\Erm\File.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -808,7 +804,6 @@
     <Compile Include="Entities\Erm\Partial\ExportFlowOrdersThemeBranch.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowPriceListsPriceList.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowPriceListsPriceListPosition.cs" />
-    <Compile Include="Entities\Erm\Partial\ExportToMsCrm_HotClients.cs" />
     <Compile Include="Entities\Erm\Partial\ImportedFirmAddress.cs" />
     <Compile Include="Entities\Erm\Partial\LegalPerson.cs" />
     <Compile Include="Entities\Erm\Partial\LegalPersonProfile.cs" />
@@ -847,6 +842,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\BindCrmTaskToHotClientRequestIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmAddressesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmPromisingIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\GetHotClientTaskToReplicateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
@@ -1114,10 +1110,6 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersThemeDomainEntityDto.cs">
       <Link>Entities\DTOs\ExportFlowOrdersThemeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportToMsCrm_HotClientsDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportToMsCrm_HotClientsDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FileDomainEntityDto.cs">

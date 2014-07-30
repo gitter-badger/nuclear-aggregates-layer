@@ -4,7 +4,9 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Handlers;
+using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Proxies.Messaging;
 
 using Microsoft.Practices.Unity;
@@ -13,12 +15,13 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 {
     public sealed class UnityMessageAggregatedProcessingResultsHandlerFactory : IMessageAggregatedProcessingResultsHandlerFactory
     {
-        private readonly IUnityContainer _unityContainer;
         private readonly IReadOnlyDictionary<IMessageFlow, Func<Type>> _resolversMap;
+        private readonly IUnityContainer _unityContainer;
 
         public UnityMessageAggregatedProcessingResultsHandlerFactory(IUnityContainer unityContainer, IReadOnlyDictionary<IMessageFlow, Func<Type>> resolversMap)
         {
             _unityContainer = unityContainer;
+
             _resolversMap = resolversMap;
         }
 
@@ -35,7 +38,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
         {
             var resolvedType = ResolveType(messageFlow);
 
-            var scopedContainer = _unityContainer.CreateChildContainer();
+            var scopedContainer = _unityContainer.CreateChildContainerWithParentDependencies(typeof(IUserContext));
+
             var messageAggregatedProcessingResultsHandler = (IMessageAggregatedProcessingResultsHandler)scopedContainer.Resolve(resolvedType);
             return new UnityMessageAggregatedProcessingResultsHandlerProxy(scopedContainer, messageAggregatedProcessingResultsHandler);
         }
