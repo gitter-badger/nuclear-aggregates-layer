@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private readonly IRepository<Order> _orderGenericRepository;
         private readonly IRepository<OrderPosition> _orderPositionGenericRepository;
         private readonly IRepository<Contact> _contactGenericRepository;
-        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+	    private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IClientPersistenceService _clientPersistenceService;
         private readonly ISecureFinder _secureFinder;
@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _orderGenericRepository = orderGenericRepository;
             _orderPositionGenericRepository = orderPositionGenericRepository;
             _contactGenericRepository = contactGenericRepository;
-            _functionalAccessService = functionalAccessService;
+	        _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
             _userContext = userContext;
             _secureFinder = secureFinder;
@@ -169,8 +169,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                                                      Order = order,
                                                                      order.OrderPositions
                                                                  },
-	                                       // FIXME {s.pomadin, 30.07.2014}: there is no relation client->activities anymore
-                                           //Activities = client.ActivityInstances.Where(x => x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner))
+										   PreviousOwner = clientPrevOwner
                                        })
                                       .Single();
 
@@ -273,19 +272,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 _contactGenericRepository.Save();
 
-	            // FIXME {s.pomadin, 30.07.2014}: update owner code  
-				//foreach (var activity in relatedEntities.Activities)
-				//{
-				//	activity.OwnerCode = ownerCode;
-				//	_activityInstanceRepository.Update(activity);
-				//	operationScope.Updated<ActivityInstance>(activity.Id);
-				//}
-                //_activityInstanceRepository.Save();
+	            if (relatedEntities.PreviousOwner != null)
+	            {
+					// COMMENT {all, 31.07.2014}: вынести из репозитория клиента
+//					UpdateActivity(operationScope, _appointmentRepository, relatedEntities.PreviousOwner.Value, ownerCode);
+//					UpdateActivity(operationScope, _phonecallRepository, relatedEntities.PreviousOwner.Value, ownerCode);
+//					UpdateActivity(operationScope, _taskRepository, relatedEntities.PreviousOwner.Value, ownerCode);
+	            }
 
                 operationScope.Complete();
                 return count;
             }
         }
+
+	    private void UpdateActivity<TActivity>(IOperationScope operationScope, IRepository<TActivity> repository, long prevOwner, long newOwner) where TActivity : ActivityBase
+	    {
+			foreach (var activity in _finder.Find(Specs.Find.Active<TActivity>() && Specs.Find.Owned<TActivity>(prevOwner)))
+			{
+				activity.OwnerCode = newOwner;
+				repository.Update(activity);
+				operationScope.Updated<TActivity>(activity.Id);
+			}
+		    repository.Save();
+	    }
 
         public int Qualify(Client client, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {

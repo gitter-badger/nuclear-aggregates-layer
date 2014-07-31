@@ -33,15 +33,21 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 		                    property => property.PropertyId == StatusIdentity.Instance.Id && property.NumericValue == (int)ActivityStatus.InProgress));
                 }
 
+				public static FindSpecification<DictionaryEntityInstance> RelatedToClient(long clientId)
+                {
+					return new FindSpecification<DictionaryEntityInstance>(
+	                    entity => entity.DictionaryEntityPropertyInstances.Any(
+		                    property => property.PropertyId == ClientIdIdentity.Instance.Id && property.NumericValue == clientId));
+                }
+
 				public static FindSpecification<DictionaryEntityInstance> RelatedToClient(long clientId,
                                                                              IEnumerable<long> firmIds,
                                                                              IEnumerable<long> contactIds,
                                                                              IEnumerable<long> dealIds)
-                {
-					return new FindSpecification<DictionaryEntityInstance>(
+				{
+					return RelatedToClient(clientId) || new FindSpecification<DictionaryEntityInstance>(
 	                    entity => entity.DictionaryEntityPropertyInstances.Any(
-		                    property => property.PropertyId == ClientIdIdentity.Instance.Id && property.NumericValue == (int)ActivityStatus.InProgress
-		                                || (property.PropertyId == ContactIdIdentity.Instance.Id && property.NumericValue.HasValue && contactIds.Contains((long)property.NumericValue.Value))
+		                    property => (property.PropertyId == ContactIdIdentity.Instance.Id && property.NumericValue.HasValue && contactIds.Contains((long)property.NumericValue.Value))
 		                                || (property.PropertyId == DealIdIdentity.Instance.Id && property.NumericValue.HasValue && dealIds.Contains((long)property.NumericValue.Value))
 		                                || (property.PropertyId == FirmIdIdentity.Instance.Id && property.NumericValue.HasValue && firmIds.Contains((long)property.NumericValue.Value))
 		                              ));

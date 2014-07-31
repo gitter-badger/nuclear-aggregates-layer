@@ -59,6 +59,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 			                                                                   clientRelatedEntitiesDto.DealIds));
         }
 
+        // TODO {s.pomadin, 31.07.2014}: возможно стоит отказаться от хостинга атрибутов других агрегатов в действиях, если они необходимы для отображения в карточках или гридах - то их можно получать уже в GetDomainEntityDto или Listing operation services
 		private TActivity ResolveReferences<TActivity>(TActivity activity) where TActivity : ActivityBase
 		{
 			if (activity != null)
