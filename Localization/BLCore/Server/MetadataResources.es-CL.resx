@@ -1396,12 +1396,9 @@
     <value>Motivos de rechazo ocultos de los Materiales Publicitarios</value>
   </data>
   <data name="BargainKind" xml:space="preserve">
-    <value>Tipo de acuerdo</value>
+    <value>Forma de acuerdo</value>
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>Modelo de ventas nuevo</value>
-  </data>
-  <data name="BargainTypeVAT" xml:space="preserve">
-    <value>IVA</value>
   </data>
 </root>

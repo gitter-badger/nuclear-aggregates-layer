@@ -910,7 +910,7 @@
     <value>Do you really want to change limit status to</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Payment number</value>
+    <value>No.</value>
   </data>
   <data name="IncomingMessages" xml:space="preserve">
     <value>Incoming messages</value>

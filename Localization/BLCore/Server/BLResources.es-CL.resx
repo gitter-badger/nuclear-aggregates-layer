@@ -5223,6 +5223,6 @@ Periodo de la publicación: {3}.</value>
     <value>No hay permisos para crear el acuerdo de agente</value>
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
-    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
+    <value>Fecha de la finalización de vigencia del acuerdo no puede ser anterior a la fecha de su firma</value>
   </data>
 </root>

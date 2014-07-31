@@ -164,7 +164,7 @@ Bank Name: {7}
     <value>Mass media: &quot;{0}&quot; (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
-    <value>Internet-site at maps.2gis.ru</value>
+    <value>Internet-site at 2gis.com.cy</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value>Mass media: &quot;{0}&quot; (PC version). Registration certificate of {1}. Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>

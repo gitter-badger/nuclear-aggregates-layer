@@ -2004,7 +2004,7 @@
     <value>Внимание! Адрес фирмы и/или фирма скрыты навсегда</value>
   </data>
   <data name="ReleaseBlockedError" xml:space="preserve">
-    <value>Редактирование бланков заказов и  позиций бланков заказа заблокировано для города {0}</value>
+    <value>Редактирование заказов и  позиций заказов заблокировано для города {0}</value>
   </data>
   <data name="DateRangeError" xml:space="preserve">
     <value>Дата окончания меньше даты начала</value>
@@ -4981,7 +4981,7 @@
     <value>Нельзя отменить выполненную заявку</value>
   </data>
   <data name="ClientOfFirmOrderMissingTemplate" xml:space="preserve">
-    <value>У фирмы бланка заказа [{0}] отсутствует клиент</value>
+    <value>У фирмы заказа [{0}] отсутствует клиент</value>
   </data>
   <data name="ProjectHasNoOrganizationUnit" xml:space="preserve">
     <value>Проект {0} не связан с отделением организации</value>
