@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
         public static readonly IDictionary<EntityName, AggregateDescriptor> Aggregates = 
             new[]
             {
-				// TODO: reconsider the fix, we could either change the check to use a base type or keep the fix
+                // COMMENT {s.pomadin, 31.07.2014}: опять же нужно определиться какое место в domain model знаимают действия, один это агрегат или несколько и т.п., т.к. ответы на эти вопросы влияют на то как функционал действий будет разложен по системе
                 ActivityAggregate.ActivityBase.ToDescriptor(),
                 ActivityAggregate.Appointment.ToDescriptor(),
                 ActivityAggregate.PhoneCall.ToDescriptor(),

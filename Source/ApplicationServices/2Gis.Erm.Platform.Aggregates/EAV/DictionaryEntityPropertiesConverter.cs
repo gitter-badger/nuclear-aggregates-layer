@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         {
             return new T
                 {
-                    Id = dynamicEntityInstance.Id
+                    Id = dynamicEntityInstance.Id,
                 };
         }
 
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             return new DictionaryEntityInstance
                 {
                     Id = entity.Id,
-                    EntityId = referencedEntityId
+                    EntityId = referencedEntityId,
                 };
         }
 

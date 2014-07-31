@@ -1,10 +1,11 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
 	public sealed class ActivityPropertiesConverter<TActivity> :
-        DynamicEntityPropertiesConverter<TActivity, DictionaryEntityInstance, DictionaryEntityPropertyInstance>
-		where TActivity : ActivityBase, new()
+		DynamicEntityPropertiesConverter<TActivity, DictionaryEntityInstance, DictionaryEntityPropertyInstance>
+		where TActivity : class, IEntity, IEntityKey, IAuditableEntity, ICuratedEntity, IDeactivatableEntity, IDeletableEntity, IStateTrackingEntity, new()
 	{
 		protected override TActivity CreateEntity(DictionaryEntityInstance entity)
 		{

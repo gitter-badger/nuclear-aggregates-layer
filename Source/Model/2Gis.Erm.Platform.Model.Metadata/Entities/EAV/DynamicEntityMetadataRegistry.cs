@@ -19,6 +19,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                     {
                         typeof(Appointment), new IEntityPropertyIdentity[]
                             {
+								ClientIdIdentity.Instance,
+								ContactIdIdentity.Instance,
+								DealIdIdentity.Instance,
+								FirmIdIdentity.Instance,
                                 HeaderIdentity.Instance,
                                 ScheduledStartIdentity.Instance,
                                 ScheduledEndIdentity.Instance,
@@ -33,6 +37,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                     {
                         typeof(Phonecall), new IEntityPropertyIdentity[]
                             {
+								ClientIdIdentity.Instance,
+								ContactIdIdentity.Instance,
+								DealIdIdentity.Instance,
+								FirmIdIdentity.Instance,
                                 HeaderIdentity.Instance,
                                 ScheduledStartIdentity.Instance,
                                 ScheduledEndIdentity.Instance,
