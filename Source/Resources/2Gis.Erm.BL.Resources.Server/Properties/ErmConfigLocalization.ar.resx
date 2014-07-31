@@ -823,7 +823,7 @@
     <value>Payments</value>
   </data>
   <data name="EnBill" xml:space="preserve">
-    <value>Payment</value>
+    <value>Invoice</value>
   </data>
   <data name="DListOrganizationUnitInactive" xml:space="preserve">
     <value>Inactive company divisions</value>
@@ -1066,10 +1066,10 @@
     <value>Check order</value>
   </data>
   <data name="ControlPrintBillAction" xml:space="preserve">
-    <value>Payment</value>
+    <value>Invoice</value>
   </data>
   <data name="ControlPrintBillsAction" xml:space="preserve">
-    <value>Payments</value>
+    <value>Invoices</value>
   </data>
   <data name="ControlSwitchToAccount" xml:space="preserve">
     <value>Go to personal account</value>
@@ -1348,7 +1348,7 @@
     <value>Time zone</value>
   </data>
   <data name="ControlPrepareJointBillsAction" xml:space="preserve">
-    <value>Joint payment</value>
+    <value>Joint Invoice</value>
   </data>
   <data name="EnAdsTemplatesAdsElementTemplate" xml:space="preserve">
     <value>Linking of AM template component to AM template</value>
@@ -1705,7 +1705,7 @@
     <value>The list of valid terminations</value>
   </data>
   <data name="DListOrdersWithDocumentsDebtForNextMonth" xml:space="preserve">
-    <value>Unsigned Orders for the current release</value>
+    <value>Unsigned Quotations for the current release</value>
   </data>
   <data name="DListTechnicalTerminatedOrders" xml:space="preserve">
     <value>List of technical terminations</value>
