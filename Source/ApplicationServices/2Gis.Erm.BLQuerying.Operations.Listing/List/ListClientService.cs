@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
@@ -132,40 +133,44 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return clients;
             }
 
-            var with1AppointmentFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-                "With1Appointment",
-                with1Appointment =>
-                {
-                    if (!with1Appointment)
-                    {
-                        return null;
-                    }
-
-
-                    return x =>
-                           x.ActivityInstances.Count(
-                               y => y.Type == (int)ActivityType.Appointment && !y.IsDeleted && y.IsActive
-                                    && y.ActivityPropertyInstances.Any(z => (z.PropertyId == StatusIdentity.Instance.Id && z.NumericValue == 2))) == 1;
-                });
-
-            var warmClientTaskFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-                "WarmClientTask",
-                warmClientTask => client =>
-                    client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(property => property.PropertyId == TaskTypeIdentity.Instance.Id
-                                                                                                  && property.NumericValue == (int)ActivityTaskType.WarmClient)));
-
-            var outdatedActivityFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-                "Outdated",
-                outdated =>
-                {
-                    if (outdated)
-                    {
-                        return client => client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(
-                            property => property.PropertyId == ScheduledEndIdentity.Instance.Id && property.DateTimeValue < DateTime.Today));
-                    }
-
-                    return null;
-                });
+	        // FIXME {s.pomadin, 30.07.2014}: there is no relation between client and activities anymore
+			Expression<Func<Client, bool>> with1AppointmentFilter = null;
+			Expression<Func<Client, bool>> warmClientTaskFilter = null;
+			Expression<Func<Client, bool>> outdatedActivityFilter = null;
+//            var with1AppointmentFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+//                "With1Appointment",
+//                with1Appointment =>
+//                {
+//                    if (!with1Appointment)
+//                    {
+//                        return null;
+//                    }
+//
+//
+//                    return x =>
+//                           x.ActivityInstances.Count(
+//                               y => y.Type == (int)ActivityType.Appointment && !y.IsDeleted && y.IsActive
+//                                    && y.ActivityPropertyInstances.Any(z => (z.PropertyId == StatusIdentity.Instance.Id && z.NumericValue == 2))) == 1;
+//                });
+//
+//            var warmClientTaskFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+//                "WarmClientTask",
+//                warmClientTask => client =>
+//                    client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(property => property.PropertyId == TaskTypeIdentity.Instance.Id
+//                                                                                                  && property.NumericValue == (int)ActivityTaskType.WarmClient)));
+//
+//            var outdatedActivityFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+//                "Outdated",
+//                outdated =>
+//                {
+//                    if (outdated)
+//                    {
+//                        return client => client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(
+//                            property => property.PropertyId == ScheduledEndIdentity.Instance.Id && property.DateTimeValue < DateTime.Today));
+//                    }
+//
+//                    return null;
+//                });
 
             var contactFilter = querySettings.CreateForExtendedProperty<Client, long>(
                 "ContactId",
