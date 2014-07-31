@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Активные действия
             .RegisterFilter<ListActivityInstanceDto>("DListActiveActivities", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
             // Закрытые действия
-            .RegisterFilter<ListActivityInstanceDto>("DListInactiveActivities", x => x.IsDeleted || !x.IsActive || x.StatusEnum == ActivityStatus.Completed || x.StatusEnum == ActivityStatus.Cancelled)
+            .RegisterFilter<ListActivityInstanceDto>("DListInactiveActivities", x => x.IsDeleted || !x.IsActive || x.StatusEnum == ActivityStatus.Completed || x.StatusEnum == ActivityStatus.Canceled)
             // Мои действия
             .RegisterFilter<ListActivityInstanceDto>("DListMyActivities", x =>x.IsActive && !x.IsDeleted)
             // Действия по моим подчиненным
