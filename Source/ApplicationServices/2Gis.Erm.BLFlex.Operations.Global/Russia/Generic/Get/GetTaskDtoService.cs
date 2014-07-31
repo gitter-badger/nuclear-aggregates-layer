@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -17,17 +17,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 {
     public class GetTaskDtoService : GetDomainEntityDtoServiceBase<Task>, IRussiaAdapted
     {
-        private readonly IFinder _finder;
-        private readonly IActivityReadModel _activityReadModel;
-        private readonly IUserContext _userContext;
+		private readonly IActivityReadModel _activityReadModel;
+		private readonly IClientReadModel _clientReadModel;
+	    private readonly IDealReadModel _dealReadModel;
+		private readonly IFirmReadModel _firmReadModel;
+		private readonly IUserContext _userContext;
 
-        public GetTaskDtoService(IUserContext userContext, IFinder finder, IActivityReadModel activityReadModel)
-            : base(userContext)
-        {
-            _finder = finder;
-            _activityReadModel = activityReadModel;
-            _userContext = userContext;
-        }
+		public GetTaskDtoService(IUserContext userContext, IActivityReadModel activityReadModel,
+			IClientReadModel clientReadModel, IDealReadModel dealReadModel, IFirmReadModel firmReadModel)
+			: base(userContext)
+		{
+			_activityReadModel = activityReadModel;
+			_clientReadModel = clientReadModel;
+			_dealReadModel = dealReadModel;
+			_firmReadModel = firmReadModel;
+			_userContext = userContext;
+		}
 
         protected override IDomainEntityDto<Task> GetDto(long entityId)
         {
@@ -80,37 +85,37 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                 return dto;
             }
 
-            switch (parentEntityName)
-            {
-                case EntityName.Client:
-                    dto.ClientRef = new EntityReference
-                        {
-                            Id = parentEntityId,
-                            Name = _finder.Find(Specs.Find.ById<Client>(parentEntityId.Value)).Select(x => x.Name).Single()
-                        };
-                    break;
-                case EntityName.Deal:
-                    dto.DealRef = new EntityReference
-                        {
-                            Id = parentEntityId,
-                            Name = _finder.Find(Specs.Find.ById<Deal>(parentEntityId.Value)).Select(x => x.Name).Single()
-                        };
-                    break;
-                case EntityName.Firm:
-                    dto.FirmRef = new EntityReference
-                        {
-                            Id = parentEntityId,
-                            Name = _finder.Find(Specs.Find.ById<Firm>(parentEntityId.Value)).Select(x => x.Name).Single()
-                        };
-                    break;
-                case EntityName.Contact:
-                    dto.ContactRef = new EntityReference
-                        {
-                            Id = parentEntityId,
-                            Name = _finder.Find(Specs.Find.ById<Contact>(parentEntityId.Value)).Select(x => x.FullName).Single()
-                        };
-                    break;
-            }
+			switch (parentEntityName)
+			{
+				case EntityName.Client:
+					dto.ClientRef = new EntityReference
+					{
+						Id = parentEntityId,
+						Name = _clientReadModel.GetClientName(parentEntityId.Value)
+					};
+					break;
+				case EntityName.Contact:
+					dto.ContactRef = new EntityReference
+					{
+						Id = parentEntityId,
+						Name = _clientReadModel.GetContactName(parentEntityId.Value)
+					};
+					break;
+				case EntityName.Deal:
+					dto.DealRef = new EntityReference
+					{
+						Id = parentEntityId,
+						Name = _dealReadModel.GetDeal(parentEntityId.Value).Name
+					};
+					break;
+				case EntityName.Firm:
+					dto.FirmRef = new EntityReference
+					{
+						Id = parentEntityId,
+						Name = _firmReadModel.GetFirmName(parentEntityId.Value)
+					};
+					break;
+			}
 
             return dto;
         }
