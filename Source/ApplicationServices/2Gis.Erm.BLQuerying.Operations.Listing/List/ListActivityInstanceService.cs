@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 				Priority = x.DictionaryEntityPropertyInstances.Where(y => y.PropertyId == PriorityIdentity.Instance.Id).Select(y => y.NumericValue).FirstOrDefault(),
 				Status = x.DictionaryEntityPropertyInstances.Where(y => y.PropertyId == StatusIdentity.Instance.Id).Select(y => y.NumericValue).FirstOrDefault(),
 				TaskType = x.DictionaryEntityPropertyInstances.Where(y => y.PropertyId == TaskTypeIdentity.Instance.Id).Select(y => y.NumericValue).FirstOrDefault(),
-//				AfterSaleServiceType = x.DictionaryEntityPropertyInstances.Where(y => y.PropertyId == AfterSaleServiceTypeIdentity.Instance.Id).Select(y => y.NumericValue).FirstOrDefault(),
+				AfterSaleServiceType = x.DictionaryEntityPropertyInstances.Where(y => y.PropertyId == AfterSaleServiceTypeIdentity.Instance.Id).Select(y => y.NumericValue).FirstOrDefault(),
 			});
 
             var forTodayFilter = CreateForExtendedProperty(query2, "ForToday", querySettings, forToday =>
@@ -120,7 +121,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 					ScheduledEnd = x.ScheduledEnd.Value,
 					StatusEnum = (ActivityStatus)(int)x.Status,
 					PriorityEnum = (ActivityPriority)(int)x.Priority,
-//                    AfterSaleServiceTypeEnum = x.AfterSaleServiceType == null ? AfterSaleServiceType.None : (AfterSaleServiceType)(int)x.AfterSaleServiceType.Value,
+                    AfterSaleServiceTypeEnum = x.AfterSaleServiceType == null ? AfterSaleServiceType.None : (AfterSaleServiceType)(int)x.AfterSaleServiceType.Value,
 					ActualEnd = x.ActualEnd,
 					ClientId = x.ClientId,
 					ContactId = x.ContactId,
