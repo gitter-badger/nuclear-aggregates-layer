@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             _unityContainer = unityContainer;
         }
 
-        public IMessageValidator Create<TMessageFlow>(IMessage message) 
+        public IMessageValidator Create<TMessageFlow>(IMessage message)
             where TMessageFlow : class, IMessageFlow, new()
         {
             var resolvedType = ResolveType(new TMessageFlow(), message);

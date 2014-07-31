@@ -152,6 +152,7 @@
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\FinalProcessingQueueReceiver.cs" />
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\FinalProcessingQueueReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\IFinalProcessingQueueReceiverSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\HotClient\ReplicateHotClientPerformedOperationsPrimaryProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\ReplicateToCrmPerformedOperationsPrimaryProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFlowProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\DB\DBPerformedOperationsMessage.cs" />

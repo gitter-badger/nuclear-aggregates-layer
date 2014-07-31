@@ -1706,13 +1706,6 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
-        <EntityType Name="ExportToMsCrm_HotClients">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
-        </EntityType>
         <EntityType Name="HotClientRequests">
           <Key>
             <PropertyRef Name="Id" />
@@ -4026,7 +4019,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="ExportFlowOrders_ThemeBranch" EntityType="Self.ExportFlowOrders_ThemeBranch" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowPriceLists_PriceList" EntityType="Self.ExportFlowPriceLists_PriceList" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ExportFlowPriceLists_PriceListPosition" EntityType="Self.ExportFlowPriceLists_PriceListPosition" Schema="Integration" store:Type="Tables" />
-          <EntitySet Name="ExportToMsCrm_HotClients" EntityType="Self.ExportToMsCrm_HotClients" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="HotClientRequests" EntityType="Self.HotClientRequests" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="ImportedFirmAddresses" EntityType="Self.ImportedFirmAddresses" Schema="Integration" store:Type="Tables" />
           <EntitySet Name="Reference" EntityType="Self.Reference" Schema="Integration" store:Type="Tables" />
@@ -5436,7 +5428,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySet Name="ImportedFirmAddresses" EntityType="ErmModel.ImportedFirmAddress" />
         <EntitySet Name="ExportFailedEntities" EntityType="ErmModel.ExportFailedEntity" />
         <EntitySet Name="ExportFlowFinancialDataClients" EntityType="ErmModel.ExportFlowFinancialDataClient" />
-        <EntitySet Name="ExportToMsCrm_HotClients" EntityType="ErmModel.ExportToMsCrm_HotClients" />
         <EntitySet Name="HotClientRequests" EntityType="ErmModel.HotClientRequest" />
         <EntitySet Name="BusinessOperationServices" EntityType="ErmModel.BusinessOperationService" />
         <EntitySet Name="PerformedBusinessOperations" EntityType="ErmModel.PerformedBusinessOperation" />
@@ -9383,13 +9374,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
       </EntityType>
-      <EntityType Name="ExportToMsCrm_HotClients">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="DateTime" Name="Date" Nullable="false" Precision="2" />
-      </EntityType>
       <EntityType Name="HotClientRequest">
         <Key>
           <PropertyRef Name="Id" />
@@ -11658,14 +11642,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="ExportFlowFinancialDataClients">
           <EntityTypeMapping TypeName="ErmModel.ExportFlowFinancialDataClient">
             <MappingFragment StoreEntitySet="ExportFlowFinancialData_Client">
-              <ScalarProperty Name="Date" ColumnName="Date" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="ExportToMsCrm_HotClients">
-          <EntityTypeMapping TypeName="ErmModel.ExportToMsCrm_HotClients">
-            <MappingFragment StoreEntitySet="ExportToMsCrm_HotClients">
               <ScalarProperty Name="Date" ColumnName="Date" />
               <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>

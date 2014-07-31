@@ -61,7 +61,9 @@
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\EntityNotLinkedException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
-    <Compile Include="Exceptions\ErmCommunicationException.cs" />
+    <Compile Include="Exceptions\IntegrationException.cs" />
+    <Compile Include="Exceptions\MsCrm\MsCrmIntegrationException.cs" />
+    <Compile Include="Exceptions\MsCrm\ReplicationDisabledException.cs" />
     <Compile Include="Exceptions\ServiceBus\Import\FlowBilling\CannotAcquireOrderPositionsForChargesException.cs" />
     <Compile Include="Exceptions\ServiceBus\Import\FlowBilling\CannotCreateChargesException.cs" />
     <Compile Include="Exceptions\ServiceBus\Import\NonBlockingImportErrorException.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Operations\Logging\OperationScopeNode.cs" />
     <Compile Include="Operations\Logging\OperationScopeUtils.cs" />
     <Compile Include="Operations\Logging\TrackedUseCase.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalReplicateHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMFinalProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalProcessingMessage.cs" />
     <Compile Include="Operations\Processing\Final\FinalProcessingResultsMessage.cs" />
@@ -132,6 +135,8 @@
     <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryReplicateHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ElasticRuntimeFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />

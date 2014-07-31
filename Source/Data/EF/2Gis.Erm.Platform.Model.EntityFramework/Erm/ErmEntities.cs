@@ -79,7 +79,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(ExportFlowOrdersThemeBranch),
     		typeof(ExportFlowPriceListsPriceList),
     		typeof(ExportFlowPriceListsPriceListPosition),
-    		typeof(ExportToMsCrm_HotClients),
     		typeof(File),
     		typeof(Firm),
     		typeof(FirmAddress),
