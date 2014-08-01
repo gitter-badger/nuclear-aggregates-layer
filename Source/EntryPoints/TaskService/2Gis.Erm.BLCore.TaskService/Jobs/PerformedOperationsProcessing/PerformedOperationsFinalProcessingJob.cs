@@ -13,7 +13,8 @@ using Quartz;
 
 namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 {
-    public class PerformedOperationsFinalProcessingJob : TaskServiceJobBase
+    [DisallowConcurrentExecution]
+    public sealed class PerformedOperationsFinalProcessingJob : TaskServiceJobBase
     {
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IMessageFlowRegistry _messageFlowRegistry;
