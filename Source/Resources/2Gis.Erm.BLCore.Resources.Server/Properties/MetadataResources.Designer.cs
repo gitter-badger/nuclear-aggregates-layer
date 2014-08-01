@@ -421,7 +421,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тип договора.
+        ///   Looks up a localized string similar to Форма договора.
         /// </summary>
         public static string BargainKind {
             get {
@@ -453,15 +453,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string BargainType {
             get {
                 return ResourceManager.GetString("BargainType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to НДС.
-        /// </summary>
-        public static string BargainTypeVAT {
-            get {
-                return ResourceManager.GetString("BargainTypeVAT", resourceCulture);
             }
         }
         
