@@ -8,12 +8,14 @@ using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing
 {
+    [UseCase(Duration = UseCaseDuration.AboveNormal)]
     public sealed class FinalProcessingQueueReceiver<TMessageFlow> :
         MessageReceiverBase<TMessageFlow, PerformedOperationsFinalProcessingMessage, IFinalProcessingQueueReceiverSettings> 
         where TMessageFlow : class, IMessageFlow, new()
@@ -21,21 +23,26 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.Fin
         private readonly IPerformedOperationsProcessingReadModel _performedOperationsProcessingReadModel;
         private readonly IOperationsFinalProcessingEnqueueAggregateService _operationsFinalProcessingEnqueueAggregateService;
         private readonly IOperationsFinalProcessingCompleteAggregateService _operationsFinalProcessingCompleteAggregateService;
+        private readonly IUseCaseTuner _useCaseTuner;
 
         public FinalProcessingQueueReceiver(
             IFinalProcessingQueueReceiverSettings messageReceiverSettings,
             IPerformedOperationsProcessingReadModel performedOperationsProcessingReadModel,
             IOperationsFinalProcessingEnqueueAggregateService operationsFinalProcessingEnqueueAggregateService,
-            IOperationsFinalProcessingCompleteAggregateService operationsFinalProcessingCompleteAggregateService)
+            IOperationsFinalProcessingCompleteAggregateService operationsFinalProcessingCompleteAggregateService,
+            IUseCaseTuner useCaseTuner)
             : base(messageReceiverSettings)
         {
             _performedOperationsProcessingReadModel = performedOperationsProcessingReadModel;
             _operationsFinalProcessingEnqueueAggregateService = operationsFinalProcessingEnqueueAggregateService;
             _operationsFinalProcessingCompleteAggregateService = operationsFinalProcessingCompleteAggregateService;
+            _useCaseTuner = useCaseTuner;
         }
 
         protected override IEnumerable<PerformedOperationsFinalProcessingMessage> Peek()
         {
+            _useCaseTuner.AlterDuration<FinalProcessingQueueReceiver<TMessageFlow>>();
+
             var processings =
                 !MessageReceiverSettings.IsRecoveryMode
                     ? _performedOperationsProcessingReadModel.GetOperationFinalProcessingsInitial(SourceMessageFlow, MessageReceiverSettings.BatchSize)
