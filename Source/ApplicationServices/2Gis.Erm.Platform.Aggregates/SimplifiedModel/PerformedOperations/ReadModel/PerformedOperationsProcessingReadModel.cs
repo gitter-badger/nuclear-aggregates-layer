@@ -42,13 +42,25 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
         {
             var defaultUseCaseId = new Guid("00000000-0000-0000-0000-000000000000");
 
+            var ignoreOperationsPrecedingDateForPerformedOperations = ignoreOperationsPrecedingDate;
+            
+            #region Зачем нужно ещё одно время для фильтра
+            // нужно необльшое доп.смещение в прошлое для выборки уже обработанных операций, 
+            // т.к. на серверах приложений может немного отличатся время, соответственно  возможна ситуация, 
+            // когда операция залогирована со временем более ранним, 
+            // чем время проставленное в момент обработки операции
+            // фактически это выглядит так, как-будто операция произошла позже, чем её обработали, в реальности конечно было не так, 
+            // однако из-за расхождений времени на серверах можно получить такую картину
+            #endregion
+            var ignoreOperationsPrecedingDateForProcessedOperations = ignoreOperationsPrecedingDate.AddMinutes(-5);
+
             var performedUseCases =
                 _finder.FindAll<PerformedBusinessOperation>()
-                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate && o.Parent == null);
+                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDateForPerformedOperations && o.Parent == null);
 
             var processedOperations =
                 _finder.FindAll<PerformedOperationPrimaryProcessing>()
-                       .Where(o => o.MessageFlowId == sourceMessageFlow.Id && o.Date > ignoreOperationsPrecedingDate);
+                       .Where(o => o.MessageFlowId == sourceMessageFlow.Id && o.Date > ignoreOperationsPrecedingDateForProcessedOperations);
 
             return performedUseCases
                         .GroupJoin(
@@ -72,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
                         .OrderBy(x => x.Date)
                         .Take(maxUseCaseCount)
                         .GroupJoin(
-                            _finder.FindAll<PerformedBusinessOperation>().Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate),
+                            _finder.FindAll<PerformedBusinessOperation>().Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDateForPerformedOperations),
                             targetUseCase => targetUseCase.UseCaseId,
                             performedOperation => performedOperation.UseCaseId,
                             (targetUseCase, operations) => new
