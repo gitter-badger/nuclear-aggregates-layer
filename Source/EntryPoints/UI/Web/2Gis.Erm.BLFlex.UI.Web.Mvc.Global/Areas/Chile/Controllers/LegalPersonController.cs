@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
@@ -39,12 +40,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
                                      IUserContext userContext,
                                      ICommonLog logger,
                                      IAPIOperationsServiceSettings operationsServiceSettings,
+                                     IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                      IGetBaseCurrencyService getBaseCurrencyService,
                                      ISecurityServiceFunctionalAccess functionalAccessService,
                                      IPublicService publicService,
                                      ILegalPersonReadModel legalPersonReadModel,
                                      IChileLegalPersonReadModel chileLegalPersonReadModel)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;

@@ -7,13 +7,16 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.App_Start;
 using RazorGenerator.Mvc;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(RazorGeneratorMvcStart), "Start")]
-
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.App_Start {
-    public static class RazorGeneratorMvcStart {
-        public static void Start() {
-            var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly) {
-                UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
-            };
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.App_Start 
+{
+    public static class RazorGeneratorMvcStart 
+    {
+        public static void Start()
+        {
+            var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly)
+                {
+                    UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
+                };
 
             ViewEngines.Engines.Insert(0, engine);
 

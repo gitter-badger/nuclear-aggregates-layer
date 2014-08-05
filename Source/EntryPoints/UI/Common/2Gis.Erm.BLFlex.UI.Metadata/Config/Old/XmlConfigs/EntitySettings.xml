@@ -209,6 +209,27 @@
 			</DataList>
 		</DataLists>
 	</Entity>
+  <Entity Name="AdvertisementElementDenialReason">
+		<DataLists>
+			<DataList NameLocaleResourceId="DListAdvertisementElementDenialReason" DefaultSortField="DenialReasonType" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
+        <Scripts>
+          <Script FileName="DataList/AdvertisementElementDenialReason.DataList.js" />
+        </Scripts>
+				<Fields>
+					<Field Name="Id" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="AdvertisementElementId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="DenialReasonId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+					<Field Name="DenialReasonName" NameLocaleResourceId="DenialReasonName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="DenialReasonType" NameLocaleResourceId="DenialReasonType" Width="200" FieldType="String" ExtTypeName="String" />					
+          <Field Name="Comment" Width="400" FieldType="String" ExtTypeName="String" />
+				</Fields>
+			</DataList>
+      <DataList NameLocaleResourceId="DListAdvertisementElementDenialReasonForEdit" DefaultSortField="Id" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif" HideInCardRelatedGrid="*">
+        <Fields>
+        </Fields>
+      </DataList>
+    </DataLists>
+	</Entity>
   <Entity Name="DenialReason">
 		<Card EntityNameLocaleResourceId="EnDenialReason" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
 			<ToolbarItems>
@@ -366,8 +387,10 @@
 	<Entity Name="AdvertisementElement">
 		<Card EntityNameLocaleResourceId="EnAdvertisementElement" EntityMainAttribute="Id" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
 			<ToolbarItems>
-				<ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
+				<ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" />
+        <ToolbarItem Name="ResetToDraft" NameLocaleResourceId="ControlResetToDraft" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.ResetToDraft" SecurityPrivelegeFlag="0" />
 				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="SaveAndVerify" NameLocaleResourceId="ControlSaveAndVerify" ControlType="TextButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndVerify" Icon="Save.gif" SecurityPrivelegeFlag="34" />
 				<ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
 				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
 				<ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -387,6 +410,9 @@
 			</DataList>
 		</DataLists>
 	</Entity>
+  <Entity Name="AdvertisementElementStatus">
+    <Card EntityNameLocaleResourceId="EnAdvertisementElementStatus" EntityMainAttribute="Id" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif" />
+  </Entity>
 	<Entity Name="Appointment">
 		<Card EntityNameLocaleResourceId="EnAppointment" EntityMainAttribute="Header" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Appointment.gif" LargeIcon="en_ico_16_Appointment.gif">
 			<ToolbarItems>
