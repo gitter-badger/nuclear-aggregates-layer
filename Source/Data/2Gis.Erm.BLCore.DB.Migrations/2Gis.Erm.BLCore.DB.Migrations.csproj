@@ -707,6 +707,9 @@
     <Compile Include="2.1\2014.05.16 rev. 20377 - Update MSCRM cross domain modal dialog usage.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19977 - create ChargesInfo infrastructure.cs" />
     <Compile Include="2.1\2014.05.15 rev. 20306 - merge Id and Code in Billing.Porjects.cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21623 - Add priveleges for AdvertisementElementStatus, AdvertisementElementDenialReason .cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21596 - Create AdvertisementElementStatus table.cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21597 - Create AdvertisementElementDenialReason table.cs" />
     <Compile Include="2.1\2014.06.02 rev. 20911 - Create ExportFlowNomenclatures tables.cs" />
     <Compile Include="2.1\2014.06.03 rev. 20952 - Alter BOS for flowNomenclatures export.cs" />
     <Compile Include="2.1\2014.07.08 rev. 22080 - Delete infrastructure for hot client replication.cs" />

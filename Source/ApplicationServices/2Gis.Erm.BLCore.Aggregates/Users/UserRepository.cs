@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             departmentIds.Add(department.Id);
 
             var userInfos = _finder
-                .Find(Specs.Find.InactiveEntities<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
+                .Find(Specs.Find.InactiveAndNotDeletedEntities<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
                 .ToArray();
 
             // Активировать неактивных пользователей

@@ -82,6 +82,10 @@
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
     <Compile Include="Activities\ActivityAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
+    <Compile Include="Advertisements\Operations\CreateAdvertisementElementDenialReasonAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />

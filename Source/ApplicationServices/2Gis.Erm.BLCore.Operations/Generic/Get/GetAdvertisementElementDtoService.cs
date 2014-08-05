@@ -58,8 +58,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                        TemplateTextLineBreaksRestriction = entity.AdvertisementElementTemplate.TextLineBreaksCountRestriction,
                                                        TemplateRestrictionType =
                                                            (AdvertisementElementRestrictionType)entity.AdvertisementElementTemplate.RestrictionType,
-                                                       Status = (AdvertisementElementStatus)entity.Status,
-                                                       Error = (AdvertisementElementError)entity.Error,
+
+                                                       Status = (AdvertisementElementStatusValue)entity.AdvertisementElementStatus.Status,
 
                                                        // заглушки не верифицируем
                                                        NeedsValidation =

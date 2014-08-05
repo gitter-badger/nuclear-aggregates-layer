@@ -75,7 +75,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                             ElementIsRequired = p.AdvertisementElementTemplate.IsRequired && ((p.BeginDate == null || p.EndDate == null) && p.FileId == null && string.IsNullOrEmpty(p.Text)),
                             
                             // заглушки не верифицируем
-                            ElementIsInvalid = (bool?)(p.AdvertisementElementTemplate.NeedsValidation && (p.Status == (int)AdvertisementElementStatus.Invalid) && p.Advertisement.FirmId != null),
+                            ElementIsInvalid = (bool?)(p.AdvertisementElementTemplate.NeedsValidation && (p.AdvertisementElementStatus.Status == (int)AdvertisementElementStatusValue.Invalid) && p.Advertisement.FirmId != null),
+
+                            ElementIsDraft = (bool?)(p.AdvertisementElementTemplate.NeedsValidation && (p.AdvertisementElementStatus.Status == (int)AdvertisementElementStatusValue.Draft) && p.Advertisement.FirmId != null),
                         })
                     }),
                 }),
@@ -183,8 +185,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                     MessageText = string.Format(CultureInfo.CurrentCulture, BLResources.OrdersCheckAdvertisementElementWasInvalidated, advertisementDescription, elementDescription)
                                 });
                             }
+
+                            if (elementFail.ElementIsDraft == true)
+                            {
+                                messages.Add(new OrderValidationMessage
+                                {
+                                    Type = IsCheckMassive ? MessageType.Error : MessageType.Warning,
+                                    OrderId = orderInfo.Id,
+                                    OrderNumber = orderInfo.Number,
+                                    MessageText = string.Format(CultureInfo.CurrentCulture, BLResources.OrdersCheckAdvertisementElementIsDraft, advertisementDescription, elementDescription)
+                                });
+                            }
                         }
-                    }
+                    }                    
                 }
             }
         }

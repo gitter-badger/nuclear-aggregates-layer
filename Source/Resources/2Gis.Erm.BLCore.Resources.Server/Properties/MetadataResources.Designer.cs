@@ -907,6 +907,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Редактировать.
+        /// </summary>
+        public static string ControlResetToDraft {
+            get {
+                return ResourceManager.GetString("ControlResetToDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить и опубликовать.
+        /// </summary>
+        public static string ControlSaveAndVerify {
+            get {
+                return ResourceManager.GetString("ControlSaveAndVerify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Стоимость.
         /// </summary>
         public static string Cost {
@@ -1049,6 +1067,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonName", resourceCulture);
             }
         }
+       
         
         /// <summary>
         ///   Looks up a localized string similar to Ссылка на параграф правил.
@@ -1067,6 +1086,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonType", resourceCulture);
             }
         }
+       
         
         /// <summary>
         ///   Looks up a localized string similar to Подразделение.
@@ -1310,6 +1330,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("EnDenialReason", resourceCulture);
             }
         }
+        
         
         /// <summary>
         ///   Looks up a localized string similar to Окончание (факт).

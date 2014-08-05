@@ -5225,4 +5225,22 @@ Periodo de la publicación: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Fecha de la finalización de vigencia del acuerdo no puede ser anterior a la fecha de su firma</value>
   </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>Нет прав для перевода ЭРМ в статус {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Попытка редактирования ЭРМ с идентификатором {0} не в статусе "Черновик"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>В рекламном материале "{0}", который подлежит выверке, элемент "{1}" находится в статусе 'Черновик'</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Для отклонения ЭРМ необходиму указать причину</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Нельзя менять статус ЭРМ, не требующего выверки</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Нельзя указать неактивную причину отклонения</value>
+  </data>
 </root>

@@ -12,36 +12,35 @@
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Grid
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net;
+    using System.Text;
     using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-#line 1 "..\..\Views\Grid\View.cshtml"
-    using Platform.UI.Web.Mvc.Security;
-    
-    #line default
-    #line hidden
-    
-    #line 2 "..\..\Views\Grid\View.cshtml"
-    using Settings;
-    
-    #line default
-    #line hidden
-    
-    #line 3 "..\..\Views\Grid\View.cshtml"
-    using UserProfiles;
-    
-    #line default
-    #line hidden
-    
-    #line 5 "..\..\Views\Grid\View.cshtml"
-    using ViewModels;
-    
-    #line default
-    #line hidden
+    using DoubleGis.Erm.Platform.Model.Entities;
+    using DoubleGis.Erm.Platform.Model.Entities.Enums;
+    using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Grid/View.cshtml")]
@@ -52,8 +51,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Grid
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
 WriteLiteral("<html");
 
 WriteLiteral(" xmlns=\"http://www.w3.org/1999/xhtml\"");
@@ -61,7 +58,7 @@ WriteLiteral(" xmlns=\"http://www.w3.org/1999/xhtml\"");
 WriteLiteral(">\r\n<head>\r\n    <title>");
 
             
-            #line 10 "..\..\Views\Grid\View.cshtml"
+            #line 5 "..\..\Views\Grid\View.cshtml"
       Write(BLResources.List);
 
             
@@ -73,14 +70,14 @@ WriteLiteral(" id=\"meta_IsDebug\"");
 
 WriteLiteral(" name=\"meta_IsDebug\"");
 
-WriteAttribute("content", Tuple.Create(" content=\"", 297), Tuple.Create("\"", 346)
+WriteAttribute("content", Tuple.Create(" content=\"", 201), Tuple.Create("\"", 250)
             
-            #line 12 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 307), Tuple.Create<System.Object, System.Int32>(HttpContext.Current.IsDebuggingEnabled
+            #line 7 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 211), Tuple.Create<System.Object, System.Int32>(HttpContext.Current.IsDebuggingEnabled
             
             #line default
             #line hidden
-, 307), false)
+, 211), false)
 );
 
 WriteLiteral(" />\r\n    <meta");
@@ -89,14 +86,14 @@ WriteLiteral(" id=\"meta_Revision\"");
 
 WriteLiteral(" name=\"meta_Revision\"");
 
-WriteAttribute("content", Tuple.Create(" content=\"", 401), Tuple.Create("\"", 445)
+WriteAttribute("content", Tuple.Create(" content=\"", 305), Tuple.Create("\"", 349)
             
-            #line 13 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 411), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 8 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 315), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 411), false)
+, 315), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <link");
@@ -121,15 +118,100 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 643), Tuple.Create("\"", 705)
-, Tuple.Create(Tuple.Create("", 650), Tuple.Create("/Content/ext-all.css?", 650), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 547), Tuple.Create("\"", 609)
+, Tuple.Create(Tuple.Create("", 554), Tuple.Create("/Content/ext-all.css?", 554), true)
+            
+            #line 13 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 575), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 575), false)
+);
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 657), Tuple.Create("\"", 722)
+, Tuple.Create(Tuple.Create("", 664), Tuple.Create("/Content/ext-extend.css?", 664), true)
+            
+            #line 14 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 688), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 688), false)
+);
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 770), Tuple.Create("\"", 833)
+, Tuple.Create(Tuple.Create("", 777), Tuple.Create("/Content/DataList.css?", 777), true)
+            
+            #line 15 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 799), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 799), false)
+);
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 881), Tuple.Create("\"", 950)
+, Tuple.Create(Tuple.Create("", 888), Tuple.Create("/Content/QuickFindStyle.css?", 888), true)
+            
+            #line 16 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 916), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 916), false)
+);
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 998), Tuple.Create("\"", 1057)
+, Tuple.Create(Tuple.Create("", 1005), Tuple.Create("/Content/CRM4.css?", 1005), true)
+            
+            #line 17 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 1023), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 1023), false)
+);
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1105), Tuple.Create("\"", 1168)
+, Tuple.Create(Tuple.Create("", 1112), Tuple.Create("/Content/ext-mask.css?", 1112), true)
             
             #line 18 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 671), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1134), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 671), false)
+, 1134), false)
 );
 
 WriteLiteral(" />\r\n    <link");
@@ -138,112 +220,27 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 753), Tuple.Create("\"", 818)
-, Tuple.Create(Tuple.Create("", 760), Tuple.Create("/Content/ext-extend.css?", 760), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 1216), Tuple.Create("\"", 1282)
+, Tuple.Create(Tuple.Create("", 1223), Tuple.Create("/Content/LookupStyle.css?", 1223), true)
             
             #line 19 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 784), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1248), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 784), false)
-);
-
-WriteLiteral(" />\r\n    <link");
-
-WriteLiteral(" rel=\"stylesheet\"");
-
-WriteLiteral(" type=\"text/css\"");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 866), Tuple.Create("\"", 929)
-, Tuple.Create(Tuple.Create("", 873), Tuple.Create("/Content/DataList.css?", 873), true)
-            
-            #line 20 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 895), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 895), false)
-);
-
-WriteLiteral(" />\r\n    <link");
-
-WriteLiteral(" rel=\"stylesheet\"");
-
-WriteLiteral(" type=\"text/css\"");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 977), Tuple.Create("\"", 1046)
-, Tuple.Create(Tuple.Create("", 984), Tuple.Create("/Content/QuickFindStyle.css?", 984), true)
-            
-            #line 21 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1012), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 1012), false)
-);
-
-WriteLiteral(" />\r\n    <link");
-
-WriteLiteral(" rel=\"stylesheet\"");
-
-WriteLiteral(" type=\"text/css\"");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 1094), Tuple.Create("\"", 1153)
-, Tuple.Create(Tuple.Create("", 1101), Tuple.Create("/Content/CRM4.css?", 1101), true)
-            
-            #line 22 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1119), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 1119), false)
-);
-
-WriteLiteral(" />\r\n    <link");
-
-WriteLiteral(" rel=\"stylesheet\"");
-
-WriteLiteral(" type=\"text/css\"");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 1201), Tuple.Create("\"", 1264)
-, Tuple.Create(Tuple.Create("", 1208), Tuple.Create("/Content/ext-mask.css?", 1208), true)
-            
-            #line 23 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1230), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 1230), false)
-);
-
-WriteLiteral(" />\r\n    <link");
-
-WriteLiteral(" rel=\"stylesheet\"");
-
-WriteLiteral(" type=\"text/css\"");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 1312), Tuple.Create("\"", 1378)
-, Tuple.Create(Tuple.Create("", 1319), Tuple.Create("/Content/LookupStyle.css?", 1319), true)
-            
-            #line 24 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1344), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 1344), false)
+, 1248), false)
 );
 
 WriteLiteral(" />\r\n    \r\n");
 
             
-            #line 26 "..\..\Views\Grid\View.cshtml"
+            #line 21 "..\..\Views\Grid\View.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 26 "..\..\Views\Grid\View.cshtml"
+            #line 21 "..\..\Views\Grid\View.cshtml"
      if (HttpContext.Current.IsDebuggingEnabled)
     {
 
@@ -252,15 +249,15 @@ WriteLiteral(" />\r\n    \r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1462), Tuple.Create("\"", 1529)
-, Tuple.Create(Tuple.Create("", 1468), Tuple.Create("/Scripts/ext-base-debug.js?", 1468), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1366), Tuple.Create("\"", 1433)
+, Tuple.Create(Tuple.Create("", 1372), Tuple.Create("/Scripts/ext-base-debug.js?", 1372), true)
             
-            #line 28 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1495), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 23 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 1399), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1495), false)
+, 1399), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -269,15 +266,15 @@ WriteLiteral("></script>\r\n");
 
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1580), Tuple.Create("\"", 1657)
-, Tuple.Create(Tuple.Create("", 1586), Tuple.Create("/Scripts/ext-all-debug-w-comments.js?", 1586), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1484), Tuple.Create("\"", 1561)
+, Tuple.Create(Tuple.Create("", 1490), Tuple.Create("/Scripts/ext-all-debug-w-comments.js?", 1490), true)
             
-            #line 29 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1623), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 24 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 1527), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1623), false)
+, 1527), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -285,7 +282,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n");
 
             
-            #line 30 "..\..\Views\Grid\View.cshtml"
+            #line 25 "..\..\Views\Grid\View.cshtml"
     }
     else
     {
@@ -295,15 +292,15 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1732), Tuple.Create("\"", 1793)
-, Tuple.Create(Tuple.Create("", 1738), Tuple.Create("/Scripts/ext-base.js?", 1738), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1636), Tuple.Create("\"", 1697)
+, Tuple.Create(Tuple.Create("", 1642), Tuple.Create("/Scripts/ext-base.js?", 1642), true)
             
-            #line 33 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1759), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 28 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 1663), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1759), false)
+, 1663), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -312,15 +309,15 @@ WriteLiteral("></script>\r\n");
 
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1844), Tuple.Create("\"", 1904)
-, Tuple.Create(Tuple.Create("", 1850), Tuple.Create("/Scripts/ext-all.js?", 1850), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1748), Tuple.Create("\"", 1808)
+, Tuple.Create(Tuple.Create("", 1754), Tuple.Create("/Scripts/ext-all.js?", 1754), true)
             
-            #line 34 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1870), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 29 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 1774), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1870), false)
+, 1774), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -328,7 +325,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n");
 
             
-            #line 35 "..\..\Views\Grid\View.cshtml"
+            #line 30 "..\..\Views\Grid\View.cshtml"
     }
 
             
@@ -336,23 +333,23 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1960), Tuple.Create("\"", 2102)
-, Tuple.Create(Tuple.Create("", 1966), Tuple.Create("/Scripts/", 1966), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1864), Tuple.Create("\"", 2006)
+, Tuple.Create(Tuple.Create("", 1870), Tuple.Create("/Scripts/", 1870), true)
             
-            #line 37 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 1975), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
-            
-            #line default
-            #line hidden
-, 1975), false)
-, Tuple.Create(Tuple.Create("", 2067), Tuple.Create("?", 2067), true)
-            
-            #line 37 "..\..\Views\Grid\View.cshtml"
-                                       , Tuple.Create(Tuple.Create("", 2068), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 32 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 1879), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
             
             #line default
             #line hidden
-, 2068), false)
+, 1879), false)
+, Tuple.Create(Tuple.Create("", 1971), Tuple.Create("?", 1971), true)
+            
+            #line 32 "..\..\Views\Grid\View.cshtml"
+                                       , Tuple.Create(Tuple.Create("", 1972), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 1972), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -364,7 +361,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        Ext.USER_ID = ");
 
             
-            #line 40 "..\..\Views\Grid\View.cshtml"
+            #line 35 "..\..\Views\Grid\View.cshtml"
                  Write(ViewData.GetUserIdentityInfo().Code);
 
             
@@ -373,7 +370,7 @@ WriteLiteral(">\r\n        Ext.USER_ID = ");
 WriteLiteral(";\r\n        Ext.USER_NAME = ");
 
             
-            #line 41 "..\..\Views\Grid\View.cshtml"
+            #line 36 "..\..\Views\Grid\View.cshtml"
                    Write(ViewData.GetUserIdentityDisplayName());
 
             
@@ -382,7 +379,7 @@ WriteLiteral(";\r\n        Ext.USER_NAME = ");
 WriteLiteral(";\r\n        Ext.CultureInfo = ");
 
             
-            #line 42 "..\..\Views\Grid\View.cshtml"
+            #line 37 "..\..\Views\Grid\View.cshtml"
                      Write(Html.WriteJson(ViewData.GetUserLocaleInfo()));
 
             
@@ -391,7 +388,7 @@ WriteLiteral(";\r\n        Ext.CultureInfo = ");
 WriteLiteral(";\r\n        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = \'");
 
             
-            #line 43 "..\..\Views\Grid\View.cshtml"
+            #line 38 "..\..\Views\Grid\View.cshtml"
                                                       Write(ViewData.GetErmBaseCurrencySymbol());
 
             
@@ -400,7 +397,7 @@ WriteLiteral(";\r\n        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = \'"
 WriteLiteral("\';\r\n        Ext.CRM_URL = \'");
 
             
-            #line 44 "..\..\Views\Grid\View.cshtml"
+            #line 39 "..\..\Views\Grid\View.cshtml"
                   Write(ViewData.GetMsCrmSettingsUrl());
 
             
@@ -409,68 +406,77 @@ WriteLiteral("\';\r\n        Ext.CRM_URL = \'");
 WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
 
             
-            #line 45 "..\..\Views\Grid\View.cshtml"
+            #line 40 "..\..\Views\Grid\View.cshtml"
                                         Write(ViewData.GetBasicOperationsServiceRestUrl());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
+
+            
+            #line 41 "..\..\Views\Grid\View.cshtml"
+                                          Write(ViewData.GetSpecialOperationsServiceRestUrl());
 
             
             #line default
             #line hidden
 WriteLiteral("\';\r\n    </script>\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2659), Tuple.Create("\"", 2737)
-, Tuple.Create(Tuple.Create("", 2665), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2665), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2660), Tuple.Create("\"", 2738)
+, Tuple.Create(Tuple.Create("", 2666), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2666), true)
             
-            #line 48 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 2703), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 44 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 2704), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2703), false)
+, 2704), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2784), Tuple.Create("\"", 2857)
-, Tuple.Create(Tuple.Create("", 2790), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 2790), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2785), Tuple.Create("\"", 2858)
+, Tuple.Create(Tuple.Create("", 2791), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 2791), true)
             
-            #line 49 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 2823), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 45 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 2824), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2823), false)
+, 2824), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2904), Tuple.Create("\"", 2976)
-, Tuple.Create(Tuple.Create("", 2910), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2910), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2905), Tuple.Create("\"", 2977)
+, Tuple.Create(Tuple.Create("", 2911), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2911), true)
             
-            #line 50 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 2942), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 46 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 2943), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2942), false)
+, 2943), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3023), Tuple.Create("\"", 3097)
-, Tuple.Create(Tuple.Create("", 3029), Tuple.Create("/Scripts/DoubleGis.UI.DataList.js?", 3029), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3024), Tuple.Create("\"", 3098)
+, Tuple.Create(Tuple.Create("", 3030), Tuple.Create("/Scripts/DoubleGis.UI.DataList.js?", 3030), true)
             
-            #line 51 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 3063), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 47 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 3064), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 3063), false)
+, 3064), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -491,7 +497,7 @@ WriteLiteral(@">
             var settings = ");
 
             
-            #line 62 "..\..\Views\Grid\View.cshtml"
+            #line 58 "..\..\Views\Grid\View.cshtml"
                       Write(Html.WriteJson(Model));
 
             
@@ -522,13 +528,13 @@ WriteLiteral(@";
 ");
 
             
-            #line 84 "..\..\Views\Grid\View.cshtml"
+            #line 80 "..\..\Views\Grid\View.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 84 "..\..\Views\Grid\View.cshtml"
+            #line 80 "..\..\Views\Grid\View.cshtml"
      foreach (var script in Model.DataViews.First().Scripts)
     {
 
@@ -537,23 +543,23 @@ WriteLiteral(@";
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 4635), Tuple.Create("\"", 4701)
-, Tuple.Create(Tuple.Create("", 4641), Tuple.Create("/Scripts/", 4641), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 4636), Tuple.Create("\"", 4702)
+, Tuple.Create(Tuple.Create("", 4642), Tuple.Create("/Scripts/", 4642), true)
             
-            #line 86 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 4650), Tuple.Create<System.Object, System.Int32>(script.FileName
-            
-            #line default
-            #line hidden
-, 4650), false)
-, Tuple.Create(Tuple.Create("", 4666), Tuple.Create("?", 4666), true)
-            
-            #line 86 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 4667), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 82 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 4651), Tuple.Create<System.Object, System.Int32>(script.FileName
             
             #line default
             #line hidden
-, 4667), false)
+, 4651), false)
+, Tuple.Create(Tuple.Create("", 4667), Tuple.Create("?", 4667), true)
+            
+            #line 82 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 4668), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 4668), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -561,7 +567,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n");
 
             
-            #line 87 "..\..\Views\Grid\View.cshtml"
+            #line 83 "..\..\Views\Grid\View.cshtml"
     }
 
             
@@ -618,13 +624,13 @@ WriteLiteral(" />\r\n                            </colgroup>\r\n                
 "                               <td>\r\n");
 
             
-            #line 105 "..\..\Views\Grid\View.cshtml"
+            #line 101 "..\..\Views\Grid\View.cshtml"
                                     
             
             #line default
             #line hidden
             
-            #line 105 "..\..\Views\Grid\View.cshtml"
+            #line 101 "..\..\Views\Grid\View.cshtml"
                                       
                                         Html.RenderPartial("QuickFindControl", new QuickFindSettings
                                         {
@@ -649,7 +655,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 117 "..\..\Views\Grid\View.cshtml"
+            #line 113 "..\..\Views\Grid\View.cshtml"
                                Write(BLResources.View);
 
             
@@ -671,14 +677,14 @@ WriteLiteral(">\r\n                                        <optgroup");
 
 WriteLiteral(" id=\"AppSystemViews\"");
 
-WriteAttribute("label", Tuple.Create(" label=\"", 6497), Tuple.Create("\"", 6529)
+WriteAttribute("label", Tuple.Create(" label=\"", 6498), Tuple.Create("\"", 6530)
             
-            #line 121 "..\..\Views\Grid\View.cshtml"
-, Tuple.Create(Tuple.Create("", 6505), Tuple.Create<System.Object, System.Int32>(BLResources.SystemViews
+            #line 117 "..\..\Views\Grid\View.cshtml"
+, Tuple.Create(Tuple.Create("", 6506), Tuple.Create<System.Object, System.Int32>(BLResources.SystemViews
             
             #line default
             #line hidden
-, 6505), false)
+, 6506), false)
 );
 
 WriteLiteral(@" />
