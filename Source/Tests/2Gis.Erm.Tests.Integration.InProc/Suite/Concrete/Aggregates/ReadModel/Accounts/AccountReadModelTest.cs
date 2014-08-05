@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
             var dateForHungLimits = DateTime.UtcNow.AddMonths(-2);
             var orgUnitWithHungLimits = GetOrgUnitWithHungLimits(dateForHungLimits);
 
-            var closedLimit = _limitProvider.Get(Specs.Find.InactiveEntities<Limit>());
+            var closedLimit = _limitProvider.Get(Specs.Find.InactiveAndNotDeletedEntities<Limit>());
             var orgUnitWithClosedLimit = GetOrgUnitWithClosedLimit(closedLimit);
             var closedLimitTimePeriod = new TimePeriod(closedLimit.StartPeriodDate, closedLimit.EndPeriodDate);
 

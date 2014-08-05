@@ -226,6 +226,8 @@
     <Content Include="Content\images\CommonUI\Ribbon\ribbon-bg.gif" />
     <Content Include="Content\images\CommonUI\Ribbon\ribbon-group-bt.gif" />
     <Content Include="Content\images\CommonUI\Ribbon\ribbon-tabs-sprite.gif" />
+    <Content Include="Content\images\CommonUI\Validation\validate.png" />
+    <Content Include="Content\images\CommonUI\Validation\accept.png" />
     <Content Include="Content\images\CommonUI\wunderbar_hover.gif" />
     <Content Include="Content\images\CommonUI\wunderbar_rest.gif" />
     <Content Include="Content\images\CommonUI\wunderbar_sel.gif" />
@@ -610,6 +612,7 @@
     <Content Include="Content\images\default\window\left-right.png" />
     <Content Include="Content\images\default\window\right-corners.png" />
     <Content Include="Content\images\default\window\top-bottom.png" />
+    <Content Include="Content\images\Erm\draft.png" />
     <Content Include="Content\images\Erm\green.png" />
     <Content Include="Content\images\Erm\order-copy-with-termination.png" />
     <Content Include="Content\images\Erm\order-copy.png" />
@@ -659,6 +662,7 @@
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.LegalPerson.Chile.js" />
     <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.LegalPerson.Cyprus.js" />
     <Content Include="Scripts\Czech\Ext.DoubleGis.UI.LegalPerson.Czech.js" />
+    <Content Include="Scripts\DataList\AdvertisementElementDenialReason.DataList.js" />
     <Content Include="Scripts\Emirates\DataList\Order.DataList.js" />
     <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
     <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
@@ -716,6 +720,7 @@
     <Content Include="Scripts\MultiCulture\Ext.DoubleGis.UI.Client.MultiCulture.js" />
     <Content Include="Scripts\MultiCulture\MergeClients.MultiCulture.js" />
     <Content Include="Scripts\Russia\DataList\Client.DataList.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.AdvertisementElementStatus.js" />
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.Client.Russia.js" />
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.LegalPerson.Russia.js" />
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.RussiaActivityBase.js" />
@@ -1175,6 +1180,10 @@
     <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
       <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
       <Name>2Gis.Erm.BL.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+      <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
+      <Name>2Gis.Erm.BL.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
       <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>

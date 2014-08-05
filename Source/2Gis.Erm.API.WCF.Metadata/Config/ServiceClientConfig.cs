@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 using Microsoft.Practices.Unity;
@@ -22,7 +21,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Config
             var releasingSvcSettings = container.Resolve<IAPIReleasingServiceSettings>();
             var modiSvcSettings = container.Resolve<IAPIMoDiServiceSettings>();
             var operationsSvcSettings = container.Resolve<IAPIOperationsServiceSettings>();
-            var costCalculationSvcSettings = container.Resolve<IAPIFinancialOperationsServiceSettings>();
+            var specialOperationsSvcSettings = container.Resolve<IAPISpecialOperationsServiceSettings>();
             var orderValidationSvcSettings = container.Resolve<IAPIOrderValidationServiceSettings>();
 
             var binding = BindingConfig.WsHttp
@@ -50,7 +49,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Config
 
                                       .AddEndpoint("Release", binding, releasingSvcSettings.BaseUrl, "Release.svc")
 
-                                      .AddEndpoint("Calculate", binding, costCalculationSvcSettings.BaseUrl, "Calculate.svc");
+                                      .AddEndpoint("Calculate", binding, specialOperationsSvcSettings.BaseUrl, "Calculate.svc");
 
             return container.RegisterInstance<IDiscoveryEndpointContainer>(discoveryEndpointContainer);
         }
