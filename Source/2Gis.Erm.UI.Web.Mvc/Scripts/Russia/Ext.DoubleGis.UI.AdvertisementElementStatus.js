@@ -64,6 +64,7 @@
 
         var view = new Ext.grid.GroupingView({
             forceFit: true,
+            cancelEditOnToggle: false,
             markDirty: false,
             showGroupName: false,
             groupTextTpl: '{text}',
