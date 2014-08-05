@@ -41,17 +41,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                     continue;
                 }
 
-                var categoryDgppIds =
-                    (from orderPosition in _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionInfo.Id))
-                     from firmAddress in orderPosition.Order.Firm.FirmAddresses
-                     from categoryFirmAddress in firmAddress.CategoryFirmAddresses
-                     where categoryFirmAddress.IsActive
-                           && !categoryFirmAddress.IsDeleted
-                           && firmAddress.IsActive
-                           && !firmAddress.IsDeleted
-                     select categoryFirmAddress.Category.Id)
-                        .Distinct()
-                        .ToArray();
+                var categoryDgppIds = (from orderPosition in _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionInfo.Id))
+                                       from firmAddress in orderPosition.Order.Firm.FirmAddresses
+                                       from categoryFirmAddress in firmAddress.CategoryFirmAddresses
+                                       where categoryFirmAddress.IsActive
+                                             && !categoryFirmAddress.IsDeleted
+                                             && firmAddress.IsActive
+                                             && !firmAddress.IsDeleted
+                                       select categoryFirmAddress.Category.Id)
+                    .Distinct()
+                    .ToArray();
 
                 advertisingMaterialInfo.StableRubrIds = categoryDgppIds;
             }
@@ -60,55 +59,119 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
         public AdvertisementElementModifyDto GetAdvertisementInfoForElement(long advertisementElementId)
         {
             return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
-                                .Select(x => new AdvertisementElementModifyDto
-                                {
-                                    IsDummy = x.Advertisement.FirmId == null,
-                                    IsPublished = x.Advertisement.AdvertisementTemplate.IsPublished,
-                                    AdvertisementId = x.Advertisement.Id,
-                                    Element = x,
-                                    ElementTemplate = x.AdvertisementElementTemplate,
-                                    PreviousStatusElementStatus = (AdvertisementElementStatus)x.Status,
-                                    ClonedDummies = x.AdvertisementElementTemplate
-                                                            .AdvertisementElements
-                                                                .Where(ae => ae.Id != advertisementElementId 
-                                                                            && !ae.IsDeleted 
-                                                                            && ae.Advertisement.FirmId == null
-                                                                            && !ae.Advertisement.AdvertisementTemplate.IsPublished)
-                                                                .Distinct()
-                                })
-                                .Single();
+                          .Select(x => new AdvertisementElementModifyDto
+                              {
+                                  IsDummy = x.Advertisement.FirmId == null,
+                                  IsPublished = x.Advertisement.AdvertisementTemplate.IsPublished,
+                                  AdvertisementId = x.Advertisement.Id,
+                                  Element = x,
+                                  ElementTemplate = x.AdvertisementElementTemplate,
+                                  ClonedDummies = x.AdvertisementElementTemplate
+                                                   .AdvertisementElements
+                                                   .Where(ae => ae.Id != advertisementElementId
+                                                                && !ae.IsDeleted
+                                                                && ae.Advertisement.FirmId == null
+                                                                && !ae.Advertisement.AdvertisementTemplate.IsPublished)
+                                                   .Distinct()
+                              })
+                          .Single();
         }
 
         public AdvertisementMailNotificationDto GetMailNotificationDto(long advertisementElementId)
         {
             return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
-                        .Select(x => new AdvertisementMailNotificationDto
-                        {
-                            FirmRef = new EntityReference { Id = x.Advertisement.Firm.Id, Name = x.Advertisement.Firm.Name },
-                            FirmOwnerCode = x.Advertisement.Firm.OwnerCode,
-                            AdvertisementRef = new EntityReference { Id = x.Advertisement.Id, Name = x.Advertisement.Name },
-                            AdvertisementTemplateName = x.Advertisement.AdvertisementTemplate.Name,
-                            AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
-                            OrderRefs = x.Advertisement.OrderPositionAdvertisements
-                                        .Where(opa => opa.OrderPosition.IsActive && !opa.OrderPosition.IsDeleted
-                                                            && opa.OrderPosition.Order.IsActive && !opa.OrderPosition.Order.IsDeleted)
-                                        .Select(opa => new EntityReference { Id = opa.OrderPosition.Order.Id, Name = opa.OrderPosition.Order.Number })
-                                        .Distinct()
-                        })
-                        .Single();
+                          .Select(x => new AdvertisementMailNotificationDto
+                              {
+                                  FirmRef = new EntityReference { Id = x.Advertisement.Firm.Id, Name = x.Advertisement.Firm.Name },
+                                  FirmOwnerCode = x.Advertisement.Firm.OwnerCode,
+                                  AdvertisementRef = new EntityReference { Id = x.Advertisement.Id, Name = x.Advertisement.Name },
+                                  AdvertisementTemplateName = x.Advertisement.AdvertisementTemplate.Name,
+                                  AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
+                                  OrderRefs = x.Advertisement.OrderPositionAdvertisements
+                                               .Where(opa => opa.OrderPosition.IsActive && !opa.OrderPosition.IsDeleted
+                                                             && opa.OrderPosition.Order.IsActive && !opa.OrderPosition.Order.IsDeleted)
+                                               .Select(opa => new EntityReference { Id = opa.OrderPosition.Order.Id, Name = opa.OrderPosition.Order.Number })
+                                               .Distinct()
+                              })
+                          .Single();
+        }
+
+        public AdvertisementElementStatus GetAdvertisementElementStatus(long advertisementElementId)
+        {
+            return _finder.FindOne(AdvertisementSpecs.AdvertisementElementStatuses.Find.ByAdvertisementElement(advertisementElementId));
+        }
+
+        public IEnumerable<AdvertisementElementCreationDto> GetElementsToCreate(long advertisementTemplateId)
+        {
+            return _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId))
+                          .SelectMany(x => x.AdsTemplatesAdsElementTemplates
+                                            .Where(y => !y.IsDeleted)
+                                            .Select(y => new AdvertisementElementCreationDto
+                                                {
+                                                    AdsTemplatesAdsElementTemplateId = y.Id,
+                                                    AdvertisementElementTemplateId = y.AdsElementTemplateId,
+                                                    IsFasComment = y.AdvertisementElementTemplate.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment,
+                                                    NeedsValidation = y.AdvertisementElementTemplate.NeedsValidation,
+                                                    IsRequired = y.AdvertisementElementTemplate.IsRequired,
+                                                }))
+                          .ToArray();
+        }
+
+        public Advertisement GetAdvertisement(long advertisementId)
+        {
+            return _finder.FindOne(Specs.Find.ById<Advertisement>(advertisementId));
+        }
+
+        public IEnumerable<long> GetElementDenialReasonIds(long advertisementElementId)
+        {
+            return
+                _finder.Find(AdvertisementSpecs.AdvertisementElementDenialReasons.Find.ByAdvertisementElement(advertisementElementId))
+                       .Select(x => x.Id)
+                       .ToArray();
+        }
+
+        public AdvertisementElementDenialReason GetAdvertisementElementDenialReason(long advertisementElementDenialReasonId)
+        {
+            return _finder.FindOne(Specs.Find.ById<AdvertisementElementDenialReason>(advertisementElementDenialReasonId));
+        }
+
+        public AdvertisementElementValidationState GetAdvertisementElementValidationState(long advertisementElementId)
+        {
+            return _finder.Find(AdvertisementSpecs.AdvertisementElementStatuses.Find.ByAdvertisementElement(advertisementElementId))
+                          .Select(x => new AdvertisementElementValidationState
+                              {
+                                  NeedsValidation = x.AdvertisementElement.AdvertisementElementTemplate.NeedsValidation,
+                                  CurrentStatus = x
+                              })
+                          .Single();
         }
 
         public long[] GetDependedOrderIds(IEnumerable<long> advertisementIds)
         {
             var orderIds = _finder.Find<Advertisement>(x => advertisementIds.Contains(x.Id))
-                                .SelectMany(x => x.OrderPositionAdvertisements)
-                .Select(x => x.OrderPosition)
-                .Where(x => !x.IsDeleted && x.IsActive)
-                .Select(x => x.Order)
-                .Where(x => !x.IsDeleted && x.IsActive)
-                .Select(x => x.Id)
-                .Distinct()
-                .ToArray();
+                                  .SelectMany(x => x.OrderPositionAdvertisements)
+                                  .Select(x => x.OrderPosition)
+                                  .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                                  .Select(x => x.Order)
+                                  .Where(Specs.Find.ActiveAndNotDeleted<Order>())
+                                  .Select(x => x.Id)
+                                  .Distinct()
+                                  .ToArray();
+
+            return orderIds;
+        }
+
+        public long[] GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds)
+        {
+            var orderIds = _finder.Find(Specs.Find.ByIds<AdvertisementElement>(advertisementElementIds))
+                                  .SelectMany(x => x.Advertisement.OrderPositionAdvertisements)
+                                  .Select(x => x.OrderPosition)
+                                  .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                                  .Select(x => x.Order)
+                                  .Where(Specs.Find.ActiveAndNotDeleted<Order>())
+                                  .Select(x => x.Id)
+                                  .Distinct()
+                                  .ToArray();
 
             return orderIds;
         }

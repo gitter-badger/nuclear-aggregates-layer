@@ -5208,4 +5208,22 @@
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value />
   </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value />
+  </data>
 </root>

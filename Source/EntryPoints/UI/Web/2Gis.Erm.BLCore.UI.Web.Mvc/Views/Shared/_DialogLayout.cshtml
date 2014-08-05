@@ -1,4 +1,8 @@
-﻿@inherits WebViewPage
+﻿@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
+@using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
+@using DoubleGis.Erm.Platform.UI.Web.Mvc.Security
+
+@inherits WebViewPage
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,6 +41,7 @@
         Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
         Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
         Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
+        Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
     </script>
     
     <script src="/Scripts/DoubleGis.GlobalVariables.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>

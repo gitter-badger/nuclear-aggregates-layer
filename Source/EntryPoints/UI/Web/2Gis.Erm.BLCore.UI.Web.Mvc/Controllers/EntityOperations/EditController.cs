@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -19,8 +20,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
     public class EditController : ControllerBase
     {
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed. Suppression is OK here.")]
-        public EditController(IMsCrmSettings msCrmSettings, IUserContext userContext, ICommonLog logger, IAPIOperationsServiceSettings operationsServiceSettings, IGetBaseCurrencyService getBaseCurrencyService) :
-            base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+        public EditController(IMsCrmSettings msCrmSettings,
+                              IUserContext userContext,
+                              ICommonLog logger,
+                              IAPIOperationsServiceSettings operationsServiceSettings,
+                              IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                              IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
         }
 
@@ -42,6 +53,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             {
                 throw new NotificationException(BLResources.IdentifierNotSet);
             }
+
             return View(new EditPrivilegeViewModel { RoleId = entityId.Value });
         }
 
@@ -52,6 +64,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             {
                 throw new NotificationException(BLResources.IdentifierNotSet);
             }
+
             return View(new IdModel { Id = entityId.Value });
         }
 
@@ -62,6 +75,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             {
                 throw new NotificationException(BLResources.IdentifierNotSet);   
             }
+
             return View(new IdModel { Id = entityId.Value });
         }
     }

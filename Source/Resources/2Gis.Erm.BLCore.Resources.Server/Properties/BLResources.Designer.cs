@@ -1134,6 +1134,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AdvertisementElementStatusChangingAccessDenied {
+            get {
+                return ResourceManager.GetString("AdvertisementElementStatusChangingAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AdvertisementElementTemplateIsLinkIsFormattedError {
             get {
                 return ResourceManager.GetString("AdvertisementElementTemplateIsLinkIsFormattedError", resourceCulture);
@@ -9290,6 +9299,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NonDraftAdvertisementElementEditing {
+            get {
+                return ResourceManager.GetString("NonDraftAdvertisementElementEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Not {
             get {
                 return ResourceManager.GetString("Not", resourceCulture);
@@ -10751,6 +10769,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OrderRejectDateFieldIsNotFilled {
             get {
                 return ResourceManager.GetString("OrderRejectDateFieldIsNotFilled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrdersCheckAdvertisementElementIsDraft {
+            get {
+                return ResourceManager.GetString("OrdersCheckAdvertisementElementIsDraft", resourceCulture);
             }
         }
         
@@ -15293,6 +15320,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string YouCannotSpecifyInactiveDenialReason {
+            get {
+                return ResourceManager.GetString("YouCannotSpecifyInactiveDenialReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string YouHasNoEntityAccessPrivilege {
             get {
                 return ResourceManager.GetString("YouHasNoEntityAccessPrivilege", resourceCulture);
@@ -15329,9 +15365,27 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string YouHaveToSpecifyReasonToDenyAdvertisementElement {
+            get {
+                return ResourceManager.GetString("YouHaveToSpecifyReasonToDenyAdvertisementElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string YouMustFillInAllDummyValuesToPublishAdvertisementTemplate {
             get {
                 return ResourceManager.GetString("YouMustFillInAllDummyValuesToPublishAdvertisementTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string YouMustNotChangeStatusOfNotVerifiableAdvertisementElement {
+            get {
+                return ResourceManager.GetString("YouMustNotChangeStatusOfNotVerifiableAdvertisementElement", resourceCulture);
             }
         }
     }
