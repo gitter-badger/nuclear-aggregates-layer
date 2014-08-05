@@ -6,12 +6,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AfterSaleServices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -32,15 +32,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IOperationService _operationService;
         private readonly IPublicService _publicService;
 
-        public AfterSaleServiceController(
-            IMsCrmSettings msCrmSettings, 
-            IUserContext userContext, 
-            ICommonLog logger, 
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IOperationService operationService, 
-            IPublicService publicService,
-            IAPIOperationsServiceSettings operationsServiceSettings, IGetBaseCurrencyService getBaseCurrencyService) :
-            base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+        public AfterSaleServiceController(IMsCrmSettings msCrmSettings,
+                                          IUserContext userContext,
+                                          ICommonLog logger,
+                                          ISecurityServiceFunctionalAccess functionalAccessService,
+                                          IOperationService operationService,
+                                          IPublicService publicService,
+                                          IAPIOperationsServiceSettings operationsServiceSettings,
+                                          IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                          IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _operationService = operationService;

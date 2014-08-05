@@ -1,4 +1,4 @@
-﻿@model Models.AdvertisementElementViewModel
+﻿@model AdvertisementElementViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -28,7 +28,7 @@
             border-spacing: inherit;
             width: auto;
         }
-        
+
         DIV.Tab TABLE TD
         {
             padding-bottom: inherit;
@@ -47,7 +47,7 @@
     }
     
     <script src="/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-                    }
+}
 
 @section CardBody
 {
@@ -55,18 +55,11 @@
         @if (Model != null)
         {
             @Html.HiddenFor(m => m.Id)
-            @Html.HiddenFor(m => m.TemplateRestrictionType)
-            @Html.HiddenFor(m => m.TemplateFormattedText)
-            @Html.HiddenFor(m => m.TemplateAdvertisementLink)
-            @Html.HiddenFor(m => m.TemplateFileExtensionRestriction)
-            @Html.HiddenFor(m => m.TemplateImageDimensionRestriction)
             @Html.HiddenFor(m => m.CanUserChangeStatus)
             @Html.HiddenFor(m => m.NeedsValidation)
-            
-            // Для работы контрола отправки файлов
-            @Html.HiddenFor(m => m.FileName)
-            @Html.HiddenFor(m => m.FileContentType)
-            @Html.HiddenFor(m => m.FileContentLength)
+
+            @*скрытое поле ActualType служит двум целям: 1. определить тип ЭРМ; 2. опредлить префикс DOM-элементов*@
+            @Html.HiddenFor(m => m.ActualType)
         }
         <div class="row-wrapper">
             @Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementElementTemplate, ReadOnly = true })
@@ -74,27 +67,34 @@
     
         @if (Model.NeedsValidation)
         {
-            var disableIfHasNoPrivelege = Model.CanUserChangeStatus ? null : new Dictionary<string, object>() { { "disabled", "disabled" } };
             <div class="row-wrapper">
-                @Html.EnumField(m => m.Status, FieldFlex.lone, disableIfHasNoPrivelege, EnumResources.ResourceManager, Model.AvailableStates != null ? Model.AvailableStates.Cast<object>() : null)
-            </div>
-            <div class="row-wrapper">
-                @Html.TemplateField(m => m.Error, FieldFlex.lone, disableIfHasNoPrivelege, EnumResources.ResourceManager)
+                @Html.TemplateField(m => m.Status, FieldFlex.lone, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager)
             </div>
         }
-    
 
-        @if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Text || Model.TemplateRestrictionType == AdvertisementElementRestrictionType.FasComment)
+        @switch (Model.ActualType)
         {
-        Html.RenderPartial(@"~/Views/AdvertisementElement/TextViewPage.cshtml");
-        }
-        @if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Article || Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Image)
-        {
-        Html.RenderPartial(@"~/Views/AdvertisementElement/FileViewPage.cshtml");
-        }
-        @if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Date)
-        {
-        Html.RenderPartial(@"~/Views/AdvertisementElement/DateViewPage.cshtml");
+            case AdvertisementElementRestrictionActualType.File:
+                @Html.EditorFor(m => m.File)
+                break;
+            case AdvertisementElementRestrictionActualType.Date:
+            @Html.EditorFor(m => m.Period)
+                break;
+            case AdvertisementElementRestrictionActualType.FasComment:
+            @Html.EditorFor(m => m.FasComment)
+                break;
+            case AdvertisementElementRestrictionActualType.FormattedText:
+            @Html.EditorFor(m => m.FormattedText)
+                break;
+            case AdvertisementElementRestrictionActualType.Image:
+            @Html.EditorFor(m => m.Image)
+                break;
+            case AdvertisementElementRestrictionActualType.Link:
+            @Html.EditorFor(m => m.Link)
+                break;
+            case AdvertisementElementRestrictionActualType.PlainText:
+            @Html.EditorFor(m => m.PlainText)
+                break;
         }
     </div>
 }

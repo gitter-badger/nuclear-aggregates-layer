@@ -5,6 +5,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -22,20 +23,20 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICloseClientBargainsOperationService _closeClientBargainsOperationService;
 
-        public BargainController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            ICloseClientBargainsOperationService closeClientBargainsOperationService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                getBaseCurrencyService)
+        public BargainController(IMsCrmSettings msCrmSettings,
+                                 IUserContext userContext,
+                                 ICommonLog logger,
+                                 ISecurityServiceFunctionalAccess functionalAccessService,
+                                 IAPIOperationsServiceSettings operationsServiceSettings,
+                                 ICloseClientBargainsOperationService closeClientBargainsOperationService,
+                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                 IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _closeClientBargainsOperationService = closeClientBargainsOperationService;
