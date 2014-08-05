@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -74,15 +75,26 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             if (querySettings.Sort.Count() == 1 && querySettings.Sort.Single().PropertyName == "DenialReasonType")
             {
                 var direction = querySettings.Sort.Single().Direction;
+                IList<ListAdvertisementElementDenialReasonsDto> sortedResult;
                 switch (direction)
                 {
                     case SortDirection.Ascending:
-                        return result.Order(x => x.DenialReasonName);
+                    {
+                        sortedResult = result.OrderBy(x => x.DenialReasonName).ToList();
+                        break;
+                    }
+
                     case SortDirection.Descending:
-                        return result.OrderDesc(x => x.DenialReasonName);
+                    {
+                        sortedResult = result.OrderByDescending(x => x.DenialReasonName).ToList();
+                        break;
+                    }
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
+                return new RemoteCollection<ListAdvertisementElementDenialReasonsDto>(sortedResult, result.TotalCount);
             }
 
             return result;
