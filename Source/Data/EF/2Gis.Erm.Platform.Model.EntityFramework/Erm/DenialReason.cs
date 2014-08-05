@@ -20,6 +20,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         IDeactivatableEntity, 
         IStateTrackingEntity
     {
+        public DenialReason()
+        {
+            this.AdvertisementElementDenialReasons = new HashSet<AdvertisementElementDenialReason>();
+        }
         public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -31,6 +35,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool IsActive { get; set; }
         public byte[] Timestamp { get; set; }
+    
+        public ICollection<AdvertisementElementDenialReason> AdvertisementElementDenialReasons { get; set; }
     
     	public override bool Equals(object obj)
         {
