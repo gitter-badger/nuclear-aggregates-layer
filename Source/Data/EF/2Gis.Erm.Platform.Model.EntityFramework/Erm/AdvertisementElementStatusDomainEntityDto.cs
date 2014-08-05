@@ -24,14 +24,12 @@ using DoubleGis.Erm.Model.Entities.Enums;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AdvertisementElementDenialReasonDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.AdvertisementElementDenialReason>
+    public partial class AdvertisementElementStatusDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.AdvertisementElementStatus>
     {
     	[DataMember]
-        public EntityReference AdvertisementElementRef { get; set; }
+        public long Id { get; set; }
     	[DataMember]
-        public EntityReference DenialReasonRef { get; set; }
-    	[DataMember]
-        public string Comment { get; set; }
+        public int Status { get; set; }
     	[DataMember]
         public EntityReference CreatedByRef { get; set; }
     	[DataMember]
@@ -42,8 +40,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     	[DataMember]
         public byte[] Timestamp { get; set; }
-    	[DataMember]
-        public long Id { get; set; }
+        [DataMember]
+        public byte[] AdvertisementElementTimestamp { get; set; } // COMMENT {all, 12.07.2014}: Служит для защиты от параллельного редактирования сущности AdvertisementElement (просто TimeStamp - для сущности AdvertisementElementStatus)
     }
 }
 

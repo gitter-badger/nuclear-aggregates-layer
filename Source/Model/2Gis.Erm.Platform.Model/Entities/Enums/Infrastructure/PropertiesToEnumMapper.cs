@@ -12,8 +12,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
         public static readonly IReadOnlyDictionary<string, Type> Map = new Dictionary<string, Type>
             {
                 { CreateKey<AdvertisementElement>(entity => entity.FasCommentType), typeof(FasComment?) },
-                { CreateKey<AdvertisementElement>(entity => entity.Status), typeof(AdvertisementElementStatus) },
-                { CreateKey<AdvertisementElement>(entity => entity.Error), typeof(AdvertisementElementError) },
                 { CreateKey<AdvertisementElementTemplate>(entity => entity.RestrictionType), typeof(AdvertisementElementRestrictionType) },
                 { CreateKey<AssociatedPosition>(entity => entity.ObjectBindingType), typeof(ObjectBindingType) },
                 { CreateKey<Bargain>(entity => entity.HasDocumentsDebt), typeof(DocumentsDebt) },
