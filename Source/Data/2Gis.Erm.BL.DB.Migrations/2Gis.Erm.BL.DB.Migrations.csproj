@@ -58,6 +58,10 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.08.04 rev. 22874 - Remove redundant AdvertisementElementStatus Privilege.cs" />
+    <Compile Include="2.1\2014.07.30 rev. 22797 - Alter BOS for Advertisement export.cs" />
+    <Compile Include="2.1\2014.07.30 rev. 22791 - Set some AE statuses.cs" />
+    <Compile Include="2.1\2014.07.24 rev. 22626 - Set comment nullable in AEDR.cs" />
     <Compile Include="2.1\2014.07.16 rev. 22367 - Alter bargain replication.cs" />
     <Compile Include="2.1\2014.07.16 rev. 22366 - CRM bargain customization.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22361 - Alter bargain replication.cs" />
@@ -65,6 +69,8 @@
     <Compile Include="2.1\2014.07.04 rev. 22016 - add BargainKind and  BargainEndDate columns in Billing.Bargains.cs" />
     <Compile Include="2.1\2014.06.26 rev. 21672 - Create flowOrders_DenialReason table.cs" />
     <Compile Include="2.1\2014.06.26 rev. 21673 - Insert a records into BusinessOperationServices.cs" />
+    <Compile Include="2.1\2014.07.03 rev. 21992 - Alter BOS for Advertisement export.cs" />
+    <Compile Include="2.1\2014.06.30 rev. 21755 - drop status in Billing.AdvertisementElements.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />

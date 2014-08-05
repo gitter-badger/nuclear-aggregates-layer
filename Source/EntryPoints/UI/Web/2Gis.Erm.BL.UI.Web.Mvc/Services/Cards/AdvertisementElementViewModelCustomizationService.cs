@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
@@ -39,12 +40,32 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var advertisementElementModel = (AdvertisementElementViewModel)viewModel;
-            advertisementElementModel.ViewConfig.ReadOnly |= advertisementElementModel.DisableEdit;
+            advertisementElementModel.ViewConfig.ReadOnly |=
+                advertisementElementModel.DisableEdit ||
+                advertisementElementModel.CanUserChangeStatus ||
+                (advertisementElementModel.NeedsValidation && advertisementElementModel.Status != AdvertisementElementStatusValue.Draft);
+            
+            if (advertisementElementModel.FasComment != null)
+            {
+                advertisementElementModel.FasComment.FasCommentDisplayTextItemsJson = GetDisplayTextItemsJson();
+            }
 
-            advertisementElementModel.FasCommentDisplayTextItemsJson = GetDisplayTextItemsJson();
+            if (advertisementElementModel.CanUserChangeStatus)
+            {
+                advertisementElementModel.ViewConfig.DisableCardToolbarItem("ResetToDraft");
+            }
+
+            advertisementElementModel.ViewConfig.DisableCardToolbarItem(advertisementElementModel.Status == AdvertisementElementStatusValue.Draft
+                                                                            ? "ResetToDraft"
+                                                                            : "SaveAndVerify");
+
+            var itemsToDelete = advertisementElementModel.NeedsValidation ? new[] { "Save", "SaveAndClose" } : new[] { "ResetToDraft", "SaveAndVerify" };
+
+            advertisementElementModel.ViewConfig.CardSettings.CardToolbar =
+                advertisementElementModel.ViewConfig.CardSettings.CardToolbar.Where(x => !itemsToDelete.Contains(x.Name)).ToArray();
         }
-        
-        private static string GetDisplayTextItemsJson()
+
+        public static string GetDisplayTextItemsJson()
         {
             return JsonConvert.SerializeObject(FasCommentToDisplayTextMapping.ToDictionary(x => EnumUIUtils.GetEnumName(x.Key, true), x => x.Value()));
         }
