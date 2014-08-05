@@ -38,6 +38,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementTemplate, x => x.AdsTemplateId)
             .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementElementTemplate, x => x.AdsElementTemplateId)
 
+            .RegisterRelatedFilter<ListAdvertisementElementDenialReasonsDto>(EntityName.AdvertisementElement, x => x.AdvertisementElementId)
+
             .RegisterRelatedFilter<ListAssociatedPositionDto>(EntityName.AssociatedPositionsGroup, x => x.AssociatedPositionsGroupId)
 
             .RegisterRelatedFilter<ListBargainFileDto>(EntityName.Bargain, x => x.BargainId)
@@ -133,7 +135,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
         }
 
         public static bool TryGetFilterExpressionFromRelationalMap<TDocument>(EntityName parentEntityName, out LambdaExpression lambdaExpression)
-        {
+            {
             var key = Tuple.Create(typeof(TDocument), parentEntityName);
             return RelationalMap.TryGetValue(key, out lambdaExpression);
         }
