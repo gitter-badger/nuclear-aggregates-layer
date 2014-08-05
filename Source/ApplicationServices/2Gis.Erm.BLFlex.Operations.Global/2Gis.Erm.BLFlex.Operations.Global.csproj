@@ -148,12 +148,14 @@
     <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
     <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
     <Compile Include="MultiCulture\Generic\Modify\Old\MultiCultureEditOrderPositionHandler.cs" />
+    <Compile Include="Russia\Generic\Get\GetAdvertisementElementStatusDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBargainTypeDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBranchOfficeDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBranchOfficeOrganizationUnitDtoService.cs" />
     <Compile Include="Russia\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
     <Compile Include="Russia\Generic\Modify\BargainTypeFlexSpecs.cs" />
     <Compile Include="Russia\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\AdvertisementElementStatusObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBargainTypeObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeOrganizationUnitObtainer.cs" />

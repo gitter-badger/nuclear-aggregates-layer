@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
@@ -35,20 +36,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
         private readonly IBusinessModelEntityObtainer<Client> _clientObtainer;
 
         public ClientsMergingController(IMsCrmSettings msCrmSettings,
-                                IUserContext userContext,
-                                ICommonLog logger,
-                                IAPIOperationsServiceSettings operationsServiceSettings,
-                                IGetBaseCurrencyService getBaseCurrencyService,
-                                IOperationServicesManager operationServicesManager,
-                                ISecurityServiceUserIdentifier userIdentifierService,
-                                ISecurityServiceFunctionalAccess functionalAccessService,
-                                IPublicService publicService,
-                                IFinder finder,
-                                IBusinessModelEntityObtainer<Client> clientObtainer)
+                                        IUserContext userContext,
+                                        ICommonLog logger,
+                                        IAPIOperationsServiceSettings operationsServiceSettings,
+                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                        IGetBaseCurrencyService getBaseCurrencyService,
+                                        IOperationServicesManager operationServicesManager,
+                                        ISecurityServiceUserIdentifier userIdentifierService,
+                                        ISecurityServiceFunctionalAccess functionalAccessService,
+                                        IPublicService publicService,
+                                        IFinder finder,
+                                        IBusinessModelEntityObtainer<Client> clientObtainer)
             : base(msCrmSettings,
                    userContext,
                    logger,
                    operationsServiceSettings,
+                   specialOperationsServiceSettings,
                    getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;

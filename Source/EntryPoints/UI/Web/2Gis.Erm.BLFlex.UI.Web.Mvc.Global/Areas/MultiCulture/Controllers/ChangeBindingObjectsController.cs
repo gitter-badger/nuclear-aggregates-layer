@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -25,10 +26,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
                                               IUserContext userContext,
                                               ICommonLog logger,
                                               IAPIOperationsServiceSettings operationsServiceSettings,
+                                              IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                               IGetBaseCurrencyService getBaseCurrencyService,
                                               IOperationServicesManager operationServicesManager,
                                               IPublicService publicService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _publicService = publicService;
