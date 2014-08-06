@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                 advertisementElementModel.FasComment.FasCommentDisplayTextItemsJson = GetDisplayTextItemsJson();
             }
 
-            if (advertisementElementModel.CanUserChangeStatus)
+            if (advertisementElementModel.CanUserChangeStatus || advertisementElementModel.DisableEdit)
             {
                 advertisementElementModel.ViewConfig.DisableCardToolbarItem("ResetToDraft");
             }
