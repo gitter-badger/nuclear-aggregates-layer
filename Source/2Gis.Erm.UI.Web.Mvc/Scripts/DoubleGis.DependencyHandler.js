@@ -105,7 +105,7 @@ Ext.DoubleGis.DependencyHandler = Ext.extend(Ext.util.Observable, {
         }
         var sign = this.evaluateExpression.createDelegate(field)(dependency.Expression, initially) === true;
         var readOnlyField = Ext.getDom("ViewConfig_ReadOnly");
-        var isCardReadOnly = readOnlyField.value;
+        var isCardReadOnly = readOnlyField ? readOnlyField.value : false;
         switch (dependency.Type) {
             case this.HIDDEN:
                 sign ? this.hideField(dependency) : this.showField(dependency);
