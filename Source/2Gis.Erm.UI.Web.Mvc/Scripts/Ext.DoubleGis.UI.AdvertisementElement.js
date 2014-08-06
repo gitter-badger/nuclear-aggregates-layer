@@ -297,6 +297,7 @@
             var readOnly = readOnlyField ? readOnlyField.checked : false;
             var entityId = Ext.get('Id').getValue();
             var u = new Ext.ux.AsyncFileUpload({
+                id:fieldWithPrefix('FileId')+'-id',
                 readOnly: readOnly,
                 applyTo: fieldWithPrefix('FileId'),
                 uploadUrl: '/Upload/AdvertisementElement',
@@ -326,6 +327,10 @@
                 }
             });
         }, this);
+
+        this.on('formbind', function(cmp, frm) {
+            Ext.getCmp(fieldWithPrefix('FileId') + '-id').setReadOnly(cmp.ReadOnly);
+        });
     }
 
     function initImage(fieldWithPrefix) {
