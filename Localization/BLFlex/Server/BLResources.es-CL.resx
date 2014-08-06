@@ -388,4 +388,7 @@
   <data name="NoOrdersFound" xml:space="preserve">
     <value>No se han encontrado órdenes según parámetros indicados</value>
   </data>
+  <data name="VerificationTitle" xml:space="preserve">
+    <value>Выверка ЭРМ</value>
+  </data>
 </root>

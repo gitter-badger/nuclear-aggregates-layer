@@ -921,4 +921,13 @@
   <data name="SelectMessageToSave" xml:space="preserve">
     <value>Выберите сообщения для сохранения</value>
   </data>
+  <data name="AdvertisingElementAccept" xml:space="preserve">
+    <value>Одобрить</value>
+  </data>
+  <data name="AdvertisingElementValidate" xml:space="preserve">
+    <value>Выверка</value>
+  </data>
+  <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
+    <value>Действие недоступно, т.к. не все элементы являются валидными</value>
+  </data>
 </root>

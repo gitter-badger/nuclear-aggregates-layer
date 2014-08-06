@@ -1641,23 +1641,17 @@
   <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
     <value>Odchozí reklama z franšízy na pobočku</value>
   </data>
-  <data name="AdvertisementElementStatusNotValidated" xml:space="preserve">
-    <value>Neověřen</value>
+  <data name="AdvertisementElementStatusValueReadyForValidation" xml:space="preserve">
+    <value>Готов к выверке</value>
   </data>
-  <data name="AdvertisementElementStatusValid" xml:space="preserve">
-    <value>Ověřen</value>
+  <data name="AdvertisementElementStatusValueValid" xml:space="preserve">
+    <value>Одобрено</value>
   </data>
-  <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
-    <value>Zamítnutá</value>
+  <data name="AdvertisementElementStatusValueInvalid" xml:space="preserve">
+    <value>Выверено с ошибками</value>
   </data>
-  <data name="AdvertisementElementErrorAbsent" xml:space="preserve">
-    <value>Chybí</value>
-  </data>
-  <data name="AdvertisementElementErrorLawError" xml:space="preserve">
-    <value>Právnická</value>
-  </data>
-  <data name="AdvertisementElementErrorRequirementsError" xml:space="preserve">
-    <value>Neodpovídá požadavkům</value>
+  <data name="AdvertisementElementStatusValueDraft" xml:space="preserve">
+    <value>Черновик</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
     <value>Ověření RM</value>
@@ -1891,19 +1885,64 @@
     <value>Smlouva pro právnickou osobu (dodatečný jazyk)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
   </data>
+  <data name="EntityNameDenialReason" xml:space="preserve">
+    <value>Příčiny zamítnutí Reklamního Materiálu</value>
+  </data>
+  <data name="DenialReasonTypeLawDistanceSelling" xml:space="preserve">
+    <value>Закон о рекламе: Дистанционная продажа</value>
+  </data>
+  <data name="DenialReasonTypeLawStimulatingActivities" xml:space="preserve">
+    <value>Закон о рекламе: Стимулирующие мероприятия</value>
+  </data>
+  <data name="DenialReasonTypeLawFinancialServices" xml:space="preserve">
+    <value>Закон о рекламе: Финансовые услуги</value>
+  </data>
+  <data name="DenialReasonTypeLawNewBuilding" xml:space="preserve">
+    <value>Закон о рекламе: Новостройки</value>
+  </data>
+  <data name="DenialReasonTypeLawAlcohol" xml:space="preserve">
+    <value>Закон о рекламе: Алкоголь</value>
+  </data>
+  <data name="DenialReasonTypeLawMedicine" xml:space="preserve">
+    <value>Закон о рекламе: Медицина, БАДы, детское питание</value>
+  </data>
+  <data name="DenialReasonTypeLawWeapon" xml:space="preserve">
+    <value>Закон о рекламе: Оружие</value>
+  </data>
+  <data name="DenialReasonTypeLawMisleadingAdv" xml:space="preserve">
+    <value>Закон о рекламе: Недостоверная реклама</value>
+  </data>
+  <data name="DenialReasonTypeLawInformationProduct" xml:space="preserve">
+    <value>Закон о рекламе: Информационная продукция</value>
+  </data>
+  <data name="DenialReasonTypeLawForeignLanguage" xml:space="preserve">
+    <value>Закон о рекламе: Слова на иностранном языке</value>
+  </data>
   <data name="DenialReasonTypeInternalRules" xml:space="preserve">
     <value>Vnitřní pravidla</value>
   </data>
   <data name="DenialReasonTypeLaw" xml:space="preserve">
     <value>Zákon o reklamě</value>
   </data>
-  <data name="EntityNameDenialReason" xml:space="preserve">
-    <value>Příčiny zamítnutí Reklamního Materiálu</value>
-  </data>
   <data name="BargainKindAgent" xml:space="preserve">
     <value>Agenturní</value>
   </data>
   <data name="BargainKindClient" xml:space="preserve">
     <value>Zákaznický</value>
+  </data>
+  <data name="DenialReasonTypeOther" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="EntityNameActivityBase" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
+    <value>Связь ЭРМ с причинами отклонения</value>
+  </data>
+  <data name="EntityNameAdvertisementElementStatus" xml:space="preserve">
+    <value>Статус ЭРМ</value>
+  </data>
+  <data name="EntityNameBank" xml:space="preserve">
+    <value>Банк</value>
   </data>
 </root>
