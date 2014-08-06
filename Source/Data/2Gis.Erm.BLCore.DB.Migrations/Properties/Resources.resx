@@ -262,4 +262,7 @@
   <data name="_21236_Fill_OperationsEntities_From_Descriptor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.06.17 rev. 21236\Fill_OperationsEntities_From_Descriptor.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="ImportFirmFromXml_23021" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.08.06 rev. 23021\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
