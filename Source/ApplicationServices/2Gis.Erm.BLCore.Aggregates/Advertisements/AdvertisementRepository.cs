@@ -383,7 +383,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
                     var status = new AdvertisementElementStatus
                         {
-                            Status = (int)(elementInfo.IsRequired && elementInfo.NeedsValidation
+                            Status = (int)(elementInfo.IsRequired && elementInfo.NeedsValidation && advertisement.FirmId != null
                                                ? AdvertisementElementStatusValue.Draft
                                                : AdvertisementElementStatusValue.Valid)
                         };

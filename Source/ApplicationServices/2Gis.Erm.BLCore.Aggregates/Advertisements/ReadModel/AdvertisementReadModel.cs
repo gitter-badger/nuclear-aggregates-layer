@@ -113,6 +113,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                                                     IsFasComment = y.AdvertisementElementTemplate.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment,
                                                     NeedsValidation = y.AdvertisementElementTemplate.NeedsValidation,
                                                     IsRequired = y.AdvertisementElementTemplate.IsRequired,
+                                                    DummyAdvertisementId = y.AdvertisementTemplate.DummyAdvertisementId
                                                 }))
                           .ToArray();
         }
@@ -140,7 +141,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
             return _finder.Find(AdvertisementSpecs.AdvertisementElementStatuses.Find.ByAdvertisementElement(advertisementElementId))
                           .Select(x => new AdvertisementElementValidationState
                               {
-                                  NeedsValidation = x.AdvertisementElement.AdvertisementElementTemplate.NeedsValidation,
+                                  NeedsValidation =
+                                      x.AdvertisementElement.AdvertisementElementTemplate.NeedsValidation && x.AdvertisementElement.Advertisement.FirmId != null,
                                   CurrentStatus = x
                               })
                           .Single();

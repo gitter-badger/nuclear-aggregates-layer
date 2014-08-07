@@ -49,13 +49,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
                         advertisementElement.FasCommentType = (int)FasComment.NewFasComment;
                     }
 
-                    // не требующий выверки или не обязательный для заполнения ЭРМ создаем в статусе  - валиден
+                    // заглушку или не требующий выверки или не обязательный для заполнения ЭРМ создаем в статусе  - валиден
                     // таким образом в статусе черновик мы создадим ЭРМ, если он обязателен для заполнения и требует выверки
                     var status = new AdvertisementElementStatus
                         {
-                            Status = (int)(elementToCreate.IsRequired && elementToCreate.NeedsValidation
-                                               ? AdvertisementElementStatusValue.Draft
-                                               : AdvertisementElementStatusValue.Valid)
+                            Status =
+                                (int)(elementToCreate.IsRequired && elementToCreate.NeedsValidation && advertisementId != elementToCreate.DummyAdvertisementId
+                                          ? AdvertisementElementStatusValue.Draft
+                                          : AdvertisementElementStatusValue.Valid)
                         };
 
                     _identityProvider.SetFor(advertisementElement);
