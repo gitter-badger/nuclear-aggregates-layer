@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
             ConcurrentDictionary<long, int> deletedFirms;
             if (changesContext.DeletedChanges.TryGetValue(typeof(TEntity), out deletedFirms))
             {
-                scope.Updated<TEntity>(deletedFirms.Keys);
+                scope.Deleted<TEntity>(deletedFirms.Keys);
             }
 
             detectedChanges = new Dictionary<ChangesType, IReadOnlyDictionary<long, int>>
