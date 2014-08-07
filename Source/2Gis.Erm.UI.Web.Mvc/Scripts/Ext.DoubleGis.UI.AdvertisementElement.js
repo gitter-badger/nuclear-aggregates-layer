@@ -23,7 +23,7 @@
                 failure: function (xhr) {
                     this.Mask.hide();
                     var response = Ext.decode(xhr.responseText);
-                    this.AddNotification(response.Message, "CriticalError", "ServerError");
+                    this.AddNotification(response.Message || xhr.responseText || xhr.statusText, "CriticalError", "ServerError");
                     this.recalcToolbarButtonsAvailability();
                 },
                 scope: this
