@@ -4089,8 +4089,8 @@ The operation has been executed: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>You cannot delete the template which is used in topics</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>You cannot delete a subdivision from the topic which is already used in orders</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Cannot edit a list of company divisions in the topic set by default</value>

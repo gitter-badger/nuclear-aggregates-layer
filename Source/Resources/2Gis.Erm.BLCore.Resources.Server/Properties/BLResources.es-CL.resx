@@ -4090,8 +4090,8 @@ Operación realizada: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>No se puede eliminar la plantilla que ya se usa en los temas</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>No se puede eliminar una sucursal del tema que ya se usa en las órdenes</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>No se puede editar la lista de sucursales en el tema establecido por defecto</value>

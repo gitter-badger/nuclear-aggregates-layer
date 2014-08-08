@@ -4089,8 +4089,8 @@ Operace provedena: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>Není možné odstranit šablonu, která je použita v tématech</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>Není možné odstranit pododdíl z tématu, které je již použito v objednávkách</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Nelze upravovat seznam pododdílů ve výchozím tématu</value>
