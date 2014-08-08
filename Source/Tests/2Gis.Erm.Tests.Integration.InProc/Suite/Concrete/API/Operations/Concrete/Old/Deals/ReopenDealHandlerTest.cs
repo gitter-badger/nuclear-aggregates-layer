@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         protected override FindSpecification<Deal> ModelEntitySpec
         {
-            get { return Specs.Find.InactiveEntities<Deal>(); }
+            get { return Specs.Find.InactiveAndNotDeletedEntities<Deal>(); }
         }
 
         protected override bool TryCreateRequest(Deal modelEntity, out ReopenDealRequest request)

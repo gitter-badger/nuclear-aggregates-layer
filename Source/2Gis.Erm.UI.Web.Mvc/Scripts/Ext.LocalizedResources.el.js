@@ -1,4 +1,4 @@
-﻿// File updated : 28.07.2014 9:21:00
+﻿// File updated : 30.07.2014 18:24:05
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -8,6 +8,7 @@
 Ext.LocalizedResources =
 {
 	AcquireOrderExtensionFailed : 'Failed to obtain calculated values.',
+ActionIsNotAvailableSinceThereIsAnError : 'Действие недоступно, т.к. не все элементы являются валидными',
 ActionsHistory : 'Change history',
 ActionsHistoryTabGroupRenderer : 'Action: {0}, Completed: {1} Date: {2}',
 ActionsHistoryTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "change" : values.rs.length%10>0 && values.rs.length%10<5?"changes":"changes"]})',
@@ -30,6 +31,8 @@ AdvertisementElementTextContainsControlCharacters : 'The text contains control s
 AdvertisementElementTextContainsHtmlTags : 'The text contains potentially dangerous elements (HTML tags) and cannot be saved.',
 AdvertisementElementWasNotSaved : 'AM element was not saved.',
 Advertisements : 'Advertising materials',
+AdvertisingElementAccept : 'Одобрить',
+AdvertisingElementValidate : 'Выверка',
 AfterPageText : 'of {0}',
 Alert : 'Attention!',
 AllExistingBillsWillBeDeleted : 'All existing payments will be deleted. Continue?',

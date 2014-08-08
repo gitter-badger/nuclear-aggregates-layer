@@ -1,4 +1,4 @@
-﻿// File updated : 28.07.2014 9:21:01
+﻿// File updated : 30.07.2014 18:24:06
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -8,6 +8,7 @@
 Ext.LocalizedResources =
 {
 	AcquireOrderExtensionFailed : 'Nebylo možné získat počítané hodnoty.',
+ActionIsNotAvailableSinceThereIsAnError : 'Действие недоступно, т.к. не все элементы являются валидными',
 ActionsHistory : 'Historie změn',
 ActionsHistoryTabGroupRenderer : 'Akce: {0}, Hotovo: {1} Dne: {2}',
 ActionsHistoryTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "změna": values.rs.length%10>0 && values.rs.length%10<5?"změny":"změn"]})',
@@ -30,6 +31,8 @@ AdvertisementElementTextContainsControlCharacters : 'Text obsahuje řídicí zna
 AdvertisementElementTextContainsHtmlTags : 'Text obsahuje potenciálně nebezpečné prvky (HTML tagy), text nelze uložit.',
 AdvertisementElementWasNotSaved : 'Element reklamního materiálu nebyl uložen.',
 Advertisements : 'Reklamní materiály',
+AdvertisingElementAccept : 'Одобрить',
+AdvertisingElementValidate : 'Выверка',
 AfterPageText : 'z {0}',
 Alert : 'Pozor!',
 AllExistingBillsWillBeDeleted : 'Všechny stávající faktury budou odstraněny. Pokračovat?',

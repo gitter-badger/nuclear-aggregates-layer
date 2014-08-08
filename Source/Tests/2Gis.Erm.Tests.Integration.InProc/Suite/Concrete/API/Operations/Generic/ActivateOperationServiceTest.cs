@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
 
         protected override FindSpecification<BranchOfficeOrganizationUnit> ModelEntitySpec
         {
-            get { return Specs.Find.InactiveEntities<BranchOfficeOrganizationUnit>(); }
+            get { return Specs.Find.InactiveAndNotDeletedEntities<BranchOfficeOrganizationUnit>(); }
         }
 
         protected override OrdinaryTestResult ExecuteWithModel(BranchOfficeOrganizationUnit modelEntity)
