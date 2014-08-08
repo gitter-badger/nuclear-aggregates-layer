@@ -30,7 +30,7 @@
         <edmx:EntityTypeShape EntityType="ErmModel.ReleaseWithdrawal" Width="1.5" PointX="36.75" PointY="86.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.File" Width="1.5" PointX="13.5" PointY="74.75" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.OrderReleaseTotal" Width="1.5" PointX="31.5" PointY="101.875" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.AdvertisementElementTemplate" Width="1.5" PointX="26.25" PointY="76.5" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AdvertisementElementTemplate" Width="2.625" PointX="26.25" PointY="76.5" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Advertisement" Width="1.5" PointX="26.25" PointY="83" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AdvertisementTemplate" Width="1.5" PointX="11.25" PointY="66.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AdsTemplatesAdsElementTemplate" Width="1.5" PointX="26.25" PointY="71.5" IsExpanded="true" />
@@ -38,7 +38,7 @@
 		    <edmx:EntityTypeShape EntityType="ErmModel.OrderProcessingRequest" Width="1.5" PointX="31.75" PointY="81.125" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Bargain" Width="1.5" PointX="20.25" PointY="95.5" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Price" Width="1.5" PointX="7.5" PointY="83.5" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.AdvertisementElement" Width="1.5" PointX="28.5" PointY="82.5" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AdvertisementElement" Width="2.125" PointX="28.5" PointY="82.5" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AssociatedPosition" Width="1.5" PointX="20.25" PointY="77.125" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.DeniedPosition" Width="1.5" PointX="9.75" PointY="79" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Bill" Width="1.5" PointX="31.5" PointY="113.5" IsExpanded="true" />
@@ -283,6 +283,11 @@
         <edmx:EntityTypeShape EntityType="ErmModel.BirthdayCongratulation" Width="1.5" PointX="7.375" PointY="18.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowDeliveryData_LetterSendRequest" Width="1.5" PointX="9.375" PointY="18.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowOrders_DenialReason" Width="1.5" PointX="9.375" PointY="18.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AdvertisementElementDenialReason" Width="1.875" PointX="30.75" PointY="77" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AdvertisementElementStatus" Width="1.5" PointX="7.375" PointY="18.75" />
+        <edmx:AssociationConnector Association="ErmModel.FK_AdvertisementElementDenialReasons_AdvertisementElements" />
+        <edmx:AssociationConnector Association="ErmModel.FK_AdvertisementElementDenialReasons_DenialReasons" />
+        <edmx:AssociationConnector Association="ErmModel.FK_AdvertisementElementStatuses_AdvertisementElements" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

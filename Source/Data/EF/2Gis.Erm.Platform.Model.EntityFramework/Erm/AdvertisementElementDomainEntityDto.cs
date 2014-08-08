@@ -62,10 +62,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public EntityReference AdsTemplatesAdsElementTemplatesRef { get; set; }
     	[DataMember]
         public Nullable<long> DgppId { get; set; }
-    	[DataMember]
-        public AdvertisementElementStatus Status { get; set; }
-    	[DataMember]
-        public AdvertisementElementError Error { get; set; }
     }
 }
 
