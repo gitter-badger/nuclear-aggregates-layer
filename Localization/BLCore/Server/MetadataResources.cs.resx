@@ -1402,9 +1402,9 @@
     <value>DPH</value>
   </data>
   <data name="ControlSaveAndVerify" xml:space="preserve">
-    <value>Сохранить и опубликовать</value>
+    <value>Uložit a publikovat</value>
   </data>
   <data name="ControlResetToDraft" xml:space="preserve">
-    <value>Редактировать</value>
+    <value>Editovat</value>
   </data>
 </root>

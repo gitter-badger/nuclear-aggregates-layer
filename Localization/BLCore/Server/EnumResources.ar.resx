@@ -1642,13 +1642,13 @@
     <value>Outgoing advertising from a franchisee to a branch</value>
   </data>
   <data name="AdvertisementElementStatusValueValid" xml:space="preserve">
-    <value>Одобрено</value>
+    <value>Approved</value>
   </data>
   <data name="AdvertisementElementStatusValueInvalid" xml:space="preserve">
-    <value>Выверено с ошибками</value>
+    <value>Completed with errors</value>
   </data>
   <data name="AdvertisementElementStatusValueDraft" xml:space="preserve">
-    <value>Черновик</value>
+    <value>Draft</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
     <value>AM verification</value>
@@ -1886,37 +1886,37 @@
     <value>Reason for rejecting the AM</value>
   </data>
   <data name="AdvertisementElementStatusValueReadyForValidation" xml:space="preserve">
-    <value>Готов к выверке</value>
+    <value>Ready for verification</value>
   </data>
   <data name="DenialReasonTypeLawDistanceSelling" xml:space="preserve">
-    <value>Закон о рекламе: Дистанционная продажа</value>
+    <value>Advertising Act: Distance Selling</value>
   </data>
   <data name="DenialReasonTypeLawStimulatingActivities" xml:space="preserve">
-    <value>Закон о рекламе: Стимулирующие мероприятия</value>
+    <value>Advertising Act: Promotional Activities</value>
   </data>
   <data name="DenialReasonTypeLawFinancialServices" xml:space="preserve">
-    <value>Закон о рекламе: Финансовые услуги</value>
+    <value>Advertising Act: Financial Services</value>
   </data>
   <data name="DenialReasonTypeLawNewBuilding" xml:space="preserve">
-    <value>Закон о рекламе: Новостройки</value>
+    <value>Advertising Act: New Buildings</value>
   </data>
   <data name="DenialReasonTypeLawAlcohol" xml:space="preserve">
-    <value>Закон о рекламе: Алкоголь</value>
+    <value>Advertising Act: Alcohol</value>
   </data>
   <data name="DenialReasonTypeLawMedicine" xml:space="preserve">
-    <value>Закон о рекламе: Медицина, БАДы, детское питание</value>
+    <value>Advertising Act: Medicine, BAAs, Infant Food</value>
   </data>
   <data name="DenialReasonTypeLawWeapon" xml:space="preserve">
-    <value>Закон о рекламе: Оружие</value>
+    <value>Advertising Act: Weapons</value>
   </data>
   <data name="DenialReasonTypeLawMisleadingAdv" xml:space="preserve">
-    <value>Закон о рекламе: Недостоверная реклама</value>
+    <value>Advertising Act: Unreliable Advertising</value>
   </data>
   <data name="DenialReasonTypeLawInformationProduct" xml:space="preserve">
-    <value>Закон о рекламе: Информационная продукция</value>
+    <value>Advertising Act: Information Products</value>
   </data>
   <data name="DenialReasonTypeLawForeignLanguage" xml:space="preserve">
-    <value>Закон о рекламе: Слова на иностранном языке</value>
+    <value>Advertising Act: Words in a Foreign Language</value>
   </data>
   <data name="DenialReasonTypeInternalRules" xml:space="preserve">
     <value>Internal rules</value>
@@ -1931,18 +1931,18 @@
     <value>Client</value>
   </data>
   <data name="DenialReasonTypeOther" xml:space="preserve">
-    <value>Другое</value>
+    <value>Other</value>
   </data>
   <data name="EntityNameActivityBase" xml:space="preserve">
-    <value>Действие</value>
+    <value>Action</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
-    <value>Связь ЭРМ с причинами отклонения</value>
+    <value>Connection of AME to rejection reasons</value>
   </data>
   <data name="EntityNameAdvertisementElementStatus" xml:space="preserve">
-    <value>Статус ЭРМ</value>
+    <value>AME status</value>
   </data>
   <data name="EntityNameBank" xml:space="preserve">
-    <value>Банк</value>
+    <value>Bank</value>
   </data>
 </root>

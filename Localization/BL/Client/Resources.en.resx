@@ -922,12 +922,12 @@
     <value>Select messages to be saved</value>
   </data>
   <data name="AdvertisingElementAccept" xml:space="preserve">
-    <value>Одобрить</value>
+    <value>Approve</value>
   </data>
   <data name="AdvertisingElementValidate" xml:space="preserve">
-    <value>Выверка</value>
+    <valueVerification</value>
   </data>
   <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
-    <value>Действие недоступно, т.к. не все элементы являются валидными</value>
+    <value>Action cannot be performed, since not all elements are valid</value>
   </data>
 </root>

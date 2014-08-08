@@ -1654,13 +1654,13 @@
     <value>Publicidad saliente de la franquicia a la sucursal</value>
   </data>
   <data name="AdvertisementElementStatusValueValid" xml:space="preserve">
-    <value>Одобрено</value>
+    <value>Aprobado</value>
   </data>
   <data name="AdvertisementElementStatusValueInvalid" xml:space="preserve">
-    <value>Выверено с ошибками</value>
+    <value>Verificado con errores</value>
   </data>
   <data name="AdvertisementElementStatusValueDraft" xml:space="preserve">
-    <value>Черновик</value>
+    <value>Borrador</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
     <value>Verificación de material publicitario</value>
@@ -1898,37 +1898,37 @@
     <value>Motivos de rechazo de los Materiales Publicitarios</value>
   </data>
   <data name="AdvertisementElementStatusValueReadyForValidation" xml:space="preserve">
-    <value>Готов к выверке</value>
+    <value>Listo para verificación</value>
   </data>
   <data name="DenialReasonTypeLawDistanceSelling" xml:space="preserve">
-    <value>Закон о рекламе: Дистанционная продажа</value>
+    <value>Ley de Publicidad: Venta a distancia</value>
   </data>
   <data name="DenialReasonTypeLawStimulatingActivities" xml:space="preserve">
-    <value>Закон о рекламе: Стимулирующие мероприятия</value>
+    <value>Ley de Publicidad: Actividades de estimulación</value>
   </data>
   <data name="DenialReasonTypeLawFinancialServices" xml:space="preserve">
-    <value>Закон о рекламе: Финансовые услуги</value>
+    <value>Ley de Publicidad: Servicios financieros</value>
   </data>
   <data name="DenialReasonTypeLawNewBuilding" xml:space="preserve">
-    <value>Закон о рекламе: Новостройки</value>
+    <value>Ley de Publicidad: Construcciones</value>
   </data>
   <data name="DenialReasonTypeLawAlcohol" xml:space="preserve">
-    <value>Закон о рекламе: Алкоголь</value>
+    <value>Ley de Publicidad: Alcohol</value>
   </data>
   <data name="DenialReasonTypeLawMedicine" xml:space="preserve">
-    <value>Закон о рекламе: Медицина, БАДы, детское питание</value>
+    <value>Ley de Publicidad: Medicina, suplementos biológicamente activos (BAS), alimentación infantil</value>
   </data>
   <data name="DenialReasonTypeLawWeapon" xml:space="preserve">
-    <value>Закон о рекламе: Оружие</value>
+    <value>Ley de Publicidad: Armas</value>
   </data>
   <data name="DenialReasonTypeLawMisleadingAdv" xml:space="preserve">
-    <value>Закон о рекламе: Недостоверная реклама</value>
+    <value>Ley de Publicidad: Publicidad engañosa</value>
   </data>
   <data name="DenialReasonTypeLawInformationProduct" xml:space="preserve">
-    <value>Закон о рекламе: Информационная продукция</value>
+    <value>Ley de Publicidad: Productos informativos</value>
   </data>
   <data name="DenialReasonTypeLawForeignLanguage" xml:space="preserve">
-    <value>Закон о рекламе: Слова на иностранном языке</value>
+    <value>Ley de Publicidad: Palabras en el idioma extranjero</value>
   </data>
   <data name="DenialReasonTypeInternalRules" xml:space="preserve">
     <value>Reglamentos internos</value>
@@ -1943,18 +1943,18 @@
     <value>De cliente</value>
   </data>
   <data name="DenialReasonTypeOther" xml:space="preserve">
-    <value>Другое</value>
+    <value>Otro</value>
   </data>
   <data name="EntityNameActivityBase" xml:space="preserve">
-    <value>Действие</value>
+    <value>Acción</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
-    <value>Связь ЭРМ с причинами отклонения</value>
+    <value>Vínculo de elemento del material publicitario con los motivos de rechazo</value>
   </data>
   <data name="EntityNameAdvertisementElementStatus" xml:space="preserve">
-    <value>Статус ЭРМ</value>
+    <value>Estado de elemento del material publicitario</value>
   </data>
   <data name="EntityNameBank" xml:space="preserve">
-    <value>Банк</value>
+    <value>Banco</value>
   </data>
 </root>
