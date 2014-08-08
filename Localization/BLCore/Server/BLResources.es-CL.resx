@@ -5225,4 +5225,22 @@ Periodo de la publicación: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Fecha de la finalización de vigencia del acuerdo no puede ser anterior a la fecha de su firma</value>
   </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>No tiene permisos para cambiar elemento del material publicitario al estado {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Intento de edición de elemento del material publicitario con el identificador {0} que no está en estado de "Borrador"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>En material publicitario "{0}", que está sujeto a varificación, elemento "{1}" está en estado de "Borrador"</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Para rechazar elemento del material publicitario se necesita indicar el motivo</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>No se puede cambiar estado de elemento del material publicitario que no requiere verificación</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>No se puede indicar el motivo de rechazo no activo</value>
+  </data>
 </root>

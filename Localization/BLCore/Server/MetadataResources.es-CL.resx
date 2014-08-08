@@ -1308,9 +1308,6 @@
   <data name="IsAdvertisingAgency" xml:space="preserve">
     <value>Es una agencia de publicidad</value>
   </data>
-  <data name="AdvertisementElementErrorDescription" xml:space="preserve">
-    <value>Error</value>
-  </data>
   <data name="RepresentativeName" xml:space="preserve">
     <value>Representante</value>
   </data>
@@ -1400,5 +1397,14 @@
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>Modelo de ventas nuevo</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>IVA</value>
+  </data>
+  <data name="ControlSaveAndVerify" xml:space="preserve">
+    <value>Guardar y publicar</value>
+  </data>
+  <data name="ControlResetToDraft" xml:space="preserve">
+    <value>Editar</value>
   </data>
 </root>
