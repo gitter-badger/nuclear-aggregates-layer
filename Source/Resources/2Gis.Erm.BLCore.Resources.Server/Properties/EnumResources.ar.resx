@@ -1641,23 +1641,14 @@
   <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
     <value>Outgoing advertising from a franchisee to a branch</value>
   </data>
-  <data name="AdvertisementElementStatusNotValidated" xml:space="preserve">
-    <value>Not verified</value>
+  <data name="AdvertisementElementStatusValueValid" xml:space="preserve">
+    <value>Approved</value>
   </data>
-  <data name="AdvertisementElementStatusValid" xml:space="preserve">
-    <value>Verified</value>
+  <data name="AdvertisementElementStatusValueInvalid" xml:space="preserve">
+    <value>Completed with errors</value>
   </data>
-  <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
-    <value>Rejected</value>
-  </data>
-  <data name="AdvertisementElementErrorAbsent" xml:space="preserve">
-    <value>Not available</value>
-  </data>
-  <data name="AdvertisementElementErrorLawError" xml:space="preserve">
-    <value>Legal</value>
-  </data>
-  <data name="AdvertisementElementErrorRequirementsError" xml:space="preserve">
-    <value>Non-compliance with requirements</value>
+  <data name="AdvertisementElementStatusValueDraft" xml:space="preserve">
+    <value>Draft</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
     <value>AM verification</value>
@@ -1891,14 +1882,47 @@
     <value>Agreement for a legal entity (additional language)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
   </data>
+  <data name="EntityNameDenialReason" xml:space="preserve">
+    <value>Reason for rejecting the AM</value>
+  </data>
+  <data name="AdvertisementElementStatusValueReadyForValidation" xml:space="preserve">
+    <value>Ready for verification</value>
+  </data>
+  <data name="DenialReasonTypeLawDistanceSelling" xml:space="preserve">
+    <value>Advertising Act: Distance Selling</value>
+  </data>
+  <data name="DenialReasonTypeLawStimulatingActivities" xml:space="preserve">
+    <value>Advertising Act: Promotional Activities</value>
+  </data>
+  <data name="DenialReasonTypeLawFinancialServices" xml:space="preserve">
+    <value>Advertising Act: Financial Services</value>
+  </data>
+  <data name="DenialReasonTypeLawNewBuilding" xml:space="preserve">
+    <value>Advertising Act: New Buildings</value>
+  </data>
+  <data name="DenialReasonTypeLawAlcohol" xml:space="preserve">
+    <value>Advertising Act: Alcohol</value>
+  </data>
+  <data name="DenialReasonTypeLawMedicine" xml:space="preserve">
+    <value>Advertising Act: Medicine, BAAs, Infant Food</value>
+  </data>
+  <data name="DenialReasonTypeLawWeapon" xml:space="preserve">
+    <value>Advertising Act: Weapons</value>
+  </data>
+  <data name="DenialReasonTypeLawMisleadingAdv" xml:space="preserve">
+    <value>Advertising Act: Unreliable Advertising</value>
+  </data>
+  <data name="DenialReasonTypeLawInformationProduct" xml:space="preserve">
+    <value>Advertising Act: Information Products</value>
+  </data>
+  <data name="DenialReasonTypeLawForeignLanguage" xml:space="preserve">
+    <value>Advertising Act: Words in a Foreign Language</value>
+  </data>
   <data name="DenialReasonTypeInternalRules" xml:space="preserve">
     <value>Internal rules</value>
   </data>
   <data name="DenialReasonTypeLaw" xml:space="preserve">
     <value>Advertising Act</value>
-  </data>
-  <data name="EntityNameDenialReason" xml:space="preserve">
-    <value>Reason for rejecting the AM</value>
   </data>
   <data name="BargainKindAgent" xml:space="preserve">
     <value>Agent</value>
@@ -1906,16 +1930,19 @@
   <data name="BargainKindClient" xml:space="preserve">
     <value>Client</value>
   </data>
+  <data name="DenialReasonTypeOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="EntityNameActivityBase" xml:space="preserve">
-    <value>Действие</value>
+    <value>Action</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
-    <value>Связь ЭРМ с причинами отклонения</value>
+    <value>Connection of AME to rejection reasons</value>
   </data>
   <data name="EntityNameAdvertisementElementStatus" xml:space="preserve">
-    <value>Статус ЭРМ</value>
+    <value>AME status</value>
   </data>
   <data name="EntityNameBank" xml:space="preserve">
-    <value>Банк</value>
+    <value>Bank</value>
   </data>
 </root>

@@ -5225,21 +5225,21 @@ Doba zveřejnění: {3}.</value>
     <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
   </data>
   <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
-    <value>Нет прав для перевода ЭРМ в статус {0}</value>
+    <value>Nemáte práva pro převedení prvku reklamního materiálu do statusu {0}</value>
   </data>
   <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
-    <value>Попытка редактирования ЭРМ с идентификатором {0} не в статусе "Черновик"</value>
+    <value>Pokus o editaci prvku editace reklamního materiálu s identifikátorem {0}, který není ve statusu "Koncept"</value>
   </data>
   <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
-    <value>В рекламном материале "{0}", который подлежит выверке, элемент "{1}" находится в статусе 'Черновик'</value>
+    <value>V reklamním materiálu "{0}", který je třeba ověřit, prvek "{1}" má status 'Koncept'</value>
   </data>
   <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
-    <value>Для отклонения ЭРМ необходиму указать причину</value>
+    <value>Pro odmítnutí prvku reklamního materiálu musíte zadat důvod</value>
   </data>
   <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
-    <value>Нельзя менять статус ЭРМ, не требующего выверки</value>
+    <value>Nelze měnit status prvku reklamního materiálu, který nepotřebuje ověření</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
-    <value>Нельзя указать неактивную причину отклонения</value>
+    <value>Nelze zadat neaktivní příčinu odmítnutí</value>
   </data>
 </root>

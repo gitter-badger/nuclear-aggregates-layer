@@ -1402,9 +1402,9 @@
     <value>VAT</value>
   </data>
   <data name="ControlSaveAndVerify" xml:space="preserve">
-    <value>Сохранить и опубликовать</value>
+    <value>Save and publish</value>
   </data>
   <data name="ControlResetToDraft" xml:space="preserve">
-    <value>Редактировать</value>
+    <value>Edit</value>
   </data>
 </root>
