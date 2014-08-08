@@ -52,6 +52,7 @@
     <Compile Include="List\Infrastructure\FilterHelper.cs" />
     <Compile Include="List\Infrastructure\SubordinatesFilter.cs" />
     <Compile Include="List\Infrastructure\ListEntityDtoServiceBase.cs" />
+    <Compile Include="List\ListAdvertisementElementDenialReasonService.cs" />
     <Compile Include="List\ListDenialReasonService.cs" />
     <Compile Include="List\ListTimeZoneService.cs" />
     <Compile Include="List\ListThemeCategoryService.cs" />
