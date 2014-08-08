@@ -19,6 +19,7 @@ using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
@@ -54,19 +55,24 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly IClientProxyFactory _clientProxyFactory;
 
-        public ReportController(
-            IReportsSettings reportsSettings,
-            ILocalizationSettings localizationSettings,
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IReportSimplifiedModel reportSimplifiedModel,
-            IUserRepository userRepository,
-            IPublicService publicService,
-            IClientProxyFactory clientProxyFactory,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+        public ReportController(IReportsSettings reportsSettings,
+                                ILocalizationSettings localizationSettings,
+                                IMsCrmSettings msCrmSettings,
+                                IUserContext userContext,
+                                ICommonLog logger,
+                                IReportSimplifiedModel reportSimplifiedModel,
+                                IUserRepository userRepository,
+                                IPublicService publicService,
+                                IClientProxyFactory clientProxyFactory,
+                                IAPIOperationsServiceSettings operationsServiceSettings,
+                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _reportsSettings = reportsSettings;
             _localizationSettings = localizationSettings;

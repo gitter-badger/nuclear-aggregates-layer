@@ -1,25 +1,17 @@
 using System;
-using System.Linq;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
@@ -51,10 +43,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                               IUserContext userContext,
                               ICommonLog logger,
                               IAPIOperationsServiceSettings operationsServiceSettings,
+                              IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IGetBaseCurrencyService getBaseCurrencyService,
                               IPublicService publicService,
                               ISecureFinder finder)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _publicService = publicService;
             _finder = finder;

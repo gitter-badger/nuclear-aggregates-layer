@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -36,8 +37,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                       IUserRepository userRepository,
                                       IOperationService operationService,
                                       IAPIOperationsServiceSettings operationsServiceSettings,
+                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                       IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _publicService = publicService;
             _userRepository = userRepository;
@@ -59,10 +66,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             if (_userRepository.TryGetSingleUserOrganizationUnit(currentUserId, out orgUnit))
             {
                 model.SourceOrganizationUnit = new LookupField
-                                                                                                                     {
-                                                       Key = orgUnit.Id,
-                                                       Value = orgUnit.Name
-                                                   };
+                    {
+                        Key = orgUnit.Id,
+                        Value = orgUnit.Name
+                    };
             }
 
             return View(model);
@@ -91,7 +98,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 });
 
                 var operationId = Guid.NewGuid();
-                var operationDescription = string.Format(BLResources.RegionalAdsDocsDescriptionTemplate, viewModel.SourceOrganizationUnit.Value, viewModel.StartPeriodDate.ToString("MMMM yyy"));
+                var operationDescription = string.Format(BLResources.RegionalAdsDocsDescriptionTemplate,
+                                                         viewModel.SourceOrganizationUnit.Value,
+                                                         viewModel.StartPeriodDate.ToString("MMMM yyy"));
 
                 var operation = new Operation
                 {

@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -35,17 +36,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IUIConfigurationService _configurationService;
         private readonly ICategoryService _categoryService;
 
-        public CategoryGroupsMembershipController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            ICategoryService categoryService, 
-            ISecurityServiceEntityAccess securityServiceEntityAccess, 
-            IUserRepository userRepository, 
-            IUIConfigurationService configurationService, 
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+        public CategoryGroupsMembershipController(IMsCrmSettings msCrmSettings,
+                                                  IUserContext userContext,
+                                                  ICommonLog logger,
+                                                  ICategoryService categoryService,
+                                                  ISecurityServiceEntityAccess securityServiceEntityAccess,
+                                                  IUserRepository userRepository,
+                                                  IUIConfigurationService configurationService,
+                                                  IAPIOperationsServiceSettings operationsServiceSettings,
+                                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                                  IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _categoryService = categoryService;
             _securityServiceEntityAccess = securityServiceEntityAccess;

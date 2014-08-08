@@ -18,6 +18,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
@@ -69,6 +70,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IUserContext userContext,
                                ICommonLog logger,
                                IAPIOperationsServiceSettings operationsServiceSettings,
+                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IGetBaseCurrencyService getBaseCurrencyService,
                                ISecurityServiceUserIdentifier userIdentifierService,
                                ISecurityServiceFunctionalAccess functionalAccessService,
@@ -86,7 +88,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;

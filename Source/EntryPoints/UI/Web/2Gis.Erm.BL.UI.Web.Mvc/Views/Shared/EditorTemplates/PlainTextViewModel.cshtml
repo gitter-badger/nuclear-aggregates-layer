@@ -1,0 +1,9 @@
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.AdvertisementElementModels.PlainTextViewModel
+
+@Html.HiddenFor(m => m.TemplateTextLengthRestriction)
+@Html.HiddenFor(m => m.TemplateMaxSymbolsInWord)
+@Html.HiddenFor(m => m.TemplateTextLineBreaksRestriction)
+
+<div class="row-wrapper">
+    @Html.TemplateField(m => m.PlainText, FieldFlex.lone, new Dictionary<string, object> { { "rows", "15" } })
+</div>
