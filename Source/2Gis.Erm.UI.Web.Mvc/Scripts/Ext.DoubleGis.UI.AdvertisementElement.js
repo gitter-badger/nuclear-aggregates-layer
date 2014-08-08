@@ -18,6 +18,7 @@
             this.Mask.show();
             window.Ext.Ajax.request({
                 url: url,
+                timeout: 240000,
                 method: 'POST',
                 success: function() { this.refresh(); },
                 failure: function (xhr) {
