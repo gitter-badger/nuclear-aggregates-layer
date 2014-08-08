@@ -922,12 +922,12 @@
     <value>Vyberte zprávy pro uložení</value>
   </data>
   <data name="AdvertisingElementAccept" xml:space="preserve">
-    <value>Одобрить</value>
+    <value>Schválit</value>
   </data>
   <data name="AdvertisingElementValidate" xml:space="preserve">
-    <value>Выверка</value>
+    <value>Ověření</value>
   </data>
   <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
-    <value>Действие недоступно, т.к. не все элементы являются валидными</value>
+    <value>Operace není přípustná, protože ne všechny elementy jsou validní</value>
   </data>
 </root>
