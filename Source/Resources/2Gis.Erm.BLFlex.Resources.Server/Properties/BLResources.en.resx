@@ -399,6 +399,6 @@ Bank Name: {7}
     <value>No orders found for the specified criteria</value>
   </data>
   <data name="VerificationTitle" xml:space="preserve">
-    <value>Выверка ЭРМ</value>
+    <value>AME verification</value>
   </data>
 </root>
