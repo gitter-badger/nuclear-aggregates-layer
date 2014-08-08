@@ -4090,8 +4090,8 @@
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>Нельзя удалить шаблон, который уже используется в тематиках</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>Нельзя удалить подразделение из темы, которая уже используется в заказах</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Нельзя редактировать список подразделений в тематике, установленной по умолчанию</value>
@@ -5224,5 +5224,23 @@
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Дата окончания действия договора не может быть меньше даты подписания</value>
+  </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>Нет прав для перевода ЭРМ в статус {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Попытка редактирования ЭРМ с идентификатором {0} не в статусе "Черновик"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>В рекламном материале "{0}", который подлежит выверке, элемент "{1}" находится в статусе 'Черновик'</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Для отклонения ЭРМ необходиму указать причину</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Нельзя менять статус ЭРМ, не требующего выверки</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Нельзя указать неактивную причину отклонения</value>
   </data>
 </root>

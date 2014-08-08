@@ -49,6 +49,8 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="AdsManagement\HandleAdsState.svc.cs" />
+    <Compile Include="AdsManagement\ManageTextAds.svc.cs" />
     <Compile Include="FinancialOperations\Calculate.svc.cs" />
     <Compile Include="FinancialOperations\OrderRequest.svc.cs" />
     <Compile Include="FinancialOperations\RequestState.svc.cs" />

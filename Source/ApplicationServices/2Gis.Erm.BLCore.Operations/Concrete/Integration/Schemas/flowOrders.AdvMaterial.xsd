@@ -11,8 +11,34 @@
       <xs:enumeration value="Approved"/>
     </xs:restriction>
   </xs:simpleType>
-  
+
+  <xs:complexType name="DenialReason">
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Id причины отклонения РМ.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Comment" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Комментарий оставленный модератором к ЭРМ.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
   <xs:complexType name="ElementText">
+    <xs:sequence>
+      <xs:element name="DenialReasons" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DenialReason" type ="DenialReason" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Информация о причинах отклонения</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
     <xs:attribute name="TemplateCode" type="xs:int" use="required">
       <xs:annotation>
         <xs:documentation>Стабильный код шаблона элемента рекламного материала</xs:documentation>
@@ -26,11 +52,37 @@
   </xs:complexType>
 
   <xs:complexType name="ElementBlob">
+    <xs:sequence>
+      <xs:element name="DenialReasons" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DenialReason" type ="DenialReason" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Информация о причинах отклонения</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
     <xs:attribute name="TemplateCode" type="xs:int" use="required" />
     <xs:attribute name="Value" type="xs:base64Binary" use="required" />
   </xs:complexType>
 
   <xs:complexType name="ElementPeriod">
+    <xs:sequence>
+      <xs:element name="DenialReasons" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DenialReason" type ="DenialReason" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Информация о причинах отклонения</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
     <xs:attribute name="TemplateCode" type="xs:int" use="required" />
     <xs:attribute name="From" type="xs:dateTime" use="required" />
     <xs:attribute name="To" type="xs:dateTime" use="required" />
@@ -72,11 +124,6 @@
     <xs:attribute name="Status" type="AdvMaterialStatus" use="required">
       <xs:annotation>
         <xs:documentation>Статус рекламного материала</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="ReasonForRejectCode" type="xs:int" use="optional">
-      <xs:annotation>
-        <xs:documentation>Причина отклонения рекламного материала</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">

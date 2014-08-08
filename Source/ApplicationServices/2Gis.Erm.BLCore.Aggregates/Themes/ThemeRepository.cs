@@ -47,16 +47,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
         private readonly IOperationScopeFactory _scopeFactory;
 
         public ThemeRepository(
-            IFinder finder, 
-            IFileContentFinder fileContentFinder, 
-            IRepository<Theme> themeRepository, 
-            IRepository<ThemeTemplate> themeTemplateRepository, 
-            IRepository<ThemeCategory> themeCategoryRepository, 
-            IRepository<ThemeOrganizationUnit> themeOrganizationUnitRepository, 
-            IRepository<FileWithContent> fileRepository, 
-            IConcurrentPeriodCounter periodCounter, 
-            IUserContext userContext, 
-            IIdentityProvider identityProvider, 
+            IFinder finder,
+            IFileContentFinder fileContentFinder,
+            IRepository<Theme> themeRepository,
+            IRepository<ThemeTemplate> themeTemplateRepository,
+            IRepository<ThemeCategory> themeCategoryRepository,
+            IRepository<ThemeOrganizationUnit> themeOrganizationUnitRepository,
+            IRepository<FileWithContent> fileRepository,
+            IConcurrentPeriodCounter periodCounter,
+            IUserContext userContext,
+            IIdentityProvider identityProvider,
             IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
@@ -152,10 +152,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                 throw new ArgumentException(BLResources.CannotEditThemeOrganizationUnitsInDefaultTheme);
             }
 
-            // Если тематика НЕ установлена по умолчанию - редактирование допустимо, только на добавление отделений организаций;
-            if (IsThemeUsedInOrders(themeOrganizationUnit.ThemeId))
+            // [ERM-4573] Не должны давать удалять отделения организаций, которые являются городом назначения в активном заказе по данной тематике.
+            var orderWithSameDestOrgUnit = FindFirstOrderWithSameDestOrgUnitAndTheme(themeOrganizationUnit.ThemeId, themeOrganizationUnit.OrganizationUnitId);
+            if (orderWithSameDestOrgUnit != null)
             {
-                throw new ArgumentException(BLResources.CannotDeleteOrganizationUnitsFromUsedTheme);
+                throw new ArgumentException(string.Format(BLResources.CannotDeleteOrganizationUnitsUsedInOrderByThatTheme, orderWithSameDestOrgUnit.Number));
             }
 
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, ThemeOrganizationUnit>())
@@ -397,7 +398,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                 entityLimit = MaxDefaultThemesPerOrganizationUnit;
             }
             else
-        {
+            {
                 themeKindSpecification = ThemeSpecifications.Find.NotSkyScrapperAndNotDefault();
                 entityLimit = MaxThemesPerOrganizationUnit;
             }
@@ -410,7 +411,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Theme>())
                 .Any(theme => theme.ThemeTemplateId == templateId);
         }
-        
+
         public bool CanThemeBeDefault(long themeId)
         {
             var theme = FindTheme(themeId);
@@ -453,6 +454,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                           .Any();
         }
 
+        public Order FindFirstOrderWithSameDestOrgUnitAndTheme(long themeId, long organizationUnitId)
+        {
+            return _finder.Find<OrderPositionAdvertisement>(advertisement => advertisement.ThemeId == themeId &&
+                                                                                advertisement.OrderPosition.IsActive &&
+                                                                                !advertisement.OrderPosition.IsDeleted &&
+                                                                                advertisement.OrderPosition.Order.IsActive &&
+                                                                                !advertisement.OrderPosition.Order.IsDeleted &&
+                                                                                advertisement.OrderPosition.Order.DestOrganizationUnitId == organizationUnitId)
+                             .Select(a => a.OrderPosition.Order).FirstOrDefault();
+        }
+
         public string GetOrganizationUnitName(long organizationUnitId)
         {
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
@@ -491,8 +503,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                    .GroupBy(arg => arg.ThemeTemplate)
                    .Select(grouping => new ThemeTemplateUsageDto
                        {
-                           Id = grouping.Key.Id, 
-                           FileId = grouping.Key.FileId, 
+                           Id = grouping.Key.Id,
+                           FileId = grouping.Key.FileId,
 
                            Themes = grouping.Select(theme => new ThemeUsageDto { Id = theme.Theme.Id, FileId = theme.Theme.FileId })
                        })
@@ -578,10 +590,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
             var file = new FileWithContent
             {
-                Id = uploadFileParams.FileId, 
-                ContentType = uploadFileParams.ContentType, 
-                ContentLength = uploadFileParams.ContentLength, 
-                Content = uploadFileParams.Content, 
+                Id = uploadFileParams.FileId,
+                ContentType = uploadFileParams.ContentType,
+                ContentLength = uploadFileParams.ContentLength,
+                Content = uploadFileParams.Content,
                 FileName = Path.GetFileName(uploadFileParams.FileName)
             };
 
@@ -615,9 +627,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
             return new UploadFileResult
             {
-                ContentType = file.ContentType, 
-                ContentLength = file.ContentLength, 
-                FileName = file.FileName, 
+                ContentType = file.ContentType,
+                ContentLength = file.ContentLength,
+                FileName = file.FileName,
                 FileId = file.Id
             };
         }

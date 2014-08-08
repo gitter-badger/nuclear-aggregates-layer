@@ -9,6 +9,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
     {
         public const string MsCrmSettingsKey = "MsCrmSettingsKey";
         public const string BasicOperationsServiceRestUrlKey = "BasicOperationsServiceRestUrlKey";
+        public const string SpecialOperationsServiceRestUrlKey = "SpecialOperationsServiceRestUrlKey";
         public const string ErmBaseCurrencyKey = "ErmBaseCurrencyKey";
 
         public static IHtmlString GetMsCrmSettingsUrl(this ViewDataDictionary viewData)
@@ -27,6 +28,17 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
         {
             object url;
             if (!viewData.TryGetValue(BasicOperationsServiceRestUrlKey, out url))
+            {
+                return null;
+            }
+
+            return (string)url;
+        }
+
+        public static string GetSpecialOperationsServiceRestUrl(this ViewDataDictionary viewData)
+        {
+            object url;
+            if (!viewData.TryGetValue(SpecialOperationsServiceRestUrlKey, out url))
             {
                 return null;
             }

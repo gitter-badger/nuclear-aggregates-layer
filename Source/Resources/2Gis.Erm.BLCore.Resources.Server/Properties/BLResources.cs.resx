@@ -4089,8 +4089,8 @@ Operace provedena: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>Není možné odstranit šablonu, která je použita v tématech</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>Není možné odstranit pododdíl z tématu, které je již použito v objednávkách</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Nelze upravovat seznam pododdílů ve výchozím tématu</value>
@@ -5223,5 +5223,23 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
+  </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>Nemáte práva pro převedení prvku reklamního materiálu do statusu {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Pokus o editaci prvku editace reklamního materiálu s identifikátorem {0}, který není ve statusu "Koncept"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>V reklamním materiálu "{0}", který je třeba ověřit, prvek "{1}" má status 'Koncept'</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Pro odmítnutí prvku reklamního materiálu musíte zadat důvod</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Nelze měnit status prvku reklamního materiálu, který nepotřebuje ověření</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Nelze zadat neaktivní příčinu odmítnutí</value>
   </data>
 </root>

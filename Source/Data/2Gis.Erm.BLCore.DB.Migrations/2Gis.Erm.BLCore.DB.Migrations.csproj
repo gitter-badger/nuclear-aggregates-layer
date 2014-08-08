@@ -707,11 +707,15 @@
     <Compile Include="2.1\2014.05.16 rev. 20377 - Update MSCRM cross domain modal dialog usage.cs" />
     <Compile Include="2.1\2014.04.21 rev. 19977 - create ChargesInfo infrastructure.cs" />
     <Compile Include="2.1\2014.05.15 rev. 20306 - merge Id and Code in Billing.Porjects.cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21623 - Add priveleges for AdvertisementElementStatus, AdvertisementElementDenialReason .cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21596 - Create AdvertisementElementStatus table.cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21597 - Create AdvertisementElementDenialReason table.cs" />
     <Compile Include="2.1\2014.06.02 rev. 20911 - Create ExportFlowNomenclatures tables.cs" />
     <Compile Include="2.1\2014.06.03 rev. 20952 - Alter BOS for flowNomenclatures export.cs" />
     <Compile Include="2.1\2014.07.08 rev. 22080 - Delete infrastructure for hot client replication.cs" />
     <Compile Include="2.1\2014.07.24 rev. 22601 - Add AdvertisementsOnlyWhiteList rule.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule - Copy 1.cs" />
+    <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -1017,6 +1021,7 @@
     <Content Include="Resources\2014.05.16 rev. 20377\Customizations_20377.xml" />
     <Content Include="Resources\2014.05.19 rev. 20435\ImportCardsFromXml.sql" />
     <Content Include="Resources\2014.06.17 rev. 21236\Fill_OperationsEntities_From_Descriptor.sql" />
+    <Content Include="Resources\2014.08.06 rev. 23021\ImportFirmFromXml.sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />
