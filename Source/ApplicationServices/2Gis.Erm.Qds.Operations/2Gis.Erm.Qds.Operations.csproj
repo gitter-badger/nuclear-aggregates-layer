@@ -61,7 +61,7 @@
     <Compile Include="DI\QdsOperationsAssembly.cs" />
     <Compile Include="Indexing\DefferedDocumentUpdater.cs" />
     <Compile Include="Indexing\ReplicateToElasticSearchMessageAggregatedProcessingResultHandler.cs" />
-    <Compile Include="Indexing\ReplicateToElasticSearchPerformedOperationsPrimaryProcessor.cs" />
+    <Compile Include="Indexing\ReplicateToElasticSearchPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Indexing\ReplicationQueueHelper.cs" />
     <Compile Include="Listing\FilterHelper.cs" />
     <Compile Include="Metadata\QdsDefaultFilterMetadata.cs" />
