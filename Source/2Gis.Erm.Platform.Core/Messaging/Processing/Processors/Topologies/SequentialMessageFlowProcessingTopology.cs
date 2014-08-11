@@ -15,118 +15,165 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies
     public sealed class SequentialMessageFlowProcessingTopology<TMessageFlow> : MessageProcessingTopologyBase<TMessageFlow>
         where TMessageFlow : class, IMessageFlow, new()
     {
+        private readonly IEnumerable<MessageProcessingStage> bySingleMessageProcessingStagesSequence = 
+            new[]
+                {
+                    MessageProcessingStage.Split,
+                    MessageProcessingStage.Validation,
+                    MessageProcessingStage.Transforming,
+                    MessageProcessingStage.Processing
+                };
+
         public SequentialMessageFlowProcessingTopology(
             IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> stagesMap,
-            MessageProcessingStage[] ignoreErrorsOnStage,
+            IEnumerable<MessageProcessingStage> ignoreErrorsOnStage,
             ICommonLog logger)
             : base(stagesMap, ignoreErrorsOnStage, logger)
         {
         }
 
-        protected override Task<TopologyProcessingResults> ProcessAsync(IMessage[] messages)
+        protected override Task<TopologyProcessingResults> ProcessAsync(IReadOnlyList<IMessage> messages)
         {
             var availableStages = StagesMap.Keys.OrderBy(x => x).ToArray();
 
-            Logger.InfoFormatEx("Starting processing topology for message flow {0}. Acquired messages batch size: {1}.", SourceMessageFlow, messages.Length);
+            Logger.InfoFormatEx("Starting processing topology for message flow {0}. Acquired messages batch size: {1}.", SourceMessageFlow, messages.Count);
             Logger.DebugFormatEx("Processing message flow {0} has available stages : {1}", SourceMessageFlow, string.Join(";", availableStages));
 
             int counter = -1;
             var processingContext = new MessageBatchProcessingContext(messages, availableStages);
-
-            var passedMessages = new HashSet<IMessage>();
-            var succeededMessages = new HashSet<IMessage>();
-            var failedMessages = new HashSet<IMessage>();
+            bool canContinueProcessing;
 
             foreach (var messageProcessingBucket in processingContext.MessageProcessings)
             {
                 ++counter;
-                passedMessages.Add(messageProcessingBucket.Value.OriginalMessage);
+                Logger.DebugFormatEx("Processing message flow {0}, current message ordinal number {1}", SourceMessageFlow, counter);
 
-                Logger.DebugEx("Processing original message ordinal number " + counter);
+                var targetMessageProcessingContexts = new[] { messageProcessingBucket.Value };
+                canContinueProcessing = true;
 
-                if (!TryExecuteStage(MessageProcessingStage.Split, processingContext, new[] { messageProcessingBucket.Key }))
+                foreach (var targetStage in bySingleMessageProcessingStagesSequence)
                 {
-                    if (IgnoreErrorsOnStage.Contains(MessageProcessingStage.Split))
+                    if (!TryExecuteStage(targetStage, processingContext, targetMessageProcessingContexts, out canContinueProcessing))
                     {
-                        continue;
+                        break;
                     }
-
-                    failedMessages.Add(messageProcessingBucket.Value.OriginalMessage);
-                    break;
                 }
 
-                if (!TryExecuteStage(MessageProcessingStage.Validation, processingContext, new[] { messageProcessingBucket.Key }))
+                if (!canContinueProcessing)
                 {
-                    if (IgnoreErrorsOnStage.Contains(MessageProcessingStage.Validation))
-                    {
-                        continue;
-                    }
+                    Logger.ErrorFormatEx(
+                        "Processing message flow {0}, by single message aborted on message with ordinal number {1}. Jump to {2} stage", 
+                        SourceMessageFlow, 
+                        counter, 
+                        MessageProcessingStage.Handle);
 
-                    failedMessages.Add(messageProcessingBucket.Value.OriginalMessage);
                     break;
                 }
-
-                if (!TryExecuteStage(MessageProcessingStage.Transforming, processingContext, new[] { messageProcessingBucket.Key }))
-                {
-                    if (IgnoreErrorsOnStage.Contains(MessageProcessingStage.Transforming))
-                    {
-                        continue;
-                    }
-
-                    failedMessages.Add(messageProcessingBucket.Value.OriginalMessage);
-                    break;
-                }
-
-                if (!TryExecuteStage(MessageProcessingStage.Processing, processingContext, new[] { messageProcessingBucket.Key }))
-                {
-                    if (IgnoreErrorsOnStage.Contains(MessageProcessingStage.Processing))
-                    {
-                        continue;
-                    }
-
-                    failedMessages.Add(messageProcessingBucket.Value.OriginalMessage);
-                    break;
-                }
-
-                succeededMessages.Add(messageProcessingBucket.Value.OriginalMessage);
             }
 
-            if (!TryExecuteStage(MessageProcessingStage.Handle, processingContext, processingContext.MessageProcessings.Keys))
-            {
-                foreach (var succeededMessage in succeededMessages)
-                {
-                    failedMessages.Add(succeededMessage);
-                }
+            TryExecuteStage(MessageProcessingStage.Handle, processingContext, processingContext.MessageProcessings.Values, out canContinueProcessing);
 
-                succeededMessages.Clear();
-            }
-
-            return Task.FromResult(new TopologyProcessingResults
-                {
-                    Passed = passedMessages.ToArray(),
-                    Succeeded = succeededMessages.ToArray(),
-                    Failed = failedMessages.ToArray()
-                });
+            return Task.FromResult(ConvertTopologyResults(processingContext));
         }
 
-        private bool TryExecuteStage(
-            MessageProcessingStage targetStage,
-            MessageBatchProcessingContext processingContext,
-            IEnumerable<Guid> targetMessageIds)
+        private static void AttachStageResults(
+            MessageBatchProcessingContext messageBatchProcessingContext,
+            IEnumerable<MessageProcessingContext> targetMessageProcessingContexts,
+            IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> stageResults,
+            out bool allTargetMessagesFailedOnStage)
         {
-            IMessageProcessingStage messageProcessingStage;
-            if (StagesMap.TryGetValue(targetStage, out messageProcessingStage))
+            allTargetMessagesFailedOnStage = true;
+
+            foreach (var stageResult in stageResults)
             {
-                var result = messageProcessingStage.Process(SourceMessageFlow, processingContext, targetMessageIds);
-                if (!result.Succeeded)
-                {
-                    Logger.ErrorFormatEx("Processing stage {0} failed. Further processing aborted", messageProcessingStage.Stage);
-                    return false;
-                }
+                var messageProcessingContext = messageBatchProcessingContext.MessageProcessings[stageResult.Key];
+                messageProcessingContext.Results[messageProcessingContext.CurrentStageIndex] = stageResult.Value;
             }
-            else
+
+            foreach (var messageProcessingContext in targetMessageProcessingContexts)
+            {
+                var currentStageResult = messageProcessingContext.Results[messageProcessingContext.CurrentStageIndex];
+                if (currentStageResult.Succeeded)
+                {
+                    allTargetMessagesFailedOnStage = false;
+                }
+
+                ++messageProcessingContext.CurrentStageIndex;
+            }
+        }
+
+        private bool TryExecuteStage(MessageProcessingStage targetStage,
+                                     MessageBatchProcessingContext processingContext,
+                                     IEnumerable<MessageProcessingContext> targetMessageProcessingContexts,
+                                     out bool canContinueProcessing)
+        {
+            canContinueProcessing = true;
+            IMessageProcessingStage messageProcessingStage;
+            if (!StagesMap.TryGetValue(targetStage, out messageProcessingStage))
             {
                 Logger.DebugFormatEx("Specified target stage {0} is not available, skip stage processing", targetStage);
+                return true;
+            }
+
+            IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> stageResults;
+            var isProcessedProperly = messageProcessingStage.TryProcess(SourceMessageFlow, targetMessageProcessingContexts, out stageResults);
+            
+            bool allTargetMessagesFailedOnStage;
+            AttachStageResults(processingContext, targetMessageProcessingContexts, stageResults, out allTargetMessagesFailedOnStage);
+            if (!isProcessedProperly || allTargetMessagesFailedOnStage)
+            {
+                canContinueProcessing = IgnoreErrorsOnStage.Contains(targetStage);
+                
+                Logger.ErrorFormatEx(
+                    "Processing stage {0} failed. Stage processed properly: {1}. AllTargetMessagesFailedOnStage: {2}. CanContinueProcessing: {3}", 
+                    messageProcessingStage.Stage,
+                    isProcessedProperly,
+                    allTargetMessagesFailedOnStage,
+                    canContinueProcessing);
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private TopologyProcessingResults ConvertTopologyResults(MessageBatchProcessingContext processingContext)
+        {
+            var succeeded = new List<IMessage>();
+            var failed = new List<IMessage>();
+
+            var orderedProcessingFailed = false;
+            foreach (var originalMessage in processingContext.OriginalMessages)
+            {
+                var messageProcessingContext = processingContext.MessageProcessings[originalMessage.Id];
+                if (!orderedProcessingFailed && IsSucceeded(messageProcessingContext, out orderedProcessingFailed))
+                {
+                    succeeded.Add(originalMessage);
+                }
+                else
+                {
+                    failed.Add(originalMessage);
+                }
+            }
+
+            return new TopologyProcessingResults
+                {
+                    Succeeded = succeeded, 
+                    Failed = failed
+                };
+        }
+
+        private bool IsSucceeded(MessageProcessingContext messageProcessingContext, out bool orderedProcessingFailed)
+        {
+            orderedProcessingFailed = false;
+
+            foreach (var stageResult in messageProcessingContext.Results)
+            {
+                if (!stageResult.Succeeded)
+                {
+                    orderedProcessingFailed = !IgnoreErrorsOnStage.Contains(stageResult.Stage);
+                    return false;
+                }
             }
 
             return true;

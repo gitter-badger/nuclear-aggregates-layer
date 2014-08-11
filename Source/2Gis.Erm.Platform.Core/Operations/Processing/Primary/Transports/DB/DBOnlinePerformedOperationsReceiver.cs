@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
             _logger = logger;
         }
 
-        protected override IEnumerable<DBPerformedOperationsMessage> Peek()
+        protected override IReadOnlyList<DBPerformedOperationsMessage> Peek()
         {
             _useCaseTuner.AlterDuration<DBOnlinePerformedOperationsReceiver<TMessageFlow>>();
 
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 
                 transaction.Complete();
 
-                return targetOperations.Select(x => new DBPerformedOperationsMessage(x));
+                return targetOperations.Select(x => new DBPerformedOperationsMessage(x)).ToList();
             }
         }
 

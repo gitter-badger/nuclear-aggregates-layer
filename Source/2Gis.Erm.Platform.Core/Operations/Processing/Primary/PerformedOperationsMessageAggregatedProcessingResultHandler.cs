@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.Operations;
-using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
@@ -14,41 +14,58 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary
     public sealed class PerformedOperationsMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
         private readonly IOperationsFinalProcessingEnqueueAggregateService _operationsFinalProcessingEnqueueAggregateService;
+        private readonly ICommonLog _logger;
 
-        public PerformedOperationsMessageAggregatedProcessingResultHandler(IOperationsFinalProcessingEnqueueAggregateService operationsFinalProcessingEnqueueAggregateService)
+        public PerformedOperationsMessageAggregatedProcessingResultHandler(
+            IOperationsFinalProcessingEnqueueAggregateService operationsFinalProcessingEnqueueAggregateService,
+            ICommonLog logger)
         {
             _operationsFinalProcessingEnqueueAggregateService = operationsFinalProcessingEnqueueAggregateService;
+            _logger = logger;
         }
 
-        public bool CanHandle(IEnumerable<IProcessingResultMessage> processingResults)
+        public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
         {
-            return processingResults.All(m => m is PrimaryProcessingResultsMessage);
-        }
+            var handlingResults = new Dictionary<Guid, MessageProcessingStageResult>();
 
-        public ISet<IMessageFlow> Handle(IEnumerable<IProcessingResultMessage> processingResults)
-        {
-            var processedFlows = new HashSet<IMessageFlow>();
+            var originalMessageIds = new HashSet<Guid>();
+            var arrgeratedResults = new List<PerformedOperationFinalProcessing>();
 
-            var aggregatedResults = new List<PerformedOperationFinalProcessing>();
-            foreach (var processingResult in processingResults)
+
+            foreach (var processingResultBucket in processingResultBuckets)
             {
-                var concreteProcessingResult = processingResult as PrimaryProcessingResultsMessage;
-                if (concreteProcessingResult == null)
+                foreach (var processingResults in processingResultBucket.Value)
                 {
-                    throw new InvalidOperationException(string.Format("Unexpected processing result type {0} was achieved instead of {1}", processingResults.GetType().Name, typeof(PrimaryProcessingResultsMessage).Name));
-                }
+                    var concreteProcessingResults = processingResults as PrimaryProcessingResultsMessage;
+                    if (concreteProcessingResults == null)
+                    {
+                        continue;
+                    }
 
-                foreach (var result in concreteProcessingResult.Results)
-                {
-                    result.MessageFlowId = concreteProcessingResult.TargetFlow.Id;
-                    aggregatedResults.Add(result);
+                    originalMessageIds.Add(processingResultBucket.Key);
+                    arrgeratedResults.AddRange(concreteProcessingResults.Results);
                 }
-
-                processedFlows.Add(concreteProcessingResult.TargetFlow);
             }
 
-            _operationsFinalProcessingEnqueueAggregateService.Push(aggregatedResults);
-            return processedFlows;
+            try
+            {
+                _operationsFinalProcessingEnqueueAggregateService.Push(arrgeratedResults);
+
+                foreach (var aggregatedResultsEntry in originalMessageIds)
+                {
+                    handlingResults.Add(aggregatedResultsEntry, MessageProcessingStage.Handle.EmptyResult().AsSucceeded());
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorFormatEx(ex, "Can't push aggregated results of primary processing to final processing queue");
+                foreach (var aggregatedResultsEntry in originalMessageIds)
+                {
+                    handlingResults.Add(aggregatedResultsEntry, MessageProcessingStage.Handle.EmptyResult().WithExceptions(ex).AsFailed());
+                }
+            }
+
+            return handlingResults;
         }
     }
 }

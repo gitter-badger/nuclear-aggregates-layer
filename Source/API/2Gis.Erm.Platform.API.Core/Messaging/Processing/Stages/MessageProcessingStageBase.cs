@@ -22,23 +22,25 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
 
         public abstract MessageProcessingStage Stage { get; }
 
-        BatchStageResult IMessageProcessingStage.Process(
-            IMessageFlow messageFlow,
-            MessageBatchProcessingContext batchProcessingContext,
-            IEnumerable<Guid> targetMessageIds)
+        public bool TryProcess(
+            IMessageFlow messageFlow, 
+            IEnumerable<MessageProcessingContext> targetMessageProcessingContexts, 
+            out IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> stageResults)
         {
+            stageResults = Enumerable.Empty<KeyValuePair<Guid, MessageProcessingStageResult>>();
+
             Logger.DebugFormatEx("Starting stage. Flow: {0}. Stage: {1}", messageFlow, Stage);
 
             MessageProcessingStageActorContext<TInput> actorContext;
+
             try
             {
-                actorContext = CreateContext(messageFlow, batchProcessingContext, targetMessageIds);
+                actorContext = CreateContext(messageFlow, targetMessageProcessingContexts);
             }
             catch (Exception ex)
             {
                 Logger.ErrorFormatEx(ex, "Can't create actor context for processing flow {0} executing stage {1}", messageFlow, Stage);
-
-                return new BatchStageResult(Stage) { Succeeded = false };
+                return false;
             }
 
             IEnumerable<TActor> actors;
@@ -49,34 +51,27 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
             catch (Exception ex)
             {
                 Logger.ErrorFormatEx(ex, "Can't create actor for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
-
-                return new BatchStageResult(Stage) { Succeeded = false };
+                return false;
             }
-
-            BatchStageResult result;
+            
             try
             {
-                result = Execute(actors, actorContext);
+                var result = Execute(actors, actorContext);
+                stageResults = result.Results;
             }
             catch (Exception ex)
             {
                 Logger.ErrorFormatEx(ex, "Actors execution failed for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
-                
-                return new BatchStageResult(Stage) { Succeeded = false };
+                return false;
             }
 
-            SetStageResults(batchProcessingContext, result);
-
             Logger.DebugFormatEx("Finished stage. Flow: {0}. Stage: {1}", messageFlow, Stage);
-
-            return result;
+            return true;
         }
 
         protected abstract TInput EvaluateInput(MessageProcessingStageActorContext<TInput> context);
-
         protected abstract IEnumerable<TActor> CreateActors(MessageProcessingStageActorContext<TInput> context);
-
-        protected abstract IReadOnlyDictionary<Guid, MessageProcessingStageResult> ExecuteActor(TActor actor, MessageProcessingStageActorContext<TInput> context);
+        protected abstract IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> ExecuteActor(TActor actor, MessageProcessingStageActorContext<TInput> context);
 
         /// <summary>
         /// Базовая реализация обработки потока сообщений последовательным вызовом actors
@@ -172,26 +167,15 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
             previousResult = messageProcessingContext.Results[previousResultIndex];
             return true;
         }
-
-        private static void SetStageResults(MessageBatchProcessingContext messageBatchProcessingContext, BatchStageResult batchStageResults)
-        {
-            foreach (var stageResult in batchStageResults.Results)
-            {
-                var messageProcessingContext = messageBatchProcessingContext.MessageProcessings[stageResult.Key];
-                messageProcessingContext.Results[messageProcessingContext.CurrentStageIndex] = stageResult.Value;
-                ++messageProcessingContext.CurrentStageIndex;
-            }
-        }
         
         private MessageProcessingStageActorContext<TInput> CreateContext(
             IMessageFlow messageFlow,
-            MessageBatchProcessingContext batchProcessingContext,
-            IEnumerable<Guid> targetMessageIds)
+            IEnumerable<MessageProcessingContext> targetMessageProcessingContexts)
         {
             var context = new MessageProcessingStageActorContext<TInput>
                 {
                     MessageFlow = messageFlow,
-                    TargetMessageProcessings = batchProcessingContext.MessageProcessings.Where(x => targetMessageIds.Contains(x.Key)).Select(x => x.Value).ToArray(),
+                    TargetMessageProcessings = targetMessageProcessingContexts.ToArray(),
                 };
 
             context.Input = EvaluateInput(context);
