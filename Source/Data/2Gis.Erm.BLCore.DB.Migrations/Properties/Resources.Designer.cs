@@ -452,9 +452,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///
-        ///DECLARE @OperationEntitiesMap table(
+        ///   Looks up a localized string similar to DECLARE @OperationEntitiesMap table(
         ///                 Descriptor int NOT NULL,
         ///				 OperationEntities nvarchar(1024));
         ///
@@ -472,11 +470,110 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///,(-316483042,N&apos;143&apos;)
         ///,(1248629936,N&apos;144&apos;)
         ///,(1570421516,N&apos;145&apos;)
-        ///,(6 [rest of string was truncated]&quot;;.
+        ///,(653315513,N&apos;146&apos; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _21236_Fill_OperationsEntities_From_Descriptor {
             get {
                 return ResourceManager.GetString("_21236_Fill_OperationsEntities_From_Descriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USE [ErmRU]
+        ///GO
+        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirmAddresses]    Script Date: 06.08.2014 11:29:20 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///-- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddresses]
+        ///	@Ids [Shared].[Int64IdsTableType] readonly
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF Not Exists (SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///	CREATE TABLE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _23002_BusinessDirectory___ReplicateFirmAddresses_ {
+            get {
+                return ResourceManager.GetString("_23002_BusinessDirectory___ReplicateFirmAddresses_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USE [ErmRU]
+        ///GO
+        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirms]    Script Date: 06.08.2014 10:30:15 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///-- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirms]
+        ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF NOT EXISTS(SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///	
+        ///	BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///	CREATE TABLE #ReferenceInfo ( [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _23002_BusinessDirectory___ReplicateFirms_ {
+            get {
+                return ResourceManager.GetString("_23002_BusinessDirectory___ReplicateFirms_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USE [ErmRU]
+        ///GO
+        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateTerritories]    Script Date: 06.08.2014 11:29:39 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///-- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritories]
+        ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF NOT EXISTS(SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///		BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///    CREATE TABLE # [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _23002_BusinessDirectory___ReplicateTerritories_ {
+            get {
+                return ResourceManager.GetString("_23002_BusinessDirectory___ReplicateTerritories_", resourceCulture);
             }
         }
         
