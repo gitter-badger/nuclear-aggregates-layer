@@ -15,6 +15,7 @@ using DoubleGis.Erm.BLFlex.Operations.Global.DI;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
+using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
@@ -42,6 +43,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                       .RequireZone<AggregatesZone>()
                                             .UseAnchor<BlCoreAggregatesAssembly>()
                                             .UseAnchor<BlFlexAggregatesGlobalAssembly>()
+                                            .UseAnchor<PlatformAggregatesAssembly>()
                                       .RequireZone<OperationsZone>()
                                             .UseAnchor<BlCoreApiOperationsAssembly>()
                                             .UseAnchor<BlCoreOperationsAssembly>()
