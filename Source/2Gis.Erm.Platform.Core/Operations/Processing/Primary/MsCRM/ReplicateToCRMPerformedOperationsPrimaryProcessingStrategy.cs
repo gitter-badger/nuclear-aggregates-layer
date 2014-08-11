@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
 {
-    public sealed class ReplicateToCrmPerformedOperationsPrimaryProcessor : 
+    public sealed class ReplicateToCRMPerformedOperationsPrimaryProcessingStrategy : 
         MessageProcessingStrategyBase<FinalStorageReplicate2MsCRMPerformedOperationsFlow, TrackedUseCase, PrimaryProcessingResultsMessage>
     {
         protected override PrimaryProcessingResultsMessage Process(TrackedUseCase message)
@@ -29,10 +29,9 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
                 };
         }
 
-        private void ProcessOperation(
-            Guid useCaseId,
-            OperationScopeNode operation,
-            IDictionary<Tuple<Type, long>, PerformedOperationFinalProcessing> intermediateResults)
+        private void ProcessOperation(Guid useCaseId,
+                                      OperationScopeNode operation,
+                                      IDictionary<Tuple<Type, long>, PerformedOperationFinalProcessing> intermediateResults)
         {
             foreach (var asyncReplicatedEntityType in EntityNameUtils.Async2MsCrmReplicatedEntities)
             {
@@ -62,15 +61,14 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
                 PerformedOperationFinalProcessing performedOperationFinalProcessing;
                 if (!intermediateResults.TryGetValue(key, out performedOperationFinalProcessing))
                 {
-                    intermediateResults.Add(
-                        key, 
-                        new PerformedOperationFinalProcessing
-                        {
-                            MessageFlowId = MessageFlow.Id,
-                            EntityId = changedEntityInfo.Key,
-                            EntityTypeId = (int)targetEntityType.AsEntityName(),
-                            OperationId = useCaseId
-                        });
+                    intermediateResults.Add(key,
+                                            new PerformedOperationFinalProcessing
+                                                {
+                                                    MessageFlowId = MessageFlow.Id,
+                                                    EntityId = changedEntityInfo.Key,
+                                                    EntityTypeId = (int)targetEntityType.AsEntityName(),
+                                                    OperationId = useCaseId
+                                                });
                 }
             }
         }

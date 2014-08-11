@@ -88,6 +88,8 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                                 InjectionFactories.SimplifiedModelConsumer);
                     }
                 }
+
+                _container.RegisterTypeWithDependencies(consumerImplementation, Lifetime.PerResolve, null);
             }
         }
 

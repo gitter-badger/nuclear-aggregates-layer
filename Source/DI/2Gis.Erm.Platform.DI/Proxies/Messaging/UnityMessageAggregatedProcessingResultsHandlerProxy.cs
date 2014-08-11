@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 
 using Microsoft.Practices.Unity;
 
@@ -15,14 +16,9 @@ namespace DoubleGis.Erm.Platform.DI.Proxies.Messaging
         {
         }
 
-        bool IMessageAggregatedProcessingResultsHandler.CanHandle(IEnumerable<IProcessingResultMessage> processingResults)
+        public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
         {
-            return ProxiedInstance.CanHandle(processingResults);
-        }
-
-        ISet<IMessageFlow> IMessageAggregatedProcessingResultsHandler.Handle(IEnumerable<IProcessingResultMessage> processingResults)
-        {
-            return ProxiedInstance.Handle(processingResults);
+            return ProxiedInstance.Handle(processingResultBuckets);
         }
     }
 }

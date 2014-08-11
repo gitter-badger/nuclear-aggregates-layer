@@ -12,14 +12,19 @@ namespace DoubleGis.Erm.Platform.DI.Factories
     {
         private readonly IUnityContainer _unityContainer;
 
-        public UnityDomainContextFactory(
-            IUnityContainer unityContainer, 
-            IEFConnectionFactory connectionFactory, 
-            IDomainContextMetadataProvider domainContextMetadataProvider, 
-            IPendingChangesHandlingStrategy pendingChangesHandlingStrategy, 
-            IMsCrmSettings msCrmSettings, 
-            ICommonLog logger)
-            : base(connectionFactory, domainContextMetadataProvider, pendingChangesHandlingStrategy, msCrmSettings, logger)
+        public UnityDomainContextFactory(IUnityContainer unityContainer,
+                                         IEFConnectionFactory connectionFactory,
+                                         IDomainContextMetadataProvider domainContextMetadataProvider,
+                                         IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
+                                         IProducedQueryLogAccessor producedQueryLogAccessor,
+                                         IMsCrmSettings msCrmSettings,
+                                         ICommonLog logger)
+            : base(connectionFactory,
+                   domainContextMetadataProvider,
+                   pendingChangesHandlingStrategy,
+                   producedQueryLogAccessor,
+                   msCrmSettings,
+                   logger)
         {
             _unityContainer = unityContainer;
         }
