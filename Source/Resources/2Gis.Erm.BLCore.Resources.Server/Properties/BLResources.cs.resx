@@ -4090,7 +4090,7 @@ Operace provedena: {4}.</value>
     <value>Není možné odstranit šablonu, která je použita v tématech</value>
   </data>
   <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
-    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
+    <value>Nelze odstranit oddělení organizace, které je cílovým městem v objednávce {0} s tímto tématem</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Nelze upravovat seznam pododdílů ve výchozím tématu</value>
