@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
@@ -15,7 +14,7 @@ namespace DoubleGis.Erm.Platform.DI.Proxies.Messaging
         {
         }
 
-        IEnumerable<IMessage> IMessageReceiver.Peek()
+        IReadOnlyList<IMessage> IMessageReceiver.Peek()
         {
             return ProxiedInstance.Peek();
         }

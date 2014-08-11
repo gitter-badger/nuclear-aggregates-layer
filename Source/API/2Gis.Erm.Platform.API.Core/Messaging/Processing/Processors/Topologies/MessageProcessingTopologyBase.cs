@@ -12,12 +12,12 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topolo
     {
         protected readonly IMessageFlow SourceMessageFlow = new TMessageFlow();
         protected readonly IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> StagesMap;
-        protected readonly MessageProcessingStage[] IgnoreErrorsOnStage;
+        protected readonly IEnumerable<MessageProcessingStage> IgnoreErrorsOnStage;
         protected readonly ICommonLog Logger;
 
         protected MessageProcessingTopologyBase(
             IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage> stagesMap,
-            MessageProcessingStage[] ignoreErrorsOnStage,
+            IEnumerable<MessageProcessingStage> ignoreErrorsOnStage,
             ICommonLog logger)
         {
             StagesMap = stagesMap;
@@ -25,11 +25,11 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topolo
             Logger = logger;
         }
 
-        Task<TopologyProcessingResults> IMessageProcessingTopology.ProcessAsync(IMessage[] messages)
+        Task<TopologyProcessingResults> IMessageProcessingTopology.ProcessAsync(IReadOnlyList<IMessage> messages)
         {
             return ProcessAsync(messages);
         }
 
-        protected abstract Task<TopologyProcessingResults> ProcessAsync(IMessage[] messages);
+        protected abstract Task<TopologyProcessingResults> ProcessAsync(IReadOnlyList<IMessage> messages);
     }
 }

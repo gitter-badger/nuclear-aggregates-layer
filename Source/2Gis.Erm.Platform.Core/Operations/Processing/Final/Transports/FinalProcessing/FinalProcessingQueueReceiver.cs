@@ -39,24 +39,19 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.Fin
             _useCaseTuner = useCaseTuner;
         }
 
-        protected override IEnumerable<PerformedOperationsFinalProcessingMessage> Peek()
+        protected override IReadOnlyList<PerformedOperationsFinalProcessingMessage> Peek()
         {
             _useCaseTuner.AlterDuration<FinalProcessingQueueReceiver<TMessageFlow>>();
-
-            var processings =
-                !MessageReceiverSettings.IsRecoveryMode
-                    ? _performedOperationsProcessingReadModel.GetOperationFinalProcessingsInitial(SourceMessageFlow, MessageReceiverSettings.BatchSize)
-                    : _performedOperationsProcessingReadModel.GetOperationFinalProcessingsFailed(SourceMessageFlow, MessageReceiverSettings.BatchSize);
-
-            return processings;
+            return _performedOperationsProcessingReadModel.GetOperationFinalProcessings(SourceMessageFlow,
+                                                                                        MessageReceiverSettings.BatchSize,
+                                                                                        MessageReceiverSettings.ReprocessingBatchSize);
         }
 
-        protected override void Complete(IEnumerable<PerformedOperationsFinalProcessingMessage> successfullyProcessedMessages, IEnumerable<PerformedOperationsFinalProcessingMessage> failedProcessedMessages)
+        protected override void Complete(IEnumerable<PerformedOperationsFinalProcessingMessage> successfullyProcessedMessages,
+                                         IEnumerable<PerformedOperationsFinalProcessingMessage> failedProcessedMessages)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-                var completedFinalProcesing = new List<PerformedOperationFinalProcessing>(successfullyProcessedMessages.SelectMany(x => x.FinalProcessings));
-                var failedFinalProcesing = new List<PerformedOperationFinalProcessing>();
+            var completedFinalProcessing = new List<PerformedOperationFinalProcessing>(successfullyProcessedMessages.SelectMany(x => x.FinalProcessings));
+            var failedFinalProcessing = new List<PerformedOperationFinalProcessing>();
 
                 foreach (var failedProcessing in failedProcessedMessages)
                 {
@@ -71,7 +66,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.Fin
 
                     foreach (var processing in failedProcessing.FinalProcessings)
                     {
-                        completedFinalProcesing.Add(processing);
+                        // докидываем в список обработанных (фактически подлежащих удалению из очереди), первоначальные записи о failed записях, вместо них нужно создать новые
+                        completedFinalProcessing.Add(processing);
 
                         lastFinalProcessing.AttemptCount = Math.Max(lastFinalProcessing.AttemptCount, processing.AttemptCount);
                         lastFinalProcessing.Context = processing.Context;
@@ -80,11 +76,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.Fin
 
                     // TODO {all, 16.06.2014}: обратить внимание, что пока Context, OperationId и т.п. не приоритетные атрибуты сущности PerformedOperationFinalProcessing - failed запись будет создаваться одна на всю группу (хотя если корректно проставлять Context, OperationId, то нужно у всех записей из группы увеличвать AttempCount, возможно, удалив и создав) 
                     lastFinalProcessing.AttemptCount = lastFinalProcessing.AttemptCount + 1;
-                    failedFinalProcesing.Add(lastFinalProcessing);
+                    failedFinalProcessing.Add(lastFinalProcessing);
                 }
 
-                _operationsFinalProcessingCompleteAggregateService.CompleteProcessing(completedFinalProcesing);
-                _operationsFinalProcessingEnqueueAggregateService.Push(failedFinalProcesing);
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            {
+                _operationsFinalProcessingCompleteAggregateService.CompleteProcessing(completedFinalProcessing);
+                _operationsFinalProcessingEnqueueAggregateService.Push(failedFinalProcessing);
 
                 transaction.Complete();
             }
