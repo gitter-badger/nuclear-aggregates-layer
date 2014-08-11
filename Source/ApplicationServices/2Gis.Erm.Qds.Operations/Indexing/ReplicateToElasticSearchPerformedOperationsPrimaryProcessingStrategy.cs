@@ -7,12 +7,12 @@ using DoubleGis.Erm.Qds.Etl;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
-    public sealed class ReplicateToElasticSearchPerformedOperationsPrimaryProcessor :
+    public sealed class ReplicateToElasticSearchPerformedOperationsPrimaryProcessingStrategy :
         MessageProcessingStrategyBase<ElasticRuntimeFlow, TrackedUseCase, ReplicateToElasticSearchPrimaryProcessingResultsMessage>
     {
         private readonly IEntityToDocumentRelationMetadataContainer _entityToDocumentRelationMetadataContainer;
 
-        public ReplicateToElasticSearchPerformedOperationsPrimaryProcessor(IEntityToDocumentRelationMetadataContainer entityToDocumentRelationMetadataContainer)
+        public ReplicateToElasticSearchPerformedOperationsPrimaryProcessingStrategy(IEntityToDocumentRelationMetadataContainer entityToDocumentRelationMetadataContainer)
         {
             _entityToDocumentRelationMetadataContainer = entityToDocumentRelationMetadataContainer;
         }
