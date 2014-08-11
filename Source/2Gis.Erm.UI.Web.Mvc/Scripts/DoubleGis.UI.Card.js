@@ -479,21 +479,24 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                     var elem = Ext.getDom("ViewConfig_" + viewProp);
                     if (elem)
                         elem.value = value || '';
-                    if (viewProp == "ReadOnly" && value === true && this.ReadOnly === false) {
-                        this.ReadOnly = true;
-                        window.Ext.each(this.form, function (el) {
-                            if (el.id) {
-                                if (el.tagName != "FIELDSET" && el.type != "button" && el.tagName != "FORM") {
-                                    (el.tagName == "SELECT" || el.type == "checkbox" || el.type == "radio") ? window.Ext.fly(el).disable() : window.Ext.fly(el).setReadOnly(true);
+                    if (viewProp == "ReadOnly") {
+                        elem.checked = value;
+                        if (value === true && this.ReadOnly === false) {
+                            this.ReadOnly = true;
+                            window.Ext.each(this.form, function (el) {
+                                if (el.id) {
+                                    if (el.tagName != "FIELDSET" && el.type != "button" && el.tagName != "FORM") {
+                                        (el.tagName == "SELECT" || el.type == "checkbox" || el.type == "radio") ? window.Ext.fly(el).disable() : window.Ext.fly(el).setReadOnly(true);
+                                    }
                                 }
-                            }
-                        }, this);
-                        window.Ext.each(window.Ext.query("input.x-calendar"), function (node) {
-                            window.Ext.getCmp(node.id).setReadOnly(true);
-                        }, this);
-                        window.Ext.each(window.Ext.CardLookupSettings, function (item) {
-                            Ext.getCmp(item.id).setReadOnly(true);
-                        }, this);
+                            }, this);
+                            window.Ext.each(window.Ext.query("input.x-calendar"), function (node) {
+                                window.Ext.getCmp(node.id).setReadOnly(true);
+                            }, this);
+                            window.Ext.each(window.Ext.CardLookupSettings, function (item) {
+                                Ext.getCmp(item.id).setReadOnly(true);
+                            }, this);
+                        }
                     }
                 }
             }

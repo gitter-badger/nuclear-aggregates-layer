@@ -97,7 +97,6 @@ Ext.ux.AsyncFileUpload = Ext.extend(Ext.Component,
         },
         initHandlers: function ()
         {
-            this.mon(this.wrap, 'resize', this.onResize, this);
             this.mon(this.button, 'mouseout', this.setBtnOff, this);
             this.mon(this.button, 'mouseover', this.setBtnOn, this);
             this.mon(this.content, 'focusin', this.contentFocusIn, this);
@@ -243,28 +242,23 @@ Ext.ux.AsyncFileUpload = Ext.extend(Ext.Component,
             }
             this.frame.dom.contentWindow.location.href = url;
         },
-        onResize: function ()
-        {
-            this.content.setWidth(this.wrap.getWidth() - 20);
-        },
         onRender: function (ct)
         {
             Ext.ux.AsyncFileUpload.superclass.onRender.call(this, ct);
             this.tabIndex = this.el.dom.tabIndex;
 
             var template = new window.Ext.Template(
-                '<table class="x-async-file-wrap"><tbody><tr>',
-                    '<td>',
+                '<div id="{id}-wrap" class="x-async-file-wrap">',
                     '<div id="{id}-content" class="x-async-file">',
-                    '<span id="{id}-link" class="x-async-file-item"></span>&nbsp;</div>',
+                        '<span id="{id}-link" class="x-async-file-item"></span>&nbsp;',
+                    '</div>',
                     '<img id="{id}-button" alt="" title="" class="x-async-file-button" src="{btnOff}" />',
-                    '</td>',
-                    '</tr></tbody></table>',
-                    {
-                        compiled: true,
-                        disableFormats: true
-                    }
-                );
+                '</div>',
+                {
+                    compiled: true,
+                    disableFormats: true
+                }
+            );
             this.wrap = Ext.get(template.insertBefore(this.el.dom, this));
             this.content = this.wrap.child(String.format('#{0}-content', this.id));
             this.link = this.content.child(String.format('#{0}-link', this.id));
@@ -272,7 +266,7 @@ Ext.ux.AsyncFileUpload = Ext.extend(Ext.Component,
             this.createFileInput();
 
             this.content.tabIndex = this.tabIndex;
-            this.el.dom.style.visibility = 'hidden';
+            this.el.applyStyles({ display: "none" });
             this.initHandlers();
             this.setReadOnly(this.readOnly);
             this.setDisabled(this.disabled);
@@ -280,7 +274,6 @@ Ext.ux.AsyncFileUpload = Ext.extend(Ext.Component,
             {
                 this.applyFileInfo(this.fileInfo);
             }
-            this.on('afterrender', this.onResize, this, { single: true, delay: 10 });
         },
         applyFileInfo: function (fileInfo)
         {

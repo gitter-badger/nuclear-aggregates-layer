@@ -18,12 +18,13 @@
             this.Mask.show();
             window.Ext.Ajax.request({
                 url: url,
+                timeout: 240000,
                 method: 'POST',
                 success: function() { this.refresh(); },
                 failure: function (xhr) {
                     this.Mask.hide();
                     var response = Ext.decode(xhr.responseText);
-                    this.AddNotification(response.Message, "CriticalError", "ServerError");
+                    this.AddNotification(response.Message || xhr.responseText || xhr.statusText, "CriticalError", "ServerError");
                     this.recalcToolbarButtonsAvailability();
                 },
                 scope: this

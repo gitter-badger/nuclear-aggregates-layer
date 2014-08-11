@@ -5,25 +5,11 @@
     var cardSurrogate = new Ext.util.Observable();
 
     Ext.onReady(function () {
-        var ruleRecord = Ext.data.Record.create([
-            { name: 'id', mapping: 'Id' },
-            { name: 'reasonId', mapping: 'DenialReasonId' },
-            { name: 'name', mapping: 'DenialReasonName' },
-            { name: 'group', mapping: 'DenialReasonType' },
-            { name: 'active', mapping: 'IsActive', type: 'boolean' },
-            { name: 'comment', mapping: 'Comment' },
-            { name: 'checked', mapping: 'Checked', type: 'boolean' }
-        ]);
-
-        var reader = new Ext.data.JsonReader({
-            root: 'Data',
-            totalProperty: 'RowCount'
-        }, ruleRecord);
 
         var sm = new Ext.grid.CheckboxSelectionModel({
             checkOnly: true,
             header: '',
-            onKeyPress: function (e, name) { }, // Убивает навигацию стрелками
+            onKeyPress: function(e, name) {}, // Убивает навигацию стрелками
             listeners: {
                 beforerowselect: onBeforeRowSelect,
                 rowdeselect: onRowDeselect,
@@ -33,7 +19,19 @@
         });
 
         var store = new Ext.data.GroupingStore({
-            reader: reader,
+            reader: new Ext.data.JsonReader({
+                    root: 'Data',
+                    totalProperty: 'RowCount'
+                },
+                Ext.data.Record.create([
+                    { name: 'id', mapping: 'Id' },
+                    { name: 'reasonId', mapping: 'DenialReasonId' },
+                    { name: 'name', mapping: 'DenialReasonName' },
+                    { name: 'group', mapping: 'DenialReasonType' },
+                    { name: 'active', mapping: 'IsActive', type: 'boolean' },
+                    { name: 'comment', mapping: 'Comment' },
+                    { name: 'checked', mapping: 'Checked', type: 'boolean' }
+                ])),
             groupField: 'group',
             modifiedRecords: new Array(),
             listeners: {
@@ -41,18 +39,16 @@
             }
         });
 
-        loadData('', function (data) { store.loadData(data); });
-
         var cm = new Ext.grid.ColumnModel({
             columns: [
                 sm,
                 { dataIndex: 'id', hidden: true },
                 { dataIndex: 'group', header: "Группа", hidden: true },
-                { dataIndex: 'name', width: 30, header: "Правило", renderer: function (value, metaData, record) { return record.data.active ? value : value + ' (неактивно)'; } },
+                { dataIndex: 'name', width: 30, header: "Правило", renderer: function(value, metaData, record) { return record.data.active ? value : value + ' (неактивно)'; } },
                 { dataIndex: 'comment', header: "Комментарий", editor: new Ext.form.TextField() }
             ],
 
-            isCellEditable: function (col, row) {
+            isCellEditable: function(col, row) {
                 var record = store.getAt(row);
                 if (!record.data.checked) {
                     return false;
@@ -62,13 +58,13 @@
             }
         });
 
-        var view = new Ext.grid.GroupingView({
+        var gridView = new Ext.grid.GroupingView({
             forceFit: true,
             cancelEditOnToggle: false,
             markDirty: false,
             showGroupName: false,
             groupTextTpl: '{text}',
-            getRowClass: function (record, index) {
+            getRowClass: function(record, index) {
                 if (!record.data.active && !record.data.checked) {
                     return 'x-item-disabled';
                 }
@@ -76,85 +72,149 @@
             }
         });
 
-        var footer = new Ext.Toolbar({
-            items: [
-                {
-                    id: 'summary-tbtext', // при обновлении тексте находим его по идентификатору
-                    xtype: 'tbtext',
-                    text: ''
-                }
-            ]
-        });
-
-        var header = new Ext.Toolbar({
-            items: [
-                {
-                    id: 'search-textfield',
-                    xtype: 'textfield',
-                    width: '300',
-                    enableKeyEvents: true,
-                    listeners: {
-                        keypress: function(textfield, eo) {
-                            if (eo.getCharCode() == Ext.EventObject.ENTER) {
-                                var filter = Ext.getCmp('search-textfield').getValue();
-                                loadData(filter, function(data) { store.loadData(data); });
-                            }
-                        }
-                    }
-                }, {
-                    id: 'search-button',
-                    xtype: 'button',
-                    icon: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/qfind.gif"),
-                    handler: function() {
-                        var filter = Ext.getCmp('search-textfield').getValue();
-                        loadData(filter, function(data) { store.loadData(data); });
-                    }
-                },
-                {
-                    id: 'clear-search-button',
-                    xtype: 'button',
-                    icon: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/qfindclear.gif"),
-                    handler: function () {
-                        Ext.getCmp('search-textfield').setValue('');
-                        loadData('', function(data) { store.loadData(data); });
-                    }
-                }
-            ]
-        });
-
-        var tabPanel = new window.Ext.TabPanel({
-            id: "TabWrapper",
-            plugins: [new window.Ext.ux.FitToParent('TabPanelContainer')],
-            applyTo: "MainTab_holder",
-            border: false,
-            deferredRender: false,
-            activeTab: 0,
-            autoTabs: true,
-            autoTabSelector: 'div.Tab'
-        });
-
         var grid = new Ext.grid.EditorGridPanel({
             sm: sm,
             cm: cm,
-            fit: true,
-            store: store,
-            view: view,
+            anchor: '100%, 50%',
+            view: gridView,
             clicksToEdit: 'auto',
-            renderTo: 'ReasonTable',
-            bbar: footer,
-            tbar: header,
+            applyTo: 'reason-table',
+            bbar: new Ext.Toolbar({
+                items: [
+                    {
+                        id: 'summary-tbtext', // при обновлении тексте находим его по идентификатору
+                        xtype: 'tbtext',
+                        text: ''
+                    }
+                ]
+            }),
+            tbar: new Ext.Toolbar({
+                items: [
+                    {
+                        id: 'search-textfield',
+                        xtype: 'textfield',
+                        width: '300',
+                        enableKeyEvents: true,
+                        listeners: {
+                            keypress: function(textfield, eo) {
+                                if (eo.getCharCode() == Ext.EventObject.ENTER) {
+                                    var filter = Ext.getCmp('search-textfield').getValue();
+                                    loadData(filter, function(data) { store.loadData(data); });
+                                }
+                            }
+                        }
+                    }, {
+                        id: 'search-button',
+                        xtype: 'button',
+                        icon: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/qfind.gif"),
+                        handler: function() {
+                            var filter = Ext.getCmp('search-textfield').getValue();
+                            loadData(filter, function(data) { store.loadData(data); });
+                        }
+                    },
+                    {
+                        id: 'clear-search-button',
+                        xtype: 'button',
+                        icon: Ext.DoubleGis.Global.Helpers.GetStaticImagePath("CommonUI/qfindclear.gif"),
+                        handler: function() {
+                            Ext.getCmp('search-textfield').setValue('');
+                            loadData('', function(data) { store.loadData(data); });
+                        }
+                    }
+                ]
+            }),
             enableHdMenu: false,
-            plugins: [new Ext.ux.FitToParent('ReasonTable')],
             enableColumnMove: false,
             listeners: {
                 rowclick: onRowClick,
                 rowmousedown: onRowMouseDown,
                 afteredit: onCellEdited
-            }
+            },
+            store: store
         });
 
-        Ext.get('Approve').on('click', function () { grid.stopEditing(); saveStatus('Valid', sm); });
-        Ext.get('Reject').on('click', function () { grid.stopEditing(); saveStatus('Invalid', sm); });
+        var tabPanel = new window.Ext.TabPanel({
+            anchor: '100%, 50%',
+            applyTo: "tabs-container",
+            border: false,
+            margins: "0 0 0 0",
+            deferredRender: false,
+            activeTab: 0,
+            autoTabs: true,
+            viewConfig: { forceFit: true },
+            autoTabSelector: 'div.Tab'
+        });
+
+        var buttonPanel = new Ext.Panel({
+            applyTo: 'buttons-area',
+            anchor: '100%, 100%',
+            layout: {
+                type: 'hbox',
+                align: 'middle',
+                pack: 'end',
+                defaultMargins: '5'
+            },
+            items: [
+                {
+                    xtype: 'button',
+                    id: 'Approve',
+                    text: 'Утвердить',
+                    width: 120,
+                    listeners: {
+                        click: function() {
+                            grid.stopEditing();
+                            saveStatus('Valid', sm);
+                        }
+                    }
+                }, {
+                    xtype: 'button',
+                    id: 'Reject',
+                    text: 'Отклонить',
+                    width: 120,
+                    listeners: {
+                        click: function() {
+                            grid.stopEditing();
+                            saveStatus('Invalid', sm);
+                        }
+                    }
+                }
+            ]
+        });
+
+        var mainPanel = new Ext.Panel({
+            applyTo: 'ads-verification-container',
+            plugins: [new window.Ext.ux.FitToParent(document.body)],
+            layout: 'fit',
+            items: [
+                new Ext.Panel({
+                    layout: 'border',
+                    items: [
+                        new Ext.Panel({
+                            region: 'north',
+                            height: 60,
+                            items: [new Ext.Component('TopBarTitle')]
+                        }),
+                        new Ext.Panel({
+                            region: 'south',
+                            height: 60,
+                            layout: 'anchor',
+                            items: [buttonPanel]
+                        }),
+                        new Ext.Panel({
+                            region: 'center',
+                            layout: 'anchor',
+                            items: [
+                                tabPanel,
+                                grid
+                            ]
+                        })
+                    ]
+                })
+            ]
+        });
+
+        tabPanel.add({ xtype: "notepanel", pCardInfo: { pTypeName: 'AdvertisementElement', pId: window.Ext.getDom("Id").value } });
+        tabPanel.add({ xtype: "actionshistorytab", pCardInfo: { pTypeName: 'AdvertisementElementStatus', pId: window.Ext.getDom("Id").value } });
 
         cardSurrogate.addEvents('afterpost', 'afterbuild', 'beforepost', 'formbind');
         
@@ -162,7 +222,7 @@
         cardSurrogate.refresh = refresh;
         window.Card = cardSurrogate;
 
-        cardSurrogate.Mask = new window.Ext.LoadMask('PageContentCell');
+        cardSurrogate.Mask = new window.Ext.LoadMask('raw-content');
 
         var depList = window.Ext.getDom("ViewConfig_DependencyList");
         if (depList.value) {
@@ -170,8 +230,7 @@
             this.DependencyHandler.register(window.Ext.decode(depList.value), window.EntityForm);
         }
 
-        tabPanel.add({ xtype: "notepanel", pCardInfo: { pTypeName: 'AdvertisementElement', pId: window.Ext.getDom("Id").value } });
-        tabPanel.add({ xtype: "actionshistorytab", pCardInfo: { pTypeName: 'AdvertisementElementStatus', pId: window.Ext.getDom("Id").value } });
+        loadData('', function (data) { store.loadData(data); });
 
         cardSurrogate.fireEvent('afterbuild');
     });
@@ -179,7 +238,7 @@
     function loadData(filterInput, callback) {
         Ext.get('Approve').disable();
         Ext.get('Reject').disable();
-        var mask = new Ext.LoadMask('PageContentCell');
+        var mask = new Ext.LoadMask('raw-content');
         mask.show();
         var params = {
             start: '0',
@@ -332,7 +391,7 @@
         Ext.get('Approve').disable();
         Ext.get('Reject').disable();
 
-        var mask = new Ext.LoadMask('PageContentCell');
+        var mask = new Ext.LoadMask('raw-content');
         mask.show();
 
         cardSurrogate.fireEvent('beforepost');

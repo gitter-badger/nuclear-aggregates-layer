@@ -1,8 +1,9 @@
-﻿table.x-async-file-wrap
+﻿div.x-async-file-wrap
 {
-    width: 100%!important;
-    border: 0px!important;
+    width: 100%;
+    border: 0px;
     position: relative;
+    display: table;
 }
 
 IMG.x-async-file-button
@@ -16,9 +17,7 @@ IMG.x-async-file-button
 }
 DIV.x-async-file
 {
-    position: absolute;
-    left: 0px;
-    top: 0px;
+    display: table-cell;
     z-index: 3;
     overflow-y:			auto;
     word-wrap:			break-word;
