@@ -4090,8 +4090,8 @@
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>Нельзя удалить шаблон, который уже используется в тематиках</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>Нельзя удалить подразделение из темы, которая уже используется в заказах</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Нельзя редактировать список подразделений в тематике, установленной по умолчанию</value>

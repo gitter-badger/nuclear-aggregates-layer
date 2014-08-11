@@ -31,7 +31,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         private readonly IRepository<AdvertisementTemplate> _advertisementTemplateGenericRepository;
         private readonly IRepository<AdvertisementElementTemplate> _advertisementElementTemplateGenericRepository;
         private readonly IRepository<AdsTemplatesAdsElementTemplate> _adsTemplatesAdsElementTemplateGenericRepository;
-        private readonly IRepository<FileWithContent> _fileRepository;
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
         private readonly IFileContentFinder _fileContentFinder;
@@ -46,7 +45,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                                        IRepository<AdvertisementTemplate> advertisementTemplateGenericRepository,
                                        IRepository<AdvertisementElementTemplate> advertisementElementTemplateGenericRepository,
                                        IRepository<AdsTemplatesAdsElementTemplate> adsTemplatesAdsElementTemplateGenericRepository,
-                                       IRepository<FileWithContent> fileRepository,
                                        IUserContext userContext,
                                        IFinder finder,
                                        ISecureFinder secureFinder,
@@ -61,7 +59,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             _advertisementTemplateGenericRepository = advertisementTemplateGenericRepository;
             _advertisementElementTemplateGenericRepository = advertisementElementTemplateGenericRepository;
             _adsTemplatesAdsElementTemplateGenericRepository = adsTemplatesAdsElementTemplateGenericRepository;
-            _fileRepository = fileRepository;
             _userContext = userContext;
             _finder = finder;
             _secureFinder = secureFinder;
@@ -356,11 +353,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                        .Select(x => new
                            {
                                x.IsRequired,
-                               x.NeedsValidation
+                               x.NeedsValidation,
+                               IsFasComment = x.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment,
                            }).Single();
 
-            // TODO {all, 04.09.2013}: В процессе рефакторинга перевести на операцию c bulkcreateidentity + использовать отложенное сохранение
-            // done {i.maslennikov. 25.09.2013}: done
             using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, AdvertisementElement>())
             {
                 foreach (var advertisement in advertisements)
@@ -379,11 +375,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                         advertisementElement.FasCommentType = dummyAdvertisementElement.FasCommentType;
                         advertisementElement.BeginDate = dummyAdvertisementElement.BeginDate;
                         advertisementElement.EndDate = dummyAdvertisementElement.EndDate;
+                    } 
+                    else if (elementInfo.IsFasComment)
+                    {
+                        advertisementElement.FasCommentType = (int)FasComment.NewFasComment;
                     }
 
                     var status = new AdvertisementElementStatus
                         {
-                            Status = (int)(elementInfo.IsRequired && elementInfo.NeedsValidation
+                            Status = (int)(elementInfo.IsRequired && elementInfo.NeedsValidation && advertisement.FirmId != null
                                                ? AdvertisementElementStatusValue.Draft
                                                : AdvertisementElementStatusValue.Valid)
                         };

@@ -4089,8 +4089,8 @@ The operation has been executed: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>You cannot delete the template which is used in topics</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>You cannot delete a subdivision from the topic which is already used in orders</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Cannot edit a list of company divisions in the topic set by default</value>
@@ -5224,13 +5224,22 @@ Placement period: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Contract expiry date cannot be earlier than the signing date</value>
   </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>You do not have rights to change the status of the AME to {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>You attempted to edit the AME with identifier {0} and status other than “Draft”</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>The advertising material “{0}” to be verified contains an element “{1}” with the “Draft” status</value>
+  </data>
   <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
-    <value>Для отклонения ЭРМ необходиму указать причину</value>
+    <value>Specify a reason to reject an AME</value>
   </data>
   <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
-    <value>Нельзя менять статус ЭРМ, не требующего выверки</value>
+    <value>Cannot change the status of the AME which does not require verification</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
-    <value>Нельзя указать неактивную причину отклонения</value>
+    <value>Cannot specify an inactive rejection reason</value>
   </data>
 </root>

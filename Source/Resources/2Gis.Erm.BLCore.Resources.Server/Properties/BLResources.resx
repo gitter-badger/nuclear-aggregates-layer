@@ -4080,7 +4080,7 @@
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value />
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
     <value />
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">

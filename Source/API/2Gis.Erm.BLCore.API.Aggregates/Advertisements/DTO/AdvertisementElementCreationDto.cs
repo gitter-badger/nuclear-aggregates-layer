@@ -7,5 +7,6 @@
         public bool IsFasComment { get; set; }
         public bool NeedsValidation { get; set; }
         public bool IsRequired { get; set; }
+        public long? DummyAdvertisementId { get; set; }
     }
 }
