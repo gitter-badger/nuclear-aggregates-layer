@@ -13,6 +13,7 @@ using Quartz;
 
 namespace DoubleGis.Erm.BLCore.TaskService.Jobs
 {
+    [DisallowConcurrentExecution]
     public sealed class PushFakeOperationsJob : TaskServiceJobBase, IInterruptableJob
     {
         private readonly IOperationScopeFactory _scopeFactory;

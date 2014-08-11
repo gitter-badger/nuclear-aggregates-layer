@@ -255,7 +255,7 @@
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Processing\Final\ReplicateHotClientMessageAggregatedProcessingResultHandler.cs" />
-    <Compile Include="Concrete\Processing\Final\ReplicateHotClientPerformedOperationsFinalProcessor.cs" />
+    <Compile Include="Concrete\Processing\Final\ReplicateHotClientPerformedOperationsFinalProcessingStrategy.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Projects\ProjectService.cs" />
     <Compile Include="Concrete\Withdrawals\CreateLockDetailsDuringWithdrawalOperationService.cs">
       <SubType>Code</SubType>
