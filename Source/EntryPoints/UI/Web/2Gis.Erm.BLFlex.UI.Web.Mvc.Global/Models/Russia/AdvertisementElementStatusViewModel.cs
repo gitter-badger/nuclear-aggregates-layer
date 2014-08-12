@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             Status = (AdvertisementElementStatusValue)dto.Status;
             Reasons = Json.Encode(dto.Reasons);
             Timestamp = dto.Timestamp;
-            AdvertisementElementTimestamp = dto.AdvertisementElementTimestamp;
+            AdvertisementElementTimestamp = ((IAdvertisementElementTimestampDomainEntityDto)dto).Timestamp;
 
             ActualType = GetActualType(dto.TemplateRestrictionType,
                                        dto.TemplateAdvertisementLink,
@@ -82,9 +82,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     Id = Id,
                     Reasons = Json.Decode<ReasonDto[]>(Reasons),
                     Timestamp = Timestamp,
-                    AdvertisementElementTimestamp = AdvertisementElementTimestamp,
                     Status = (int)Status,
                 };
+
+            ((IAdvertisementElementTimestampDomainEntityDto)dto).Timestamp = AdvertisementElementTimestamp;
 
             switch (ActualType)
             {

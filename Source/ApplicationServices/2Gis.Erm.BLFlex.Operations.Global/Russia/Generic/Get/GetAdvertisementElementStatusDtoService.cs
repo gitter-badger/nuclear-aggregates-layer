@@ -36,7 +36,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                                                            ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
                                                                            ModifiedOn = entity.ModifiedOn,
                                                                            Timestamp = entity.Timestamp,
-                                                                           AdvertisementElementTimestamp = entity.AdvertisementElement.Timestamp
                                                                        })
                                                                    .Single();
 
@@ -74,6 +73,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                FileName = entity.File != null ? entity.File.FileName : null,
                                FileContentLength = entity.File != null ? entity.File.ContentLength : 0,
                                FileContentType = entity.File != null ? entity.File.ContentType : null,
+                               Timestamp = entity.Timestamp
                            })
                        .Single();
 
@@ -83,7 +83,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             advertisementElementDomainEntityDto.TransferPeriodValuesTo(advertisementElementStatusDomainEntityDto);
             advertisementElementDomainEntityDto.TransferFasCommentValuesTo(advertisementElementStatusDomainEntityDto);
             advertisementElementDomainEntityDto.TransferLinkValuesTo(advertisementElementStatusDomainEntityDto);
-            
+            advertisementElementDomainEntityDto.TransferTimestampTo(advertisementElementStatusDomainEntityDto);
+
             return advertisementElementStatusDomainEntityDto;
         }
 
