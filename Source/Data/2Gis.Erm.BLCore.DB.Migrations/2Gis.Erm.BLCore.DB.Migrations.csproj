@@ -735,6 +735,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="1.2\2013.11.12 rev. 13530 - Add ImportAccountsToServiceBus button to crm grid.cs" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Drop Old Activity Schema.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Tasks.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Phonecalls.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Appointments.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Alter Activity Schema.sql" />
     <Compile Include="Shared\CrmDbHelper.cs" />
     <Compile Include="Shared\ErmTableUtilsForOldIntKeys.cs" />
     <Compile Include="Shared\InsertedNotNullableColumnDefinition.cs" />

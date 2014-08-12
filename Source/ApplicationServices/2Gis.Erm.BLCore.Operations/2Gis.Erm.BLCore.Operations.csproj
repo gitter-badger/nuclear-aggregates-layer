@@ -433,7 +433,6 @@
     <Compile Include="Generic\Get\GetUserDtoService.cs" />
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
-    <Compile Include="Generic\Modify\Custom\ModifyActivityService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
@@ -759,7 +758,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
-    <Folder Include="Generic\Modify\SimplifiedModel\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

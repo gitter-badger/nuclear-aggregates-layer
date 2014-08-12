@@ -33,6 +33,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
@@ -92,9 +93,30 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IFileContentFinder, EFFileRepository>(Lifetime.PerResolve)
 
                         .RegisterType<IDynamicStorageFinder, DynamicStorageFinder>(Lifetime.PerResolve)
+                        .RegisterType<ICompositeEntityDecorator, CompositeEntityDecorator>(Lifetime.PerResolve)
 
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
+						
+						// TODO {s.pomadin, 11.08.2014}: рассмотреть вариант "правильной" регистрации без "засвечивания" persistent объектов, именования и двойной регистрации
+						.RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>("Appointment", Lifetime.PerResolve)
+						.RegisterType<IRepository<EntityToEntityReference>, EFMappingRepository<EntityToEntityReference, AppointmentReference>>("Appointment", Lifetime.PerResolve)
+						.RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>("Phonecall", Lifetime.PerResolve)
+						.RegisterType<IRepository<EntityToEntityReference>, EFMappingRepository<EntityToEntityReference, PhonecallReference>>("Phonecall", Lifetime.PerResolve)
+						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>("Task", Lifetime.PerResolve)
+						.RegisterType<IRepository<EntityToEntityReference>, EFMappingRepository<EntityToEntityReference, TaskReference>>("Task", Lifetime.PerResolve)
+						.RegisterType<IRepository<Appointment>, RelationRepository<Appointment>>(Lifetime.PerResolve,
+							new InjectionConstructor(new ResolvedParameter<IRepository<Appointment>>("Appointment"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Appointment")))
+						.RegisterType<IRelationalRepository<Appointment>, RelationRepository<Appointment>>(Lifetime.PerResolve,
+							new InjectionConstructor(new ResolvedParameter<IRepository<Appointment>>("Appointment"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Appointment")))
+						.RegisterType<IRepository<Phonecall>, RelationRepository<Phonecall>>(Lifetime.PerResolve,
+							new InjectionConstructor(new ResolvedParameter<IRepository<Phonecall>>("Phonecall"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Phonecall")))
+						.RegisterType<IRelationalRepository<Phonecall>, RelationRepository<Phonecall>>(Lifetime.PerResolve,
+							new InjectionConstructor(new ResolvedParameter<IRepository<Phonecall>>("Phonecall"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Phonecall")))
+						.RegisterType<IRepository<Task>, RelationRepository<Task>>(Lifetime.PerResolve,
+							new InjectionConstructor(new ResolvedParameter<IRepository<Task>>("Task"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Task")))
+						.RegisterType<IRelationalRepository<Task>, RelationRepository<Task>>(Lifetime.PerResolve,
+							new InjectionConstructor(new ResolvedParameter<IRepository<Task>>("Task"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Task")))
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
@@ -120,10 +142,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterTypeWithDependencies<IRepository<Bank>, DynamicStorageRepositoryDecorator<Bank>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>,
                             DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
-						.RegisterTypeWithDependencies<IRepository<Appointment>, DynamicStorageRepositoryDecorator<Appointment>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
-						.RegisterTypeWithDependencies<IRepository<Phonecall>, DynamicStorageRepositoryDecorator<Phonecall>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
-						.RegisterTypeWithDependencies<IRepository<Task>, DynamicStorageRepositoryDecorator<Task>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
-                        
+
                         .RegisterType<IRepository<FileWithContent>, EFFileRepository>(Lifetime.PerResolve);
         }
 

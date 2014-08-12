@@ -1431,13 +1431,13 @@
   <data name="ActivityStatusCancelled" xml:space="preserve">
     <value>Cancelado</value>
   </data>
-  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+  <data name="TaskTypeWarmClient" xml:space="preserve">
     <value>Cliente interesado</value>
   </data>
-  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+  <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Encargo</value>
   </data>
-  <data name="ActivityTaskTypeOther" xml:space="preserve">
+  <data name="TaskTypeOther" xml:space="preserve">
     <value>Lo demás</value>
   </data>
   <data name="EntityNameProject" xml:space="preserve">
@@ -1497,7 +1497,7 @@
   <data name="PaymentMethodCreditCard" xml:space="preserve">
     <value>Tarjeta de crédito</value>
   </data>
-  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+  <data name="TaskTypeNotSet" xml:space="preserve">
     <value>Ninguno</value>
   </data>
   <data name="ActivityPriorityNotSet" xml:space="preserve">

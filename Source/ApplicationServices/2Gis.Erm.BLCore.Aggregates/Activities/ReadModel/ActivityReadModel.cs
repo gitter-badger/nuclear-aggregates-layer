@@ -1,15 +1,14 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 {
-    public class ActivityReadModel : IActivityReadModel 
+    public class ActivityReadModel : IActivityReadModel
     {
         private readonly IFinder _finder;
 
@@ -20,67 +19,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public Task GetTask(long taskId)
         {
-			return ResolveReferences(_finder.FindOne(Specs.Find.ById<Task>(taskId)));
+			return _finder.FindOne(Specs.Find.ById<Task>(taskId));
         }
 
-        public Phonecall GetPhonecall(long phonecallId)
+	    public Phonecall GetPhonecall(long phonecallId)
         {
-			return ResolveReferences(_finder.FindOne(Specs.Find.ById<Phonecall>(phonecallId)));
+			return _finder.FindOne(Specs.Find.ById<Phonecall>(phonecallId));
         }
 
         public Appointment GetAppointment(long appointmentId)
         {
-			return ResolveReferences(_finder.FindOne(Specs.Find.ById<Appointment>(appointmentId)));
+			return _finder.FindOne(Specs.Find.ById<Appointment>(appointmentId));
         }
 
         public bool CheckIfRelatedActivitiesExists(long clientId)
         {
-            var hasActivitiesInProgress = GetActivityInProgressDtosQuery(clientId).Any();
-            return hasActivitiesInProgress;
+			return
+				_finder.Find<AppointmentBase>(x => true).Select(x => new 
+				{
+					References = x.AppointmentReferences.Where(r => r.Reference == (int)ReferenceType.RegardingObject && r.ReferencedObjectId == clientId).Select(r => r.ReferencedObjectId),
+				})
+				.Concat(_finder.Find<PhonecallBase>(x => true).Select(x => new 
+				{
+					References = x.PhonecallReferences.Where(r => r.Reference == (int)ReferenceType.RegardingObject && r.ReferencedObjectId == clientId).Select(r => r.ReferencedObjectId),
+				}))
+				.Concat(_finder.Find<TaskBase>(x => true).Select(x => new 
+				{
+					References = x.TaskReferences.Where(r => r.Reference == (int)ReferenceType.RegardingObject && r.ReferencedObjectId == clientId).Select(r => r.ReferencedObjectId),
+				})).Any();
         }
-
-		private IQueryable<DictionaryEntityInstance> GetActivityInProgressDtosQuery(long clientId)
-        {
-            var clientRelatedEntitiesDto = _finder.Find(Specs.Find.ById<Client>(clientId))
-                                                  .Select(x => new
-                                                      {
-                                                          FirmsIds = x.Firms.Select(y => y.Id),
-                                                          DealIds = x.Deals.Select(y => y.Id),
-                                                          ContactIds = x.Contacts.Select(y => y.Id),
-                                                      })
-                                                  .Single();
-
-			return _finder.Find(Specs.Find.ActiveAndNotDeleted<DictionaryEntityInstance>()
-								&& ActivitySpecs.Activity.Find.OnlyActivities()
-			                    && ActivitySpecs.Activity.Find.InProgress()
-			                    && ActivitySpecs.Activity.Find.RelatedToClient(clientId,
-			                                                                   clientRelatedEntitiesDto.FirmsIds,
-			                                                                   clientRelatedEntitiesDto.ContactIds,
-			                                                                   clientRelatedEntitiesDto.DealIds));
-        }
-
-        // TODO {s.pomadin, 31.07.2014}: возможно стоит отказаться от хостинга атрибутов других агрегатов в действиях, если они необходимы для отображения в карточках или гридах - то их можно получать уже в GetDomainEntityDto или Listing operation services
-		private TActivity ResolveReferences<TActivity>(TActivity activity) where TActivity : ActivityBase
-		{
-			if (activity != null)
-			{
-				ResolveReference<Client>(activity.ClientId, client => activity.ClientName = client.Name);
-				ResolveReference<Contact>(activity.ContactId, contact => activity.ContactName = contact.FullName);
-				ResolveReference<Deal>(activity.DealId, deal => activity.DealName = deal.Name);
-				ResolveReference<Firm>(activity.FirmId, firm => activity.FirmName = firm.Name);
-			}
-
-			return activity;
-		}
-
-		private void ResolveReference<TEntity>(long? id, Action<TEntity> action) where TEntity : class, IEntity, IEntityKey
-	    {
-			if (!id.HasValue) return;
-			
-			var entity = _finder.FindOne(Specs.Find.ById<TEntity>(id.Value));
-			if (entity == null) return;
-			
-			action(entity);
-	    }
-    }
+   }
 }

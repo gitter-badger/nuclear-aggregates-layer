@@ -285,17 +285,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             }
         }
 
-	    private void UpdateActivity<TActivity>(IOperationScope operationScope, IRepository<TActivity> repository, long prevOwner, long newOwner) where TActivity : ActivityBase
-	    {
-			foreach (var activity in _finder.Find(Specs.Find.Active<TActivity>() && Specs.Find.Owned<TActivity>(prevOwner)))
-			{
-				activity.OwnerCode = newOwner;
-				repository.Update(activity);
-				operationScope.Updated<TActivity>(activity.Id);
-			}
-		    repository.Save();
-	    }
-
         public int Qualify(Client client, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<QualifyIdentity, Client>())
