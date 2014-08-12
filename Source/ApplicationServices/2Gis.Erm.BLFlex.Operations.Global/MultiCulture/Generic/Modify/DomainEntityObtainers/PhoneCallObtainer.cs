@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -6,14 +7,14 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers
 {
-    public sealed class CyprusPhonecallObtainer : IBusinessModelEntityObtainer<Phonecall>, IAggregateReadModel<ActivityBase>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class CyprusPhonecallObtainer : IBusinessModelEntityObtainer<Phonecall>, IAggregateReadModel<Phonecall>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
@@ -32,10 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
-            phoneCall.ClientId = dto.ClientRef.Id;
-            phoneCall.ContactId = dto.ContactRef.Id;
             phoneCall.Description = dto.Description;
-            phoneCall.FirmId = dto.FirmRef.Id;
             phoneCall.Header = dto.Header;
             phoneCall.Priority = dto.Priority;
             phoneCall.Purpose = dto.Purpose;
@@ -49,7 +47,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             phoneCall.Timestamp = dto.Timestamp;
 
-            return phoneCall;
+			phoneCall.RegardingObjects = new[]
+		        {
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Phonecall, phoneCall.Id, EntityName.Client, dto.ClientRef.Id),
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Phonecall, phoneCall.Id, EntityName.Contact, dto.ContactRef.Id),
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Phonecall, phoneCall.Id, EntityName.Firm, dto.FirmRef.Id),
+		        }.Where(x => x != null).ToArray();
+			
+			return phoneCall;
         }
     }
 }

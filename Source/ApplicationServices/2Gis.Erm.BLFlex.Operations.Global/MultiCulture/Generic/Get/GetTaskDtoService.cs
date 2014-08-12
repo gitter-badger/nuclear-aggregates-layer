@@ -6,9 +6,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -39,28 +38,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
             return new TaskDomainEntityDto
                 {
-                    Id = task.Id,
-                    TaskType = task.TaskType,
-                    ClientRef = new EntityReference { Id = task.ClientId, Name = task.ClientName },
-                    ContactRef = new EntityReference { Id = task.ContactId, Name = task.ContactName },
-                    Description = task.Description,
-                    FirmRef = new EntityReference { Id = task.FirmId, Name = task.FirmName },
-                    Header = task.Header,
-                    Priority = task.Priority,
-                    ScheduledEnd = task.ScheduledEnd.Add(timeOffset),
-                    ScheduledStart = task.ScheduledStart.Add(timeOffset),
-                    ActualEnd = task.ActualEnd.HasValue ? task.ActualEnd.Value.Add(timeOffset) : task.ActualEnd,
-                    Status = task.Status,
-                    Type = task.Type,
-                    OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
-                    CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
-                    CreatedOn = task.CreatedOn,
-                    IsActive = task.IsActive,
-                    IsDeleted = task.IsDeleted,
-                    ModifiedByRef = new EntityReference { Id = task.ModifiedBy, Name = null },
-                    ModifiedOn = task.ModifiedOn,
-                    Timestamp = task.Timestamp
-                };
+					Id = task.Id,
+					CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
+					CreatedOn = task.CreatedOn,
+					ModifiedByRef = new EntityReference { Id = task.ModifiedBy, Name = null },
+					ModifiedOn = task.ModifiedOn,
+					IsActive = task.IsActive,
+					IsDeleted = task.IsDeleted,
+					Timestamp = task.Timestamp,
+					OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
+
+					Header = task.Header,
+					Description = task.Description,
+					ScheduledStart = task.ScheduledStart.Add(timeOffset),
+					ScheduledEnd = task.ScheduledEnd.Add(timeOffset),
+					ActualEnd = task.ActualEnd.HasValue ? task.ActualEnd.Value.Add(timeOffset) : task.ActualEnd,
+					Priority = task.Priority,
+					Status = task.Status,
+
+					ClientRef = task.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Client, _clientReadModel.GetClientName),
+					ContactRef = task.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Contact, _clientReadModel.GetContactName),
+					FirmRef = task.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Firm, _firmReadModel.GetFirmName),
+
+					TaskType = task.TaskType,
+				};
         }
 
         protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
@@ -69,7 +70,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
             var dto = new TaskDomainEntityDto
                 {
-                    Type = ActivityType.Task,
                     IsActive = true,
                     ScheduledStart = now,
                     ScheduledEnd = now.Add(TimeSpan.FromMinutes(15.0)),

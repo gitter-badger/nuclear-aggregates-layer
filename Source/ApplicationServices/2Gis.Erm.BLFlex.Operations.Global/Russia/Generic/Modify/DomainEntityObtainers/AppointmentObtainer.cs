@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers
 {
-    public sealed class AppointmentObtainer : IBusinessModelEntityObtainer<Appointment>, IAggregateReadModel<ActivityBase>, IRussiaAdapted
+	public sealed class AppointmentObtainer : IBusinessModelEntityObtainer<Appointment>, IAggregateReadModel<Appointment>, IRussiaAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
@@ -32,12 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
-            appointment.AfterSaleServiceType = dto.AfterSaleServiceType;
-            appointment.ClientId = dto.ClientRef.Id;
-            appointment.ContactId = dto.ContactRef.Id;
-            appointment.DealId = dto.DealRef.Id;
             appointment.Description = dto.Description;
-            appointment.FirmId = dto.FirmRef.Id;
             appointment.Header = dto.Header;
             appointment.Priority = dto.Priority;
             appointment.Purpose = dto.Purpose;
@@ -50,6 +47,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
             appointment.IsDeleted = dto.IsDeleted;
 
             appointment.Timestamp = dto.Timestamp;
+
+			appointment.RegardingObjects = new[]
+		        {
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Appointment, appointment.Id, EntityName.Client, dto.ClientRef.Id),
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Appointment, appointment.Id, EntityName.Contact, dto.ContactRef.Id),
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Appointment, appointment.Id, EntityName.Deal, dto.DealRef.Id),
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Appointment, appointment.Id, EntityName.Firm, dto.FirmRef.Id),
+		        }.Where(x => x != null).ToArray();
+//			appointment.AfterSaleServiceType = dto.AfterSaleServiceType;
 
             return appointment;
         }

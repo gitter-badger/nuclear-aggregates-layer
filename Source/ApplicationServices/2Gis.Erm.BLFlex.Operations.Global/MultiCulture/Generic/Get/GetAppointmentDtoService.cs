@@ -6,15 +6,14 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
+	public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IActivityReadModel _activityReadModel;
 	    private readonly IClientReadModel _clientReadModel;
@@ -39,27 +38,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
             return new AppointmentDomainEntityDto
             {
-                Id = appointment.Id,
-                ClientRef = new EntityReference { Id = appointment.ClientId, Name = appointment.ClientName },
-                ContactRef = new EntityReference { Id = appointment.ContactId, Name = appointment.ContactName },
-                Description = appointment.Description,
-                FirmRef = new EntityReference { Id = appointment.FirmId, Name = appointment.FirmName },
-                Header = appointment.Header,
-                Priority = appointment.Priority,
-                Purpose = appointment.Purpose,
-                ScheduledEnd = appointment.ScheduledEnd.Add(timeOffset),
-                ScheduledStart = appointment.ScheduledStart.Add(timeOffset),
-                ActualEnd = appointment.ActualEnd.HasValue ? appointment.ActualEnd.Value.Add(timeOffset) : appointment.ActualEnd,
-                Status = appointment.Status,
-                Type = appointment.Type,
-                OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
-                CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
-                CreatedOn = appointment.CreatedOn,
-                IsActive = appointment.IsActive,
-                IsDeleted = appointment.IsDeleted,
-                ModifiedByRef = new EntityReference { Id = appointment.ModifiedBy, Name = null },
-                ModifiedOn = appointment.ModifiedOn,
-                Timestamp = appointment.Timestamp
+				Id = appointment.Id,
+				CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
+				CreatedOn = appointment.CreatedOn,
+				ModifiedByRef = new EntityReference { Id = appointment.ModifiedBy, Name = null },
+				ModifiedOn = appointment.ModifiedOn,
+				IsActive = appointment.IsActive,
+				IsDeleted = appointment.IsDeleted,
+				Timestamp = appointment.Timestamp,
+				OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
+
+				Header = appointment.Header,
+				Description = appointment.Description,
+				ScheduledStart = appointment.ScheduledStart.Add(timeOffset),
+				ScheduledEnd = appointment.ScheduledEnd.Add(timeOffset),
+				ActualEnd = appointment.ActualEnd.HasValue ? appointment.ActualEnd.Value.Add(timeOffset) : appointment.ActualEnd,
+				Priority = appointment.Priority,
+				Status = appointment.Status,
+
+				ClientRef = appointment.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Client, _clientReadModel.GetClientName),
+				ContactRef = appointment.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Contact, _clientReadModel.GetContactName),
+				FirmRef = appointment.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Firm, _firmReadModel.GetFirmName),
+
+				Purpose = appointment.Purpose,
+//                AfterSaleServiceType = appointment.AfterSaleServiceType,
             };
         }
 
@@ -68,7 +70,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             var now = DateTime.Now;
             var dto = new AppointmentDomainEntityDto
             {
-                Type = ActivityType.Appointment,
                 IsActive = true,
                 ScheduledStart = now,
                 ScheduledEnd = now.Add(TimeSpan.FromMinutes(15.0)),

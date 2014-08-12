@@ -7,9 +7,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -42,30 +41,32 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
             return new PhonecallDomainEntityDto
                 {
-                    Id = phonecall.Id,
-                    AfterSaleServiceType = phonecall.AfterSaleServiceType,
-                    ClientRef = new EntityReference { Id = phonecall.ClientId, Name = phonecall.ClientName },
-                    ContactRef = new EntityReference { Id = phonecall.ContactId, Name = phonecall.ContactName },
-                    DealRef = new EntityReference { Id = phonecall.DealId, Name = phonecall.DealName },
-                    Description = phonecall.Description,
-                    FirmRef = new EntityReference { Id = phonecall.FirmId, Name = phonecall.FirmName },
-                    Header = phonecall.Header,
-                    Priority = phonecall.Priority,
+					Id = phonecall.Id,
+					CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
+					CreatedOn = phonecall.CreatedOn,
+					ModifiedByRef = new EntityReference { Id = phonecall.ModifiedBy, Name = null },
+					ModifiedOn = phonecall.ModifiedOn,
+					IsActive = phonecall.IsActive,
+					IsDeleted = phonecall.IsDeleted,
+					Timestamp = phonecall.Timestamp,
+					OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
+
+					Header = phonecall.Header,
+					Description = phonecall.Description,
+					ScheduledStart = phonecall.ScheduledStart.Add(timeOffset),
+					ScheduledEnd = phonecall.ScheduledEnd.Add(timeOffset),
+					ActualEnd = phonecall.ActualEnd.HasValue ? phonecall.ActualEnd.Value.Add(timeOffset) : phonecall.ActualEnd,
+					Priority = phonecall.Priority,
+					Status = phonecall.Status,
+
+					ClientRef = phonecall.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Client, _clientReadModel.GetClientName),
+					ContactRef = phonecall.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Contact, _clientReadModel.GetContactName),
+					DealRef = phonecall.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Deal, id => _dealReadModel.GetDeal(id).Name),
+					FirmRef = phonecall.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Firm, _firmReadModel.GetFirmName),
+
                     Purpose = phonecall.Purpose,
-                    ScheduledEnd = phonecall.ScheduledEnd.Add(timeOffset),
-                    ScheduledStart = phonecall.ScheduledStart.Add(timeOffset),
-                    ActualEnd = phonecall.ActualEnd.HasValue ? phonecall.ActualEnd.Value.Add(timeOffset) : phonecall.ActualEnd,
-                    Status = phonecall.Status,
-                    Type = phonecall.Type,
-                    OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
-                    CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
-                    CreatedOn = phonecall.CreatedOn,
-                    IsActive = phonecall.IsActive,
-                    IsDeleted = phonecall.IsDeleted,
-                    ModifiedByRef = new EntityReference { Id = phonecall.ModifiedBy, Name = null },
-                    ModifiedOn = phonecall.ModifiedOn,
-                    Timestamp = phonecall.Timestamp
-                };
+//                    AfterSaleServiceType = phonecall.AfterSaleServiceType,
+				};
         }
 
         protected override IDomainEntityDto<Phonecall> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
@@ -73,7 +74,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             var now = DateTime.Now;
             var dto = new PhonecallDomainEntityDto
                 {
-                    Type = ActivityType.Phonecall,
                     IsActive = true,
                     ScheduledStart = now,
                     ScheduledEnd = now.Add(TimeSpan.FromMinutes(15.0)),

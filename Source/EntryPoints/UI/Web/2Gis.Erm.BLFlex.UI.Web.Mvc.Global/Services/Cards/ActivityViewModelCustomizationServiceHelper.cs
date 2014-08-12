@@ -4,14 +4,14 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
     public static class ActivityViewModelCustomizationServiceHelper
     {
-        internal static void CustomizeViewModel<T>(IEntityViewModelBase viewModel, ModelStateDictionary modelState) where T : ActivityBase, new()
+        internal static void CustomizeViewModel<T>(IEntityViewModelBase viewModel, ModelStateDictionary modelState) where T : IEntityKey, new()
         {
             var entityViewModel = (ActivityBaseViewModelAbstract<T>)viewModel;
             string[] buttonsToDisable;

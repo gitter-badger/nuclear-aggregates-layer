@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -6,14 +7,14 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers
 {
-    public sealed class TaskObtainer : IBusinessModelEntityObtainer<Task>, IAggregateReadModel<ActivityBase>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class TaskObtainer : IBusinessModelEntityObtainer<Task>, IAggregateReadModel<Task>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
@@ -34,10 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
             
             task.TaskType = dto.TaskType;
 
-            task.ClientId = dto.ClientRef.Id;
-            task.ContactId = dto.ContactRef.Id;
             task.Description = dto.Description;
-            task.FirmId = dto.FirmRef.Id;
             task.Header = dto.Header;
             task.Priority = dto.Priority;
             task.ScheduledStart = dto.ScheduledStart.Subtract(timeOffset);
@@ -50,7 +48,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             task.Timestamp = dto.Timestamp;
 
-            return task;
+			task.RegardingObjects = new[]
+		        {
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Task, task.Id, EntityName.Client, dto.ClientRef.Id),
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Task, task.Id, EntityName.Contact, dto.ContactRef.Id),
+			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Task, task.Id, EntityName.Firm, dto.FirmRef.Id),
+		        }.Where(x => x != null).ToArray();
+			
+			return task;
         }
     }
 }

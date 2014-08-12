@@ -2,9 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -15,6 +14,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
     public sealed class PhonecallViewModel : ActivityBaseViewModelAbstract<Phonecall>, IRussiaAdapted
     {
+		public PhonecallViewModel()
+			: base(ActivityType.Phonecall)
+	    {
+	    }
+
         [RequiredLocalized]
         [Dependency(DependencyType.Required, "Purpose", "this.value != 'NotSet'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "AfterSaleServiceType", "this.value != 'Service' && this.value != 'Prolongation'")]
@@ -27,8 +31,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             var modelDto = (PhonecallDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            Type = modelDto.Type;
-            Priority = modelDto.Priority;
+			Priority = modelDto.Priority;
             Status = modelDto.Status;
             Purpose = modelDto.Purpose;
             AfterSaleServiceType = (AfterSaleServiceType)modelDto.AfterSaleServiceType;
@@ -53,7 +56,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             return new PhonecallDomainEntityDto
                 {
                     Id = Id,
-                    Type = Type,
                     Priority = Priority,
                     Status = Status,
                     Purpose = Purpose,

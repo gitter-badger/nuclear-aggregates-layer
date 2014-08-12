@@ -2,18 +2,30 @@
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
+	public enum ActivityType
+	{
+		Appointment = 1,
+		Phonecall = 2,
+		Task = 3,
+	}
+
     public abstract class ActivityBaseViewModelAbstract<T> : EntityViewModelBase<T>
-        where T : ActivityBase, new()
+		where T : IEntityKey
     {
-        public override bool IsSecurityRoot
+	    protected ActivityBaseViewModelAbstract(ActivityType type)
+	    {
+		    Type = type;
+	    }
+
+	    public override bool IsSecurityRoot
         {
             get { return true; }
         }
@@ -21,8 +33,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [RequiredLocalized, ExcludeZeroValue]
         [DisplayNameLocalized("ActivityBaseViewModelAbstract_Type")]
         [Dependency(DependencyType.Disable, "", "true")]
-        [Dependency(DependencyType.NotRequiredDisableHide, "TaskType", "this.value != 'Task'")]
-        public ActivityType Type { get; set; }
+        public ActivityType Type { get; private set; }
 
         [RequiredLocalized, ExcludeZeroValue]
         public ActivityPriority Priority { get; set; }

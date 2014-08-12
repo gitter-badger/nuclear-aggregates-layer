@@ -7,9 +7,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -17,21 +16,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 {
     public class GetTaskDtoService : GetDomainEntityDtoServiceBase<Task>, IRussiaAdapted
     {
+		private readonly IUserContext _userContext;
 		private readonly IActivityReadModel _activityReadModel;
 		private readonly IClientReadModel _clientReadModel;
 	    private readonly IDealReadModel _dealReadModel;
 		private readonly IFirmReadModel _firmReadModel;
-		private readonly IUserContext _userContext;
 
 		public GetTaskDtoService(IUserContext userContext, IActivityReadModel activityReadModel,
 			IClientReadModel clientReadModel, IDealReadModel dealReadModel, IFirmReadModel firmReadModel)
 			: base(userContext)
 		{
+			_userContext = userContext;
 			_activityReadModel = activityReadModel;
 			_clientReadModel = clientReadModel;
 			_dealReadModel = dealReadModel;
 			_firmReadModel = firmReadModel;
-			_userContext = userContext;
 		}
 
         protected override IDomainEntityDto<Task> GetDto(long entityId)
@@ -43,36 +42,37 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
             return new TaskDomainEntityDto
                 {
                     Id = task.Id,
-                    TaskType = task.TaskType,
-                    ClientRef = new EntityReference { Id = task.ClientId, Name = task.ClientName },
-                    ContactRef = new EntityReference { Id = task.ContactId, Name = task.ContactName },
-                    DealRef = new EntityReference { Id = task.DealId, Name = task.DealName },
-                    Description = task.Description,
-                    FirmRef = new EntityReference { Id = task.FirmId, Name = task.FirmName },
-                    Header = task.Header,
-                    Priority = task.Priority,
-                    ScheduledEnd = task.ScheduledEnd.Add(timeOffset),
-                    ScheduledStart = task.ScheduledStart.Add(timeOffset),
-                    ActualEnd = task.ActualEnd.HasValue ? task.ActualEnd.Value.Add(timeOffset) : task.ActualEnd,
+					CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
+					CreatedOn = task.CreatedOn,
+					ModifiedByRef = new EntityReference { Id = task.ModifiedBy, Name = null },
+					ModifiedOn = task.ModifiedOn,
+					IsActive = task.IsActive,
+					IsDeleted = task.IsDeleted,
+					Timestamp = task.Timestamp,
+					OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
+
+					Header = task.Header,
+					Description = task.Description,
+					ScheduledStart = task.ScheduledStart.Add(timeOffset),
+					ScheduledEnd = task.ScheduledEnd.Add(timeOffset),
+					ActualEnd = task.ActualEnd.HasValue ? task.ActualEnd.Value.Add(timeOffset) : task.ActualEnd,
+					Priority = task.Priority,
                     Status = task.Status,
-                    Type = task.Type,
-                    OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
-                    CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
-                    CreatedOn = task.CreatedOn,
-                    IsActive = task.IsActive,
-                    IsDeleted = task.IsDeleted,
-                    ModifiedByRef = new EntityReference { Id = task.ModifiedBy, Name = null },
-                    ModifiedOn = task.ModifiedOn,
-                    Timestamp = task.Timestamp
-                };
+
+					ClientRef = task.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Client, _clientReadModel.GetClientName),
+					ContactRef = task.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Contact, _clientReadModel.GetContactName),
+					DealRef = task.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Deal, id => _dealReadModel.GetDeal(id).Name),
+					FirmRef = task.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Firm, _firmReadModel.GetFirmName),
+
+					TaskType = task.TaskType,
+				};
         }
 
-        protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+	    protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var now = DateTime.Now;
             var dto = new TaskDomainEntityDto
                 {
-                    Type = ActivityType.Task,
                     IsActive = true,
                     ScheduledStart = now,
                     ScheduledEnd = now.Add(TimeSpan.FromMinutes(15.0)),
