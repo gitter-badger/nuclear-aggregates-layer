@@ -49,10 +49,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         int? TemplateTextLengthRestriction { get; set; }
     }
 
+    public interface IAdvertisementElementTimestampDomainEntityDto
+    {
+        byte[] Timestamp { get; set; }
+    }
+
     public static class AdvertisementElementResponsibilities
     {
         public static void TransferRestrictionValuesTo(this IAdvertisementElementRestrictions source,
-                                                     IAdvertisementElementRestrictions target)
+                                                       IAdvertisementElementRestrictions target)
         {
             target.TemplateRestrictionType = source.TemplateRestrictionType;
             target.TemplateFormattedText = source.TemplateFormattedText;
@@ -60,7 +65,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         }
 
         public static void TransferTextValuesTo(this ITextAdvertisementElementDomainEntityDto source,
-                                              ITextAdvertisementElementDomainEntityDto target)
+                                                ITextAdvertisementElementDomainEntityDto target)
         {
             target.PlainText = source.PlainText;
             target.FormattedText = source.FormattedText;
@@ -70,7 +75,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         }
 
         public static void TransferFileValuesTo(this IFileAdvertisementElementDomainEntityDto source,
-                                              IFileAdvertisementElementDomainEntityDto target)
+                                                IFileAdvertisementElementDomainEntityDto target)
         {
             target.FileId = source.FileId;
             target.FileName = source.FileName;
@@ -81,14 +86,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         }
 
         public static void TransferPeriodValuesTo(this IPeriodAdvertisementElementDomainEntityDto source,
-                                                IPeriodAdvertisementElementDomainEntityDto target)
+                                                  IPeriodAdvertisementElementDomainEntityDto target)
         {
             target.BeginDate = source.BeginDate;
             target.EndDate = source.EndDate;
         }
 
         public static void TransferFasCommentValuesTo(this IFasCommentAdvertisementElementDomainEntityDto source,
-                                                    IFasCommentAdvertisementElementDomainEntityDto target)
+                                                      IFasCommentAdvertisementElementDomainEntityDto target)
         {
             target.FasCommentType = source.FasCommentType;
             target.PlainText = source.PlainText;
@@ -96,10 +101,16 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         }
 
         public static void TransferLinkValuesTo(this ILinkAdvertisementElementDomainEntityDto source,
-                                              ILinkAdvertisementElementDomainEntityDto target)
+                                                ILinkAdvertisementElementDomainEntityDto target)
         {
             target.PlainText = source.PlainText;
             target.TemplateTextLengthRestriction = source.TemplateTextLengthRestriction;
+        }
+
+        public static void TransferTimestampTo(this IAdvertisementElementTimestampDomainEntityDto source,
+                                               IAdvertisementElementTimestampDomainEntityDto target)
+        {
+            target.Timestamp = source.Timestamp;
         }
     }
 }
