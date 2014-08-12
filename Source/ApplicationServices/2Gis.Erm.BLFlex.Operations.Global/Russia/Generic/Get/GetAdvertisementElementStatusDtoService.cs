@@ -35,7 +35,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                                                            CreatedOn = entity.CreatedOn,
                                                                            ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
                                                                            ModifiedOn = entity.ModifiedOn,
-                                                                           Timestamp = entity.AdvertisementElement.Timestamp,
+                                                                           Timestamp = entity.Timestamp,
+                                                                           AdvertisementElementTimestamp = entity.AdvertisementElement.Timestamp
                                                                        })
                                                                    .Single();
 
