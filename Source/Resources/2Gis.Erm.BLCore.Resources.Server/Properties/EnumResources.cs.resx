@@ -1416,7 +1416,7 @@
   <data name="ActivityStatusCompleted" xml:space="preserve">
     <value>Provedeno</value>
   </data>
-  <data name="ActivityStatusCancelled" xml:space="preserve">
+  <data name="ActivityStatusCanceled" xml:space="preserve">
     <value>Zrušeno</value>
   </data>
   <data name="TaskTypeWarmClient" xml:space="preserve">

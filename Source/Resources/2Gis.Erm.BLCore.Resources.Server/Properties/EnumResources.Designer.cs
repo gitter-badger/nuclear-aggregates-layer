@@ -324,9 +324,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Отменено.
         /// </summary>
-        public static string ActivityStatusCancelled {
+        public static string ActivityStatusCanceled {
             get {
-                return ResourceManager.GetString("ActivityStatusCancelled", resourceCulture);
+                return ResourceManager.GetString("ActivityStatusCanceled", resourceCulture);
             }
         }
         
