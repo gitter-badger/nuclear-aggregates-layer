@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 		private static void CheckRegistration<TSource,TTarget>()
 		{
 			// NOTE: mapping registry should be referenced to ensure the registration performed
-			if (MappingRegistry.CheckRegistration(typeof(TSource), typeof(TTarget)))
+			if (!MappingRegistry.CheckRegistration(typeof(TSource), typeof(TTarget)))
 				throw new NotSupportedException("The mapping is not supported.");
 		}
 	}
