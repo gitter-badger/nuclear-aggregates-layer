@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Migrator
                 "2Gis.Erm.BLCore.DB.Migrations.dll",
                 "2Gis.Erm.BL.DB.Migrations.dll",
                 "2Gis.Erm.Qds.Migrations.dll",
-                "2Gis.Erm.MW.Migrations.dll",
+                //"2Gis.Erm.MW.Migrations.dll",
             };
 
         public MigrationConsole(params string[] args)

@@ -152,10 +152,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
-            return container
-				.RegisterType<IDynamicEntityPropertiesConverter<Appointment, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-				.RegisterType<IDynamicEntityPropertiesConverter<Phonecall, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-				.RegisterType<IDynamicEntityPropertiesConverter<Task, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton);
+            return container;
         }
     }
 }

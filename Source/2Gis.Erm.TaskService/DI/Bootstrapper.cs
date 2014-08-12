@@ -20,7 +20,6 @@ using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLQuerying.DI.Config;
-using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
@@ -34,7 +33,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -52,21 +50,16 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories.Messaging;
-using DoubleGis.Erm.Platform.Model.Entities.EAV;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
@@ -325,10 +318,7 @@ namespace DoubleGis.Erm.TaskService.DI
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
-            return container
-				.RegisterType<IDynamicEntityPropertiesConverter<Appointment, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-				.RegisterType<IDynamicEntityPropertiesConverter<Phonecall, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-				.RegisterType<IDynamicEntityPropertiesConverter<Task, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton);
+            return container;
         }
     }
 }

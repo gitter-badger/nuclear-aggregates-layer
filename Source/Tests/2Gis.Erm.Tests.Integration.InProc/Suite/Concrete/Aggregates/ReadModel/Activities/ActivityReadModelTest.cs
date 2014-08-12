@@ -1,36 +1,32 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
-using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Activities
 {
     public class ActivityReadModelTest : IIntegrationTest
     {
-        private readonly IActivityReadModel _activityReadModel;
-		private readonly IAppropriateEntityProvider<DictionaryEntityInstance> _activityInstanceProvider;
+	    private readonly IFinder _finder;
+	    private readonly IActivityReadModel _activityReadModel;
 
-        public ActivityReadModelTest(IActivityReadModel activityReadModel, IAppropriateEntityProvider<DictionaryEntityInstance> activityInstanceProvider)
+        public ActivityReadModelTest(IFinder finder, IActivityReadModel activityReadModel)
         {
-            _activityReadModel = activityReadModel;
-            _activityInstanceProvider = activityInstanceProvider;
+	        _finder = finder;
+	        _activityReadModel = activityReadModel;
         }
 
         public ITestResult Execute()
         {
-            var appropriateAppointment = _activityInstanceProvider.Get(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Appointment));
-			var appropriateTask = _activityInstanceProvider.Get(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Task));
-			var appropriatePhonecall = _activityInstanceProvider.Get(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Phonecall));
-			var activityWithClient = _activityInstanceProvider.Get(ActivitySpecs.Activity.Find.OnlyActivities() &&
-					new FindSpecification<DictionaryEntityInstance>(
-						entity => entity.DictionaryEntityPropertyInstances.Any(
-						property => property.PropertyId == ClientIdIdentity.Instance.Id && property.NumericValue.HasValue)));
+			var appropriateAppointment = _finder.Find<AppointmentBase>(x => true).FirstOrDefault();
+			var appropriatePhonecall = _finder.Find<PhonecallBase>(x => true).FirstOrDefault();
+			var appropriateTask = _finder.Find<TaskBase>(x => true).FirstOrDefault();
+			var activityWithClient = _finder.Find<AppointmentBase>(x => x.AppointmentReferences.Any(
+				r => r.Reference == (int)ReferenceType.RegardingObject && r.ReferencedType == (int)EntityName.Client)).FirstOrDefault();
 
             if (appropriateAppointment == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
             {
@@ -42,9 +38,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
             var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
 
             // ReSharper disable once PossibleInvalidOperationException
-			_activityReadModel.CheckIfRelatedActivitiesExists(
-				(long)activityWithClient.DictionaryEntityPropertyInstances
-				.First(property => property.PropertyId == ClientIdIdentity.Instance.Id).NumericValue.Value);
+			_activityReadModel.CheckIfRelatedActivitiesExists(activityWithClient.AppointmentReferences.First(r => r.ReferencedType == (int)EntityName.Client).ReferencedObjectId);
 
             return new object[]
                 {

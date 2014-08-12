@@ -286,9 +286,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
             return container
-				.RegisterType<IDynamicEntityPropertiesConverter<Appointment, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-				.RegisterType<IDynamicEntityPropertiesConverter<Phonecall, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-				.RegisterType<IDynamicEntityPropertiesConverter<Task, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
 				.RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
                     DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
