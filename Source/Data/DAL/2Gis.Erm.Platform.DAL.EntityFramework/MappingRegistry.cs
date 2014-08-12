@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using AutoMapper;
@@ -12,18 +11,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
 	internal sealed class MappingRegistry
 	{
-		private static readonly IDictionary<Type,Type> Registry = new Dictionary<Type, Type>
-			{
-				// BL -> DAL
-				{typeof(Appointment), typeof(AppointmentBase)},
-				{typeof(Phonecall), typeof(PhonecallBase)},
-				{typeof(Task), typeof(TaskBase)},
-				// DAL -> BL
-				{typeof(AppointmentBase), typeof(Appointment)},
-				{typeof(PhonecallBase), typeof(Phonecall)},
-				{typeof(TaskBase), typeof(Task)},
-			};
-
 		static MappingRegistry()
 		{
 			RegisterMappingFromDal();
@@ -126,16 +113,15 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
 		public static TOutput Map<TInput, TOutput>(TInput input)
 		{
-			if (/*!Registry.ContainsKey(typeof(TInput)) || */Mapper.FindTypeMapFor<TInput,TOutput>() == null)
+			if (Mapper.FindTypeMapFor<TInput,TOutput>() == null)
 				throw new InvalidOperationException("The requested mapping is not supported.");
 
 			return Mapper.Map<TOutput>(input);
 		}
 
-		public static Type LookupType(Type targetType)
+		public static bool CheckRegistration(Type sourceType, Type targetType)
 		{
-			Type sourceType;
-			return Registry.TryGetValue(targetType, out sourceType) ? sourceType : null;
+			return Mapper.FindTypeMapFor(sourceType, targetType) != null;
 		}
 	}
 }
