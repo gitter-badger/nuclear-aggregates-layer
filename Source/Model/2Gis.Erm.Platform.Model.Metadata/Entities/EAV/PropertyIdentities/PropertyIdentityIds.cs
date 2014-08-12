@@ -36,9 +36,5 @@
         public const int EndDistributionDatePropertyId = 32;
         public const int AuthorIdPropertyId = 33;
         public const int DocumentsAmountPropertyId = 34;
-		public const int ClientIdPropertyId = 36;
-		public const int ContactIdPropertyId = 37;
-		public const int FirmIdPropertyId = 38;
-		public const int ReplicationCodePropertyId = 39;
 	}
 }

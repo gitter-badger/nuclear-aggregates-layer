@@ -4,7 +4,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
     public enum ActivityAggregate
     {
-        ActivityBase = EntityName.ActivityBase,
+        Activity = EntityName.Activity,
         Appointment = EntityName.Appointment,
         PhoneCall = EntityName.Phonecall,
         Task = EntityName.Task,

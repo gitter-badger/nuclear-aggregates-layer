@@ -36,9 +36,9 @@ namespace DoubleGis.Erm.Platform.Security
         private static readonly Dictionary<EntityName, EntityName> EntityPrivilegesRoutings = 
             new Dictionary<EntityName, EntityName>
                 {
-                    { EntityName.Appointment, EntityName.ActivityBase }, 
-                    { EntityName.Phonecall, EntityName.ActivityBase }, 
-                    { EntityName.Task, EntityName.ActivityBase }
+                    { EntityName.Appointment, EntityName.Activity}, 
+                    { EntityName.Phonecall, EntityName.Activity}, 
+                    { EntityName.Task, EntityName.Activity}
                 };
 
         private readonly IFinder _finder;

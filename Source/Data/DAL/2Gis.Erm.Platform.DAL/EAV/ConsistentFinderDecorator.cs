@@ -13,13 +13,13 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     {
         private readonly IFinder _finder;
         private readonly DynamicStorageFinderWrapper _dynamicStorageFinderWrapper;
+		private readonly ICompositeEntityDecorator _compositeEntityDecorator;
 
-        public ConsistentFinderDecorator(IFinder finder,
-                                         IDynamicStorageFinder dynamicStorageFinder,
-                                         IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
+	    public ConsistentFinderDecorator(IFinder finder, IDynamicStorageFinder dynamicStorageFinder, ICompositeEntityDecorator compositeEntityDecorator, IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
         {
             _finder = finder;
-            _dynamicStorageFinderWrapper = new DynamicStorageFinderWrapper(dynamicStorageFinder, dynamicEntityMetadataProvider);
+		    _compositeEntityDecorator = compositeEntityDecorator;
+		    _dynamicStorageFinderWrapper = new DynamicStorageFinderWrapper(dynamicStorageFinder, dynamicEntityMetadataProvider);
         }
 
         public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
@@ -62,6 +62,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, id).SingleOrDefault();
             }
 
+	        if (typeof(TEntity).AsEntityName().HasMapping())
+	        {
+				var id = findSpecification.ExtractEntityId();
+		        return _compositeEntityDecorator.Find<TEntity>(id).SingleOrDefault();
+	        }
+
             return Find(findSpecification).SingleOrDefault();
         }
 
@@ -78,6 +84,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 var ids = findSpecification.ExtractEntityIds();
                 return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).ToArray();
             }
+
+			if (typeof(TEntity).AsEntityName().HasMapping())
+			{
+				var ids = findSpecification.ExtractEntityIds();
+				return _compositeEntityDecorator.Find<TEntity>(ids).ToArray();
+			}
 
             return Find(findSpecification).ToArray();
         }

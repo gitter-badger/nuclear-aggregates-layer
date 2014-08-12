@@ -277,6 +277,15 @@
         <edmx:EntityTypeShape EntityType="ErmModel.BirthdayCongratulation" Width="1.5" PointX="7.375" PointY="18.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowDeliveryData_LetterSendRequest" Width="1.5" PointX="9.375" PointY="18.75" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowOrders_DenialReason" Width="1.5" PointX="9.375" PointY="18.75" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AppointmentBase" Width="1.5" PointX="20.375" PointY="1.125" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AppointmentReference" Width="1.5" PointX="22.625" PointY="2.625" />
+        <edmx:EntityTypeShape EntityType="ErmModel.PhonecallBase" Width="1.5" PointX="19.375" PointY="10.125" />
+        <edmx:EntityTypeShape EntityType="ErmModel.PhonecallReference" Width="1.5" PointX="21.625" PointY="11.625" />
+        <edmx:EntityTypeShape EntityType="ErmModel.TaskBase" Width="1.5" PointX="16.375" PointY="19" />
+        <edmx:EntityTypeShape EntityType="ErmModel.TaskReference" Width="1.5" PointX="18.625" PointY="20.375" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Appointments" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Phonecalls" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Tasks" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

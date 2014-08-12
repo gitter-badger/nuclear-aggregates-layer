@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
             new[]
             {
                 // COMMENT {s.pomadin, 31.07.2014}: опять же нужно определиться какое место в domain model знаимают действия, один это агрегат или несколько и т.п., т.к. ответы на эти вопросы влияют на то как функционал действий будет разложен по системе
-                ActivityAggregate.ActivityBase.ToDescriptor(),
+                ActivityAggregate.Activity.ToDescriptor(),
                 ActivityAggregate.Appointment.ToDescriptor(),
                 ActivityAggregate.PhoneCall.ToDescriptor(),
                 ActivityAggregate.Task.ToDescriptor(),

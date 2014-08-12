@@ -163,8 +163,9 @@
         // Ambivalent
         FileWithContent = 400,
 
-        ActivityBase = 500,
-        Appointment = 501,
+		EntityToEntityReference = 499,
+		Activity = 500,
+		Appointment = 501,
         Phonecall = 502,
         Task = 503,
 

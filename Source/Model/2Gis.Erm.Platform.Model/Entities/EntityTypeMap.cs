@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
@@ -112,7 +113,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Building, typeof(Building) },
 
                 // Activity subsystem
-                { EntityName.ActivityBase, typeof(ActivityBase) },
+                { EntityName.EntityToEntityReference, typeof(EntityToEntityReference) },
+                { EntityName.Activity, typeof(Activity.Activity) },
                 { EntityName.Appointment, typeof(Appointment) },
                 { EntityName.Phonecall, typeof(Phonecall) },
                 { EntityName.Task, typeof(Task) },
