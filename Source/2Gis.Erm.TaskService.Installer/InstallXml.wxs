@@ -103,13 +103,13 @@
         <File Source="$(var.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\NEST.1.0.0-beta1\lib\Nest.dll" />
+        <File Source="$(var.PackagesDir)\NEST.1.0.1\lib\Nest.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll" />
+        <File Source="$(var.PackagesDir)\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.0.0-beta1\lib\Elasticsearch.Net.Connection.Thrift.dll" />
+        <File Source="$(var.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.0.1\lib\Elasticsearch.Net.Connection.Thrift.dll" />
       </Component>
       <Component>
         <File Source="$(var.PackagesDir)\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll" />
