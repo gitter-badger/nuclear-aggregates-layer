@@ -22,5 +22,10 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
         {
             return ToStringResult;
         }
+
+        public CallMetrics Metrics
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

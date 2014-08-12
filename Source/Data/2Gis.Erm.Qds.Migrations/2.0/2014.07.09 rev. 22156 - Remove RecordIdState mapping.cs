@@ -13,8 +13,8 @@ namespace DoubleGis.Erm.Qds.Migrations
 
         private static void RemoveRecordIdStateMapping(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<RecordIdState22156>("Metadata", "RecordIdState");
-            context.ElasticManagementApi.DeleteMapping<RecordIdState22156>();
+            context.MetadataApi.RegisterType<RecordIdState22156>("Metadata", "RecordIdState");
+            context.ManagementApi.DeleteMapping<RecordIdState22156>();
         }
 
         private sealed class RecordIdState22156 { }

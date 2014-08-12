@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 
 using FluentAssertions;
 
@@ -123,14 +122,14 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
                         .NestedObject<LegalPersonDoc>(no => no
                             .Name(n => n.LegalPersons.First())
                             .Properties(pp => pp
-                                .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
+                                .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
                                 .Boolean(b => b.Name(n => n.IsActive))
                                 .Boolean(b => b.Name(n => n.IsDeleted))
                                 .NestedObject<AccountDoc>(noo => noo
                                     .Name(n => n.Accounts.First())
                                     .Properties(ppp => ppp
-                                        .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
-                                        .Number(s => s.Name(n => n.Balance).Type(NumberType.@double))
+                                        .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
+                                        .Number(s => s.Name(n => n.Balance).Type(NumberType.Double))
                                         .Boolean(b => b.Name(n => n.IsActive))
                                         .Boolean(b => b.Name(n => n.IsDeleted))
                                     )

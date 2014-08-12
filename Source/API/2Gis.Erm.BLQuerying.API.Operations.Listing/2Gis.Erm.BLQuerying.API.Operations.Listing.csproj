@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="2Gis.Erm.Qds.Etl">
-      <HintPath>..\..\..\..\CompositionRoots\Source\2Gis.Erm.API.WCF.Operations\Bin\2Gis.Erm.Qds.Etl.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -57,6 +54,7 @@
     <Compile Include="List\DTO\ListBranchOfficeDto.cs" />
     <Compile Include="List\DTO\ListDenialReasonDto.cs" />
     <Compile Include="List\DTO\ListClientDto.cs" />
+    <Compile Include="List\DTO\ListDepartmentDto.cs" />
     <Compile Include="List\DTO\ListFirmDto.cs" />
     <Compile Include="List\DTO\ListTimeZoneDto.cs" />
     <Compile Include="List\DTO\ListThemeCategoryDto.cs" />
@@ -119,13 +117,12 @@
     <Compile Include="List\DTO\ListThemeDto.cs" />
     <Compile Include="List\DTO\ListUserOrganizationUnitDto.cs" />
     <Compile Include="List\DTO\ListThemeTemplateDto.cs" />
-    <Compile Include="List\DTO\ListDepartmentDto.cs" />
     <Compile Include="List\DTO\ListUserDto.cs" />
     <Compile Include="List\DTO\ListUserTerritoryDto.cs" />
     <Compile Include="List\DTO\ListUserRoleDto.cs" />
     <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
     <Compile Include="List\Metadata\ExtendedInfoMetadata.cs" />
-    <Compile Include="List\Metadata\FilteredFieldMetadata.cs" />
+    <Compile Include="List\Metadata\FilteredFieldsMetadata.cs" />
     <Compile Include="List\Metadata\DefaultFilterMetadata.cs" />
     <Compile Include="List\Metadata\MethodInfos.cs" />
     <Compile Include="List\Metadata\QuerySettings.cs" />
@@ -151,10 +148,6 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
-      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
-      <Name>2Gis.Erm.Platform.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>
@@ -163,13 +156,9 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
-      <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
-      <Name>2Gis.Erm.Qds.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
-      <Name>2Gis.Erm.Qds</Name>
+    <ProjectReference Include="..\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
+      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
+      <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

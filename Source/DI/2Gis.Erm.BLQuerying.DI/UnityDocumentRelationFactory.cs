@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Elastic.Nest.Qds.Indexing;
-using DoubleGis.Erm.Qds.Etl;
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
+using DoubleGis.Erm.Qds.Operations.Indexing;
 
 using Microsoft.Practices.Unity;
 
@@ -19,29 +20,39 @@ namespace DoubleGis.Erm.BLQuerying.DI
             _metadataContainer = metadataContainer;
         }
 
-        public IEnumerable<IDocumentRelation<TDocument>> GetDocumentRelations<TDocument>()
+        public IReadOnlyCollection<IDocumentVersionUpdater> GetDocumentVersionUpdaters(IEnumerable<Type> documentTypes)
         {
-            var metadatas = _metadataContainer.GetDocumentMetadatas<TDocument>();
-
-            var relations = metadatas.Select(x =>
+            var updaters = documentTypes.Select(x =>
             {
-                var resolveType = typeof(DocumentRelation<,>).MakeGenericType(typeof(TDocument), x.DocumentPartType);
-                return _unityContainer.Resolve(resolveType);
-            });
+                var resolveType = typeof(IDocumentVersionUpdater<>).MakeGenericType(x);
+                return (IDocumentVersionUpdater)_unityContainer.Resolve(resolveType);
+            }).ToArray();
 
-            return relations.Cast<IDocumentRelation<TDocument>>();
+            return updaters;
         }
 
-        public IEnumerable<IDocumentPartRelation<TDocumentPart>> GetDocumentPartRelations<TDocumentPart>()
+        public IReadOnlyCollection<IDocumentRelation> GetDocumentRelations(IEnumerable<Type> documentTypes)
         {
-            var metadatas = _metadataContainer.GetDocumentPartMetadatas<TDocumentPart>();
+            var metadatas = _metadataContainer.GetMetadatasForDocumentType(documentTypes);
             var relations = metadatas.Select(x =>
             {
-                var resolveType = typeof(DocumentRelation<,>).MakeGenericType(x.DocumentType, typeof(TDocumentPart));
+                var resolveType = typeof(IDocumentRelation<,>).MakeGenericType(x.Item1, x.Item2);
                 return _unityContainer.Resolve(resolveType);
             });
 
-            return relations.Cast<IDocumentPartRelation<TDocumentPart>>();
+            return relations.Cast<IDocumentRelation>().ToArray();
+        }
+
+        public IReadOnlyCollection<IDocumentPartRelation> GetDocumentPartRelations(IEnumerable<Type> documentTypes)
+        {
+            var metadatas = _metadataContainer.GetMetadatasForDocumentPartType(documentTypes);
+            var relations = metadatas.Select(x =>
+            {
+                var resolveType = typeof(IDocumentRelation<,>).MakeGenericType(x.Item1, x.Item2);
+                return _unityContainer.Resolve(resolveType);
+            });
+
+            return relations.Cast<IDocumentPartRelation>().ToArray();
         }
     }
 }
