@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.Elastic.Nest.Qds;
-using DoubleGis.Erm.Elastic.Nest.Qds.Indexing;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Qds.API.Core.Settings;
-using DoubleGis.Erm.Qds.API.Operations;
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.Qds.Etl;
+using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 using DoubleGis.Erm.Qds.Operations.Listing;
 
@@ -27,13 +24,18 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
 {
     public static partial class QueryingBootstrapper
     {
+        private static readonly EntityName[] QdsEntityNames =
+        {
+            EntityName.Order
+        };
+
         public static IUnityContainer ConfigureQds(this IUnityContainer container, Func<LifetimeManager> lifetime, INestSettings nestSettings)
         {
             container
                 .ConfigureElasticApi(nestSettings)
-                .ConfigureQdsIndexing();
+                .ConfigureQdsIndexing(lifetime);
 
-            container.MassProcess();
+            container.MassProcess(lifetime);
 
             return container;
         }
@@ -56,33 +58,37 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
                     throw new ArgumentOutOfRangeException();
             }
 
-            container.RegisterType<IElasticResponseHandler, ElasticResponseHandler>(Lifetime.Singleton);
-            container.RegisterType<INestSerializer, NestSerializer>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings));
-            container.RegisterType<IElasticClient, ElasticClient>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings, typeof(IConnection), typeof(INestSerializer)));
-            container.RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton);
+            container.RegisterType<IElasticMetadataApi, ElasticMetadataApi>(Lifetime.Singleton);
+            container.RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton, new InjectionFactory(x =>
+            {
+                var connection = x.Resolve<IConnection>();
+                var client = new ElasticClient(nestSettings.ConnectionSettings, connection);
+                var metadataApi = x.Resolve<IElasticMetadataApi>();
+                return new ElasticApi(client, nestSettings, metadataApi);
+            }));
             container.RegisterType<IElasticManagementApi, ElasticApi>(Lifetime.Singleton);
             return container;
         }
 
-        private static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container)
+        private static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container, Func<LifetimeManager> lifetime)
         {
             container
                 .RegisterType<IEntityToDocumentRelationMetadataContainer, EntityToDocumentRelationMetadataContainer>(Lifetime.Singleton)
                 .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(Lifetime.Singleton)
+                .RegisterType<IEntityToDocumentRelationFactory, UnityEntityToDocumentRelationFactory>(lifetime())
                 .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(Lifetime.Singleton)
-                .RegisterType<IDocumentUpdaterFactory, UnityDocumentUpdaterFactory>(Lifetime.Singleton)
                 .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(Lifetime.Singleton)
-                .RegisterType(typeof(DocumentUpdater<,>), Lifetime.Singleton)
-                .RegisterType(typeof(IDocumentPartUpdater<>), typeof(DocumentPartUpdater<>), Lifetime.Singleton);
+                .RegisterType<IDocumentUpdater, DocumentUpdater>(lifetime())
+                .RegisterType(typeof(IDocumentVersionUpdater<>), typeof(DocumentVersionUpdater<>), Lifetime.Singleton)
+                ;
 
             return container;
         }
 
-        // TODO {m.pashuk, 16.05.2014}: поместить в правильное место
-        private static void MassProcess(this IUnityContainer container)
+        private static void MassProcess(this IUnityContainer container, Func<LifetimeManager> lifetime)
         {
             var entityToDocumentRelationMetadataMassProcessor = container.Resolve<EntityToDocumentRelationMetadataMassProcessor>();
-            entityToDocumentRelationMetadataMassProcessor.MassProcess();
+            entityToDocumentRelationMetadataMassProcessor.MassProcess(lifetime);
 
             var documentRelationMetadataMassProcessor = container.Resolve<DocumentRelationMetadataMassProcessor>();
             documentRelationMetadataMassProcessor.MassProcess();
@@ -95,7 +101,8 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
                 return null;
             }
 
-            if (entitySet.Entities.Contains(EntityName.Order))
+            var entityName = entitySet.Entities.Single();
+            if (QdsEntityNames.Contains(entityName))
             {
                 var businessModel = ConfigFileSetting.Enum.Required<BusinessModel>("BusinessModel").Value;
                 if (businessModel == BusinessModel.Russia)

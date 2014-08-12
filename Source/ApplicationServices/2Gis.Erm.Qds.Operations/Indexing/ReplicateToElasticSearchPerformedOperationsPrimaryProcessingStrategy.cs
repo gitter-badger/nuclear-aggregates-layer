@@ -3,7 +3,7 @@
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
-using DoubleGis.Erm.Qds.Etl;
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         protected override ReplicateToElasticSearchPrimaryProcessingResultsMessage Process(TrackedUseCase message)
         {
-            var entityIds = message.Operations.SelectMany(x =>
+            var entityLinks = message.Operations.SelectMany(x =>
             {
                 var context = x.ChangesContext;
                 return context.AddedChanges
@@ -27,17 +27,17 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     .Concat(context.DeletedChanges);
             })
             .GroupBy(x => x.Key, x => x.Value)
-            .Select(x => new EntityIds
+            .Where(x => _entityToDocumentRelationMetadataContainer.GetMetadatasForEntityType(x.Key).Any())
+            .Select(x => new EntityLink
             {
                 EntityType = x.Key,
-                Ids = x.SelectMany(y => y.Keys).Distinct().ToArray(),
+                UpdatedIds = x.SelectMany(y => y.Keys).Distinct().ToArray(),
             })
-            .Where(x => _entityToDocumentRelationMetadataContainer.GetMetadatasForEntityType(x.EntityType).Any())
             .ToArray();
 
             return new ReplicateToElasticSearchPrimaryProcessingResultsMessage
             {
-                EntityIds = entityIds,
+                EntityLinks = entityLinks,
             };
         }
     }

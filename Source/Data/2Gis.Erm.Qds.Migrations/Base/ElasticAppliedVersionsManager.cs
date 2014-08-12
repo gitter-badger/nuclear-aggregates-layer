@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 
 using DoubleGis.Erm.Platform.Migration.Core;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.Qds.Docs;
 
 namespace DoubleGis.Erm.Qds.Migrations.Base
 {
@@ -22,8 +22,8 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
         {
             AppliedVersionsInfo = new AppliedVersionsInfo();
 
-            var mapping = _elasticManagementApi.GetMapping<MigrationDoc>();
-            if (mapping == null)
+            var exists = _elasticManagementApi.TypeExists<MigrationDoc>();
+            if (!exists)
             {
                 return;
             }
