@@ -73,9 +73,10 @@
         });
 
         var grid = new Ext.grid.EditorGridPanel({
+            region: 'south',
+            height: window.localStorage.getItem('grid-height')*1 || 300,
             sm: sm,
             cm: cm,
-            anchor: '100%, 50%',
             view: gridView,
             clicksToEdit: 'auto',
             applyTo: 'reason-table',
@@ -134,7 +135,7 @@
         });
 
         var tabPanel = new window.Ext.TabPanel({
-            anchor: '100%, 50%',
+            region: 'center',
             applyTo: "tabs-container",
             border: false,
             margins: "0 0 0 0",
@@ -181,34 +182,48 @@
             ]
         });
 
-        var mainPanel = new Ext.Panel({
-            applyTo: 'ads-verification-container',
-            plugins: [new window.Ext.ux.FitToParent(document.body)],
-            layout: 'fit',
+        var viewport = new Ext.Viewport({
+            layout: 'border',
             items: [
                 new Ext.Panel({
+                    region: 'north',
+                    height: 60,
+                    items: [new Ext.Component('TopBarTitle')]
+                }),
+                new Ext.Panel({
+                    region: 'south',
+                    height: 60,
+                    layout: 'anchor',
+                    items: [buttonPanel]
+                }),
+                new Ext.Panel({
+                    region: 'center',
                     layout: 'border',
+                    defaults: {
+                        collapsible: false,
+                        split: true
+                    },
                     items: [
-                        new Ext.Panel({
-                            region: 'north',
-                            height: 60,
-                            items: [new Ext.Component('TopBarTitle')]
-                        }),
-                        new Ext.Panel({
-                            region: 'south',
-                            height: 60,
-                            layout: 'anchor',
-                            items: [buttonPanel]
-                        }),
-                        new Ext.Panel({
-                            region: 'center',
-                            layout: 'anchor',
-                            items: [
-                                tabPanel,
-                                grid
-                            ]
-                        })
-                    ]
+                        tabPanel,
+                        grid
+                    ],
+                    listeners: {
+                        // Разметка страницы генерируется двумя путями: то, что написано в *.cshtml и то, что генерирует ExtJS в рантайме.
+                        // Это разные структуры, отчасти пересекающиеся. И в этом проблема. 
+                        // Поэтому важные узлы нужно "оторвать" от предыдущего родителя, и поместить в структуру ExtJS
+                        afterlayout: function (viewport, layout) {
+                            var target = viewport.getLayoutTarget();
+                            if (!layout.isValidParent(tabPanel, target)) {
+                                target.dom.appendChild(tabPanel.getPositionEl().dom);
+                            }
+                            if (!layout.isValidParent(grid, target)) {
+                                target.dom.appendChild(grid.getPositionEl().dom);
+                            }
+                            else {
+                                window.localStorage.setItem('grid-height', grid.getHeight());
+                            }
+                        }
+                    }
                 })
             ]
         });
@@ -222,7 +237,7 @@
         cardSurrogate.refresh = refresh;
         window.Card = cardSurrogate;
 
-        cardSurrogate.Mask = new window.Ext.LoadMask('raw-content');
+        cardSurrogate.Mask = new window.Ext.LoadMask(document.body);
 
         var depList = window.Ext.getDom("ViewConfig_DependencyList");
         if (depList.value) {
@@ -238,7 +253,7 @@
     function loadData(filterInput, callback) {
         Ext.get('Approve').disable();
         Ext.get('Reject').disable();
-        var mask = new Ext.LoadMask('raw-content');
+        var mask = new Ext.LoadMask(document.body);
         mask.show();
         var params = {
             start: '0',
@@ -391,7 +406,7 @@
         Ext.get('Approve').disable();
         Ext.get('Reject').disable();
 
-        var mask = new Ext.LoadMask('raw-content');
+        var mask = new Ext.LoadMask(document.body);
         mask.show();
 
         cardSurrogate.fireEvent('beforepost');
