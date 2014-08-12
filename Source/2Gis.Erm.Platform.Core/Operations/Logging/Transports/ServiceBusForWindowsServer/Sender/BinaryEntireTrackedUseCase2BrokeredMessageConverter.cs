@@ -22,48 +22,34 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
         {
             _logger = logger;
             _protobufModel = ProtoBufTypeModelForTrackedUseCaseConfigurator.Configure();
-
-            //var configuredSchema = _protobufModel.GetSchema(typeof(TestClass));//TrackedUseCase));
-            //_logger.DebugFormatEx("Configured schema for profobuf serialization infrastructure : {0}", configuredSchema);
         }
 
         public IEnumerable<BrokeredMessage> Convert(TrackedUseCase useCase)
         {
-            var messages = new List<BrokeredMessage>();
-            Stream stream = null;
-            BrokeredMessage msg;
-
+            var stream = new MemoryStream();
             try
             {
-                stream = new MemoryStream();
                 _protobufModel.Serialize(stream, useCase);
                 stream.Position = 0;
-
-                msg = new BrokeredMessage(stream, true);
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Indicator.Name, TrackedUseCaseMessageProperties.Indicator.Value);
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.MessageBodyType, (int)MessageBodyType.Binary);
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.FormatVersion, (int)TrackedUseCaseMessageFormatVersion.V1Entire);
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.Operation, useCase.RootNode.OperationIdentity.OperationIdentity.Id);
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.EntitiesSetHash, useCase.RootNode.OperationIdentity.Entities.EvaluateHash());
-                msg.Properties.Add(TrackedUseCaseMessageProperties.Names.UseCaseId, useCase.RootNode.ScopeId);
-                messages.Add(msg);
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(
-                    ex, 
-                    "Can't serialize tracked use case to brokered message. Use case description: {0}", 
-                    useCase);
-
-                if (stream != null)
-                {
-                    stream.Dispose();
-                }
-
+                _logger.ErrorFormatEx(ex,
+                                      "Can't serialize tracked use case to brokered message. Use case description: {0}",
+                                      useCase);
+                stream.Dispose();
                 throw;
             }
 
-            return new[] { msg };
+            var message = new BrokeredMessage(stream, true);
+            message.Properties.Add(TrackedUseCaseMessageProperties.Indicator.Name, TrackedUseCaseMessageProperties.Indicator.Value);
+            message.Properties.Add(TrackedUseCaseMessageProperties.Names.MessageBodyType, (int)MessageBodyType.Binary);
+            message.Properties.Add(TrackedUseCaseMessageProperties.Names.FormatVersion, (int)TrackedUseCaseMessageFormatVersion.V1Entire);
+            message.Properties.Add(TrackedUseCaseMessageProperties.Names.Operation, useCase.RootNode.OperationIdentity.OperationIdentity.Id);
+            message.Properties.Add(TrackedUseCaseMessageProperties.Names.EntitiesSetHash, useCase.RootNode.OperationIdentity.Entities.EvaluateHash());
+            message.Properties.Add(TrackedUseCaseMessageProperties.Names.UseCaseId, useCase.RootNode.ScopeId);
+
+            return new[] { message };
         }
     }
 }

@@ -121,9 +121,11 @@
     <Compile Include="Operations\Logging\PersistenceChangesRegistryKey.cs" />
     <Compile Include="Operations\Logging\PersistenceChangesRegistryProvider.cs" />
     <Compile Include="Operations\Logging\TransactedOperationScope.cs" />
+    <Compile Include="Operations\Logging\Transports\DB\DirectDbLoggingSession.cs" />
     <Compile Include="Operations\Logging\Transports\DB\DirectDBLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\Transports\DB\ITrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
     <Compile Include="Operations\Logging\Transports\DB\TrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusLoggingSession.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusMessageSender.Dispose.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\IServiceBusMessageSenderSettings.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\MessageBodyType.cs" />
@@ -139,7 +141,7 @@
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\Settings\IServiceBusMessageReceiverSettings.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\IServiceBusMessageSender.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ITrackedUseCase2BrokeredMessageConverter.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusForWindowsServiceLoggingStrategy.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusMessageSender.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\OperationIdentitySurrogate.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\ProtoBufTypeModelForTrackedUseCaseConfigurator.cs" />

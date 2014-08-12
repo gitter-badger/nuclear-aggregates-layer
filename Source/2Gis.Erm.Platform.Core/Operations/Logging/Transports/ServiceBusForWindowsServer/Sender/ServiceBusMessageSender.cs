@@ -24,15 +24,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             _logger = logger;
             _senderSlots = new SenderSlot[_serviceBusMessageSenderSettings.ConnectionsCount];
             
-            for (int i = 0; i < _senderSlots.Length; i++)
+            for (var i = 0; i < _senderSlots.Length; i++)
             {
                 var factory = MessagingFactory.CreateFromConnectionString(_serviceBusMessageSenderSettings.ConnectionString);
-                var slot = new SenderSlot
-                    {
-                        ActiveTransmissions = 0,
-                        Factory = factory,
-                        Sender = factory.CreateMessageSender(_serviceBusMessageSenderSettings.TransportEntityPath)
-                    };
+                var slot = new SenderSlot(factory, _serviceBusMessageSenderSettings.TransportEntityPath);
 
                 _senderSlots[i] = slot;
             }
@@ -52,20 +47,20 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
                 return false;
             }
 
-            Interlocked.Increment(ref targetSlot.ActiveTransmissions);
+            targetSlot.IncrementActiveTransmissions();
 
             try
             {
-                targetSlot.Sender.SendBatch(messages);
+                targetSlot.SendBatch(messages);
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't send data to service bus with entitypath {0}", _serviceBusMessageSenderSettings.TransportEntityPath);
+                _logger.ErrorFormatEx(ex, "Can't send data to service bus with entitypath {0}", targetSlot.EntityPath);
                 return false;
             }
             finally
             {
-                Interlocked.Decrement(ref targetSlot.ActiveTransmissions);
+                targetSlot.DecrementActiveTransmissions();
             }
 
             return true;
@@ -81,7 +76,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             }
 
             resolvedSlot = _senderSlots[0];
-            for (int i = 1; i < _senderSlots.Length; i++)
+            for (var i = 1; i < _senderSlots.Length; i++)
             {
                 if (_senderSlots[i].ActiveTransmissions < resolvedSlot.ActiveTransmissions)
                 {
@@ -92,11 +87,51 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             return true;
         }
 
-        private class SenderSlot
+        private class SenderSlot : IDisposable
         {
-            public MessagingFactory Factory { get; set; }
-            public MessageSender Sender { get; set; }
-            public int ActiveTransmissions;
+            private readonly string _entityPath;
+            private readonly MessagingFactory _messagingFactory;
+            private readonly MessageSender _messageSender;
+
+            private int _activeTransmissions;
+            
+            public SenderSlot(MessagingFactory messagingFactory, string entityPath)
+            {
+                _messagingFactory = messagingFactory;
+                _entityPath = entityPath;
+                _messageSender = messagingFactory.CreateMessageSender(entityPath);
+            }
+
+            public string EntityPath
+            {
+                get { return _entityPath; }
+            }
+
+            public int ActiveTransmissions
+            {
+                get { return _activeTransmissions; }
+            }
+
+            public void IncrementActiveTransmissions()
+            {
+                Interlocked.Increment(ref _activeTransmissions);
+            }
+
+            public void DecrementActiveTransmissions()
+            {
+                Interlocked.Decrement(ref _activeTransmissions);
+            }
+
+            public void SendBatch(IEnumerable<BrokeredMessage> messages)
+            {
+                _messageSender.SendBatch(messages);
+            }
+
+            public void Dispose()
+            {
+                _messagingFactory.Close();
+                _messageSender.Close();
+            }
         }
     }
 }

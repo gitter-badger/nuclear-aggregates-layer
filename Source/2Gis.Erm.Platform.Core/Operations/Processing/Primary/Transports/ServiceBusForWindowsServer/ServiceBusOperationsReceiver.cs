@@ -26,10 +26,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         {
             _logger = logger;
 
-            MessagingFactory messagingFactory = MessagingFactory.CreateFromConnectionString(serviceBusMessageReceiverSettings.ConnectionString);
-            _messageReceiver = 
-                messagingFactory.CreateSubscriptionClient(serviceBusMessageReceiverSettings.TransportEntityPath, SourceMessageFlow.Id.ToString(), ReceiveMode.PeekLock);
-            //_messageReceiver = messagingFactory.CreateQueueClient(serviceBusMessageReceiverSettings.TransportEntityPath, ReceiveMode.PeekLock);
+            var messagingFactory = MessagingFactory.CreateFromConnectionString(serviceBusMessageReceiverSettings.ConnectionString);
+            _messageReceiver = messagingFactory.CreateSubscriptionClient(serviceBusMessageReceiverSettings.TransportEntityPath,
+                                                                         SourceMessageFlow.Id.ToString(),
+                                                                         ReceiveMode.PeekLock);
         }
 
         protected override IEnumerable<ServiceBusPerformedOperationsMessage> Peek()
@@ -46,9 +46,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
             }
         }
 
-        protected override void Complete(
-            IEnumerable<ServiceBusPerformedOperationsMessage> successfullyProcessedMessages, 
-            IEnumerable<ServiceBusPerformedOperationsMessage> failedProcessedMessages)
+        protected override void Complete(IEnumerable<ServiceBusPerformedOperationsMessage> successfullyProcessedMessages,
+                                         IEnumerable<ServiceBusPerformedOperationsMessage> failedProcessedMessages)
         {
             try
             {

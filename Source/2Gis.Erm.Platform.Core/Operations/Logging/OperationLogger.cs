@@ -14,11 +14,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         private readonly IReadOnlyCollection<IOperationLoggingStrategy> _loggingStrategies;
         private readonly ICommonLog _logger;
 
-        public OperationLogger(
-            // ReSharper disable ParameterTypeCanBeEnumerable.Local // unity registrations 1..*
-            IOperationLoggingStrategy[] loggingStrategies,
-            // ReSharper restore ParameterTypeCanBeEnumerable.Local
-            ICommonLog logger)
+        public OperationLogger(IOperationLoggingStrategy[] loggingStrategies,   // unity registrations 1..*
+                               ICommonLog logger)
         {
             _loggingStrategies = loggingStrategies;
             _logger = logger;
@@ -26,11 +23,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
         public void Log(TrackedUseCase useCase)
         {
-            //SequentialLogging(useCase);
+            // COMMENT {all, 29.07.2014}: пока оставлена реализация логирования строго последовательная, до ввода service bus в промышленную эксплуатацию, 
+            //                            на случай, если с parallel возникнут, какие-то трудности
+            // SequentialLogging(useCase);
+
             ParallelLogging(useCase);
         }
 
-        // COMMENT {all, 29.07.2014}: пока оставлена реализация логирования строго последовательная, до ввода service bus в промышленную эксплуатацию, на случай, если с parallel возникнут, какие-то трудности
         private void SequentialLogging(TrackedUseCase useCase)
         {
             var stopwatch = new Stopwatch();
@@ -65,11 +64,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 finally
                 {
                     strategyStopwatch.Stop();
-                    _logger.DebugFormatEx(
-                        "Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
-                        strategy.GetType().Name,
-                        strategyStopwatch.Elapsed.TotalSeconds,
-                        useCase);
+                    _logger.DebugFormatEx("Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
+                                          strategy.GetType().Name,
+                                          strategyStopwatch.Elapsed.TotalSeconds,
+                                          useCase);
                 }
             }
 
@@ -220,11 +218,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 finally
                 {
                     stopwatch.Stop();
-                    _logger.DebugFormatEx(
-                        "Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
-                        concreteContext.LoggingStrategy.GetType().Name,
-                        stopwatch.Elapsed.TotalSeconds,
-                        concreteContext.UseCase);
+                    _logger.DebugFormatEx("Logging strategy {0} executed. It takes {1} sec. Usecase details: {2}",
+                                          concreteContext.LoggingStrategy.GetType().Name,
+                                          stopwatch.Elapsed.TotalSeconds,
+                                          concreteContext.UseCase);
                 }
 
                 concreteContext.ExecutedSignal.Set();

@@ -25,9 +25,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         {
             _logger = logger;
             _protobufModel = ProtoBufTypeModelForTrackedUseCaseConfigurator.Configure();
-
-            //var configuredSchema = _protobufModel.GetSchema(typeof(TestClass));//TrackedUseCase));
-            //_logger.DebugFormatEx("Configured schema for profobuf serialization infrastructure : {0}", configuredSchema);
         }
 
         protected override TrackedUseCase Transform(ServiceBusPerformedOperationsMessage originalMessage)
@@ -47,16 +44,9 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(
-                    ex,
-                    "Can't deserialize tracked use case from brokered message. Message desciption: {0}",
-                    targetMessage != null ? targetMessage.ToString() : "Message instance is null");
-
-                //if (targetMessage != null)
-                //{
-                //    targetMessage.Dispose();
-                //}
-
+                _logger.ErrorFormatEx(ex,
+                                      "Can't deserialize tracked use case from brokered message. Message desciption: {0}",
+                                      targetMessage != null ? targetMessage.ToString() : "Message instance is null");
                 throw;
             }
         }

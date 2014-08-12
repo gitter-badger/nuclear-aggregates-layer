@@ -42,37 +42,35 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
         private static Delegate CreateActivator<T>(ConstructorInfo ctor)
         {
-            Type type = ctor.DeclaringType;
-            ParameterInfo[] paramsInfo = ctor.GetParameters();
-
-            //create a single param of type object[]
-            ParameterExpression param = Expression.Parameter(typeof(object[]), "args");
-
+            var paramsInfo = ctor.GetParameters();
             var argsExp = new Expression[paramsInfo.Length];
 
-            //pick each arg from the params array 
-            //and create a typed expression of them
-            for (int i = 0; i < paramsInfo.Length; i++)
+            // create a single param of type object[]
+            var param = Expression.Parameter(typeof(object[]), "args");
+            
+            // pick each arg from the params array 
+            // and create a typed expression of them
+            for (var i = 0; i < paramsInfo.Length; i++)
             {
-                Expression index = Expression.Constant(i);
-                Type paramType = paramsInfo[i].ParameterType;
+                var index = Expression.Constant(i);
+                var paramType = paramsInfo[i].ParameterType;
 
-                Expression paramAccessorExp = Expression.ArrayIndex(param, index);
+                var paramAccessorExp = Expression.ArrayIndex(param, index);
 
-                Expression paramCastExp = Expression.Convert(paramAccessorExp, paramType);
+                var paramCastExp = Expression.Convert(paramAccessorExp, paramType);
 
                 argsExp[i] = paramCastExp;
             }
 
-            //make a NewExpression that calls the
-            //ctor with the args we just created
-            NewExpression newExp = Expression.New(ctor, argsExp);
+            // make a NewExpression that calls the
+            // ctor with the args we just created
+            var newExp = Expression.New(ctor, argsExp);
 
-            //create a lambda with the New
-            //Expression as body and our param object[] as arg
-            LambdaExpression lambda = Expression.Lambda(typeof(T), newExp, param);
+            // create a lambda with the New
+            // Expression as body and our param object[] as arg
+            var lambda = Expression.Lambda(typeof(T), newExp, param);
 
-            //compile it
+            // compile it
             var compiled = lambda.Compile();
             return compiled;
         }

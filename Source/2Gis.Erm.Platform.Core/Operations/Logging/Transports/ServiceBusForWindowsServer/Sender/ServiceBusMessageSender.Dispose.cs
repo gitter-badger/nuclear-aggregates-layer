@@ -47,8 +47,7 @@
                 {
                     foreach (var senderSlot in _senderSlots)
                     {
-                        senderSlot.Sender.Close();
-                        senderSlot.Factory.Close();
+                        senderSlot.Dispose();
                     }
                 }
 
