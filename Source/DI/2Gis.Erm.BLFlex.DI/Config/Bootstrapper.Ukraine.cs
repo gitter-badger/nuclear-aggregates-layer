@@ -61,18 +61,18 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         // TODO переделать на нормальную метадату
         internal static void ConfigureUkraineListingMetadata()
         {
-            FilteredFieldMetadata.RegisterFilteredFields<UkraineListLegalPersonDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<UkraineListLegalPersonDto>(
                 x => x.LegalName,
                 x => x.ClientName,
                 x => x.LegalAddress,
                 x => x.Ipn,
                 x => x.Egrpou);
-            FilteredFieldMetadata.RegisterFilteredFields<UkraineListBranchOfficeDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<UkraineListBranchOfficeDto>(
                 x => x.Name,
                 x => x.Ipn,
                 x => x.Egrpou,
                 x => x.LegalAddress);
-            FilteredFieldMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
                 x => x.OrderNumber,
                 x => x.FirmName,
                 x => x.ClientName,
