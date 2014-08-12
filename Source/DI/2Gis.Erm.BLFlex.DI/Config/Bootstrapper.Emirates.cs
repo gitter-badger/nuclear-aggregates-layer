@@ -71,23 +71,23 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         // TODO переделать на нормальную метадату
         internal static void ConfigureEmiratesListingMetadata()
         {
-            FilteredFieldMetadata.RegisterFilteredFields<EmiratesListLegalPersonDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<EmiratesListLegalPersonDto>(
                  x => x.LegalName,
                  x => x.ClientName,
                  x => x.LegalAddress,
                  x => x.CommercialLicense);
-            FilteredFieldMetadata.RegisterFilteredFields<EmiratesListBranchOfficeDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<EmiratesListBranchOfficeDto>(
                 x => x.Name,
                 x => x.CommercialLicense,
                 x => x.LegalAddress);
-            FilteredFieldMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
                 x => x.OrderNumber,
                 x => x.FirmName,
                 x => x.ClientName,
                 x => x.DestOrganizationUnitName,
                 x => x.SourceOrganizationUnitName,
                 x => x.LegalPersonName);
-            FilteredFieldMetadata.RegisterFilteredFields<EmiratesListAcceptanceReportsJournalRecordDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<EmiratesListAcceptanceReportsJournalRecordDto>(
                 x => x.OrganizationUnitName);
 
             DefaultFilterMetadata.RegisterFilter<EmiratesListLegalPersonDto>("DListLegalPersons", x => x.IsActive && !x.IsDeleted);

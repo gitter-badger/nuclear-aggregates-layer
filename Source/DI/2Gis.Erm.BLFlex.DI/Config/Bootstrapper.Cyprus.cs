@@ -14,6 +14,7 @@ using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Nu
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -21,7 +22,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 
 using Microsoft.Practices.Unity;
 
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         // TODO переделать на нормальную метадату
         internal static void ConfigureCyprusListingMetadata()
         {
-            FilteredFieldMetadata.RegisterFilteredFields<CyprusListLegalPersonDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<CyprusListLegalPersonDto>(
                 x => x.LegalName,
                 x => x.ClientName,
                 x => x.ShortName,
@@ -61,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 x => x.Tic,
                 x => x.Vat,
                 x => x.PassportNumber);
-            FilteredFieldMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
                 x => x.OrderNumber,
                 x => x.FirmName,
                 x => x.ClientName,
@@ -139,8 +140,10 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             // Все отклоненные мною заказы, которые сейчас в статусе На оформлении
             DefaultFilterMetadata.RegisterFilter<MultiCultureListOrderDto>("DListRejectedByMeOrdersOnRegistration", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnRegistration);
 
-            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLefkosia", x => x.IsActive == true && x.IsDeleted == false && x.ClosedForAscertainment == false && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "133");
-            DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLemesos", x => x.IsActive == true && x.IsDeleted == false && x.ClosedForAscertainment == false && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "122");
+            DefaultFilterMetadata.RegisterFilter<ListFirmDto>("DListReservedFirmsLefkosia", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == 133);
+            DefaultFilterMetadata.RegisterFilter<ListFirmDto>("DListReservedFirmsLemesos", x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == 122);
+            //DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLefkosia", x => x.IsActive == true && x.IsDeleted == false && x.ClosedForAscertainment == false && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "133");
+            //DefaultFilterMetadata.RegisterFilter<FirmGridDoc>("DListReservedFirmsLemesos", x => x.IsActive == true && x.IsDeleted == false && x.ClosedForAscertainment == false && (x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2) && x.OrganizationUnitId == "122");
 
             RelationalMetadata.RegisterRelatedFilter<CyprusListLegalPersonDto>(EntityName.Client, x => x.ClientId);
             RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, x => x.AccountId);

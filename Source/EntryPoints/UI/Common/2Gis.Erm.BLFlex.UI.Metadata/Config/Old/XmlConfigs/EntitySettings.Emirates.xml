@@ -535,10 +535,10 @@
         <Fields>
           <Field Name="Id" NameLocaleResourceId="Id" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="CustomerLegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="LegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="BranchOfficeId" NameLocaleResourceId="DFieldBranchOfficeId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="Number" NameLocaleResourceId="DFieldNumber" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="CustomerLegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="CustomerLegalPersonId" />
+          <Field Name="LegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="LegalPersonId" />
           <Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
           <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
@@ -554,10 +554,10 @@
 				<Fields>
 					<Field Name="Id" NameLocaleResourceId="Id" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
 					<Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
-					<Field Name="CustomerLegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+					<Field Name="LegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="BranchOfficeId" NameLocaleResourceId="DFieldBranchOfficeId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="Number" NameLocaleResourceId="DFieldNumber" Width="200" FieldType="String" ExtTypeName="String" />
-					<Field Name="CustomerLegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="CustomerLegalPersonId" />
+					<Field Name="LegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="LegalPersonId" />
 					<Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
           <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
@@ -2675,12 +2675,14 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="250" FieldType="String" ExtTypeName="String" />
-          <Field Name="FirstName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="LastName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="Account" NameLocaleResourceId="DFieldAccount" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="ParentName" NameLocaleResourceId="ParentUser" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirstName" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="LastName" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="Account" NameLocaleResourceId="DFieldAccount" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Department" ReferenceFieldName="DepartmentId" />
+          <Field Name="ParentId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="ParentName" NameLocaleResourceId="ParentUser" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="ParentId" />
         </Fields>
       </DataList>
       <DataList BasedOn="DListUser" NameLocaleResourceId="DListInactiveUser">
@@ -2694,9 +2696,10 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="250" FieldType="String" ExtTypeName="String" />
-          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="RoleName" NameLocaleResourceId="AccountRole" Width="250" FieldType="String" ExtTypeName="String" Sortable="false" />
+          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Department" ReferenceFieldName="DepartmentId" />
+          <Field Name="RoleName" NameLocaleResourceId="AccountRole" Width="200" FieldType="String" ExtTypeName="String" Sortable="false" />
         </Fields>
       </DataList>
     </DataLists>

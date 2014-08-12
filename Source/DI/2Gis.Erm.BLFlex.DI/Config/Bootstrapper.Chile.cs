@@ -61,21 +61,21 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         // TODO переделать на нормальную метадату
         internal static void ConfigureChileListingMetadata()
         {
-            FilteredFieldMetadata.RegisterFilteredFields<ChileListLegalPersonDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<ChileListLegalPersonDto>(
                 x => x.LegalName,
                 x => x.ClientName,
                 x => x.LegalAddress,
                 x => x.Rut);
-            FilteredFieldMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
                 x => x.OrderNumber,
                 x => x.FirmName,
                 x => x.ClientName,
                 x => x.DestOrganizationUnitName,
                 x => x.SourceOrganizationUnitName,
                 x => x.LegalPersonName);
-            FilteredFieldMetadata.RegisterFilteredFields<ChileListBankDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<ChileListBankDto>(
                 x => x.Name);
-            FilteredFieldMetadata.RegisterFilteredFields<ChileListCommuneDto>(
+            FilteredFieldsMetadata.RegisterFilteredFields<ChileListCommuneDto>(
                 x => x.Name);
 
             DefaultFilterMetadata.RegisterFilter<ChileListLegalPersonDto>("DListLegalPersons", x => x.IsActive && !x.IsDeleted);
