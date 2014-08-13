@@ -71,6 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update
             advertisementElementStatusDomainEntityDto.TransferPeriodValuesTo(advertisementElementDomainEntityDto);
             advertisementElementStatusDomainEntityDto.TransferFasCommentValuesTo(advertisementElementDomainEntityDto);
             advertisementElementStatusDomainEntityDto.TransferLinkValuesTo(advertisementElementDomainEntityDto);
+            advertisementElementStatusDomainEntityDto.TransferTimestampTo(advertisementElementDomainEntityDto);
 
             _updateAdvertisementElementOperationService.Update(advertisementElementDomainEntityDto);
         }

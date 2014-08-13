@@ -4090,7 +4090,7 @@ The operation has been executed: {4}.</value>
     <value>You cannot delete the template which is used in topics</value>
   </data>
   <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
-    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
+    <value>Cannot delete the company division which is the destination city in order {0} with this topic</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Cannot edit a list of company divisions in the topic set by default</value>
