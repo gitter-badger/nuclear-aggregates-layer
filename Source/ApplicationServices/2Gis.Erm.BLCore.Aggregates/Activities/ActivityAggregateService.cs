@@ -13,13 +13,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
     public class ActivityAggregateService : IActivityAggregateService
     {
-        private readonly IRepository<ActivityInstance> _activityInstanceGenericRepository;
+        private readonly ISecureRepository<ActivityInstance> _activityInstanceGenericRepository;
         private readonly IRepository<ActivityPropertyInstance> _activityPropertyInstanceGenericRepository;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public ActivityAggregateService(IRepository<ActivityInstance> activityInstanceGenericRepository,
+        public ActivityAggregateService(ISecureRepository<ActivityInstance> activityInstanceGenericRepository,
                                         IRepository<ActivityPropertyInstance> activityPropertyInstanceGenericRepository,
                                         ISecurityServiceUserIdentifier securityServiceUserIdentifier,
                                         IIdentityProvider identityProvider,
