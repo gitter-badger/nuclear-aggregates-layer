@@ -8,13 +8,14 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
     public sealed class ServiceBusLoggingSession : LoggingSession
     {
         public ServiceBusLoggingSession()
-            : base(new TransactionOptions
-                {
-                    // ограничение API service bus поддерживается только уровень изоляции Serializable, 
-                    // поэтому невозможно присоединиться к ambient transaction (который в ERM обычно имеет уровень изоляции snapshot)
-                    IsolationLevel = IsolationLevel.Serializable,
-                    Timeout = DefaultTransactionOptions.Default.Timeout
-                })
+            : base(new TransactionScope(TransactionScopeOption.RequiresNew,
+                                        new TransactionOptions
+                                            {
+                                                // ограничение API service bus поддерживается только уровень изоляции Serializable, 
+                                                // поэтому невозможно присоединиться к ambient transaction (который в ERM обычно имеет уровень изоляции snapshot)
+                                                IsolationLevel = IsolationLevel.Serializable,
+                                                Timeout = DefaultTransactionOptions.Default.Timeout
+                                            }))
         {
         }
     }

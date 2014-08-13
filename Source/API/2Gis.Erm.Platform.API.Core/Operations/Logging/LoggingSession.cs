@@ -7,9 +7,9 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
     {
         private readonly TransactionScope _transactionScope;
 
-        protected LoggingSession(TransactionOptions transactionOptions)
+        protected LoggingSession(TransactionScope transactionScope)
         {
-            _transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew, transactionOptions);
+            _transactionScope = transactionScope;
         }
 
         public void Complete()

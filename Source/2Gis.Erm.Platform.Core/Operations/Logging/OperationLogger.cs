@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         private readonly IReadOnlyCollection<IOperationLoggingStrategy> _loggingStrategies;
         private readonly ICommonLog _logger;
 
-        public OperationLogger(IOperationLoggingStrategy[] loggingStrategies,   // unity registrations 1..*
+        public OperationLogger(IOperationLoggingStrategy[] loggingStrategies, // unity registrations 1..*
                                ICommonLog logger)
         {
             _loggingStrategies = loggingStrategies;
@@ -25,9 +25,9 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         {
             // COMMENT {all, 29.07.2014}: пока оставлена реализация логирования строго последовательная, до ввода service bus в промышленную эксплуатацию, 
             //                            на случай, если с parallel возникнут, какие-то трудности
-            // SequentialLogging(useCase);
+            SequentialLogging(useCase);
 
-            ParallelLogging(useCase);
+            // ParallelLogging(useCase);
         }
 
         private void SequentialLogging(TrackedUseCase useCase)
@@ -37,8 +37,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
             var loggingSessions = new List<Tuple<IOperationLoggingStrategy, LoggingSession>>();
 
-            bool isUseCaseLoggedSuccessfully = true;
-
+            var isUseCaseLoggedSuccessfully = true;
             foreach (var strategy in _loggingStrategies)
             {
                 var loggingSession = strategy.Begin();
@@ -100,7 +99,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             var logWorkerFinishMode = new LogWorkerFinishMode { CompleteLogging = true };
 
             WaitHandle[] loggingExecutedSignals;
-            IReadOnlyCollection<LogWorkerResult> workerResults;
+            IEnumerable<LogWorkerResult> workerResults;
 
             stopwatch.Start();
 
@@ -151,14 +150,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             }
         }
 
-        private Task[] ResolveLogWorkers(
-            TrackedUseCase useCase,
-            ManualResetEvent finishSignal,
-            LogWorkerFinishMode logWorkerFinishMode,
-            out WaitHandle[] loggingExecutedSignals,
-            out IReadOnlyCollection<LogWorkerResult> workersResults)
+        private Task[] ResolveLogWorkers(TrackedUseCase useCase,
+                                         ManualResetEvent finishSignal,
+                                         LogWorkerFinishMode logWorkerFinishMode,
+                                         out WaitHandle[] loggingExecutedSignals,
+                                         out IEnumerable<LogWorkerResult> workersResults)
         {
-            var workers = new List<Task>();
+            var workersActions = new List<Task>();
             var signals = new List<WaitHandle>();
             var results = new List<LogWorkerResult>();
 
@@ -176,14 +174,14 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                         Result = result
                     };
 
-                workers.Add(new Task(LogWorker, context));
+                workersActions.Add(new Task(LogWorker, context));
                 signals.Add(executedSignal);
                 results.Add(result);
             }
 
             loggingExecutedSignals = signals.ToArray();
             workersResults = results;
-            return workers.ToArray();
+            return workersActions.ToArray();
         }
 
         private void LogWorker(object context)

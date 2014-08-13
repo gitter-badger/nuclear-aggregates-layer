@@ -6,13 +6,13 @@ using System.Threading;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Settings;
 
+using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Microsoft.ServiceBus.Messaging;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender
 {
     public sealed partial class ServiceBusMessageSender : IServiceBusMessageSender
     {
-        private readonly IServiceBusMessageSenderSettings _serviceBusMessageSenderSettings;
         private readonly ICommonLog _logger;
         private readonly SenderSlot[] _senderSlots;
         
@@ -20,15 +20,15 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
             IServiceBusMessageSenderSettings serviceBusMessageSenderSettings,
             ICommonLog logger)
         {
-            _serviceBusMessageSenderSettings = serviceBusMessageSenderSettings;
             _logger = logger;
-            _senderSlots = new SenderSlot[_serviceBusMessageSenderSettings.ConnectionsCount];
+            _senderSlots = new SenderSlot[serviceBusMessageSenderSettings.ConnectionsCount];
             
             for (var i = 0; i < _senderSlots.Length; i++)
             {
-                var factory = MessagingFactory.CreateFromConnectionString(_serviceBusMessageSenderSettings.ConnectionString);
-                var slot = new SenderSlot(factory, _serviceBusMessageSenderSettings.TransportEntityPath);
+                var factory = MessagingFactory.CreateFromConnectionString(serviceBusMessageSenderSettings.ConnectionString);
+                factory.RetryPolicy = Microsoft.ServiceBus.RetryPolicy.NoRetry;
 
+                var slot = new SenderSlot(logger, factory, serviceBusMessageSenderSettings.TransportEntityPath);
                 _senderSlots[i] = slot;
             }
         }
@@ -89,17 +89,24 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
 
         private class SenderSlot : IDisposable
         {
-            private readonly string _entityPath;
+            private readonly ICommonLog _logger;
             private readonly MessagingFactory _messagingFactory;
+            private readonly string _entityPath;
+
             private readonly MessageSender _messageSender;
+            private readonly RetryPolicy<ServiceBusTransientErrorDetectionStrategy> _retryPolicy =
+                new RetryPolicy<ServiceBusTransientErrorDetectionStrategy>(3, TimeSpan.FromSeconds(1));
 
             private int _activeTransmissions;
             
-            public SenderSlot(MessagingFactory messagingFactory, string entityPath)
+            public SenderSlot(ICommonLog logger, MessagingFactory messagingFactory, string entityPath)
             {
+                _retryPolicy.Retrying += OnRetrying;
+
+                _logger = logger;
                 _messagingFactory = messagingFactory;
                 _entityPath = entityPath;
-                _messageSender = messagingFactory.CreateMessageSender(entityPath);
+                _messageSender = _retryPolicy.ExecuteAction(() => messagingFactory.CreateMessageSender(entityPath));
             }
 
             public string EntityPath
@@ -124,13 +131,22 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
 
             public void SendBatch(IEnumerable<BrokeredMessage> messages)
             {
-                _messageSender.SendBatch(messages);
+                _retryPolicy.ExecuteAction(() => _messageSender.SendBatch(messages));
             }
 
             public void Dispose()
             {
+                _retryPolicy.Retrying -= OnRetrying;
                 _messagingFactory.Close();
                 _messageSender.Close();
+            }
+
+            private void OnRetrying(object sender, RetryingEventArgs args)
+            {
+                _logger.WarnFormatEx("Retrying to execute action within ServiceBus Message Sender " +
+                                     "Current retry count = {0}, last exception: {1}",
+                                     args.CurrentRetryCount,
+                                     args.LastException.ToString());
             }
         }
     }
