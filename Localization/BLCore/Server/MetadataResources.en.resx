@@ -1308,9 +1308,6 @@
   <data name="IsAdvertisingAgency" xml:space="preserve">
     <value>Is an advertising agency</value>
   </data>
-  <data name="AdvertisementElementErrorDescription" xml:space="preserve">
-    <value>Error</value>
-  </data>
   <data name="RepresentativeName" xml:space="preserve">
     <value>Representative</value>
   </data>
@@ -1400,5 +1397,14 @@
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>New sales model</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>VAT</value>
+  </data>
+  <data name="ControlSaveAndVerify" xml:space="preserve">
+    <value>Save and publish</value>
+  </data>
+  <data name="ControlResetToDraft" xml:space="preserve">
+    <value>Edit</value>
   </data>
 </root>

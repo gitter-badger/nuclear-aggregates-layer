@@ -389,6 +389,6 @@
     <value>No se han encontrado órdenes según parámetros indicados</value>
   </data>
   <data name="VerificationTitle" xml:space="preserve">
-    <value>Выверка ЭРМ</value>
+    <value>Verificación de elemento del material publicitario</value>
   </data>
 </root>

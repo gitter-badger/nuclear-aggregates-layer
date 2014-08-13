@@ -26,6 +26,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public PlainTextViewModel PlainText { get; set; }
         public FasCommentViewModel FasComment { get; set; }
         public FormattedTextViewModel FormattedText { get; set; }
+        public byte[] AdvertisementElementTimestamp { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -35,6 +36,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             Status = (AdvertisementElementStatusValue)dto.Status;
             Reasons = Json.Encode(dto.Reasons);
             Timestamp = dto.Timestamp;
+            AdvertisementElementTimestamp = ((IAdvertisementElementTimestampDomainEntityDto)dto).Timestamp;
 
             ActualType = GetActualType(dto.TemplateRestrictionType,
                                        dto.TemplateAdvertisementLink,
@@ -83,6 +85,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     Status = (int)Status,
                 };
 
+            ((IAdvertisementElementTimestampDomainEntityDto)dto).Timestamp = AdvertisementElementTimestamp;
+
             switch (ActualType)
             {
                 case AdvertisementElementRestrictionActualType.File:
@@ -112,8 +116,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         private static AdvertisementElementRestrictionActualType GetActualType(AdvertisementElementRestrictionType templateRestrictionType,
-                                                                       bool isAdvertisementLink,
-                                                                       bool isFormattedText)
+                                                                               bool isAdvertisementLink,
+                                                                               bool isFormattedText)
         {
             switch (templateRestrictionType)
             {

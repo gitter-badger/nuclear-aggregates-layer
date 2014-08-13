@@ -8,40 +8,8 @@
 @section TopBarTitle { @DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources.VerificationTitle }
 @section PageScript
 {
-    <style type="text/css">
-        #TxtContainer TABLE TD {
-            padding-bottom: 0px !important;
-            padding-left: 0px !important;
-            padding-right: 0px !important;
-        }
-
-        DIV.row-wrapper TABLE TD {
-            padding-left: 5px;
-        }
-
-        TD.span-wrapper {
-            padding-left: 10px !important;
-            padding-right: 10px;
-        }
-
-        DIV.Tab TABLE {
-            table-layout: auto;
-            border-spacing: inherit;
-            width: auto;
-        }
-
-            DIV.Tab TABLE TD {
-                padding-bottom: inherit;
-            }
-
-        ul.x-tab-strip {
-            display: block;
-            width: auto;
-            zoom: 1;
-        }
-    </style>
-
     <link rel="stylesheet" type="text/css" href="/Content/AsyncFileUpload.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/advertisement-element-status.css?@SolutionInfo.ProductVersion.Build" />
 
     <script src="/Scripts/Ext.ux.AsyncFileUpload.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.LinkField.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
@@ -49,7 +17,7 @@
     <script src="/Scripts/Ext.ux.ActionsHistoryTab.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.FitToParent.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
     <script src="/Scripts/Russia/Ext.DoubleGis.UI.AdvertisementElementStatus.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    
+
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
         <script src="/Scripts/TinyMCE/tiny_mce_src.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
@@ -62,67 +30,52 @@
     }
 
     <script src="/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-
-    <style>
-        html { overflow-y: hidden; }
-    </style>
 }
 
-@section PageContent
+@section RawContent
 {
-    <div style="display: none; height: 24px" id="Notifications" class="Notifications"></div>
-    <table width="100%" height="100%" border="0" cellspacing="0">
-        <tr>
-            <td id="TabPanelContainer">
-                <div id="MainTab_holder" />
-                <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
-                    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    <div id="ads-verification-container" class="ads-verification-container">
+        <div id="tabs-container" class="tabs-container">
+            <div id="Notifications" class="Notifications"></div>
+            <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+                @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Status)
+                    @Html.HiddenFor(model => model.Reasons)
+                    @Html.HiddenFor(model => model.ActualType)
+                    @Html.HiddenFor(model => model.ViewConfig.DependencyList)
+                    @Html.HiddenFor(model => model.Timestamp)
+                    @Html.HiddenFor(model => model.AdvertisementElementTimestamp)
+
+                    switch (Model.ActualType)
                     {
-                        @Html.HiddenFor(model => model.Id)
-                        @Html.HiddenFor(model => model.Status)
-                        @Html.HiddenFor(model => model.Reasons)
-                        @Html.HiddenFor(model => model.ActualType)
-                        @Html.HiddenFor(model => model.ViewConfig.DependencyList)
-                        @Html.HiddenFor(model => model.Timestamp)
-
-                        switch (Model.ActualType)
-                        {
-                            case AdvertisementElementRestrictionActualType.File:
-                                @Html.EditorFor(m => m.File)
-                                break;
-                            case AdvertisementElementRestrictionActualType.Date:
+                        case AdvertisementElementRestrictionActualType.File:
+                            @Html.EditorFor(m => m.File)
+                            break;
+                        case AdvertisementElementRestrictionActualType.Date:
                             @Html.EditorFor(m => m.Period)
-                                break;
-                            case AdvertisementElementRestrictionActualType.FasComment:
+                            break;
+                        case AdvertisementElementRestrictionActualType.FasComment:
                             @Html.EditorFor(m => m.FasComment)
-                                break;
-                            case AdvertisementElementRestrictionActualType.FormattedText:
+                            break;
+                        case AdvertisementElementRestrictionActualType.FormattedText:
                             @Html.EditorFor(m => m.FormattedText)
-                                break;
-                            case AdvertisementElementRestrictionActualType.Image:
+                            break;
+                        case AdvertisementElementRestrictionActualType.Image:
                             @Html.EditorFor(m => m.Image)
-                                break;
-                            case AdvertisementElementRestrictionActualType.Link:
+                            break;
+                        case AdvertisementElementRestrictionActualType.Link:
                             @Html.EditorFor(m => m.Link)
-                                break;
-                            case AdvertisementElementRestrictionActualType.PlainText:
+                            break;
+                        case AdvertisementElementRestrictionActualType.PlainText:
                             @Html.EditorFor(m => m.PlainText)
-                                break;
-                        }
+                            break;
                     }
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td height="400px">
-                <div style="height: 100%; width: 100%; overflow: hidden" id="ReasonTable"></div>
-            </td>
-        </tr>
-    </table>
-}
-
-@section PageButtons
-{
-    <input class="CrmButton" type="button" id="Approve" style="width: auto" value="Утвердить" />
-    <input class="CrmButton" type="button" id="Reject" style="width: auto" value="Отклонить" />
+                }
+            </div>
+        </div>
+        <div id="reason-table"></div>
+        <div id="buttons-area"></div>
+    </div>
 }
