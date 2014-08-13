@@ -11,7 +11,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
                                                                IPeriodAdvertisementElementDomainEntityDto,
                                                                IFasCommentAdvertisementElementDomainEntityDto,
                                                                IFileAdvertisementElementDomainEntityDto,
-                                                               ILinkAdvertisementElementDomainEntityDto
+                                                               ILinkAdvertisementElementDomainEntityDto,
+                                                               IAdvertisementElementTimestampDomainEntityDto
     {
         [DataMember]
         public string TemplateFileExtensionRestriction { get; set; }
