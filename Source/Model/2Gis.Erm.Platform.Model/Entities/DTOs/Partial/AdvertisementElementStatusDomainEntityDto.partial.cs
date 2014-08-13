@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -12,7 +13,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
                                                                      IPeriodAdvertisementElementDomainEntityDto,
                                                                      IFasCommentAdvertisementElementDomainEntityDto,
                                                                      IFileAdvertisementElementDomainEntityDto,
-                                                                     ILinkAdvertisementElementDomainEntityDto
+                                                                     ILinkAdvertisementElementDomainEntityDto,
+                                                                     IAdvertisementElementTimestampDomainEntityDto
     {
         [DataMember]
         public ReasonDto[] Reasons { get; set; }
@@ -55,8 +57,12 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public long FileContentLength { get; set; }
         [DataMember]
         public string FileContentType { get; set; }
+
+        [DataMember]
+        byte[] IAdvertisementElementTimestampDomainEntityDto.Timestamp { get; set; }
     }
-    
+
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     public class ReasonDto
     {
         public long Id { get; set; }

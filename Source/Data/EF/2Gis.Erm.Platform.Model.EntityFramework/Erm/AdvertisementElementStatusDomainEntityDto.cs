@@ -40,8 +40,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     	[DataMember]
         public byte[] Timestamp { get; set; }
-        [DataMember]
-        public byte[] AdvertisementElementTimestamp { get; set; } // COMMENT {all, 12.07.2014}: Служит для защиты от параллельного редактирования сущности AdvertisementElement (просто TimeStamp - для сущности AdvertisementElementStatus)
     }
 }
 
