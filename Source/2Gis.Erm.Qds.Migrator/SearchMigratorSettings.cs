@@ -1,9 +1,9 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.Settings;
-using DoubleGis.Erm.Elastic.Nest.Qds;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Settings;
+using DoubleGis.Erm.Qds.Common.Settings;
 
 namespace DoubleGis.Erm.Qds.Migrator
 {

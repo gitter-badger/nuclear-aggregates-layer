@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Qds.API.Core.Settings;
+using DoubleGis.Erm.Qds.Common.Settings;
 
 using Microsoft.Practices.Unity;
 
