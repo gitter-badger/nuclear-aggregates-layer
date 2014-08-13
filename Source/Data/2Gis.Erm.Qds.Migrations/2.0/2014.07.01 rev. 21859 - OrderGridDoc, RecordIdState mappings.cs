@@ -1,7 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Migration.Core;
-using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Migrations.Base;
 
 using Nest;
@@ -19,48 +19,48 @@ namespace DoubleGis.Erm.Qds.Migrations
 
         private static void PutRecordIdStateMapping(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<RecordIdState21859>("Metadata", "RecordIdState");
+            context.MetadataApi.RegisterType<RecordIdState21859>("Metadata", "RecordIdState");
 
-            context.ElasticManagementApi.DeleteMapping<RecordIdState21859>();
-            context.ElasticManagementApi.Map<RecordIdState21859>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.DeleteMapping<RecordIdState21859>();
+            context.ManagementApi.Map<RecordIdState21859>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
-                    .String(s => s.Name(n => n.RecordId).Index(FieldIndexOption.no))
+                    .String(s => s.Name(n => n.RecordId).Index(FieldIndexOption.No))
                 )
             );
         }
 
         private static void PutOrderDocMapping(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<OrderGridDoc21859>("Data", "OrderGridDoc");
+            context.MetadataApi.RegisterType<OrderGridDoc21859>("Data", "OrderGridDoc");
 
-            context.ElasticManagementApi.DeleteMapping<OrderGridDoc21859>();
-            context.ElasticManagementApi.Map<OrderGridDoc21859>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.DeleteMapping<OrderGridDoc21859>();
+            context.ManagementApi.Map<OrderGridDoc21859>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
 
-                    .Number(s => s.Name(n => n.Id).Type(NumberType.@long))
+                    .Number(s => s.Name(n => n.Id).Type(NumberType.Long))
 
                     .MultiField(mf => mf
                         .Name(n => n.Number)
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.Number)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.Number.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
@@ -69,32 +69,32 @@ namespace DoubleGis.Erm.Qds.Migrations
                     .Date(d => d.Name(n => n.EndDistributionDateFact))
                     .Date(d => d.Name(n => n.CreatedOn))
                     .Date(d => d.Name(n => n.ModifiedOn))
-                    .Number(num => num.Name(n => n.HasDocumentsDebt).Type(NumberType.@byte))
+                    .Number(num => num.Name(n => n.HasDocumentsDebt).Type(NumberType.Byte))
                     .Boolean(b => b.Name(n => n.IsActive))
                     .Boolean(b => b.Name(n => n.IsDeleted))
-                    .Number(s => s.Name(n => n.PayablePlan).Type(NumberType.@double))
+                    .Number(s => s.Name(n => n.PayablePlan).Type(NumberType.Double))
                     .MultiField(mf => mf
                         .Name(n => n.WorkflowStep)
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.WorkflowStep)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.WorkflowStep.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         ))
-                    .Number(s => s.Name(n => n.AmountToWithdraw).Type(NumberType.@double))
-                    .Number(s => s.Name(n => n.AmountWithdrawn).Type(NumberType.@double))
+                    .Number(s => s.Name(n => n.AmountToWithdraw).Type(NumberType.Double))
+                    .Number(s => s.Name(n => n.AmountWithdrawn).Type(NumberType.Double))
                     .Object<DocumentAuthorization>(o => o
-                        .Dynamic(DynamicMappingOption.strict)
+                        .Dynamic(DynamicMappingOption.Strict)
 
                         .Name(n => n.Authorization)
                         .Properties(pp => pp
-                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.not_analyzed))
+                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.NotAnalyzed))
                         )
                     )
                 )

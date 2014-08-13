@@ -1,7 +1,7 @@
 using System;
 
-using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.Common;
+using DoubleGis.Erm.Qds.Common.Settings;
 
 using Elasticsearch.Net.Connection;
 
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
         {
             var connection = new HttpConnection(nestSettings.ConnectionSettings);
             var elasticClient = new ElasticClient(nestSettings.ConnectionSettings, connection);
-            return new ElasticApi(elasticClient, nestSettings, new ElasticResponseHandler());
+            return new ElasticApi(elasticClient, nestSettings, null);
         }
 
         public static Func<CreateIndexDescriptor, CreateIndexDescriptor> GetTestIndexDescriptor()
@@ -35,10 +35,10 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
             .Settings(s => s.Add("refresh_interval", -1));
         }
 
-        public static void RegisterDocumentAndCreateIndex<T>(INestSettings nestSettings, IElasticManagementApi elasticManagementApi) where T: class
+        public static void RegisterDocumentAndCreateIndex<T>(IElasticMetadataApi metadataApi, IElasticManagementApi managementApi) where T : class
         {
-            nestSettings.RegisterType<T>(TestIndexName);
-            elasticManagementApi.CreateIndex<T>(GetTestIndexDescriptor());
+            metadataApi.RegisterType<T>(TestIndexName);
+            managementApi.CreateIndex<T>(GetTestIndexDescriptor());
         }
     }
 }

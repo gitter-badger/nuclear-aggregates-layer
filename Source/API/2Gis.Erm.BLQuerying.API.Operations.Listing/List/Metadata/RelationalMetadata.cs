@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Qds.Docs;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
@@ -55,8 +54,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterRelatedFilter<ListFirmDto>(EntityName.Client, x => x.ClientId)
             .RegisterRelatedFilter<ListFirmDto>(EntityName.Territory, x => x.TerritoryId)
-            .RegisterRelatedFilter<FirmGridDoc>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<FirmGridDoc>(EntityName.Territory, x => x.TerritoryId)
+            //.RegisterRelatedFilter<FirmGridDoc>(EntityName.Client, x => x.ClientId)
+            //.RegisterRelatedFilter<FirmGridDoc>(EntityName.Territory, x => x.TerritoryId)
 
             .RegisterRelatedFilter<ListContactDto>(EntityName.Client, x => x.ClientId)
 
@@ -65,7 +64,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterRelatedFilter<ListLegalPersonDto>(EntityName.Client, x => x.ClientId)
 
             .RegisterRelatedFilter<ListBargainDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<ListBargainDto>(EntityName.LegalPerson, x => x.CustomerLegalPersonId)
+            .RegisterRelatedFilter<ListBargainDto>(EntityName.LegalPerson, x => x.LegalPersonId)
 
             .RegisterRelatedFilter<ListCurrencyRateDto>(EntityName.Currency, x => x.CurrencyId)
 

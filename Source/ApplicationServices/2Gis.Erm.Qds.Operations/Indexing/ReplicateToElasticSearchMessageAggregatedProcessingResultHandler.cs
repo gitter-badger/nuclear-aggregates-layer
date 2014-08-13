@@ -7,51 +7,37 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Qds.Etl;
-using DoubleGis.Erm.Qds.Etl.Extract.EF;
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class ReplicateToElasticSearchMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
-        private readonly IDocumentUpdaterFactory _documentUpdaterFactory;
+        private readonly IDocumentUpdater _documentUpdater;
         private readonly ICommonLog _logger;
 
         public ReplicateToElasticSearchMessageAggregatedProcessingResultHandler(
-            IDocumentUpdaterFactory documentUpdaterFactory,
+            IDocumentUpdater documentUpdater,
             ICommonLog logger)
         {
-            _documentUpdaterFactory = documentUpdaterFactory;
+            _documentUpdater = documentUpdater;
             _logger = logger;
         }
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
         {
-            var handlingResults = new Dictionary<Guid, MessageProcessingStageResult>();
-            var entityLinksBuckets = new List<Tuple<Guid, IEnumerable<EntityLink>>>();
-
-            foreach (var processingResultBucket in processingResultBuckets)
+            var entityLinksBuckets = processingResultBuckets.Select(x => new 
             {
-                foreach (var processingResult in processingResultBucket.Value)
-                {
-                    if (!processingResult.TargetFlow.Equals(PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance))
-                    {
-                        continue;
-                    }
+                x.Key,
+                Value = x.Value
+                    .Where(y => y.TargetFlow.Equals(PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance))
+                    .Cast<ReplicateToElasticSearchPrimaryProcessingResultsMessage>().SingleOrDefault(),
+            })
+            .Where(x => x.Value != null)
+            .Select(x => Tuple.Create(x.Key, x.Value));
 
-                    var concreteProcessingResult = (ReplicateToElasticSearchPrimaryProcessingResultsMessage)processingResult;
-                    entityLinksBuckets.Add(
-                        new Tuple<Guid, IEnumerable<EntityLink>>(
-                            processingResultBucket.Key,
-                            concreteProcessingResult.EntityIds.Select(x => new EntityLink
-                            {
-                                EntityType = x.EntityType,
-                                Ids = x.Ids,
-                            })));
-                }
-            }
-
-            bool failDetected = false;
+            var handlingResults = new Dictionary<Guid, MessageProcessingStageResult>();
+            var failDetected = false;
             foreach (var entityLinksBucket in entityLinksBuckets)
             {
                 if (!failDetected && TryReplicate(entityLinksBucket.Item2))
@@ -73,23 +59,16 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             return handlingResults;
         }
 
-        private bool TryReplicate(IEnumerable<EntityLink> entityLinks)
+        private bool TryReplicate(ReplicateToElasticSearchPrimaryProcessingResultsMessage message)
         {
-            foreach (var entityLink in entityLinks)
+            try
             {
-                try
-                {
-                    var documentUpdaters = _documentUpdaterFactory.GetDocumentUpdatersForEntityType(entityLink.EntityType);
-                    foreach (var documentUpdater in documentUpdaters)
-                    {
-                        documentUpdater.IndexDocuments(entityLink.Ids);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.ErrorFormatEx(ex, "Can't replicate to elastic entities of type {0} with ids: {1}", entityLink.EntityType, string.Join(";", entityLink.Ids));
-                    return false;
-                }
+                _documentUpdater.IndexDocuments(message.EntityLinks);
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorFormatEx(ex, "Can't replicate to elastic message {0}", message.Id);
+                return false;
             }
 
             return true;

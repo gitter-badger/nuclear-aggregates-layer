@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             }
 
             LambdaExpression[] lambdaExpressions;
-            if (!FilteredFieldMetadata.TryGetFieldFilter<TDocument>(out lambdaExpressions))
+            if (!FilteredFieldsMetadata.TryGetFieldFilter<TDocument>(out lambdaExpressions))
             {
                 throw new ArgumentException(string.Format("Для типа {0} не определены поисковые поля", typeof(TDocument).Name));
             }

@@ -44,10 +44,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var myFilter = querySettings.CreateForExtendedProperty<Bargain, bool>(
                 "ForMe",
                 info =>
-                    {
-                        var userId = _userContext.Identity.Code;
-                        return x => x.OwnerCode == userId;
-                    });
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
 
             var restrictByLegalPersonFilter = querySettings.CreateForExtendedProperty<Bargain, long>(
                 "legalPersonId",
@@ -83,24 +83,23 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper, myFilter, restrictByLegalPersonFilter, restrictByBranchOfficeOrganizationUnitFilter, agentBargainsFilter)
                 .Select(x => new ListBargainDto
-                    {
-                        Id = x.Id,
-                        Number = x.Number,
-                        CustomerLegalPersonId = x.CustomerLegalPersonId,
-                        CustomerLegalPersonLegalName = x.LegalPerson.LegalName,
-                        BargainKindEnum = (BargainKind)x.BargainKind,
-                        BranchOfficeId = x.BranchOfficeOrganizationUnit.BranchOfficeId,
-                        BranchOfficeName = x.BranchOfficeOrganizationUnit.BranchOffice.Name,
-                        BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnit.Id,
-                        CreatedOn = x.CreatedOn,
-                        BargainEndDate = x.BargainEndDate,
-                        OwnerCode = x.OwnerCode,
-                        ClientId = x.LegalPerson.ClientId,
-                        ClientName = x.LegalPerson.Client.Name,
-                        LegalAddress = x.LegalPerson.LegalAddress,
-                        IsActive = x.IsActive,
-                        IsDeleted = x.IsDeleted,
-                    })
+                {
+                    Id = x.Id,
+                    Number = x.Number,
+                    BargainKindEnum = (BargainKind)x.BargainKind,
+                    LegalPersonId = x.CustomerLegalPersonId,
+                    LegalPersonLegalName = x.LegalPerson.LegalName,
+                    LegalPersonLegalAddress = x.LegalPerson.LegalAddress,
+                    BranchOfficeId = x.BranchOfficeOrganizationUnit.BranchOfficeId,
+                    BranchOfficeName = x.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                    CreatedOn = x.CreatedOn,
+                    BargainEndDate = x.BargainEndDate,
+                    OwnerCode = x.OwnerCode,
+                    ClientId = x.LegalPerson.ClientId,
+                    ClientName = x.LegalPerson.Client.Name,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
+                })
                 .QuerySettings(_filterHelper, querySettings)
                 .Transform(x =>
                     {

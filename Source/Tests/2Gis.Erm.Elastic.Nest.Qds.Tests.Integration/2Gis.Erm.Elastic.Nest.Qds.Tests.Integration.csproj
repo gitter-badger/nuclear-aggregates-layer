@@ -35,9 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,9 +59,9 @@
       <Private>True</Private>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\NCrunch.Framework.2.4.0.2\lib\portable-windows8+net45\NCrunch.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.0-beta1\lib\Nest.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.1\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -91,7 +90,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -102,25 +103,13 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
-      <Project>{5b72fce8-04d5-4c60-9939-587fd1c01e5f}</Project>
-      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
-      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
-      <Name>2Gis.Erm.Qds.Etl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
-      <Name>2Gis.Erm.Qds</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
-      <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
-      <Name>2Gis.Erm.Qds.API.Core</Name>
+    <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
+      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
+      <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Elastic.Nest.Qds.Tests.Unit\2Gis.Erm.Elastic.Nest.Qds.Tests.Unit.csproj">
       <Project>{08962cd1-f454-441a-9e68-a61ede67ca00}</Project>
