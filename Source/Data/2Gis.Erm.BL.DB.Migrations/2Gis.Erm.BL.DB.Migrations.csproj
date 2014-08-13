@@ -58,6 +58,8 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.08.11 rev. 23049 - Alter BOS.cs" />
+    <Compile Include="2.1\2014.08.07 rev. 23000 - Set dummy advertisement status as valid.cs" />
     <Compile Include="2.1\2014.08.04 rev. 22874 - Remove redundant AdvertisementElementStatus Privilege.cs" />
     <Compile Include="2.1\2014.07.30 rev. 22797 - Alter BOS for Advertisement export.cs" />
     <Compile Include="2.1\2014.07.30 rev. 22791 - Set some AE statuses.cs" />
