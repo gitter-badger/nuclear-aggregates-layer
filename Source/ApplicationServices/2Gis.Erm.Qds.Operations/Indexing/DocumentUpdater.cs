@@ -26,7 +26,13 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         public void IndexDocuments(IReadOnlyCollection<EntityLink> entityLinks)
         {
             var documentWrappers = GetDocumentWrappers(entityLinks);
-            IndexDocuments(documentWrappers);
+
+            // TODO {m.pashuk, 14.08.2014}: запилить merge объектов при bulk, потом убрать эту группировку
+            var groups = documentWrappers.GroupBy(x => x.DocumentType);
+            foreach (var group in groups)
+            {
+                IndexDocuments(group);
+            }
         }
 
         public void IndexAllDocuments(Type documentType)
