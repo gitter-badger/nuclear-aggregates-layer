@@ -930,4 +930,25 @@
   <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
     <value />
   </data>
+  <data name="PriceIsAlreadyPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
+    <value>Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите "нет" и сохраните карточку.</value>
+  </data>
+  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
+    <value />
+  </data>
 </root>

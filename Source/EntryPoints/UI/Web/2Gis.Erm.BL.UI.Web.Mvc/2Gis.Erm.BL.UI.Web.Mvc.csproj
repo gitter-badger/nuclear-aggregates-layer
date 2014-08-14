@@ -299,16 +299,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\AdvertisementTemplate\Publish.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Publish.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AdvertisementTemplate\Unpublish.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Unpublish.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Advertisement\PreviewGrym.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -579,11 +569,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReopenDeal.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDomainEntity\EditPrice.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EditPrice.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Limit\PrintLimits.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -798,14 +783,6 @@
     <None Include="Views\Shared\EditorTemplates\FasCommentViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>FasCommentViewModel.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\AdvertisementTemplate\Publish.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Publish.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\AdvertisementTemplate\Unpublish.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Unpublish.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Advertisement\PreviewGrym.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1022,10 +999,6 @@
     <None Include="Views\Deal\ReopenDeal.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ReopenDeal.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\EditDomainEntity\EditPrice.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>EditPrice.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Limit\PrintLimits.cshtml">
       <Generator>RazorGenerator</Generator>
