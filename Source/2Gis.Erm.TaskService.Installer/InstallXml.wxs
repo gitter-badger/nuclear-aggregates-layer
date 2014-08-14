@@ -112,7 +112,7 @@
         <File Source="$(var.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.0.1\lib\Elasticsearch.Net.Connection.Thrift.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll" />
+        <File Source="$(var.PackagesDir)\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll" />
       </Component>
       <Component>
         <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
