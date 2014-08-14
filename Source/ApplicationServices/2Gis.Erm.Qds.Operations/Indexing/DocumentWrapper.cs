@@ -1,13 +1,13 @@
 ﻿using System;
 
-using Nest;
+using DoubleGis.Erm.Qds.Common;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public interface IDocumentWrapper
     {
         Type DocumentType { get; }
-        Func<BulkDescriptor, BulkDescriptor> IndexFunc { get; }
+        Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor> IndexFunc { get; }
     }
 
     public interface IDocumentWrapper<out TDocument> : IDocumentWrapper
@@ -26,20 +26,20 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         public string Version { get; set; }
         public TDocument Document { get; set; }
 
-        public Func<BulkDescriptor, BulkDescriptor> IndexFunc
+        public Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor> IndexFunc
         {
             get
             {
                 if (string.IsNullOrEmpty(Version))
                 {
                     return bulkDescriptor => bulkDescriptor
-                        .Create<TDocument>(bulkIndexDescriptor => bulkIndexDescriptor
+                        .Create2<TDocument>(bulkIndexDescriptor => bulkIndexDescriptor
                             .Id(Id)
                             .Document(Document));
                 }
 
                 return bulkDescriptor => bulkDescriptor
-                    .Update<TDocument, TDocument>(bulkUpdateDescriptor => bulkUpdateDescriptor
+                    .UpdateWithMerge<TDocument>(bulkUpdateDescriptor => bulkUpdateDescriptor
                         .Id(Id)
                         .Doc(Document)
                         .Version(Version));
