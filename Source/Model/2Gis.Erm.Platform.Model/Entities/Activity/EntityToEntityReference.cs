@@ -54,5 +54,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 	{
 		Unspecified = 0,
 		RegardingObject = 1,
+		Organizer = 2,
+		RequiredAttendees = 3,
+		OptionalAttendees = 4,
 	}
 }
