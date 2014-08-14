@@ -45,30 +45,41 @@ namespace DoubleGis.Erm.TaskService
                     LogUtils.DefaultLogConfigFileFullPath,
                     loggerContextEntryProviders);
 
-            var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
-            var schedulerManager = diContainer.Resolve<ISchedulerManager>();
-
-            if (IsConsoleMode(args))
+            IUnityContainer container = null;
+            try
             {
-                schedulerManager.Start();
+                container = Bootstrapper.ConfigureUnity(settingsContainer);
+                var schedulerManager = container.Resolve<ISchedulerManager>();
 
-                Console.WriteLine("ERM сервис запущен.");
-                Console.WriteLine("Нажмите ENTER для останова...");
-
-                Console.ReadLine();
-
-                Console.WriteLine("ERM сервис останавливается...");
-
-                schedulerManager.Stop();
-
-                Console.WriteLine("ERM сервис остановлен. Нажмите ENTER для выхода...");
-                Console.ReadLine();
-            }
-            else
-            {
-                using (var ermNtService = new ErmNtService(schedulerManager))
+                if (IsConsoleMode(args))
                 {
-                    ServiceBase.Run(ermNtService);
+                    schedulerManager.Start();
+
+                    Console.WriteLine("ERM сервис запущен.");
+                    Console.WriteLine("Нажмите ENTER для останова...");
+
+                    Console.ReadLine();
+
+                    Console.WriteLine("ERM сервис останавливается...");
+
+                    schedulerManager.Stop();
+
+                    Console.WriteLine("ERM сервис остановлен. Нажмите ENTER для выхода...");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    using (var ermNtService = new ErmNtService(schedulerManager))
+                    {
+                        ServiceBase.Run(ermNtService);
+                    }
+                }
+            }
+            finally
+            {
+                if (container != null)
+                {
+                    container.Dispose();
                 }
             }
         }
