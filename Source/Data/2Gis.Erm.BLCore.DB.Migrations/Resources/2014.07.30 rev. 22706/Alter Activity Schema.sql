@@ -23,7 +23,8 @@ CREATE TABLE [Activity].[AppointmentBase](
 
 	[IsAllDayEvent] [bit] NOT NULL CONSTRAINT [DF_Appointment_IsAllDayEvent]  DEFAULT 0,
 	[Location] [nvarchar](256) NULL,
-	[Purpose] [int] NOT NULL CONSTRAINT [DF_Appointment_Purpose]  DEFAULT 0
+	[Purpose] [int] NOT NULL CONSTRAINT [DF_Appointment_Purpose]  DEFAULT 0,
+	[AfterSaleType] [int] NOT NULL CONSTRAINT [DF_Appointment_AfterSaleType]  DEFAULT 0
 )
 
 -- holds regarding object, organizer and attendees
@@ -60,7 +61,8 @@ CREATE TABLE [Activity].[PhonecallBase](
 
 	[Direction] [bit] NOT NULL CONSTRAINT [DF_Phonecall_Direction]  DEFAULT 0,
 	[PhoneNumber] [nvarchar](200) NULL,
-	[Purpose] [int] NOT NULL CONSTRAINT [DF_Phonecall_Purpose]  DEFAULT 0
+	[Purpose] [int] NOT NULL CONSTRAINT [DF_Phonecall_Purpose]  DEFAULT 0,
+	[AfterSaleType] [int] NOT NULL CONSTRAINT [DF_Phonecall_AfterSaleType]  DEFAULT 0
 )
 
 -- holds regarding object and from/to contacts
