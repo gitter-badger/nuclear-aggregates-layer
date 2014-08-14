@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             var failDetected = false;
             foreach (var entityLinksBucket in entityLinksBuckets)
             {
-                if (!failDetected && TryReplicate(entityLinksBucket.Item2))
+                if (!failDetected && TryReplicate(entityLinksBucket))
                 {
                     handlingResults.Add(
                         entityLinksBucket.Item1,
@@ -59,15 +59,15 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             return handlingResults;
         }
 
-        private bool TryReplicate(ReplicateToElasticSearchPrimaryProcessingResultsMessage message)
+        private bool TryReplicate(Tuple<Guid, ReplicateToElasticSearchPrimaryProcessingResultsMessage> tuple)
         {
             try
             {
-                _documentUpdater.IndexDocuments(message.EntityLinks);
+                _documentUpdater.IndexDocuments(tuple.Item2.EntityLinks);
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate to elastic message {0}", message.Id);
+                _logger.ErrorFormatEx(ex, "Can't replicate to elastic usecase with id {0}", tuple.Item1);
                 return false;
             }
 

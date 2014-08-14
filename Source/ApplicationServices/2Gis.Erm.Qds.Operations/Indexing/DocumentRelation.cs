@@ -10,7 +10,7 @@ using Nest;
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class DocumentRelation<TDocument, TDocumentPart> : IDocumentRelation<TDocument, TDocumentPart>
-        where TDocument : class, new()
+        where TDocument : class
         where TDocumentPart : class
     {
         private readonly IElasticApi _elasticApi;
