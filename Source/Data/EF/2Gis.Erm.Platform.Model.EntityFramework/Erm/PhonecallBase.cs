@@ -63,6 +63,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public bool Direction { get; set; }
         public string PhoneNumber { get; set; }
         public int Purpose { get; set; }
+        public int AfterSaleType { get; set; }
     
         public ICollection<PhonecallReference> PhonecallReferences { get; set; }
     

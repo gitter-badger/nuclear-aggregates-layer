@@ -63,6 +63,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public bool IsAllDayEvent { get; set; }
         public string Location { get; set; }
         public int Purpose { get; set; }
+        public int AfterSaleType { get; set; }
     
         public ICollection<AppointmentReference> AppointmentReferences { get; set; }
     

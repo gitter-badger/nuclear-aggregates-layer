@@ -12,23 +12,24 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ScheduledStart" Type="datetime" Nullable="false" />
-          <Property Name="ScheduledEnd" Type="datetime" Nullable="false" />
-          <Property Name="ActualEnd" Type="datetime" />
+          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ActualEnd" Type="datetime2" Precision="7" />
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="IsAllDayEvent" Type="bit" Nullable="false" />
           <Property Name="Location" Type="nvarchar" MaxLength="256" />
           <Property Name="Purpose" Type="int" Nullable="false" />
+          <Property Name="AfterSaleType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AppointmentReferences">
           <Key>
@@ -49,23 +50,24 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ScheduledStart" Type="datetime" Nullable="false" />
-          <Property Name="ScheduledEnd" Type="datetime" Nullable="false" />
-          <Property Name="ActualEnd" Type="datetime" />
+          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ActualEnd" Type="datetime2" Precision="7" />
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="Direction" Type="bit" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="200" />
           <Property Name="Purpose" Type="int" Nullable="false" />
+          <Property Name="AfterSaleType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PhonecallReferences">
           <Key>
@@ -86,18 +88,18 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ScheduledStart" Type="datetime" Nullable="false" />
-          <Property Name="ScheduledEnd" Type="datetime" Nullable="false" />
-          <Property Name="ActualEnd" Type="datetime" />
+          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ActualEnd" Type="datetime2" Precision="7" />
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="TaskType" Type="int" Nullable="false" />
@@ -9728,24 +9730,25 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="ReplicationCode" Type="Guid" Nullable="false" />
           <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedBy" Type="Int64" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="OwnerCode" Type="Int64" Nullable="false" />
           <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActualEnd" Type="DateTime" Precision="3" />
+          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ActualEnd" Type="DateTime" Precision="7" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="IsAllDayEvent" Type="Boolean" Nullable="false" />
           <Property Name="Location" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Purpose" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AppointmentReferences" Relationship="ErmModel.FK_Appointments" FromRole="AppointmentBase" ToRole="AppointmentReference" />
+          <Property Name="AfterSaleType" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="AppointmentReference">
           <Key>
@@ -9767,24 +9770,25 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="ReplicationCode" Type="Guid" Nullable="false" />
           <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedBy" Type="Int64" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="OwnerCode" Type="Int64" Nullable="false" />
           <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActualEnd" Type="DateTime" Precision="3" />
+          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ActualEnd" Type="DateTime" Precision="7" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Direction" Type="Boolean" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Purpose" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PhonecallReferences" Relationship="ErmModel.FK_Phonecalls" FromRole="PhonecallBase" ToRole="PhonecallReference" />
+          <Property Name="AfterSaleType" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="PhonecallReference">
           <Key>
@@ -9806,18 +9810,18 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="ReplicationCode" Type="Guid" Nullable="false" />
           <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedBy" Type="Int64" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="OwnerCode" Type="Int64" Nullable="false" />
           <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActualEnd" Type="DateTime" Precision="3" />
+          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ActualEnd" Type="DateTime" Precision="7" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="TaskType" Type="Int32" Nullable="false" />
@@ -12020,6 +12024,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySetMapping Name="AppointmentBases">
             <EntityTypeMapping TypeName="ErmModel.AppointmentBase">
               <MappingFragment StoreEntitySet="AppointmentBase">
+                <ScalarProperty Name="AfterSaleType" ColumnName="AfterSaleType" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="IsAllDayEvent" ColumnName="IsAllDayEvent" />
@@ -12056,6 +12061,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySetMapping Name="PhonecallBases">
             <EntityTypeMapping TypeName="ErmModel.PhonecallBase">
               <MappingFragment StoreEntitySet="PhonecallBase">
+                <ScalarProperty Name="AfterSaleType" ColumnName="AfterSaleType" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Direction" ColumnName="Direction" />
