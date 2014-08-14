@@ -1037,9 +1037,6 @@ Blokujících chyb:{2}</value>
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Fakturace</value>
   </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>Není možné zrušit zveřejnění nezveřejněného ceníku</value>
-  </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>Pozor! Kontakt adresy firmy a/nebo adresa firmy a/nebo firma jsou skryté do vyjasnění</value>
   </data>
@@ -3486,9 +3483,6 @@ Operace provedena: {4}.</value>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>Objednávka je správná, během kontroly se však vyskytla následující upozornění:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>Ceník je již zveřejněn</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>U této objednávky zatím nebyla žádná vydání! Změnu prodejních podmínek je možné provést po vrácení objednávky ke zpracování!</value>
   </data>
@@ -4674,21 +4668,6 @@ Operace provedena: {4}.</value>
   </data>
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>Není možné přidat a odstranit prvky zveřejněné šablony</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zveřejnit šablonu reklamního materiálu?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Zveřejnit prvek šablony reklamního materiálu</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zrušit zveřejnění šablony reklamního materiálu?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Zrušit zveřejnění šablony reklamního materiálu</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>Není možné zrušit zveřejnění nezveřejněné šablony </value>
   </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Prvek adresáře neobsahuje název ani v hlavním ani v rezervním jazyce</value>
