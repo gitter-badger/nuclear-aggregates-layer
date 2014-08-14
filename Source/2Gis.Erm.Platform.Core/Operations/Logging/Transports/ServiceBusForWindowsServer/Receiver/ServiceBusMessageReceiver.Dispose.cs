@@ -1,17 +1,10 @@
-﻿namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender
+﻿namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Receiver
 {
-    public sealed partial class ServiceBusMessageSender
+    public sealed partial class ServiceBusMessageReceiver<TMessageFlow>
     {
         private readonly object _disposeSync = new object();
-
-        /// <summary>
-        /// Флаг того что instance disposed
-        /// </summary>
         private bool _isDisposed;
-
-        /// <summary>
-        /// Флаг того что instance disposed - потокобезопасный
-        /// </summary>
+        
         private bool IsDisposed
         {
             get
@@ -23,17 +16,11 @@
             }
         }
 
-        /// <summary>
-        /// Dispose
-        /// </summary>
         public void Dispose()
         {
             Dispose(true);
         }
 
-        /// <summary>
-        /// Внутренний dispose класса
-        /// </summary>
         private void Dispose(bool disposing)
         {
             lock (_disposeSync)
@@ -49,9 +36,6 @@
                 }
 
                 // Free your own state (unmanaged objects).
-                // Set large fields to null.
-                // TODO
-
                 _isDisposed = true;
             }
         }

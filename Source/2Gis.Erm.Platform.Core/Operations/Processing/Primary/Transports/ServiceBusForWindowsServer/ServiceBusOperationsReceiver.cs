@@ -5,9 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer.Settings;
-
-using Microsoft.ServiceBus.Messaging;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Receiver;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer
 {
@@ -16,68 +14,46 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         where TMessageFlow : class, IMessageFlow, new()
     {
         private readonly ICommonLog _logger;
-        private readonly SubscriptionClient _messageReceiver;
+        private readonly IServiceBusMessageReceiver<TMessageFlow> _serviceBusMessageReceiver;
 
-        public ServiceBusOperationsReceiver(
-            IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings,
-            IPerformedOperationsReceiverSettings messageReceiverSettings, 
-            ICommonLog logger) 
+        public ServiceBusOperationsReceiver(ICommonLog logger,
+                                            IPerformedOperationsReceiverSettings messageReceiverSettings,
+                                            IServiceBusMessageReceiver<TMessageFlow> serviceBusMessageReceiver)
             : base(messageReceiverSettings)
         {
             _logger = logger;
-
-            var messagingFactory = MessagingFactory.CreateFromConnectionString(serviceBusMessageReceiverSettings.ConnectionString);
-            _messageReceiver = messagingFactory.CreateSubscriptionClient(serviceBusMessageReceiverSettings.TransportEntityPath,
-                                                                         SourceMessageFlow.Id.ToString(),
-                                                                         ReceiveMode.PeekLock);
+            _serviceBusMessageReceiver = serviceBusMessageReceiver;
         }
 
         protected override IEnumerable<ServiceBusPerformedOperationsMessage> Peek()
         {
-            try
-            {
-                var receivedMessage = _messageReceiver.ReceiveBatch(MessageReceiverSettings.BatchSize);
-                return receivedMessage.Select(bm => new ServiceBusPerformedOperationsMessage(new[] { bm }));
-            }
-            catch (Exception ex)
-            {
-                _logger.ErrorEx(ex, "Can't receive messages from service bus for message flow " + SourceMessageFlow);
-                throw;
-            }
+            var batch = _serviceBusMessageReceiver.ReceiveBatch(MessageReceiverSettings.BatchSize);
+            return batch.Select(brokeredMessage => new ServiceBusPerformedOperationsMessage(new[] { brokeredMessage }));
         }
 
         protected override void Complete(IEnumerable<ServiceBusPerformedOperationsMessage> successfullyProcessedMessages,
                                          IEnumerable<ServiceBusPerformedOperationsMessage> failedProcessedMessages)
         {
-            try
+            if (successfullyProcessedMessages.Any())
             {
-                if (successfullyProcessedMessages.Any())
+                var lockTokens = successfullyProcessedMessages.SelectMany(m => m.Operations).Select(brokeredMessage => brokeredMessage.LockToken);
+                _serviceBusMessageReceiver.CompleteBatch(lockTokens);
+            }
+            
+            foreach (var failedProcessedMessage in failedProcessedMessages)
+            {
+                foreach (var brokeredMessage in failedProcessedMessage.Operations)
                 {
-                    var lockTokens = successfullyProcessedMessages.SelectMany(m => m.Operations).Select(bm => bm.LockToken);
-                    _messageReceiver.CompleteBatch(lockTokens);
-                }
-
-                foreach (var failedProcessedMessage in failedProcessedMessages)
-                {
-                    foreach (var operationMsg in failedProcessedMessage.Operations)
+                    try
                     {
-                        operationMsg.Abandon();
+                        brokeredMessage.Abandon();
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.ErrorFormatEx(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
+                        throw;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                _logger.ErrorEx(ex, "Can't complete messages receiving from service bus for message flow " + SourceMessageFlow);
-                throw;
-            }
-        }
-
-        protected override void OnDispose(bool disposing)
-        {
-            var messageReceiver = _messageReceiver;
-            if (messageReceiver != null)
-            {
-                messageReceiver.Close();
             }
         }
     }

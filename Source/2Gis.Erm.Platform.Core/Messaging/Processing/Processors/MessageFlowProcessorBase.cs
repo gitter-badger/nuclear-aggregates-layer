@@ -54,8 +54,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
         {
             try
             {
-            Process();
-        }
+                Process();
+            }
             catch (Exception ex)
             {
                 Logger.ErrorFormatEx(ex, "Failed sync processing for message flow " + SourceMessageFlow);
