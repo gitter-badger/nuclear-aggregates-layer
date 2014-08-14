@@ -26,10 +26,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         private long _ownerCode;
         private long? _oldOwnerCode;
     
-        public Contact()
-        {
-            this.ActivityInstances = new HashSet<ActivityInstance>();
-        }
         public long Id { get; set; }
         public Nullable<long> DgppId { get; set; }
         public System.Guid ReplicationCode { get; set; }
@@ -81,7 +77,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public byte[] Timestamp { get; set; }
     
         public Client Client { get; set; }
-        public ICollection<ActivityInstance> ActivityInstances { get; set; }
     
     	public override bool Equals(object obj)
         {

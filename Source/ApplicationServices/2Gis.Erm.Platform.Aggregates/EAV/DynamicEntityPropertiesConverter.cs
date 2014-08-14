@@ -56,7 +56,6 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             SetAuditableProperties(entity, dynamicEntityInstance);
             SetDeactivatableProperties(entity, dynamicEntityInstance);
             SetDeletableProperties(entity, dynamicEntityInstance);
-            SetDeletableProperties(entity, dynamicEntityInstance);
             SetStateTrackingEntityProperties(entity, dynamicEntityInstance);
 
             return Tuple.Create(dynamicEntityInstance, propertyInstances);

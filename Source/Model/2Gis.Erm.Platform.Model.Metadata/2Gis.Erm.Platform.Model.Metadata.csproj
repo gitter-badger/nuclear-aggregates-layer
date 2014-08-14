@@ -124,8 +124,6 @@
     <Compile Include="Entities\EAV\DynamicEntityPropertyMapper.cs" />
     <Compile Include="Entities\EAV\DynamicEntityMetadataRegistry.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\AccountTypeIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\ActualEndIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\AfterSaleServiceTypeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\BankIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\BusinessModelIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\CommercialLicenseEndDateIdentity.cs" />
@@ -135,7 +133,6 @@
     <Compile Include="Entities\EAV\PropertyIdentities\PhoneIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\OrganizationUnitIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\CommuneIdIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\DealIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\DescriptionIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\EgrpouIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\HeaderIdentity.cs" />
@@ -150,13 +147,7 @@
     <Compile Include="Entities\EAV\PropertyIdentities\NameIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\EntityTypeNameIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\OperationsKindIndentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\PriorityIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\PurposeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeRutIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\ScheduledEndIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\ScheduledStartIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\StatusIdentity.cs" />
-    <Compile Include="Entities\EAV\PropertyIdentities\TaskTypeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\TaxationTypeIdentity.cs" />
     <Compile Include="Entities\EntitiesMetadataSource.cs" />
     <Compile Include="Entities\EntityPropertyMetadata.cs" />

@@ -32,7 +32,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             this.Deals = new HashSet<Deal>();
             this.Firms = new HashSet<Firm>();
             this.LegalPersons = new HashSet<LegalPerson>();
-            this.ActivityInstances = new HashSet<ActivityInstance>();
         }
         public long Id { get; set; }
         public Nullable<long> DgppId { get; set; }
@@ -81,7 +80,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Firm Firm { get; set; }
         public ICollection<Firm> Firms { get; set; }
         public ICollection<LegalPerson> LegalPersons { get; set; }
-        public ICollection<ActivityInstance> ActivityInstances { get; set; }
     
     	public override bool Equals(object obj)
         {
