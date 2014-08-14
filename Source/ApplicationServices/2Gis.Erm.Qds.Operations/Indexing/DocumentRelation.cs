@@ -22,14 +22,14 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _metadatas = metadataContainer.GetMetadatas<TDocument, TDocumentPart>().ToArray();
         }
 
-        public Func<ElasticApi.MultiGetDescriptor2, ElasticApi.MultiGetDescriptor2> GetDocumentPartIds(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
+        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
         {
             var documentPartIds = documentWrappers
                 .OfType<IDocumentWrapper<TDocument>>()
                 .SelectMany(x => _metadatas.Select(y => y.GetDocumentPartId(x.Document)))
                 .Where(x => !string.IsNullOrEmpty(x));
 
-            return x => (ElasticApi.MultiGetDescriptor2)x.GetManyDistinct<TDocumentPart>(documentPartIds)
+            return x => (ElasticApi.ErmMultiGetDescriptor)x.GetManyDistinct<TDocumentPart>(documentPartIds)
                 // recomendations
                 .Preference("_primary");
         }

@@ -26,13 +26,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         public void IndexDocuments(IReadOnlyCollection<EntityLink> entityLinks)
         {
             var documentWrappers = GetDocumentWrappers(entityLinks);
-
-            // TODO {m.pashuk, 14.08.2014}: запилить merge объектов при bulk, потом убрать эту группировку
-            var groups = documentWrappers.GroupBy(x => x.DocumentType);
-            foreach (var group in groups)
-            {
-                IndexDocuments(group);
-            }
+            IndexDocuments(documentWrappers);
         }
 
         public void IndexAllDocuments(Type documentType)
@@ -62,7 +56,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
                 UpdateDocumentParts(batch, documentTypesForBatch);
                 UpdateDocumentVersions(batch, documentTypesForBatch);
-                _elasticApi.Bulk(batch.Select(x => x.IndexFunc));
+                _elasticApi.Bulk(batch.Select(x => x.IndexFunc).ToArray());
                 if (_interrupted)
                 {
                     return;
@@ -77,7 +71,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 var documentTypesForBatch = new HashSet<Type>(batch.Select(x => x.DocumentType));
                 documentTypes.UnionWith(documentTypesForBatch);
 
-                _elasticApi.Bulk(batch.Select(x => x.IndexFunc));
+                _elasticApi.Bulk(batch.Select(x => x.IndexFunc).ToArray());
                 if (_interrupted)
                 {
                     return;

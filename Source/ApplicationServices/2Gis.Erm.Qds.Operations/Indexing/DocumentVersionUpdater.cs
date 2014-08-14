@@ -11,11 +11,11 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
     public sealed class DocumentVersionUpdater<TDocument> : IDocumentVersionUpdater<TDocument>
         where TDocument : class
     {
-        public Func<ElasticApi.MultiGetDescriptor2, ElasticApi.MultiGetDescriptor2> GetDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
+        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
         {
             var ids = documentWrappers.OfType<IDocumentWrapper<TDocument>>().Select(x => x.Id);
 
-            return x => (ElasticApi.MultiGetDescriptor2)x.GetManyDistinct<TDocument>(ids).SourceEnabled2(false).Preference("_primary");
+            return x => (ElasticApi.ErmMultiGetDescriptor)x.GetManyDistinct<TDocument>(ids).SourceEnabled(false).Preference("_primary");
         }
 
         public void UpdateDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)

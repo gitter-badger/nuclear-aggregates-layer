@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.Qds.Common.Settings;
 using Elasticsearch.Net;
 using Nest;
+using Newtonsoft.Json.Linq;
 
 namespace DoubleGis.Erm.Qds.Common
 {
@@ -38,28 +39,10 @@ namespace DoubleGis.Erm.Qds.Common
             return response.Success;
         }
 
-        public void Bulk(IEnumerable<Func<BulkDescriptor, BulkDescriptor>> selectors)
+        public void Bulk(IReadOnlyCollection<Func<ErmBulkDescriptor, ErmBulkDescriptor>> funcs)
         {
-            var batches = CreateBatches(selectors);
-            var aggregatedFuncs = batches.Select(batch => new Func<BulkDescriptor, BulkDescriptor>(bulkDescriptor =>
-            {
-                foreach (var func in batch)
-                {
-                    bulkDescriptor = func(bulkDescriptor);
-                }
-
-                return bulkDescriptor;
-            }));
-
-            foreach (var aggregatedFunc in aggregatedFuncs)
-            {
-                Bulk(aggregatedFunc);
-            }
-        }
-
-        private void Bulk(Func<BulkDescriptor, BulkDescriptor> bulkSelector)
-        {
-            var bulkResponse = _elasticClient.Bulk(bulkSelector);
+            Func<ErmBulkDescriptor, ErmBulkDescriptor> aggregatedFunc = x => funcs.Aggregate(x, (current, func) => func(current));
+            var bulkResponse = _elasticClient.Bulk(x => aggregatedFunc(new ErmBulkDescriptor()));
             if (!bulkResponse.Errors)
             {
                 return;
@@ -112,9 +95,9 @@ namespace DoubleGis.Erm.Qds.Common
             return response.Source;
         }
 
-        public IReadOnlyCollection<IMultiGetHit<object>> MultiGet(Func<MultiGetDescriptor2, MultiGetDescriptor2> multiGetSelector)
+        public IReadOnlyCollection<IMultiGetHit<object>> MultiGet(Func<ErmMultiGetDescriptor, ErmMultiGetDescriptor> multiGetSelector)
         {
-            var response = _elasticClient.MultiGet(x => multiGetSelector(new MultiGetDescriptor2()));
+            var response = _elasticClient.MultiGet(x => multiGetSelector(new ErmMultiGetDescriptor()));
             var documents = (IReadOnlyCollection<IMultiGetHit<object>>)response.Documents;
             return documents;
         }
@@ -283,25 +266,59 @@ namespace DoubleGis.Erm.Qds.Common
             }
         }
 
-        public sealed class MultiGetDescriptor2 : MultiGetDescriptor
+        public sealed class ErmBulkDescriptor : BulkDescriptor
+        {
+            public ErmBulkDescriptor UpdateWithMerge<T>(Func<BulkUpdateDescriptor<T, T>, BulkUpdateDescriptor<T, T>> bulkUpdateSelector)
+                where T : class
+            {
+                var operations = ((IBulkRequest)this).Operations;
+
+                var newOperation = (IBulkUpdateOperation<T, T>)bulkUpdateSelector(new BulkUpdateDescriptor<T, T>());
+                if (newOperation == null)
+                {
+                    return this;
+                }
+
+                var existingOperation = (IBulkUpdateOperation<T, T>)operations.SingleOrDefault(x => string.Equals(x.Id, newOperation.Id, StringComparison.OrdinalIgnoreCase) && x.ClrType == newOperation.ClrType);
+                if (existingOperation != null)
+                {
+                    var existingDoc = JObject.FromObject(existingOperation.Doc);
+                    var newDoc = JObject.FromObject(newOperation.Doc);
+                    existingDoc.Merge(newDoc);
+                    existingOperation.Doc = existingDoc.ToObject<T>();
+                }
+                else
+                {
+                    operations.Add(newOperation);
+                }
+
+                return this;
+            }
+
+            public ErmBulkDescriptor Create2<T>(Func<BulkCreateDescriptor<T>, BulkCreateDescriptor<T>> bulkCreateSelector) where T : class
+            {
+                return (ErmBulkDescriptor)Create(bulkCreateSelector);
+            }
+        }
+
+        public sealed class ErmMultiGetDescriptor : MultiGetDescriptor
         {
             // TODO {m.pashuk, 05.08.2014}: message https://github.com/elasticsearch/elasticsearch-net/issues/849
-            public MultiGetDescriptor2 SourceEnabled2(bool enabled = true)
+            public ErmMultiGetDescriptor SourceEnabled(bool enabled = true)
             {
                 Request.RequestParameters.AddQueryString("_source", enabled);
                 return this;
             }
 
-            public MultiGetDescriptor2 GetManyDistinct<T>(IEnumerable<string> ids)
-                where T : class
+            public ErmMultiGetDescriptor GetManyDistinct<T>(IEnumerable<string> ids) where T : class
             {
                 var documentType = typeof(T);
-                var operations = (List<IMultiGetOperation>)((IMultiGetRequest)this).GetOperations;
+                var operations = ((IMultiGetRequest)this).GetOperations;
 
                 foreach (var id in ids)
                 {
                     var idRef = id;
-                    var idExists = operations.Exists(x => string.Equals(x.Id, idRef, StringComparison.OrdinalIgnoreCase) && x.ClrType == documentType);
+                    var idExists = operations.Any(x => string.Equals(x.Id, idRef, StringComparison.OrdinalIgnoreCase) && x.ClrType == documentType);
                     if (!idExists)
                     {
                         operations.Add(new MultiGetOperationDescriptor<T>().Id(id));
