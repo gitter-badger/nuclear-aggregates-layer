@@ -183,9 +183,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
             if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.Queue))
             {
-                    container.RegisterOne2ManyTypesPerTypeUniqueness<IOperationLoggingStrategy, ServiceBusLoggingStrategy>(Lifetime.Singleton)
-                             .RegisterType<ITrackedUseCase2BrokeredMessageConverter, BinaryEntireTrackedUseCase2BrokeredMessageConverter>(Lifetime.Singleton)
-                             .RegisterType<IServiceBusMessageSender, ServiceBusMessageSender>(Lifetime.Singleton);
+                container.RegisterOne2ManyTypesPerTypeUniqueness<IOperationLoggingStrategy, ServiceBusLoggingStrategy>(Lifetime.Singleton)
+                         .RegisterType<ITrackedUseCase2BrokeredMessageConverter, BinaryEntireTrackedUseCase2BrokeredMessageConverter>(Lifetime.Singleton)
+                         .RegisterType<IServiceBusMessageSender, ServiceBusMessageSender>(Lifetime.Singleton);
             }
 
             return container;
