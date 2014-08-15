@@ -103,6 +103,26 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Рубрика&quot; OriginalName=&quot;&quot;&gt;Dg_category&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;10008&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Dg_category&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;10008&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Dg_categories&lt;/CollectionName&gt;
+        ///         [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string customizations_23209 {
+            get {
+                return ResourceManager.GetString("customizations_23209", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
         ///  &lt;/Entities&gt;
         ///  &lt;Roles&gt;
         ///  &lt;/Roles&gt;
