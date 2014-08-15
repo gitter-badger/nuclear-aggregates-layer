@@ -220,7 +220,7 @@ Ext.DoubleGis.ValidatorRegistry = {
         {
             return function (value, context)
             {
-                return value == '' || /^https?:\/\/([а-яёa-z0-9-]+\.)+[а-яёa-z0-9]{2,4}.*$/.test(value);
+                return value == '' || /^https?:\/\/([а-яёa-z0-9-_]+\.)+[а-яёa-z0-9]{2,4}.*$/.test(value);
 
             };
         },
