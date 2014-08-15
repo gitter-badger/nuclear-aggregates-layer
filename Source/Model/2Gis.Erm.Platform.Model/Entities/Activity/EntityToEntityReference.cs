@@ -57,5 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 		Organizer = 2,
 		RequiredAttendees = 3,
 		OptionalAttendees = 4,
+		From = 5,
+		To = 6
 	}
 }
