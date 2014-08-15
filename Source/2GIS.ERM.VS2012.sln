@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Common", "..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj", "{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}"
 EndProject
@@ -405,7 +405,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Int.Cyprus.config = Environments\Erm.Int.Cyprus.config
 		Environments\Erm.Int.Czech.config = Environments\Erm.Int.Czech.config
 		Environments\Erm.Int.Russia.config = Environments\Erm.Int.Russia.config
+		Erm.Load.Cyprus.config = Erm.Load.Cyprus.config
 		Environments\Erm.Load.Russia.config = Environments\Erm.Load.Russia.config
+		Erm.Load.Ukraine.config = Erm.Load.Ukraine.config
 		Environments\Erm.Production.Chile.config = Environments\Erm.Production.Chile.config
 		Environments\Erm.Production.Cyprus.config = Environments\Erm.Production.Cyprus.config
 		Environments\Erm.Production.Czech.config = Environments\Erm.Production.Czech.config
