@@ -1037,9 +1037,6 @@ Errores de bloqueo:{2}</value>
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Facturación</value>
   </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>No se puede cancelar la publicación de la lista de precios no publicada</value>
-  </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>¡Atención! Contacto de dirección de la empresa, y/o la dirección de la empresa y/o la empresa se han ocultado hasta validar</value>
   </data>
@@ -3486,9 +3483,6 @@ Operación realizada: {4}.</value>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>La orden es correcta, sin embargo, su verificación ha revelado las siguientes advertencias:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>La lista de precios ya está publicada</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>¡Todavía no se ha publicado lo acordado en la orden! ¡Para modificar las condiciones de venta es necesario devolver la orden al área de trabajo!</value>
   </data>
@@ -4675,21 +4669,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>No se puede agregar ni eliminar elementos de la plantilla publicada</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>¿Desea realmente publicar la plantilla de material publicitario?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Publicar la plantilla de material publicitario</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>¿Desea realmente deshacer la publicación de la plantilla de material publicitario?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Deshacer la publicación de la plantilla de material publicitario</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>No se puede deshacer la publicación de la plantilla no publicada </value>
   </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>El elemento de directorio no contiene nombre ni en el idioma principal, ni en el idioma de reserva</value>

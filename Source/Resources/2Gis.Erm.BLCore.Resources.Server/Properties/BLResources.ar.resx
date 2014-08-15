@@ -1037,9 +1037,6 @@ Locking errors:{2}</value>
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Billing</value>
   </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>You cannot cancel publishing of the unpublished price-list</value>
-  </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>Warning! Contact of the company address and/or company address and/or company are hidden till clarification</value>
   </data>
@@ -3485,9 +3482,6 @@ The operation has been executed: {4}.</value>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>The order is correct, nevertheless the following warnings are found during the check:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>The price-list is already published</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>No issue was made for this order! In order to change terms and conditions of sale, this order should be returned to work!</value>
   </data>
@@ -4674,21 +4668,6 @@ The operation has been executed: {4}.</value>
   </data>
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>Elements of a published template cannot be added and deleted</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>Are you sure you want to publish this advertising material template?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Publish the advertising material template</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>Are you sure you want to cancel advertising material template publishing?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Cancel advertising material template publishing</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>You cannot cancel publishing of an unpublished template</value>
   </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Directory element has no name neither in main nor in alternative language</value>
