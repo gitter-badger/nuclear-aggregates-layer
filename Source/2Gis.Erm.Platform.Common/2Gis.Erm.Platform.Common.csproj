@@ -123,6 +123,7 @@
     <Compile Include="Utils\DataTableExtensions.cs" />
     <Compile Include="Utils\Data\EnumerableExtensions.cs" />
     <Compile Include="Utils\Data\ExpressionUtils.cs" />
+    <Compile Include="Utils\Data\ReadOnlyCollectionsUtils.cs" />
     <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\EnumExtensions.cs" />
     <Compile Include="Ftp\FtpService.cs" />
