@@ -58,6 +58,8 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization - Copy.cs" />
+    <Compile Include="2.1\2014.08.14 rev. 23210 - alter some columns length.cs" />
     <Compile Include="2.1\2014.08.11 rev. 23049 - Alter BOS.cs" />
     <Compile Include="2.1\2014.08.07 rev. 23000 - Set dummy advertisement status as valid.cs" />
     <Compile Include="2.1\2014.08.04 rev. 22874 - Remove redundant AdvertisementElementStatus Privilege.cs" />
@@ -137,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Migration22367.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_23209.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

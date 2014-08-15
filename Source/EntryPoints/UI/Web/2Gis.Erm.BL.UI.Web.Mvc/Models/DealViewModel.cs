@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public CloseDealReason CloseReason { get; set; }
 
-        [StringLengthLocalized(512)]
+        [StringLengthLocalized(256)]
         public string CloseReasonOther { get; set; }
 
         public LookupField Currency { get; set; }
