@@ -7,7 +7,13 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             Counting: 1,
             FixedValue: 2,
             ArbitraryValue: 3
-        }
+        },
+
+        LinkingObjectType: {
+            Firm: 'Firm'
+        },
+
+        FixedLinkedFirmCount: '1'
     },
 
     Settings: {
@@ -33,7 +39,8 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         AmountSpecificationMode: null,
         LinkingObjectsSchema: null,
         IsPositionComposite: null,
-        RateType: null
+        IsPositionNewSalesModel: null,
+        IsPositionCategoryBound: null
     },
 
     ComputationalData: {
@@ -264,10 +271,11 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             timeout: 1200000,
             success: function (response, opts) {
                 var responseData = window.Ext.decode(response.responseText);
-                self.ServerData.RateType = responseData.RateType;
+                self.ServerData.IsPositionNewSalesModel = responseData.IsPositionNewSalesModel;
+                self.ServerData.IsPositionCategoryBound = responseData.IsPositionCategoryBound;
                 self.recalculateAll(responseData);
                 self.recalculateDiscount();
-                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.RateType);
+                self.fireEvent("pricePositionChanged", self.ServerData.LinkingObjectsSchema, responseData.IsPositionNewSalesModel);
             },
             failure: function (response)
             {
@@ -368,6 +376,10 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             if (this.ServerData.AmountSpecificationMode == this.Constants.AmountSpecificationMode.FixedValue) {
                 this.UI.Texts.Amount.dom.value = this.ServerData.PricePositionAmount;
             }
+            else if (this.ServerData.AmountSpecificationMode == this.Constants.AmountSpecificationMode.Counting &&
+                this.ServerData.LinkingObjectType == this.Constants.LinkingObjectType.Firm) {
+                this.UI.Texts.Amount.dom.value = this.Constants.FixedLinkedFirmCount;
+            }
 
             this.UI.Divs.DiscountSumOuter.dom.disabled = false;
             this.UI.Divs.DiscountPercentOuter.dom.disabled = false;
@@ -438,8 +450,8 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
 
     onSelectedAdvertisementCountChanged: function (args)
     {
-        if (this.ServerData.RateType == "BoundCategory") {
-            this.acquirePricesForCategory(args.selectedCount > 0 ? args.categoryId : null);
+        if (this.ServerData.IsPositionCategoryBound) {
+            this.acquirePricesForCategory(args.categoryIds);
         }
 
         if (this.ServerData.IsPositionComposite) {
@@ -464,25 +476,23 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
         }
     },
 
-    acquirePricesForCategory: function(categoryId) {
+    acquirePricesForCategory: function (categoryIds) {
         var requestParams = {
-            categoryId: categoryId,
+            categoryIds: Ext.encode(categoryIds),
             orderId: this.LocalData.OrderId,
             pricePositionId: this.UI.Lookups.PricePosition.getValue().id
         };
 
-        var url = '/OrderPosition/GetRatedPrices';
-        url = window.Ext.urlAppend(url, window.Ext.urlEncode(requestParams));
-
-        var self = this;
-
         window.Ext.Ajax.request({
-            url: url,
+            url: '/OrderPosition/GetRatedPrices',
             timeout: 1200000,
+            scope: this,
+            params: requestParams,
+            method: "GET",
             success: function (response, opts) {
                 var responseData = window.Ext.decode(response.responseText);
-                self.recalculateAll(responseData);
-                self.recalculateDiscount();
+                this.recalculateAll(responseData);
+                this.recalculateDiscount();
             },
             failure: function (response) {
                 if (response.status == 500 && response.responseText && response.responseText.length > 0) {
@@ -497,7 +507,6 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
                 }
             }
         });
-
     },
 
     setupAmountFieldAvailability: function ()

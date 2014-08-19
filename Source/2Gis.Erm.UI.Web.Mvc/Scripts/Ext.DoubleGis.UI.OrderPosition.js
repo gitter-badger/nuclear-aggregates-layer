@@ -131,9 +131,9 @@ window.InitPage = function ()
             organizationUnitId: window.Ext.getDom('OrganizationUnitId').value
         });
 
-        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema, rateType)
+        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema, isPositionNewSalesModel)
         {
-            this.Advertisements.localData.useSingleCategoryForPackage = rateType == "BoundCategory";
+            this.Advertisements.localData.useSingleCategoryForPackage = isPositionNewSalesModel;
             this.Advertisements.setSchema(linkingObjectsShema);
         }, this);
 
