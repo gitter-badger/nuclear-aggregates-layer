@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             long? sourceProjectCode,
             long destProjectCode,
             long? firmId,
-            long? categoryId,
+            long[] categoryIds,
             IList<CalcPositionWithDiscountInfo> positionInfos)
         {
             long? sourceOrganizationUnitId = null;
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                sourceOrganizationUnitId,
                                                destOrganizationUnitId,
                                                firmId,
-                                               categoryId,
+                                               categoryIds,
                                                positionInfos);
         }
 
@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                                             DateTime beginDistributionDate,
                                                                             long? sourceProjectCode,
                                                                             long firmId,
-                                                                            long? categoryId,
+                                                                            long[] categoryIds,
                                                                             IList<CalcPositionWithDiscountInfo> positionInfos)
         {
             var firm = _firmRepository.GetFirm(firmId);
@@ -142,7 +142,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                sourceOrganizationUnitId,
                                                destOrganizationUnitId,
                                                firmId,
-                                               categoryId,
+                                               categoryIds,
                                                positionInfos);
         }
 
@@ -156,7 +156,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             long? sourceOrganizationUnitId,
             long destOrganizationUnitId,
             long? firmId,
-            long? categoryId,
+            long[] categoryIds,
             IList<CalcPositionWithDiscountInfo> positionInfos)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<CalculateOrderCostIdentity>())
@@ -171,7 +171,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                     positionCalcs[i] = CalculateOrderPositionCostInternal(orderType,
                                                                           orderReleaseCount,
                                                                           firmId,
-                                                                          categoryId,
+                                                                          categoryIds,
                                                                           null,
                                                                           positionInfos[i].PositionInfo.PositionId,
                                                                           priceId,
@@ -199,7 +199,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             long? sourceOrganizationUnitId,
             long destOrganizationUnitId,
             long? firmId,
-            long? categoryId,
+            long[] categoryIds,
             CalcPositionWithDiscountInfo positionInfo)
         {
             // рассчитаем результат для коллекции из одной позиции
@@ -209,7 +209,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                      sourceOrganizationUnitId,
                                                      destOrganizationUnitId,
                                                      firmId,
-                                                     categoryId,
+                                                     categoryIds,
                                                      new List<CalcPositionWithDiscountInfo> { positionInfo });
 
             return result.PositionCalcs.Single();
@@ -248,7 +248,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
         public CalculationResult CalculateOrderPositionCost(OrderType orderType,
                                                             int orderReleaseCount,
                                                             long? firmId,
-                                                            long? categoryId,
+                                                            long[] categoryIds,
                                                             long positionId,
                                                             long priceId,
                                                             int amount,
@@ -261,7 +261,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
             return CalculateOrderPositionCostInternal(orderType,
                                                       orderReleaseCount,
                                                       firmId,
-                                                      categoryId,
+                                                      categoryIds,
                                                       null,
                                                       positionId,
                                                       priceId,
@@ -279,7 +279,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
         private CalculationResult CalculateOrderPositionCostInternal(OrderType orderType,
                                                                      int orderReleaseCount,
                                                                      long? firmId,
-                                                                     long? categoryId,
+                                                                     long[] categoryIds,
                                                                      decimal? specifiedRate,
                                                                      long positionId,
                                                                      long priceId,
@@ -311,13 +311,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 
             var nullCostOrder = orderType == OrderType.SelfAds || orderType == OrderType.SocialAds;
 
-            // FIXME {all, 25.03.2014}: Нужно проанализировать этот usecase - выглядит довольно странно override для логики расчета CategoryRate, если цивилизованно не удается избавиться от firmId.HasValue (изменеив CalculateCategoryRate), стоит наверное добавить в PriceReadModel.GetDefaultRate - вообщем избавиться от magic number
-            var categoryRate = specifiedRate ?? (firmId.HasValue
-                                                     ? _calculateCategoryRateOperationService.CalculateCategoryRate(firmId.Value,
-                                                                                                                    pricePositionInfo.Id,
-                                                                                                                    categoryId,
-                                                                                                                    true)
-                                                     : 1m);
+            var categoryRate = specifiedRate ??
+                               _calculateCategoryRateOperationService.GetCategoryRateForFirmCalculated(firmId, pricePositionInfo.Id, categoryIds);
 
             if (pricePositionInfo.IsComposite)
             {

@@ -262,7 +262,6 @@
     </Compile>
     <Compile Include="Concrete\Withdrawals\DeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\DeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
-    <Compile Include="Crosscutting\SupportedCategoriesChecker.cs" />
     <Compile Include="Concrete\Prices\GetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Bargains\BargainTypeService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Categories\CategoryService.cs" />

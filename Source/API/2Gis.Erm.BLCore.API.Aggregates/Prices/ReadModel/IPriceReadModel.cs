@@ -28,8 +28,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         PriceDto GetPriceDto(long priceId);
         long GetPriceId(long pricePositionId);
         decimal GetCategoryRateByFirm(long firmId);
-        decimal GetCategoryRateByCategory(long categoryId, long organizationUnitId);
+        decimal GetCategoryRateByCategory(long[] categoryId, long organizationUnitId);
         decimal GetPricePositionCost(long pricePositionId);
         long GetPricePositionId(long priceId, long positionId);
+        PricePositionDetailedInfo GetPricePositionDetailedInfo(long pricePositionId);
     }
 }

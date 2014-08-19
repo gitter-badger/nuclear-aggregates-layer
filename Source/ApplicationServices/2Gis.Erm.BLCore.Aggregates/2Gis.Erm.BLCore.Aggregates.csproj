@@ -183,6 +183,7 @@
     <Compile Include="Prices\PositionRepository.cs" />
     <Compile Include="Prices\PositionSpecifications.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
+    <Compile Include="Positions\ReadModel\PositionReadModel.NewSalesModel.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="Common\Generics\ActivateAggregateRepository.cs" />
     <Compile Include="Common\Generics\AssignAggregateRepository.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
@@ -9,12 +10,19 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
 {
+    // TODO {all, 09.07.2014}: посмотреть есть ли необходимость в таком operationservice или нет (один из подозрительных моментов - отсутствие логирования операции), весь его функционал впишется в одну из более подходящих readmodel, например, в price, также, возможно, стоит избавиться от сигнатур с orderId, предоставив вызывающему коду самому делать resolve orderid->firmid
     public class CalculateCategoryRateOperationService : ICalculateCategoryRateOperationService
     {
-        private const decimal DefaultCategoryRate = 1;
+        private const decimal DefaultCategoryRate = 1m;
+
+        private static readonly Func<decimal> DefaultRateStrategy = () => DefaultCategoryRate;
+        private static readonly Func<decimal> ExceptionStrategy = () =>
+            {
+                throw new NotificationException(BLResources.CategoryShouldBeSpecifiedForTheBoundCategoryRateType);
+            };
+
         private readonly IPriceReadModel _priceReadModel;
         private readonly IFirmReadModel _firmReadModel;
-
 
         public CalculateCategoryRateOperationService(IPriceReadModel priceReadModel, IFirmReadModel firmReadModel)
         {
@@ -22,48 +30,45 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             _firmReadModel = firmReadModel;
         }
 
-        // TODO {a.tukaev, 25.03.2014}: Возможно стоит данный OperationService и оба его метода трансормировать в два отдельных методf pricereadmodel, имеющих специфичную сигнатуру (фактически прототипы для них уже есть GetCategoryRateByFirm и GetCategoryRateByCategory)
-        // + отпадет необходимость в strictmode, проверив входные параметры можно будет бросать businesslogicexception
-        public decimal CalculateCategoryRate(long firmId, long pricePositionId, long? categoryId, bool strictMode)
+        public decimal GetCategoryRateForOrderCalculated(long orderId, long pricePositionId, long[] categoryIds)
+        {
+            var firmId = _firmReadModel.GetOrderFirmId(orderId);
+            return CalculateCategoryRate(firmId, pricePositionId, categoryIds, ExceptionStrategy);
+        }
+
+        public decimal GetCategoryRateForOrderCalculatedOrDefault(long orderId, long pricePositionId, long[] categoryIds)
+        {
+            var firmId = _firmReadModel.GetOrderFirmId(orderId);
+            return CalculateCategoryRate(firmId, pricePositionId, categoryIds, DefaultRateStrategy);
+        }
+
+        public decimal GetCategoryRateForFirmCalculated(long? firmId, long pricePositionId, long[] categoryIds)
+        {
+            return firmId.HasValue
+                       ? CalculateCategoryRate(firmId.Value, pricePositionId, categoryIds, ExceptionStrategy)
+                       : DefaultCategoryRate;
+        }
+
+        private decimal CalculateCategoryRate(long firmId, long pricePositionId, long[] categoryIds, Func<decimal> missingCategoryIdsStrategy)
         {
             var rateType = _priceReadModel.GetPricePositionRateType(pricePositionId);
             switch (rateType)
             {
                 case PricePositionRateType.None:
-                {
                     return DefaultCategoryRate;
-                }
                 case PricePositionRateType.MostExpensiveCategory:
-                {
                     return _priceReadModel.GetCategoryRateByFirm(firmId);
-                }
                 case PricePositionRateType.BoundCategory:
-                {
-                    var organizationUnitId = _firmReadModel.GetOrgUnitId(firmId);
-                    if (categoryId == null)
+                    if (categoryIds == null || !categoryIds.Any())
                     {
-                        if (strictMode)
-                        {
-                            throw new NotificationException(BLResources.CategoryShouldBeSpecifiedForTheBoundCategoryRateType);
-                        }
-
-                        // Если не выбрана ни одна рубрика, берем коэффициент 1: https://confluence.2gis.ru/pages/viewpage.action?pageId=133467722
-                        return DefaultCategoryRate;
+                        return missingCategoryIdsStrategy.Invoke();
                     }
 
-                    return _priceReadModel.GetCategoryRateByCategory(categoryId.Value, organizationUnitId);
-                }
-
+                    var organizationUnitId = _firmReadModel.GetOrgUnitId(firmId);
+                    return _priceReadModel.GetCategoryRateByCategory(categoryIds, organizationUnitId);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        // TODO {a.tukaev, 25.03.2014}: Возможно стоит данный OperationService и оба его метода трансормировать в два отдельных методf pricereadmodel, имеющих специфичную сигнатуру (фактически прототипы для них уже есть GetCategoryRateByFirm и GetCategoryRateByCategory)
-        // + отпадет необходимость в strictmode, проверив входные параметры можно будет бросать businesslogicexception
-        public decimal CalculateCategoryRate(long firmId, long pricePositionId, bool strictMode)
-        {
-            return CalculateCategoryRate(firmId, pricePositionId, null, strictMode);
         }
     }
 }

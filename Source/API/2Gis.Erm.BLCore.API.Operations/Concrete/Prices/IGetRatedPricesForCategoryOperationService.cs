@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
 {
     public interface IGetRatedPricesForCategoryOperationService : IOperation<GetRatedPricesForCategoryIdentity>
     {
-        RatedPricesDto GetRatedPrices(long orderId, long pricePositionId, long? categoryId);
+        RatedPricesDto GetRatedPrices(long orderId, long pricePositionId, long[] categoryIds);
     }
 }
