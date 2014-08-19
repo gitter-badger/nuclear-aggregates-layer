@@ -15,6 +15,8 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
+using Newtonsoft.Json;
+
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
@@ -57,9 +59,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
-        public JsonNetResult GetRatedPrices(long orderId, long pricePositionId, long? categoryId)
+        public JsonNetResult GetRatedPrices(long orderId, long pricePositionId, string categoryIds)
         {
-            var prices = _getRatedPricesForCategoryOperationService.GetRatedPrices(orderId, pricePositionId, categoryId);
+            var decodedCategoryIds = JsonConvert.DeserializeObject<long[]>(categoryIds);
+            var prices = _getRatedPricesForCategoryOperationService.GetRatedPrices(orderId, pricePositionId, decodedCategoryIds);
             return new JsonNetResult(prices);
         }
 
