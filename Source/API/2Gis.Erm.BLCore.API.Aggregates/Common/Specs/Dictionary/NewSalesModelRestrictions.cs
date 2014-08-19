@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                     508,    // Ткани
                     384,    // Охотничьи принадлежности / Аксессуары
                     347,    // Книги
-                    13100   // Детская обувь
+                    205     // Ветеринарные клиники
                 };
 
         public static readonly IReadOnlyCollection<long> SupportedOrganizationUnitIds =
