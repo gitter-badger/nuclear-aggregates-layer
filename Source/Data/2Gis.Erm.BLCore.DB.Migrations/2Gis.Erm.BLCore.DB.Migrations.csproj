@@ -714,6 +714,7 @@
     <Compile Include="2.1\2014.06.02 rev. 20911 - Create ExportFlowNomenclatures tables.cs" />
     <Compile Include="2.1\2014.06.03 rev. 20952 - Alter BOS for flowNomenclatures export.cs" />
     <Compile Include="2.1\2014.07.08 rev. 22080 - Delete infrastructure for hot client replication.cs" />
+    <Compile Include="2.1\2014.08.06 rev. 22197 - Add Index to Categories table.cs" />
     <Compile Include="2.1\2014.07.24 rev. 22601 - Add AdvertisementsOnlyWhiteList rule.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule - Copy 1.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />

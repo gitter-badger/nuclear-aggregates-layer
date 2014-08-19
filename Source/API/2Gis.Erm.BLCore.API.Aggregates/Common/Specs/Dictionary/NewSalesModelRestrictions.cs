@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
 {
-    public class NewSalesModelRestrictions
+    public static class NewSalesModelRestrictions
     {
         public static readonly IReadOnlyCollection<long> SupportedCategoryIds =
             new long[]

@@ -16,12 +16,15 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old
         }
 
         // TODO {all, 20.02.2014}: После обновления UI позиции заказа имеет смысл реализацию свойства поменять на auto
-        public long? CategoryId
+        public long[] CategoryIds
         {
             get
             {
-                var categories = AdvertisementsLinks.Select(x => x.CategoryId).Distinct().ToArray();
-                return categories.Length == 1 ? categories[0] : null;
+                return AdvertisementsLinks
+                    .Where(x => x.CategoryId.HasValue)
+                    .Select(x => x.CategoryId.Value)
+                    .Distinct()
+                    .ToArray();
             }
         }
     }
