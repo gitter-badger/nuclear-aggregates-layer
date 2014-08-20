@@ -479,15 +479,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirmAddresses]    Script Date: 06.08.2014 11:29:20 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   06.08.2014, i.maslennikov: оптимизация производительности
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddresses]
         ///	@Ids [Shared].[Int64IdsTableType] readonly
         ///AS
@@ -503,7 +497,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///	CREATE TABLE [rest of string was truncated]&quot;;.
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _23002_BusinessDirectory___ReplicateFirmAddresses_ {
             get {
@@ -512,15 +509,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirms]    Script Date: 06.08.2014 10:30:15 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   06.08.2014, i.maslennikov: оптимизация производительности
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirms]
         ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
         ///AS
@@ -536,7 +527,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///	CREATE TABLE #ReferenceInfo ( [rest of string was truncated]&quot;;.
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _23002_BusinessDirectory___ReplicateFirms_ {
             get {
@@ -545,15 +539,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateTerritories]    Script Date: 06.08.2014 11:29:39 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   06.08.2014, i.maslennikov: оптимизация производительности
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritories]
         ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
         ///AS
@@ -569,7 +557,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///    CREATE TABLE # [rest of string was truncated]&quot;;.
+        ///    CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _23002_BusinessDirectory___ReplicateTerritories_ {
             get {
@@ -728,6 +719,24 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string ImportFirmFromXml_23021 {
             get {
                 return ResourceManager.GetString("ImportFirmFromXml_23021", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   5.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   10.09.2013, y.baranihin: dgppid -&gt; id
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   14.11.2013, a.tukaev: поддержка импорта flowCardsForERM 
+        ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
+        ///--   20.05.2014, i.maslennikov: поддержка асинхронной репликации
+        ///--   06.08.2014, a.tukaev: fix ERM-4693
+        ///--   19.08.2014, a.tukaev: fix [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ImportFirmFromXml_23425 {
+            get {
+                return ResourceManager.GetString("ImportFirmFromXml_23425", resourceCulture);
             }
         }
         
