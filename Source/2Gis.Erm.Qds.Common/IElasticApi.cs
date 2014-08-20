@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Qds.Common
     public interface IElasticApi
     {
         T Get<T>(string id) where T : class;
-        IReadOnlyCollection<IMultiGetHit<object>> MultiGet(Func<ElasticApi.MultiGetDescriptor2, ElasticApi.MultiGetDescriptor2> multiGetSelector);
+        IReadOnlyCollection<IMultiGetHit<object>> MultiGet(Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> multiGetSelector);
 
         void Index<T>(T @object, Func<IndexDescriptor<T>, IndexDescriptor<T>> indexSelector = null) where T : class;
         void Delete<T>(string id) where T : class;
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Qds.Common
         IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class;
 
         IEnumerable<IReadOnlyCollection<T>> CreateBatches<T>(IEnumerable<T> items);
-        void Bulk(IEnumerable<Func<BulkDescriptor, BulkDescriptor>> selectors);
+        void Bulk(IReadOnlyCollection<Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor>> selectors);
 
         void Refresh<T>() where T : class;
         void Refresh(Type[] indexTypes);
