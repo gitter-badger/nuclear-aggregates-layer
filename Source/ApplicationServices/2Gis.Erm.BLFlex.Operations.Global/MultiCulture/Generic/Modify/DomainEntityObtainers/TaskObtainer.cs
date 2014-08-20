@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -48,13 +47,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             task.Timestamp = dto.Timestamp;
 
-			task.RegardingObjects = new[]
-		        {
-			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Task, task.Id, EntityName.Client, dto.ClientRef.Id),
-			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Task, task.Id, EntityName.Contact, dto.ContactRef.Id),
-			        ActivityObtainer.ReferenceIfAny(ReferenceType.RegardingObject, EntityName.Task, task.Id, EntityName.Firm, dto.FirmRef.Id),
-		        }.Where(x => x != null).ToArray();
-			
 			return task;
         }
     }

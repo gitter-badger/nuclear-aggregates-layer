@@ -154,7 +154,6 @@
     <Compile Include="Russia\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
     <Compile Include="Russia\Generic\Modify\BargainTypeFlexSpecs.cs" />
     <Compile Include="Russia\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
-    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\ActivityObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBargainTypeObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeObtainer.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeOrganizationUnitObtainer.cs" />

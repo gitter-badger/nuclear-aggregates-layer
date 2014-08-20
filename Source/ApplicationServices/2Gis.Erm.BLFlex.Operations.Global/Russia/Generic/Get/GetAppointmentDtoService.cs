@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
@@ -36,6 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         protected override IDomainEntityDto<Appointment> GetDto(long entityId)
         {
             var appointment = _activityReadModel.GetAppointment(entityId);
+	        var regardingObjects = _activityReadModel.GetRegardingObjects<Appointment>(entityId).ToList();
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
@@ -59,10 +61,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 				Priority = appointment.Priority,
 				Status = appointment.Status,
 
-				ClientRef = appointment.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Client, _clientReadModel.GetClientName),
-				ContactRef = appointment.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Contact, _clientReadModel.GetContactName),
-				DealRef = appointment.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Deal, id => _dealReadModel.GetDeal(id).Name),
-				FirmRef = appointment.RegardingObjects.Lookup(ReferenceType.RegardingObject, EntityName.Firm, _firmReadModel.GetFirmName),
+				ClientRef = regardingObjects.Lookup(EntityName.Client, _clientReadModel.GetClientName),
+				ContactRef = regardingObjects.Lookup(EntityName.Contact, _clientReadModel.GetContactName),
+				DealRef = regardingObjects.Lookup(EntityName.Deal, id => _dealReadModel.GetDeal(id).Name),
+				FirmRef = regardingObjects.Lookup(EntityName.Firm, _firmReadModel.GetFirmName),
 
 				Purpose = appointment.Purpose,
 //                AfterSaleServiceType = appointment.AfterSaleServiceType,
