@@ -1,6 +1,5 @@
-﻿
-@using Newtonsoft.Json
-@model Models.Ukraine.UkraineContactViewModel
+﻿@using Newtonsoft.Json
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine.UkraineContactViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -63,7 +62,7 @@
         </div>
         @Html.SectionHead("SectionHead2", @BLResources.AdditionalTabTitle)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BirthDate, FieldFlex.twins)
+            @Html.TemplateField(m => m.BirthDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
             @Html.TemplateField(m => m.Website, FieldFlex.twins)
         </div>
     </div>
