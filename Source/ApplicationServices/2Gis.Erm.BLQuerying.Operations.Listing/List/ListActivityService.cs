@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -45,50 +46,50 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 //			FirmId = x.FirmId,
 
 	        var activities = 
-				_finder.Find<AppointmentBase>(x => true).Select(x => new ListActivityInstanceDto
+				_finder.FindMany(Specs.Find.Any<Appointment>()).Select(x => new ListActivityInstanceDto
 					{
 						ActivityTypeEnum = ActivityType.Appointment,
 						Id = x.Id,
 						OwnerCode = x.OwnerCode,
-						Header = x.Subject, 
+						Header = x.Header, 
 						ScheduledStart = x.ScheduledStart, 
 						ScheduledEnd = x.ScheduledEnd,
 						ActualEnd = x.ActualEnd,
-						PriorityEnum = (ActivityPriority) x.Priority,
-						StatusEnum = (ActivityStatus) x.Status,
+						PriorityEnum = x.Priority,
+						StatusEnum = x.Status,
 						IsDeleted = x.IsDeleted,
 						IsActive = x.IsActive,
 						TaskType = TaskType.NotSet,
 					})
-				.Concat(_finder.Find<PhonecallBase>(x => true).Select(x => new ListActivityInstanceDto
+				.Concat(_finder.FindMany(Specs.Find.Any<Phonecall>()).Select(x => new ListActivityInstanceDto
 					{
 						ActivityTypeEnum = ActivityType.Phonecall,
 						Id = x.Id,
 						OwnerCode = x.OwnerCode,
-						Header = x.Subject,
+						Header = x.Header,
 						ScheduledStart = x.ScheduledStart,
 						ScheduledEnd = x.ScheduledEnd,
 						ActualEnd = x.ActualEnd,
-						PriorityEnum = (ActivityPriority)x.Priority,
-						StatusEnum = (ActivityStatus) x.Status,
+						PriorityEnum = x.Priority,
+						StatusEnum = x.Status,
 						IsDeleted = x.IsDeleted,
 						IsActive = x.IsActive,
 						TaskType = TaskType.NotSet,
 					}))
-				.Concat(_finder.Find<TaskBase>(x => true).Select(x => new ListActivityInstanceDto
+				.Concat(_finder.FindMany(Specs.Find.Any<Task>()).Select(x => new ListActivityInstanceDto
 					{
 						ActivityTypeEnum = ActivityType.Task,
 						Id = x.Id,
 						OwnerCode = x.OwnerCode,
-						Header = x.Subject,
+						Header = x.Header,
 						ScheduledStart = x.ScheduledStart,
 						ScheduledEnd = x.ScheduledEnd,
 						ActualEnd = x.ActualEnd,
-						PriorityEnum = (ActivityPriority)x.Priority,
-						StatusEnum = (ActivityStatus) x.Status,
+						PriorityEnum = x.Priority,
+						StatusEnum = x.Status,
 						IsDeleted = x.IsDeleted,
 						IsActive = x.IsActive,
-						TaskType = (TaskType) x.TaskType,
+						TaskType = x.TaskType,
 					}))
 				;
 
