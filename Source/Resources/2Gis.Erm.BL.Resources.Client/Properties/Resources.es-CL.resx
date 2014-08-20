@@ -930,4 +930,25 @@
   <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
     <value>Acción no está disponible ya que no todos elementos son válidos</value>
   </data>
+  <data name="PriceIsAlreadyPublished" xml:space="preserve">
+    <value>La lista de precios ya está publicada</value>
+  </data>
+  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
+    <value>No se puede cancelar la publicación de la lista de precios no publicada</value>
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
+    <value>Publicar la plantilla de material publicitario</value>
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
+    <value>¿Desea realmente publicar la plantilla de material publicitario?</value>
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
+    <value>Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите "нет" и сохраните карточку.</value>
+  </data>
+  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
+    <value>Deshacer la publicación de la plantilla de material publicitario</value>
+  </data>
+  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
+    <value>¿Desea realmente deshacer la publicación de la plantilla de material publicitario?</value>
+  </data>
 </root>

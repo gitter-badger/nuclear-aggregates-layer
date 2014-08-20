@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
     public sealed class OrganizationUnitViewModel : EditableIdEntityViewModelBase<OrganizationUnit>
     {
         [RequiredLocalized]
-        [StringLengthLocalized(256)]
+        [StringLengthLocalized(100)]
         public string Name { get; set; }
 
         [RequiredLocalized]

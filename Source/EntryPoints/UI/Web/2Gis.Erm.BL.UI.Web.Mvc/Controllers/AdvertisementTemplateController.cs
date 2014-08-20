@@ -49,60 +49,28 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new JsonNetResult(result);
         }
 
-        [HttpGet]
-        public ActionResult Publish()
+        [HttpPost]
+        public ActionResult Publish(long advertisementTemplateId)
         {
-            return View(new PublishAdvertisementTemplateModel());
+            var publishAdvertisementTemplateRequest = new PublishAdvertisementTemplateRequest
+                {
+                    AdvertisementTemplateId = advertisementTemplateId
+                };
+            _publicService.Handle(publishAdvertisementTemplateRequest);
+
+            return new EmptyResult();
         }
 
         [HttpPost]
-        public ActionResult Publish(PublishAdvertisementTemplateModel model)
+        public ActionResult Unpublish(long advertisementTemplateId)
         {
-            try
-            {
-                var publishAdvertisementTemplateRequest = new PublishAdvertisementTemplateRequest
-                    {
-                        AdvertisementTemplateId = model.Id
-                    };
-                _publicService.Handle(publishAdvertisementTemplateRequest);
+            var unpublishAdvertisementTemplateRequest = new UnpublishAdvertisementTemplateRequest
+                {
+                    AdvertisementTemplateId = advertisementTemplateId
+                };
+            _publicService.Handle(unpublishAdvertisementTemplateRequest);
 
-                model.Message = BLResources.OK;
-            }
-            catch (Exception ex)
-            {
-                model.SetCriticalError(ex.Message);
-                return View(model);
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public ActionResult Unpublish()
-        {
-            return View(new UnpublishAdvertisementTemplateModel());
-        }
-
-        [HttpPost]
-        public ActionResult Unpublish(UnpublishAdvertisementTemplateModel model)
-        {
-            try
-            {
-                var unpublishAdvertisementTemplateRequest = new UnpublishAdvertisementTemplateRequest
-                    {
-                        AdvertisementTemplateId = model.Id
-                    };
-                _publicService.Handle(unpublishAdvertisementTemplateRequest);
-
-                model.Message = BLResources.OK;
-            }
-            catch (Exception ex)
-            {
-                model.SetCriticalError(ex.Message);
-                return View(model);
-            }
-
-            return View(model);
+            return new EmptyResult();
         }
     }
 }
