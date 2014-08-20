@@ -67,7 +67,7 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
-using DoubleGis.Erm.Qds.API.Core.Settings;
+using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 using DoubleGis.Erm.TaskService.Config;
 

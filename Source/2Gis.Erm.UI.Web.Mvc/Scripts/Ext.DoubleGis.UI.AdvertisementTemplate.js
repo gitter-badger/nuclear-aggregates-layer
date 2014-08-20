@@ -67,8 +67,6 @@
                 },
                 failure: function (response, opts) {
                     this.AddNotification(response.responseText, 'CriticalError');
-                    this.Items.Toolbar.disable();
-                    this.Items.TabPanel.disable();
                     mask.hide();
                 }
             });
