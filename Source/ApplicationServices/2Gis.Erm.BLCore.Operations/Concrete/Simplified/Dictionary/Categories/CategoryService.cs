@@ -142,15 +142,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             _categoryOrganizationUnitRepository.Save();
         }
 
-        public bool IsCategoryLinkedWithOrgUnit(long categoryId, long organizationUnitId)
-        {
-            return
-                _finder.Find<CategoryOrganizationUnit>(
-                                                       x =>
-                                                       x.CategoryId == categoryId && x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted)
-                       .Any();
-        }
-
         public string GetCategoryName(long categoryId)
         {
             return _finder.Find(Specs.Find.ById<Category>(categoryId)).Select(x => x.Name).Single();

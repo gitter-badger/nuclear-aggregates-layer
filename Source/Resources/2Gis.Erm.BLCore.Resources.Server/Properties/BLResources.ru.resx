@@ -1037,9 +1037,6 @@
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Биллинг</value>
   </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>Нельзя отменить опубликование не опубликованного прайс-листа</value>
-  </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>Внимание! Контакт адреса фирмы и/или адрес фирмы и/или фирма скрыты до выяснения</value>
   </data>
@@ -3486,9 +3483,6 @@
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>Заказ корректен, однако в ходе проверки были обнаружены следующие предупреждения:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>Прайс-лист уже опубликован</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>По заказу ещё не было выпуска! Для изменения условий продажи данный заказ необходимо вернуть в работу!</value>
   </data>
@@ -4676,21 +4670,6 @@
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>Нельзя добавить и удалить элементы опубликованного шаблона</value>
   </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>Вы действительно хотите опубликовать шаблон ракламного материала?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Опубликовать шаблон рекламного материала</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>Вы действительно хотите отменить публикацию шаблона рекламного материала?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Отменить публикацию шаблона рекламного материала</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>Нельзя отменить опубликование не опубликованного шаблона </value>
-  </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Элемент справочника не содержит названия ни на базовом, ни на резервном языке</value>
   </data>
@@ -5151,7 +5130,7 @@
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
+    <value>Новая модель продаж пока не поддерживается в городе "{0}" и/или в рубрике "{1}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>

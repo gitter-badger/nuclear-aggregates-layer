@@ -89,7 +89,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                     {
                         PositionBindingObjectType.CategorySingle,
                         PositionBindingObjectType.AddressCategorySingle,
-                        PositionBindingObjectType.AddressFirstLevelCategorySingle
+                        PositionBindingObjectType.AddressFirstLevelCategorySingle,
+
+                        PositionBindingObjectType.CategoryMultipleAsterix,
+                        PositionBindingObjectType.AddressCategoryMultiple,
+                        PositionBindingObjectType.CategoryMultiple,
+                        PositionBindingObjectType.AddressFirstLevelCategoryMultiple,
                     };
 
                 var positionBindingObjectType = _positionReadModel.GetPositionBindingObjectType(positionId);

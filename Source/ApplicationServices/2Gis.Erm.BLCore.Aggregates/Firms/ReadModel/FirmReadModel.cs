@@ -138,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId)
         {
-            return _unsecureFinder.FindMany(FirmSpecs.Addresses.Find.ActiveAddresses(firmId)).ToArray();
+            return _unsecureFinder.FindMany(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId)).ToArray();
         }
 
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)
