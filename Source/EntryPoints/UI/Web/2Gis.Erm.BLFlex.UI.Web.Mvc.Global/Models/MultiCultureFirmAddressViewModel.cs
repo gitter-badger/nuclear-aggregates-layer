@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
     {
         public LookupField Firm { get; set; }
 
+        [StringLengthLocalized(4000)]
         public string Address { get; set; }
 
         public string PaymentMethods { get; set; }

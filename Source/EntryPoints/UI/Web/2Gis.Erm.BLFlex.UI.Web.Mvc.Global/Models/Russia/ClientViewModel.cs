@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [DisplayNameLocalized("NameOfClient")]
         public string Name { get; set; }
 
-        [StringLengthLocalized(512)]
+        [StringLengthLocalized(250)]
         public string MainAddress { get; set; }
 
         [StringLengthLocalized(512)]

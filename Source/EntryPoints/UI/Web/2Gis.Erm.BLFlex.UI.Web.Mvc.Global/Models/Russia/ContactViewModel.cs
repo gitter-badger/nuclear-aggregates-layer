@@ -75,10 +75,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [DisplayNameLocalized("ContactDepartmentName")]
         public string Department { get; set; }
 
-        [StringLengthLocalized(512)] // Временное ограничение поля до 450 символов (в БД 512). Убрать после отказа от MSCRM
+        [StringLengthLocalized(450)]
         public string WorkAddress { get; set; }
 
-        [StringLengthLocalized(512)] // Временное ограничение поля до 450 символов (в БД 512). Убрать после отказа от MSCRM
+        [StringLengthLocalized(450)]
         public string HomeAddress { get; set; }
 
         [StringLengthLocalized(512)]

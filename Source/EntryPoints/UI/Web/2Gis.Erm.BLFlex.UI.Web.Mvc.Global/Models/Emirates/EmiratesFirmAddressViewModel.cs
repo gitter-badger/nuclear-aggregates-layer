@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
     {
         public LookupField Firm { get; set; }
 
+        [StringLengthLocalized(4000)]
         public string Address { get; set; }
 
         public string PoBox { get; set; }
