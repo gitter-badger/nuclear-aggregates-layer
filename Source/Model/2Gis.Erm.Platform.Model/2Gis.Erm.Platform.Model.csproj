@@ -799,7 +799,7 @@
     <Compile Include="DI\PlatformZone.cs" />
     <Compile Include="Entities\Activity\Activity.cs" />
     <Compile Include="Entities\Activity\ActivityPurpose.cs" />
-    <Compile Include="Entities\Activity\EntityToEntityReference.cs" />
+    <Compile Include="Entities\Activity\EntityReference.cs" />
     <Compile Include="Entities\Activity\EntityToEntityReferenceExtensions.cs" />
     <Compile Include="Entities\DTOs\Partial\DenialReasonDomainEntityDto.partial.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
@@ -816,6 +816,7 @@
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\Erm\AcceptanceReportsJournalRecord.cs" />
     <Compile Include="Entities\Erm\Bank.cs" />
+    <Compile Include="Entities\Erm\ReferenceType.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElementRelation.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElement.cs" />
@@ -862,6 +863,7 @@
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="IBoundedContext.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Activity\AssignRegardingObjectIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementFileChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementValidationStatusChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Bargain\BindToOrderIdentity.cs" />

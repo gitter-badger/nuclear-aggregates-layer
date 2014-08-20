@@ -113,11 +113,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Building, typeof(Building) },
 
                 // Activity subsystem
-                { EntityName.EntityToEntityReference, typeof(EntityToEntityReference) },
                 { EntityName.Activity, typeof(Activity.Activity) },
                 { EntityName.Appointment, typeof(Appointment) },
                 { EntityName.Phonecall, typeof(Phonecall) },
                 { EntityName.Task, typeof(Task) },
+                { EntityName.RegardingObjectReference, typeof(RegardingObject<>) },
 
                 // Security
                 { EntityName.User, typeof(User) },
@@ -211,6 +211,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool TryGetEntityName(this Type type, out EntityName entityName)
         {
             entityName = EntityName.None;
+
+	        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(RegardingObject<>))
+	        {
+		        entityName = EntityName.RegardingObjectReference;
+		        return true;
+	        }
+
             return !type.IsPersistenceOnly() && ReverseTypeMap.TryGetValue(type, out entityName);
         }
 

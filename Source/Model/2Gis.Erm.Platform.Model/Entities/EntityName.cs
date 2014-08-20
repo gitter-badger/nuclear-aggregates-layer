@@ -163,11 +163,11 @@
         // Ambivalent
         FileWithContent = 400,
 
-		EntityToEntityReference = 499,
 		Activity = 500,
 		Appointment = 501,
         Phonecall = 502,
         Task = 503,
+		RegardingObjectReference = 510,
 
         // заявка на создание или продление заказа от Личного кабинета
         OrderProcessingRequest = 550,

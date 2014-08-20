@@ -64,34 +64,32 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
 	        if (typeof(TEntity).AsEntityName().HasMapping())
 	        {
-				var id = findSpecification.ExtractEntityId();
-		        return _compositeEntityDecorator.Find<TEntity>(id).SingleOrDefault();
-	        }
+				return _compositeEntityDecorator.Find(findSpecification.Predicate).SingleOrDefault();
+			}
 
             return Find(findSpecification).SingleOrDefault();
         }
 
-        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+        public IQueryable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
             {
-                return _dynamicStorageFinderWrapper.FindMany(_finder.Find, findSpecification);
+                return _dynamicStorageFinderWrapper.FindMany(_finder.Find, findSpecification).AsQueryable();
             }
 
             if (typeof(TEntity).AsEntityName().IsDynamic())
             {
                 var ids = findSpecification.ExtractEntityIds();
-                return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).ToArray();
+                return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).ToArray().AsQueryable();
             }
 
 			if (typeof(TEntity).AsEntityName().HasMapping())
 			{
-				var ids = findSpecification.ExtractEntityIds();
-				return _compositeEntityDecorator.Find<TEntity>(ids).ToArray();
+				return _compositeEntityDecorator.Find(findSpecification.Predicate);
 			}
 
-            return Find(findSpecification).ToArray();
+            return Find(findSpecification).ToArray().AsQueryable();
         }
     }
 }

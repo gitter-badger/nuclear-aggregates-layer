@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 		public DateTime? ActualEnd { get; set; }
 		public ActivityPriority Priority { get; set; }
 		public ActivityStatus Status { get; set; }
-		public IEnumerable<EntityToEntityReference> RegardingObjects { get; set; }
+		//public IEnumerable<EntityReference<Task>> RegardingObjects { get; set; }
 
 		public TaskType TaskType { get; set; }
     }

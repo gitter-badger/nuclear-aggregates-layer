@@ -54,6 +54,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.Appointment,
                 EntityName.Phonecall,
                 EntityName.Task,
+				EntityName.RegardingObjectReference
             };
 
         public static readonly Type[] Async2MsCrmReplicatedEntities =

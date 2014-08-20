@@ -27,15 +27,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 		public DateTime? ActualEnd { get; set; }
 		public ActivityPriority Priority { get; set; }
 		public ActivityStatus Status { get; set; }
-		public IEnumerable<EntityToEntityReference> RegardingObjects { get; set; }
+		//public IEnumerable<EntityReference<Appointment>> RegardingObjects { get; set; }
 
 		public bool IsAllDayEvent { get; set; }
 		public string Location { get; set; }
 	    public ActivityPurpose Purpose { get; set; }
 
-		public EntityToEntityReference Organizer { get; set; }
-		public IReadOnlyCollection<EntityToEntityReference> RequiredAttendees { get; set; }
-		public IReadOnlyCollection<EntityToEntityReference> OptionalAttendees { get; set; }
-		public EntityToEntityReference AfterSaleService { get; set; }
+		//public EntityReference<Appointment> Organizer { get; set; }
+		//public IReadOnlyCollection<EntityReference<Appointment>> RequiredAttendees { get; set; }
+		//public IReadOnlyCollection<EntityReference<Appointment>> OptionalAttendees { get; set; }
+		//public EntityReference<Appointment> AfterSaleService { get; set; }
 	}
 }

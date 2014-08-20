@@ -1,9 +1,11 @@
-using System.Collections.Generic;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
 	public interface ICompositeEntityDecorator
 	{
-		IEnumerable<TEntity> Find<TEntity>(params long[] ids);
+		IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> predicate);
 	}
 }

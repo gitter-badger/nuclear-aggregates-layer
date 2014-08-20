@@ -1,11 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 using AutoMapper.QueryableExtensions;
 
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -18,41 +19,48 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			_finder = finder;
 		}
 
-		public IEnumerable<TEntity> Find<TEntity>(params long[] ids)
+		public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> predicate)
 		{
 			// TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
+
 			if (typeof(TEntity) == typeof(Appointment))
-				return FindAppointment(ids).Cast<TEntity>();
+				return Find<AppointmentBase, TEntity>(predicate);
 			if (typeof(TEntity) == typeof(Phonecall))
-				return FindPhonecall(ids).Cast<TEntity>();
+				return Find<PhonecallBase, TEntity>(predicate);
 			if (typeof(TEntity) == typeof(Task))
-				return FindTask(ids).Cast<TEntity>();
+				return Find<TaskBase, TEntity>(predicate);
+
+			if (typeof(TEntity) == typeof(RegardingObject<Appointment>))
+				return Find<AppointmentReference, TEntity>(predicate, x => x.Reference == (int)ReferenceType.RegardingObject);
+			if (typeof(TEntity) == typeof(RegardingObject<Phonecall>))
+				return Find<PhonecallReference, TEntity>(predicate, x => x.Reference == (int)ReferenceType.RegardingObject);
+			if (typeof(TEntity) == typeof(RegardingObject<Task>))
+				return Find<TaskReference, TEntity>(predicate, x => x.Reference == (int)ReferenceType.RegardingObject);
 
 			throw new NotSupportedException("The requested mapping is not supported");
 		}
 
-		private IEnumerable<Appointment> FindAppointment(params long[] ids)
+		private IQueryable<TEntity> Find<TPersistentEntity,TEntity>(
+			Expression<Func<TEntity, bool>> postPredicate = null,
+			Expression<Func<TPersistentEntity, bool>> prePredicate = null)
+			where TPersistentEntity : class, IEntity
 		{
-			CheckRegistration<AppointmentBase, Appointment>();
-			return _finder.FindAll<AppointmentBase>()
-			              .Where(x => ids.Contains(x.Id))
-			              .Project().To<Appointment>().AsEnumerable();
-		}
+			CheckRegistration<TPersistentEntity, TEntity>();
+			
+			var persistentEntities = _finder.FindAll<TPersistentEntity>();
+			if (prePredicate != null)
+			{
+				persistentEntities = persistentEntities.Where(prePredicate);
+			}
 
-		private IEnumerable<Phonecall> FindPhonecall(params long[] ids)
-		{
-			CheckRegistration<PhonecallBase, Phonecall>();
-			return _finder.FindAll<PhonecallBase>()
-			              .Where(x => ids.Contains(x.Id))
-			              .Project().To<Phonecall>().AsEnumerable();
-		}
+			var entities = persistentEntities.Project().To<TEntity>();
 
-		private IEnumerable<Task> FindTask(params long[] ids)
-		{
-			CheckRegistration<TaskBase, Task>();
-			return _finder.FindAll<TaskBase>()
-			              .Where(x => ids.Contains(x.Id))
-			              .Project().To<Task>().AsEnumerable();
+			if (postPredicate != null)
+			{
+				entities = entities.Where(postPredicate);
+			}
+			
+			return entities;
 		}
 
 		private static void CheckRegistration<TSource,TTarget>()

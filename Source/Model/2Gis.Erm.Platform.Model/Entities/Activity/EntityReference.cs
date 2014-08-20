@@ -2,10 +2,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 {
-	public class EntityToEntityReference : IEntity
+	public abstract class EntityReference<TEntity>
+		where TEntity : IEntity
 	{
-		public ReferenceType ReferenceType { get; set; }
-		public EntityName SourceEntityName { get; set; }
 		public long SourceEntityId { get; set; }
 		public EntityName TargetEntityName { get; set; }
 		public long TargetEntityId { get; set; }
@@ -24,14 +23,12 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 			{
 				return false;
 			}
-			return Equals((EntityToEntityReference)obj);
+			return Equals((EntityReference<TEntity>)obj);
 		}
 
-		protected bool Equals(EntityToEntityReference other)
+		protected bool Equals(EntityReference<TEntity> other)
 		{
-			return ReferenceType == other.ReferenceType 
-				&& SourceEntityName == other.SourceEntityName 
-				&& SourceEntityId == other.SourceEntityId 
+			return SourceEntityId == other.SourceEntityId 
 				&& TargetEntityName == other.TargetEntityName 
 				&& TargetEntityId == other.TargetEntityId;
 		}
@@ -40,9 +37,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 		{
 			unchecked
 			{
-				var hashCode = (int) ReferenceType;
-				hashCode = (hashCode * 397) ^ (int)SourceEntityName;
-				hashCode = (hashCode * 397) ^ SourceEntityId.GetHashCode();
+				var hashCode = SourceEntityId.GetHashCode();
 				hashCode = (hashCode * 397) ^ (int)TargetEntityName;
 				hashCode = (hashCode * 397) ^ TargetEntityId.GetHashCode();
 				return hashCode;
@@ -50,14 +45,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 		}
 	}
 
-	public enum ReferenceType
+	public sealed class RegardingObject<TEntity> : EntityReference<TEntity>, IEntity 
+		where TEntity : class, IEntity
 	{
-		Unspecified = 0,
-		RegardingObject = 1,
-		Organizer = 2,
-		RequiredAttendees = 3,
-		OptionalAttendees = 4,
-		From = 5,
-		To = 6
 	}
 }

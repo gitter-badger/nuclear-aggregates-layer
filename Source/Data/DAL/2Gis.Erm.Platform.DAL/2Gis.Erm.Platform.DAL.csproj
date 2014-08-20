@@ -71,7 +71,6 @@
     <Compile Include="IPersistenceChangesRegistryProvider.cs" />
     <Compile Include="IPersistenceService.cs" />
     <Compile Include="IPersistenceServiceRuntimeFactory.cs" />
-    <Compile Include="IRelationalRepository.cs" />
     <Compile Include="Model\Aggregates\IAggregateRepositoryFactory.cs" />
     <Compile Include="Model\Aggregates\IAggregateRepositoryForHostFactory.cs" />
     <Compile Include="Model\Aggregates\IAggregatesLayerRuntimeFactory.cs" />
@@ -113,7 +112,6 @@
     <Compile Include="IFindSpecification.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkScope.cs" />
-    <Compile Include="RelationRepository.cs" />
     <Compile Include="SaveOptions.cs" />
     <Compile Include="SecureFinder.cs" />
     <Compile Include="SecurityHelper.cs" />

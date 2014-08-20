@@ -27,13 +27,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 		public DateTime? ActualEnd { get; set; }
 		public ActivityPriority Priority { get; set; }
 		public ActivityStatus Status { get; set; }
-		public IEnumerable<EntityToEntityReference> RegardingObjects { get; set; }
+		//public IEnumerable<EntityReference<Phonecall>> RegardingObjects { get; set; }
 
 		public ActivityPurpose Purpose { get; set; }
 		public bool IsIncomingCall { get; set; }
 		public string Phonenumber { get; set; }
-		public EntityToEntityReference From { get; set; }
-		public EntityToEntityReference To { get; set; }
-		public EntityToEntityReference AfterSaleService { get; set; }
+		//public EntityReference<Phonecall> From { get; set; }
+		//public EntityReference<Phonecall> To { get; set; }
+		//public EntityReference<Phonecall> AfterSaleService { get; set; }
 	}
 }
