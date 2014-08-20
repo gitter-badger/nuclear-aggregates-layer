@@ -98,25 +98,13 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
 						
-						// TODO {s.pomadin, 11.08.2014}: рассмотреть вариант "правильной" регистрации без "засвечивания" persistent объектов, именования и двойной регистрации
-						.RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>("Appointment", Lifetime.PerResolve)
-						.RegisterType<IRepository<EntityToEntityReference>, EFMappingRepository<EntityToEntityReference, AppointmentReference>>("Appointment", Lifetime.PerResolve)
-						.RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>("Phonecall", Lifetime.PerResolve)
-						.RegisterType<IRepository<EntityToEntityReference>, EFMappingRepository<EntityToEntityReference, PhonecallReference>>("Phonecall", Lifetime.PerResolve)
-						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>("Task", Lifetime.PerResolve)
-						.RegisterType<IRepository<EntityToEntityReference>, EFMappingRepository<EntityToEntityReference, TaskReference>>("Task", Lifetime.PerResolve)
-						.RegisterType<IRepository<Appointment>, RelationRepository<Appointment>>(Lifetime.PerResolve,
-							new InjectionConstructor(new ResolvedParameter<IRepository<Appointment>>("Appointment"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Appointment")))
-						.RegisterType<IRelationalRepository<Appointment>, RelationRepository<Appointment>>(Lifetime.PerResolve,
-							new InjectionConstructor(new ResolvedParameter<IRepository<Appointment>>("Appointment"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Appointment")))
-						.RegisterType<IRepository<Phonecall>, RelationRepository<Phonecall>>(Lifetime.PerResolve,
-							new InjectionConstructor(new ResolvedParameter<IRepository<Phonecall>>("Phonecall"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Phonecall")))
-						.RegisterType<IRelationalRepository<Phonecall>, RelationRepository<Phonecall>>(Lifetime.PerResolve,
-							new InjectionConstructor(new ResolvedParameter<IRepository<Phonecall>>("Phonecall"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Phonecall")))
-						.RegisterType<IRepository<Task>, RelationRepository<Task>>(Lifetime.PerResolve,
-							new InjectionConstructor(new ResolvedParameter<IRepository<Task>>("Task"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Task")))
-						.RegisterType<IRelationalRepository<Task>, RelationRepository<Task>>(Lifetime.PerResolve,
-							new InjectionConstructor(new ResolvedParameter<IRepository<Task>>("Task"), new ResolvedParameter<IRepository<EntityToEntityReference>>("Task")))
+						// TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
+						.RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<RegardingObject<Appointment>>, EFMappingRepository<RegardingObject<Appointment>, AppointmentReference>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<RegardingObject<Phonecall>>, EFMappingRepository<RegardingObject<Phonecall>, PhonecallReference>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<RegardingObject<Task>>, EFMappingRepository<RegardingObject<Task>, TaskReference>>(Lifetime.PerResolve)
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)

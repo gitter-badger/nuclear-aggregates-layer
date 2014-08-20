@@ -1,13 +1,20 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Activity;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 {
     public interface IActivityReadModel : ISimplifiedModelConsumerReadModel
     {
-        Task GetTask(long taskId);
-        Phonecall GetPhonecall(long phonecallId);
-        Appointment GetAppointment(long appointmentId);
+		Appointment GetAppointment(long appointmentId);
+			
+		Phonecall GetPhonecall(long phonecallId);
+
+		Task GetTask(long taskId);
+
+		IEnumerable<RegardingObject<TEntity>> GetRegardingObjects<TEntity>(long entityId) where TEntity : class, IEntity;
 
 		bool CheckIfRelatedActivitiesExists(long clientId);
     }
