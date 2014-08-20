@@ -1,3 +1,5 @@
+using System;
+
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates
@@ -6,6 +8,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
     /// Маркерный интерфейс для агрегирующих (типизированных, специфических) репозиториев частей контракта операций агрегата
     /// Т.е. расширять этот интерфейс должны интерфейсы определяющие часть контракта операций агрегата для какой-то конкретной сущности - составной части агрегата
     /// </summary>
+    [Obsolete("Use non-generic interface marked with IAggregateSpecificOperation")]
     public interface IAggregatePartRepository<TAggregateRoot> : IAggregateRepository
         where TAggregateRoot : class, IEntity, IEntityKey
     {
