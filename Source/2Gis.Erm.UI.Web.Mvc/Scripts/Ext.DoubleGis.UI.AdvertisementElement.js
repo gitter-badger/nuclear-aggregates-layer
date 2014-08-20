@@ -132,7 +132,7 @@
 
         var performLength = function () {
             var body = this.getEd().getBody();
-            var plainText = (body.textContent || body.innerText);
+            var plainText = body.textContent || body.innerText || "";
             var messages = [];
 
             if (maxLength && maxLength > 0) {
@@ -205,7 +205,7 @@
         this.on('beforepost', function () {
             // set plaintext
             var body = this.RTE.getEd().getBody();
-            var plainText = (body.innerText || body.textContent);
+            var plainText = body.innerText || body.textContent || "";
 
             if (plainText) {
                 var plainTextWithTags = plainText.match(/(<([^>]+)>)/ig);

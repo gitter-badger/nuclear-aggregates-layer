@@ -89,8 +89,7 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -668,6 +667,8 @@
     <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
     <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Bargain.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementTemplate.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Price.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.LegalPerson.js" />
     <Content Include="Scripts\Ext.LocalizedResources.ar.js">
       <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
