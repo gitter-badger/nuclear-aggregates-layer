@@ -229,7 +229,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
     /* Events */
 
     notifySelectedCountChanged: function (source) {
-        var args = { selectedCount: 0, isLimitReached: false, categoryId: null };
+        var args = { selectedCount: 0, isLimitReached: false, categoryIds: [] };
         this.localData.positions.forEach(function (object) {
             object.isAdvertisementLimitReached = false;
         });
@@ -250,9 +250,15 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                     }
                 }
             });
-
-            args.categoryId = source.categoryId;
         }
+
+        // Собираем все выбранные категории, чтобы на основании их определить применяемый коэффициент.
+        // Имеет смысл только при рассчёте коэффициента по выбранным рубрикам.
+        this.localData.linkingObjects.forEach(function (object) {
+            if (object.checkbox.checked && args.categoryIds.indexOf(object.categoryId) < 0) {
+                args.categoryIds.push(object.categoryId);
+            }
+        });
 
         this.localData.linkingObjects.forEach(function (object) {
             if (object.isSelected()) {

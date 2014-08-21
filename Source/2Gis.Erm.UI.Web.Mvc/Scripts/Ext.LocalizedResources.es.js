@@ -1,4 +1,4 @@
-﻿// File updated : 28.07.2014 9:21:01
+﻿// File updated : 14.08.2014 11:16:33
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -8,6 +8,7 @@
 Ext.LocalizedResources =
 {
 	AcquireOrderExtensionFailed : 'No ha sido posible obtener los valores calculados.',
+ActionIsNotAvailableSinceThereIsAnError : 'Acción no está disponible ya que no todos elementos son válidos',
 ActionsHistory : 'Historial de cambios',
 ActionsHistoryTabGroupRenderer : 'Acción: {0}, Completado: {1} Fecha: {2}',
 ActionsHistoryTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "modificación": values.rs.length%10>0 && values.rs.length%10<5?"modificaciones":"modificaciones"]})',
@@ -30,6 +31,11 @@ AdvertisementElementTextContainsControlCharacters : 'El texto contiene caractere
 AdvertisementElementTextContainsHtmlTags : 'El texto contiene elementos potencialmente peligrosos (etiquetas HTML), el texto no se podrá guardar.',
 AdvertisementElementWasNotSaved : 'El elemento del material publicitario no se ha guardado.',
 Advertisements : 'Materiales publicitarios',
+AdvertisementTemplatePublishConfirmation : '¿Desea realmente publicar la plantilla de material publicitario?',
+AdvertisementTemplatePublishConfirmationLabel : 'Publicar la plantilla de material publicitario',
+AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Вы действительно хотите опубликовать шаблон ракламного материала?<br/>На карточке есть изменения, которые будут утеряны при публикации.<br/>Если требуется их сохранить нажмите "нет" и сохраните карточку.',
+AdvertisingElementAccept : 'Aprobar',
+AdvertisingElementValidate : 'Verificación',
 AfterPageText : 'de {0}',
 Alert : '¡Atención!',
 AllExistingBillsWillBeDeleted : 'Se eliminarán todas las facturas existentes. ¿Desea seguir?',
@@ -56,6 +62,7 @@ BoldText : 'Aplicar el formato de seminegrita al texto seleccionado.',
 BoldTitle : 'Seminegrita (Ctrl+B)',
 Cancel : 'Cancelar',
 CanNotSelectHiddenPosition : 'Se requiere reemplazar los enlaces con el objeto ocultos por los actualmente disponibles',
+CantUnpublishPriceWhenUnpublished : 'No se puede cancelar la publicación de la lista de precios no publicada',
 CardIsDirtyAlert : 'Esta acción no puede completarse debido a las modificaciones no guardadas. Guarde las modificaciones o actualice la ficha antes de continuar.',
 CardIsNewAlert : 'Esta acción no puede completarse mientras el registro no se haya guardado. Guarde el registro antes de seguir.',
 CardIsReadOnly : 'Esta ficha está abierta en modo de sólo lectura.',
@@ -232,6 +239,7 @@ Payments : 'Pagos',
 PleaseWaitWhileCheckingClientDebts : 'Por favor, espere, comprobando la presencia de deudas de los clientes seleccionados',
 PrevPageText : 'Página anterior',
 PriceForOrganizationUnitNotExists : 'De momento, en el sistema no hay ninguna lista de precios publicada para la ciudad de {0}',
+PriceIsAlreadyPublished : 'La lista de precios ya está publicada',
 PrintText : 'Imprimir',
 ProcessMessagesConfirm : '¿Desea realmente procesar los mensajes seleccionados?',
 Properties : 'Propiedades',
@@ -281,6 +289,8 @@ Tuesday : 'Martes',
 UnderlineText : 'Subrayar el texto seleccionado.',
 UnderlineTitle : 'Subrayado (Ctrl+U)',
 UnknownFileSize : 'Tamaño desconocido',
+UnpublishAdvertisementTemplateConfirmation : '¿Desea realmente deshacer la publicación de la plantilla de material publicitario?',
+UnpublishAdvertisementTemplateLabel : 'Deshacer la publicación de la plantilla de material publicitario',
 UploadFileQuestion : '¿Desea realmente cargar el archivo "{0}" en el servidor?',
 ValueCantBeEmpty : 'El valor no puede estar vacío',
 Wednesday : 'Miércoles',

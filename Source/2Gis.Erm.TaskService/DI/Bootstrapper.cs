@@ -31,10 +31,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Validators;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -52,11 +51,8 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
@@ -71,7 +67,7 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
-using DoubleGis.Erm.Qds.API.Core.Settings;
+using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 using DoubleGis.Erm.TaskService.Config;
 
@@ -89,7 +85,7 @@ namespace DoubleGis.Erm.TaskService.DI
             container.InitializeDIInfrastructure();
             
             var massProcessors = new IMassProcessor[]
-                { 
+                {
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new CheckApplicationServicesConventionsMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
@@ -203,7 +199,6 @@ namespace DoubleGis.Erm.TaskService.DI
 
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(Mapping.Erm, Lifetime.PerScope)
-                .RegisterTypeWithDependencies<ISupportedCategoriesChecker, SupportedCategoriesChecker>(Mapping.Erm, Lifetime.PerScope)
 
                 .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
 
@@ -234,7 +229,7 @@ namespace DoubleGis.Erm.TaskService.DI
             // primary
             container.RegisterTypeWithDependencies(typeof(DBOnlinePerformedOperationsReceiver<>), Lifetime.PerScope, null)
                      .RegisterTypeWithDependencies(typeof(PerformedOperationsMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null)
-                     .RegisterTypeWithDependencies(typeof(ReplicateHotClientPerformedOperationsFinalProcessor), Lifetime.PerResolve, null);
+                     .RegisterTypeWithDependencies(typeof(ReplicateHotClientPerformedOperationsFinalProcessingStrategy), Lifetime.PerResolve, null);
             
             // final
             container.RegisterTypeWithDependencies(typeof(FinalProcessingQueueReceiver<>), Lifetime.PerScope, null)
@@ -246,24 +241,23 @@ namespace DoubleGis.Erm.TaskService.DI
                 {
                     {
                         FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance,
-                        (flowType, message) => typeof(ReplicateToCrmPerformedOperationsPrimaryProcessor)
+                        (flowType, message) => typeof(ReplicateToCRMPerformedOperationsPrimaryProcessingStrategy)
                     },
                     {
                         FinalReplicate2MsCRMPerformedOperationsFlow.Instance,
-                        (flowType, message) => typeof(ReplicateToCrmPerformedOperationsFinalProcessor)
+                        (flowType, message) => typeof(ReplicateToCRMPerformedOperationsFinalProcessingStrategy)
                     },
                     {
                         FinalStorageReplicateHotClientPerformedOperationsFlow.Instance,
-                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsPrimaryProcessor)
+                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsPrimaryProcessingStrategy)
                     },
                     {
                         FinalReplicateHotClientPerformedOperationsFlow.Instance,
-                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsFinalProcessor)
+                        (flowType, message) => typeof(ReplicateHotClientPerformedOperationsFinalProcessingStrategy)
                     },
-
                     {
                         ElasticRuntimeFlow.Instance,
-                        (flowType, message) => typeof(ReplicateToElasticSearchPerformedOperationsPrimaryProcessor)
+                        (flowType, message) => typeof(ReplicateToElasticSearchPerformedOperationsPrimaryProcessingStrategy)
                     }
                 };
 
@@ -306,9 +300,6 @@ namespace DoubleGis.Erm.TaskService.DI
                             .RegisterType<IOperationResolver, OperationResolver>(Lifetime.Singleton);
         }
 
-
-
-
         private static IUnityContainer ConfigureQuartz(this IUnityContainer container)
         {
             return container
@@ -324,7 +315,7 @@ namespace DoubleGis.Erm.TaskService.DI
 
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
-        {
+            {
             return container
                 .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)

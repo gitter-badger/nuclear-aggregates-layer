@@ -72,6 +72,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -203,13 +204,17 @@
     <Compile Include="Suite\Concrete\Common\FinderEntityProvider.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
+    <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\ServiceBusReceiverTest.cs" />
     <Compile Include="Suite\Infrastructure\CompositeTestResult.cs" />
+    <Compile Include="Suite\Infrastructure\Fakes\CachingProducedQueryLogAccessor.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\Import\BrokerApiReceiver\FakeBrokerApiReceiverProxy.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\Import\BrokerApiReceiver\FakeBrokerApiReceiverClientProxyFactory.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\FakeReportsSqlConnectionWrapper.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\Import\BrokerApiReceiver\FakeBrokerApiReciever.cs" />
+    <Compile Include="Suite\Infrastructure\Fakes\IProducedQueryLogContainer.cs" />
     <Compile Include="Suite\Infrastructure\ICompositeTestResult.cs" />
     <Compile Include="Suite\Infrastructure\IntegrationTestsComparer.cs" />
     <Compile Include="Suite\Infrastructure\ITestFactory.cs" />
@@ -496,6 +501,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
       <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
       <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
+      <Project>{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}</Project>
+      <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
