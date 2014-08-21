@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
 {
     public interface IOperationsFinalProcessingEnqueueAggregateService : ISimplifiedModelConsumer
     {
-        void Push(IEnumerable<PerformedOperationFinalProcessing> finalProcessings);
+        void Push(IReadOnlyList<PerformedOperationFinalProcessing> finalProcessings);
     }
 }

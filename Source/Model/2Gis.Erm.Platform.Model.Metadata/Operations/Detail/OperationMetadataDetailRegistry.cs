@@ -199,8 +199,15 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                         {
                             Properties = new[]
                                 {
-                                    "LegalName", "OwnerCode", "LegalAddress", "Inn", "Kpp",
-                                    "RegistrationAddress", "PassportNumber", "PassportSeries", "ShortName"
+                                    "LegalName",
+                                    "OwnerCode",
+                                    "LegalAddress",
+                                    "Inn",
+                                    "Kpp",
+                                    "RegistrationAddress",
+                                    "PassportNumber",
+                                    "PassportSeries",
+                                    "ShortName"
                                 }
                         };
                 case EntityName.Limit:
@@ -208,7 +215,12 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 case EntityName.AdvertisementElement:
                     return new ActionHistoryMetadata
                         {
-                            Properties = new[] { "ModifiedBy", "Status", "Error" }
+                            Properties = new[] { "ModifiedBy" }
+                        };
+                case EntityName.AdvertisementElementStatus:
+                    return new ActionHistoryMetadata
+                        {
+                            Properties = new[] { "Status" }
                         };
                 case EntityName.Advertisement:
                     return new ActionHistoryMetadata

@@ -67,6 +67,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Advertisement, typeof(Advertisement) },
                 { EntityName.AdvertisementTemplate, typeof(AdvertisementTemplate) },
                 { EntityName.AdvertisementElement, typeof(AdvertisementElement) },
+            { EntityName.AdvertisementElementDenialReason, typeof(AdvertisementElementDenialReason) },
+            { EntityName.AdvertisementElementStatus, typeof(AdvertisementElementStatus) },
                 { EntityName.AdvertisementElementTemplate, typeof(AdvertisementElementTemplate) },
                 { EntityName.AdsTemplatesAdsElementTemplate, typeof(AdsTemplatesAdsElementTemplate) },
                 { EntityName.Bill, typeof(Bill) },

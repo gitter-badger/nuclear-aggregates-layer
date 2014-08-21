@@ -30,6 +30,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         [Obsolete("CopyOrderIdentity or CopyPriceIdentity must be used")]
         public const int CopyIdentity = 24;
+
         public const int MergeIdentity = 25;
         public const int SetAsDefaultThemeIdentity = 29;
         public const int CreateIdentity = 30;
@@ -210,5 +211,15 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int ImportFirmPromising = 19905;
         public const int ImportFirmAddresses = 19907;
+
+        // EntityName.AdvertisementElementStatus = 316
+        public const int ChangeAdvertisementElementStatus = 31601;
+        public const int ApproveAdvertisementElementIdentity = 31602;
+        public const int DenyAdvertisementElementIdentity = 31603;
+        public const int ResetAdvertisementElementToDraftIdentity = 31604;
+        public const int TransferAdvertisementElementToReadyForValidationIdentity = 31605;
+
+        // EntityName.AdvertisementElement = 187
+        public const int UpdateAdvertisementElementAndSetAsReadyForVerificationIdentity = 18701;
     }
 }

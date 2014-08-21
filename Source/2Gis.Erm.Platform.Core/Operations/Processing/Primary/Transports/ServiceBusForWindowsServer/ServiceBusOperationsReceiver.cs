@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer.Settings;
 
 using Microsoft.ServiceBus.Messaging;
@@ -30,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
             _queueClient = messagingFactory.CreateQueueClient(serviceBusMessageReceiverSettings.TransportEntityPath, ReceiveMode.PeekLock);
         }
 
-        protected override IEnumerable<ServiceBusPerformedOperationsMessage> Peek()
+        protected override IReadOnlyList<ServiceBusPerformedOperationsMessage> Peek()
         {
             try
             {

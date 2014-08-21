@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient
 {
-    public class ReplicateHotClientPerformedOperationsPrimaryProcessor :
+    public sealed class ReplicateHotClientPerformedOperationsPrimaryProcessingStrategy :
         MessageProcessingStrategyBase<FinalStorageReplicateHotClientPerformedOperationsFlow, TrackedUseCase, PrimaryProcessingResultsMessage>
     {
         private static readonly Type HotClientRequestType = typeof(HotClientRequest);

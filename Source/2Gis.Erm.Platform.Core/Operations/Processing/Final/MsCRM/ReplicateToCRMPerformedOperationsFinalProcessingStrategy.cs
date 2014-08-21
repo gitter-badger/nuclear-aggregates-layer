@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 {
-    public sealed class ReplicateToCrmPerformedOperationsFinalProcessor :
+    public sealed class ReplicateToCRMPerformedOperationsFinalProcessingStrategy :
         MessageProcessingStrategyBase<FinalReplicate2MsCRMPerformedOperationsFlow, PerformedOperationsFinalProcessingMessage, ReplicateToCRMFinalProcessingResultsMessage>
     { 
         protected override ReplicateToCRMFinalProcessingResultsMessage Process(PerformedOperationsFinalProcessingMessage message)

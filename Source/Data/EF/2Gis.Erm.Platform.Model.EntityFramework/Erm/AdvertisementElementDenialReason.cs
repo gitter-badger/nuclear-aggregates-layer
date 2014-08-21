@@ -13,24 +13,24 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class DenialReason : 
+    public sealed partial class AdvertisementElementDenialReason : 
         IEntity, 
         IEntityKey, 
         IAuditableEntity, 
-        IDeactivatableEntity, 
         IStateTrackingEntity
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ProofLink { get; set; }
-        public int Type { get; set; }
+        public long AdvertisementElementId { get; set; }
+        public long DenialReasonId { get; set; }
+        public string Comment { get; set; }
         public long CreatedBy { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
+        public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public bool IsActive { get; set; }
         public byte[] Timestamp { get; set; }
+        public long Id { get; set; }
+    
+        public AdvertisementElement AdvertisementElement { get; set; }
+        public DenialReason DenialReason { get; set; }
     
     	public override bool Equals(object obj)
         {

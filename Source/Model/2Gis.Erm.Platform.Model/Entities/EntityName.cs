@@ -65,6 +65,8 @@
         Advertisement = 186,
         AdvertisementElement = 187,
         AdvertisementElementTemplate = 185,
+        AdvertisementElementDenialReason = 315,
+        AdvertisementElementStatus = 316,
         AdsTemplatesAdsElementTemplate = 201,
         Bill = 188,
         Lock = 159,

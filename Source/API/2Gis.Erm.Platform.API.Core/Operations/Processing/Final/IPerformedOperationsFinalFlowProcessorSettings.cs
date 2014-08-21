@@ -4,6 +4,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final
 {
     public interface IPerformedOperationsFinalFlowProcessorSettings : IMessageFlowProcessorSettings
     {
-        bool IsRecoveryMode { get; }
+        int ReprocessingBatchSize { get; }
     }
 }

@@ -56,7 +56,9 @@
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\IOperationsFinalProcessingEnqueAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\IOperationsPrimaryProcessingCompleteAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\IPerformedOperationsProcessingReadModel.cs" />
-    <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\PerformedOperationsProcessingSpecs.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\OperationSpecs.PrimaryProcessings.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\OperationSpecs.FinalProcessings.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\OperationSpecs.Performed.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
