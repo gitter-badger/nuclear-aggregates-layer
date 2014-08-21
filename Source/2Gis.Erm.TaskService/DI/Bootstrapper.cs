@@ -53,6 +53,7 @@ using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
