@@ -13,13 +13,13 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
         [DataMember]
         public decimal VatRatio { get; set; }
         [DataMember]
-        public bool IsBudget { get; set; }
-        [DataMember]
         public string PlatformName { get; set; }
         [DataMember]
         public int? PricePositionAmount { get; set; }
         [DataMember]
         public int AmountSpecificationMode { get; set; }
+        [DataMember]
+        public PositionBindingObjectType LinkingObjectType { get; set; }
         [DataMember]
         public short OrderReleaseCountPlan { get; set; }
         [DataMember]
@@ -28,10 +28,10 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
         public decimal PricePositionCost { get; set; }
         [DataMember]
         public bool IsPositionComposite { get; set; }
-
         [DataMember]
-        public PricePositionRateType RateType { get; set; }
-
+        public bool IsPositionNewSalesModel { get; set; }
+        [DataMember]
+        public bool IsPositionCategoryBound { get; set; }
         [DataMember]
         public LinkingObjectsSchemaDto LinkingObjectsSchema { get; set; }
     }

@@ -1,4 +1,8 @@
-﻿@inherits WebViewPage
+﻿@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
+@using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
+@using DoubleGis.Erm.Platform.UI.Web.Mvc.Security
+
+@inherits WebViewPage
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,6 +41,7 @@
         Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
         Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
         Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
+        Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
     </script>
     
     <script src="/Scripts/DoubleGis.GlobalVariables.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
@@ -57,49 +62,63 @@
         @RenderSection("Title")
     </title>
 </head>
-<body>
-    <table width="100%" height="100%" border="0" cellspacing="0">
-        <tr>
-            <td height="50px">
-                <table class="topmnuBar" cellpadding="0" cellspacing="5">
-                    <tbody>
-                        <tr>
-                            <td valign="middle">
-                                <span class="title" id="TopBarTitle">
-                                    @RenderSection("TopBarTitle")
-                                </span>
-                            </td>
-                        </tr>
-                        @if (IsSectionDefined("TopBarMessage"))
+    <body>
+        @if (IsSectionDefined("RawContent"))
+        {
+            <div class="title" id="TopBarTitle">
+                @RenderSection("TopBarTitle")
+            </div>
+            <div id="raw-content">
+                @RenderSection("RawContent")
+            </div>
+        }
+        else
+        {
+            <table width="100%" height="100%" border="0" cellspacing="0">
+                <tr>
+                    <td height="50px">
+                        <table class="topmnuBar" cellpadding="0" cellspacing="5">
+                            <tbody>
+                                <tr>
+                                    <td valign="middle">
+                                        <span class="title" id="TopBarTitle">
+                                            @RenderSection("TopBarTitle")
+                                        </span>
+                                    </td>
+                                </tr>
+                                @if (IsSectionDefined("TopBarMessage"))
+                                {
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="regular" id="TopBarMessage">
+                                                @RenderSection("TopBarMessage")
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="PageContentCell">
+                        @RenderSection("PageContent")
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right" width="100%" class="ms-crm-Dialog-Footer">
+                        @if (IsSectionDefined("PageButtons"))
                         {
-                            <tr>
-                                <td valign="top">
-                                    <span class="regular" id="TopBarMessage">
-                                        @RenderSection("TopBarMessage")
-                                    </span>
-                                </td>
-                            </tr>
+                            @RenderSection("PageButtons")
                         }
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td id="PageContentCell">
-                @RenderSection("PageContent")
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" align="right" width="100%" class="ms-crm-Dialog-Footer">
-                @if (IsSectionDefined("PageButtons")) { 
-                    @RenderSection("PageButtons")
-                }
-                else { 
-                    <input class="CrmButton" type="button" id="OK" value="@BLResources.OK" />
-                    <input class="CrmButton" type="button" id="Cancel" value="@BLResources.Cancel" />
-                }
-            </td>
-        </tr>
-    </table>
-</body>
+                        else
+                        {
+                            <input class="CrmButton" type="button" id="OK" value="@BLResources.OK" />
+                            <input class="CrmButton" type="button" id="Cancel" value="@BLResources.Cancel" />
+                        }
+                    </td>
+                </tr>
+            </table>
+        }
+    </body>
 </html>

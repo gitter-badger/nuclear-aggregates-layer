@@ -406,7 +406,7 @@
     <value>День отчета</value>
   </data>
   <data name="BillDate" xml:space="preserve">
-    <value>Дата счета (От)</value>
+    <value>Дата (От)</value>
   </data>
   <data name="OrderNumber" xml:space="preserve">
     <value>Номер заказа</value>
@@ -943,7 +943,7 @@
     <value>По оплате</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Номер счета</value>
+    <value>Номер</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Заказ</value>
@@ -1308,9 +1308,6 @@
   <data name="IsAdvertisingAgency" xml:space="preserve">
     <value>Является рекламным агентством</value>
   </data>
-  <data name="AdvertisementElementErrorDescription" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
   <data name="RepresentativeName" xml:space="preserve">
     <value>Представитель</value>
   </data>
@@ -1396,12 +1393,18 @@
     <value>Скрытые причины отклонения РМ</value>
   </data>
   <data name="BargainKind" xml:space="preserve">
-    <value>Тип договора</value>
+    <value>Форма договора</value>
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>Новая модель продаж</value>
   </data>
   <data name="BargainTypeVAT" xml:space="preserve">
     <value>НДС</value>
+  </data>
+  <data name="ControlSaveAndVerify" xml:space="preserve">
+    <value>Сохранить и опубликовать</value>
+  </data>
+  <data name="ControlResetToDraft" xml:space="preserve">
+    <value>Редактировать</value>
   </data>
 </root>

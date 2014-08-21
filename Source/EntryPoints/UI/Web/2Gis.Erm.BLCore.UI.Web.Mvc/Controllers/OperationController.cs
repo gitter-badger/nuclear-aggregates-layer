@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -22,19 +23,19 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
     {
         private readonly IOperationService _operationService;
 
-        public OperationController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IOperationService operationService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                getBaseCurrencyService)
+        public OperationController(IMsCrmSettings msCrmSettings,
+                                   IUserContext userContext,
+                                   ICommonLog logger,
+                                   IOperationService operationService,
+                                   IAPIOperationsServiceSettings operationsServiceSettings,
+                                   IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                   IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _operationService = operationService;
         }
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public void CreateOperationWithErrorLog(Guid operationId, String log, String contentType, String logFileName)
+        public void CreateOperationWithErrorLog(Guid operationId, string log, string contentType, string logFileName)
         {
             var operation = new Operation
                 {

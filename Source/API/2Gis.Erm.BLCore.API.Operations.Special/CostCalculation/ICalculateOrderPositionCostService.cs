@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
             long? sourceProjecId,
             long destProjectId,
             long? firmId,
-            long? categoryId,
+            long[] categoryId,
             IList<CalcPositionWithDiscountInfo> positionInfos);
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
             DateTime beginDistributionDate,
             long? sourceProjecttId,
             long firmId,
-            long? categoryId,
+            long[] categoryId,
             IList<CalcPositionWithDiscountInfo> positionInfos);
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
             long? sourceOrganizationUnitId,
             long destOrganizationUnitId,
             long? firmId,
-            long? categoryId,
+            long[] categoryIds,
             CalcPositionWithDiscountInfo positionInfo);
 
         CalculationResult CalculateOrderPositionsCost(
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
             long? sourceOrganizationUnitId,
             long destOrganizationUnitId,
             long? firmId,
-            long? categoryId,
+            long[] categoryIds,
             IList<CalcPositionWithDiscountInfo> positionInfos);
 
         CalculationResult CalculateOrderPositionCostWithRate(
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation
             OrderType orderType,
             int orderReleaseCount,
             long? firmId,
-            long? categoryId,
+            long[] categoryId,
             long positionId,
             long priceId,
             int amount,

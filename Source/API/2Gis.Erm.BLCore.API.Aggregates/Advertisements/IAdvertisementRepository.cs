@@ -35,7 +35,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements
         void Update(AdsTemplatesAdsElementTemplate adsTemplatesAdsElementTemplate);
 
         void AddAdvertisementsElementsFromTemplate(AdsTemplatesAdsElementTemplate adsTemplatesAdsElementTemplate);
-        void AddAdvertisementsElementsFromAdvertisement(Advertisement advertisement);
         void Publish(long advertisementTemplateId);
         void Unpublish(long advertisementTemplateId);
 

@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -138,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId)
         {
-            return _unsecureFinder.FindMany(FirmSpecs.Addresses.Find.ActiveAddresses(firmId)).ToArray();
+            return _unsecureFinder.FindMany(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId)).ToArray();
         }
 
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)

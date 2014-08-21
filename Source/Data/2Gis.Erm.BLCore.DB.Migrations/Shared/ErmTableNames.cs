@@ -217,7 +217,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         
         public static readonly SchemaQualifiedObjectName ExportFlowCardExtensionsCardCommercial = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                                 "ExportFlowCardExtensions_CardCommercial");
-
+        
         public static readonly SchemaQualifiedObjectName ExportFlowOrdersDenialReason = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                       "ExportFlowOrders_DenialReason");
 
@@ -341,5 +341,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName BirthdayCongratulations = new SchemaQualifiedObjectName(ErmSchemas.Journal,
                                                                                                                  "BirthdayCongratulations");
+
+        public static readonly SchemaQualifiedObjectName AdvertisementElementStatus = new SchemaQualifiedObjectName(ErmSchemas.Billing, "AdvertisementElementStatuses");
+        public static readonly SchemaQualifiedObjectName AdvertisementElementDenialReason = new SchemaQualifiedObjectName(ErmSchemas.Billing, "AdvertisementElementDenialReasons");
     }
 }

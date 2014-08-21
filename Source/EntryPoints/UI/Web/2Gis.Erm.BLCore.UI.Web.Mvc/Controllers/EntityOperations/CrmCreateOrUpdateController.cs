@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -49,12 +50,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                            ISecureFinder secureFinder,
                                            ISecurityServiceSharings securityServiceSharings,
                                            IAPIOperationsServiceSettings operationsServiceSettings,
+                                           IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                            IGetBaseCurrencyService getBaseCurrencyService)
             : base(
                 msCrmSettings,
                 userContext,
                 logger,
                 operationsServiceSettings,
+                specialOperationsServiceSettings,
                 getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;

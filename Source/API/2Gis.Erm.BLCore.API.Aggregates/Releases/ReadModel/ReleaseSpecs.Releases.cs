@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel
                                                                     || x.Status == (int)ReleaseStatus.InProgressWaitingExternalProcessing
                                                                     || x.Status == (int)ReleaseStatus.Success) &&
                                                                    x.OrganizationUnitId == organizationUnitId &&
-                                                                   x.PeriodStartDate > periodStartDate);
+                                                                   x.StartDate > periodStartDate);
                 }
             }
         }
