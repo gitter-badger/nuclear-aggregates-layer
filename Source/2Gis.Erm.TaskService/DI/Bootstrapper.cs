@@ -53,7 +53,7 @@ using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
