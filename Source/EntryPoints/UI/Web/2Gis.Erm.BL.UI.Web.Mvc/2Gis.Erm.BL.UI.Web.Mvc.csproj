@@ -47,7 +47,8 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RazorGenerator.Mvc">
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\RazorGenerator.Mvc.2.2.1\lib\net40\RazorGenerator.Mvc.dll</HintPath>
@@ -176,6 +177,13 @@
     <Compile Include="Models\CountryViewModel.cs" />
     <Compile Include="Models\CurrencyRateViewModel.cs" />
     <Compile Include="Models\CurrencyViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\PeriodViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FasCommentViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FileViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FormattedTextViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\ImageViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\LinkViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\PlainTextViewModel.cs" />
     <Compile Include="Models\DeactivateUserViewModel.cs" />
     <Compile Include="Models\DealCreateReasonViewModel.cs" />
     <Compile Include="Models\DealViewModel.cs" />
@@ -257,30 +265,40 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AdvertisementElement\DateViewPage.generated.cs">
+    <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DateViewPage.cshtml</DependentUpon>
+      <DependentUpon>PeriodViewModel.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AdvertisementElement\FileViewPage.generated.cs">
+    <Compile Include="Views\Shared\EditorTemplates\ImageViewModel.generated.cs">
+      <DependentUpon>ImageViewModel.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FileViewPage.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AdvertisementElement\TextViewPage.generated.cs">
+    <Compile Include="Views\Shared\EditorTemplates\FileViewModel.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TextViewPage.cshtml</DependentUpon>
+      <DependentUpon>FileViewModel.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AdvertisementTemplate\Publish.generated.cs">
+    <Compile Include="Views\Shared\EditorTemplates\LinkViewModel.generated.cs">
+      <DependentUpon>LinkViewModel.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Publish.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AdvertisementTemplate\Unpublish.generated.cs">
+    <Compile Include="Views\Shared\EditorTemplates\PlainTextViewModel.generated.cs">
+      <DependentUpon>PlainTextViewModel.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Unpublish.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\FormattedTextViewModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormattedTextViewModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\FasCommentViewModel.generated.cs">
+      <DependentUpon>FasCommentViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\Advertisement\PreviewGrym.generated.cs">
       <AutoGen>True</AutoGen>
@@ -552,11 +570,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReopenDeal.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDomainEntity\EditPrice.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EditPrice.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Limit\PrintLimits.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -731,10 +744,7 @@
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\LegalPerson\" />
-    <Folder Include="Views\OrderPosition\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -747,25 +757,33 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\AdvertisementElement\DateViewPage.cshtml">
+    <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>DateViewPage.generated.cs</LastGenOutput>
+      <LastGenOutput>PeriodViewModel.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\AdvertisementElement\FileViewPage.cshtml">
+    <None Include="Views\Shared\EditorTemplates\ImageViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>FileViewPage.generated.cs</LastGenOutput>
+      <LastGenOutput>ImageViewModel.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\AdvertisementElement\TextViewPage.cshtml">
+    <None Include="Views\Shared\EditorTemplates\FileViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>TextViewPage.generated.cs</LastGenOutput>
+      <LastGenOutput>FileViewModel.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\AdvertisementTemplate\Publish.cshtml">
+    <None Include="Views\Shared\EditorTemplates\LinkViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Publish.generated.cs</LastGenOutput>
+      <LastGenOutput>LinkViewModel.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\AdvertisementTemplate\Unpublish.cshtml">
+    <None Include="Views\Shared\EditorTemplates\PlainTextViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Unpublish.generated.cs</LastGenOutput>
+      <LastGenOutput>PlainTextViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\FormattedTextViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FormattedTextViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\FasCommentViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FasCommentViewModel.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Advertisement\PreviewGrym.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -982,10 +1000,6 @@
     <None Include="Views\Deal\ReopenDeal.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ReopenDeal.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\EditDomainEntity\EditPrice.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>EditPrice.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Limit\PrintLimits.cshtml">
       <Generator>RazorGenerator</Generator>

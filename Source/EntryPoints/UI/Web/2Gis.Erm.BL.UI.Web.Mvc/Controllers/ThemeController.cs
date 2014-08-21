@@ -4,8 +4,8 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Themes;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -19,19 +19,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly ISetAsDefaultThemeOperationService _setAsDefaultThemeOperationService;
 
-        public ThemeController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext, 
-            ICommonLog logger,
-            ISetAsDefaultThemeOperationService setAsDefaultThemeThemeOperationServiceService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-        : base(
-            msCrmSettings,
-            userContext,
-            logger,
-            operationsServiceSettings,
-            getBaseCurrencyService)
+        public ThemeController(IMsCrmSettings msCrmSettings,
+                               IUserContext userContext,
+                               ICommonLog logger,
+                               ISetAsDefaultThemeOperationService setAsDefaultThemeThemeOperationServiceService,
+                               IAPIOperationsServiceSettings operationsServiceSettings,
+                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                               IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _setAsDefaultThemeOperationService = setAsDefaultThemeThemeOperationServiceService;
         }

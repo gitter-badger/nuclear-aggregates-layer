@@ -33,7 +33,7 @@ FROM
 			AND d1.IsActive = 1
 			AND d1.IsDeleted = 0
 			AND us.RoleId = 4 --Добавил Гуторов Алексей 29.08.2012
-			AND u1.DepartmentId > 1 --Добавил Гуторов Алексей 29.08.2012
+			AND ((@City <> 115 and u1.DepartmentId > 1) OR @City = 115) --Добавил Гуторов Алексей 29.08.2012
 	) gm 
 	JOIN Security.Users mpp with(nolock) ON
 		mpp.DepartmentId = gm.DepartmentId

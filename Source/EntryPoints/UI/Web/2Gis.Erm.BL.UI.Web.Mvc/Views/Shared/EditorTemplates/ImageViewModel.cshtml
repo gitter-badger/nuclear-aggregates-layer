@@ -1,7 +1,11 @@
-﻿@using Platform.Model.Entities.Enums
-
-@model Models.AdvertisementElementViewModel
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.AdvertisementElementModels.ImageViewModel
            
+@Html.HiddenFor(m => m.FileName)
+@Html.HiddenFor(m => m.FileContentType)
+@Html.HiddenFor(m => m.FileContentLength)
+@Html.HiddenFor(m => m.TemplateFileExtensionRestriction)
+@Html.HiddenFor(m => m.TemplateImageDimensionRestriction)
+
 <div class="row-wrapper">
     @Html.TemplateField(m => m.FileId, FieldFlex.lone)
     <div id="FileName-wrapper" class="display-wrapper field-wrapper lone">
@@ -20,11 +24,8 @@
             </table>
         </div>
     </div>
-    @if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Image)
-    {
-        <div id="UploadedFile-wrapper" class="display-wrapper field-wrapper lone">
-            <div class="label-wrapper">@Html.Label(BLResources.UploadedImage):</div>
-            <div class="input-wrapper"><img alt="@BLResources.UploadedImage" id = "UploadedImage" src="/Content/images/default/blank-image.gif?@SolutionInfo.ProductVersion.Build"/></div>
-        </div>
-    }
+    <div id="UploadedFile-wrapper" class="display-wrapper field-wrapper lone">
+        <div class="label-wrapper">@Html.Label(BLResources.UploadedImage):</div>
+        <div class="input-wrapper"><img alt="@BLResources.UploadedImage" id = "UploadedImage" src="/Content/images/default/blank-image.gif"/></div>
+    </div>
 </div>

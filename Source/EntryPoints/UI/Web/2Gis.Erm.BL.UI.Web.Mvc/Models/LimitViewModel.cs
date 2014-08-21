@@ -36,6 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [RequiredLocalized, ExcludeZeroValue]
         public LimitStatus Status { get; set; }
 
+        [StringLengthLocalized(255)]
         public string Comment { get; set; }
 
         [RequiredLocalized]

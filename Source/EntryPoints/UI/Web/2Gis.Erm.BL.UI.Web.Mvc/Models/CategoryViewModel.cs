@@ -14,6 +14,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
     {
         [DisplayNameLocalized("CategoryName")]
         [RequiredLocalized]
+        [StringLengthLocalized(256)]
         public string Name { get; set; }
 
         [DisplayNameLocalized("CategoryLevel")]

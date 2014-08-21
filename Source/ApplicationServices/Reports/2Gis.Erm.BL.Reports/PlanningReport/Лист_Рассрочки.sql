@@ -1,6 +1,7 @@
 ﻿--DECLARE
---	@IssueDate date = '20140601'
---	, @City int = 6
+--	@IssueDate date = '20140701'
+--	, @City int = 115
+--	, @IsAdvertisingAgency int = 0
 
 SELECT
 	[Куратор] = u.DisplayName
@@ -24,8 +25,9 @@ JOIN (	SELECT t.AccountId
 						, [OrderPayableFact] = MAX(CASE WHEN o.ReleaseCountPlan = 0 THEN 0 ELSE o.PayablePlan/o.ReleaseCountPlan*o.ReleaseCountFact END)
 						, [IsPlaced] = MAX(CASE WHEN @IssueDate BETWEEN o.BeginDistributionDate AND o.EndDistributionDateFact THEN 1 ELSE 0 END)
 				FROM Billing.Orders o with(nolock)
+				JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId
 				LEFT JOIN Billing.Bills b with(nolock) ON b.OrderId = o.Id AND b.PaymentDatePlan < DATEADD(m, 1, @IssueDate)	AND b.IsDeleted = 0
-				WHERE o.SourceOrganizationUnitId = @City
+		     	WHERE boou.OrganizationUnitId = @City
 					AND o.WorkflowStepId NOT IN (1,2)
 					AND o.IsDeleted = 0
 					AND o.IsActive = 1
@@ -53,9 +55,10 @@ LEFT JOIN(	SELECT l.AccountId
 LEFT JOIN(	SELECT l.AccountId
 					, [Amount] = SUM(ad.Amount)
 			FROM Billing.Locks l with(nolock)
-			JOIN Billing.Orders o with(nolock) ON o.Id = l.OrderId AND o.SourceOrganizationUnitId = @City AND o.WorkflowStepId NOT IN (1,2) AND o.IsDeleted = 0 AND o.IsActive = 1 AND o.EndDistributionDateFact > @IssueDate
+			JOIN Billing.Orders o with(nolock) ON o.Id = l.OrderId  AND o.WorkflowStepId NOT IN (1,2) AND o.IsDeleted = 0 AND o.IsActive = 1 AND o.EndDistributionDateFact > @IssueDate
+			JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId
 			JOIN Billing.AccountDetails ad with(nolock) ON ad.IsDeleted = 0 AND	l.DebitAccountDetailId = ad.Id
-			WHERE l.IsDeleted = 0 AND l.PeriodStartDate <= @IssueDate
+			WHERE l.IsDeleted = 0 AND l.PeriodStartDate <= @IssueDate AND boou.OrganizationUnitId = @City
 			GROUP BY l.AccountId ) withdraw ON a.Id = withdraw.AccountId
 JOIN Billing.LegalPersons lp with(nolock) ON a.LegalPersonId = lp.Id AND lp.IsDeleted = 0
 	LEFT JOIN Billing.Clients c with(nolock) ON

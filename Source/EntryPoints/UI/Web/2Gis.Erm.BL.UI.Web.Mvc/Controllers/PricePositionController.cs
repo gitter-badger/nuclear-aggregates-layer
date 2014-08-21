@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -26,6 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                        IUserContext userContext,
                                        ICommonLog logger,
                                        IAPIOperationsServiceSettings operationsServiceSettings,
+                                       IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                        IGetBaseCurrencyService getBaseCurrencyService,
                                        IPriceReadModel priceReadModel,
                                        ICopyPricePositionOperationService copyPricePositionOperationService)
@@ -33,6 +35,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                    userContext,
                    logger,
                    operationsServiceSettings,
+                   specialOperationsServiceSettings,
                    getBaseCurrencyService)
         {
             _priceReadModel = priceReadModel;

@@ -14,6 +14,7 @@ SELECT
 
 FROM
 	Billing.Orders o with(nolock)
+	JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId
 	JOIN Billing.OrderReleaseTotals ot with(nolock) ON
 		ot.OrderId = o.Id
 	LEFT JOIN Security.Users mgrs with(nolock) ON
@@ -23,7 +24,7 @@ FROM
 	LEFT JOIN Billing.Clients c with(nolock) ON
 		c.id = f.ClientId
 WHERE
-	o.SourceOrganizationUnitId = @City
+	boou.OrganizationUnitId = @City
 	AND o.CreatedOn < @IssueDate
 	AND o.BeginDistributionDate = DATEADD(m, 1, @IssueDate)
 	AND ot.ReleaseBeginDate <= DATEADD(m, 1, @IssueDate)

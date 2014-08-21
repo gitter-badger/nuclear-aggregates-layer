@@ -1,0 +1,23 @@
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.AdvertisementElementModels.FormattedTextViewModel
+
+@Html.HiddenFor(m => m.TemplateTextLengthRestriction)
+@Html.HiddenFor(m => m.TemplateMaxSymbolsInWord)
+@Html.HiddenFor(m => m.TemplateTextLineBreaksRestriction)
+
+@Html.HiddenFor(m => m.PlainText)
+@Html.HiddenFor(m => m.FormattedText)
+<div class="row-wrapper">
+    <div class="display-wrapper field-wrapper lone" id="Text-wrapper">
+        <div class="label-wrapper">@Html.LabelFor(m => m.FormattedText)</div>
+        <div class="input-wrapper">
+                
+            @* в div будет рендиться tinyMCE editor *@
+            <div id="TxtContainer" style="width: 600px; padding-top: 5px"></div>
+
+            @Html.ValidationMessageFor(m => m.FormattedText, null, new Dictionary<string, object> { { "class", "error" } })
+
+            @* Model.Text надо именно вот так в одну строчку слепливать, иначе там в tinyMCE вылезают лишние переносы строк *@
+            @*<div id="ctnt" style="display: none;">@Model.FormattedText</div>*@
+        </div>
+    </div>
+</div>
