@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -48,10 +49,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public UploadController(IMsCrmSettings msCrmSettings,
                                 IUserContext userContext,
                                 IAPIOperationsServiceSettings operationsServiceSettings,
+                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                 ICommonLog logger,
                                 IGetBaseCurrencyService getBaseCurrencyService,
                                 IOperationServicesManager operationServicesManager)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
         }

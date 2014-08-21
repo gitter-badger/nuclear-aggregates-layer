@@ -1653,23 +1653,14 @@
   <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
     <value>Publicidad saliente de la franquicia a la sucursal</value>
   </data>
-  <data name="AdvertisementElementStatusNotValidated" xml:space="preserve">
-    <value>No verificado</value>
+  <data name="AdvertisementElementStatusValueValid" xml:space="preserve">
+    <value>Aprobado</value>
   </data>
-  <data name="AdvertisementElementStatusValid" xml:space="preserve">
-    <value>Verificado</value>
+  <data name="AdvertisementElementStatusValueInvalid" xml:space="preserve">
+    <value>Verificado con errores</value>
   </data>
-  <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
-    <value>Rechazado</value>
-  </data>
-  <data name="AdvertisementElementErrorAbsent" xml:space="preserve">
-    <value>No tiene</value>
-  </data>
-  <data name="AdvertisementElementErrorLawError" xml:space="preserve">
-    <value>Jurídica</value>
-  </data>
-  <data name="AdvertisementElementErrorRequirementsError" xml:space="preserve">
-    <value>Inconsistencias con los requisitos</value>
+  <data name="AdvertisementElementStatusValueDraft" xml:space="preserve">
+    <value>Borrador</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
     <value>Verificación de material publicitario</value>
@@ -1903,19 +1894,67 @@
     <value>Acuerdo para la persona jurídica (idioma adicional)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
   </data>
+  <data name="EntityNameDenialReason" xml:space="preserve">
+    <value>Motivos de rechazo de los Materiales Publicitarios</value>
+  </data>
+  <data name="AdvertisementElementStatusValueReadyForValidation" xml:space="preserve">
+    <value>Listo para verificación</value>
+  </data>
+  <data name="DenialReasonTypeLawDistanceSelling" xml:space="preserve">
+    <value>Ley de Publicidad: Venta a distancia</value>
+  </data>
+  <data name="DenialReasonTypeLawStimulatingActivities" xml:space="preserve">
+    <value>Ley de Publicidad: Actividades de estimulación</value>
+  </data>
+  <data name="DenialReasonTypeLawFinancialServices" xml:space="preserve">
+    <value>Ley de Publicidad: Servicios financieros</value>
+  </data>
+  <data name="DenialReasonTypeLawNewBuilding" xml:space="preserve">
+    <value>Ley de Publicidad: Construcciones</value>
+  </data>
+  <data name="DenialReasonTypeLawAlcohol" xml:space="preserve">
+    <value>Ley de Publicidad: Alcohol</value>
+  </data>
+  <data name="DenialReasonTypeLawMedicine" xml:space="preserve">
+    <value>Ley de Publicidad: Medicina, suplementos biológicamente activos (BAS), alimentación infantil</value>
+  </data>
+  <data name="DenialReasonTypeLawWeapon" xml:space="preserve">
+    <value>Ley de Publicidad: Armas</value>
+  </data>
+  <data name="DenialReasonTypeLawMisleadingAdv" xml:space="preserve">
+    <value>Ley de Publicidad: Publicidad engañosa</value>
+  </data>
+  <data name="DenialReasonTypeLawInformationProduct" xml:space="preserve">
+    <value>Ley de Publicidad: Productos informativos</value>
+  </data>
+  <data name="DenialReasonTypeLawForeignLanguage" xml:space="preserve">
+    <value>Ley de Publicidad: Palabras en el idioma extranjero</value>
+  </data>
   <data name="DenialReasonTypeInternalRules" xml:space="preserve">
     <value>Reglamentos internos</value>
   </data>
   <data name="DenialReasonTypeLaw" xml:space="preserve">
     <value>Ley de publicidad</value>
   </data>
-  <data name="EntityNameDenialReason" xml:space="preserve">
-    <value>Motivos de rechazo de los Materiales Publicitarios</value>
-  </data>
   <data name="BargainKindAgent" xml:space="preserve">
     <value>De agente</value>
   </data>
   <data name="BargainKindClient" xml:space="preserve">
     <value>De cliente</value>
+  </data>
+  <data name="DenialReasonTypeOther" xml:space="preserve">
+    <value>Otro</value>
+  </data>
+  <data name="EntityNameActivityBase" xml:space="preserve">
+    <value>Acción</value>
+  </data>
+  <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
+    <value>Vínculo de elemento del material publicitario con los motivos de rechazo</value>
+  </data>
+  <data name="EntityNameAdvertisementElementStatus" xml:space="preserve">
+    <value>Estado de elemento del material publicitario</value>
+  </data>
+  <data name="EntityNameBank" xml:space="preserve">
+    <value>Banco</value>
   </data>
 </root>

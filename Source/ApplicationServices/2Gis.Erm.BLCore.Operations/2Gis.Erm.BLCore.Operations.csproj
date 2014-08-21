@@ -53,8 +53,13 @@
     <Compile Include="..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementWorkflowViolationStrategy.cs" />
+    <Compile Include="Concrete\AdvertisementElements\ChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\NullAdvertisementElementStatusChangingStrategy.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviour.cs" />
+    <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
@@ -250,14 +255,13 @@
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Processing\Final\ReplicateHotClientMessageAggregatedProcessingResultHandler.cs" />
-    <Compile Include="Concrete\Processing\Final\ReplicateHotClientPerformedOperationsFinalProcessor.cs" />
+    <Compile Include="Concrete\Processing\Final\ReplicateHotClientPerformedOperationsFinalProcessingStrategy.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Projects\ProjectService.cs" />
     <Compile Include="Concrete\Withdrawals\CreateLockDetailsDuringWithdrawalOperationService.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Concrete\Withdrawals\DeleteChargesForPeriodAndProjectOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\DeleteLockDetailsDuringRevertingWithdrawalOperationService.cs" />
-    <Compile Include="Crosscutting\SupportedCategoriesChecker.cs" />
     <Compile Include="Concrete\Prices\GetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Bargains\BargainTypeService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Categories\CategoryService.cs" />
@@ -325,7 +329,7 @@
     <Compile Include="Generic\CheckForDebts\CheckGenericEntityForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckLegalPersonForDebtsService.cs" />
     <Compile Include="Generic\Create\CreateAdvertisementElementOperationService.cs" />
-    <Compile Include="Generic\Create\CreateOperationServiceBase.cs" />
+    <Compile Include="Generic\Create\CreateAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateAssociatedPositionsGroupService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateBranchOfficeService.cs" />
@@ -433,6 +437,8 @@
     <Compile Include="Generic\Get\GetUserDtoService.cs" />
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementStatusOperationService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
     <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
@@ -553,8 +559,8 @@
     <Compile Include="Generic\Update\AdvertisementElements\IModifyingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\Update\AdvertisementElements\UpdateAdvertisementElementOperationService.cs" />
     <Compile Include="Generic\Update\AdvertisementElements\ModifyingAdvertisementElementValidator.cs" />
-    <Compile Include="Generic\Update\UpdateOperationServiceBase.cs" />
     <Compile Include="Crosscutting\PaymentsDistributor.cs" />
+    <Compile Include="Generic\Update\UpdateAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

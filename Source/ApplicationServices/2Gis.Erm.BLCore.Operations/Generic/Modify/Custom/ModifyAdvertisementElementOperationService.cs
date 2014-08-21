@@ -1,9 +1,10 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Create;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Update;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -14,11 +15,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
     public class ModifyAdvertisementElementOperationService : IModifyBusinessModelEntityService<AdvertisementElement>
     {
         private readonly ICreateOperationService<AdvertisementElement> _createAdvertisementElementOperationService;
-        private readonly IUpdateOperationService<AdvertisementElement> _updateAdvertisementElementOperationService;
+        private readonly IUpdateAdvertisementElementAndSetAsReadyForVerificationOperationService _updateAdvertisementElementOperationService;
 
         public ModifyAdvertisementElementOperationService(
             ICreateOperationService<AdvertisementElement> createAdvertisementElementOperationService,
-            IUpdateOperationService<AdvertisementElement> updateAdvertisementElementOperationService)
+            IUpdateAdvertisementElementAndSetAsReadyForVerificationOperationService updateAdvertisementElementOperationService)
         {
             _createAdvertisementElementOperationService = createAdvertisementElementOperationService;
             _updateAdvertisementElementOperationService = updateAdvertisementElementOperationService;
@@ -27,17 +28,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         // Virtual for interception
         public virtual long Modify(IDomainEntityDto domainEntityDto)
         {
-            long entityId = domainEntityDto.Id;
-            if (domainEntityDto.IsNew())
+            var dto = (AdvertisementElementDomainEntityDto)domainEntityDto;
+            if (dto.IsNew())
             {
-                entityId = _createAdvertisementElementOperationService.Create(domainEntityDto);
-            }
-            else
-            {
-                _updateAdvertisementElementOperationService.Update(domainEntityDto);
+                return _createAdvertisementElementOperationService.Create(dto);
             }
 
-            return entityId;
+            _updateAdvertisementElementOperationService.UpdateAndSetAsReadyForVerification(dto);
+
+            return dto.Id;
         }
     }
 }

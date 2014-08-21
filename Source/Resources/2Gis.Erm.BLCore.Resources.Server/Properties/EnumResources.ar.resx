@@ -154,7 +154,7 @@
     <value>Temporary refusal. Other (specify)</value>
   </data>
   <data name="CloseDealReasonReason6" xml:space="preserve">
-    <value>Flat refusal. Client&apos;s negativity</value>
+    <value>Flat refusal. Client's negativity</value>
   </data>
   <data name="CloseDealReasonReason7" xml:space="preserve">
     <value>Flat refusal.  Inappropriate target audience</value>
@@ -187,13 +187,13 @@
     <value>Service</value>
   </data>
   <data name="ReasonForNewDealClientCall" xml:space="preserve">
-    <value>Client&apos;s initiative Call</value>
+    <value>Client's initiative Call</value>
   </data>
   <data name="ReasonForNewDealClientEmail" xml:space="preserve">
-    <value>Client&apos;s initiative E-mail</value>
+    <value>Client's initiative E-mail</value>
   </data>
   <data name="ReasonForNewDealClientVisit" xml:space="preserve">
-    <value>Client&apos;s initiative Visit</value>
+    <value>Client's initiative Visit</value>
   </data>
   <data name="DocumentsDeliveryMethodPostOnly" xml:space="preserve">
     <value>By post</value>
@@ -271,10 +271,10 @@
     <value>Subject (pl.)</value>
   </data>
   <data name="ReasonForNewDealManagerCall" xml:space="preserve">
-    <value>Sale Representative&apos;s initiative Call</value>
+    <value>Sale Representative's initiative Call</value>
   </data>
   <data name="ReasonForNewDealManagerVisit" xml:space="preserve">
-    <value>Sale Representative&apos;s initiative Visit</value>
+    <value>Sale Representative's initiative Visit</value>
   </data>
   <data name="InformationSourceWarmClient" xml:space="preserve">
     <value>Warm Lead</value>
@@ -547,7 +547,7 @@
     <value>Contract for SP</value>
   </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
-    <value>Payment for SP</value>
+    <value>Quotation for SP</value>
   </data>
   <data name="TemplateCodeTerminationNoticeBusinessman" xml:space="preserve">
     <value>Cancellation notice for SP</value>
@@ -559,31 +559,31 @@
     <value>Contract for a legal entity</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
-    <value>Payment for a legal entity</value>
+    <value>Quotation for a legal entity</value>
   </data>
   <data name="TemplateCodeOrderDesktopWithVat" xml:space="preserve">
-    <value>Invoice (PC, with VAT)</value>
+    <value>Quotation (PC, with VAT)</value>
   </data>
   <data name="TemplateCodeOrderDesktopWithoutVat" xml:space="preserve">
-    <value>Invoice (PC, without VAT)</value>
+    <value>Quotation (PC, without VAT)</value>
   </data>
   <data name="TemplateCodeOrderMobileWithVat" xml:space="preserve">
-    <value>Invoice (Mobile, with VAT)</value>
+    <value>Quotation (Mobile, with VAT)</value>
   </data>
   <data name="TemplateCodeOrderMobileWithoutVat" xml:space="preserve">
-    <value>Invoice (Mobile, without VAT)</value>
+    <value>Quotation (Mobile, without VAT)</value>
   </data>
   <data name="TemplateCodeOrderApiWithVat" xml:space="preserve">
-    <value>Invoice (API, with VAT)</value>
+    <value>Quotation (API, with VAT)</value>
   </data>
   <data name="TemplateCodeOrderApiWithoutVat" xml:space="preserve">
-    <value>Invoice (API, without VAT)</value>
+    <value>Quotation (API, without VAT)</value>
   </data>
   <data name="TemplateCodeOrderOnlineWithVat" xml:space="preserve">
-    <value>Invoice (Online, with VAT)</value>
+    <value>Quotation (Online, with VAT)</value>
   </data>
   <data name="TemplateCodeOrderOnlineWithoutVat" xml:space="preserve">
-    <value>Invoice (Online, without VAT)</value>
+    <value>Quotation (Online, without VAT)</value>
   </data>
   <data name="TemplateCodeTerminationNoticeLegalPerson" xml:space="preserve">
     <value>Cancellation notice for a legal entity</value>
@@ -598,7 +598,7 @@
     <value>Contract for an individual</value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
-    <value>Payment for an individual</value>
+    <value>Invoice for an individual</value>
   </data>
   <data name="TemplateCodeTerminationNoticeNaturalPerson" xml:space="preserve">
     <value>Cancellation notice for an individual</value>
@@ -619,10 +619,10 @@
     <value>There are contra-indications; consult a specialist.</value>
   </data>
   <data name="OrderFileKindLetterOfGuaranteeScan" xml:space="preserve">
-    <value>Client&apos;s letter of guarantee</value>
+    <value>Client's letter of guarantee</value>
   </data>
   <data name="OrderFileKindOrderScan" xml:space="preserve">
-    <value>Invoice</value>
+    <value>Quotation</value>
   </data>
   <data name="OrderFileKindTerminationScan" xml:space="preserve">
     <value>Termination</value>
@@ -802,13 +802,13 @@
     <value>Other</value>
   </data>
   <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Joint payment for SP</value>
+    <value>Joint invoice for SP</value>
   </data>
   <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>Joint payment for a legal entity</value>
+    <value>Joint invoice for a legal entity</value>
   </data>
   <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Joint payment for an individual</value>
+    <value>Joint invoice for an individual</value>
   </data>
   <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
     <value>Regional cancellation notice (Branch-Branch)</value>
@@ -820,7 +820,7 @@
     <value>Contract</value>
   </data>
   <data name="DocumentTypeOrder" xml:space="preserve">
-    <value>Invoice</value>
+    <value>Quotation</value>
   </data>
   <data name="RegistryDocReportTypeDocument" xml:space="preserve">
     <value>By Contracts</value>
@@ -1009,7 +1009,7 @@
     <value>User role</value>
   </data>
   <data name="EntityNameUserTerritory" xml:space="preserve">
-    <value>User&apos;s territory</value>
+    <value>User's territory</value>
   </data>
   <data name="EntityNameUserOrganizationUnit" xml:space="preserve">
     <value>Company division of user</value>
@@ -1096,7 +1096,7 @@
     <value>Changing client for a legal entity </value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonChangeRequisites" xml:space="preserve">
-    <value>Changing requisites of a client&apos;s legal entity</value>
+    <value>Changing requisites of a client's legal entity</value>
   </data>
   <data name="FunctionalPrivilegeNameOrderCreationForFuture" xml:space="preserve">
     <value>Extended selection of the order placement period</value>
@@ -1144,7 +1144,7 @@
     <value>Changing order type</value>
   </data>
   <data name="FunctionalPrivilegeNameChangeFirmTerritory" xml:space="preserve">
-    <value>Changing company&apos;s territory</value>
+    <value>Changing company's territory</value>
   </data>
   <data name="FunctionalPrivilegeNameMergeLegalPersons" xml:space="preserve">
     <value>Merging legal entities</value>
@@ -1270,13 +1270,13 @@
     <value>Contract indebtedness</value>
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
-    <value>Profile of client&apos;s legal entity</value>
+    <value>Profile of client's legal entity</value>
   </data>
   <data name="EntityNameAdditionalFirmService" xml:space="preserve">
     <value>Add. services for a company</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
-    <value>Removing the profile of Client&apos;s legal entity</value>
+    <value>Removing the profile of Client's legal entity</value>
   </data>
   <data name="OperatesOnTheBasisTypeCertificate" xml:space="preserve">
     <value>of Certificate</value>
@@ -1354,16 +1354,16 @@
     <value>Warning</value>
   </data>
   <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Invoice without VAT and with discount</value>
+    <value>Quotation without VAT and with discount</value>
   </data>
   <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Invoice with VAT and discount</value>
+    <value>Quotation with VAT and discount</value>
   </data>
   <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Invoice without VAT and discount</value>
+    <value>Quotation without VAT and discount</value>
   </data>
   <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Invoice with VAT and without discount</value>
+    <value>Quotation with VAT and without discount</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Call</value>
@@ -1441,7 +1441,7 @@
     <value>Russian</value>
   </data>
   <data name="FunctionalPrivilegeNameCascadeLegalPersonAssign" xml:space="preserve">
-    <value>Cascade change of the legal entity&apos;s owners</value>
+    <value>Cascade change of the legal entity's owners</value>
   </data>
   <data name="LanguageAbbreviationCs" xml:space="preserve">
     <value>Czech</value>
@@ -1641,23 +1641,14 @@
   <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
     <value>Outgoing advertising from a franchisee to a branch</value>
   </data>
-  <data name="AdvertisementElementStatusNotValidated" xml:space="preserve">
-    <value>Not verified</value>
+  <data name="AdvertisementElementStatusValueValid" xml:space="preserve">
+    <value>Approved</value>
   </data>
-  <data name="AdvertisementElementStatusValid" xml:space="preserve">
-    <value>Verified</value>
+  <data name="AdvertisementElementStatusValueInvalid" xml:space="preserve">
+    <value>Completed with errors</value>
   </data>
-  <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
-    <value>Rejected</value>
-  </data>
-  <data name="AdvertisementElementErrorAbsent" xml:space="preserve">
-    <value>Not available</value>
-  </data>
-  <data name="AdvertisementElementErrorLawError" xml:space="preserve">
-    <value>Legal</value>
-  </data>
-  <data name="AdvertisementElementErrorRequirementsError" xml:space="preserve">
-    <value>Non-compliance with requirements</value>
+  <data name="AdvertisementElementStatusValueDraft" xml:space="preserve">
+    <value>Draft</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementVerification" xml:space="preserve">
     <value>AM verification</value>
@@ -1708,7 +1699,7 @@
     <value>Power of Attorney</value>
   </data>
   <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
-    <value>Customer&apos;s sworn statement</value>
+    <value>Customer's sworn statement</value>
   </data>
   <data name="OperatesOnTheBasisTypeNone" xml:space="preserve">
     <value>Not available</value>
@@ -1783,13 +1774,13 @@
     <value>Verification of whether an AM template is published</value>
   </data>
   <data name="AdvertisementValidationRuleRequiredAdvertisement" xml:space="preserve">
-    <value>Verification of the required AM&apos;s presence</value>
+    <value>Verification of the required AM's presence</value>
   </data>
   <data name="EntityNameActivityInstance" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="CyprusOrderFileKindOrderScan" xml:space="preserve">
-    <value>Invoice</value>
+    <value>Quotation</value>
   </data>
   <data name="CyprusOrderFileKindTerminationScan" xml:space="preserve">
     <value>Termination</value>
@@ -1891,19 +1882,67 @@
     <value>Agreement for a legal entity (additional language)</value>
     <comment>Арабский-английский для договора в Эмиратах</comment>
   </data>
+  <data name="EntityNameDenialReason" xml:space="preserve">
+    <value>Reason for rejecting the AM</value>
+  </data>
+  <data name="AdvertisementElementStatusValueReadyForValidation" xml:space="preserve">
+    <value>Ready for verification</value>
+  </data>
+  <data name="DenialReasonTypeLawDistanceSelling" xml:space="preserve">
+    <value>Advertising Act: Distance Selling</value>
+  </data>
+  <data name="DenialReasonTypeLawStimulatingActivities" xml:space="preserve">
+    <value>Advertising Act: Promotional Activities</value>
+  </data>
+  <data name="DenialReasonTypeLawFinancialServices" xml:space="preserve">
+    <value>Advertising Act: Financial Services</value>
+  </data>
+  <data name="DenialReasonTypeLawNewBuilding" xml:space="preserve">
+    <value>Advertising Act: New Buildings</value>
+  </data>
+  <data name="DenialReasonTypeLawAlcohol" xml:space="preserve">
+    <value>Advertising Act: Alcohol</value>
+  </data>
+  <data name="DenialReasonTypeLawMedicine" xml:space="preserve">
+    <value>Advertising Act: Medicine, BAAs, Infant Food</value>
+  </data>
+  <data name="DenialReasonTypeLawWeapon" xml:space="preserve">
+    <value>Advertising Act: Weapons</value>
+  </data>
+  <data name="DenialReasonTypeLawMisleadingAdv" xml:space="preserve">
+    <value>Advertising Act: Unreliable Advertising</value>
+  </data>
+  <data name="DenialReasonTypeLawInformationProduct" xml:space="preserve">
+    <value>Advertising Act: Information Products</value>
+  </data>
+  <data name="DenialReasonTypeLawForeignLanguage" xml:space="preserve">
+    <value>Advertising Act: Words in a Foreign Language</value>
+  </data>
   <data name="DenialReasonTypeInternalRules" xml:space="preserve">
     <value>Internal rules</value>
   </data>
   <data name="DenialReasonTypeLaw" xml:space="preserve">
     <value>Advertising Act</value>
   </data>
-  <data name="EntityNameDenialReason" xml:space="preserve">
-    <value>Reason for rejecting the AM</value>
-  </data>
   <data name="BargainKindAgent" xml:space="preserve">
     <value>Agent</value>
   </data>
   <data name="BargainKindClient" xml:space="preserve">
     <value>Client</value>
+  </data>
+  <data name="DenialReasonTypeOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="EntityNameActivityBase" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
+    <value>Connection of AME to rejection reasons</value>
+  </data>
+  <data name="EntityNameAdvertisementElementStatus" xml:space="preserve">
+    <value>AME status</value>
+  </data>
+  <data name="EntityNameBank" xml:space="preserve">
+    <value>Bank</value>
   </data>
 </root>

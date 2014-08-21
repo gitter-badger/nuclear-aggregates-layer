@@ -105,6 +105,12 @@
     <Compile Include="CostCalculation\CalculationResult.cs" />
     <Compile Include="CostCalculation\DiscountInfo.cs" />
     <Compile Include="OrderProcessingRequests\RequestMessagesDto.cs" />
+    <Compile Include="Remote\AdsManagement\HandleAdsStateErrorDescription.cs" />
+    <Compile Include="Remote\AdsManagement\IHandleAdsStateApplicationService.cs" />
+    <Compile Include="Remote\AdsManagement\IHandleAdsStateApplicationRestService.cs" />
+    <Compile Include="Remote\AdsManagement\IManageTextAdsApplicationRestService.cs" />
+    <Compile Include="Remote\AdsManagement\IManageTextAdsApplicationService.cs" />
+    <Compile Include="Remote\AdsManagement\ManageTextAdsErrorDescription.cs" />
     <Compile Include="Remote\CostCalculation\CostCalculatonErrorDescription.cs" />
     <Compile Include="Remote\CostCalculation\ICostCalculationApplicationService.cs" />
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestService.cs" />
@@ -113,8 +119,8 @@
     <Compile Include="Remote\OrderProcessing\IOrderProcessingApplicationService.cs" />
     <Compile Include="Remote\OrderProcessing\IRequestStateApplicationService.cs" />
     <Compile Include="Remote\OrderProcessing\OrderProcessingErrorDescription.cs" />
-    <Compile Include="Remote\Settings\APIFinancialOperationsServiceSettingsAspect.cs" />
-    <Compile Include="Remote\Settings\IAPIFinancialOperationsServiceSettings.cs" />
+    <Compile Include="Remote\Settings\APISpecialOperationsServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPISpecialOperationsServiceSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

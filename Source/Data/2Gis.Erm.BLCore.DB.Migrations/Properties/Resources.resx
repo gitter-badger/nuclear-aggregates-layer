@@ -277,4 +277,16 @@
   <data name="Migration_22706_Drop_Old_Activity_Schema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.07.30 rev. 22706\Drop Old Activity Schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="_23002_BusinessDirectory___ReplicateFirmAddresses_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateFirmAddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_23002_BusinessDirectory___ReplicateFirms_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateFirms].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_23002_BusinessDirectory___ReplicateTerritories_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateTerritories].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ImportFirmFromXml_23021" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.08.06 rev. 23021\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>

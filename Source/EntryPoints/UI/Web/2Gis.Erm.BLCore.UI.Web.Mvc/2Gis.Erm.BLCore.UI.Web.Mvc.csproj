@@ -69,8 +69,9 @@
       <Private>True</Private>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -774,6 +775,10 @@
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3b5f5e41-b438-435e-91b5-005b2a88237c}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>

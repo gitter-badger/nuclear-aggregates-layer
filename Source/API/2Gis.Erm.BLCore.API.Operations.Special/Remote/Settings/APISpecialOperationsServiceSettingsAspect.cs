@@ -5,13 +5,13 @@ using DoubleGis.Erm.Platform.API.Core.Settings.APIServices.Config;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings
 {
-    public class APIFinancialOperationsServiceSettingsAspect : APIServiceSettingsBase, IAPIFinancialOperationsServiceSettings
+    public class APISpecialOperationsServiceSettingsAspect : APIServiceSettingsBase, IAPISpecialOperationsServiceSettings
     {
         public override string Name
         {
             get
             {
-                return "FinancialOperationsService";
+                return "SpecialOperationsService";
             }
         }
 

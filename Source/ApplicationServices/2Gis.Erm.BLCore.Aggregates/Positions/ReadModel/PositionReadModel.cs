@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 {
-    public class PositionReadModel : IPositionReadModel
+    public partial class PositionReadModel : IPositionReadModel
     {
         private readonly IFinder _finder;
 

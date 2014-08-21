@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -15,20 +16,23 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IAPIOperationsServiceSettings _operationsServiceSettings;
+        private readonly IAPISpecialOperationsServiceSettings _specialOperationsServiceSettings;
         private readonly IUserContext _userContext;
         private readonly ICommonLog _logger;
         private readonly IGetBaseCurrencyService _getBaseCurrencyService;
-        protected ControllerBase(
-            IMsCrmSettings msCrmSettings, 
-            IUserContext userContext, 
-            ICommonLog logger, 
-            IAPIOperationsServiceSettings operationsServiceSettings, 
-            IGetBaseCurrencyService getBaseCurrencyService)
+
+        protected ControllerBase(IMsCrmSettings msCrmSettings,
+                                 IUserContext userContext,
+                                 ICommonLog logger,
+                                 IAPIOperationsServiceSettings operationsServiceSettings,
+                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                 IGetBaseCurrencyService getBaseCurrencyService)
         {
             _msCrmSettings = msCrmSettings;
             _userContext = userContext;
             _logger = logger;
             _operationsServiceSettings = operationsServiceSettings;
+            _specialOperationsServiceSettings = specialOperationsServiceSettings;
             _getBaseCurrencyService = getBaseCurrencyService;
         }
 
@@ -65,6 +69,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base
                 ViewData[UserLocaleInfo.UserLocaleInfoKey] = _userContext.Profile.ToUserLocalInfo();
                 ViewData[WebAppSettingsExtension.MsCrmSettingsKey] = _msCrmSettings;
                 ViewData[WebAppSettingsExtension.BasicOperationsServiceRestUrlKey] = _operationsServiceSettings.RestUrl.ToString();
+                ViewData[WebAppSettingsExtension.SpecialOperationsServiceRestUrlKey] = _specialOperationsServiceSettings.RestUrl.ToString();
                 ViewData[WebAppSettingsExtension.ErmBaseCurrencyKey] = _getBaseCurrencyService.GetBaseCurrency().Symbol;
             }
         }

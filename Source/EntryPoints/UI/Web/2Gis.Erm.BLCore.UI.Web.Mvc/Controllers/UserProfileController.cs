@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
@@ -40,12 +41,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             IGetUserInfoService userInfoService,
             IFinder finder,
             IAPIOperationsServiceSettings operationsServiceSettings,
+            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
             IGetBaseCurrencyService getBaseCurrencyService)
             : base(
                 msCrmSettings,
                 userContext,
                 logger,
                 operationsServiceSettings,
+                specialOperationsServiceSettings,
                 getBaseCurrencyService)
         {
             _localizationSettings = localizationSettings;

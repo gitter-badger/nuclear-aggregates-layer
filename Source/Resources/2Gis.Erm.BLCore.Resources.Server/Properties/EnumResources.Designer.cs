@@ -394,33 +394,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отсутствует.
-        /// </summary>
-        public static string AdvertisementElementErrorAbsent {
-            get {
-                return ResourceManager.GetString("AdvertisementElementErrorAbsent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Юридическая.
-        /// </summary>
-        public static string AdvertisementElementErrorLawError {
-            get {
-                return ResourceManager.GetString("AdvertisementElementErrorLawError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Несоответствие требованиям.
-        /// </summary>
-        public static string AdvertisementElementErrorRequirementsError {
-            get {
-                return ResourceManager.GetString("AdvertisementElementErrorRequirementsError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ошибка.
         /// </summary>
         public static string AdvertisementElementModel_ToEntity_AdvertisementElementStatusInvalidAfterEdit {
@@ -475,7 +448,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отклонен.
+        ///   Looks up a localized string similar to Выверено с ошибками.
         /// </summary>
         public static string AdvertisementElementStatusInvalid {
             get {
@@ -493,20 +466,29 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не выверен.
-        /// </summary>
-        public static string AdvertisementElementStatusNotValidated {
-            get {
-                return ResourceManager.GetString("AdvertisementElementStatusNotValidated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Выверен.
+        ///   Looks up a localized string similar to Одобрено.
         /// </summary>
         public static string AdvertisementElementStatusValid {
             get {
                 return ResourceManager.GetString("AdvertisementElementStatusValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Черновик.
+        /// </summary>
+        public static string AdvertisementElementStatusValueDraft {
+            get {
+                return ResourceManager.GetString("AdvertisementElementStatusValueDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Готов к выверке.
+        /// </summary>
+        public static string AdvertisementElementStatusValueReadyForValidation {
+            get {
+                return ResourceManager.GetString("AdvertisementElementStatusValueReadyForValidation", resourceCulture);
             }
         }
         
@@ -1033,11 +1015,101 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Закон о рекламе.
+        ///   Looks up a localized string similar to Закон о рекламе: Алкоголь.
         /// </summary>
-        public static string DenialReasonTypeLaw {
+        public static string DenialReasonTypeLawAlcohol {
             get {
-                return ResourceManager.GetString("DenialReasonTypeLaw", resourceCulture);
+                return ResourceManager.GetString("DenialReasonTypeLawAlcohol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Дистанционная продажа.
+        /// </summary>
+        public static string DenialReasonTypeLawDistanceSelling {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawDistanceSelling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Финансовые услуги.
+        /// </summary>
+        public static string DenialReasonTypeLawFinancialServices {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawFinancialServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Слова на иностранном языке.
+        /// </summary>
+        public static string DenialReasonTypeLawForeignLanguage {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawForeignLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Информационная продукция.
+        /// </summary>
+        public static string DenialReasonTypeLawInformationProduct {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawInformationProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Медицина, БАДы, детское питание.
+        /// </summary>
+        public static string DenialReasonTypeLawMedicine {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Недостоверная реклама.
+        /// </summary>
+        public static string DenialReasonTypeLawMisleadingAdv {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawMisleadingAdv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Новостройки.
+        /// </summary>
+        public static string DenialReasonTypeLawNewBuilding {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawNewBuilding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Стимулирующие мероприятия.
+        /// </summary>
+        public static string DenialReasonTypeLawStimulatingActivities {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawStimulatingActivities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закон о рекламе: Оружие.
+        /// </summary>
+        public static string DenialReasonTypeLawWeapon {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeLawWeapon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Другое.
+        /// </summary>
+        public static string DenialReasonTypeOther {
+            get {
+                return ResourceManager.GetString("DenialReasonTypeOther", resourceCulture);
             }
         }
         
@@ -1242,6 +1314,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Действие.
         /// </summary>
+        public static string EntityNameActivityBase {
+            get {
+                return ResourceManager.GetString("EntityNameActivityBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Действие.
+        /// </summary>
         public static string EntityNameActivityInstance {
             get {
                 return ResourceManager.GetString("EntityNameActivityInstance", resourceCulture);
@@ -1285,6 +1366,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Связь ЭРМ с причинами отклонения.
+        /// </summary>
+        public static string EntityNameAdvertisementElementDenialReason {
+            get {
+                return ResourceManager.GetString("EntityNameAdvertisementElementDenialReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Статус ЭРМ.
+        /// </summary>
+        public static string EntityNameAdvertisementElementStatus {
+            get {
+                return ResourceManager.GetString("EntityNameAdvertisementElementStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Шаблон элемента рекламного материала.
         /// </summary>
         public static string EntityNameAdvertisementElementTemplate {
@@ -1317,6 +1416,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string EntityNameAssociatedPositionsGroup {
             get {
                 return ResourceManager.GetString("EntityNameAssociatedPositionsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Банк.
+        /// </summary>
+        public static string EntityNameBank {
+            get {
+                return ResourceManager.GetString("EntityNameBank", resourceCulture);
             }
         }
         

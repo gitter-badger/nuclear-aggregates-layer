@@ -11,6 +11,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
             {
                 return new FindSpecification<CategoryGroup>(x => x.Id == id);
             }
+
+            public static FindSpecification<CategoryOrganizationUnit> CategoriesForOrganizationUnit(long organizationUnitId)
+            {
+                return new FindSpecification<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
+            }
         }
     }
 }
