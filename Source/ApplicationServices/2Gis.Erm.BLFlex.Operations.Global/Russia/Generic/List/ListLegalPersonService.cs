@@ -133,7 +133,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                     PassportNumber = x.PassportNumber,
                     ClientId = x.ClientId,
                     ClientName = x.Client.Name,
-                    FirmId = x.Client.MainFirmId,
                     OwnerCode = x.OwnerCode,
                     CreatedOn = x.CreatedOn,
                     IsDeleted = x.IsDeleted,

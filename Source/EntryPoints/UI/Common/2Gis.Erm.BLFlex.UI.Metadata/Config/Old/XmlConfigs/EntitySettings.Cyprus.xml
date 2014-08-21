@@ -284,6 +284,27 @@
       <DataList BasedOn="DListAdvertisementElementTemplate" NameLocaleResourceId="DListAdvertisementElementTemplateDeleted" />
     </DataLists>
   </Entity>
+  <Entity Name="AdvertisementElementDenialReason">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListAdvertisementElementDenialReason" DefaultSortField="DenialReasonType" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
+        <Scripts>
+          <Script FileName="DataList/AdvertisementElementDenialReason.DataList.js" />
+        </Scripts>
+        <Fields>
+          <Field Name="Id" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="AdvertisementElementId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="DenialReasonId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="DenialReasonName" NameLocaleResourceId="DenialReasonName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="DenialReasonType" NameLocaleResourceId="DenialReasonType" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="Comment" Width="400" FieldType="String" ExtTypeName="String" />
+        </Fields>
+      </DataList>
+      <DataList NameLocaleResourceId="DListAdvertisementElementDenialReasonForEdit" DefaultSortField="Id" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif" HideInCardRelatedGrid="*">
+        <Fields>
+        </Fields>
+      </DataList>
+    </DataLists>
+  </Entity>
   <Entity Name="Advertisement">
     <Card EntityNameLocaleResourceId="EnAdvertisement" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Advertisement.gif" LargeIcon="en_ico_16_Advertisement.gif">
       <ToolbarItems>
@@ -364,7 +385,9 @@
     <Card EntityNameLocaleResourceId="EnAdvertisementElement" EntityMainAttribute="Id" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="ResetToDraft" NameLocaleResourceId="ControlResetToDraft" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.ResetToDraft" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="SaveAndVerify" NameLocaleResourceId="ControlSaveAndVerify" ControlType="TextButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndVerify" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -391,9 +414,9 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" />
-        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" />
+        <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" />
+        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -503,10 +526,10 @@
         <Fields>
           <Field Name="Id" NameLocaleResourceId="Id" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="CustomerLegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="LegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="BranchOfficeId" NameLocaleResourceId="DFieldBranchOfficeId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="Number" NameLocaleResourceId="DFieldNumber" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="CustomerLegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="CustomerLegalPersonId" />
+          <Field Name="LegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="LegalPersonId" />
           <Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
           <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
@@ -522,10 +545,10 @@
         <Fields>
           <Field Name="Id" NameLocaleResourceId="Id" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="CustomerLegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="LegalPersonId" NameLocaleResourceId="DFieldCustomerLegalPersonId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="BranchOfficeId" NameLocaleResourceId="DFieldBranchOfficeId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="Number" NameLocaleResourceId="DFieldNumber" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="CustomerLegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="CustomerLegalPersonId" />
+          <Field Name="LegalPersonLegalName" NameLocaleResourceId="DFieldCustomerLegalPersonLegalName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="LegalPerson" ReferenceFieldName="LegalPersonId" />
           <Field Name="BranchOfficeName" NameLocaleResourceId="BranchOfficeOrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOffice" ReferenceFieldName="BranchOfficeId" />
           <Field Name="BargainEndDate" Width="150" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BargainKind" Width="150" FieldType="String" ExtTypeName="String" />
@@ -2047,9 +2070,9 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" />
-        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" />
+        <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" />
+        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2450,9 +2473,9 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" />
-        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" />
+        <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" />
+        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2651,12 +2674,14 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="250" FieldType="String" ExtTypeName="String" />
-          <Field Name="FirstName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="LastName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="Account" NameLocaleResourceId="DFieldAccount" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="ParentName" NameLocaleResourceId="ParentUser" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirstName" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="LastName" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="Account" NameLocaleResourceId="DFieldAccount" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Department" ReferenceFieldName="DepartmentId" />
+          <Field Name="ParentId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="ParentName" NameLocaleResourceId="ParentUser" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="ParentId" />
         </Fields>
       </DataList>
       <DataList BasedOn="DListUser" NameLocaleResourceId="DListInactiveUser">
@@ -2670,9 +2695,10 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="250" FieldType="String" ExtTypeName="String" />
-          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="RoleName" NameLocaleResourceId="AccountRole" Width="250" FieldType="String" ExtTypeName="String" Sortable="false" />
+          <Field Name="DisplayName" NameLocaleResourceId="DFieldDisplayName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="DepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Department" ReferenceFieldName="DepartmentId" />
+          <Field Name="RoleName" NameLocaleResourceId="AccountRole" Width="200" FieldType="String" ExtTypeName="String" Sortable="false" />
         </Fields>
       </DataList>
     </DataLists>

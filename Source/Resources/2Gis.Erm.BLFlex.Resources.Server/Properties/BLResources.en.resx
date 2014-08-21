@@ -398,4 +398,7 @@ Bank Name: {7}
   <data name="NoOrdersFound" xml:space="preserve">
     <value>No orders found for the specified criteria</value>
   </data>
+  <data name="VerificationTitle" xml:space="preserve">
+    <value>AME verification</value>
+  </data>
 </root>

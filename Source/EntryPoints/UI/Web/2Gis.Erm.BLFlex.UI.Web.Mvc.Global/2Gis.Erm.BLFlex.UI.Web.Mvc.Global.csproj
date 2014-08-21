@@ -64,7 +64,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -74,6 +74,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -143,6 +144,11 @@
     <Compile Include="Areas\MultiCulture\Controllers\ChangeBindingObjectsController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\ClientsMergingController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeBindingObjects.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\MultiCulture\Views\ClientsMerging\Merge.generated.cs">
       <DependentUpon>Merge.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -154,6 +160,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdvertisementElementStatus.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Russia\Views\ClientsMerging\Merge.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -229,6 +240,7 @@
     <Compile Include="Models\Chile\ChileChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\MultiCultureOrderViewModel.cs" />
     <Compile Include="Models\Russia\AccountViewModel.cs" />
+    <Compile Include="Models\Russia\AdvertisementElementStatusViewModel.cs" />
     <Compile Include="Models\Russia\AppointmentViewModel.cs" />
     <Compile Include="Models\Russia\BargainTypeViewModel.cs" />
     <Compile Include="Models\Russia\BargainViewModel.cs" />
@@ -967,7 +979,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Generate.generated.cs</LastGenOutput>
     </None>
-    <None Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml" />
+    <None Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeBindingObjects.generated.cs</LastGenOutput>
+    </None>
     <None Include="Areas\MultiCulture\Views\ClientsMerging\Merge.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Merge.generated.cs</LastGenOutput>
@@ -983,6 +998,10 @@
     <None Include="Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdvertisementElementStatus.generated.cs</LastGenOutput>
     </None>
     <None Include="Areas\Russia\Views\ClientsMerging\Merge.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1504,6 +1523,10 @@
       <Project>{3b5f5e41-b438-435e-91b5-005b2a88237c}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
@@ -1588,6 +1611,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Czech\EnumCustomization\" />
+    <Folder Include="Areas\Russia\Views\AdvertisementElementStatus\" />
     <Folder Include="Services\Cards\Contact\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
