@@ -8,25 +8,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
     public sealed class CurrencyViewModel : EditableIdEntityViewModelBase<Currency>
     {
-        //[Dependency(DependencyType.Disable, "IsBase", "this.value!='0' && this.value!=0")]
-        public override long Id
-        {
-            get
-            {
-                return base.Id;
-            }
-            set
-            {
-                base.Id = value;
-            }
-        }
-
         [RequiredLocalized]
         [DisplayNameLocalized("CurrencyIsoCode")]
         public short IsoCode { get; set; }
 
         [RequiredLocalized]
-        [StringLengthLocalized(128)]
+        [StringLengthLocalized(100)]
         public string Name { get; set; }
 
         [RequiredLocalized]

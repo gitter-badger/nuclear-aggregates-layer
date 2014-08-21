@@ -3,7 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                 IUserContext userContext,
                                                 ICommonLog logger,
                                                 IAPIOperationsServiceSettings operationsServiceSettings,
+                                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                                 IGetBaseCurrencyService getBaseCurrencyService,
                                                 ICancelOrderProcessingRequestOperationService cancelOrderProcessingRequestOperationService,
                                                 IGetOrderRequestMessagesOperationService getOrderRequestMessagesOperationService)
@@ -30,7 +31,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 msCrmSettings,
                 userContext,
                 logger,
-                operationsServiceSettings, 
+                operationsServiceSettings,
+                specialOperationsServiceSettings,
                 getBaseCurrencyService)
         {
             _cancelOrderProcessingRequestOperationService = cancelOrderProcessingRequestOperationService;

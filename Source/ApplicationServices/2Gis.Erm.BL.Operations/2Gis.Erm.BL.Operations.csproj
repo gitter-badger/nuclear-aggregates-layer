@@ -46,6 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviourDraft.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviourInvalid.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviourReadyForValidation.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviourValid.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\ApproveAdvertisementElementOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\DenyAdvertisementElementOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\ResetAdvertisementElementToDraftOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\Workflow\TransferAdvertisementElementToReadyForValidationOpeationService.cs" />
     <Compile Include="Concrete\Integration\Import\DeserializeBuildingService.cs" />
     <Compile Include="Concrete\Integration\Import\DeserializeSaleTerritoryService.cs" />
     <Compile Include="Concrete\Integration\Import\IImportBuildingService.cs" />
@@ -83,6 +91,10 @@
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>

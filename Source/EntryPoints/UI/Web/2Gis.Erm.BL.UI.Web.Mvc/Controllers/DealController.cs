@@ -6,10 +6,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -30,12 +30,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             ICommonLog logger,
             IPublicService publicService,
             IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService, IGenerateDealNameService dealNameService)
+            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+            IGetBaseCurrencyService getBaseCurrencyService,
+            IGenerateDealNameService dealNameService)
             : base(
                 msCrmSettings,
                 userContext,
                 logger,
                 operationsServiceSettings,
+                specialOperationsServiceSettings,
                 getBaseCurrencyService)
         {
             _publicService = publicService;

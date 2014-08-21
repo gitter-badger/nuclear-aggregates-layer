@@ -64,13 +64,14 @@ FROM
 				SELECT DISTINCT o.AccountId
 				FROM 
 					Billing.Orders o
+					JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId
 				WHERE
 					o.EndDistributionDateFact > @IssueDate
 					AND o.IsDeleted = 0
 					AND o.IsActive = 1
 					AND o.WorkflowStepId NOT IN (1,2)
 					AND o.PayablePlan > 0
-					AND o.SourceOrganizationUnitId = @City
+					AND boou.OrganizationUnitId = @City
 			) o ON
 				o.AccountId = a.Id
 		WHERE

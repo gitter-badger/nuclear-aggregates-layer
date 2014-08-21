@@ -6,9 +6,9 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AdvertisementTemplates;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -23,18 +23,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IPublicService _publicService;
 
-        public AdvertisementTemplateController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IAdvertisementRepository advertisementRepository,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IPublicService publicService,
-            IGetBaseCurrencyService getBaseCurrencyService)
+        public AdvertisementTemplateController(IMsCrmSettings msCrmSettings,
+                                               IUserContext userContext,
+                                               ICommonLog logger,
+                                               IAdvertisementRepository advertisementRepository,
+                                               IAPIOperationsServiceSettings operationsServiceSettings,
+                                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                               IPublicService publicService,
+                                               IGetBaseCurrencyService getBaseCurrencyService)
             : base(msCrmSettings,
                    userContext,
                    logger,
                    operationsServiceSettings,
+                   specialOperationsServiceSettings,
                    getBaseCurrencyService)
         {
             _advertisementRepository = advertisementRepository;
@@ -48,60 +49,28 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new JsonNetResult(result);
         }
 
-        [HttpGet]
-        public ActionResult Publish()
+        [HttpPost]
+        public ActionResult Publish(long advertisementTemplateId)
         {
-            return View(new PublishAdvertisementTemplateModel());
+            var publishAdvertisementTemplateRequest = new PublishAdvertisementTemplateRequest
+                {
+                    AdvertisementTemplateId = advertisementTemplateId
+                };
+            _publicService.Handle(publishAdvertisementTemplateRequest);
+
+            return new EmptyResult();
         }
 
         [HttpPost]
-        public ActionResult Publish(PublishAdvertisementTemplateModel model)
+        public ActionResult Unpublish(long advertisementTemplateId)
         {
-            try
-            {
-                var publishAdvertisementTemplateRequest = new PublishAdvertisementTemplateRequest
-                    {
-                        AdvertisementTemplateId = model.Id
-                    };
-                _publicService.Handle(publishAdvertisementTemplateRequest);
+            var unpublishAdvertisementTemplateRequest = new UnpublishAdvertisementTemplateRequest
+                {
+                    AdvertisementTemplateId = advertisementTemplateId
+                };
+            _publicService.Handle(unpublishAdvertisementTemplateRequest);
 
-                model.Message = BLResources.OK;
-            }
-            catch (Exception ex)
-            {
-                model.SetCriticalError(ex.Message);
-                return View(model);
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public ActionResult Unpublish()
-        {
-            return View(new UnpublishAdvertisementTemplateModel());
-        }
-
-        [HttpPost]
-        public ActionResult Unpublish(UnpublishAdvertisementTemplateModel model)
-        {
-            try
-            {
-                var unpublishAdvertisementTemplateRequest = new UnpublishAdvertisementTemplateRequest
-                    {
-                        AdvertisementTemplateId = model.Id
-                    };
-                _publicService.Handle(unpublishAdvertisementTemplateRequest);
-
-                model.Message = BLResources.OK;
-            }
-            catch (Exception ex)
-            {
-                model.SetCriticalError(ex.Message);
-                return View(model);
-            }
-
-            return View(model);
+            return new EmptyResult();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [RequiredLocalized]
         [StringLengthLocalized(256)]
         [DisplayNameLocalized("DenialReasonProofLink")]
+        [UrlLocalized]
         public string ProofLink { get; set; }
 
         [RequiredLocalized]
