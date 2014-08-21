@@ -4,8 +4,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-	public interface IUpdatePhonecallAggregateService : IAggregateSpecificOperation<Phonecall, UpdateIdentity>
-	{
-		void Update(Phonecall phonecall);
-	}
+    public interface IUpdatePhonecallAggregateService : IAggregateSpecificOperation<Phonecall, UpdateIdentity>
+    {
+        void Update(Phonecall phonecall);
+    }
 }

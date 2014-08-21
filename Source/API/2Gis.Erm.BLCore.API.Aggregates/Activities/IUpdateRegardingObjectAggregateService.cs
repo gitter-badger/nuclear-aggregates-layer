@@ -7,10 +7,10 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activ
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-	public interface IUpdateRegardingObjectAggregateService<TEntity> : IUnknownAggregateSpecificOperation<AssignRegardingObjectIdentity>
-		where TEntity : class, IEntity, IEntityKey
-	{
-		void ChangeRegardingObjects(IEnumerable<RegardingObject<TEntity>> oldReferences,
-		                            IEnumerable<RegardingObject<TEntity>> newReferences);
-	}
+    public interface IUpdateRegardingObjectAggregateService<TEntity> : IUnknownAggregateSpecificOperation<AssignRegardingObjectIdentity>
+        where TEntity : class, IEntity, IEntityKey
+    {
+        void ChangeRegardingObjects(IEnumerable<RegardingObject<TEntity>> oldReferences,
+                                    IEnumerable<RegardingObject<TEntity>> newReferences);
+    }
 }

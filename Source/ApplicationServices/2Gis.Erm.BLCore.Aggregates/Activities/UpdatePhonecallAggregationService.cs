@@ -10,51 +10,51 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activ
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
-	public sealed class UpdatePhonecallAggregationService : IUpdatePhonecallAggregateService, IUpdateRegardingObjectAggregateService<Phonecall>
-	{
-		private const string ActivityHasNoTheIdentityMessage = "The phonecall has no the identity.";
+    public sealed class UpdatePhonecallAggregationService : IUpdatePhonecallAggregateService, IUpdateRegardingObjectAggregateService<Phonecall>
+    {
+        private const string ActivityHasNoTheIdentityMessage = "The phonecall has no the identity.";
 
-		private readonly IOperationScopeFactory _operationScopeFactory;
-		private readonly IRepository<Phonecall> _repository;
-		private readonly IRepository<RegardingObject<Phonecall>> _referenceRepository;
+        private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IRepository<Phonecall> _repository;
+        private readonly IRepository<RegardingObject<Phonecall>> _referenceRepository;
 
-		public UpdatePhonecallAggregationService(
-			IOperationScopeFactory operationScopeFactory, 
-			IRepository<Phonecall> repository,
-			IRepository<RegardingObject<Phonecall>> referenceRepository)
-		{
-			_operationScopeFactory = operationScopeFactory;
-			_repository = repository;
-			_referenceRepository = referenceRepository;
-		}
+        public UpdatePhonecallAggregationService(
+            IOperationScopeFactory operationScopeFactory,
+            IRepository<Phonecall> repository,
+            IRepository<RegardingObject<Phonecall>> referenceRepository)
+        {
+            _operationScopeFactory = operationScopeFactory;
+            _repository = repository;
+            _referenceRepository = referenceRepository;
+        }
 
-		public void Update(Phonecall phonecall)
-		{
-			if (phonecall.Id == 0)
-			{
-				throw new ArgumentException(ActivityHasNoTheIdentityMessage, "phonecall");
-			}
+        public void Update(Phonecall phonecall)
+        {
+            if (phonecall.Id == 0)
+            {
+                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "phonecall");
+            }
 
-			using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Phonecall>())
-			{
-				_repository.Update(phonecall);
-				operationScope.Updated<Phonecall>(phonecall.Id);
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Phonecall>())
+            {
+                _repository.Update(phonecall);
+                operationScope.Updated<Phonecall>(phonecall.Id);
 
-				_repository.Save();
-				operationScope.Complete();
-			}
-		}
+                _repository.Save();
+                operationScope.Complete();
+            }
+        }
 
-		public void ChangeRegardingObjects(IEnumerable<RegardingObject<Phonecall>> oldReferences, IEnumerable<RegardingObject<Phonecall>> newReferences)
-		{
-			using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignRegardingObjectIdentity, RegardingObject<Phonecall>>())
-			{
-				_referenceRepository.Update(oldReferences, newReferences);
+        public void ChangeRegardingObjects(IEnumerable<RegardingObject<Phonecall>> oldReferences, IEnumerable<RegardingObject<Phonecall>> newReferences)
+        {
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignRegardingObjectIdentity, RegardingObject<Phonecall>>())
+            {
+                _referenceRepository.Update(oldReferences, newReferences);
 
-				//operationScope.Updated<RegardingObject<Appointment>>(newReferences);
+                //operationScope.Updated<RegardingObject<Appointment>>(newReferences);
 
-				operationScope.Complete();
-			}
-		}
-	}
+                operationScope.Complete();
+            }
+        }
+    }
 }

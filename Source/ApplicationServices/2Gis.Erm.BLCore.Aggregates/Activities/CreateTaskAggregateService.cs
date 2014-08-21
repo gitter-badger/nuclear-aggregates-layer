@@ -11,44 +11,44 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
-	public sealed class CreateTaskAggregateService : IAggregateRootRepository<Task>, ICreateAggregateRepository<Task>
-	{
-		private const string ActivityHasAlreadyTheIdentityMessage = "The task has already the identity.";
+    public sealed class CreateTaskAggregateService : IAggregateRootRepository<Task>, ICreateAggregateRepository<Task>
+    {
+        private const string ActivityHasAlreadyTheIdentityMessage = "The task has already the identity.";
 
-		private readonly IOperationScopeFactory _operationScopeFactory;
-		private readonly IIdentityProvider _identityProvider;
-		private readonly IRepository<Task> _repository;
+        private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IIdentityProvider _identityProvider;
+        private readonly IRepository<Task> _repository;
 
-		public CreateTaskAggregateService(
-			IOperationScopeFactory operationScopeFactory, 
-			IIdentityProvider identityProvider, 
-			IRepository<Task> repository)
-		{
-			_operationScopeFactory = operationScopeFactory;
-			_identityProvider = identityProvider;
-			_repository = repository;
-		}
+        public CreateTaskAggregateService(
+            IOperationScopeFactory operationScopeFactory,
+            IIdentityProvider identityProvider,
+            IRepository<Task> repository)
+        {
+            _operationScopeFactory = operationScopeFactory;
+            _identityProvider = identityProvider;
+            _repository = repository;
+        }
 
-		public int Create(Task task)
-		{
-			if (!task.IsNew())
-			{
-				throw new ArgumentException(ActivityHasAlreadyTheIdentityMessage, "task");
-			}
+        public int Create(Task task)
+        {
+            if (!task.IsNew())
+            {
+                throw new ArgumentException(ActivityHasAlreadyTheIdentityMessage, "task");
+            }
 
-			using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, Task>())
-			{
-				_identityProvider.SetFor(task);
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, Task>())
+            {
+                _identityProvider.SetFor(task);
 
-				_repository.Add(task);
-				operationScope.Added<Task>(task.Id);
-				
-				var count = _repository.Save();
+                _repository.Add(task);
+                operationScope.Added<Task>(task.Id);
 
-				operationScope.Complete();
+                var count = _repository.Save();
 
-				return count;
-			}
-		}
-	}
+                operationScope.Complete();
+
+                return count;
+            }
+        }
+    }
 }
