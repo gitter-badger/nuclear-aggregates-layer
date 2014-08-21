@@ -25,6 +25,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(AdsTemplatesAdsElementTemplate),
     		typeof(Advertisement),
     		typeof(AdvertisementElement),
+    		typeof(AdvertisementElementDenialReason),
+    		typeof(AdvertisementElementStatus),
     		typeof(AdvertisementElementTemplate),
     		typeof(AdvertisementTemplate),
     		typeof(AfterSaleServiceActivity),

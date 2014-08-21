@@ -17,13 +17,13 @@ namespace DoubleGis.Erm.Platform.Common.Identities
 
         private readonly IIdentityProviderSettings _settings;
         private readonly object _timeCheckSync = new object();
-        private long _previousNowValue;
+        private long _previousTimestamp;
         private int _incrementedValue;
-        
+
         public IdentityProviderService(IIdentityProviderSettings settings)
         {
             _settings = settings;
-            _previousNowValue = 0;
+            _previousTimestamp = 0;
             _incrementedValue = 0;
         }
 
@@ -44,15 +44,19 @@ namespace DoubleGis.Erm.Platform.Common.Identities
 
             if ((timestamp & ~TimeMask) != 0)
             {
-                throw new ArgumentException(string.Format("Erm epoch has ended at {0}, you need to refactor entity identities", new DateTime(ErmEpochStart + (TimeMask * 10000))));
+                throw new ArgumentException(string.Format("Erm epoch has ended at {0}, you need to refactor entity identities",
+                                                          new DateTime(ErmEpochStart + (TimeMask * 10000))));
             }
 
             return Ids(timestamp, count, startIndex, _settings.IdentityServiceUniqueId);
         }
 
-        private static long GetCurrentTicks()
+        private static long GetCurrentTimestamp()
         {
-            return DateTime.UtcNow.Ticks;
+            var now = DateTime.UtcNow.Ticks;
+
+            // There are 10,000 ticks in a millisecond (http://msdn.microsoft.com/en-gb/library/system.datetime.ticks.aspx) 
+            return (now - ErmEpochStart) / 10000;
         }
 
         private static long[] Ids(long timestamp, int count, int startIndex, int identityProvider)
@@ -72,32 +76,35 @@ namespace DoubleGis.Erm.Platform.Common.Identities
 
         private static long WaitForTimeAfter(long lastTimestamp)
         {
-            var generatedTimeStamp = GetCurrentTicks();
-            while (generatedTimeStamp <= lastTimestamp)
+            var generatedTimestamp = GetCurrentTimestamp();
+            while (generatedTimestamp <= lastTimestamp)
             {
-                generatedTimeStamp = GetCurrentTicks();
+                Thread.Sleep(1);
+                generatedTimestamp = GetCurrentTimestamp();
             }
 
-            return generatedTimeStamp;
+            return generatedTimestamp;
         }
 
         private long GetTimestamp()
         {
             lock (_timeCheckSync)
             {
-                var now = GetCurrentTicks();
-                if (now < _previousNowValue)
+                var currentTimestamp = GetCurrentTimestamp();
+                if (currentTimestamp < _previousTimestamp)
                 {
-                    throw new ArgumentException(string.Format("Clock value was moved back, id generation stopped for {0} milliseconds", (_previousNowValue - now) / 10000));
+                    throw new ArgumentException(string.Format("Clock value was moved back, id generation stopped for {0} milliseconds",
+                                                              (_previousTimestamp - currentTimestamp)));
                 }
 
-                if (now == _previousNowValue)
+                if (currentTimestamp == _previousTimestamp)
                 {
-                    now = WaitForTimeAfter(now);
+                    currentTimestamp = WaitForTimeAfter(currentTimestamp);
                 }
 
-                _previousNowValue = now;
-                return (now - ErmEpochStart) / 10000; // There are 10,000 ticks in a millisecond (http://msdn.microsoft.com/en-gb/library/system.datetime.ticks.aspx) 
+                _previousTimestamp = currentTimestamp;
+
+                return currentTimestamp;
             }
         }
     }

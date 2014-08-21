@@ -42,7 +42,12 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
                 return new FindSpecification<TEntity>(x => x.IsActive);
             }
 
-            public static FindSpecification<TEntity> InactiveEntities<TEntity>() where TEntity : class, IEntity, IDeletableEntity, IDeactivatableEntity
+            public static FindSpecification<TEntity> InactiveEntities<TEntity>() where TEntity : class, IEntity, IDeactivatableEntity
+            {
+                return new FindSpecification<TEntity>(x => !x.IsActive);
+            }
+
+            public static FindSpecification<TEntity> InactiveAndNotDeletedEntities<TEntity>() where TEntity : class, IEntity, IDeletableEntity, IDeactivatableEntity
             {
                 return new FindSpecification<TEntity>(x => !x.IsActive && !x.IsDeleted);
             }

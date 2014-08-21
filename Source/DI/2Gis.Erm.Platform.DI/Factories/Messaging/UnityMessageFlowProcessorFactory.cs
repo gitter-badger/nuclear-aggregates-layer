@@ -7,8 +7,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topologies
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors.Topologies;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages;
@@ -101,13 +101,12 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
         {
             var resolvedTypesInfo = ResolveType(messageFlow);
             var processingTopology = ResolveProcessingTopology(resolvedTypesInfo.Item2, messageFlowProcessorSettings);
-            return _unityContainer.Resolve(
-                                        resolvedTypesInfo.Item1, 
-                                        new DependencyOverrides
-                                            {
-                                                { typeof(TMessageFlowProcessorSettings), messageFlowProcessorSettings },
-                                                { typeof(IMessageProcessingTopology), processingTopology }
-                                            });
+            return _unityContainer.Resolve(resolvedTypesInfo.Item1,
+                                           new DependencyOverrides
+                                               {
+                                                   { typeof(TMessageFlowProcessorSettings), messageFlowProcessorSettings },
+                                                   { typeof(IMessageProcessingTopology), processingTopology }
+                                               });
         }
 
         private IMessageProcessingTopology ResolveProcessingTopology(Type topologyType, IMessageFlowProcessorSettings processorSettings)
@@ -130,11 +129,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
                 topologyType, 
                 new DependencyOverrides
                         {
-                                                                               {
-                                                                                   typeof(IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage>),
-                                                                                   stagesMap
-                                                                               },
-                            { typeof(MessageProcessingStage[]), processorSettings.IgnoreErrorsOnStage }
+                            { typeof(IReadOnlyDictionary<MessageProcessingStage, IMessageProcessingStage>), stagesMap },
+                            { typeof(IEnumerable<MessageProcessingStage>), processorSettings.IgnoreErrorsOnStage }
                         });
         }
 

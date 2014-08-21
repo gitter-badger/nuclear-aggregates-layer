@@ -25,6 +25,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         private long _ownerCode;
         private long? _oldOwnerCode;
     
+        public AdvertisementElement()
+        {
+            this.AdvertisementElementDenialReasons = new HashSet<AdvertisementElementDenialReason>();
+        }
         public long Id { get; set; }
         public long AdvertisementId { get; set; }
         public long AdvertisementElementTemplateId { get; set; }
@@ -55,13 +59,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public byte[] Timestamp { get; set; }
         public long AdsTemplatesAdsElementTemplatesId { get; set; }
         public Nullable<long> DgppId { get; set; }
-        public int Status { get; set; }
-        public int Error { get; set; }
     
         public Advertisement Advertisement { get; set; }
         public AdvertisementElementTemplate AdvertisementElementTemplate { get; set; }
         public File File { get; set; }
         public AdsTemplatesAdsElementTemplate AdsTemplatesAdsElementTemplate { get; set; }
+        public ICollection<AdvertisementElementDenialReason> AdvertisementElementDenialReasons { get; set; }
+        public AdvertisementElementStatus AdvertisementElementStatus { get; set; }
     
     	public override bool Equals(object obj)
         {

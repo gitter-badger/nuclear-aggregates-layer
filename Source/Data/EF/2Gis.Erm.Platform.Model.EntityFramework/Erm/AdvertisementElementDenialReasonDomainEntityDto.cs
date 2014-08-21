@@ -24,30 +24,26 @@ using DoubleGis.Erm.Model.Entities.Enums;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class DenialReasonDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.DenialReason>
+    public partial class AdvertisementElementDenialReasonDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.AdvertisementElementDenialReason>
     {
     	[DataMember]
-        public long Id { get; set; }
+        public EntityReference AdvertisementElementRef { get; set; }
     	[DataMember]
-        public string Name { get; set; }
+        public EntityReference DenialReasonRef { get; set; }
     	[DataMember]
-        public string Description { get; set; }
-    	[DataMember]
-        public string ProofLink { get; set; }
-    	[DataMember]
-        public DenialReasonType Type { get; set; }
+        public string Comment { get; set; }
     	[DataMember]
         public EntityReference CreatedByRef { get; set; }
     	[DataMember]
-        public EntityReference ModifiedByRef { get; set; }
-    	[DataMember]
         public System.DateTime CreatedOn { get; set; }
+    	[DataMember]
+        public EntityReference ModifiedByRef { get; set; }
     	[DataMember]
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     	[DataMember]
-        public bool IsActive { get; set; }
-    	[DataMember]
         public byte[] Timestamp { get; set; }
+    	[DataMember]
+        public long Id { get; set; }
     }
 }
 

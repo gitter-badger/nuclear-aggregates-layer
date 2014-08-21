@@ -193,6 +193,22 @@
       <Link>Entities\Erm\AdvertisementElement.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementDenialReason.cs">
+      <Link>Entities\Erm\AdvertisementElementDenialReason.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementDenialReasonDomainEntityDto.cs">
+      <Link>Entities\DTOs\AdvertisementElementDenialReasonDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementStatus.cs">
+      <Link>Entities\Erm\AdvertisementElementStatus.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementStatusDomainEntityDto.cs">
+      <Link>Entities\DTOs\AdvertisementElementStatusDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementTemplate.cs">
       <Link>Entities\Erm\AdvertisementElementTemplate.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -797,6 +813,8 @@
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
+    <Compile Include="Entities\DTOs\Partial\AdvertisementElementResponsibilities.cs" />
+    <Compile Include="Entities\DTOs\Partial\AdvertisementElementStatusDomainEntityDto.partial.cs" />
     <Compile Include="Entities\Activity\Activity.cs" />
     <Compile Include="Entities\Activity\ActivityPurpose.cs" />
     <Compile Include="Entities\Activity\EntityToEntityReference.cs" />
@@ -862,6 +880,12 @@
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="IBoundedContext.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\DenyAdvertisementElementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ApproveAdvertisementElementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ResetAdvertisementElementToDraftIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\TransferAdvertisementElementToReadyForValidationIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\UpdateAdvertisementElementAndSetAsReadyForVerificationIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ChangeAdvertisementElementStatusIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementFileChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementValidationStatusChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Bargain\BindToOrderIdentity.cs" />
@@ -1438,9 +1462,8 @@
     <Compile Include="Entities\Interfaces\IDeactivatableEntity.cs" />
     <Compile Include="Entities\Interfaces\Integration\IReplicable.cs" />
     <Compile Include="Entities\Enums\AccountRole.cs" />
-    <Compile Include="Entities\Enums\AdvertisementElementError.cs" />
     <Compile Include="Entities\Enums\AdvertisementElementRestrictionType.cs" />
-    <Compile Include="Entities\Enums\AdvertisementElementStatus.cs" />
+    <Compile Include="Entities\Enums\AdvertisementElementStatusValue.cs" />
     <Compile Include="Entities\Enums\BargainFileKind.cs" />
     <Compile Include="Entities\Enums\BudgetType.cs" />
     <Compile Include="Entities\Enums\BusinessOperation.cs" />

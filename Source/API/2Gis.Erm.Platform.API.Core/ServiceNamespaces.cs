@@ -97,5 +97,11 @@ namespace DoubleGis.Erm.Platform.API.Core
             [Obsolete("Exists for Export team backward compatibility. Needs to removal")]
             public const string BackwardCompatibility201308 = "http://2gis.ru/erm/api/releasing/backwardcompatibility/2014/01";
         }
+
+        public static class AdsManagement
+        {
+            public const string HandleAdsState201407 = "http://2gis.ru/erm/api/adsmanagement/handleadsstate/2014/07";
+            public const string ManageTextAds201407 = "http://2gis.ru/erm/api/adsmanagement/managetextads/2014/07";
+        }
     }
 }

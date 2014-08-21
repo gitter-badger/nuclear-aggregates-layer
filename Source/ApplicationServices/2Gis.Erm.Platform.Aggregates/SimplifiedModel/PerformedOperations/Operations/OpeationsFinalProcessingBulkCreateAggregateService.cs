@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.Operations
@@ -21,17 +25,34 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
             _identityProvider = identityProvider;
         }
 
-        public void Push(IEnumerable<PerformedOperationFinalProcessing> finalProcessings)
+        public void Push(IReadOnlyList<PerformedOperationFinalProcessing> finalProcessings)
         {
             var currentDate = DateTime.UtcNow;
-            foreach (var processing in finalProcessings)
-            {
-                processing.CreatedOn = currentDate;
-                _identityProvider.SetFor(processing);
-                _performedOperationsFinalProcessingRepository.Add(processing);
-            }
+            const int BatchSize = 10000;
 
-            _performedOperationsFinalProcessingRepository.Save();
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            {
+                for (int offset = 0; offset < finalProcessings.Count;)
+                {
+                    var batch = finalProcessings.SkipTake(offset, BatchSize);
+                    if (batch.Count == 0)
+                    {
+                        break;
+                    }
+
+                    foreach (var processing in batch)
+                    {
+                        processing.CreatedOn = currentDate;
+                        _identityProvider.SetFor(processing);
+                        _performedOperationsFinalProcessingRepository.Add(processing);
+                    }
+
+                    _performedOperationsFinalProcessingRepository.Save();
+                    offset += batch.Count;
+                }
+
+                transaction.Complete();
+            }
         }
     }
 }

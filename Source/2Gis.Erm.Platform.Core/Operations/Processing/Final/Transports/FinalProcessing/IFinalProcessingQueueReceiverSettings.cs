@@ -4,6 +4,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.Fin
 {
     public interface IFinalProcessingQueueReceiverSettings : IMessageReceiverSettings
     {
-        bool IsRecoveryMode { get; }
+        int ReprocessingBatchSize { get; }
     }
 }

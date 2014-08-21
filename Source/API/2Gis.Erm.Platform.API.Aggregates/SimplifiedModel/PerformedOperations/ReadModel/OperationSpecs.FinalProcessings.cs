@@ -1,11 +1,13 @@
-﻿using DoubleGis.Erm.Platform.DAL.Specifications;
+﻿using System;
+
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel
 {
-    public static class PerformedOperationsProcessingSpecs
+    public static partial class OperationSpecs
     {
-        public static class Final
+        public static class FinalProcessings
         {
             public static class Find
             {
@@ -17,6 +19,11 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
                 public static FindSpecification<PerformedOperationFinalProcessing> Failed
                 {
                     get { return new FindSpecification<PerformedOperationFinalProcessing>(p => p.AttemptCount > 0); }
+                }
+
+                public static FindSpecification<PerformedOperationFinalProcessing> ByFlowId(Guid flowId)
+                {
+                    return new FindSpecification<PerformedOperationFinalProcessing>(p => p.MessageFlowId == flowId);
                 }
             }
         }

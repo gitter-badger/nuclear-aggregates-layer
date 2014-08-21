@@ -71,6 +71,7 @@
     <Compile Include="IPersistenceChangesRegistryProvider.cs" />
     <Compile Include="IPersistenceService.cs" />
     <Compile Include="IPersistenceServiceRuntimeFactory.cs" />
+    <Compile Include="IProducedQueryLogAccessor.cs" />
     <Compile Include="IRelationalRepository.cs" />
     <Compile Include="Model\Aggregates\IAggregateRepositoryFactory.cs" />
     <Compile Include="Model\Aggregates\IAggregateRepositoryForHostFactory.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="NullPendingChangesHandlingStrategy.cs" />
     <Compile Include="EAV\WrappedQueryProvider.cs" />
     <Compile Include="EAV\QueryableExtensions.cs" />
+    <Compile Include="NullProducedQueryLogAccessor.cs" />
     <Compile Include="ReadDomainContextCachingProxy.cs" />
     <Compile Include="Finder.cs" />
     <Compile Include="IDomainContext.cs" />

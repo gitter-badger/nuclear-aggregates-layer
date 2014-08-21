@@ -7,17 +7,17 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing
 {
     public sealed class MessageBatchProcessingContext
     {
-        private readonly IMessage[] _originalMessages;
+        private readonly IReadOnlyList<IMessage> _originalMessages;
         private readonly MessageProcessingStage[] _targetStages;
         private readonly IReadOnlyDictionary<Guid, MessageProcessingContext> _messageProcessings;
 
-        public MessageBatchProcessingContext(IMessage[] originalMessages, MessageProcessingStage[] targetStages)
+        public MessageBatchProcessingContext(IReadOnlyList<IMessage> originalMessages, MessageProcessingStage[] targetStages)
         {
             _originalMessages = originalMessages;
             _targetStages = targetStages;
 
             var messageProcessings = new Dictionary<Guid, MessageProcessingContext>();
-            for (int i = 0; i < originalMessages.Length; i++)
+            for (int i = 0; i < originalMessages.Count; i++)
             {
                 var currentMessage = originalMessages[i];
                 messageProcessings.Add(currentMessage.Id, new MessageProcessingContext(currentMessage, i, targetStages));
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing
             _messageProcessings = messageProcessings;
         }
 
-        public IMessage[] OriginalMessages
+        public IReadOnlyList<IMessage> OriginalMessages
         {
             get { return _originalMessages; }
         }

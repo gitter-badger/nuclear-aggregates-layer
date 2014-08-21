@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final
             return new FinalProcessingQueueReceiverSettings
                 {
                     BatchSize = ProcessorSettings.MessageBatchSize,
-                    IsRecoveryMode = ProcessorSettings.IsRecoveryMode
+                    ReprocessingBatchSize = ProcessorSettings.ReprocessingBatchSize
                 };
         }
     }

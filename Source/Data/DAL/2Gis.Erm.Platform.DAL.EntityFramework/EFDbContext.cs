@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly DbContext _dbContext;
         private bool _isDisposed;
 
-        public EFDbContext(EntityConnection connection)
+        public EFDbContext(EntityConnection connection, IProducedQueryLogAccessor producedQueryLogAccessor)
         {
             _dbContext = new DbContext(new ObjectContext(connection), true);
             _dbContext.Configuration.ValidateOnSaveEnabled = true;
@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.Configuration.LazyLoadingEnabled = false;
             _dbContext.Configuration.ProxyCreationEnabled = false;
             _dbContext.Configuration.AutoDetectChangesEnabled = false;
+            _dbContext.Database.Log = producedQueryLogAccessor.Log;
         }
 
         public int? CommandTimeout

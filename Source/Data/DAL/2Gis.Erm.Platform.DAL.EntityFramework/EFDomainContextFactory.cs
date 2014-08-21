@@ -9,6 +9,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly IDomainContextMetadataProvider _domainContextMetadataProvider;
         private readonly IEFConnectionFactory _connectionFactory;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
+        private readonly IProducedQueryLogAccessor _producedQueryLogAccessor;
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly ICommonLog _logger;
 
@@ -16,12 +17,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             IEFConnectionFactory connectionFactory,
             IDomainContextMetadataProvider domainContextMetadataProvider,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
+            IProducedQueryLogAccessor producedQueryLogAccessor,
             IMsCrmSettings msCrmSettings,
             ICommonLog logger)
         {
             _connectionFactory = connectionFactory;
             _domainContextMetadataProvider = domainContextMetadataProvider;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
+            _producedQueryLogAccessor = producedQueryLogAccessor;
             _msCrmSettings = msCrmSettings;
             _logger = logger;
         }
@@ -45,7 +48,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private EFDomainContext CreateDomainContext(DomainContextMetadata domainContextMetadata)
         {
             var entityConnection = _connectionFactory.CreateEntityConnection(domainContextMetadata);
-            var objectContext = new EFDbContext(entityConnection);
+            var objectContext = new EFDbContext(entityConnection, _producedQueryLogAccessor);
 
             var domainContext = new EFDomainContext(ProcessingContext, domainContextMetadata.EntityContainerName, objectContext, _pendingChangesHandlingStrategy, _msCrmSettings, _logger);
             return domainContext;
