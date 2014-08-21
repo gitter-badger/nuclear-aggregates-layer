@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public int GetInactiveLocksCount(long orderId)
         {
-            return _finder.Find(Specs.Find.InactiveEntities<Lock>()).Count(x => x.OrderId == orderId);
+            return _finder.Find(Specs.Find.InactiveAndNotDeletedEntities<Lock>()).Count(x => x.OrderId == orderId);
         }
 
         public int Create(Lock @lock)
@@ -522,7 +522,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         {
             // Списание в счет оплаты БЗ
             // Определяется через неактивную блокировку на операции лицевого счета
-            return _finder.Find(Specs.Find.InactiveEntities<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId))
+            return _finder.Find(Specs.Find.InactiveAndNotDeletedEntities<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId))
                           .Where(l => l.AccountDetail.OperationType.SyncCode1C == OperationTypeDebitForOrderPayment
                                       && l.AccountDetail.IsActive && !l.AccountDetail.IsDeleted)
                           .Sum(l => (decimal?)l.AccountDetail.Amount);

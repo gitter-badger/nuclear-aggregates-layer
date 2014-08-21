@@ -1037,9 +1037,6 @@ Blokujících chyb:{2}</value>
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Fakturace</value>
   </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>Není možné zrušit zveřejnění nezveřejněného ceníku</value>
-  </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>Pozor! Kontakt adresy firmy a/nebo adresa firmy a/nebo firma jsou skryté do vyjasnění</value>
   </data>
@@ -3486,9 +3483,6 @@ Operace provedena: {4}.</value>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>Objednávka je správná, během kontroly se však vyskytla následující upozornění:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>Ceník je již zveřejněn</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>U této objednávky zatím nebyla žádná vydání! Změnu prodejních podmínek je možné provést po vrácení objednávky ke zpracování!</value>
   </data>
@@ -4089,8 +4083,8 @@ Operace provedena: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>Není možné odstranit šablonu, která je použita v tématech</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>Není možné odstranit pododdíl z tématu, které je již použito v objednávkách</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Nelze odstranit oddělení organizace, které je cílovým městem v objednávce {0} s tímto tématem</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Nelze upravovat seznam pododdílů ve výchozím tématu</value>
@@ -4675,21 +4669,6 @@ Operace provedena: {4}.</value>
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>Není možné přidat a odstranit prvky zveřejněné šablony</value>
   </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zveřejnit šablonu reklamního materiálu?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Zveřejnit prvek šablony reklamního materiálu</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zrušit zveřejnění šablony reklamního materiálu?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Zrušit zveřejnění šablony reklamního materiálu</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>Není možné zrušit zveřejnění nezveřejněné šablony </value>
-  </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Prvek adresáře neobsahuje název ani v hlavním ani v rezervním jazyce</value>
   </data>
@@ -5222,6 +5201,24 @@ Doba zveřejnění: {3}.</value>
     <value>Chybějí práva na vytvoření agenturní smlouvy</value>
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
-    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
+    <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
+  </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>Nemáte práva pro převedení prvku reklamního materiálu do statusu {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Pokus o editaci prvku editace reklamního materiálu s identifikátorem {0}, který není ve statusu "Koncept"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>V reklamním materiálu "{0}", který je třeba ověřit, prvek "{1}" má status 'Koncept'</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Pro odmítnutí prvku reklamního materiálu musíte zadat důvod</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Nelze měnit status prvku reklamního materiálu, který nepotřebuje ověření</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Nelze zadat neaktivní příčinu odmítnutí</value>
   </data>
 </root>

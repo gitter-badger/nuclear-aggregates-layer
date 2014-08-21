@@ -65,8 +65,8 @@
     <Reference Include="Microsoft.Windows.Shell">
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\ModernUI.WPF.1.0.3\lib\net45\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nJupiter.Configuration, Version=4.0.1.308, Culture=neutral, PublicKeyToken=3d82e1eef729f753, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -559,13 +559,13 @@
       <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
       <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
-      <Name>2Gis.Erm.Qds</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
       <Project>{CBA45CBD-C200-4F16-86E9-301D76AE6021}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
+      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
+      <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLQuerying\Source\EntryPoints\UI\Common\2Gis.Erm.BLQuerying.UI.Metadata\2Gis.Erm.BLQuerying.UI.Metadata.csproj">
       <Project>{8C7E352B-1450-4C92-9F53-EABEB51E1F79}</Project>

@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -41,21 +42,22 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly ILocalMessageRepository _localMessageRepository;
 
-        public LocalMessageController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IPublicService publicService,
-            ILocalMessageRepository localMessageRepository, 
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-        : base(
-            msCrmSettings,
-            userContext,
-            logger,
-            operationsServiceSettings,
-            getBaseCurrencyService)
+        public LocalMessageController(IMsCrmSettings msCrmSettings,
+                                      IUserContext userContext,
+                                      ICommonLog logger,
+                                      ISecurityServiceFunctionalAccess functionalAccessService,
+                                      IPublicService publicService,
+                                      ILocalMessageRepository localMessageRepository,
+                                      IAPIOperationsServiceSettings operationsServiceSettings,
+                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                      IGetBaseCurrencyService getBaseCurrencyService)
+            : base(
+                msCrmSettings,
+                userContext,
+                logger,
+                operationsServiceSettings,
+                specialOperationsServiceSettings,
+                getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;

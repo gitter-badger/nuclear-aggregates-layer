@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Grid
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -361,107 +362,116 @@ WriteLiteral("\';\r\n        Ext.BasicOperationsServiceRestUrl = \'");
             
             #line default
             #line hidden
+WriteLiteral("\';\r\n        Ext.SpecialOperationsServiceRestUrl = \'");
+
+            
+            #line 35 "..\..\Views\Grid\SearchMultiple.cshtml"
+                                          Write(ViewData.GetSpecialOperationsServiceRestUrl());
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\';\r\n    </script>\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2181), Tuple.Create("\"", 2259)
-, Tuple.Create(Tuple.Create("", 2187), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2187), true)
-            
-            #line 37 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 2225), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 2225), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 2306), Tuple.Create("\"", 2378)
-, Tuple.Create(Tuple.Create("", 2312), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2312), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2278), Tuple.Create("\"", 2356)
+, Tuple.Create(Tuple.Create("", 2284), Tuple.Create("/Scripts/DoubleGis.GlobalVariables.js?", 2284), true)
             
             #line 38 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 2344), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 2322), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2344), false)
+, 2322), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2425), Tuple.Create("\"", 2496)
-, Tuple.Create(Tuple.Create("", 2431), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 2431), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2403), Tuple.Create("\"", 2475)
+, Tuple.Create(Tuple.Create("", 2409), Tuple.Create("/Scripts/Common.ErrorHandler.js?", 2409), true)
             
             #line 39 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 2462), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 2441), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2462), false)
+, 2441), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2543), Tuple.Create("\"", 2616)
-, Tuple.Create(Tuple.Create("", 2549), Tuple.Create("/Scripts/Ext.ux.SearchControl.js?", 2549), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2522), Tuple.Create("\"", 2593)
+, Tuple.Create(Tuple.Create("", 2528), Tuple.Create("/Scripts/Ext.ux.FitToParent.js?", 2528), true)
             
             #line 40 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 2582), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 2559), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2582), false)
+, 2559), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2663), Tuple.Create("\"", 2736)
-, Tuple.Create(Tuple.Create("", 2669), Tuple.Create("/Scripts/Ext.ux.TabularButton.js?", 2669), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2640), Tuple.Create("\"", 2713)
+, Tuple.Create(Tuple.Create("", 2646), Tuple.Create("/Scripts/Ext.ux.SearchControl.js?", 2646), true)
             
             #line 41 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 2702), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 2679), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2702), false)
+, 2679), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2783), Tuple.Create("\"", 2861)
-, Tuple.Create(Tuple.Create("", 2789), Tuple.Create("/Scripts/Ext.ux.MultiSelectionList.js?", 2789), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2760), Tuple.Create("\"", 2833)
+, Tuple.Create(Tuple.Create("", 2766), Tuple.Create("/Scripts/Ext.ux.TabularButton.js?", 2766), true)
             
             #line 42 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 2827), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 2799), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2827), false)
+, 2799), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 2908), Tuple.Create("\"", 2986)
-, Tuple.Create(Tuple.Create("", 2914), Tuple.Create("/Scripts/Ext.ux.SearchFormMultiple.js?", 2914), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 2880), Tuple.Create("\"", 2958)
+, Tuple.Create(Tuple.Create("", 2886), Tuple.Create("/Scripts/Ext.ux.MultiSelectionList.js?", 2886), true)
             
             #line 43 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 2952), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 2924), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 2952), false)
+, 2924), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 3005), Tuple.Create("\"", 3083)
+, Tuple.Create(Tuple.Create("", 3011), Tuple.Create("/Scripts/Ext.ux.SearchFormMultiple.js?", 3011), true)
+            
+            #line 44 "..\..\Views\Grid\SearchMultiple.cshtml"
+, Tuple.Create(Tuple.Create("", 3049), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 3049), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -469,13 +479,13 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n    \r\n");
 
             
-            #line 45 "..\..\Views\Grid\SearchMultiple.cshtml"
+            #line 46 "..\..\Views\Grid\SearchMultiple.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 45 "..\..\Views\Grid\SearchMultiple.cshtml"
+            #line 46 "..\..\Views\Grid\SearchMultiple.cshtml"
      foreach (var script in Model.DataViews.First().Scripts)
     {
 
@@ -484,23 +494,23 @@ WriteLiteral("></script>\r\n    \r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 3112), Tuple.Create("\"", 3178)
-, Tuple.Create(Tuple.Create("", 3118), Tuple.Create("/Scripts/", 3118), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 3209), Tuple.Create("\"", 3275)
+, Tuple.Create(Tuple.Create("", 3215), Tuple.Create("/Scripts/", 3215), true)
             
-            #line 47 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 3127), Tuple.Create<System.Object, System.Int32>(script.FileName
-            
-            #line default
-            #line hidden
-, 3127), false)
-, Tuple.Create(Tuple.Create("", 3143), Tuple.Create("?", 3143), true)
-            
-            #line 47 "..\..\Views\Grid\SearchMultiple.cshtml"
-, Tuple.Create(Tuple.Create("", 3144), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 48 "..\..\Views\Grid\SearchMultiple.cshtml"
+, Tuple.Create(Tuple.Create("", 3224), Tuple.Create<System.Object, System.Int32>(script.FileName
             
             #line default
             #line hidden
-, 3144), false)
+, 3224), false)
+, Tuple.Create(Tuple.Create("", 3240), Tuple.Create("?", 3240), true)
+            
+            #line 48 "..\..\Views\Grid\SearchMultiple.cshtml"
+, Tuple.Create(Tuple.Create("", 3241), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 3241), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -508,7 +518,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral("></script>\r\n");
 
             
-            #line 48 "..\..\Views\Grid\SearchMultiple.cshtml"
+            #line 49 "..\..\Views\Grid\SearchMultiple.cshtml"
     }
 
             
@@ -521,7 +531,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n\r\n        Ext.onReady(function ()\r\n            {\r\n            var settings = ");
 
             
-            #line 53 "..\..\Views\Grid\SearchMultiple.cshtml"
+            #line 54 "..\..\Views\Grid\SearchMultiple.cshtml"
                       Write(Html.WriteJson(Model));
 
             

@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Advertisement;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
@@ -38,6 +39,15 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
                                                        .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdsTemplatesAdsElementTemplate>(ids))
-                                                                                   .SelectMany(template => template.AdvertisementTemplate.Advertisements)));
+                                                                                   .SelectMany(template => template.AdvertisementTemplate.Advertisements)),
+
+            () => EntityOperationMapping<Advertisement>.ForEntity(EntityName.AdvertisementElementStatus)
+                                                       .NonCoupledOperation<ChangeAdvertisementElementStatusIdentity>()
+                                                       .NonCoupledOperation<ResetAdvertisementElementToDraftIdentity>()
+                                                       .NonCoupledOperation<TransferAdvertisementElementToReadyForValidationIdentity>()
+                                                       .NonCoupledOperation<ApproveAdvertisementElementIdentity>()
+                                                       .NonCoupledOperation<DenyAdvertisementElementIdentity>()
+                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementElement>(ids))
+                                                                                   .Select(element => element.Advertisement)));
     }
 }

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -35,23 +36,23 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IPublicService _publicService;
 
-        public ReleaseInfoController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IStartSimplifiedReleaseOperationService startSimplifiedReleaseOperationService,
-            IFinishReleaseOperationService finishReleaseOperationService,
-            IRevertReleaseOperationService revertReleaseOperationService,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IPublicService publicService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                getBaseCurrencyService)
+        public ReleaseInfoController(IMsCrmSettings msCrmSettings,
+                                     IUserContext userContext,
+                                     ICommonLog logger,
+                                     IStartSimplifiedReleaseOperationService startSimplifiedReleaseOperationService,
+                                     IFinishReleaseOperationService finishReleaseOperationService,
+                                     IRevertReleaseOperationService revertReleaseOperationService,
+                                     ISecurityServiceFunctionalAccess functionalAccessService,
+                                     IPublicService publicService,
+                                     IAPIOperationsServiceSettings operationsServiceSettings,
+                                     IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                     IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _startSimplifiedReleaseOperationService = startSimplifiedReleaseOperationService;
             _finishReleaseOperationService = finishReleaseOperationService;
