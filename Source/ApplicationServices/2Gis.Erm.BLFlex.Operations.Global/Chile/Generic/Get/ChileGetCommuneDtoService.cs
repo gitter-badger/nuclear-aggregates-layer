@@ -1,6 +1,4 @@
-﻿using System;
-
-using DoubleGis.Erm.BLCore.Operations.Generic.Get;
+﻿using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -20,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
 
         protected override IDomainEntityDto<Commune> GetDto(long entityId)
         {
-            throw new NotImplementedException();
+            throw new NotificationException(BLResources.ChileCommuneModificationNotSupported);
         }
 
         protected override IDomainEntityDto<Commune> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
