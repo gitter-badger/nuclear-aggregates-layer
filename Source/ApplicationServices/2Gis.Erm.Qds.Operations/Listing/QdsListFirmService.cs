@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Operations.Metadata;
 
 namespace DoubleGis.Erm.Qds.Operations.Listing
@@ -32,19 +32,19 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
                 return _legacyService.List(querySettings.SearchListModel);
             }
 
-            bool forMe;
-            if (querySettings.TryGetExtendedProperty("ForMe", out forMe))
-            {
-                var userId = _userContext.Identity.Code.ToString();
-                _filterHelper.AddFilter(x => x.Term(y => y.OwnerCode, userId));
-            }
+            //bool forMe;
+            //if (querySettings.TryGetExtendedProperty("ForMe", out forMe))
+            //{
+            //    var userId = _userContext.Identity.Code.ToString();
+            //    _filterHelper.AddFilter(x => x.Term(y => y.OwnerCode, userId));
+            //}
 
-            bool forReserve;
-            if (querySettings.TryGetExtendedProperty("ForReserve", out forReserve))
-            {
-                var reserveId = _userIdentifierService.GetReserveUserIdentity().Code.ToString();
-                _filterHelper.AddFilter(x => x.Term(y => y.OwnerCode, reserveId));
-            }
+            //bool forReserve;
+            //if (querySettings.TryGetExtendedProperty("ForReserve", out forReserve))
+            //{
+            //    var reserveId = _userIdentifierService.GetReserveUserIdentity().Code.ToString();
+            //    _filterHelper.AddFilter(x => x.Term(y => y.OwnerCode, reserveId));
+            //}
 
             return _filterHelper.Search(querySettings);
         }

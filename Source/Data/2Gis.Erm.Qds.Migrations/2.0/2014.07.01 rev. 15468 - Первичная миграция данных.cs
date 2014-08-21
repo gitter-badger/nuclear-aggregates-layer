@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Migration.Core;
-using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Migrations.Base;
 using DoubleGis.Erm.Qds.Migrations.Extensions;
 
@@ -16,9 +16,9 @@ namespace DoubleGis.Erm.Qds.Migrations
     {
         public override void Apply(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<OrderGridDoc15468>("Data.15468", "OrderGridDoc");
-            context.ElasticManagementApi.CreateIndex<OrderGridDoc15468>(GetDataIndexDescriptor());
-            context.ElasticManagementApi.AddAlias<OrderGridDoc15468>("Data");
+            context.MetadataApi.RegisterType<OrderGridDoc15468>("Data.15468", "OrderGridDoc");
+            context.ManagementApi.CreateIndex<OrderGridDoc15468>(GetDataIndexDescriptor());
+            context.ManagementApi.AddAlias<OrderGridDoc15468>("Data");
 
             PutOrderDocMapping(context);
 
@@ -27,144 +27,30 @@ namespace DoubleGis.Erm.Qds.Migrations
                 PutTerritoryDocMapping(context);
                 PutUserDocMapping(context);
                 PutClientGridDocMapping(context);
-                PutFirmGridDocMapping(context);
              */
-        }
-
-
-        private static void PutFirmGridDocMapping(IElasticSearchMigrationContext context)
-        {
-            context.NestSettings.RegisterType<FirmGridDoc15468>("Data.15468", "FirmGridDoc");
-            context.ElasticManagementApi.CreateIndex<FirmGridDoc15468>(GetDataIndexDescriptor());
-            context.ElasticManagementApi.AddAlias<FirmGridDoc15468>("Data");
-
-            context.ElasticManagementApi.Map<FirmGridDoc15468>(m => m
-                .Dynamic(DynamicMappingOption.strict)
-                .DateDetection(false)
-                .NumericDetection(false)
-                .AllField(a => a.Enabled(false))
-
-                .Properties(p => p
-                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
-                    .MultiField(mf => mf
-                        .Name(n => n.Name)
-                        .Fields(f => f
-                            .String(s => s
-                                .Name(n => n.Name)
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_searching")
-                                .SearchAnalyzer("ru_searching")
-                            )
-                            .String(s => s
-                                .Name(n => n.Name.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_sorting"))
-                        )
-                    )
-                    .String(s => s.Name(n => n.ClientId).Index(FieldIndexOption.not_analyzed))
-                    .MultiField(mf => mf
-                        .Name(n => n.ClientName)
-                        .Fields(f => f
-                            .String(s => s
-                                .Name(n => n.ClientName)
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_searching")
-                                .SearchAnalyzer("ru_searching")
-                            )
-                            .String(s => s
-                                .Name(n => n.ClientName.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_sorting"))
-                        )
-                    )
-                    .String(s => s.Name(n => n.OwnerCode).Index(FieldIndexOption.not_analyzed))
-                    .MultiField(mf => mf
-                        .Name(n => n.OwnerName)
-                        .Fields(f => f
-                            .String(s => s
-                                .Name(n => n.OwnerName)
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_searching")
-                                .SearchAnalyzer("ru_searching")
-                            )
-                            .String(s => s
-                                .Name(n => n.OwnerName.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_sorting"))
-                        )
-                    )
-                    .String(s => s.Name(n => n.TerritoryId).Index(FieldIndexOption.not_analyzed))
-                    .MultiField(mf => mf
-                        .Name(n => n.TerritoryName)
-                        .Fields(f => f
-                            .String(s => s
-                                .Name(n => n.TerritoryName)
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_searching")
-                                .SearchAnalyzer("ru_searching")
-                            )
-                            .String(s => s
-                                .Name(n => n.TerritoryName.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_sorting"))
-                        )
-                    )
-                    .Number(num => num.Name(n => n.PromisingScore).Type(NumberType.integer))
-                    .Date(d => d.Name(n => n.LastQualifyTime))
-                    .Date(d => d.Name(n => n.LastDisqualifyTime))
-                    .String(s => s.Name(n => n.OrganizationUnitId).Index(FieldIndexOption.not_analyzed))
-                    .MultiField(mf => mf
-                        .Name(n => n.OrganizationUnitName)
-                        .Fields(f => f
-                            .String(s => s
-                                .Name(n => n.OrganizationUnitName)
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_searching")
-                                .SearchAnalyzer("ru_searching")
-                            )
-                            .String(s => s
-                                .Name(n => n.OrganizationUnitName.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
-                                .IndexAnalyzer("ru_sorting"))
-                        )
-                    )
-                    .Boolean(b => b.Name(n => n.IsActive))
-                    .Boolean(b => b.Name(n => n.IsDeleted))
-                    .Boolean(b => b.Name(n => n.ClosedForAscertainment))
-                    .Object<DocumentAuthorization>(o => o
-                        .Dynamic(DynamicMappingOption.strict)
-                        .Name(n => n.Authorization)
-                        .Properties(pp => pp
-                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.not_analyzed))
-                        )
-                    )
-                )
-            );
-
-            context.ReplicationQueue.Add("FirmGridDoc");
         }
 
         private static void PutClientGridDocMapping(IElasticSearchMigrationContext context)
         {
-            context.ElasticManagementApi.Map<ClientGridDoc15468>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.Map<ClientGridDoc15468>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
-                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
+                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
                     .NestedObject<LegalPersonDoc15468>(no => no
                             .Name(n => n.LegalPersons.First())
                             .Properties(pp => pp
-                                .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
+                                .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
                                 .Boolean(b => b.Name(n => n.IsActive))
                                 .Boolean(b => b.Name(n => n.IsDeleted))
                                 .NestedObject<AccountDoc15468>(noo => noo
                                     .Name(n => n.Accounts.First())
                                     .Properties(ppp => ppp
-                                        .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
-                                        .Number(s => s.Name(n => n.Balance).Type(NumberType.@double))
+                                        .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
+                                        .Number(s => s.Name(n => n.Balance).Type(NumberType.Double))
                                         .Boolean(b => b.Name(n => n.IsActive))
                                         .Boolean(b => b.Name(n => n.IsDeleted))
                                     )
@@ -176,13 +62,13 @@ namespace DoubleGis.Erm.Qds.Migrations
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.Name)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.Name.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
@@ -191,46 +77,46 @@ namespace DoubleGis.Erm.Qds.Migrations
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.MainAddress)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.MainAddress.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
-                    .String(s => s.Name(n => n.TerritoryId).Index(FieldIndexOption.not_analyzed))
+                    .String(s => s.Name(n => n.TerritoryId).Index(FieldIndexOption.NotAnalyzed))
                     .MultiField(mf => mf
                         .Name(n => n.TerritoryName)
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.TerritoryName)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.TerritoryName.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
-                    .String(s => s.Name(n => n.OwnerCode).Index(FieldIndexOption.not_analyzed)
+                    .String(s => s.Name(n => n.OwnerCode).Index(FieldIndexOption.NotAnalyzed)
                     )
                     .MultiField(mf => mf
                         .Name(n => n.OwnerName)
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.OwnerName)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.OwnerName.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
@@ -241,19 +127,19 @@ namespace DoubleGis.Erm.Qds.Migrations
                     .Date(d => d.Name(n => n.CreatedOn))
                     .Date(d => d.Name(n => n.LastQualifyTime))
                     .Date(d => d.Name(n => n.LastDisqualifyTime))
-                    .String(s => s.Name(n => n.MainFirmId).Index(FieldIndexOption.not_analyzed))
+                    .String(s => s.Name(n => n.MainFirmId).Index(FieldIndexOption.NotAnalyzed))
                     .MultiField(mf => mf
                         .Name(n => n.MainFirmName)
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.MainFirmName)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.MainFirmName.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
@@ -262,23 +148,23 @@ namespace DoubleGis.Erm.Qds.Migrations
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.MainPhoneNumber)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.MainPhoneNumber.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
-                    .Number(num => num.Name(n => n.InformationSourceEnum).Type(NumberType.@short))
+                    .Number(num => num.Name(n => n.InformationSourceEnum).Type(NumberType.Short))
                     .Object<DocumentAuthorization>(o => o
-                        .Dynamic(DynamicMappingOption.strict)
+                        .Dynamic(DynamicMappingOption.Strict)
 
                         .Name(n => n.Authorization)
                         .Properties(pp => pp
-                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.not_analyzed))
+                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.NotAnalyzed))
                         )
                     )
                 )
@@ -289,26 +175,26 @@ namespace DoubleGis.Erm.Qds.Migrations
 
         private static void PutUserDocMapping(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<UserDoc15468>("Metadata.15468", "UserDoc");
+            context.MetadataApi.RegisterType<UserDoc15468>("Metadata.15468", "UserDoc");
             //context.ElasticManagementApi.CreateIndex<UserDoc15468>(GetMetadataIndexDescriptor(), "Metadata");
 
-            context.ElasticManagementApi.Map<UserDoc15468>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.Map<UserDoc15468>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
-                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
-                    .String(s => s.Name(n => n.Name).Index(FieldIndexOption.no))
+                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
+                    .String(s => s.Name(n => n.Name).Index(FieldIndexOption.No))
 
                     .Object<UserDoc15468.OperationPermission15468>(o => o
                         .Name(n => n.Permissions.First())
-                        .Dynamic(DynamicMappingOption.strict)
+                        .Dynamic(DynamicMappingOption.Strict)
 
                         .Properties(pp => pp
-                            .String(s => s.Name(n => n.Operation).Index(FieldIndexOption.no))
-                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.no))
+                            .String(s => s.Name(n => n.Operation).Index(FieldIndexOption.No))
+                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.No))
                         )
                     )
                 )
@@ -319,26 +205,26 @@ namespace DoubleGis.Erm.Qds.Migrations
 
         void PutOrderDocMapping(IElasticSearchMigrationContext context)
         {
-            context.ElasticManagementApi.Map<OrderGridDoc15468>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.Map<OrderGridDoc15468>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
-                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
+                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
                     .MultiField(mf => mf
                         .Name(n => n.Number)
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.Number)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.Number.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         )
                     )
@@ -347,33 +233,33 @@ namespace DoubleGis.Erm.Qds.Migrations
                     .Date(d => d.Name(n => n.EndDistributionDateFact))
                     .Date(d => d.Name(n => n.CreatedOn))
                     .Date(d => d.Name(n => n.ModifiedOn))
-                    .Number(num => num.Name(n => n.HasDocumentsDebt).Type(NumberType.@byte))
+                    .Number(num => num.Name(n => n.HasDocumentsDebt).Type(NumberType.Byte))
                     .Boolean(b => b.Name(n => n.IsActive))
                     .Boolean(b => b.Name(n => n.IsDeleted))
-                    .Number(s => s.Name(n => n.PayablePlan).Type(NumberType.@double))
+                    .Number(s => s.Name(n => n.PayablePlan).Type(NumberType.Double))
                     .MultiField(mf => mf
                         .Name(n => n.WorkflowStep)
                         .Fields(f => f
                             .String(s => s
                                 .Name(n => n.WorkflowStep)
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_searching")
                                 .SearchAnalyzer("ru_searching")
                             )
                             .String(s => s
                                 .Name(n => n.WorkflowStep.Suffix("sort"))
-                                .Index(FieldIndexOption.analyzed)
+                                .Index(FieldIndexOption.Analyzed)
                                 .IndexAnalyzer("ru_sorting"))
                         ))
-                    .String(s => s.Name(n => n.WorkflowStepId).Index(FieldIndexOption.not_analyzed))
-                    .Number(s => s.Name(n => n.AmountToWithdraw).Type(NumberType.@double))
-                    .Number(s => s.Name(n => n.AmountWithdrawn).Type(NumberType.@double))
+                    .String(s => s.Name(n => n.WorkflowStepId).Index(FieldIndexOption.NotAnalyzed))
+                    .Number(s => s.Name(n => n.AmountToWithdraw).Type(NumberType.Double))
+                    .Number(s => s.Name(n => n.AmountWithdrawn).Type(NumberType.Double))
                     .Object<DocumentAuthorization>(o => o
-                        .Dynamic(DynamicMappingOption.strict)
+                        .Dynamic(DynamicMappingOption.Strict)
 
                         .Name(n => n.Authorization)
                         .Properties(pp => pp
-                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.not_analyzed))
+                            .String(s => s.Name(n => n.Tags).Index(FieldIndexOption.NotAnalyzed))
                         )
                     )
                 )
@@ -410,17 +296,17 @@ namespace DoubleGis.Erm.Qds.Migrations
 
         private void PutTerritoryDocMapping(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<TerritoryDoc15468>("Metadata", "TerritoryDoc");
+            context.MetadataApi.RegisterType<TerritoryDoc15468>("Metadata", "TerritoryDoc");
 
-            context.ElasticManagementApi.Map<TerritoryDoc15468>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.Map<TerritoryDoc15468>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
-                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
-                    .String(s => s.Name(n => n.Name).Index(FieldIndexOption.no))
+                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
+                    .String(s => s.Name(n => n.Name).Index(FieldIndexOption.No))
                 )
             );
 
@@ -481,29 +367,6 @@ namespace DoubleGis.Erm.Qds.Migrations
             public bool IsActive { get; set; }
             public bool IsDeleted { get; set; }
             public double Balance { get; set; }
-        }
-
-        private sealed class FirmGridDoc15468
-        {
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public string ClientId { get; set; }
-            public string ClientName { get; set; }
-            public string OwnerCode { get; set; }
-            public string OwnerName { get; set; }
-            public string TerritoryId { get; set; }
-            public string TerritoryName { get; set; }
-            public int PromisingScore { get; set; }
-            public DateTime? LastQualifyTime { get; set; }
-            public DateTime? LastDisqualifyTime { get; set; }
-            public string OrganizationUnitId { get; set; }
-            public string OrganizationUnitName { get; set; }
-
-            public bool IsActive { get; set; }
-            public bool IsDeleted { get; set; }
-            public bool ClosedForAscertainment { get; set; }
-
-            public DocumentAuthorization Authorization { get; set; }
         }
 
         public class OrderGridDoc15468

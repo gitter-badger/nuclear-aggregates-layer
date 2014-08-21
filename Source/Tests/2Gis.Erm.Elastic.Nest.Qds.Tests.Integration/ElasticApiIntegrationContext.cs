@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.Qds.API.Core.Settings;
-using DoubleGis.Erm.Qds.Common;
+﻿using DoubleGis.Erm.Qds.Common;
+using DoubleGis.Erm.Qds.Common.Settings;
 
 using Machine.Specifications;
 
