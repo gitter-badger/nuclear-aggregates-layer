@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Qds.API.Core.Settings;
 using DoubleGis.Erm.Qds.Common;
+using DoubleGis.Erm.Qds.Common.Settings;
 
 using FluentAssertions;
 
@@ -83,10 +83,9 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
         {
             ElasticClientMock = new Mock<IElasticClient>();
             var nestSettingsMock = new Mock<INestSettings>();
-            var responseHandlerMock = new Mock<IElasticResponseHandler>();
 
             // TODO {m.pashuk, 14.05.2014}: Давай тестирумый мембер называть Target?
-            ElasticApi = new ElasticApi(ElasticClientMock.Object, nestSettingsMock.Object, responseHandlerMock.Object);
+            ElasticApi = new ElasticApi(ElasticClientMock.Object, nestSettingsMock.Object, null);
         };
 
         protected static Mock<IElasticClient> ElasticClientMock { get; private set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -8,9 +9,8 @@ using System.ServiceModel.Security;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.Qds.Common.Extensions;
-using DoubleGis.Erm.Qds.Docs;
 using DoubleGis.Erm.Qds.Operations.Metadata;
 
 using Nest;
@@ -19,10 +19,13 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
 {
     public sealed class FilterHelper<TDocument> where TDocument : class, IAuthorizationDoc
     {
+        private static readonly Type DocumentType = typeof(TDocument);
+        private static readonly PropertyInfo[] DocumentProperties = typeof(TDocument).GetProperties();
+
         private readonly IUserContext _userContext;
         private readonly IElasticApi _elasticApi;
-        private readonly List<Func<FilterDescriptor<TDocument>, BaseFilter>> _filters = new List<Func<FilterDescriptor<TDocument>, BaseFilter>>();
-        private readonly List<Func<QueryDescriptor<TDocument>, BaseQuery>> _queries = new List<Func<QueryDescriptor<TDocument>, BaseQuery>>();
+        private readonly List<Func<FilterDescriptor<TDocument>, FilterContainer>> _filters = new List<Func<FilterDescriptor<TDocument>, FilterContainer>>();
+        private readonly List<Func<QueryDescriptor<TDocument>, QueryContainer>> _queries = new List<Func<QueryDescriptor<TDocument>, QueryContainer>>();
         private Action<HighlightFieldDescriptor<TDocument>>[] _highlightedFields;
 
         public FilterHelper(IElasticApi elasticApi, IUserContext userContext)
@@ -31,7 +34,7 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
             _userContext = userContext;
         }
 
-        public FilterHelper<TDocument> AddFilter(Func<FilterDescriptor<TDocument>, BaseFilter> filter)
+        public FilterHelper<TDocument> AddFilter(Func<FilterDescriptor<TDocument>, FilterContainer> filter)
         {
             _filters.Add(filter);
             return this;
@@ -52,9 +55,23 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
 
                 return SortedPaged(x, querySettings);
             });
+            var hitsMetadata = searchResponse.HitsMetaData;
 
-            var documents = (IList<TDocument>)searchResponse.Documents;
-            return new RemoteCollection<TDocument>(documents, (int)searchResponse.Total);
+            var documents = hitsMetadata.Hits.Select(HighlightDocument).ToArray();
+            return new RemoteCollection<TDocument>(documents, (int)hitsMetadata.Total);
+        }
+
+        private static TDocument HighlightDocument(IHit<TDocument> hit)
+        {
+            foreach (var highlight in hit.Highlights)
+            {
+                var propertyInfo = GetPropertyInfo(highlight.Key);
+                var stringValue = highlight.Value.Highlights.Single();
+                var convertedValue = Convert.ChangeType(stringValue, propertyInfo.PropertyType);
+                propertyInfo.SetValue(hit.Source, convertedValue);
+            }
+
+            return hit.Source;
         }
 
         private void AddUserInputQuery(QuerySettings querySettings)
@@ -65,9 +82,9 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
             }
 
             LambdaExpression[] lambdaExpressions;
-            if (!FilteredFieldMetadata.TryGetFieldFilter<TDocument>(out lambdaExpressions))
+            if (!FilteredFieldsMetadata.TryGetFieldFilter<TDocument>(out lambdaExpressions))
             {
-                throw new ArgumentException(string.Format("Для типа {0} не определены поисковые поля", typeof(TDocument).Name));
+                throw new ArgumentException(string.Format("Для типа {0} не определены поисковые поля", DocumentType.Name));
             }
 
             var castedExpressions = (Expression<Func<TDocument, object>>[])lambdaExpressions;
@@ -83,7 +100,7 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
             }
             else
             {
-                _queries.Add(x => x.MultiMatch(y => y.Query(userInputFilterLower).OnFields(castedExpressions).Type(TextQueryType.PHRASE_PREFIX)));
+                _queries.Add(x => x.MultiMatch(y => y.Query(userInputFilterLower).OnFields(castedExpressions).Type(TextQueryType.PhrasePrefix)));
             }
 
             _highlightedFields = castedExpressions.Select(x =>
@@ -115,7 +132,11 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
                 return;
             }
 
-            searchDescriptor.Highlight(y => y.OnFields(_highlightedFields).RequireFieldMatch(true));
+            searchDescriptor.Highlight(y => y
+                .OnFields(_highlightedFields)
+                .PreTags("<span class='highlightedText'>")
+                .PostTags("</span>")
+                .RequireFieldMatch(true));
         }
 
         private void ApplyFilters(SearchDescriptor<TDocument> searchDescriptor)
@@ -135,10 +156,10 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
 
         private void AddDefaultFilter(QuerySettings querySettings)
         {
-            Func<FilterDescriptor<TDocument>, BaseFilter> filter;
+            Func<FilterDescriptor<TDocument>, FilterContainer> filter;
             if (!QdsDefaultFilterMetadata.TryGetFilter(querySettings.FilterName, out filter))
             {
-                throw new ArgumentException(string.Format("Для типа {0} не определен фильтр по умолчанию", typeof(TDocument).Name));
+                throw new ArgumentException(string.Format("Для типа {0} не определен фильтр по умолчанию", DocumentType.Name));
             }
 
             _filters.Add(filter);
@@ -155,83 +176,83 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
             LambdaExpression lambdaExpression;
             if (!RelationalMetadata.TryGetFilterExpressionFromRelationalMap<TDocument>(querySettings.ParentEntityName, out lambdaExpression))
             {
-                throw new ArgumentException(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})", querySettings.ParentEntityName, typeof(TDocument).Name));
+                throw new ArgumentException(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})", querySettings.ParentEntityName, DocumentType.Name));
             }
 
-            Func<FilterDescriptor<TDocument>, BaseFilter> filter = x => x.Term((Expression<Func<TDocument, object>>)lambdaExpression, querySettings.ParentEntityId);
+            Func<FilterDescriptor<TDocument>, FilterContainer> filter = x => x.Term((Expression<Func<TDocument, object>>)lambdaExpression, querySettings.ParentEntityId);
             _filters.Add(filter);
         }
 
         private void AddAuthorizationFilters(QuerySettings querySettings)
         {
-            var userDoc = _elasticApi.Get<UserDoc>(_userContext.Identity.Code.ToString());
+            var userDoc = _elasticApi.Get<UserAuthorizationDoc>(_userContext.Identity.Code.ToString());
             if (userDoc == null)
             {
                 throw new SecurityAccessDeniedException("Cannot find user");
             }
 
-            AddTerritoryFilter(userDoc, querySettings);
-            AddBranchFilter(userDoc, querySettings);
+            //AddTerritoryFilter(userDoc, querySettings);
+            //AddBranchFilter(userDoc, querySettings);
             AddPermissionsFilter(userDoc);
         }
 
-        private void AddTerritoryFilter(UserDoc userDoc, QuerySettings querySettings)
+        //private void AddTerritoryFilter(UserPermissionsDoc userDoc, QuerySettings querySettings)
+        //{
+        //    bool myTerritory;
+        //    if (!querySettings.TryGetExtendedProperty("MyTerritory", out myTerritory))
+        //    {
+        //        return;
+        //    }
+
+        //    Func<FilterDescriptor<TDocument>, FilterContainer> filter;
+
+        //    switch (userDoc.TerritoryIds.Count)
+        //    {
+        //        case 0:
+        //            // TODO {m.pashuk, 01.04.2014}: если нет прав то и запрос не делать
+        //            filter = x => x.Not(y => y.MatchAll());
+        //            break;
+        //        case 1:
+        //            filter = x => x.Term("territoryId", userDoc.TerritoryIds.First());
+        //            break;
+        //        default:
+        //            filter = x => x.Terms("territoryId", userDoc.TerritoryIds);
+        //            break;
+        //    }
+
+        //    _filters.Add(filter);
+        //}
+
+        //private void AddBranchFilter(UserPermissionsDoc userDoc, QuerySettings querySettings)
+        //{
+        //    bool myBranch;
+        //    if (!querySettings.TryGetExtendedProperty("MyBranch", out myBranch))
+        //    {
+        //        return;
+        //    }
+
+        //    Func<FilterDescriptor<TDocument>, FilterContainer> filter;
+
+        //    switch (userDoc.OrganizationUnitIds.Count)
+        //    {
+        //        case 0:
+        //            // TODO {m.pashuk, 01.04.2014}: если нет прав то и запрос не делать
+        //            filter = x => x.Not(y => y.MatchAll());
+        //            break;
+        //        case 1:
+        //            filter = x => x.Term("organizationUnitId", userDoc.OrganizationUnitIds.First());
+        //            break;
+        //        default:
+        //            filter = x => x.Terms("organizationUnitId", userDoc.OrganizationUnitIds);
+        //            break;
+        //    }
+
+        //    _filters.Add(filter);
+        //}
+
+        private void AddPermissionsFilter(UserAuthorizationDoc userDoc)
         {
-            bool myTerritory;
-            if (!querySettings.TryGetExtendedProperty("MyTerritory", out myTerritory))
-            {
-                return;
-            }
-
-            Func<FilterDescriptor<TDocument>, BaseFilter> filter;
-
-            switch (userDoc.TerritoryIds.Count)
-            {
-                case 0:
-                    // TODO {m.pashuk, 01.04.2014}: если нет прав то и запрос не делать
-                    filter = x => x.Not(y => y.MatchAll());
-                    break;
-                case 1:
-                    filter = x => x.Term("territoryId", userDoc.TerritoryIds.First());
-                    break;
-                default:
-                    filter = x => x.Terms("territoryId", userDoc.TerritoryIds);
-                    break;
-            }
-
-            _filters.Add(filter);
-        }
-
-        private void AddBranchFilter(UserDoc userDoc, QuerySettings querySettings)
-        {
-            bool myBranch;
-            if (!querySettings.TryGetExtendedProperty("MyBranch", out myBranch))
-            {
-                return;
-            }
-
-            Func<FilterDescriptor<TDocument>, BaseFilter> filter;
-
-            switch (userDoc.OrganizationUnitIds.Count)
-            {
-                case 0:
-                    // TODO {m.pashuk, 01.04.2014}: если нет прав то и запрос не делать
-                    filter = x => x.Not(y => y.MatchAll());
-                    break;
-                case 1:
-                    filter = x => x.Term("organizationUnitId", userDoc.OrganizationUnitIds.First());
-                    break;
-                default:
-                    filter = x => x.Terms("organizationUnitId", userDoc.OrganizationUnitIds);
-                    break;
-            }
-
-            _filters.Add(filter);
-        }
-
-        private void AddPermissionsFilter(UserDoc userDoc)
-        {
-            var operation = "List/" + typeof(TDocument).Name;
+            var operation = "List/" + DocumentType.Name;
 
             var permissions = userDoc.Permissions
                 .Where(x => x.Operation.Equals(operation, StringComparison.OrdinalIgnoreCase)).ToArray();
@@ -242,7 +263,7 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
                 return;
             }
 
-            Func<FilterDescriptor<TDocument>, BaseFilter> operationFilter = x => x.Term(y => y.Authorization.Operations, operation);
+            Func<FilterDescriptor<TDocument>, FilterContainer> operationFilter = x => x.Term(y => y.Authorization.Operations, operation);
             _filters.Add(operationFilter);
 
             var noTagsNeeded = permissions.Any(x => x.Tags.Count == 0);
@@ -255,7 +276,7 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
                 .SelectMany(x => x.Tags)
                 .Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
 
-            Func<FilterDescriptor<TDocument>, BaseFilter> tagsFilter;
+            Func<FilterDescriptor<TDocument>, FilterContainer> tagsFilter;
             switch (tags.Length)
             {
                 case 0:
@@ -271,12 +292,12 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
             _filters.Add(tagsFilter);
         }
 
-        private static PropertyInfo GetPropertyInfo(Type documentType, PropertyInfo[] properties, string propertyName)
+        private static PropertyInfo GetPropertyInfo(string propertyName)
         {
-            var propertyInfo = Array.Find(properties, x => x.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
+            var propertyInfo = Array.Find(DocumentProperties, x => x.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
             if (propertyInfo == null)
             {
-                throw new ArgumentException(string.Format("Для типа {0} не определено сортировочное поле {1}", documentType.Name, propertyName));
+                throw new ArgumentException(string.Format("Для типа {0} не определено сортировочное поле {1}", DocumentType.Name, propertyName));
             }
 
             return propertyInfo;
@@ -284,19 +305,16 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
 
         private static SearchDescriptor<TDocument> SortedPaged(SearchDescriptor<TDocument> searchDescriptor, QuerySettings querySettings)
         {
-            var documentType = typeof(TDocument);
-            var properties = documentType.GetProperties();
-
             // sorting
             var sorts1 = querySettings.Sort
             .Select(x =>
             {
-                var propertyInfo = GetPropertyInfo(documentType, properties, x.PropertyName);
+                var propertyInfo = GetPropertyInfo(x.PropertyName);
 
                 var propertyName = propertyInfo.PropertyType == typeof(string) ?
                     x.PropertyName + ".sort" :
                     x.PropertyName;
-                propertyName = propertyName.ToCamelCase();
+                propertyName = ToCamelCase(propertyName);
 
                 Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> sortFunc;
                 switch (x.Direction)
@@ -344,5 +362,27 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
 
             return searchDescriptor;
         }
+
+        private static string ToCamelCase(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return s;
+            }
+
+            if (!char.IsUpper(s[0]))
+            {
+                return s;
+            }
+
+            var str = char.ToLower(s[0], CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
+            if (s.Length > 1)
+            {
+                str = str + s.Substring(1);
+            }
+
+            return str;
+        }
+
     }
 }

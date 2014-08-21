@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
-using DoubleGis.Erm.Qds.API.Core.Settings;
-
+using DoubleGis.Erm.Qds.Common.Settings;
 using Elasticsearch.Net;
-
 using Nest;
+using Newtonsoft.Json.Linq;
 
 namespace DoubleGis.Erm.Qds.Common
 {
@@ -15,44 +13,46 @@ namespace DoubleGis.Erm.Qds.Common
     public sealed class ElasticApi : IElasticApi, IElasticManagementApi
     {
         private readonly IElasticClient _elasticClient;
-
         private readonly INestSettings _nestSettings;
-        private readonly IElasticResponseHandler _responseHandler;
-
-        public ElasticApi(IElasticClient elasticClient, INestSettings nestSettings, IElasticResponseHandler responseHandler)
+        private readonly IElasticMetadataApi _metadataApi;
+        
+        public ElasticApi(IElasticClient elasticClient, INestSettings nestSettings, IElasticMetadataApi metadataApi)
         {
             _elasticClient = elasticClient;
-
             _nestSettings = nestSettings;
-            _responseHandler = responseHandler;
+            _metadataApi = metadataApi;
         }
 
-        public void Bulk(IEnumerable<Func<BulkDescriptor, BulkDescriptor>> selectors)
+        // TODO {m.pashuk, 05.08.2014}: message https://github.com/elasticsearch/elasticsearch-net/issues/504
+        public bool TypeExists<T>() where T : class
         {
-            var batches = CreateBatches(selectors);
-            var aggregatedFuncs = batches.Select(batch => new Func<BulkDescriptor, BulkDescriptor>(bulkDescriptor =>
-        {
-                foreach (var func in batch)
+            var documentType = typeof(T);
+
+            string isolatedIndexName;
+            if (!_nestSettings.ConnectionSettings.DefaultIndices.TryGetValue(documentType, out isolatedIndexName))
             {
-                    bulkDescriptor = func(bulkDescriptor);
+                throw new ArgumentException("Cannot find index name for type " + documentType.Name);
             }
 
-                return bulkDescriptor;
-            }));
-
-            foreach (var aggregatedFunc in aggregatedFuncs)
-            {
-                Bulk(aggregatedFunc);
-            }
+            var documentTypeName = documentType.Name.ToLowerInvariant();
+            var response = _elasticClient.Raw.IndicesExistsType<VoidResponse>(isolatedIndexName, documentTypeName);
+            return response.Success;
         }
 
-        private void Bulk(Func<BulkDescriptor, BulkDescriptor> bulkSelector)
+        public void Bulk(IReadOnlyCollection<Func<ErmBulkDescriptor, ErmBulkDescriptor>> funcs)
         {
-            var response = _elasticClient.Bulk(bulkSelector);
-            _responseHandler.ThrowWhenError(response);
+            Func<ErmBulkDescriptor, ErmBulkDescriptor> aggregatedFunc = x => funcs.Aggregate(x, (current, func) => func(current));
+            var bulkResponse = _elasticClient.Bulk(x => aggregatedFunc(new ErmBulkDescriptor()));
+            if (!bulkResponse.Errors)
+            {
+                return;
+            }
+
+            var firstError = bulkResponse.ItemsWithErrors.First().Error;
+            throw new ApplicationException(firstError);
         }
 
-        public IEnumerable<ICollection<T>> CreateBatches<T>(IEnumerable<T> items)
+        public IEnumerable<IReadOnlyCollection<T>> CreateBatches<T>(IEnumerable<T> items)
         {
             var buffer = new List<T>(_nestSettings.BatchSize);
 
@@ -63,9 +63,9 @@ namespace DoubleGis.Erm.Qds.Common
                 if (buffer.Count == buffer.Capacity)
                 {
                     yield return buffer;
-                    buffer.Clear();
+                    buffer = new List<T>(_nestSettings.BatchSize);
+                }
             }
-        }
 
             if (buffer.Count > 0)
             {
@@ -76,90 +76,50 @@ namespace DoubleGis.Erm.Qds.Common
         public ISearchResponse<T> Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
         {
             var response = _elasticClient.Search(searcher);
-            _responseHandler.ThrowWhenError(response);
             return response;
         }
 
         public void Delete<T>(string id) where T : class
         {
-            var response = _elasticClient.Delete<T>(x => x.Id(id));
-            _responseHandler.ThrowWhenError(response);
+            _elasticClient.Delete<T>(x => x.Id(id));
         }
 
         public void Index<T>(T @object, Func<IndexDescriptor<T>, IndexDescriptor<T>> indexSelector = null) where T : class
         {
-            var response = _elasticClient.Index(@object, indexSelector);
-            _responseHandler.ThrowWhenError(response);
+            _elasticClient.Index(@object, indexSelector);
         }
 
         public T Get<T>(string id) where T : class
         {
             var response = _elasticClient.Get<T>(x => x.Id(id));
-            _responseHandler.ThrowWhenError(response);
             return response.Source;
         }
 
-        public ICollection<IMultiGetHit<T>> MultiGet<T>(ICollection<string> ids) where T : class
+        public IReadOnlyCollection<IMultiGetHit<object>> MultiGet(Func<ErmMultiGetDescriptor, ErmMultiGetDescriptor> multiGetSelector)
         {
-            var response = _elasticClient.MultiGet(x => x.GetMany<T>(ids));
-            _responseHandler.ThrowWhenError(response);
-            return response.GetMany<T>(ids).ToArray();
-        }
-
-        public void Index(object @object, Type type, string id)
-        {
-            string isolatedIndexName;
-            if (!_nestSettings.ConnectionSettings.DefaultIndices.TryGetValue(type, out isolatedIndexName))
-            {
-                throw new ArgumentException("Cannot find index name for type " + type.Name);
-            }
-
-            var response = _elasticClient.Index(@object, x => x.Index(isolatedIndexName).Type(type).Id(id));
-            _responseHandler.ThrowWhenError(response);
+            var response = _elasticClient.MultiGet(x => multiGetSelector(new ErmMultiGetDescriptor()));
+            var documents = (IReadOnlyCollection<IMultiGetHit<object>>)response.Documents;
+            return documents;
         }
 
         public void Map<T>(Func<PutMappingDescriptor<T>, PutMappingDescriptor<T>> mappingSelector) where T : class
         {
-            var response = _elasticClient.Map(mappingSelector);
-            _responseHandler.ThrowWhenError(response);
-        }
-
-        public RootObjectMapping GetMapping<T>() where T : class
-        {
-            var indexExists = IndexExists<T>();
-            if (!indexExists)
-            {
-                return null;
-            }
-
-            var response = _elasticClient.GetMapping(x => x.Index<T>().Type<T>());
-            _responseHandler.ThrowWhenError(response);
-            return response.Mapping;
+            _elasticClient.Map(mappingSelector);
         }
 
         public void DeleteMapping<T>() where T : class
         {
-            var response = _elasticClient.DeleteMapping(x => x.Index<T>().Type<T>());
-            _responseHandler.ThrowWhenError(response);
+            _elasticClient.DeleteMapping<T>();
         }
 
         public void Refresh<T>() where T : class
         {
-            var response = _elasticClient.Refresh(x => x.Index<T>());
-            _responseHandler.ThrowWhenError(response);
+            _elasticClient.Refresh(x => x.Index<T>());
         }
 
         public void Refresh(Type[] indexTypes)
         {
-            var response = _elasticClient.Refresh(x => x.Indices(indexTypes));
-            _responseHandler.ThrowWhenError(response);
-        }
-
-        private ISearchResponse<T> Scroll<T>(Func<ScrollDescriptor<T>, ScrollDescriptor<T>> scrollSelector) where T : class
-        {
-            var response = _elasticClient.Scroll(scrollSelector);
-            _responseHandler.ThrowWhenError(response);
-            return response;
+            _elasticClient.Refresh(x => x.Indices(indexTypes));
         }
 
         public void DeleteIndex<T>() where T : class
@@ -170,8 +130,7 @@ namespace DoubleGis.Erm.Qds.Common
                 return;
             }
 
-            var deleteIndexResponse = _elasticClient.DeleteIndex(x => x.Index<T>());
-            _responseHandler.ThrowWhenError(deleteIndexResponse);
+            _elasticClient.DeleteIndex(x => x.Index<T>());
         }
 
         public void CreateIndex<T>(Func<CreateIndexDescriptor, CreateIndexDescriptor> createIndexSelector) where T : class
@@ -182,72 +141,60 @@ namespace DoubleGis.Erm.Qds.Common
                 return;
             }
 
-            var key = typeof(T);
-            string isolatedIndexName;
-            if (!_nestSettings.ConnectionSettings.DefaultIndices.TryGetValue(key, out isolatedIndexName))
-            {
-                throw new ArgumentException("Cannot find index name for type " + key.Name);
-            }
-
-            var resultIndexSelector = createIndexSelector;
-
-            var response = _elasticClient.CreateIndex(isolatedIndexName, resultIndexSelector);
-            _responseHandler.ThrowWhenError(response);
+            _elasticClient.CreateIndex(x => createIndexSelector(x).Index<T>());
         }
 
         public void AddAlias<T>(string alias) where T : class
         {
-            var isolatedIndexName = _nestSettings.GetIsolatedIndexName(alias);
-
-            var response = _elasticClient.Alias(x => x.Add(y => y.Index<T>().Alias(isolatedIndexName)));
-            _responseHandler.ThrowWhenError(response);
+            var isolatedIndexName = _metadataApi.GetIsolatedIndexName(alias);
+            _elasticClient.Alias(x => x.Add(y => y.Index<T>().Alias(isolatedIndexName)));
         }
 
         private bool IndexExists<T>() where T : class
         {
             var indexExistsResponse = _elasticClient.IndexExists(x => x.Index<T>());
-            _responseHandler.ThrowWhenError(indexExistsResponse);
             return indexExistsResponse.Exists;
         }
 
         public IndexSettings GetIndexSettings(Type indexType)
         {
             var response = _elasticClient.GetIndexSettings(x => x.Index(indexType));
-            _responseHandler.ThrowWhenError(response);
-            return response.Settings;
+            return response.IndexSettings;
         }
 
-        public void UpdateIndexSettings(Type[] indexTypes, Func<UpdateSettingsDescriptor, UpdateSettingsDescriptor> updateSettingsSelector, bool optimize = false)
+        public void UpdateIndexSettings(Type indexType, Func<UpdateSettingsDescriptor, UpdateSettingsDescriptor> updateSettingsSelector, bool optimize = false)
         {
-            foreach (var indexType in indexTypes)
-            {
-                var type = indexType;
-                var response = _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(type));
-            _responseHandler.ThrowWhenError(response);
-        }
+            var type = indexType;
+            _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(type));
 
             if (optimize)
             {
-                _elasticClient.Optimize(x => x.Indices(indexTypes).MaxNumSegments(5));
+                _elasticClient.Optimize(x => x.Indices(new[] { indexType }).MaxNumSegments(5));
             }
         }
 
-        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class
+        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector) where T : class
         {
-            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(this, searcher));
+            const string FirstScrollTimeout = "1s";
+
+            Func<ISearchResponse<T>> searchFunc = () => Search<T>(x => searchSelector(x)
+                .SearchType(SearchType.Scan)
+                .Scroll(FirstScrollTimeout)
+                .Size(_nestSettings.BatchSize));
+
+            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(searchFunc, _elasticClient, _nestSettings.BatchTimeout));
         }
 
-        private sealed class DelegateEnumerable<TDocument> : IEnumerable<TDocument>
-            where TDocument : class
+        private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
         {
-            private readonly Func<IEnumerator<TDocument>> _func;
+            private readonly Func<IEnumerator<THit>> _func;
 
-            public DelegateEnumerable(Func<IEnumerator<TDocument>> func)
+            public DelegateEnumerable(Func<IEnumerator<THit>> func)
             {
                 _func = func;
             }
 
-            public IEnumerator<TDocument> GetEnumerator()
+            public IEnumerator<THit> GetEnumerator()
             {
                 return _func();
             }
@@ -261,22 +208,18 @@ namespace DoubleGis.Erm.Qds.Common
         private sealed class ScrollEnumerator<TDocument> : IEnumerator<IHit<TDocument>>
             where TDocument : class
         {
-            private readonly ElasticApi _elasticApi;
-            private readonly Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> _searcher;
+            private readonly Func<ISearchResponse<TDocument>> _searchFunc;
+            private readonly IElasticClient _elasticClient;
+            private readonly string _scrollTimeout;
+
             private string _scrollId;
             private IEnumerator<IHit<TDocument>> _internalEnumerator;
 
-            public ScrollEnumerator(ElasticApi elasticApi, Func<SearchDescriptor<TDocument>, SearchDescriptor<TDocument>> searcher)
+            public ScrollEnumerator(Func<ISearchResponse<TDocument>> searchFunc, IElasticClient elasticClient, string scrollTimeout)
             {
-                const string FirstScrollTimeout = "1s";
-
-                _elasticApi = elasticApi;
-
-                _searcher = searchDescriptor =>
-                    searcher(searchDescriptor)
-                    .SearchType(SearchTypeOptions.Scan)
-                    .Scroll(FirstScrollTimeout)
-                    .Size(_elasticApi._nestSettings.BatchSize);
+                _searchFunc = searchFunc;
+                _elasticClient = elasticClient;
+                _scrollTimeout = scrollTimeout;
             }
 
             public IHit<TDocument> Current { get { return _internalEnumerator.Current; } }
@@ -286,17 +229,18 @@ namespace DoubleGis.Erm.Qds.Common
             {
                 if (_scrollId == null)
                 {
-                    var response = _elasticApi.Search(_searcher);
-                    if (response.Total <= 0)
+                    var searchResponse = _searchFunc();
+                    if (searchResponse.Total <= 0)
                     {
                         return false;
                     }
-                    _scrollId = response.ScrollId;
+
+                    _scrollId = searchResponse.ScrollId;
                 }
 
                 if (_internalEnumerator == null || !_internalEnumerator.MoveNext())
                 {
-                    var response = _elasticApi.Scroll<TDocument>(x => x.Scroll(_elasticApi._nestSettings.BatchTimeout).ScrollId(_scrollId));
+                    var response = _elasticClient.Scroll<TDocument>(x => x.Scroll(_scrollTimeout).ScrollId(_scrollId));
                     _scrollId = response.ScrollId;
                     _internalEnumerator = response.Hits.GetEnumerator();
                     return _internalEnumerator.MoveNext();
@@ -319,6 +263,69 @@ namespace DoubleGis.Erm.Qds.Common
             public void Reset()
             {
                 throw new NotSupportedException();
+            }
+        }
+
+        public sealed class ErmBulkDescriptor : BulkDescriptor
+        {
+            public ErmBulkDescriptor UpdateWithMerge<T>(Func<BulkUpdateDescriptor<T, T>, BulkUpdateDescriptor<T, T>> bulkUpdateSelector)
+                where T : class
+            {
+                var operations = ((IBulkRequest)this).Operations;
+
+                var newOperation = (IBulkUpdateOperation<T, T>)bulkUpdateSelector(new BulkUpdateDescriptor<T, T>());
+                if (newOperation == null)
+                {
+                    return this;
+                }
+
+                var existingOperation = (IBulkUpdateOperation<T, T>)operations.SingleOrDefault(x => string.Equals(x.Id, newOperation.Id, StringComparison.OrdinalIgnoreCase) && x.ClrType == newOperation.ClrType);
+                if (existingOperation != null)
+                {
+                    var existingDoc = JObject.FromObject(existingOperation.Doc);
+                    var newDoc = JObject.FromObject(newOperation.Doc);
+                    existingDoc.Merge(newDoc);
+                    existingOperation.Doc = existingDoc.ToObject<T>();
+                }
+                else
+                {
+                    operations.Add(newOperation);
+                }
+
+                return this;
+            }
+
+            public ErmBulkDescriptor Create2<T>(Func<BulkCreateDescriptor<T>, BulkCreateDescriptor<T>> bulkCreateSelector) where T : class
+            {
+                return (ErmBulkDescriptor)Create(bulkCreateSelector);
+            }
+        }
+
+        public sealed class ErmMultiGetDescriptor : MultiGetDescriptor
+        {
+            // TODO {m.pashuk, 05.08.2014}: message https://github.com/elasticsearch/elasticsearch-net/issues/849
+            public ErmMultiGetDescriptor SourceEnabled(bool enabled = true)
+            {
+                Request.RequestParameters.AddQueryString("_source", enabled);
+                return this;
+            }
+
+            public ErmMultiGetDescriptor GetManyDistinct<T>(IEnumerable<string> ids) where T : class
+            {
+                var documentType = typeof(T);
+                var operations = ((IMultiGetRequest)this).GetOperations;
+
+                foreach (var id in ids)
+                {
+                    var idRef = id;
+                    var idExists = operations.Any(x => string.Equals(x.Id, idRef, StringComparison.OrdinalIgnoreCase) && x.ClrType == documentType);
+                    if (!idExists)
+                    {
+                        operations.Add(new MultiGetOperationDescriptor<T>().Id(id));
+                    }
+                }
+
+                return this;
             }
         }
     }

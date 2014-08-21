@@ -1,8 +1,7 @@
 using System.Linq;
 
-using DoubleGis.Erm.Elastic.Nest.Qds.Indexing;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Common;
-using DoubleGis.Erm.Qds.Docs;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
@@ -23,6 +22,11 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         public void Delete(string id)
         {
             _elasticApi.Delete<ReplicationQueue>(id);
+        }
+
+        public void Save(IDocumentWrapper<ReplicationQueue> documentWrapper)
+        {
+            _elasticApi.Index(documentWrapper.Document, x => x.Id(documentWrapper.Id));
         }
 
         public IDocumentWrapper<ReplicationQueue>[] LoadQueue()

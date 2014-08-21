@@ -36,16 +36,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Nest, Version=0.12.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.0-beta1\lib\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.1\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,9 +59,21 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\QdsOperationsAssembly.cs" />
+    <Compile Include="Indexing\DocumentVersionUpdater.cs" />
     <Compile Include="Indexing\DefferedDocumentUpdater.cs" />
+    <Compile Include="Indexing\DocumentRelation.cs" />
+    <Compile Include="Listing\QdsListDepartmentService.cs" />
+    <Compile Include="Metadata\DocumentRelationMappings.cs" />
+    <Compile Include="Indexing\DocumentRelationMetadataContainer.cs" />
+    <Compile Include="Indexing\DocumentUpdater.cs" />
+    <Compile Include="Indexing\DocumentWrapper.cs" />
+    <Compile Include="Indexing\EntityToDocumentRelation.cs" />
+    <Compile Include="Metadata\EntityToDocumentRelationMappings.cs" />
+    <Compile Include="Indexing\EntityToDocumentRelationMetadataContainer.cs" />
+    <Compile Include="Indexing\IDocumentRelation.cs" />
+    <Compile Include="Indexing\IEntityToDocumentRelation.cs" />
     <Compile Include="Indexing\ReplicateToElasticSearchMessageAggregatedProcessingResultHandler.cs" />
-    <Compile Include="Indexing\ReplicateToElasticSearchPerformedOperationsPrimaryProcessor.cs" />
+    <Compile Include="Indexing\ReplicateToElasticSearchPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Indexing\ReplicationQueueHelper.cs" />
     <Compile Include="Listing\FilterHelper.cs" />
     <Compile Include="Metadata\QdsDefaultFilterMetadata.cs" />
@@ -77,10 +89,6 @@
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
-      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BLCore.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
@@ -110,29 +118,13 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
-      <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
-      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
-      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
-      <Name>2Gis.Erm.Qds.Etl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
-      <Name>2Gis.Erm.Qds</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
-      <Project>{9e27f95a-5b1a-426b-9f72-ad2240fe8026}</Project>
-      <Name>2Gis.Erm.Qds.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
       <Project>{a2ec52a5-720b-4f42-9615-006e6b5fb49a}</Project>
