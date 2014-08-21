@@ -167,9 +167,9 @@
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ElasticRuntimeFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />
-    <Compile Include="Operations\Processing\Primary\IPerformedOperationsFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\IPerformedOperationsFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Primary\IPerformedOperationsReceiverSettings.cs" />
-    <Compile Include="Operations\Processing\Primary\PerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\PerformedOperationsPrimaryFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PrimaryProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\PrimaryReplicate2MsCRMPerformedOperationsFlow.cs" />

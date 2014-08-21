@@ -138,7 +138,7 @@
     <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCrmPerformedOperationsFinalProcessor.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessor.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMMessageAggregatedProcessingResultHandler.cs" />
-    <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\FinalProcessingQueueReceiver.cs" />
+    <Compile Include="Operations\Processing\Final\Transports\FinalProcessingQueueReceiver.cs" />
     <Compile Include="Operations\Processing\Primary\HotClient\ReplicateHotClientPerformedOperationsPrimaryProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\ReplicateToCrmPerformedOperationsPrimaryProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFlowProcessor.cs" />
@@ -220,10 +220,7 @@
     <None Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Receiver\" />
-    <Folder Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\" />
-    <Folder Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\" />
-    <Folder Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\Settings\" />
+    <Folder Include="Operations\Processing\Final\Transports\FinalProcessing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

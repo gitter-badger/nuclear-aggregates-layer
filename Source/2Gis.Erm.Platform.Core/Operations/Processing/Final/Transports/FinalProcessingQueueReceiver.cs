@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing
+namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports
 {
     public sealed class FinalProcessingQueueReceiver<TMessageFlow> :
         MessageReceiverBase<TMessageFlow, PerformedOperationsFinalProcessingMessage, IFinalProcessingQueueReceiverSettings> 

@@ -4,7 +4,6 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final
 {

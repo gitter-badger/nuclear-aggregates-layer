@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.DI.Proxies.Messaging;

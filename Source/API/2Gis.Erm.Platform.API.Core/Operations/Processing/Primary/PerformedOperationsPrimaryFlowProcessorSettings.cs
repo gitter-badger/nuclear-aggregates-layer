@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary
 {
-    public sealed class PerformedOperationsFlowProcessorSettings : IPerformedOperationsFlowProcessorSettings
+    public sealed class PerformedOperationsPrimaryFlowProcessorSettings : IPerformedOperationsFlowProcessorSettings
     {
         public int MessageBatchSize { get; set; }
         public MessageProcessingStage[] AppropriatedStages { get; set; }
