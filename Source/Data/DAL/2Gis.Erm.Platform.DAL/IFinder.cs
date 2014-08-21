@@ -36,6 +36,6 @@ namespace DoubleGis.Erm.Platform.DAL
         /// <summary>
         /// Find and select collection of entity objects based on findSpecification.
         /// </summary>
-        IQueryable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
+        IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
     }
 }

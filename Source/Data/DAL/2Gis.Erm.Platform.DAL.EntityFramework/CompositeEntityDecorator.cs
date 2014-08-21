@@ -10,64 +10,86 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-	public class CompositeEntityDecorator : ICompositeEntityDecorator
-	{
-		private readonly IFinderBase _finder;
+    public class CompositeEntityDecorator : ICompositeEntityDecorator
+    {
+        private readonly IFinder _finder;
 
-		public CompositeEntityDecorator(IFinder finder)
-		{
-			_finder = finder;
-		}
+        public CompositeEntityDecorator(IFinder finder)
+        {
+            _finder = finder;
+        }
 
-		public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> predicate)
-		{
-			// TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
+        public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression)
+        {
+            // TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
+            if (typeof(TEntity) == typeof(Appointment))
+            {
+                return Find<AppointmentBase, TEntity>(expression, null);
+            }
 
-			if (typeof(TEntity) == typeof(Appointment))
-				return Find<AppointmentBase, TEntity>(predicate);
-			if (typeof(TEntity) == typeof(Phonecall))
-				return Find<PhonecallBase, TEntity>(predicate);
-			if (typeof(TEntity) == typeof(Task))
-				return Find<TaskBase, TEntity>(predicate);
+            if (typeof(TEntity) == typeof(Phonecall))
+            {
+                return Find<PhonecallBase, TEntity>(expression, null);
+            }
 
-			if (typeof(TEntity) == typeof(RegardingObject<Appointment>))
-				return Find<AppointmentReference, TEntity>(predicate, x => x.Reference == (int)ReferenceType.RegardingObject);
-			if (typeof(TEntity) == typeof(RegardingObject<Phonecall>))
-				return Find<PhonecallReference, TEntity>(predicate, x => x.Reference == (int)ReferenceType.RegardingObject);
-			if (typeof(TEntity) == typeof(RegardingObject<Task>))
-				return Find<TaskReference, TEntity>(predicate, x => x.Reference == (int)ReferenceType.RegardingObject);
+            if (typeof(TEntity) == typeof(Task))
+            {
+                return Find<TaskBase, TEntity>(expression, null);
+            }
 
-			throw new NotSupportedException("The requested mapping is not supported");
-		}
+            if (typeof(TEntity) == typeof(RegardingObject<Appointment>))
+            {
+                return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
+            }
 
-		private IQueryable<TEntity> Find<TPersistentEntity,TEntity>(
-			Expression<Func<TEntity, bool>> postPredicate = null,
-			Expression<Func<TPersistentEntity, bool>> prePredicate = null)
-			where TPersistentEntity : class, IEntity
-		{
-			CheckRegistration<TPersistentEntity, TEntity>();
-			
-			var persistentEntities = _finder.FindAll<TPersistentEntity>();
-			if (prePredicate != null)
-			{
-				persistentEntities = persistentEntities.Where(prePredicate);
-			}
+            if (typeof(TEntity) == typeof(RegardingObject<Phonecall>))
+            {
+                return Find<PhonecallReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
+            }
 
-			var entities = persistentEntities.Project().To<TEntity>();
+            if (typeof(TEntity) == typeof(RegardingObject<Task>))
+            {
+                return Find<TaskReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
+            }
 
-			if (postPredicate != null)
-			{
-				entities = entities.Where(postPredicate);
-			}
-			
-			return entities;
-		}
+            throw new NotSupportedException("The requested mapping is not supported");
+        }
 
-		private static void CheckRegistration<TSource,TTarget>()
-		{
-			// NOTE: mapping registry should be referenced to ensure the registration performed
-			if (!MappingRegistry.CheckRegistration(typeof(TSource), typeof(TTarget)))
-				throw new NotSupportedException("The mapping is not supported.");
-		}
-	}
+        public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification)
+        {
+            return Find(findSpecification.Predicate);
+        }
+
+        private static void CheckRegistration<TSource, TTarget>()
+        {
+            // NOTE: mapping registry should be referenced to ensure the registration performed
+            if (!MappingRegistry.CheckRegistration(typeof(TSource), typeof(TTarget)))
+            {
+                throw new NotSupportedException("The mapping is not supported.");
+            }
+        }
+
+        private IQueryable<TEntity> Find<TPersistentEntity, TEntity>(
+            Expression<Func<TEntity, bool>> postPredicate,
+            Expression<Func<TPersistentEntity, bool>> prePredicate)
+            where TPersistentEntity : class, IEntity
+        {
+            CheckRegistration<TPersistentEntity, TEntity>();
+
+            var persistentEntities = _finder.FindAll<TPersistentEntity>();
+            if (prePredicate != null)
+            {
+                persistentEntities = persistentEntities.Where(prePredicate);
+            }
+
+            var entities = persistentEntities.Project().To<TEntity>();
+
+            if (postPredicate != null)
+            {
+                entities = entities.Where(postPredicate);
+            }
+
+            return entities;
+        }
+    }
 }
