@@ -10,7 +10,7 @@
             delete tp.anchorSpec;
             var adsBag = cnt.add(new Ext.ux.AdvertisementBagPanel(
             {
-                id: 'adsElemBag',
+                id: 'adsBody',
                 autoScroll: true,
                 title: Ext.LocalizedResources.AdvertisementElements,
                 anchor: "100%, 60%"
@@ -30,7 +30,7 @@
             delete tp.anchorSpec;
             var adsBag = cnt.add(new Ext.ux.AdvertisementBagPanel(
             {
-                id: 'adsElemBag',
+                id: 'adsBody',
                 autoScroll: true,
                 title: Ext.LocalizedResources.AdvertisementElements,
                 anchor: "100%, 60%"
@@ -41,7 +41,7 @@
         });
         this.on("beforerebuild", function (cmp)
         {
-            Ext.getCmp('adsElemBag').destroy();
+            Ext.getCmp('adsBody').destroy();
         });
         this.on("afterrebuild", function (cmp)
         {
@@ -51,7 +51,7 @@
             delete tp.anchorSpec;
             var adsBag = cnt.add(new Ext.ux.AdvertisementBagPanel(
             {
-                id: 'adsElemBag',
+                id: 'adsBody',
                 autoScroll: true,
                 title: Ext.LocalizedResources.AdvertisementElements,
                 anchor: "100%, 60%"

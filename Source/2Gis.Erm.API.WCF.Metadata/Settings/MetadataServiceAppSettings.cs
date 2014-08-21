@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Settings
                         .Is<APIOperationsServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>()
                         .Is<APIReleasingServiceSettingsAspect>()
-                        .Is<APIFinancialOperationsServiceSettingsAspect>());
+                        .Is<APISpecialOperationsServiceSettingsAspect>());
         }
 
         int IIdentityProviderSettings.IdentityServiceUniqueId

@@ -52,6 +52,7 @@ using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender;
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -86,7 +87,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
-            //            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+            // { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
             { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
 
@@ -151,20 +152,22 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IOperationLoggingSettings operationLoggingSettings)
         {
             return container
-                    .ConfigureGlobal(globalizationSettings)
-                    .CreateErmSpecific(msCrmSettings)
-                    .CreateSecuritySpecific()
-                    .ConfigureCacheAdapter(cachingSettings)
-                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
-                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .ConfigureIdentityInfrastructure()
-                    .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                    .ConfigureExportMetadata()
-                    .ConfigureMetadata()
-                    .ConfigureTestInfrastructure(environmentSettings)
-                    .ConfigureTestsDependenciesExplicitly();
+                .ConfigureGlobal(globalizationSettings)
+                .CreateErmSpecific(msCrmSettings)
+                .CreateSecuritySpecific()
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                .ConfigureIdentityInfrastructure()
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .ConfigureExportMetadata()
+                .ConfigureMetadata()
+                .ConfigureTestInfrastructure(environmentSettings)
+                .ConfigureTestsDependenciesExplicitly();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
