@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -94,7 +95,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Account = x.Account,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
+                    DepartmentId = x.DepartmentId,
                     DepartmentName = x.Department.Name,
+                    ParentId = x.ParentId,
                     ParentName = x.Parent.DisplayName,
                     RoleName = x.UserRoles.Select(role => role.Role.Name).OrderBy(item => item),
                     IsActive = x.IsActive,

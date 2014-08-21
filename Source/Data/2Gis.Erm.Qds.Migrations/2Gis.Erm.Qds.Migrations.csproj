@@ -36,19 +36,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.0-beta1\lib\Elasticsearch.Net.dll</HintPath>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.0-beta1\lib\Nest.dll</HintPath>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.1\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -60,6 +60,9 @@
     <Compile Include="2.0\2014.06.17 rev. 21201 - Add FastSearch button to MSCRM.cs" />
     <Compile Include="2.0\2014.07.01 rev. 13546 - Создание поисковой инфраструктуры.cs" />
     <Compile Include="2.0\2014.07.01 rev. 15468 - Первичная миграция данных.cs" />
+    <Compile Include="2.0\2014.07.28 rev. 22693 - Related docs.cs" />
+    <Compile Include="2.0\2014.07.23 rev. 22565 - ReplicationQueue mapping.cs" />
+    <Compile Include="2.0\2014.07.18 rev. 22447 - OrderGridDoc, FirmGridDoc mappings.cs" />
     <Compile Include="2.0\2014.07.09 rev. 22156 - Remove RecordIdState mapping.cs" />
     <Compile Include="2.0\2014.07.01 rev. 21859 - OrderGridDoc, RecordIdState mappings.cs" />
     <Compile Include="Base\ElasticSearchMigration.cs">
@@ -83,10 +86,6 @@
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
-      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
-      <Name>2Gis.Erm.Platform.API.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2EE6DCD3-218D-4EEA-8902-8CF501C7E034}</Project>
       <Name>2Gis.Erm.Platform.Migration.Core</Name>
@@ -95,25 +94,13 @@
       <Project>{6ee01928-8e79-4882-9410-9a6c5e266c1f}</Project>
       <Name>2Gis.Erm.Platform.Migration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
-      <Project>{5B72FCE8-04D5-4C60-9939-587FD1C01E5F}</Project>
-      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Project>{7d920b28-ca75-4f54-8605-aa1e57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
-      <Project>{B3EE2E70-CB56-454D-A4EE-8E9B663ACECA}</Project>
-      <Name>2Gis.Erm.Qds.Etl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
-      <Name>2Gis.Erm.Qds</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
-      <Project>{9E27F95A-5B1A-426B-9F72-AD2240FE8026}</Project>
-      <Name>2Gis.Erm.Qds.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
       <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>

@@ -52,6 +52,7 @@
     <Compile Include="List\Infrastructure\FilterHelper.cs" />
     <Compile Include="List\Infrastructure\SubordinatesFilter.cs" />
     <Compile Include="List\Infrastructure\ListEntityDtoServiceBase.cs" />
+    <Compile Include="List\ListAdvertisementElementDenialReasonService.cs" />
     <Compile Include="List\ListDenialReasonService.cs" />
     <Compile Include="List\ListTimeZoneService.cs" />
     <Compile Include="List\ListThemeCategoryService.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="List\ListCurrencyRateService.cs" />
     <Compile Include="List\ListDealService.cs" />
     <Compile Include="List\ListDeniedPositionService.cs" />
+    <Compile Include="List\ListDepartmentService.cs" />
     <Compile Include="List\ListFirmAddressService.cs" />
     <Compile Include="List\ListFirmContactService.cs" />
     <Compile Include="List\ListFirmService.cs" />
@@ -115,7 +117,6 @@
     <Compile Include="List\ListUserOrganizationUnitService.cs" />
     <Compile Include="List\ListUserTerritoryService.cs" />
     <Compile Include="List\ListUserRoleService.cs" />
-    <Compile Include="List\ListDepartmentService.cs" />
     <Compile Include="List\ListUserService.cs" />
     <Compile Include="List\ListWithdrawalInfoService.cs" />
   </ItemGroup>
@@ -159,10 +160,6 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
-      <Name>2Gis.Erm.Qds</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>

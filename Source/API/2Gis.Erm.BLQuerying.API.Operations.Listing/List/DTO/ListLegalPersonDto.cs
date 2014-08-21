@@ -16,7 +16,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string PassportNumber { get; set; }
         public long? ClientId { get; set; }
         public string ClientName { get; set; }
-        public long? FirmId { get; set; }
         public long OwnerCode { get; set; }
         public DateTime CreatedOn { get; set; }
         public string OwnerName { get; set; }

@@ -56,6 +56,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterFilter<ListAdsTemplatesAdsElementTemplateDto>("DListAdsTemplatesAdsElementTemplate", x => !x.IsDeleted)
 
+            .RegisterFilter<ListAdvertisementElementDenialReasonsDto>("DListAdvertisementElementDenialReason", x => true)
+            .RegisterFilter<ListAdvertisementElementDenialReasonsDto>("DListAdvertisementElementDenialReasonForEdit", x => x.IsActive || x.Checked)
+
             .RegisterFilter<ListDenialReasonDto>("DListDenialReason", x => x.IsActive)
             .RegisterFilter<ListDenialReasonDto>("DListInactiveDenialReason", x => !x.IsActive)
             .RegisterFilter<ListAdvertisementTemplateDto>("DListAdvertisementTemplate", x => !x.IsDeleted)

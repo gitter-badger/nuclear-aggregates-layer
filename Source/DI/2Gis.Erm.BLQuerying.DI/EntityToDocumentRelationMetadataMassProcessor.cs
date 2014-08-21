@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
-using DoubleGis.Erm.Elastic.Nest.Qds.Indexing;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Qds.Etl;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
+using DoubleGis.Erm.Qds.Operations.Indexing;
+using DoubleGis.Erm.Qds.Operations.Metadata;
 
 using Microsoft.Practices.Unity;
 
@@ -21,34 +26,42 @@ namespace DoubleGis.Erm.BLQuerying.DI
             _metadataContainer = metadataContainer;
         }
 
-        public void MassProcess()
+        public void MassProcess(Func<LifetimeManager> lifetime)
         {
-            RegisterRelation(() => _unityContainer.Resolve<OrderToOrderGridDocRelation>());
-
             //RegisterRelation<Client, ClientGridDoc>(EntityToDocumentRelationMappings.SelectClientGridDoc);
-            //RegisterRelation<Firm, FirmGridDoc>(EntityToDocumentRelationMappings.SelectFirmGridDoc);
-            //RegisterRelation<Territory, TerritoryDoc>(EntityToDocumentRelationMappings.SelectTerritoryDoc);
+            RegisterRelation<Firm, FirmGridDoc>(EntityToDocumentRelationMappings.SelectFirmGridDoc, lifetime);
+            RegisterRelation<User, UserGridDoc>(EntityToDocumentRelationMappings.SelectUserGridDoc, lifetime);
+            RegisterRelation<Department, DepartmentGridDoc>(EntityToDocumentRelationMappings.SelectDepartmentGridDoc, lifetime);
+            RegisterRelation<Currency, CurrencyGridDoc>(EntityToDocumentRelationMappings.SelectCurrencyGridDoc, lifetime);
+            RegisterRelation<Country, CountryGridDoc>(EntityToDocumentRelationMappings.SelectCountryGridDoc, lifetime);
+            RegisterRelation<OrganizationUnit, OrgUnitGridDoc>(EntityToDocumentRelationMappings.SelectOrgUnitGridDoc, lifetime);
+            RegisterRelation<LegalPerson, LegalPersonGridDoc>(EntityToDocumentRelationMappings.SelectLegalPersonGridDoc, lifetime);
+            RegisterRelation<Bargain, BargainGridDoc>(EntityToDocumentRelationMappings.SelectBargainGridDoc, lifetime);
+            RegisterRelation<Order, OrderGridDoc>(EntityToDocumentRelationMappings.SelectOrderGridDoc, lifetime);
+            
             // last one
-            //RegisterRelation<User, UserDoc>(() => _unityContainer.Resolve<UserToUserDocRelation>());
+            //RegisterRelation<User, UserPermissonsDoc>(() => _unityContainer.Resolve<UserToUserDocRelation>());
         }
 
-        private void RegisterRelation<TEntity, TDocument>(Func<IQueryable<TEntity>, IEnumerable<IDocumentWrapper<TDocument>>> selectDocuments)
+        private void RegisterRelation<TEntity, TDocument>(Func<IQueryable<TEntity>, CultureInfo, IEnumerable<IDocumentWrapper<TDocument>>> selectDocuments, Func<LifetimeManager> lifetime)
             where TEntity : class, IEntity, IEntityKey
         {
-            Func<IEntityToDocumentRelation<TEntity, TDocument>> func = () =>
+            _unityContainer.RegisterType<DefaultEntityToDocumentRelation<TEntity, TDocument>>(lifetime());
+
+            RegisterRelation(container =>
             {
-                var relation = _unityContainer.Resolve<DefaultEntityToDocumentRelation<TEntity, TDocument>>();
+                var relation = container.Resolve<DefaultEntityToDocumentRelation<TEntity, TDocument>>();
                 relation.SelectDocumentsFunc = selectDocuments;
                 return relation;
-            };
-
-            RegisterRelation(func);
+            }, lifetime);
         }
 
-        private void RegisterRelation<TEntity, TDocument>(Func<IEntityToDocumentRelation<TEntity, TDocument>> func)
+        private void RegisterRelation<TEntity, TDocument>(Func<IUnityContainer, IEntityToDocumentRelation<TEntity, TDocument>> func, Func<LifetimeManager> lifetime)
         {
-            _unityContainer.RegisterType<IEntityToDocumentRelation<TEntity, TDocument>>(new InjectionFactory(container => func()));
-            _metadataContainer.RegisterMetadata<TEntity, TDocument>(() => new EntityToDocumentRelationMetadata<TEntity, TDocument>());
+            _unityContainer.RegisterType<IEntityToDocumentRelation<TEntity, TDocument>>(lifetime(), new InjectionFactory(func));
+
+            var metadata = new EntityToDocumentRelationMetadata<TEntity, TDocument>();
+            _metadataContainer.RegisterMetadata<TEntity, TDocument>(metadata);
         }
     }
 }

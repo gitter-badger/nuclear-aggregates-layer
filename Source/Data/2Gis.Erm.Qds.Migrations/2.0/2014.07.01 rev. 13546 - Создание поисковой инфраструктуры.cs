@@ -12,9 +12,9 @@ namespace DoubleGis.Erm.Qds.Migrations
     {
         public override void Apply(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<MigrationDoc13546>("Metadata.13546", "MigrationDoc");
-            context.ElasticManagementApi.CreateIndex<MigrationDoc13546>(GetMetadataIndexDescriptor());
-            context.ElasticManagementApi.AddAlias<MigrationDoc13546>("Metadata");
+            context.MetadataApi.RegisterType<MigrationDoc13546>("Metadata.13546", "MigrationDoc");
+            context.ManagementApi.CreateIndex<MigrationDoc13546>(GetMetadataIndexDescriptor());
+            context.ManagementApi.AddAlias<MigrationDoc13546>("Metadata");
 
             PutMigrationsMapping(context);
             PutReplicationQueueMapping(context);
@@ -24,45 +24,45 @@ namespace DoubleGis.Erm.Qds.Migrations
 
         private static void PutReplicationQueueMapping(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<ReplicationQueue13546>("Metadata.13546", "ReplicationQueue");
+            context.MetadataApi.RegisterType<ReplicationQueue13546>("Metadata.13546", "ReplicationQueue");
 
-            context.ElasticManagementApi.Map<ReplicationQueue13546>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.Map<ReplicationQueue13546>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
-                    .String(s => s.Name(n => n.DocumentType).Index(FieldIndexOption.no))
+                    .String(s => s.Name(n => n.DocumentType).Index(FieldIndexOption.No))
                         )
             );
         }
 
         private void PutRecordIdStateMapping(IElasticSearchMigrationContext context)
         {
-            context.NestSettings.RegisterType<RecordIdState13546>("Metadata.13546", "RecordIdState");
+            context.MetadataApi.RegisterType<RecordIdState13546>("Metadata.13546", "RecordIdState");
 
-            context.ElasticManagementApi.Map<RecordIdState13546>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.Map<RecordIdState13546>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
 
                 .Properties(p => p
-                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.not_analyzed))
-                    .String(s => s.Name(n => n.RecordId).Index(FieldIndexOption.no))
+                    .String(s => s.Name(n => n.Id).Index(FieldIndexOption.NotAnalyzed))
+                    .String(s => s.Name(n => n.RecordId).Index(FieldIndexOption.No))
                         )
             );
         }
 
         private static void PutMigrationsMapping(IElasticSearchMigrationContext context)
         {
-            context.ElasticManagementApi.Map<MigrationDoc13546>(m => m
-                .Dynamic(DynamicMappingOption.strict)
+            context.ManagementApi.Map<MigrationDoc13546>(m => m
+                .Dynamic(DynamicMappingOption.Strict)
                 .DateDetection(false)
                 .NumericDetection(false)
                 .AllField(a => a.Enabled(false))
-                .SourceField(s => s.SetDisabled())
+                .SourceField(s => s.Enabled(false))
             );
         }
 

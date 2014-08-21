@@ -11,7 +11,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string Account { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public long DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+        public long? ParentId { get; set; }
         public string ParentName { get; set; }
         public IOrderedEnumerable<string> RoleName { get; set; }
         public bool IsActive { get; set; }

@@ -46,19 +46,41 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="IDefferedDocumentUpdater.cs" />
+    <Compile Include="Docs\AccountDoc.cs" />
+    <Compile Include="Docs\ClientGridDoc.cs" />
+    <Compile Include="Docs\BargainGridDoc.cs" />
+    <Compile Include="Docs\LegalPersonGridDoc.cs" />
+    <Compile Include="Docs\CountryGridDoc.cs" />
+    <Compile Include="Docs\OrgUnitGridDoc.cs" />
+    <Compile Include="Docs\CurrencyGridDoc.cs" />
+    <Compile Include="Docs\DocumentAuthorization.cs" />
+    <Compile Include="Docs\FirmGridDoc.cs" />
+    <Compile Include="Docs\IAuthorizationDoc.cs" />
+    <Compile Include="Docs\LegalPersonDoc.cs" />
+    <Compile Include="Docs\Metadata\IndexMappingMetadata.cs" />
+    <Compile Include="Docs\MigrationDoc.cs" />
+    <Compile Include="Docs\OperationPermission.cs" />
+    <Compile Include="Docs\OrderGridDoc.cs" />
+    <Compile Include="Docs\ReplicationQueue.cs" />
+    <Compile Include="Docs\TerritoryDoc.cs" />
+    <Compile Include="Docs\UserAuthorizationDoc.cs" />
+    <Compile Include="Docs\DepartmentGridDoc.cs" />
+    <Compile Include="Docs\UserGridDoc.cs" />
+    <Compile Include="Indexing\IDefferedDocumentUpdater.cs" />
+    <Compile Include="Indexing\IDocumentRelationMetadata.cs" />
+    <Compile Include="Indexing\IDocumentUpdater.cs" />
+    <Compile Include="Indexing\IEntityToDocumentRelationMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Project>{74312C77-23BB-4D32-8CE7-32380508261C}</Project>
-      <Name>2Gis.Erm.Qds</Name>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
