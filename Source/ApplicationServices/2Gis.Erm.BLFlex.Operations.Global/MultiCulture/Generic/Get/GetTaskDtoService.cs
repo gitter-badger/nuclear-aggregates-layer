@@ -17,53 +17,55 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
     public class GetTaskDtoService : GetDomainEntityDtoServiceBase<Task>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IActivityReadModel _activityReadModel;
-	    private readonly IClientReadModel _clientReadModel;
-	    private readonly IFirmReadModel _firmReadModel;
-	    private readonly IUserContext _userContext;
+        private readonly IClientReadModel _clientReadModel;
+        private readonly IFirmReadModel _firmReadModel;
+        private readonly IUserContext _userContext;
 
-		public GetTaskDtoService(IUserContext userContext, IActivityReadModel activityReadModel, 
-			IClientReadModel clientReadModel, IFirmReadModel firmReadModel)
+        public GetTaskDtoService(IUserContext userContext,
+                                 IActivityReadModel activityReadModel,
+                                 IClientReadModel clientReadModel,
+                                 IFirmReadModel firmReadModel)
             : base(userContext)
         {
             _activityReadModel = activityReadModel;
-	        _clientReadModel = clientReadModel;
-			_firmReadModel = firmReadModel;
-	        _userContext = userContext;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
+            _userContext = userContext;
         }
 
         protected override IDomainEntityDto<Task> GetDto(long entityId)
         {
             var task = _activityReadModel.GetTask(entityId);
-			var regardingObjects = _activityReadModel.GetRegardingObjects<Task>(entityId).ToList();
+            var regardingObjects = _activityReadModel.GetRegardingObjects<Task>(entityId).ToList();
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
             return new TaskDomainEntityDto
                 {
-					Id = task.Id,
-					CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
-					CreatedOn = task.CreatedOn,
-					ModifiedByRef = new EntityReference { Id = task.ModifiedBy, Name = null },
-					ModifiedOn = task.ModifiedOn,
-					IsActive = task.IsActive,
-					IsDeleted = task.IsDeleted,
-					Timestamp = task.Timestamp,
-					OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
+                    Id = task.Id,
+                    CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
+                    CreatedOn = task.CreatedOn,
+                    ModifiedByRef = new EntityReference { Id = task.ModifiedBy, Name = null },
+                    ModifiedOn = task.ModifiedOn,
+                    IsActive = task.IsActive,
+                    IsDeleted = task.IsDeleted,
+                    Timestamp = task.Timestamp,
+                    OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
 
-					Header = task.Header,
-					Description = task.Description,
-					ScheduledStart = task.ScheduledStart.Add(timeOffset),
-					ScheduledEnd = task.ScheduledEnd.Add(timeOffset),
-					ActualEnd = task.ActualEnd.HasValue ? task.ActualEnd.Value.Add(timeOffset) : task.ActualEnd,
-					Priority = task.Priority,
-					Status = task.Status,
+                    Header = task.Header,
+                    Description = task.Description,
+                    ScheduledStart = task.ScheduledStart.Add(timeOffset),
+                    ScheduledEnd = task.ScheduledEnd.Add(timeOffset),
+                    ActualEnd = task.ActualEnd.HasValue ? task.ActualEnd.Value.Add(timeOffset) : task.ActualEnd,
+                    Priority = task.Priority,
+                    Status = task.Status,
 
-					ClientRef = regardingObjects.Lookup(EntityName.Client, _clientReadModel.GetClientName),
-					ContactRef = regardingObjects.Lookup(EntityName.Contact, _clientReadModel.GetContactName),
-					FirmRef = regardingObjects.Lookup(EntityName.Firm, _firmReadModel.GetFirmName),
+                    ClientRef = regardingObjects.Lookup(EntityName.Client, _clientReadModel.GetClientName),
+                    ContactRef = regardingObjects.Lookup(EntityName.Contact, _clientReadModel.GetContactName),
+                    FirmRef = regardingObjects.Lookup(EntityName.Firm, _firmReadModel.GetFirmName),
 
-					TaskType = task.TaskType,
-				};
+                    TaskType = task.TaskType,
+                };
         }
 
         protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
@@ -84,30 +86,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                 return dto;
             }
 
-			switch (parentEntityName)
-			{
-				case EntityName.Client:
-					dto.ClientRef = new EntityReference
-					{
-						Id = parentEntityId,
-						Name = _clientReadModel.GetClientName(parentEntityId.Value)
-					};
-					break;
-				case EntityName.Contact:
-					dto.ContactRef = new EntityReference
-					{
-						Id = parentEntityId,
-						Name = _clientReadModel.GetContactName(parentEntityId.Value)
-					};
-					break;
-				case EntityName.Firm:
-					dto.FirmRef = new EntityReference
-					{
-						Id = parentEntityId,
-						Name = _firmReadModel.GetFirmName(parentEntityId.Value)
-					};
-					break;
-			}
+            switch (parentEntityName)
+            {
+                case EntityName.Client:
+                    dto.ClientRef = new EntityReference
+                    {
+                        Id = parentEntityId,
+                        Name = _clientReadModel.GetClientName(parentEntityId.Value)
+                    };
+                    break;
+                case EntityName.Contact:
+                    dto.ContactRef = new EntityReference
+                    {
+                        Id = parentEntityId,
+                        Name = _clientReadModel.GetContactName(parentEntityId.Value)
+                    };
+                    break;
+                case EntityName.Firm:
+                    dto.FirmRef = new EntityReference
+                    {
+                        Id = parentEntityId,
+                        Name = _firmReadModel.GetFirmName(parentEntityId.Value)
+                    };
+                    break;
+            }
 
             return dto;
         }

@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEntityObtainers
 {
-	public sealed class AppointmentObtainer : IBusinessModelEntityObtainer<Appointment>, IAggregateReadModel<Appointment>, IRussiaAdapted
+    public sealed class AppointmentObtainer : IBusinessModelEntityObtainer<Appointment>, IAggregateReadModel<Appointment>, IRussiaAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
@@ -28,8 +28,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
         {
             var dto = (AppointmentDomainEntityDto)domainEntityDto;
 
-			var appointment = dto.IsNew() ? new Appointment { IsActive = true } : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
+            var appointment = dto.IsNew() ? new Appointment { IsActive = true } : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
 
+            // FIXME {s.pomadin, 21.08.2014}: Смещение времени относительно UTC должно быть выполнено на клиентской части
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
             appointment.Description = dto.Description;
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
 
             appointment.Timestamp = dto.Timestamp;
 
-//			appointment.AfterSaleServiceType = dto.AfterSaleServiceType;
+            // appointment.AfterSaleServiceType = dto.AfterSaleServiceType;
 
             return appointment;
         }

@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
 
-		public AppointmentObtainer(IUserContext userContext, IFinder finder)
+        public AppointmentObtainer(IUserContext userContext, IFinder finder)
         {
             _userContext = userContext;
             _finder = finder;
@@ -30,6 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             var appointment = dto.IsNew() ? new Appointment { IsActive = true } : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
 
+            // FIXME {s.pomadin, 21.08.2014}: Смещение времени относительно UTC должно быть выполнено на клиентской части
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
             appointment.Description = dto.Description;
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             appointment.Timestamp = dto.Timestamp;
 
-			return appointment;
+            return appointment;
         }
     }
 }

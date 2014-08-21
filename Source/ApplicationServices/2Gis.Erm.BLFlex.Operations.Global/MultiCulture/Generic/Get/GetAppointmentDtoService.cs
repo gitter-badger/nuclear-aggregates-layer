@@ -14,56 +14,58 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-	public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
+    public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IActivityReadModel _activityReadModel;
-	    private readonly IClientReadModel _clientReadModel;
-	    private readonly IFirmReadModel _firmReadModel;
-	    private readonly IUserContext _userContext;
+        private readonly IClientReadModel _clientReadModel;
+        private readonly IFirmReadModel _firmReadModel;
+        private readonly IUserContext _userContext;
 
-        public GetAppointmentDtoService(IUserContext userContext, IActivityReadModel activityReadModel, 
-			IClientReadModel clientReadModel, IFirmReadModel firmReadModel)
+        public GetAppointmentDtoService(IUserContext userContext,
+                                        IActivityReadModel activityReadModel,
+                                        IClientReadModel clientReadModel,
+                                        IFirmReadModel firmReadModel)
             : base(userContext)
         {
             _activityReadModel = activityReadModel;
-	        _clientReadModel = clientReadModel;
-	        _firmReadModel = firmReadModel;
-	        _userContext = userContext;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
+            _userContext = userContext;
         }
 
         protected override IDomainEntityDto<Appointment> GetDto(long entityId)
         {
             var appointment = _activityReadModel.GetAppointment(entityId);
-			var regardingObjects = _activityReadModel.GetRegardingObjects<Appointment>(entityId).ToList();
+            var regardingObjects = _activityReadModel.GetRegardingObjects<Appointment>(entityId).ToList();
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
             return new AppointmentDomainEntityDto
             {
-				Id = appointment.Id,
-				CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
-				CreatedOn = appointment.CreatedOn,
-				ModifiedByRef = new EntityReference { Id = appointment.ModifiedBy, Name = null },
-				ModifiedOn = appointment.ModifiedOn,
-				IsActive = appointment.IsActive,
-				IsDeleted = appointment.IsDeleted,
-				Timestamp = appointment.Timestamp,
-				OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
+                Id = appointment.Id,
+                CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
+                CreatedOn = appointment.CreatedOn,
+                ModifiedByRef = new EntityReference { Id = appointment.ModifiedBy, Name = null },
+                ModifiedOn = appointment.ModifiedOn,
+                IsActive = appointment.IsActive,
+                IsDeleted = appointment.IsDeleted,
+                Timestamp = appointment.Timestamp,
+                OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
 
-				Header = appointment.Header,
-				Description = appointment.Description,
-				ScheduledStart = appointment.ScheduledStart.Add(timeOffset),
-				ScheduledEnd = appointment.ScheduledEnd.Add(timeOffset),
-				ActualEnd = appointment.ActualEnd.HasValue ? appointment.ActualEnd.Value.Add(timeOffset) : appointment.ActualEnd,
-				Priority = appointment.Priority,
-				Status = appointment.Status,
+                Header = appointment.Header,
+                Description = appointment.Description,
+                ScheduledStart = appointment.ScheduledStart.Add(timeOffset),
+                ScheduledEnd = appointment.ScheduledEnd.Add(timeOffset),
+                ActualEnd = appointment.ActualEnd.HasValue ? appointment.ActualEnd.Value.Add(timeOffset) : appointment.ActualEnd,
+                Priority = appointment.Priority,
+                Status = appointment.Status,
 
-				ClientRef = regardingObjects.Lookup(EntityName.Client, _clientReadModel.GetClientName),
-				ContactRef = regardingObjects.Lookup(EntityName.Contact, _clientReadModel.GetContactName),
-				FirmRef = regardingObjects.Lookup(EntityName.Firm, _firmReadModel.GetFirmName),
+                ClientRef = regardingObjects.Lookup(EntityName.Client, _clientReadModel.GetClientName),
+                ContactRef = regardingObjects.Lookup(EntityName.Contact, _clientReadModel.GetContactName),
+                FirmRef = regardingObjects.Lookup(EntityName.Firm, _firmReadModel.GetFirmName),
 
-				Purpose = appointment.Purpose,
-//                AfterSaleServiceType = appointment.AfterSaleServiceType,
+                Purpose = appointment.Purpose,
+                // AfterSaleServiceType = appointment.AfterSaleServiceType,
             };
         }
 
@@ -90,17 +92,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                     dto.ClientRef = new EntityReference
                     {
                         Id = parentEntityId,
-						Name = _clientReadModel.GetClientName(parentEntityId.Value)
+                        Name = _clientReadModel.GetClientName(parentEntityId.Value)
                     };
                     break;
-				case EntityName.Contact:
-					dto.ContactRef = new EntityReference
-					{
-						Id = parentEntityId,
-						Name = _clientReadModel.GetContactName(parentEntityId.Value)
-					};
-					break;
-				case EntityName.Firm:
+                case EntityName.Contact:
+                    dto.ContactRef = new EntityReference
+                    {
+                        Id = parentEntityId,
+                        Name = _clientReadModel.GetContactName(parentEntityId.Value)
+                    };
+                    break;
+                case EntityName.Firm:
                     dto.FirmRef = new EntityReference
                     {
                         Id = parentEntityId,

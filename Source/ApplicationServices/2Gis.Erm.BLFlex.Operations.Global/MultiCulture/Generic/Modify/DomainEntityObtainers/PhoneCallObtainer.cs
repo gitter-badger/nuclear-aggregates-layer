@@ -30,6 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             var phoneCall = dto.IsNew() ? new Phonecall { IsActive = true } : _finder.FindOne(Specs.Find.ById<Phonecall>(dto.Id));
 
+            // FIXME {s.pomadin, 21.08.2014}: Смещение времени относительно UTC должно быть выполнено на клиентской части
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
             phoneCall.Description = dto.Description;
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             phoneCall.Timestamp = dto.Timestamp;
 
-			return phoneCall;
+            return phoneCall;
         }
     }
 }

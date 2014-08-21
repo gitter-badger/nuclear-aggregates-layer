@@ -28,10 +28,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
         {
             var dto = (TaskDomainEntityDto)domainEntityDto;
 
-			var task = dto.IsNew() ? new Task { IsActive = true } : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
+            var task = dto.IsNew() ? new Task { IsActive = true } : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
 
+            // FIXME {s.pomadin, 21.08.2014}: Смещение времени относительно UTC должно быть выполнено на клиентской части
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
-            
+
             task.TaskType = dto.TaskType;
 
             task.Description = dto.Description;
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
 
             task.Timestamp = dto.Timestamp;
 
-			return task;
+            return task;
         }
     }
 }
