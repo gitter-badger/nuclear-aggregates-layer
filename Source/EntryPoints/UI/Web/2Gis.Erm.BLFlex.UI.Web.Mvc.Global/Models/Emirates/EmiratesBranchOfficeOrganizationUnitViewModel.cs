@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         public LookupField OrganizationUnit { get; set; }
 
         [RequiredLocalized]
-        [StringLengthLocalized(256)]
+        [StringLengthLocalized(100)]
         public string ShortLegalName { get; set; }
 
         [RequiredLocalized]

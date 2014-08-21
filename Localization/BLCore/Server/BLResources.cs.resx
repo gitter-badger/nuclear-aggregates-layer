@@ -5224,4 +5224,22 @@ Doba zveřejnění: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
   </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>Nemáte práva pro převedení prvku reklamního materiálu do statusu {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Pokus o editaci prvku editace reklamního materiálu s identifikátorem {0}, který není ve statusu "Koncept"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>V reklamním materiálu "{0}", který je třeba ověřit, prvek "{1}" má status 'Koncept'</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Pro odmítnutí prvku reklamního materiálu musíte zadat důvod</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Nelze měnit status prvku reklamního materiálu, který nepotřebuje ověření</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Nelze zadat neaktivní příčinu odmítnutí</value>
+  </data>
 </root>

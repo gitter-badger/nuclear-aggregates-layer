@@ -1,0 +1,81 @@
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.AdvertisementElementStatusViewModel
+
+@{
+    Layout = "~/Views/Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources.VerificationTitle }
+@section TopBarTitle { @DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources.VerificationTitle }
+@section PageScript
+{
+    <link rel="stylesheet" type="text/css" href="/Content/AsyncFileUpload.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/advertisement-element-status.css?@SolutionInfo.ProductVersion.Build" />
+
+    <script src="/Scripts/Ext.ux.AsyncFileUpload.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.LinkField.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.NotePanel.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.ActionsHistoryTab.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.FitToParent.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Russia/Ext.DoubleGis.UI.AdvertisementElementStatus.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="/Scripts/TinyMCE/tiny_mce_src.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    }
+    else
+    {
+        <script src="/Scripts/TinyMCE/tiny_mce.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.min.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    }
+
+    <script src="/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section RawContent
+{
+    <div id="ads-verification-container" class="ads-verification-container">
+        <div id="tabs-container" class="tabs-container">
+            <div id="Notifications" class="Notifications"></div>
+            <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+                @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Status)
+                    @Html.HiddenFor(model => model.Reasons)
+                    @Html.HiddenFor(model => model.ActualType)
+                    @Html.HiddenFor(model => model.ViewConfig.DependencyList)
+                    @Html.HiddenFor(model => model.Timestamp)
+                    @Html.HiddenFor(model => model.AdvertisementElementTimestamp)
+
+                    switch (Model.ActualType)
+                    {
+                        case AdvertisementElementRestrictionActualType.File:
+                            @Html.EditorFor(m => m.File)
+                            break;
+                        case AdvertisementElementRestrictionActualType.Date:
+                            @Html.EditorFor(m => m.Period)
+                            break;
+                        case AdvertisementElementRestrictionActualType.FasComment:
+                            @Html.EditorFor(m => m.FasComment)
+                            break;
+                        case AdvertisementElementRestrictionActualType.FormattedText:
+                            @Html.EditorFor(m => m.FormattedText)
+                            break;
+                        case AdvertisementElementRestrictionActualType.Image:
+                            @Html.EditorFor(m => m.Image)
+                            break;
+                        case AdvertisementElementRestrictionActualType.Link:
+                            @Html.EditorFor(m => m.Link)
+                            break;
+                        case AdvertisementElementRestrictionActualType.PlainText:
+                            @Html.EditorFor(m => m.PlainText)
+                            break;
+                    }
+                }
+            </div>
+        </div>
+        <div id="reason-table"></div>
+        <div id="buttons-area"></div>
+    </div>
+}

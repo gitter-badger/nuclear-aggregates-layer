@@ -127,7 +127,7 @@
     <value>Akce: {0}, Hotovo: {1} Dne: {2}</value>
   </data>
   <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;změna&quot;: values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;změny&quot;:&quot;změn&quot;]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "změna": values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"změny":"změn"]})</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Aktivní</value>
@@ -202,7 +202,7 @@
     <value>Rubrika</value>
   </data>
   <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
-    <value>Seznam již obsahuje rubriku &apos;{0}&apos;.</value>
+    <value>Seznam již obsahuje rubriku '{0}'.</value>
   </data>
   <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
     <value>Probíhá kontrola. Počkejte, prosím...</value>
@@ -859,7 +859,7 @@
     <value>Zbyvajici symboly: {0}</value>
   </data>
   <data name="AdsCheckTooLongWord" xml:space="preserve">
-    <value>Ve slove &apos;{0}&apos; byl prekrocen maximalni pocet symbolu: {1} z moznych {2}.</value>
+    <value>Ve slove '{0}' byl prekrocen maximalni pocet symbolu: {1} z moznych {2}.</value>
   </data>
   <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
     <value>Pocet radku presahuje povoleny pocet {0} o {1}.</value>
@@ -898,7 +898,7 @@
     <value>Provedeno: {0}    Dne: {1}</value>
   </data>
   <data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;zpráva&quot; : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;zprávy&quot;:&quot;zpráv&quot;]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "zpráva" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"zprávy":"zpráv"]})</value>
   </data>
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Zprávy pro pažadavek</value>
@@ -920,5 +920,14 @@
   </data>
   <data name="SelectMessageToSave" xml:space="preserve">
     <value>Vyberte zprávy pro uložení</value>
+  </data>
+  <data name="AdvertisingElementAccept" xml:space="preserve">
+    <value>Schválit</value>
+  </data>
+  <data name="AdvertisingElementValidate" xml:space="preserve">
+    <value>Ověření</value>
+  </data>
+  <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
+    <value>Operace není přípustná, protože ne všechny elementy jsou validní</value>
   </data>
 </root>

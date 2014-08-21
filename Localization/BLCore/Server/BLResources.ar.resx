@@ -5224,4 +5224,22 @@ Placement period: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Contract expiry date cannot be earlier than the signing date</value>
   </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>You do not have rights to change the status of the AME to {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>You attempted to edit the AME with identifier {0} and status other than “Draft”</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>The advertising material “{0}” to be verified contains an element “{1}” with the “Draft” status</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Specify a reason to reject an AME</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Cannot change the status of the AME which does not require verification</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Cannot specify an inactive rejection reason</value>
+  </data>
 </root>

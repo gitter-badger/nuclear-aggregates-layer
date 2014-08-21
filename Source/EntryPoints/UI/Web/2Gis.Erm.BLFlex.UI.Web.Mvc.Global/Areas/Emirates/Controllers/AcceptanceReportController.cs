@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Concrete.Old.AcceptanceReport;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -23,12 +24,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
                                           IUserContext userContext,
                                           ICommonLog logger,
                                           IAPIOperationsServiceSettings operationsServiceSettings,
+                                          IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                           IGetBaseCurrencyService getBaseCurrencyService,
                                           IPublicService publicService)
             : base(msCrmSettings,
                    userContext,
                    logger,
                    operationsServiceSettings,
+                   specialOperationsServiceSettings,
                    getBaseCurrencyService)
         {
             _publicService = publicService;

@@ -1308,9 +1308,6 @@
   <data name="IsAdvertisingAgency" xml:space="preserve">
     <value>Je reklamní agentura</value>
   </data>
-  <data name="AdvertisementElementErrorDescription" xml:space="preserve">
-    <value>Chyba</value>
-  </data>
   <data name="RepresentativeName" xml:space="preserve">
     <value>Zástupce</value>
   </data>
@@ -1400,5 +1397,14 @@
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>Nový model prodejů</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>DPH</value>
+  </data>
+  <data name="ControlSaveAndVerify" xml:space="preserve">
+    <value>Uložit a publikovat</value>
+  </data>
+  <data name="ControlResetToDraft" xml:space="preserve">
+    <value>Editovat</value>
   </data>
 </root>

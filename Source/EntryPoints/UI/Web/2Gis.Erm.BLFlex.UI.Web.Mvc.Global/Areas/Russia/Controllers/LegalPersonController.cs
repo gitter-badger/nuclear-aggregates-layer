@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
@@ -51,11 +52,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                                      IPublicService publicService,
                                      IFinder finder,
                                      IAPIOperationsServiceSettings operationsServiceSettings,
+                                     IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                      IGetBaseCurrencyService getBaseCurrencyService)
             : base(msCrmSettings,
                    userContext,
                    logger,
                    operationsServiceSettings,
+                   specialOperationsServiceSettings,
                    getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
