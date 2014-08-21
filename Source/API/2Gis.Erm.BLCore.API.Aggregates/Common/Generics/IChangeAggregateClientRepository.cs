@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -7,6 +8,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics
 {
+    [Obsolete("Use non-generic interface marked with IAggregateSpecificOperation")]
     public interface IChangeAggregateClientRepository<TEntity> : IUnknownAggregateSpecificOperation<ChangeClientIdentity>
         where TEntity : class, IEntity, IEntityKey
     {

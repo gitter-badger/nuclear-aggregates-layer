@@ -28,7 +28,7 @@ using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Qds.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 
 using Microsoft.Practices.Unity;

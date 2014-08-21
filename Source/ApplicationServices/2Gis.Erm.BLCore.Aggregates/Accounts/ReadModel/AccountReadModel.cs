@@ -163,7 +163,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public bool HasInactiveLocksForDestinationOrganizationUnit(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId, period)
-                                    && Specs.Find.InactiveEntities<Lock>())
+                                    && Specs.Find.InactiveAndNotDeletedEntities<Lock>())
                           .Any();
         }
 

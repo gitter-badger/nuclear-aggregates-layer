@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
@@ -7,7 +8,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -17,24 +17,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 {
     public sealed class EditAdvertisementHandler : RequestHandler<EditRequest<Advertisement>, EmptyResponse>
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IAdvertisementReadModel _advertisementReadModel;
         private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IAdvertisementRepository _advertisementRepository;
+        private readonly IBulkCreateAdvertisementElementsForAdvertisementAggregateService _elementsForAdvertisementService;
 
         public EditAdvertisementHandler(
             IAdvertisementReadModel advertisementReadModel,
-            IUnitOfWork unitOfWork,
             IOrderValidationInvalidator orderValidationInvalidator,
             IOperationScopeFactory scopeFactory,
-            IAdvertisementRepository advertisementRepository)
+            IAdvertisementRepository advertisementRepository,
+            IBulkCreateAdvertisementElementsForAdvertisementAggregateService elementsForAdvertisementService)
         {
             _advertisementReadModel = advertisementReadModel;
             _orderValidationInvalidator = orderValidationInvalidator;
             _scopeFactory = scopeFactory;
-            _unitOfWork = unitOfWork;
             _advertisementRepository = advertisementRepository;
+            _elementsForAdvertisementService = elementsForAdvertisementService;
         }
 
         protected override EmptyResponse Handle(EditRequest<Advertisement> request)
@@ -61,29 +61,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                     throw new BusinessLogicException(BLResources.CannotChangeAdvertisementSinceItsTemplateWasChanged);
                 }
 
-                using (var uowScope = _unitOfWork.CreateScope())
+                // Инициализирует по необходимости идентификатор advertisement
+                _advertisementRepository.CreateOrUpdate(advertisement);
+
+                // создаём вместо с РМ дочерние элементы РМ
+                if (isNewAdvertisement)
                 {
-                    var advertisementRepository = uowScope.CreateRepository<IAdvertisementRepository>();
-
-                    // Инициализирует по необходимости идентификатор advertisement
-                    advertisementRepository.CreateOrUpdate(advertisement);
-
-                    // создаём вместо с РМ дочерние элементы РМ
-                    if (isNewAdvertisement)
-                    {
-                        advertisementRepository.AddAdvertisementsElementsFromAdvertisement(advertisement);
-                    }
-
-                    // сбрасываем кеш проверок заказов
-                    var orderIds = _advertisementReadModel.GetDependedOrderIds(new[] { advertisement.Id });
-                    _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
-
-                    uowScope.Complete();
-                    operationScope.Complete();
+                    var elementsToCreate = _advertisementReadModel.GetElementsToCreate(advertisement.AdvertisementTemplateId);
+                    _elementsForAdvertisementService.Create(elementsToCreate, advertisement.Id, advertisement.OwnerCode);
                 }
 
-                return Response.Empty;
+                // сбрасываем кеш проверок заказов
+                var orderIds = _advertisementReadModel.GetDependedOrderIds(new[] { advertisement.Id });
+                _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+
+                operationScope.Complete();
             }
+
+            return Response.Empty;
         }
     }
 }
+

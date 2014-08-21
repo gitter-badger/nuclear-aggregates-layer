@@ -41,8 +41,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             const int Approved = (int)OrderState.Approved;
             const int OnTermination = (int)OrderState.OnTermination;
 
-            Expression<Func<Order, bool>> orgUnitPart = x => x.DestOrganizationUnitId == organizationUnitId ||
-                                                             (x.SourceOrganizationUnitId == organizationUnitId && x.DestOrganizationUnit.ErmLaunchDate != null);
+            Expression<Func<Order, bool>> orgUnitPart = x => x.DestOrganizationUnitId == organizationUnitId || x.SourceOrganizationUnitId == organizationUnitId;
 
             OrderValidationPredicate validationPredicate;
             if (ownerCode.HasValue)

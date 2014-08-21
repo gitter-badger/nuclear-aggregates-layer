@@ -281,7 +281,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public IEnumerable<long> GetFirmAddressesIds(long firmId)
         {
-            return _finder.Find(FirmSpecs.Addresses.Find.ActiveAddresses(firmId))
+            return _finder.Find(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId))
                           .Select(address => address.Id)
                           .ToArray();
         }

@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
@@ -7,29 +6,25 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices.Dto;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 {
-    // TODO {a.tukaev, 25.03.2014}: Лучше чтобы в назание абстракций и реализаций для OperationsService оканчивались именно на OperationService, т.к. сервисов разного вида у нас много 
     public class GetRatedPricesForCategoryOperationService : IGetRatedPricesForCategoryOperationService
     {
         private readonly IPriceReadModel _priceReadModel;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IFirmReadModel _firmReadModel;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
 
-        public GetRatedPricesForCategoryOperationService(IPriceReadModel priceReadModel,
-                                                IOrderReadModel orderReadModel,
-                                                ICalculateCategoryRateOperationService calculateCategoryRateOperationService, IFirmReadModel firmReadModel)
+        public GetRatedPricesForCategoryOperationService(
+            IPriceReadModel priceReadModel,
+            IOrderReadModel orderReadModel,
+            ICalculateCategoryRateOperationService calculateCategoryRateOperationService)
         {
             _priceReadModel = priceReadModel;
             _orderReadModel = orderReadModel;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
-            _firmReadModel = firmReadModel;
         }
 
-        public RatedPricesDto GetRatedPrices(long orderId, long pricePositionId, long? categoryId)
+        public RatedPricesDto GetRatedPrices(long orderId, long pricePositionId, long[] categoryIds)
         {
-            var firmId = _firmReadModel.GetOrderFirmId(orderId);
-            var rate = _calculateCategoryRateOperationService.CalculateCategoryRate(firmId, pricePositionId, categoryId, false);
-
+            var rate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculatedOrDefault(orderId, pricePositionId, categoryIds);
             var pricePositionCost = _priceReadModel.GetPricePositionCost(pricePositionId);
             var calculations = _orderReadModel.CalculatePricePerUnit(orderId, rate, pricePositionCost);
 

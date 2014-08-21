@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 
@@ -29,28 +30,27 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly IRevertWithdrawalOperationService _revertWithdrawalOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
 
-        public WithdrawalInfoController(
-            IWithdrawalOperationService withdrawalOperationService,
-            IRevertWithdrawalOperationService revertWithdrawalOperationService,
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(
-                msCrmSettings,
-                userContext,
-                logger,
-                operationsServiceSettings,
-                getBaseCurrencyService)
+        public WithdrawalInfoController(IWithdrawalOperationService withdrawalOperationService,
+                                        IRevertWithdrawalOperationService revertWithdrawalOperationService,
+                                        IMsCrmSettings msCrmSettings,
+                                        IUserContext userContext,
+                                        ICommonLog logger,
+                                        ISecurityServiceFunctionalAccess functionalAccessService,
+                                        IAPIOperationsServiceSettings operationsServiceSettings,
+                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                        IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _withdrawalOperationService = withdrawalOperationService;
             _revertWithdrawalOperationService = revertWithdrawalOperationService;
             _functionalAccessService = functionalAccessService;
         }
 
-        #region card
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.WithdrawalAccess, UserContext.Identity.Code))
@@ -59,8 +59,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             }
             base.OnActionExecuting(filterContext);
         }
-
-        #endregion
 
         #region execute withdrawal
 

@@ -55,8 +55,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         bool TryGetActualPriceIdForOrder(long orderId, out long actualPriceId);
         bool TryGetActualPriceId(long organizationUnitId, DateTime beginDistributionDate, out long actualPriceId);
         Order GetOrder(long orderId);
+        OrderLinkingObjectsDto GetOrderLinkingObjectsDto(long orderId);
         bool OrderPriceWasPublished(long organizationUnitId, DateTime orderBeginDistributionDate);
-        OrderPositionDetailedInfo GetOrderPositionDetailedInfo(long? orderPositionId, long orderId, long pricePositionId, bool includeHiddenAddresses);
         OrderForProlongationDto GetOrderForProlongationInfo(long orderId);
         OrderState GetOrderState(long orderId);
         OrderType GetOrderType(long orderId);

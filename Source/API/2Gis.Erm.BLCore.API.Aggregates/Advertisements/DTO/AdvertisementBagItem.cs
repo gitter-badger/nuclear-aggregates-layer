@@ -26,8 +26,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO
 
         public bool IsValid { get; set; }
 
-        public AdvertisementElementStatus Status { get; set; }
+        public AdvertisementElementStatusValue Status { get; set; }
 
         public bool NeedsValidation { get; set; }
+        public bool UserCanValidateAdvertisement { get; set; }
     }
 }

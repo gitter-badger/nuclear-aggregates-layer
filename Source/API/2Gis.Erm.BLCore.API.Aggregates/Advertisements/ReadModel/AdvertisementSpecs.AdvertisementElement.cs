@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel
 {
-    public static class AdvertisementSpecs
+    public static partial class AdvertisementSpecs
     {
         public static class AdvertisementElements
         {
