@@ -21,13 +21,14 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
             ICommonLog logger,
             ICreateOrderProlongationRequestOperationService orderProcessingRequestService,
             IUserContext userContext,
-            ICreateOrderCreationRequestOperationService orderCreationRequestService)
+            ICreateOrderCreationRequestOperationService orderCreationRequestService,
+            IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _orderProlongationRequestService = orderProcessingRequestService;
             _orderCreationRequestService = orderCreationRequestService;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public long ProlongateOrder(long orderId, short releaseCountPlan)

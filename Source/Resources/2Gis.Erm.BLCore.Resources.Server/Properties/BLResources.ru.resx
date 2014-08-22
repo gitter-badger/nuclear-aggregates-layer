@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>Заказ {0} не имеет ни одной указанной позиции заказа</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>Значение поля "{0}" не является корректным email-адресом</value>
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value>Удалить все счета на оплату для заказа</value>
   </data>
@@ -848,9 +845,6 @@
   </data>
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value>В данной позиции объеты привязки отсутствуют.</value>
-  </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Необходимо указать значение для поля "{0}"</value>
   </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value>Для фирмы не указан код реплики в CRM</value>
@@ -1723,9 +1717,6 @@
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
     <value>Выбрано записей "{0}": {1}. Кому их следует назначить?</value>
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>Поле {0} может содержать только цифры</value>
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
     <value>Будет включено Типов операций: {0}</value>
@@ -4346,9 +4337,6 @@
   <data name="WrongOrderType" xml:space="preserve">
     <value>Неверный тип заказа</value>
   </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>неподходящее значение для поля {0}</value>
-  </data>
   <data name="FileRequired" xml:space="preserve">
     <value>Необходимо выбрать файл</value>
   </data>
@@ -4937,9 +4925,6 @@
   </data>
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value>Для измения признака является ли клиент рекламным агентством нужна соответсвующая привилегия</value>
-  </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
   </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>Строка содержит управляющие символы</value>

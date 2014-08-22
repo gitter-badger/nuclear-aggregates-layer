@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -226,6 +227,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
                                     return new EmployeeEmailResolver(strategies);
                                 })); 
+        }
+
+        public static IUnityContainer ConfigureLocalization(this IUnityContainer container, params Type[] resourceTypes)
+        {
+            return container.RegisterType<IResourceGroupManager, ResourceGroupManager>(Lifetime.Singleton,
+                                                                                       new InjectionConstructor((object)resourceTypes));
         }
     }
 }

@@ -19,12 +19,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
         private readonly ICommonLog _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public DisqualifyApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext)
+        public DisqualifyApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public DisqualifyResult Execute(string specifiedEntityName, string specifiedEntityId, string specifiedBypassValidation)

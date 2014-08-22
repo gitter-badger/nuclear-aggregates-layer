@@ -19,12 +19,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
         private readonly ICommonLog _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public ChangeClientApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext)
+        public ChangeClientApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ChangeEntityClientValidationResult Validate(string specifiedEntityName, string specifiedEntityId, string specifiedClientId)
