@@ -1,17 +1,30 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace DoubleGis.Erm.Platform.Common.Utils.Resources
 {
-    public static class ResourceGroupManager
+    public class ResourceGroupManager : IResourceGroupManager
     {
-        public static void SetCulture(CultureInfo cultureInfo)
+        private readonly IEnumerable<Action<CultureInfo>> _cultureSetterActions;
+
+        public ResourceGroupManager(IEnumerable<Type> resourceTypes)
         {
-            // TODO {all, 11.04.2014}: фикс в рамках бага. В будущем стоит подумать о более элегантном методе просталения культуры ресурсникам в Backend сервисах
-            BL.Resources.Server.Properties.Resources.Culture = cultureInfo;
-            BLCore.Resources.Server.Properties.BLResources.Culture = cultureInfo;
-            BLCore.Resources.Server.Properties.MetadataResources.Culture = cultureInfo;
-            BLCore.Resources.Server.Properties.EnumResources.Culture = cultureInfo;
-            BLFlex.Resources.Server.Properties.BLResources.Culture = cultureInfo;
+            _cultureSetterActions = resourceTypes.Select(CreateCultureSetter).ToArray();
+        }
+
+        public void SetCulture(CultureInfo cultureInfo)
+        {
+            foreach (var cultureSetterAction in _cultureSetterActions)
+            {
+                cultureSetterAction(cultureInfo);
+            }
+        }
+
+        private static Action<CultureInfo> CreateCultureSetter(Type resourceType)
+        {
+            return resourceType.CreateStaticPropertySetter<CultureInfo>("Culture");
         }
     }
 }

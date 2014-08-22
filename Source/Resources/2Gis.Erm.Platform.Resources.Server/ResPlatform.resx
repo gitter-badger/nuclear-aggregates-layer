@@ -117,4 +117,19 @@
 		<value>Доступ запрещен.{0}Пользователь:{1}.{0}Действие:{2}.{0}Сущность:{3}{0}</value>
 		<comment></comment>
 	</data>
+    <data name="RequiredFieldMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InappropriateValueForField" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InputValidationInvalidEmail" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GeneralMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
+    <value />
+  </data>
 </root>
