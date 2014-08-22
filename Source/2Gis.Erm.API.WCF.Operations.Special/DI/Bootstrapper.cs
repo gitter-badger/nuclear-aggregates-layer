@@ -5,6 +5,7 @@ using System.ServiceModel.Description;
 using DoubleGis.Erm.API.WCF.Operations.Special.Config;
 using DoubleGis.Erm.BL.DI.Factories.HandleAdsState;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
@@ -45,6 +46,7 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
+using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -114,6 +116,12 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 .ConfigureIdentityInfrastructure()
                 .ConfigureReadWriteModels()
                 .ConfigureMetadata()
+                .ConfigureLocalization(typeof(Resources),
+                                       typeof(ResPlatform),
+                                       typeof(BLResources),
+                                       typeof(MetadataResources),
+                                       typeof(EnumResources),
+                                       typeof(BLFlex.Resources.Server.Properties.BLResources))
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, SpecialOperationsSharedTypesBehaviorFactory>(Lifetime.Singleton)
