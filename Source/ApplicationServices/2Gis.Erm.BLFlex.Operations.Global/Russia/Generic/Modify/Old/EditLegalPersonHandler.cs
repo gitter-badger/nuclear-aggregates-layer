@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 {
@@ -74,51 +75,51 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 case LegalPersonType.LegalPerson:
                     if (string.IsNullOrEmpty(request.Entity.Inn))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Inn));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.Kpp))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Kpp));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Kpp));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
 
                     break;
                 case LegalPersonType.Businessman:
                     if (string.IsNullOrEmpty(request.Entity.Inn))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Inn));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
 
                     break;
                 case LegalPersonType.NaturalPerson:
                     if (string.IsNullOrEmpty(request.Entity.PassportSeries))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.PassportSeries));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.PassportSeries));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.PassportNumber))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.PassportNumber));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.PassportNumber));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.PassportIssuedBy))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.PassportIssuedBy));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.PassportIssuedBy));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.RegistrationAddress))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.RegistrationAddress));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.RegistrationAddress));
                     }
 
                     break;

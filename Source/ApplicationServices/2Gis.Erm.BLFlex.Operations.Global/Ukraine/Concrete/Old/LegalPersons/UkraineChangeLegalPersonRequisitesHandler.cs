@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPersons
 {
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPerso
             {
                 if (request.TaxationType == TaxationType.WithVat && string.IsNullOrEmpty(request.Ipn))
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Inn));
                 }
 
                 if (!string.IsNullOrEmpty(request.Ipn))
@@ -106,7 +107,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPerso
 
                 if (string.IsNullOrEmpty(request.LegalAddress))
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
                 }
 
                 entity.LegalName = request.LegalName;

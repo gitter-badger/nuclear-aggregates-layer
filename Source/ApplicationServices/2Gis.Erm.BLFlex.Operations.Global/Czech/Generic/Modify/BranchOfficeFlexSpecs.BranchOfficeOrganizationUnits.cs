@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
+﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
