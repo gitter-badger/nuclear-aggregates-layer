@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Messages
 {
@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Messages
     {
         public static readonly IReadOnlyDictionary<int, Func<string>> Map = new Dictionary<int, Func<string>>
             {
-                { MessageCodes.GeneralMessage, () => BLResources.GeneralMessage }
+                { MessageCodes.GeneralMessage, () => ResPlatform.GeneralMessage }
             };
     }
 }

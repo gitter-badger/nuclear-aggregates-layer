@@ -1,15 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public sealed class NonZeroPropertyFeature : IValidatablePropertyFeature
     {
-        public Type ErrorMessageResourceManagerType { get { return StaticReflection.GetMemberDeclaringType(() => BLResources.InappropriateValueForField); } }
+        public Type ErrorMessageResourceManagerType { get { return StaticReflection.GetMemberDeclaringType(() => ResPlatform.InappropriateValueForField); } }
 
-        public string ResourceKey { get { return StaticReflection.GetMemberName(() => BLResources.InappropriateValueForField); } }
+        public string ResourceKey { get { return StaticReflection.GetMemberName(() => ResPlatform.InappropriateValueForField); } }
 
         public EntityPropertyMetadata TargetPropertyMetadata { get; set; }
     }
