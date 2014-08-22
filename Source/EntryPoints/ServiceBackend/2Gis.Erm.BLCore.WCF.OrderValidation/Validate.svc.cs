@@ -23,13 +23,14 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
         public OrderValidationApplicationService(IBusinessModelSettings businessModelSettings,
                                                  IUserContext userContext,
                                                  IOrderValidationService orderValidationService,
-                                                 IOrderValidationPredicateFactory orderValidationPredicateFactory)
+                                                 IOrderValidationPredicateFactory orderValidationPredicateFactory,
+                                                 IResourceGroupManager resourceGroupManager)
         {
             _businessModelSettings = businessModelSettings;
             _orderValidationService = orderValidationService;
             _orderValidationPredicateFactory = orderValidationPredicateFactory;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ValidateOrdersResult ValidateSingleOrder(string specifiedOrderId)

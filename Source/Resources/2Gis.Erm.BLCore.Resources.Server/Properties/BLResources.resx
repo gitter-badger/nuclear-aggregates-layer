@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value />
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value />
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value />
   </data>
@@ -847,9 +844,6 @@
     <value />
   </data>
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
     <value />
   </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
@@ -1717,9 +1711,6 @@
     <value />
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
     <value />
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
@@ -4335,9 +4326,6 @@
   <data name="WrongOrderType" xml:space="preserve">
     <value />
   </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value />
-  </data>
   <data name="FileRequired" xml:space="preserve">
     <value />
   </data>
@@ -4924,9 +4912,6 @@
     <value />
   </data>
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GeneralMessage" xml:space="preserve">
     <value />
   </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
