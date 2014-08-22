@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLCore.Operations.Special;
 using DoubleGis.Erm.BLCore.OrderValidation.DI;
+using DoubleGis.Erm.BLCore.UI.Metadata.DI;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.DI;
 using DoubleGis.Erm.BLFlex.Operations.Global.DI;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
@@ -75,7 +76,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                             .UseAnchor<PlatformModelMetadataAssembly>()
                                             .UseAnchor<BlQueryingUiMetadataAssembly>()
                                             .UseAnchor<BLCore.UI.WPF.Client.DI.MetadataZonePartAssembly>()
-                                            .UseAnchor<MetadataZonePartAssembly>();
+                                            .UseAnchor<MetadataZonePartAssembly>()
+                                            .UseAnchor<BlCoreUiMetadataAssembly>();
             }
         } 
     }
