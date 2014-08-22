@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 {
@@ -13,23 +14,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 
         private static readonly IEnumerable<IConsistencyRule> CommonRules = new IConsistencyRule[]
             {
-                ConsistencyRule.CreateNonEmptyString(entity => entity.Name, BLResources.RequiredFieldMessage, MetadataResources.Name),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.Name, ResPlatform.RequiredFieldMessage, MetadataResources.Name),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInNominative,
-                                                     BLResources.RequiredFieldMessage,
+                                                     ResPlatform.RequiredFieldMessage,
                                                      MetadataResources.ChiefNameInNominative),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInNominative,
-                                                     BLResources.RequiredFieldMessage,
+                                                     ResPlatform.RequiredFieldMessage,
                                                      MetadataResources.PositionInNominative),
                 ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments,
-                                                     BLResources.RequiredFieldMessage,
+                                                     ResPlatform.RequiredFieldMessage,
                                                      MetadataResources.PersonResponsibleForDocuments),
                 ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod,
                                              method => method == DocumentsDeliveryMethod.Undefined,
-                                             BLResources.RequiredFieldMessage,
+                                             ResPlatform.RequiredFieldMessage,
                                              MetadataResources.DocumentsDeliveryMethod),
                 ConsistencyRule.CreateFormat(entity => (PaymentMethod)entity.PaymentMethod,
                                              x => x == PaymentMethod.Undefined,
-                                             BLResources.RequiredFieldMessage,
+                                             ResPlatform.RequiredFieldMessage,
                                              MetadataResources.PaymentMethod),
             };
 
@@ -38,13 +39,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<PaymentMethod>(PaymentMethod.BankTransaction)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.IBAN, BLResources.RequiredFieldMessage, MetadataResources.IBAN),
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.SWIFT, BLResources.RequiredFieldMessage, MetadataResources.SWIFT),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.IBAN, ResPlatform.RequiredFieldMessage, MetadataResources.IBAN),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.SWIFT, ResPlatform.RequiredFieldMessage, MetadataResources.SWIFT),
                         },
                     new ConsistencyRuleCollection<PaymentMethod>(PaymentMethod.BankChequePayment)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.IBAN, BLResources.RequiredFieldMessage, MetadataResources.IBAN),
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.SWIFT, BLResources.RequiredFieldMessage, MetadataResources.SWIFT),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.IBAN, ResPlatform.RequiredFieldMessage, MetadataResources.IBAN),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.SWIFT, ResPlatform.RequiredFieldMessage, MetadataResources.SWIFT),
                         },
                 };
 
@@ -53,24 +54,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<DocumentsDeliveryMethod>(DocumentsDeliveryMethod.PostOnly)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.PostAddress, BLResources.RequiredFieldMessage, MetadataResources.PostAddress),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.PostAddress, ResPlatform.RequiredFieldMessage, MetadataResources.PostAddress),
                         },
                     new ConsistencyRuleCollection<DocumentsDeliveryMethod>(DocumentsDeliveryMethod.ByEmail)
                         {
                             ConsistencyRule.CreateNonEmptyString(entity => entity.EmailForAccountingDocuments,
-                                                                 BLResources.RequiredFieldMessage,
+                                                                 ResPlatform.RequiredFieldMessage,
                                                                  MetadataResources.EmailForAccountingDocuments),
                         },
                     new ConsistencyRuleCollection<DocumentsDeliveryMethod>(DocumentsDeliveryMethod.ByCourier)
                         {
                             ConsistencyRule.CreateNonEmptyString(entity => entity.DocumentsDeliveryAddress,
-                                                                 BLResources.RequiredFieldMessage,
+                                                                 ResPlatform.RequiredFieldMessage,
                                                                  MetadataResources.DocumentsDeliveryAddress),
                         },
                     new ConsistencyRuleCollection<DocumentsDeliveryMethod>(DocumentsDeliveryMethod.DeliveryByManager)
                         {
                             ConsistencyRule.CreateNonEmptyString(entity => entity.DocumentsDeliveryAddress,
-                                                                 BLResources.RequiredFieldMessage,
+                                                                 ResPlatform.RequiredFieldMessage,
                                                                  MetadataResources.DocumentsDeliveryAddress),
                         }
                 };
