@@ -5105,7 +5105,7 @@ Doba zveřejnění: {3}.</value>
     <value>Uzavřít jako zamítnuto</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Новая модель продаж пока не поддерживается в городе "{0}" и/или в рубрике "{1}"</value>
+    <value>Nový prodejní modul ještě není podporován "{0}" a/nebo v rubrice "{1}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>U všech podpoložek položky v objednávce zpracované jako ceníková položka s typem výpočtu koeficientu [{0}] musí být uvedena rubrika</value>
