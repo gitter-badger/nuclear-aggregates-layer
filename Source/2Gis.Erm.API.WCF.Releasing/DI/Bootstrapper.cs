@@ -3,6 +3,7 @@ using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Releasing.Config;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -30,6 +31,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
+using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -60,7 +62,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
                 };
 
-            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
+            CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             return container.ConfigureUnityTwoPhase(WcfReleasingRoot.Instance,
                                                     settingsContainer,
@@ -100,6 +102,12 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .ConfigureIdentityInfrastructure()
                 .ConfigureExportMetadata()
                 .ConfigureMetadata()
+                .ConfigureLocalization(typeof(Resources),
+                                       typeof(ResPlatform),
+                                       typeof(BLResources),
+                                       typeof(MetadataResources),
+                                       typeof(EnumResources),
+                                       typeof(BLFlex.Resources.Server.Properties.BLResources))
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
@@ -109,7 +117,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton);
         }
 
-        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
+        private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
                 {

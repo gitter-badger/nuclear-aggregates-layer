@@ -1,4 +1,4 @@
-﻿// File updated : 14.08.2014 11:16:33
+﻿// File updated : 25.08.2014 18:20:14
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -33,7 +33,7 @@ AdvertisementElementWasNotSaved : 'El elemento del material publicitario no se h
 Advertisements : 'Materiales publicitarios',
 AdvertisementTemplatePublishConfirmation : '¿Desea realmente publicar la plantilla de material publicitario?',
 AdvertisementTemplatePublishConfirmationLabel : 'Publicar la plantilla de material publicitario',
-AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Вы действительно хотите опубликовать шаблон ракламного материала?<br/>На карточке есть изменения, которые будут утеряны при публикации.<br/>Если требуется их сохранить нажмите "нет" и сохраните карточку.',
+AdvertisementTemplatePublishConfirmationWithDirtyForm : '¿Está seguro que quiere publicar la plantilla del material publicitario?<br/>En la ficha hay cambios que se perderán al publicar.<br/>Si hay que guardarlos, pulse "no" y guarde la ficha.',
 AdvertisingElementAccept : 'Aprobar',
 AdvertisingElementValidate : 'Verificación',
 AfterPageText : 'de {0}',
