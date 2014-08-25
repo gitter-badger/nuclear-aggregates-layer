@@ -556,29 +556,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                                           .Select(x => new
                                               {
                                                   Element = x,
-                                                  Temaplte = x.AdvertisementElementTemplate,
+                                                  Template = x.AdvertisementElementTemplate,
+                                                  IsDummyAdvertisement = x.Advertisement.Id == x.Advertisement.AdvertisementTemplate.DummyAdvertisementId
                                               })
                                           .Select(x => new
                                               {
                                                   x.Element,
-                                                  x.Temaplte,
+                                                  x.Template,
+                                                  x.IsDummyAdvertisement,
 
-                                                  ValidText = (x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Text ||
-                                                               x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment) &&
+                                                  ValidText = (x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Text ||
+                                                               x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment) &&
                                                               !string.IsNullOrEmpty(x.Element.Text),
 
-                                                  ValidDate = x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Date &&
+                                                  ValidDate = x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Date &&
                                                               x.Element.BeginDate != null &&
                                                               x.Element.EndDate != null,
 
-                                                  ValidFile = (x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Image ||
-                                                               x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Article) &&
+                                                  ValidFile = (x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Image ||
+                                                               x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Article) &&
                                                               x.Element.FileId != null,
                                               })
                                           .Select(x => new AdvertisementBagItem
                                               {
                                                   Id = x.Element.Id,
-                                                  Name = x.Temaplte.Name,
+                                                  Name = x.Template.Name,
 
                                                   Text = x.Element.Text,
                                                   FileId = x.Element.FileId,
@@ -586,12 +588,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                                                   BeginDate = x.Element.BeginDate,
                                                   EndDate = x.Element.EndDate,
 
-                                                  FormattedText = x.Temaplte.FormattedText,
-                                                  RestrictionType = (AdvertisementElementRestrictionType)x.Temaplte.RestrictionType,
+                                                  FormattedText = x.Template.FormattedText,
+                                                  RestrictionType = (AdvertisementElementRestrictionType)x.Template.RestrictionType,
 
-                                                  IsValid = !x.Temaplte.IsRequired || x.ValidText || x.ValidDate || x.ValidFile,
+                                                  IsValid = !x.Template.IsRequired || x.ValidText || x.ValidDate || x.ValidFile,
 
-                                                  NeedsValidation = x.Temaplte.NeedsValidation,
+                                                  NeedsValidation = x.Template.NeedsValidation && !x.IsDummyAdvertisement,
                                                   Status = (AdvertisementElementStatusValue)x.Element.AdvertisementElementStatus.Status,
                                                   UserCanValidateAdvertisement = hasUserPrivilegeToVerifyAdvertisementElement
                                               })
