@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions
     public sealed class NewSalesModelNotEnabledForCategoryOrOrganizationUnitException : BusinessLogicException
     {
         public NewSalesModelNotEnabledForCategoryOrOrganizationUnitException(IEnumerable<string> categoryNames, string organizationUnitName)
-            : base(string.Format(BLResources.CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit, string.Join(", ", categoryNames), organizationUnitName))
+            : base(string.Format(BLResources.CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit, organizationUnitName, string.Join(", ", categoryNames)))
         {
         }
 

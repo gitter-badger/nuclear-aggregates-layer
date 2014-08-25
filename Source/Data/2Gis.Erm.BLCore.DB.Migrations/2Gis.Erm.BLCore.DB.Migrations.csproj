@@ -718,6 +718,7 @@
     <Compile Include="2.1\2014.07.24 rev. 22601 - Add AdvertisementsOnlyWhiteList rule.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule - Copy 1.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />
+    <Compile Include="2.1\2014.08.19 rev. 23425 - Alter ImportFirmFromXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -1027,6 +1028,7 @@
     <Content Include="Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateFirms].sql" />
     <Content Include="Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateTerritories].sql" />
     <Content Include="Resources\2014.08.06 rev. 23021\ImportFirmFromXml.sql" />
+    <Content Include="Resources\2014.08.19 rev. 23425\ImportFirmFromXml.sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />
