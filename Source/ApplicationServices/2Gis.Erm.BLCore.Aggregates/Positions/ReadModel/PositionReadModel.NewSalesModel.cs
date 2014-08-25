@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
             var organizationUnitCategories = _finder.Find(CategorySpecifications.Find.CategoriesForOrganizationUnit(destOrganizationUnitId) &&
                                                           Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
-                                                    .Join(categoryIds, entity => entity.Id, id => id, (entity, id) => id)
+                                                    .Join(categoryIds, entity => entity.CategoryId, id => id, (entity, id) => id)
                                                     .ToArray();
             return new NewSalesModelFilter(organizationUnitCategories);
         }
@@ -155,6 +155,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             }
 
             return _finder.Find(OrderSpecs.OrderPositionAdvertisements.Find.ByOrderPosition(orderPositionId.Value))
+                          .Where(opa => opa.CategoryId.HasValue)
                           .Select(opa => opa.Category)
                           .Where(category => !firmCategoryIds.Contains(category.Id))
                           .Select(category => new LinkingObjectsSchemaDto.CategoryDto { Id = category.Id, Name = category.Name, Level = category.Level, })

@@ -5114,7 +5114,7 @@ Placement period: {3}.</value>
     <value>Cannot create a complex item with the type of the reference object different from the following: {0}</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Cannot create an order item with [{0}] coefficient calculation method to the selected destination city and category [{1}]</value>
+    <value>The new sales model is not supported in "{0}" city or in the "{1}" category</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>A category should be specified for all subitems of the order item prepared as a price-list item with [{0}] coefficient calculation method</value>
