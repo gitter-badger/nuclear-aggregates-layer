@@ -41,9 +41,6 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="2Gis.Erm.BLFlex.Model">
-      <HintPath>..\..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\bin\Debug\2Gis.Erm.BLFlex.Model.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -120,6 +117,7 @@
     <Compile Include="Common\Validators\MetadataValidatorsSuite.cs" />
     <Compile Include="DI\PlatformModelMetadataAssembly.cs" />
     <Compile Include="DI\MetadataZone.cs" />
+    <Compile Include="Entities\Configuration\LookupAttributeProvider.cs" />
     <Compile Include="Entities\EAV\DynamicEntityPropertyAccessor.cs" />
     <Compile Include="Entities\EAV\DynamicEntityPropertyMapper.cs" />
     <Compile Include="Entities\EAV\DynamicEntityMetadataRegistry.cs" />
@@ -158,71 +156,11 @@
     <Compile Include="Entities\EAV\PropertyIdentities\StatusIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\TaskTypeIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\TaxationTypeIdentity.cs" />
-    <Compile Include="Entities\EntitiesMetadataSource.cs" />
     <Compile Include="Entities\EntityPropertyMetadata.cs" />
     <Compile Include="Entities\ErrorDescription.cs" />
     <Compile Include="Entities\IDataFieldFeature.cs" />
     <Compile Include="Entities\IPropertyFeature.cs" />
     <Compile Include="Entities\IValidatablePropertyFeature.cs" />
-    <Compile Include="Entities\Properties\Configuration\LookupAttributeProvider.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Account.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AccountDetails.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AdditionalFirmService.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AdsTemplatesAdsElementTemplate.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Advertisement.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AdvertisementElement.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AdvertisementElementTemplate.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AdvertisementTemplate.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AssociatedPosition.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AssociatedPositionsGroup.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Bargain.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.BargainFile.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.BargainType.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Bill.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.BranchOffice.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.BranchOfficeOrganizationUnit.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Category.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.CategoryGroup.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Client.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Contact.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.ContributionType.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Country.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Currency.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.CurrencyRate.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Deal.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.DeniedPosition.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Department.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Firm.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.FirmAddress.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.FirmContact.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.LegalPerson.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.LegalPersonProfile.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Limit.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.LocalMessage.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Lock.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.LockDetail.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Note.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Operation.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.OperationType.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Order.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.OrderFile.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.OrderPosition.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.OrganizationUnit.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Platform.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Position.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.PositionCategory.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.PositionChildren.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Price.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.PricePosition.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.PrintFormTemplate.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.ReleaseInfo.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Role.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Territory.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.Theme.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.ThemeTemplate.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.User.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.WithdrawalInfo.cs" />
     <Compile Include="Entities\MetadataEntitiesIdentity.cs" />
     <Compile Include="Entities\PropertyFeatures\CheckDatePropertyFeature.cs" />
     <Compile Include="Entities\PropertyFeatures\ComboBoxPropertyFeature.cs" />
@@ -296,13 +234,13 @@
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
-      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
-      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
