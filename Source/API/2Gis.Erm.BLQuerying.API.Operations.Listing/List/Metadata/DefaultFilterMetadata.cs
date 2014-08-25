@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
@@ -47,9 +48,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Мои запланированные действия на сегодня
             .RegisterFilter<ListActivityInstanceDto>("DListMyActivitiesInProgressForToday", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
             // Действия по теплым клиентам
-            .RegisterFilter<ListActivityInstanceDto>("DListActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient)
+            .RegisterFilter<ListActivityInstanceDto>("DListActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == TaskType.WarmClient)
             // Просроченные действия по теплым клиентам
-            .RegisterFilter<ListActivityInstanceDto>("DListOverdueActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient)
+            .RegisterFilter<ListActivityInstanceDto>("DListOverdueActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == TaskType.WarmClient)
 
             .RegisterFilter<ListAdditionalFirmServiceDto>("AdditionalFirmServices", x => true)
 
