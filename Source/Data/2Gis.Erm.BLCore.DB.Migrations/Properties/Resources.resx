@@ -289,4 +289,7 @@
   <data name="ImportFirmFromXml_23021" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.08.06 rev. 23021\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="ImportFirmFromXml_23425" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.08.19 rev. 23425\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
