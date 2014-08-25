@@ -181,7 +181,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class UrlLocalizedAttribute : ValidationAttribute, IClientValidatable
     {
-        private const string RegExPattern = @"^https?:\/\/([а-яёa-z0-9-]+\.)+[а-яёa-z0-9]{2,4}.*$";
+        private const string RegExPattern = @"^https?:\/\/([а-яёa-z0-9-_]+\.)+[а-яёa-z0-9]{2,4}.*$";
         public override string FormatErrorMessage(string name)
         {
             return string.Format(CultureInfo.InvariantCulture, BLResources.InputValidationInvalidUrl, name);
