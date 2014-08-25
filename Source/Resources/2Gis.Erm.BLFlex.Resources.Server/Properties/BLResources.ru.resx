@@ -271,6 +271,9 @@ SWIFT {5}
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value>Операция создания коммуны не поддерживается системой</value>
   </data>
+  <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
+    <value>Операция редактирования коммуны не поддерживается системой</value>
+  </data>
   <data name="UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
     <value>Индивидуальный предприниматель с указанным ИПН уже существует</value>
   </data>

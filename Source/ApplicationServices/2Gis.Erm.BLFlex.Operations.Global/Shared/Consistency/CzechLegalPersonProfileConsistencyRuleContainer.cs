@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 {
@@ -12,13 +13,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
         #region Rules
         private static readonly IEnumerable<IConsistencyRule> CommonRules = new IConsistencyRule[]
             {
-                ConsistencyRule.CreateNonEmptyString(entity => entity.Name, BLResources.RequiredFieldMessage, MetadataResources.Name),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInNominative, BLResources.RequiredFieldMessage, MetadataResources.ChiefNameInNominative),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments, BLResources.RequiredFieldMessage, MetadataResources.PersonResponsibleForDocuments),
-                ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, BLResources.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInGenitive, BLResources.RequiredFieldMessage, MetadataResources.ChiefNameInGenitive),
-                ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, BLResources.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive),
-                ConsistencyRule.CreateNonNull(entity => entity.PaymentMethod, BLResources.RequiredFieldMessage, MetadataResources.PaymentMethod)
+                ConsistencyRule.CreateNonEmptyString(entity => entity.Name, ResPlatform.RequiredFieldMessage, MetadataResources.Name),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInNominative, ResPlatform.RequiredFieldMessage, MetadataResources.ChiefNameInNominative),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments, ResPlatform.RequiredFieldMessage, MetadataResources.PersonResponsibleForDocuments),
+                ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, ResPlatform.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.ChiefNameInGenitive),
+                ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive),
+                ConsistencyRule.CreateNonNull(entity => entity.PaymentMethod, ResPlatform.RequiredFieldMessage, MetadataResources.PaymentMethod)
             };
 
         private static readonly IEnumerable<ConsistencyRuleCollection<LegalPersonType>> AllowedLegalPersonDocuments =
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<LegalPersonType>(LegalPersonType.LegalPerson)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.Registered, BLResources.RequiredFieldMessage, MetadataResources.Registered)
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.Registered, ResPlatform.RequiredFieldMessage, MetadataResources.Registered)
                         }
                 };
 
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Warranty)
                         {
-                            ConsistencyRule.CreateNonNull(entity => entity.WarrantyBeginDate, BLResources.RequiredFieldMessage, MetadataResources.WarrantyBeginDate)
+                            ConsistencyRule.CreateNonNull(entity => entity.WarrantyBeginDate, ResPlatform.RequiredFieldMessage, MetadataResources.WarrantyBeginDate)
                         }
                 };
 
@@ -65,9 +66,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<PaymentMethod>(PaymentMethod.BankTransaction)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, BLResources.RequiredFieldMessage, MetadataResources.AccountNumber),
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.BankCode, BLResources.RequiredFieldMessage, MetadataResources.BankCode),
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.BankName, BLResources.RequiredFieldMessage, MetadataResources.BankName),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.AccountNumber, ResPlatform.RequiredFieldMessage, MetadataResources.AccountNumber),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.BankCode, ResPlatform.RequiredFieldMessage, MetadataResources.BankCode),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.BankName, ResPlatform.RequiredFieldMessage, MetadataResources.BankName),
                         }
                 }; 
         #endregion

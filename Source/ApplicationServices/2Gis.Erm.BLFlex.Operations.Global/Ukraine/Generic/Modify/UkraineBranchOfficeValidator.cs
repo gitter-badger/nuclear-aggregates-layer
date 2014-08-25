@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
 {
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
 
             if (_bargainTypeReadModel.GetVatRate(entity.BargainTypeId.Value) > 0 && string.IsNullOrWhiteSpace(ipn))
             {
-                throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Ipn));
+                throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Ipn));
             }
 
             string ipnError;
