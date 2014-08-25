@@ -438,10 +438,11 @@
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementStatusOperationService.cs" />
-    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
+    <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdditionalFirmServiceObtainer.cs" />
@@ -763,7 +764,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
-    <Folder Include="Generic\Modify\SimplifiedModel\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

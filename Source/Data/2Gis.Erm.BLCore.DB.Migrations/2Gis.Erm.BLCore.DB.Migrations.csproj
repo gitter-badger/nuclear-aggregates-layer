@@ -52,6 +52,10 @@
     <Reference Include="Microsoft.SqlServer.SqlEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.SqlEnum.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xrm.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -715,6 +719,7 @@
     <Compile Include="2.1\2014.06.03 rev. 20952 - Alter BOS for flowNomenclatures export.cs" />
     <Compile Include="2.1\2014.07.08 rev. 22080 - Delete infrastructure for hot client replication.cs" />
     <Compile Include="2.1\2014.08.06 rev. 22197 - Add Index to Categories table.cs" />
+    <Compile Include="2.1\2014.07.30 rev. 22706 - Move activities to dynamic storage.cs" />
     <Compile Include="2.1\2014.07.24 rev. 22601 - Add AdvertisementsOnlyWhiteList rule.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule - Copy 1.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />
@@ -736,6 +741,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="1.2\2013.11.12 rev. 13530 - Add ImportAccountsToServiceBus button to crm grid.cs" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Drop Old Activity Schema.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Tasks.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Phonecalls.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Appointments.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Alter Activity Schema.sql" />
     <Compile Include="Shared\CrmDbHelper.cs" />
     <Compile Include="Shared\ErmTableUtilsForOldIntKeys.cs" />
     <Compile Include="Shared\InsertedNotNullableColumnDefinition.cs" />

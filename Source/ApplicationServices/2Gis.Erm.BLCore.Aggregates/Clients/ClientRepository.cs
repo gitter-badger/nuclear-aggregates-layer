@@ -55,8 +55,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private readonly IRepository<Order> _orderGenericRepository;
         private readonly IRepository<OrderPosition> _orderPositionGenericRepository;
         private readonly IRepository<Contact> _contactGenericRepository;
-        private readonly IRepository<ActivityInstance> _activityInstanceRepository;
-        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+	    private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IClientPersistenceService _clientPersistenceService;
         private readonly ISecureFinder _secureFinder;
@@ -78,7 +77,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             IRepository<Order> orderGenericRepository,
             IRepository<OrderPosition> orderPositionGenericRepository,
             IRepository<Contact> contactGenericRepository,
-            IRepository<ActivityInstance> activityInstanceRepository,
             ISecureRepository<Contact> contactGenericSecureRepository,
             ISecurityServiceFunctionalAccess functionalAccessService, 
             ISecurityServiceUserIdentifier userIdentifierService, 
@@ -101,8 +99,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _orderGenericRepository = orderGenericRepository;
             _orderPositionGenericRepository = orderPositionGenericRepository;
             _contactGenericRepository = contactGenericRepository;
-            _activityInstanceRepository = activityInstanceRepository;
-            _functionalAccessService = functionalAccessService;
+	        _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
             _userContext = userContext;
             _secureFinder = secureFinder;
@@ -172,8 +169,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                                                      Order = order,
                                                                      order.OrderPositions
                                                                  },
-                                           Activities = client.ActivityInstances
-                                                              .Where(x => x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner))
+										   PreviousOwner = clientPrevOwner
                                        })
                                       .Single();
 
@@ -276,14 +272,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 _contactGenericRepository.Save();
 
-                foreach (var activity in relatedEntities.Activities)
-                {
-                    activity.OwnerCode = ownerCode;
-                    _activityInstanceRepository.Update(activity);
-                    operationScope.Updated<ActivityInstance>(activity.Id);
-                }
-
-                _activityInstanceRepository.Save();
+	            if (relatedEntities.PreviousOwner != null)
+	            {
+					// COMMENT {all, 31.07.2014}: вынести из репозитория клиента
+//					UpdateActivity(operationScope, _appointmentRepository, relatedEntities.PreviousOwner.Value, ownerCode);
+//					UpdateActivity(operationScope, _phonecallRepository, relatedEntities.PreviousOwner.Value, ownerCode);
+//					UpdateActivity(operationScope, _taskRepository, relatedEntities.PreviousOwner.Value, ownerCode);
+	            }
 
                 operationScope.Complete();
                 return count;
