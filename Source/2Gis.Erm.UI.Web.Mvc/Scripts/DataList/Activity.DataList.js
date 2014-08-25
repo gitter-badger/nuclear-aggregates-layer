@@ -38,7 +38,43 @@ window.InitPage = function () {
                 return Ext.DoubleGis.Global.Helpers.GridColumnHelper.RenderEntityIcon(iconFileName);
             },
             Assign: function () {
-                this.ShowDialogWindowForOneOrMoreEntities("/GroupOperation/Assign/" + this.EntityName, "dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no; ");
+            	if (this.EnsureOneOrMoreSelected) {
+
+            		var vals = [];
+            		Ext.each(this.Items.Grid.getSelectionModel().selections.items,
+						function (val) {
+							vals.push({ entityId: val.data.Id, entityName: val.data.ActivityTypeEnum });
+						});
+
+            		var parameters = {
+            			Values: vals
+            		};
+
+            		var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, parameters, "dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no;");
+            		if (result == true) {
+            			this.refresh();
+            		}
+            	}
+            },
+            Delete: function (cmp, evt, doSpecialConfirmation) {
+            	if (this.EnsureOneOrMoreSelected) {
+
+            		var vals = [];
+            		Ext.each(this.Items.Grid.getSelectionModel().selections.items,
+						function (val) {
+							vals.push({ entityId: val.data.Id, entityName: val.data.ActivityTypeEnum });
+						});
+
+            		var parameters = {
+            			Values: vals,
+            			DoSpecialConfirmation: doSpecialConfirmation
+            		};
+
+            		var result = window.showModalDialog("/GroupOperation/Delete/" + this.EntityName, parameters, "dialogWidth:500px; dialogHeight:203px; scroll:no;resizable:no;");
+            		if (result == true) {
+            			this.refresh();
+            		}
+				}
             }
         });
     });

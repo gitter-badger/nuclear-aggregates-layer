@@ -353,12 +353,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
-            return container
-                .RegisterType<IActivityPropertiesConverter<Task>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Phonecall>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Appointment>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                
-                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+            return container;
         }
 
         private static IUnityContainer ConfigureMvcMetadataProvider(this IUnityContainer container)
