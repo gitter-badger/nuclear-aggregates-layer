@@ -284,6 +284,7 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Advertisement.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElement.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElementTemplate.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementTemplate.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Appointment.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Assembly.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Assign.gif" />
