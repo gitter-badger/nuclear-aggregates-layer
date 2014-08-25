@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly ICommonLog _logger;
 
-        public CreateOrUpdateApplicationService(IOperationServicesManager operationServicesManager, ICommonLog logger, IUserContext userContext)
+        public CreateOrUpdateApplicationService(IOperationServicesManager operationServicesManager, ICommonLog logger, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _operationServicesManager = operationServicesManager;
             _logger = logger;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public long Execute(EntityName entityName, IDomainEntityDto dto)

@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>La orden {0} no tiene ninguna posición especificada de la orden</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>El valor del campo "{0}" no es una dirección válida de correo electrónico</value>
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value>Borrar todas las facturas de la orden</value>
   </data>
@@ -848,9 +845,6 @@
   </data>
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value>No hay ningún enlace con el objeto en esta posición.</value>
-  </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Es necesario indicar un valor para el campo "{0}"</value>
   </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value>Para la empresa no se ha especificado el código de réplica en CRM</value>
@@ -1723,9 +1717,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
     <value>Registros seleccionados "{0}": {1}. ¿A quién se le debe designar?</value>
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>El campo {0} puede contener solo números</value>
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
     <value>Se incluirán Tipos de operaciones: {0}</value>
@@ -4346,9 +4337,6 @@ Operación realizada: {4}.</value>
   <data name="WrongOrderType" xml:space="preserve">
     <value>Tipo de la orden incorrecto</value>
   </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>el valor no adecuado para el campo {0}</value>
-  </data>
   <data name="FileRequired" xml:space="preserve">
     <value>Es necesario seleccionar un archivo</value>
   </data>
@@ -4937,9 +4925,6 @@ Contacto: {1}</value>
   </data>
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value>Se necesita un privilegio especial para modificar la propiedad de si un cliente es una agencia de publicidad</value>
-  </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
   </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>La línea contiene los caracteres de control</value>

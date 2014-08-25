@@ -20,13 +20,13 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
         private readonly IUserContext _userContext;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public DeactivateApplicationService(ICommonLog logger, IUserContext userContext, IOperationServicesManager operationServicesManager)
+        public DeactivateApplicationService(ICommonLog logger, IUserContext userContext, IOperationServicesManager operationServicesManager, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _userContext = userContext;
             _operationServicesManager = operationServicesManager;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public DeactivateConfirmation Execute(string specifiedEntityName, string specifiedEntityId, string specifiedOwnerCode)
