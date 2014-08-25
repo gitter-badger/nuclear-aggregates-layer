@@ -1,62 +1,53 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Activities
 {
     public class ActivityReadModelTest : IIntegrationTest
     {
-        private readonly IActivityReadModel _activityReadModel;
-        private readonly IAppropriateEntityProvider<ActivityInstance> _activityInstanceProvider;
+	    private readonly IFinder _finder;
+	    private readonly IActivityReadModel _activityReadModel;
 
-        public ActivityReadModelTest(IActivityReadModel activityReadModel, IAppropriateEntityProvider<ActivityInstance> activityInstanceProvider)
+        public ActivityReadModelTest(IFinder finder, IActivityReadModel activityReadModel)
         {
-            _activityReadModel = activityReadModel;
-            _activityInstanceProvider = activityInstanceProvider;
+	        _finder = finder;
+	        _activityReadModel = activityReadModel;
         }
 
         public ITestResult Execute()
         {
-            var appropriateAppointment = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.Type == (int)ActivityType.Appointment));
-            var appropriateTask = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.Type == (int)ActivityType.Task));
-            var appropriatePhonecall = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.Type == (int)ActivityType.Phonecall));
-            var activityWithClient = _activityInstanceProvider.Get(new FindSpecification<ActivityInstance>(x => x.ClientId != null));
+	        var appropriateAppointment = _finder.FindMany(Specs.Find.Any<Appointment>()).FirstOrDefault();
+	        var appropriatePhonecall = _finder.FindMany(Specs.Find.Any<Phonecall>()).FirstOrDefault();
+	        var appropriateTask = _finder.FindMany(Specs.Find.Any<Task>()).FirstOrDefault();
+	        var reference = _finder.FindMany(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == EntityName.Client)).FirstOrDefault();
+	        var activityWithClient = reference != null ? _finder.FindMany(Specs.Find.ById<Appointment>(reference.SourceEntityId)) : null;
 
+	        if (appropriateAppointment == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
+	        {
+		        return OrdinaryTestResult.As.NotExecuted;
+	        }
 
-            if (appropriateAppointment == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
-            {
-                return OrdinaryTestResult.As.NotExecuted;
-            }
+	        var appointment = _activityReadModel.GetAppointment(appropriateAppointment.Id);
+	        var task = _activityReadModel.GetTask(appropriateTask.Id);
+	        var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
 
-            var appointment = _activityReadModel.GetAppointment(appropriateAppointment.Id);
-            var task = _activityReadModel.GetTask(appropriateTask.Id);
-            var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
+	        // ReSharper disable once PossibleInvalidOperationException
+	        _activityReadModel.CheckIfRelatedActivitiesExists(reference.TargetEntityId);
 
-            // ReSharper disable once PossibleInvalidOperationException
-            _activityReadModel.CheckIfRelatedActivitiesExists(activityWithClient.ClientId.Value);
-
-            var appointmentDto = _activityReadModel.GetActivityInstanceDto(appointment);
-            var activityDto = _activityReadModel.GetActivityInstanceDto(task);
-            var phonecallDto = _activityReadModel.GetActivityInstanceDto(phonecall);
-
-            IEnumerable<ActivityInstance> relatedActivities;
-            _activityReadModel.TryGetRelatedActivities(activityWithClient.ClientId.Value, out relatedActivities);
-
-            return new object[]
-                {
-                    appointmentDto,
-                    activityDto,
-                    phonecallDto,
-                    relatedActivities
-                }.Any(x => x == null)
-                       ? OrdinaryTestResult.As.Failed
-                       : OrdinaryTestResult.As.Succeeded;
+	        return new object[]
+		        {
+			        appointment,
+			        task,
+			        phonecall
+		        }.Any(x => x == null)
+		               ? OrdinaryTestResult.As.Failed
+		               : OrdinaryTestResult.As.Succeeded;
         }
     }
 }
