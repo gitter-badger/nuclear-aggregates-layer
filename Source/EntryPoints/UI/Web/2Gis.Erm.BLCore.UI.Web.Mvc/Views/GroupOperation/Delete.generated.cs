@@ -36,31 +36,35 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     #line hidden
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    using DoubleGis.Erm.Platform.Model.Entities;
-    using DoubleGis.Erm.Platform.Model.Entities.Enums;
-    using DoubleGis.Erm.Platform.Model.Metadata.Enums;
-    using DoubleGis.Erm.Platform.UI.Web.Mvc;
-    using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     #line 2 "..\..\Views\GroupOperation\Delete.cshtml"
-    using Platform.Common.Utils;
+    using DoubleGis.Erm.Platform.Common.Utils;
     
     #line default
     #line hidden
+    using DoubleGis.Erm.Platform.Model.Entities;
+    using DoubleGis.Erm.Platform.Model.Entities.Enums;
     
     #line 3 "..\..\Views\GroupOperation\Delete.cshtml"
-    using Platform.Model.Identities.Operations.Identity;
+    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
     
     #line default
     #line hidden
     
     #line 4 "..\..\Views\GroupOperation\Delete.cshtml"
-    using Platform.Model.Identities.Operations.Identity.Generic;
+    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
     
     #line default
     #line hidden
+    using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/Delete.cshtml")]
@@ -130,158 +134,156 @@ WriteLiteral("\r\n");
 
 DefineSection("PageContent", () => {
 
-WriteLiteral("\r\n    <link");
+WriteLiteral("\r\n\t<link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 671), Tuple.Create("\"", 734)
-, Tuple.Create(Tuple.Create("", 678), Tuple.Create("/Content/Progress.css?", 678), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 710), Tuple.Create("\"", 773)
+, Tuple.Create(Tuple.Create("", 717), Tuple.Create("/Content/Progress.css?", 717), true)
             
             #line 17 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 700), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 739), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 700), false)
+, 739), false)
 );
 
-WriteLiteral(" />\r\n\r\n    <script");
+WriteLiteral(" />\r\n\r\n\t<script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 753), Tuple.Create("\"", 826)
-, Tuple.Create(Tuple.Create("", 759), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 759), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 789), Tuple.Create("\"", 862)
+, Tuple.Create(Tuple.Create("", 795), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 795), true)
             
             #line 19 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 792), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 828), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 792), false)
+, 828), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral("></script>\r\n    <script");
+WriteLiteral("></script>\r\n\t<script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 873), Tuple.Create("\"", 954)
-, Tuple.Create(Tuple.Create("", 879), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 879), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 906), Tuple.Create("\"", 987)
+, Tuple.Create(Tuple.Create("", 912), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 912), true)
             
             #line 20 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 920), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 953), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 920), false)
+, 953), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral("></script>\r\n    <script");
+WriteLiteral("></script>\r\n\t<script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1001), Tuple.Create("\"", 1061)
-, Tuple.Create(Tuple.Create("", 1007), Tuple.Create("/Scripts/Tooltip.js?", 1007), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1031), Tuple.Create("\"", 1091)
+, Tuple.Create(Tuple.Create("", 1037), Tuple.Create("/Scripts/Tooltip.js?", 1037), true)
             
             #line 21 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 1027), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1057), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1027), false)
+, 1057), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral("></script>\r\n    \r\n    <script");
+WriteLiteral("></script>\r\n    \r\n\t<script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(@">
-        Ext.namespace('Ext.DoubleGis.UI.Delete');
-        Ext.DoubleGis.UI.Delete.DeleteProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
-            constructor: function (config) {
-                Ext.DoubleGis.UI.Delete.DeleteProcessor.superclass.constructor.call(this, config);
-            },
-            IsUserSettingsValid: function () {
-                return true;
-            },
-            CreateParamsForControllerCall: function (entityId) {
-                return { entityId: entityId };
-            }
-        });
-        Ext.onReady(function () {
-            Ext.getDom('PageContentCell').style[""vertical-align""] = ""top"";
-
-            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
-
-            var config = {
-                Entities: ids, // массив id сущностей
-                OperationName: '");
+WriteLiteral(">\r\n\t\tExt.namespace(\'Ext.DoubleGis.UI.Delete\');\r\n\t\tExt.DoubleGis.UI.Delete.DeleteP" +
+"rocessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {\r\n\t\t\tEntitiesToProcess: " +
+"{},\r\n\t\t\tconstructor: function(config) {\r\n\t\t\t\tExt.DoubleGis.UI.Delete.DeleteProce" +
+"ssor.superclass.constructor.call(this, config);\r\n\t\t\t\tif (config.EntitiesToProces" +
+"s) {\r\n\t\t\t\t\tvar entitiesToProcess = {};\r\n\t\t\t\t\tExt.each(config.EntitiesToProcess, " +
+"function (x) {\r\n\t\t\t\t\t\tentitiesToProcess[x.entityId] = x.entityName;\r\n\t\t\t\t\t});\r\n\t" +
+"\t\t\t\tthis.EntitiesToProcess = entitiesToProcess;\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\tIsUserSettings" +
+"Valid: function() {\r\n\t\t\t\treturn true;\r\n\t\t\t},\r\n\t\t\tResolveEntityName: function(ent" +
+"ityId) {\r\n\t\t\t\tif (this.EntitiesToProcess.hasOwnProperty(entityId))\r\n\t\t\t\t\treturn " +
+"this.EntitiesToProcess[entityId];\r\n\t\t\t\telse \r\n\t\t\t\t\treturn this.superclass().Reso" +
+"lveEntityName.call(this, entityId);\r\n\t\t\t},\r\n\t\t\tCreateParamsForControllerCall: fu" +
+"nction (entityId) {\r\n\t\t\t\treturn { entityId: entityId };\r\n\t\t\t}\r\n\t\t});\r\n\t\tExt.onRe" +
+"ady(function() {\r\n\t\t\tExt.getDom(\'PageContentCell\').style[\"vertical-align\"] = \"to" +
+"p\";\r\n\r\n\t\t\tvar dialogArguments = !window.dialogArguments ? [] : (window.dialogArg" +
+"uments.Values ? window.dialogArguments.Values : window.dialogArguments);\r\n\t\t\tvar" +
+" ids = dialogArguments;\r\n\r\n\t\t\tvar isExtendedMode = (dialogArguments != null && d" +
+"ialogArguments.length > 0 && dialogArguments[0].hasOwnProperty(\'entityId\'));\r\n\t\t" +
+"\tif (isExtendedMode) {\r\n\t\t\t\tids = [];\r\n\t\t\t\tExt.each(dialogArguments, function(x)" +
+" { ids.push(x.entityId); });\r\n\t\t\t}\r\n\r\n\t\t\tvar config = {\r\n\t\t\t\tEntitiesToProcess: " +
+"isExtendedMode ? dialogArguments : null,\r\n\t\t\t\tEntities: ids, // массив id сущнос" +
+"тейsss\r\n\t\t\t\tOperationName: \'");
 
             
-            #line 43 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 65 "..\..\Views\GroupOperation\Delete.cshtml"
                            Write(Model.OperationName);
 
             
             #line default
             #line hidden
-WriteLiteral("\', // тип операции - Qualify, Assign, ChangeTerritory\r\n                // TODO {a" +
-"ll, 18.12.2013}: возможно некоректное отображение диакритики\r\n                Cl" +
-"oseButtonText: \'");
+WriteLiteral("\', // тип операции - Qualify, Assign, ChangeTerritory\r\n\t\t\t\t// TODO {all, 18.12.20" +
+"13}: возможно некоректное отображение диакритики\r\n\t\t\t\tCloseButtonText: \'");
 
             
-            #line 45 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 67 "..\..\Views\GroupOperation\Delete.cshtml"
                              Write(BLResources.Close);
 
             
             #line default
             #line hidden
-WriteLiteral(@"', // локализованная надпись для кнопки закрыть
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                NeedToSelectOneOrMoreItemsMsg: '");
+WriteLiteral("\', // локализованная надпись для кнопки закрыть\r\n\t\t\t\t// TODO {all, 18.12.2013}: в" +
+"озможно некоректное отображение диакритики\r\n\t\t\t\t// TODO {all, 18.12.2013}: ресур" +
+"с можно перенести в ClientResourceStorage\r\n\t\t\t\tNeedToSelectOneOrMoreItemsMsg: \'");
 
             
-            #line 48 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 70 "..\..\Views\GroupOperation\Delete.cshtml"
                                            Write(BLResources.NeedToSelectOneOrMoreItems);
 
             
             #line default
             #line hidden
 WriteLiteral(@"', // локализованная надпись о том что нужно выбрать один или несколько элементов
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                ResultMessageTitle: '");
+				// TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
+				// TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
+				ResultMessageTitle: '");
 
             
-            #line 51 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 73 "..\..\Views\GroupOperation\Delete.cshtml"
                                 Write(BLResources.GroupOperationResultsTitle);
 
             
             #line default
             #line hidden
-WriteLiteral(@"', // локализованная надпись - заголовок для результатов операции
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                ResultMessageTemplate: '");
+WriteLiteral("\', // локализованная надпись - заголовок для результатов операции\r\n\t\t\t\t// TODO {a" +
+"ll, 18.12.2013}: возможно некоректное отображение диакритики\r\n\t\t\t\t// TODO {all, " +
+"18.12.2013}: ресурс можно перенести в ClientResourceStorage\r\n\t\t\t\tResultMessageTe" +
+"mplate: \'");
 
             
-            #line 54 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 76 "..\..\Views\GroupOperation\Delete.cshtml"
                                    Write(BLResources.GroupOperationResultsMessage);
 
             
             #line default
             #line hidden
 WriteLiteral(@"' // локализованная надпись - шаблон строки для результатов операции
-            };
-            var deleteProcessor = new Ext.DoubleGis.UI.Delete.DeleteProcessor(config);
-            if (!deleteProcessor.CheckProcessingPossibility()) {
-                return;
-            }
-            deleteProcessor.Process();
-        });
-    </script>
-    <table");
+			};
+			var deleteProcessor = new Ext.DoubleGis.UI.Delete.DeleteProcessor(config);
+			if (!deleteProcessor.CheckProcessingPossibility()) {
+				return;
+			}
+			deleteProcessor.Process();
+		});
+	</script>
+	<table");
 
 WriteLiteral(" cellspacing=\"5\"");
 
@@ -291,73 +293,71 @@ WriteLiteral(" width=\"100%\"");
 
 WriteLiteral(" height=\"100px\"");
 
-WriteLiteral(">\r\n        <tr>\r\n            <td");
+WriteLiteral(">\r\n\t\t<tr>\r\n\t\t\t<td");
 
 WriteLiteral(" colspan=\"2\"");
 
-WriteLiteral(">\r\n                <div");
+WriteLiteral(">\r\n\t\t\t\t<div");
 
 WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n                        onmouseover=\"", 3781), Tuple.Create("\"", 3848)
-, Tuple.Create(Tuple.Create("", 3821), Tuple.Create("AddTooltip(", 3821), true)
+WriteAttribute("onmouseover", Tuple.Create(" \r\n\t\t\t\t     onmouseover=\"", 4286), Tuple.Create("\"", 4340)
+, Tuple.Create(Tuple.Create(" ", 4311), Tuple.Create("AddTooltip(", 4312), true)
             
-            #line 67 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 3832), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 89 "..\..\Views\GroupOperation\Delete.cshtml"
+, Tuple.Create(Tuple.Create("", 4323), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 3832), false)
-, Tuple.Create(Tuple.Create("", 3846), Tuple.Create(");", 3846), true)
+, 4323), false)
+, Tuple.Create(Tuple.Create("", 4337), Tuple.Create(");", 4337), true)
+, Tuple.Create(Tuple.Create(" ", 4339), Tuple.Create("", 4339), true)
 );
 
-WriteLiteral(" \r\n                        onmouseout=\"RemoveTooltip();\"");
+WriteLiteral(" \r\n\t\t\t\t     onmouseout=\" RemoveTooltip(); \"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("                    ");
+WriteLiteral("\t\t\t\t\t");
 
             
-            #line 69 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 91 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(Model.Message);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                </div>\r\n            </td>\r\n        </tr>\r\n        <tr>\r\n       " +
-"     <td>\r\n                <span");
+WriteLiteral("\r\n\t\t\t\t</div>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<span");
 
 WriteLiteral(" id=\"bodyMessage\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("                    ");
+WriteLiteral("\t\t\t\t\t");
 
             
-            #line 76 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 98 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(DeleteIdentity.Instance, new EntitySet(Model.EntityTypeName))));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                </span>\r\n            </td>\r\n        </tr>\r\n        <tr>\r\n      " +
-"      <td>\r\n                <div");
+WriteLiteral("\r\n\t\t\t\t</span>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<div");
 
 WriteLiteral(" id=\"pbDiv\"");
 
-WriteLiteral(">\r\n                    <div");
+WriteLiteral(">\r\n\t\t\t\t\t<div");
 
 WriteLiteral(" id=\"pbInner\"");
 
-WriteLiteral(">\r\n                    </div>\r\n                </div>\r\n            </td>\r\n       " +
-" </tr>\r\n    </table>\r\n");
+WriteLiteral(">\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t</table>\r\n");
 
-WriteLiteral("    ");
+WriteLiteral("\t");
 
             
-            #line 89 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 111 "..\..\Views\GroupOperation\Delete.cshtml"
 Write(Html.HiddenFor(x => x.EntityTypeName));
 
             

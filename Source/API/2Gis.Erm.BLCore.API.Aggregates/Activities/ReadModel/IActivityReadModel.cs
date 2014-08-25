@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.DTO;
-using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Simplified;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 {
-    public interface IActivityReadModel : IAggregateReadModel<ActivityBase>
+    public interface IActivityReadModel : ISimplifiedModelConsumerReadModel
     {
-        [Obsolete("Use typed GetTask, GetPhonecall or GetAppointment. Will be deleted soon")]
-        TActivity GetActivity<TActivity>(long activityId) where TActivity : ActivityBase, new();
+		Appointment GetAppointment(long appointmentId);
+			
+		Phonecall GetPhonecall(long phonecallId);
 
-        Task GetTask(long taskId);
-        Phonecall GetPhonecall(long phonecallId);
-        Appointment GetAppointment(long appointmentId);
-        ActivityInstanceDto GetActivityInstanceDto(Task task);
-        ActivityInstanceDto GetActivityInstanceDto(Phonecall phonecall);
-        ActivityInstanceDto GetActivityInstanceDto(Appointment appointment);
-        bool CheckIfRelatedActivitiesExists(long clientId);
-        bool TryGetRelatedActivities(long clientId, out IEnumerable<ActivityInstance> activities);
+		Task GetTask(long taskId);
+
+		IEnumerable<RegardingObject<TEntity>> GetRegardingObjects<TEntity>(long entityId) where TEntity : class, IEntity;
+
+		bool CheckIfRelatedActivitiesExists(long clientId);
     }
 }
