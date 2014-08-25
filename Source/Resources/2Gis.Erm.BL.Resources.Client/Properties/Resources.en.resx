@@ -943,7 +943,7 @@
     <value>Are you sure you want to publish this advertising material template?</value>
   </data>
   <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
-    <value>Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите "нет" и сохраните карточку.</value>
+    <value>Do you really want to publish the advertising template?&lt;br/&gt;The card contains changes that will be lost after publishing.&lt;br/&gt;If you would like to save them, click No and save the card.</value>
   </data>
   <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
     <value>Cancel advertising material template publishing</value>
