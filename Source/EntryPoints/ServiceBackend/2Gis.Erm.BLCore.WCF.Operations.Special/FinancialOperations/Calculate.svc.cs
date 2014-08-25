@@ -27,14 +27,15 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
                                                  ICalculateOrderCostService calculateOrderCostService,
                                                  ICommonLog logger,
                                                  IGetPositionsByOrderService getPositionsByOrderService,
-                                                 ICalculateOrderPositionCostService calculateOrderPositionCostService)
+                                                 ICalculateOrderPositionCostService calculateOrderPositionCostService,
+                                                 IResourceGroupManager resourceGroupManager)
         {
             _calculateOrderCostService = calculateOrderCostService;
             _logger = logger;
             _getPositionsByOrderService = getPositionsByOrderService;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ICostCalculationResult[] CalculateOrderProlongation(long orderId)

@@ -23,13 +23,14 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             IUpdateAfterSaleServiceOperationService updateAfterSaleServiceOperationService,
             IReplicateDealStageOperationService replicateDealStageOperationService,
             IUserContext userContext,
+            IResourceGroupManager resourceGroupManager,
             ICommonLog logger)
         {
             _updateAfterSaleServiceOperationService = updateAfterSaleServiceOperationService;
             _replicateDealStageOperationService = replicateDealStageOperationService;
             _logger = logger;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public void UpdateAfterSaleActivity(Guid dealReplicationCode, DateTime activityDate, AfterSaleServiceType afterSaleServiceType)

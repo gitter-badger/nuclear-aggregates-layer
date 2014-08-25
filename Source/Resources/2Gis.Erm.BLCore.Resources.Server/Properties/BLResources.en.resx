@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>The order {0} has no specified order items</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>Value in the field "{0}" is not a correct email-address</value>
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value>Delete all payments for the order</value>
   </data>
@@ -848,9 +845,6 @@
   </data>
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value>There are no reference objects in this item.</value>
-  </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Specify value in the field "{0}"</value>
   </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value>Replica code is not specified in CRM for this company</value>
@@ -1722,9 +1716,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
     <value>Number of selected records "{0}": {1}. To whom should they be assigned?</value>
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>The field {0} can contain only numbers</value>
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
     <value>Number of Types of operations will be enabled: {0}</value>
@@ -4345,9 +4336,6 @@ The operation has been executed: {4}.</value>
   <data name="WrongOrderType" xml:space="preserve">
     <value>Incorrect type of the order</value>
   </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>Incorrect value in the field {0}</value>
-  </data>
   <data name="FileRequired" xml:space="preserve">
     <value>Please select file</value>
   </data>
@@ -4936,9 +4924,6 @@ Contact: {1}</value>
   </data>
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value>Changing the attribute that specifies whether the customer is an advertising agency requires the corresponding privilege</value>
-  </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
   </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>The sting contains control symbols</value>
