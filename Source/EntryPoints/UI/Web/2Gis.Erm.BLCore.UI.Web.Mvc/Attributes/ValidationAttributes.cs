@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
 {
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
     {
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(CultureInfo.InvariantCulture, BLResources.RequiredFieldMessage, name);
+            return string.Format(CultureInfo.InvariantCulture, ResPlatform.RequiredFieldMessage, name);
         }
 
         IEnumerable<ModelClientValidationRule> IClientValidatable.GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
@@ -119,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(BLResources.InappropriateValueForField, name);
+            return string.Format(ResPlatform.InappropriateValueForField, name);
         }
     }
 
@@ -129,7 +130,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
         private const string RegExPattern = @"^[а-яёa-z0-9_+.-]+\@([а-яёa-z0-9-]+\.)+[а-яёa-z0-9]{2,4}$";
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(CultureInfo.InvariantCulture, BLResources.InputValidationInvalidEmail, name);
+            return string.Format(CultureInfo.InvariantCulture, ResPlatform.InputValidationInvalidEmail, name);
         }
         public override bool IsValid(object value)
         {
@@ -162,7 +163,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(CultureInfo.InvariantCulture, BLResources.OnlyDigitsAttributeValidationMessage, name);
+            return string.Format(CultureInfo.InvariantCulture, ResPlatform.OnlyDigitsAttributeValidationMessage, name);
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)

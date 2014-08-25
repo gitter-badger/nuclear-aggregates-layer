@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 {
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
             if (entity.BargainKind == (int)BargainKind.Agent && entity.BargainEndDate == null)
             {
-                throw new AgentBargainEndDateIsNotSpecifiedException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.BargainEndDate));
+                throw new AgentBargainEndDateIsNotSpecifiedException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.BargainEndDate));
             }
 
             if (entity.BargainEndDate != null)
