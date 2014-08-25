@@ -1,4 +1,5 @@
-﻿@model Models.GroupOperation.AssignViewModel
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model Models.GroupOperation.AssignViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -25,6 +26,7 @@
             UserCodeLookup: {},
             bypassValidationInfo: false, // информация о том, есть ли привилегия "Обработка лицевых счетов с задолжностью"
             BypassValidationView: {},   // представление для Предложенния продолжить операцию, если есть задолженность по лицевым счетам
+            EntitiesToProcess: {},
             constructor: function (config) {
                 Ext.apply(config, {
                     listeners: {
@@ -43,6 +45,13 @@
                     }
                 });
                 Ext.DoubleGis.UI.Assign.AssignProcessor.superclass.constructor.call(this, config);
+                if (config.EntitiesToProcess) {
+                	var entitiesToProcess = {};
+                	Ext.each(config.EntitiesToProcess, function (x) {
+                		entitiesToProcess[x.entityId] = x.entityName;
+                	});
+                	this.EntitiesToProcess = entitiesToProcess;
+                }
             },
             ConfigCustomControls: function () {
                 var onRadioClick = this.RadioClick.createDelegate(this);
@@ -86,7 +95,13 @@
                 Ext.getDom("rdoAssignToUser").disabled = "disabled";
                 this.UserCodeLookup.disable();
             },
-            CreateParamsForControllerCall: function (entityId) {
+            ResolveEntityName: function (entityId) {
+            	if (this.EntitiesToProcess.hasOwnProperty(entityId))
+            		return this.EntitiesToProcess[entityId];
+            	else 
+            		return this.superclass().ResolveEntityName.call(this, entityId);
+            },
+        	CreateParamsForControllerCall: function (entityId) {
                 return { entityId: entityId, ownerCode: this.OwnerCode, isPartialAssign: this.IsPartialAssign, bypassValidation: null };
             },
             ValidateEntryProcessingSuccessStatus: function (message) {
@@ -148,13 +163,21 @@
 
         Ext.onReady(function ()
         {
-            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+            var dialogArguments = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+            var ids = dialogArguments;
+
+            var isExtendedMode = (dialogArguments != null && dialogArguments.length > 0 && dialogArguments[0].hasOwnProperty('entityId'));
+            if (isExtendedMode) {
+            	ids = [];
+            	Ext.each(dialogArguments, function (x) { ids.push(x.entityId); });
+            }
 
             //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(document);
             Ext.getDom('DivErrors').style.visibility = 'hidden';
             Ext.getDom('PageContentCell').style["vertical-align"] = "top";
             var config = {
-                Entities: ids, // массив id сущностей
+            	EntitiesToProcess: isExtendedMode ? dialogArguments : null,
+            	Entities: ids, // массив id сущностей
                 OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
                 CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
                 NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов

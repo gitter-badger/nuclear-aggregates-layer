@@ -30,19 +30,23 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
+    
+    #line 1 "..\..\Views\GroupOperation\Assign.cshtml"
+    using DoubleGis.Erm.Platform.Common.Utils;
+    
+    #line default
+    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
+    using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
-    
-    #line 1 "..\..\Views\GroupOperation\Assign.cshtml"
-    using Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/Assign.cshtml")]
@@ -53,10 +57,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 5 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 4 "..\..\Views\GroupOperation\Assign.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -70,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 8 "..\..\Views\GroupOperation\Assign.cshtml"
             Write(BLResources.GroupOperationConfirm);
 
             
@@ -85,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 9 "..\..\Views\GroupOperation\Assign.cshtml"
                   Write(string.Format(BLResources.AssignAssignMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -100,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 10 "..\..\Views\GroupOperation\Assign.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -120,58 +122,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 607), Tuple.Create("\"", 670)
-, Tuple.Create(Tuple.Create("", 614), Tuple.Create("/Content/Progress.css?", 614), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 619), Tuple.Create("\"", 682)
+, Tuple.Create(Tuple.Create("", 626), Tuple.Create("/Content/Progress.css?", 626), true)
             
-            #line 15 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 636), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 14 "..\..\Views\GroupOperation\Assign.cshtml"
+, Tuple.Create(Tuple.Create("", 648), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 636), false)
+, 648), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 689), Tuple.Create("\"", 762)
-, Tuple.Create(Tuple.Create("", 695), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 695), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 701), Tuple.Create("\"", 774)
+, Tuple.Create(Tuple.Create("", 707), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 707), true)
+            
+            #line 16 "..\..\Views\GroupOperation\Assign.cshtml"
+, Tuple.Create(Tuple.Create("", 740), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 740), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 821), Tuple.Create("\"", 902)
+, Tuple.Create(Tuple.Create("", 827), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 827), true)
             
             #line 17 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 728), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 868), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 728), false)
+, 868), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 809), Tuple.Create("\"", 890)
-, Tuple.Create(Tuple.Create("", 815), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 815), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 949), Tuple.Create("\"", 1009)
+, Tuple.Create(Tuple.Create("", 955), Tuple.Create("/Scripts/Tooltip.js?", 955), true)
             
             #line 18 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 856), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 975), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 856), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 937), Tuple.Create("\"", 997)
-, Tuple.Create(Tuple.Create("", 943), Tuple.Create("/Scripts/Tooltip.js?", 943), true)
-            
-            #line 19 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 963), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 963), false)
+, 975), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -187,35 +189,39 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Assign\');\r\n      
 ": false, // информация о том, есть ли привилегия \"Обработка лицевых счетов с зад" +
 "олжностью\"\r\n            BypassValidationView: {},   // представление для Предлож" +
 "енния продолжить операцию, если есть задолженность по лицевым счетам\r\n          " +
-"  constructor: function (config) {\r\n                Ext.apply(config, {\r\n       " +
-"             listeners: {\r\n                        configspecificcontrols: funct" +
-"ion () {\r\n                            this.ConfigCustomControls();\r\n            " +
-"            },\r\n                        applyusersettings: function () {\r\n      " +
-"                      this.ApplyUserSettings();\r\n                        },\r\n   " +
-"                     processingfinished: function () {\r\n                        " +
-"    this.ProcessingFinished();\r\n                        },\r\n                    " +
-"    entityprocessingfail: function (msg) {\r\n                            this.Ent" +
-"ityAssignFailed(msg);\r\n                        }\r\n                    }\r\n       " +
-"         });\r\n                Ext.DoubleGis.UI.Assign.AssignProcessor.superclass" +
-".constructor.call(this, config);\r\n            },\r\n            ConfigCustomContro" +
-"ls: function () {\r\n                var onRadioClick = this.RadioClick.createDele" +
-"gate(this);\r\n                Ext.get(\"rdoAssignToMe\").on(\"click\", onRadioClick);" +
-"\r\n                Ext.get(\"rdoAssignToUser\").on(\"click\", onRadioClick);\r\n       " +
-"         this.UserCodeLookup = Ext.getCmp(\"UserCode\");\r\n            },\r\n        " +
-"    RadioClick: function () {\r\n                if (Ext.getDom(\"rdoAssignToMe\").c" +
-"hecked) {\r\n                    this.UserCodeLookup.disable();\r\n                }" +
-"\r\n                else if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n           " +
-"         this.UserCodeLookup.enable();\r\n                }\r\n            },\r\n     " +
-"       IsUserSettingsValid: function () {\r\n                if (Ext.getDom(\"rdoAs" +
-"signToUser\").checked) {\r\n                    if (Ext.getDom(\"UserCode\").value ==" +
-" \"\") {\r\n                        Ext.MessageBox.show({\r\n                         " +
-"   title: \'\',\r\n                            // TODO {all, 18.12.2013}: возможно н" +
-"екоректное отображение диакритики\r\n                            // TODO {all, 18." +
-"12.2013}: ресурс можно перенести в ClientResourceStorage\r\n                      " +
-"      msg: \'");
+"  EntitiesToProcess: {},\r\n            constructor: function (config) {\r\n        " +
+"        Ext.apply(config, {\r\n                    listeners: {\r\n                 " +
+"       configspecificcontrols: function () {\r\n                            this.C" +
+"onfigCustomControls();\r\n                        },\r\n                        appl" +
+"yusersettings: function () {\r\n                            this.ApplyUserSettings" +
+"();\r\n                        },\r\n                        processingfinished: fun" +
+"ction () {\r\n                            this.ProcessingFinished();\r\n            " +
+"            },\r\n                        entityprocessingfail: function (msg) {\r\n" +
+"                            this.EntityAssignFailed(msg);\r\n                     " +
+"   }\r\n                    }\r\n                });\r\n                Ext.DoubleGis." +
+"UI.Assign.AssignProcessor.superclass.constructor.call(this, config);\r\n          " +
+"      if (config.EntitiesToProcess) {\r\n                \tvar entitiesToProcess = " +
+"{};\r\n                \tExt.each(config.EntitiesToProcess, function (x) {\r\n       " +
+"         \t\tentitiesToProcess[x.entityId] = x.entityName;\r\n                \t});\r\n" +
+"                \tthis.EntitiesToProcess = entitiesToProcess;\r\n                }\r" +
+"\n            },\r\n            ConfigCustomControls: function () {\r\n              " +
+"  var onRadioClick = this.RadioClick.createDelegate(this);\r\n                Ext." +
+"get(\"rdoAssignToMe\").on(\"click\", onRadioClick);\r\n                Ext.get(\"rdoAss" +
+"ignToUser\").on(\"click\", onRadioClick);\r\n                this.UserCodeLookup = Ex" +
+"t.getCmp(\"UserCode\");\r\n            },\r\n            RadioClick: function () {\r\n  " +
+"              if (Ext.getDom(\"rdoAssignToMe\").checked) {\r\n                    th" +
+"is.UserCodeLookup.disable();\r\n                }\r\n                else if (Ext.ge" +
+"tDom(\"rdoAssignToUser\").checked) {\r\n                    this.UserCodeLookup.enab" +
+"le();\r\n                }\r\n            },\r\n            IsUserSettingsValid: funct" +
+"ion () {\r\n                if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n        " +
+"            if (Ext.getDom(\"UserCode\").value == \"\") {\r\n                        E" +
+"xt.MessageBox.show({\r\n                            title: \'\',\r\n                  " +
+"          // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики" +
+"\r\n                            // TODO {all, 18.12.2013}: ресурс можно перенести " +
+"в ClientResourceStorage\r\n                            msg: \'");
 
             
-            #line 70 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 77 "..\..\Views\GroupOperation\Assign.cshtml"
                              Write(BLResources.AssignMustPickUser);
 
             
@@ -231,33 +237,37 @@ WriteLiteral("\',\r\n                            buttons: window.Ext.MessageBox.
 "      this.IsPartialAssign = ctx && !ctx.checked;\r\n\r\n                Ext.getDom(" +
 "\"rdoAssignToMe\").disabled = \"disabled\";\r\n                Ext.getDom(\"rdoAssignTo" +
 "User\").disabled = \"disabled\";\r\n                this.UserCodeLookup.disable();\r\n " +
-"           },\r\n            CreateParamsForControllerCall: function (entityId) {\r" +
-"\n                return { entityId: entityId, ownerCode: this.OwnerCode, isParti" +
-"alAssign: this.IsPartialAssign, bypassValidation: null };\r\n            },\r\n     " +
-"       ValidateEntryProcessingSuccessStatus: function (message) {\r\n             " +
-"   var bypassValidationInfo = window.Ext.decode(message);\r\n                if (b" +
-"ypassValidationInfo.CanProceed && bypassValidationInfo.CanProceed == true) {\r\n  " +
-"                  var isOperationContinue = confirm(bypassValidationInfo.Message" +
-");\r\n                    if (isOperationContinue) {\r\n                        var " +
-"params = this.CreateParamsForControllerCall(bypassValidationInfo.EntityId);\r\n   " +
-"                     params.bypassValidation = true;\r\n                        va" +
-"r url = this.EvaluateOperationUrl();\r\n                        this.ProcessSingle" +
-"Entity(url, params);\r\n\r\n                        return this.SuccessStatus.Reproc" +
-"essingRequired;\r\n                    }\r\n\r\n                    return this.Succes" +
-"sStatus.Rejected;\r\n                }\r\n                return this.SuccessStatus." +
-"Approved;\r\n            },\r\n            ProcessingFinished: function () {\r\n      " +
-"          // innerHTML элемента Notifications присваивается по окончании операци" +
-"и (см. файл GroupOperations.js),\r\n                // динамически засовываем туда" +
-" линк.\r\n                if (this.SuccessProcessed < this.EntitiesCount && !this." +
-"IsSingleEntityProcessing) {\r\n\r\n                    this.FinishOperation(this.Fai" +
-"ledEntitiesMessages.join(\'\\r\\n\'));\r\n\r\n                    var notifications = Ex" +
-"t.getDom(\'Notifications\');\r\n                    var errorsLinkNode = document.cr" +
-"eateElement(\"a\");\r\n                    errorsLinkNode.id = \'ErrorsLink\';\r\n      " +
-"              errorsLinkNode.href = \'#\';\r\n                    errorsLinkNode.app" +
-"endChild(document.createTextNode(\'");
+"           },\r\n            ResolveEntityName: function (entityId) {\r\n           " +
+" \tif (this.EntitiesToProcess.hasOwnProperty(entityId))\r\n            \t\treturn thi" +
+"s.EntitiesToProcess[entityId];\r\n            \telse \r\n            \t\treturn this.su" +
+"perclass().ResolveEntityName.call(this, entityId);\r\n            },\r\n        \tCre" +
+"ateParamsForControllerCall: function (entityId) {\r\n                return { enti" +
+"tyId: entityId, ownerCode: this.OwnerCode, isPartialAssign: this.IsPartialAssign" +
+", bypassValidation: null };\r\n            },\r\n            ValidateEntryProcessing" +
+"SuccessStatus: function (message) {\r\n                var bypassValidationInfo = " +
+"window.Ext.decode(message);\r\n                if (bypassValidationInfo.CanProceed" +
+" && bypassValidationInfo.CanProceed == true) {\r\n                    var isOperat" +
+"ionContinue = confirm(bypassValidationInfo.Message);\r\n                    if (is" +
+"OperationContinue) {\r\n                        var params = this.CreateParamsForC" +
+"ontrollerCall(bypassValidationInfo.EntityId);\r\n                        params.by" +
+"passValidation = true;\r\n                        var url = this.EvaluateOperation" +
+"Url();\r\n                        this.ProcessSingleEntity(url, params);\r\n\r\n      " +
+"                  return this.SuccessStatus.ReprocessingRequired;\r\n             " +
+"       }\r\n\r\n                    return this.SuccessStatus.Rejected;\r\n           " +
+"     }\r\n                return this.SuccessStatus.Approved;\r\n            },\r\n   " +
+"         ProcessingFinished: function () {\r\n                // innerHTML элемент" +
+"а Notifications присваивается по окончании операции (см. файл GroupOperations.js" +
+"),\r\n                // динамически засовываем туда линк.\r\n                if (th" +
+"is.SuccessProcessed < this.EntitiesCount && !this.IsSingleEntityProcessing) {\r\n\r" +
+"\n                    this.FinishOperation(this.FailedEntitiesMessages.join(\'\\r\\n" +
+"\'));\r\n\r\n                    var notifications = Ext.getDom(\'Notifications\');\r\n  " +
+"                  var errorsLinkNode = document.createElement(\"a\");\r\n           " +
+"         errorsLinkNode.id = \'ErrorsLink\';\r\n                    errorsLinkNode.h" +
+"ref = \'#\';\r\n                    errorsLinkNode.appendChild(document.createTextNo" +
+"de(\'");
 
             
-            #line 122 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 135 "..\..\Views\GroupOperation\Assign.cshtml"
                                                                    Write(BLResources.DisplayErrorsList);
 
             
@@ -280,16 +290,21 @@ WriteLiteral("\'));\r\n                    notifications.appendChild(errorsLinkN
 "223)) {\r\n                }\r\n                else {\r\n                    alert(fi" +
 "nishOperationResponse.conn.responseText);\r\n                    return;\r\n        " +
 "        }\r\n            }\r\n        });\r\n\r\n        Ext.onReady(function ()\r\n      " +
-"  {\r\n            var ids = !window.dialogArguments ? [] : (window.dialogArgument" +
-"s.Values ? window.dialogArguments.Values : window.dialogArguments);\r\n\r\n         " +
-"   //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(document);\r\n            Ext.g" +
-"etDom(\'DivErrors\').style.visibility = \'hidden\';\r\n            Ext.getDom(\'PageCon" +
-"tentCell\').style[\"vertical-align\"] = \"top\";\r\n            var config = {\r\n       " +
-"         Entities: ids, // массив id сущностей\r\n                OperationName: \'" +
-"");
+"  {\r\n            var dialogArguments = !window.dialogArguments ? [] : (window.di" +
+"alogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);\r" +
+"\n            var ids = dialogArguments;\r\n\r\n            var isExtendedMode = (dia" +
+"logArguments != null && dialogArguments.length > 0 && dialogArguments[0].hasOwnP" +
+"roperty(\'entityId\'));\r\n            if (isExtendedMode) {\r\n            \tids = [];" +
+"\r\n            \tExt.each(dialogArguments, function (x) { ids.push(x.entityId); })" +
+";\r\n            }\r\n\r\n            //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(" +
+"document);\r\n            Ext.getDom(\'DivErrors\').style.visibility = \'hidden\';\r\n  " +
+"          Ext.getDom(\'PageContentCell\').style[\"vertical-align\"] = \"top\";\r\n      " +
+"      var config = {\r\n            \tEntitiesToProcess: isExtendedMode ? dialogArg" +
+"uments : null,\r\n            \tEntities: ids, // массив id сущностей\r\n            " +
+"    OperationName: \'");
 
             
-            #line 160 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 181 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(Model.OperationName);
 
             
@@ -299,7 +314,7 @@ WriteLiteral("\', // тип операции - Qualify, Assign, ChangeTerritory\
 "nText: \'");
 
             
-            #line 161 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 182 "..\..\Views\GroupOperation\Assign.cshtml"
                              Write(BLResources.Close);
 
             
@@ -309,7 +324,7 @@ WriteLiteral("\', // локализованная надпись для кноп
 "rMoreItemsMsg: \'");
 
             
-            #line 162 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 183 "..\..\Views\GroupOperation\Assign.cshtml"
                                            Write(BLResources.NeedToSelectOneOrMoreItems);
 
             
@@ -319,7 +334,7 @@ WriteLiteral("\', // локализованная надпись о том чт�
 "\r\n                ResultMessageTitle: \'");
 
             
-            #line 163 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 184 "..\..\Views\GroupOperation\Assign.cshtml"
                                 Write(BLResources.GroupOperationResultsTitle);
 
             
@@ -329,7 +344,7 @@ WriteLiteral("\', // локализованная надпись - заголо�
 "  ResultMessageTemplate: \'");
 
             
-            #line 164 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 185 "..\..\Views\GroupOperation\Assign.cshtml"
                                    Write(BLResources.GroupOperationResultsMessage);
 
             
@@ -355,13 +370,13 @@ WriteLiteral(" id=\"DivErrors\"");
 WriteLiteral(">\r\n");
 
             
-            #line 176 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 197 "..\..\Views\GroupOperation\Assign.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 176 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 197 "..\..\Views\GroupOperation\Assign.cshtml"
      using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
     {
 
@@ -374,20 +389,20 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 9474), Tuple.Create("\"", 9497)
+WriteAttribute("value", Tuple.Create(" value=\"", 10563), Tuple.Create("\"", 10586)
             
-            #line 178 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 9482), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
+            #line 199 "..\..\Views\GroupOperation\Assign.cshtml"
+, Tuple.Create(Tuple.Create("", 10571), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
             
             #line default
             #line hidden
-, 9482), false)
+, 10571), false)
 );
 
 WriteLiteral(" />\r\n");
 
             
-            #line 179 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 200 "..\..\Views\GroupOperation\Assign.cshtml"
     }
 
             
@@ -396,13 +411,13 @@ WriteLiteral(" />\r\n");
 WriteLiteral("        \r\n   </div>\r\n\r\n");
 
             
-            #line 183 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 204 "..\..\Views\GroupOperation\Assign.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 183 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 204 "..\..\Views\GroupOperation\Assign.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -445,7 +460,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 196 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 217 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(Model.Message);
 
             
@@ -483,7 +498,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 206 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 227 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(BLResources.AssignAssignToMe);
 
             
@@ -498,7 +513,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 209 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 230 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(String.Format(BLResources.AssignAssignToMeLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -539,7 +554,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 223 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 244 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(BLResources.AssignAssignToOther);
 
             
@@ -558,7 +573,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 227 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 248 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(String.Format(BLResources.AssignAssignToOtherLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -580,7 +595,7 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 232 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 253 "..\..\Views\GroupOperation\Assign.cshtml"
                                    Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" }));
 
             
@@ -591,13 +606,13 @@ WriteLiteral("\r\n                                    </td>\r\n                 
 "               </td>\r\n                </tr>\r\n");
 
             
-            #line 239 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 260 "..\..\Views\GroupOperation\Assign.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 239 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 260 "..\..\Views\GroupOperation\Assign.cshtml"
                  if (Model.PartialAssignSupported)
                 {
 
@@ -618,14 +633,14 @@ WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"IsPartialAssign\"");
 
-WriteAttribute("disabled", Tuple.Create(" disabled=\"", 12855), Tuple.Create("\"", 12897)
+WriteAttribute("disabled", Tuple.Create(" disabled=\"", 13944), Tuple.Create("\"", 13986)
             
-            #line 243 "..\..\Views\GroupOperation\Assign.cshtml"
-                                          , Tuple.Create(Tuple.Create("", 12866), Tuple.Create<System.Object, System.Int32>(Model.IsCascadeAssignForbidden
+            #line 264 "..\..\Views\GroupOperation\Assign.cshtml"
+                                          , Tuple.Create(Tuple.Create("", 13955), Tuple.Create<System.Object, System.Int32>(Model.IsCascadeAssignForbidden
             
             #line default
             #line hidden
-, 12866), false)
+, 13955), false)
 );
 
 WriteLiteral(" />\r\n                        </td>\r\n                        <td >\r\n              " +
@@ -640,7 +655,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 247 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 268 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(BLResources.AssignInAllHierarchy);
 
             
@@ -650,7 +665,7 @@ WriteLiteral("\r\n                            </label>\r\n                      
 "          </tr>\r\n");
 
             
-            #line 251 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 272 "..\..\Views\GroupOperation\Assign.cshtml"
 
                 }
 
@@ -676,34 +691,34 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 263 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 284 "..\..\Views\GroupOperation\Assign.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 263 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 284 "..\..\Views\GroupOperation\Assign.cshtml"
    Write(Html.HiddenFor(m => m.EntityTypeName));
 
             
             #line default
             #line hidden
             
-            #line 263 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 284 "..\..\Views\GroupOperation\Assign.cshtml"
                                               
         
             
             #line default
             #line hidden
             
-            #line 264 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 285 "..\..\Views\GroupOperation\Assign.cshtml"
    Write(Html.HiddenFor(m => m.PartialAssignSupported));
 
             
             #line default
             #line hidden
             
-            #line 264 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 285 "..\..\Views\GroupOperation\Assign.cshtml"
                                                       
     }
 

@@ -714,6 +714,89 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF object_id(&apos;[Activity].[AppointmentReferences]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentReferences];
+        ///IF object_id(&apos;[Activity].[AppointmentBase]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentBase];
+        ///
+        ///CREATE TABLE [Activity].[AppointmentBase](
+        ///	[Id] [bigint] NOT NULL CONSTRAINT [PK_Appointments] PRIMARY KEY CLUSTERED,
+        ///	[ReplicationCode] [uniqueidentifier] NOT NULL,
+        ///	[CreatedBy] [bigint] NOT NULL,
+        ///	[CreatedOn] [datetime2](2) NOT NULL,
+        ///	[ModifiedBy] [bigint] NULL,
+        ///	[ModifiedOn] [datetime2](2) [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Alter_Activity_Schema {
+            get {
+                return ResourceManager.GetString("Migration_22706_Alter_Activity_Schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF object_id(&apos;[Activity].[ActivityInstances]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentReferences];
+        ///IF object_id(&apos;[Activity].[ActivityPropertyInstances]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentBase];
+        ///.
+        /// </summary>
+        internal static string Migration_22706_Drop_Old_Activity_Schema {
+            get {
+                return ResourceManager.GetString("Migration_22706_Drop_Old_Activity_Schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [Activity].[AppointmentReferences]
+        ///DELETE FROM [Activity].[AppointmentBase]
+        ///GO
+        ///
+        ///INSERT INTO [Activity].[AppointmentBase]
+        ///	([Id],[ReplicationCode],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	,[Subject],[Description],[ScheduledStart],[ScheduledEnd],[ActualEnd],[Priority],[Status],[IsAllDayEvent],[Location],[Purpose]
+        ///	)
+        ///SELECT [Id], NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	, [Header], [Descriptio [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Migrate_Appointments {
+            get {
+                return ResourceManager.GetString("Migration_22706_Migrate_Appointments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [Activity].[PhonecallReferences]
+        ///DELETE FROM [Activity].[PhonecallBase]
+        ///GO
+        ///
+        ///INSERT INTO [Activity].[PhonecallBase]
+        ///	([Id],[ReplicationCode],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	,[Subject],[Description],[ScheduledStart],[ScheduledEnd],[ActualEnd],[Priority],[Status],[Direction],[PhoneNumber],[Purpose]
+        ///	)
+        ///SELECT [Id], NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	, [Header], [Description], [Sc [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Migrate_Phonecalls {
+            get {
+                return ResourceManager.GetString("Migration_22706_Migrate_Phonecalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [Activity].[TaskReferences]
+        ///DELETE FROM [Activity].[TaskBase]
+        ///GO
+        ///
+        ///INSERT INTO [Activity].[TaskBase]
+        ///	([Id],[ReplicationCode],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	,[Subject],[Description],[ScheduledStart],[ScheduledEnd],[ActualEnd],[Priority],[Status],[TaskType]
+        ///	)
+        ///SELECT [Id], NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	, [Header], [Description], [ScheduledStart], [ScheduledEnd], [ActualEn [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Migrate_Tasks {
+            get {
+                return ResourceManager.GetString("Migration_22706_Migrate_Tasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   5.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
