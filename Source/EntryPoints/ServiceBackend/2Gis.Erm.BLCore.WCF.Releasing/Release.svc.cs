@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
                                          IAttachExternalReleaseProcessingMessagesOperationService attachExternalReleaseProcessingMessagesOperationService,
                                          IFinishReleaseOperationService finishReleaseOperationService,
                                          IUserContext userContext,
+                                         IResourceGroupManager resourceGroupManager,
                                          ICommonLog logger)
         {
             _startReleaseOperationService = startReleaseOperationService;
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing
             _finishReleaseOperationService = finishReleaseOperationService;
             _logger = logger;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ReleaseStartingResult Start(int organizationUnitDgppId, TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors)

@@ -21,12 +21,13 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public DownloadBinaryApplicationService(ICommonLog logger,
                                                 IOperationServicesManager operationServicesManager,
-                                                IUserContext userContext)
+                                                IUserContext userContext,
+                                                IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public Stream Execute(string specifiedEntityName, string specifiedBinaryId)

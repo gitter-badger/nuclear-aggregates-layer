@@ -155,6 +155,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             }
 
             return _finder.Find(OrderSpecs.OrderPositionAdvertisements.Find.ByOrderPosition(orderPositionId.Value))
+                          .Where(opa => opa.CategoryId.HasValue)
                           .Select(opa => opa.Category)
                           .Where(category => !firmCategoryIds.Contains(category.Id))
                           .Select(category => new LinkingObjectsSchemaDto.CategoryDto { Id = category.Id, Name = category.Name, Level = category.Level, })
