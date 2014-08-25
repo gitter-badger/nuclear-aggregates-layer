@@ -943,7 +943,7 @@
     <value>¿Desea realmente publicar la plantilla de material publicitario?</value>
   </data>
   <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
-    <value>Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите "нет" и сохраните карточку.</value>
+    <value>¿Está seguro que quiere publicar la plantilla del material publicitario?&lt;br/&gt;En la ficha hay cambios que se perderán al publicar.&lt;br/&gt;Si hay que guardarlos, pulse "no" y guarde la ficha.</value>
   </data>
   <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
     <value>Deshacer la publicación de la plantilla de material publicitario</value>

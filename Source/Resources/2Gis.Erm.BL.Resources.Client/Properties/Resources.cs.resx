@@ -943,7 +943,7 @@
     <value>Skutečně si přejete zveřejnit šablonu reklamního materiálu?</value>
   </data>
   <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
-    <value>Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите "нет" и сохраните карточку.</value>
+    <value>Opravdu chcete publikovat šablonu reklamního materiálu?&lt;br/&gt;V kartě byly uskutečněny změny, které budou ztraceny při publikací.&lt;br/&gt;Pokud chcete změny uložit, stiskněte „Ne“ a uložte kartu.</value>
   </data>
   <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
     <value>Zrušit zveřejnění šablony reklamního materiálu</value>
