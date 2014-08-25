@@ -2,7 +2,7 @@ using System;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
@@ -30,6 +30,14 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long? FirmId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
-        public ActivityTaskType TaskType { get; set; }
+        public TaskType TaskType { get; set; }
     }
+
+	public enum ActivityType
+	{
+		Appointment = 1,
+		Phonecall = 2,
+		Task = 3,
+	}
+
 }
