@@ -25,10 +25,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
         public DealStage DealStage { get; set; }
 
-        public decimal EstimatedProfit { get; set; }
-
-        public decimal ActualProfit { get; set; }
-
         [StringLengthLocalized(512)]
         public string Comment { get; set; }
 
@@ -79,12 +75,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
             Name = modelDto.Name;
             ClientReplicationCode = modelDto.ClientReplicationCode;
-            ActualProfit = modelDto.ActualProfit;
             CloseDate = modelDto.CloseDate;
             CloseReasonOther = modelDto.CloseReasonOther;
             Comment = modelDto.Comment;
             CreatedOn = modelDto.CreatedOn;
-            EstimatedProfit = modelDto.EstimatedProfit;
 
             CloseReason = modelDto.CloseReason;
             DealStage = modelDto.DealStage;
@@ -105,12 +99,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 
                     Name = Name,
                     ClientReplicationCode = ClientReplicationCode.Value,
-                    ActualProfit = ActualProfit,
                     CloseDate = CloseDate,
                     CloseReasonOther = CloseReasonOther,
                     Comment = Comment,
                     CreatedOn = CreatedOn,
-                    EstimatedProfit = EstimatedProfit,
                     CloseReason = CloseReason,
                     DealStage = DealStage,
                     StartReason = StartReason,
