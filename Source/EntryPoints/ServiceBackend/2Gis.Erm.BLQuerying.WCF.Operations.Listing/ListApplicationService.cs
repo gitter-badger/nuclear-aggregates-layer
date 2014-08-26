@@ -28,7 +28,12 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly IUseCaseTuner _useCaseTuner;
 
-        public ListApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUseCaseTuner useCaseTuner, IUIConfigurationService configurationService, IUserContext userContext)
+        public ListApplicationService(ICommonLog logger,
+                                      IOperationServicesManager operationServicesManager,
+                                      IUseCaseTuner useCaseTuner,
+                                      IUIConfigurationService configurationService,
+                                      IUserContext userContext,
+                                      IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
@@ -36,7 +41,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             _configurationService = configurationService;
             _userContext = userContext;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public ListResult Execute(EntityName entityName,
