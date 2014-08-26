@@ -19,12 +19,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
     }
 
     public abstract class ActivityBaseViewModelAbstract<T> : EntityViewModelBase<T>
-        where T : IEntityKey
+		where T : IEntityKey
     {
-        protected ActivityBaseViewModelAbstract(ActivityType type)
-        {
-            Type = type;
-        }
+	    protected ActivityBaseViewModelAbstract(ActivityType type)
+    {
+		    Type = type;
+	    }
 
         public override bool IsSecurityRoot
         {
