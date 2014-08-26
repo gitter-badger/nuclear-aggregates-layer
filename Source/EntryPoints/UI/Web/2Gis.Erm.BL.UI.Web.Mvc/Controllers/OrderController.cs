@@ -39,6 +39,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
@@ -351,7 +352,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 if (viewModel.OrganizationUnit == null || !viewModel.OrganizationUnit.Key.HasValue)
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.OrganizationUnit));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.OrganizationUnit));
                 }
 
                 if (
@@ -454,12 +455,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 if (viewModel.OrganizationUnit == null || !viewModel.OrganizationUnit.Key.HasValue)
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.OrganizationUnit));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.OrganizationUnit));
                 }
 
                 if (viewModel.Owner == null || !viewModel.Owner.Key.HasValue)
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Owner));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Owner));
                 }
 
                 var response = (GetOrdersWithDummyAdvertisementResponse)_publicService.Handle(new GetOrdersWithDummyAdvertisementRequest
