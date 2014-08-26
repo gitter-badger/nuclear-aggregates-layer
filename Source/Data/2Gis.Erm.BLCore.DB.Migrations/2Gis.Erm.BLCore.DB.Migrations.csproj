@@ -1034,7 +1034,6 @@
     <Content Include="Resources\2014.05.16 rev. 20377\Customizations_20377.xml" />
     <Content Include="Resources\2014.05.19 rev. 20435\ImportCardsFromXml.sql" />
     <Content Include="Resources\2014.06.17 rev. 21236\Fill_OperationsEntities_From_Descriptor.sql" />
-    <EmbeddedResource Include="Resources\2014.07.30 rev. 22706\Replicate Task.sql" />
     <Content Include="Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
     <Content Include="Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateFirms].sql" />
     <Content Include="Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateTerritories].sql" />
