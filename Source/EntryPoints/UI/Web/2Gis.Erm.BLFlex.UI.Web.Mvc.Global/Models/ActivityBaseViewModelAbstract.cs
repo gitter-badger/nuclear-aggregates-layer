@@ -10,35 +10,39 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-	public enum ActivityType
-	{
-		Appointment = 1,
-		Phonecall = 2,
-		Task = 3,
-	}
+    // TODO {s.pomadin, 26.08.2014}: Remove as it's a hack solution before UI changes
+    public enum ActivityType
+    {
+        Appointment = 1,
+        Phonecall = 2,
+        Task = 3,
+    }
 
     public abstract class ActivityBaseViewModelAbstract<T> : EntityViewModelBase<T>
 		where T : IEntityKey
     {
 	    protected ActivityBaseViewModelAbstract(ActivityType type)
-	    {
+    {
 		    Type = type;
 	    }
 
-	    public override bool IsSecurityRoot
+        public override bool IsSecurityRoot
         {
             get { return true; }
         }
 
-        [RequiredLocalized, ExcludeZeroValue]
+        [RequiredLocalized]
+        [ExcludeZeroValue]
         [DisplayNameLocalized("ActivityBaseViewModelAbstract_Type")]
         [Dependency(DependencyType.Disable, "", "true")]
         public ActivityType Type { get; private set; }
 
-        [RequiredLocalized, ExcludeZeroValue]
+        [RequiredLocalized]
+        [ExcludeZeroValue]
         public ActivityPriority Priority { get; set; }
 
-        [RequiredLocalized, ExcludeZeroValue]
+        [RequiredLocalized]
+        [ExcludeZeroValue]
         [DisplayNameLocalized("ActivityBaseViewModelAbstract_Status")]
         [Dependency(DependencyType.Hidden, "ActualEnd", "this.value == 'InProgress'")]
         [Dependency(DependencyType.Hidden, "ActualEndTime", "this.value == 'InProgress'")]
