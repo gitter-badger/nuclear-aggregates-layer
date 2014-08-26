@@ -1,6 +1,5 @@
-﻿@using BLCore.UI.Web.Mvc.Utils
-@using Newtonsoft.Json
-@model Models.MultiCultureContactViewModel
+﻿@using Newtonsoft.Json
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureContactViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -28,7 +27,7 @@
             @Html.TemplateField(m => m.MainPhoneNumber, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Salutation, FieldFlex.twins, new Dictionary<string, object>{{"combobox", "true"}})
+            @Html.TemplateField(m => m.Salutation, FieldFlex.twins, new Dictionary<string, object> { { "combobox", "true" } })
             @Html.TemplateField(m => m.MobilePhoneNumber, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
@@ -44,7 +43,7 @@
             @Html.TemplateField(m => m.Im, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ReadOnly =  Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) })
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) })
         </div>
         @Html.SectionHead("SectionHead1", @BLResources.TitleServiceInformation)
         <div class="row-wrapper">
@@ -59,12 +58,12 @@
             @Html.TemplateField(m => m.WorkAddress, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object>{{"rows", "3"}})
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "3" } })
         </div>
         @Html.SectionHead("SectionHead2", @BLResources.AdditionalTabTitle)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BirthDate, FieldFlex.twins)
-            @Html.TemplateField(m => m.Website , FieldFlex.twins)
+            @Html.TemplateField(m => m.BirthDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
+            @Html.TemplateField(m => m.Website, FieldFlex.twins)
         </div>
     </div>
 }
