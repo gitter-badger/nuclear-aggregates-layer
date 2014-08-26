@@ -274,6 +274,12 @@
   <data name="ImportFirmFromXml_23021" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.08.06 rev. 23021\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="_22571_ReplicateDeal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.23 rev. 22571\ReplicateDeal.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="Customizations_22672" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.24 rev. 22672\Customizations_22672.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="ImportFirmFromXml_23425" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.08.19 rev. 23425\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>

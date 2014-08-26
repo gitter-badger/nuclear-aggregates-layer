@@ -157,7 +157,6 @@
     <Compile Include="Concrete\Old\AccountDetails\Dto\DebitDto.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoDto.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\PlatformDistribution.cs" />
-    <Compile Include="Concrete\Old\Deals\ActualizeDealProfitIndicatorsRequest.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
@@ -343,7 +342,6 @@
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnRegistrationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnTerminationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnArchiveToApprovedRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnRejectedToOnRegistrationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToArchiveRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToOnApprovedRequest.cs" />
     <Compile Include="Concrete\Old\Prices\PublishPriceRequest.cs" />

@@ -153,12 +153,10 @@
     <Compile Include="Common\Specs\Simplified\PrintFormTemplateSpecifications.cs" />
     <Compile Include="Deals\DTO\ClientAndFirmForDealInfo.cs" />
     <Compile Include="Deals\DTO\DealActualizeDuringWithdrawalDto.cs" />
-    <Compile Include="Deals\DTO\DealActualizeProfitDto.cs" />
     <Compile Include="Deals\DTO\DealChangeStageDto.cs" />
     <Compile Include="Deals\DTO\DealLegalPersonDto.cs" />
     <Compile Include="Deals\DTO\DealWithNonRejectedOrderInfos.cs" />
     <Compile Include="Deals\IDealRepository.cs" />
-    <Compile Include="Deals\Operations\IDealActualizeDealProfitIndicatorsAggregateService.cs" />
     <Compile Include="Deals\Operations\IDealChangeStageAggregateService.cs" />
     <Compile Include="Deals\Operations\IDealCreateAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\Operations\IDeleteAfterSaleServiceAggregateService.cs" />

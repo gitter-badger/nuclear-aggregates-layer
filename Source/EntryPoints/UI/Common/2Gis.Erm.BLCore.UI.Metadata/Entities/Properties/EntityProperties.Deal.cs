@@ -31,16 +31,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                       new EnumPropertyFeature(EnumResources.ResourceManager),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.DealStage)),
 
-                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.EstimatedProfit)
-                                  .WithFeatures(
-                                      new ReadOnlyPropertyFeature(),
-                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.EstimatedProfit)),
-
-                    EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.ActualProfit)
-                                  .WithFeatures(
-                                      new ReadOnlyPropertyFeature(),
-                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.ActualProfit)),
-
                     EntityPropertyMetadata.Create<DealDomainEntityDto>(dto => dto.Comment)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(512),
