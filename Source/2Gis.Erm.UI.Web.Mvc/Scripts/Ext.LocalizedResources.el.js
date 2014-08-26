@@ -1,4 +1,4 @@
-﻿// File updated : 14.08.2014 11:16:33
+﻿// File updated : 25.08.2014 18:20:14
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -33,7 +33,7 @@ AdvertisementElementWasNotSaved : 'AM element was not saved.',
 Advertisements : 'Advertising materials',
 AdvertisementTemplatePublishConfirmation : 'Are you sure you want to publish this advertising material template?',
 AdvertisementTemplatePublishConfirmationLabel : 'Publish the advertising material template',
-AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Вы действительно хотите опубликовать шаблон ракламного материала?<br/>На карточке есть изменения, которые будут утеряны при публикации.<br/>Если требуется их сохранить нажмите "нет" и сохраните карточку.',
+AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Do you really want to publish the advertising template?<br/>The card contains changes that will be lost after publishing.<br/>If you would like to save them, click No and save the card.',
 AdvertisingElementAccept : 'Approve',
 AdvertisingElementValidate : 'Verification',
 AfterPageText : 'of {0}',

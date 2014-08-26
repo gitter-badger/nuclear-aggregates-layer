@@ -3,6 +3,7 @@ using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.OrderValidation.Config;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.DI.Config;
@@ -30,6 +31,7 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
+using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -88,23 +90,29 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             ILoggerContextManager loggerContextManager)
         {
             return container
-                        .ConfigureLogging(loggerContextManager)
-                        .CreateErmSpecific()
-                        .CreateSecuritySpecific()
-                        .ConfigureCacheAdapter(cachingSettings)
-                        .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
-                        .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                        .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                        .ConfigureIdentityInfrastructure()
-                        .ConfigureReadWriteModels()
-                        .ConfigureMetadata()
-                        .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                        .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                        .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
-                        .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
-                        .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
-                        .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
-                        .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
+                .ConfigureLogging(loggerContextManager)
+                .CreateErmSpecific()
+                .CreateSecuritySpecific()
+                .ConfigureCacheAdapter(cachingSettings)
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .ConfigureIdentityInfrastructure()
+                .ConfigureReadWriteModels()
+                .ConfigureMetadata()
+                .ConfigureLocalization(typeof(Resources),
+                                       typeof(ResPlatform),
+                                       typeof(BLResources),
+                                       typeof(MetadataResources),
+                                       typeof(EnumResources),
+                                       typeof(BLFlex.Resources.Server.Properties.BLResources))
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
+                .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
+                .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
+                .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
+                .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
