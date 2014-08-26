@@ -14,7 +14,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel
         Deal GetDeal(Guid replicationCode);
         bool HasOrders(long dealId);
         AfterSaleServiceActivity GetAfterSaleService(Guid dealReplicationCode, DateTime activityDate, AfterSaleServiceType serviceType);
-        IEnumerable<DealActualizeProfitDto> GetInfoForActualizeProfits(IEnumerable<long> dealIds, bool processActuallyReceivedProfit);
         IEnumerable<DealActualizeDuringWithdrawalDto> GetInfoForWithdrawal(IEnumerable<long> dealIds);
     }
 }

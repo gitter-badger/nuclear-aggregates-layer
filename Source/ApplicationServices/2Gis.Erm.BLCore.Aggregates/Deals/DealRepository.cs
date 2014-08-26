@@ -219,18 +219,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             }
         }
 
-        public int DecreaseDealEstimatedProfit(Deal deal, decimal estimatedProfitDelta)
-        {
-            using (var operationScope = _operationScopeFactory.CreateOrUpdateOperationFor(deal))
-            {
-                deal.EstimatedProfit -= estimatedProfitDelta;
-                _dealGenericSecureRepository.Update(deal);
-                var result = _dealGenericSecureRepository.Save();
-                operationScope.Updated<Deal>(deal.Id).Complete();
-                return result;
-            }
-        }
-
         int IAssignAggregateRepository<Deal>.Assign(long entityId, long ownerCode)
         {
             var entity = _finder.Find(Specs.Find.ById<Deal>(entityId)).Single();

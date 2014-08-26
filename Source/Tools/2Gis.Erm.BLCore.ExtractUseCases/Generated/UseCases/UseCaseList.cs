@@ -11,7 +11,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersonProfiles;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
@@ -64,10 +63,8 @@ using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Pr
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old;
-using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -815,24 +812,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 {
                     ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
                     Request = typeof(CalculateReleaseWithdrawalsRequest)
-                },
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-                    Request = typeof(ActualizeDealProfitIndicatorsRequest)
-                }
-            }
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ProcessOrderOnRejectedToOnRegistrationHandler),
-            Request = typeof(ProcessOrderOnRejectedToOnRegistrationRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-                    Request = typeof(ActualizeDealProfitIndicatorsRequest)
                 }
             }
         },
@@ -860,11 +839,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
                     Request = typeof(CalculateReleaseWithdrawalsRequest)
                 },
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-                    Request = typeof(ActualizeDealProfitIndicatorsRequest)
-                }
             }
         },
         new UseCaseNode(1)
@@ -889,11 +863,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
         {
             ContainingClass = typeof(CheckDealHandler),
             Request = typeof(CheckDealRequest)
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-            Request = typeof(ActualizeDealProfitIndicatorsRequest)
         },
         new UseCaseNode(1)
         {
@@ -1154,26 +1123,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(CheckOrderBeginDistributionDateHandler),
                         Request = typeof(CheckOrderBeginDistributionDateRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Handlers.OrderPositions.EditOrderPositionHandler\Handle",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-                        Request = typeof(ActualizeDealProfitIndicatorsRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.Delete.DeleteOrderPositionService\Delete",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-                        Request = typeof(ActualizeDealProfitIndicatorsRequest)
                     }
                 },
                 new UseCase
@@ -1686,15 +1635,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     Root = new UseCaseNode(0)
                     {
                         ContainingClass = typeof(ChangeOrderDealHandler),
-                        Request = typeof(ChangeOrderDealRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-            Request = typeof(ActualizeDealProfitIndicatorsRequest)
-        }
-    }
+                        Request = typeof(ChangeOrderDealRequest)
                     }
                 },
                 new UseCase
@@ -1937,11 +1878,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
             ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
             Request = typeof(CalculateReleaseWithdrawalsRequest)
         },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(ActualizeDealProfitIndicatorsHandler),
-            Request = typeof(ActualizeDealProfitIndicatorsRequest)
-        }
     }
                     }
                 },
