@@ -553,7 +553,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             usedRange.Intersect("Q:Q").Style.Numberformat.Format = "#,##0.00\"р.\"";
             usedRange.Intersect("R:R").FormulaR1C1 = "IF(RC[-4]=0,0,RC[-1]/RC[-4])";
             usedRange.Intersect("S:S").FormulaR1C1 = "IF(RC[-1]=0,0,RC[-1]-RC[-6])";
-            usedRange.Intersect("T:T").FormulaR1C1 = "IF(RC[-6]=0,0,IF(RC[-4]<=RC[-6],RC[-4],RC[-6]))";
+            usedRange.Intersect("T:T").FormulaR1C1 = "IF(RC[-6]=0,0,IF(RC[-3]<=RC[-6],RC[-3],RC[-6]))";
 
             table = FillSheetFromMssql(package.Workbook, "Оплаты по ДЗ до 01.12", @"PlanningReport.Лист_Оплаты_по_ДЗ_до_01_12.sql");
             table.WorkSheet.Column(3).Hidden = true;
