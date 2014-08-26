@@ -401,4 +401,7 @@ Bank Name: {7}
   <data name="VerificationTitle" xml:space="preserve">
     <value>AME verification</value>
   </data>
+  <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
 </root>

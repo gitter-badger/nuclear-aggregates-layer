@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
 {
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
             var taxationType = entity.Within<UkraineLegalPersonPart>().GetPropertyValue(x => x.TaxationType);
             if (taxationType == TaxationType.WithVat && string.IsNullOrEmpty(entity.Inn))
             {
-                throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Inn));
             }
 
             if (!string.IsNullOrEmpty(entity.Inn))
@@ -99,7 +100,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
 
             if (string.IsNullOrEmpty(entity.LegalAddress))
             {
-                throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
             }
 
             if (entity.IsNew())

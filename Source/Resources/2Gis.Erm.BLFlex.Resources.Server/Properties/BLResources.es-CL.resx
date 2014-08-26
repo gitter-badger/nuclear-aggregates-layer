@@ -391,4 +391,7 @@
   <data name="VerificationTitle" xml:space="preserve">
     <value>Verificación de elemento del material publicitario</value>
   </data>
+  <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
+    <value>Операция редактирования коммуны не поддерживается системой</value>
+  </data>
 </root>
