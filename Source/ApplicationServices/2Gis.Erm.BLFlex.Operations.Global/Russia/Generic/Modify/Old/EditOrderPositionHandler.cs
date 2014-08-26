@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -256,11 +257,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     _orderRepository.UpdateOrderNumber(order);
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
                     _publicService.Handle(new CalculateReleaseWithdrawalsRequest { Order = order });
-
-                    if (orderInfo.DealId != null)
-                    {
-                        _publicService.Handle(new ActualizeDealProfitIndicatorsRequest { DealIds = new[] { orderInfo.DealId.Value } });
-                    }
 
                     // Сохраняем изменения объектов Order  в БД, если по каким-то причинам это не сделал один из вышестоящих хендлеров
                     _orderRepository.Update(order);
