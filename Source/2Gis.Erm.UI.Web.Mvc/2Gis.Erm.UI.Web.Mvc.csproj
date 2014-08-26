@@ -282,6 +282,9 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Account.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Action.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Advertisement.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElement.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElementTemplate.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementTemplate.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Appointment.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Assembly.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Assign.gif" />
@@ -289,6 +292,7 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_BargainType.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Binding.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_BranchOffice.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_BranchOfficeOrganizationUnit.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Card.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_CardRelatedItems.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_CardToolbar.gif" />

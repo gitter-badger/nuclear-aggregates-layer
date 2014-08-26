@@ -1,4 +1,4 @@
-﻿// File updated : 14.08.2014 11:16:33
+﻿// File updated : 25.08.2014 18:20:14
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -33,7 +33,7 @@ AdvertisementElementWasNotSaved : 'Element reklamního materiálu nebyl uložen.
 Advertisements : 'Reklamní materiály',
 AdvertisementTemplatePublishConfirmation : 'Skutečně si přejete zveřejnit šablonu reklamního materiálu?',
 AdvertisementTemplatePublishConfirmationLabel : 'Zveřejnit prvek šablony reklamního materiálu',
-AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Вы действительно хотите опубликовать шаблон ракламного материала?<br/>На карточке есть изменения, которые будут утеряны при публикации.<br/>Если требуется их сохранить нажмите "нет" и сохраните карточку.',
+AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Opravdu chcete publikovat šablonu reklamního materiálu?<br/>V kartě byly uskutečněny změny, které budou ztraceny při publikací.<br/>Pokud chcete změny uložit, stiskněte „Ne“ a uložte kartu.',
 AdvertisingElementAccept : 'Schválit',
 AdvertisingElementValidate : 'Ověření',
 AfterPageText : 'z {0}',
