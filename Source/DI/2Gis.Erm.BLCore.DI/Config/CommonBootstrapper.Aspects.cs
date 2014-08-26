@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -76,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
-
+                        
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
                         .RegisterType<IDomainContextHost>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
@@ -98,14 +99,14 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
-
-                        // TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
-                        .RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<RegardingObject<Appointment>>, EFMappingRepository<RegardingObject<Appointment>, AppointmentReference>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<RegardingObject<Phonecall>>, EFMappingRepository<RegardingObject<Phonecall>, PhonecallReference>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
-                        .RegisterType<IRepository<RegardingObject<Task>>, EFMappingRepository<RegardingObject<Task>, TaskReference>>(Lifetime.PerResolve)
+						
+						// TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
+						.RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<RegardingObject<Appointment>>, EFMappingRepository<RegardingObject<Appointment>, AppointmentReference>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<RegardingObject<Phonecall>>, EFMappingRepository<RegardingObject<Phonecall>, PhonecallReference>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<RegardingObject<Task>>, EFMappingRepository<RegardingObject<Task>, TaskReference>>(Lifetime.PerResolve)
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
@@ -147,7 +148,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             // processors
             container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataProcessor, ReferencesEvaluatorProcessor>(Lifetime.Singleton);
             container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataProcessor, Feature2PropertiesLinkerProcessor>(Lifetime.Singleton);
-
+                     
             // validators
             container.RegisterType<IMetadataValidatorsSuite, MetadataValidatorsSuite>(Lifetime.Singleton);
 
@@ -160,8 +161,8 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         }
 
         public static IUnityContainer ConfigureOperationLogging(
-            this IUnityContainer container,
-            Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory,
+            this IUnityContainer container, 
+            Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, 
             IEnvironmentSettings environmentSettings,
             IOperationLoggingSettings loggingSettings)
         {
@@ -187,25 +188,25 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 var typeOfDirectDBLoggingStrategy = typeof(DirectDBLoggingStrategy);
                 container.RegisterTypeWithDependencies(typeof(IOperationLoggingStrategy), typeOfDirectDBLoggingStrategy, typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), entryPointSpecificLifetimeManagerFactory(), (string)null, InjectionFactories.SimplifiedModelConsumer)
                          .RegisterTypeWithDependencies<ITrackedUseCase2PerfomedBusinessOperationsConverter, TrackedUseCase2PerfomedBusinessOperationsConverter>(
-                                    Lifetime.Singleton,
+                                    Lifetime.Singleton, 
                                     null);
             }
 
             if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.Queue))
             {
-                container.RegisterOne2ManyTypesPerTypeUniqueness<IOperationLoggingStrategy, ServiceBusForWindowsServiceLoggingStrategy>(
-                                Lifetime.Singleton)
-                         .RegisterTypeWithDependencies<ITrackedUseCase2BrokeredMessageConverter, BinaryEntireTrackedUseCase2BrokeredMessageConverter>(
-                                Lifetime.Singleton,
-                                null);
+                    container.RegisterOne2ManyTypesPerTypeUniqueness<IOperationLoggingStrategy, ServiceBusForWindowsServiceLoggingStrategy>(
+                                    Lifetime.Singleton)
+                             .RegisterTypeWithDependencies<ITrackedUseCase2BrokeredMessageConverter, BinaryEntireTrackedUseCase2BrokeredMessageConverter>( 
+                                    Lifetime.Singleton, 
+                                    null);
             }
 
             return container;
         }
 
-        public static IUnityContainer ConfigureNotificationsSender(this IUnityContainer unityContainer,
-                                                                   IMsCrmSettings msCrmSettings,
-                                                                   string mappingScope,
+        public static IUnityContainer ConfigureNotificationsSender(this IUnityContainer unityContainer, 
+                                                                   IMsCrmSettings msCrmSettings, 
+                                                                   string mappingScope, 
                                                                    Func<LifetimeManager> lifetimeManagerCreator)
         {
             if (msCrmSettings.EnableReplication)
@@ -216,25 +217,31 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return unityContainer
                 .RegisterOne2ManyTypesPerTypeUniqueness<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(lifetimeManagerCreator())
                 .RegisterTypeWithDependencies<IEmployeeEmailResolver, EmployeeEmailResolver>(
-                        mappingScope,
+                        mappingScope, 
                         Lifetime.PerResolve,
                         new InjectionFactory(
                             (container, type, arg3) =>
-                            {
-                                var crmSettings = container.Resolve<IMsCrmSettings>();
-                                var strategies = crmSettings.EnableReplication
-                                    ? new[]
+                                {
+                                    var crmSettings = container.Resolve<IMsCrmSettings>(); 
+                                    var strategies = crmSettings.EnableReplication
+                                        ? new[]
                                             {
                                                 container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(),
                                                 container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>()
                                             }
-                                    : new[]
+                                        : new[]
                                             {
                                                 container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>()
                                             };
 
-                                return new EmployeeEmailResolver(strategies);
-                            }));
+                                    return new EmployeeEmailResolver(strategies);
+                                })); 
+        }
+
+        public static IUnityContainer ConfigureLocalization(this IUnityContainer container, params Type[] resourceTypes)
+        {
+            return container.RegisterType<IResourceGroupManager, ResourceGroupManager>(Lifetime.Singleton,
+                                                                                       new InjectionConstructor((object)resourceTypes));
         }
     }
 }

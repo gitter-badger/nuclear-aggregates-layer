@@ -636,6 +636,10 @@
       <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
       <Name>2Gis.Erm.Platform.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
       <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
       <Name>2Gis.Erm.BLCore.API.Aggregates</Name>

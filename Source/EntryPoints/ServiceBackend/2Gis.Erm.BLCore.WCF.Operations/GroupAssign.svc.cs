@@ -21,13 +21,13 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
         private readonly IOperationServicesManager _operationServicesManager;
         private readonly INotifiyProgressSettings _notifiyProgressSettings;
 
-        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, ICommonLog logger)
+        public GroupAssignApplicationService(IOperationServicesManager operationServicesManager, INotifiyProgressSettings notifiyProgressSettings, IUserContext userContext, IResourceGroupManager resourceGroupManager, ICommonLog logger)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
             _notifiyProgressSettings = notifiyProgressSettings;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public AssignResult[] Assign(AssignCommonParameter operationParameter, AssignEntityParameter[] operationItemParameters)

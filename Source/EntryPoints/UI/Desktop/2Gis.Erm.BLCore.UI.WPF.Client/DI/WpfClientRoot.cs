@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.API.Operations.Special.DI;
 using DoubleGis.Erm.BLCore.API.OrderValidation.DI;
 using DoubleGis.Erm.BLCore.API.Releasing.DI;
+using DoubleGis.Erm.BLCore.UI.Metadata.DI;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.DI;
@@ -33,7 +34,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI
                                       .RequireZone<MetadataZone>()
                                           .UseAnchor<PlatformModelMetadataAssembly>()
                                           .UseAnchor<BlQueryingUiMetadataAssembly>()
-                                          .UseAnchor<MetadataZonePartAssembly>();
+                                          .UseAnchor<MetadataZonePartAssembly>()
+                                          .UseAnchor<BlCoreUiMetadataAssembly>();
             }
         }
     }

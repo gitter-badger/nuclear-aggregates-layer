@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>Objednávka {0} neobsahuje ani jednu uvedenou položku objednávky</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>Hodnota pole „{0}“ není správnou e-mailovou adresou</value>
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value>Odstranit všechny faktury u této objednávky</value>
   </data>
@@ -848,9 +845,6 @@
   </data>
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value>Tato položka nemá vázané objekty.</value>
-  </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Do pole „{0}“ je treba zadat hodnotu</value>
   </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value>Firma nemá v CRM uvedený kód repliky</value>
@@ -1723,9 +1717,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
     <value>Vybraných záznamů „{0}“: {1}. Komu je třeba je přidělit?</value>
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>Pole {0} může obsahovat pouze čísla</value>
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
     <value>Bude zapnut následující počet typů operací: {0}</value>
@@ -4345,9 +4336,6 @@ Operace provedena: {4}.</value>
   <data name="WrongOrderType" xml:space="preserve">
     <value>Chybný typ objednávky</value>
   </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>neodpovídající hodnota pole {0}</value>
-  </data>
   <data name="FileRequired" xml:space="preserve">
     <value>Je třeba vybrat soubor</value>
   </data>
@@ -4937,9 +4925,6 @@ Kontakt: {1}</value>
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value>Pro změnu příznaku s údaji o tom, zda je zákazník reklamní agentura, je požadováno odpovídající oprávnění</value>
   </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
-  </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>Řádek obsahuje řídicí znaky</value>
   </data>
@@ -5120,7 +5105,7 @@ Doba zveřejnění: {3}.</value>
     <value>Uzavřít jako zamítnuto</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Není možné vytvořit položku objednávky se způsobem výpočtu koeficientu [{0}] do vybraného cílového města a rubriky [{1}]</value>
+    <value>Nový prodejní modul ještě není podporován "{0}" a/nebo v rubrice "{1}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>U všech podpoložek položky v objednávce zpracované jako ceníková položka s typem výpočtu koeficientu [{0}] musí být uvedena rubrika</value>

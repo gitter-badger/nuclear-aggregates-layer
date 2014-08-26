@@ -147,23 +147,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             var depCardsQuery = _unsecureFinder.Find<DepCard>(x => !x.IsHiddenOrArchived);
 
             // В данном случае намеренно используется небезопасная версия файндера
-            var cardRelations = _unsecureFinder.FindAll<CardRelation>()
-                                               .Where(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted)
-                                               .OrderBy(cardRelation => cardRelation.OrderNo)
-                                               .Join(depCardsQuery,
-                                                     cardRelation => cardRelation.DepCardCode,
-                                                     depCard => depCard.Id,
-                                                     (cardRelation, depCard) => depCard)
-                                               .SelectMany(depCard => depCard.FirmContacts)
-                                               .OrderBy(contact => contact.SortingPosition)
-                                               .ToArray();
+            var cardRelationsQuery = _unsecureFinder.Find<CardRelation>(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted);
+            
+            var depCardContacts = (from cardRelation in cardRelationsQuery
+                                   join depCard in depCardsQuery on cardRelation.DepCardCode equals depCard.Id
+                                   orderby cardRelation.OrderNo
+                                   from firmContact in depCard.FirmContacts
+                                   orderby firmContact.SortingPosition
+                                   select firmContact)
+                .AsEnumerable()
+
+                // COMMENT {all, 25.08.2014}: Восстановление ссылки на адрес фирмы из контакта dep-карточки
+                .Select(contact =>
+                    {
+                        contact.FirmAddressId = firmAddressId;
+                        return contact;
+                    });
 
             var firmAddressContacts = _secureFinder.FindAll<FirmContact>()
                                                    .Where(contact => contact.FirmAddressId == firmAddressId)
                                                    .OrderBy(contact => contact.SortingPosition)
-                                                   .ToArray();
+                                                   .AsEnumerable();
 
-            return firmAddressContacts.Union(cardRelations).ToArray();
+            return firmAddressContacts.Union(depCardContacts).ToArray();
         }
 
         public IDictionary<long, IEnumerable<FirmContact>> GetFirmContactsByAddresses(long firmId)
