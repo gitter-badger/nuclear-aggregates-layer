@@ -7,6 +7,7 @@ using System.ServiceModel.Description;
 
 using DoubleGis.Erm.BL.DI.Factories.HandleAdsState;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -77,6 +78,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
+using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
@@ -230,6 +232,12 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureEAV()
+                .ConfigureLocalization(typeof(Resources),
+                                       typeof(ResPlatform),
+                                       typeof(BLResources),
+                                       typeof(MetadataResources),
+                                       typeof(EnumResources),
+                                       typeof(BLFlex.Resources.Server.Properties.BLResources))
                 .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, BasicOperationsSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
