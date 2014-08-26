@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             // FirmId = x.FirmId,
 
             var activities =
-                _compositeEntityDecorator.Find(Specs.Find.Any<Appointment>()).Select(x => new ListActivityInstanceDto
+                _compositeEntityDecorator.Find(Specs.Find.Any<Appointment>().Predicate).Select(x => new ListActivityInstanceDto
                     {
                         ActivityTypeEnum = ActivityType.Appointment,
                         Id = x.Id,
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         IsActive = x.IsActive,
                         TaskType = TaskType.NotSet,
                     })
-                .Concat(_compositeEntityDecorator.Find(Specs.Find.Any<Phonecall>()).Select(x => new ListActivityInstanceDto
+                .Concat(_compositeEntityDecorator.Find(Specs.Find.Any<Phonecall>().Predicate).Select(x => new ListActivityInstanceDto
                     {
                         ActivityTypeEnum = ActivityType.Phonecall,
                         Id = x.Id,
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         IsActive = x.IsActive,
                         TaskType = TaskType.NotSet,
                     }))
-                .Concat(_compositeEntityDecorator.Find(Specs.Find.Any<Task>()).Select(x => new ListActivityInstanceDto
+                .Concat(_compositeEntityDecorator.Find(Specs.Find.Any<Task>().Predicate).Select(x => new ListActivityInstanceDto
                     {
                         ActivityTypeEnum = ActivityType.Task,
                         Id = x.Id,
