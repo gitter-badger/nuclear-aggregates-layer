@@ -132,4 +132,19 @@
   <data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
     <value>Доступ запрещен.{0}Пользователь:{1}.{0}Действие:{2}.{0}Сущность:{3}{0}</value>
   </data>
+  <data name="RequiredFieldMessage" xml:space="preserve">
+    <value>Необходимо указать значение для поля "{0}"</value>
+  </data>
+  <data name="InappropriateValueForField" xml:space="preserve">
+    <value>неподходящее значение для поля {0}</value>
+  </data>
+  <data name="InputValidationInvalidEmail" xml:space="preserve">
+    <value>Значение поля "{0}" не является корректным email-адресом</value>
+  </data>
+  <data name="GeneralMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
+    <value>Поле {0} может содержать только цифры</value>
+  </data>
 </root>

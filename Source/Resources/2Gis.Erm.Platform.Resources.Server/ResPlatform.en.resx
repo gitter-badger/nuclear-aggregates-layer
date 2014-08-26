@@ -132,4 +132,19 @@
   <data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
     <value>Access denied.{0}User:{1}.{0}Action:{2}.{0}Entity:{3}{0}</value>
   </data>
+  <data name="RequiredFieldMessage" xml:space="preserve">
+    <value>Specify value in the field "{0}"</value>
+  </data>
+  <data name="InappropriateValueForField" xml:space="preserve">
+    <value>Incorrect value in the field {0}</value>
+  </data>
+  <data name="InputValidationInvalidEmail" xml:space="preserve">
+    <value>Value in the field "{0}" is not a correct email-address</value>
+  </data>
+  <data name="GeneralMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
+    <value>The field {0} can contain only numbers</value>
+  </data>
 </root>

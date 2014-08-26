@@ -132,4 +132,19 @@
   <data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
     <value>Přístup odepřen.{0}Uživatel:{1}.{0}Akce:{2}.{0}Entita:{3}{0}</value>
   </data>
+  <data name="RequiredFieldMessage" xml:space="preserve">
+    <value>Do pole „{0}“ je treba zadat hodnotu</value>
+  </data>
+  <data name="InappropriateValueForField" xml:space="preserve">
+    <value>neodpovídající hodnota pole {0}</value>
+  </data>
+  <data name="InputValidationInvalidEmail" xml:space="preserve">
+    <value>Hodnota pole „{0}“ není správnou e-mailovou adresou</value>
+  </data>
+  <data name="GeneralMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
+    <value>Pole {0} může obsahovat pouze čísla</value>
+  </data>
 </root>

@@ -56,7 +56,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -95,17 +94,9 @@
     <Compile Include="SqlServerConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
-      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
-      <Name>2Gis.Erm.BLCore.Aggregates</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
-      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
-      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
