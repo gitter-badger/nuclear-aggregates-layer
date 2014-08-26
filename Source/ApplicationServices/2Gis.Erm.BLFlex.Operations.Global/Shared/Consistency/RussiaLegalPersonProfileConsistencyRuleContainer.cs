@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 {
@@ -12,12 +13,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
         #region Rules
         private static readonly IEnumerable<IConsistencyRule> CommonRules = new IConsistencyRule[]
             {
-                ConsistencyRule.CreateNonEmptyString(entity => entity.Name, BLResources.RequiredFieldMessage, MetadataResources.Name),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInNominative, BLResources.RequiredFieldMessage, MetadataResources.ChiefNameInNominative),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments, BLResources.RequiredFieldMessage, MetadataResources.PersonResponsibleForDocuments),
-                ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, BLResources.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
-                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInGenitive, BLResources.RequiredFieldMessage, MetadataResources.ChiefNameInGenitive),
-                ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, BLResources.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive)
+                ConsistencyRule.CreateNonEmptyString(entity => entity.Name, ResPlatform.RequiredFieldMessage, MetadataResources.Name),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInNominative, ResPlatform.RequiredFieldMessage, MetadataResources.ChiefNameInNominative),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.PersonResponsibleForDocuments, ResPlatform.RequiredFieldMessage, MetadataResources.PersonResponsibleForDocuments),
+                ConsistencyRule.CreateFormat(entity => (DocumentsDeliveryMethod)entity.DocumentsDeliveryMethod, method => method == DocumentsDeliveryMethod.Undefined, ResPlatform.RequiredFieldMessage, MetadataResources.DocumentsDeliveryMethod),
+                ConsistencyRule.CreateNonEmptyString(entity => entity.ChiefNameInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.ChiefNameInGenitive),
+                ConsistencyRule.CreateNonNull(entity => entity.OperatesOnTheBasisInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.OperatesOnTheBasisInGenitive)
             };
 
         private static readonly IEnumerable<ConsistencyRuleCollection<LegalPersonType>> AllowedLegalPersonDocuments =
@@ -62,13 +63,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<LegalPersonType>(LegalPersonType.LegalPerson)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInGenitive, BLResources.RequiredFieldMessage, MetadataResources.PositionInGenitive),
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInNominative, BLResources.RequiredFieldMessage, MetadataResources.PositionInNominative),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.PositionInGenitive),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInNominative, ResPlatform.RequiredFieldMessage, MetadataResources.PositionInNominative),
                         },
                     new ConsistencyRuleCollection<LegalPersonType>(LegalPersonType.Businessman)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInGenitive, BLResources.RequiredFieldMessage, MetadataResources.PositionInGenitive),
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInNominative, BLResources.RequiredFieldMessage, MetadataResources.PositionInNominative),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInGenitive, ResPlatform.RequiredFieldMessage, MetadataResources.PositionInGenitive),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.PositionInNominative, ResPlatform.RequiredFieldMessage, MetadataResources.PositionInNominative),
                         },
                 };
 
@@ -77,21 +78,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
                 {
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Certificate)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.CertificateNumber, BLResources.RequiredFieldMessage, MetadataResources.CertificateNumber),
-                            ConsistencyRule.CreateNonNull(entity => entity.CertificateDate, BLResources.RequiredFieldMessage, MetadataResources.CertificateDate),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.CertificateNumber, ResPlatform.RequiredFieldMessage, MetadataResources.CertificateNumber),
+                            ConsistencyRule.CreateNonNull(entity => entity.CertificateDate, ResPlatform.RequiredFieldMessage, MetadataResources.CertificateDate),
                         },
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Warranty)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.WarrantyNumber, BLResources.RequiredFieldMessage, MetadataResources.WarrantyNumber),
-                            ConsistencyRule.CreateNonNull(entity => entity.WarrantyBeginDate, BLResources.RequiredFieldMessage, MetadataResources.WarrantyBeginDate),
-                            ConsistencyRule.CreateNonNull(entity => entity.WarrantyEndDate, BLResources.RequiredFieldMessage, MetadataResources.WarrantyEndDate),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.WarrantyNumber, ResPlatform.RequiredFieldMessage, MetadataResources.WarrantyNumber),
+                            ConsistencyRule.CreateNonNull(entity => entity.WarrantyBeginDate, ResPlatform.RequiredFieldMessage, MetadataResources.WarrantyBeginDate),
+                            ConsistencyRule.CreateNonNull(entity => entity.WarrantyEndDate, ResPlatform.RequiredFieldMessage, MetadataResources.WarrantyEndDate),
                             ConsistencyRule.CreateFormat(entity => entity, profile => profile.WarrantyBeginDate.Value.Date > profile.WarrantyEndDate.Value.Date, BLResources.WarrantyBeginDateMustBeGreaterOrEqualThanEndDate),
                         },
                     new ConsistencyRuleCollection<OperatesOnTheBasisType>(OperatesOnTheBasisType.Bargain)
                         {
-                            ConsistencyRule.CreateNonEmptyString(entity => entity.BargainNumber, BLResources.RequiredFieldMessage, MetadataResources.BargainNumber),
-                            ConsistencyRule.CreateNonNull(entity => entity.BargainBeginDate, BLResources.RequiredFieldMessage, MetadataResources.BargainBeginDate),
-                            ConsistencyRule.CreateNonNull(entity => entity.BargainEndDate, BLResources.RequiredFieldMessage, MetadataResources.BargainEndDate),
+                            ConsistencyRule.CreateNonEmptyString(entity => entity.BargainNumber, ResPlatform.RequiredFieldMessage, MetadataResources.BargainNumber),
+                            ConsistencyRule.CreateNonNull(entity => entity.BargainBeginDate, ResPlatform.RequiredFieldMessage, MetadataResources.BargainBeginDate),
+                            ConsistencyRule.CreateNonNull(entity => entity.BargainEndDate, ResPlatform.RequiredFieldMessage, MetadataResources.BargainEndDate),
                             ConsistencyRule.CreateFormat(entity => entity, profile => profile.BargainBeginDate.Value.Date > profile.BargainEndDate.Value.Date, BLResources.BargainBeginDateMustBeGreaterOrEqualThanEndDate),
                         },
                 }; 
