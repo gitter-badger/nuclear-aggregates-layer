@@ -10,11 +10,13 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLCore.Operations.Special;
 using DoubleGis.Erm.BLCore.OrderValidation.DI;
+using DoubleGis.Erm.BLCore.UI.Metadata.DI;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.DI;
 using DoubleGis.Erm.BLFlex.Operations.Global.DI;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.DI;
 using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
+using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
@@ -42,6 +44,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                       .RequireZone<AggregatesZone>()
                                             .UseAnchor<BlCoreAggregatesAssembly>()
                                             .UseAnchor<BlFlexAggregatesGlobalAssembly>()
+                                            .UseAnchor<PlatformAggregatesAssembly>()
                                       .RequireZone<OperationsZone>()
                                             .UseAnchor<BlCoreApiOperationsAssembly>()
                                             .UseAnchor<BlCoreOperationsAssembly>()
@@ -73,7 +76,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                             .UseAnchor<PlatformModelMetadataAssembly>()
                                             .UseAnchor<BlQueryingUiMetadataAssembly>()
                                             .UseAnchor<BLCore.UI.WPF.Client.DI.MetadataZonePartAssembly>()
-                                            .UseAnchor<MetadataZonePartAssembly>();
+                                            .UseAnchor<MetadataZonePartAssembly>()
+                                            .UseAnchor<BlCoreUiMetadataAssembly>();
             }
         } 
     }

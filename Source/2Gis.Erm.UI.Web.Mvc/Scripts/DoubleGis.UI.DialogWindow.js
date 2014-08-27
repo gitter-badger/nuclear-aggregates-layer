@@ -1,19 +1,18 @@
 ﻿Ext.onReady(function ()
 {
-    var onValidatorAttach = function (formOptions, field, rule)
-    {
-        var el;
+    var onValidatorAttach = function (formOptions, field, rule) {
+        var fieldId = field.FieldName.replace(".", "_");
+        var el = window.Ext.getDom(fieldId);
         if (rule.ValidationType == "required")
         {
-            el = window.Ext.select('label[for=' + field.FieldName + ']', true, formOptions.form.id);
+            el = window.Ext.select('label[for=' + fieldId + ']', true, formOptions.form.id);
             if (el && el.elements && el.elements[0])
             {
-                window.Ext.DomHelper.insertHtml('afterEnd', el.elements[0].dom, '<span class="req" id="' + field.FieldName + "-req" + '">*</span>');
+                window.Ext.DomHelper.insertHtml('afterEnd', el.elements[0].dom, '<span class="req" id="' + fieldId + "-req" + '">*</span>');
             }
         }
         if (rule.ValidationType == "stringlength")
         {
-            el = window.Ext.getDom(field.FieldName);
             if (el && rule.ValidationParameters.maximumLength)
             {
                 el.maxLength = rule.ValidationParameters.maximumLength;
@@ -23,7 +22,7 @@
         {
             new Ext.ux.LinkField(
                 {
-                    applyTo: field.FieldName,
+                    applyTo: el,
                     contactTypeCfg:
                         {
                             linkCls: Ext.ux.LinkField.prototype.contactTypeRegistry.email.linkCls,
@@ -35,11 +34,11 @@
                     listeners: {
                         invalid: function (el, msg)
                         {
-                            this.updateValidationMessage(field, msg);
+                            Ext.DoubleGis.FormValidator.updateValidationMessage(field, msg);
                         },
                         valid: function (el)
                         {
-                            this.updateValidationMessage(field, '');
+                            Ext.DoubleGis.FormValidator.updateValidationMessage(field, '');
                         }
                     }
                 });
@@ -49,7 +48,7 @@
         {
             new Ext.ux.LinkField(
                 {
-                    applyTo: field.FieldName,
+                    applyTo: el,
                     contactTypeCfg:
                         {
                             linkCls: Ext.ux.LinkField.prototype.contactTypeRegistry.url.linkCls,
@@ -61,11 +60,11 @@
                     listeners: {
                         invalid: function (el, msg)
                         {
-                            this.updateValidationMessage(field, msg);
+                            Ext.DoubleGis.FormValidator.updateValidationMessage(field, msg);
                         },
                         valid: function (el)
                         {
-                            this.updateValidationMessage(field);
+                            Ext.DoubleGis.FormValidator.updateValidationMessage(field);
                         }
                     }
                 });
@@ -73,10 +72,11 @@
     };
     var onValidatorDetach = function (formOptions, field, ruleName)
     {
+        var fieldId = field.FieldName.replace(".", "_");
         var el;
         if (ruleName == "required")
         {
-            el = window.Ext.getDom(field.FieldName + "-req");
+            el = window.Ext.getDom(fieldId + "-req");
             if (el)
             {
                 Ext.removeNode(el);

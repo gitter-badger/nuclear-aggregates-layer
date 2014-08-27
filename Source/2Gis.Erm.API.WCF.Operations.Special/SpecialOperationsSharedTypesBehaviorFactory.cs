@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.S
 
 namespace DoubleGis.Erm.API.WCF.Operations.Special
 {
-    public sealed class FinancialOperationsSharedTypesBehaviorFactory : ISharedTypesBehaviorFactory
+    public sealed class SpecialOperationsSharedTypesBehaviorFactory : ISharedTypesBehaviorFactory
     {
         public IEndpointBehavior Create()
         {

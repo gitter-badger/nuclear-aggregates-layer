@@ -106,3 +106,7 @@ background-image:url("images/Configuration/CommonUI/gridtoolbar_back.gif")!impor
 body.ext-ie7 {
     overflow: visible !important;
 }
+
+.highlightedText {
+    background-color: yellow
+}

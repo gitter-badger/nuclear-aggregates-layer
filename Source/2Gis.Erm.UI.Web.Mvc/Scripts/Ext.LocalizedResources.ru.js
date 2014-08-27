@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 28.07.2014 9:21:00
+// File updated : 25.08.2014 18:20:14
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -10,6 +10,7 @@
 Ext.LocalizedResources =
 {
 	AcquireOrderExtensionFailed : 'Не удалось получить вычисляемые значения.',
+ActionIsNotAvailableSinceThereIsAnError : 'Действие недоступно, т.к. не все элементы являются валидными',
 ActionsHistory : 'История изменений',
 ActionsHistoryTabGroupRenderer : 'Действие: {0}, Выполнено: {1} Дата: {2}',
 ActionsHistoryTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "изменение" : values.rs.length%10>0 && values.rs.length%10<5?"изменения":"изменений"]})',
@@ -32,6 +33,11 @@ AdvertisementElementTextContainsControlCharacters : 'Текст содержит
 AdvertisementElementTextContainsHtmlTags : 'Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.',
 AdvertisementElementWasNotSaved : 'Элемент РМ не был сохранён.',
 Advertisements : 'Рекламные материалы',
+AdvertisementTemplatePublishConfirmation : 'Вы действительно хотите опубликовать шаблон ракламного материала?',
+AdvertisementTemplatePublishConfirmationLabel : 'Опубликовать шаблон рекламного материала',
+AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Вы действительно хотите опубликовать шаблон ракламного материала?<br/>На карточке есть изменения, которые будут утеряны при публикации.<br/>Если требуется их сохранить нажмите "нет" и сохраните карточку.',
+AdvertisingElementAccept : 'Одобрить',
+AdvertisingElementValidate : 'Выверка',
 AfterPageText : 'из {0}',
 Alert : 'Внимание!',
 AllExistingBillsWillBeDeleted : 'Все существующие счета на оплату будут удалены. Продолжить?',
@@ -58,6 +64,7 @@ BoldText : 'Применение полужирного начертания к 
 BoldTitle : 'Полужирный (Ctrl+B)',
 Cancel : 'Отмена',
 CanNotSelectHiddenPosition : 'Нужно заменить объекты привязки, которые были скрыты, на доступные на текущий момент',
+CantUnpublishPriceWhenUnpublished : 'Нельзя отменить опубликование не опубликованного прайс-листа',
 CardIsDirtyAlert : 'Данное действие невозможно выполнить при наличии несохранённых изменений. Пожалуйста, сохраните изменения или обновите карточку, прежде чем продолжить.',
 CardIsNewAlert : 'Данное действие невозможно выполнить, пока запись не сохранена. Пожалуйста, сохраните запись, прежде чем продолжить.',
 CardIsReadOnly : 'Данная карточка открыта в режиме "только для чтения".',
@@ -234,6 +241,7 @@ Payments : 'Платежи',
 PleaseWaitWhileCheckingClientDebts : 'Пожалуйста, подождите - идет проверка на наличие задолженности у выбранных клиентов',
 PrevPageText : 'Предыдущая страница',
 PriceForOrganizationUnitNotExists : 'В системе на данный момент отсутствует опубликованный прайс-лист для города {0}',
+PriceIsAlreadyPublished : 'Прайс-лист уже опубликован',
 PrintText : 'Печать',
 ProcessMessagesConfirm : 'Вы действительно хотите обработать выбранные сообщения?',
 Properties : 'Свойства',
@@ -283,6 +291,8 @@ Tuesday : 'Вторник',
 UnderlineText : 'Подчёркивание выделенного текста.',
 UnderlineTitle : 'Подчёркнутый (Ctrl+U)',
 UnknownFileSize : 'Размер неизвестен',
+UnpublishAdvertisementTemplateConfirmation : 'Вы действительно хотите отменить публикацию шаблона рекламного материала?',
+UnpublishAdvertisementTemplateLabel : 'Отменить публикацию шаблона рекламного материала',
 UploadFileQuestion : 'Вы действительно хотите загрузить файл "{0}" на сервер?',
 ValueCantBeEmpty : 'Значение не может быть пустым',
 Wednesday : 'Среда',

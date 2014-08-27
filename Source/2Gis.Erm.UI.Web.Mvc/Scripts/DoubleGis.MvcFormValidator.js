@@ -59,6 +59,7 @@ Ext.DoubleGis.MvcFormValidator = Ext.extend(Ext.util.Observable, {
     validateField: function (field, formOptions, formContext)
     {
         this.updateValidationMessage(field, '');
+        var fieldId = field.FieldName.replace(".", "_");
         window.Ext.each(field.ValidationRules, function (rule)
         {
             var validator = field.validators[rule.ValidationType];
@@ -67,7 +68,7 @@ Ext.DoubleGis.MvcFormValidator = Ext.extend(Ext.util.Observable, {
                 var result;
                 try
                 {
-                    var el = window.Ext.get(field.FieldName);
+                    var el = window.Ext.get(fieldId);
                     result = validator(el.getValue(), {
                         eventName: formContext.type,
                         fieldContext: {
@@ -129,11 +130,12 @@ Ext.DoubleGis.MvcFormValidator = Ext.extend(Ext.util.Observable, {
     },
     updateValidationMessage: function (field, msg)
     {
+        var fieldId = field.FieldName.replace(".", "_");
         window.Ext.fly(field.ValidationMessageId).update(msg);
         var b = window.Ext.isEmpty(msg);
         window.Ext.fly(field.ValidationMessageId)[b ? 'removeClass' : 'addClass']("field-validation-error");
         window.Ext.fly(field.ValidationMessageId)[b ? 'addClass' : 'removeClass']("field-validation-valid");
-        window.Ext.fly(field.FieldName)[b ? 'removeClass' : 'addClass']("input-validation-error");
+        window.Ext.fly(fieldId)[b ? 'removeClass' : 'addClass']("input-validation-error");
     },
     updateValidationSummary: function (formOptions)
     {
@@ -218,7 +220,7 @@ Ext.DoubleGis.ValidatorRegistry = {
         {
             return function (value, context)
             {
-                return value == '' || /^https?:\/\/([а-яёa-z0-9-]+\.)+[а-яёa-z0-9]{2,4}.*$/.test(value);
+                return value == '' || /^https?:\/\/([а-яёa-z0-9-_]+\.)+[а-яёa-z0-9]{2,4}.*$/.test(value);
 
             };
         },
