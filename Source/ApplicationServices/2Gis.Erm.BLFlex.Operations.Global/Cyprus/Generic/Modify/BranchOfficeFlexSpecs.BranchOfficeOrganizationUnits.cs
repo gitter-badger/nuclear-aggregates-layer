@@ -69,6 +69,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify
                                     entity.OperatesOnTheBasisInGenitive = dto.OperatesOnTheBasisInGenitive;
                                     entity.PaymentEssentialElements = dto.PaymentEssentialElements;
                                     entity.Email = dto.Email;
+                                    entity.ChiefNameInNominative = dto.ChiefNameInNominative;
+                                    entity.SyncCode1C = dto.SyncCode1C;
+                                    entity.PositionInNominative = dto.PositionInNominative;
                                     entity.Timestamp = dto.Timestamp;
                                 });
                     }
