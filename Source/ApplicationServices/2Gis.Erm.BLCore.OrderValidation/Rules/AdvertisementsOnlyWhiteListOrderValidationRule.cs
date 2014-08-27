@@ -32,39 +32,48 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 x.Number,
 
                 // проверка белого списка
-                WhiteListPosition = new[] { x }.Union(x.Firm.Orders.Where(y => y.Id != x.Id && !y.IsDeleted && y.IsActive)
-                                                           .Where(y => y.DestOrganizationUnitId == x.DestOrganizationUnitId)
-                                                           .Where(y => (y.WorkflowStepId == (int)OrderState.OnApproval ||
-                                                                      y.WorkflowStepId == (int)OrderState.Approved ||
-                                                                      y.WorkflowStepId == (int)OrderState.OnTermination) &&
-                                                                      y.BeginDistributionDate <= request.Period.Start &&
-                                                                      y.EndDistributionDateFact >= request.Period.End))
-                                    .SelectMany(y => y.OrderPositions).Where(y => y.IsActive && !y.IsDeleted).Select(y => new
-                {
-                    WhiteListPositions = new[] { y.PricePosition.Position }.Union(y.PricePosition.Position.ChildPositions.Where(z => z.IsActive && !z.IsDeleted).Select(z => z.ChildPosition))
-                                            .Distinct().Where(z => z.AdvertisementTemplateId != null && z.AdvertisementTemplate.IsAllowedToWhiteList).Select(z => new
-                    {
-                        WhiteListAdvertisements = y.OrderPositionAdvertisements
-                                                        .Where(p => p.AdvertisementId != null)
-                                                        .Select(p => p.Advertisement)
+                WhiteListPosition = 
+                    new[] { x }
+                    .Union(x.Firm.Orders.Where(y => y.Id != x.Id && !y.IsDeleted && y.IsActive)
+                                        .Where(y => y.DestOrganizationUnitId == x.DestOrganizationUnitId)
+                                        .Where(y => (y.WorkflowStepId == (int)OrderState.OnApproval ||
+                                                    y.WorkflowStepId == (int)OrderState.Approved ||
+                                                    y.WorkflowStepId == (int)OrderState.OnTermination) &&
+                                                    y.BeginDistributionDate <= request.Period.Start &&
+                                                    y.EndDistributionDateFact >= request.Period.End))
+                                        .SelectMany(y => y.OrderPositions)
+                                        .Where(y => y.IsActive && !y.IsDeleted)
+                                        .Select(y => new
+                                            {
+                                                WhiteListPositions = 
+                                                    new[] { y.PricePosition.Position }
+                                                        .Union(y.PricePosition.Position.ChildPositions.Where(z => z.IsActive && !z.IsDeleted).Select(z => z.ChildPosition))
                                                         .Distinct()
-                                                        .Where(p => p.AdvertisementTemplateId == z.AdvertisementTemplateId.Value && p.IsSelectedToWhiteList)
-                                                        .Select(p => new
-                                                            {
-                                                                p.Id,
-                                                                p.Name,
-                                                            })
-                    })
-                    .Select(z => new
-                    {
-                        WhiteListAdsCount = z.WhiteListAdvertisements.Count(),
-                        WhiteListAd = z.WhiteListAdvertisements.FirstOrDefault(),
-                    })
-                })
-                .Where(y => y.WhiteListPositions.Any())
-                .SelectMany(y => y.WhiteListPositions)
-                .OrderByDescending(z => z.WhiteListAdsCount)
-                .FirstOrDefault(),
+                                                        .Where(z => z.AdvertisementTemplateId != null && z.AdvertisementTemplate.IsAllowedToWhiteList)
+                                                        .Select(z => new
+                                                                {
+                                                                    WhiteListAdvertisements = y.OrderPositionAdvertisements
+                                                                                                    .Where(p => p.AdvertisementId != null)
+                                                                                                    .Select(p => p.Advertisement)
+                                                                                                    .Distinct()
+                                                                                                    .Where(p => p.AdvertisementTemplateId == z.AdvertisementTemplateId.Value && p.IsSelectedToWhiteList)
+                                                                                                    .Select(p => 
+                                                                                                        new 
+                                                                                                        {
+                                                                                                            p.Id,
+                                                                                                            p.Name,
+                                                                                                        })
+                                                                })
+                                                        .Select(z => new
+                                                        {
+                                                            WhiteListAdsCount = z.WhiteListAdvertisements.Count(),
+                                                            WhiteListAd = z.WhiteListAdvertisements.FirstOrDefault(),
+                                                        })
+                                            })
+                                        .Where(y => y.WhiteListPositions.Any())
+                                        .SelectMany(y => y.WhiteListPositions)
+                                        .OrderByDescending(z => z.WhiteListAdsCount)
+                                        .FirstOrDefault()
             }).ToArray();
 
             foreach (var orderInfo in orderInfos)

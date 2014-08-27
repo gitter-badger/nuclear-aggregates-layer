@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations
 {
     public interface IAdvertisementUploadElementFileAggregateService : IAggregateSpecificOperation<Advertisement, UploadIdentity>
     {
-        UploadFileResult UploadFile(AdvertisementElement advertisementElement, UploadFileParams<AdvertisementElement> uploadFileParams);
+        UploadFileResult UploadFile(AdvertisementElement advertisementElement,
+                                    UploadFileParams<AdvertisementElement> uploadFileParams);
     }
 }

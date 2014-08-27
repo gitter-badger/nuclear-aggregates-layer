@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value />
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value />
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value />
   </data>
@@ -849,9 +846,6 @@
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value />
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value />
-  </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value />
   </data>
@@ -1033,9 +1027,6 @@
     <value />
   </data>
   <data name="LocalMessageController_Billing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
     <value />
   </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
@@ -1720,9 +1711,6 @@
     <value />
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
     <value />
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
@@ -3477,9 +3465,6 @@
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value />
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value />
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value />
   </data>
@@ -4080,7 +4065,7 @@
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value />
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
     <value />
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
@@ -4339,9 +4324,6 @@
     <value />
   </data>
   <data name="WrongOrderType" xml:space="preserve">
-    <value />
-  </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
     <value />
   </data>
   <data name="FileRequired" xml:space="preserve">
@@ -4665,21 +4647,6 @@
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value />
   </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value />
-  </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value />
   </data>
@@ -4947,9 +4914,6 @@
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value />
   </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value />
-  </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value />
   </data>
@@ -5206,6 +5170,24 @@
     <value />
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value />
   </data>
 </root>

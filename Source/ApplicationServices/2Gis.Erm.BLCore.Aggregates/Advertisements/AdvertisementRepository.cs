@@ -2,19 +2,18 @@
 using System.Globalization;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -32,33 +31,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         private readonly IRepository<AdvertisementTemplate> _advertisementTemplateGenericRepository;
         private readonly IRepository<AdvertisementElementTemplate> _advertisementElementTemplateGenericRepository;
         private readonly IRepository<AdsTemplatesAdsElementTemplate> _adsTemplatesAdsElementTemplateGenericRepository;
-        private readonly IRepository<FileWithContent> _fileRepository;
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
         private readonly IFileContentFinder _fileContentFinder;
         private readonly ISecureFinder _secureFinder;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IIdentityProvider _identityProvider;
+        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IRepository<AdvertisementElementStatus> _advertisementElementStatusGenericRepository;
 
         public AdvertisementRepository(IRepository<Advertisement> advertisementGenericRepository,
                                        IRepository<AdvertisementElement> advertisementElementGenericRepository,
                                        IRepository<AdvertisementTemplate> advertisementTemplateGenericRepository,
                                        IRepository<AdvertisementElementTemplate> advertisementElementTemplateGenericRepository,
                                        IRepository<AdsTemplatesAdsElementTemplate> adsTemplatesAdsElementTemplateGenericRepository,
-                                       IRepository<FileWithContent> fileRepository,
                                        IUserContext userContext,
                                        IFinder finder,
                                        ISecureFinder secureFinder,
                                        IIdentityProvider identityProvider,
                                        IOperationScopeFactory scopeFactory,
-                                       IFileContentFinder fileContentFinder)
+                                       IFileContentFinder fileContentFinder,
+                                       ISecurityServiceFunctionalAccess functionalAccessService,
+                                       IRepository<AdvertisementElementStatus> advertisementElementStatusRepository)
         {
             _advertisementGenericRepository = advertisementGenericRepository;
             _advertisementElementGenericRepository = advertisementElementGenericRepository;
             _advertisementTemplateGenericRepository = advertisementTemplateGenericRepository;
             _advertisementElementTemplateGenericRepository = advertisementElementTemplateGenericRepository;
             _adsTemplatesAdsElementTemplateGenericRepository = adsTemplatesAdsElementTemplateGenericRepository;
-            _fileRepository = fileRepository;
             _userContext = userContext;
             _finder = finder;
             _secureFinder = secureFinder;
@@ -66,6 +66,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
             _fileContentFinder = fileContentFinder;
+            _functionalAccessService = functionalAccessService;
+            _advertisementElementStatusGenericRepository = advertisementElementStatusRepository;
         }
 
         public int Delete(Advertisement entity)
@@ -346,9 +348,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             var dummyAdvertisementElement = _finder.Find<AdvertisementElement>(
                 x => !x.IsDeleted && !x.Advertisement.IsDeleted && x.AdvertisementElementTemplateId == adsTemplatesAdsElementTemplate.AdsElementTemplateId && x.Advertisement.FirmId == null)
                                                    .FirstOrDefault();
+            var elementInfo =
+                _finder.Find(Specs.Find.ById<AdvertisementElementTemplate>(adsTemplatesAdsElementTemplate.AdsElementTemplateId))
+                       .Select(x => new
+                           {
+                               x.IsRequired,
+                               x.NeedsValidation,
+                               IsFasComment = x.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment,
+                           }).Single();
 
-            // TODO {all, 04.09.2013}: В процессе рефакторинга перевести на операцию c bulkcreateidentity + использовать отложенное сохранение
-            // done {i.maslennikov. 25.09.2013}: done
             using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, AdvertisementElement>())
             {
                 foreach (var advertisement in advertisements)
@@ -367,15 +375,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                         advertisementElement.FasCommentType = dummyAdvertisementElement.FasCommentType;
                         advertisementElement.BeginDate = dummyAdvertisementElement.BeginDate;
                         advertisementElement.EndDate = dummyAdvertisementElement.EndDate;
+                    } 
+                    else if (elementInfo.IsFasComment)
+                    {
+                        advertisementElement.FasCommentType = (int)FasComment.NewFasComment;
                     }
 
+                    var status = new AdvertisementElementStatus
+                        {
+                            Status = (int)(elementInfo.IsRequired && elementInfo.NeedsValidation && advertisement.FirmId != null
+                                               ? AdvertisementElementStatusValue.Draft
+                                               : AdvertisementElementStatusValue.Valid)
+                        };
+
                     _identityProvider.SetFor(advertisementElement);
+                    status.Id = advertisementElement.Id;
 
                     _advertisementElementGenericRepository.Add(advertisementElement);
                     operationScope.Added<AdvertisementElement>(advertisementElement.Id);
+
+                    _advertisementElementStatusGenericRepository.Add(status);
+                    operationScope.Added<AdvertisementElementStatus>(status.Id);
                 }
 
                 _advertisementElementGenericRepository.Save();
+                _advertisementElementStatusGenericRepository.Save();
                 operationScope.Complete();
             }
         }
@@ -423,56 +447,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                 _advertisementGenericRepository.Save();
 
                 scope.Complete();
-            }
-        }
-
-        public void AddAdvertisementsElementsFromAdvertisement(Advertisement advertisement)
-        {
-            // создаём дочерние элементы РМ по шаблону
-            var adsTemplatesAdsElementTemplateDtos =
-                _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisement.AdvertisementTemplateId))
-                       .SelectMany(x => x.AdsTemplatesAdsElementTemplates)
-                       .Where(x => !x.IsDeleted)
-                       .Select(x => new
-                           {
-                               AdsTemplatesAdsElementTemplate = x,
-                               IsFasComment = x.AdvertisementElementTemplate.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment,
-                               NeedsValidation = x.AdvertisementElementTemplate.NeedsValidation,
-                               IsRequired = x.AdvertisementElementTemplate.IsRequired,
-                           })
-                       .ToArray();
-
-            foreach (var adsTemplatesAdsElementTemplateDto in adsTemplatesAdsElementTemplateDtos)
-            {
-                var adsTemplatesAdsElementTemplate = adsTemplatesAdsElementTemplateDto.AdsTemplatesAdsElementTemplate;
-
-                var advertisementElement = new AdvertisementElement
-                    {
-                        AdvertisementId = advertisement.Id,
-                        AdvertisementElementTemplateId = adsTemplatesAdsElementTemplate.AdsElementTemplateId,
-                        OwnerCode = advertisement.OwnerCode,
-                        AdsTemplatesAdsElementTemplatesId = adsTemplatesAdsElementTemplate.Id,
-
-                        // необязательный для заполнения и при этом требующий валидацию элемент по умолчанию (пока его никто не редактировал) валиден
-                        Status = (int)(!adsTemplatesAdsElementTemplateDto.IsRequired && adsTemplatesAdsElementTemplateDto.NeedsValidation ? AdvertisementElementStatus.Valid : AdvertisementElementStatus.NotValidated),
-                    };
-
-                // TODO: косяк что значение по умолчанию это 6, из-за этого его теперь надо excplicitly проставлять, должен быть 0
-                if (adsTemplatesAdsElementTemplateDto.IsFasComment)
-                {
-                    advertisementElement.FasCommentType = (int)FasComment.NewFasComment;
-                }
-
-                _identityProvider.SetFor(advertisementElement);
-
-                // TODO {all, 04.09.2013}: В процессе рефакторинга перевести на операцию c bulkcreateidentity + использовать отложенное сохранение
-                using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, AdvertisementElement>())
-                {
-                    _advertisementElementGenericRepository.Add(advertisementElement);
-                    _advertisementElementGenericRepository.Save();
-                    operationScope.Added<AdvertisementElement>(advertisementElement.Id)
-                                  .Complete();
-                }
             }
         }
 
@@ -574,51 +548,56 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public AdvertisementBagItem[] GetAdvertisementBag(long advertisementId)
         {
+            var hasUserPrivilegeToVerifyAdvertisementElement =
+                _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification, _userContext.Identity.Code);
             var advertisementBag = _finder.Find<Advertisement>(x => x.Id == advertisementId)
-            .SelectMany(x => x.AdvertisementElements)
-            .Where(x => x.IsDeleted == x.Advertisement.IsDeleted)
-            .Select(x => new
-            {
-                Element = x,
-                Temaplte = x.AdvertisementElementTemplate,
-            })
-            .Select(x => new
-            {
-                x.Element,
-                x.Temaplte,
+                                          .SelectMany(x => x.AdvertisementElements)
+                                          .Where(x => x.IsDeleted == x.Advertisement.IsDeleted)
+                                          .Select(x => new
+                                              {
+                                                  Element = x,
+                                                  Template = x.AdvertisementElementTemplate,
+                                                  IsDummyAdvertisement = x.Advertisement.Id == x.Advertisement.AdvertisementTemplate.DummyAdvertisementId
+                                              })
+                                          .Select(x => new
+                                              {
+                                                  x.Element,
+                                                  x.Template,
+                                                  x.IsDummyAdvertisement,
 
-                        ValidText = (x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Text ||
-                                     x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment) &&
-                            !string.IsNullOrEmpty(x.Element.Text),
+                                                  ValidText = (x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Text ||
+                                                               x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment) &&
+                                                              !string.IsNullOrEmpty(x.Element.Text),
 
-                        ValidDate = x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Date &&
-                                    x.Element.BeginDate != null &&
-                                    x.Element.EndDate != null,
+                                                  ValidDate = x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Date &&
+                                                              x.Element.BeginDate != null &&
+                                                              x.Element.EndDate != null,
 
-                        ValidFile = (x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Image ||
-                                     x.Temaplte.RestrictionType == (int)AdvertisementElementRestrictionType.Article) &&
-                            x.Element.FileId != null,
-            })
-            .Select(x => new AdvertisementBagItem
-            {
-                Id = x.Element.Id,
-                Name = x.Temaplte.Name,
+                                                  ValidFile = (x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Image ||
+                                                               x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Article) &&
+                                                              x.Element.FileId != null,
+                                              })
+                                          .Select(x => new AdvertisementBagItem
+                                              {
+                                                  Id = x.Element.Id,
+                                                  Name = x.Template.Name,
 
-                Text = x.Element.Text,
-                FileId = x.Element.FileId,
-                FileName = x.Element.File.FileName,
-                BeginDate = x.Element.BeginDate,
-                EndDate = x.Element.EndDate,
+                                                  Text = x.Element.Text,
+                                                  FileId = x.Element.FileId,
+                                                  FileName = x.Element.File.FileName,
+                                                  BeginDate = x.Element.BeginDate,
+                                                  EndDate = x.Element.EndDate,
 
-                FormattedText = x.Temaplte.FormattedText,
-                RestrictionType = (AdvertisementElementRestrictionType)x.Temaplte.RestrictionType,
+                                                  FormattedText = x.Template.FormattedText,
+                                                  RestrictionType = (AdvertisementElementRestrictionType)x.Template.RestrictionType,
 
-                IsValid = !x.Temaplte.IsRequired || x.ValidText || x.ValidDate || x.ValidFile,
+                                                  IsValid = !x.Template.IsRequired || x.ValidText || x.ValidDate || x.ValidFile,
 
-                NeedsValidation = x.Temaplte.NeedsValidation,
-                Status = (AdvertisementElementStatus)x.Element.Status
-                    })
-                .ToArray();
+                                                  NeedsValidation = x.Template.NeedsValidation && !x.IsDummyAdvertisement,
+                                                  Status = (AdvertisementElementStatusValue)x.Element.AdvertisementElementStatus.Status,
+                                                  UserCanValidateAdvertisement = hasUserPrivilegeToVerifyAdvertisementElement
+                                              })
+                                          .ToArray();
 
             return advertisementBag;
         }

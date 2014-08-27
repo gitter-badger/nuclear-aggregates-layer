@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>La orden {0} no tiene ninguna posición especificada de la orden</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>El valor del campo "{0}" no es una dirección válida de correo electrónico</value>
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value>Borrar todas las facturas de la orden</value>
   </data>
@@ -849,9 +846,6 @@
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value>No hay ningún enlace con el objeto en esta posición.</value>
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Es necesario indicar un valor para el campo "{0}"</value>
-  </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value>Para la empresa no se ha especificado el código de réplica en CRM</value>
   </data>
@@ -1036,9 +1030,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Facturación</value>
-  </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>No se puede cancelar la publicación de la lista de precios no publicada</value>
   </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>¡Atención! Contacto de dirección de la empresa, y/o la dirección de la empresa y/o la empresa se han ocultado hasta validar</value>
@@ -1726,9 +1717,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
     <value>Registros seleccionados "{0}": {1}. ¿A quién se le debe designar?</value>
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>El campo {0} puede contener solo números</value>
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
     <value>Se incluirán Tipos de operaciones: {0}</value>
@@ -3486,9 +3474,6 @@ Operación realizada: {4}.</value>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>La orden es correcta, sin embargo, su verificación ha revelado las siguientes advertencias:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>La lista de precios ya está publicada</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>¡Todavía no se ha publicado lo acordado en la orden! ¡Para modificar las condiciones de venta es necesario devolver la orden al área de trabajo!</value>
   </data>
@@ -4090,8 +4075,8 @@ Operación realizada: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>No se puede eliminar la plantilla que ya se usa en los temas</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>No se puede eliminar una sucursal del tema que ya se usa en las órdenes</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>No se puede borrar el departamento de la organización que es la ciudad de destino en la ciudad {0} con esta temática</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>No se puede editar la lista de sucursales en el tema establecido por defecto</value>
@@ -4351,9 +4336,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="WrongOrderType" xml:space="preserve">
     <value>Tipo de la orden incorrecto</value>
-  </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>el valor no adecuado para el campo {0}</value>
   </data>
   <data name="FileRequired" xml:space="preserve">
     <value>Es necesario seleccionar un archivo</value>
@@ -4676,21 +4658,6 @@ Operación realizada: {4}.</value>
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>No se puede agregar ni eliminar elementos de la plantilla publicada</value>
   </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>¿Desea realmente publicar la plantilla de material publicitario?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Publicar la plantilla de material publicitario</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>¿Desea realmente deshacer la publicación de la plantilla de material publicitario?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Deshacer la publicación de la plantilla de material publicitario</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>No se puede deshacer la publicación de la plantilla no publicada </value>
-  </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>El elemento de directorio no contiene nombre ni en el idioma principal, ni en el idioma de reserva</value>
   </data>
@@ -4869,7 +4836,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: "{0}"</value>
   </data>
-  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -4958,9 +4925,6 @@ Contacto: {1}</value>
   </data>
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value>Se necesita un privilegio especial para modificar la propiedad de si un cliente es una agencia de publicidad</value>
-  </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
   </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>La línea contiene los caracteres de control</value>
@@ -5142,7 +5106,7 @@ Periodo de la publicación: {3}.</value>
     <value>Cerrar por ser rechazado</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>No es posible crear la posición de la orden con el método de cálculo del coeficiente [{0}] en la ciudad de destino seleccionada y en la categoría [{1}]</value>
+    <value>El nuevo modelo de ventas por ahora no se aplica para la ciudad de "{0}" y/o para la categoría de "{1}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Para todas las subposiciones de la posición de la orden formalizada para la posición de la lista de precios con el cálculo del coeficiente [{0}], debe indicarse una categoría</value>
@@ -5223,6 +5187,24 @@ Periodo de la publicación: {3}.</value>
     <value>No hay permisos para crear el acuerdo de agente</value>
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
-    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
+    <value>Fecha de la finalización de vigencia del acuerdo no puede ser anterior a la fecha de su firma</value>
+  </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>No tiene permisos para cambiar elemento del material publicitario al estado {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Intento de edición de elemento del material publicitario con el identificador {0} que no está en estado de "Borrador"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>En material publicitario "{0}", que está sujeto a varificación, elemento "{1}" está en estado de "Borrador"</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Para rechazar elemento del material publicitario se necesita indicar el motivo</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>No se puede cambiar estado de elemento del material publicitario que no requiere verificación</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>No se puede indicar el motivo de rechazo no activo</value>
   </data>
 </root>

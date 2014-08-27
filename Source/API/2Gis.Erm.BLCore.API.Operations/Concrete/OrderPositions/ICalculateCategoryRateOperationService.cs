@@ -5,7 +5,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions
 {
     public interface ICalculateCategoryRateOperationService : IOperation<CalculateCategoryRateIdentity>
     {
-        decimal CalculateCategoryRate(long firmId, long pricePositionId, long? categoryId, bool strictMode);
-        decimal CalculateCategoryRate(long firmId, long pricePositionId, bool strictMode);
+        decimal GetCategoryRateForOrderCalculated(long orderId, long pricePositionId, long[] categoryIds);
+        decimal GetCategoryRateForFirmCalculated(long? firmId, long pricePositionId, long[] categoryIds);
+        decimal GetCategoryRateForOrderCalculatedOrDefault(long orderId, long pricePositionId, long[] categoryIds);
     }
 }

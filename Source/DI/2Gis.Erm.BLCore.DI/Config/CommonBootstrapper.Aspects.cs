@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -74,7 +75,8 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IConcurrentPeriodCounter, ConcurrentPeriodCounter>()
                         .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
-
+                        .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
+                        
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
                         .RegisterType<IDomainContextHost>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
@@ -225,6 +227,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
                                     return new EmployeeEmailResolver(strategies);
                                 })); 
+        }
+
+        public static IUnityContainer ConfigureLocalization(this IUnityContainer container, params Type[] resourceTypes)
+        {
+            return container.RegisterType<IResourceGroupManager, ResourceGroupManager>(Lifetime.Singleton,
+                                                                                       new InjectionConstructor((object)resourceTypes));
         }
     }
 }

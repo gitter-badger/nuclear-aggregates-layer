@@ -87,13 +87,19 @@
     <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
     <Compile Include="Activities\ReadModel\IActivityReadModel.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementBagItem.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementElementCreationDto.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementElementModifyDto.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementElementValidationState.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementMailNotificationDto.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementTemplateIdNameDto.cs" />
+    <Compile Include="Advertisements\EditingNotDraftAdvertisementElementException.cs" />
     <Compile Include="Advertisements\IAdvertisementRepository.cs" />
     <Compile Include="Advertisements\Operations\IAdvertisementUpdateElementAggregateService.cs" />
     <Compile Include="Advertisements\Operations\IAdvertisementUploadElementFileAggregateService.cs" />
-    <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.cs" />
+    <Compile Include="Advertisements\Operations\IBulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
+    <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElementDenialReason.cs" />
+    <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElementStatus.cs" />
+    <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElement.cs" />
     <Compile Include="Advertisements\ReadModel\IAdvertisementReadModel.cs" />
     <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationShortInformationDto.cs" />
     <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationUnitNamesDto.cs" />
@@ -147,12 +153,10 @@
     <Compile Include="Common\Specs\Simplified\PrintFormTemplateSpecifications.cs" />
     <Compile Include="Deals\DTO\ClientAndFirmForDealInfo.cs" />
     <Compile Include="Deals\DTO\DealActualizeDuringWithdrawalDto.cs" />
-    <Compile Include="Deals\DTO\DealActualizeProfitDto.cs" />
     <Compile Include="Deals\DTO\DealChangeStageDto.cs" />
     <Compile Include="Deals\DTO\DealLegalPersonDto.cs" />
     <Compile Include="Deals\DTO\DealWithNonRejectedOrderInfos.cs" />
     <Compile Include="Deals\IDealRepository.cs" />
-    <Compile Include="Deals\Operations\IDealActualizeDealProfitIndicatorsAggregateService.cs" />
     <Compile Include="Deals\Operations\IDealChangeStageAggregateService.cs" />
     <Compile Include="Deals\Operations\IDealCreateAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\Operations\IDeleteAfterSaleServiceAggregateService.cs" />
@@ -197,6 +201,7 @@
     <Compile Include="Orders\DTO\ForRelease\OrderPositionInfo.cs" />
     <Compile Include="Orders\DTO\OrderDTOs.cs" />
     <Compile Include="Orders\DTO\OrderSuitableBargainDto.cs" />
+    <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberStates.cs" />
     <Compile Include="Orders\DTO\OrderPositionChargeInfo.cs" />
@@ -220,6 +225,7 @@
     <Compile Include="Orders\ReadModel\IGetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
@@ -228,6 +234,7 @@
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
     <Compile Include="Prices\Dto\CategoryWithPositionsDto.cs" />
     <Compile Include="Prices\Dto\PriceDto.cs" />
+    <Compile Include="Prices\Dto\PricePositionDetailedInfo.cs" />
     <Compile Include="Prices\Dto\PricePositionDto.cs" />
     <Compile Include="Prices\Dto\PriceValidationDto.cs" />
     <Compile Include="Prices\IPositionRepository.cs" />
@@ -334,7 +341,9 @@
       <Name>2Gis.Erm.BLCore.API.Releasing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Positions\DTO\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

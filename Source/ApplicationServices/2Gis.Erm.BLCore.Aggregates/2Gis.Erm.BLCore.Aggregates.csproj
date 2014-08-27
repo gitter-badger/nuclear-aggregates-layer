@@ -82,6 +82,10 @@
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
     <Compile Include="Activities\ActivityAggregateService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
+    <Compile Include="Advertisements\Operations\CreateAdvertisementElementDenialReasonAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />
@@ -106,7 +110,6 @@
     <Compile Include="Common\Crosscutting\AssignedEntityProvider.cs" />
     <Compile Include="Common\Crosscutting\ConcurrentPeriodCounter.cs" />
     <Compile Include="Deals\DealRepository.cs" />
-    <Compile Include="Deals\Operations\DealActualizeDealProfitIndicatorsAggregateService.cs" />
     <Compile Include="Deals\Operations\DealChangeStageAggregateService.cs" />
     <Compile Include="Deals\Operations\DealCreateAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\Operations\DeleteAfterSaleServiceAggregateService.cs" />
@@ -179,6 +182,7 @@
     <Compile Include="Prices\PositionRepository.cs" />
     <Compile Include="Prices\PositionSpecifications.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
+    <Compile Include="Positions\ReadModel\PositionReadModel.NewSalesModel.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="Common\Generics\ActivateAggregateRepository.cs" />
     <Compile Include="Common\Generics\AssignAggregateRepository.cs" />

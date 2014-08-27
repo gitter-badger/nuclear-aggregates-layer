@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -22,9 +23,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public ErrorController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
                                ICommonLog logger,
-                               IAPIOperationsServiceSettings operationsServiceSettings, 
+                               IAPIOperationsServiceSettings operationsServiceSettings,
+                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
         }
 

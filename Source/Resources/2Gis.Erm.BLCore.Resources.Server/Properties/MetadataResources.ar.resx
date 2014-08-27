@@ -280,7 +280,7 @@
     <value>ISO currency code</value>
   </data>
   <data name="WithDocDebtOrder" xml:space="preserve">
-    <value>As per Invoice</value>
+    <value>As per Quotation</value>
   </data>
   <data name="StableId" xml:space="preserve">
     <value>Stable identifier</value>
@@ -406,7 +406,7 @@
     <value>Report date</value>
   </data>
   <data name="BillDate" xml:space="preserve">
-    <value>Payment date (as of)</value>
+    <value>Date (as of)</value>
   </data>
   <data name="OrderNumber" xml:space="preserve">
     <value>Order No.</value>
@@ -418,7 +418,7 @@
     <value>Assessment of prospects</value>
   </data>
   <data name="LegalPersonId" xml:space="preserve">
-    <value>Code of client&apos;s legal entity</value>
+    <value>Code of client's legal entity</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
     <value>Required</value>
@@ -856,7 +856,7 @@
     <value>Order classification</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Profile of client&apos;s legal entity</value>
+    <value>Profile of client's legal entity</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Short name</value>
@@ -943,7 +943,7 @@
     <value>As per payment</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Payment No.</value>
+    <value>No.</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
@@ -1308,9 +1308,6 @@
   <data name="IsAdvertisingAgency" xml:space="preserve">
     <value>Is an advertising agency</value>
   </data>
-  <data name="AdvertisementElementErrorDescription" xml:space="preserve">
-    <value>Error</value>
-  </data>
   <data name="RepresentativeName" xml:space="preserve">
     <value>Representative</value>
   </data>
@@ -1336,7 +1333,7 @@
     <value>Bank name</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-    <value>Representative&apos;s RUT</value>
+    <value>Representative's RUT</value>
   </data>
   <data name="Rut" xml:space="preserve">
     <value>RUT</value>
@@ -1396,12 +1393,18 @@
     <value>Hidden reasons for rejecting the AM</value>
   </data>
   <data name="BargainKind" xml:space="preserve">
-    <value>Type of contract</value>
+    <value>Contract form</value>
   </data>
   <data name="IsNewSalesModel" xml:space="preserve">
     <value>New sales model</value>
   </data>
   <data name="BargainTypeVAT" xml:space="preserve">
-    <value>VAT</value>
+    <value>НДС</value>
+  </data>
+  <data name="ControlSaveAndVerify" xml:space="preserve">
+    <value>Save and publish</value>
+  </data>
+  <data name="ControlResetToDraft" xml:space="preserve">
+    <value>Edit</value>
   </data>
 </root>

@@ -1,31 +1,48 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Countries;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Countries
 {
     public sealed class CountryService : ICountryService
     {
-        private readonly IRepository<Country> _genericRepository;
+        private readonly IRepository<Country> _countryGenericRepository;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public CountryService(IRepository<Country> repository)
+        public CountryService(IRepository<Country> countryGenericRepository, IOperationScopeFactory scopeFactory)
         {
-            _genericRepository = repository;
+            _countryGenericRepository = countryGenericRepository;
+            _scopeFactory = scopeFactory;
         }
 
-        public void CreateOrUpdate(Country entity)
+        public void CreateOrUpdate(Country country)
         {
-            if (entity.IsNew())
+            if (country.IsNew())
             {
-                _genericRepository.Add(entity);
+                using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Country>())
+                {
+                    _countryGenericRepository.Add(country);
+                    scope.Added<Country>(country.Id);
+                    _countryGenericRepository.Save();
+
+                    scope.Complete();
+                }
+                
             }
             else
             {
-                _genericRepository.Update(entity);
-            }
+                using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Country>())
+                {
+                    _countryGenericRepository.Update(country);
+                    scope.Updated<Country>(country.Id);
+                    _countryGenericRepository.Save();
 
-            _genericRepository.Save();
+                    scope.Complete();
+                }
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
@@ -13,11 +15,14 @@ using Quartz;
 
 namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 {
+    [DisallowConcurrentExecution]
     public class PerformedOperationsFinalProcessingJob : TaskServiceJobBase
     {
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IMessageFlowRegistry _messageFlowRegistry;
         private readonly IMessageFlowProcessorFactory _messageFlowProcessorFactory;
+
+        private IEnumerable<MessageProcessingStage> _ignoreErrorsOnStageSetting;
 
         public PerformedOperationsFinalProcessingJob(
             IIntegrationSettings integrationSettings,
@@ -35,7 +40,49 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 
         public int BatchSize { get; set; }
         public string Flows { get; set; }
-        public bool RecoveryMode { get; set; }
+        public int? ReprocessingBatchSize { get; set; }
+        public string IgnoreErrorsOnStages { get; set; }
+
+        private IEnumerable<MessageProcessingStage> IgnoreErrorsOnStageSetting
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(IgnoreErrorsOnStages))
+                {
+                    return Enumerable.Empty<MessageProcessingStage>();
+                }
+
+                if (_ignoreErrorsOnStageSetting != null)
+                {
+                    return _ignoreErrorsOnStageSetting;
+                }
+               
+                var ignoreErrorsOnStage = new List<MessageProcessingStage>();
+                foreach (var rawStage in IgnoreErrorsOnStages.Split(';'))
+                {
+                    MessageProcessingStage stage;
+                    if (Enum.TryParse(rawStage, true, out stage))
+                    {
+                        ignoreErrorsOnStage.Add(stage);
+                    }
+                    else
+                    {
+                        var msg = string.Format("IgnoreErrorsOnStages setting for job with type {0} has invalid value: \"{1}\", value segment: {2}. " +
+                                                "Please check settings",
+                                                typeof(PerformedOperationsFinalProcessingJob),
+                                                IgnoreErrorsOnStages,
+                                                rawStage);
+                        Logger.ErrorEx(msg);
+
+                        throw new InvalidOperationException(msg);
+                    }
+                }
+
+                _ignoreErrorsOnStageSetting = ignoreErrorsOnStage;
+
+                return _ignoreErrorsOnStageSetting;
+            }
+        }
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
@@ -58,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
             IMessageFlow messageFlow;
             if (!_messageFlowRegistry.TryResolve(flowDescriptor, out messageFlow))
             {
-                string msg = "Unsupported flow specified for processing: " + flowDescriptor;
+                var msg = "Unsupported flow specified for processing: " + flowDescriptor;
                 Logger.FatalEx(msg);
                 throw new InvalidOperationException(msg);
             }
@@ -75,8 +122,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
                    {
                        MessageBatchSize = BatchSize,
                        AppropriatedStages = new[] { MessageProcessingStage.Transforming, MessageProcessingStage.Processing, MessageProcessingStage.Handle },
-                       IgnoreErrorsOnStage = new MessageProcessingStage[0],
-                       IsRecoveryMode = RecoveryMode
+                       IgnoreErrorsOnStage = IgnoreErrorsOnStageSetting,
+                       ReprocessingBatchSize = ReprocessingBatchSize.HasValue ? ReprocessingBatchSize.Value : BatchSize
                    });
             }
             catch (Exception ex)

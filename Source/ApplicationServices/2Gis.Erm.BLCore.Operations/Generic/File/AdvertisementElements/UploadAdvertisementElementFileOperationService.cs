@@ -1,5 +1,6 @@
 ﻿using System.IO;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
@@ -11,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -51,24 +53,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
         {
             if (uploadFileParams.EntityId == 0)
             {
-                // TODO {i.maslennikov, 04.03.2014}: Не в контексте задачи ERM-3410. Предлагаю выбрасывать очень конкретные бизнес-значимые исключения, а их логику их объединения и отображения (локализации) реализовать в слое представления
+                // TODO {all, 04.03.2014}: Выбрасывать очень конкретные бизнес-значимые исключения, а их логику их объединения и отображения (локализации) реализовать в слое представления
                 throw new BusinessLogicException(BLResources.CantUploadFileForNewAdvertisementElement);
             }
 
             using (var scope = _scopeFactory.CreateSpecificFor<UploadIdentity, AdvertisementElement>())
             {
+                var validationState = _advertisementReadModel.GetAdvertisementElementValidationState(uploadFileParams.EntityId);
+                if (validationState.NeedsValidation &&
+                    (AdvertisementElementStatusValue)validationState.CurrentStatus.Status != AdvertisementElementStatusValue.Draft &&
+                    !_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification, _userContext.Identity.Code))
+                {
+                    throw new EditingNotDraftAdvertisementElementException(string.Format(BLResources.NonDraftAdvertisementElementEditing,
+                                                                                         uploadFileParams.EntityId));
+                }
+
                 var advertisementInfo = _advertisementReadModel.GetAdvertisementInfoForElement(uploadFileParams.EntityId);
                 if (advertisementInfo.IsDummy)
                 {
                     if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.EditDummyAdvertisement, _userContext.Identity.Code))
                     {
-                        // TODO {i.maslennikov, 04.03.2014}: Не в контексте задачи ERM-3410. Предлагаю выбрасывать очень конкретные бизнес-значимые исключения, а их логику их объединения и отображения (локализации) реализовать в слое представления
+                        // TODO {all, 04.03.2014}: Выбрасывать очень конкретные бизнес-значимые исключения, а их логику их объединения и отображения (локализации) реализовать в слое представления
                         throw new BusinessLogicException(BLResources.YouHaveNoPrivelegeToEditDummyAdvertisement);
                     }
 
                     if (advertisementInfo.IsPublished)
                     {
-                        // TODO {i.maslennikov, 04.03.2014}: Не в контексте задачи ERM-3410. Предлагаю выбрасывать очень конкретные бизнес-значимые исключения, а их логику их объединения и отображения (локализации) реализовать в слое представления
+                        // TODO {all, 04.03.2014}: Выбрасывать очень конкретные бизнес-значимые исключения, а их логику их объединения и отображения (локализации) реализовать в слое представления
                         throw new BusinessLogicException(BLResources.CantEditDummyAdvertisementWithPublishedTemplate);
                     }
                 }
@@ -76,13 +87,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements
                 uploadFileParams.FileName = Path.GetFileName(uploadFileParams.FileName);
                 _uploadingAdvertisementElementValidator.Validate(advertisementInfo.ElementTemplate, uploadFileParams.FileName, uploadFileParams.Content);
 
-                var result = _uploadElementFileAggregateService.UploadFile(advertisementInfo.Element, new UploadFileParams<AdvertisementElement>(uploadFileParams));
+                var result = _uploadElementFileAggregateService.UploadFile(advertisementInfo.Element,
+                                                                           new UploadFileParams<AdvertisementElement>(uploadFileParams));
                 if (!advertisementInfo.IsDummy)
                 {
                     _notifyAboutAdvertisementElementFileChangedOperationService.Notify(uploadFileParams.EntityId);
                 }
                 else
-                {   // Отредактирована заглушка РМ. Уведомление не отправляем
+                {
+                    // Отредактирована заглушка РМ. Уведомление не отправляем
                     _logger.InfoEx("Отредактирована заглушка РМ. Уведомление не отправляем");
                 }
 
