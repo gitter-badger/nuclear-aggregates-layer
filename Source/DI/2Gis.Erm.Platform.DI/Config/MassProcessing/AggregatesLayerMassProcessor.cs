@@ -166,12 +166,12 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                                 Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
                                                 Lifetime.PerResolve);
                     }
-
-                    _container.RegisterTypeWithDependencies(aggregateRepositoryType,
+                }
+                
+                _container.RegisterTypeWithDependencies(aggregateRepositoryType,
                                                             Mapping.ExplicitlyCreatedAggregateRepositoriesScope,
                                                             Lifetime.PerResolve,
                                                             null);
-                }
             }
         }
 

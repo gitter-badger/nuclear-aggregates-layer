@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors.Topologies
 {
     public interface IMessageProcessingTopology
     {
-        Task<TopologyProcessingResults> ProcessAsync(IMessage[] messages);
+        Task<TopologyProcessingResults> ProcessAsync(IReadOnlyList<IMessage> messages);
     }
 }

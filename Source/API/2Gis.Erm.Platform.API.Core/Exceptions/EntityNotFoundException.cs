@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
-
-namespace DoubleGis.Erm.Core.Exceptions
+namespace DoubleGis.Erm.Platform.API.Core.Exceptions
 {
-    // TODO {d.ivanov, 29.11.2013}: можно положить в 2Gis.Erm.Platform.API.Core\Exceptions\EntityNotFoundException.cs, рядом с BusinessLogicException
     [Serializable]
     public class EntityNotFoundException : BusinessLogicException
     {

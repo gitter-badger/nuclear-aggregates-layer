@@ -11,12 +11,11 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
     public interface IPerformedOperationsProcessingReadModel : ISimplifiedModelConsumerReadModel
     {
         IReadOnlyDictionary<Guid, DateTime> GetOperationPrimaryProcessedDateMap(IMessageFlow[] messageFlows);
-        IEnumerable<IEnumerable<PerformedBusinessOperation>> GetOperationsForPrimaryProcessing(
+        IReadOnlyList<IEnumerable<PerformedBusinessOperation>> GetOperationsForPrimaryProcessing(
             IMessageFlow sourceMessageFlow,
             DateTime ignoreOperationsPrecedingDate,
             int maxUseCaseCount);
 
-        IEnumerable<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessingsInitial(IMessageFlow sourceMessageFlow, int batchSize);
-        IEnumerable<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessingsFailed(IMessageFlow sourceMessageFlow, int batchSize);
+        IReadOnlyList<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessings(IMessageFlow sourceMessageFlow, int batchSize, int reprocessingBatchSize);
     }
 }

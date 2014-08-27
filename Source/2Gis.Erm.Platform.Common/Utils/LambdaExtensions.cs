@@ -42,6 +42,27 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             }
         }
 
+        public static void SetStaticPropertyValue<TProperty>(this Type type, string propertyName, TProperty value)
+        {
+            var targetPropertyInfo = type.GetProperty(propertyName, typeof(TProperty));
+            if (targetPropertyInfo != null)
+            {
+                var action = CreateStaticPropertySetter<TProperty>(targetPropertyInfo);
+                action(value);
+            }
+        }
+
+        public static Action<TProperty> CreateStaticPropertySetter<TProperty>(this Type type, string propertyName)
+        {
+            var targetPropertyInfo = type.GetProperty(propertyName, typeof(TProperty));
+            if (targetPropertyInfo == null)
+            {
+                throw new ArgumentException(string.Format("Cant't find target property with Name = {0} and Type = {1}", propertyName, typeof(TProperty)));
+            }
+
+            return CreateStaticPropertySetter<TProperty>(targetPropertyInfo);
+        }
+
         public static TProperty GetPropertyValue<TTarget, TContainer, TProperty>(this TTarget target, Expression<Func<TContainer, TProperty>> getter)
         {
             var memberExpression = getter.Body as MemberExpression;
@@ -100,6 +121,15 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             var body = Expression.Assign(Expression.Property(Expression.Convert(target, targetRuntimeType), propertyInfo), value);
 
             var lambda = Expression.Lambda<Action<TTarget, TProperty>>(body, target, value);
+            return lambda.Compile();
+        }
+
+        private static Action<TProperty> CreateStaticPropertySetter<TProperty>(PropertyInfo propertyInfo)
+        {
+            var value = Expression.Parameter(typeof(TProperty), "value");
+            var body = Expression.Assign(Expression.Property(null, propertyInfo), value);
+
+            var lambda = Expression.Lambda<Action<TProperty>>(body, value);
             return lambda.Compile();
         }
 

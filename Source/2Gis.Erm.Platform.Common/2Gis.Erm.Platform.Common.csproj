@@ -53,7 +53,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.2.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -123,6 +123,7 @@
     <Compile Include="Utils\DataTableExtensions.cs" />
     <Compile Include="Utils\Data\EnumerableExtensions.cs" />
     <Compile Include="Utils\Data\ExpressionUtils.cs" />
+    <Compile Include="Utils\Data\ReadOnlyCollectionsUtils.cs" />
     <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\EnumExtensions.cs" />
     <Compile Include="Ftp\FtpService.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Compression\StreamExtensions.cs" />
     <Compile Include="Utils\LambdaExtensions.cs" />
     <Compile Include="Utils\PropertyChangeDescriptor.cs" />
+    <Compile Include="Utils\Resources\IResourceGroupManager.cs" />
     <Compile Include="Utils\Resources\ResourceGroupManager.cs" />
     <Compile Include="Utils\Resources\ResourceEntriesRegistry.cs" />
     <Compile Include="Utils\Resources\ResourceEntryKey.cs" />
@@ -168,20 +170,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
-      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
-      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLFlex\Source\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
-      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
-      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
-      <Project>{92094490-5350-427a-8a9d-80123d41e30a}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
-      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
       <Name>2Gis.Erm.Platform.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
@@ -195,7 +185,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

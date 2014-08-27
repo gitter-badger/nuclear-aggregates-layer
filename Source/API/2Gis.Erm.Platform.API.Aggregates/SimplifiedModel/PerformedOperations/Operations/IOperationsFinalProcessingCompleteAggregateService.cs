@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
 {
     public interface IOperationsFinalProcessingCompleteAggregateService : ISimplifiedModelConsumer
     {
-        void CompleteProcessing(IEnumerable<PerformedOperationFinalProcessing> completedProcessing);
+        void CompleteProcessing(IReadOnlyList<PerformedOperationFinalProcessing> completedProcessing);
     }
 }

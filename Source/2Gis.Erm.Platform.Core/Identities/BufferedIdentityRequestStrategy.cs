@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ServiceModel;
+using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Metadata;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
@@ -14,23 +16,40 @@ namespace DoubleGis.Erm.Platform.Core.Identities
         private const int MaxRequestedCount = 32767;
 
         private readonly IClientProxyFactory _clientProxyFactory;
+        private readonly ICommonLog _logger;
 
-        private readonly Queue<long> _idBuffer = new Queue<long>();
+        private readonly ConcurrentQueue<long> _idBuffer = new ConcurrentQueue<long>();
         private int _nextRequestedCount = 1;
-        public BufferedIdentityRequestStrategy(IClientProxyFactory clientProxyFactory)
+        private int _threadsCount;
+
+        public BufferedIdentityRequestStrategy(IClientProxyFactory clientProxyFactory, ICommonLog logger)
         {
             _clientProxyFactory = clientProxyFactory;
+            _logger = logger;
         }
 
         public long[] Request(int count)
         {
+            Interlocked.Increment(ref _threadsCount);
+
             EnsureCount(count);
 
             var ids = new long[count];
-            for (int i = 0; i < ids.Length; i++)
+
+            var i = 0;
+            while (i < ids.Length)
             {
-                ids[i] = _idBuffer.Dequeue();
+                long id;
+                if (!_idBuffer.TryDequeue(out id))
+                {
+                    EnsureCount(ids.Length - i);
+                    continue;
+                }
+
+                ids[i++] = id;
             }
+
+            Interlocked.Decrement(ref _threadsCount);
 
             return ids;
         }
@@ -48,7 +67,18 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
             var num = Math.Max(_nextRequestedCount, missingCount);
 
-            var ids = _clientProxyFactory.GetClientProxy<IIdentityProviderApplicationService, WSHttpBinding>().Execute(x => x.GetIdentities(num));
+            _logger.InfoFormatEx("Requesting {0} identifiers from identity service. Number of concurrently executing threads is {1}.", num, _threadsCount);
+
+            long[] ids;
+            try
+            {
+                ids = _clientProxyFactory.GetClientProxy<IIdentityProviderApplicationService, WSHttpBinding>().Execute(x => x.GetIdentities(num));
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorFormatEx("An error occurred while requesting identifiers", ex);
+                throw;
+            }
 
             foreach (var id in ids)
             {

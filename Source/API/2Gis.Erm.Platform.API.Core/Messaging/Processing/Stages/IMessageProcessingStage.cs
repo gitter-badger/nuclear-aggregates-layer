@@ -9,9 +9,9 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
     {
         MessageProcessingStage Stage { get; }
 
-        BatchStageResult Process(
+        bool TryProcess(
             IMessageFlow messageFlow,
-            MessageBatchProcessingContext batchProcessingContext,
-            IEnumerable<Guid> targetMessageIds);
+            IEnumerable<MessageProcessingContext> targetMessageProcessingContexts,
+            out IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> stageResults);
     }
 }

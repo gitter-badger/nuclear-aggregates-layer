@@ -160,6 +160,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             using (var connection = new SqlConnection(_connectionString))
             using (var sqlCommand = new SqlCommand(queryString, connection))
             {
+                connection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
         }

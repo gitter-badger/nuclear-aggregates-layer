@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
             return context.Input.Select(i => ActorFactory.Create(context.MessageFlow, i.Value));
         }
 
-        protected override IReadOnlyDictionary<Guid, MessageProcessingStageResult> ExecuteActor(
+        protected override IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> ExecuteActor(
             IMessageTransformer actor, 
             MessageProcessingStageActorContext<IReadOnlyDictionary<Guid, IMessage>> context)
         {
