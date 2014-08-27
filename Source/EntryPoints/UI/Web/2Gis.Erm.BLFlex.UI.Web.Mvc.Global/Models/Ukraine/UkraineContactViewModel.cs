@@ -65,10 +65,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
         [DisplayNameLocalized("ContactDepartmentName")]
         public string Department { get; set; }
 
-        [StringLengthLocalized(512)] 
+        [StringLengthLocalized(450)] 
         public string WorkAddress { get; set; }
 
-        [StringLengthLocalized(512)] 
+        [StringLengthLocalized(450)] 
         public string HomeAddress { get; set; }
 
         [StringLengthLocalized(512)]

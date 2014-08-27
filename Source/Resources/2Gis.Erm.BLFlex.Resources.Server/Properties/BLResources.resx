@@ -246,6 +246,9 @@
   <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
     <value />
   </data>
+  <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
+    <value />
+  </data>
   <data name="UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
     <value />
   </data>
@@ -382,6 +385,9 @@
     <value />
   </data>
   <data name="NoOrdersFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VerificationTitle" xml:space="preserve">
     <value />
   </data>
 </root>

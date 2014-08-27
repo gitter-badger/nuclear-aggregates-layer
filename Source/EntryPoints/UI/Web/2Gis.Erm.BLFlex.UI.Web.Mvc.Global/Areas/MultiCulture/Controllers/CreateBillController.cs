@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -19,12 +20,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         private readonly IPublicService _publicService;
 
         public CreateBillController(IMsCrmSettings msCrmSettings,
-                              IUserContext userContext,
-                              ICommonLog logger,
-                              IAPIOperationsServiceSettings operationsServiceSettings,
-                              IGetBaseCurrencyService getBaseCurrencyService,
-                              IPublicService publicService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+                                    IUserContext userContext,
+                                    ICommonLog logger,
+                                    IAPIOperationsServiceSettings operationsServiceSettings,
+                                    IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                    IGetBaseCurrencyService getBaseCurrencyService,
+                                    IPublicService publicService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _publicService = publicService;
         }

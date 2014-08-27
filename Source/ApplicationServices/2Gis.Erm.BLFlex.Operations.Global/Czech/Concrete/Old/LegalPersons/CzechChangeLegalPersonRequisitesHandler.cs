@@ -1,5 +1,3 @@
-using System.Linq;
-
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;

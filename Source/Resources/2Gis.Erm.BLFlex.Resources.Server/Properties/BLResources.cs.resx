@@ -387,4 +387,10 @@
   <data name="NoOrdersFound" xml:space="preserve">
     <value>Dle zadaných parametrů nebylo nic nalezeno</value>
   </data>
+  <data name="VerificationTitle" xml:space="preserve">
+    <value>Ověření prvku reklamního materiálu</value>
+  </data>
+  <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
 </root>

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
-using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -29,42 +29,41 @@ using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderV
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 {
-    // FIXME {all, 13.11.2013}: приехало из 1.0 - больше похоже на почти полную копипасту EditOrderPositionHandler (нет сделок и т.п.) - необходимо проверить на соблюдение целостности BusinessModel
+    // FIXME {all, 10.07.2014}: почти полная copy/paste других adapted версий этого handler, при рефакторинге ApplicationServices - попытаться объеденить обратно + использование finder и т.п.
 
     public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
-        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly IFinder _finder;
-        private readonly IFirmReadModel _firmReadModel;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly IOrderRepository _orderRepository;
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
-        private readonly IPriceReadModel _priceReadModel;
+        private readonly IPositionReadModel _positionReadModel;
+        private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
+
         private readonly IPublicService _publicService;
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
+
+        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ISupportedCategoriesChecker _supportedCategoriesChecker;
 
         public MultiCultureEditOrderPositionHandler(IFinder finder,
-                                             IPublicService publicService,
                                              IOrderReadModel orderReadModel,
+                                                    IPositionReadModel positionReadModel,
+                                                    IOrganizationUnitReadModel organizationUnitReadModel,
+                                                    IPublicService publicService,
                                              IOrderRepository orderRepository,
-                                             IOrderValidationInvalidator orderValidationInvalidator,
-                                             IOperationScopeFactory scopeFactory,
-                                             IPriceReadModel priceReadModel,
-                                             ISupportedCategoriesChecker supportedCategoriesChecker,
                                              ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
-                                             IFirmReadModel firmReadModel)
+                                                    IOrderValidationInvalidator orderValidationInvalidator,
+                                                    IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
-            _publicService = publicService;
             _orderReadModel = orderReadModel;
-            _orderRepository = orderRepository;
+            _positionReadModel = positionReadModel;
+            _organizationUnitReadModel = organizationUnitReadModel;
             _orderValidationInvalidator = orderValidationInvalidator;
-            _scopeFactory = scopeFactory;
-            _priceReadModel = priceReadModel;
-            _supportedCategoriesChecker = supportedCategoriesChecker;
+            _publicService = publicService;
+            _orderRepository = orderRepository;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
-            _firmReadModel = firmReadModel;
+            _scopeFactory = scopeFactory;
         }
 
         protected override EmptyResponse Handle(EditOrderPositionRequest request)
@@ -111,13 +110,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, canCreateResponse.Message));
             }
 
-            if (request.CategoryId != null)
-            {
-                _supportedCategoriesChecker.Check(_priceReadModel.GetPricePositionRateType(orderPosition.PricePositionId),
-                                                  request.CategoryId.Value,
-                                                  orderInfo.DestOrganizationUnitId);
-            }
-
             if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration)
             {
                 // Во избежание несанкционированных изменений в позиции заказа, прошедшего этап "на оформлении",
@@ -161,10 +153,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                         throw new NotificationException(BLResources.OrderOrganizationUnitDiffersFromPricesOne);
                     }
 
-                    var categoryRate = _calculateCategoryRateOperationService.CalculateCategoryRate(_firmReadModel.GetOrderFirmId(request.Entity.OrderId),
+                    if (request.CategoryIds.Any())
+                    {
+                        var unsupported = _positionReadModel.GetNewSalesModelDeniedCategories((PositionAccountingMethod)pricePositionInfo.AccountingMethodEnum,
+                                                                                      orderInfo.DestOrganizationUnitId,
+                                                                                      request.CategoryIds);
+                        if (unsupported.Any())
+                        {
+                            var organizationUnitName = _organizationUnitReadModel.GetName(orderInfo.DestOrganizationUnitId);
+                            throw new NewSalesModelNotEnabledForCategoryOrOrganizationUnitException(unsupported.Select(pair => pair.Value), organizationUnitName);
+                        }
+                    }
+
+                    var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculated(request.Entity.OrderId,
                                                request.Entity.PricePositionId,
-                                               request.CategoryId,
-                                               true);
+                                               request.CategoryIds);
 
                     var calculateOrderPositionPricesResponse =
                         (CalculateOrderPositionPricesResponse)_publicService.Handle(new CalculateOrderPositionPricesRequest
@@ -209,17 +212,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
                     _publicService.Handle(new CalculateReleaseWithdrawalsRequest { Order = order });
 
-                    if (orderInfo.DealId != null)
-                    {
-                        // FIXME {all, 13.11.2013}: приехало из 1.0 - на кипре нет сделок, непонятно зачем вызывается в таком случае данный функционал
-                        // было _publicService.Handle(new UpdateDealsOnWithdrawalRequest { DealIds = new[] { orderInfo.DealId.Value } });
-                        _publicService.Handle(new ActualizeDealProfitIndicatorsRequest { DealIds = new[] { orderInfo.DealId.Value } });
-                    }
-
                     // Сохраняем изменения объектов Order  в БД, если по каким-то причинам это не сделал один из вышестоящих хендлеров
                     _orderRepository.Update(order);
-
-                    // TODO: Сделать поток выполнения прозрачным!
                 }
 
                 if (isOrderPositionCreated)

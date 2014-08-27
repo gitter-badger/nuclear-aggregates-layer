@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
 {
@@ -57,17 +58,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                 case LegalPersonType.LegalPerson:
                     if (string.IsNullOrEmpty(request.Entity.Ic))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Ic));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Ic));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
                     
                     if (string.IsNullOrEmpty(request.Entity.LegalName))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalName));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalName));
                     }
 
 
@@ -75,17 +76,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.Old
                 case LegalPersonType.Businessman:
                     if (string.IsNullOrEmpty(request.Entity.Ic))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Ic));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Ic));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalName))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalName));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalName));
                     }
 
                     break;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.DTO;
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;

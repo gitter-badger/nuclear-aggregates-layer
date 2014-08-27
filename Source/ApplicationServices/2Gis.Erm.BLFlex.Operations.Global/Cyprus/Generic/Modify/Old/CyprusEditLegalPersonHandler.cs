@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
 {
@@ -56,24 +57,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                 case LegalPersonType.LegalPerson:
                     if (string.IsNullOrEmpty(request.Entity.Inn))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Inn));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
 
                     break;
                 case LegalPersonType.Businessman:
                     if (string.IsNullOrEmpty(request.Entity.Inn))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Inn));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Inn));
                     }
 
                     if (string.IsNullOrEmpty(request.Entity.LegalAddress))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.LegalAddress));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
                     }
 
                     break;
@@ -81,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
 
                     if (string.IsNullOrEmpty(request.Entity.PassportNumber))
                     {
-                        throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.PassportNumber));
+                        throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.PassportNumber));
                     }
 
                     break;

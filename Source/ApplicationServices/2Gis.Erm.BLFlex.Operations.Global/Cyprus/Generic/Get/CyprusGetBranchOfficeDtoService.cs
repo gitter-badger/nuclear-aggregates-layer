@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.BargainTypes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ContributionTypes.ReadModel;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Cyprus;
 using DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
