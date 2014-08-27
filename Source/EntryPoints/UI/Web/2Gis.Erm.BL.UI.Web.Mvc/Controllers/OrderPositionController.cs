@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
@@ -13,6 +14,8 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using Newtonsoft.Json;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -30,6 +33,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             ICommonLog logger,
             IPublicService publicService,
             IAPIOperationsServiceSettings operationsServiceSettings,
+            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
             IGetBaseCurrencyService getBaseCurrencyService,
             IGetRatedPricesForCategoryOperationService getRatedPricesForCategoryOperationService,
             IViewOrderPositionOperationService viewOrderPositionOperationService)
@@ -38,6 +42,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 userContext,
                 logger,
                 operationsServiceSettings,
+                specialOperationsServiceSettings,
                 getBaseCurrencyService)
         {
             _publicService = publicService;
@@ -54,9 +59,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
-        public JsonNetResult GetRatedPrices(long orderId, long pricePositionId, long? categoryId)
+        public JsonNetResult GetRatedPrices(long orderId, long pricePositionId, string categoryIds)
         {
-            var prices = _getRatedPricesForCategoryOperationService.GetRatedPrices(orderId, pricePositionId, categoryId);
+            var decodedCategoryIds = JsonConvert.DeserializeObject<long[]>(categoryIds);
+            var prices = _getRatedPricesForCategoryOperationService.GetRatedPrices(orderId, pricePositionId, decodedCategoryIds);
             return new JsonNetResult(prices);
         }
 

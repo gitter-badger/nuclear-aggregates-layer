@@ -27,6 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
+    using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/AdvertisementElement.cshtml")]
-    public partial class AdvertisementElement : System.Web.Mvc.WebViewPage<Models.AdvertisementElementViewModel>
+    public partial class AdvertisementElement : System.Web.Mvc.WebViewPage<AdvertisementElementViewModel>
     {
         public AdvertisementElement()
         {
@@ -85,7 +86,7 @@ WriteLiteral(@">
             border-spacing: inherit;
             width: auto;
         }
-        
+
         DIV.Tab TABLE TD
         {
             padding-bottom: inherit;
@@ -110,15 +111,15 @@ WriteLiteral(@">
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 885), Tuple.Create("\"", 958)
-, Tuple.Create(Tuple.Create("", 891), Tuple.Create("/Scripts/TinyMCE/tiny_mce_src.js?", 891), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 870), Tuple.Create("\"", 943)
+, Tuple.Create(Tuple.Create("", 876), Tuple.Create("/Scripts/TinyMCE/tiny_mce_src.js?", 876), true)
             
             #line 40 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-, Tuple.Create(Tuple.Create("", 924), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 909), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 924), false)
+, 909), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -127,15 +128,15 @@ WriteLiteral("></script>\r\n");
 
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1009), Tuple.Create("\"", 1091)
-, Tuple.Create(Tuple.Create("", 1015), Tuple.Create("/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.js?", 1015), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 994), Tuple.Create("\"", 1076)
+, Tuple.Create(Tuple.Create("", 1000), Tuple.Create("/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.js?", 1000), true)
             
             #line 41 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-, Tuple.Create(Tuple.Create("", 1057), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1042), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1057), false)
+, 1042), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -153,15 +154,15 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1166), Tuple.Create("\"", 1235)
-, Tuple.Create(Tuple.Create("", 1172), Tuple.Create("/Scripts/TinyMCE/tiny_mce.js?", 1172), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1151), Tuple.Create("\"", 1220)
+, Tuple.Create(Tuple.Create("", 1157), Tuple.Create("/Scripts/TinyMCE/tiny_mce.js?", 1157), true)
             
             #line 45 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-, Tuple.Create(Tuple.Create("", 1201), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1186), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1201), false)
+, 1186), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -170,15 +171,15 @@ WriteLiteral("></script>\r\n");
 
 WriteLiteral("        <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1286), Tuple.Create("\"", 1372)
-, Tuple.Create(Tuple.Create("", 1292), Tuple.Create("/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.min.js?", 1292), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1271), Tuple.Create("\"", 1357)
+, Tuple.Create(Tuple.Create("", 1277), Tuple.Create("/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.min.js?", 1277), true)
             
             #line 46 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-, Tuple.Create(Tuple.Create("", 1338), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1323), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1338), false)
+, 1323), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -194,20 +195,20 @@ WriteLiteral("></script>\r\n");
             #line hidden
 WriteLiteral("    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1432), Tuple.Create("\"", 1522)
-, Tuple.Create(Tuple.Create("", 1438), Tuple.Create("/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?", 1438), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1417), Tuple.Create("\"", 1507)
+, Tuple.Create(Tuple.Create("", 1423), Tuple.Create("/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?", 1423), true)
             
             #line 49 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-, Tuple.Create(Tuple.Create("", 1488), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1473), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 1488), false)
+, 1473), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral("></script>\r\n                    ");
+WriteLiteral("></script>\r\n");
 
 });
 
@@ -221,14 +222,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1638), Tuple.Create("\"", 1674)
+WriteAttribute("title", Tuple.Create(" title=\"", 1603), Tuple.Create("\"", 1639)
             
             #line 54 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-, Tuple.Create(Tuple.Create("", 1646), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1611), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1646), false)
+, 1611), false)
 );
 
 WriteLiteral(">\r\n");
@@ -263,142 +264,50 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 58 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.TemplateRestrictionType));
-
-            
-            #line default
-            #line hidden
-            
-            #line 58 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                                           
-            
-            
-            #line default
-            #line hidden
-            
-            #line 59 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.TemplateFormattedText));
-
-            
-            #line default
-            #line hidden
-            
-            #line 59 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                                         
-            
-            
-            #line default
-            #line hidden
-            
-            #line 60 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.TemplateAdvertisementLink));
-
-            
-            #line default
-            #line hidden
-            
-            #line 60 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                                             
-            
-            
-            #line default
-            #line hidden
-            
-            #line 61 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.TemplateFileExtensionRestriction));
-
-            
-            #line default
-            #line hidden
-            
-            #line 61 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                                                    
-            
-            
-            #line default
-            #line hidden
-            
-            #line 62 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.TemplateImageDimensionRestriction));
-
-            
-            #line default
-            #line hidden
-            
-            #line 62 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                                                     
-            
-            
-            #line default
-            #line hidden
-            
-            #line 63 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
        Write(Html.HiddenFor(m => m.CanUserChangeStatus));
 
             
             #line default
             #line hidden
             
-            #line 63 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 58 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
                                                        
             
             
             #line default
             #line hidden
             
-            #line 64 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 59 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
        Write(Html.HiddenFor(m => m.NeedsValidation));
 
             
             #line default
             #line hidden
             
-            #line 64 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 59 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
                                                    
-            
-            // Для работы контрола отправки файлов
+
             
             
             #line default
             #line hidden
             
-            #line 67 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.FileName));
+            #line 61 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                                                                                                    
+            
+            
+            #line default
+            #line hidden
+            
+            #line 62 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+       Write(Html.HiddenFor(m => m.ActualType));
 
             
             #line default
             #line hidden
             
-            #line 67 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                            
-            
-            
-            #line default
-            #line hidden
-            
-            #line 68 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.FileContentType));
-
-            
-            #line default
-            #line hidden
-            
-            #line 68 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                                   
-            
-            
-            #line default
-            #line hidden
-            
-            #line 69 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-       Write(Html.HiddenFor(m => m.FileContentLength));
-
-            
-            #line default
-            #line hidden
-            
-            #line 69 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-                                                     
+            #line 62 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                              
         }
 
             
@@ -413,7 +322,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 72 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 65 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
        Write(Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementElementTemplate, ReadOnly = true }));
 
             
@@ -422,16 +331,15 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n    \r\n");
 
             
-            #line 75 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 68 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 75 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 68 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
          if (Model.NeedsValidation)
         {
-            var disableIfHasNoPrivelege = Model.CanUserChangeStatus ? null : new Dictionary<string, object>() { { "disabled", "disabled" } };
 
             
             #line default
@@ -445,25 +353,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 79 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-           Write(Html.EnumField(m => m.Status, FieldFlex.lone, disableIfHasNoPrivelege, EnumResources.ResourceManager, Model.AvailableStates != null ? Model.AvailableStates.Cast<object>() : null));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n            </div>\r\n");
-
-WriteLiteral("            <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                ");
-
-            
-            #line 82 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-           Write(Html.TemplateField(m => m.Error, FieldFlex.lone, disableIfHasNoPrivelege, EnumResources.ResourceManager));
+            #line 71 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+           Write(Html.TemplateField(m => m.Status, FieldFlex.lone, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager));
 
             
             #line default
@@ -471,49 +362,136 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n");
 
             
-            #line 84 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 73 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
         }
 
             
             #line default
             #line hidden
-WriteLiteral("    \r\n\r\n");
+WriteLiteral("\r\n");
 
             
-            #line 87 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+            #line 75 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
         
             
             #line default
             #line hidden
             
+            #line 75 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+         switch (Model.ActualType)
+        {
+            case AdvertisementElementRestrictionActualType.File:
+                
+            
+            #line default
+            #line hidden
+            
+            #line 78 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+           Write(Html.EditorFor(m => m.File));
+
+            
+            #line default
+            #line hidden
+            
+            #line 78 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                            
+                break;
+            case AdvertisementElementRestrictionActualType.Date:
+            
+            
+            #line default
+            #line hidden
+            
+            #line 81 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+       Write(Html.EditorFor(m => m.Period));
+
+            
+            #line default
+            #line hidden
+            
+            #line 81 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                        
+                break;
+            case AdvertisementElementRestrictionActualType.FasComment:
+            
+            
+            #line default
+            #line hidden
+            
+            #line 84 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+       Write(Html.EditorFor(m => m.FasComment));
+
+            
+            #line default
+            #line hidden
+            
+            #line 84 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                              
+                break;
+            case AdvertisementElementRestrictionActualType.FormattedText:
+            
+            
+            #line default
+            #line hidden
+            
             #line 87 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-         if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Text || Model.TemplateRestrictionType == AdvertisementElementRestrictionType.FasComment)
-        {
-        Html.RenderPartial(@"~/Views/AdvertisementElement/TextViewPage.cshtml");
-        }
+       Write(Html.EditorFor(m => m.FormattedText));
 
             
             #line default
             #line hidden
-WriteLiteral("        ");
-
             
-            #line 91 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-         if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Article || Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Image)
-        {
-        Html.RenderPartial(@"~/Views/AdvertisementElement/FileViewPage.cshtml");
-        }
+            #line 87 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                                 
+                break;
+            case AdvertisementElementRestrictionActualType.Image:
+            
+            
+            #line default
+            #line hidden
+            
+            #line 90 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+       Write(Html.EditorFor(m => m.Image));
 
             
             #line default
             #line hidden
-WriteLiteral("        ");
+            
+            #line 90 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                         
+                break;
+            case AdvertisementElementRestrictionActualType.Link:
+            
+            
+            #line default
+            #line hidden
+            
+            #line 93 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+       Write(Html.EditorFor(m => m.Link));
 
             
-            #line 95 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
-         if (Model.TemplateRestrictionType == AdvertisementElementRestrictionType.Date)
-        {
-        Html.RenderPartial(@"~/Views/AdvertisementElement/DateViewPage.cshtml");
+            #line default
+            #line hidden
+            
+            #line 93 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                        
+                break;
+            case AdvertisementElementRestrictionActualType.PlainText:
+            
+            
+            #line default
+            #line hidden
+            
+            #line 96 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+       Write(Html.EditorFor(m => m.PlainText));
+
+            
+            #line default
+            #line hidden
+            
+            #line 96 "..\..\Views\CreateOrUpdate\AdvertisementElement.cshtml"
+                                             
+                break;
         }
 
             

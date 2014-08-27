@@ -14,6 +14,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security;
@@ -38,17 +39,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IOrderReadModel _orderReadModel;
         private readonly ProfileChooseHelper _profileChooseHelper;
 
-        public PrintController(IMsCrmSettings msCrmSettings, 
-            IUserContext userContext, 
-            ICommonLog logger, 
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            IPublicService publicService,
-            ISecureFinder secureFinder,
-            IOrderReadModel orderReadModel,
-            ILegalPersonReadModel legalPersonReadModel,
-            ISecurityServiceEntityAccess securityServiceEntityAccess)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+        public PrintController(IMsCrmSettings msCrmSettings,
+                               IUserContext userContext,
+                               ICommonLog logger,
+                               IAPIOperationsServiceSettings operationsServiceSettings,
+                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                               IGetBaseCurrencyService getBaseCurrencyService,
+                               IPublicService publicService,
+                               ISecureFinder secureFinder,
+                               IOrderReadModel orderReadModel,
+                               ILegalPersonReadModel legalPersonReadModel,
+                               ISecurityServiceEntityAccess securityServiceEntityAccess)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _publicService = publicService;
             _secureFinder = secureFinder;

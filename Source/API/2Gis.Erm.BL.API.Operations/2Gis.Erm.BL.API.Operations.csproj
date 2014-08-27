@@ -52,11 +52,21 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AdvertisementElements\AdvertisementElementDenyingWithInactiveReasonException.cs" />
+    <Compile Include="Concrete\AdvertisementElements\AdvertisementElementDenyingWithoutReasonsException.cs" />
+    <Compile Include="Concrete\AdvertisementElements\IApproveAdvertisementElementOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\IDenyAdvertisementElementOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\IResetAdvertisementElementToDraftOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\ITransferAdvertisementElementToReadyForValidationOpeationService.cs" />
     <Compile Include="Concrete\Simplified\BirthdayCongratulationIsNotUniqueException.cs" />
     <Compile Include="Concrete\Simplified\IRequestBirthdayCongratulationOperationService.cs" />
     <Compile Include="Concrete\Simplified\ThereAreNoContactsToCongratulateException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

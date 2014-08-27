@@ -18,6 +18,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
@@ -38,6 +39,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
@@ -69,6 +71,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IUserContext userContext,
                                ICommonLog logger,
                                IAPIOperationsServiceSettings operationsServiceSettings,
+                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                IGetBaseCurrencyService getBaseCurrencyService,
                                ISecurityServiceUserIdentifier userIdentifierService,
                                ISecurityServiceFunctionalAccess functionalAccessService,
@@ -86,7 +89,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+            : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
@@ -349,7 +352,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 if (viewModel.OrganizationUnit == null || !viewModel.OrganizationUnit.Key.HasValue)
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.OrganizationUnit));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.OrganizationUnit));
                 }
 
                 if (
@@ -452,12 +455,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 if (viewModel.OrganizationUnit == null || !viewModel.OrganizationUnit.Key.HasValue)
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.OrganizationUnit));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.OrganizationUnit));
                 }
 
                 if (viewModel.Owner == null || !viewModel.Owner.Key.HasValue)
                 {
-                    throw new NotificationException(string.Format(BLResources.RequiredFieldMessage, MetadataResources.Owner));
+                    throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.Owner));
                 }
 
                 var response = (GetOrdersWithDummyAdvertisementResponse)_publicService.Handle(new GetOrdersWithDummyAdvertisementRequest

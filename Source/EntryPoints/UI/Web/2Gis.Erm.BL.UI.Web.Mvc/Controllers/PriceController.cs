@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -24,21 +25,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ICopyPriceOperationService _copyPriceOperationService;
         private readonly IReplacePriceOperationService _replacePriceOperationService;
 
-        public PriceController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext,
-            ICommonLog logger,
-            IPublicService publicService, 
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            ICopyPriceOperationService copyPriceOperationService,
-            IReplacePriceOperationService replacePriceOperationService)
-        : base(
-            msCrmSettings,
-            userContext,
-            logger,
-            operationsServiceSettings,
-            getBaseCurrencyService)
+        public PriceController(IMsCrmSettings msCrmSettings,
+                               IUserContext userContext,
+                               ICommonLog logger,
+                               IPublicService publicService,
+                               IAPIOperationsServiceSettings operationsServiceSettings,
+                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                               IGetBaseCurrencyService getBaseCurrencyService,
+                               ICopyPriceOperationService copyPriceOperationService,
+                               IReplacePriceOperationService replacePriceOperationService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _publicService = publicService;
             _copyPriceOperationService = copyPriceOperationService;

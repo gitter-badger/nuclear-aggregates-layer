@@ -127,7 +127,7 @@
     <value>Action: {0}, Completed: {1} Date: {2}</value>
   </data>
   <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;change&quot; : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;changes&quot;:&quot;changes&quot;]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "change" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"changes":"changes"]})</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Active</value>
@@ -193,7 +193,7 @@
     <value>This action cannot be completed until the record is saved. Please save the record to continue.</value>
   </data>
   <data name="CardIsReadOnly" xml:space="preserve">
-    <value>This card is open in &quot;read-only&quot; mode.</value>
+    <value>This card is open in "read-only" mode.</value>
   </data>
   <data name="CardIsUndefined" xml:space="preserve">
     <value>There is no card to edit for this entity.</value>
@@ -217,7 +217,7 @@
     <value>Close</value>
   </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
-    <value>Changes are not saved. To remain on the page and save changes, click &quot;Cancel&quot;.</value>
+    <value>Changes are not saved. To remain on the page and save changes, click "Cancel".</value>
   </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value>Contents is unavailable</value>
@@ -364,7 +364,7 @@
     <value>Italic(Ctrl+I)</value>
   </data>
   <data name="ItsReadOnlyMode" xml:space="preserve">
-    <value>This list is viewed in &quot;read-only&quot; mode. Unable to create entity.</value>
+    <value>This list is viewed in "read-only" mode. Unable to create entity.</value>
   </data>
   <data name="January" xml:space="preserve">
     <value>January</value>
@@ -460,10 +460,10 @@
     <value>Several matches are found</value>
   </data>
   <data name="MultiSelectionListFromListEmptyText" xml:space="preserve">
-    <value>Enter name or its part in the &quot;Record search&quot; field and click the &quot;Record search&quot; icon.</value>
+    <value>Enter name or its part in the "Record search" field and click the "Record search" icon.</value>
   </data>
   <data name="MultiSelectionListSearchInstructions" xml:space="preserve">
-    <value>Enter desired data in the &quot;Search&quot; field and click the &quot;Find&quot; button. Then select required records in the &quot;Available records&quot; list and move them to the &quot;Selected records&quot; list.</value>
+    <value>Enter desired data in the "Search" field and click the "Find" button. Then select required records in the "Available records" list and move them to the "Selected records" list.</value>
   </data>
   <data name="MultiSelectionListToListEmptyText" xml:space="preserve">
     <value>No record is selected.</value>
@@ -562,13 +562,13 @@
     <value>Planned number of issues should be within the range [1-12]</value>
   </data>
   <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Specify value for the field &quot;{0}&quot;</value>
+    <value>Specify value for the field "{0}"</value>
   </data>
   <data name="Saturday" xml:space="preserve">
     <value>Saturday</value>
   </data>
   <data name="SearchInstructions" xml:space="preserve">
-    <value>Enter the search data into the &quot;Search&quot; field and click &quot;Find&quot;. Then select the required record and click OK.</value>
+    <value>Enter the search data into the "Search" field and click "Find". Then select the required record and click OK.</value>
   </data>
   <data name="SelectedRecords" xml:space="preserve">
     <value>Selected records</value>
@@ -640,7 +640,7 @@
     <value>The size is not known</value>
   </data>
   <data name="UploadFileQuestion" xml:space="preserve">
-    <value>Do you really want to upload the &quot;{0}&quot; file to the server?</value>
+    <value>Do you really want to upload the "{0}" file to the server?</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>Wednesday</value>
@@ -655,7 +655,7 @@
     <value>The current contract is out-of-date, to place an order under a contract, a new contract has to be created</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Reason for opportunity is &quot;Warm Lead&quot;, since there is a &quot;{0}&quot; task for this client, closed {1}, that has the &quot;Warm Lead&quot; type</value>
+    <value>Reason for opportunity is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>Approval is required!</value>
@@ -850,7 +850,7 @@
     <value>Address is not linked to map</value>
   </data>
   <data name="InputValidationInvalidUrl" xml:space="preserve">
-    <value>Value of the field &quot;{0}&quot; is not a correct url-address</value>
+    <value>Value of the field "{0}" is not a correct url-address</value>
   </data>
   <data name="TextEditorOverflow" xml:space="preserve">
     <value>Number of symbols exceeds permitted {0} symbols per {1}.</value>
@@ -898,7 +898,7 @@
     <value>Completed: {0}    Date: {1}</value>
   </data>
   <data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? &quot;message&quot; : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?&quot;messages&quot;:&quot;messages&quot;]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "message" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"messages":"messages"]})</value>
   </data>
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Messages for the request</value>
@@ -920,5 +920,35 @@
   </data>
   <data name="SelectMessageToSave" xml:space="preserve">
     <value>Select messages to be saved</value>
+  </data>
+  <data name="AdvertisingElementAccept" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="AdvertisingElementValidate" xml:space="preserve">
+    <value>Verification</value>
+  </data>
+  <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
+    <value>Action cannot be performed, since not all elements are valid</value>
+  </data>
+  <data name="PriceIsAlreadyPublished" xml:space="preserve">
+    <value>The price-list is already published</value>
+  </data>
+  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
+    <value>You cannot cancel publishing of the unpublished price-list</value>
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
+    <value>Publish the advertising material template</value>
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
+    <value>Are you sure you want to publish this advertising material template?</value>
+  </data>
+  <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
+    <value>Do you really want to publish the advertising template?&lt;br/&gt;The card contains changes that will be lost after publishing.&lt;br/&gt;If you would like to save them, click No and save the card.</value>
+  </data>
+  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
+    <value>Cancel advertising material template publishing</value>
+  </data>
+  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
+    <value>Are you sure you want to cancel advertising material template publishing?</value>
   </data>
 </root>
