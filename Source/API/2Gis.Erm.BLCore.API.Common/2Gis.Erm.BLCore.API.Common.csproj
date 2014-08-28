@@ -73,8 +73,6 @@
     <Compile Include="Enums\PlatformEnum.cs" />
     <Compile Include="Crosscutting\AD\IGetUserInfoFromAdSettings.cs" />
     <Compile Include="Crosscutting\IReplicationCodeConverter.cs" />
-    <Compile Include="Settings\CachingSettingsAspect.cs" />
-    <Compile Include="Settings\ICachingSettings.cs" />
     <Compile Include="Settings\INotificationsSettings.cs" />
     <Compile Include="Settings\NotificationsSettingsAspect.cs" />
   </ItemGroup>
