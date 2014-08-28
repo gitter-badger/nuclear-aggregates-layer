@@ -101,5 +101,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IDictionary<string, DateTime> GetBargainUsage(long bargainId);
         BargainEndAndCloseDatesDto GetBargainEndAndCloseDates(long bargainId);
         IEnumerable<OrderSuitableBargainDto> GetSuitableBargains(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderEndDistributionDate);
+        OrderProfilesDto GetOrderProfiles(long orderId);
     }
 }

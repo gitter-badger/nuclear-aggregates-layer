@@ -5207,4 +5207,10 @@
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Нельзя указать неактивную причину отклонения</value>
   </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Печать</value>
+  </data>
 </root>
