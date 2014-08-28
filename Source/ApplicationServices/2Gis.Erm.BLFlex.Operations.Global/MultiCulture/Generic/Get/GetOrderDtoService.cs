@@ -93,6 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                                      BranchOfficeOrganizationUnitRef =
                                          new EntityReference { Id = x.BranchOfficeOrganizationUnitId, Name = x.BranchOfficeOrganizationUnit.ShortLegalName },
                                      LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName },
+                                     LegalPersonProfileRef = new EntityReference { Id = x.LegalPersonProfileId, Name = x.LegalPersonProfile.Name },
                                      DealRef = new EntityReference { Id = x.DealId, Name = x.Deal.Name },
                                      DealCurrencyId = x.Deal.CurrencyId,
                                      CurrencyRef = new EntityReference { Id = x.CurrencyId, Name = x.Currency.Name },

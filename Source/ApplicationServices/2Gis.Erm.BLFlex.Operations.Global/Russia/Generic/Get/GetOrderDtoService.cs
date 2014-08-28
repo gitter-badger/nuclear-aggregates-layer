@@ -93,6 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                      BranchOfficeOrganizationUnitRef =
                                          new EntityReference { Id = x.BranchOfficeOrganizationUnitId, Name = x.BranchOfficeOrganizationUnit.ShortLegalName },
                                      LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName },
+                                     LegalPersonProfileRef = new EntityReference { Id = x.LegalPersonProfileId, Name = x.LegalPersonProfile.Name },
                                      DealRef = new EntityReference { Id = x.DealId, Name = x.Deal.Name },
                                      DealCurrencyId = x.Deal.CurrencyId,
                                      CurrencyRef = new EntityReference { Id = x.CurrencyId, Name = x.Currency.Name },
@@ -132,7 +133,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                      DocumentsComment = x.DocumentsComment,
                                      AccountRef = new EntityReference { Id = x.AccountId, Name = null },
                                      PaymentMethod = (PaymentMethod)x.PaymentMethod,
-                                     LegalPersonProfileRef = new EntityReference { Id = x.LegalPersonProfileId, Name = null },
                                      OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },
                                      IsActive = x.IsActive,
                                      IsDeleted = x.IsDeleted,
