@@ -17,6 +17,7 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.DI;
 using DoubleGis.Erm.BLFlex.Operations.Global.DI;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
+using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
@@ -61,7 +62,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                           .UseAnchor<PlatformModelAssembly>()
                                           .UseAnchor<PlatformCoreAssembly>()
                                       .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>();
+                                          .UseAnchor<PlatformModelMetadataAssembly>()
+                                      .RequireZone<AppFabricZone>()
+                                          .UseAnchor<PlatformAppFabricAssembly>();
             }
         }
     }
