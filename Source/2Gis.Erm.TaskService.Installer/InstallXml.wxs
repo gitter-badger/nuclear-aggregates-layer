@@ -135,6 +135,24 @@
       <Component>
         <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
       </Component>
+      <Component>
+        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Client.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Core.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Common.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Data.Common.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Caching.dll" />
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">

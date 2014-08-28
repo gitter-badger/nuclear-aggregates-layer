@@ -182,6 +182,10 @@
       <Project>{2c631161-68af-49e3-9924-b2894e8fd63b}</Project>
       <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
+      <Project>{E97BC051-BC95-4183-950B-0685DDE66D7D}</Project>
+      <Name>2Gis.Erm.Platform.AppFabric</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>
