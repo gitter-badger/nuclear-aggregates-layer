@@ -152,6 +152,8 @@
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElementCollection.cs" />
     <Compile Include="Settings\APIServices\RequiredServices.cs" />
+    <Compile Include="Settings\Caching\CachingSettingsAspect.cs" />
+    <Compile Include="Settings\Caching\ICachingSettings.cs" />
     <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
     <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />
     <Compile Include="Settings\Globalization\IBusinessModelSettings.cs" />
