@@ -66,6 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
+        private readonly IChangeOrderProfilesOperationService _changeOrderProfilesOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -88,7 +89,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
                                ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
-                               IDetermineOrderBargainOperationService determineOrderBargainOperationService)
+                               IDetermineOrderBargainOperationService determineOrderBargainOperationService, 
+                               IChangeOrderProfilesOperationService changeOrderProfilesOperationService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
@@ -107,6 +109,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
+            _changeOrderProfilesOperationService = changeOrderProfilesOperationService;
         }
 
         #region Ajax methods
@@ -316,6 +319,27 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         #endregion
+
+        [HttpGet]
+        public ViewResult ChangeProfiles(long orderId)
+        {
+            var dto = _orderReadModel.GetOrderProfiles(orderId);
+
+            var model = new ChangeOrderProfilesViewModel
+            {
+                LegalPerson = dto.LegalPerson.ToLookupField(),
+                LegalPersonProfile = dto.Profile.ToLookupField(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public EmptyResult ChangeProfiles(long orderId, long legalPersonProfileId)
+        {
+            _changeOrderProfilesOperationService.ChangeProfiles(orderId, legalPersonProfileId);
+            return new EmptyResult();
+        }
 
         public ActionResult CheckOrdersReadinessForReleaseDialog()
         {

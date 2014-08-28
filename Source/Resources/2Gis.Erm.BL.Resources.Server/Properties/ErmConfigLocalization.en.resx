@@ -1845,4 +1845,7 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Number of documents</value>
   </data>
+  <data name="ControlChangeProfiles" xml:space="preserve">
+    <value>Сменить профиль</value>
+  </data>
 </root>

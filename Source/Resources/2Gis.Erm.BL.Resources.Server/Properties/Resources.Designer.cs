@@ -61,6 +61,24 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите новые профили для заказа.
+        /// </summary>
+        public static string ChangeProfilesOperationMessage {
+            get {
+                return ResourceManager.GetString("ChangeProfilesOperationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Смена профилей.
+        /// </summary>
+        public static string ChangeProfilesOperationTitle {
+            get {
+                return ResourceManager.GetString("ChangeProfilesOperationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Внимание! Профиль был изменен. Указанный профиль будет прикреплен к заказу..
         /// </summary>
         public static string OrderLegalPersonProfileChangeNotification {

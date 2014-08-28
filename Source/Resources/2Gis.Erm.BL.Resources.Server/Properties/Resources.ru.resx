@@ -166,4 +166,10 @@
   <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
     <value>Внимание! Профиль был изменен. Указанный профиль будет прикреплен к заказу.</value>
   </data>
+  <data name="ChangeProfilesOperationMessage" xml:space="preserve">
+    <value>Выберите новые профили для заказа</value>
+  </data>
+  <data name="ChangeProfilesOperationTitle" xml:space="preserve">
+    <value>Смена профилей</value>
+  </data>
 </root>
