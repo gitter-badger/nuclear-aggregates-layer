@@ -59,6 +59,23 @@ window.InitPage = function () {
     
     Ext.apply(this,
             {
+                ChangeProfiles: function() {
+                    var url = Ext.urlAppend('/Order/ChangeProfiles', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
+                    var params = "dialogWidth:600px; dialogHeight:300px; status:yes; scroll:no;resizable:no;";
+                    var result = window.showModalDialog(url, null, params);
+                    if (!result) {
+                        return;
+                    }
+                    Card.Mask.show();
+                    Ext.Ajax.request({
+                        method: 'post',
+                        url: url,
+                        params: { legalPersonProfileId: result.legalPersonProfile },
+                        scope: this,
+                        success: function () { this.refresh(); },
+                        failure: function (response) { Card.Mask.hide(); this.AddNotification(response.responseText, 'CriticalError', 'ServerError'); }
+                    });
+                },
                 checkDirty: function () {
                     if (this.form.Id.value == 0) {
                         Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -542,7 +559,7 @@ window.InitPage = function () {
 
                 },
                 resetLegalPersonProfile: function () {
-                    Ext.get("LegalPersonProfileId").dom.value = "";
+                    Ext.getCmp('LegalPersonProfile').clearValue();
                 },
                 toFixedWithoutRounding: function (figure, decimals) {
                     if (!decimals) decimals = 2;
@@ -641,11 +658,12 @@ window.InitPage = function () {
             Ext.getCmp("Firm").on("change", this.onFirmChanged, this);
             Ext.getCmp('SourceOrganizationUnit').on("change", this.onSourceOrganizationUnitChanged, this);
             Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
-            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.clearBargain();
+            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () {
+                this.clearBargain();
                 this.tryDetermineBargain();
             }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
-            Ext.getCmp("LegalPerson").on("change", function () { this.resetLegalPersonProfile(); }, this);
+            Ext.getCmp("LegalPerson").on("change", this.resetLegalPersonProfile, this);
 
             // Если для текущей бизнес-модели должны быть заданы дополнительные обработчики событий, задаём их
             if (this.setupCultureSpecificEventListeners) {
