@@ -213,7 +213,6 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToRejectedHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnRegistrationHandler.cs" />
