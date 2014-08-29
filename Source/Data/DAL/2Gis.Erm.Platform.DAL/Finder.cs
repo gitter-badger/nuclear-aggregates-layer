@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -82,7 +83,7 @@ namespace DoubleGis.Erm.Platform.DAL
             throw new NotSupportedException("ConsistentFinderDecorator should be used");
         }
 
-        public IQueryable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentFinderDecorator should be used");
