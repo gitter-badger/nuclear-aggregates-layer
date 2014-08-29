@@ -54,6 +54,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.Appointment,
                 EntityName.Phonecall,
                 EntityName.Task,
+                EntityName.Letter,
 				EntityName.RegardingObjectReference
             };
 
@@ -86,6 +87,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 				typeof(PhonecallReference),
 				typeof(TaskBase),
 				typeof(TaskReference),
+				typeof(LetterBase),
+				typeof(LetterReference),
             };
 
         /// <summary>

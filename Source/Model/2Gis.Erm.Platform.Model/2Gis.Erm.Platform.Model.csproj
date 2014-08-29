@@ -521,6 +521,14 @@
       <Link>Entities\Erm\LegalPersonProfile.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LetterBase.cs">
+      <Link>Entities\Erm\LetterBase.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LetterReference.cs">
+      <Link>Entities\Erm\LetterReference.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Limit.cs">
       <Link>Entities\Erm\Limit.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -813,6 +821,7 @@
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
+    <Compile Include="Entities\Activity\Letter.cs" />
     <Compile Include="Entities\DTOs\Partial\AdvertisementElementResponsibilities.cs" />
     <Compile Include="Entities\DTOs\Partial\AdvertisementElementStatusDomainEntityDto.partial.cs" />
     <Compile Include="Entities\Activity\Activity.cs" />

@@ -10,50 +10,54 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-    public class CompositeEntityDecorator : ICompositeEntityDecorator
-    {
+	public class CompositeEntityDecorator : ICompositeEntityDecorator
+	{
         private readonly IFinder _finder;
 
-        public CompositeEntityDecorator(IFinder finder)
-        {
-            _finder = finder;
-        }
+		public CompositeEntityDecorator(IFinder finder)
+		{
+			_finder = finder;
+		}
 
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression)
-        {
-            // TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
-            if (typeof(TEntity) == typeof(Appointment))
+		{
+			// TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
+			if (typeof(TEntity) == typeof(Appointment))
             {
                 return Find<AppointmentBase, TEntity>(expression, null);
             }
-
-            if (typeof(TEntity) == typeof(Phonecall))
+			if (typeof(TEntity) == typeof(Phonecall))
             {
                 return Find<PhonecallBase, TEntity>(expression, null);
             }
-
-            if (typeof(TEntity) == typeof(Task))
+			if (typeof(TEntity) == typeof(Task))
             {
                 return Find<TaskBase, TEntity>(expression, null);
             }
+            if (typeof(TEntity) == typeof(Letter))
+            {
+                return Find<LetterBase, TEntity>(expression, null);
+            }
 
-            if (typeof(TEntity) == typeof(RegardingObject<Appointment>))
+			if (typeof(TEntity) == typeof(RegardingObject<Appointment>))
             {
                 return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
             }
-
-            if (typeof(TEntity) == typeof(RegardingObject<Phonecall>))
+			if (typeof(TEntity) == typeof(RegardingObject<Phonecall>))
             {
                 return Find<PhonecallReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
             }
-
-            if (typeof(TEntity) == typeof(RegardingObject<Task>))
+			if (typeof(TEntity) == typeof(RegardingObject<Task>))
             {
                 return Find<TaskReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
             }
+            if (typeof(TEntity) == typeof(RegardingObject<Letter>))
+            {
+                return Find<LetterReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
+            }
 
-            throw new NotSupportedException("The requested mapping is not supported");
-        }
+			throw new NotSupportedException("The requested mapping is not supported");
+		}
 
         public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification)
         {
@@ -72,24 +76,24 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private IQueryable<TEntity> Find<TPersistentEntity, TEntity>(
             Expression<Func<TEntity, bool>> postPredicate,
             Expression<Func<TPersistentEntity, bool>> prePredicate)
-            where TPersistentEntity : class, IEntity
-        {
-            CheckRegistration<TPersistentEntity, TEntity>();
+			where TPersistentEntity : class, IEntity
+		{
+			CheckRegistration<TPersistentEntity, TEntity>();
+			
+			var persistentEntities = _finder.FindAll<TPersistentEntity>();
+			if (prePredicate != null)
+			{
+				persistentEntities = persistentEntities.Where(prePredicate);
+			}
 
-            var persistentEntities = _finder.FindAll<TPersistentEntity>();
-            if (prePredicate != null)
-            {
-                persistentEntities = persistentEntities.Where(prePredicate);
-            }
+			var entities = persistentEntities.Project().To<TEntity>();
 
-            var entities = persistentEntities.Project().To<TEntity>();
-
-            if (postPredicate != null)
-            {
-                entities = entities.Where(postPredicate);
-            }
-
-            return entities;
-        }
-    }
+			if (postPredicate != null)
+			{
+				entities = entities.Where(postPredicate);
+			}
+			
+			return entities;
+		}
+	}
 }

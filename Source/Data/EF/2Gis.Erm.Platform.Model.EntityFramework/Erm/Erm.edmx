@@ -43,6 +43,40 @@
           <Property Name="ReferencedType" Type="int" Nullable="false" />
           <Property Name="ReferencedObjectId" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="LetterBase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ActualEnd" Type="datetime2" Precision="7" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LetterReferences">
+          <Key>
+            <PropertyRef Name="LetterId" />
+            <PropertyRef Name="Reference" />
+            <PropertyRef Name="ReferencedType" />
+            <PropertyRef Name="ReferencedObjectId" />
+          </Key>
+          <Property Name="LetterId" Type="bigint" Nullable="false" />
+          <Property Name="Reference" Type="int" Nullable="false" />
+          <Property Name="ReferencedType" Type="int" Nullable="false" />
+          <Property Name="ReferencedObjectId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="PhonecallBase">
           <Key>
             <PropertyRef Name="Id" />
@@ -180,7 +214,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="AdvertisementElementId" Type="bigint" Nullable="false" />
           <Property Name="DenialReasonId" Type="bigint" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
@@ -420,14 +454,14 @@
           <Property Name="RegistrationCertificate" Type="nvarchar" MaxLength="256" />
           <Property Name="BranchOfficeId" Type="bigint" Nullable="false" />
           <Property Name="OrganizationUnitId" Type="bigint" Nullable="false" />
-          <Property Name="ShortLegalName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ShortLegalName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PositionInNominative" Type="nvarchar" MaxLength="256" />
           <Property Name="PositionInGenitive" Type="nvarchar" MaxLength="256" />
           <Property Name="ChiefNameInNominative" Type="nvarchar" MaxLength="256" />
           <Property Name="ChiefNameInGenitive" Type="nvarchar" MaxLength="256" />
           <Property Name="Registered" Type="nvarchar" MaxLength="150" />
           <Property Name="OperatesOnTheBasisInGenitive" Type="nvarchar" MaxLength="256" />
-          <Property Name="Kpp" Type="nvarchar" MaxLength="128" />
+          <Property Name="Kpp" Type="nvarchar" MaxLength="15" />
           <Property Name="PaymentEssentialElements" Type="nvarchar" MaxLength="256" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="ActualAddress" Type="nvarchar" MaxLength="512" Nullable="false" />
@@ -515,7 +549,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Website" Type="nvarchar" MaxLength="200" />
           <Property Name="MainFirmId" Type="bigint" />
-          <Property Name="MainAddress" Type="nvarchar" MaxLength="512" />
+          <Property Name="MainAddress" Type="nvarchar" MaxLength="250" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="IsAdvertisingAgency" Type="bit" Nullable="false" />
           <Property Name="TerritoryId" Type="bigint" Nullable="false" />
@@ -561,8 +595,8 @@
           <Property Name="Department" Type="nvarchar" MaxLength="100" />
           <Property Name="IsFired" Type="bit" Nullable="false" />
           <Property Name="BirthDate" Type="datetime2" Precision="2" />
-          <Property Name="WorkAddress" Type="nvarchar" MaxLength="512" />
-          <Property Name="HomeAddress" Type="nvarchar" MaxLength="512" />
+          <Property Name="WorkAddress" Type="nvarchar" MaxLength="450" />
+          <Property Name="HomeAddress" Type="nvarchar" MaxLength="450" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -613,7 +647,7 @@
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DgppId" Type="bigint" />
           <Property Name="ISOCode" Type="smallint" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Symbol" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="IsBase" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -652,7 +686,7 @@
           <Property Name="CurrencyId" Type="bigint" Nullable="false" />
           <Property Name="StartReason" Type="int" Nullable="false" />
           <Property Name="CloseReason" Type="int" Nullable="false" />
-          <Property Name="CloseReasonOther" Type="nvarchar" MaxLength="512" />
+          <Property Name="CloseReasonOther" Type="nvarchar" MaxLength="256" />
           <Property Name="CloseDate" Type="datetime2" Precision="2" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="DealStage" Type="int" Nullable="false" />
@@ -804,7 +838,7 @@
           <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="LockDetails">
           <Key>
@@ -1099,7 +1133,7 @@
           <Property Name="SyncCode1C" Type="nvarchar" MaxLength="50" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="FirstEmitDate" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="CountryId" Type="bigint" Nullable="false" />
           <Property Name="TimeZoneId" Type="bigint" Nullable="false" />
@@ -1441,7 +1475,7 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="ParentId" Type="bigint" />
           <Property Name="Level" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
@@ -1511,7 +1545,7 @@
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FirmId" Type="bigint" Nullable="false" />
           <Property Name="TerritoryId" Type="bigint" />
-          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="4000" Nullable="false" />
           <Property Name="ClosedForAscertainment" Type="bit" Nullable="false" />
           <Property Name="IsLocatedOnTheMap" Type="bit" Nullable="false" />
           <Property Name="SortingPosition" Type="int" Nullable="false" />
@@ -2918,6 +2952,18 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Letters">
+          <End Role="LetterBase" Type="Self.LetterBase" Multiplicity="1" />
+          <End Role="LetterReferences" Type="Self.LetterReferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LetterBase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LetterReferences">
+              <PropertyRef Name="LetterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Limits_Accounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
           <End Role="Limits" Type="Self.Limits" Multiplicity="*" />
@@ -4052,6 +4098,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntityContainer Name="ErmModelStoreContainer">
           <EntitySet Name="AppointmentBase" EntityType="Self.AppointmentBase" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="AppointmentReferences" EntityType="Self.AppointmentReferences" Schema="Activity" store:Type="Tables" />
+          <EntitySet Name="LetterBase" EntityType="Self.LetterBase" Schema="Activity" store:Type="Tables" />
+          <EntitySet Name="LetterReferences" EntityType="Self.LetterReferences" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="PhonecallBase" EntityType="Self.PhonecallBase" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="PhonecallReferences" EntityType="Self.PhonecallReferences" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="TaskBase" EntityType="Self.TaskBase" Schema="Activity" store:Type="Tables" />
@@ -4455,6 +4503,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_LegalPersons_Clients" Association="Self.FK_LegalPersons_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="LegalPersons" EntitySet="LegalPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters" Association="Self.FK_Letters">
+            <End Role="LetterBase" EntitySet="LetterBase" />
+            <End Role="LetterReferences" EntitySet="LetterReferences" />
           </AssociationSet>
           <AssociationSet Name="FK_Limits_Accounts" Association="Self.FK_Limits_Accounts">
             <End Role="Accounts" EntitySet="Accounts" />
@@ -5647,6 +5699,12 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <End Role="TaskBase" EntitySet="TaskBases" />
             <End Role="TaskReference" EntitySet="TaskReferences" />
           </AssociationSet>
+          <EntitySet Name="LetterBases" EntityType="ErmModel.LetterBase" />
+          <EntitySet Name="LetterReferences" EntityType="ErmModel.LetterReference" />
+          <AssociationSet Name="FK_Letters" Association="ErmModel.FK_Letters">
+            <End Role="LetterBase" EntitySet="LetterBases" />
+            <End Role="LetterReference" EntitySet="LetterReferences" />
+          </AssociationSet>
       </EntityContainer>
       <EntityType Name="CurrencyRate">
         <Key>
@@ -5735,7 +5793,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Type="Guid" Name="ReplicationCode" Nullable="false" />
-        <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="Int32" Name="DgppId" />
         <Property Type="DateTime" Name="FirstEmitDate" Nullable="false" Precision="2" />
         <Property Type="Int64" Name="CountryId" Nullable="false" />
@@ -5776,7 +5834,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <PropertyRef Name="Id" />
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="ParentId" />
         <Property Type="Int32" Name="Level" Nullable="false" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -5841,7 +5899,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="Int64" Name="FirmId" Nullable="false" />
         <Property Type="Int64" Name="TerritoryId" />
-        <Property Type="String" Name="Address" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Address" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
         <Property Type="Boolean" Name="IsActive" Nullable="false" />
         <Property Type="Int64" Name="CreatedBy" Nullable="false" />
@@ -6147,7 +6205,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Type="Guid" Name="ReplicationCode" Nullable="false" />
-        <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Symbol" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsBase" Nullable="false" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -6355,7 +6413,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int64" Name="CurrencyId" Nullable="false" />
         <Property Type="Int32" Name="StartReason" Nullable="false" />
         <Property Type="Int32" Name="CloseReason" Nullable="false" />
-        <Property Type="String" Name="CloseReasonOther" MaxLength="512" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="CloseReasonOther" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="DateTime" Name="CloseDate" Precision="2" />
         <Property Type="String" Name="Comment" MaxLength="512" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -6408,7 +6466,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="2" />
         <Property Type="DateTime" Name="ModifiedOn" Precision="2" />
         <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Comment" MaxLength="255" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Account" Relationship="ErmModel.FK_Limits_Accounts" FromRole="Limit" ToRole="Account" />
       </EntityType>
       <EntityType Name="ReleaseWithdrawal">
@@ -7204,8 +7262,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="Department" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsFired" Nullable="false" />
         <Property Type="DateTime" Name="BirthDate" Precision="2" />
-        <Property Type="String" Name="WorkAddress" MaxLength="512" FixedLength="false" Unicode="true" />
-        <Property Type="String" Name="HomeAddress" MaxLength="512" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="WorkAddress" MaxLength="450" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="HomeAddress" MaxLength="450" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Comment" MaxLength="512" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
         <Property Type="Boolean" Name="IsActive" Nullable="false" />
@@ -7776,7 +7834,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Website" MaxLength="200" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="MainFirmId" />
-        <Property Type="String" Name="MainAddress" MaxLength="512" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="MainAddress" MaxLength="250" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Comment" MaxLength="512" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="TerritoryId" Nullable="false" />
         <Property Type="Int32" Name="InformationSource" Nullable="false" />
@@ -7906,14 +7964,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="RegistrationCertificate" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="BranchOfficeId" Nullable="false" />
         <Property Type="Int64" Name="OrganizationUnitId" Nullable="false" />
-        <Property Type="String" Name="ShortLegalName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="ShortLegalName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PositionInNominative" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PositionInGenitive" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="ChiefNameInNominative" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="ChiefNameInGenitive" MaxLength="256" FixedLength="false" Unicode="true" />
 		<Property Type="String" Name="Registered" MaxLength="150" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="OperatesOnTheBasisInGenitive" MaxLength="256" FixedLength="false" Unicode="true" />
-        <Property Type="String" Name="Kpp" MaxLength="128" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Kpp" MaxLength="15" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PaymentEssentialElements" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="ActualAddress" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
@@ -10027,6 +10085,54 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Principal>
             <Dependent Role="TaskReference">
               <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LetterBase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="ReplicationCode" Type="Guid" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="OwnerCode" Type="Int64" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ActualEnd" Type="DateTime" Precision="7" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LetterReferences" Relationship="ErmModel.FK_Letters" FromRole="LetterBase" ToRole="LetterReference" />
+        </EntityType>
+        <EntityType Name="LetterReference">
+          <Key>
+            <PropertyRef Name="LetterId" />
+            <PropertyRef Name="Reference" />
+            <PropertyRef Name="ReferencedType" />
+            <PropertyRef Name="ReferencedObjectId" />
+          </Key>
+          <Property Name="LetterId" Type="Int64" Nullable="false" />
+          <Property Name="Reference" Type="Int32" Nullable="false" />
+          <Property Name="ReferencedType" Type="Int32" Nullable="false" />
+          <Property Name="ReferencedObjectId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="LetterBase" Relationship="ErmModel.FK_Letters" FromRole="LetterReference" ToRole="LetterBase" />
+        </EntityType>
+        <Association Name="FK_Letters">
+          <End Type="ErmModel.LetterBase" Role="LetterBase" Multiplicity="1" />
+          <End Type="ErmModel.LetterReference" Role="LetterReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LetterBase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LetterReference">
+              <PropertyRef Name="LetterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12306,6 +12412,39 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
                 <ScalarProperty Name="ReferencedType" ColumnName="ReferencedType" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LetterBases">
+            <EntityTypeMapping TypeName="ErmModel.LetterBase">
+              <MappingFragment StoreEntitySet="LetterBase">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="ActualEnd" ColumnName="ActualEnd" />
+                <ScalarProperty Name="ScheduledEnd" ColumnName="ScheduledEnd" />
+                <ScalarProperty Name="ScheduledStart" ColumnName="ScheduledStart" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="OwnerCode" ColumnName="OwnerCode" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ReplicationCode" ColumnName="ReplicationCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LetterReferences">
+            <EntityTypeMapping TypeName="ErmModel.LetterReference">
+              <MappingFragment StoreEntitySet="LetterReferences">
+                <ScalarProperty Name="ReferencedObjectId" ColumnName="ReferencedObjectId" />
+                <ScalarProperty Name="ReferencedType" ColumnName="ReferencedType" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -169,6 +169,7 @@
 		Appointment = 501,
         Phonecall = 502,
         Task = 503,
+        Letter = 504,
 		RegardingObjectReference = 510,
 
         // заявка на создание или продление заказа от Личного кабинета

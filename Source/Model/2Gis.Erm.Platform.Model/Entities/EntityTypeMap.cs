@@ -119,6 +119,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Appointment, typeof(Appointment) },
                 { EntityName.Phonecall, typeof(Phonecall) },
                 { EntityName.Task, typeof(Task) },
+                { EntityName.Letter, typeof(Letter) },
                 { EntityName.RegardingObjectReference, typeof(RegardingObject<>) },
 
                 // Security

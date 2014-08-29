@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Appointment = EntityName.Appointment,
         PhoneCall = EntityName.Phonecall,
         Task = EntityName.Task,
+        Letter = EntityName.Letter,
     }
 
 	public enum AppointmentAggregate
@@ -25,6 +26,12 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 	public enum TaskAggregate
 	{
 		Task = EntityName.Task,
+		RegardingObjectReference = EntityName.RegardingObjectReference,
+	}
+
+	public enum LetterAggregate
+	{
+		Letter = EntityName.Letter,
 		RegardingObjectReference = EntityName.RegardingObjectReference,
 	}
 }

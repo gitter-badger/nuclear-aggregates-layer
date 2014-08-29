@@ -90,6 +90,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(ImportedFirmAddress),
     		typeof(LegalPerson),
     		typeof(LegalPersonProfile),
+    		typeof(LetterBase),
+    		typeof(LetterReference),
     		typeof(Limit),
     		typeof(LocalMessage),
     		typeof(Lock),
