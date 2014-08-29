@@ -107,6 +107,8 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 						.RegisterType<IRepository<RegardingObject<Phonecall>>, EFMappingRepository<RegardingObject<Phonecall>, PhonecallReference>>(Lifetime.PerResolve)
 						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
 						.RegisterType<IRepository<RegardingObject<Task>>, EFMappingRepository<RegardingObject<Task>, TaskReference>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<Letter>, EFMappingRepository<Letter, LetterBase>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<RegardingObject<Letter>>, EFMappingRepository<RegardingObject<Letter>, LetterReference>>(Lifetime.PerResolve)
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
