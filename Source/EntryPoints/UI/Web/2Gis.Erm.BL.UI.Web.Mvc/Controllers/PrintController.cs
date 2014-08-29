@@ -4,20 +4,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -37,7 +33,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IPublicService _publicService;
         private readonly ISecureFinder _secureFinder;
         private readonly IOrderReadModel _orderReadModel;
-        private readonly ProfileChooseHelper _profileChooseHelper;
 
         public PrintController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -47,9 +42,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IGetBaseCurrencyService getBaseCurrencyService,
                                IPublicService publicService,
                                ISecureFinder secureFinder,
-                               IOrderReadModel orderReadModel,
-                               ILegalPersonReadModel legalPersonReadModel,
-                               ISecurityServiceEntityAccess securityServiceEntityAccess)
+                               IOrderReadModel orderReadModel)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -60,51 +53,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _publicService = publicService;
             _secureFinder = secureFinder;
             _orderReadModel = orderReadModel;
-            _profileChooseHelper = new ProfileChooseHelper(orderReadModel, legalPersonReadModel, securityServiceEntityAccess);
         }
 
         [HttpGet]
-        public ActionResult IsChooseProfileNeeded(long? orderId, long? billId)
+        public ActionResult IsChooseProfileNeeded()
         {
-            ProfileChooseHelper.ChooseProfileDialogState chooseProfileDialogState;
-            if (orderId.HasValue)
-            {
-                chooseProfileDialogState = _profileChooseHelper.GetChooseProfileDialogStateForOrder(orderId.Value);
-            }
-            else if (billId.HasValue)
-            {
-                chooseProfileDialogState = _profileChooseHelper.GetChooseProfileDialogStateForBill(billId.Value);
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Either 'orderId' or 'billId' must be specified");
-            }
-
-            return new JsonNetResult(new
-            {
-                IsChooseProfileNeeded = chooseProfileDialogState.IsChooseProfileNeeded,
-                LegalPersonProfileId = chooseProfileDialogState.LegalPersonProfileId
-            });
+            throw new NotImplementedException();
         }
 
         [HttpGet]
-        public ActionResult ChooseProfile(long? orderId, long? billId, long? profileId)
+        public ActionResult ChooseProfile()
         {
-            ChooseProfileViewModel viewModel;
-            if (orderId.HasValue)
-            {
-                viewModel = _profileChooseHelper.GetViewModelByOrder(orderId.Value, UserContext.Identity.Code, profileId);
-            }
-            else if (billId.HasValue)
-            {
-                viewModel = _profileChooseHelper.GetViewModelByBill(billId.Value, UserContext.Identity.Code, profileId);
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Either 'orderId' or 'billId' must be specified");
-            }
-
-            return View(viewModel);
+            throw new NotImplementedException();
         }
 
         [HttpGet]
@@ -285,8 +245,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             try
             {
-                // TODO {all, 28.05.2014}: эту логику нужно вынести из контроллера и избавиться от хэндлеров
-                _publicService.Handle(new ChangeOrderLegalPersonProfileRequest { OrderId = id, LegalPersonProfileId = profileId });
                 var response = (StreamResponse)_publicService.Handle(printRequest);
                 return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
             }
