@@ -68,6 +68,7 @@
     <Compile Include="ADPValidationResultBuilder.cs" />
     <Compile Include="ADPValidator.cs" />
     <Compile Include="DI\BlCoreOrderValidationAssembly.cs" />
+    <Compile Include="OrderValidationRuleProvider.cs" />
     <Compile Include="Rules\AdvertisementsOnlyWhiteListOrderValidationRule.cs" />
     <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />
     <Compile Include="Settings\PricePositionDescription.cs" />

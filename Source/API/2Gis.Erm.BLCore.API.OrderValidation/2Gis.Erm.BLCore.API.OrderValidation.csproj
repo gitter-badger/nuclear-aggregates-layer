@@ -57,6 +57,7 @@
     <Compile Include="CheckOrdersReadinessForReleaseResponse.cs" />
     <Compile Include="DI\OrderValidationZone.cs" />
     <Compile Include="IOrderValidationRule.cs" />
+    <Compile Include="IOrderValidationRuleProvider.cs" />
     <Compile Include="Remote\IOrderValidationApplicationRestService.cs" />
     <Compile Include="Remote\IOrderValidationApplicationService.cs" />
     <Compile Include="IOrderValidationOnStateChangeService.cs" />
