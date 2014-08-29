@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
 
         protected override Response Handle(PrintBillRequest request)
         {
-            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.Id))
+            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
                                       {
                                           bill.OrderId,
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
 
             if (billInfo == null)
             {
-                throw new EntityNotFoundException(typeof(Bill), request.Id);
+                throw new EntityNotFoundException(typeof(Bill), request.BillId);
             }
 
             var printRequest = new PrintDocumentRequest()
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                     CurrencyIsoCode = billInfo.CurrencyISOCode,
                     FileName = billInfo.BillNumber,
                     BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
-                    PrintData = GetPrintData(request.Id, request.LegalPersonProfileId),
+                    PrintData = GetPrintData(request.BillId, request.LegalPersonProfileId),
                     TemplateCode = TemplateCode.BillLegalPerson,
                 };
 

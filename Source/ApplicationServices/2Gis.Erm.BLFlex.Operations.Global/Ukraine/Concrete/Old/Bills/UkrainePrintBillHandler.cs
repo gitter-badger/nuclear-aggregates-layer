@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
 
         protected override Response Handle(PrintBillRequest request)
         {
-            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.Id))
+            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
                                       {
                                           Bill = bill,

@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
 
         protected override Response Handle(PrintBillRequest request)
         {
-            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.Id))
+            var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
                                       {
                                           Bill = bill,
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
             if (billInfo == null)
                 throw new NotificationException(BLResources.SpecifiedBillNotFound);
 
-            var printData = _finder.Find(Specs.Find.ById<Bill>(request.Id))
+            var printData = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                    .Select(bill => new
                                        {
                                            Bill = new
