@@ -38,6 +38,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 		Appointment = 1,
 		Phonecall = 2,
 		Task = 3,
+        Letter = 4,
 	}
-
 }
