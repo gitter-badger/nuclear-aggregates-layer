@@ -2,8 +2,10 @@ using System;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -36,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                            {
                                order.Bargain,
                                order.LegalPersonId,
-                               ProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value).Id,
+                               ProfileId = order.LegalPersonProfileId,
                                OrganizationUnitName = order.DestOrganizationUnit.Name,
                                order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                CurrencyIsoCode = order.Currency.ISOCode,
@@ -44,11 +46,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                            })
                        .Single();
 
+            if (data.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
                                                    ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
                                                    : null;
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value));
 
             var printData = new
                 {

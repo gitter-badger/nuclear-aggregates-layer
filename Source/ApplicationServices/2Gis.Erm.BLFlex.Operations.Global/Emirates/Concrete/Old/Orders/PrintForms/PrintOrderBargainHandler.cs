@@ -5,6 +5,7 @@ using System.Net.Mime;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -55,6 +56,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                 throw new EntityNotFoundException(typeof(Order), request.OrderId);
             }
 
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             if (orderInfo.BargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId, typeof(Bargain));
@@ -65,8 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId, typeof(BranchOfficeOrganizationUnit));
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : orderInfo.LegalPersonProfileId.Value;
-            var printdata = GetPrintData(request.OrderId, legalPersonProfileId);
+            var printdata = GetPrintData(request.OrderId, orderInfo.LegalPersonProfileId.Value);
             var streamDictionary = DocumentVariants.Select(variant => PrintDocument(printdata,
                                                                                     orderInfo.CurrencyIsoCode,
                                                                                     orderInfo.BranchOfficeOrganizationUnitId.Value,

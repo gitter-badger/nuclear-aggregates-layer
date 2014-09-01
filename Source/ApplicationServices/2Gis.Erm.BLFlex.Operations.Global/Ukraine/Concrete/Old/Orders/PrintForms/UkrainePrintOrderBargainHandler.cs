@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -48,10 +49,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                CurrencyIsoCode = order.Currency.ISOCode,
                                LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                               order.LegalPersonProfileId,
                            })
                        .Single();
 
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(orderInfo.BranchOfficeId);
             var branchOfficeOrganizationUnit = orderInfo.BranchOfficeOrganizationUnitId.HasValue

@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -34,7 +35,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                                           bill.OrderId,
                                           bill.BillNumber,
                                           bill.Order.BranchOfficeOrganizationUnitId,
-                                          CurrencyISOCode = bill.Order.Currency.ISOCode
+                                          CurrencyISOCode = bill.Order.Currency.ISOCode,
+                                          bill.Order.LegalPersonProfileId,
                                       })
                                   .SingleOrDefault();
 
@@ -43,19 +45,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                 throw new EntityNotFoundException(typeof(Bill), request.BillId);
             }
 
+            if (billInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var printRequest = new PrintDocumentRequest()
                 {
                     CurrencyIsoCode = billInfo.CurrencyISOCode,
                     FileName = billInfo.BillNumber,
                     BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
-                    PrintData = GetPrintData(request.BillId, request.LegalPersonProfileId),
+                    PrintData = GetPrintData(request.BillId, billInfo.LegalPersonProfileId.Value),
                     TemplateCode = TemplateCode.BillLegalPerson,
                 };
 
             return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
-        private object GetPrintData(long billId, long? profileId)
+        private object GetPrintData(long billId, long profileId)
         {
             var printData = _finder.Find(Specs.Find.ById<Bill>(billId))
                        .Select(bill => new
@@ -94,13 +101,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                            {
                                bill.Order.LegalPerson.LegalName,
                                bill.Order.LegalPerson.LegalAddress,
-                           },
-
-                           bill.Order.LegalPersonProfileId
+                           }
                        })
                        .Single();
 
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(profileId.HasValue ? profileId.Value : printData.LegalPersonProfileId.Value));
+            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(profileId));
 
             return new
             {

@@ -3,6 +3,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -45,6 +46,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
         {
             var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
 
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
                 throw new NotificationException(BLFlexResources.OrderHasNoBranchOfficeOrganizationUnit);
@@ -65,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
-            var profileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : order.MainLegalPersonProfileId;
+            var profileId = order.LegalPersonProfileId.Value;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);

@@ -1,6 +1,7 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -37,12 +38,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         protected override Response Handle(PrintNewSalesModelBargainRequest request)
         {
             var relations = _readModel.GetBargainRelationsDto(request.OrderId);
-            var printData = GetPrintData(request, relations);
 
             if (relations.BranchOfficeOrganizationUnitId == null)
             {
                 throw new NotificationException(BLFlexResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
+
+            if (relations.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+            
+            var printData = GetPrintData(request, relations);
+
 
             var printRequest = new PrintDocumentRequest
                 {
@@ -58,9 +66,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
         private PrintData GetPrintData(PrintNewSalesModelBargainRequest request, BargainRelationsDto relations)
         {
-            var profileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : relations.MainLegalPersonProfileId;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(relations.LegalPersonId.Value);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(relations.LegalPersonProfileId.Value);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(relations.BranchOfficeOrganizationUnitId.Value);
 
             var bargainQuery = _readModel.GetBargainQuery(request.OrderId);

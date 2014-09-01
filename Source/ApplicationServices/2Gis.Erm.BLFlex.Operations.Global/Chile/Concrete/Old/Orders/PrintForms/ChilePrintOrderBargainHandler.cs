@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;
@@ -69,18 +70,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                 throw new NotificationException(BLResources.OrderNotFound);
             }
 
-            if (!orderData.LegalPersonId.HasValue)
+            if (orderData.LegalPersonId == null)
             {
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId ?? orderData.LegalPersonProfileId;
-            if (!legalPersonProfileId.HasValue)
+            if (orderData.LegalPersonProfileId == null)
             {
-                throw new NotificationException(BLResources.LegalPersonProfileMissing);
+                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
-            if (!orderData.BranchOfficeOrganizationUnitId.HasValue)
+            if (orderData.BranchOfficeOrganizationUnitId.HasValue == null)
             {
                 throw new NotificationException(BLResources.BranchOfficeOrganizationUnitNotFound);
             }
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(orderData.BranchOfficeOrganizationUnitId.Value);
             var boouPart = boou.Parts.OfType<ChileBranchOfficeOrganizationUnitPart>().Single();
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderData.LegalPersonId.Value);
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(orderData.LegalPersonProfileId.Value);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<ChileLegalPersonProfilePart>().Single();
 
             var bankName = legalPersonProfilePart.BankId.HasValue ? _bankReadModel.GetBank(legalPersonProfilePart.BankId.Value).Name : string.Empty;

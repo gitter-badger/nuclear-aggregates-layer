@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
                                   SourceOrganizationUnitId = order.SourceOrganizationUnitId,
                                   DestOrganizationUnitId = order.DestOrganizationUnitId,
                                   FirmId = order.FirmId,
-                                  MainLegalPersonProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.IsMainProfile).Id,
+                                  LegalPersonProfileId = order.LegalPersonProfileId,
                                   BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId
                               })
                           .Single();

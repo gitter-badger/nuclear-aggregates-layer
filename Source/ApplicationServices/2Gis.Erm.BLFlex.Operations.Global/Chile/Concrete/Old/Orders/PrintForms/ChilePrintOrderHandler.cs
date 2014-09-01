@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
@@ -49,6 +50,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         protected override StreamResponse Handle(PrintOrderRequest request)
         {
             var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
+            
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
@@ -70,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
-            var profileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : order.MainLegalPersonProfileId;
+            var profileId = order.LegalPersonProfileId.Value;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
             var profilePart = profile.Parts.OfType<ChileLegalPersonProfilePart>().Single();

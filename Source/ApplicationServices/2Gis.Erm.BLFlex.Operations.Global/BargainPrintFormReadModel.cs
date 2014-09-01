@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
                                   BargainNumber = order.Bargain.Number,
                                   CurrencyIsoCode = order.Currency.ISOCode,
                                   BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                                  MainLegalPersonProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.IsMainProfile).Id,
+                                  LegalPersonProfileId = order.LegalPersonProfileId,
                                   LegalPersonId = order.LegalPersonId
                               })
                           .Single();

@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
@@ -77,16 +78,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId ?? billInfo.LegalPersonProfileId;
-            if (!legalPersonProfileId.HasValue)
+            if (billInfo.LegalPersonProfileId == null)
             {
-                throw new NotificationException(BLResources.LegalPersonProfileMissing);
+                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId.Value);
             var legalPersonPart = legalPerson.Parts.OfType<ChileLegalPersonPart>().Single();
 
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(billInfo.LegalPersonProfileId.Value);
 
             var communeRef = _chileLegalPersonReadModel.GetCommuneReference(legalPerson.Id);
 
