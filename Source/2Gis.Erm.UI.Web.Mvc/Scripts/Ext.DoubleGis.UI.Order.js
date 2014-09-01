@@ -214,11 +214,7 @@ window.InitPage = function () {
                         return;
                     }
 
-                    var callback = function (profileId) {
-                        this.PrintWithoutProfileChoosing(methodName, entityId, profileId);
-                    };
-
-                    this.ChooseProfile({ orderId: entityId }, callback);
+                    this.PrintWithoutProfileChoosing(methodName, entityId);
                 },
                 PrepareJointBill: function () {
                     var entityId = {
