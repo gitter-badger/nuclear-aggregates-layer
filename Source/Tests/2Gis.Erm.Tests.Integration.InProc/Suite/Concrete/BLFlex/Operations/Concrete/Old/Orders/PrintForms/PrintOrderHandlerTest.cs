@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
             {
                 request = new PrintRegionalOrderRequest
                 {
-                    LegalPersonProfileId = modelEntity.LegalPersonProfileId,
                     OrderId = modelEntity.Id,
                 };
             }
@@ -27,7 +26,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
             {
                 request = new PrintOrderRequest
                 {
-                    LegalPersonProfileId = modelEntity.LegalPersonProfileId,
                     OrderId = modelEntity.Id,
                 };
             }
