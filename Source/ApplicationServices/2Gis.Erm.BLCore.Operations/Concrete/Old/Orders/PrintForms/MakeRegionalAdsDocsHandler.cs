@@ -86,11 +86,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                 var orderStreams = new List<Stream>();
                 foreach (var firmWithOrders in responseItem.FirmWithOrders)
                 {
-                    var streamResponse = (StreamResponse)_requestProcessor.HandleSubRequest(new PrintReferenceInformationRequest
-                    {
-                        OrderId = firmWithOrders.OrderIds.First(),
-                        LegalPersonProfileId = 0, // потом подумать что тут должно быть
-                    }, Context);
+                    var printRequest = new PrintReferenceInformationRequest
+                        {
+                            OrderId = firmWithOrders.OrderIds.First(),
+                        };
+
+                    var streamResponse = (StreamResponse)_requestProcessor.HandleSubRequest(printRequest, Context);
 
                     orderStreams.Add(streamResponse.Stream);
                 }

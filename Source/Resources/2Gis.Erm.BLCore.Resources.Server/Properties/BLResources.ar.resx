@@ -5212,4 +5212,7 @@ Placement period: {3}.</value>
   <data name="TitlePrinting" xml:space="preserve">
     <value>Печать</value>
   </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Должен быть указан профиль юридического лица</value>
+  </data>
 </root>

@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -84,7 +85,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                 OrderSignupDate = x.SignupDate,
                 x.DestOrganizationUnit.ElectronicMedia,
                 FirmName = x.Firm.Name,
-                LegalPersonChiefNameInNominative = x.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.Id == request.LegalPersonProfileId).ChiefNameInNominative,
+                LegalPersonChiefNameInNominative = x.LegalPersonProfile.ChiefNameInNominative,
+                LegalPersonProfileId = x.LegalPersonProfileId,
                 OrderNumber = x.Number,
                 x.OwnerCode,
                 SourceElectronicMedia = x.SourceOrganizationUnit.ElectronicMedia,
@@ -94,6 +96,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
             if (orderInfo == null || orderInfo.BranchOfficeOrganizationUnitId == null)
             {
                 throw new NotificationException("Печать документа невозможна.");
+            }
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
             if (orderInfo.Platform == null)

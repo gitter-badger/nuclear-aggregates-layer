@@ -7940,6 +7940,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string LegalPersonProfileMustBeSpecified {
+            get {
+                return ResourceManager.GetString("LegalPersonProfileMustBeSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string LegalPersonProfileNameIsNotUnique {
             get {
                 return ResourceManager.GetString("LegalPersonProfileNameIsNotUnique", resourceCulture);

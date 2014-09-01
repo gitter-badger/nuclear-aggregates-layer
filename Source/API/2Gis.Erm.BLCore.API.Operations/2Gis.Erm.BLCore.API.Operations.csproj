@@ -173,7 +173,9 @@
     <Compile Include="Concrete\Orders\Copy\CopyOrderResult.cs" />
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
+    <Compile Include="Concrete\Orders\ISelectPrintProfilesOperationService.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderProfilesOperationService.cs" />
+    <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
