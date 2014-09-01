@@ -129,7 +129,10 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
         private bool TryFindMapped<TEntity>(Expression<Func<TEntity, bool>> expression, out IQueryable<TEntity> queryable)
         {
-            if (typeof(TEntity).AsEntityName().HasMapping())
+            var entityType = typeof(TEntity);
+            
+            EntityName entityName;
+            if (entityType.TryGetEntityName(out entityName) && entityName.HasMapping())
             {
                 queryable = _compositeEntityDecorator.Find(expression);
                 return true;
