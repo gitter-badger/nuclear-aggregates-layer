@@ -1,17 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -53,25 +52,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult IsChooseProfileNeeded()
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public ActionResult ChooseProfile()
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public ActionResult PrepareJointBill(long id, long profileId)
+        public ActionResult PrepareJointBill(long id)
         {
             var model = new PrepareJointBillViewModel
             {
                 EntityId = id,
                 EntityName = typeof(Order).AsEntityName(),
-                ProfileId = profileId,
                 IsMassBillCreateAvailable = false
             };
 
@@ -101,133 +87,127 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult PrintJointBill(long id, string relatedOrders, long profileId)
+        public ActionResult PrintJointBill(long id, string relatedOrders)
         {
             var orders = JsonConvert.DeserializeObject<long[]>(relatedOrders);
 
             if (orders != null && orders.Length > 0)
             {
-                return TryPrintDocument(new PrintOrderJointBillRequest { OrderId = id, RelatedOrderIds = orders, LegalPersonProfile = profileId });
+                return TryPrintDocument(new PrintOrderJointBillRequest { OrderId = id, RelatedOrderIds = orders });
             }
 
             return new EmptyResult();
         }
 
         [HttpGet]
-        public ActionResult PrintOrder(long id, long profileId)
+        public ActionResult PrintOrder(long id)
         {
-            return TryPrintDocument(new PrintOrderWithGuarateeRequest { OrderId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintOrderWithGuarateeRequest { OrderId = id });
         }
         
         [HttpGet]
-        public ActionResult PrintSingleBill(long id, long profileId)
+        public ActionResult PrintSingleBill(long id)
         {
-            return TryPrintDocument(new PrintBillRequest { BillId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintBillRequest { BillId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintReferenceInformation(long id, long profileId)
+        public ActionResult PrintReferenceInformation(long id)
         {
-            return
-                TryPrintDocument(new PrintReferenceInformationRequest { OrderId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintReferenceInformationRequest { OrderId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintRegionalOrder(long id, long profileId)
+        public ActionResult PrintRegionalOrder(long id)
         {
-            return
-                TryPrintDocument(new PrintRegionalOrderRequest { OrderId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintRegionalOrderRequest { OrderId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintBargain(long id, long profileId)
+        public ActionResult PrintBargain(long id)
         {
-            return TryPrintDocument(new PrintOrderBargainRequest { OrderId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintOrderBargainRequest { OrderId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintNewSalesModelBargain(long id, long profileId)
+        public ActionResult PrintNewSalesModelBargain(long id)
         {
-            return TryPrintDocument(new PrintNewSalesModelBargainRequest { OrderId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintNewSalesModelBargainRequest { OrderId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintOrderBills(long id, long profileId)
+        public ActionResult PrintOrderBills(long id)
         {
-            return TryPrintDocument(new PrintOrderBillsRequest { OrderId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintOrderBillsRequest { OrderId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintLetterOfGuarantee(long id, long profileId)
+        public ActionResult PrintLetterOfGuarantee(long id)
         {
-            return TryPrintDocument(new PrintLetterOfGuaranteeRequest { OrderId = id, LegalPersonProfileId = profileId, IsChangingAdvMaterial = true });
+            return TryPrintDocument(new PrintLetterOfGuaranteeRequest { OrderId = id, IsChangingAdvMaterial = true });
         }
 
         [HttpGet]
-        public ActionResult PrintTerminationNotice(long id, long profileId)
+        public ActionResult PrintTerminationNotice(long id)
         {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId });
+            return TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintTerminationNoticeWithoutReason(long id, long profileId)
+        public ActionResult PrintTerminationNoticeWithoutReason(long id)
         {
             return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId, WithoutReason = true });
+                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, WithoutReason = true });
         }
 
         [HttpGet]
-        public ActionResult PrintTerminationBargainNotice(long id, long profileId)
+        public ActionResult PrintTerminationBargainNotice(long id)
         {
             return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId, TerminationBargain = true });
+                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, TerminationBargain = true });
         }
 
         [HttpGet]
-        public ActionResult PrintTerminationBargainNoticeWithoutReason(long id, long profileId)
+        public ActionResult PrintTerminationBargainNoticeWithoutReason(long id)
         {
             return
                 TryPrintDocument(new PrintOrderTerminationNoticeRequest
                                      {
                                          OrderId = id,
-                                         LegalPersonProfileId = profileId,
                                          WithoutReason = true,
                                          TerminationBargain = true
                                      });
         }
 
         [HttpGet]
-        public ActionResult PrintRegionalTerminationNotice(long id, long profileId)
+        public ActionResult PrintRegionalTerminationNotice(long id)
         {
             return
-                TryPrintDocument(new PrintRegionalOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId });
+                TryPrintDocument(new PrintRegionalOrderTerminationNoticeRequest { OrderId = id });
         }
 
         [HttpGet]
-        public ActionResult PrintAdditionalAgreement(long id, long profileId)
+        public ActionResult PrintAdditionalAgreement(long id)
         {
             return
                 TryPrintDocument(new PrintOrderAdditionalAgreementRequest
                                      {
                                          OrderId = id,
-                                         LegalPersonProfileId = profileId,
                                          PrintType = PrintAdditionalAgreementTarget.Order
                                      });
         }
 
         [HttpGet]
-        public ActionResult PrintBargainAdditionalAgreement(long id, long profileId)
+        public ActionResult PrintBargainAdditionalAgreement(long id)
         {
             return
                 TryPrintDocument(new PrintOrderAdditionalAgreementRequest
                                      {
                                          OrderId = id,
-                                         LegalPersonProfileId = profileId,
                                          PrintType = PrintAdditionalAgreementTarget.Bargain
                                      });
         }
-        
+
         private ActionResult TryPrintDocument(Request printRequest)
         {
             try
@@ -235,9 +215,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 var response = (StreamResponse)_publicService.Handle(printRequest);
                 return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
             }
-            catch (Exception ex)
+            catch (BusinessLogicException exception)
             {
-                return new ContentResult { Content = ex.Message };
+                return new ContentResult { ContentType = MediaTypeNames.Text.Plain, Content = exception.Message };
             }
         }
     }
