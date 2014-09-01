@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
                 .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(Lifetime.Singleton)
                 .RegisterType<IEntityToDocumentRelationFactory, UnityEntityToDocumentRelationFactory>(lifetime())
                 .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(Lifetime.Singleton)
-                .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(Lifetime.Singleton)
+                .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
                 .RegisterType<IDocumentUpdater, DocumentUpdater>(lifetime())
                 .RegisterType(typeof(IDocumentVersionUpdater<>), typeof(DocumentVersionUpdater<>), Lifetime.Singleton)
                 ;
