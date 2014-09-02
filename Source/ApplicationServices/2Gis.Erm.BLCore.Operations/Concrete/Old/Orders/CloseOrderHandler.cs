@@ -5,7 +5,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -82,16 +81,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                     {
                         var deal = _dealReadModel.GetDeal(order.DealId.Value);
                         _dealChangeStageAggregateService.ChangeStage(new[] { new DealChangeStageDto { Deal = deal, NextStage = DealStage.MatchAndSendProposition } });
-                    }
-
-                    // У заказа есть связный документ "Сделка" + у заказа есть >= 1 позиции заказа + заказ в статусе "На оформлении". 
-                    // Выгрузить / изменить к текущему, значение атрибута "Предполагаемый доход" в документ "Сделка".
-                    if (order.WorkflowStepId == (int)OrderState.OnRegistration)
-                    {
-                        if (orderPositions.Length > 0)
-                        {
-                            _subRequestProcessor.HandleSubRequest(new ActualizeDealProfitIndicatorsRequest { DealIds = new[] { order.DealId.Value } }, Context);
-                        }
                     }
                 }
 

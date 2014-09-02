@@ -118,7 +118,6 @@
     <Compile Include="Concrete\Old\Clients\CheckIsWarmClientHandler.cs" />
     <Compile Include="Concrete\Old\Clients\MergeClientsHandler.cs" />
     <Compile Include="Concrete\Old\CrmActivities\UpdateRelatedCrmActivitiesHandler.cs" />
-    <Compile Include="Concrete\Old\Deals\ActualizeDealProfitIndicatorsHandler.cs" />
     <Compile Include="Concrete\Old\Deals\CheckDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\CloseDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\ReopenDealHandler.cs" />
@@ -220,7 +219,6 @@
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnRegistrationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnTerminationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnArchiveToApprovedHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnRejectedToOnRegistrationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToArchiveHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToOnApprovedHandler.cs" />
     <Compile Include="Concrete\Old\Prices\PublishPriceHandler.cs" />

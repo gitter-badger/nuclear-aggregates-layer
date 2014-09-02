@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals
         ClientAndFirmForDealInfo GetClientAndFirmForDealInfo(Deal deal);
         int SetOrderApprovedForReleaseStage(long dealId);
         int SetOrderFormedStage(long dealId, long orderId);
-        int DecreaseDealEstimatedProfit(Deal deal, decimal estimatedProfitDelta);
         DealLegalPersonDto GetDealLegalPerson(long dealId);
     }
 }

@@ -481,6 +481,33 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   23.07.2014, i.maslennikov: drop deal profit indicators 
+        ///ALTER PROCEDURE [Billing].[ReplicateDeal]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    
+        ///        SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainName NVARC [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _22571_ReplicateDeal {
+            get {
+                return ResourceManager.GetString("_22571_ReplicateDeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   06.08.2014, i.maslennikov: оптимизация производительности
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddresses]
         ///	@Ids [Shared].[Int64IdsTableType] readonly
@@ -643,6 +670,26 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string Customizations_20459 {
             get {
                 return ResourceManager.GetString("Customizations_20459", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Сделка&quot; OriginalName=&quot;Opportunity&quot;&gt;Opportunity&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;3&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Opportunity&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;3&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Opportunities&lt;/CollectionName&gt;
+        ///       [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Customizations_22672 {
+            get {
+                return ResourceManager.GetString("Customizations_22672", resourceCulture);
             }
         }
         

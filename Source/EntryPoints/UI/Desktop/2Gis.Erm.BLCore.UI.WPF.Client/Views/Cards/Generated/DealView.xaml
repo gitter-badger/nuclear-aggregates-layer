@@ -26,77 +26,68 @@
 										Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls:NamedEnumComboBox Grid.Row="0" Grid.Column="1" 
+            <controls:NamedEnumComboBox Grid.Row="0" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.DealStage}" 
 										SelectedValue="{Binding DealStage, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedTextBox Grid.Row="1" Grid.Column="0" 
-										PropertyName="{focusableBinding:FocusableBinding Localizer.EstimatedProfit}" 
-										Text="{Binding EstimatedProfit, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
-										
-										/>
-				<controls:NamedTextBox Grid.Row="1" Grid.Column="1" 
-										PropertyName="{focusableBinding:FocusableBinding Localizer.ActualProfit}" 
-										Text="{Binding ActualProfit, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
-										
-										/>
-				<controls:NamedTextBox Grid.Row="2" Grid.Column="0" 
+                
+            <controls:NamedTextBox Grid.Row="1" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Comment}" 
 										Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls:NamedDatePicker Grid.Row="2" Grid.Column="1" 
+				<controls:NamedDatePicker Grid.Row="1" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CloseDate}" 
 										SelectedDate="{Binding CloseDate, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedEnumComboBox Grid.Row="3" Grid.Column="0" 
+				<controls:NamedEnumComboBox Grid.Row="2" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.StartReason}" 
 										SelectedValue="{Binding StartReason, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedEnumComboBox Grid.Row="3" Grid.Column="1" 
+				<controls:NamedEnumComboBox Grid.Row="2" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CloseReason}" 
 										SelectedValue="{Binding CloseReason, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedTextBox Grid.Row="4" Grid.Column="0" 
+				<controls:NamedTextBox Grid.Row="3" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CloseReasonOther}" 
 										Text="{Binding CloseReasonOther, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										IsReadOnly="True"
 										/>
-				<controls:NamedLookup Grid.Row="4" Grid.Column="1" 
+				<controls:NamedLookup Grid.Row="3" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Currency}" 
 										Reference="{Binding CurrencyRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedLookup Grid.Row="5" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="4" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.Client}" 
 										Reference="{Binding ClientRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls:NamedLookup Grid.Row="5" Grid.Column="1" 
+				<controls:NamedLookup Grid.Row="4" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.MainFirm}" 
 										Reference="{Binding MainFirmRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=TwoWay}" 
 										
 										/>
-				<controls:NamedLookup Grid.Row="6" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="5" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CreatedBy}" 
 										Reference="{Binding CreatedByRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedDatePicker Grid.Row="6" Grid.Column="1" 
+				<controls:NamedDatePicker Grid.Row="5" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CreatedOn}" 
 										SelectedDate="{Binding CreatedOn, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedLookup Grid.Row="7" Grid.Column="0" 
+				<controls:NamedLookup Grid.Row="6" Grid.Column="0" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.ModifiedBy}" 
 										Reference="{Binding ModifiedByRef, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										
 										/>
-				<controls:NamedDatePicker Grid.Row="7" Grid.Column="1" 
+				<controls:NamedDatePicker Grid.Row="6" Grid.Column="1" 
 										PropertyName="{focusableBinding:FocusableBinding Localizer.CreatedOn}" 
 										SelectedDate="{Binding ModifiedOn, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True, Mode=OneWay}" 
 										

@@ -110,7 +110,6 @@
     <Compile Include="Common\Crosscutting\AssignedEntityProvider.cs" />
     <Compile Include="Common\Crosscutting\ConcurrentPeriodCounter.cs" />
     <Compile Include="Deals\DealRepository.cs" />
-    <Compile Include="Deals\Operations\DealActualizeDealProfitIndicatorsAggregateService.cs" />
     <Compile Include="Deals\Operations\DealChangeStageAggregateService.cs" />
     <Compile Include="Deals\Operations\DealCreateAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\Operations\DeleteAfterSaleServiceAggregateService.cs" />

@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Withdrawals;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -94,13 +93,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
                 order.PayableFact += releasesSum ?? 0.0m;
             }
 
-            _orderRepository.Update(order); // The following two handlers need order and its extension saved
+            _orderRepository.Update(order); // The following handlers need order and its extension saved
 
             _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = request.Order }, Context);
-            if (order.DealId.HasValue)
-            {
-                _subRequestProcessor.HandleSubRequest(new ActualizeDealProfitIndicatorsRequest { DealIds = new[] { order.DealId.Value } }, Context);
-            }
 
             return Response.Empty;
         }
