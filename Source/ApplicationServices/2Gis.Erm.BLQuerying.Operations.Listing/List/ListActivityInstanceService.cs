@@ -108,6 +108,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .Select(x => new ListActivityInstanceDto
                 {
                     Id = x.Id,
+                    ActivityTypeEnum = (ActivityType)x.ActivityType,
                     OwnerCode = x.OwnerCode,
                     Header = x.Header,
                     ScheduledStart = x.ScheduledStart.Value,
