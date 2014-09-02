@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -26,12 +27,11 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
         private readonly IMessageProcessingTopology _processingTopology;
         private readonly ICommonLog _logger;
 
-        private readonly CancellationTokenSource _workerCTS;
+        private readonly CancellationTokenSource _workerCancellationTokenSource;
         private readonly Task _workerTask;
         private AutoResetEvent _asyncWorkerSignal;
 
-        protected MessageFlowProcessorBase(
-            TMessageFlowProcessorSettings processorSettings,
+        protected MessageFlowProcessorBase(TMessageFlowProcessorSettings processorSettings,
             IMessageReceiverFactory messageReceiverFactory,
             IMessageProcessingTopology processingTopology,
             ICommonLog logger)
@@ -41,8 +41,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             _processingTopology = processingTopology;
             _logger = logger;
 
-            _workerCTS = new CancellationTokenSource();
-            _workerTask = new Task(AsyncWorker, _workerCTS.Token, TaskCreationOptions.LongRunning);
+            _workerCancellationTokenSource = new CancellationTokenSource();
+            _workerTask = new Task(AsyncWorker, _workerCancellationTokenSource.Token, TaskCreationOptions.LongRunning);
         }
 
         protected ICommonLog Logger
@@ -73,8 +73,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
         {
             if (!_workerTask.IsCompleted && !_workerTask.IsCanceled)
             {
-                _workerCTS.Cancel();
-                _asyncWorkerSignal.Set();
+                _workerCancellationTokenSource.Cancel();
 
                 var asyncWorkerSignal = _asyncWorkerSignal;
                 if (asyncWorkerSignal != null)
@@ -115,7 +114,9 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
         }
 
-        protected int Process()
+        protected abstract TMessageReceiverSettings ResolveReceiverSettings();
+
+        private int Process()
         {
             var messageReceiverSettings = ResolveReceiverSettings();
 
@@ -132,7 +133,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
 
             var stopwatch = new Stopwatch();
-            IMessage[] flowMessages = null;
+            IReadOnlyList<IMessage> flowMessages = null;
 
             try
             {
@@ -142,8 +143,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
                 try
                 {
-                    flowMessages = messageReceiver.Peek()
-                                                  .ToArray();
+                    flowMessages = messageReceiver.Peek();
                 }
                 catch (Exception ex)
                 {
@@ -151,13 +151,13 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     throw;
                 }
 
-                if (flowMessages == null || !flowMessages.Any())
+                if (!flowMessages.Any())
                 {
                     Logger.DebugFormatEx("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
                     return 0;
                 }
 
-                Logger.DebugFormatEx("Starting processing message flow. Acquired messages batch size: {0}. Source message flow: {1}", flowMessages.Length, SourceMessageFlow);
+                Logger.DebugFormatEx("Starting processing message flow. Acquired messages batch size: {0}. Source message flow: {1}", flowMessages.Count, SourceMessageFlow);
 
                 TopologyProcessingResults topologyProcessingResults;
                 try
@@ -182,17 +182,16 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     throw;
                 }
 
-                var processingSummary = string.Format(
-                    "Total pass through messages count: {0}. Succeeded: {1}. Failed: {2}",
-                    topologyProcessingResults.Passed.Length,
-                    topologyProcessingResults.Succeeded.Length,
-                    topologyProcessingResults.Failed.Length);
+                var processingSummary = string.Format("Total original messages count: {0}. Succeeded: {1}. Failed: {2}",
+                                                      flowMessages.Count,
+                                                      topologyProcessingResults.Succeeded.Count,
+                                                      topologyProcessingResults.Failed.Count);
                 Logger.DebugEx(processingSummary);
                 if (topologyProcessingResults.Failed.Any())
                 {
                     Logger.ErrorFormatEx("Messages form flow {0} after processing has failed elements. {1}", SourceMessageFlow, processingSummary);
                 }
-                
+
                 /* проверка скорости работы транспорта при исключении топологии 
                 topologyProcessingResults = new TopologyProcessingResults()
                     {
@@ -204,7 +203,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
                 messageReceiver.Complete(topologyProcessingResults.Succeeded, topologyProcessingResults.Failed);
 
-                return flowMessages.Length;
+                return flowMessages.Count;
             }
             catch (Exception ex)
             {
@@ -216,9 +215,9 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 stopwatch.Stop();
 
                 var batchProcessingTime = stopwatch.ElapsedMilliseconds / 1000.0;
-                var rateMsg = flowMessages == null || flowMessages.Length == 0
+                var rateMsg = flowMessages == null || flowMessages.Count == 0
                                   ? "not measured 0 messages was provided by receiver"
-                                  : (flowMessages.Length / batchProcessingTime).ToString();
+                                  : (flowMessages.Count / batchProcessingTime).ToString();
                 _logger.DebugFormatEx("Processing flow {0} rate msg/sec: {1}", SourceMessageFlow, rateMsg);
 
                 var disposableMessageReceiver = messageReceiver as IDisposable; 
@@ -229,8 +228,6 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             }
         }
 
-        protected abstract TMessageReceiverSettings ResolveReceiverSettings();
-
         private void AsyncWorker()
         {
             const int BaseDelayMs = 0;
@@ -239,7 +236,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             const int MaxDelayMs = 180000;
 
             int currentDelay = BaseDelayMs;
-            while (!_workerCTS.Token.IsCancellationRequested)
+            while (!_workerCancellationTokenSource.Token.IsCancellationRequested)
             {
                 int? processedCount = null;
                 try
@@ -259,12 +256,17 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 else if (processedCount > 0)
                 {
                     currentDelay = BaseDelayMs;
-                    Logger.DebugFormatEx("Processing flow {0}. {1} messages was handled during the last cycle. Delay has base value ms: {2}", SourceMessageFlow, processedCount, currentDelay);
+                    Logger.DebugFormatEx("Processing flow {0}. {1} messages was handled during the last cycle. Delay has base value ms: {2}",
+                                         SourceMessageFlow,
+                                         processedCount,
+                                         currentDelay);
                 }
                 else
                 {
                     currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
-                    Logger.InfoFormatEx("Processing flow {0}. No one message was handled during the last cycle. Delay was incremented and has value ms: {1}", SourceMessageFlow, currentDelay);
+                    Logger.InfoFormatEx("Processing flow {0}. No one message was handled during the last cycle. Delay was incremented and has value ms: {1}",
+                                        SourceMessageFlow,
+                                        currentDelay);
                 }
 
                 _asyncWorkerSignal.WaitOne(currentDelay);

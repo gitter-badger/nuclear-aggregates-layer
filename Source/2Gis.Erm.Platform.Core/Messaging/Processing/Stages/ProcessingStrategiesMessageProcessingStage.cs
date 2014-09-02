@@ -10,14 +10,15 @@ using DoubleGis.Erm.Platform.Common.Logging;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
 {
-    public sealed class ProcessingStrategiesMessageProcessingStage : MessageProcessingStageBase<IMessageProcessingStrategyFactory, IMessageProcessingStrategy, IReadOnlyDictionary<Guid, IMessage>>
+    public sealed class ProcessingStrategiesMessageProcessingStage : MessageProcessingStageBase<IMessageProcessingStrategyFactory,
+                                                                                                IMessageProcessingStrategy,
+                                                                                                IReadOnlyDictionary<Guid, IMessage>>
     {
         private readonly IMessageFlowRegistry _messageFlowRegistry;
 
-        public ProcessingStrategiesMessageProcessingStage(
-            IMessageFlowRegistry messageFlowRegistry,
-            IMessageProcessingStrategyFactory actorFactory, 
-            ICommonLog logger) 
+        public ProcessingStrategiesMessageProcessingStage(IMessageFlowRegistry messageFlowRegistry,
+                                                          IMessageProcessingStrategyFactory actorFactory,
+                                                          ICommonLog logger)
             : base(actorFactory, logger)
         {
             _messageFlowRegistry = messageFlowRegistry;
@@ -52,8 +53,8 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Stages
             return context.Input.SelectMany(i => childFlows.Select(f => ActorFactory.Create(f, i.Value)));
         }
 
-        protected override IReadOnlyDictionary<Guid, MessageProcessingStageResult> ExecuteActor(
-            IMessageProcessingStrategy actor, 
+        protected override IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> ExecuteActor(
+            IMessageProcessingStrategy actor,
             MessageProcessingStageActorContext<IReadOnlyDictionary<Guid, IMessage>> context)
         {
             var results = new Dictionary<Guid, MessageProcessingStageResult>();

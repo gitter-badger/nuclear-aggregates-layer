@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Receivers
             MessageReceiverSettings = messageReceiverSettings;
         }
 
-        IEnumerable<IMessage> IMessageReceiver.Peek()
+        IReadOnlyList<IMessage> IMessageReceiver.Peek()
         {
             return Peek();
         }
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Receivers
             Complete(successfullyProcessedMessages.Cast<TMessage>(), failedProcessedMessages.Cast<TMessage>());
         }
 
-        protected abstract IEnumerable<TMessage> Peek();
+        protected abstract IReadOnlyList<TMessage> Peek();
         protected abstract void Complete(IEnumerable<TMessage> successfullyProcessedMessages, IEnumerable<TMessage> failedProcessedMessages);
     }
 }

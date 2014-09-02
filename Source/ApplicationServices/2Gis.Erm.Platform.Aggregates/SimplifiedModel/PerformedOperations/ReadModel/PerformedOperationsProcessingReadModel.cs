@@ -6,7 +6,6 @@ using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -24,8 +23,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
         public IReadOnlyDictionary<Guid, DateTime> GetOperationPrimaryProcessedDateMap(IMessageFlow[] messageFlows)
         {
             var messageFlowsIds = messageFlows.Select(x => x.Id);
-            return _finder.FindAll<PerformedOperationPrimaryProcessing>()
-                                           .Where(o => messageFlowsIds.Contains(o.MessageFlowId))
+            return _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowIds(messageFlowsIds))
                                            .GroupBy(processing => processing.MessageFlowId)
                                            .Select(grouping => new
                                                {
@@ -35,96 +33,86 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
                                            .ToDictionary(x => x.Flow, x => x.LastProcessingDate);
         }
 
-        public IEnumerable<IEnumerable<PerformedBusinessOperation>> GetOperationsForPrimaryProcessing(
-            IMessageFlow sourceMessageFlow,
+        public IReadOnlyList<IEnumerable<PerformedBusinessOperation>> GetOperationsForPrimaryProcessing(IMessageFlow sourceMessageFlow,
             DateTime ignoreOperationsPrecedingDate,
             int maxUseCaseCount)
         {
-            var defaultUseCaseId = new Guid("00000000-0000-0000-0000-000000000000");
+            var ignoreOperationsPrecedingDateForPerformedOperations = ignoreOperationsPrecedingDate;
 
-            var performedUseCases =
-                _finder.FindAll<PerformedBusinessOperation>()
-                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate && o.Parent == null);
+            #region Зачем нужно ещё одно время для фильтра
+            // нужно необльшое доп.смещение в прошлое для выборки уже обработанных операций, 
+            // т.к. на серверах приложений может немного отличатся время, соответственно  возможна ситуация, 
+            // когда операция залогирована со временем более ранним, 
+            // чем время проставленное в момент обработки операции
+            // фактически это выглядит так, как-будто операция произошла позже, чем её обработали, в реальности конечно было не так, 
+            // однако из-за расхождений времени на серверах можно получить такую картину
+            #endregion
+            var ignoreOperationsPrecedingDateForProcessedOperations = ignoreOperationsPrecedingDate.AddMinutes(-5);
 
-            var processedOperations =
-                _finder.FindAll<PerformedOperationPrimaryProcessing>()
-                       .Where(o => o.MessageFlowId == sourceMessageFlow.Id && o.Date > ignoreOperationsPrecedingDate);
+            var performedUseCases = _finder.Find(OperationSpecs.Performed.Find.AfterDate(ignoreOperationsPrecedingDateForPerformedOperations) &&
+                                                 OperationSpecs.Performed.Find.OnlyRoot);
+            var processedOperations = _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowAndAfterDate(sourceMessageFlow.Id, ignoreOperationsPrecedingDateForProcessedOperations));
 
-            return performedUseCases
-                        .GroupJoin(
-                            processedOperations,
-                            performedOperation => performedOperation.Id,
-                            processedOperation => processedOperation.Id,
-                            (performedOperation, performedOperationProcessings) => new
+            var useCasesToProcess = (from useCase in performedUseCases
+                                     join processedOperation in processedOperations on useCase.Id equals processedOperation.Id
+                                         into joinedOperations
+                                     from operation in joinedOperations.DefaultIfEmpty()
+                                     where operation == null
+                                     group useCase by useCase.UseCaseId
+                                     into useCases
+                                     let date = useCases.Min(operation => operation.Date)
+                                     orderby date
+                                     select new
                             {
-                                TargetOperation = performedOperation,
-                                Processing = performedOperationProcessings.FirstOrDefault()
+                                             UseCaseId = useCases.Key,
+                                             Date = date,
                             })
-                        .Where(performedOperationInfo => performedOperationInfo.Processing == null)
-                        .Select(performedOperationInfo => performedOperationInfo.TargetOperation)
-                        .GroupBy(
-                            pbo => pbo.UseCaseId,
-                            (guid, pbos) => new
-                            {
-                                Date = pbos.Min(operation => operation.Date),
-                                UseCaseId = guid
-                            })
-                        .OrderBy(x => x.Date)
-                        .Take(maxUseCaseCount)
-                        .GroupJoin(
-                            _finder.FindAll<PerformedBusinessOperation>().Where(o => o.UseCaseId != defaultUseCaseId && o.Date > ignoreOperationsPrecedingDate),
-                            targetUseCase => targetUseCase.UseCaseId,
-                            performedOperation => performedOperation.UseCaseId,
-                            (targetUseCase, operations) => new
-                            {
-                                Operations = operations,
-                                Date = targetUseCase.Date
-                            })
-                        .OrderBy(useCase => useCase.Date)
-                        .Select(useCase => useCase.Operations);
+                .Take(maxUseCaseCount);
+
+            var performedOperations = _finder.Find(OperationSpecs.Performed.Find.AfterDate(ignoreOperationsPrecedingDateForPerformedOperations));
+            return (from useCase in useCasesToProcess
+                    join performedOperation in performedOperations on useCase.UseCaseId equals performedOperation.UseCaseId
+                        into operationsToProcess
+                    orderby useCase.Date
+                    select operationsToProcess)
+                .ToList();
         }
 
-        public IEnumerable<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessingsInitial(IMessageFlow sourceMessageFlow, int batchSize)
+        public IReadOnlyList<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessings(IMessageFlow sourceMessageFlow, int batchSize, int reprocessingBatchSize)
         {
-            return GetOperationFinalProcessings(sourceMessageFlow, batchSize, PerformedOperationsProcessingSpecs.Final.Find.Initial);
+            var initialProcessingSequence = _finder.Find(OperationSpecs.FinalProcessings.Find.ByFlowId(sourceMessageFlow.Id) &&
+                                                         OperationSpecs.FinalProcessings.Find.Initial);
+            var reprocessingSequence = _finder.Find(OperationSpecs.FinalProcessings.Find.ByFlowId(sourceMessageFlow.Id) &&
+                                                    OperationSpecs.FinalProcessings.Find.Failed);
+
+            var result = GetTargetMessages(initialProcessingSequence, batchSize)
+                .Union(GetTargetMessages(reprocessingSequence, reprocessingBatchSize))
+                .Select(x =>
+        {
+                        x.Flow = sourceMessageFlow;
+                        return x;
+                    })
+                .ToList();
+
+            return result;
         }
 
-        public IEnumerable<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessingsFailed(IMessageFlow sourceMessageFlow, int batchSize)
-        {
-            return GetOperationFinalProcessings(sourceMessageFlow, batchSize, PerformedOperationsProcessingSpecs.Final.Find.Failed);
-        }
-
-        private IEnumerable<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessings(
-            IMessageFlow sourceMessageFlow,
-            int batchSize,
-            FindSpecification<PerformedOperationFinalProcessing> modeFilter)
-        {
-            var flowFilter = new FindSpecification<PerformedOperationFinalProcessing>(p => p.MessageFlowId == sourceMessageFlow.Id);
-
-            return _finder.Find(flowFilter && modeFilter)
-                          .GroupBy(processing => new { processing.EntityId, processing.EntityTypeId },
-                                   (x, procesingsGroup) => new
+        private static IEnumerable<PerformedOperationsFinalProcessingMessage> GetTargetMessages(IQueryable<PerformedOperationFinalProcessing> sourceOperations, int batchSize)
                                        {
-                                           EntityId = x.EntityId,
-                                           EntityTypeId = x.EntityTypeId,
-                                           ProcesingsGroup = procesingsGroup,
-                                           MaxAttempt = procesingsGroup.Max(processing => processing.AttemptCount)
-                                       })
-                          .OrderBy(x => x.MaxAttempt)
-                          .Select(x => new PerformedOperationsFinalProcessingMessage
+            return (from operation in sourceOperations
+                    group operation by new { operation.EntityId, operation.EntityTypeId }
+                    into operationsGroup
+                    let operationsGroupKey = operationsGroup.Key
+                    let maxAttempt = operationsGroup.Max(processing => processing.AttemptCount)
+                    orderby maxAttempt
+                    select new PerformedOperationsFinalProcessingMessage
                               {
-                                  FinalProcessings = x.ProcesingsGroup,
-                                  EntityId = x.EntityId,
-                                  EntityName = (EntityName)x.EntityTypeId,
-                                  MaxAttemptCount = x.MaxAttempt
+                            EntityId = operationsGroupKey.EntityId,
+                            EntityName = (EntityName)operationsGroupKey.EntityTypeId,
+                            MaxAttemptCount = maxAttempt,
+                            FinalProcessings = operationsGroup
                               })
-                          .Take(batchSize)
-                          .AsEnumerable()
-                          .Select(x =>
-                              {
-                                  x.Flow = sourceMessageFlow;
-                                  return x;
-                              });
+                .Take(batchSize);
         }
     }
 }

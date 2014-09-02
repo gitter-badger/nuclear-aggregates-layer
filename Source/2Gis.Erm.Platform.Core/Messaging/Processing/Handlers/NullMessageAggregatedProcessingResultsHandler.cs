@@ -1,22 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Handlers
 {
     public sealed class NullMessageAggregatedProcessingResultsHandler : IMessageAggregatedProcessingResultsHandler
     {
-        public bool CanHandle(IEnumerable<IProcessingResultMessage> processingResults)
+        public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
         {
-            return true;
-        }
-
-        public ISet<IMessageFlow> Handle(IEnumerable<IProcessingResultMessage> processingResults)
-        {
-            return new HashSet<IMessageFlow>(processingResults.Select(x => x.TargetFlow));
+            return processingResultBuckets
+                .Select(prb => new KeyValuePair<Guid, MessageProcessingStageResult>(prb.Key,
+                                                                                    MessageProcessingStage.Handle.EmptyResult().AsSucceeded()));
         }
     }
 }

@@ -17,10 +17,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing
             _messageOrdinalIndex = messageOrdinalIndex;
             CurrentStageIndex = 0;
 
-            _results = 
-                targetStages
-                    .Select(stage => new MessageProcessingStageResult(stage))
-                    .ToArray();
+            _results = targetStages.Select(stage => new MessageProcessingStageResult(stage)).ToArray();
         }
 
         public IMessage OriginalMessage

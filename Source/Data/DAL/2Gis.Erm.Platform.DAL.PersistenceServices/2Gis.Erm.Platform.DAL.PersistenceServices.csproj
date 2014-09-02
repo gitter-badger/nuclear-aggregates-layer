@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +50,9 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="BatchDeletePersistenceService.cs" />
     <Compile Include="CleanupPersistenceService.cs" />
+    <Compile Include="IBatchDeletePersistenceService.cs" />
     <Compile Include="ICleanupPersistenceService.cs" />
     <Compile Include="DI\PlatformDalPersistenceServicesAssembly.cs" />
     <Compile Include="IReplicationPersistenceService.cs" />

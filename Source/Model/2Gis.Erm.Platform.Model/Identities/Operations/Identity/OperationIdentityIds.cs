@@ -30,6 +30,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         [Obsolete("CopyOrderIdentity or CopyPriceIdentity must be used")]
         public const int CopyIdentity = 24;
+
         public const int MergeIdentity = 25;
         public const int SetAsDefaultThemeIdentity = 29;
         public const int CreateIdentity = 30;
@@ -43,6 +44,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int BulkActivateIdentity = 38;
         public const int BulkCreateIdentity = 39;
         public const int BulkDeleteIdentity = 40;
+        public const int BulkUpdateIdentity = 41;
 
         // concrete operations
         public const int PrintOrderIdentity = 1000;
@@ -88,6 +90,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportTerritoriesIdentity = 14603;
         public const int ImportCardForErmIdentity = 14604;
         public const int ImportCardRelationIdentity = 14605;
+        public const int CreateBlankFirmsIdentity = 14606;
+        public const int ImportFirmsDuringImportCardsForErmIdentity = 14607;
+        public const int ImportCardRelationForErmIdentity = 14608;
 
         // EntityName.FirmAddress = 164
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
@@ -207,5 +212,15 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int ImportFirmPromising = 19905;
         public const int ImportFirmAddresses = 19907;
+
+        // EntityName.AdvertisementElementStatus = 316
+        public const int ChangeAdvertisementElementStatus = 31601;
+        public const int ApproveAdvertisementElementIdentity = 31602;
+        public const int DenyAdvertisementElementIdentity = 31603;
+        public const int ResetAdvertisementElementToDraftIdentity = 31604;
+        public const int TransferAdvertisementElementToReadyForValidationIdentity = 31605;
+
+        // EntityName.AdvertisementElement = 187
+        public const int UpdateAdvertisementElementAndSetAsReadyForVerificationIdentity = 18701;
     }
 }

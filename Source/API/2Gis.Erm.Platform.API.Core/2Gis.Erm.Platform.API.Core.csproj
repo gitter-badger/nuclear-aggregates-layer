@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
+    <Compile Include="Exceptions\OperationAccessDeniedException.cs" />
     <Compile Include="Exceptions\EntityNotLinkedException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\IntegrationException.cs" />
@@ -180,6 +181,8 @@
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElementCollection.cs" />
     <Compile Include="Settings\APIServices\RequiredServices.cs" />
+    <Compile Include="Settings\Caching\CachingSettingsAspect.cs" />
+    <Compile Include="Settings\Caching\ICachingSettings.cs" />
     <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
     <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />
     <Compile Include="Settings\Globalization\IBusinessModelSettings.cs" />

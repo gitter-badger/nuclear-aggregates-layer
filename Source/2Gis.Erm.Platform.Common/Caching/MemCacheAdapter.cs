@@ -5,16 +5,18 @@ using System.Runtime.Caching;
 
 namespace DoubleGis.Erm.Platform.Common.Caching
 {
-    public class MemCacheAdapter: ICacheAdapter
+    public class MemCacheAdapter : ICacheAdapter
     {
         private readonly MemoryCache _cache;
+
         public MemCacheAdapter()
         {
             _cache = MemoryCache.Default;
         }
-        public void Add(string key, object value, DateTime absoluteExpiration)
+
+        public void Add<T>(string key, T value, DateTime absoluteExpiration)
         {
-            if (value != null)
+            if (!value.Equals(default(T)))
             {
                 var policy = new CacheItemPolicy
                                  {
@@ -23,11 +25,11 @@ namespace DoubleGis.Erm.Platform.Common.Caching
 
                 _cache.Add(key, value, policy);
             }
-
         }
-        public void Add(string key, object value, TimeSpan slidingExpiration)
+
+        public void Add<T>(string key, T value, TimeSpan slidingExpiration)
         {
-            if (value != null)
+            if (!value.Equals(default(T)))
             {
                 var policy = new CacheItemPolicy
                                  {
@@ -35,36 +37,32 @@ namespace DoubleGis.Erm.Platform.Common.Caching
                                  };
                 _cache.Add(key, value, policy);
             }
-
         }
-        public void Add(string key, object value)
+
+        public void Add<T>(string key, T value)
         {
-            if (value != null)
+            if (!value.Equals(default(T)))
             {
                 var policy = new CacheItemPolicy();
                 _cache.Add(key, value, policy);
             }
         }
-        public object Get(string key)
+
+        public T Get<T>(string key)
         {
-            return _cache.Get(key);
+            return (T)_cache.Get(key);
         }
-        public T Get<T>(string key) where T : class
-        {
-            return _cache.Get(key) as T;
-        }
-        public object this[string key]
-        {
-            get { return _cache.Get(key); }
-        }
+        
         public bool Contains(string key)
         {
             return _cache.Get(key) != null;
         }
+
         public void Remove(string key)
         {
             _cache.Remove(key);
         }
+
         public void ClearCache()
         {
             var keys = _cache.Cast<IDictionaryEnumerator>().Select(x => x.Key.ToString());

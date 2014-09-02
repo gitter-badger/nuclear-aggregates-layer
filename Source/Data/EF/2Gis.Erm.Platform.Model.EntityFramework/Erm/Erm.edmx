@@ -91,6 +91,20 @@
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="AdvertisementElementDenialReasons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="AdvertisementElementId" Type="bigint" Nullable="false" />
+          <Property Name="DenialReasonId" Type="bigint" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
         <EntityType Name="AdvertisementElements">
           <Key>
             <PropertyRef Name="Id" />
@@ -102,8 +116,6 @@
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="FileId" Type="bigint" />
           <Property Name="BeginDate" Type="datetime2" Precision="2" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="Error" Type="int" Nullable="false" />
           <Property Name="EndDate" Type="datetime2" Precision="2" />
           <Property Name="FasCommentType" Type="int" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -114,6 +126,18 @@
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="DgppId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AdvertisementElementStatuses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="AdvertisementElementTemplates">
           <Key>
@@ -550,8 +574,6 @@
           <Property Name="CloseDate" Type="datetime2" Precision="2" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="DealStage" Type="int" Nullable="false" />
-          <Property Name="ActualProfit" Type="decimal" Precision="16" Scale="2" Nullable="false" />
-          <Property Name="EstimatedProfit" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="OwnerCode" Type="bigint" Nullable="false" />
@@ -1981,12 +2003,12 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Operation" Type="int" Nullable="false" />
+          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
           <Property Name="Descriptor" Type="int" Nullable="false" />
           <Property Name="Context" Type="xml" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="Parent" Type="bigint" />
           <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
         </EntityType>
         <EntityType Name="PerformedOperationFinalProcessings">
           <Key>
@@ -2212,6 +2234,30 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AdvertisementElementDenialReasons_AdvertisementElements">
+          <End Role="AdvertisementElements" Type="Self.AdvertisementElements" Multiplicity="1" />
+          <End Role="AdvertisementElementDenialReasons" Type="Self.AdvertisementElementDenialReasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdvertisementElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdvertisementElementDenialReasons">
+              <PropertyRef Name="AdvertisementElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementElementDenialReasons_DenialReasons">
+          <End Role="DenialReasons" Type="Self.DenialReasons" Multiplicity="1" />
+          <End Role="AdvertisementElementDenialReasons" Type="Self.AdvertisementElementDenialReasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DenialReasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdvertisementElementDenialReasons">
+              <PropertyRef Name="DenialReasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AdvertisementElements_AdsTemplatesAdsElementTemplates">
           <End Role="AdsTemplatesAdsElementTemplates" Type="Self.AdsTemplatesAdsElementTemplates" Multiplicity="1" />
           <End Role="AdvertisementElements" Type="Self.AdvertisementElements" Multiplicity="*" />
@@ -2245,6 +2291,18 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Principal>
             <Dependent Role="AdvertisementElements">
               <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementElementStatuses_AdvertisementElements">
+          <End Role="AdvertisementElements" Type="Self.AdvertisementElements" Multiplicity="1" />
+          <End Role="AdvertisementElementStatuses" Type="Self.AdvertisementElementStatuses" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AdvertisementElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdvertisementElementStatuses">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3925,7 +3983,9 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="AccountDetails" EntityType="Self.AccountDetails" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdsTemplatesAdsElementTemplates" EntityType="Self.AdsTemplatesAdsElementTemplates" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="AdvertisementElementDenialReasons" EntityType="Self.AdvertisementElementDenialReasons" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdvertisementElements" EntityType="Self.AdvertisementElements" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="AdvertisementElementStatuses" EntityType="Self.AdvertisementElementStatuses" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdvertisementElementTemplates" EntityType="Self.AdvertisementElementTemplates" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Advertisements" EntityType="Self.Advertisements" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="AdvertisementTemplates" EntityType="Self.AdvertisementTemplates" Schema="Billing" store:Type="Tables" />
@@ -4120,6 +4180,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <End Role="Advertisements" EntitySet="Advertisements" />
             <End Role="AdvertisementElements" EntitySet="AdvertisementElements" />
           </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementElementDenialReasons_AdvertisementElements" Association="Self.FK_AdvertisementElementDenialReasons_AdvertisementElements">
+            <End Role="AdvertisementElements" EntitySet="AdvertisementElements" />
+            <End Role="AdvertisementElementDenialReasons" EntitySet="AdvertisementElementDenialReasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementElementDenialReasons_DenialReasons" Association="Self.FK_AdvertisementElementDenialReasons_DenialReasons">
+            <End Role="DenialReasons" EntitySet="DenialReasons" />
+            <End Role="AdvertisementElementDenialReasons" EntitySet="AdvertisementElementDenialReasons" />
+          </AssociationSet>
           <AssociationSet Name="FK_AdvertisementElements_AdsTemplatesAdsElementTemplates" Association="Self.FK_AdvertisementElements_AdsTemplatesAdsElementTemplates">
             <End Role="AdsTemplatesAdsElementTemplates" EntitySet="AdsTemplatesAdsElementTemplates" />
             <End Role="AdvertisementElements" EntitySet="AdvertisementElements" />
@@ -4131,6 +4199,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_AdvertisementElements_Files" Association="Self.FK_AdvertisementElements_Files">
             <End Role="Files" EntitySet="Files" />
             <End Role="AdvertisementElements" EntitySet="AdvertisementElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementElementStatuses_AdvertisementElements" Association="Self.FK_AdvertisementElementStatuses_AdvertisementElements">
+            <End Role="AdvertisementElements" EntitySet="AdvertisementElements" />
+            <End Role="AdvertisementElementStatuses" EntitySet="AdvertisementElementStatuses" />
           </AssociationSet>
           <AssociationSet Name="FK_Advertisements_Firms" Association="Self.FK_Advertisements_Firms">
             <End Role="Firms" EntitySet="Firms" />
@@ -5489,6 +5561,20 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="PerformedOperationFinalProcessings" EntityType="ErmModel.PerformedOperationFinalProcessing" />
           <EntitySet Name="PerformedOperationPrimaryProcessings" EntityType="ErmModel.PerformedOperationPrimaryProcessing" />
           <EntitySet Name="ExportFlowOrders_DenialReason" EntityType="ErmModel.ExportFlowOrders_DenialReason" />
+          <EntitySet Name="AdvertisementElementDenialReasons" EntityType="ErmModel.AdvertisementElementDenialReason" />
+          <EntitySet Name="AdvertisementElementStatuses" EntityType="ErmModel.AdvertisementElementStatus" />
+          <AssociationSet Name="FK_AdvertisementElementDenialReasons_AdvertisementElements" Association="ErmModel.FK_AdvertisementElementDenialReasons_AdvertisementElements">
+            <End Role="AdvertisementElement" EntitySet="AdvertisementElements" />
+            <End Role="AdvertisementElementDenialReason" EntitySet="AdvertisementElementDenialReasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementElementDenialReasons_DenialReasons" Association="ErmModel.FK_AdvertisementElementDenialReasons_DenialReasons">
+            <End Role="DenialReason" EntitySet="DenialReasons" />
+            <End Role="AdvertisementElementDenialReason" EntitySet="AdvertisementElementDenialReasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdvertisementElementStatuses_AdvertisementElements" Association="ErmModel.FK_AdvertisementElementStatuses_AdvertisementElements">
+            <End Role="AdvertisementElement" EntitySet="AdvertisementElements" />
+            <End Role="AdvertisementElementStatus" EntitySet="AdvertisementElementStatuses" />
+          </AssociationSet>
       </EntityContainer>
       <EntityType Name="CurrencyRate">
         <Key>
@@ -6212,8 +6298,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="Orders" Relationship="ErmModel.FK_Orders_Deal" FromRole="Deal" ToRole="Order" />
         <NavigationProperty Name="Client" Relationship="ErmModel.FK_Deals_Clients" FromRole="Deal" ToRole="Client" />
         <NavigationProperty Name="Firm" Relationship="ErmModel.FK_Deals_Firms" FromRole="Deal" ToRole="Firm" />
-        <Property Type="Decimal" Name="EstimatedProfit" Precision="16" Scale="2" Nullable="false" />
-        <Property Type="Decimal" Name="ActualProfit" Precision="16" Scale="2" Nullable="false" />
         <Property Type="Int32" Name="DealStage" Nullable="false" />
         <NavigationProperty Name="AfterSaleServiceActivities" Relationship="ErmModel.FK_AfterSaleServiceActivities_Deals" FromRole="Deal" ToRole="AfterSaleServiceActivity" />
       </EntityType>
@@ -6617,8 +6701,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int64" Name="AdsTemplatesAdsElementTemplatesId" Nullable="false" />
         <NavigationProperty Name="AdsTemplatesAdsElementTemplate" Relationship="ErmModel.FK_AdvertisementElements_AdsTemplatesAdsElementTemplates" FromRole="AdvertisementElement" ToRole="AdsTemplatesAdsElementTemplate" />
         <Property Type="Int64" Name="DgppId" />
-        <Property Type="Int32" Name="Status" Nullable="false" />
-        <Property Type="Int32" Name="Error" Nullable="false" />
+          <NavigationProperty Name="AdvertisementElementDenialReasons" Relationship="ErmModel.FK_AdvertisementElementDenialReasons_AdvertisementElements" FromRole="AdvertisementElement" ToRole="AdvertisementElementDenialReason" />
+          <NavigationProperty Name="AdvertisementElementStatus" Relationship="ErmModel.FK_AdvertisementElementStatuses_AdvertisementElements" FromRole="AdvertisementElement" ToRole="AdvertisementElementStatus" />
       </EntityType>
       <Association Name="FK_AdvertisementElement_Advertisement">
         <End Type="ErmModel.Advertisement" Role="Advertisement" Multiplicity="1" />
@@ -9708,6 +9792,36 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <NavigationProperty Name="AdvertisementElementDenialReasons" Relationship="ErmModel.FK_AdvertisementElementDenialReasons_DenialReasons" FromRole="DenialReason" ToRole="AdvertisementElementDenialReason" />
+        </EntityType>
+        <EntityType Name="AdvertisementElementDenialReason">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AdvertisementElementId" Type="Int64" Nullable="false" />
+          <Property Name="DenialReasonId" Type="Int64" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="true" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <NavigationProperty Name="AdvertisementElement" Relationship="ErmModel.FK_AdvertisementElementDenialReasons_AdvertisementElements" FromRole="AdvertisementElementDenialReason" ToRole="AdvertisementElement" />
+          <NavigationProperty Name="DenialReason" Relationship="ErmModel.FK_AdvertisementElementDenialReasons_DenialReasons" FromRole="AdvertisementElementDenialReason" ToRole="DenialReason" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdvertisementElementStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <NavigationProperty Name="AdvertisementElement" Relationship="ErmModel.FK_AdvertisementElementStatuses_AdvertisementElements" FromRole="AdvertisementElementStatus" ToRole="AdvertisementElement" />
         </EntityType>
         <EntityType Name="PerformedOperationFinalProcessing">
           <Key>
@@ -9738,6 +9852,42 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
         </EntityType>
+        <Association Name="FK_AdvertisementElementDenialReasons_AdvertisementElements">
+          <End Type="ErmModel.AdvertisementElement" Role="AdvertisementElement" Multiplicity="1" />
+          <End Type="ErmModel.AdvertisementElementDenialReason" Role="AdvertisementElementDenialReason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdvertisementElement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdvertisementElementDenialReason">
+              <PropertyRef Name="AdvertisementElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementElementDenialReasons_DenialReasons">
+          <End Type="ErmModel.DenialReason" Role="DenialReason" Multiplicity="1" />
+          <End Type="ErmModel.AdvertisementElementDenialReason" Role="AdvertisementElementDenialReason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DenialReason">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdvertisementElementDenialReason">
+              <PropertyRef Name="DenialReasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdvertisementElementStatuses_AdvertisementElements">
+          <End Type="ErmModel.AdvertisementElement" Role="AdvertisementElement" Multiplicity="1" />
+          <End Type="ErmModel.AdvertisementElementStatus" Role="AdvertisementElementStatus" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AdvertisementElement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdvertisementElementStatus">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
     </Schema>
   </edmx:ConceptualModels>
   <!-- C-S mapping content -->
@@ -10152,8 +10302,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntityTypeMapping TypeName="ErmModel.Deal">
             <MappingFragment StoreEntitySet="Deals">
               <ScalarProperty Name="DealStage" ColumnName="DealStage" />
-              <ScalarProperty Name="ActualProfit" ColumnName="ActualProfit" />
-              <ScalarProperty Name="EstimatedProfit" ColumnName="EstimatedProfit" />
               <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
@@ -10369,7 +10517,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <MappingFragment StoreEntitySet="Bargains">
                 <ScalarProperty Name="BargainKind" ColumnName="BargainKind" />
                 <ScalarProperty Name="BargainEndDate" ColumnName="BargainEndDate" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="DocumentsComment" ColumnName="DocumentsComment" />
               <ScalarProperty Name="HasDocumentsDebt" ColumnName="HasDocumentsDebt" />
               <ScalarProperty Name="ClosedOn" ColumnName="ClosedOn" />
@@ -10425,8 +10573,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="AdvertisementElements">
           <EntityTypeMapping TypeName="ErmModel.AdvertisementElement">
             <MappingFragment StoreEntitySet="AdvertisementElements">
-              <ScalarProperty Name="Error" ColumnName="Error" />
-              <ScalarProperty Name="Status" ColumnName="Status" />
               <ScalarProperty Name="DgppId" ColumnName="DgppId" />
               <ScalarProperty Name="AdsTemplatesAdsElementTemplatesId" ColumnName="AdsTemplatesAdsElementTemplatesId" />
               <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
@@ -11910,6 +12056,34 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <EntityTypeMapping TypeName="ErmModel.ExportFlowOrders_DenialReason">
               <MappingFragment StoreEntitySet="ExportFlowOrders_DenialReason">
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvertisementElementDenialReasons">
+            <EntityTypeMapping TypeName="ErmModel.AdvertisementElementDenialReason">
+              <MappingFragment StoreEntitySet="AdvertisementElementDenialReasons">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DenialReasonId" ColumnName="DenialReasonId" />
+                <ScalarProperty Name="AdvertisementElementId" ColumnName="AdvertisementElementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvertisementElementStatuses">
+            <EntityTypeMapping TypeName="ErmModel.AdvertisementElementStatus">
+              <MappingFragment StoreEntitySet="AdvertisementElementStatuses">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

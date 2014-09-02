@@ -4,26 +4,34 @@ namespace DoubleGis.Erm.Platform.Common.Caching
 {
     public class NullObjectCacheAdapter : ICacheAdapter
     {
-        public void Add(string key, object value, DateTime absoluteExpiration){}
-        public void Add(string key, object value, TimeSpan slidingExpiration){}
-        public void Add(string key, object value){}
-        public object Get(string key)
+        public void Add<T>(string key, T value, DateTime absoluteExpiration)
         {
-            return null;
         }
-        public T Get<T>(string key) where T : class
+
+        public void Add<T>(string key, T value, TimeSpan slidingExpiration)
         {
-            return null;
         }
-        public object this[string key]
+
+        public void Add<T>(string key, T value)
         {
-            get { return null; }
         }
+
+        public T Get<T>(string key)
+        {
+            return default(T);
+        }
+        
         public bool Contains(string key)
         {
             return false;
         }
-        public void Remove(string key){}
-        public void ClearCache(){}
+
+        public void Remove(string key)
+        {
+        }
+
+        public void ClearCache()
+        {
+        }
     }
 }

@@ -5,15 +5,15 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 
 namespace DoubleGis.Erm.Platform.Core.Messaging.Flows
 {
     public sealed class MessageFlowRegistry : IMessageFlowRegistry
     {
-        private readonly IReadOnlyDictionary<IMessageFlow, IMessageFlow[]> _flowsMap = new Dictionary<IMessageFlow, IMessageFlow[]>
+        private readonly IReadOnlyDictionary<IMessageFlow, IEnumerable<IMessageFlow>> _flowsMap = new Dictionary<IMessageFlow, IEnumerable<IMessageFlow>>
             {
                 {
                     AllPerformedOperationsFlow.Instance,
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Flows
                 },
                 {
                     FinalReplicate2MsCRMPerformedOperationsFlow.Instance,
-                    new IMessageFlow[0]
+                    Enumerable.Empty<IMessageFlow>()
                 },
                 {
                     PrimaryReplicateHotClientPerformedOperationsFlow.Instance,
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Flows
                 },
                 {
                     FinalReplicateHotClientPerformedOperationsFlow.Instance,
-                    new IMessageFlow[0]
+                    Enumerable.Empty<IMessageFlow>()
                 },
                 {
                     PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance,
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Flows
 
         public IEnumerable<IMessageFlow> GetChildFlows(IMessageFlow parentFlow)
         {
-            IMessageFlow[] flows;
+            IEnumerable<IMessageFlow> flows;
             return !_flowsMap.TryGetValue(parentFlow, out flows) && flows == null ? Enumerable.Empty<IMessageFlow>() : flows;
         }
 

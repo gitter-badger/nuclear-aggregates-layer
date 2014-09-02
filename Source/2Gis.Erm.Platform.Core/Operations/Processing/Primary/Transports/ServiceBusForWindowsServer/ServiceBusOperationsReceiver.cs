@@ -17,30 +17,32 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         private readonly ICommonLog _logger;
         private readonly IServiceBusMessageReceiver<TMessageFlow> _serviceBusMessageReceiver;
 
-        public ServiceBusOperationsReceiver(ICommonLog logger,
-                                            IPerformedOperationsReceiverSettings messageReceiverSettings,
-                                            IServiceBusMessageReceiver<TMessageFlow> serviceBusMessageReceiver)
+        public ServiceBusOperationsReceiver(
+            IPerformedOperationsReceiverSettings messageReceiverSettings, 
+            IServiceBusMessageReceiver<TMessageFlow> serviceBusMessageReceiver,
+            ICommonLog logger)
             : base(messageReceiverSettings)
         {
             _logger = logger;
             _serviceBusMessageReceiver = serviceBusMessageReceiver;
         }
 
-        protected override IEnumerable<ServiceBusPerformedOperationsMessage> Peek()
+        protected override IReadOnlyList<ServiceBusPerformedOperationsMessage> Peek()
         {
             var batch = _serviceBusMessageReceiver.ReceiveBatch(MessageReceiverSettings.BatchSize);
-            return batch.Select(brokeredMessage => new ServiceBusPerformedOperationsMessage(new[] { brokeredMessage }));
-        }
+            return batch.Select(brokeredMessage => new ServiceBusPerformedOperationsMessage(new[] { brokeredMessage })).ToList();
+            }
 
-        protected override void Complete(IEnumerable<ServiceBusPerformedOperationsMessage> successfullyProcessedMessages,
-                                         IEnumerable<ServiceBusPerformedOperationsMessage> failedProcessedMessages)
+        protected override void Complete(
+            IEnumerable<ServiceBusPerformedOperationsMessage> successfullyProcessedMessages,
+            IEnumerable<ServiceBusPerformedOperationsMessage> failedProcessedMessages)
         {
             if (successfullyProcessedMessages.Any())
             {
                 var lockTokens = successfullyProcessedMessages.SelectMany(m => m.Operations).Select(brokeredMessage => brokeredMessage.LockToken);
                 _serviceBusMessageReceiver.CompleteBatch(lockTokens);
             }
-            
+
             foreach (var failedProcessedMessage in failedProcessedMessages)
             {
                 foreach (var brokeredMessage in failedProcessedMessage.Operations)
@@ -51,7 +53,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
                     }
                     catch (Exception ex)
                     {
-                        _logger.ErrorFormatEx(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
+                                _logger.ErrorFormatEx(ex, "Service Bus message with Id={0} cannot be abandoned", brokeredMessage.MessageId);
                         throw;
                     }
                 }

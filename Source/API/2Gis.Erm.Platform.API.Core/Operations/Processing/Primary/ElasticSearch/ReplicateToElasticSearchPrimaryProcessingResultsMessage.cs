@@ -21,12 +21,12 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticS
             get { return PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance; }
         }
 
-        public ICollection<EntityIds> EntityIds { get; set; }
+        public IReadOnlyCollection<EntityLink> EntityLinks { get; set; }
     }
 
-    public sealed class EntityIds
+    public sealed class EntityLink
     {
         public Type EntityType { get; set; }
-        public ICollection<long> Ids { get; set; }
+        public IReadOnlyCollection<long> UpdatedIds { get; set; }
     }
 }
