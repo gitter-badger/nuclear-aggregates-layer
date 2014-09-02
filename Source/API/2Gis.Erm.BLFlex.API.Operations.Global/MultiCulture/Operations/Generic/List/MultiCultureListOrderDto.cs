@@ -35,7 +35,6 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Gen
         public DateTime? ModifiedOn { get; set; }
         public decimal PayablePlan { get; set; }
 
-        public PaymentMethod PaymentMethodEnum { get; set; }
         public OrderState WorkflowStepEnum { get; set; }
         public long? AccountId { get; set; }
         public long? DealId { get; set; }

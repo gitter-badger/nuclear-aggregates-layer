@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
+using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -31,7 +32,6 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                         EndDistributionDateFact = order.EndDistributionDateFact,
                         LegalPersonId = order.LegalPersonId,
                         LegalPersonName = order.LegalPerson.LegalName,
-                        PaymentMethodEnum = (PaymentMethod)order.PaymentMethod,
                         OwnerCode = order.OwnerCode,
                         BargainId = order.BargainId,
                         WorkflowStepEnum = (OrderState)order.WorkflowStepId,
@@ -48,10 +48,10 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                         HasDocumentsDebtEnum = (DocumentsDebt)order.HasDocumentsDebt,
                         OrderTypeEnum = (OrderType)order.OrderType,
                         TerminationReasonEnum = (OrderTerminationReason)order.TerminationReason,
-                        OrderType = null,
+                        OrderType = ((OrderType)order.OrderType).ToStringLocalizedExpression(),
                         OwnerName = null,
-                        WorkflowStep = null,
-                        PaymentMethod = null,
+                        WorkflowStep = ((OrderState)order.WorkflowStepId).ToStringLocalizedExpression(),
+                        PaymentMethod = ((PaymentMethod)order.PaymentMethod).ToStringLocalizedExpression(),
                     });
             }
         }
