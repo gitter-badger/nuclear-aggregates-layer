@@ -3,11 +3,9 @@
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -60,18 +58,17 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmAddressIsActive = x.CategoryFirmAddress.FirmAddress.IsActive,
                     FirmAddressIsDeleted = x.CategoryFirmAddress.FirmAddress.IsDeleted,
 
-                    CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.CategoryGroupName,
+                    CategoryGroup = x.CategoryOrganizationUnit.CategoryGroup.CategoryGroupName ?? defaultCategoryRate,
                     CategoryOrganizationUnitIsActive = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsActive : true,
                     CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsDeleted : false,
                 });
 
-            // in memory grouping for firm
-            if (querySettings.ParentEntityName == EntityName.Firm)
+            long firmId;
+            if (querySettings.TryGetExtendedProperty("firmId", out firmId))
             {
-                data = _filterHelper.RelativeFilter(data, querySettings);
-
-                // не рассматриваем неактивные адреса фирм вообще
                 data = data
+                    .Where(x => x.FirmId == firmId)
+                    // не рассматриваем неактивные адреса фирм вообще
                     .Where(x => x.FirmAddressIsActive && !x.FirmAddressIsDeleted)
                     .GroupBy(x => new
                 {
@@ -105,19 +102,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmAddressIsActive = true,
                     FirmAddressIsDeleted = false,
 
-                    CategoryGroup = x.Select(y => y.CategoryGroup).FirstOrDefault(),
+                    CategoryGroup = x.Select(y => y.CategoryGroup).FirstOrDefault() ?? defaultCategoryRate,
                     CategoryOrganizationUnitIsActive = x.Any(y => y.CategoryOrganizationUnitIsActive),
                     CategoryOrganizationUnitIsDeleted = x.All(y => y.CategoryOrganizationUnitIsDeleted),
                 });
             }
 
             return data
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.CategoryGroup = x.CategoryGroup ?? defaultCategoryRate;
-                    return x;
-                });
+                .QuerySettings(_filterHelper, querySettings);
         }
     }
 }
