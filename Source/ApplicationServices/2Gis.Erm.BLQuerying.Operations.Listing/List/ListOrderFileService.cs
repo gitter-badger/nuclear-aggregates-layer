@@ -1,13 +1,9 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,15 +13,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     public sealed class ListOrderFileService : ListEntityDtoServiceBase<OrderFile, ListOrderFileDto>
     {
         private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListOrderFileService(
             IFinder finder,
-            IUserContext userContext, FilterHelper filterHelper)
+            FilterHelper filterHelper)
         {
             _finder = finder;
-            _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
@@ -40,18 +34,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Id = x.Id,
                     CreatedOn = x.CreatedOn,
                     FileId = x.FileId,
-                    FileKindEnum = (OrderFileKind)x.FileKind,
                     FileName = x.File.FileName,
                     OrderId = x.OrderId,
                     IsDeleted = x.IsDeleted,
-                    FileKind = null,
+                    FileKind = ((OrderFileKind)x.FileKind).ToStringLocalizedExpression(),
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.FileKind = x.FileKindEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    return x;
-                });
+                .QuerySettings(_filterHelper, querySettings);
         }
     }
 }

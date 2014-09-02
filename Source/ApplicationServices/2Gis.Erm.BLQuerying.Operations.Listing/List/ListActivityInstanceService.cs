@@ -4,14 +4,12 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -110,14 +108,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .Select(x => new ListActivityInstanceDto
                 {
                     Id = x.Id,
-                    ActivityTypeEnum = (ActivityType)x.ActivityType,
                     OwnerCode = x.OwnerCode,
                     Header = x.Header,
                     ScheduledStart = x.ScheduledStart.Value,
                     ScheduledEnd = x.ScheduledEnd.Value,
                     StatusEnum = (ActivityStatus)(int)x.Status.Value,
-                    PriorityEnum = (ActivityPriority)(int)x.Priority.Value,
-                    AfterSaleServiceTypeEnum = x.AfterSaleServiceType == null ? AfterSaleServiceType.None : (AfterSaleServiceType)(int)x.AfterSaleServiceType.Value,
                     ActualEnd = x.ActualEnd,
                     ClientId = x.ClientId,
                     ContactId = x.ContactId,
@@ -127,20 +122,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsActive = x.IsActive,
                     TaskType = x.TaskType == null ? ActivityTaskType.NotSet : (ActivityTaskType)(int)x.TaskType.Value,
                     OwnerName = null,
-                    ActivityType = null,
-                    AfterSaleServiceType = null,
-                    Priority = null,
-                    Status = null,
+                    ActivityType = ((ActivityType)x.ActivityType).ToStringLocalizedExpression(),
+                    AfterSaleServiceType = (x.AfterSaleServiceType == null ? AfterSaleServiceType.None : (AfterSaleServiceType)(int)x.AfterSaleServiceType.Value).ToStringLocalizedExpression(),
+                    Priority = ((ActivityPriority)(int)x.Priority.Value).ToStringLocalizedExpression(),
+                    Status = ((ActivityStatus)(int)x.Status.Value).ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings)
                 .Transform(x =>
                 {
-                    x.ActivityType = x.ActivityTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    x.Priority = x.PriorityEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    x.AfterSaleServiceType = x.AfterSaleServiceTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-
                     return x;
                 });
 
