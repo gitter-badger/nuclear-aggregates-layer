@@ -222,15 +222,8 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
         if (this.supportsAdvertisement() && this.advertisementLookup) {
 
             var disableAdvertisementLookup = false;
-            //if (!this.checkbox.checked || this.controller.localData.areLinkingObjectParametersLocked) {
-            //    disableAdvertisementLookup = true;
-            //}
-
-            if (!this.checkbox.checked) {
-                if (this.controller.localData.areLinkingObjectParametersLocked ||
-                    this.position.isAdvertisementLimitReached) {
-                    disableAdvertisementLookup = true;
-                }
+            if (!this.checkbox.checked || this.controller.localData.areLinkingObjectParametersLocked) {
+                disableAdvertisementLookup = true;
             }
 
             if (disableAdvertisementLookup)
