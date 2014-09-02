@@ -8,6 +8,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
     public sealed class ListActivityInstanceDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
+        // используется в js
+        public ActivityType ActivityTypeEnum { get; set; }
         public string ActivityType { get; set; }
         public string Header { get; set; }
         public DateTime ScheduledStart { get; set; }
