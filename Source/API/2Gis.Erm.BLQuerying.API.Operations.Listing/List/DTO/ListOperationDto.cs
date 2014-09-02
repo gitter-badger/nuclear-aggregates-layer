@@ -14,7 +14,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string Type { get; set; }
         public long? OrganizationUnitId { get; set; }
         public string OrganizationUnitName { get; set; }
-        public OperationStatus StatusEnum { get; set; }
         public string Status { get; set; }
         public long OwnerCode { get; set; }
         public string Owner { get; set; }

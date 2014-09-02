@@ -1,14 +1,12 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -60,19 +58,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 OwnerCode = x.OwnerCode,
                 CreateDate = x.CreatedOn,
                 WorkAddress = x.WorkAddress,
-                AccountRoleEnum = (AccountRole)x.AccountRole,
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
                 IsFired = x.IsFired,
-                AccountRole = null,
+                AccountRole = ((AccountRole)x.AccountRole).ToStringLocalizedExpression(),
                 Owner = null,
             })
             .QuerySettings(_filterHelper, querySettings)
             .Transform(x =>
             {
                 x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                x.AccountRole = x.AccountRoleEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-
                 return x;
             });
         }

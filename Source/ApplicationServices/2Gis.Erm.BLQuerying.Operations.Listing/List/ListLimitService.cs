@@ -2,14 +2,12 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -80,33 +78,32 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             return query
                 .Filter(_filterHelper, nextMonthForStartPeriodDateFilter, myBranchFilter, myFilter, myInspectionFilter)
                 .Select(x => new ListLimitDto
-                    {
+                {
                     Id = x.Id,
                     BranchOfficeId = x.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
-                        BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.BranchOffice.Name,
-                        LegalPersonName = x.Account.LegalPerson.LegalName,
-                        CreatedOn = x.CreatedOn,
-                        CloseDate = x.CloseDate,
-                        StartPeriodDate = x.StartPeriodDate,
-                        EndPeriodDate = x.EndPeriodDate,
-                        Amount = x.Amount,
+                    BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                    LegalPersonName = x.Account.LegalPerson.LegalName,
+                    CreatedOn = x.CreatedOn,
+                    CloseDate = x.CloseDate,
+                    StartPeriodDate = x.StartPeriodDate,
+                    EndPeriodDate = x.EndPeriodDate,
+                    Amount = x.Amount,
                     ClientId = x.Account.LegalPerson.ClientId,
                     ClientName = x.Account.LegalPerson.Client.Name,
-                        OwnerCode = x.OwnerCode,
-                        InspectorCode = x.InspectorCode,
-                    StatusEnum = (LimitStatus)x.Status,
-                        AccountId = x.AccountId,
-                        IsActive = x.IsActive,
-                        IsDeleted = x.IsDeleted,
+                    OwnerCode = x.OwnerCode,
+                    InspectorCode = x.InspectorCode,
+    
+                    AccountId = x.AccountId,
+                    IsActive = x.IsActive,
+                    IsDeleted = x.IsDeleted,
                     LegalPersonId = x.Account.LegalPersonId,
                     OwnerName = null,
-                    Status = null,
+                    Status = ((LimitStatus)x.Status).ToStringLocalizedExpression(),
                     InspectorName = null,
                 })
                 .QuerySettings(_filterHelper, querySettings)
                 .Transform(x =>
                 {
-                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     x.InspectorName = _userIdentifierService.GetUserInfo(x.InspectorCode).DisplayName;
 

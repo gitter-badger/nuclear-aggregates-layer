@@ -3,15 +3,12 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -86,7 +83,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 {
                     Id = x.Id,
                     Number = x.Number,
-                    BargainKindEnum = (BargainKind)x.BargainKind,
                     LegalPersonId = x.CustomerLegalPersonId,
                     LegalPersonLegalName = x.LegalPerson.LegalName,
                     LegalPersonLegalAddress = x.LegalPerson.LegalAddress,
@@ -99,13 +95,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ClientName = x.LegalPerson.Client.Name,
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
+                    BargainKind = ((BargainKind)x.BargainKind).ToStringLocalizedExpression(),
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                    {
-                        x.BargainKind = x.BargainKindEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                        return x;
-                    });
+                .QuerySettings(_filterHelper, querySettings);
         }
     }
 }

@@ -22,7 +22,7 @@ using Nest;
 
 namespace DoubleGis.Erm.BLQuerying.DI.Config
 {
-    public static partial class QueryingBootstrapper
+    public static class QueryingBootstrapper
     {
         private static readonly EntityName[] QdsEntityNames =
         {
@@ -101,16 +101,14 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
                 return null;
             }
 
-            var entityName = entitySet.Entities.Single();
-            if (QdsEntityNames.Contains(entityName))
+            var businessModel = ConfigFileSetting.Enum.Required<BusinessModel>("BusinessModel").Value;
+            if (businessModel == BusinessModel.Russia)
             {
-                var businessModel = ConfigFileSetting.Enum.Required<BusinessModel>("BusinessModel").Value;
-                if (businessModel == BusinessModel.Russia)
+                var entityName = entitySet.Entities.Single();
+                if (QdsEntityNames.Contains(entityName))
                 {
                     return candidates.Single(x => x.Assembly == typeof(QdsListOrderService).Assembly);
                 }
-
-                return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
             }
 
             return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
