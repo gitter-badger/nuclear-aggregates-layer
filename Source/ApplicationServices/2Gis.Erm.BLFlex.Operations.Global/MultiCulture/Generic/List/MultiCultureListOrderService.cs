@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -10,7 +9,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -21,15 +19,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
 {
     public sealed class MultiCultureListOrderService : ListEntityDtoServiceBase<Order, MultiCultureListOrderDto>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
-        private static readonly Func<MultiCultureListOrderDto, ISecurityServiceUserIdentifier, IUserContext, MultiCultureListOrderDto> ListDataSelectFunc =
-            (order, userIdentifierService, userContext) =>
+        private static readonly Func<MultiCultureListOrderDto, ISecurityServiceUserIdentifier, MultiCultureListOrderDto> ListDataSelectFunc =
+            (order, userIdentifierService) =>
                 {
-                    order.PaymentMethod =
-                        order.PaymentMethodEnum.ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    order.WorkflowStep = order.WorkflowStepEnum.ToStringLocalized(EnumResources.ResourceManager,
-                                                                                  userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    order.OrderType = order.OrderTypeEnum.ToStringLocalized(EnumResources.ResourceManager,
-                                                                            userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     order.OwnerName = userIdentifierService.GetUserInfo(order.OwnerCode).DisplayName;
                     return order;
                 };
@@ -225,7 +217,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 case EntityName.LegalPerson:
                     return query
                         .Where(x => x.LegalPersonId == querySettings.ParentEntityId)
@@ -241,7 +233,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 case EntityName.Account:
                     return query
                         .Where(x => x.AccountId == querySettings.ParentEntityId)
@@ -257,7 +249,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 case EntityName.Firm:
                     return query
                         .Where(x => x.FirmId == querySettings.ParentEntityId)
@@ -273,7 +265,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 default:
                     return query
                         .Filter(_filterHelper
@@ -288,7 +280,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
             }
         }
     }
