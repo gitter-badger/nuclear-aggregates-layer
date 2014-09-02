@@ -574,8 +574,6 @@
           <Property Name="CloseDate" Type="datetime2" Precision="2" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="DealStage" Type="int" Nullable="false" />
-          <Property Name="ActualProfit" Type="decimal" Precision="16" Scale="2" Nullable="false" />
-          <Property Name="EstimatedProfit" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="OwnerCode" Type="bigint" Nullable="false" />
@@ -2005,12 +2003,12 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Operation" Type="int" Nullable="false" />
+          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
           <Property Name="Descriptor" Type="int" Nullable="false" />
           <Property Name="Context" Type="xml" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="Parent" Type="bigint" />
           <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
         </EntityType>
         <EntityType Name="PerformedOperationFinalProcessings">
           <Key>
@@ -6300,8 +6298,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="Orders" Relationship="ErmModel.FK_Orders_Deal" FromRole="Deal" ToRole="Order" />
         <NavigationProperty Name="Client" Relationship="ErmModel.FK_Deals_Clients" FromRole="Deal" ToRole="Client" />
         <NavigationProperty Name="Firm" Relationship="ErmModel.FK_Deals_Firms" FromRole="Deal" ToRole="Firm" />
-        <Property Type="Decimal" Name="EstimatedProfit" Precision="16" Scale="2" Nullable="false" />
-        <Property Type="Decimal" Name="ActualProfit" Precision="16" Scale="2" Nullable="false" />
         <Property Type="Int32" Name="DealStage" Nullable="false" />
         <NavigationProperty Name="AfterSaleServiceActivities" Relationship="ErmModel.FK_AfterSaleServiceActivities_Deals" FromRole="Deal" ToRole="AfterSaleServiceActivity" />
       </EntityType>
@@ -10306,8 +10302,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntityTypeMapping TypeName="ErmModel.Deal">
             <MappingFragment StoreEntitySet="Deals">
               <ScalarProperty Name="DealStage" ColumnName="DealStage" />
-              <ScalarProperty Name="ActualProfit" ColumnName="ActualProfit" />
-              <ScalarProperty Name="EstimatedProfit" ColumnName="EstimatedProfit" />
               <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

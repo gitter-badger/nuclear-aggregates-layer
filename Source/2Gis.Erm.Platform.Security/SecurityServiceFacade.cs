@@ -27,7 +27,10 @@ namespace DoubleGis.Erm.Platform.Security
                                                 ISecurityServiceFunctionalAccess,
                                                 ISecurityServiceSharings
     {
-        private static readonly IEnumerable<EntityAccessTypes> AtomicAccessTypes = ((EntityAccessTypes[])typeof(EntityAccessTypes).GetEnumValues()).Where(x => x != EntityAccessTypes.None && x != EntityAccessTypes.All);
+        private const string CacheKeyMask = "security:{0}:{1}:{2}";
+
+        private static readonly IEnumerable<EntityAccessTypes> AtomicAccessTypes =
+            ((EntityAccessTypes[])typeof(EntityAccessTypes).GetEnumValues()).Where(x => x != EntityAccessTypes.None && x != EntityAccessTypes.All);
 
         // Для каждой пары в словаре проверка привилегий для первой сущности заменяется  
         // проверкой привилегий для второй сущности.
@@ -45,27 +48,23 @@ namespace DoubleGis.Erm.Platform.Security
         private readonly IFinder _finder;
         private readonly IUserEntityService _userEntityService;
         private readonly ICommonLog _logger;
-
-        private const string CacheKeyMask = "security:{0}:{1}:{2}";
         private readonly ICacheAdapter _cacheAdapter;
-
         private readonly TimeSpan _cacheSlidingSpan = TimeSpan.FromSeconds(60);
 
-        private DateTime CacheAbsoluteSpan
-        {
-            get { return DateTime.Now.Add(_cacheSlidingSpan); }
-        }
-
-        public SecurityServiceFacade(
-            IFinder finder,
-            IUserEntityService userEntityService,
-            ICacheAdapter cacheAdapter,
-            ICommonLog commonLog)
+        public SecurityServiceFacade(IFinder finder,
+                                     IUserEntityService userEntityService,
+                                     ICacheAdapter cacheAdapter,
+                                     ICommonLog commonLog)
         {
             _finder = finder;
             _userEntityService = userEntityService;
             _cacheAdapter = cacheAdapter;
             _logger = commonLog;
+        }
+
+        private DateTime CacheAbsoluteSpan
+        {
+            get { return DateTime.Now.Add(_cacheSlidingSpan); }
         }
 
         #region ISecurityServiceUserIdentifier
@@ -303,11 +302,11 @@ namespace DoubleGis.Erm.Platform.Security
             }
 
             var key = string.Format(CacheKeyMask, "IsSecureEntity", entityToCheck, string.Empty);
-            var isSecure = _cacheAdapter.Get(key);
-            if (isSecure != null)
+            var isSecure = _cacheAdapter.Get<bool?>(key);
+            if (isSecure.HasValue)
             {
-                return (bool)isSecure;
-        }
+                return isSecure.Value;
+            }
 
             var result = _finder.FindAll<Privilege>().Any(x => x.EntityType == (int)entityToCheck);
             _cacheAdapter.Add(key, result, CacheAbsoluteSpan);
