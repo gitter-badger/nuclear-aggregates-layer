@@ -1,4 +1,4 @@
-﻿// File updated : 28.07.2014 9:21:01
+﻿// File updated : 25.08.2014 18:20:14
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -8,6 +8,7 @@
 Ext.LocalizedResources =
 {
 	AcquireOrderExtensionFailed : 'Nebylo možné získat počítané hodnoty.',
+ActionIsNotAvailableSinceThereIsAnError : 'Operace není přípustná, protože ne všechny elementy jsou validní',
 ActionsHistory : 'Historie změn',
 ActionsHistoryTabGroupRenderer : 'Akce: {0}, Hotovo: {1} Dne: {2}',
 ActionsHistoryTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "změna": values.rs.length%10>0 && values.rs.length%10<5?"změny":"změn"]})',
@@ -30,6 +31,11 @@ AdvertisementElementTextContainsControlCharacters : 'Text obsahuje řídicí zna
 AdvertisementElementTextContainsHtmlTags : 'Text obsahuje potenciálně nebezpečné prvky (HTML tagy), text nelze uložit.',
 AdvertisementElementWasNotSaved : 'Element reklamního materiálu nebyl uložen.',
 Advertisements : 'Reklamní materiály',
+AdvertisementTemplatePublishConfirmation : 'Skutečně si přejete zveřejnit šablonu reklamního materiálu?',
+AdvertisementTemplatePublishConfirmationLabel : 'Zveřejnit prvek šablony reklamního materiálu',
+AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Opravdu chcete publikovat šablonu reklamního materiálu?<br/>V kartě byly uskutečněny změny, které budou ztraceny při publikací.<br/>Pokud chcete změny uložit, stiskněte „Ne“ a uložte kartu.',
+AdvertisingElementAccept : 'Schválit',
+AdvertisingElementValidate : 'Ověření',
 AfterPageText : 'z {0}',
 Alert : 'Pozor!',
 AllExistingBillsWillBeDeleted : 'Všechny stávající faktury budou odstraněny. Pokračovat?',
@@ -56,6 +62,7 @@ BoldText : 'Použití tučného písma na vybraný text.',
 BoldTitle : 'Tučné (Ctrl+B)',
 Cancel : 'Zrušit',
 CanNotSelectHiddenPosition : 'Je třeba vyměnit vázané objekty, které byly skryté, za aktuálně dostupné',
+CantUnpublishPriceWhenUnpublished : 'Není možné zrušit zveřejnění nezveřejněného ceníku',
 CardIsDirtyAlert : 'Tuto akci není možné provést, pokud existují neuložené změny. Před tím, než budete pokračovat, uložte prosím změny nebo aktualizujte kartu.',
 CardIsNewAlert : 'Tuto akci bude možné provést až po uložení záznamu. Než budete pokračovat, uložte prosím záznam.',
 CardIsReadOnly : 'Tato karta je otevřena v režimu „pouze pro čtení“.',
@@ -232,6 +239,7 @@ Payments : 'Vyúčtování',
 PleaseWaitWhileCheckingClientDebts : 'Vyčkejte prosím. Právě probíhá kontrola stávajících pohledávek vybraných klientů.',
 PrevPageText : 'Předcházející strana',
 PriceForOrganizationUnitNotExists : 'V systému momentálně chybí zveřejněný ceník pro město {0}',
+PriceIsAlreadyPublished : 'Ceník je již zveřejněn',
 PrintText : 'Tisk',
 ProcessMessagesConfirm : 'Skutečně si přejete zpracovat vybrané zprávy?',
 Properties : 'Vlastnosti',
@@ -281,6 +289,8 @@ Tuesday : 'Úterý',
 UnderlineText : 'Podtrhávání vybraného textu.',
 UnderlineTitle : 'Podtržený (Ctrl+U)',
 UnknownFileSize : 'Neznámá velikost',
+UnpublishAdvertisementTemplateConfirmation : 'Skutečně si přejete zrušit zveřejnění šablony reklamního materiálu?',
+UnpublishAdvertisementTemplateLabel : 'Zrušit zveřejnění šablony reklamního materiálu',
 UploadFileQuestion : 'Skutečně si přejete stáhnout soubor „{0}“ na server?',
 ValueCantBeEmpty : 'Hodnota nemůže být prázdná',
 Wednesday : 'Středa',

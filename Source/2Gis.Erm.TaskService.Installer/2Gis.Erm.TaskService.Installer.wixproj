@@ -140,45 +140,9 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Elastic.Nest.Qds\2Gis.Erm.Elastic.Nest.Qds.csproj">
-      <Name>2Gis.Erm.Elastic.Nest.Qds</Name>
-      <Project>{5b72fce8-04d5-4c60-9939-587fd1c01e5f}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>
-      </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
       <Name>2Gis.Erm.Qds.Common</Name>
       <Project>{7d920b28-ca75-4f54-8605-aa1e57388326}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>
-      </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Qds.Etl\2Gis.Erm.Qds.Etl.csproj">
-      <Name>2Gis.Erm.Qds.Etl</Name>
-      <Project>{b3ee2e70-cb56-454d-a4ee-8e9b663aceca}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>
-      </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLQuerying\Source\2Gis.Erm.Qds\2Gis.Erm.Qds.csproj">
-      <Name>2Gis.Erm.Qds</Name>
-      <Project>{74312c77-23bb-4d32-8ce7-32380508261c}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>
-      </DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Core\2Gis.Erm.Qds.API.Core.csproj">
-      <Name>2Gis.Erm.Qds.API.Core</Name>
-      <Project>{9e27f95a-5b1a-426b-9f72-ad2240fe8026}</Project>
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
@@ -581,6 +545,15 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
+      <Name>2Gis.Erm.Platform.AppFabric</Name>
+      <Project>{e97bc051-bc95-4183-950b-0685dde66d7d}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\TaskService\2Gis.Erm.Platform.TaskService\2Gis.Erm.Platform.TaskService.csproj">
       <Name>2Gis.Erm.Platform.TaskService</Name>
       <Project>{49d0d1c2-49a4-4063-bd9c-ac36be6c36dd}</Project>
@@ -634,11 +607,6 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Variables.Load.Russia.wxi">
-      <DependentUpon>Variables.wxi</DependentUpon>
-    </Content>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

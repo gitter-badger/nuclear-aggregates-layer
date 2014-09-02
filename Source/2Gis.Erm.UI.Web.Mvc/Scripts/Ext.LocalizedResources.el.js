@@ -1,4 +1,4 @@
-﻿// File updated : 28.07.2014 9:21:00
+﻿// File updated : 25.08.2014 18:20:14
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -8,6 +8,7 @@
 Ext.LocalizedResources =
 {
 	AcquireOrderExtensionFailed : 'Failed to obtain calculated values.',
+ActionIsNotAvailableSinceThereIsAnError : 'Action cannot be performed, since not all elements are valid',
 ActionsHistory : 'Change history',
 ActionsHistoryTabGroupRenderer : 'Action: {0}, Completed: {1} Date: {2}',
 ActionsHistoryTabGroupTemplate : '{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "change" : values.rs.length%10>0 && values.rs.length%10<5?"changes":"changes"]})',
@@ -30,6 +31,11 @@ AdvertisementElementTextContainsControlCharacters : 'The text contains control s
 AdvertisementElementTextContainsHtmlTags : 'The text contains potentially dangerous elements (HTML tags) and cannot be saved.',
 AdvertisementElementWasNotSaved : 'AM element was not saved.',
 Advertisements : 'Advertising materials',
+AdvertisementTemplatePublishConfirmation : 'Are you sure you want to publish this advertising material template?',
+AdvertisementTemplatePublishConfirmationLabel : 'Publish the advertising material template',
+AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Do you really want to publish the advertising template?<br/>The card contains changes that will be lost after publishing.<br/>If you would like to save them, click No and save the card.',
+AdvertisingElementAccept : 'Approve',
+AdvertisingElementValidate : 'Verification',
 AfterPageText : 'of {0}',
 Alert : 'Attention!',
 AllExistingBillsWillBeDeleted : 'All existing payments will be deleted. Continue?',
@@ -56,6 +62,7 @@ BoldText : 'Make selected text bold.',
 BoldTitle : 'Bold (Ctrl+B)',
 Cancel : 'Cancel',
 CanNotSelectHiddenPosition : 'You have to change hidden reference objects to the objects available at present',
+CantUnpublishPriceWhenUnpublished : 'You cannot cancel publishing of the unpublished price-list',
 CardIsDirtyAlert : 'This action cannot be performed until all changes are saved. Please save changes or refresh the card to continue.',
 CardIsNewAlert : 'This action cannot be completed until the record is saved. Please save the record to continue.',
 CardIsReadOnly : 'This card is open in "read-only" mode.',
@@ -232,6 +239,7 @@ Payments : 'Payments',
 PleaseWaitWhileCheckingClientDebts : 'Please wait. Checking the selected clients for debts',
 PrevPageText : 'Previous page',
 PriceForOrganizationUnitNotExists : 'There is no published price-list for the city {0} in the system at present',
+PriceIsAlreadyPublished : 'The price-list is already published',
 PrintText : 'Print',
 ProcessMessagesConfirm : 'Do you really want to process selected messages?',
 Properties : 'Properties',
@@ -281,6 +289,8 @@ Tuesday : 'Tuesday',
 UnderlineText : 'Underline selected text.',
 UnderlineTitle : 'Underlined (Ctrl+U)',
 UnknownFileSize : 'The size is not known',
+UnpublishAdvertisementTemplateConfirmation : 'Are you sure you want to cancel advertising material template publishing?',
+UnpublishAdvertisementTemplateLabel : 'Cancel advertising material template publishing',
 UploadFileQuestion : 'Do you really want to upload the "{0}" file to the server?',
 ValueCantBeEmpty : 'The value cannot be empty',
 Wednesday : 'Wednesday',
