@@ -53,9 +53,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
         }
 
         // TODO {a.tukaev, 25.03.2014}: аргумент organizationUnitId лучше вычислять внутри этого метода получая от клиентского кода firmId, например также, как в методе GetCategoryRateByFirm
-        public decimal GetCategoryRateByCategory(long categoryId, long organizationUnitId)
+        public decimal GetCategoryRateByCategory(long[] categoryId, long organizationUnitId)
         {
-            return GetCategoryRateInternal(_finder.Find(Specs.Find.ById<Category>(categoryId)), organizationUnitId);
+            return GetCategoryRateInternal(_finder.Find(Specs.Find.ByIds<Category>(categoryId)), organizationUnitId);
         }
 
         public decimal GetPricePositionCost(long pricePositionId)
@@ -225,6 +225,38 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                          .Select(x => x.PriceId)
                          .Single();
+        }
+
+        public PricePositionDetailedInfo GetPricePositionDetailedInfo(long pricePositionId)
+        {
+            var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
+                                           .Select(item => new
+                                           {
+                                               Platform = item.Position.Platform.Name,
+                                               item.RateType,
+                                               item.Amount,
+                                               item.AmountSpecificationMode,
+                                               item.PositionId,
+                                               PricePositionCost = item.Cost,
+                                               item.Position.IsComposite,
+                                               LinkingObjectType = item.Position.BindingObjectTypeEnum,
+                                               AccountingMethod = (PositionAccountingMethod)item.Position.AccountingMethodEnum
+                                           })
+                                           .Single();
+
+            return new PricePositionDetailedInfo
+            {
+                Amount = pricePositionInfo.Amount,
+                AmountSpecificationMode = pricePositionInfo.AmountSpecificationMode,
+                IsComposite = pricePositionInfo.IsComposite,
+                Platform = pricePositionInfo.Platform ?? string.Empty,
+                PricePositionCost = pricePositionInfo.PricePositionCost,
+                RateType = (PricePositionRateType)pricePositionInfo.RateType,
+
+                LinkingObjectType = (PositionBindingObjectType)pricePositionInfo.LinkingObjectType,
+                AccountingMethod = pricePositionInfo.AccountingMethod,
+                PositionId = pricePositionInfo.PositionId,
+            };
         }
 
         private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)

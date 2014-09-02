@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>Заказ {0} не имеет ни одной указанной позиции заказа</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>Значение поля "{0}" не является корректным email-адресом</value>
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value>Удалить все счета на оплату для заказа</value>
   </data>
@@ -849,9 +846,6 @@
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value>В данной позиции объеты привязки отсутствуют.</value>
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Необходимо указать значение для поля "{0}"</value>
-  </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value>Для фирмы не указан код реплики в CRM</value>
   </data>
@@ -1036,9 +1030,6 @@
   </data>
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Биллинг</value>
-  </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>Нельзя отменить опубликование не опубликованного прайс-листа</value>
   </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>Внимание! Контакт адреса фирмы и/или адрес фирмы и/или фирма скрыты до выяснения</value>
@@ -1727,9 +1718,6 @@
   <data name="AssignAssignLegend" xml:space="preserve">
     <value>Выбрано записей "{0}": {1}. Кому их следует назначить?</value>
   </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>Поле {0} может содержать только цифры</value>
-  </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
     <value>Будет включено Типов операций: {0}</value>
   </data>
@@ -2004,7 +1992,7 @@
     <value>Внимание! Адрес фирмы и/или фирма скрыты навсегда</value>
   </data>
   <data name="ReleaseBlockedError" xml:space="preserve">
-    <value>Редактирование бланков заказов и  позиций бланков заказа заблокировано для города {0}</value>
+    <value>Редактирование заказов и  позиций заказов заблокировано для города {0}</value>
   </data>
   <data name="DateRangeError" xml:space="preserve">
     <value>Дата окончания меньше даты начала</value>
@@ -3486,9 +3474,6 @@
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>Заказ корректен, однако в ходе проверки были обнаружены следующие предупреждения:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>Прайс-лист уже опубликован</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>По заказу ещё не было выпуска! Для изменения условий продажи данный заказ необходимо вернуть в работу!</value>
   </data>
@@ -4090,8 +4075,8 @@
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>Нельзя удалить шаблон, который уже используется в тематиках</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>Нельзя удалить подразделение из темы, которая уже используется в заказах</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Нельзя удалить отделение организации, которое является городом назначения в заказе {0} с данной тематикой.</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Нельзя редактировать список подразделений в тематике, установленной по умолчанию</value>
@@ -4351,9 +4336,6 @@
   </data>
   <data name="WrongOrderType" xml:space="preserve">
     <value>Неверный тип заказа</value>
-  </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>неподходящее значение для поля {0}</value>
   </data>
   <data name="FileRequired" xml:space="preserve">
     <value>Необходимо выбрать файл</value>
@@ -4676,21 +4658,6 @@
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>Нельзя добавить и удалить элементы опубликованного шаблона</value>
   </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>Вы действительно хотите опубликовать шаблон ракламного материала?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Опубликовать шаблон рекламного материала</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>Вы действительно хотите отменить публикацию шаблона рекламного материала?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Отменить публикацию шаблона рекламного материала</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>Нельзя отменить опубликование не опубликованного шаблона </value>
-  </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Элемент справочника не содержит названия ни на базовом, ни на резервном языке</value>
   </data>
@@ -4959,9 +4926,6 @@
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value>Для измения признака является ли клиент рекламным агентством нужна соответсвующая привилегия</value>
   </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
-  </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>Строка содержит управляющие символы</value>
   </data>
@@ -4981,7 +4945,7 @@
     <value>Нельзя отменить выполненную заявку</value>
   </data>
   <data name="ClientOfFirmOrderMissingTemplate" xml:space="preserve">
-    <value>У фирмы бланка заказа [{0}] отсутствует клиент</value>
+    <value>У фирмы заказа [{0}] отсутствует клиент</value>
   </data>
   <data name="ProjectHasNoOrganizationUnit" xml:space="preserve">
     <value>Проект {0} не связан с отделением организации</value>
@@ -5151,7 +5115,7 @@
     <value>Нельзя создать сложную позицию, с типом объекта привязки отличным от следующих: {0}</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Невозможно создать позицию заказа со способом расчета коэффициента [{0}] в выбранный город назначения и рубрику [{1}]</value>
+    <value>Новая модель продаж пока не поддерживается в городе "{0}" и/или в рубрике "{1}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>Для всех подпозиций позиции заказа, оформленной на позицию прайс-листа с типом расчета коэффициента [{0}], должна быть указана рубрика</value>
@@ -5224,5 +5188,23 @@
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Дата окончания действия договора не может быть меньше даты подписания</value>
+  </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>Нет прав для перевода ЭРМ в статус {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Попытка редактирования ЭРМ с идентификатором {0} не в статусе "Черновик"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>В рекламном материале "{0}", который подлежит выверке, элемент "{1}" находится в статусе 'Черновик'</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Для отклонения ЭРМ необходиму указать причину</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Нельзя менять статус ЭРМ, не требующего выверки</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Нельзя указать неактивную причину отклонения</value>
   </data>
 </root>

@@ -189,9 +189,6 @@
   <data name="OrdersCheckOrderHasNoPositions" xml:space="preserve">
     <value>Objednávka {0} neobsahuje ani jednu uvedenou položku objednávky</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>Hodnota pole „{0}“ není správnou e-mailovou adresou</value>
-  </data>
   <data name="DeleteAllBillsConfirmationLabel" xml:space="preserve">
     <value>Odstranit všechny faktury u této objednávky</value>
   </data>
@@ -849,9 +846,6 @@
   <data name="PositionHasNoLinkingObjects" xml:space="preserve">
     <value>Tato položka nemá vázané objekty.</value>
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Do pole „{0}“ je treba zadat hodnotu</value>
-  </data>
   <data name="QualifyFirmSyncronizationError" xml:space="preserve">
     <value>Firma nemá v CRM uvedený kód repliky</value>
   </data>
@@ -1036,9 +1030,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="LocalMessageController_Billing" xml:space="preserve">
     <value>Fakturace</value>
-  </data>
-  <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>Není možné zrušit zveřejnění nezveřejněného ceníku</value>
   </data>
   <data name="FirmContactOrFirmAddressOrFirmIsClosedForAscertainmentAlertText" xml:space="preserve">
     <value>Pozor! Kontakt adresy firmy a/nebo adresa firmy a/nebo firma jsou skryté do vyjasnění</value>
@@ -1726,9 +1717,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="AssignAssignLegend" xml:space="preserve">
     <value>Vybraných záznamů „{0}“: {1}. Komu je třeba je přidělit?</value>
-  </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>Pole {0} může obsahovat pouze čísla</value>
   </data>
   <data name="ActivateOperationTypeConfirmation" xml:space="preserve">
     <value>Bude zapnut následující počet typů operací: {0}</value>
@@ -3486,9 +3474,6 @@ Operace provedena: {4}.</value>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
     <value>Objednávka je správná, během kontroly se však vyskytla následující upozornění:</value>
   </data>
-  <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>Ceník je již zveřejněn</value>
-  </data>
   <data name="ProcessOrder_LocksNotExist" xml:space="preserve">
     <value>U této objednávky zatím nebyla žádná vydání! Změnu prodejních podmínek je možné provést po vrácení objednávky ke zpracování!</value>
   </data>
@@ -4089,8 +4074,8 @@ Operace provedena: {4}.</value>
   <data name="CannotDeleteUsedThemeTemplate" xml:space="preserve">
     <value>Není možné odstranit šablonu, která je použita v tématech</value>
   </data>
-  <data name="CannotDeleteOrganizationUnitsFromUsedTheme" xml:space="preserve">
-    <value>Není možné odstranit pododdíl z tématu, které je již použito v objednávkách</value>
+  <data name="CannotDeleteOrganizationUnitsUsedInOrderByThatTheme" xml:space="preserve">
+    <value>Nelze odstranit oddělení organizace, které je cílovým městem v objednávce {0} s tímto tématem</value>
   </data>
   <data name="CannotEditThemeOrganizationUnitsInDefaultTheme" xml:space="preserve">
     <value>Nelze upravovat seznam pododdílů ve výchozím tématu</value>
@@ -4350,9 +4335,6 @@ Operace provedena: {4}.</value>
   </data>
   <data name="WrongOrderType" xml:space="preserve">
     <value>Chybný typ objednávky</value>
-  </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>neodpovídající hodnota pole {0}</value>
   </data>
   <data name="FileRequired" xml:space="preserve">
     <value>Je třeba vybrat soubor</value>
@@ -4675,21 +4657,6 @@ Operace provedena: {4}.</value>
   <data name="CantAddOrRemoveElementsAtPublishedTemplate" xml:space="preserve">
     <value>Není možné přidat a odstranit prvky zveřejněné šablony</value>
   </data>
-  <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zveřejnit šablonu reklamního materiálu?</value>
-  </data>
-  <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Zveřejnit prvek šablony reklamního materiálu</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zrušit zveřejnění šablony reklamního materiálu?</value>
-  </data>
-  <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Zrušit zveřejnění šablony reklamního materiálu</value>
-  </data>
-  <data name="CantUnpublishAdvertisementTemplateWhenUnpublished" xml:space="preserve">
-    <value>Není možné zrušit zveřejnění nezveřejněné šablony </value>
-  </data>
   <data name="ReferenceItemDoesntContainName" xml:space="preserve">
     <value>Prvek adresáře neobsahuje název ani v hlavním ani v rezervním jazyce</value>
   </data>
@@ -4958,9 +4925,6 @@ Kontakt: {1}</value>
   <data name="MustHaveFunctionalPrivilegeToChangeIsAdvertisingAgencyProperty" xml:space="preserve">
     <value>Pro změnu příznaku s údaji o tom, zda je zákazník reklamní agentura, je požadováno odpovídající oprávnění</value>
   </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
-  </data>
   <data name="StringContainsControlCharacters" xml:space="preserve">
     <value>Řádek obsahuje řídicí znaky</value>
   </data>
@@ -5141,7 +5105,7 @@ Doba zveřejnění: {3}.</value>
     <value>Uzavřít jako zamítnuto</value>
   </data>
   <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Není možné vytvořit položku objednávky se způsobem výpočtu koeficientu [{0}] do vybraného cílového města a rubriky [{1}]</value>
+    <value>Nový prodejní modul ještě není podporován "{0}" a/nebo v rubrice "{1}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>U všech podpoložek položky v objednávce zpracované jako ceníková položka s typem výpočtu koeficientu [{0}] musí být uvedena rubrika</value>
@@ -5222,6 +5186,24 @@ Doba zveřejnění: {3}.</value>
     <value>Chybějí práva na vytvoření agenturní smlouvy</value>
   </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
-    <value>Дата окончания действия договора не может быть меньше даты подписания</value>
+    <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
+  </data>
+  <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
+    <value>Nemáte práva pro převedení prvku reklamního materiálu do statusu {0}</value>
+  </data>
+  <data name="NonDraftAdvertisementElementEditing" xml:space="preserve">
+    <value>Pokus o editaci prvku editace reklamního materiálu s identifikátorem {0}, který není ve statusu "Koncept"</value>
+  </data>
+  <data name="OrdersCheckAdvertisementElementIsDraft" xml:space="preserve">
+    <value>V reklamním materiálu "{0}", který je třeba ověřit, prvek "{1}" má status 'Koncept'</value>
+  </data>
+  <data name="YouHaveToSpecifyReasonToDenyAdvertisementElement" xml:space="preserve">
+    <value>Pro odmítnutí prvku reklamního materiálu musíte zadat důvod</value>
+  </data>
+  <data name="YouMustNotChangeStatusOfNotVerifiableAdvertisementElement" xml:space="preserve">
+    <value>Nelze měnit status prvku reklamního materiálu, který nepotřebuje ověření</value>
+  </data>
+  <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value>Nelze zadat neaktivní příčinu odmítnutí</value>
   </data>
 </root>

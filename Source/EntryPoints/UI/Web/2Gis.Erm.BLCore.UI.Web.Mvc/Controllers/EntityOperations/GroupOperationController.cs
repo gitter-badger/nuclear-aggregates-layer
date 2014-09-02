@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -26,15 +27,20 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         private readonly IReplicationCodeConverter _replicationCodeConverter;
         private readonly IOperationsMetadataProvider _operationMetadataProvider;
 
-        public GroupOperationController(
-            IMsCrmSettings msCrmSettings,
-            IUserContext userContext, 
-            ICommonLog logger,
-            IReplicationCodeConverter replicationCodeConverter,
-            IOperationsMetadataProvider operationMetadataProvider, 
-            IAPIOperationsServiceSettings operationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, userContext, logger, operationsServiceSettings, getBaseCurrencyService)
+        public GroupOperationController(IMsCrmSettings msCrmSettings,
+                                        IUserContext userContext,
+                                        ICommonLog logger,
+                                        IReplicationCodeConverter replicationCodeConverter,
+                                        IOperationsMetadataProvider operationMetadataProvider,
+                                        IAPIOperationsServiceSettings operationsServiceSettings,
+                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                        IGetBaseCurrencyService getBaseCurrencyService)
+            : base(msCrmSettings,
+                   userContext,
+                   logger,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   getBaseCurrencyService)
         {
             _replicationCodeConverter = replicationCodeConverter;
             _operationMetadataProvider = operationMetadataProvider;

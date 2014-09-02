@@ -47,6 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
     }
 
         // TODO {all, 12.03.2014}: ¬алидаци€ прайса выполн€етс€ и при публикации и при сохранении. Ќужно вынести эту логику отдельно
+        // COMMENT {all, 13.08.2014}: Ќужно разделить логику сохранени€ и публикации - сейчас публикаци€ включает в себ€ сохранение полей organizationUnitId, beginDate, publishDate - причЄм без контрол€ timestamp
         private void ValidatePrice(long priceId, long organizationUnitId, DateTime beginDate, DateTime publishDate)
         {
             if (priceId == 0)

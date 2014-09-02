@@ -23,12 +23,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
         private readonly ICommonLog _logger;
         private readonly IOperationServicesManager _operationServicesManager;
 
-        public CheckForDebtsApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext)
+        public CheckForDebtsApplicationService(ICommonLog logger, IOperationServicesManager operationServicesManager, IUserContext userContext, IResourceGroupManager resourceGroupManager)
         {
             _logger = logger;
             _operationServicesManager = operationServicesManager;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public CheckForDebtsResult Execute(string specifiedEntityName, string specifiedEntityIds)

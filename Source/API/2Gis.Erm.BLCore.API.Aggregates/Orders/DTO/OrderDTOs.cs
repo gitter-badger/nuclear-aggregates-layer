@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -22,20 +21,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public decimal DiscountPercent { get; set; }
         public decimal DiscountSum { get; set; }
         public bool CalculateDiscountViaPercent { get; set; }
-    }
-
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public sealed class OrderPositionDetailedInfo
-    {
-        public decimal PricePositionCost { get; set; }
-        public int AmountSpecificationMode { get; set; }
-        public int? Amount { get; set; }
-        public string Platform { get; set; }
-        public short ReleaseCountPlan { get; set; }
-        public short ReleaseCountFact { get; set; }
-        public bool IsComposite { get; set; }
-        public bool IsBudget { get; set; }
-        public LinkingObjectsSchemaDto LinkingObjectsSchema { get; set; }
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]

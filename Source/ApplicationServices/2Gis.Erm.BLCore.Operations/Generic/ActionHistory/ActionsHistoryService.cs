@@ -25,7 +25,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
         private readonly IOperationsMetadataProvider _metadataProvider;
         private readonly IUserContext _userContext;
 
-        public ActionsHistoryService(IFinder finder, ISecurityServiceUserIdentifier userIdentifierService, IOperationsMetadataProvider metadataProvider, IUserContext userContext)
+        public ActionsHistoryService(IFinder finder,
+                                     ISecurityServiceUserIdentifier userIdentifierService,
+                                     IOperationsMetadataProvider metadataProvider,
+                                     IUserContext userContext)
         {
             _finder = finder;
             _userIdentifierService = userIdentifierService;
@@ -37,7 +40,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
         {
             if (!_metadataProvider.IsSupported<ActionHistoryIdentity>(entityName))
             {
-                throw new InvalidOperationException("Can't get metadata for operation of type " + typeof(IActionsHistoryService) + " and entity type " + entityName);
+                throw new InvalidOperationException("Can't get metadata for operation of type " + typeof(IActionsHistoryService) + " and entity type " +
+                                                    entityName);
             }
 
             var metadata = _metadataProvider.GetOperationMetadata<ActionHistoryMetadata, ActionHistoryIdentity>(entityName);
@@ -77,15 +81,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
 
             var actionHistoryDetailsData = actionsInfo.SelectMany(x => x.Details,
                                                                   (x, y) => new ActionsHistoryDto.ActionsHistoryDetailDto
-                    {
-                        Id = y.Id,
-                        ActionsHistoryId = y.ActionsHistoryId,
-                        PropertyName = MetadataResources.ResourceManager.GetString(y.PropertyName, _userContext.Profile.UserLocaleInfo.UserCultureInfo),
-                        OriginalValue = ProcessValue(entityName, y.PropertyName, y.OriginalValue),
-                        ModifiedValue = ProcessValue(entityName, y.PropertyName, y.ModifiedValue),
-                    })
-                .ToArray();
-            
+                                                                      {
+                                                                          Id = y.Id,
+                                                                          ActionsHistoryId = y.ActionsHistoryId,
+                                                                          PropertyName = MetadataResources.ResourceManager.GetString(y.PropertyName,
+                                                                                                                                     _userContext.Profile.UserLocaleInfo.UserCultureInfo),
+                                                                          OriginalValue = ProcessValue(entityName, y.PropertyName, y.OriginalValue),
+                                                                          ModifiedValue = ProcessValue(entityName, y.PropertyName, y.ModifiedValue),
+                                                                      })
+                                                      .ToArray();
+
             return new ActionsHistoryDto
                 {
                     ActionHistoryData = actionHistoryData,
@@ -96,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
         private string ProcessValue(EntityName entityName, string propertyName, string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-        {
+            {
                 return string.Empty;
             }
 
@@ -117,19 +122,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
                         return Enum.TryParse(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture) : value;
                     }
 
-                    if (entityName == EntityName.AdvertisementElement)
+                    if (entityName == EntityName.AdvertisementElementStatus)
                     {
-                        AdvertisementElementStatus status;
+                        AdvertisementElementStatusValue status;
                         return Enum.TryParse(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture) : value;
                     }
 
                     break;
-                case "Error":
-                    AdvertisementElementError error;
-                    return Enum.TryParse(value, out error) ? error.ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture) : value;     
             }
 
-                    return value;
-            } 
+            return value;
         }
     }
+}

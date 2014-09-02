@@ -62,6 +62,13 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AdvertisementElements\AdvertisementElementValidationAccessDeniedException.cs" />
+    <Compile Include="Concrete\AdvertisementElements\NotVerifiableAdvertisementElementStatusChangingException.cs" />
+    <Compile Include="Concrete\AdvertisementElements\AdvertisementElementValidationWorkflowIsViolatedException.cs" />
+    <Compile Include="Concrete\AdvertisementElements\IAdvertisementElementStatusChangingStrategy.cs" />
+    <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusStrategiesFactory.cs" />
+    <Compile Include="Concrete\AdvertisementElements\IUpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
@@ -72,11 +79,15 @@
     <Compile Include="Concrete\Deals\IReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\AdditionalServiceDisplay.cs" />
     <Compile Include="Concrete\Firms\AdditionalServicesDto.cs" />
+    <Compile Include="Concrete\Firms\Dto\BlankFirmDto.cs" />
+    <Compile Include="Concrete\Firms\ICreateBlankFirmsOperationService.cs" />
     <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardAddressDto.cs" />
     <Compile Include="Concrete\HotClients\HotClientTaskDto.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardForErmServiceBusDto.cs" />
+    <Compile Include="Concrete\Integration\Dto\CardsForErm\CardRelationForErmServiceBusDto.cs" />
+    <Compile Include="Concrete\Integration\Dto\CardsForErm\FirmForErmDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Cards\CardServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Shared\CardType.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\ContactDto.cs" />
@@ -116,6 +127,7 @@
     <Compile Include="Concrete\Integration\Import\Exceptions\OrganizationUnitsRegionalTerritoryNotFoundException.cs" />
     <Compile Include="Concrete\Integration\Import\IDeserializeServiceBusObjectService.cs" />
     <Compile Include="Concrete\Integration\Import\IImportedFromBusEntitiesRegistration.cs" />
+    <Compile Include="Concrete\Integration\Import\Operations\IImportCardRelationForErmService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportFirmContactsService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportDepCardsService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportChargesInfoService.cs" />
@@ -128,6 +140,7 @@
     <Compile Include="Concrete\Integration\Import\IImportServiceBusDtoServiceFactory.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportCategoryFirmAddressService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportFirmAddressService.cs" />
+    <Compile Include="Concrete\Integration\Import\Operations\IImportFirmsDuringImportCardsForErmOperationService.cs" />
     <Compile Include="Concrete\Integration\Infrastructure\IServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Infrastructure\IServiceBusFlow.cs" />
     <Compile Include="Concrete\Integration\Infrastructure\ServiceBusObjectProcessingOrder.cs" />
@@ -150,10 +163,10 @@
     <Compile Include="Concrete\Old\AccountDetails\Dto\DebitDto.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\DebitsInfoDto.cs" />
     <Compile Include="Concrete\Old\AccountDetails\Dto\PlatformDistribution.cs" />
-    <Compile Include="Concrete\Old\Deals\ActualizeDealProfitIndicatorsRequest.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\IWarmClientProcessingSettings.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingConstants.cs" />
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
+    <Compile Include="Concrete\Old\OrderPositions\NewSalesModelNotEnabledForCategoryOrOrganizationUnitException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
@@ -201,7 +214,7 @@
     <Compile Include="Generic\File\UploadFileParams.cs" />
     <Compile Include="Generic\File\UploadFileResult.cs" />
     <Compile Include="Generic\File\ValidateFileSettingsAspect.cs" />
-    <Compile Include="Crosscutting\ISupportedCategoriesChecker.cs" />
+
     <Compile Include="Generic\List\RemoteCollection.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
@@ -335,7 +348,6 @@
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnRegistrationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovedToOnTerminationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnArchiveToApprovedRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnRejectedToOnRegistrationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToArchiveRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnTerminationToOnApprovedRequest.cs" />
     <Compile Include="Concrete\Old\Prices\PublishPriceRequest.cs" />
@@ -488,6 +500,10 @@
     <ProjectReference Include="..\..\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
       <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
       <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>

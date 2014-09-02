@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing.Obsolete
                           IAttachExternalReleaseProcessingMessagesOperationService attachExternalReleaseProcessingMessagesOperationService,
                           IFinishReleaseOperationService finishReleaseOperationService,
                           IUserContext userContext,
+                          IResourceGroupManager resourceGroupManager,
                           ICommonLog logger)
         {
             _startReleaseOperationService = startReleaseOperationService;
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Releasing.Obsolete
             _finishReleaseOperationService = finishReleaseOperationService;
             _logger = logger;
 
-            ResourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
+            resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
         public Response Handle(Request request)

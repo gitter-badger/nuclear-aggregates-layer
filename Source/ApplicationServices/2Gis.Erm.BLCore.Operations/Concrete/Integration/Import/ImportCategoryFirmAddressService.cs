@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -12,23 +12,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
 {
     public class ImportCategoryFirmAddressService : IImportCategoryFirmAddressService
     {
-        private readonly ICreateAggregateRepository<CategoryFirmAddress> _createAggregateService;
-        private readonly IUpdateAggregateRepository<CategoryFirmAddress> _updateAggregateService;
-        private readonly IDeleteAggregateRepository<CategoryFirmAddress> _deleteAggregateService;
-        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IBulkCreateCategoryFirmAddressAggregateService _createAggregateService;
+        private readonly IBulkDeleteCategoryFirmAddressAggregateService _deleteAggregateService;
         private readonly IFirmReadModel _firmReadModel;
+        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IBulkUpdateCategoryFirmAddressAggregateService _updateAggregateService;
 
-        public ImportCategoryFirmAddressService(ICreateAggregateRepository<CategoryFirmAddress> createAggregateService,
-                                                IUpdateAggregateRepository<CategoryFirmAddress> updateAggregateService,
-                                                IDeleteAggregateRepository<CategoryFirmAddress> deleteAggregateService,
+        public ImportCategoryFirmAddressService(IBulkCreateCategoryFirmAddressAggregateService createAggregateService,
+                                                IBulkDeleteCategoryFirmAddressAggregateService deleteAggregateService,
+                                                IFirmReadModel firmReadModel,
                                                 IOperationScopeFactory scopeFactory,
-                                                IFirmReadModel firmReadModel)
+                                                IBulkUpdateCategoryFirmAddressAggregateService updateAggregateService)
         {
             _createAggregateService = createAggregateService;
-            _updateAggregateService = updateAggregateService;
             _deleteAggregateService = deleteAggregateService;
-            _scopeFactory = scopeFactory;
             _firmReadModel = firmReadModel;
+            _scopeFactory = scopeFactory;
+            _updateAggregateService = updateAggregateService;
         }
 
         public void Import(IEnumerable<CategoryFirmAddress> categoryFirmAddressesToImport, IEnumerable<long> firmAddressCodes)
@@ -37,19 +37,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
 
             using (var scope = _scopeFactory.CreateNonCoupled<ImportCategoryFirmAddressIdentity>())
             {
-                scope.Complete();
-
                 var relationsToImportDictionary = categoryFirmAddressesToImport.ToDictionary(x => new
-                    {
-                        x.FirmAddressId,
-                        x.CategoryId
-                    });
+                                                                                                      {
+                                                                                                          x.FirmAddressId,
+                                                                                                          x.CategoryId
+                                                                                                      });
 
                 var existingRelationsDictionary = existingCategoryFirmAddresses.ToDictionary(x => new
-                    {
-                        x.FirmAddressId,
-                        x.CategoryId
-                    });
+                                                                                                      {
+                                                                                                          x.FirmAddressId,
+                                                                                                          x.CategoryId
+                                                                                                      });
 
                 var relationIdsToUpdate = relationsToImportDictionary.Keys.Intersect(existingRelationsDictionary.Keys).ToArray();
                 var relationIdsToInsert = relationsToImportDictionary.Keys.Except(existingRelationsDictionary.Keys).ToArray();
@@ -57,6 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
 
                 if (relationIdsToUpdate.Any())
                 {
+                    var relationsToUpdate = new List<CategoryFirmAddress>();
                     foreach (var relationId in relationIdsToUpdate)
                     {
                         var dtoToUpdate = relationsToImportDictionary[relationId];
@@ -68,39 +67,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import
                         existingRelation.IsActive = true;
                         existingRelation.IsDeleted = false;
 
-                        _updateAggregateService.Update(existingRelation);
-                        scope.Updated<CategoryFirmAddress>(existingRelation.Id);
+                        relationsToUpdate.Add(existingRelation);
                     }
+
+                    _updateAggregateService.Update(relationsToUpdate);
                 }
 
                 if (relationIdsToInsert.Any())
                 {
-                    foreach (var relationId in relationIdsToInsert)
-                    {
-                        var dtoToInsert = relationsToImportDictionary[relationId];
-                        var category = new CategoryFirmAddress
-                            {
-                                CategoryId = dtoToInsert.CategoryId,
-                                FirmAddressId = dtoToInsert.FirmAddressId,
-                                IsActive = true,
-                                IsPrimary = dtoToInsert.IsPrimary,
-                                SortingPosition = dtoToInsert.SortingPosition
-                            };
+                    var categoryFirmAddresses = relationIdsToInsert.Select(relationId => relationsToImportDictionary[relationId])
+                                                                   .Select(dtoToInsert => new CategoryFirmAddress
+                                                                                              {
+                                                                                                  CategoryId = dtoToInsert.CategoryId,
+                                                                                                  FirmAddressId = dtoToInsert.FirmAddressId,
+                                                                                                  IsActive = true,
+                                                                                                  IsPrimary = dtoToInsert.IsPrimary,
+                                                                                                  SortingPosition = dtoToInsert.SortingPosition
+                                                                                              })
+                                                                   .ToArray();
 
-                        _createAggregateService.Create(category);
-                        scope.Added<CategoryFirmAddress>(category.Id);
-                    }
+                    _createAggregateService.Create(categoryFirmAddresses);
                 }
 
                 if (relationIdsToDelete.Any())
                 {
-                    foreach (var relationId in relationIdsToDelete)
-                    {
-                        var relationToDelete = existingRelationsDictionary[relationId];
-                        _deleteAggregateService.Delete(relationToDelete.Id);
-                        scope.Deleted<CategoryFirmAddress>(relationToDelete.Id);
-                    }
+                    var relationsToDelete = relationIdsToDelete.Select(relationId => existingRelationsDictionary[relationId]).ToArray();
+                    _deleteAggregateService.Delete(relationsToDelete);
                 }
+
+                scope.Complete();
             }
         }
     }

@@ -182,13 +182,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         {
             settings = settings ?? new DateTimeSettings();
 
-            var name = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(field));
+            var rawName = ExpressionHelper.GetExpressionText(field);
+            var name = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(rawName);
+            var id = name.Replace(".", HtmlHelper.IdAttributeDotReplacement); 
             var value = (DateTime?)ModelMetadata.FromLambdaExpression(field, htmlHelper.ViewData).Model;
             var sb = new StringBuilder(100);
             sb.Append("<script type=\"text/javascript\">");
             sb.Append("Ext.onReady(function () {");
             sb.Append("new Ext.ux.Calendar({");
-            sb.AppendFormat("id: '{0}',", name);
+            sb.AppendFormat("id: '{0}',", id);
             sb.AppendFormat("showToday: {0},", settings.ShowToday.ToString(CultureInfo.InvariantCulture).ToLower());
             sb.AppendFormat("periodType: {0},", (int)settings.PeriodType);
             sb.AppendFormat("displayStyle: {0},", (int)settings.DisplayStyle);
@@ -201,11 +203,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 sb.AppendFormat("minValue: '{0}',", settings.MinDate.Value.Date.ToString(CultureInfo.InvariantCulture));
             if (settings.MaxDate.HasValue)
                 sb.AppendFormat("maxValue: '{0}',", settings.MaxDate.Value.Date.ToString(CultureInfo.InvariantCulture));
-            sb.AppendFormat("applyTo: '{0}'", name);
+            sb.AppendFormat("applyTo: '{0}'", id);
             sb.Append("})});</script>");
 
             var htmlDateString = value.HasValue ? (value.Value.ToString(CultureInfo.InvariantCulture)) : BLResources.NotSet;
-            sb.Append(htmlHelper.TextBox(name, htmlDateString, new Dictionary<string, object> { { "id", name }, { "class", "inputfields x-calendar" }}).ToString());
+            sb.Append(htmlHelper.TextBox(rawName, htmlDateString, new Dictionary<string, object> { { "id", id }, { "class", "inputfields x-calendar" } }).ToString());
             return MvcHtmlString.Create(sb.ToString());
         }
 
