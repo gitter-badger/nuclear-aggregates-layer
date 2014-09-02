@@ -79,11 +79,15 @@
     <Compile Include="Concrete\Deals\IReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\AdditionalServiceDisplay.cs" />
     <Compile Include="Concrete\Firms\AdditionalServicesDto.cs" />
+    <Compile Include="Concrete\Firms\Dto\BlankFirmDto.cs" />
+    <Compile Include="Concrete\Firms\ICreateBlankFirmsOperationService.cs" />
     <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardAddressDto.cs" />
     <Compile Include="Concrete\HotClients\HotClientTaskDto.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardForErmServiceBusDto.cs" />
+    <Compile Include="Concrete\Integration\Dto\CardsForErm\CardRelationForErmServiceBusDto.cs" />
+    <Compile Include="Concrete\Integration\Dto\CardsForErm\FirmForErmDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Cards\CardServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\Shared\CardType.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\ContactDto.cs" />
@@ -123,6 +127,7 @@
     <Compile Include="Concrete\Integration\Import\Exceptions\OrganizationUnitsRegionalTerritoryNotFoundException.cs" />
     <Compile Include="Concrete\Integration\Import\IDeserializeServiceBusObjectService.cs" />
     <Compile Include="Concrete\Integration\Import\IImportedFromBusEntitiesRegistration.cs" />
+    <Compile Include="Concrete\Integration\Import\Operations\IImportCardRelationForErmService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportFirmContactsService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportDepCardsService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportChargesInfoService.cs" />
@@ -135,6 +140,7 @@
     <Compile Include="Concrete\Integration\Import\IImportServiceBusDtoServiceFactory.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportCategoryFirmAddressService.cs" />
     <Compile Include="Concrete\Integration\Import\Operations\IImportFirmAddressService.cs" />
+    <Compile Include="Concrete\Integration\Import\Operations\IImportFirmsDuringImportCardsForErmOperationService.cs" />
     <Compile Include="Concrete\Integration\Infrastructure\IServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Infrastructure\IServiceBusFlow.cs" />
     <Compile Include="Concrete\Integration\Infrastructure\ServiceBusObjectProcessingOrder.cs" />

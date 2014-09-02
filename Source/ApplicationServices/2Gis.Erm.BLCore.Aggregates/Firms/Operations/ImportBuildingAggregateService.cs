@@ -27,9 +27,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
             _scopeFactory = scopeFactory;
         }
 
-        public void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos,
-                                                 string regionalTerritoryLocaleSpecificWord,
-                                                 bool enableReplication)
+        public void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos, string regionalTerritoryLocaleSpecificWord, bool enableReplication, bool useWarehouseIntegration)
         {
             var filteredBuildingDtos = buildingDtos.Where(x => x.SaleTerritoryCode != null || x.IsDeleted);
 
@@ -48,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
                 using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Building>())
                 {
                     // TODO {all, 08.07.2014}: пока UpdateBuildings возвращает только измененные фирмы, если необходимо будет логироать все изменения (например, по клиентам для целей репликации в CRM) - нужно дорабатывать хранимку
-                    var updatedFirms = _firmPersistanceService.UpdateBuildings(xml, ImportCommandTimeout, regionalTerritoryLocaleSpecificWord, enableReplication);
+                    var updatedFirms = _firmPersistanceService.UpdateBuildings(xml, ImportCommandTimeout, regionalTerritoryLocaleSpecificWord, enableReplication, useWarehouseIntegration);
 
                     scope.Updated<Firm>(updatedFirms)
                          .Complete();

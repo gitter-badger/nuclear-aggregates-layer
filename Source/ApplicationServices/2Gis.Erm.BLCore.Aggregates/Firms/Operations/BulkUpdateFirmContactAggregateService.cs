@@ -1,18 +1,19 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
-    public class UpdateFirmContactAggregateService : IAggregatePartRepository<Firm>, IUpdateAggregateRepository<FirmContact>
+    public class BulkUpdateFirmContactAggregateService : IBulkUpdateFirmContactAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<FirmContact> _firmContactRepository;
 
-        public UpdateFirmContactAggregateService(
+        public BulkUpdateFirmContactAggregateService(
             IOperationScopeFactory operationScopeFactory,
             IRepository<FirmContact> firmContactRepository)
         {
@@ -20,18 +21,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
             _firmContactRepository = firmContactRepository;
         }
 
-        public int Update(FirmContact entity)
+        public void Update(IReadOnlyCollection<FirmContact> firmContacts)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, FirmContact>())
             {
-                _firmContactRepository.Update(entity);
-                operationScope.Updated<FirmContact>(entity.Id);
+                foreach (var firmContact in firmContacts)
+                {
+                    _firmContactRepository.Update(firmContact);
+                    operationScope.Updated(firmContact);
+                }
 
-                var count = _firmContactRepository.Save();
-
+                _firmContactRepository.Save();
                 operationScope.Complete();
-
-                return count;
             }
         }
     }

@@ -704,6 +704,26 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USE [ErmRU]
+        ///GO
+        ////****** Object:  StoredProcedure [Integration].[ImportCardsFromXml]    Script Date: 01.09.2014 15:31:17 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///-- changes
+        ///-- 05.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
+        ///-- 05.06.2013, a.rechkalov: добавил условие, чтобы в Integration.Builings не пытался вставиться NULL
+        ///-- 24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///-- 05.07.2013, a.rechkalov: слияние с версией из 0.18, из ветки пришло изменение: возврат ид [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ImportCardsFromXml_23795 {
+            get {
+                return ResourceManager.GetString("ImportCardsFromXml_23795", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   10.09.2013, y.baranihin: использование сгенерированних идентификаторов
@@ -1104,6 +1124,44 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string Migration20435 {
             get {
                 return ResourceManager.GetString("Migration20435", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   12.12.2013, a.tukaev: fix ERM-2651 
+        ///ALTER PROCEDURE [Shared].[GetFirmTerritories](
+        ///	@FirmIds Shared.Int64IdsTableType READONLY,
+        ///	@RegionalTerritoryLocalName nvarchar(255)
+        ///)
+        ///AS
+        ///BEGIN
+        ///	-- определяем первый активный адрес для фирмы, чтобы далее обновить у нее территорию 
+        ///	-- сначала смотрим только активные адреса
+        ///        DECLARE @FirmTerritoriesInfo TABLE(SortingPosition int NOT NULL, FirmId bigint NOT NULL, TerritoryId bigint NULL)
+        ///        INSERT INTO @FirmTerritoriesInfo
+        ///        S [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration22583_GetFirmTerritories {
+            get {
+                return ResourceManager.GetString("Migration22583_GetFirmTerritories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   30.07.2013, a.tukaev: [ERM-387] заменил все вхождения Territories.DgppId на Territories.Id
+        ///--   10.09.2013, y.baranihin: dgppid-&gt;id
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
+        ///--   29.01.2014, y.baranihin: при изменении территории у фирмы будем проставлять дату изменения
+        ///--   30.01.2014, y.baranihin: включаем репликацию клиентов
+        ///--   14.02.2014, a.tuk [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration22583_UpdateBuildings {
+            get {
+                return ResourceManager.GetString("Migration22583_UpdateBuildings", resourceCulture);
             }
         }
         
