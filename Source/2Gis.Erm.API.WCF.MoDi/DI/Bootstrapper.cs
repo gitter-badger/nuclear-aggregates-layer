@@ -1,17 +1,14 @@
-﻿using System;
-using System.IdentityModel.Policy;
+﻿using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
-using DoubleGis.Erm.BLCore.API.Common.Settings;
-using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
-using DoubleGis.Erm.BLCore.MoDi;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
@@ -83,8 +80,8 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                 .ConfigureGlobal(globalizationSettings)
                 .CreateSecuritySpecific()
                 .CreateErmSpecific()
-                .ConfigureCacheAdapter(cachingSettings)
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
@@ -106,13 +103,6 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
         {
             return CustomLifetime.PerOperationContext;
-        }
-
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
-        {
-            return cachingSettings.EnableCaching
-                ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(CustomLifetime.PerOperationContext)
-                : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(CustomLifetime.PerOperationContext);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)

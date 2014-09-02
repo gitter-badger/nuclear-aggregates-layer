@@ -13,7 +13,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
@@ -54,6 +53,7 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -62,7 +62,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -226,8 +225,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .ConfigureGlobal(globalizationSettings)
                 .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()
-                .ConfigureCacheAdapter(cachingSettings)
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
@@ -266,13 +265,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
-        {
-            return cachingSettings.EnableCaching
-                ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(CustomLifetime.PerOperationContext)
-                : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(CustomLifetime.PerOperationContext);
-        }
-
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
             return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerOperationContext)
@@ -288,7 +280,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IDependentEntityProvider, AssignedEntityProvider>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(CustomLifetime.PerOperationContext)
-                // crosscutting
+                     // crosscutting
                      .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                      .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>(Lifetime.Singleton)
                      .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
@@ -302,7 +294,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IChangeAdvertisementElementStatusStrategiesFactory, UnityChangeAdvertisementElementStatusStrategiesFactory>(CustomLifetime.PerOperationContext, MappingScope)
-                // notification sender
+                     // notification sender
                      .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
 
             return container;

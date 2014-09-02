@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
@@ -37,6 +36,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -45,7 +45,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
@@ -152,22 +151,22 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IOperationLoggingSettings operationLoggingSettings)
         {
             return container
-                .ConfigureGlobal(globalizationSettings)
-                .CreateErmSpecific(msCrmSettings)
-                .CreateSecuritySpecific()
-                .ConfigureCacheAdapter(cachingSettings)
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                    .ConfigureGlobal(globalizationSettings)
+                    .CreateErmSpecific(msCrmSettings)
+                    .CreateSecuritySpecific()
+                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                    .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
+                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
                 .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                .ConfigureIdentityInfrastructure()
-                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .ConfigureExportMetadata()
-                .ConfigureMetadata()
-                .ConfigureTestInfrastructure(environmentSettings)
-                .ConfigureTestsDependenciesExplicitly();
+                    .ConfigureIdentityInfrastructure()
+                    .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                    .ConfigureExportMetadata()
+                    .ConfigureMetadata()
+                    .ConfigureTestInfrastructure(environmentSettings)
+                    .ConfigureTestsDependenciesExplicitly();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -180,13 +179,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
-        {
-            return cachingSettings.EnableCaching
-                ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
-                : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(EntryPointSpecificLifetimeManagerFactory());
         }
 
         private static IUnityContainer ConfigureMetadata(this IUnityContainer container)
