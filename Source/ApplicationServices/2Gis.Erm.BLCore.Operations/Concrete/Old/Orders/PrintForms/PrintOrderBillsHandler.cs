@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
             {
                 Stream = zipStream,
                 ContentType = MediaTypeNames.Application.Zip,
-                FileName = string.Format("{0}-bills.zip", orderInfo.Number)
+                FileName = string.Format(BLResources.BillFileNameTemplate, orderInfo.Number)
             };
         }
     }

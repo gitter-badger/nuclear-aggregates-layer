@@ -5207,4 +5207,7 @@ Periodo de la publicación: {3}.</value>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>No se puede indicar el motivo de rechazo no activo</value>
   </data>
+  <data name="BillFileNameTemplate" xml:space="preserve">
+    <value>{0}-bills.zip</value>
+  </data>
 </root>
