@@ -563,6 +563,7 @@
     </Content>
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCardsForERM.CardForERM.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.Client.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -645,6 +646,9 @@
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowStickers.HotClient.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DI\ConflictResolvers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>

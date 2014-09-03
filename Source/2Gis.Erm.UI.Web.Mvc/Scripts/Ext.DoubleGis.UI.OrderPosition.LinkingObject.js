@@ -227,7 +227,6 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                     this.position.isAdvertisementLimitReached) {
                     disableAdvertisementLookup = true;
                 }
-            }
 
             if (disableAdvertisementLookup)
                 this.advertisementLookup.disable();
