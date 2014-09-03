@@ -36,17 +36,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
                           .ToArray();
         }
 
-        public IReadOnlyDictionary<long, Client> GetClientsToUpdateTerritoryByFirms(IEnumerable<long> firmIds)
+        public IReadOnlyDictionary<long, IEnumerable<Client>> GetClientsToUpdateTerritoryByFirms(IEnumerable<long> firmIds)
         {
             var clientIdsByFirmIds = _finder.Find(Specs.Find.ByIds<Firm>(firmIds))
-                                            .SelectMany(f => f.Clients
-                                                              .Union(new[] { f.Client }.Where(c => c != null && c.MainFirmId == null))
-                                                              .Select(c => new { ClientId = c.Id, FirmId = f.Id }))
-                                            .ToDictionary(x => x.FirmId, x => x.ClientId);
+                                            .Select(f => new
+                                                {
+                                                    FirmId = f.Id,
+                                                    ClientIds = f.Clients
+                                                               .Union(new[] { f.Client }.Where(c => c != null && c.MainFirmId == null))
+                                                               .Select(c => c.Id)
+                                                })
+                                            .ToArray();
 
-            var clients = _finder.FindMany(Specs.Find.ByIds<Client>(clientIdsByFirmIds.Values)).ToDictionary(x => x.Id);
+            var clients = _finder.FindMany(Specs.Find.ByIds<Client>(clientIdsByFirmIds.SelectMany(x => x.ClientIds).Distinct())).ToDictionary(x => x.Id);
 
-            return clientIdsByFirmIds.ToDictionary(x => x.Key, x => clients[x.Value]);
+
+            return clientIdsByFirmIds.ToDictionary(x => x.FirmId, x => x.ClientIds.Select(clientId => clients[clientId]));
         }
 
         public IEnumerable<Client> GetClientsByMainFirmIds(IEnumerable<long> mainFirmIds)
