@@ -212,7 +212,6 @@
     <Compile Include="Models\PrintFormTemplateViewModel.cs" />
     <Compile Include="Models\PrintLimitsViewModel.cs" />
     <Compile Include="Models\PrintOrderType.cs" />
-    <Compile Include="Models\ChooseProfileViewModel.cs" />
     <Compile Include="Models\DenialReasonViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\PublishAdvertisementTemplateModel.cs" />
@@ -624,11 +623,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GetOrdersWithDummyAdvertisementDialog.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Print\ChooseProfile.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ChooseProfile.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Print\PrepareJointBill.generated.cs">
       <AutoGen>True</AutoGen>
@@ -1057,10 +1051,6 @@
     <None Include="Views\Print\PrepareJointBill.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PrepareJointBill.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Print\ChooseProfile.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ChooseProfile.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\PricePosition\Copy.cshtml">
       <Generator>RazorGenerator</Generator>
