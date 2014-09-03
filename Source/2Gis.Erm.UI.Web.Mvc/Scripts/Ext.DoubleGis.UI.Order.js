@@ -217,18 +217,10 @@ window.InitPage = function () {
                     this.PrintWithoutProfileChoosing(methodName, entityId);
                 },
                 PrepareJointBill: function () {
-                    var entityId = {
-                        orderId: Ext.getDom('Id').value
-                    };
-
-                    var callback = function (profileId) {
-                        var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value + '&profileId=' + profileId;
-                        var params = "dialogWidth:780px; dialogHeight:350px; status:yes; scroll:no;resizable:no;";
-                        window.showModalDialog(url, null, params);
-                        this.refresh();
-                    };
-
-                    this.ChooseProfile(entityId, callback);
+                    var url = "/Print/PrepareJointBill/?id=" + Ext.getDom('Id').value;
+                    var params = "dialogWidth:780px; dialogHeight:350px; status:yes; scroll:no;resizable:no;";
+                    window.showModalDialog(url, null, params);
+                    this.refresh();
                 },
                 PrintOrder: function () {
                     this.Print('PrintOrder');
