@@ -352,8 +352,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         private IReadOnlyDictionary<long, long> GetRegionalTerritoriesByOrganizationUnits(IEnumerable<long> organizationUnits, string regionalTerritoryWord)
         {
             return _finder.Find(FirmSpecs.Territories.Find.TerritoriesFromOrganizationUnits(organizationUnits) &&
-                                        FirmSpecs.Territories.Find.RegionalTerritories(regionalTerritoryWord))
-                                  .ToDictionary(x => x.OrganizationUnitId, x => x.Id);
+                                FirmSpecs.Territories.Find.RegionalTerritories(regionalTerritoryWord))
+                          .GroupBy(x => x.OrganizationUnitId, (orgUnitId, territories) => territories.OrderByDescending(x => x.Id).FirstOrDefault())
+                          .ToDictionary(x => x.OrganizationUnitId, x => x.Id);
         }
     }
 }
