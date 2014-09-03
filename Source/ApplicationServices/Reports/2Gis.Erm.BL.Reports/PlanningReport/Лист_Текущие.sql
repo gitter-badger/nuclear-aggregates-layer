@@ -27,7 +27,7 @@ FROM
 	Billing.Orders o with(nolock)
 	JOIN billing.Platforms AS p  with(nolock) ON 
 		p.Id = o.PlatformId
-	LEFT JOIN ##Users u ON
+	LEFT JOIN #Users u ON
 		u.UserId = o.OwnerCode
 	JOIN Security.Users mgrs with(nolock) ON
 		o.OwnerCode = mgrs.Id
