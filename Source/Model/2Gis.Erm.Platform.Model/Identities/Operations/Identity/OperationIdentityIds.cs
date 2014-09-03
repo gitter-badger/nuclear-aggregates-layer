@@ -44,6 +44,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int BulkActivateIdentity = 38;
         public const int BulkCreateIdentity = 39;
         public const int BulkDeleteIdentity = 40;
+        public const int BulkUpdateIdentity = 41;
 
         // concrete operations
         public const int PrintOrderIdentity = 1000;
@@ -89,6 +90,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportTerritoriesIdentity = 14603;
         public const int ImportCardForErmIdentity = 14604;
         public const int ImportCardRelationIdentity = 14605;
+        public const int CreateBlankFirmsIdentity = 14606;
+        public const int ImportFirmsDuringImportCardsForErmIdentity = 14607;
+        public const int ImportCardRelationForErmIdentity = 14608;
 
         // EntityName.FirmAddress = 164
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
