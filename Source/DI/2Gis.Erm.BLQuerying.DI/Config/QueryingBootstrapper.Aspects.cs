@@ -40,60 +40,6 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
             return container;
         }
 
-        private static IUnityContainer ConfigureElasticApi(this IUnityContainer container, INestSettings nestSettings)
-        {
-            switch (nestSettings.Protocol)
-            {
-                case Protocol.Http:
-                    {
-                        container.RegisterType<IConnection, WindowsAuthHttpConnection>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings));
-                    }
-                    break;
-                case Protocol.Thrift:
-                    {
-                        container.RegisterType<IConnection, ThriftConnection>(Lifetime.Singleton, new InjectionConstructor(nestSettings.ConnectionSettings));
-                    }
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            container.RegisterType<IElasticMetadataApi, ElasticMetadataApi>(Lifetime.Singleton);
-            container.RegisterType<IElasticApi, ElasticApi>(Lifetime.Singleton, new InjectionFactory(x =>
-            {
-                var connection = x.Resolve<IConnection>();
-                var client = new ElasticClient(nestSettings.ConnectionSettings, connection);
-                var metadataApi = x.Resolve<IElasticMetadataApi>();
-                return new ElasticApi(client, nestSettings, metadataApi);
-            }));
-            container.RegisterType<IElasticManagementApi, ElasticApi>(Lifetime.Singleton);
-            return container;
-        }
-
-        private static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container, Func<LifetimeManager> lifetime)
-        {
-            container
-                .RegisterType<IEntityToDocumentRelationMetadataContainer, EntityToDocumentRelationMetadataContainer>(Lifetime.Singleton)
-                .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(Lifetime.Singleton)
-                .RegisterType<IEntityToDocumentRelationFactory, UnityEntityToDocumentRelationFactory>(lifetime())
-                .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(Lifetime.Singleton)
-                .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
-                .RegisterType<IDocumentUpdater, DocumentUpdater>(lifetime())
-                .RegisterType(typeof(IDocumentVersionUpdater<>), typeof(DocumentVersionUpdater<>), Lifetime.Singleton)
-                ;
-
-            return container;
-        }
-
-        private static void MassProcess(this IUnityContainer container, Func<LifetimeManager> lifetime)
-        {
-            var entityToDocumentRelationMetadataMassProcessor = container.Resolve<EntityToDocumentRelationMetadataMassProcessor>();
-            entityToDocumentRelationMetadataMassProcessor.MassProcess(lifetime);
-
-            var documentRelationMetadataMassProcessor = container.Resolve<DocumentRelationMetadataMassProcessor>();
-            documentRelationMetadataMassProcessor.MassProcess();
-        }
-
         public static Type ListServiceConflictResolver(Type operationType, EntitySet entitySet, IEnumerable<Type> candidates)
         {
             if (!typeof(IListEntityService).IsAssignableFrom(operationType))
@@ -112,6 +58,56 @@ namespace DoubleGis.Erm.BLQuerying.DI.Config
             }
 
             return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
+        }
+
+        private static IUnityContainer ConfigureElasticApi(this IUnityContainer container, INestSettings nestSettings)
+        {
+            var elasticMetadataApi = new ElasticMetadataApi(nestSettings);
+
+            var client = new ElasticClient(nestSettings.ConnectionSettings, CreateConnection(nestSettings));
+            var elasticApi = new ElasticApi(client, nestSettings, elasticMetadataApi);
+
+            container.RegisterInstance<IElasticMetadataApi>(elasticMetadataApi);
+            container.RegisterInstance<IElasticApi>(elasticApi);
+            container.RegisterInstance<IElasticManagementApi>(elasticApi);
+            
+            return container;
+        }
+
+        private static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container, Func<LifetimeManager> lifetime)
+        {
+            container
+                .RegisterType<IEntityToDocumentRelationMetadataContainer, EntityToDocumentRelationMetadataContainer>(Lifetime.Singleton)
+                .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(Lifetime.Singleton)
+                .RegisterType<IEntityToDocumentRelationFactory, UnityEntityToDocumentRelationFactory>(lifetime())
+                .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(Lifetime.Singleton)
+                .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
+                .RegisterType<IDocumentUpdater, DocumentUpdater>(lifetime())
+                .RegisterType(typeof(IDocumentVersionUpdater<>), typeof(DocumentVersionUpdater<>), Lifetime.Singleton);
+
+            return container;
+        }
+
+        private static void MassProcess(this IUnityContainer container, Func<LifetimeManager> lifetime)
+        {
+            var entityToDocumentRelationMetadataMassProcessor = container.Resolve<EntityToDocumentRelationMetadataMassProcessor>();
+            entityToDocumentRelationMetadataMassProcessor.MassProcess(lifetime);
+
+            var documentRelationMetadataMassProcessor = container.Resolve<DocumentRelationMetadataMassProcessor>();
+            documentRelationMetadataMassProcessor.MassProcess();
+        }
+
+        private static IConnection CreateConnection(INestSettings nestSettings)
+        {
+            switch (nestSettings.Protocol)
+            {
+                case Protocol.Http:
+                    return new WindowsAuthHttpConnection(nestSettings.ConnectionSettings);
+                case Protocol.Thrift:
+                    return new ThriftConnection(nestSettings.ConnectionSettings);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
