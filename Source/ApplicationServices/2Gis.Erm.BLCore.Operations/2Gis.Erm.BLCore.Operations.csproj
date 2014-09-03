@@ -63,6 +63,7 @@
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
+    <Compile Include="Concrete\Firms\CreateBlankFirmsOperationService.cs" />
     <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\DenialReasonIntegrationProcessorOperationService.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="Concrete\Integration\Export\Exporters\ImportedFirmAddressOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
     <Compile Include="Concrete\Integration\Export\Exporters\OperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Deserializers\DeserializeCardRelationForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportCardRelationForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFirmsDuringImportCardsForErmOperationService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportFirmContactsService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportDepCardsService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportCategoryFirmAddressService.cs" />

@@ -29,12 +29,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
 
         public IEnumerable<string> GetContactEmailsByBirthDate(int month, int day)
         {
-            return
-                _finder.Find(Specs.Find.ActiveAndNotDeleted<Contact>() && ClientSpecs.Contacts.Find.WithWorkEmail() &&
-                             ClientSpecs.Contacts.Find.ByBirthDate(month, day))
-                       .Select(x => x.WorkEmail)
-                       .ToArray();
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Contact>() &&
+                                ClientSpecs.Contacts.Find.WithWorkEmail() &&
+                                ClientSpecs.Contacts.Find.ByBirthDate(month, day))
+                          .Select(x => x.WorkEmail)
+                          .ToArray();
         }
 
+        public IReadOnlyDictionary<long, Client> GetClientsToUpdateTerritoryByFirms(IEnumerable<long> firmIds)
+        {
+            var clientIdsByFirmIds = _finder.Find(Specs.Find.ByIds<Firm>(firmIds))
+                                            .SelectMany(f => f.Clients
+                                                              .Union(new[] { f.Client }.Where(c => c != null && c.MainFirmId == null))
+                                                              .Select(c => new { ClientId = c.Id, FirmId = f.Id }))
+                                            .ToDictionary(x => x.FirmId, x => x.ClientId);
+
+            var clients = _finder.FindMany(Specs.Find.ByIds<Client>(clientIdsByFirmIds.Values)).ToDictionary(x => x.Id);
+
+            return clientIdsByFirmIds.ToDictionary(x => x.Key, x => clients[x.Value]);
+        }
+
+        public IEnumerable<Client> GetClientsByMainFirmIds(IEnumerable<long> mainFirmIds)
+        {
+            return _finder.FindMany(ClientSpecs.Clients.Find.ByMainFirms(mainFirmIds));
+        }  
     }
 }

@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         Dictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds);
         Dictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds);
         Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds);
-        IEnumerable<RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase);
+        IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase);
         FirmContact GetFirmContact(long firmContactId);
             
         // COMMENT {all, 23.05.2014}: Телефонные коды городов, справочники и элементы справочника относятся к агрегату фирмы.
@@ -44,5 +44,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
 
         HotClientRequest GetHotClientRequest(long hotClientRequestId);
         bool IsTelesaleFirmAddress(long firmAddressId);
+        IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord);
+        IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds);
     }
 }

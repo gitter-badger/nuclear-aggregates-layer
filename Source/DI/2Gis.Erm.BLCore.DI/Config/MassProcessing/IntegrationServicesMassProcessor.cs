@@ -15,7 +15,7 @@ using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {
-    public class IntergationServicesMassProcessor : IMassProcessor
+    public class IntegrationServicesMassProcessor : IMassProcessor
     {
         private static readonly Type DeserializeBusObjectServiceMarker = typeof(IDeserializeServiceBusObjectService);
         private static readonly Type GenericDeserializeBusObjectServiceMarker = typeof(IDeserializeServiceBusObjectService<>);
@@ -33,12 +33,14 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
         private readonly IDictionary<Type, string> _flowTypeToNameMap = new Dictionary<Type, string>();
         private readonly List<Type> _importServiceBusObjectServices = new List<Type>();
         private readonly Func<LifetimeManager> _lifetimeFactory;
+        private readonly Type[] _messageTypesToIgnore;
         private readonly List<ServiceBusObjectDescriptor> _objectDescriptors = new List<ServiceBusObjectDescriptor>();
 
-        public IntergationServicesMassProcessor(IUnityContainer container, Func<LifetimeManager> lifetimeFactory)
+        public IntegrationServicesMassProcessor(IUnityContainer container, Func<LifetimeManager> lifetimeFactory, params Type[] messageTypesToIgnore)
         {
             _container = container;
             _lifetimeFactory = lifetimeFactory;
+            _messageTypesToIgnore = messageTypesToIgnore;
         }
 
         public Type[] GetAssignableTypes()
@@ -70,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
                     _flowTypeToNameMap.Add(type, GetFlowName(type));
                 }
 
-                if (ServiceBusObjectMarker.IsAssignableFrom(type))
+                if (ServiceBusObjectMarker.IsAssignableFrom(type) && !_messageTypesToIgnore.Contains(type))
                 {
                     _objectDescriptors.Add(GetObjectDescriptor(type));
                 }

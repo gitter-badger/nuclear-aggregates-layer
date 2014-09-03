@@ -1,18 +1,19 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
-    public class UpdateFirmAddressAggregateService : IAggregatePartRepository<Firm>, IUpdateAggregateRepository<FirmAddress>
+    public class BulkUpdateFirmAddressAggregateService : IBulkUpdateFirmAddressAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<FirmAddress> _firmAddressRepository;
 
-        public UpdateFirmAddressAggregateService(
+        public BulkUpdateFirmAddressAggregateService(
             IOperationScopeFactory operationScopeFactory,
             IRepository<FirmAddress> firmAddressRepository)
         {
@@ -20,18 +21,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
             _firmAddressRepository = firmAddressRepository;
         }
 
-        public int Update(FirmAddress entity)
+        public void Update(IReadOnlyCollection<FirmAddress> firmAddresses)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, FirmAddress>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, FirmAddress>())
             {
-                _firmAddressRepository.Update(entity);
-                operationScope.Updated<FirmAddress>(entity.Id);
+                foreach (var firmAddress in firmAddresses)
+                {
+                    _firmAddressRepository.Update(firmAddress);
+                    scope.Updated(firmAddress);
+                }
 
-                var count = _firmAddressRepository.Save();
-
-                operationScope.Complete();
-
-                return count;
+                _firmAddressRepository.Save();
+                scope.Complete();
             }
         }
     }

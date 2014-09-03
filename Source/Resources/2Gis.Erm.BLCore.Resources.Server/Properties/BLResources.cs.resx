@@ -5206,4 +5206,7 @@ Doba zveřejnění: {3}.</value>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Nelze zadat neaktivní příčinu odmítnutí</value>
   </data>
+  <data name="BillFileNameTemplate" xml:space="preserve">
+    <value>{0}-faktury.zip</value>
+  </data>
 </root>
