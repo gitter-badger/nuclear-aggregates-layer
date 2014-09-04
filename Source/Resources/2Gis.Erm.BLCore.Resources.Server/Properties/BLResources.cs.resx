@@ -3651,9 +3651,6 @@ Operace provedena: {4}.</value>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Provedené změny nebyly uloženy. Abyste zůstali na této stránce a mohli změny uložit, stiskněte tlačítko „Zrušit“.</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value>Pokus o uložení rozpočtové položky objednávky s nenulovou výší slevy</value>
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value>V profilu {0} pr. osoby klienta je uvedena smlouva, jejíž platnost končí před datem podepsání objednávky.</value>
   </data>
