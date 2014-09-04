@@ -32,22 +32,12 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
         public List<User> Users { get; private set; }
 
-        int IActivateAggregateRepository<User>.Activate(long entityId)
-        {
-            throw new NotImplementedException();
-        }
-
         int IActivateAggregateRepository<Department>.Activate(long entityId)
         {
             throw new NotImplementedException();
         }
 
         int IActivateAggregateRepository<OrganizationUnit>.Activate(long entityId)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IDeactivateAggregateRepository<User>.Deactivate(long entityId)
         {
             throw new NotImplementedException();
         }
@@ -82,6 +72,11 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             throw new NotImplementedException();
         }
 
+        public int Activate(UserProfile userProfile)
+        {
+            throw new NotImplementedException();
+        }
+
         public int Activate(Department department)
         {
             throw new NotImplementedException();
@@ -93,6 +88,11 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         }
 
         public int Deactivate(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Deactivate(UserProfile userProfile)
         {
             throw new NotImplementedException();
         }

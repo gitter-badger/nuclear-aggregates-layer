@@ -23,6 +23,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             return _finder.Find(Specs.Find.ById<User>(id)).Single();
         }
 
+        public UserProfile GetProfileForUser(long userid)
+        {
+            return _finder.Find(UserSpecs.UserProfiles.Find.ForUser(userid)).SingleOrDefault();
+        }
+
+        public IEnumerable<UserRole> GetUserRoles(long userid)
+        {
+            return _finder.Find(UserSpecs.UserRoles.Find.ForUser(userid)).ToArray();
+        }
+
         public User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelegeName)
         {
             // TODO {a.rechkalov, 25.11.2013}: тут можно использовать спецификации

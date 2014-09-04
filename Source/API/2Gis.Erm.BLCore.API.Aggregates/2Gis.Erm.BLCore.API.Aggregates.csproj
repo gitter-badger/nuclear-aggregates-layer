@@ -301,6 +301,8 @@
     <Compile Include="Users\Dto\OrdanizationUnitDto.cs" />
     <Compile Include="Users\Dto\OrganizationUnitWithUsersDto.cs" />
     <Compile Include="Users\Dto\UserProfileDto.cs" />
+    <Compile Include="Users\IActivateUserAggregateService.cs" />
+    <Compile Include="Users\IDeactivateUserAggregateService.cs" />
     <Compile Include="Users\IUserRepository.cs" />
     <Compile Include="Users\ReadModel\IUserReadModel.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.Departments.cs" />
