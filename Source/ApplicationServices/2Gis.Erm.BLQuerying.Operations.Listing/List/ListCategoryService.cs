@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -113,19 +114,22 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                                                                                                             y.OrganizationUnitId == organizationUnitId))));
 
             bool forNewSalesModel;
+            IReadOnlyCollection<long> supportedCategoriesForNewSalesModel = new long[0];
             if (querySettings.TryGetExtendedProperty("forNewSalesModel", out forNewSalesModel))
             {
                 long organizationUnitId;
                 if (!querySettings.TryGetExtendedProperty("OrganizationUnitId", out organizationUnitId) ||
-                    !NewSalesModelRestrictions.SupportedOrganizationUnitIds.Contains(organizationUnitId))
+                    !NewSalesModelRestrictions.IsOrganizationUnitSupported(organizationUnitId))
                 {
                     return new RemoteCollection<ListCategoryDto>(new ListCategoryDto[0], 0);
                 }
+
+                supportedCategoriesForNewSalesModel = NewSalesModelRestrictions.GetSupportedCategoryIds(organizationUnitId);
             }
 
             var forNewSalesModelFilter = querySettings.CreateForExtendedProperty<Category, bool>(
                 "forNewSalesModel",
-                nsm => x => !forNewSalesModel || NewSalesModelRestrictions.SupportedCategoryIds.Contains(x.Id));
+                nsm => x => !forNewSalesModel || supportedCategoriesForNewSalesModel.Contains(x.Id));
             
             return query
                 .Where(x => !x.IsDeleted)
