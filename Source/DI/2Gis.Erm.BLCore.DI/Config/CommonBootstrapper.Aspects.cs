@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Infrastructure.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -20,6 +21,7 @@ using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
+using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -195,10 +197,25 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.DB))
             {
                 var typeOfDirectDBLoggingStrategy = typeof(DirectDBLoggingStrategy);
-                container.RegisterTypeWithDependencies(typeof(IOperationLoggingStrategy), typeOfDirectDBLoggingStrategy, typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), entryPointSpecificLifetimeManagerFactory(), (string)null, InjectionFactories.SimplifiedModelConsumer)
+                container.RegisterTypeWithDependencies(
+                                    typeof(IOperationLoggingStrategy), 
+                                    typeOfDirectDBLoggingStrategy, 
+                                    typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    entryPointSpecificLifetimeManagerFactory(), 
+                                    (string)null, 
+                                    InjectionFactories.SimplifiedModelConsumer)
                          .RegisterTypeWithDependencies<ITrackedUseCase2PerfomedBusinessOperationsConverter, TrackedUseCase2PerfomedBusinessOperationsConverter>(
                                     Lifetime.Singleton, 
                                     null);
+
+                var typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy = typeof(DirectDBEnqueUseCaseForProcessingLoggingStrategy);
+                container.RegisterTypeWithDependencies(
+                                    typeof(IOperationLoggingStrategy), 
+                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy, 
+                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    entryPointSpecificLifetimeManagerFactory(), 
+                                    (string)null)
+                         .RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton);
             }
 
             if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.Queue))
