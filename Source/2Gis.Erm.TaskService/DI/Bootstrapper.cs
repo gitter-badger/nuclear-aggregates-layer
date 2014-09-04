@@ -22,7 +22,7 @@ using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
-using DoubleGis.Erm.BLQuerying.DI.Config;
+using DoubleGis.Erm.BLQuerying.TaskService.DI;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
@@ -70,7 +70,6 @@ using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
-using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 using DoubleGis.Erm.TaskService.Config;
 
@@ -119,7 +118,7 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>()))
                             .ConfigureServiceClient();
 
-            container.ConfigureQds(EntryPointSpecificLifetimeManagerFactory, settingsContainer.AsSettings<INestSettings>());
+            container.ConfigureQdsIndexing(EntryPointSpecificLifetimeManagerFactory);
 
             return container;
         }

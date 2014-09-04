@@ -45,6 +45,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
+using DoubleGis.Erm.BLQuerying.DI;
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
@@ -111,7 +112,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     new OperationsServicesMassProcessor(container,
                         EntryPointSpecificLifetimeManagerFactory,
                         Mapping.Erm,
-                        new Func<Type, EntitySet, IEnumerable<Type>, Type>[] { QueryingBootstrapper.ListServiceConflictResolver },
+                        new Func<Type, EntitySet, IEnumerable<Type>, Type>[] { BLQueryingConflictResolver.ListServices },
                         new Func<Type, IEnumerable<Type>, Type>[0]),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
@@ -245,7 +246,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata()
-                .ConfigureQds(EntryPointSpecificLifetimeManagerFactory, nestSettings);
+                .ConfigureElasticApi(nestSettings);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
