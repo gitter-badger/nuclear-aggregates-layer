@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             new Dictionary<Type, string>
                 {
                     { typeof(PerformedOperationFinalProcessing), "Shared.PerformedOperationFinalProcessings" },
+                    { typeof(PerformedOperationPrimaryProcessing), "Shared.PerformedOperationPrimaryProcessings" },
                 };
 
         public BatchDeletePersistenceService(IDatabaseCaller databaseCaller, ICommonLog logger)
@@ -32,12 +33,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
         {
             var entityType = typeof(TEntity);
             string targetEntityTable;
-            if (!_entitiesTableMap.TryGetValue(entityType, out targetEntityTable))
-            {
-                var msg = string.Format("Specified entity type {0} doesn't supported batch delete behavior", entityType);
-                _logger.ErrorEx(msg);
-                throw new InvalidOperationException(msg);
-            }
+            EvaluateTargetEntityTable(entityType, out targetEntityTable);
 
             int entitiesCount = 0;
             var sb = new StringBuilder("DELETE FROM ")
@@ -53,6 +49,65 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 
             sb.Append(")");
 
+            ExecuteDelete(entityType, entitiesCount, sb.ToString());
+        }
+
+        public void Delete<TEntity>(
+            IEnumerable<TEntity> entities,
+            IReadOnlyList<EntityKeyExtractor<TEntity>> keyExtractors) where TEntity : class, IEntity
+        {
+            var entityType = typeof(TEntity);
+            string targetEntityTable;
+            EvaluateTargetEntityTable(entityType, out targetEntityTable);
+
+            int entitiesCount = 0;
+            var sb = new StringBuilder("DELETE FROM ")
+                .Append(targetEntityTable)
+                .Append(" WHERE ");
+
+            foreach (var entity in entities)
+            {
+                var entityKeysCondition = ExtractKeysFilterExpression(entity, keyExtractors);
+                sb.Append(entitiesCount == 0 ? entityKeysCondition : " OR " + entityKeysCondition);
+                ++entitiesCount;
+            }
+
+            ExecuteDelete(entityType, entitiesCount, sb.ToString());
+        }
+
+        private static string ExtractKeysFilterExpression<TEntity>(TEntity entity, IReadOnlyList<EntityKeyExtractor<TEntity>> keyExtractors) 
+            where TEntity : class, IEntity
+        {
+            const string SingleKeyConditionTemplate = "{0} = {1}";
+            var sb = new StringBuilder();
+
+            sb.Append("(");
+
+            var firstExtractor = keyExtractors[0];
+            sb.AppendFormat(SingleKeyConditionTemplate, firstExtractor.KeyName, firstExtractor.KeyValueExtractor(entity));
+
+            for (int i = 1; i < keyExtractors.Count; i++)
+            {
+                sb.Append(" AND ").AppendFormat(SingleKeyConditionTemplate, keyExtractors[i].KeyName, keyExtractors[i].KeyValueExtractor(entity));
+            }
+
+            return sb.Append(")").ToString();
+        }
+
+        private void EvaluateTargetEntityTable(Type entityType, out string targetEntityTable)
+        {
+            if (_entitiesTableMap.TryGetValue(entityType, out targetEntityTable))
+            {
+                return;
+            }
+
+            var msg = string.Format("Specified entity type {0} doesn't supported batch delete behavior", entityType);
+            _logger.ErrorEx(msg);
+            throw new InvalidOperationException(msg);
+        }
+
+        private void ExecuteDelete(Type entityType, int entitiesCount, string deleteCommandBatchText)
+        {
             if (entitiesCount == 0)
             {
                 _logger.WarnFormatEx("Batch delete of entity {0} was skipped, because target entities list was empty", entityType);
@@ -63,8 +118,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             {
                 try
                 {
-                    var deleteStatement = sb.ToString();
-                    _databaseCaller.ExecuteRawSql(deleteStatement);
+                    _databaseCaller.ExecuteRawSql(deleteCommandBatchText);
                 }
                 catch (Exception ex)
                 {

@@ -4,7 +4,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM
 {
-    public sealed class PrimaryReplicate2MsCRMPerformedOperationsFlow : MessageFlowBase<PrimaryReplicate2MsCRMPerformedOperationsFlow>
+    public sealed class PrimaryReplicate2MsCRMPerformedOperationsFlow : 
+        MessageFlowBase<PrimaryReplicate2MsCRMPerformedOperationsFlow>, 
+        IPerformedOperationsPrimaryProcessingFlow
     {
         public override Guid Id
         {

@@ -17,11 +17,6 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
                 {
                     return new FindSpecification<PerformedOperationPrimaryProcessing>(o => flowIds.Contains(o.MessageFlowId));
                 }
-
-                public static FindSpecification<PerformedOperationPrimaryProcessing> ByFlowAndAfterDate(Guid flowId, DateTime date)
-                {
-                    return new FindSpecification<PerformedOperationPrimaryProcessing>(o => o.MessageFlowId == flowId && o.Date > date);
-                }
             }
         }
     }

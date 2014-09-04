@@ -13,43 +13,12 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class PerformedOperationPrimaryProcessing : 
-        IEntity, 
-        IEntityKey
+    public sealed partial class PerformedOperationPrimaryProcessing : IEntity
     {
-        public long Id { get; set; }
-        public System.DateTime Date { get; set; }
+        public System.Guid UseCaseId { get; set; }
         public System.Guid MessageFlowId { get; set; }
-    
-    	public override bool Equals(object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-    
-            if (GetType() != obj.GetType())
-            {
-                return false;
-            }
-    
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-    
-    		var entityKey = obj as IEntityKey;
-    		if (entityKey != null)
-    		{
-    			return Id == entityKey.Id;
-    		}
-    		
-    		return false;
-        }
-    
-    	override public int GetHashCode()
-    	{
-    		return Id.GetHashCode();
-    	}
+        public System.DateTime CreatedOn { get; set; }
+        public int AttemptCount { get; set; }
+        public Nullable<System.DateTime> LastProcessedOn { get; set; }
     }
 }

@@ -5,8 +5,8 @@ using DoubleGis.Erm.Platform.Model.Simplified;
 
 namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.Operations
 {
-    public interface IOperationsPrimaryProcessingCompleteAggregateService : ISimplifiedModelConsumer
+    public interface IOperationsPrimaryProcessingAbandonAggregateService : ISimplifiedModelConsumer
     {
-        void CompleteProcessing(IReadOnlyList<PerformedOperationPrimaryProcessing> processedUseCases);
+        void Abandon(IEnumerable<PerformedOperationPrimaryProcessing> abandonedPrimaryProcessings);
     }
 }
