@@ -13,12 +13,6 @@ namespace DoubleGis.Erm.Qds.Common.Settings
 {
     public sealed class NestSettingsAspect : ISettingsAspect, INestSettings
     {
-        public Protocol Protocol { get; private set; }
-        public string IndexPrefix { get; private set; }
-        public int BatchSize { get; private set; }
-        public string BatchTimeout { get; private set; }
-        public IConnectionSettingsValues ConnectionSettings { get; private set; }
-        
         public NestSettingsAspect(string connectionString)
         {
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
@@ -29,7 +23,13 @@ namespace DoubleGis.Erm.Qds.Common.Settings
             BatchTimeout = GetSettingValue(builder, "BatchTimeout", "1m");
             ConnectionSettings = CreateConnectionSettings(builder);
         }
-       
+
+        public Protocol Protocol { get; private set; }
+        public string IndexPrefix { get; private set; }
+        public int BatchSize { get; private set; }
+        public string BatchTimeout { get; private set; }
+        public IConnectionSettingsValues ConnectionSettings { get; private set; }
+
         private static T GetSettingValue<T>(DbConnectionStringBuilder builder, string key, T defaultValue)
         {
             object value;
@@ -58,15 +58,10 @@ namespace DoubleGis.Erm.Qds.Common.Settings
             var connectionPool = new StaticConnectionPool(uris);
 
             var connectionSettings = new ConnectionSettings(connectionPool)
-            // более подробные сообщения об ошибках
-            .ExposeRawResponse()
-            // accept-encoding: gzip, deflate
-            .EnableCompressedResponses()
-            // на тестовом кластере живая нода может пинговаться долго, таймаут по умолчанию не подходит
-            .SetPingTimeout(2000)
-            // кидать исключения вместо выставления IResponse.IsValid
-            .ThrowOnElasticsearchServerExceptions()
-            ;
+                .ExposeRawResponse()                        // более подробные сообщения об ошибках
+                .EnableCompressedResponses()                // accept-encoding: gzip, deflate
+                .SetPingTimeout(2000)                       // на тестовом кластере живая нода может пинговаться долго, таймаут по умолчанию не подходит
+                .ThrowOnElasticsearchServerExceptions();    // кидать исключения вместо выставления IResponse.IsValid
 
             return connectionSettings;
         }

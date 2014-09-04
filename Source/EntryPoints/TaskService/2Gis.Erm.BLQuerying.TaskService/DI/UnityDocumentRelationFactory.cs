@@ -7,7 +7,7 @@ using DoubleGis.Erm.Qds.Operations.Indexing;
 
 using Microsoft.Practices.Unity;
 
-namespace DoubleGis.Erm.BLQuerying.DI
+namespace DoubleGis.Erm.BLQuerying.TaskService.DI
 {
     public sealed class UnityDocumentRelationFactory : IDocumentRelationFactory
     {

@@ -8,7 +8,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class EntityToDocumentRelationMetadataContainer : IEntityToDocumentRelationMetadataContainer
     {
-        private readonly Dictionary<Tuple<Type, Type>, IEntityToDocumentRelationMetadata> _entityToDocumentMetadataMap = new Dictionary<Tuple<Type, Type>, IEntityToDocumentRelationMetadata>();
+        private readonly Dictionary<Tuple<Type, Type>, IEntityToDocumentRelationMetadata> _entityToDocumentMetadataMap =
+            new Dictionary<Tuple<Type, Type>, IEntityToDocumentRelationMetadata>();
 
         public void RegisterMetadata<TEntity, TDocument>(IEntityToDocumentRelationMetadata metadata)
         {
