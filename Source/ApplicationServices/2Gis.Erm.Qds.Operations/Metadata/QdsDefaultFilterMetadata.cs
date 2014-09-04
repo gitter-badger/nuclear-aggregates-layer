@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
     {
         private static readonly Dictionary<Tuple<Type, string>, Delegate> FilterMap = new Dictionary<Tuple<Type, string>, Delegate>()
             // быстрый поиск заказов
-            .RegisterFilter<OrderGridDoc>("DListOrdersFast", x => x.And(x.Term(t => t.IsActive, true), x.Term(t => t.IsDeleted, false)))
+            .RegisterFilter<OrderGridDoc>("DListOrdersFast", x => x.And(x.Term(t => t.IsDeleted, false)))
 
             .RegisterFilter<ClientGridDoc>("DListClients", x => x.And(x.Term(t => t.IsActive, true), x.Term(t => t.IsDeleted, false)))
             // Мои клиенты
