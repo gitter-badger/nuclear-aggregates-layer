@@ -4,7 +4,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch
 {
-    public sealed class PrimaryReplicate2ElasticSearchPerformedOperationsFlow : MessageFlowBase<PrimaryReplicate2ElasticSearchPerformedOperationsFlow>
+    public sealed class PrimaryReplicate2ElasticSearchPerformedOperationsFlow : 
+        MessageFlowBase<PrimaryReplicate2ElasticSearchPerformedOperationsFlow>,
+        IPerformedOperationsPrimaryProcessingFlow
     {
         public override Guid Id
         {

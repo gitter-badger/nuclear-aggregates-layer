@@ -653,17 +653,9 @@
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessingDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedOperationFinalProcessingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessing.cs">
       <Link>Entities\Erm\PerformedOperationPrimaryProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessingDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedOperationPrimaryProcessingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
       <Link>Entities\Erm\Platform.cs</Link>
@@ -835,6 +827,7 @@
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="IBoundedContext.cs" />
+    <Compile Include="Identities\Operations\Identity\Generic\BulkUpdateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\DenyAdvertisementElementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ApproveAdvertisementElementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ResetAdvertisementElementToDraftIdentity.cs" />
@@ -853,14 +846,17 @@
     <Compile Include="Identities\Operations\Identity\Specific\Client\CreateClientByFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Contact\RequestBirthdayCongratulationsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Firm\CreateBlankFirmsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\GetFirmInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardForErmIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardRelationForErmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardRelationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmContactIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportDepCardIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCityPhoneZoneIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCategoryFirmAddressIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmAddressIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmsDuringImportCardsForErmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportReferenceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportReferenceItemIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\BindCrmTaskToHotClientRequestIdentity.cs" />

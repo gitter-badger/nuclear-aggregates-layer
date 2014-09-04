@@ -52,9 +52,13 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\AggregatesZone.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\IOperationsPrimaryProcessingAbandonAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\IOperationsPrimaryProcessingEnqueAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\DTOs\PrimaryProcessingFlowStateDto.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\IOperationsFinalProcessingCompleteAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\IOperationsFinalProcessingEnqueAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\IOperationsPrimaryProcessingCompleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\DTOs\DBPerformedOperationsMessage.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\IPerformedOperationsProcessingReadModel.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\OperationSpecs.PrimaryProcessings.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\OperationSpecs.FinalProcessings.cs" />

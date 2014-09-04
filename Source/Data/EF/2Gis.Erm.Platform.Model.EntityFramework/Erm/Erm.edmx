@@ -2025,12 +2025,14 @@
         </EntityType>
         <EntityType Name="PerformedOperationPrimaryProcessings">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="UseCaseId" />
             <PropertyRef Name="MessageFlowId" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MessageFlowId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="AttemptCount" Type="int" Nullable="false" />
+          <Property Name="LastProcessedOn" Type="datetime2" Precision="2" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Erm.Security.vwSecurityAccelerator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -9838,12 +9840,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         </EntityType>
         <EntityType Name="PerformedOperationPrimaryProcessing">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="UseCaseId" />
             <PropertyRef Name="MessageFlowId" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="UseCaseId" Type="Guid" Nullable="false" />
           <Property Name="MessageFlowId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="AttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="LastProcessedOn" Type="DateTime" Precision="2" />
         </EntityType>
         <EntityType Name="ExportFlowOrders_DenialReason">
           <Key>
@@ -11997,9 +12001,11 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySetMapping Name="PerformedOperationPrimaryProcessings">
             <EntityTypeMapping TypeName="ErmModel.PerformedOperationPrimaryProcessing">
               <MappingFragment StoreEntitySet="PerformedOperationPrimaryProcessings">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UseCaseId" ColumnName="UseCaseId" />
                 <ScalarProperty Name="MessageFlowId" ColumnName="MessageFlowId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="AttemptCount" ColumnName="AttemptCount" />
+                <ScalarProperty Name="LastProcessedOn" ColumnName="LastProcessedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
