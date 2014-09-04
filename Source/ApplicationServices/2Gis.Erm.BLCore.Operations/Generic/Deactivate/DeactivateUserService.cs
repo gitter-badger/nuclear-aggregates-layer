@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserOperations;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -29,6 +30,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly IClientRepository _clientRepository;
         private readonly IPublicService _publicService;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IUserReadModel _readModel;
+        private readonly IDeactivateUserAggregateService _aggregateService;
 
         public DeactivateUserService(
             IMsCrmSettings msCrmSettings,
@@ -37,7 +40,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             IUserRepository userRepository,
             IClientRepository clientRepository,
             IPublicService publicService, 
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory,
+            IUserReadModel readModel, 
+            IDeactivateUserAggregateService aggregateService)
         {
             _msCrmSettings = msCrmSettings;
             _userContext = userContext;
@@ -46,6 +51,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             _clientRepository = clientRepository;
             _publicService = publicService;
             _scopeFactory = scopeFactory;
+            _readModel = readModel;
+            _aggregateService = aggregateService;
         }
 
         public virtual DeactivateConfirmation Deactivate(long entityId, long ownerCode)
@@ -78,13 +85,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                     }
 
                     _userRepository.AssignUserRelatedEntites(entityId, ownerCode);
+                    operationScope.Updated<User>(ownerCode);
 
-                    var deactivateAggregateRepository = _userRepository as IDeactivateAggregateRepository<User>;
-                    deactivateAggregateRepository.Deactivate(entityId);
+                    var user = _readModel.GetUser(entityId);
+                    var roles = _readModel.GetUserRoles(entityId);
+                    var profile = _readModel.GetProfileForUser(entityId);
 
-                    operationScope
-                        .Updated<User>(entityId, ownerCode)
-                        .Complete();
+                    _aggregateService.Deactivate(user, profile, roles);
+
+                    operationScope.Updated<User>(user.Id)
+                                  .Complete();
                 }
 
                 if (_msCrmSettings.EnableReplication)

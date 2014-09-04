@@ -13,20 +13,16 @@ using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.Organi
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
 {
     public interface IUserRepository : IAggregateRootRepository<User>,
-                                       IActivateAggregateRepository<User>,
                                        IActivateAggregateRepository<Department>,
                                        IActivateAggregateRepository<OrganizationUnit>,
-                                       IDeactivateAggregateRepository<User>,
                                        IDeactivateAggregateRepository<OrganizationUnit>,
                                        IDeactivateAggregateRepository<Territory>,
                                        IDeactivateAggregateRepository<Department>,
                                        IDeleteAggregateRepository<OrganizationUnit>,
                                        IDeleteAggregateRepository<UserOrganizationUnit>
     {
-        int Activate(User user);
         int Activate(Department department);
         int Activate(OrganizationUnit organizationUnit);
-        int Deactivate(User user);
         int Deactivate(OrganizationUnit organizationUnit);
         int Deactivate(Territory territory);
         int Deactivate(Department department);

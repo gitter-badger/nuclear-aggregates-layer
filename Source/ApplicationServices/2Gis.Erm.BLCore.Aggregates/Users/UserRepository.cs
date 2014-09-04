@@ -118,23 +118,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             _legalPersonProfileGenericRepository = legalPersonProfileGenericRepository;
         }
 
-        public int Activate(User user)
-        {
-            var count = 0;
-
-            using (var scope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, User>())
-            {
-                user.IsActive = true;
-                _userGenericRepository.Update(user);
-                scope.Updated<User>(user.Id);
-                count += _userGenericRepository.Save();
-
-                scope.Complete();
-            }
-
-            return count;
-        }
-
         public int Activate(Department department)
         {
             var childDepartments =
@@ -199,36 +182,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 count += _organizationUnitGenericRepository.Save();
 
                 scope.Complete();
-            }
-
-            return count;
-        }
-
-        public int Deactivate(User user)
-        {
-            var count = 0;
-
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, UserRole>())
-            {
-                var userRoles = _finder.Find(UserSpecs.UserRoles.Find.ForUser(user.Id)).ToArray();
-                foreach (var userRole in userRoles)
-                {
-                    _userRoleGenericRepository.Delete(userRole);
-                    operationScope.Deleted<UserRole>(userRole.Id);
-                }
-                count += _userRoleGenericRepository.Save();
-
-                operationScope.Complete();
-            }
-
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, User>())
-            {
-                user.IsActive = false;
-                _userGenericRepository.Update(user);
-                operationScope.Updated<User>(user.Id);
-                count += _userGenericRepository.Save();
-
-                operationScope.Complete();
             }
 
             return count;
@@ -871,12 +824,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             return organizationUnitDto;
         }
 
-        int IActivateAggregateRepository<User>.Activate(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<User>(entityId)).Single();
-            return Activate(entity);
-        }
-
         int IActivateAggregateRepository<Department>.Activate(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<Department>(entityId)).Single();
@@ -893,12 +840,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
                           .ToArray();
-        }
-
-        int IDeactivateAggregateRepository<User>.Deactivate(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<User>(entityId)).Single();
-            return Deactivate(entity);
         }
 
         int IDeactivateAggregateRepository<OrganizationUnit>.Deactivate(long entityId)
