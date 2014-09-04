@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.Qds.Migrator
                         .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory,
                                       settingsContainer.AsSettings<IEnvironmentSettings>(),
                                       settingsContainer.AsSettings<IConnectionStringSettings>())
-                        .ConfigureQds(EntryPointSpecificLifetimeManagerFactory, settingsContainer.AsSettings<INestSettings>());
+                        .ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>());
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()

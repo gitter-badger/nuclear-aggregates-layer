@@ -183,17 +183,9 @@
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
-      <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
-      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.Qds.Operations\2Gis.Erm.Qds.Operations.csproj">
       <Project>{CD6C5329-F9EA-41A0-8446-2B26FB92720E}</Project>
       <Name>2Gis.Erm.Qds.Operations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLQuerying\Source\DI\2Gis.Erm.BLQuerying.DI\2Gis.Erm.BLQuerying.DI.csproj">
-      <Project>{48A5C193-6A10-4188-9B82-90FDADC95C16}</Project>
-      <Name>2Gis.Erm.BLQuerying.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\EntryPoints\TaskService\2Gis.Erm.BLQuerying.TaskService\2Gis.Erm.BLQuerying.TaskService.csproj">
       <Project>{3f72e975-adc6-43dd-ac1d-3f90abfbb97d}</Project>
