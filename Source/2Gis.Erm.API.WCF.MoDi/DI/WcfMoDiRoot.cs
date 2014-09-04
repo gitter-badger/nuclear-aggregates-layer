@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.BLCore.MoDi.DI;
 using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.DI;
+using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
@@ -26,6 +27,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                                           .UseAnchor<BlCoreAggregatesAssembly>()
                                           .UseAnchor<BlAggregatesAssembly>()
                                           .UseAnchor<BlFlexAggregatesGlobalAssembly>()
+                                          .UseAnchor<PlatformAggregatesAssembly>()
                                       .RequireZone<MoDiZone>()
                                           .UseAnchor<BlCoreApiModiAssembly>()
                                           .UseAnchor<BlCoreModiAssembly>()

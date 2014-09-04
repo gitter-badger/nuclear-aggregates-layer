@@ -8,7 +8,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
@@ -86,7 +89,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
-            // { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
+            // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
             { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
 
@@ -115,7 +118,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                 MultipleImplementationResolvers.NonCoupled.UseFirst
                             }),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
-                    new IntergationServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory)
+                    new IntegrationServicesMassProcessor(container,
+                                                         EntryPointSpecificLifetimeManagerFactory,
+                                                         settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
+                                                             ? new[] { typeof(CardServiceBusDto), typeof(FirmServiceBusDto) }
+                                                             : new Type[0])
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -151,22 +158,22 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IOperationLoggingSettings operationLoggingSettings)
         {
             return container
-                    .ConfigureGlobal(globalizationSettings)
-                    .CreateErmSpecific(msCrmSettings)
-                    .CreateSecuritySpecific()
-                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                .ConfigureGlobal(globalizationSettings)
+                .CreateErmSpecific(msCrmSettings)
+                .CreateSecuritySpecific()
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
-                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
                 .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                    .ConfigureIdentityInfrastructure()
-                    .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                    .ConfigureExportMetadata()
-                    .ConfigureMetadata()
-                    .ConfigureTestInfrastructure(environmentSettings)
-                    .ConfigureTestsDependenciesExplicitly();
+                .ConfigureIdentityInfrastructure()
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .ConfigureExportMetadata()
+                .ConfigureMetadata()
+                .ConfigureTestInfrastructure(environmentSettings)
+                .ConfigureTestsDependenciesExplicitly();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
