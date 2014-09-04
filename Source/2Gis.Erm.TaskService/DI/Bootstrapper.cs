@@ -260,7 +260,6 @@ namespace DoubleGis.Erm.TaskService.DI
                     }
                 };
 
-
             var messageAggregatedProcessingResultHandlerResolversMap = new Dictionary<IMessageFlow, Func<Type>>
                 {
                     {
@@ -285,10 +284,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     },
                 };
 
-
-
-            return container.RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton)
-                            .RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
+            return container.RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageReceiverFactory, UnityMessageReceiverFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageValidatorFactory, UnityMessageValidatorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageTransformerFactory, UnityMessageTransformerFactory>(Lifetime.PerScope)
@@ -311,8 +307,7 @@ namespace DoubleGis.Erm.TaskService.DI
             return container.RegisterType<IRabbitMqQueueFactory, RabbitMqQueueFactory>(Lifetime.Singleton,
                         new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmRabbitMq)));
         }
-
-
+        
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
             {
             return container
