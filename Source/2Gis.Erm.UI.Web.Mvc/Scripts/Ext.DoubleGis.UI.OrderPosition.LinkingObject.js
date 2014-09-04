@@ -189,8 +189,8 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
         var isComposite = window.Ext.getDom('IsComposite').value.toLowerCase();
 
-        var checkboxDisabled = false;
-        var isDummyCheckboxDisabled = false;
+        var checkboxDisabled = this.controller.localData.readOnly;
+        var isDummyCheckboxDisabled = this.controller.localData.readOnly;
 
         if (this.controller.localData.areLinkingObjectParametersLocked) {
             checkboxDisabled = true;
@@ -221,7 +221,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
         if (this.supportsAdvertisement() && this.advertisementLookup) {
 
-            var disableAdvertisementLookup = false;
+            var disableAdvertisementLookup = this.controller.localData.readOnly;
             if (!this.checkbox.checked) {
                 if (this.controller.localData.areLinkingObjectParametersLocked ||
                     this.position.isAdvertisementLimitReached) {
