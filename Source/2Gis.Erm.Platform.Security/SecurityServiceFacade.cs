@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.Security
 {
@@ -243,7 +244,7 @@ namespace DoubleGis.Erm.Platform.Security
             switch (privilegeDepth)
             {
                 case EntityPrivilegeDepthState.None:
-                    throw new SecurityAccessDeniedException(string.Format("Пользователь id=[{0}] не имеет право {1} на сущность {2}", userCode, EntityAccessTypes.Read, entityName));
+                    throw new SecurityAccessDeniedException(string.Format(ResPlatform.UserIdDoesNotHaveTheRightToOperationOnEntity, userCode, EntityAccessTypes.Read, entityName));
 
                 case EntityPrivilegeDepthState.User:
                     return _finder.Find<SecurityAccelerator>(accelerator => accelerator.UserId == userCode).Select(accelerator => accelerator.UserId);
