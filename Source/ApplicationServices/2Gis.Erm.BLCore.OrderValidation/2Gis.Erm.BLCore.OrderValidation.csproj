@@ -70,13 +70,15 @@
     <Compile Include="DI\BlCoreOrderValidationAssembly.cs" />
     <Compile Include="OrderValidationRuleProvider.cs" />
     <Compile Include="Rules\AdvertisementsOnlyWhiteListOrderValidationRule.cs" />
+    <Compile Include="Rules\Metadata\OrderValidationMetadataValidator.cs" />
+    <Compile Include="Rules\Metadata\OrderValidationRuleMetadataSource.cs" />
     <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />
     <Compile Include="Settings\PricePositionDescription.cs" />
     <Compile Include="IPriceConfigurationService.cs" />
     <Compile Include="OrderPositionStateStorage.cs" />
     <Compile Include="OrderStateStorage.cs" />
     <Compile Include="OrderValidationPredicateFactory.cs" />
-    <Compile Include="OrderValidationService.cs" />
+    <Compile Include="OrderValidationOperationService.cs" />
     <Compile Include="PositionType.cs" />
     <Compile Include="PriceConfigurationService.cs" />
     <Compile Include="PriceConfigurationStorage.cs" />
@@ -94,10 +96,8 @@
     <Compile Include="OrderValidationRuleCommonPredicate.cs" />
     <Compile Include="Rules\AccountExistsOrderValidationRule.cs" />
     <Compile Include="Rules\AdditionalAdvertisementsOrderValidationRule.cs" />
-    <Compile Include="Rules\AdvantageousPurchasesFirmsHasBannerOrCommentValidationRule.cs" />
     <Compile Include="Rules\AdvertisementAmountOrderValidationRule.cs" />
     <Compile Include="Rules\AdvertisementForCategoryAmountOrderValidationRule.cs" />
-    <Compile Include="Rules\AdvertisementTextFormattingOrderValidationRule.cs" />
     <Compile Include="Rules\AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule.cs" />
     <Compile Include="Rules\AssociatedAndDeniedPricePositionsOrderValidationRule.cs" />
     <Compile Include="Rules\BalanceOrderValidationRule.cs" />
@@ -152,6 +152,10 @@
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
@@ -188,6 +192,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

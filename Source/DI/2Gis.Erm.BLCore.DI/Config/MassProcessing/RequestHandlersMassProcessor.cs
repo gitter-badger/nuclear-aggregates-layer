@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {
-    public class RequestHandlersProcessor : IMassProcessor
+    public class RequestHandlersMassProcessor : IMassProcessor
     {
         private const string ScopeForHandlers = Mapping.Erm;
 
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
         private readonly IUnityContainer _container;
         private readonly Func<LifetimeManager> _lifetimeManagerFactoryMethod;
 
-        public RequestHandlersProcessor(IUnityContainer container, Func<LifetimeManager> lifetimeManagerFactoryMethod)
+        public RequestHandlersMassProcessor(IUnityContainer container, Func<LifetimeManager> lifetimeManagerFactoryMethod)
         {
             _container = container;
             _lifetimeManagerFactoryMethod = lifetimeManagerFactoryMethod;

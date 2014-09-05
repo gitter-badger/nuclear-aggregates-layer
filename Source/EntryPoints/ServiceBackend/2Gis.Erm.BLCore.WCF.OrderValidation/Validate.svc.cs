@@ -17,17 +17,17 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
     public class OrderValidationApplicationService : IOrderValidationApplicationService, IOrderValidationApplicationRestService
     {
         private readonly IBusinessModelSettings _businessModelSettings;
-        private readonly IOrderValidationService _orderValidationService;
+        private readonly IOrderValidationOperationService _orderValidationOperationService;
         private readonly IOrderValidationPredicateFactory _orderValidationPredicateFactory;
 
         public OrderValidationApplicationService(IBusinessModelSettings businessModelSettings,
                                                  IUserContext userContext,
-                                                 IOrderValidationService orderValidationService,
+                                                 IOrderValidationOperationService orderValidationOperationService,
                                                  IOrderValidationPredicateFactory orderValidationPredicateFactory,
                                                  IResourceGroupManager resourceGroupManager)
         {
             _businessModelSettings = businessModelSettings;
-            _orderValidationService = orderValidationService;
+            _orderValidationOperationService = orderValidationOperationService;
             _orderValidationPredicateFactory = orderValidationPredicateFactory;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                     IncludeOwnerDescendants = includeOwnerDescendants,
                     SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
                 };
-            return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
+            return _orderValidationOperationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
         }
 
         private ValidateOrdersResult ValidateSingleOrder(long orderId, OrderState? newOrderState)
@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                     SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
                 };
 
-            return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
+            return _orderValidationOperationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
         }
     }
 }

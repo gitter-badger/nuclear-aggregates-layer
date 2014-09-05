@@ -41,8 +41,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Validation
             if (!_validationRuleGroupMap.ContainsKey(orderValidationRuleGroup))
             {
                 throw new ArgumentException(string.Format("No mapping provided for group [{0}] with code [{1}]",
-                                                          orderValidationRuleGroup, (int)orderValidationRuleGroup),
-                                            "orderValidationRuleGroup");
+                                                          orderValidationRuleGroup, 
+                                                          (int)orderValidationRuleGroup),
+                                                          "orderValidationRuleGroup");
             }
 
             return _validationRuleGroupMap[orderValidationRuleGroup];
