@@ -270,11 +270,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
             }
 
-            if (entity.DiscountSum != 0 || entity.DiscountPercent != 0)
-            {
-                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount);
-            }
-
             if (entity.PricePerUnitWithVat < 0 || entity.PricePerUnitWithVat < 0)
             {
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNegativePrice);
