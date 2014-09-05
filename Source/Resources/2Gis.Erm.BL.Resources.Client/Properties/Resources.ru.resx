@@ -951,4 +951,10 @@
   <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
     <value>Вы действительно хотите отменить публикацию шаблона рекламного материала?</value>
   </data>
+  <data name="CannotSetDefaultTheme" xml:space="preserve">
+    <value>Не удалось установить тематику по умолчанию</value>
+  </data>
+  <data name="OperationFailed" xml:space="preserve">
+    <value>Ошибка выполнения операции</value>
+  </data>
 </root>
