@@ -220,6 +220,7 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.09.03 rev. 23953 - Sync UserProfile.IsActive with User.IsActive.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23002 - Boost SPs for batch replication.cs" />
     <Compile Include="2.1\2014.05.30 rev. 20842 - Delete FasComment values Smoke And Abortion.cs" />
     <Compile Include="2.1\2014.05.23 rev. 20638 - create ChargeSessionId column in Billing.LockDetails.cs" />
@@ -716,10 +717,11 @@
     <Compile Include="2.1\2014.07.08 rev. 22080 - Delete infrastructure for hot client replication.cs" />
     <Compile Include="2.1\2014.08.06 rev. 22197 - Add Index to Categories table.cs" />
     <Compile Include="2.1\2014.07.24 rev. 22601 - Add AdvertisementsOnlyWhiteList rule.cs" />
+    <Compile Include="2.1\2014.08.20 rev. 23447 - PrimaryProcessing improvements.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule.cs" />
     <Compile Include="2.1\2014.07.23 rev. 22571 - Deal profit indicators removed.cs" />
-    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />    
+    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />
     <Compile Include="2.1\2014.08.19 rev. 23425 - Alter ImportFirmFromXml.cs" />
     <Compile Include="2.1\2014.07.22 rev. 22529 - Fill column TerritoryId by BuildingCode in FirmAddresses.cs" />
     <Compile Include="2.1\2014.07.23 rev. 22583 - Alter Shared.GetFirmTerritories and Integration.UpdateBuildings.cs" />

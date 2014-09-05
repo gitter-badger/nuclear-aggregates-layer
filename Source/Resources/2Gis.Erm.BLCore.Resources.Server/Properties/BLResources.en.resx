@@ -5206,4 +5206,7 @@ Placement period: {3}.</value>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Cannot specify an inactive rejection reason</value>
   </data>
+  <data name="BillFileNameTemplate" xml:space="preserve">
+    <value>{0}-bills.zip</value>
+  </data>
 </root>
