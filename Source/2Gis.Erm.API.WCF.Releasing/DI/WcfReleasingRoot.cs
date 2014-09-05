@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Releasing.DI;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLCore.Releasing.DI;
+using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
@@ -21,6 +22,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             {
                 return CompositionRoot.Config
                                       .RequireZone<AggregatesZone>()
+                                          .UseAnchor<PlatformAggregatesAssembly>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
                                       .RequireZone<OperationsZone>()
                                           .UseAnchor<BlCoreApiOperationsAssembly>()

@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
-                        //{ typeof(OnlyWhiteListReadModelTest)/*, typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) */};
+            // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
             { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
 
@@ -158,22 +158,22 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IOperationLoggingSettings operationLoggingSettings)
         {
             return container
-                    .ConfigureGlobal(globalizationSettings)
-                    .CreateErmSpecific(msCrmSettings)
-                    .CreateSecuritySpecific()
-                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                .ConfigureGlobal(globalizationSettings)
+                .CreateErmSpecific(msCrmSettings)
+                .CreateSecuritySpecific()
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
-                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                    .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                    .ConfigureIdentityInfrastructure()
-                    .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                    .ConfigureExportMetadata()
-                    .ConfigureMetadata()
-                    .ConfigureTestInfrastructure(environmentSettings)
-                    .ConfigureTestsDependenciesExplicitly();
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                .ConfigureIdentityInfrastructure()
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .ConfigureExportMetadata()
+                .ConfigureMetadata()
+                .ConfigureTestInfrastructure(environmentSettings)
+                .ConfigureTestsDependenciesExplicitly();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)

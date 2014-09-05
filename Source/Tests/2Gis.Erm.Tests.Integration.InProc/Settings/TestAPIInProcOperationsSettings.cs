@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Settings
     /// <summary>
     /// Требования/соглашения см. в объявлении ISettingsContainer
     /// </summary>
-    public sealed class TestAPIInProcOperationsSettings : SettingsContainerBase, IOrderProcessingSettings , IIntegrationLocalizationSettings
+    public sealed class TestAPIInProcOperationsSettings : SettingsContainerBase, IOrderProcessingSettings, IIntegrationLocalizationSettings
     {
         private readonly StringSetting _basicLanguage = ConfigFileSetting.String.Required("BasicLanguage");
         private readonly StringSetting _reserveLanguage = ConfigFileSetting.String.Required("ReserveLanguage");
