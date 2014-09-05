@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.Common", "..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj", "{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}"
 EndProject
@@ -507,9 +507,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DI", "DI", "{33304F05-DC5E-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.DI", "..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj", "{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.OrderValidation", "..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.OrderValidation\2Gis.Erm.BLFlex.OrderValidation.csproj", "{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 121
+		SccNumberOfProjects = 122
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -993,6 +995,10 @@ Global
 		SccProjectTopLevelParentUniqueName120 = 2GIS.ERM.VS2012.sln
 		SccProjectName120 = ../../BL/Source/DI/2Gis.Erm.BL.DI
 		SccLocalPath120 = ..\\..\\BL\\Source\\DI\\2Gis.Erm.BL.DI
+		SccProjectUniqueName121 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.OrderValidation\\2Gis.Erm.BLFlex.OrderValidation.csproj
+		SccProjectTopLevelParentUniqueName121 = 2GIS.ERM.VS2012.sln
+		SccProjectName121 = ../../BLFlex/Source/ApplicationServices/2Gis.Erm.BLFlex.OrderValidation
+		SccLocalPath121 = ..\\..\\BLFlex\\Source\\ApplicationServices\\2Gis.Erm.BLFlex.OrderValidation
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2203,6 +2209,16 @@ Global
 		{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}.Release|x64.ActiveCfg = Release|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2403,6 +2419,7 @@ Global
 		{C5E52A19-8EAC-45C1-BA71-ED86F9B89989} = {86A16E04-CA0B-4892-A54B-A05D4816A76F}
 		{33304F05-DC5E-46CD-A682-B0042A7335E0} = {18B0779F-1AB4-4489-96C3-79F6C7E3ABDA}
 		{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07} = {33304F05-DC5E-46CD-A682-B0042A7335E0}
+		{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1} = {46CEBE23-C116-43B2-8C31-C4EFDE48C6F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35

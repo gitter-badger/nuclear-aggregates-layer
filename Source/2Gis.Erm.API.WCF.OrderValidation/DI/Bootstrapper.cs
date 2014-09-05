@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -31,6 +32,7 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
@@ -58,8 +60,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
-                    new OrderValidationRuleProcessor(container, EntryPointSpecificLifetimeManagerFactory)
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
+                    new OrderValidationRuleMassProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -127,6 +129,14 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
         }
 
+        private static IUnityContainer ConfigureMetadata(this IUnityContainer container)
+        {
+            CommonBootstrapper.ConfigureMetadata(container);
+
+            // validators
+            return container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataValidator, OrderValidationMetadataValidator>(Lifetime.Singleton);
+        }
+
         private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
         {
             return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
@@ -170,8 +180,9 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             const string MappingScope = Mapping.Erm;
 
             return container
-                .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
-                     .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerOperationContext, MappingScope);
+                        .RegisterType<IOrderValidationRuleProvider, OrderValidationRuleProvider>(Lifetime.Singleton)
+                        .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
+                        .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerOperationContext, MappingScope);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

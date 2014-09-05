@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                     new IntergationServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                     new TaskServiceJobsMassProcessor(container)
                 };
@@ -191,7 +191,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 // services
                 // FIXME {all, 27.12.2013}: проверить действительно ли нужен PrintFormService в TaskeService или это copy/paste, на первый взгляд вся печать инициируется непосредственно пользователем 
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
-                .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationOperationService>(Lifetime.PerScope, MappingScope)
                             .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(
                                 Lifetime.PerScope,
                                 MappingScope)

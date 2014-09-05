@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                         Mapping.Erm,
                         new Func<Type, EntitySet, IEnumerable<Type>, Type>[] { QueryingBootstrapper.ListServiceConflictResolver },
                         new Func<Type, IEnumerable<Type>, Type>[0]),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -299,7 +299,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
                      .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerOperationContext, MappingScope)
 
-                     .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
+                     .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationOperationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IChangeAdvertisementElementStatusStrategiesFactory, UnityChangeAdvertisementElementStatusStrategiesFactory>(CustomLifetime.PerOperationContext, MappingScope)
                 // notification sender
