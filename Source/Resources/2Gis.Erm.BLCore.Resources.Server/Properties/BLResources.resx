@@ -3642,9 +3642,6 @@
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value />
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value />
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value />
   </data>
