@@ -158,7 +158,6 @@
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalProcessingMessage.cs" />
     <Compile Include="Operations\Processing\Final\FinalProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\IPerformedOperationsTransportSettings.cs" />
-    <Compile Include="Operations\Processing\Primary\AllPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\FinalReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
@@ -172,6 +171,7 @@
     <Compile Include="Operations\Processing\Primary\IPerformedOperationsReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsPrimaryFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsReceiverSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\IPerformedOperationsPrimaryProcessingFlow.cs" />
     <Compile Include="Operations\Processing\Primary\PrimaryProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\PrimaryReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\PerformedOperationsTransportSettingsAspect.cs" />

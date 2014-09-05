@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
 
         public LoggingSession Begin()
         {
-            return new DirectDbLoggingSession();
+            return new DBLoggingSession();
         }
 
         public bool TryLogUseCase(TrackedUseCase useCase, out string report)

@@ -118,8 +118,9 @@
     <Compile Include="Operations\Logging\PersistenceChangesRegistryKey.cs" />
     <Compile Include="Operations\Logging\PersistenceChangesRegistryProvider.cs" />
     <Compile Include="Operations\Logging\TransactedOperationScope.cs" />
-    <Compile Include="Operations\Logging\Transports\DB\DirectDbLoggingSession.cs" />
+    <Compile Include="Operations\Logging\Transports\DB\DBLoggingSession.cs" />
     <Compile Include="Operations\Logging\Transports\DB\DirectDBLoggingStrategy.cs" />
+    <Compile Include="Operations\Logging\Transports\DB\DirectDBEnqueUseCaseForProcessingLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\Transports\DB\TrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.Dispose.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="Operations\Processing\Primary\HotClient\ReplicateHotClientPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Operations\Processing\Final\Transports\FinalProcessingQueueReceiver.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFlowProcessor.cs" />
-    <Compile Include="Operations\Processing\Primary\Transports\DB\DBPerformedOperationsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsMessageAggregatedProcessingResultHandler.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\ServiceBusPerformedOperationsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\DB\DBOnlinePerformedOperationsReceiver.cs" />

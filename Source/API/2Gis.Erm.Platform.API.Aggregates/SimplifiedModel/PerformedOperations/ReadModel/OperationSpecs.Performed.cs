@@ -13,14 +13,6 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
             {
                 private static readonly Guid DefaultUseCaseId = new Guid("00000000-0000-0000-0000-000000000000");
                 
-                public static FindSpecification<PerformedBusinessOperation> OnlyRoot
-                {
-                    get
-                    {
-                        return new FindSpecification<PerformedBusinessOperation>(o => o.Parent == null);
-                    }
-                }
-
                 public static FindSpecification<PerformedBusinessOperation> AfterDate(DateTime date)
                 {
                     return new FindSpecification<PerformedBusinessOperation>(o => o.UseCaseId != DefaultUseCaseId &&

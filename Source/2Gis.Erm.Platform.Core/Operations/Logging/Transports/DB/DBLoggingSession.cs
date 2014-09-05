@@ -5,9 +5,9 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
 {
-    public sealed class DirectDbLoggingSession : LoggingSession
+    public sealed class DBLoggingSession : LoggingSession
     {
-        public DirectDbLoggingSession() : base(new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+        public DBLoggingSession() : base(new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
         {
         }
     }

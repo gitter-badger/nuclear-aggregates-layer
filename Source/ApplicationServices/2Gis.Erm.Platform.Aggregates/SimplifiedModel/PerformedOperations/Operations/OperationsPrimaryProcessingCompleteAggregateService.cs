@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.Operations;
-using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
-using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Common.Utils.Data;
+using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -12,32 +11,50 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
 {
     public sealed class OperationsPrimaryProcessingCompleteAggregateService : IOperationsPrimaryProcessingCompleteAggregateService
     {
-        private readonly IRepository<PerformedOperationPrimaryProcessing> _operationsPrimaryProcessingRepository;
+        private readonly IBatchDeletePersistenceService _batchDeletePersistenceService;
 
-        public OperationsPrimaryProcessingCompleteAggregateService(IRepository<PerformedOperationPrimaryProcessing> operationsPrimaryProcessingRepository)
+        public OperationsPrimaryProcessingCompleteAggregateService(IBatchDeletePersistenceService batchDeletePersistenceService)
         {
-            _operationsPrimaryProcessingRepository = operationsPrimaryProcessingRepository;
+            _batchDeletePersistenceService = batchDeletePersistenceService;
         }
 
-        public void CompleteProcessing(IMessageFlow messageFlow, IEnumerable<long> processedOperations)
+        public void CompleteProcessing(IReadOnlyList<PerformedOperationPrimaryProcessing> processedUseCases)
         {
-            var currentDate = DateTime.UtcNow;
+            if (processedUseCases.Count == 0)
+            {
+                return;
+            }
 
-            // TODO {i.maslennikov, 30.06.2014}: Особого смысла в транзакции здесь нет
+            const int BatchSize = 10000;
+
+            var extractors = new[]
+                {
+                    new EntityKeyExtractor<PerformedOperationPrimaryProcessing> 
+                    {
+                        KeyName = "UseCaseId",
+                        KeyValueExtractor = primaryProcessing => string.Format("'{0}'", primaryProcessing.UseCaseId.ToString())
+                    },
+                    new EntityKeyExtractor<PerformedOperationPrimaryProcessing> 
+                    {
+                        KeyName = "MessageFlowId",
+                        KeyValueExtractor = primaryProcessing => string.Format("'{0}'", primaryProcessing.MessageFlowId.ToString())
+                    }
+                };
+
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                foreach (var processedOperationId in processedOperations)
+                for (int offset = 0; offset < processedUseCases.Count;)
                 {
-                    _operationsPrimaryProcessingRepository.Add(
-                        new PerformedOperationPrimaryProcessing
-                            {
-                                Id = processedOperationId,
-                                MessageFlowId = messageFlow.Id,
-                                Date = currentDate
-                            });
+                    var batch = processedUseCases.SkipTake(offset, BatchSize);
+                    if (batch.Count == 0)
+                    {
+                        break;
+                    }
+
+                    _batchDeletePersistenceService.Delete(batch, extractors);
+                    offset += batch.Count;
                 }
 
-                _operationsPrimaryProcessingRepository.Save();
                 transaction.Complete();
             }
         }

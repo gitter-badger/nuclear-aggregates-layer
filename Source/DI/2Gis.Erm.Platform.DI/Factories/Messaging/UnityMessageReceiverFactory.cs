@@ -36,7 +36,6 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             var resolversMap = new Dictionary<IMessageFlow, Func<Type, Type>>();
             AddMapping(resolversMap,
                        PerformedOperations,
-                       AllPerformedOperationsFlow.Instance,
                        PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance,
                        PrimaryReplicateHotClientPerformedOperationsFlow.Instance,
                        PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
@@ -58,7 +57,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 
             var messageReceiver = (IMessageReceiver)scopedContainer.Resolve(
                 resolvedType,
-                new ResolverOverride[] { new DependencyOverride(typeof(TMessageReceiverSettings), receiverSettings) });
+                                                        new ResolverOverride[] { new DependencyOverride(typeof(TMessageReceiverSettings), receiverSettings) });
 
             return new UnityMessageReceiverProxy(scopedContainer, messageReceiver);
         }
