@@ -136,13 +136,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
     }
 
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public sealed class OrderProfilesDto
-    {
-        public EntityReference Profile { get; set; }
-        public EntityReference LegalPerson { get; set; }
-    }
-
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
     public sealed class OrderForProlongationDto
     {
         public long OrderId { get; set; }

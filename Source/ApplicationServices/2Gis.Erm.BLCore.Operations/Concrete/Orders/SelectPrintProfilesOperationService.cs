@@ -1,5 +1,10 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Core.Exceptions;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
@@ -13,26 +18,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _orderReadModel = orderReadModel;
         }
 
-        public OrderProfiles SelectProfilesByBill(long billId)
+        public OrderProfilesDto SelectProfilesByOrder(long orderId)
         {
-            var order = _orderReadModel.GetOrderByBill(billId);
-            return SelectProfiles(order);
-        }
+            var dto = _orderReadModel.GetOrderProfiles(orderId);
 
-        public OrderProfiles SelectProfilesByOrder(long orderId)
-        {
-            var order = _orderReadModel.GetOrder(orderId);
-            return SelectProfiles(order);
-        }
-
-        private OrderProfiles SelectProfiles(Order order)
-        {
-            if (order.LegalPersonProfileId == null)
+            if (!dto.Profile.Id.HasValue)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
             }
 
-            return new OrderProfiles { LegalPersonProfileId = order.LegalPersonProfileId.Value };
+            return dto;
         }
     }
 }

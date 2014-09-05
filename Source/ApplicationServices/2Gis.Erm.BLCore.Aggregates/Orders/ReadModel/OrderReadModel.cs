@@ -10,9 +10,9 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -1263,8 +1263,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .ToArray();
         }
 
-        // FIXME {a.rechkalov, 03.09.2014}: Этот метод запрашивается напрямую из контроллера + здесь есть не только получение данных, но и их анализ
-        //                                  Предлагаю выделить специальнуб операцию для чтения этих данных, которая будет вызываться из контроллера и в которую перейдет логика анализа
         public OrderProfilesDto GetOrderProfiles(long orderId)
         {
             var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
@@ -1275,24 +1273,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                        order.LegalPersonProfileId,
                                        LegalPersonProfileName = order.LegalPersonProfile.Name,
                                    })
-                                   .SingleOrDefault();
-
-            if (dto == null)
-            {
-                throw new EntityNotFoundException(typeof(Order), orderId);
-            }
-
-            if (!dto.LegalPersonId.HasValue)
-            {
-                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
-            }
+                                   .Single();
 
             return new OrderProfilesDto
             {
                 LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
-                Profile = dto.LegalPersonProfileId.HasValue
-                                   ? new EntityReference(dto.LegalPersonProfileId, dto.LegalPersonProfileName)
-                                   : new EntityReference(),
+                Profile = new EntityReference(dto.LegalPersonProfileId, dto.LegalPersonProfileName),
             };
         }
 
