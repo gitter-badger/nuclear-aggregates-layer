@@ -951,10 +951,4 @@
   <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
     <value />
   </data>
-  <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OperationFailed" xml:space="preserve">
-    <value />
-  </data>
 </root>
