@@ -48,7 +48,7 @@
             isDefault: value
         };
         
-        this.progressWindow = Ext.MessageBox.wait('Пожалуйста, подождите...', '', { animate: false });
+        this.progressWindow = Ext.MessageBox.wait(Ext.LocalizedResources.WorkInProgressPleaseStandBy, '', { animate: false });
 
         Ext.Ajax.request({
             timeout: 1200000,
@@ -64,7 +64,7 @@
                 self.progressWindow.hide();
                 Ext.Msg.show({
                     title: Ext.LocalizedResources.Error,
-                    msg: xhr.responseText || 'Не удалось установить тематику по умолчанию',
+                    msg: xhr.responseText || Ext.LocalizedResources.CannotSetDefaultTheme,
                     buttons: Ext.Msg.OK,
                     icon: Ext.MessageBox.ERROR
                 });
