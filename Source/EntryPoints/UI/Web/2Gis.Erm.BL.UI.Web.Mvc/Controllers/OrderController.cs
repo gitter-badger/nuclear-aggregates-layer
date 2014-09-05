@@ -67,6 +67,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
         private readonly IChangeOrderProfilesOperationService _changeOrderProfilesOperationService;
+        private readonly ISelectPrintProfilesOperationService _selectPrintProfilesOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -89,8 +90,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                IProcessOrderCreationRequestSingleOperation orderCreationOperation,
                                ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
-                               IDetermineOrderBargainOperationService determineOrderBargainOperationService, 
-                               IChangeOrderProfilesOperationService changeOrderProfilesOperationService)
+                               IDetermineOrderBargainOperationService determineOrderBargainOperationService,
+                               IChangeOrderProfilesOperationService changeOrderProfilesOperationService,
+                               ISelectPrintProfilesOperationService selectPrintProfilesOperationService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
@@ -110,6 +112,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
             _changeOrderProfilesOperationService = changeOrderProfilesOperationService;
+            _selectPrintProfilesOperationService = selectPrintProfilesOperationService;
         }
 
         #region Ajax methods
@@ -323,7 +326,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public ViewResult ChangeProfiles(long orderId)
         {
-            var dto = _orderReadModel.GetOrderProfiles(orderId);
+            var dto = _selectPrintProfilesOperationService.SelectProfilesByOrder(orderId);
 
             var model = new ChangeOrderProfilesViewModel
             {
