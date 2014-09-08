@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Firms
             var regionalTerritories = _firmReadModel.GetRegionalTerritoriesByBranchCodes(organizationUnitDgppIds,
                                                                                          _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord);
 
-            var organizationUnitsWithoutRegionalTerritories = organizationUnitDgppIds.Except(regionalTerritories.Values.Select(x => x.OrganizationUnitDgppId))
+            var organizationUnitsWithoutRegionalTerritories = organizationUnitDgppIds.Except(regionalTerritories.Keys)
                                                                                      .ToArray();
 
             if (organizationUnitsWithoutRegionalTerritories.Any())
