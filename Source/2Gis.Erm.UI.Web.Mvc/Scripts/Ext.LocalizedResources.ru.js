@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 25.08.2014 18:20:14
+// File updated : 08.09.2014 15:50:58
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -64,6 +64,7 @@ BoldText : 'Применение полужирного начертания к 
 BoldTitle : 'Полужирный (Ctrl+B)',
 Cancel : 'Отмена',
 CanNotSelectHiddenPosition : 'Нужно заменить объекты привязки, которые были скрыты, на доступные на текущий момент',
+CannotSetDefaultTheme : 'Не удалось установить тематику по умолчанию',
 CantUnpublishPriceWhenUnpublished : 'Нельзя отменить опубликование не опубликованного прайс-листа',
 CardIsDirtyAlert : 'Данное действие невозможно выполнить при наличии несохранённых изменений. Пожалуйста, сохраните изменения или обновите карточку, прежде чем продолжить.',
 CardIsNewAlert : 'Данное действие невозможно выполнить, пока запись не сохранена. Пожалуйста, сохраните запись, прежде чем продолжить.',
@@ -210,6 +211,7 @@ November : 'Ноябрь',
 October : 'Октябрь',
 OK : 'OK',
 OpenText : 'Открыть',
+OperationFailed : 'Ошибка выполнения операции',
 OrderCheck : 'Проверка заказа',
 OrderCheckFailed : 'Не удалось проверить заказ',
 OrderCheckProducedTheFollowingWarnings : 'Заказ корректен, однако в ходе проверки были обнаружены следующие предупреждения:',

@@ -1,4 +1,4 @@
-﻿// File updated : 25.08.2014 18:20:14
+﻿// File updated : 08.09.2014 15:50:58
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -62,6 +62,7 @@ BoldText : 'Použití tučného písma na vybraný text.',
 BoldTitle : 'Tučné (Ctrl+B)',
 Cancel : 'Zrušit',
 CanNotSelectHiddenPosition : 'Je třeba vyměnit vázané objekty, které byly skryté, za aktuálně dostupné',
+CannotSetDefaultTheme : 'Nepodařilo se stanovit téma dle výchozího nastavení',
 CantUnpublishPriceWhenUnpublished : 'Není možné zrušit zveřejnění nezveřejněného ceníku',
 CardIsDirtyAlert : 'Tuto akci není možné provést, pokud existují neuložené změny. Před tím, než budete pokračovat, uložte prosím změny nebo aktualizujte kartu.',
 CardIsNewAlert : 'Tuto akci bude možné provést až po uložení záznamu. Než budete pokračovat, uložte prosím záznam.',
@@ -208,6 +209,7 @@ November : 'Listopad',
 October : 'Říjen',
 OK : 'OK',
 OpenText : 'Otevřít',
+OperationFailed : 'Chyba při uskutečnění operace',
 OrderCheck : 'Kontrola objednávky',
 OrderCheckFailed : 'Nepodařilo se zkontrolovat objednávku',
 OrderCheckProducedTheFollowingWarnings : 'Objednávka je správná, během kontroly se však vyskytla následující upozornění:',
