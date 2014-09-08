@@ -84,6 +84,10 @@
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\EntryPoints\TaskService\2Gis.Erm.Platform.TaskService\2Gis.Erm.Platform.TaskService.csproj">
       <Project>{49D0D1C2-49A4-4063-BD9C-AC36BE6C36DD}</Project>
       <Name>2Gis.Erm.Platform.TaskService</Name>

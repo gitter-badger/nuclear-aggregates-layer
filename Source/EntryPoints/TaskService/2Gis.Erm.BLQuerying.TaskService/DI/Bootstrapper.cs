@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 
@@ -12,8 +13,8 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.DI
         public static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container, Func<LifetimeManager> lifetime)
         {
             container
-                .RegisterType<IEntityToDocumentRelationMetadataContainer, EntityToDocumentRelationMetadataContainer>(lifetime())
-                .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(lifetime())
+                .RegisterType<IEntityToDocumentRelationMetadataContainer, EntityToDocumentRelationMetadataContainer>(Lifetime.Singleton)
+                .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(Lifetime.Singleton)
                 .RegisterType<IEntityToDocumentRelationFactory, UnityEntityToDocumentRelationFactory>(lifetime())
                 .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(lifetime())
                 .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
