@@ -952,9 +952,9 @@
     <value>Skutečně si přejete zrušit zveřejnění šablony reklamního materiálu?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Не удалось установить тематику по умолчанию</value>
+    <value>Nepodařilo se stanovit téma dle výchozího nastavení</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Ошибка выполнения операции</value>
+    <value>Chyba při uskutečnění operace</value>
   </data>
 </root>

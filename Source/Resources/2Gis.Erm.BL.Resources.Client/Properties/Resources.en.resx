@@ -952,9 +952,9 @@
     <value>Are you sure you want to cancel advertising material template publishing?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Не удалось установить тематику по умолчанию</value>
+    <value>Failed to set the default topic</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Ошибка выполнения операции</value>
+    <value>Operation failed</value>
   </data>
 </root>

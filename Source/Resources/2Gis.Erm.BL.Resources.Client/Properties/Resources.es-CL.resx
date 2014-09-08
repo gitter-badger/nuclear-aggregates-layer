@@ -952,9 +952,9 @@
     <value>¿Desea realmente deshacer la publicación de la plantilla de material publicitario?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Не удалось установить тематику по умолчанию</value>
+    <value>No fue posible establecer la selección temática por defecto</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Ошибка выполнения операции</value>
+    <value>Error al cumplir la operación</value>
   </data>
 </root>
