@@ -1,4 +1,4 @@
-﻿// File updated : 05.09.2014 9:11:42
+﻿// File updated : 08.09.2014 15:50:59
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -62,7 +62,7 @@ BoldText : 'Aplicar el formato de seminegrita al texto seleccionado.',
 BoldTitle : 'Seminegrita (Ctrl+B)',
 Cancel : 'Cancelar',
 CanNotSelectHiddenPosition : 'Se requiere reemplazar los enlaces con el objeto ocultos por los actualmente disponibles',
-CannotSetDefaultTheme : 'Не удалось установить тематику по умолчанию',
+CannotSetDefaultTheme : 'No fue posible establecer la selección temática por defecto',
 CantUnpublishPriceWhenUnpublished : 'No se puede cancelar la publicación de la lista de precios no publicada',
 CardIsDirtyAlert : 'Esta acción no puede completarse debido a las modificaciones no guardadas. Guarde las modificaciones o actualice la ficha antes de continuar.',
 CardIsNewAlert : 'Esta acción no puede completarse mientras el registro no se haya guardado. Guarde el registro antes de seguir.',
@@ -209,7 +209,7 @@ November : 'Noviembre',
 October : 'Octubre',
 OK : 'OK',
 OpenText : 'Abrir',
-OperationFailed : 'Ошибка выполнения операции',
+OperationFailed : 'Error al cumplir la operación',
 OrderCheck : 'Verificación de la orden',
 OrderCheckFailed : 'No se ha podido verificar la orden',
 OrderCheckProducedTheFollowingWarnings : 'La orden es correcta, sin embargo, su verificación ha revelado las siguientes advertencias:',

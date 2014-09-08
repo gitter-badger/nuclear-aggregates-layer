@@ -1,4 +1,4 @@
-﻿// File updated : 05.09.2014 9:11:42
+﻿// File updated : 08.09.2014 15:50:59
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -62,7 +62,7 @@ BoldText : 'Make selected text bold.',
 BoldTitle : 'Bold (Ctrl+B)',
 Cancel : 'Cancel',
 CanNotSelectHiddenPosition : 'You have to change hidden reference objects to the objects available at present',
-CannotSetDefaultTheme : 'Не удалось установить тематику по умолчанию',
+CannotSetDefaultTheme : 'Failed to set the default topic',
 CantUnpublishPriceWhenUnpublished : 'You cannot cancel publishing of the unpublished price-list',
 CardIsDirtyAlert : 'This action cannot be performed until all changes are saved. Please save changes or refresh the card to continue.',
 CardIsNewAlert : 'This action cannot be completed until the record is saved. Please save the record to continue.',
@@ -209,7 +209,7 @@ November : 'November',
 October : 'October',
 OK : 'OK',
 OpenText : 'Open',
-OperationFailed : 'Ошибка выполнения операции',
+OperationFailed : 'Operation failed',
 OrderCheck : 'Check of the order',
 OrderCheckFailed : 'Failed to check the order.',
 OrderCheckProducedTheFollowingWarnings : 'The order is correct, nevertheless the following warnings are found during the check:',
