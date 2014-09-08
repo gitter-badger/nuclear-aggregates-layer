@@ -951,4 +951,10 @@
   <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
     <value>Are you sure you want to cancel advertising material template publishing?</value>
   </data>
+  <data name="CannotSetDefaultTheme" xml:space="preserve">
+    <value>Failed to set the default topic</value>
+  </data>
+  <data name="OperationFailed" xml:space="preserve">
+    <value>Operation failed</value>
+  </data>
 </root>
