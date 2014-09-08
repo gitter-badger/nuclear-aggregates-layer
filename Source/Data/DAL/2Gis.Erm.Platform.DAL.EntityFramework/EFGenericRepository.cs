@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             CheckArgumentNull(entity, "entity");
             CheckArgumentIdentifier(entity);
-            
+
             SetEntityAuditableInfo(entity, true);
 
             Set().Add(entity);
@@ -156,7 +156,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             else
             {
                 // physically delete from database
-                Set().Remove(entity);
+                Set().Remove((TEntity)entry.Entity);
             }
 
             // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
@@ -194,7 +194,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 }
                 else
                 {
-                    entitiesToDeletePhysically.Add(entity);
+                    entitiesToDeletePhysically.Add((TEntity)entry.Entity);
                 }
 
                 // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id

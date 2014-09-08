@@ -147,4 +147,7 @@
   <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
     <value>El campo {0} puede contener solo números</value>
   </data>
+  <data name="UserIdDoesNotHaveTheRightToOperationOnEntity" xml:space="preserve">
+    <value>Usuario  id=[{0}]no tiene permiso {1} sobre la entidad {2}</value>
+  </data>
 </root>
