@@ -148,6 +148,6 @@
     <value>Pole {0} může obsahovat pouze čísla</value>
   </data>
   <data name="UserIdDoesNotHaveTheRightToOperationOnEntity" xml:space="preserve">
-    <value>Пользователь id=[{0}] не имеет право {1} на сущность {2}</value>
+    <value>Uživatel id=[{0}] nemá právo {1} na entitu {2}</value>
   </data>
 </root>
