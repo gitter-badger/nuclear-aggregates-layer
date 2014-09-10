@@ -51,6 +51,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
                 gridViewSettings.DataViews.DisableButtons("MakeMain");
             }
 
+            if (!parentLegalPerson.IsActive || parentLegalPerson.IsDeleted)
+            {
+                gridViewSettings.DataViews.DisableButtons("Create");
+            }
+
             return gridViewSettings;
         }
     }
