@@ -159,8 +159,8 @@ AS
 
 				, [Subject]	= [ermBase].[Subject]
 				, [Description] = [ermBase].[Description]
-				, [ActualEnd] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN [ModifiedOn] ELSE NULL END
-				, [ActualDurationMinutes] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
+				, [ActualEnd] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN [ermBase].[ModifiedOn] ELSE NULL END
+				, [ActualDurationMinutes] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN DATEDIFF(minute, [ermBase].[ModifiedOn], [ermBase].[CreatedOn]) ELSE NULL END
 				, [ScheduledStart] = [ermBase].[ScheduledStart]
 				, [ScheduledEnd] = [ermBase].[ScheduledEnd]
 				, [ScheduledDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
