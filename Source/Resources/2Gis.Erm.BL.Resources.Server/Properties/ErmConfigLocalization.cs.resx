@@ -1845,4 +1845,10 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Počet dokumentů</value>
   </data>
+  <data name="EnLetter" xml:space="preserve">
+    <value>Письмо</value>
+  </data>
+  <data name="ControlCreateLetter" xml:space="preserve">
+    <value>Создать Письмо</value>
+  </data>
 </root>

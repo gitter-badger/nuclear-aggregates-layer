@@ -145,6 +145,11 @@
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Models\AccountDetailViewModel.cs" />
     <Compile Include="Models\ActivateDealViewModel.cs" />
+    <Compile Include="Models\Activity\IActivityViewModel.cs" />
+    <Compile Include="Models\Activity\AppointmentViewModel.cs" />
+    <Compile Include="Models\Activity\LetterViewModel.cs" />
+    <Compile Include="Models\Activity\PhonecallViewModel.cs" />
+    <Compile Include="Models\Activity\TaskViewModel.cs" />
     <Compile Include="Models\AdditionalFirmServiceViewModel.cs" />
     <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
@@ -226,8 +231,10 @@
     <Compile Include="Models\ThemeViewModel.cs" />
     <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
+    <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
     <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
@@ -240,9 +247,12 @@
     <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderProcessingRequestViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\PhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PricePositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LetterViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\TaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
@@ -264,6 +274,26 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Letter.generated.cs">
+      <DependentUpon>Letter.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
       <AutoGen>True</AutoGen>
@@ -760,6 +790,22 @@
     <None Include="Views\Account\ExportToServiceBusDialog.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Letter.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Letter.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
