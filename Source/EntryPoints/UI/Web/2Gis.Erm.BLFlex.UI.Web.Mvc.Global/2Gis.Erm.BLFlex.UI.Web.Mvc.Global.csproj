@@ -241,7 +241,6 @@
     <Compile Include="Models\MultiCultureOrderViewModel.cs" />
     <Compile Include="Models\Russia\AccountViewModel.cs" />
     <Compile Include="Models\Russia\AdvertisementElementStatusViewModel.cs" />
-    <Compile Include="Models\Russia\AppointmentViewModel.cs" />
     <Compile Include="Models\Russia\BargainTypeViewModel.cs" />
     <Compile Include="Models\Russia\BargainViewModel.cs" />
     <Compile Include="Models\Russia\BranchOfficeOrganizationUnitViewModel.cs" />
@@ -252,8 +251,6 @@
     <Compile Include="Models\Russia\MergeClientsViewModel.cs" />
     <Compile Include="Models\Russia\ClientViewModel.cs" />
     <Compile Include="Models\Russia\OrderViewModel.cs" />
-    <Compile Include="Models\Russia\PhonecallViewModel.cs" />
-    <Compile Include="Models\Russia\TaskViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesLegalPersonViewModel.cs" />
     <Compile Include="Models\Ukraine\Extensions.cs" />
     <Compile Include="Models\Ukraine\UkraineChangeLegalPersonRequisitesViewModel.cs" />
@@ -271,19 +268,12 @@
     <Compile Include="Services\Cards\Chile\ChileContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Chile\ChileLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Chile\ChileLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureAppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCulturePhonecallViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureTaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\RussiaClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
-    <Compile Include="Services\Cards\Russia\AppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\FirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\LegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\OrderViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\PhonecallViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\TaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonViewModelCustomizationService.cs" />
@@ -334,8 +324,6 @@
     </Compile>
     <Compile Include="Models\Russia\ContactViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusAccountViewModel.cs" />
-    <Compile Include="Models\ActivityBaseViewModelAbstract.cs" />
-    <Compile Include="Models\MultiCultureAppointmentViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusBargainViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusBranchOfficeOrganizationUnitViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusBranchOfficeViewModel.cs" />
@@ -343,8 +331,6 @@
     <Compile Include="Models\MultiCultureFirmViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Cyprus\CyprusLegalPersonViewModel.cs" />
-    <Compile Include="Models\MultiCulturePhonecallViewModel.cs" />
-    <Compile Include="Models\MultiCultureTaskViewModel.cs" />
     <Compile Include="Models\MultiCultureAccountViewModel.cs" />
     <Compile Include="Models\MultiCultureBargainTypeViewModel.cs" />
     <Compile Include="Models\MultiCultureBargainViewModel.cs" />
@@ -491,11 +477,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Emirates\Appointment.generated.cs">
-      <DependentUpon>Appointment.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Emirates\Bargain.generated.cs">
       <DependentUpon>Bargain.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -556,11 +537,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Account.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Russia\Appointment.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Appointment.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\Bargain.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -606,23 +582,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Order.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Russia\Phonecall.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Chile\Account.generated.cs">
       <DependentUpon>Account.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Chile\Appointment.generated.cs">
-      <DependentUpon>Appointment.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Cyprus\Appointment.generated.cs">
-      <DependentUpon>Appointment.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -691,36 +652,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Account.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Cyprus\Phonecall.generated.cs">
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Chile\Phonecall.generated.cs">
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Chile\Task.generated.cs">
-      <DependentUpon>Task.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Cyprus\Task.generated.cs">
-      <DependentUpon>Task.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Russia\Task.generated.cs">
-      <DependentUpon>Task.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\MultiCultureAppointment.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MultiCultureAppointment.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Cyprus\Bargain.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -776,25 +707,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MultiCultureOrder.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\MultiCulturePhonecall.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MultiCulturePhonecall.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\MultiCultureTask.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MultiCultureTask.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\MultiCultureAccount.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MultiCultureAccount.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Czech\Appointment.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Appointment.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOrUpdate\MultiCultureBargain.generated.cs">
       <AutoGen>True</AutoGen>
@@ -856,16 +772,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Czech\Phonecall.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Czech\Task.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Task.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\LegalPerson.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -873,11 +779,6 @@
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Ukraine\Account.generated.cs">
       <DependentUpon>Account.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Ukraine\Appointment.generated.cs">
-      <DependentUpon>Appointment.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -936,16 +837,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Ukraine\Phonecall.generated.cs">
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Ukraine\Task.generated.cs">
-      <DependentUpon>Task.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Emirates\LegalPersonProfile.generated.cs">
       <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -958,16 +849,6 @@
     </Compile>
     <Compile Include="Views\CreateOrUpdate\Emirates\OrderPosition.generated.cs">
       <DependentUpon>OrderPosition.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Emirates\Phonecall.generated.cs">
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Emirates\Task.generated.cs">
-      <DependentUpon>Task.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -1108,10 +989,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Account.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Emirates\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Emirates\Bargain.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bargain.generated.cs</LastGenOutput>
@@ -1160,10 +1037,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Account.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Russia\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Russia\Bargain.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bargain.generated.cs</LastGenOutput>
@@ -1200,21 +1073,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Order.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Russia\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Chile\Account.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Account.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Chile\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Cyprus\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Chile\BranchOfficeOrganizationUnit.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1268,30 +1129,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Account.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Cyprus\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Chile\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Chile\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Cyprus\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Russia\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\MultiCultureAppointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>MultiCultureAppointment.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Cyprus\Bargain.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bargain.generated.cs</LastGenOutput>
@@ -1336,14 +1173,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>MultiCultureOrder.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\MultiCulturePhonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>MultiCulturePhonecall.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\MultiCultureTask.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>MultiCultureTask.generated.cs</LastGenOutput>
-    </None>
     <None Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
@@ -1351,10 +1180,6 @@
     <None Include="Views\CreateOrUpdate\MultiCultureAccount.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>MultiCultureAccount.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Czech\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\MultiCultureBargain.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1404,14 +1229,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Order.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Czech\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Czech\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
-    </None>
     <None Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
@@ -1435,10 +1252,6 @@
     <None Include="Views\CreateOrUpdate\Ukraine\Account.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Account.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Ukraine\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Ukraine\Bargain.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1484,14 +1297,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Order.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Ukraine\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Ukraine\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Emirates\LegalPersonProfile.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
@@ -1503,14 +1308,6 @@
     <None Include="Views\CreateOrUpdate\Emirates\OrderPosition.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Emirates\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Emirates\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Web.config" />
   </ItemGroup>

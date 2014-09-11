@@ -11,11 +11,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Clien
     public class MultiCultureCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted,
                                                             ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
-        private readonly IActivityReadModel _activityReadModel;
+        private readonly IAppointmentReadModel _appointmentReadModel;
+        private readonly ILetterReadModel _letterReadModel;
+        private readonly IPhonecallReadModel _phonecallReadModel;
+        private readonly ITaskReadModel _taskReadModel;
 
-        public MultiCultureCheckClientActivitiesHandler(IActivityReadModel activityReadModel)
+        public MultiCultureCheckClientActivitiesHandler(
+            IAppointmentReadModel appointmentReadModel,
+            ILetterReadModel letterReadModel,
+            IPhonecallReadModel phonecallReadModel,
+            ITaskReadModel taskReadModel)
         {
-            _activityReadModel = activityReadModel;
+            _appointmentReadModel = appointmentReadModel;
+            _letterReadModel = letterReadModel;
+            _phonecallReadModel = phonecallReadModel;
+            _taskReadModel = taskReadModel;
         }
 
         protected override EmptyResponse Handle(CheckClientActivitiesRequest request)
@@ -23,7 +33,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Clien
             // Проверяем открытые связанные объекты:
             // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данным Клиентом и его фирмами, 
             // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
-            var hasRelatedOpenedActivities = _activityReadModel.CheckIfRelatedActivitiesExists(request.ClientId);
+            var hasRelatedOpenedActivities =
+                _appointmentReadModel.CheckIfRelatedActivitiesExists(request.ClientId)
+                || _letterReadModel.CheckIfRelatedActivitiesExists(request.ClientId)
+                || _phonecallReadModel.CheckIfRelatedActivitiesExists(request.ClientId)
+                || _taskReadModel.CheckIfRelatedActivitiesExists(request.ClientId);
 
             if (hasRelatedOpenedActivities)
             {
