@@ -5207,4 +5207,7 @@
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
   </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value>Клиент сделки находится в резерве.</value>
+  </data>
 </root>

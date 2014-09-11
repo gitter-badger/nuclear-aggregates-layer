@@ -5190,4 +5190,7 @@
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value />
   </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value />
+  </data>
 </root>

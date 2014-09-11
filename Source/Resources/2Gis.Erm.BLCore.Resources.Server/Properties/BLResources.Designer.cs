@@ -5041,6 +5041,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DealClientIsInReserve {
+            get {
+                return ResourceManager.GetString("DealClientIsInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DealCloseInfoHead {
             get {
                 return ResourceManager.GetString("DealCloseInfoHead", resourceCulture);
