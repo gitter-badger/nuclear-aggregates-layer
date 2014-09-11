@@ -27,6 +27,11 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
                 return new FindSpecification<TEntity>(x => ids.Contains(x.Id));
             }
 
+            public static FindSpecification<TEntity> ByReplicationCodes<TEntity>(IEnumerable<Guid> guids) where TEntity : class, IEntity, IReplicableEntity
+            {
+                return new FindSpecification<TEntity>(x => guids.Contains(x.ReplicationCode));
+            }
+
             public static FindSpecification<TEntity> ActiveAndNotDeleted<TEntity>() where TEntity : class, IEntity, IDeletableEntity, IDeactivatableEntity
             {
                 return new FindSpecification<TEntity>(x => x.IsActive && !x.IsDeleted);
