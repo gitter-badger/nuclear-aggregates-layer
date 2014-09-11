@@ -66,6 +66,8 @@ function window.onload()
     hideDropDownItem("ƒругие действи€", "јктивировать");
     hideById("_MBopenObj10006"); //  нопка "—оздать" в гриде "Ћимиты"
     hideById("_MBopenObj10011"); //  нопка "—оздать" в гриде "ёр. лица клиента"
+    hideById("_MBopenObj10013"); //  нопка "—оздать" в гриде "‘ирма"
+    hideById("_MBopenObj10023"); //  нопка "—оздать" в гриде "Ћицевой счет"
     /* End CRM Hack */
 }
 </script>
