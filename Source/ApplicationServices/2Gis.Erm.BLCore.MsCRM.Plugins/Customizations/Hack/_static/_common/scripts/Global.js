@@ -949,7 +949,11 @@ window.CrmEntityMapping =
     { ObjectTypeCode: "10016", EntityName: "BranchOffice" },
     { ObjectTypeCode: "10017", EntityName: "OrganizationUnit" },
 	{ ObjectTypeCode: "10023", EntityName: "Account" },
-    { ObjectTypeCode: "10026", EntityName: "OrderProcessingRequest" }
+    { ObjectTypeCode: "10026", EntityName: "OrderProcessingRequest" },
+    { ObjectTypeCode: Appointment, EntityName: "Appointment" },
+    { ObjectTypeCode: Letter, EntityName: "Letter" },
+    { ObjectTypeCode: PhoneCall, EntityName: "Phonecall" },
+    { ObjectTypeCode: Task, EntityName: "Task" }
 ];
 
 function GetErmWebAppUrl() {

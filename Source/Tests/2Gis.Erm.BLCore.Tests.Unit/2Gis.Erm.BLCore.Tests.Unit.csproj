@@ -157,6 +157,7 @@
     <Compile Include="Model\UserRepositoryTests\UserRepositorySpecs.cs" />
     <Compile Include="Operations\Concrete\Orders\Processing\OrderEditingStrategySpecs.cs" />
     <Compile Include="Operations\Concrete\Orders\Processing\OrderCreationStrategySpecs.cs" />
+    <Compile Include="Operations\ReplicationCodeConverterTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
