@@ -51,9 +51,13 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
     public static class LookupFieldExtensions
     {
-        public static EntityReference ToReference(this LookupField lookupField)
+        public static EntityReference ToReference(this LookupField lookupField, EntityName? entityName = null)
         {
-            return lookupField != null ? new EntityReference(lookupField.Key, lookupField.Value) : new EntityReference();
+            return lookupField != null 
+                ? entityName.HasValue 
+                    ? new EntityReference(lookupField.Key, lookupField.Value) {EntityName = entityName.Value}
+                    : new EntityReference(lookupField.Key, lookupField.Value)
+                : new EntityReference();
         }
 
         public static LookupField ToLookupField(this EntityReference entityReference)

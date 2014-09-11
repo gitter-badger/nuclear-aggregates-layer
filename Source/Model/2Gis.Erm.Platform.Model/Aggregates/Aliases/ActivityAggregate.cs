@@ -14,24 +14,28 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 	public enum AppointmentAggregate
 	{
 		Appointment = EntityName.Appointment,
-		RegardingObjectReference = EntityName.RegardingObjectReference,
+        AppointmentRegardingObject = EntityName.AppointmentRegardingObject,
+        AppointmentAttendee = EntityName.AppointmentAttendee,
 	}
 	
 	public enum PhonecallAggregate
 	{
 		Phonecall = EntityName.Phonecall,
-		RegardingObjectReference = EntityName.RegardingObjectReference,
+        PhonecallRegardingObject = EntityName.PhonecallRegardingObject,
+        PhonecallRecipient = EntityName.PhonecallRecipient,
 	}
 	
 	public enum TaskAggregate
 	{
 		Task = EntityName.Task,
-		RegardingObjectReference = EntityName.RegardingObjectReference,
+        TaskRegardingObject = EntityName.TaskRegardingObject,
 	}
 
 	public enum LetterAggregate
 	{
 		Letter = EntityName.Letter,
-		RegardingObjectReference = EntityName.RegardingObjectReference,
-	}
+        LetterRegardingObject = EntityName.LetterRegardingObject,
+        LetterSender = EntityName.LetterSender,
+        LetterRecipient = EntityName.LetterRecipient,
+    }
 }

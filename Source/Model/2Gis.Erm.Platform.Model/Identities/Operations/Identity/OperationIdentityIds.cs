@@ -74,9 +74,6 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.OrderValidationResult = 232
         public const int ResetValidationGroupIdentity = 23201;
 
-		// EntityName.Activity = 500
-		public const int AssignRegardingObjectIdentity = 50001;
-
         // EntityName.Advertisement = 186
         public const int SelectAdvertisementToWhitelistIdentity = 18601;
 

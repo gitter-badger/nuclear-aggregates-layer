@@ -166,11 +166,18 @@
         FileWithContent = 400,
 
 		Activity = 500,
-		Appointment = 501,
+        Appointment = 501,
+        AppointmentRegardingObject = 50101,
+        AppointmentAttendee = 50102,
         Phonecall = 502,
+        PhonecallRegardingObject = 50201,
+        PhonecallRecipient = 50202,
         Task = 503,
+        TaskRegardingObject = 50301,
         Letter = 504,
-		RegardingObjectReference = 510,
+        LetterRegardingObject = 50401,
+        LetterSender = 50402,
+        LetterRecipient = 50403,
 
         // заявка на создание или продление заказа от Личного кабинета
         OrderProcessingRequest = 550,

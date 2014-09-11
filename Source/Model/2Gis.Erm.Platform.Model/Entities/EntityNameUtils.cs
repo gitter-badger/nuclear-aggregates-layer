@@ -52,10 +52,17 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 		public static readonly EntityName[] MappingEntities =
             {
                 EntityName.Appointment,
+                EntityName.AppointmentRegardingObject,
+				EntityName.AppointmentAttendee,
                 EntityName.Phonecall,
+                EntityName.PhonecallRegardingObject,
+				EntityName.PhonecallRecipient,
                 EntityName.Task,
+                EntityName.TaskRegardingObject,
                 EntityName.Letter,
-				EntityName.RegardingObjectReference
+                EntityName.LetterRegardingObject,
+                EntityName.LetterSender,
+                EntityName.LetterRecipient,
             };
 
         public static readonly Type[] Async2MsCrmReplicatedEntities =

@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 
 using AutoMapper.QueryableExtensions;
 
+using DoubleGis.Erm.Platform.DAL.EntityFramework.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -22,39 +23,62 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression)
 		{
 			// TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
+
 			if (typeof(TEntity) == typeof(Appointment))
             {
                 return Find<AppointmentBase, TEntity>(expression, null);
             }
-			if (typeof(TEntity) == typeof(Phonecall))
+            if (typeof(TEntity) == typeof(AppointmentRegardingObject))
+            {
+                return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)AppointmentReferenceType.RegardingObject);
+            }
+            if (typeof(TEntity) == typeof(AppointmentAttendee))
+            {
+                return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)AppointmentReferenceType.RequiredAttendees);
+            }
+
+			
+            if (typeof(TEntity) == typeof(Phonecall))
             {
                 return Find<PhonecallBase, TEntity>(expression, null);
             }
-			if (typeof(TEntity) == typeof(Task))
+            if (typeof(TEntity) == typeof(PhonecallRegardingObject))
+            {
+                return Find<PhonecallReference, TEntity>(expression, x => x.Reference == (int)PhonecallReferenceType.RegardingObject);
+            }
+            if (typeof(TEntity) == typeof(PhonecallRecipient))
+            {
+                return Find<PhonecallReference, TEntity>(expression, x => x.Reference == (int)PhonecallReferenceType.Recipient);
+            }
+			
+            
+            if (typeof(TEntity) == typeof(Task))
             {
                 return Find<TaskBase, TEntity>(expression, null);
             }
+            if (typeof(TEntity) == typeof(TaskRegardingObject))
+            {
+                return Find<TaskReference, TEntity>(expression, x => x.Reference == (int)TaskReferenceType.RegardingObject);
+            }
+
+            
             if (typeof(TEntity) == typeof(Letter))
             {
                 return Find<LetterBase, TEntity>(expression, null);
             }
+            if (typeof(TEntity) == typeof(LetterRegardingObject))
+            {
+                return Find<LetterReference, TEntity>(expression, x => x.Reference == (int)LetterReferenceType.RegardingObject);
+            }
+            if (typeof(TEntity) == typeof(LetterSender))
+            {
+                return Find<LetterReference, TEntity>(expression, x => x.Reference == (int)LetterReferenceType.Sender);
+            }
+            if (typeof(TEntity) == typeof(LetterRecipient))
+            {
+                return Find<LetterReference, TEntity>(expression, x => x.Reference == (int)LetterReferenceType.Recipient);
+            }
 
-			if (typeof(TEntity) == typeof(RegardingObject<Appointment>))
-            {
-                return Find<AppointmentReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
-            }
-			if (typeof(TEntity) == typeof(RegardingObject<Phonecall>))
-            {
-                return Find<PhonecallReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
-            }
-			if (typeof(TEntity) == typeof(RegardingObject<Task>))
-            {
-                return Find<TaskReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
-            }
-            if (typeof(TEntity) == typeof(RegardingObject<Letter>))
-            {
-                return Find<LetterReference, TEntity>(expression, x => x.Reference == (int)ReferenceType.RegardingObject);
-            }
 
 			throw new NotSupportedException("The requested mapping is not supported");
 		}
