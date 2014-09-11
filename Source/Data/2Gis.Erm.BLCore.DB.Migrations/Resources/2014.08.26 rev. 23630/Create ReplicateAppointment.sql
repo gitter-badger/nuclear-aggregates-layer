@@ -105,9 +105,9 @@ AS
 			  
 			, [Subject]
 			, [Description]
-			, ISNULL([ActualEnd], [ScheduledStart])
-			, [ActualEnd]
-			, CASE WHEN [ActualEnd] IS NULL THEN NULL ELSE 0 END
+			, [CreatedOn]
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN [ModifiedOn] ELSE NULL END
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 			, [ScheduledStart]					
 			, [ScheduledEnd]					
 			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd])
@@ -130,14 +130,9 @@ AS
 	    WHERE [Id] = @Id;
 
 		INSERT INTO [DoubleGis_MSCRM].[dbo].[AppointmentBase]
-			( [ActivityId]
-			, [IsAllDayEvent]
-			, [Location]
-			)
+			( [ActivityId], [Location] )
 		SELECT
-			  @CrmId
-			, [IsAllDayEvent]
-			, [Location]
+			  @CrmId, [Location]
 	    FROM [Activity].[AppointmentBase]
 	    WHERE [Id] = @Id;
 
@@ -145,13 +140,11 @@ AS
 			( [ActivityId]
 			, [Dg_purpose]
 			, [Dg_result]
-			, [Dg_aftersaletype]
 			)
 		SELECT
 			  @CrmId
 			, [Purpose]
 			, 1
-			, [AfterSaleType]
 	    FROM [Activity].[AppointmentBase]
 	    WHERE [Id] = @Id;
 
@@ -171,9 +164,8 @@ AS
 
 				, [Subject]	= [ermBase].[Subject]
 				, [Description] = [ermBase].[Description]
-				, [ActualStart]	= ISNULL([ermBase].[ActualEnd], [ermBase].[ScheduledStart])
-				, [ActualEnd] = [ermBase].[ActualEnd]
-				, [ActualDurationMinutes] = CASE WHEN [ermBase].[ActualEnd] IS NULL THEN NULL ELSE 0 END
+				, [ActualEnd] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN [ModifiedOn] ELSE NULL END
+				, [ActualDurationMinutes] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 				, [ScheduledStart] = [ermBase].[ScheduledStart]
 				, [ScheduledEnd] = [ermBase].[ScheduledEnd]
 				, [ScheduledDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
@@ -194,15 +186,13 @@ AS
 		    INNER JOIN [Activity].[AppointmentBase] [ermBase] ON [crmPointer].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].[Id] = @Id;
 
 	    UPDATE [crmBase]
-		   SET [IsAllDayEvent] = [ermBase].[IsAllDayEvent]
-		     , [Location] = [ermBase].[Location]
+		   SET [Location] = [ermBase].[Location]
 	    FROM [DoubleGis_MSCRM].[dbo].[AppointmentBase] [crmBase]
 		    INNER JOIN [Activity].[AppointmentBase] [ermBase] 
 			ON [crmBase].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].[Id] = @Id;
 
 	    UPDATE [crmExtension]
 		   SET [Dg_purpose] = [ermBase].[Purpose]
-			 , [Dg_aftersaletype] = [ermBase].[AfterSaleType]
 	    FROM [DoubleGis_MSCRM].[dbo].[AppointmentExtensionBase] [crmExtension]
 		    INNER JOIN [Activity].[AppointmentBase] [ermBase] 
 			ON [crmExtension].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].[Id] = @Id;

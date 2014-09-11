@@ -105,9 +105,9 @@ AS
 			  
 			, [Subject]
 			, [Description]
-			, [ActualEnd]
-			, [ActualEnd]
-			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd])
+			, [CreatedOn]
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN [ModifiedOn] ELSE NULL END
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 			, [ScheduledStart]					
 			, [ScheduledEnd]					
 			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd])
@@ -130,16 +130,14 @@ AS
 	    WHERE [Id] = @Id;
 
 		INSERT INTO [DoubleGis_MSCRM].[dbo].[LetterBase]
-			( [ActivityId]
-			)
+			( [ActivityId] )
 		SELECT
 			  @CrmId
 	    FROM [Activity].[LetterBase]
 	    WHERE [Id] = @Id;
 
 		INSERT INTO [DoubleGis_MSCRM].[dbo].[LetterExtensionBase]
-			( [ActivityId]
-			)
+			( [ActivityId] )
 		SELECT
 			  @CrmId
 	    FROM [Activity].[LetterBase]
@@ -161,9 +159,8 @@ AS
 
 				, [Subject]	= [ermBase].[Subject]
 				, [Description] = [ermBase].[Description]
-				, [ActualStart]	= ISNULL([ermBase].[ActualEnd], [ermBase].[ScheduledStart])
-				, [ActualEnd] = [ermBase].[ActualEnd]
-				, [ActualDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
+				, [ActualEnd] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN [ModifiedOn] ELSE NULL END
+				, [ActualDurationMinutes] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 				, [ScheduledStart] = [ermBase].[ScheduledStart]
 				, [ScheduledEnd] = [ermBase].[ScheduledEnd]
 				, [ScheduledDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
@@ -183,14 +180,7 @@ AS
 	    FROM [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] as [crmPointer]
 		    INNER JOIN [Activity].[LetterBase] as [ermBase] 
 			ON [crmPointer].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].[Id] = @Id;
-/*
-	    UPDATE [crmBase]
-		   SET [PhoneNumber] = [ermBase].[PhoneNumber]
-		     , [DirectionCode] = [ermBase].[Direction]
-	    FROM [DoubleGis_MSCRM].[dbo].[LetterBase] [crmBase]
-		    INNER JOIN [Activity].[LetterBase] [ermBase]
-			ON [crmBase].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].Id = @Id;
-*/
+    
     END;
 	
 	DELETE FROM [DoubleGis_MSCRM].[dbo].[ActivityPartyBase] WHERE [ActivityId] = @CrmId;
@@ -216,8 +206,8 @@ AS
 		CASE refs.Reference 
 			WHEN 0 THEN 9			-- Owner			(CRM: 9)
 			WHEN 1 THEN 8			-- RegardingObject	(ERM: 1, CRM: 8)
-			WHEN 5 THEN 1			-- From				(ERM: 5, CRM: 1)
-			WHEN 6 THEN 2			-- To				(ERM: 6, CRM: 2)
+			WHEN 2 THEN 1			-- Sender			(ERM: 2, CRM: 1)
+			WHEN 3 THEN 2			-- Recipient		(ERM: 3, CRM: 2)
 			END AS [ParticipationTypeMask]
 	FROM (
 		SELECT 

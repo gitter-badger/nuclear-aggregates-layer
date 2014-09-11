@@ -105,12 +105,12 @@ AS
 			  
 			, [Subject]
 			, [Description]
-			, ISNULL([ActualEnd], [ScheduledStart])
-			, [ActualEnd]
-			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd]) -- schedule diff is actual duration in CRM
+			, [CreatedOn]
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN [ModifiedOn] ELSE NULL END
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 			, [ScheduledStart]					
 			, [ScheduledEnd]					
-			, NULL
+			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd])
 
 		    , @OwnerUserBusinessUnitId
 			, @OwnerUserId
@@ -130,20 +130,16 @@ AS
 	    WHERE [Id] = @Id;
 
 		INSERT INTO [DoubleGis_MSCRM].[dbo].[TaskBase]
-			( [ActivityId]
-			)
+			( [ActivityId] 			)
 		SELECT
 			  @CrmId
 	    FROM [Activity].[TaskBase]
 	    WHERE [Id] = @Id;
 
 		INSERT INTO [DoubleGis_MSCRM].[dbo].[TaskExtensionBase]
-			( [ActivityId]
-			, [Dg_type]
-			)
+			( [ActivityId], [Dg_type] )
 		SELECT
-			  @CrmId
-			, [TaskType]
+			  @CrmId, [TaskType]
 	    FROM [Activity].[TaskBase]
 	    WHERE [Id] = @Id;
 
@@ -163,12 +159,11 @@ AS
 
 				, [Subject]	= [ermBase].[Subject]
 				, [Description] = [ermBase].[Description]
-				, [ActualStart]	= ISNULL([ermBase].[ActualEnd], [ermBase].[ScheduledStart])
-				, [ActualEnd] = [ermBase].[ActualEnd]
-				, [ActualDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd]) -- schedule diff is actual duration in CRM
+				, [ActualEnd] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN [ModifiedOn] ELSE NULL END
+				, [ActualDurationMinutes] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 				, [ScheduledStart] = [ermBase].[ScheduledStart]
 				, [ScheduledEnd] = [ermBase].[ScheduledEnd]
-				, [ScheduledDurationMinutes] = NULL
+				, [ScheduledDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
 
 				, [OwningBusinessUnit] = @OwnerUserBusinessUnitId
 				, [OwningUser] = @OwnerUserId

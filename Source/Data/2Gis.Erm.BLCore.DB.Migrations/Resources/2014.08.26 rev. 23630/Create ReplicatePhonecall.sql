@@ -105,9 +105,9 @@ AS
 			  
 			, [Subject]
 			, [Description]
-			, ISNULL([ActualEnd], [ScheduledStart])
-			, [ActualEnd]
-			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd])
+			, [CreatedOn]
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN [ModifiedOn] ELSE NULL END
+			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 			, [ScheduledStart]					
 			, [ScheduledEnd]					
 			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd])
@@ -145,13 +145,11 @@ AS
 			( [ActivityId]
 			, [Dg_purpose]
 			, [Dg_result]
-			, [Dg_aftersaletype]
 			)
 		SELECT
 			  @CrmId
 			, [Purpose]
 			, 1
-			, [AfterSaleType]
 	    FROM [Activity].[PhonecallBase]
 	    WHERE [Id] = @Id;
 
@@ -171,9 +169,8 @@ AS
 
 				, [Subject]	= [ermBase].[Subject]
 				, [Description] = [ermBase].[Description]
-				, [ActualStart]	= ISNULL([ermBase].[ActualEnd], [ermBase].[ScheduledStart])
-				, [ActualEnd] = [ermBase].[ActualEnd]
-				, [ActualDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
+				, [ActualEnd] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN [ModifiedOn] ELSE NULL END
+				, [ActualDurationMinutes] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
 				, [ScheduledStart] = [ermBase].[ScheduledStart]
 				, [ScheduledEnd] = [ermBase].[ScheduledEnd]
 				, [ScheduledDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
@@ -203,7 +200,6 @@ AS
 
 	    UPDATE [crmExtension]
 		   SET [Dg_purpose] = [ermBase].[Purpose]
-			 , [Dg_aftersaletype] = [ermBase].[AfterSaleType]
 	    FROM [DoubleGis_MSCRM].[dbo].[PhonecallExtensionBase] [crmExtension]
 		    INNER JOIN [Activity].[PhonecallBase] [ermBase]
 			ON [crmExtension].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].Id = @Id;
@@ -233,8 +229,7 @@ AS
 		CASE refs.Reference 
 			WHEN 0 THEN 9			-- Owner			(CRM: 9)
 			WHEN 1 THEN 8			-- RegardingObject	(ERM: 1, CRM: 8)
-			WHEN 5 THEN 1			-- From				(ERM: 5, CRM: 1)
-			WHEN 6 THEN 2			-- To				(ERM: 6, CRM: 2)
+			WHEN 2 THEN 2			-- Recipient		(ERM: 2, CRM: 2)
 			END AS [ParticipationTypeMask]
 	FROM (
 		SELECT 
