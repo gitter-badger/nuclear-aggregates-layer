@@ -6,53 +6,79 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activity;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
-    public sealed class UpdateAppointmentAggregationService : IUpdateAppointmentAggregateService, IUpdateRegardingObjectAggregateService<Appointment>
+    public sealed class UpdateAppointmentAggregationService : IUpdateAppointmentAggregateService
     {
         private const string ActivityHasNoTheIdentityMessage = "The appointment has no the identity.";
 
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<Appointment> _repository;
-        private readonly IRepository<RegardingObject<Appointment>> _referenceRepository;
+        private readonly IRepository<AppointmentRegardingObject> _referenceRepository;
+        private readonly IRepository<AppointmentAttendee> _attendeeRepository;
 
         public UpdateAppointmentAggregationService(
             IOperationScopeFactory operationScopeFactory,
             IRepository<Appointment> repository,
-            IRepository<RegardingObject<Appointment>> referenceRepository)
+            IRepository<AppointmentRegardingObject> referenceRepository,
+            IRepository<AppointmentAttendee> attendeeRepository)
         {
             _operationScopeFactory = operationScopeFactory;
             _repository = repository;
             _referenceRepository = referenceRepository;
+            _attendeeRepository = attendeeRepository;
         }
 
-        public void Update(Appointment appointment)
+        private static void CheckAppointment(Appointment appointment)
         {
+            if (appointment == null)
+            {
+                throw new ArgumentNullException("appointment");
+            }
             if (appointment.Id == 0)
             {
                 throw new ArgumentException(ActivityHasNoTheIdentityMessage, "appointment");
             }
+        }
+
+        public void Update(Appointment appointment)
+        {
+            CheckAppointment(appointment);
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Appointment>())
             {
                 _repository.Update(appointment);
-                operationScope.Updated<Appointment>(appointment.Id);
-
                 _repository.Save();
+                
+                operationScope.Updated<Appointment>(appointment.Id);
                 operationScope.Complete();
             }
         }
 
-        public void ChangeRegardingObjects(IEnumerable<RegardingObject<Appointment>> oldReferences, IEnumerable<RegardingObject<Appointment>> newReferences)
+        public void UpdateAttendees(Appointment appointment, IEnumerable<AppointmentAttendee> oldAttendees, IEnumerable<AppointmentAttendee> newAttendees)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignRegardingObjectIdentity, RegardingObject<Appointment>>())
+            CheckAppointment(appointment);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Appointment>())
             {
-                _referenceRepository.Update(oldReferences, newReferences);
+                _attendeeRepository.Update<Appointment, AppointmentAttendee>(oldAttendees, newAttendees);
+                _attendeeRepository.Save();
+                
+                operationScope.Updated<Appointment>(appointment.Id);
+                operationScope.Complete();
+            }
+        }
 
-                //operationScope.Updated<RegardingObject<Appointment>>(newReferences);
+        public void ChangeRegardingObjects(Appointment appointment, IEnumerable<AppointmentRegardingObject> oldReferences, IEnumerable<AppointmentRegardingObject> newReferences)
+        {
+            CheckAppointment(appointment);
 
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Appointment>())
+            {
+                _referenceRepository.Update<Appointment, AppointmentRegardingObject>(oldReferences, newReferences);
+
+                operationScope.Updated<Appointment>(appointment.Id);
                 operationScope.Complete();
             }
         }

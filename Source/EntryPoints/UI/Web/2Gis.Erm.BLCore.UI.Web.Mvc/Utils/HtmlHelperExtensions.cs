@@ -252,6 +252,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             sb.AppendFormat("disabled:{0}, ", lookupSettings.Disabled.ToString(CultureInfo.InvariantCulture).ToLower());
             sb.AppendFormat("readOnly:{0}, ", lookupSettings.ReadOnly.ToString(CultureInfo.InvariantCulture).ToLower());
             sb.AppendFormat("showReadOnlyCard:{0}, ", lookupSettings.ShowReadOnlyCard.ToString(CultureInfo.InvariantCulture).ToLower());
+            sb.AppendFormat("supressMatchesErrors:{0}, ", lookupSettings.SupressMatchesErrors.ToString(CultureInfo.InvariantCulture).ToLower());
             sb.AppendFormat("id:\"{0}\", ", name);
             sb.AppendFormat("name:\"{0}\", ", name);
             sb.AppendFormat("applyTo:\"{0}\", ", name);
@@ -548,6 +549,33 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         public static MvcHtmlString SectionHead<TModel>(this HtmlHelper<TModel> htmlHelper, string id, string title)
         {
             return new MvcHtmlString(String.Format("<div id='{0}' class='section-bar'><span>{1}</span></div><br/>", id, title));
+        }
+
+        public static MvcHtmlString SectionRow<TModel>(this HtmlHelper<TModel> htmlHelper, params MvcHtmlString[] content)
+        {
+            return SectionRow(htmlHelper, null, content);
+        }
+
+        public static MvcHtmlString SectionRow<TModel>(this HtmlHelper<TModel> htmlHelper, object htmlAttributes = null, params MvcHtmlString[] content)
+        {
+            var builder = new TagBuilder("div");
+            builder.AddCssClass("row-wrapper");
+            builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            builder.InnerHtml = content.Aggregate(new StringBuilder(), (acc, item) => acc.AppendLine(item.ToHtmlString())).ToString();
+            return new MvcHtmlString(builder.ToString());
+        }
+
+        public static MvcHtmlString Section<TModel>(this HtmlHelper<TModel> htmlHelper, string tagName, object htmlAttributes = null, params MvcHtmlString[] content)
+        {
+            return Section(htmlHelper, tagName, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), content);
+        }
+
+        public static MvcHtmlString Section<TModel>(this HtmlHelper<TModel> htmlHelper, string tagName, IDictionary<string,object> htmlAttributes = null, params MvcHtmlString[] content)
+        {
+            var builder = new TagBuilder(tagName);
+            builder.MergeAttributes(htmlAttributes);
+            builder.InnerHtml = content.Aggregate(new StringBuilder(), (acc, item) => acc.AppendLine(item.ToHtmlString())).ToString();
+            return new MvcHtmlString(builder.ToString());
         }
 
         public static MvcHtmlString EmptyBlock<TModel>(this HtmlHelper<TModel> htmlHelper, FieldFlex wrapperCls)

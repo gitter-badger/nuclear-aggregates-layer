@@ -552,8 +552,8 @@
   <data name="TitlePlan" xml:space="preserve">
     <value>Planning</value>
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
-    <value>Purpose/Result</value>
+  <data name="TitleResult" xml:space="preserve">
+    <value>Result</value>
   </data>
   <data name="TitleRegarding" xml:space="preserve">
     <value>Related to</value>

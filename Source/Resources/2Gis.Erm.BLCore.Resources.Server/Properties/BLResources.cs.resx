@@ -552,8 +552,8 @@
   <data name="TitlePlan" xml:space="preserve">
     <value>Plánování</value>
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
-    <value>Cíl/výsledek</value>
+  <data name="TitleResult" xml:space="preserve">
+    <value>Výsledek</value>
   </data>
   <data name="TitleRegarding" xml:space="preserve">
     <value>Vztahující se</value>

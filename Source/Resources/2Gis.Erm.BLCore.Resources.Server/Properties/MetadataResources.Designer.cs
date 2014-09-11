@@ -124,24 +124,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Состояние.
-        /// </summary>
-        public static string ActivityBaseViewModelAbstract_Status {
-            get {
-                return ResourceManager.GetString("ActivityBaseViewModelAbstract_Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Тип.
-        /// </summary>
-        public static string ActivityBaseViewModelAbstract_Type {
-            get {
-                return ResourceManager.GetString("ActivityBaseViewModelAbstract_Type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Вид деятельности.
         /// </summary>
         public static string ActivityType {
@@ -228,15 +210,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Address {
             get {
                 return ResourceManager.GetString("Address", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ошибка.
-        /// </summary>
-        public static string AdvertisementElementErrorDescription {
-            get {
-                return ResourceManager.GetString("AdvertisementElementErrorDescription", resourceCulture);
             }
         }
         
@@ -349,6 +322,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Участник.
+        /// </summary>
+        public static string Attendee {
+            get {
+                return ResourceManager.GetString("Attendee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Название банка.
         /// </summary>
         public static string Bank {
@@ -453,6 +435,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string BargainType {
             get {
                 return ResourceManager.GetString("BargainType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to НДС.
+        /// </summary>
+        public static string BargainTypeVAT {
+            get {
+                return ResourceManager.GetString("BargainTypeVAT", resourceCulture);
             }
         }
         
@@ -1067,7 +1058,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonName", resourceCulture);
             }
         }
-       
         
         /// <summary>
         ///   Looks up a localized string similar to Ссылка на параграф правил.
@@ -1086,7 +1076,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonType", resourceCulture);
             }
         }
-       
         
         /// <summary>
         ///   Looks up a localized string similar to Подразделение.
@@ -1330,7 +1319,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("EnDenialReason", resourceCulture);
             }
         }
-        
         
         /// <summary>
         ///   Looks up a localized string similar to Окончание (факт).
@@ -2184,6 +2172,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string LimitCloseDate {
             get {
                 return ResourceManager.GetString("LimitCloseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Место встречи.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
             }
         }
         
@@ -3180,6 +3177,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Получатель.
         /// </summary>
+        public static string Recipient {
+            get {
+                return ResourceManager.GetString("Recipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получатель.
+        /// </summary>
         public static string RecipientName {
             get {
                 return ResourceManager.GetString("RecipientName", resourceCulture);
@@ -3444,6 +3450,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ScheduledStart {
             get {
                 return ResourceManager.GetString("ScheduledStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправитель.
+        /// </summary>
+        public static string Sender {
+            get {
+                return ResourceManager.GetString("Sender", resourceCulture);
             }
         }
         

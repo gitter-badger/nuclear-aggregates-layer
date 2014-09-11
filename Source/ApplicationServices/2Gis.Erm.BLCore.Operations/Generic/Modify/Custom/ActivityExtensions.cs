@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -6,17 +10,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
 	internal static class ActivityExtensions
 	{
-		public static RegardingObject<TEntity> ReferenceIfAny<TEntity>(this TEntity entity, EntityName targetEntityName, long? targetEntityId)
-			where TEntity : class, IEntity, IEntityKey
-		{
-			return targetEntityId.HasValue
-				       ? new RegardingObject<TEntity>
-					       {
-						       SourceEntityId = entity.Id,
-						       TargetEntityName = targetEntityName,
-						       TargetEntityId = targetEntityId.Value,
-					       }
-				       : null;
-		}
+	    public static IEnumerable<TEntityReference> ReferencesIfAny<TEntity, TEntityReference>(this TEntity entity, IEnumerable<EntityReference> references)
+            where TEntity : class, IEntity, IEntityKey
+            where TEntityReference : EntityReference<TEntity>, new()
+        {
+            return from reference in (references ?? Enumerable.Empty<EntityReference>())
+                   where reference.Id.HasValue
+                   select entity.ReferencesIfAny<TEntity,TEntityReference>(reference);
+        }
+
+	    public static TEntityReference ReferencesIfAny<TEntity, TEntityReference>(this TEntity entity, EntityReference reference)
+            where TEntity : class, IEntity, IEntityKey
+            where TEntityReference : EntityReference<TEntity>, new()
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+	        return reference == null || !reference.Id.HasValue
+                   ? null
+                   : new TEntityReference { SourceEntityId = entity.Id, TargetEntityName = reference.EntityName, TargetEntityId = reference.Id.Value };
+        }
 	}
 }

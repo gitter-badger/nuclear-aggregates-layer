@@ -6,34 +6,45 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activity;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
-    public sealed class UpdatePhonecallAggregationService : IUpdatePhonecallAggregateService, IUpdateRegardingObjectAggregateService<Phonecall>
+    public sealed class UpdatePhonecallAggregationService : IUpdatePhonecallAggregateService
     {
         private const string ActivityHasNoTheIdentityMessage = "The phonecall has no the identity.";
 
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<Phonecall> _repository;
-        private readonly IRepository<RegardingObject<Phonecall>> _referenceRepository;
+        private readonly IRepository<PhonecallRegardingObject> _referenceRepository;
+        private readonly IRepository<PhonecallRecipient> _recipientRepository;
 
         public UpdatePhonecallAggregationService(
             IOperationScopeFactory operationScopeFactory,
             IRepository<Phonecall> repository,
-            IRepository<RegardingObject<Phonecall>> referenceRepository)
+            IRepository<PhonecallRegardingObject> referenceRepository,
+            IRepository<PhonecallRecipient> recipientRepository)
         {
             _operationScopeFactory = operationScopeFactory;
             _repository = repository;
             _referenceRepository = referenceRepository;
+            _recipientRepository = recipientRepository;
         }
 
-        public void Update(Phonecall phonecall)
+        private static void CheckPhonecall(Phonecall phonecall)
         {
+            if (phonecall == null)
+            {
+                throw new ArgumentNullException("phonecall");
+            }
             if (phonecall.Id == 0)
             {
                 throw new ArgumentException(ActivityHasNoTheIdentityMessage, "phonecall");
             }
+        }
+
+        public void Update(Phonecall phonecall)
+        {
+            CheckPhonecall(phonecall);
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Phonecall>())
             {
@@ -45,16 +56,39 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             }
         }
 
-        public void ChangeRegardingObjects(IEnumerable<RegardingObject<Phonecall>> oldReferences, IEnumerable<RegardingObject<Phonecall>> newReferences)
+        public void ChangeRegardingObjects(Phonecall phonecall, IEnumerable<PhonecallRegardingObject> oldReferences, IEnumerable<PhonecallRegardingObject> newReferences)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignRegardingObjectIdentity, RegardingObject<Phonecall>>())
+            CheckPhonecall(phonecall);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Phonecall>())
             {
-                _referenceRepository.Update(oldReferences, newReferences);
+                _referenceRepository.Update<Phonecall, PhonecallRegardingObject>(oldReferences, newReferences);
 
-                //operationScope.Updated<RegardingObject<Appointment>>(newReferences);
-
+                operationScope.Updated<Phonecall>(phonecall.Id);
                 operationScope.Complete();
             }
+        }
+
+        public void ChangeRecipient(Phonecall phonecall, PhonecallRecipient oldRecipient, PhonecallRecipient newRecipient)
+        {
+            CheckPhonecall(phonecall);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Phonecall>())
+            {
+                _recipientRepository.Update<Phonecall, PhonecallRecipient>(Enumerate(oldRecipient), Enumerate(newRecipient));
+
+                operationScope.Updated<Phonecall>(phonecall.Id);
+                operationScope.Complete();
+            }
+        }
+
+        private static IEnumerable<PhonecallRecipient> Enumerate(PhonecallRecipient recipient)
+        {
+            if (recipient == null)
+            {
+                yield break;
+            }
+            yield return recipient;
         }
     }
 }

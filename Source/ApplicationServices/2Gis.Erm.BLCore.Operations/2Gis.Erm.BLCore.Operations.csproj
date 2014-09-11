@@ -383,6 +383,10 @@
     <Compile Include="Generic\File\UploadNoteFileService.cs" />
     <Compile Include="Generic\File\UploadPrintFormTemplateFileService.cs" />
     <Compile Include="Generic\File\ValidateFileService.cs" />
+    <Compile Include="Generic\Get\Activity\GetAppointmentDtoService.cs" />
+    <Compile Include="Generic\Get\Activity\GetLetterDtoService.cs" />
+    <Compile Include="Generic\Get\Activity\GetPhonecallDtoService.cs" />
+    <Compile Include="Generic\Get\Activity\GetTaskDtoService.cs" />
     <Compile Include="Generic\Get\GetAccountDetailDtoService.cs" />
     <Compile Include="Generic\Get\GetAccountDtoService.cs" />
     <Compile Include="Generic\Get\GetAdditionalFirmServiceDtoService.cs" />
@@ -441,16 +445,19 @@
     <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyLetterService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\Activity\LetterObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdditionalFirmServiceObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdsTemplatesAdsElementTemplateObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementTemplateObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementTemplateObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\Activity\AppointmentObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
@@ -480,6 +487,7 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\OrderObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\OrderPositionObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\OrganizationUnitObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\Activity\PhoneCallObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\PlatformObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\PositionCategoryObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\PositionChildrenObtainer.cs" />
@@ -489,6 +497,7 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\PrintFormTemplateObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ProjectObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\RoleObtainer.cs" />
+    <Compile Include="Generic\Modify\DomainEntityObtainers\Activity\TaskObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\TerritoryObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ThemeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ThemeTemplateObtainer.cs" />

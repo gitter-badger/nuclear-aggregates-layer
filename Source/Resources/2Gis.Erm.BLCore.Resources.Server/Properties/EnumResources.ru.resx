@@ -1945,4 +1945,7 @@
   <data name="EntityNameBank" xml:space="preserve">
     <value>Банк</value>
   </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Письмо</value>
+  </data>
 </root>

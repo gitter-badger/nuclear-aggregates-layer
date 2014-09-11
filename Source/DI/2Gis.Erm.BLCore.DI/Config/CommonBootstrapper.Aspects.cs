@@ -102,13 +102,17 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 						
 						// TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
 						.RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<RegardingObject<Appointment>>, EFMappingRepository<RegardingObject<Appointment>, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<AppointmentRegardingObject>, EFMappingRepository<AppointmentRegardingObject, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<AppointmentAttendee>, EFMappingRepository<AppointmentAttendee, AppointmentReference>>(Lifetime.PerResolve)
 						.RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<RegardingObject<Phonecall>>, EFMappingRepository<RegardingObject<Phonecall>, PhonecallReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<PhonecallRegardingObject>, EFMappingRepository<PhonecallRegardingObject, PhonecallReference>>(Lifetime.PerResolve)
+						.RegisterType<IRepository<PhonecallRecipient>, EFMappingRepository<PhonecallRecipient, PhonecallReference>>(Lifetime.PerResolve)
 						.RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<RegardingObject<Task>>, EFMappingRepository<RegardingObject<Task>, TaskReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<TaskRegardingObject>, EFMappingRepository<TaskRegardingObject, TaskReference>>(Lifetime.PerResolve)
 						.RegisterType<IRepository<Letter>, EFMappingRepository<Letter, LetterBase>>(Lifetime.PerResolve)
-						.RegisterType<IRepository<RegardingObject<Letter>>, EFMappingRepository<RegardingObject<Letter>, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<LetterRegardingObject>, EFMappingRepository<LetterRegardingObject, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<LetterSender>, EFMappingRepository<LetterSender, LetterReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<LetterRecipient>, EFMappingRepository<LetterRecipient, LetterReference>>(Lifetime.PerResolve)
 
                         // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
