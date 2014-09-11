@@ -1,6 +1,5 @@
 using System;
 
-using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
@@ -19,15 +18,14 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string Priority { get; set; }
         public ActivityStatus StatusEnum { get; set; }
         public string Status { get; set; }
-        public AfterSaleServiceType AfterSaleServiceTypeEnum { get; set; }
-        public string AfterSaleServiceType { get; set; }
         public long OwnerCode { get; set; }
         public string OwnerName { get; set; }
 
         public long? ClientId { get; set; }
-        public long? ContactId { get; set; }
-        public long? DealId { get; set; }
         public long? FirmId { get; set; }
+        public long? FirmClientId { get; set; }
+        public long? DealId { get; set; }
+        public long? DealClientId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public TaskType TaskType { get; set; }
