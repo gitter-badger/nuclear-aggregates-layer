@@ -5193,4 +5193,7 @@
   <data name="DealClientIsInReserve" xml:space="preserve">
     <value />
   </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
+    <value />
+  </data>
 </root>

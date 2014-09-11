@@ -5209,4 +5209,7 @@ Doba zveřejnění: {3}.</value>
   <data name="DealClientIsInReserve" xml:space="preserve">
     <value>Клиент сделки находится в резерве.</value>
   </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Идет сборка. Редактирование позиции заказа запрещено.</value>
+  </data>
 </root>
