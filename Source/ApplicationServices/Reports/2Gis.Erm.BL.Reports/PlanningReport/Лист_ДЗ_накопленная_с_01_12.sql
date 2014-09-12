@@ -1,5 +1,5 @@
 ﻿--declare 	@IssueDate date = '20130901'
---			,@City int = 1
+--			,@City bigint = 1
 DECLARE
 	@DZCheckPoint date = '20111201'
 
@@ -7,7 +7,7 @@ DECLARE
 DECLARE 
 	@StartDate DATE = @DZCheckPoint
 	, @EndDate DATE = @IssueDate
-	, @OrganizationUnit INT = @City
+	, @OrganizationUnit bigint = @City
 	, @ShowLimits BIT = 1;
 
 --Отсюда начинается запрос отчета по оборотам лицевых счетов
