@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
@@ -20,6 +23,8 @@ using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLQuerying.DI.Config;
+using DoubleGis.Erm.BLQuerying.TaskService.DI;
+using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
@@ -34,6 +39,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -42,7 +48,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
@@ -82,7 +87,7 @@ namespace DoubleGis.Erm.TaskService.DI
             container.InitializeDIInfrastructure();
             
             var massProcessors = new IMassProcessor[]
-                { 
+                {
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new CheckApplicationServicesConventionsMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
@@ -91,11 +96,15 @@ namespace DoubleGis.Erm.TaskService.DI
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
-                    new IntergationServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new IntegrationServicesMassProcessor(container,
+                                                         EntryPointSpecificLifetimeManagerFactory,
+                                                         settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
+                                                             ? new[] { typeof(CardServiceBusDto), typeof(FirmServiceBusDto) }
+                                                             : new Type[0]),
                     new TaskServiceJobsMassProcessor(container)
                 };
 
-            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
+            CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TaskServiceRoot.Instance,
                                                     settingsContainer,
@@ -106,10 +115,12 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
-                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>()))
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                          settingsContainer.AsSettings<IIntegrationSettings>()))
                             .ConfigureServiceClient();
 
-            container.ConfigureQds(EntryPointSpecificLifetimeManagerFactory, settingsContainer.AsSettings<INestSettings>());
+            container.ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>())
+                     .ConfigureQdsIndexing(EntryPointSpecificLifetimeManagerFactory);
 
             return container;
         }
@@ -119,21 +130,15 @@ namespace DoubleGis.Erm.TaskService.DI
             return Lifetime.PerScope;
         }
 
-        private static IUnityContainer ConfigureUnity(
-            this IUnityContainer container, 
-            IEnvironmentSettings environmentSettings,
-            IConnectionStringSettings connectionStringSettings,
-            IGlobalizationSettings globalizationSettings,
-            IMsCrmSettings msCrmSettings,
-            ICachingSettings cachingSettings,
-            IOperationLoggingSettings operationLoggingSettings)
+        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings, IGlobalizationSettings globalizationSettings, IMsCrmSettings msCrmSettings, ICachingSettings cachingSettings, IOperationLoggingSettings operationLoggingSettings, IIntegrationSettings integrationSettings)
         {
             return container
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()
-                    .ConfigureCacheAdapter(cachingSettings)
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                    .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
+                    .ConfigureReplicationMetadata(msCrmSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                     .ConfigureIdentityInfrastructure()
                     .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
@@ -146,7 +151,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     .ConfigurePerformedOperationsProcessing();
         }
 
-        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
+        private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
         {
@@ -157,13 +162,6 @@ namespace DoubleGis.Erm.TaskService.DI
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
             }
-
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
-        {
-            return cachingSettings.EnableCaching
-                ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
-                : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(EntryPointSpecificLifetimeManagerFactory());
-        }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
@@ -258,7 +256,6 @@ namespace DoubleGis.Erm.TaskService.DI
                     }
                 };
 
-
             var messageAggregatedProcessingResultHandlerResolversMap = new Dictionary<IMessageFlow, Func<Type>>
                 {
                     {
@@ -283,10 +280,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     },
                 };
 
-
-
-            return container.RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton)
-                            .RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
+            return container.RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageReceiverFactory, UnityMessageReceiverFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageValidatorFactory, UnityMessageValidatorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageTransformerFactory, UnityMessageTransformerFactory>(Lifetime.PerScope)
@@ -310,9 +304,8 @@ namespace DoubleGis.Erm.TaskService.DI
                         new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmRabbitMq)));
         }
 
-
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
-        {
+            {
             return container;
         }
     }

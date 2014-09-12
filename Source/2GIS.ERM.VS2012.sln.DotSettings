@@ -2,9 +2,11 @@
 	<s:Boolean x:Key="/Default/CodeInspection/CodeAnnotations/NamespacesWithAnnotations/=DoubleGis_002EErm_002EUI_002EWPF_002EClient_002EAnnotations/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=SpecifyACultureInStringConversionExplicitly/@EntryIndexedValue">HINT</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=StyleCop_002ESA1303/@EntryIndexedValue">DO_NOT_SHOW</s:String>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_FIRST_ARG_BY_PAREN/@EntryValue">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_LINQ_QUERY/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_MULTILINE_ARGUMENT/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_MULTILINE_ARRAY_AND_OBJECT_INITIALIZER/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_MULTILINE_CALLS_CHAIN/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_MULTILINE_EXPRESSION/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_MULTILINE_EXTENDS_LIST/@EntryValue">True</s:Boolean>
@@ -24,6 +26,7 @@
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/FORCE_IFELSE_BRACES_STYLE/@EntryValue">ALWAYS_ADD</s:String>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/FORCE_USING_BRACES_STYLE/@EntryValue">ALWAYS_ADD</s:String>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/FORCE_WHILE_BRACES_STYLE/@EntryValue">ALWAYS_ADD</s:String>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INDENT_ANONYMOUS_METHOD_BLOCK/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INITIALIZER_BRACES/@EntryValue">NEXT_LINE_SHIFTED_2</s:String>
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_BLANK_LINES_IN_CODE/@EntryValue">1</s:Int64>
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_BLANK_LINES_IN_DECLARATIONS/@EntryValue">1</s:Int64>
@@ -50,6 +53,7 @@
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MVVM/@EntryIndexedValue">MVVM</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UI/@EntryIndexedValue">UI</s:String>
   	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CRM/@EntryIndexedValue">CRM</s:String>
+  	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DB/@EntryIndexedValue">DB</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=LocalConstants/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Editor/MatchingBraceHighlighting/Position/@EntryValue">BOTH_SIDES</s:String>
 	<s:String x:Key="/Default/Environment/Editor/MatchingBraceHighlighting/Style/@EntryValue">OUTLINE</s:String>
