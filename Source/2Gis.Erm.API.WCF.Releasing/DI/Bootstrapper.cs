@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
@@ -73,6 +74,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IFtpExportIntegrationModeSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           loggerContextManager))
                      .ConfigureServiceClient();
         }
@@ -89,6 +91,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             ICachingSettings cachingSettings, 
             IFtpExportIntegrationModeSettings ftpExportIntegrationModeSettings,
             IOperationLoggingSettings operationLoggingSettings,
+            IMsCrmSettings msCrmSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
@@ -98,6 +101,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .ConfigureReleasingInfrastructure(ftpExportIntegrationModeSettings)
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureExportMetadata()
