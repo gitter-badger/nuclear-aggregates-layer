@@ -1315,7 +1315,7 @@
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
           <RelatedItem Name="FirmAddresses" NameLocaleResourceId="CrdRelFirmAddresses" RequestUrl="/Grid/View/FirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="firmId={Id}" />
           <RelatedItem Name="FirmAdvertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />

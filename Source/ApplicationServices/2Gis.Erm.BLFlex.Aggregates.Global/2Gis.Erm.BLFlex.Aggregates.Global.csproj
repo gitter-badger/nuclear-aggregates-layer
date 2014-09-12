@@ -108,6 +108,10 @@
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Firms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Firms.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Shared;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
@@ -17,29 +20,35 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
 {
     public class EmiratesImportCardService : IImportCardService, IEmiratesAdapted
     {
-        private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IPhoneNumbersFormatter _phoneNumbersFormatter;
-        private readonly IPaymentMethodFormatter _paymentMethodFormatter;
-        private readonly IImportFirmAddressService _importFirmAddressService;
+        private readonly ICreateBlankFirmsOperationService _createBlankFirmsOperationService;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly IImportCategoryFirmAddressService _importCategoryFirmAddressService;
         private readonly IImportDepCardsService _importDepCardsService;
+        private readonly IImportFirmAddressService _importFirmAddressService;
         private readonly IImportFirmContactsService _importFirmContactsService;
+        private readonly IPaymentMethodFormatter _paymentMethodFormatter;
+        private readonly IPhoneNumbersFormatter _phoneNumbersFormatter;
+        private readonly IOperationScopeFactory _scopeFactory;
 
-        public EmiratesImportCardService(IOperationScopeFactory scopeFactory,
-                                         IPhoneNumbersFormatter phoneNumbersFormatter,
-                                         IPaymentMethodFormatter paymentMethodFormatter,
-                                         IImportFirmAddressService importFirmAddressService,
+        public EmiratesImportCardService(ICreateBlankFirmsOperationService createBlankFirmsOperationService,
+                                         IFirmReadModel firmReadModel,
                                          IImportCategoryFirmAddressService importCategoryFirmAddressService,
                                          IImportDepCardsService importDepCardsService,
-                                         IImportFirmContactsService importFirmContactsService)
+                                         IImportFirmAddressService importFirmAddressService,
+                                         IImportFirmContactsService importFirmContactsService,
+                                         IPaymentMethodFormatter paymentMethodFormatter,
+                                         IPhoneNumbersFormatter phoneNumbersFormatter,
+                                         IOperationScopeFactory scopeFactory)
         {
-            _scopeFactory = scopeFactory;
-            _phoneNumbersFormatter = phoneNumbersFormatter;
-            _paymentMethodFormatter = paymentMethodFormatter;
-            _importFirmAddressService = importFirmAddressService;
+            _createBlankFirmsOperationService = createBlankFirmsOperationService;
+            _firmReadModel = firmReadModel;
             _importCategoryFirmAddressService = importCategoryFirmAddressService;
             _importDepCardsService = importDepCardsService;
+            _importFirmAddressService = importFirmAddressService;
             _importFirmContactsService = importFirmContactsService;
+            _paymentMethodFormatter = paymentMethodFormatter;
+            _phoneNumbersFormatter = phoneNumbersFormatter;
+            _scopeFactory = scopeFactory;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -56,7 +65,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
             var phonesAndFaxes = depCards.SelectMany(x => x.Contacts)
                                          .Where(x => x.ContactType == ContactType.Phone || x.ContactType == ContactType.Fax)
                                          .Concat(posCards.SelectMany(x => x.Contacts)
-                                                        .Where(x => x.ContactType == ContactType.Phone || x.ContactType == ContactType.Fax))
+                                                         .Where(x => x.ContactType == ContactType.Phone || x.ContactType == ContactType.Fax))
                                          .ToArray();
 
             _phoneNumbersFormatter.FormatPhoneNumbers(phonesAndFaxes);
@@ -65,14 +74,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
 
             using (var scope = _scopeFactory.CreateNonCoupled<ImportCardIdentity>())
             {
-                var firmIds = posCards.Select(x => x.FirmCode).ToArray();
+                var branchCodesByFirmIds = posCards.GroupBy(x => x.FirmCode)
+                                                   .ToDictionary(x => x.Key, x => x.Select(y => y.BranchCode).First());
+                var existingFirms = _firmReadModel.GetFirms(branchCodesByFirmIds.Keys);
+                var firmIdsToCreate = branchCodesByFirmIds.Keys.Except(existingFirms.Keys);
 
-                _importDepCardsService.Import(depCards.Select(x =>
-                                                              new DepCard
-                                                                  {
-                                                                      Id = x.Code,
-                                                                      IsHiddenOrArchived = x.IsHiddenOrArchived
-                                                                  }));
+                _createBlankFirmsOperationService.CreateBlankFirms(firmIdsToCreate.Select(x => new BlankFirmDto
+                                                                                                   {
+                                                                                                       FirmId = x,
+                                                                                                       BranchCode = branchCodesByFirmIds[x]
+                                                                                                   }));
+                _importDepCardsService.Import(depCards.Select(x => new DepCard
+                                                                       {
+                                                                           Id = x.Code,
+                                                                           IsHiddenOrArchived = x.IsHiddenOrArchived
+                                                                       }));
 
                 _importFirmAddressService.Import(posCards.Select(x => ToImportFirmAddressDto(x, formattedPaymentMethods)));
 
@@ -89,7 +105,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
                                                   posCards.Select(x => x.Code).Distinct(),
                                                   depCards.Select(x => x.Code).Distinct());
 
-                scope.Updated<Firm>(firmIds)
+                scope.Updated<Firm>(branchCodesByFirmIds.Keys)
                      .Complete();
             }
         }
@@ -127,7 +143,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.I
                             PaymentMethods = formattedPaymentMethods[posCard.Code],
                             Parts = new[] { new EmiratesFirmAddressPart { PoBox = posCard.PoBox } }
                         },
-
                     BranchCode = posCard.BranchCode,
                 };
         }
