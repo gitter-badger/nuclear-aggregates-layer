@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -48,6 +49,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata
                                                            .Then.Single<OrderProcessingRequest>("Billing")
                                                            .Then.Single<User>("Security")
                                                            .Then.Single<UserTerritory>("Security")
+                                                           .Then.Single<Appointment>("Activity")
+                                                           .Then.Single<Letter>("Activity")
+                                                           .Then.Single<Phonecall>("Activity")
+                                                           .Then.Single<Task>("Activity")
                                                            .Freeze();
         }
 

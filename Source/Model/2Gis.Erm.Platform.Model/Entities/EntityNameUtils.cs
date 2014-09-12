@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -69,7 +70,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             {
                 typeof(Firm),
                 typeof(FirmAddress),
-                typeof(Territory)
+                typeof(Territory),
+                typeof(Appointment),
+                typeof(Letter),
+                typeof(Phonecall),
+                typeof(Task)
             };
 
         public static readonly Type[] AllReplicated2MsCrmEntities =

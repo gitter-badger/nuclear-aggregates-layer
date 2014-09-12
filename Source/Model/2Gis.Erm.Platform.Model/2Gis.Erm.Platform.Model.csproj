@@ -225,17 +225,9 @@
       <Link>Entities\Erm\AppointmentBase.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentBaseDomainEntityDto.cs">
-      <Link>Entities\DTOs\AppointmentBaseDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentReference.cs">
       <Link>Entities\Erm\AppointmentReference.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentReferenceDomainEntityDto.cs">
-      <Link>Entities\DTOs\AppointmentReferenceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPosition.cs">
       <Link>Entities\Erm\AssociatedPosition.cs</Link>
@@ -673,6 +665,10 @@
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessingDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedOperationFinalProcessingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessing.cs">
       <Link>Entities\Erm\PerformedOperationPrimaryProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -685,17 +681,9 @@
       <Link>Entities\Erm\PhonecallBase.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallBaseDomainEntityDto.cs">
-      <Link>Entities\DTOs\PhonecallBaseDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallReference.cs">
       <Link>Entities\Erm\PhonecallReference.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallReferenceDomainEntityDto.cs">
-      <Link>Entities\DTOs\PhonecallReferenceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
       <Link>Entities\Erm\Platform.cs</Link>
@@ -765,17 +753,9 @@
       <Link>Entities\Erm\TaskBase.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskBaseDomainEntityDto.cs">
-      <Link>Entities\DTOs\TaskBaseDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskReference.cs">
       <Link>Entities\Erm\TaskReference.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskReferenceDomainEntityDto.cs">
-      <Link>Entities\DTOs\TaskReferenceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Territory.cs">
       <Link>Entities\Erm\Territory.cs</Link>
