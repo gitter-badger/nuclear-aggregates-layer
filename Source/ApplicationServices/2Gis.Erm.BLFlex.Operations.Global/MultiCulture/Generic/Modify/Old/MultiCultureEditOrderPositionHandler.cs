@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -211,12 +212,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
                     _publicService.Handle(new CalculateReleaseWithdrawalsRequest { Order = order });
 
-                    if (orderInfo.DealId != null)
-                    {
-                        // FIXME {all, 13.11.2013}: приехало из 1.0 - на кипре нет сделок, непонятно зачем вызывается в таком случае данный функционал
-                        _publicService.Handle(new ActualizeDealProfitIndicatorsRequest { DealIds = new[] { orderInfo.DealId.Value } });
-                    }
-
                     // Сохраняем изменения объектов Order  в БД, если по каким-то причинам это не сделал один из вышестоящих хендлеров
                     _orderRepository.Update(order);
                 }
@@ -273,11 +268,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
             if (entity.Amount != 1)
             {
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
-            }
-
-            if (entity.DiscountSum != 0 || entity.DiscountPercent != 0)
-            {
-                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount);
             }
 
             if (entity.PricePerUnitWithVat < 0 || entity.PricePerUnitWithVat < 0)

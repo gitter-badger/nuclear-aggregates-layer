@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -10,7 +9,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -21,9 +19,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
     public sealed class ListOrderService : ListEntityDtoServiceBase<Order, ListOrderDto>, IRussiaAdapted
     {
-        private static readonly Func<ListOrderDto, ISecurityServiceUserIdentifier, IUserContext, ListOrderDto> ListDataSelectFunc = (x, userIdentifierService, userContext) =>
+        private static readonly Func<ListOrderDto, ISecurityServiceUserIdentifier, ListOrderDto> ListDataSelectFunc = (x, userIdentifierService) =>
         {
-            x.WorkflowStep = x.WorkflowStepEnum.ToStringLocalized(EnumResources.ResourceManager, userContext.Profile.UserLocaleInfo.UserCultureInfo);
             x.OwnerName = userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
             return x;
         };
@@ -219,7 +216,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 case EntityName.LegalPerson:
                     return query
                         .Where(x => x.LegalPersonId == querySettings.ParentEntityId)
@@ -235,7 +232,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 case EntityName.Account:
                     return query
                         .Where(x => x.AccountId == querySettings.ParentEntityId)
@@ -251,7 +248,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 case EntityName.Firm:
                     return query
                         .Where(x => x.FirmId == querySettings.ParentEntityId)
@@ -267,7 +264,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
                 default:
                     return query
                         .Filter(_filterHelper
@@ -282,7 +279,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         .Select(selectExpression)
                         .Distinct()
                         .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService, _userContext));
+                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
             }
         }
     }
