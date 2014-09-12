@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using FluentAssertions;
 
@@ -27,14 +29,20 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         static EFDomainContext _domainContext;
 
+        static IMsCrmReplicationMetadataProvider _enabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(EntityNameUtils.AsyncReplicated2MsCrmEntities,
+                                                                                                                            EntityNameUtils.AllReplicated2MsCrmEntities
+                                                                                                                            .Except(
+                                                                                                                                                                               EntityNameUtils
+                                                                                                                                                                                   .AsyncReplicated2MsCrmEntities));
+
+        static IMsCrmReplicationMetadataProvider _disabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(Enumerable.Empty<Type>(), Enumerable.Empty<Type>());
+
         [Tags("DAL")]
         [Subject(typeof(EFDomainContext))]
         public abstract class EFDomainContextMockContext
         {
             Establish context = () =>
             {
-                MsCrmSettingsMock = new Mock<IMsCrmSettings>();
-                MsCrmSettingsMock.Setup(x => x.EnableReplication).Returns(true);
                 
                 ObjectContextMock  = new Mock<IDbContext>();
 
@@ -42,11 +50,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                      DefaultContextName,
                                                      ObjectContextMock.Object,
                                                      Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                     MsCrmSettingsMock.Object,
+                                                     _enabledReplicationMetadataProvider,
                                                      Mock.Of<ICommonLog>());
             };
 
-            protected static Mock<IMsCrmSettings> MsCrmSettingsMock { get; private set; }
             protected static Mock<IDbContext> ObjectContextMock { get; private set; }
         }
 
@@ -106,6 +113,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                              new StubEntityEntry(firm, EntityState.Unchanged)
                                          })
                                      .Verifiable();
+
+                    _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
+                                                     DefaultContextName,
+                                                     ObjectContextMock.Object,
+                                                     Mock.Of<IPendingChangesHandlingStrategy>(),
+                                                     _enabledReplicationMetadataProvider,
+                                                     Mock.Of<ICommonLog>());
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -129,14 +143,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class When_call_SaveChanges_with_disabled_EnableReplication_param : EFDomainContextMockContext
         {
+
             Establish context = () =>
                 {
-                    MsCrmSettingsMock.Setup(x => x.EnableReplication).Returns(false);
-
                     var deal = new Deal();
                     var order = new Order();
                     var orderPosition = new OrderPosition();
-
+               
                     ObjectContextMock.Setup(p => p.Entries())
                                      .Returns(new[]
                                          {
@@ -144,6 +157,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                              new StubEntityEntry(order, EntityState.Modified),
                                              new StubEntityEntry(orderPosition, EntityState.Deleted)
                                          });
+
+                    _domainContext = new EFDomainContext(Mock.Of<IProcessingContext>(),
+                                                         DefaultContextName,
+                                                         ObjectContextMock.Object,
+                                                         Mock.Of<IPendingChangesHandlingStrategy>(),
+                                                         _disabledReplicationMetadataProvider,
+                                                         Mock.Of<ICommonLog>());
                 };
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
@@ -168,7 +188,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                          DefaultContextName,
                                                          objectContextMock.Object,
                                                          new NullPendingChangesHandlingStrategy(),
-                                                         Mock.Of<IMsCrmSettings>(),
+                                                         _disabledReplicationMetadataProvider,
                                                          Mock.Of<ICommonLog>());
                 };
 
@@ -186,14 +206,14 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Establish context = () =>
             {
                 var objectContextMock = new Mock<IDbContext>();
-                objectContextMock.Setup(x => x.Entries())
-                                 .Returns(new[] { new StubEntityEntry(null, Moq.It.IsAny<EntityState>()) });
+                objectContextMock.Setup(x => x.HasChanges())
+                                 .Returns(true);
 
                 _domainContext = new EFDomainContext(new ProcessingContext(),
                                                      DefaultContextName,
                                                      objectContextMock.Object,
-                                                     new ForcePendingChangesHandlingStrategy(), 
-                                                     Mock.Of<IMsCrmSettings>(),
+                                                     new ForcePendingChangesHandlingStrategy(),
+                                                    _disabledReplicationMetadataProvider,
                                                      Mock.Of<ICommonLog>());
             };
 
