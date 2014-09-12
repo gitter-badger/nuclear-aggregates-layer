@@ -3,14 +3,12 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -19,7 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public sealed class ListActivityService : ListEntityDtoServiceBase<Activity, ListActivityInstanceDto>
+    public sealed class ListActivityService : ListEntityDtoServiceBase<Activity, ListActivityDto>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICompositeEntityDecorator _compositeEntityDecorator;
@@ -40,7 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
-        private IQueryable<ListActivityInstanceDto> ListAppointments()
+        private IQueryable<ListActivityDto> ListAppointments()
         {
             var appointments = _compositeEntityDecorator.Find(Specs.Find.Active<Appointment>());
             var appointmentRegardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == EntityName.Client));
@@ -56,7 +54,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from regardingDeal in appointmentRegardingDeals.Where(x => x.SourceEntityId == appointment.Id).DefaultIfEmpty()
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
-                select new ListActivityInstanceDto
+                select new ListActivityDto
                 {
                     ActivityTypeEnum = ActivityType.Appointment,
                     Id = appointment.Id,
@@ -65,7 +63,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ScheduledStart = appointment.ScheduledStart,
                     ScheduledEnd = appointment.ScheduledEnd,
                     ActualEnd = appointment.Status == ActivityStatus.Completed || appointment.Status == ActivityStatus.Canceled ? appointment.ModifiedOn : null,
-                    PriorityEnum = ActivityPriority.Average,
                     StatusEnum = appointment.Status,
                     IsDeleted = appointment.IsDeleted,
                     IsActive = appointment.IsActive,
@@ -81,7 +78,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 };
         }
 
-        private IQueryable<ListActivityInstanceDto> ListLetters()
+        private IQueryable<ListActivityDto> ListLetters()
         {
             var letters = _compositeEntityDecorator.Find(Specs.Find.Active<Letter>());
             var letterRegardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == EntityName.Client));
@@ -97,7 +94,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from regardingDeal in letterRegardingDeals.Where(x => x.SourceEntityId == letter.Id).DefaultIfEmpty()
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
-                select new ListActivityInstanceDto
+                select new ListActivityDto
                 {
                     ActivityTypeEnum = ActivityType.Letter,
                     Id = letter.Id,
@@ -106,7 +103,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ScheduledStart = letter.ScheduledStart,
                     ScheduledEnd = letter.ScheduledStart,
                     ActualEnd = letter.Status == ActivityStatus.Completed || letter.Status == ActivityStatus.Canceled ? letter.ModifiedOn : null,
-                    PriorityEnum = letter.Priority,
                     StatusEnum = letter.Status,
                     IsDeleted = letter.IsDeleted,
                     IsActive = letter.IsActive,
@@ -122,7 +118,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 };
         }
 
-        private IQueryable<ListActivityInstanceDto> ListPhonecalls()
+        private IQueryable<ListActivityDto> ListPhonecalls()
         {
             var phonecalls = _compositeEntityDecorator.Find(Specs.Find.Active<Phonecall>());
             var phonecallRegardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<PhonecallRegardingObject>(x => x.TargetEntityName == EntityName.Client));
@@ -138,7 +134,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from regardingDeal in phonecallRegardingDeals.Where(x => x.SourceEntityId == phonecall.Id).DefaultIfEmpty()
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
-                select new ListActivityInstanceDto
+                select new ListActivityDto
                 {
                     ActivityTypeEnum = ActivityType.Phonecall,
                     Id = phonecall.Id,
@@ -147,7 +143,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ScheduledStart = phonecall.ScheduledStart,
                     ScheduledEnd = phonecall.ScheduledStart,
                     ActualEnd = phonecall.Status == ActivityStatus.Completed || phonecall.Status == ActivityStatus.Canceled ? phonecall.ModifiedOn : null,
-                    PriorityEnum = phonecall.Priority,
                     StatusEnum = phonecall.Status,
                     IsDeleted = phonecall.IsDeleted,
                     IsActive = phonecall.IsActive,
@@ -163,7 +158,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 };
         }
 
-        private IQueryable<ListActivityInstanceDto> ListTasks()
+        private IQueryable<ListActivityDto> ListTasks()
         {
             var tasks = _compositeEntityDecorator.Find(Specs.Find.Active<Task>());
             var taskRegardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == EntityName.Client));
@@ -179,7 +174,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from regardingDeal in taskRegardingDeals.Where(x => x.SourceEntityId == task.Id).DefaultIfEmpty()
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
-                select new ListActivityInstanceDto
+                select new ListActivityDto
                 {
                     ActivityTypeEnum = ActivityType.Task,
                     Id = task.Id,
@@ -188,7 +183,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ScheduledStart = task.ScheduledStart,
                     ScheduledEnd = task.ScheduledStart,
                     ActualEnd = task.Status == ActivityStatus.Completed || task.Status == ActivityStatus.Canceled ? task.ModifiedOn : null,
-                    PriorityEnum = task.Priority,
                     StatusEnum = task.Status,
                     IsDeleted = task.IsDeleted,
                     IsActive = task.IsActive,
@@ -265,11 +259,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .QuerySettings(_filterHelper, querySettings)
                 .Transform(x =>
                 {
-                    x.ActivityType = x.ActivityTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    x.Priority = x.PriorityEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-
                     return x;
                 });
 

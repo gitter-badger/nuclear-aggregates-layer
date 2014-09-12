@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListActivityInstanceDto : IOperationSpecificEntityDto
+    public sealed class ListActivityDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
         public ActivityType ActivityTypeEnum { get; set; }

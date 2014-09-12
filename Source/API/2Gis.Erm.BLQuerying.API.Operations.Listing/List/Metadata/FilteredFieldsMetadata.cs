@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListAccountDetailDto>(
                 x => x.OperationType,
                 x => x.Description)
-            .RegisterFilteredFields<ListActivityInstanceDto>(
+            .RegisterFilteredFields<ListActivityDto>(
                 x => x.Header)
             .RegisterFilteredFields<ListAdditionalFirmServiceDto>(
                 x => x.ServiceCode,
