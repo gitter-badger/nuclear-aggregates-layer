@@ -47,8 +47,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
                     this.ToXAttribute(() => StartDate, StartDate),
                     this.ToXAttribute(() => EndDate, EndDate),
                     this.ToXAttribute(() => ClientDebitTotalAmount, ClientDebitTotalAmount),
-                    new XElement("ClientDebits", Debits.Where(x => x.Type == DebitDto.DebitType.Client).Select(x => x.ToXElement())),
-                    new XElement("RegionalDebits", Debits.Where(x => x.Type == DebitDto.DebitType.Regional).Select(x => x.ToXElement()))
+                    new XElement("ClientDebits", Debits.Where(x => x.Type == DebitDto.DebitType.Client).Select(x => x.ToXElement()))
                 };
 
             return new XElement(TagName, innerXml);

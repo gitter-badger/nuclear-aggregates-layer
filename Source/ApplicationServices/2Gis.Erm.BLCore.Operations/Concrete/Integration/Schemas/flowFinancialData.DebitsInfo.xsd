@@ -65,16 +65,6 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="RegionalDebits">
-        <xs:complexType>
-          <xs:annotation>
-            <xs:documentation>Объект передачи региональных списаний</xs:documentation>
-          </xs:annotation>
-          <xs:sequence>
-            <xs:element name="Debit" type="Debit" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
     </xs:sequence>
     <xs:attribute name="OrganizationUnitCode" type="xs:string" use="required">
       <xs:annotation>
@@ -144,7 +134,7 @@
         <xs:documentation>Номер заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="SignupDate" type="xs:dateTime" use="required">
+    <xs:attribute name="SignedOnDate" type="xs:dateTime" use="required">
       <xs:annotation>
         <xs:documentation>Дата подписания</xs:documentation>
       </xs:annotation>

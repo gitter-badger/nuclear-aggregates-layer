@@ -55,12 +55,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return response;
         }
 
-        internal static ExportAccountDetailsTo1CResponse ExportRegionalAccountDetailsToServiceBus(IClientProxyFactory clientProxyFactory, long organizationUnitId, DateTime startDate, DateTime endDate)
-        {
-            var clientProxy = clientProxyFactory.GetClientProxy<IAccountingSystemApplicationService, WSHttpBinding>();
-            return clientProxy.Execute(service => service.ExportAccountDetailsToServiceBus(organizationUnitId, startDate, endDate));
-        }
-
         private static string TrimAndReplaceEmptyString(string input)
         {
             var result = input.Trim();

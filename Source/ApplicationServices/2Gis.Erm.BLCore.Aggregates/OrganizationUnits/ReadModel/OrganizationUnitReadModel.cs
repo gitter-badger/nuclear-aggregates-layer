@@ -42,6 +42,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
             return currencyId.Value;
         }
 
+        public string GetSyncCode(long organizationUnitId)
+        {
+            return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.SyncCode1C).Single();
+        }
+
         public IReadOnlyDictionary<int, long> GetOrganizationUnitIdsByDgppIds(IEnumerable<int> dgppIds)
         {
             // ReSharper disable once PossibleInvalidOperationException
