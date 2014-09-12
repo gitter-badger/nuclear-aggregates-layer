@@ -1,7 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.WorkflowProcessing;
@@ -18,8 +16,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
     public sealed class ProcessOrderOnApprovalToRejectedHandler : RequestHandler<ProcessOrderOnApprovalToRejectedRequest, EmptyResponse>
     {
         private readonly INotificationsSettings _notificationsSettings;
-        private readonly IDealReadModel _dealReadModel;
-        private readonly IDealRepository _dealRepository;
         private readonly IUserContext _userContext;
         private readonly INotificationSender _notificationSender;
         private readonly IEmployeeEmailResolver _employeeEmailResolver;
@@ -28,17 +24,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
 
         public ProcessOrderOnApprovalToRejectedHandler(
             INotificationsSettings notificationsSettings,
-            IDealReadModel dealReadModel,
-            IDealRepository dealRepository,
+            IOrderReadModel orderReadModel,
             IUserContext userContext,
             INotificationSender notificationSender,
             IEmployeeEmailResolver employeeEmailResolver,
-                                                       ICommonLog logger,
-                                                       IOrderReadModel orderReadModel)
+            ICommonLog logger)
         {
             _notificationsSettings = notificationsSettings;
-            _dealReadModel = dealReadModel;
-            _dealRepository = dealRepository;
             _userContext = userContext;
             _notificationSender = notificationSender;
             _employeeEmailResolver = employeeEmailResolver;
@@ -52,16 +44,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             if (order == null)
             {
                 throw new ArgumentException("Order must be supplied");
-            }
-
-            /* У заказа есть связный документ "Сделка". 
-             * Выгрузить / изменить к текущему, значение атрибута "Предполагаемый доход" в документ "Сделка". 
-             * Атрибут "Заказ.К оплате (план)" в атрибут "Сделка.Предполагаемый доход". 
-             * Нужно уменьшить значение атрибута "Предполагаемый доход" в документ "Сделка" на размер значения атрибута "Заказ.К оплате (план)". */
-            if (order.DealId.HasValue)
-            {
-                var deal = _dealReadModel.GetDeal(order.DealId.Value);
-                _dealRepository.DecreaseDealEstimatedProfit(deal, order.PayablePlan);
             }
             
             NotifyAboutOrderRejected(order);

@@ -88,11 +88,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 
                     _publicService.Handle(new CalculateReleaseWithdrawalsRequest { Order = orderPositionInfo.Order });
 
-                    if (orderPositionInfo.OrderDealId != null)
-                    {
-                        _publicService.Handle(new ActualizeDealProfitIndicatorsRequest { DealIds = new[] { orderPositionInfo.OrderDealId.Value } });
-                    }
-
                     scopedOrderRepository.Update(orderPositionInfo.Order);
                     scope.Complete();
                 }

@@ -3651,9 +3651,6 @@ Operación realizada: {4}.</value>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>No se han guardado las modificaciones realizadas. Para seguir en esta pagina y guardar las modificaciones, pulse el boton Cancelar.</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value>Ha intentado guardar la Posición presupuestaria de la orden con un Importe de descuento distinto de cero</value>
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value>En el perfil {0} de la persona jurídica del cliente está especificado un contrato con la fecha de vigencia anterior a la fecha de la firma de la orden.</value>
   </data>
@@ -5206,5 +5203,8 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>No se puede indicar el motivo de rechazo no activo</value>
+  </data>
+  <data name="BillFileNameTemplate" xml:space="preserve">
+    <value>{0}-bills.zip</value>
   </data>
 </root>

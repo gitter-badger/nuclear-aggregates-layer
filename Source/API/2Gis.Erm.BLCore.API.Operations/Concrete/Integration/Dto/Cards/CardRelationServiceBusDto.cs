@@ -7,9 +7,9 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards
     public sealed class CardRelationServiceBusDto : IServiceBusDto<FlowCards>
     {
         public long Code { get; set; }
-        public long PointOfServiceCardCode { get; set; }
-        public long DepartmentCardCode { get; set; }
-        public int DepartmentCardSortingPosition { get; set; }
+        public long Card1Code { get; set; }
+        public long Card2Code { get; set; }
+        public int OrderNo { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

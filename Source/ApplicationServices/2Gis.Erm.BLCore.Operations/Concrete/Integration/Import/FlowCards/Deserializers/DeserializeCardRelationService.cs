@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCards.
                 throw new BusinessLogicException("Не найден обязательный атрибут Card1Code");
             }
 
-            сardRelationDto.PointOfServiceCardCode = (long)card1CodeAttr;
+            сardRelationDto.Card1Code = (long)card1CodeAttr;
 
             // Card2Code
             var card2CodeAttr = xml.Attribute("Card2Code");
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCards.
                 throw new BusinessLogicException("Не найден обязательный атрибут Card2Code");
             }
 
-            сardRelationDto.DepartmentCardCode = (long)card2CodeAttr;
+            сardRelationDto.Card2Code = (long)card2CodeAttr;
 
             // OrderNo
             var orderNoAttr = xml.Attribute("OrderNo");
@@ -48,8 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCards.
                 throw new BusinessLogicException("Не найден обязательный атрибут OrderNo");
             }
 
-            // в erm для простоты sorting position должен начинаться с 1
-            сardRelationDto.DepartmentCardSortingPosition = (int)orderNoAttr + 1;
+            сardRelationDto.OrderNo = (int)orderNoAttr;
 
             // IsDeleted
             var isDeletedAttr = xml.Attribute("IsDeleted");

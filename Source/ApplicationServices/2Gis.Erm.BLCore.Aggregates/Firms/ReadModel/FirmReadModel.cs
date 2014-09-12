@@ -19,12 +19,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         private const long TelesaleCategoryGroupId = 1;
         private const long DefaultCategoryRate = 1;
 
+        private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
-        private readonly IFinder _unsecureFinder;
 
-        public FirmReadModel(IFinder unsecureFinder, ISecureFinder secureFinder)
+        public FirmReadModel(IFinder finder, ISecureFinder secureFinder)
         {
-            _unsecureFinder = unsecureFinder;
+            _finder = finder;
             _secureFinder = secureFinder;
         }
 
@@ -37,35 +37,35 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         {
             return _secureFinder.Find(FirmSpecs.Firms.Find.ByReplicationCodes(crmIds))
                                 .Select(f => new
+                                {
+                                    CrmId = f.ReplicationCode,
+                                    Dto = new FirmWithAddressesAndProjectDto
                                     {
-                                        CrmId = f.ReplicationCode,
-                                        Dto = new FirmWithAddressesAndProjectDto
-                                            {
-                                                Id = f.Id,
-                                                Name = f.Name,
-                                                FirmAddresses = f.FirmAddresses
-                                                                 .Where(fa => fa.IsActive && !fa.IsDeleted && !fa.ClosedForAscertainment)
-                                                                 .Select(fa => new FirmAddressWithCategoriesDto
-                                                                     {
-                                                                         Id = fa.Id,
-                                                                         Address = fa.Address,
-                                                                         Categories = fa.CategoryFirmAddresses
-                                                                                        .Where(cfa => cfa.IsActive && !cfa.IsDeleted)
-                                                                                        .Select(cfa => new CategoryDto
-                                                                                            {
-                                                                                                Id = cfa.CategoryId,
-                                                                                                Name = cfa.Category.Name
-                                                                                            })
-                                                                     }),
-                                                Project = f.OrganizationUnit.Projects
-                                                           .Where(p => p.IsActive)
-                                                           .Select(p => new ProjectDto
-                                                               {
-                                                                   Code = p.Id,
-                                                                   Name = p.DisplayName
-                                                               }).FirstOrDefault()
-                                            }
-                                    })
+                                        Id = f.Id,
+                                        Name = f.Name,
+                                        FirmAddresses = f.FirmAddresses
+                                                         .Where(fa => fa.IsActive && !fa.IsDeleted && !fa.ClosedForAscertainment)
+                                                         .Select(fa => new FirmAddressWithCategoriesDto
+                                                         {
+                                                             Id = fa.Id,
+                                                             Address = fa.Address,
+                                                             Categories = fa.CategoryFirmAddresses
+                                                                            .Where(cfa => cfa.IsActive && !cfa.IsDeleted)
+                                                                            .Select(cfa => new CategoryDto
+                                                                            {
+                                                                                Id = cfa.CategoryId,
+                                                                                Name = cfa.Category.Name
+                                                                            })
+                                                         }),
+                                        Project = f.OrganizationUnit.Projects
+                                                   .Where(p => p.IsActive)
+                                                   .Select(p => new ProjectDto
+                                                   {
+                                                       Code = p.Id,
+                                                       Name = p.DisplayName
+                                                   }).FirstOrDefault()
+                                    }
+                                })
                                 .ToDictionary(x => x.CrmId, x => x.Dto);
         }
 
@@ -86,27 +86,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public bool IsTelesaleFirmAddress(long firmAddressId)
         {
-            var organizationUnitId = _unsecureFinder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
-                                                    .Select(address => address.Firm.Territory.OrganizationUnitId)
-                                                    .SingleOrDefault();
+            var organizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
+                                            .Select(address => address.Firm.Territory.OrganizationUnitId)
+                                            .SingleOrDefault();
 
-            var categoryIds = _unsecureFinder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
-                                             .SelectMany(address => address.Firm.FirmAddresses)
-                                             .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
-                                             .SelectMany(address => address.CategoryFirmAddresses)
-                                             .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
-                                             .Select(categoryFirmAddress => categoryFirmAddress.CategoryId)
-                                             .Distinct()
-                                             .ToArray();
+            var categoryIds = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
+                                     .SelectMany(address => address.Firm.FirmAddresses)
+                                     .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
+                                     .SelectMany(address => address.CategoryFirmAddresses)
+                                     .Where(Specs.Find.ActiveAndNotDeleted<CategoryFirmAddress>())
+                                     .Select(categoryFirmAddress => categoryFirmAddress.CategoryId)
+                                     .Distinct()
+                                     .ToArray();
 
-            var mostExpensiveGroupId = _unsecureFinder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
-                                                            new FindSpecification<CategoryOrganizationUnit>(
-                                                                link => link.OrganizationUnitId == organizationUnitId &&
-                                                                        categoryIds.Contains(link.CategoryId)))
-                                                      // ReSharper disable once ConstantNullCoalescingCondition
-                                                      .OrderByDescending(x => (decimal?)x.CategoryGroup.GroupRate ?? DefaultCategoryRate)
-                                                      .Select(x => x.CategoryGroupId)
-                                                      .FirstOrDefault();
+            var mostExpensiveGroupId = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
+                                                    new FindSpecification<CategoryOrganizationUnit>(
+                                                        link => link.OrganizationUnitId == organizationUnitId &&
+                                                                categoryIds.Contains(link.CategoryId)))
+                // ReSharper disable once ConstantNullCoalescingCondition
+                                              .OrderByDescending(x => (decimal?)x.CategoryGroup.GroupRate ?? DefaultCategoryRate)
+                                              .Select(x => x.CategoryGroupId)
+                                              .FirstOrDefault();
 
             return mostExpensiveGroupId == TelesaleCategoryGroupId;
         }
@@ -117,10 +117,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             var tmp = _secureFinder.Find(Specs.Find.ById<FirmAddress>(firmAddressCode) && Specs.Find.NotDeleted<FirmAddress>())
                                    .Where(x => !x.Firm.IsDeleted)
                                    .Select(x => new
-                                       {
-                                           x.Firm,
-                                           x.Firm.ClientId
-                                       })
+                                   {
+                                       x.Firm,
+                                       x.Firm.ClientId
+                                   })
                                    .FirstOrDefault();
 
             if (tmp == null)
@@ -129,26 +129,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             }
 
             dto = new FirmAndClientDto
-                {
-                    Firm = tmp.Firm,
-                    Client = tmp.ClientId.HasValue ? _secureFinder.FindOne(Specs.Find.ById<Client>(tmp.ClientId.Value)) : null
-                };
+            {
+                Firm = tmp.Firm,
+                Client = tmp.ClientId.HasValue ? _secureFinder.FindOne(Specs.Find.ById<Client>(tmp.ClientId.Value)) : null
+            };
             return true;
         }
 
         public IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId)
         {
-            return _unsecureFinder.FindMany(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId)).ToArray();
+            return _finder.FindMany(FirmSpecs.Addresses.Find.ActiveByFirmId(firmId)).ToArray();
         }
 
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)
         {
             // В данном случае намеренно используется небезопасная версия файндера
-            var depCardsQuery = _unsecureFinder.Find<DepCard>(x => !x.IsHiddenOrArchived);
+            var depCardsQuery = _finder.Find<DepCard>(x => !x.IsHiddenOrArchived);
 
             // В данном случае намеренно используется небезопасная версия файндера
-            var cardRelationsQuery = _unsecureFinder.Find<CardRelation>(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted);
-            
+            var cardRelationsQuery = _finder.Find<CardRelation>(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted);
+
             var depCardContacts = (from cardRelation in cardRelationsQuery
                                    join depCard in depCardsQuery on cardRelation.DepCardCode equals depCard.Id
                                    orderby cardRelation.OrderNo
@@ -159,10 +159,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
                 // COMMENT {all, 25.08.2014}: Восстановление ссылки на адрес фирмы из контакта dep-карточки
                 .Select(contact =>
-                    {
-                        contact.FirmAddressId = firmAddressId;
-                        return contact;
-                    });
+                {
+                    contact.FirmAddressId = firmAddressId;
+                    return contact;
+                });
 
             var firmAddressContacts = _secureFinder.FindAll<FirmContact>()
                                                    .Where(contact => contact.FirmAddressId == firmAddressId)
@@ -194,7 +194,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public bool DoesFirmBelongToClient(long firmId, long clientId)
         {
-            return _unsecureFinder.Find(Specs.Find.ById<Firm>(firmId) && Specs.Find.ActiveAndNotDeleted<Firm>())
+            return _finder.Find(Specs.Find.ById<Firm>(firmId) && Specs.Find.ActiveAndNotDeleted<Firm>())
                                   .Any(x => x.ClientId == clientId);
         }
 
@@ -230,31 +230,43 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public Dictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds)
         {
-            return _unsecureFinder.FindMany(Specs.Find.ByIds<DepCard>(depCardIds)).ToDictionary(x => x.Id);
+            return _finder.FindMany(Specs.Find.ByIds<DepCard>(depCardIds)).ToDictionary(x => x.Id);
         }
 
         public Dictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds)
         {
-            return _unsecureFinder.FindMany(Specs.Find.ByIds<FirmAddress>(firmAddressIds)).ToDictionary(x => x.Id);
+            return _finder.FindMany(Specs.Find.ByIds<FirmAddress>(firmAddressIds)).ToDictionary(x => x.Id);
         }
 
         public Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds)
         {
-            return _unsecureFinder.FindMany(Specs.Find.ByIds<Firm>(firmIds)).ToDictionary(x => x.Id);
+            return _finder.FindMany(Specs.Find.ByIds<Firm>(firmIds)).ToDictionary(x => x.Id);
         }
 
-        public IEnumerable<RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase)
+        public IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase)
         {
-            return _unsecureFinder.Find(OrganizationUnitSpecs.Find.ByDgppIds(branchCodes) && Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
-                                  .SelectMany(x => x.Territories.Where(t => t.IsActive && t.Name.Contains(regionalTerritoryPhrase)))
-                                  .Select(x =>
-                                          new RegionalTerritoryDto
-                                              {
-                                                  TerritoryId = x.Id,
-                                                  OrganizationUnitId = x.OrganizationUnitId,
-                                                  OrganizationUnitDgppId = x.OrganizationUnit.DgppId.Value
-                                              })
-                                  .ToArray();
+            var territories = _finder.Find(OrganizationUnitSpecs.Find.ByDgppIds(branchCodes) && Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
+                                     .Select(x => new
+                                     {
+                                         BranchCode = x.DgppId.Value,
+                                         Territory = x.Territories.FirstOrDefault(t => t.IsActive && t.Name.Contains(regionalTerritoryPhrase))
+                                     })
+                                     .Where(x => x.Territory != null)
+                                     .ToDictionary(x => x.BranchCode,
+                                                   x => new RegionalTerritoryDto
+                                                   {
+                                                       TerritoryId = x.Territory.Id,
+                                                       OrganizationUnitId = x.Territory.OrganizationUnitId
+                                                   });
+
+            var branchesWithNoRegionalTerritory = branchCodes.Except(territories.Keys).ToArray();
+            if (branchesWithNoRegionalTerritory.Any())
+            {
+                throw new IntegrationException(string.Format("Can't find regional territories for the following branch codes: {0}.",
+                                                             string.Join(", ", branchesWithNoRegionalTerritory)));
+            }
+
+            return territories;
         }
 
         public FirmContact GetFirmContact(long firmContactId)
@@ -264,7 +276,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public Dictionary<long, string> GetCityPhoneZones(IEnumerable<long> phoneZoneIds)
         {
-            return _unsecureFinder
+            return _finder
                 .Find(Specs.Find.ByIds<CityPhoneZone>(phoneZoneIds))
                 .Select(x => new { x.Id, x.Name })
                 .ToDictionary(x => x.Id, x => x.Name);
@@ -282,21 +294,66 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public HotClientRequest GetHotClientRequest(long hotClientRequestId)
         {
-            var request = _unsecureFinder.FindOne(Specs.Find.ById<HotClientRequest>(hotClientRequestId));
-            if (request == null)
+            return _finder.FindOne(Specs.Find.ById<HotClientRequest>(hotClientRequestId));
+        }
+
+        public IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord)
+        {
+            // Предполагается, что в FirmAddresses уже проставлен TerritoryId из соответствующего Building
+            // Возможно стоит вытаскивать все адреса, а сортировать уже в памяти
+            var firmTerritories = _finder.Find(Specs.Find.ByIds<Firm>(firmIds))
+                                         .Select(x => new
+                                         {
+                                             FirmId = x.Id,
+                                             x.OrganizationUnitId,
+                                             TerritoryId = x.FirmAddresses
+                                                            .Where(y => y.TerritoryId != null && y.Territory.OrganizationUnitId == x.OrganizationUnitId)
+                                                            .OrderBy(y => y.IsDeleted)
+                                                            .ThenByDescending(y => y.IsActive)
+                                                            .ThenBy(y => y.ClosedForAscertainment)
+                                                            .ThenBy(y => y.SortingPosition)
+                                                            .Select(y => y.TerritoryId)
+                                                            .FirstOrDefault()
+                                         })
+                                         .ToArray();
+
+            var firmWithTerritory = firmTerritories.Where(x => x.TerritoryId != null).ToArray();
+            var firmsWithoutTerritory = firmTerritories.Where(x => x.TerritoryId == null).ToArray();
+
+            var result = firmWithTerritory.ToDictionary(firm => firm.FirmId, firm => firm.TerritoryId.Value);
+
+            if (firmsWithoutTerritory.Any())
             {
-                throw new EntityNotFoundException(typeof(HotClientRequest), hotClientRequestId);
+                var regionalTerritories = GetRegionalTerritoriesByOrganizationUnits(firmsWithoutTerritory.Select(x => x.OrganizationUnitId),
+                                                                                    regionalTerritoryWord);
+                foreach (var firm in firmsWithoutTerritory)
+                {
+                    result.Add(firm.FirmId, regionalTerritories[firm.OrganizationUnitId]);
+                }
             }
 
-            return request;
+            return result;
+        }
+
+        public IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<CardRelation>(cardRelationIds)).ToDictionary(x => x.Id);
         }
 
         private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)
         {
-            return _unsecureFinder
+            return _finder
                 .Find(Specs.Find.Custom<ReferenceItem>(x => referenceItemCodes.Contains(x.Code) && x.Reference.CodeName == referenceCode))
                 .Select(x => new { x.Code, x.Name })
                 .ToDictionary(x => x.Code, x => x.Name);
+        }
+
+        private IReadOnlyDictionary<long, long> GetRegionalTerritoriesByOrganizationUnits(IEnumerable<long> organizationUnits, string regionalTerritoryWord)
+        {
+            return _finder.Find(FirmSpecs.Territories.Find.TerritoriesFromOrganizationUnits(organizationUnits) &&
+                                FirmSpecs.Territories.Find.RegionalTerritories(regionalTerritoryWord))
+                          .GroupBy(x => x.OrganizationUnitId, (orgUnitId, territories) => territories.OrderByDescending(x => x.Id).FirstOrDefault())
+                          .ToDictionary(x => x.OrganizationUnitId, x => x.Id);
         }
     }
 }
