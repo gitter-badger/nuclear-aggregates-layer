@@ -327,7 +327,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 }
                 case MsCrmIntegrationMode.Async:
                 {
-                    asyncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
+                    asyncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Union(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
                     syncReplicatedTypes = new Type[0];
                     break;
                 }
