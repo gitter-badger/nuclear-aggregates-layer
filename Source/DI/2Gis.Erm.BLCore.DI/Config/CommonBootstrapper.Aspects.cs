@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
@@ -39,6 +40,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
@@ -46,6 +48,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
@@ -79,6 +82,11 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterType<IPendingChangesHandlingStrategy, ForcePendingChangesHandlingStrategy>(Lifetime.Singleton);
             }
 
+            if (!container.IsRegistered<IMsCrmReplicationMetadataProvider>())
+            {
+                container.RegisterType<IMsCrmReplicationMetadataProvider, NullMsCrmReplicationMetadataProvider>();
+            }
+
             return container
                         .RegisterType<IEFConnectionFactory, EFConnectionFactory>(Lifetime.Singleton)
                         .RegisterType<IDomainContextMetadataProvider, EFDomainContextMetadataProvider>(Lifetime.Singleton)
@@ -96,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
-                        
+
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
                         .RegisterType<IDomainContextHost>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
@@ -268,6 +276,51 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         {
             return container.RegisterType<IResourceGroupManager, ResourceGroupManager>(Lifetime.Singleton,
                                                                                        new InjectionConstructor((object)resourceTypes));
+        }
+
+        public static IUnityContainer ConfigureReplicationMetadata(this IUnityContainer container, IMsCrmSettings msCrmSettings)
+        {
+            Type[] asyncReplicatedTypes;
+            Type[] syncReplicatedTypes;
+            ResolveReplicatedTypes(msCrmSettings.IntegrationMode, out asyncReplicatedTypes, out syncReplicatedTypes);
+
+            return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton,
+                                                                                                               new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
+        }
+
+        private static void ResolveReplicatedTypes(MsCrmIntegrationMode integrationMode, out Type[] asyncReplicatedTypes, out Type[] syncReplicatedTypes)
+        {
+            switch (integrationMode)
+            {
+                case MsCrmIntegrationMode.Disabled:
+                {
+                    asyncReplicatedTypes = new Type[0];
+                    syncReplicatedTypes = new Type[0];
+                    break;
+                }
+                case MsCrmIntegrationMode.Sync:
+                {
+                    asyncReplicatedTypes = new Type[0];
+                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
+                    break;
+                }
+                case MsCrmIntegrationMode.Mixed:
+                {
+                    asyncReplicatedTypes = EntityNameUtils.AsyncReplicated2MsCrmEntities;
+                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
+                    break;
+                }
+                case MsCrmIntegrationMode.Async:
+                {
+                    asyncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
+                    syncReplicatedTypes = new Type[0];
+                    break;
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException("integrationMode");
+                }
+            }
         }
     }
 }

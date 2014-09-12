@@ -31,12 +31,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             // первый проход
             unityContainer.ConfigureSettingsAspects(settingsContainer);
             configurator(unityContainer);
-            PerfomTypesMassProcessings(root, massProcessors, true, businessModelSettings);
+            PerformTypesMassProcessing(root, massProcessors, true, businessModelSettings);
 
             // второй проход
             unityContainer.ConfigureSettingsAspects(settingsContainer);
             configurator(unityContainer);
-            PerfomTypesMassProcessings(root, massProcessors, false, businessModelSettings);
+            PerformTypesMassProcessing(root, massProcessors, false, businessModelSettings);
 
             return unityContainer;
         }
