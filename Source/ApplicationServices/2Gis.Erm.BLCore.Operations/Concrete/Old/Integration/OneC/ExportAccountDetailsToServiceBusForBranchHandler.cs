@@ -22,12 +22,10 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
-using DoubleGis.Erm.Platform.Common.Utils.Xml;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using SaveOptions = System.Xml.Linq.SaveOptions;
 
@@ -40,14 +38,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         private const string EnglishOf = "oф";
 
         private const decimal Accuracy = 1M;
-        
+
         private static readonly Encoding CyrillicEncoding = Encoding.GetEncoding(1251);
         private static readonly PlatformEnum[] NonAllowedPlatforms = { PlatformEnum.Api, PlatformEnum.Online };
         private static readonly DateTime FirstOfApril2013 = new DateTime(2013, 4, 1);
 
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly IClientProxyFactory _clientProxyFactory;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IGlobalizationSettings _globalizationSettings;
         private readonly IBusinessModelSettings _businessModelSettings;
@@ -55,16 +52,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         public ExportAccountDetailsToServiceBusForBranchHandler(
             IFinder finder,
-                                                                ISubRequestProcessor subRequestProcessor,
-                                                                IClientProxyFactory clientProxyFactory,
-                                                                IOrderReadModel orderReadModel,
+            ISubRequestProcessor subRequestProcessor,
+            IOrderReadModel orderReadModel,
             IGlobalizationSettings globalizationSettings,
-            IBusinessModelSettings businessModelSettings, 
+            IBusinessModelSettings businessModelSettings,
             IUseCaseTuner useCaseTuner)
         {
             _finder = finder;
             _subRequestProcessor = subRequestProcessor;
-            _clientProxyFactory = clientProxyFactory;
             _orderReadModel = orderReadModel;
             _globalizationSettings = globalizationSettings;
             _businessModelSettings = businessModelSettings;
@@ -73,16 +68,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 
         private enum ExportOrderType
         {
-            None = 0, 
-            LocalAndOutgoing = 1, 
-            IncomingFromFranchiseesClient = 2, 
+            None = 0,
+            LocalAndOutgoing = 1,
+            IncomingFromFranchiseesClient = 2,
             IncomingFromFranchiseesDgpp = 3
         }
 
         protected override IntegrationResponse Handle(ExportAccountDetailsToServiceBusForBranchRequest request)
         {
             _useCaseTuner.AlterDuration<ExportAccountDetailsToServiceBusForBranchHandler>();
-            
+
             var period = new TimePeriod(request.StartPeriodDate, request.EndPeriodDate);
 
             var organizationUnitSyncCode1C = _finder.FindAll<OrganizationUnit>()
@@ -102,45 +97,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var dtosToValidate = accountDetailDtos.Where(x => x.LegalPersonSyncCode1C != null).DistinctBy(x => x.LegalPersonSyncCode1C).ToArray();
             var validateLegalPersonsResponse = ValidateLegalPersons(dtosToValidate);
 
-            var modiResponse = AccountDetailsFrom1CHelper.ExportRegionalAccountDetailsToServiceBus(_clientProxyFactory,
-                                                                                                   request.OrganizationUnitId,
-                                                                                                   period.Start,
-                                                                                                   period.End);
-
-            var totalProcessedByModiCount = modiResponse.ProcessedWithoutErrors + modiResponse.BlockingErrorsAmount + modiResponse.NonBlockingErrorsAmount;
-            if (!accountDetailDtos.Any() && totalProcessedByModiCount == 0)
-                           {
-                throw new NotificationException(string.Format(BLResources.NoDebitsForSpecifiedPeriod, period.Start, period.End));
-                                     }
-
             var orderIds = accountDetailDtos.Select(x => x.OrderId).Distinct().ToArray();
             var distributions = _orderReadModel.GetOrderPlatformDistributions(orderIds, period.Start, period.End);
             foreach (var accountDetailDto in accountDetailDtos)
-                                     {
+            {
                 accountDetailDto.PlatformDistributions = distributions[accountDetailDto.OrderId];
             }
 
-            var modiErrorContent = modiResponse.ErrorFile != null ? CyrillicEncoding.GetString(modiResponse.ErrorFile.Stream) : null;
             var blockingErrors = EvaluateAllBlockingErrors(accountDetailDtos, validateLegalPersonsResponse.BlockingErrors);
 
             var debitInfoDto = ConvertToDebitInfoDto(organizationUnitSyncCode1C, period, accountDetailDtos);
-            var debitsStream = modiResponse.File != null ? CreateDebitsStream(debitInfoDto.ToXElement(), modiResponse.File.Stream) : null;
+            var debitsStream = CreateDebitsStream(debitInfoDto.ToXElement());
 
-            var response = ConstructResponse(modiResponse.ProcessedWithoutErrors,
-                                             modiResponse.NonBlockingErrorsAmount,
-                                             modiResponse.BlockingErrorsAmount,
-                                             modiErrorContent,
-                                             blockingErrors,
+            var response = ConstructResponse(blockingErrors,
                                              validateLegalPersonsResponse.NonBlockingErrors,
                                              debitInfoDto.Debits.Length,
                                              debitsStream);
             return response;
-                        }
+        }
 
-        private static MemoryStream CreateDebitsStream(XElement debitsXml, byte[] regionalDebitsStream)
+        private static MemoryStream CreateDebitsStream(XElement debitsXml)
         {
-            var result = debitsXml.ConcatBy(XElement.Load(new MemoryStream(regionalDebitsStream)), "RegionalDebits");
-            var stream = new MemoryStream(Encoding.UTF8.GetBytes(result.ToString(SaveOptions.None)));
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(debitsXml.ToString(SaveOptions.None)));
             return stream;
         }
 
@@ -167,66 +145,66 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         }
 
         private DebitsInfoDto ConvertToDebitInfoDto(string organizationUnitSyncCode1C,
-                                                           TimePeriod period,
-                                                           IEnumerable<AccountDetailDto> accountDetailDtos)
-                {
+                                                    TimePeriod period,
+                                                    IEnumerable<AccountDetailDto> accountDetailDtos)
+        {
             var debits = accountDetailDtos
                 .Select(x => new DebitDto
-                        {
-                            AccountCode = x.AccountCode,
-                            ProfileCode = x.ProfileCode,
-                            Amount = GetAccountDetailAmount(x),
-                            SignupDate = x.OrderSignupDateUtc,
-                            ClientOrderNumber = x.ClientOrderNumber,
+                {
+                    AccountCode = x.AccountCode,
+                    ProfileCode = x.ProfileCode,
+                    Amount = GetAccountDetailAmount(x),
+                    SignedOnDate = x.OrderSignupDateUtc,
+                    ClientOrderNumber = x.ClientOrderNumber,
                     OrderType = x.OrderType,
-                            OrderNumber = x.OrderNumber,
-                            MediaInfo = x.ElectronicMedia,
-                            LegalEntityBranchCode1C = x.BranchOfficeOrganizationUnitSyncCode1C,
+                    OrderNumber = x.OrderNumber,
+                    MediaInfo = x.ElectronicMedia,
+                    LegalEntityBranchCode1C = x.BranchOfficeOrganizationUnitSyncCode1C,
                     Type = x.Type == ExportOrderType.LocalAndOutgoing || x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                                    ? DebitDto.DebitType.Client
-                                    : DebitDto.DebitType.Regional,
-                            PlatformDistributions = new[]
-                                {
-                                    new PlatformDistribution
-                                        {
-                                            PlatformCode = PlatformEnum.Desktop,
+                               ? DebitDto.DebitType.Client
+                               : DebitDto.DebitType.Regional,
+                    PlatformDistributions = new[]
+                            {
+                                new PlatformDistribution
+                                    {
+                                        PlatformCode = PlatformEnum.Desktop,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Desktop)
                                                      ? x.PlatformDistributions[PlatformEnum.Desktop]
                                                      : 0
-                                        },
-                                    new PlatformDistribution
-                                        {
-                                            PlatformCode = PlatformEnum.Mobile,
+                                    },
+                                new PlatformDistribution
+                                    {
+                                        PlatformCode = PlatformEnum.Mobile,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Mobile)
                                                      ? x.PlatformDistributions[PlatformEnum.Mobile]
                                                      : 0
-                                        },
-                                    new PlatformDistribution
-                                        {
-                                            PlatformCode = PlatformEnum.Api,
+                                    },
+                                new PlatformDistribution
+                                    {
+                                        PlatformCode = PlatformEnum.Api,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Api)
                                                      ? x.PlatformDistributions[PlatformEnum.Api]
                                                      : 0
-                                        },
-                                    new PlatformDistribution
-                                        {
-                                            PlatformCode = PlatformEnum.Online,
+                                    },
+                                new PlatformDistribution
+                                    {
+                                        PlatformCode = PlatformEnum.Online,
                                         Amount = x.PlatformDistributions.ContainsKey(PlatformEnum.Online)
                                                      ? x.PlatformDistributions[PlatformEnum.Online]
                                                      : 0
-                                        }
-                                }
+                                    }
+                            }
                 })
                 .ToArray();
 
             return new DebitsInfoDto
-                {
-                    OrganizationUnitCode = organizationUnitSyncCode1C,
-                    StartDate = period.Start,
-                    EndDate = period.End,
-                    ClientDebitTotalAmount = debits.Where(x => x.Type == DebitDto.DebitType.Client).Sum(x => x.Amount),
-                    Debits = debits
-                };
+            {
+                OrganizationUnitCode = organizationUnitSyncCode1C,
+                StartDate = period.Start,
+                EndDate = period.End,
+                ClientDebitTotalAmount = debits.Where(x => x.Type == DebitDto.DebitType.Client).Sum(x => x.Amount),
+                Debits = debits
+            };
         }
 
         private decimal GetAccountDetailAmount(AccountDetailDto accountDetailDto)
@@ -248,36 +226,32 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             return Math.Round(FranchiseesAmountFactor * accountDetailDto.DebitAccountDetailAmount * VatMultiplier, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
         }
 
-        private IntegrationResponse ConstructResponse(int processedWithoutErrors,
-                                                      int nonBlockingErrorsAmount,
-                                                      int blockingErrorsAmount,
-                                                      string modiErrorContent,
-                                                      IReadOnlyCollection<ErrorDto> blockingErrors,
+        private IntegrationResponse ConstructResponse(IReadOnlyCollection<ErrorDto> blockingErrors,
                                                       IReadOnlyCollection<ErrorDto> nonBlockingErrors,
                                                       int debitsCount,
                                                       Stream debitsStream)
         {
             var errorsFileName = string.Format("ExportErrors_{0}.csv", DateTime.Today.ToShortDateString());
             var response = new IntegrationResponse
-                {
-                    BlockingErrorsAmount = blockingErrors.Count + blockingErrorsAmount,
-                    NonBlockingErrorsAmount = nonBlockingErrors.Count + nonBlockingErrorsAmount
-                };
+            {
+                BlockingErrorsAmount = blockingErrors.Count,
+                NonBlockingErrorsAmount = nonBlockingErrors.Count
+            };
 
             var errorContent = GetErrorsDataTable(blockingErrors, nonBlockingErrors).ToCsv(_globalizationSettings.ApplicationCulture.TextInfo.ListSeparator);
-            if (blockingErrors.Any() || blockingErrorsAmount > 0)
+            if (blockingErrors.Any())
             {
                 response.FileName = errorsFileName;
                 response.ContentType = MediaTypeNames.Application.Octet;
-                response.Stream = new MemoryStream(CyrillicEncoding.GetBytes(errorContent + modiErrorContent));
+                response.Stream = new MemoryStream(CyrillicEncoding.GetBytes(errorContent));
 
                 return response;
             }
 
             var streamDictionary = new Dictionary<string, Stream>();
-            if (nonBlockingErrors.Any() || nonBlockingErrorsAmount > 0)
+            if (nonBlockingErrors.Any())
             {
-                streamDictionary.Add(errorsFileName, new MemoryStream(CyrillicEncoding.GetBytes(errorContent + modiErrorContent)));
+                streamDictionary.Add(errorsFileName, new MemoryStream(CyrillicEncoding.GetBytes(errorContent)));
             }
 
             streamDictionary.Add("DebitsInfo_" + DateTime.Today.ToShortDateString() + ".xml", debitsStream);
@@ -285,7 +259,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             response.FileName = "Acts.zip";
             response.ContentType = MediaTypeNames.Application.Zip;
             response.Stream = streamDictionary.ZipStreamDictionary();
-            response.ProcessedWithoutErrors = debitsCount - (blockingErrors.Count + nonBlockingErrors.Count) + processedWithoutErrors;
+            response.ProcessedWithoutErrors = debitsCount - (blockingErrors.Count + nonBlockingErrors.Count);
 
             return response;
         }
@@ -295,40 +269,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             var accountDetailsQuery = _finder.FindAll<AccountDetail>();
 
             var allWithoutLegalPerson = (from @lock in _finder.FindAll<Lock>()
-                    let type = @lock.Order.SourceOrganizationUnitId == organizationUnitId
-                                   ? ExportOrderType.LocalAndOutgoing
-                                   : @lock.Order.DestOrganizationUnitId == organizationUnitId &&
-                                     @lock.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits
-                                          .FirstOrDefault(x => x.IsPrimary)
-                                          .BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Franchisees
-                                          
-                                          // старая логика работает только для заказов размещающихся до 1 апреля
-                                         ? (@lock.Order.Number.ToLower().StartsWith(RussianhOf) || @lock.Order.Number.ToLower().StartsWith(EnglishOf)
-                                                ? ExportOrderType.IncomingFromFranchiseesDgpp
-                                                : (@lock.Order.BeginDistributionDate < FirstOfApril2013 &&
-                                                   !NonAllowedPlatforms.Contains((PlatformEnum)@lock.Order.Platform.DgppId))
-                                                      ? ExportOrderType.IncomingFromFranchiseesClient
-                                                      : ExportOrderType.None)
+                                         let type = @lock.Order.SourceOrganizationUnitId == organizationUnitId
+                                                        ? ExportOrderType.LocalAndOutgoing
+                                                        : @lock.Order.DestOrganizationUnitId == organizationUnitId &&
+                                                          @lock.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits
+                                                               .FirstOrDefault(x => x.IsPrimary)
+                                                               .BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Franchisees
 
-                                         : ExportOrderType.None
-                    where !@lock.IsActive && !@lock.IsDeleted &&
-                          @lock.PeriodStartDate == period.Start && @lock.PeriodEndDate == period.End &&
-                          type != ExportOrderType.None
-                    select new
-                        {
-                            Lock = @lock,
-                            Type = type
-                        })
+                                                              // старая логика работает только для заказов размещающихся до 1 апреля
+                                                              ? (@lock.Order.Number.ToLower().StartsWith(RussianhOf) || @lock.Order.Number.ToLower().StartsWith(EnglishOf)
+                                                                     ? ExportOrderType.IncomingFromFranchiseesDgpp
+                                                                     : (@lock.Order.BeginDistributionDate < FirstOfApril2013 &&
+                                                                        !NonAllowedPlatforms.Contains((PlatformEnum)@lock.Order.Platform.DgppId))
+                                                                           ? ExportOrderType.IncomingFromFranchiseesClient
+                                                                           : ExportOrderType.None)
+
+                                                              : ExportOrderType.None
+                                         where !@lock.IsActive && !@lock.IsDeleted &&
+                                               @lock.PeriodStartDate == period.Start && @lock.PeriodEndDate == period.End &&
+                                               type != ExportOrderType.None
+                                         select new
+                                         {
+                                             Lock = @lock,
+                                             Type = type
+                                         })
                 .Select(x => x.Type == ExportOrderType.LocalAndOutgoing ||
                              x.Type == ExportOrderType.IncomingFromFranchiseesDgpp
-                                 ? new 
-                                     {
+                                 ? new
+                                 {
                                      AccountDetailDto = new AccountDetailDto
                                      {
-                                         OrderHasPositionsWithPlannedProvision = 
-                                                x.Lock.Order.OrderPositions.Any(op => op.IsActive 
-                                                    && !op.IsDeleted 
-                                                    && op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision),
+                                         OrderHasPositionsWithPlannedProvision =
+                                             x.Lock.Order.OrderPositions.Any(op => op.IsActive
+                                                                                   && !op.IsDeleted
+                                                                                   &&
+                                                                                   op.PricePosition.Position.AccountingMethodEnum ==
+                                                                                   (int)PositionAccountingMethod.PlannedProvision),
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
                                          AccountCode = x.Lock.Account.Id,
                                          ProfileCode = x.Lock.Order.LegalPersonProfileId != null
@@ -351,10 +327,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                      },
 
                                      LegalPersonId = x.Lock.Account.LegalPersonId,
-                                     }
+                                 }
 
                                  // ExportOrderType.IncomingFromFranchiseesClient
-                                 : new 
+                                 : new
                                  {
                                      AccountDetailDto = new AccountDetailDto
                                      {
@@ -378,7 +354,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                      },
 
                                      LegalPersonId = x.Lock.Account.LegalPersonId,
-                                     })
+                                 })
                 .Where(x => x.AccountDetailDto.DebitAccountDetailAmount > 0)
                 .ToArray();
 
@@ -386,7 +362,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                       .ToDictionary(x => x.Id, x => x);
 
             return allWithoutLegalPerson
-                .Select(x => { x.AccountDetailDto.LegalPerson = legalPersons[x.LegalPersonId]; return x.AccountDetailDto; })
+                .Select(x =>
+                {
+                    x.AccountDetailDto.LegalPerson = legalPersons[x.LegalPersonId];
+                    return x.AccountDetailDto;
+                })
                 .ToArray();
         }
 
@@ -396,7 +376,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             {
                 Entities = allAccountDetails.Select(x => new ValidateLegalPersonRequestItem
                 {
-                    Entity = x.LegalPerson, 
+                    Entity = x.LegalPerson,
                     SyncCode1C = x.LegalPersonSyncCode1C
                 })
             };
@@ -516,29 +496,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             public Dictionary<PlatformEnum, decimal> PlatformDistributions { get; set; }
             public ExportOrderType Type { get; set; }
 
-            public long AccountCode
-            {
-                get;
-                set;
-            }
+            public long AccountCode { get; set; }
 
-            public string ClientOrderNumber
-            {
-                get;
-                set;
-            }
+            public string ClientOrderNumber { get; set; }
 
-            public long ProfileCode
-            {
-                get; set;
-            }
+            public long ProfileCode { get; set; }
         }
 
         private sealed class AccountDetailForIncomingFromClient
         {
             public string BranchOfficeOrganizationUnitSyncCode1C { get; set; }
             public AccountInfo AccountInfo { get; set; }
-           
+
             public string ExecutingBranchOfficeName { get; set; }
             public string DestBranchOfficeName { get; set; }
             public string OrderNumber { get; set; }
