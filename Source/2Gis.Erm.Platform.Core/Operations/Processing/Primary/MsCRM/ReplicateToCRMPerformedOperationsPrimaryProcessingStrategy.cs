@@ -8,12 +8,20 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
 {
     public sealed class ReplicateToCRMPerformedOperationsPrimaryProcessingStrategy : 
         MessageProcessingStrategyBase<FinalStorageReplicate2MsCRMPerformedOperationsFlow, TrackedUseCase, PrimaryProcessingResultsMessage>
     {
+        private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
+
+        public ReplicateToCRMPerformedOperationsPrimaryProcessingStrategy(IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
+        {
+            _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
+        }
+
         protected override PrimaryProcessingResultsMessage Process(TrackedUseCase message)
         {
             var intermediateResults = new Dictionary<Tuple<Type, long>, PerformedOperationFinalProcessing>();
@@ -30,14 +38,14 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
         }
 
         private void ProcessOperation(Guid useCaseId,
-                                      OperationScopeNode operation,
-                                      IDictionary<Tuple<Type, long>, PerformedOperationFinalProcessing> intermediateResults)
+            OperationScopeNode operation,
+            IDictionary<Tuple<Type, long>, PerformedOperationFinalProcessing> intermediateResults)
         {
-            foreach (var asyncReplicatedEntityType in EntityNameUtils.Async2MsCrmReplicatedEntities)
+            foreach (var entityType in _msCrmReplicationMetadataProvider.GetAsyncReplicationTypeSequence())
             {
-                ProcessConcreteEntityChanges(useCaseId, asyncReplicatedEntityType, operation.ChangesContext, context => context.AddedChanges, intermediateResults);
-                ProcessConcreteEntityChanges(useCaseId, asyncReplicatedEntityType, operation.ChangesContext, context => context.UpdatedChanges, intermediateResults);
-                ProcessConcreteEntityChanges(useCaseId, asyncReplicatedEntityType, operation.ChangesContext, context => context.DeletedChanges, intermediateResults);
+                ProcessConcreteEntityChanges(useCaseId, entityType, operation.ChangesContext, context => context.AddedChanges, intermediateResults);
+                ProcessConcreteEntityChanges(useCaseId, entityType, operation.ChangesContext, context => context.UpdatedChanges, intermediateResults);
+                ProcessConcreteEntityChanges(useCaseId, entityType, operation.ChangesContext, context => context.DeletedChanges, intermediateResults);
             }
         }
 
@@ -62,13 +70,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM
                 if (!intermediateResults.TryGetValue(key, out performedOperationFinalProcessing))
                 {
                     intermediateResults.Add(key,
-                                            new PerformedOperationFinalProcessing
-                                                {
-                                                    MessageFlowId = MessageFlow.Id,
-                                                    EntityId = changedEntityInfo.Key,
-                                                    EntityTypeId = (int)targetEntityType.AsEntityName(),
-                                                    OperationId = useCaseId
-                                                });
+                        new PerformedOperationFinalProcessing
+                        {
+                            MessageFlowId = MessageFlow.Id,
+                            EntityId = changedEntityInfo.Key,
+                            EntityTypeId = (int)targetEntityType.AsEntityName(),
+                            OperationId = useCaseId
+                        });
                 }
             }
         }

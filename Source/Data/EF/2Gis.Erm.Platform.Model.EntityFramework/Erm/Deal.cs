@@ -63,8 +63,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public System.DateTime CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
-        public decimal EstimatedProfit { get; set; }
-        public decimal ActualProfit { get; set; }
         public int DealStage { get; set; }
     
         public Currency Currency { get; set; }

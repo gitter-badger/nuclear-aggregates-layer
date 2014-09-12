@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
             return AllAvailableSettings.Contains(settingName);
         }
 
-        private static void GaranteeSettingAvailability(string settingName)
+        private static void GuaranteeSettingAvailability(string settingName)
         {
             if (!AllAvailableSettings.Contains(settingName))
             {
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
         {
             public static IntSetting Required(string settingName)
             {
-                GaranteeSettingAvailability(settingName);
+                GuaranteeSettingAvailability(settingName);
                 return Create(settingName, true, IntSetting.DefaultValue);
             }
 
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
         {
             public static BoolSetting Required(string settingName)
             {
-                GaranteeSettingAvailability(settingName);
+                GuaranteeSettingAvailability(settingName);
                 return Create(settingName, true, BoolSetting.DefaultValue);
             }
 
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
         {
             public static StringSetting Required(string settingName)
             {
-                GaranteeSettingAvailability(settingName);
+                GuaranteeSettingAvailability(settingName);
                 return Create(settingName, true, StringSetting.DefaultValue);
             }
 
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
         {
             public static DecimalSetting Required(string settingName)
             {
-                GaranteeSettingAvailability(settingName);
+                GuaranteeSettingAvailability(settingName);
                 return Create(settingName, true, DecimalSetting.DefaultValue);
             }
 
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
             public static EnumSetting<TSetting> Required<TSetting>(string settingName) 
                 where TSetting : struct, IConvertible
             {
-                GaranteeSettingAvailability(settingName);
+                GuaranteeSettingAvailability(settingName);
                 return Create(settingName, true, EnumSetting<TSetting>.DefaultValue);
             }
 

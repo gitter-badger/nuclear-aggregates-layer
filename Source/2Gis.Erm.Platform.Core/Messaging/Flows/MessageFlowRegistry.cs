@@ -4,7 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
@@ -15,14 +14,6 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Flows
     {
         private readonly IReadOnlyDictionary<IMessageFlow, IEnumerable<IMessageFlow>> _flowsMap = new Dictionary<IMessageFlow, IEnumerable<IMessageFlow>>
             {
-                {
-                    AllPerformedOperationsFlow.Instance,
-                    new IMessageFlow[]
-                        {
-                            FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance,
-                            FinalStorageReplicateHotClientPerformedOperationsFlow.Instance
-                        }
-                },
                 {
                     PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance,
                     new IMessageFlow[] { FinalStorageReplicate2MsCRMPerformedOperationsFlow.Instance }

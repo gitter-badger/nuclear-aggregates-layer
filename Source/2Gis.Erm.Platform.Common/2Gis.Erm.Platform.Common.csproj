@@ -79,6 +79,7 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Caching\CachingMode.cs" />
     <Compile Include="Caching\ICacheAdapter.cs" />
     <Compile Include="Caching\MemCacheAdapter.cs" />
     <Compile Include="Caching\NullObjectCacheAdapter.cs" />

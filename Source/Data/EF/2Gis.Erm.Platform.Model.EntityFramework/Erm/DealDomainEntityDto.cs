@@ -65,10 +65,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public byte[] Timestamp { get; set; }
     	[DataMember]
-        public decimal EstimatedProfit { get; set; }
-    	[DataMember]
-        public decimal ActualProfit { get; set; }
-    	[DataMember]
         public DealStage DealStage { get; set; }
     }
 }

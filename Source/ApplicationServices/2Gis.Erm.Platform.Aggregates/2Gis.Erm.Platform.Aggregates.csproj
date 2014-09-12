@@ -60,7 +60,9 @@
     <Compile Include="EAV\PartableEntityAccessor.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\OpeationsFinalProcessingBulkCreateAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsFinalProcessingCompleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsPrimaryProcessingAbandonAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsPrimaryProcessingCompleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsPrimaryProcessingEnqueAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\PerformedOperationsProcessingReadModel.cs" />
   </ItemGroup>
   <ItemGroup>
