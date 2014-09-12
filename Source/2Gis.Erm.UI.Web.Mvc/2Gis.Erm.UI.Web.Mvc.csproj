@@ -1319,6 +1319,10 @@
       <Project>{035E4AA9-9547-4B1C-B105-902ECAD7E53F}</Project>
       <Name>2Gis.Erm.Platform.DI.Interception</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
+      <Project>{e97bc051-bc95-4183-950b-0685dde66d7d}</Project>
+      <Name>2Gis.Erm.Platform.AppFabric</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
       <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>

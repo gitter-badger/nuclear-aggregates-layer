@@ -170,7 +170,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CheckIsWarmClientHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\GetHotClientTaskToReplicateOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\MergeClientsHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\ActualizeDealProfitIndicatorsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\CheckDealHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\CloseDealHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Deals\ReopenDealHandlerTest.cs" />
@@ -564,6 +563,7 @@
     </Content>
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowCardsForERM.CardForERM.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowFinancialData.Client.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -646,6 +646,9 @@
     <Content Include="Suite\Infrastructure\Fakes\Import\Messages\flowStickers.HotClient.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DI\ConflictResolvers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>

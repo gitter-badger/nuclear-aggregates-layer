@@ -61,6 +61,7 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -69,7 +70,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
@@ -196,16 +196,17 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            IWebAppProcesingSettings webAppProcesingSettings)
+            IWebAppProcesingSettings webAppProcessingSettings)
         {
             return container
                      .ConfigureGlobal(globalizationSettings)
                      .CreateErmSpecific(connectionStringSettings, msCrmSettings)
                      .CreateErmReportsSpecific(connectionStringSettings)
                      .CreateDatabasebSyncChecker(connectionStringSettings)
-                     .CreateSecuritySpecific(webAppProcesingSettings)
-                     .ConfigureCacheAdapter(cachingSettings)
+                     .CreateSecuritySpecific(webAppProcessingSettings)
                      .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
+                     .ConfigureReplicationMetadata(msCrmSettings)
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                      .ConfigureIdentityInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
@@ -235,13 +236,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
             }
-
-        private static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, ICachingSettings cachingSettings)
-        {
-            return cachingSettings.EnableCaching
-                ? container.RegisterType<ICacheAdapter, MemCacheAdapter>(EntryPointSpecificLifetimeManagerFactory())
-                : container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(EntryPointSpecificLifetimeManagerFactory());
-        }
 
         private static IUnityContainer CreateErmReportsSpecific(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {

@@ -188,7 +188,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                                             rootVisible: false,
                                             id: "CardRelatedItemsTree",
                                             lines: false,
-                                            enableDD: true,
+                                            enableDD: false,
                                             border: false,
                                             root: new window.Ext.tree.AsyncTreeNode({ children: window.Ext.DoubleGis.Global.Helpers.NavBarHelper.BuildTree({ Items: this.Settings.CardRelatedItems }, 23) }),
                                             listeners: {
