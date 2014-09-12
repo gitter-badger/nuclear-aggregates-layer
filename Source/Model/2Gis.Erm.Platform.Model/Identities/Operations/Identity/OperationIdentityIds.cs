@@ -103,6 +103,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Client = 200
         public const int CreateClientByFirmIdentity = 20001;
+        public const int SetMainFirmIdentity = 20002;
 
         // EntityName.LegalPersonProfile = 219
         public const int SetAsMainLegalPersonProfileIdentity = 21901;
@@ -222,5 +223,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.AdvertisementElement = 187
         public const int UpdateAdvertisementElementAndSetAsReadyForVerificationIdentity = 18701;
+
+        // EntityName.BranchOfficeOrganizationUnit = 139
+        public const int SetBranchOfficeOrganizationUnitAsPrimaryIdentity = 13901;
+        public const int SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity = 13902;
     }
 }
