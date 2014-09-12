@@ -1,5 +1,4 @@
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
@@ -9,7 +8,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long AdvertisementElementId { get; set; }
         public long DenialReasonId { get; set; }
         public string DenialReasonName { get; set; }
-        public DenialReasonType DenialReasonTypeEnum { get; set; }
         public string DenialReasonType { get; set; }
         public string Comment { get; set; }
         public bool Checked { get; set; }

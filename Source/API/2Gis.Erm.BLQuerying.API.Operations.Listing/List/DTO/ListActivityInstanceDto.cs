@@ -14,7 +14,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime ScheduledStart { get; set; }
         public DateTime ScheduledEnd { get; set; }
         public DateTime? ActualEnd { get; set; }
-        public ActivityPriority PriorityEnum { get; set; }
         public string Priority { get; set; }
         public ActivityStatus StatusEnum { get; set; }
         public string Status { get; set; }

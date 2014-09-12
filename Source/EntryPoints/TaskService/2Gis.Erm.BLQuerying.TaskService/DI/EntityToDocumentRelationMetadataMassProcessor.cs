@@ -13,7 +13,7 @@ using DoubleGis.Erm.Qds.Operations.Metadata;
 
 using Microsoft.Practices.Unity;
 
-namespace DoubleGis.Erm.BLQuerying.DI
+namespace DoubleGis.Erm.BLQuerying.TaskService.DI
 {
     public sealed class EntityToDocumentRelationMetadataMassProcessor
     {

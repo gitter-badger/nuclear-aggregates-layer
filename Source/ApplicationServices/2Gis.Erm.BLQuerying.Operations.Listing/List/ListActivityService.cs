@@ -75,6 +75,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmClientId = firm.ClientId,
                     DealId = regardingDeal.TargetEntityId,
                     DealClientId = deal.ClientId,
+					ActivityType = ActivityType.Appointment.ToStringLocalizedExpression(),
+                    Priority = ActivityPriority.Average.ToStringLocalizedExpression(),
+                    Status = appointment.Status.ToStringLocalizedExpression(),
                 };
         }
 
@@ -113,6 +116,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmClientId = firm.ClientId,
                     DealId = regardingDeal.TargetEntityId,
                     DealClientId = deal.ClientId,
+					ActivityType = ActivityType.Letter.ToStringLocalizedExpression(),
+                    Priority = letter.Priority.ToStringLocalizedExpression(),
+                    Status = letter.Status.ToStringLocalizedExpression(),
                 };
         }
 
@@ -151,6 +157,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmClientId = firm.ClientId,
                     DealId = regardingDeal.TargetEntityId,
                     DealClientId = deal.ClientId,
+					ActivityType = ActivityType.Phonecall.ToStringLocalizedExpression(),
+                    Priority = phonecall.Priority.ToStringLocalizedExpression(),
+                    Status = phonecall.Status.ToStringLocalizedExpression(),
                 };
         }
 
@@ -189,6 +198,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FirmClientId = firm.ClientId,
                     DealId = regardingDeal.TargetEntityId,
                     DealClientId = deal.ClientId,
+					ActivityType = ActivityType.Task.ToStringLocalizedExpression(),
+                    Priority = task.Priority.ToStringLocalizedExpression(),
+                    Status = task.Status.ToStringLocalizedExpression(),
                 };
         }
 
