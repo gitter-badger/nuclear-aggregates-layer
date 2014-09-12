@@ -41,14 +41,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             var firmCategories = GetFirmCategories(firmCategoryIds);
             var additionalCategories = GetAdditionalCategories(firmCategoryIds, orderPositionId);
             var categoriesFilter = CreateCategoryFilter(pricePositionInfo.AccountingMethod,
-                                                        additionalCategories.Select(x => x.Id).Union(firmCategories.Select(x => x.Id)),
                                                         dto.DestOrganizationUnitId);
 
             return new LinkingObjectsSchemaDto
             {
                 Warnings = warnings,
-                FirmCategories = firmCategories.Where(x => categoriesFilter.IsSatisfiedBy(x.Id)),
-                AdditionalCategories = additionalCategories.Where(x => categoriesFilter.IsSatisfiedBy(x.Id)),
+                FirmCategories = firmCategories.Where(x => categoriesFilter(x.Id)),
+                AdditionalCategories = additionalCategories.Where(x => categoriesFilter(x.Id)),
                 Themes = themeDtos,
                 Positions = GetPositions(pricePositionInfo.IsComposite, pricePositionInfo.PositionId),
                 FirmAddresses = firmAddresses
@@ -59,8 +58,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                                                                           long destOrganizationUnitId,
                                                                           IEnumerable<long> categoryIds)
         {
-            var filter = CreateCategoryFilter(accountingMethod, categoryIds, destOrganizationUnitId);
-            var deniedCategories = categoryIds.Where(id => !filter.IsSatisfiedBy(id));
+            var filter = CreateCategoryFilter(accountingMethod, destOrganizationUnitId);
+            var deniedCategories = categoryIds.Where(id => !filter(id));
             return _finder.Find(Specs.Find.ByIds<Category>(deniedCategories))
                           .ToDictionary(category => category.Id, category => category.Name);
         }
@@ -87,24 +86,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             }
         }
 
-        private ICategoryFilter CreateCategoryFilter(PositionAccountingMethod accountingMethod, IEnumerable<long> categoryIds, long destOrganizationUnitId)
+        private Func<long, bool> CreateCategoryFilter(PositionAccountingMethod accountingMethod, long destOrganizationUnitId)
         {
             var isNewSalesModel = IsNewSalesModel(accountingMethod);
             if (!isNewSalesModel)
             {
-                return new AllowAllFilter();
+                return categoryId => true;
             }
 
-            if (!NewSalesModelRestrictions.SupportedOrganizationUnitIds.Contains(destOrganizationUnitId))
+            if (!NewSalesModelRestrictions.IsOrganizationUnitSupported(destOrganizationUnitId))
             {
-                return new BlockAllFilter();
+                return categoryId => false;
             }
 
-            var organizationUnitCategories = _finder.Find(CategorySpecifications.Find.CategoriesForOrganizationUnit(destOrganizationUnitId) &&
-                                                          Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
-                                                    .Join(categoryIds, entity => entity.CategoryId, id => id, (entity, id) => id)
+            var supportedCategoryIds = NewSalesModelRestrictions.GetSupportedCategoryIds(destOrganizationUnitId);
+            var organizationUnitCategories = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
+                                                          CategorySpecifications.CategoryOrganizationUnits.Find.ForOrganizationUnit(destOrganizationUnitId) &&
+                                                          CategorySpecifications.CategoryOrganizationUnits.Find.ForCategories(supportedCategoryIds))
+                                                    .Select(x => x.CategoryId)
                                                     .ToArray();
-            return new NewSalesModelFilter(organizationUnitCategories);
+
+            return categoryId => organizationUnitCategories.Contains(categoryId);
         }
 
         private LinkingObjectsSchemaDto.PositionDto[] GetPositions(bool isPricePositionComposite, long positionId)
@@ -244,52 +246,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                               Name = theme.Name
                           })
                           .ToArray();
-        }
-
-        private interface ICategoryFilter
-        {
-            bool IsSatisfiedBy(long categoryId);
-        }
-
-        private class AllowAllFilter : ICategoryFilter
-        {
-            public bool IsSatisfiedBy(long categoryId)
-            {
-                return true;
-            }
-        }
-
-        private class BlockAllFilter : ICategoryFilter
-        {
-            public bool IsSatisfiedBy(long categoryId)
-            {
-                return false;
-            }
-        }
-
-        private class NewSalesModelFilter : ICategoryFilter
-        {
-            private readonly IEnumerable<long> _organizationUnitCategories;
-
-            public NewSalesModelFilter(IEnumerable<long> organizationUnitCategories)
-            {
-                _organizationUnitCategories = organizationUnitCategories;
-            }
-
-            public bool IsSatisfiedBy(long categoryId)
-            {
-                if (!NewSalesModelRestrictions.SupportedCategoryIds.Contains(categoryId))
-                {
-                    return false;
-                }
-
-                if (!_organizationUnitCategories.Contains(categoryId))
-                {
-                    return false;
-                }
-
-                return true;
-            }
         }
     }
 }

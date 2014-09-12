@@ -206,7 +206,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
 
             ResumeContext.UseCaseResume(new CheckDealRequest { DealId = order.DealId.Value, CurrencyId = order.CurrencyId.Value });
-            ResumeContext.UseCaseResume(new ActualizeDealProfitIndicatorsRequest { DealIds = new[] { order.DealId.Value } });
             OperationScope.Updated<Deal>(order.DealId.Value);
         }
 

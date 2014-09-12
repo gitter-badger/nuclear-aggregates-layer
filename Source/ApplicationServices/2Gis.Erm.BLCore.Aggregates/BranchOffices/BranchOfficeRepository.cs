@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
 
-using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit;
 
 // ReSharper disable CheckNamespace
 
@@ -26,71 +23,76 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
     // TODO {all, 11.02.2013}: навести порядок в Exception's -> при ошибках бизнес логики выбрасываются и ArgumentException и NotificationException и Exception.
     public class BranchOfficeRepository : IBranchOfficeRepository
     {
-        private readonly IFinder _finder;
-        private readonly ISecureFinder _secureFinder;
         private readonly IRepository<BranchOffice> _branchOfficeGenericRepository;
         private readonly IRepository<BranchOfficeOrganizationUnit> _branchOfficeOrganizationUnitGenericRepository;
+        private readonly IFinder _finder;
+        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly ISecureFinder _secureFinder;
 
         public BranchOfficeRepository(IFinder finder,
                                       ISecureFinder secureFinder,
                                       IRepository<BranchOffice> branchOfficeGenericRepository,
-                                      IRepository<BranchOfficeOrganizationUnit> branchOfficeOrganizationUnitGenericRepository)
+                                      IRepository<BranchOfficeOrganizationUnit> branchOfficeOrganizationUnitGenericRepository,
+                                      IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
             _secureFinder = secureFinder;
             _branchOfficeGenericRepository = branchOfficeGenericRepository;
             _branchOfficeOrganizationUnitGenericRepository = branchOfficeOrganizationUnitGenericRepository;
+            _scopeFactory = scopeFactory;
         }
 
         public IEnumerable<long> GetOrganizationUnitTerritories(long organizationUnitId)
         {
             return _finder.Find<Territory>(territory => territory.OrganizationUnitId == organizationUnitId)
-                .Select(territory => territory.Id)
-                .ToArray();
+                          .Select(territory => territory.Id)
+                          .ToArray();
         }
 
         public BranchOfficeOrganizationShortInformationDto GetBranchOfficeOrganizationUnitShortInfo(long organizationUnitId)
         {
             return _finder.Find<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId)
-                .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
-                .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
-                .Select(x => new BranchOfficeOrganizationShortInformationDto
-                {
-                    Id = x.Id,
-                    ShortLegalName = x.ShortLegalName,
-                })
+                          .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
+                          .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
+                          .Select(x => new BranchOfficeOrganizationShortInformationDto
+                              {
+                                  Id = x.Id,
+                                  ShortLegalName = x.ShortLegalName,
+                              })
                           .SingleOrDefault() ?? new BranchOfficeOrganizationShortInformationDto();
-                // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
+            // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
         }
 
         public int Deactivate(BranchOffice branchOffice)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, BranchOffice>())
             {
                 var isActiveOrdersExist = _secureFinder
-                .Find(Specs.Find.ById<BranchOffice>(branchOffice.Id))
-                .SelectMany(x => x.BranchOfficeOrganizationUnits)
-                .SelectMany(x => x.Orders)
-                .Any(x => x.IsActive);
-            if (isActiveOrdersExist)
-            {
-                throw new ArgumentException(BLResources.CantDeativateObjectLinkedWithActiveOrders);
-            }
+                    .Find(Specs.Find.ById<BranchOffice>(branchOffice.Id))
+                    .SelectMany(x => x.BranchOfficeOrganizationUnits)
+                    .SelectMany(x => x.Orders)
+                    .Any(x => x.IsActive);
+                if (isActiveOrdersExist)
+                {
+                    throw new ArgumentException(BLResources.CantDeativateObjectLinkedWithActiveOrders);
+                }
 
                 var branchOfficeOrganizationUnits = _secureFinder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToBranchOffice(branchOffice.Id));
-            foreach (var branchOfficeOrganizationUnit in branchOfficeOrganizationUnits)
-            {
-                branchOfficeOrganizationUnit.IsActive = false;
-                _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
-            }
+                foreach (var branchOfficeOrganizationUnit in branchOfficeOrganizationUnits)
+                {
+                    branchOfficeOrganizationUnit.IsActive = false;
+                    _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
+                    scope.Updated(branchOfficeOrganizationUnit);
+                }
 
                 _branchOfficeOrganizationUnitGenericRepository.Save();
 
-            branchOffice.IsActive = false;
+                branchOffice.IsActive = false;
                 _branchOfficeGenericRepository.Update(branchOffice);
+                scope.Updated(branchOffice);
                 var count = _branchOfficeGenericRepository.Save();
 
-                transaction.Complete();
+                scope.Complete();
                 return count;
             }
         }
@@ -101,14 +103,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                 .Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id))
                 .SelectMany(x => x.Orders)
                 .Any(x => x.IsActive && !x.IsDeleted);
+
             if (isActiveOrdersExist)
             {
                 throw new ArgumentException(BLResources.CantDeativateObjectLinkedWithActiveOrders);
             }
 
-            branchOfficeOrganizationUnit.IsActive = false;
-            _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
-            return _branchOfficeOrganizationUnitGenericRepository.Save();
+            using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, BranchOfficeOrganizationUnit>())
+            {
+                branchOfficeOrganizationUnit.IsActive = false;
+                _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
+                var result = _branchOfficeOrganizationUnitGenericRepository.Save();
+
+                scope.Updated(branchOfficeOrganizationUnit)
+                     .Complete();
+
+                return result;
+            }
         }
 
         public void SetPrimaryBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
@@ -119,21 +130,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                 throw new Exception(BLResources.CouldNotFindBranchOfficeOrganizationUnit);
             }
 
-            branchOfficeOrganizationUnit.IsPrimary = true;
-            _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
-
             var otherBranchOfficeOrganizationUnits =
                 _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
                                  & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
                                  & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id));
 
-            foreach (var notPrimarybranchOfficeOrganizationUnit in otherBranchOfficeOrganizationUnits)
+            using (var scope = _scopeFactory.CreateNonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryIdentity>())
             {
-                notPrimarybranchOfficeOrganizationUnit.IsPrimary = false;
-                _branchOfficeOrganizationUnitGenericRepository.Update(notPrimarybranchOfficeOrganizationUnit);
-            }
+                branchOfficeOrganizationUnit.IsPrimary = true;
+                _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
+                scope.Updated(branchOfficeOrganizationUnit);
 
-            _branchOfficeOrganizationUnitGenericRepository.Save();
+                foreach (var notPrimarybranchOfficeOrganizationUnit in otherBranchOfficeOrganizationUnits)
+                {
+                    notPrimarybranchOfficeOrganizationUnit.IsPrimary = false;
+                    _branchOfficeOrganizationUnitGenericRepository.Update(notPrimarybranchOfficeOrganizationUnit);
+                    scope.Updated(branchOfficeOrganizationUnit);
+                }
+
+                _branchOfficeOrganizationUnitGenericRepository.Save();
+                scope.Complete();
+            }
         }
 
         public void SetPrimaryForRegionalSalesBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
@@ -144,27 +161,33 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                 throw new Exception(BLResources.CouldNotFindBranchOfficeOrganizationUnit);
             }
 
-            branchOfficeOrganizationUnit.IsPrimaryForRegionalSales = true;
-            _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
-
-            var otherBranchOfficeOrganizationUnits =
-                _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
-                                 & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
-                                 & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id));
-
-            foreach (var notPrimarybranchOfficeOrganizationUnit in otherBranchOfficeOrganizationUnits)
+            using (var scope = _scopeFactory.CreateNonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>())
             {
-                notPrimarybranchOfficeOrganizationUnit.IsPrimaryForRegionalSales = false;
-                _branchOfficeOrganizationUnitGenericRepository.Update(notPrimarybranchOfficeOrganizationUnit);
-            }
+                var otherBranchOfficeOrganizationUnits =
+                    _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
+                                     & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
+                                     & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id));
 
-            _branchOfficeOrganizationUnitGenericRepository.Save();
-         }
+                branchOfficeOrganizationUnit.IsPrimaryForRegionalSales = true;
+                _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
+                scope.Updated(branchOfficeOrganizationUnit);
+
+                foreach (var notPrimarybranchOfficeOrganizationUnit in otherBranchOfficeOrganizationUnits)
+                {
+                    notPrimarybranchOfficeOrganizationUnit.IsPrimaryForRegionalSales = false;
+                    _branchOfficeOrganizationUnitGenericRepository.Update(notPrimarybranchOfficeOrganizationUnit);
+                    scope.Updated(notPrimarybranchOfficeOrganizationUnit);
+                }
+
+                _branchOfficeOrganizationUnitGenericRepository.Save();
+                scope.Complete();
+            }
+        }
 
         public long? GetPrintFormTemplateId(long branchOfficeOrganizationUnitId, TemplateCode templateCode)
         {
             var templates = _finder.Find<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == (int)templateCode)
-                .OrderByDescending(x => x.Id);
+                                   .OrderByDescending(x => x.Id);
 
             var templateId = templates
                 .Where(x => x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId)
@@ -198,38 +221,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         {
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(entityId));
 
-            return Activate(branchOfficeOrganizationUnit); 
-        }
-
-        private int Activate(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)
-        {
-            var primaryBranchOfficeOrganizationUnits = GetPrimaryBranchOfficeOrganizationUnits(branchOfficeOrganizationUnit.OrganizationUnitId);
-
-            if (primaryBranchOfficeOrganizationUnits.Primary != null)
-            {
-                branchOfficeOrganizationUnit.IsPrimary = false;
-            }
-            if (primaryBranchOfficeOrganizationUnits.PrimaryForRegionalSales != null)
-            {
-                branchOfficeOrganizationUnit.IsPrimaryForRegionalSales = false;
-            }
-
-            branchOfficeOrganizationUnit.IsActive = true;
-            _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
-
-            return _branchOfficeOrganizationUnitGenericRepository.Save();
-        }
-
-        private PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
-        {
-            return new PrimaryBranchOfficeOrganizationUnits
-            {
-                    Primary = 
-                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryOfOrganizationUnit(organizationUnitId)),
-
-                    PrimaryForRegionalSales =
-                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
-                };
+            return Activate(branchOfficeOrganizationUnit);
         }
 
         int IActivateAggregateRepository<BranchOffice>.Activate(long entityId)
@@ -239,12 +231,57 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             return Activate(branchOffice);
         }
 
+        private int Activate(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)
+        {
+            using (var scope = _scopeFactory.CreateSpecificFor<ActivateIdentity, BranchOfficeOrganizationUnit>())
+            {
+                var primaryBranchOfficeOrganizationUnits = GetPrimaryBranchOfficeOrganizationUnits(branchOfficeOrganizationUnit.OrganizationUnitId);
+
+                if (primaryBranchOfficeOrganizationUnits.Primary != null)
+                {
+                    branchOfficeOrganizationUnit.IsPrimary = false;
+                }
+                if (primaryBranchOfficeOrganizationUnits.PrimaryForRegionalSales != null)
+                {
+                    branchOfficeOrganizationUnit.IsPrimaryForRegionalSales = false;
+                }
+
+                branchOfficeOrganizationUnit.IsActive = true;
+                _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
+
+                var result =  _branchOfficeOrganizationUnitGenericRepository.Save();
+
+                scope.Updated(branchOfficeOrganizationUnit)
+                     .Complete();
+
+                return result;
+            }
+        }
+
+        private PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
+        {
+            return new PrimaryBranchOfficeOrganizationUnits
+                {
+                    Primary =
+                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryOfOrganizationUnit(organizationUnitId)),
+                    PrimaryForRegionalSales =
+                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
+                };
+        }
+
         private int Activate(BranchOffice branchOffice)
         {
-            branchOffice.IsActive = true;
-            _branchOfficeGenericRepository.Update(branchOffice);
+            using (var scope = _scopeFactory.CreateSpecificFor<ActivateIdentity, BranchOffice>())
+            {
+                branchOffice.IsActive = true;
+                _branchOfficeGenericRepository.Update(branchOffice);
 
-            return _branchOfficeGenericRepository.Save();
+                var cnt =  _branchOfficeGenericRepository.Save();
+                scope.Updated(branchOffice).
+                      Complete();
+
+                return cnt;
+            }
         }
     }
 }

@@ -8,8 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations
 {
     public interface IImportBuildingAggregateService : IAggregatePartRepository<Firm>
     {
-        void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos,
-                                          string regionalTerritoryLocaleSpecificWord,
-                                          bool enableReplication);
+        void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos, string regionalTerritoryLocaleSpecificWord, bool enableReplication, bool useWarehouseIntegration);
     }
 }

@@ -28,6 +28,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
 {
     [UseCase(Duration = UseCaseDuration.Long)]
+    [Obsolete("На текущий момент 1С читает поток юр. лиц из шины")]
     public sealed class ExportLegalPersonsHandler : RequestHandler<ExportLegalPersonsRequest, IntegrationResponse>
     {
         private static readonly Encoding CyrillicEncoding = Encoding.GetEncoding(1251);

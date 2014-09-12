@@ -62,14 +62,15 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             return changedEntitiesReport.ToEntityChanges();
         }
 
-        public IEnumerable<long> UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication)
+        public IEnumerable<long> UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication, bool useWarehouseIntegration)
         {
             return _databaseCaller.ExecuteProcedureWithResultSequenceOf<long>(
                                         "Integration.UpdateBuildings",
                                         timeout,
                                         new Tuple<string, object>("buildingsXml", buildingsXml),
                                         new Tuple<string, object>("RegionalTerritoryLocalName", regionalTerritoryLocaleSpecificWord),
-                                        new Tuple<string, object>("EnableReplication", enableReplication));
+                                        new Tuple<string, object>("EnableReplication", enableReplication),
+                                        new Tuple<string, object>("UseWarehouseIntegration", useWarehouseIntegration));
         }
 
         public void DeleteBuildings(string codesXml, int timeout)

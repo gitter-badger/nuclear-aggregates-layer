@@ -1,33 +1,39 @@
-﻿using System.Transactions;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
-using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
 {
     public class ActivateUserService : IActivateGenericEntityService<User>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserReadModel _readModel;
+        private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IActivateUserAggregateService _aggregateService;
 
-        public ActivateUserService(IUserRepository userRepository)
+        public ActivateUserService(IUserReadModel readModel, IActivateUserAggregateService aggregateService, IOperationScopeFactory operationScopeFactory)
         {
-            _userRepository = userRepository;
+            _readModel = readModel;
+            _aggregateService = aggregateService;
+            _operationScopeFactory = operationScopeFactory;
         }
 
         public int Activate(long entityId)
         {
-            int result = 0;
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, User>())
             {
-                var activateAggregateRepository = _userRepository as IActivateAggregateRepository<User>;
-                result = activateAggregateRepository.Activate(entityId);
+                var user = _readModel.GetUser(entityId);
+                var profile = _readModel.GetProfileForUser(entityId);
 
-                transaction.Complete();
+                _aggregateService.Activate(user, profile);
+
+                scope.Updated<User>(user.Id)
+                     .Complete();
             }
-            return result;
+
+            return 0;
         }
     }
 }

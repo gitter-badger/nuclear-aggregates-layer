@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Shared
 {
