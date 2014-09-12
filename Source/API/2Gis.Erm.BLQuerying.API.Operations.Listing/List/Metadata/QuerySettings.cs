@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
     {
         public int SkipCount { get; set; }
         public int TakeCount { get; set; }
-        public ICollection<QuerySettingsSort> Sort { get; set; }
+        public IReadOnlyCollection<QuerySettingsSort> Sort { get; set; }
 
         public string FilterName { get; set; }
 

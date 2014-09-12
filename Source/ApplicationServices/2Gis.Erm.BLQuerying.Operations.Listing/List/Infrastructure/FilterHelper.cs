@@ -5,17 +5,23 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Common.Utils;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 {
     public sealed class FilterHelper
     {
         private readonly SubordinatesFilter _subordinatesFilter;
+        private readonly EnumLocalizationVisitor _enumLocalizationVisitor;
 
-        public FilterHelper(SubordinatesFilter subordinatesFilter)
+        public FilterHelper(SubordinatesFilter subordinatesFilter, EnumLocalizationVisitor enumLocalizationVisitor)
         {
             _subordinatesFilter = subordinatesFilter;
+            _enumLocalizationVisitor = enumLocalizationVisitor;
         }
 
         public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> query, params Expression<Func<TEntity, bool>>[] expressions)
@@ -42,7 +48,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return SortedPaged(query3, querySettings);
         }
 
-        public IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
+        private static IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
         {
             Expression expression;
             if (!DefaultFilterMetadata.TryGetFilter<TDocument>(querySettings.FilterName, out expression))
@@ -56,7 +62,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return queryable.Provider.CreateQuery<TDocument>(whereExpression);
         }
 
-        public IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
+        private static IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             bool filterToParent;
             if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent))
@@ -82,7 +88,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return query.Provider.CreateQuery<TDocument>(whereExpression);
         }
 
-        private IQueryable<TDocument> FieldFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
+        private static IQueryable<TDocument> FieldFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             if (string.IsNullOrEmpty(querySettings.UserInputFilter))
             {
@@ -103,7 +109,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return query.Provider.CreateQuery<TDocument>(whereExpression);
         }
 
-        private LambdaExpression CreateUserInputExpression<TDocument>(string phrase, IEnumerable<LambdaExpression> lambdaExpressions)
+        private static LambdaExpression CreateUserInputExpression<TDocument>(string phrase, IEnumerable<LambdaExpression> lambdaExpressions)
         {
             Expression expression = null;
             var parameterExpression = Expression.Parameter(typeof(TDocument), "x");
@@ -212,16 +218,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             {
                 propertyName = "OwnerCode";
             }
-            else
-            {
-                // хак для сортировки по enum
-                var enumPropertyName = propertyName + "Enum";
-                var enumPropertyInfo = Array.Find(properties, x => x.Name.Equals(enumPropertyName, StringComparison.OrdinalIgnoreCase));
-                if (enumPropertyInfo != null)
-                {
-                    return enumPropertyInfo;
-                }
-            }
 
             var propertyInfo = Array.Find(properties, x => x.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
             if (propertyInfo == null)
@@ -232,7 +228,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return propertyInfo;
         }
 
-        private static RemoteCollection<TDocument> SortedPaged<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
+        private RemoteCollection<TDocument> SortedPaged<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             var documentType = typeof(TDocument);
             var properties = documentType.GetProperties();
@@ -286,6 +282,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
                 };
             });
 
+            // локализация enum
+            query = query.Provider.CreateQuery<TDocument>(_enumLocalizationVisitor.Visit(query.Expression));
+
             var querySorted = query;
             foreach (var sort2 in sorts2)
             {
@@ -301,6 +300,72 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
                 .ToList();
 
             return new RemoteCollection<TDocument>(querySortedPaged, totalCount);
+        }
+
+        public sealed class EnumLocalizationVisitor : ExpressionVisitor
+        {
+            private readonly IUserContext _userContext;
+
+            public EnumLocalizationVisitor(IUserContext userContext)
+            {
+                _userContext = userContext;
+            }
+
+            private static readonly MethodInfo EnumLocalizedMethodInfo = ((MethodCallExpression)((Expression<Func<string>>)(() => Gender.Male.ToStringLocalizedExpression())).Body).Method;
+
+            protected override Expression VisitMemberInit(MemberInitExpression node)
+            {
+                var enumBindingsMap = node.Bindings.OfType<MemberAssignment>().Where(x =>
+                {
+                    var methodCallExpression = x.Expression as MethodCallExpression;
+                    if (methodCallExpression == null)
+                    {
+                        return false;
+                    }
+                    return methodCallExpression.Method == EnumLocalizedMethodInfo;
+                })
+                .ToDictionary(x => x, x => ((UnaryExpression)((MethodCallExpression)x.Expression).Arguments[0]).Operand);
+
+                if (!enumBindingsMap.Any())
+                {
+                    return node;
+                }
+
+                var bindings = new List<MemberBinding>(node.Bindings.Count);
+                foreach (var binding in node.Bindings.OfType<MemberAssignment>())
+                {
+                    Expression enumExpression;
+                    if (enumBindingsMap.TryGetValue(binding, out enumExpression))
+                    {
+                        var enumLocalizedExpression = GetEnumLocalizedExpression(enumExpression);
+                        var enumLocalizedBinding = binding.Update(enumLocalizedExpression);
+                        bindings.Add(enumLocalizedBinding);
+                    }
+                    else
+                    {
+                        bindings.Add(binding);
+                    }
+                }
+
+                return node.Update(node.NewExpression, bindings);
+            }
+
+            private Expression GetEnumLocalizedExpression(Expression enumExpression)
+            {
+                var expression = (Expression)Expression.Constant(null, typeof(string));
+
+                var values = Enum.GetValues(enumExpression.Type);
+                foreach (Enum value in values)
+                {
+                    var valueExpression = Expression.Constant(value);
+                    var localizedValue = value.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                    var localizedValueExpression = Expression.Constant(localizedValue);
+
+                    expression = Expression.Condition(Expression.Equal(enumExpression, valueExpression), localizedValueExpression, expression);
+                }
+
+                return expression;
+            }
         }
     }
 }

@@ -276,13 +276,13 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // Мои заказы в статусе На утверждении
             .RegisterFilter<ListOrderDto>("DListMyOrdersOnApproval", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval)
             // Мои неактивные (заказы закрытые отказом)
-            .RegisterFilter<ListOrderDto>("DListMyTerminatedOrders", x => !x.IsDeleted && x.IsTerminated)
+            .RegisterFilter<ListOrderDto>("DListMyTerminatedOrders", x => !x.IsActive && !x.IsDeleted)
             // Мои заказы, у которых отсутствуют подписанные документы
             .RegisterFilter<ListOrderDto>("DListMyOrdersWithDocumentsDebt", x => x.IsActive && !x.IsDeleted && x.HasDocumentsDebtEnum == DocumentsDebt.Absent)
             // Все заказы моих подчиненных
             .RegisterFilter<ListOrderDto>("DListOrdersForSubordinates", x => x.IsActive && !x.IsDeleted)
             // Неактивные (закрытые отказом) заказы моих подчиненных
-            .RegisterFilter<ListOrderDto>("DListTerminatedOrdersForSubordinates", x => !x.IsDeleted && x.IsTerminated)
+            .RegisterFilter<ListOrderDto>("DListTerminatedOrdersForSubordinates", x => !x.IsActive && !x.IsDeleted)
             // Все мои заказы с типом Самореклама
             .RegisterFilter<ListOrderDto>("DListMySelfAdsOrders", x => x.IsActive && !x.IsDeleted && x.OrderTypeEnum == OrderType.SelfAds)
             // Все мои заказы с типом Бартер
@@ -308,7 +308,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             // БЗ, в статусе Одобрено, у которых отсутствуют прикрепленные РМ
             .RegisterFilter<ListOrderDto>("DListApprovedOrdersWithoutAdvertisement", x => x.IsActive && !x.IsDeleted && x.WorkflowStepEnum == OrderState.OnApproval)
             // Заказы в выпуск следующего месяца закрытые отказом
-            .RegisterFilter<ListOrderDto>("DListTerminatedOrdersForNextMonthEdition", x => !x.IsDeleted && x.IsTerminated)
+            .RegisterFilter<ListOrderDto>("DListTerminatedOrdersForNextMonthEdition", x => !x.IsActive && !x.IsDeleted)
             // Неподписанные БЗ за текущий выпуск
             .RegisterFilter<ListOrderDto>("DListOrdersWithDocumentsDebtForNextMonth", x => x.IsActive && !x.IsDeleted && x.HasDocumentsDebtEnum == DocumentsDebt.Absent && (x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved))
             // Список технических расторжений

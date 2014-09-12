@@ -78,10 +78,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\QueryingBootstrapper.Aspects.cs" />
-    <Compile Include="DocumentRelationMetadataMassProcessor.cs" />
-    <Compile Include="UnityEntityToDocumentRelationFactory.cs" />
-    <Compile Include="EntityToDocumentRelationMetadataMassProcessor.cs" />
-    <Compile Include="UnityDocumentRelationFactory.cs" />
+    <Compile Include="BLQueryingConflictResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
