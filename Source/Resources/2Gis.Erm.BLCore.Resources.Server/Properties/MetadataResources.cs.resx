@@ -193,7 +193,7 @@
     <value>Série dokladu totožnosti</value>
   </data>
   <data name="PriceCreateDate" xml:space="preserve">
-    <value>Datum vytvoření</value>
+    <value>Datum vystavení</value>
   </data>
   <data name="IsServiceUser" xml:space="preserve">
     <value>Služební</value>
@@ -634,7 +634,7 @@
     <value>Vytvořeno</value>
   </data>
   <data name="CreatedOn" xml:space="preserve">
-    <value>Datum vytvoření</value>
+    <value>Datum vystavení</value>
   </data>
   <data name="ClosedOn" xml:space="preserve">
     <value>Datum ukončení</value>
@@ -937,7 +937,7 @@
     <value>Koeficient přepočtu</value>
   </data>
   <data name="ChiefNameInGenitive" xml:space="preserve">
-    <value>Úplné jméno (druhý pád)</value>
+    <value>Jméno, příjmení (sedmý pád)</value>
   </data>
   <data name="WithPaymentDebt" xml:space="preserve">
     <value>Ve věci platby</value>
@@ -1009,7 +1009,7 @@
     <value>Číslo účtu</value>
   </data>
   <data name="AdditionalPaymentElements" xml:space="preserve">
-    <value>Další platební údaje</value>
+    <value>Další platební údaje (IBAN, SWIFT apod.)</value>
   </data>
   <data name="BankName" xml:space="preserve">
     <value>Název banky</value>
@@ -1195,7 +1195,7 @@
     <value>Výsledek zpracování</value>
   </data>
   <data name="CreateDate" xml:space="preserve">
-    <value>Datum vytvoření</value>
+    <value>Datum vystavení</value>
   </data>
   <data name="CloseLockDate" xml:space="preserve">
     <value>Datum ukončení blokování</value>
@@ -1273,7 +1273,7 @@
     <value>Kód banky</value>
   </data>
   <data name="Registered" xml:space="preserve">
-    <value>Registrovaná</value>
+    <value>Registrovaná (Spisová značka z OR)</value>
   </data>
   <data name="CreateCsvFile" xml:space="preserve">
     <value>Dodatečně odeslat soubor ve formátu csv</value>

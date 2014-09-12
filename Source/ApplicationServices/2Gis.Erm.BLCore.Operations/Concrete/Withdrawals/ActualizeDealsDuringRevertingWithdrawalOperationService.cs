@@ -15,20 +15,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
     public sealed class ActualizeDealsDuringRevertingWithdrawalOperationService : IActualizeDealsDuringRevertingWithdrawalOperationService
     {
         private readonly IDealReadModel _dealReadModel;
-        private readonly IDealActualizeDealProfitIndicatorsAggregateService _dealActualizeDealProfitIndicatorsAggregateService;
         private readonly IDealChangeStageAggregateService _dealChangeStageAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICommonLog _logger;
 
         public ActualizeDealsDuringRevertingWithdrawalOperationService(
             IDealReadModel dealReadModel,
-            IDealActualizeDealProfitIndicatorsAggregateService dealActualizeDealProfitIndicatorsAggregateService,
             IDealChangeStageAggregateService dealChangeStageAggregateService,
             IOperationScopeFactory scopeFactory, 
             ICommonLog logger)
         {
             _dealReadModel = dealReadModel;
-            _dealActualizeDealProfitIndicatorsAggregateService = dealActualizeDealProfitIndicatorsAggregateService;
             _dealChangeStageAggregateService = dealChangeStageAggregateService;
             _scopeFactory = scopeFactory;
             _logger = logger;
@@ -41,14 +38,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             using (var scope = _scopeFactory.CreateNonCoupled<ActualizeDealsDuringRevertingWithdrawalIdentity>())
             {
                 var dealInfos = _dealReadModel.GetInfoForWithdrawal(dealIds);
-                _dealActualizeDealProfitIndicatorsAggregateService.Actualize(dealInfos.Select(i => i.ActualizeProfitInfo));
 
                 _dealChangeStageAggregateService.ChangeStage(
                     dealInfos
-                        .Where(i => i.ActualizeProfitInfo.Deal.DealStage != (int)DealStage.OrderApprovedForRelease && !i.HasInactiveLocks)
+                        .Where(i => i.Deal.DealStage != (int)DealStage.OrderApprovedForRelease && !i.HasInactiveLocks)
                         .Select(i => new DealChangeStageDto
                             {
-                                Deal = i.ActualizeProfitInfo.Deal,
+                                Deal = i.Deal,
                                 NextStage = DealStage.OrderApprovedForRelease
                             }));
 

@@ -32,6 +32,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Client;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 {
@@ -124,16 +125,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public int SetMainFirm(Client client, long? mainFirmId)
         {
+            using (var scope = _scopeFactory.CreateNonCoupled<SetMainFirmIdentity>())
+            {
                 client.MainFirmId = mainFirmId;
                 _clientGenericSecureRepository.Update(client);
-                return _clientGenericSecureRepository.Save();
+                var cnt = _clientGenericSecureRepository.Save();
+
+                scope.Updated(client)
+                     .Complete();
+
+                return cnt;
+            }
         }
 
         public int Assign(Client client, long ownerCode)
         {
-            client.OwnerCode = ownerCode;
-            _clientGenericSecureRepository.Update(client);
-            return _clientGenericSecureRepository.Save();
+            using (var scope = _scopeFactory.CreateSpecificFor<AssignIdentity, Client>())
+            {
+                client.OwnerCode = ownerCode;
+                _clientGenericSecureRepository.Update(client);
+                var cnt = _clientGenericSecureRepository.Save();
+
+                scope.Updated(client)
+                     .Complete();
+
+                return cnt;
+            }
         }
 
         public int AssignWithRelatedEntities(long clientId, long ownerCode, bool isPartialAssign)
@@ -407,6 +424,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 return 0;
             }
 
+            // Изменения логируются в вызывающем коде
             client.TerritoryId = territoryId;
             _clientGenericSecureRepository.Update(client);
             return _clientGenericSecureRepository.Save();
@@ -514,6 +532,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 CopyClientInfo(mainClient, masterClient);
                 mainClient.OwnerCode = masterClient.OwnerCode;
 
+                // Изменения логируются в вызывающем коде
                 _clientGenericSecureRepository.Update(mainClient);
                 _clientGenericSecureRepository.Save();
 
@@ -525,9 +544,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public void Deactivate(Client client)
         {
-            client.IsActive = false;
-            _clientGenericSecureRepository.Update(client);
+            using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, Client>())
+            {
+                client.IsActive = false;
+                _clientGenericSecureRepository.Update(client);
                 _clientGenericSecureRepository.Save();
+                scope.Updated(client)
+                     .Complete();
+            }
         }
 
         public IEnumerable<Client> GetClientsByTerritory(long territoryId)
@@ -586,6 +610,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
             contact.FullName = fullName.ToString().TrimEnd(' ');
 
+            // Изменения логируются в вызывающем коде
             if (contact.IsNew())
             {
                 _identityProvider.SetFor(contact);
@@ -607,6 +632,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         int IAssignAggregateRepository<Contact>.Assign(long entityId, long ownerCode)
         {
+            // Изменения логируются в вызывающем коде
             var entity = _finder.Find(Specs.Find.ById<Contact>(entityId)).Single();
             entity.OwnerCode = ownerCode;
             _contactGenericSecureRepository.Update(entity);
@@ -668,6 +694,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             return ChangeTerritory(entity, territoryId);
         }
 
+        [Obsolete("Используется только в DgppImportFirmsHandler")]
         public int HideFirm(long firmId)
         {
             var clients = _finder.FindMany(ClientSpecs.Clients.Find.ByMainFirm(firmId)).ToArray();
@@ -738,14 +765,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             return priorities[maxPriority];
         }
 
-        // TODO {all, 29.07.2013}: полная копия FirmRepository.GetContacts(long firmAddressId) - подумать как исключить такое дублирование кода
-        // DONE {all, 13.05.2014}: код перенесен в Read-model
-
         private void PerformSecurityChecks(Client mainClient, ICuratedEntity appendedClient)
         {
-            var privelegDepth = GetMaxAccessForMerge(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.MergeClients, _userContext.Identity.Code));
+            var privilegeDepth = GetMaxAccessForMerge(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.MergeClients, _userContext.Identity.Code));
 
-            switch (privelegDepth)
+            switch (privilegeDepth)
             {
                 case MergeClientsAccess.None:
                     throw new NotificationException(BLResources.AccessDenied);

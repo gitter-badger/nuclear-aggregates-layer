@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public OrderProcessingResult ProcessSingle(long orderProcessingRequestId)
         {
-            var request = _orderProcessingRequestService.GetPrologationRequestToProcess(orderProcessingRequestId);
+            var request = _orderProcessingRequestService.GetProlongationRequestToProcess(orderProcessingRequestId);
             return _basicOrderProlongationOperation.ExecuteRequest(request);
         }
     }

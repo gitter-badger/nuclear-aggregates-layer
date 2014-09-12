@@ -1845,15 +1845,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount {
-            get {
-                return ResourceManager.GetString("AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AttemptToSaveExistingOpderPositionsWithZeroCount {
             get {
                 return ResourceManager.GetString("AttemptToSaveExistingOpderPositionsWithZeroCount", resourceCulture);
@@ -2028,6 +2019,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string BeginMonthMustBeGreaterOrEqualThanNextMonth {
             get {
                 return ResourceManager.GetString("BeginMonthMustBeGreaterOrEqualThanNextMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BillFileNameTemplate {
+            get {
+                return ResourceManager.GetString("BillFileNameTemplate", resourceCulture);
             }
         }
         

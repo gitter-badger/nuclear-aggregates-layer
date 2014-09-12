@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
@@ -7,16 +8,21 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DI.Infrastructure.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
+using DoubleGis.Erm.Platform.AppFabric.Cache;
+using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
+using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -34,6 +40,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -42,6 +49,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
@@ -49,6 +57,21 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 {
     public static partial class CommonBootstrapper
     {
+        public static IUnityContainer ConfigureCacheAdapter(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, ICachingSettings cachingSettings)
+        {
+            switch (cachingSettings.CachingMode)
+            {
+                case CachingMode.Distributed:
+                    return container.RegisterType<ICacheAdapter, AppFabricCacheAdapter>(Lifetime.Singleton,
+                                                                                        new InjectionConstructor(new ResolvedParameter<ICommonLog>(),
+                                                                                                                 cachingSettings.DistributedCacheName));
+                case CachingMode.InProc:
+                    return container.RegisterType<ICacheAdapter, MemCacheAdapter>(entryPointSpecificLifetimeManagerFactory());
+                default:
+                    return container.RegisterType<ICacheAdapter, NullObjectCacheAdapter>(Lifetime.Singleton);
+            }
+        }
+
         public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings)
         {
             if (environmentSettings.Type == EnvironmentType.Production)
@@ -58,6 +81,11 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             else
             {
                 container.RegisterType<IPendingChangesHandlingStrategy, ForcePendingChangesHandlingStrategy>(Lifetime.Singleton);
+            }
+
+            if (!container.IsRegistered<IMsCrmReplicationMetadataProvider>())
+            {
+                container.RegisterType<IMsCrmReplicationMetadataProvider, NullMsCrmReplicationMetadataProvider>();
             }
 
             return container
@@ -137,7 +165,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
                         .RegisterTypeWithDependencies<IRepository<Bank>, DynamicStorageRepositoryDecorator<Bank>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>, DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
-
+                        
                         .RegisterType<IRepository<FileWithContent>, EFFileRepository>(Lifetime.PerResolve);
         }
 
@@ -192,10 +220,25 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.DB))
             {
                 var typeOfDirectDBLoggingStrategy = typeof(DirectDBLoggingStrategy);
-                container.RegisterTypeWithDependencies(typeof(IOperationLoggingStrategy), typeOfDirectDBLoggingStrategy, typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), entryPointSpecificLifetimeManagerFactory(), (string)null, InjectionFactories.SimplifiedModelConsumer)
+                container.RegisterTypeWithDependencies(
+                                    typeof(IOperationLoggingStrategy), 
+                                    typeOfDirectDBLoggingStrategy, 
+                                    typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    entryPointSpecificLifetimeManagerFactory(), 
+                                    (string)null, 
+                                    InjectionFactories.SimplifiedModelConsumer)
                          .RegisterTypeWithDependencies<ITrackedUseCase2PerfomedBusinessOperationsConverter, TrackedUseCase2PerfomedBusinessOperationsConverter>(
                                     Lifetime.Singleton, 
                                     null);
+
+                var typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy = typeof(DirectDBEnqueUseCaseForProcessingLoggingStrategy);
+                container.RegisterTypeWithDependencies(
+                                    typeof(IOperationLoggingStrategy), 
+                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy, 
+                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    entryPointSpecificLifetimeManagerFactory(), 
+                                    (string)null)
+                         .RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton);
             }
 
             if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.Queue))
@@ -248,6 +291,51 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         {
             return container.RegisterType<IResourceGroupManager, ResourceGroupManager>(Lifetime.Singleton,
                                                                                        new InjectionConstructor((object)resourceTypes));
+        }
+
+        public static IUnityContainer ConfigureReplicationMetadata(this IUnityContainer container, IMsCrmSettings msCrmSettings)
+        {
+            Type[] asyncReplicatedTypes;
+            Type[] syncReplicatedTypes;
+            ResolveReplicatedTypes(msCrmSettings.IntegrationMode, out asyncReplicatedTypes, out syncReplicatedTypes);
+
+            return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton,
+                                                                                                               new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
+        }
+
+        private static void ResolveReplicatedTypes(MsCrmIntegrationMode integrationMode, out Type[] asyncReplicatedTypes, out Type[] syncReplicatedTypes)
+        {
+            switch (integrationMode)
+            {
+                case MsCrmIntegrationMode.Disabled:
+                {
+                    asyncReplicatedTypes = new Type[0];
+                    syncReplicatedTypes = new Type[0];
+                    break;
+                }
+                case MsCrmIntegrationMode.Sync:
+                {
+                    asyncReplicatedTypes = new Type[0];
+                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
+                    break;
+                }
+                case MsCrmIntegrationMode.Mixed:
+                {
+                    asyncReplicatedTypes = EntityNameUtils.AsyncReplicated2MsCrmEntities;
+                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
+                    break;
+                }
+                case MsCrmIntegrationMode.Async:
+                {
+                    asyncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
+                    syncReplicatedTypes = new Type[0];
+                    break;
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException("integrationMode");
+                }
+            }
         }
     }
 }

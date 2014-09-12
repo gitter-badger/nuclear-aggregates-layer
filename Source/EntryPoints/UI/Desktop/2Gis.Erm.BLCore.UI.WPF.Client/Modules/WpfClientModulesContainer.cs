@@ -305,7 +305,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules
 
             ConfigureComponentsInfrastructure(_container);
 
-            CommonBootstrapper.PerfomTypesMassProcessings(WpfClientRoot.Instance, massProcessors, firstRun, _globalizationSettings);
+            CommonBootstrapper.PerformTypesMassProcessing(WpfClientRoot.Instance, massProcessors, firstRun, _globalizationSettings);
 
             _container
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)

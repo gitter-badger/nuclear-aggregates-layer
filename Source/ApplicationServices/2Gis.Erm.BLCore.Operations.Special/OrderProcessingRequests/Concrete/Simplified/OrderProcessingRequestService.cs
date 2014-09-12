@@ -46,8 +46,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 throw new ArgumentException(BLResources.MustBeExistingEntity, "orderProcessingRequest");
             }
 
-            _orderProcessingRequestRepository.Update(orderProcessingRequest);
-            _orderProcessingRequestRepository.Save();
+
+            using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, OrderProcessingRequest>())
+            {
+                _orderProcessingRequestRepository.Update(orderProcessingRequest);
+                _orderProcessingRequestRepository.Save();
+                scope.Updated(orderProcessingRequest).Complete();
+            }
         }
 
         public void Create(OrderProcessingRequest orderProcessingRequest)
@@ -58,8 +63,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             }
 
             _identityProvider.SetFor(orderProcessingRequest);
-            _orderProcessingRequestRepository.Add(orderProcessingRequest);
-            _orderProcessingRequestRepository.Save();
+            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, OrderProcessingRequest>())
+            {
+                _orderProcessingRequestRepository.Add(orderProcessingRequest);
+                _orderProcessingRequestRepository.Save();
+                scope.Added(orderProcessingRequest).Complete();
+            }
         }
 
         public void SaveMessagesForOrderProcessingRequest(long orderProcessingRequestId, IEnumerable<IMessageWithType> messages)
@@ -68,11 +77,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
             using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.OrderProcessingRequestMessage))
             {
-                var orderProcessingResuestMessages = messages
+                var orderProcessingRequestMessages = messages
                     .Select(x => x.ToOrderProcessingRequestMessage(orderProcessingRequestId))
                     .ToArray();
 
-                foreach (var message in orderProcessingResuestMessages)
+                foreach (var message in orderProcessingRequestMessages)
                 {
                     message.GroupId = groupId;
                     _identityProvider.SetFor(message);
@@ -81,12 +90,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
                 _orderProcessingMessageRepository.Save();
 
-                scope.Added<OrderProcessingRequestMessage>(orderProcessingResuestMessages.Select(x => x.Id).ToArray())
+                scope.Added<OrderProcessingRequestMessage>(orderProcessingRequestMessages.Select(x => x.Id).ToArray())
                      .Complete();
             }
         }
 
-        public IEnumerable<OrderProcessingRequest> GetPrologationRequestsToProcess()
+        public IEnumerable<OrderProcessingRequest> GetProlongationRequestsToProcess()
         {
             return 
                 _finder
@@ -95,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                     .ToArray();
         }
 
-        public OrderProcessingRequest GetPrologationRequestToProcess(long id)
+        public OrderProcessingRequest GetProlongationRequestToProcess(long id)
         {
             return _finder.Find(Specs.Find.ById<OrderProcessingRequest>(id)).Single();
         }

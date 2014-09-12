@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.CardsForErm;
@@ -82,10 +83,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
                     };
             }
 
+            var firmElement = xml.Element("Firm");
+            if (firmElement == null)
+            {
+                throw new NotificationException("Импорт карточек из потока CardForERM - отсутствует обязательный элемент Firm");
+            }
+
             return new CardForErmServiceBusDto
                 {
                     Code = cardCode,
-                    FirmCode = (long)xml.Attribute("FirmCode"),
                     Type = cardType,
                     BranchCode = (int)xml.Attribute("BranchCode"),
                     IsActive = (bool)xml.Attribute("IsActive"),
@@ -97,10 +103,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
                             TerritoryCode = (long?)addressElement.Attribute("TerritoryCode"),
                             Text = (string)addressElement.Attribute("Text")
                         },
+
+                    SortingPosition = (int?)xml.Attribute("SortingPosition"),
                     Contacts = contacts,
                     Rubrics = rubrics,
                     Schedule = schedule,
-                    Payment = payment
+                    Payment = payment,
+                    Firm = new FirmForErmDto
+                        {
+                            Code = (long)firmElement.Attribute("Code"),
+                            Name = (string)firmElement.Attribute("Name"),
+                            BranchCode = (int)firmElement.Attribute("BranchCode"),
+                            ClosedForAscertainment = (bool)firmElement.Attribute("ClosedForAscertainment"),
+                            IsActive = (bool)firmElement.Attribute("IsActive")
+                        }
                 };
         }
 

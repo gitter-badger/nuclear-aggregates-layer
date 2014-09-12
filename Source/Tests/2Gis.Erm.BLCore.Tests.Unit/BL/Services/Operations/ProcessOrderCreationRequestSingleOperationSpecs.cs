@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations
             var orderProcessingRequestService = Mock.Of<IOrderProcessingRequestService>();
 
             Mock.Get(orderProcessingRequestService)
-                .Setup(x => x.GetPrologationRequestToProcess(Moq.It.IsAny<long>()))
+                .Setup(x => x.GetProlongationRequestToProcess(Moq.It.IsAny<long>()))
                 .Returns(new OrderProcessingRequest
                     {
                         Id = OrderCreationRequestId,
@@ -213,10 +213,10 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations
                     Mock.Get(ModifyOrderService).Verify(x => x.Modify(Moq.It.IsAny<OrderDomainEntityDto>()), Times.Once);
 
             It should_request_correct_request = () =>
-                    Mock.Get(OrderProcessingRequestService).Verify(x => x.GetPrologationRequestToProcess(Moq.It.Is<long>(id => id == OrderCreationRequestId)));
+                    Mock.Get(OrderProcessingRequestService).Verify(x => x.GetProlongationRequestToProcess(Moq.It.Is<long>(id => id == OrderCreationRequestId)));
 
             It should_request_exactly_one_request = () =>
-                    Mock.Get(OrderProcessingRequestService).Verify(x => x.GetPrologationRequestToProcess(Moq.It.IsAny<long>()), Times.Once());
+                    Mock.Get(OrderProcessingRequestService).Verify(x => x.GetProlongationRequestToProcess(Moq.It.IsAny<long>()), Times.Once());
         }
 
         [Tags("BL")]
