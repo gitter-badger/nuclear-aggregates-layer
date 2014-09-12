@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -20,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
 {
     public sealed class ChangeOrderDealHandler : RequestHandler<ChangeOrderDealRequest, EmptyResponse>
     {
-        private readonly ISubRequestProcessor _subRequestProcessor;
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _securityServiceFunctionalAccess;
         private readonly IOrderRepository _orderRepository;
@@ -28,16 +26,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         private readonly IDealReadModel _dealReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public ChangeOrderDealHandler(
-            ISubRequestProcessor subRequestProcessor,
-            ISecurityServiceFunctionalAccess securityServiceFunctionalAccess, 
+        public ChangeOrderDealHandler(ISecurityServiceFunctionalAccess securityServiceFunctionalAccess, 
             IUserContext userContext, 
             IOrderRepository orderRepository, 
             IDealReadModel dealReadModel, 
             IOperationScopeFactory scopeFactory, 
             IOrderReadModel orderReadModel)
         {
-            _subRequestProcessor = subRequestProcessor;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
             _userContext = userContext;
             _orderRepository = orderRepository;
@@ -75,9 +70,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                     order.OwnerCode = newDealInfo.OwnerCode;
 
                     _orderRepository.Update(order);
-
-                    var dealIds = oldDealId.HasValue ? new[] { newDealInfo.Id, oldDealId.Value } : new[] { newDealInfo.Id };
-                    _subRequestProcessor.HandleSubRequest(new ActualizeDealProfitIndicatorsRequest { DealIds = dealIds }, Context);
                 }
 
                 operationScope

@@ -67,8 +67,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                         SecurityServiceEntityAccess, 
                         OrderRepository, 
                         ScopeFactory,
-                        null,
-                        null,
                         OrderReadModel,
                         SetupOrderNumberService());
                 };

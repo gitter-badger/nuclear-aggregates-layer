@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Security;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations;
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
@@ -25,7 +23,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\Operations\Concrete\Orders
     public class CopyOrderOperationService : ICopyOrderOperationService
     {
         private const EntityAccessTypes RequiredAccess = EntityAccessTypes.Create | EntityAccessTypes.Update;
@@ -35,8 +32,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IDealReadModel _dealReadModel;
-        private readonly IDealActualizeDealProfitIndicatorsAggregateService _dealActualizeDealProfitIndicatorsAggregateService;
         private readonly IEvaluateOrderNumberService _numberService;
 
         public CopyOrderOperationService(IUserContext userContext,
@@ -44,8 +39,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                          ISecurityServiceEntityAccess securityServiceEntityAccess,
                                          IOrderRepository orderRepository,
                                          IOperationScopeFactory scopeFactory,
-                                         IDealActualizeDealProfitIndicatorsAggregateService dealActualizeDealProfitIndicatorsAggregateService,
-                                         IDealReadModel dealReadModel,
                                          IOrderReadModel orderReadModel,
                                          IEvaluateOrderNumberService numberService)
         {
@@ -54,8 +47,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _securityServiceEntityAccess = securityServiceEntityAccess;
             _orderRepository = orderRepository;
             _scopeFactory = scopeFactory;
-            _dealActualizeDealProfitIndicatorsAggregateService = dealActualizeDealProfitIndicatorsAggregateService;
-            _dealReadModel = dealReadModel;
             _orderReadModel = orderReadModel;
             _numberService = numberService;
         }
@@ -137,13 +128,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 newOrder.DealId = newOrderDealId;
 
                 _orderRepository.Update(newOrder);
-
-                if (newOrder.DealId != null)
-                {
-                    // TODO {all, 04.11.2013}: при рефакторинге ApplicationServices для обеспечения SRP - проверить есть ли реальная необходимость в отдельном режиме без обработки deal.ActualProfit - если нет выпилить флаг из сигнатуры
-                    var dealInfos = _dealReadModel.GetInfoForActualizeProfits(new[] { newOrder.DealId.Value }, false);
-                    _dealActualizeDealProfitIndicatorsAggregateService.Actualize(dealInfos);
-                }
 
                 operationScope
                     .Updated<Order>(newOrder.Id)

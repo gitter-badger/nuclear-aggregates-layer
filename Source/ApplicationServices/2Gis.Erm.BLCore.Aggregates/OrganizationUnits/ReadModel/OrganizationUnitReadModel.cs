@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
@@ -38,5 +41,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
 
             return currencyId.Value;
         }
+
+        public IReadOnlyDictionary<int, long> GetOrganizationUnitIdsByDgppIds(IEnumerable<int> dgppIds)
+        {
+            // ReSharper disable once PossibleInvalidOperationException
+            return _finder.Find(OrganizationUnitSpecs.Find.ByDgppIds(dgppIds)).ToDictionary(x => x.DgppId.Value, x => x.Id);
+        } 
     }
 }
