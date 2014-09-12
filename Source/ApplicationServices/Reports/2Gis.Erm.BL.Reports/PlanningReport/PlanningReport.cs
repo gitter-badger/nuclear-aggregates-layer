@@ -540,6 +540,9 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             ExcelTable table;
             ExcelRange usedRange;
 
+            // важно, что параметров к запросу нет и он выполняется не внутри sp_executesql
+            Common.ExecuteNonQuery(connection, new ProtectedDictionary(), @"PlanningReport.CreateTemporaryTable.sql");
+
             this.ExecuteNonQuery(connection, @"PlanningReport.Расчет_групп_МПП.sql");
 
             table = FillSheetFromMssql(package.Workbook, "Текущие", @"PlanningReport.Лист_Текущие.sql");

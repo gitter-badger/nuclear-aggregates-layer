@@ -1,0 +1,1 @@
+﻿create table #Users (UserId bigint, GmId bigint, IsGM bit)

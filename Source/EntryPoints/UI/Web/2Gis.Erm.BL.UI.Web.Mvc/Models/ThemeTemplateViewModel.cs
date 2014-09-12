@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             if (modelDto.IsTemplateUsedInThemes)
             {
                 IsTemplateUsedInThemes = true;
-                Message = "Шаблон используется в тематиках";
+                Message = BLResources.TemplateIsUsedInThemes;
                 MessageType = MessageType.Info;
             }
 

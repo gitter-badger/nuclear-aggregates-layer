@@ -1471,7 +1471,7 @@
     <value>Všichni klienti pobočky</value>
   </data>
   <data name="DListClientsForSubordinates" xml:space="preserve">
-    <value>Potenciální klienti mých podřízených</value>
+    <value>Klienti mých podřízených</value>
   </data>
   <data name="DListClientsOnMyTerritory" xml:space="preserve">
     <value>Klienti na mém území</value>
@@ -1555,7 +1555,7 @@
     <value>Firmy v rezervě na mém území</value>
   </data>
   <data name="DListWarmClientsForSubordinates" xml:space="preserve">
-    <value>Možní klienti mých podřízených</value>
+    <value>Potenciální klienti mých podřízených</value>
   </data>
   <data name="DListApprovedByMeLimits" xml:space="preserve">
     <value>Mnou schválené limity</value>
@@ -1669,13 +1669,13 @@
     <value>Plány mých podřízených</value>
   </data>
   <data name="DListActivitiesInProgressForSubordinates" xml:space="preserve">
-    <value>Nadcházející plány mých podřízených</value>
+    <value>Naplánované činnosti mých podřízených</value>
   </data>
   <data name="DListCompletedActivitiesForSubordinates" xml:space="preserve">
     <value>Dokončené plány mých podřízených</value>
   </data>
   <data name="DListMyActivitiesInProgress" xml:space="preserve">
-    <value>Moje nadcházející plány</value>
+    <value>Moje naplánované činnosti</value>
   </data>
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Moje plány na dnešek</value>
@@ -1705,7 +1705,7 @@
     <value>Seznam platných zrušení</value>
   </data>
   <data name="DListOrdersWithDocumentsDebtForNextMonth" xml:space="preserve">
-    <value>Neodsouhlasené objednávky v aktuálním vydání</value>
+    <value>Nepodepsané objednávky v aktuálním vydání</value>
   </data>
   <data name="DListTechnicalTerminatedOrders" xml:space="preserve">
     <value>Seznam technických zrušení</value>

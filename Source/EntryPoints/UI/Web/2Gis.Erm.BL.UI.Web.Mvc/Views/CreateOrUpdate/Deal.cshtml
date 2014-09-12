@@ -226,11 +226,7 @@
         </div>
         @Html.SectionHead("section", BLResources.DealFinancialIndicatorsHead)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.EstimatedProfit, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } })
-            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true })
-        </div>
-        <div class="row-wrapper">
-            @Html.TemplateField(m => m.ActualProfit, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } })
+            @Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true })
         </div>
     </div>
     <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">
