@@ -354,9 +354,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.DI", "..\..\BL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.API.MoDi", "..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj", "{A0C25240-0C68-4434-94C0-F35B0806FE5B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DD412B7E-2DCA-4EED-BA86-C65730B3D685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.AppFabric", "..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj", "{E97BC051-BC95-4183-950B-0685DDE66D7D}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 111
+		SccNumberOfProjects = 112
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://uk-tfs02:8080/tfs/defaultcollection
 		SccProjectUniqueName0 = ..\\..\\Platform\\Source\\2Gis.Erm.Platform.Security\\2Gis.Erm.Platform.Security.csproj
@@ -1025,6 +1029,12 @@ Global
 		SccAuxPath110 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath110 = ..\\..\\BLCore\\Source\\API\\2Gis.Erm.BLCore.API.MoDi
 		SccProvider110 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName111 = ..\\..\\Platform\\Source\\EntryPoints\\Common\\2Gis.Erm.Platform.AppFabric\\2Gis.Erm.Platform.AppFabric.csproj
+		SccProjectTopLevelParentUniqueName111 = 2GIS.ERM.MW.sln
+		SccProjectName111 = ../../Platform/Source/EntryPoints/Common/2Gis.Erm.Platform.AppFabric
+		SccAuxPath111 = http://uk-tfs02:8080/tfs/defaultcollection
+		SccLocalPath111 = ..\\..\\Platform\\Source\\EntryPoints\\Common\\2Gis.Erm.Platform.AppFabric
+		SccProvider111 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1477,6 +1487,10 @@ Global
 		{A0C25240-0C68-4434-94C0-F35B0806FE5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0C25240-0C68-4434-94C0-F35B0806FE5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0C25240-0C68-4434-94C0-F35B0806FE5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E97BC051-BC95-4183-950B-0685DDE66D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E97BC051-BC95-4183-950B-0685DDE66D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E97BC051-BC95-4183-950B-0685DDE66D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E97BC051-BC95-4183-950B-0685DDE66D7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1611,6 +1625,8 @@ Global
 		{2BF9BD61-1D3E-4E83-BC19-2DB112DD536D} = {C8628647-04BE-4D7B-98A9-87ADBCC25D9D}
 		{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07} = {2B27C591-851F-4895-88E4-822D5C21291B}
 		{A0C25240-0C68-4434-94C0-F35B0806FE5B} = {B49DBDFC-D7DB-41A7-B473-1509F7013571}
+		{DD412B7E-2DCA-4EED-BA86-C65730B3D685} = {C98BE597-532D-433E-BFAD-06B038B8FFE0}
+		{E97BC051-BC95-4183-950B-0685DDE66D7D} = {DD412B7E-2DCA-4EED-BA86-C65730B3D685}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35
