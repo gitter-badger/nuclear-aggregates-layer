@@ -10,8 +10,10 @@ using DoubleGis.Erm.BLCore.Operations.Special;
 using DoubleGis.Erm.BLCore.TaskService.DI;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.DI;
 using DoubleGis.Erm.BLFlex.Operations.Global.DI;
+using DoubleGis.Erm.BLQuerying.TaskService.DI;
 using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
+using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
@@ -29,6 +31,7 @@ namespace DoubleGis.Erm.TaskService.DI
                 return CompositionRoot.Config
                                       .RequireZone<TaskServiceZone>()
                                           .UseAnchor<BlCoreTaskServiceAssembly>()
+                                          .UseAnchor<BlQueryingTaskServiceAssembly>()
                                       .RequireZone<AggregatesZone>()
                                           .UseAnchor<PlatformAggregatesAssembly>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
@@ -49,7 +52,9 @@ namespace DoubleGis.Erm.TaskService.DI
                                           .UseAnchor<PlatformModelAssembly>()
                                           .UseAnchor<PlatformCoreAssembly>()
                                       .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>();
+                                          .UseAnchor<PlatformModelMetadataAssembly>()
+                                      .RequireZone<AppFabricZone>()
+                                          .UseAnchor<PlatformAppFabricAssembly>();
             }
         }
     }

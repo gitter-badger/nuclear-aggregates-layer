@@ -42,7 +42,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
             var afterSaleServiceActivity = _dealReadModel.GetAfterSaleService(dealsWithAfterSaleService.First().ReplicationCode, date, AfterSaleServiceType.ASS1);
             var deal = _dealReadModel.GetDeal(dealsWithAfterSaleService.First().Id);
             var dealByGuid = _dealReadModel.GetDeal(dealsWithAfterSaleService.First().ReplicationCode);
-            var infoForActualizeProfits = _dealReadModel.GetInfoForActualizeProfits(dealsWithAfterSaleService.Select(x => x.Id).ToArray(), true);
             var dealActualizeDuringWithdrawalDtos = _dealReadModel.GetInfoForWithdrawal(dealsWithAfterSaleService.Select(x => x.Id).ToArray());
             _dealReadModel.HasOrders(dealsWithAfterSaleService.First().Id);
 
@@ -51,7 +50,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                     afterSaleServiceActivity,
                     deal,
                     dealByGuid,
-                    infoForActualizeProfits,
                     dealActualizeDuringWithdrawalDtos
                 }.Any(x => x == null)
                        ? OrdinaryTestResult.As.Failed
