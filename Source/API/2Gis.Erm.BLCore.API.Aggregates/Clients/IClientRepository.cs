@@ -29,6 +29,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients
         void CalculatePromising();
         IEnumerable<Client> GetClientsByTerritory(long territoryId);
         void CreateOrUpdate(Contact contact);
+
+        [Obsolete("Используется только в DgppImportFirmsHandler")]
         int HideFirm(long firmId);
     }
 }

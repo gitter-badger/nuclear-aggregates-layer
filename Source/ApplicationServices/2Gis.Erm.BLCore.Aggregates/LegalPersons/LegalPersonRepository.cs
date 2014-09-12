@@ -98,6 +98,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         public int Assign(LegalPerson legalPerson, long ownerCode)
         {
             legalPerson.OwnerCode = ownerCode;
+
+            // Изменения логируются в вызывающем коде
             _legalPersonGenericRepository.Update(legalPerson);
             return _legalPersonGenericRepository.Save();
         }
@@ -107,6 +109,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             legalPerson.Inn = inn;
             legalPerson.Kpp = kpp;
             legalPerson.LegalAddress = legalAddress;
+
+            // Изменения логируются в вызывающем коде
             _legalPersonGenericRepository.Update(legalPerson);
             _legalPersonGenericRepository.Save();
         }
@@ -116,6 +120,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             legalPerson.PassportNumber = passportNumber;
             legalPerson.PassportSeries = passportSeries;
             legalPerson.RegistrationAddress = registrationAddress;
+
+            // Изменения логируются в вызывающем коде
             _legalPersonGenericRepository.Update(legalPerson);
             _legalPersonGenericRepository.Save();
         }
@@ -144,17 +150,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             }
         }
 
-        public void SyncWith1CDeferred(LegalPerson legalPerson)
-        {
-            legalPerson.IsInSyncWith1C = true;
-            _legalPersonGenericRepository.Update(legalPerson);
-        }
-
+        [Obsolete("Используется только в ExportLegalPersonsHandler")]
         public void SyncWith1C(IEnumerable<LegalPerson> legalPersons)
         {
             foreach (var legalPerson in legalPersons)
             {
-                SyncWith1CDeferred(legalPerson);
+                legalPerson.IsInSyncWith1C = true;
+                _legalPersonGenericRepository.Update(legalPerson);
             }
 
             _legalPersonGenericRepository.Save();
@@ -527,6 +529,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                 legalPerson = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
 
                 legalPerson.ClientId = clientId;
+
+                // Изменения логируются в вызывающем коде
                 _legalPersonGenericRepository.Update(legalPerson);
 
                 var count = _legalPersonGenericRepository.Save();

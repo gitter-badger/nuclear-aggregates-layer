@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return IsErmAssembly(checkingAssembly.GetName());
         }
 
-        public static void PerfomTypesMassProcessings(CompositionRoot root,
+        public static void PerformTypesMassProcessing(CompositionRoot root,
                                                       IMassProcessor[] massProcessors,
                                                       bool firstRun,
                                                       IBusinessModelSettings businessModelSettings)
@@ -33,9 +33,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
             foreach (var massProcessor in massProcessors)
             {
-                var assignnableTypes = massProcessor.GetAssignableTypes();
+                var assignableTypes = massProcessor.GetAssignableTypes();
 
-                var exportedTypes = assignnableTypes.Where(exportedTypesMap.ContainsKey).SelectMany(x => exportedTypesMap[x]).ToArray();
+                var exportedTypes = assignableTypes.Where(exportedTypesMap.ContainsKey).SelectMany(x => exportedTypesMap[x]).ToArray();
                 if (!exportedTypes.Any())
                 {
                     throw new ApplicationException(string.Format("Cannot find any types for massprocessor '{0}'", massProcessor.GetType().Name));

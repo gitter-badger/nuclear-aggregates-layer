@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                 activeOrderProcessingRequests = new List<OrderProcessingRequest>();
 
                 Mock.Get(orderProcessingRequestService)
-                    .Setup(x => x.GetPrologationRequestsToProcess())
+                    .Setup(x => x.GetProlongationRequestsToProcess())
                     .Returns(activeOrderProcessingRequests);
 
                 target = new ProcessOrderProlongationRequestMassOperation(
