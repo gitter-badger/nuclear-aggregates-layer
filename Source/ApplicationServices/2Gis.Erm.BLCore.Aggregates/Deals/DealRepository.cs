@@ -302,6 +302,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
             deal.ClientId = clientId;
             deal.OwnerCode = client.OwnerCode;
+
+            // Изменения логируются в вызывающем коде
             _dealGenericSecureRepository.Update(deal);
             return _dealGenericSecureRepository.Save();
         }

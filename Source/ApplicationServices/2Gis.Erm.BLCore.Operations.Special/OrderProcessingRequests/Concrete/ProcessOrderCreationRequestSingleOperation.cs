@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public OrderCreationResult ProcessSingle(long requestId)
         {
-            var request = _orderProcessingRequestService.GetPrologationRequestToProcess(requestId);
+            var request = _orderProcessingRequestService.GetProlongationRequestToProcess(requestId);
             if (request.RequestType != (int)OrderProcessingRequestType.CreateOrder)
             {
                 var message = string.Format(BLResources.OrderCreationRequestTypeMismatch,
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                     ProcessSuccess(request, processMessages);
                     CompleteOrderProcessingRequest(request, orderDto.Id);
 
-                    scope.Updated<Platform.Model.Entities.Erm.OrderProcessingRequest>(request.Id);
+                    scope.Updated<OrderProcessingRequest>(request.Id);
                     scope.Complete();
 
                     // Дебажные сообщения мы сохраняем, но в окошко на клиент не передаем
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                     SetOrderProcessingRequestPending(request);
                     ProcessError(request, ex.Message, processMessages);
 
-                    scope.Updated<Platform.Model.Entities.Erm.OrderProcessingRequest>(request.Id);
+                    scope.Updated<OrderProcessingRequest>(request.Id);
                     scope.Complete();
                     transaction.Complete();
                 }
@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                     SetOrderProcessingRequestPending(request);
                     ProcessError(request, BLResources.ApplicationError, processMessages);
                 
-                    scope.Updated<Platform.Model.Entities.Erm.OrderProcessingRequest>(request.Id);
+                    scope.Updated<OrderProcessingRequest>(request.Id);
                     scope.Complete();
                     transaction.Complete();
                 }
@@ -117,12 +117,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             }
         }
 
-        private OrderProcessingRequestOrderDto CreateOrder(Platform.Model.Entities.Erm.OrderProcessingRequest request, ICollection<IMessageWithType> messages)
+        private OrderProcessingRequestOrderDto CreateOrder(OrderProcessingRequest request, ICollection<IMessageWithType> messages)
         {
             var firmDto = _orderProcessingRequestService.GetFirmDto(request.FirmId);
             if (firmDto == null)
             {
-                throw new EntityNotFoundException(typeof(Platform.Model.Entities.Erm.OrderProcessingRequest), request.FirmId);
+                throw new EntityNotFoundException(typeof(OrderProcessingRequest), request.FirmId);
             }
 
             var sourceOrganizationUnitId = request.SourceOrganizationUnitId;
@@ -232,14 +232,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             return account;
         }
 
-        private void ProcessSuccess(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest, ICollection<IMessageWithType> processingMessages)
+        private void ProcessSuccess(OrderProcessingRequest orderProcessingRequest, ICollection<IMessageWithType> processingMessages)
         {
             processingMessages.Add(new MessageWithType { MessageText = BLResources.OrderProcessingRequestProcessedSuccessfully, Type = MessageType.Info });
 
             _orderProcessingRequestService.SaveMessagesForOrderProcessingRequest(orderProcessingRequest.Id, processingMessages);
         }
 
-        private void ProcessError(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest,
+        private void ProcessError(OrderProcessingRequest orderProcessingRequest,
                                   string errorText,
                                   ICollection<IMessageWithType> processingMessages)
         {
@@ -248,14 +248,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             _orderProcessingRequestService.SaveMessagesForOrderProcessingRequest(orderProcessingRequest.Id, processingMessages);
         }
 
-        private void CompleteOrderProcessingRequest(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest, long createdOrderId)
+        private void CompleteOrderProcessingRequest(OrderProcessingRequest orderProcessingRequest, long createdOrderId)
         {
             orderProcessingRequest.RenewedOrderId = createdOrderId;
             orderProcessingRequest.State = (int)OrderProcessingRequestState.Completed;
             _orderProcessingRequestService.Update(orderProcessingRequest);
         }
 
-        private void SetOrderProcessingRequestPending(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest)
+        private void SetOrderProcessingRequestPending(OrderProcessingRequest orderProcessingRequest)
         {
             orderProcessingRequest.State = (int)OrderProcessingRequestState.Pending;
             _orderProcessingRequestService.Update(orderProcessingRequest);
