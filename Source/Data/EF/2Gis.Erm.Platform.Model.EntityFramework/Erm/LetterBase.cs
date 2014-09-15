@@ -55,11 +55,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     	long? ICuratedEntity.OldOwnerCode { get { return _oldOwnerCode; } }
         public string Subject { get; set; }
         public string Description { get; set; }
-        public System.DateTime ScheduledStart { get; set; }
-        public System.DateTime ScheduledEnd { get; set; }
-        public Nullable<System.DateTime> ActualEnd { get; set; }
         public int Priority { get; set; }
         public int Status { get; set; }
+        public System.DateTime ScheduledOn { get; set; }
     
         public ICollection<LetterReference> LetterReferences { get; set; }
     

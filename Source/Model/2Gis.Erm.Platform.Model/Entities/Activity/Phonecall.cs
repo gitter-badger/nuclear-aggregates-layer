@@ -21,12 +21,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Activity
 
 		public string Header { get; set; }
 		public string Description { get; set; }
-		public DateTime ScheduledStart { get; set; }
+		public DateTime ScheduledOn { get; set; }
 		public ActivityPriority Priority { get; set; }
 		public ActivityStatus Status { get; set; }
-
 		public ActivityPurpose Purpose { get; set; }
-		public bool IsIncomingCall { get; set; }
-		public string Phonenumber { get; set; }
 	}
 }
