@@ -435,6 +435,10 @@
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj">
+      <Project>{153868e3-4c4c-45fe-86d6-6b4fbd39249c}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
