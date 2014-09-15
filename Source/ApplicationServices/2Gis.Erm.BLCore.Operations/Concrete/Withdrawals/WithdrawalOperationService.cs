@@ -118,9 +118,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
             catch (WithdrawalException ex)
             {
-                var msg = string.Format("Withdrawing aborted. An error occured. Organization unit id {0}. Period: {1}",
+                var msg = string.Format("Withdrawing aborted. An error occured. Organization unit id {0}. Period: {1}. Error: {2}",
                                         organizationUnitId,
-                                        period);
+                                        period,
+                                        ex.Message);
                 _logger.ErrorEx(ex, msg);
 
                 return Abort(acquiredWithdrawal, msg);
