@@ -50,9 +50,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         [RequiredLocalized]
         public DateTime ScheduledStart { get; set; }
 
-        [RequiredLocalized]
-        public DateTime ScheduledEnd { get; set; }
-
         public LookupField Client { get; set; }
         public LookupField Deal { get; set; }
         public LookupField Firm { get; set; }
