@@ -1,4 +1,5 @@
-﻿@model Models.GroupOperation.GroupOperationViewModel
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -62,18 +63,10 @@
             var config = {
                 Entities: ids, // массив id сущностей
                 OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
             var disqualifyProcessor = new Ext.DoubleGis.UI.Client.DisqualifyProcessor(config);
             if (!disqualifyProcessor.CheckProcessingPossibility())
