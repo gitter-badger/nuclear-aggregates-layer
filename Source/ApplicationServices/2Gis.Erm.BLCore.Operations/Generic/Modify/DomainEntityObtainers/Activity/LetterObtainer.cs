@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             letter.Header = dto.Header;
             letter.Description = dto.Description;
             letter.Priority = dto.Priority;
-            letter.ScheduledStart = dto.ScheduledOn;
+            letter.ScheduledOn = dto.ScheduledOn;
             letter.Status = dto.Status;
             letter.OwnerCode = dto.OwnerRef.GetId();
 

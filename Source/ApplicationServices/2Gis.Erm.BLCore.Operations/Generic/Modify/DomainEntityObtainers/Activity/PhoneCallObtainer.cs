@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             phoneCall.Description = dto.Description;
             phoneCall.Priority = dto.Priority;
             phoneCall.Purpose = dto.Purpose;
-            phoneCall.ScheduledStart = dto.ScheduledOn;
+            phoneCall.ScheduledOn = dto.ScheduledOn;
             phoneCall.Status = dto.Status;
             phoneCall.OwnerCode = dto.OwnerRef.GetId();
 

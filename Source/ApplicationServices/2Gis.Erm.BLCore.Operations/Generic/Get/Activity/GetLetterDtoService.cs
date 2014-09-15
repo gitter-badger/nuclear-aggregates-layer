@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Id = letter.Id,
                     Header = letter.Header,
                     Description = letter.Description,
-                    ScheduledOn = letter.ScheduledStart,
+                    ScheduledOn = letter.ScheduledOn,
                     Priority = letter.Priority,
                     Status = letter.Status,
                     RegardingObjects = AdaptReferences(regardingObjects),

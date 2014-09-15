@@ -7,8 +7,8 @@ BEGIN
 
     SELECT @CrmId = [SystemUserId]
     FROM [Security].[Users]	
-		LEFT OUTER JOIN	[DoubleGis_MSCRM].[dbo].[SystemUserBase] 
-		ON [DomainName] LIKE N'%\' + Account COLLATE database_default
+		LEFT OUTER JOIN	[DoubleGis_MSCRM].[dbo].[SystemUserErmView] 
+		ON [Account] = [ErmUserAccount] COLLATE database_default
     WHERE Id = @id
 
 	RETURN @CrmId

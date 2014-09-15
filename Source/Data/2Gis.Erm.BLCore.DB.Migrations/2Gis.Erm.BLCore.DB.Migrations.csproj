@@ -224,6 +224,7 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.08.26 rev. 22776.cs" />
     <Compile Include="2.1\2014.08.26 rev. 23630.cs" />
     <Compile Include="2.1\2014.08.26 rev. 22766.cs" />
     <Compile Include="2.1\2014.09.03 rev. 23953 - Sync UserProfile.IsActive with User.IsActive.cs" />
@@ -322,11 +323,11 @@
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6718 - Alter SiteMap.xml.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6747 - Alter procedure CreateExportSession v3.cs" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
+    <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
     <Content Include="Resources\2014.08.26 rev. 23630\Create ReplicateLetter.sql" />
     <Content Include="Resources\2014.08.26 rev. 23630\Create ReplicateAppointment.sql" />
     <Content Include="Resources\2014.08.26 rev. 23630\Create ReplicatePhonecall.sql" />
     <Content Include="Resources\2014.08.26 rev. 23630\Create ReplicateTask.sql" />
-    <Content Include="Resources\2014.08.26 rev. 23630\Create Shared.GetCrmUserId.sql" />
     <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
       <LogicalName>Migration6766CreateCleanupERM</LogicalName>
       <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
@@ -1060,6 +1061,7 @@
     <Content Include="Resources\2014.08.19 rev. 23425\ImportFirmFromXml.sql" />
     <Content Include="Resources\2014.07.23 rev. 22583\GetFirmTerritories.sql" />
     <Content Include="Resources\2014.07.23 rev. 22583\UpdateBuildings.sql" />
+    <Content Include="Resources\2014.08.26 rev. 23630\Create Shared.GetCrmUserId.sql" />
     <Content Include="Resources\2014.09.01 rev. 23795\ImportCardsFromXml_23795.sql" />
     <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateAccountDetail].sql" />
     <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateAccount].sql" />

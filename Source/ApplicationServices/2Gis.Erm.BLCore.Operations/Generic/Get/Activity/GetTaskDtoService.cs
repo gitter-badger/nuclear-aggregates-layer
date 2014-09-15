@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Id = task.Id,
                     Header = task.Header,
                     Description = task.Description,
-                    ScheduledOn = task.ScheduledStart,
+                    ScheduledOn = task.ScheduledOn,
                     TaskType = task.TaskType,
                     Priority = task.Priority,
                     Status = task.Status,

@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             task.TaskType = dto.TaskType;
             task.Priority = dto.Priority;
             task.Description = dto.Description;
-            task.ScheduledStart = dto.ScheduledOn;
+            task.ScheduledOn = dto.ScheduledOn;
             task.Status = dto.Status;
             task.OwnerCode = dto.OwnerRef.GetId();
 

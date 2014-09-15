@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Id = phonecall.Id,
                     Header = phonecall.Header,
                     Description = phonecall.Description,
-                    ScheduledOn = phonecall.ScheduledStart,
+                    ScheduledOn = phonecall.ScheduledOn,
                     Priority = phonecall.Priority,
                     Purpose = phonecall.Purpose,
                     Status = phonecall.Status,

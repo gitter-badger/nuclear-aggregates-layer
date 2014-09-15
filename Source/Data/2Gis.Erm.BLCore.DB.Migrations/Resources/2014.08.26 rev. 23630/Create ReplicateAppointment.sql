@@ -24,8 +24,8 @@ AS
     SELECT 
 	    @OwnerUserId = [SystemUserId],
 	    @OwnerUserBusinessUnitId = [BusinessUnitId]
-    FROM [DoubleGis_MSCRM].[dbo].[SystemUserBase]
-    WHERE [DomainName] LIKE N'%\' + @OwnerUserDomainName;
+    FROM [DoubleGis_MSCRM].[dbo].[SystemUserErmView]
+    WHERE [ErmUserAccount] = @OwnerUserDomainName;
 
     DECLARE @RegardingObjectId UNIQUEIDENTIFIER;
 	DECLARE @RegardingObjectTypeCode INT;

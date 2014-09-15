@@ -24,8 +24,8 @@ AS
     SELECT 
 	    @OwnerUserId = [SystemUserId],
 	    @OwnerUserBusinessUnitId = [BusinessUnitId]
-    FROM [DoubleGis_MSCRM].[dbo].[SystemUserBase]
-    WHERE [DomainName] LIKE N'%\' + @OwnerUserDomainName;
+    FROM [DoubleGis_MSCRM].[dbo].[SystemUserErmView]
+    WHERE [ErmUserAccount] = @OwnerUserDomainName;
 
     DECLARE @RegardingObjectId UNIQUEIDENTIFIER;
 	DECLARE @RegardingObjectTypeCode INT;
@@ -108,9 +108,9 @@ AS
 			, [CreatedOn]
 			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN [ModifiedOn] ELSE NULL END
 			, CASE WHEN [Status] = 2 OR [Status] = 3 THEN DATEDIFF(minute, [ModifiedOn], [CreatedOn]) ELSE NULL END
-			, [ScheduledStart]					
-			, [ScheduledEnd]					
-			, DATEDIFF(minute, [ScheduledStart], [ScheduledEnd])
+			, [ScheduledOn]					
+			, [ScheduledOn]
+			, 0
 
 		    , @OwnerUserBusinessUnitId
 			, @OwnerUserId
@@ -130,14 +130,9 @@ AS
 	    WHERE [Id] = @Id;
 
 		INSERT INTO [DoubleGis_MSCRM].[dbo].[PhonecallBase]
-			( [ActivityId]
-			, [PhoneNumber]
-			, [DirectionCode]
-			)
+			( [ActivityId] )
 		SELECT
 			  @CrmId
-			, [PhoneNumber]
-			, [Direction]
 	    FROM [Activity].[PhonecallBase]
 	    WHERE [Id] = @Id;
 
@@ -171,9 +166,8 @@ AS
 				, [Description] = [ermBase].[Description]
 				, [ActualEnd] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN [ermBase].[ModifiedOn] ELSE NULL END
 				, [ActualDurationMinutes] = CASE WHEN [ermBase].[Status] = 2 OR [ermBase].[Status] = 3 THEN DATEDIFF(minute, [ermBase].[ModifiedOn], [ermBase].[CreatedOn]) ELSE NULL END
-				, [ScheduledStart] = [ermBase].[ScheduledStart]
-				, [ScheduledEnd] = [ermBase].[ScheduledEnd]
-				, [ScheduledDurationMinutes] = DATEDIFF(minute, [ermBase].[ScheduledStart], [ermBase].[ScheduledEnd])
+				, [ScheduledStart] = [ermBase].[ScheduledOn]
+				, [ScheduledEnd] = [ermBase].[ScheduledOn]
 
 				, [OwningBusinessUnit] = @OwnerUserBusinessUnitId
 				, [OwningUser] = @OwnerUserId
@@ -190,13 +184,6 @@ AS
 	    FROM [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] as [crmPointer]
 		    INNER JOIN [Activity].[PhonecallBase] as [ermBase] 
 			ON [crmPointer].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].[Id] = @Id;
-
-	    UPDATE [crmBase]
-		   SET [PhoneNumber] = [ermBase].[PhoneNumber]
-		     , [DirectionCode] = [ermBase].[Direction]
-	    FROM [DoubleGis_MSCRM].[dbo].[PhonecallBase] [crmBase]
-		    INNER JOIN [Activity].[PhonecallBase] [ermBase]
-			ON [crmBase].[ActivityId] = [ermBase].[ReplicationCode] AND [ermBase].Id = @Id;
 
 	    UPDATE [crmExtension]
 		   SET [Dg_purpose] = [ermBase].[Purpose]
