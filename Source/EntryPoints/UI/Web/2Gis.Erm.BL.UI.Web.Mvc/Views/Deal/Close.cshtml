@@ -1,5 +1,5 @@
 ﻿
-@model Models.CloseDealViewModel
+@model CloseDealViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -18,9 +18,7 @@
             {
                 window.Ext.MessageBox.show({
                     title: '',
-                    // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                    // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                    msg: '@BLResources.NeedToSelectOneItem',
+                    msg: Ext.LocalizedResources.NeedToSelectOneItem,
                     buttons: window.Ext.MessageBox.OK,
                     fn: function () { window.close(); },
                     width: 300,
@@ -57,9 +55,9 @@
         var submitForm = function ()
         {
             var closeReason = Ext.getDom("CloseReason");
-            if (closeReason.value == "")
-            {
-                alert("@BLResources.MustPickCloseReason");
+            if (closeReason.value == "") {
+                // TODO {all, 15.09.2014}: заменить alert на ext'ый messagebox
+                alert(@Html.Resource(()=>BLResources.MustPickCloseReason));
                 closeReason.focus();
                 return;
             }
@@ -67,7 +65,7 @@
             // "other" reasons
             if ((closeReason.value == "Reason5" || closeReason.value == "Reason10") && Ext.getDom("CloseReasonOther").value == "")
             {
-                alert('@BLResources.DealMustPickOtherReason');
+                alert(Ext.LocalizedResources.DealMustPickOtherReason);
                 Ext.getDom("CloseReasonOther").focus();
                 return;
             }
@@ -92,7 +90,7 @@
             {
                 window.Ext.MessageBox.show({
                     title: '',
-                    msg: '@BLResources.NeedToSelectOneOrMoreItems',
+                    msg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems,
                     buttons: window.Ext.MessageBox.OK,
                     fn: function () { window.close(); },
                     width: 300,
