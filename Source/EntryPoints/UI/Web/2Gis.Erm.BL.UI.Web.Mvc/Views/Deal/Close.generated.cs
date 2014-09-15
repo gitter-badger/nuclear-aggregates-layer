@@ -136,55 +136,55 @@ WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {\r\n            i
 "  var submitForm = function ()\r\n        {\r\n            var closeReason = Ext.get" +
 "Dom(\"CloseReason\");\r\n            if (closeReason.value == \"\") {\r\n               " +
 " // TODO {all, 15.09.2014}: заменить alert на ext\'ый messagebox\r\n               " +
-" alert(");
+" alert(\'");
 
             
             #line 60 "..\..\Views\Deal\Close.cshtml"
-                 Write(Html.Resource(()=>BLResources.MustPickCloseReason));
+                  Write(Html.Resource(()=>BLResources.MustPickCloseReason));
 
             
             #line default
             #line hidden
-WriteLiteral(");\r\n                closeReason.focus();\r\n                return;\r\n            }\r" +
-"\n\r\n            // \"other\" reasons\r\n            if ((closeReason.value == \"Reason" +
-"5\" || closeReason.value == \"Reason10\") && Ext.getDom(\"CloseReasonOther\").value =" +
-"= \"\")\r\n            {\r\n                alert(Ext.LocalizedResources.DealMustPickO" +
-"therReason);\r\n                Ext.getDom(\"CloseReasonOther\").focus();\r\n         " +
-"       return;\r\n            }\r\n\r\n            Ext.getDom(\"OK\").disabled = true;\r\n" +
-"            Ext.getDom(\"Cancel\").disabled = true;\r\n\r\n            Ext.getDom(\"Clo" +
-"seReason\").disabled = true;\r\n            Ext.get(\"CloseReasonOther\").addClass(\"r" +
-"eadonly\");\r\n            Ext.getDom(\"CloseReasonOther\").disabled = true;\r\n       " +
-"     Ext.get(\"Comment\").addClass(\"readonly\");\r\n            Ext.getDom(\"Comment\")" +
-".disabled = true;\r\n\r\n            window.Ext.get(\"Notifications\").removeClass(\"No" +
-"tifications\");\r\n\r\n            if (window.dialogArguments && window.dialogArgumen" +
-"ts.length)\r\n            {\r\n                var arr = window.dialogArguments;\r\n  " +
-"              processItem(arr, 0);\r\n            }\r\n            else\r\n           " +
-" {\r\n                window.Ext.MessageBox.show({\r\n                    title: \'\'," +
-"\r\n                    msg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems,\r\n " +
-"                   buttons: window.Ext.MessageBox.OK,\r\n                    fn: f" +
-"unction () { window.close(); },\r\n                    width: 300,\r\n              " +
-"      icon: window.Ext.MessageBox.ERROR\r\n                });\r\n                re" +
-"turn;\r\n            }\r\n        };\r\n\r\n        var processItem = function (items, i" +
-"ndex)\r\n        {\r\n            if (index == items.length)\r\n            {\r\n       " +
-"         window.returnValue = true;\r\n                window.close();\r\n          " +
-"      return;\r\n            }\r\n\r\n            var callLink = String.format(\"/Deal/" +
-"Close?id={0}\", items[index]);\r\n\r\n            window.Ext.Ajax.request({\r\n        " +
-"        timeout: 1200000,\r\n                url: callLink,\r\n                param" +
-"s:\r\n                {\r\n                    closeReason: window.Ext.getDom(\"Close" +
-"Reason\").value,\r\n                    closeReasonOther: window.Ext.getDom(\"CloseR" +
-"easonOther\").value,\r\n                    comment: window.Ext.getDom(\"Comment\").v" +
-"alue\r\n                },\r\n                method: \'POST\',\r\n                succe" +
-"ss: function ()\r\n                {\r\n                    processItem(items, index" +
-" + 1);\r\n                },\r\n                failure: fail\r\n            });\r\n    " +
-"    };\r\n\r\n        var fail = function (xmlHttpRequest)\r\n        {\r\n            w" +
-"indow.Ext.getDom(\"Notifications\").innerHTML = xmlHttpRequest.responseText;\r\n    " +
-"        window.Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n            " +
-"window.Ext.getDom(\"OK\").disabled = false;\r\n            window.Ext.getDom(\"Cancel" +
-"\").disabled = false;\r\n\r\n            window.Ext.getDom(\"CloseReason\").disabled = " +
-"false;\r\n            window.Ext.get(\"CloseReasonOther\").removeClass(\"readonly\");\r" +
-"\n            window.Ext.getDom(\"CloseReasonOther\").disabled = false;\r\n          " +
-"  window.Ext.get(\"Comment\").removeClass(\"readonly\");\r\n            window.Ext.get" +
-"Dom(\"Comment\").disabled = false;\r\n        };\r\n    </script>\r\n");
+WriteLiteral("\');\r\n                closeReason.focus();\r\n                return;\r\n            }" +
+"\r\n\r\n            // \"other\" reasons\r\n            if ((closeReason.value == \"Reaso" +
+"n5\" || closeReason.value == \"Reason10\") && Ext.getDom(\"CloseReasonOther\").value " +
+"== \"\")\r\n            {\r\n                alert(Ext.LocalizedResources.DealMustPick" +
+"OtherReason);\r\n                Ext.getDom(\"CloseReasonOther\").focus();\r\n        " +
+"        return;\r\n            }\r\n\r\n            Ext.getDom(\"OK\").disabled = true;\r" +
+"\n            Ext.getDom(\"Cancel\").disabled = true;\r\n\r\n            Ext.getDom(\"Cl" +
+"oseReason\").disabled = true;\r\n            Ext.get(\"CloseReasonOther\").addClass(\"" +
+"readonly\");\r\n            Ext.getDom(\"CloseReasonOther\").disabled = true;\r\n      " +
+"      Ext.get(\"Comment\").addClass(\"readonly\");\r\n            Ext.getDom(\"Comment\"" +
+").disabled = true;\r\n\r\n            window.Ext.get(\"Notifications\").removeClass(\"N" +
+"otifications\");\r\n\r\n            if (window.dialogArguments && window.dialogArgume" +
+"nts.length)\r\n            {\r\n                var arr = window.dialogArguments;\r\n " +
+"               processItem(arr, 0);\r\n            }\r\n            else\r\n          " +
+"  {\r\n                window.Ext.MessageBox.show({\r\n                    title: \'\'" +
+",\r\n                    msg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems,\r\n" +
+"                    buttons: window.Ext.MessageBox.OK,\r\n                    fn: " +
+"function () { window.close(); },\r\n                    width: 300,\r\n             " +
+"       icon: window.Ext.MessageBox.ERROR\r\n                });\r\n                r" +
+"eturn;\r\n            }\r\n        };\r\n\r\n        var processItem = function (items, " +
+"index)\r\n        {\r\n            if (index == items.length)\r\n            {\r\n      " +
+"          window.returnValue = true;\r\n                window.close();\r\n         " +
+"       return;\r\n            }\r\n\r\n            var callLink = String.format(\"/Deal" +
+"/Close?id={0}\", items[index]);\r\n\r\n            window.Ext.Ajax.request({\r\n       " +
+"         timeout: 1200000,\r\n                url: callLink,\r\n                para" +
+"ms:\r\n                {\r\n                    closeReason: window.Ext.getDom(\"Clos" +
+"eReason\").value,\r\n                    closeReasonOther: window.Ext.getDom(\"Close" +
+"ReasonOther\").value,\r\n                    comment: window.Ext.getDom(\"Comment\")." +
+"value\r\n                },\r\n                method: \'POST\',\r\n                succ" +
+"ess: function ()\r\n                {\r\n                    processItem(items, inde" +
+"x + 1);\r\n                },\r\n                failure: fail\r\n            });\r\n   " +
+"     };\r\n\r\n        var fail = function (xmlHttpRequest)\r\n        {\r\n            " +
+"window.Ext.getDom(\"Notifications\").innerHTML = xmlHttpRequest.responseText;\r\n   " +
+"         window.Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n           " +
+" window.Ext.getDom(\"OK\").disabled = false;\r\n            window.Ext.getDom(\"Cance" +
+"l\").disabled = false;\r\n\r\n            window.Ext.getDom(\"CloseReason\").disabled =" +
+" false;\r\n            window.Ext.get(\"CloseReasonOther\").removeClass(\"readonly\");" +
+"\r\n            window.Ext.getDom(\"CloseReasonOther\").disabled = false;\r\n         " +
+"   window.Ext.get(\"Comment\").removeClass(\"readonly\");\r\n            window.Ext.ge" +
+"tDom(\"Comment\").disabled = false;\r\n        };\r\n    </script>\r\n");
 
             
             #line 146 "..\..\Views\Deal\Close.cshtml"

@@ -57,7 +57,7 @@
             var closeReason = Ext.getDom("CloseReason");
             if (closeReason.value == "") {
                 // TODO {all, 15.09.2014}: заменить alert на ext'ый messagebox
-                alert(@Html.Resource(()=>BLResources.MustPickCloseReason));
+                alert('@Html.Resource(()=>BLResources.MustPickCloseReason)');
                 closeReason.focus();
                 return;
             }
