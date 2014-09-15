@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.Platform.API.Core.Exceptions.Withdrawal;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
@@ -83,10 +84,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 if (!TryAcquireTargetWithdrawal(organizationUnitId, period, out acquiredWithdrawal, out report))
                 {
                     var msg = string.Format(
-                        "Can't acquire withdrawal for organization unit id {0} by period {1}. Error: {2}",
-                        organizationUnitId,
-                        period,
-                        report);
+                                            "Can't acquire withdrawal for organization unit id {0} by period {1}. Error: {2}",
+                                            organizationUnitId,
+                                            period,
+                                            report);
 
                     _logger.ErrorEx(msg);
                     return WithdrawalProcessingResult.Error(msg);
@@ -98,10 +99,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     {
                         var msg =
                             string.Format(
-                                "Acquired withdrawal with id {0} for organization unit with id {1} by period {2} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing",
-                                acquiredWithdrawal.Id,
-                                acquiredWithdrawal.OrganizationUnitId,
-                                period);
+                                          "Acquired withdrawal with id {0} for organization unit with id {1} by period {2} has processing status violations. Possible reason for errors - concurrent withdrawal\reverting process and invalid withdrawal status processing",
+                                          acquiredWithdrawal.Id,
+                                          acquiredWithdrawal.OrganizationUnitId,
+                                          period);
 
                         _logger.ErrorEx(msg);
 
@@ -115,23 +116,36 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch (WithdrawalException ex)
             {
-                var msg = 
-                    string.Format(
-                        "Withdrawing aborted. Unexpected exception was caught. Organization unit id {0}. Period: {1}",
-                        organizationUnitId,
-                        period);
+                var msg = string.Format("Withdrawing aborted. An error occured. Organization unit id {0}. Period: {1}",
+                                        organizationUnitId,
+                                        period);
                 _logger.ErrorEx(ex, msg);
 
-                if (acquiredWithdrawal != null)
-                {
-                    _aggregateServiceIsolator.TransactedExecute<IAccountWithdrawalChangeStatusAggregateService>(TransactionScopeOption.RequiresNew,
-                                                                        service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
-                }
-
-                return WithdrawalProcessingResult.Error(msg);
+                return Abort(acquiredWithdrawal, msg);
             }
+            catch (Exception ex)
+            {
+                var msg = string.Format("Withdrawing aborted. Unexpected exception was caught. Organization unit id {0}. Period: {1}",
+                                        organizationUnitId,
+                                        period);
+                _logger.ErrorEx(ex, msg);
+
+                return Abort(acquiredWithdrawal, msg);
+            }
+        }
+
+        private WithdrawalProcessingResult Abort(WithdrawalInfo acquiredWithdrawal, string msg)
+        {
+            if (acquiredWithdrawal != null)
+            {
+                _aggregateServiceIsolator.TransactedExecute<IAccountWithdrawalChangeStatusAggregateService>(TransactionScopeOption.RequiresNew,
+                                                                                                            service =>
+                                                                                                            service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
+            }
+
+            return WithdrawalProcessingResult.Error(msg);
         }
 
         private static bool CanExecuteWithdrawing(WithdrawalInfo withdrawal, out string report)
