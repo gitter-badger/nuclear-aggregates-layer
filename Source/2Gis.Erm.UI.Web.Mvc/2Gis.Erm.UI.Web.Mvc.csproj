@@ -314,6 +314,7 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Firm.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_history.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_LegalPerson.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Letter.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_LocalMessage.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Metadata.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Module.gif" />
@@ -336,6 +337,7 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccount.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccountGroup.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Appointment.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Assembly.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Bargain.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_BargainType.gif" />
@@ -357,17 +359,20 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Entity.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_FieldType.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_LegalPerson.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Letter.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_LocalMessage.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Module.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_NavigationArea.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_NavigationGroup.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Note.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_OrganizationUnit.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Phonecall.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Platform.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Position.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_PositionCategory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Price.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_PricePosition.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Task.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Territory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_User.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccount.gif" />
