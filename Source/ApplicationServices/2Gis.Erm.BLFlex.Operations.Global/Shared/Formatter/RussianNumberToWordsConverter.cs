@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
             }
         }
 
-        public string Convert(int number)
+        public string Convert(long number)
         {
             var minus = false;
             if (number < 0m)
