@@ -196,16 +196,17 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            IWebAppProcesingSettings webAppProcesingSettings)
+            IWebAppProcesingSettings webAppProcessingSettings)
         {
             return container
                      .ConfigureGlobal(globalizationSettings)
                      .CreateErmSpecific(connectionStringSettings, msCrmSettings)
                      .CreateErmReportsSpecific(connectionStringSettings)
                      .CreateDatabasebSyncChecker(connectionStringSettings)
-                     .CreateSecuritySpecific(webAppProcesingSettings)
+                     .CreateSecuritySpecific(webAppProcessingSettings)
                      .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                      .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
+                     .ConfigureReplicationMetadata(msCrmSettings)
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                      .ConfigureIdentityInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)

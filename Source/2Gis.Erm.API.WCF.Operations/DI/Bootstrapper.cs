@@ -94,9 +94,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(
-            ISettingsContainer settingsContainer, 
-            ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -210,16 +208,15 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             return interception.Container;
         }
 
-        private static IUnityContainer ConfigureUnity(
-            this IUnityContainer container,
-            IEnvironmentSettings environmentSettings,
-            IConnectionStringSettings connectionStringSettings,
-            IGlobalizationSettings globalizationSettings,
-            IMsCrmSettings msCrmSettings,
-            ICachingSettings cachingSettings,
-            IOperationLoggingSettings operationLoggingSettings,
-            INestSettings nestSettings,
-            ILoggerContextManager loggerContextManager)
+        private static IUnityContainer ConfigureUnity(this IUnityContainer container,
+                                                      IEnvironmentSettings environmentSettings,
+                                                      IConnectionStringSettings connectionStringSettings,
+                                                      IGlobalizationSettings globalizationSettings,
+                                                      IMsCrmSettings msCrmSettings,
+                                                      ICachingSettings cachingSettings,
+                                                      IOperationLoggingSettings operationLoggingSettings,
+                                                      INestSettings nestSettings,
+                                                      ILoggerContextManager loggerContextManager)
         {
             return container
                 .ConfigureLogging(loggerContextManager)
@@ -229,6 +226,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureEAV()
