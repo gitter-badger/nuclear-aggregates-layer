@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                         checkAggregateForDebtsRepository.CheckForDebts(clientId, _userContext.Identity.Code, true);
                     }
 
-                    _userRepository.AssignUserRelatedEntites(entityId, ownerCode);
+                    _userRepository.AssignUserRelatedEntities(entityId, ownerCode);
                     operationScope.Updated<User>(ownerCode);
 
                     var user = _readModel.GetUser(entityId);
@@ -94,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                     _aggregateService.Deactivate(user, profile, roles);
 
                     operationScope.Updated<User>(user.Id)
-                                  .Complete();
+                        .Complete();
                 }
 
                 if (_msCrmSettings.EnableReplication)

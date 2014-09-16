@@ -1125,15 +1125,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AdvertisementElements {
-            get {
-                return ResourceManager.GetString("AdvertisementElements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AdvertisementElementStatusChangingAccessDenied {
             get {
                 return ResourceManager.GetString("AdvertisementElementStatusChangingAccessDenied", resourceCulture);
@@ -1308,15 +1299,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string AfterSalesServiceOperationErrorsMessage {
             get {
                 return ResourceManager.GetString("AfterSalesServiceOperationErrorsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationStartedMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationStartedMessage", resourceCulture);
             }
         }
         
@@ -1668,15 +1650,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string AssignInAllHierarchy {
             get {
                 return ResourceManager.GetString("AssignInAllHierarchy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AssignMustPickUser {
-            get {
-                return ResourceManager.GetString("AssignMustPickUser", resourceCulture);
             }
         }
         
@@ -2614,6 +2587,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotEditOrderBecauseReleaseIsRunning {
             get {
                 return ResourceManager.GetString("CannotEditOrderBecauseReleaseIsRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotEditOrderPositionSinceReleaseIsInProgress {
+            get {
+                return ResourceManager.GetString("CannotEditOrderPositionSinceReleaseIsInProgress", resourceCulture);
             }
         }
         
@@ -4024,15 +4006,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Close {
-            get {
-                return ResourceManager.GetString("Close", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string CloseBargains_AccessDenied {
             get {
                 return ResourceManager.GetString("CloseBargains_AccessDenied", resourceCulture);
@@ -4951,15 +4924,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DeactivateMustPickTerritory {
-            get {
-                return ResourceManager.GetString("DeactivateMustPickTerritory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DeactivateOperationTypeConfirmation {
             get {
                 return ResourceManager.GetString("DeactivateOperationTypeConfirmation", resourceCulture);
@@ -5041,6 +5005,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DealClientIsInReserve {
+            get {
+                return ResourceManager.GetString("DealClientIsInReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DealCloseInfoHead {
             get {
                 return ResourceManager.GetString("DealCloseInfoHead", resourceCulture);
@@ -5098,15 +5071,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DealMustBeNonActive {
             get {
                 return ResourceManager.GetString("DealMustBeNonActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string DealMustPickOtherReason {
-            get {
-                return ResourceManager.GetString("DealMustPickOtherReason", resourceCulture);
             }
         }
         
@@ -5437,15 +5401,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DisabledFunctionality {
-            get {
-                return ResourceManager.GetString("DisabledFunctionality", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DiscountPercentMustBeBetweenZeroAndOneHundred {
             get {
                 return ResourceManager.GetString("DiscountPercentMustBeBetweenZeroAndOneHundred", resourceCulture);
@@ -5467,15 +5422,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DiscountValue {
             get {
                 return ResourceManager.GetString("DiscountValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string DisplayErrorsList {
-            get {
-                return ResourceManager.GetString("DisplayErrorsList", resourceCulture);
             }
         }
         
@@ -7051,24 +6997,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string GroupOperationConfirm {
             get {
                 return ResourceManager.GetString("GroupOperationConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string GroupOperationResultsMessage {
-            get {
-                return ResourceManager.GetString("GroupOperationResultsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string GroupOperationResultsTitle {
-            get {
-                return ResourceManager.GetString("GroupOperationResultsTitle", resourceCulture);
             }
         }
         
@@ -9059,24 +8987,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string NeedToPickAtLeastOneLinkingObjectForCompositePosition {
             get {
                 return ResourceManager.GetString("NeedToPickAtLeastOneLinkingObjectForCompositePosition", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string NeedToSelectOneItem {
-            get {
-                return ResourceManager.GetString("NeedToSelectOneItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string NeedToSelectOneOrMoreItems {
-            get {
-                return ResourceManager.GetString("NeedToSelectOneOrMoreItems", resourceCulture);
             }
         }
         
@@ -12611,24 +12521,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string QualifyMustPickClient {
-            get {
-                return ResourceManager.GetString("QualifyMustPickClient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string QualifyMustPickUser {
-            get {
-                return ResourceManager.GetString("QualifyMustPickUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string QualifyMustSelectOneFirm {
             get {
                 return ResourceManager.GetString("QualifyMustSelectOneFirm", resourceCulture);
@@ -13244,15 +13136,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string SaveAndClose {
             get {
                 return ResourceManager.GetString("SaveAndClose", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string SaveError {
-            get {
-                return ResourceManager.GetString("SaveError", resourceCulture);
             }
         }
         

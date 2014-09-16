@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
         void ChangeNaturalRequisites(LegalPerson legalPerson, string passportSeries, string passportNumber, string registrationAddress);
         int Deactivate(LegalPerson legalPerson);
 
+        [Obsolete("Используется только в ExportLegalPersonsHandler")]
         void SyncWith1C(IEnumerable<LegalPerson> legalPersons);
         CheckForDublicatesResultDto CheckIfExistsInnDuplicate(long legalPersonId, string inn);
         CheckForDublicatesResultDto CheckIfExistsInnAndKppDuplicate(long legalPersonId, string inn, string kpp);
