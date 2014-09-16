@@ -1,4 +1,4 @@
-﻿// File updated : 15.09.2014 10:39:39
+﻿// File updated : 16.09.2014 12:46:15
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -38,6 +38,7 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Opravdu chcete publikov
 AdvertisingElementAccept : 'Schválit',
 AdvertisingElementValidate : 'Ověření',
 AfterPageText : 'z {0}',
+AfterSalesServiceOperationStartedMessage : 'Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.',
 Alert : 'Pozor!',
 AllExistingBillsWillBeDeleted : 'Všechny stávající faktury budou odstraněny. Pokračovat?',
 AllFieldsMustBeSetForPayment : 'K úhradě musí být vyplněna všechna pole',
@@ -97,6 +98,7 @@ DatePickerPrevText : 'Předchozí měsíc (tlačítko Control+šipka doleva)',
 DatePickerToday : 'Dnes',
 DatePickerTodayTip : '{0} (mezera)',
 DeactivateMustPickTerritory : 'Je třeba uvést území, ke kterému budou přiděleni klienti a firmy.',
+DealMustPickOtherReason : 'Je třeba uvést jiný důvod ukončení obchodní transakce.',
 December : 'Prosinec',
 DecreaseFontSizeText : 'Zmenšit velikost písma.',
 DecreaseFontSizeTitle : 'Zmenšit velikost',
@@ -106,6 +108,7 @@ DeleteText : 'Odstranit',
 DeleteValue : 'Odstranit hodnotu',
 DisabledDatesText : 'Toto datum není možné vybrat',
 DisabledDaysText : 'Toto datum není možné vybrat',
+DisabledFunctionality : 'Tato funkce je dočasně nedostupná',
 DiscountResetWarning : 'Ze všech položek objednávky budou odstraněny informace o slevách! Pokračovat?',
 DisplayErrorsList : 'Zobrazit seznam chyb...',
 DisplayMsg : 'Jsou zobrazeny záznamy od {0} do {1}, celkem {2}',

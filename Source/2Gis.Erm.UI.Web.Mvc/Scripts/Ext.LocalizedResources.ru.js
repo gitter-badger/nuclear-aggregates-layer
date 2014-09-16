@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 15.09.2014 10:39:39
+// File updated : 16.09.2014 12:46:14
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -40,6 +40,7 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Вы действите
 AdvertisingElementAccept : 'Одобрить',
 AdvertisingElementValidate : 'Выверка',
 AfterPageText : 'из {0}',
+AfterSalesServiceOperationStartedMessage : 'Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.',
 Alert : 'Внимание!',
 AllExistingBillsWillBeDeleted : 'Все существующие счета на оплату будут удалены. Продолжить?',
 AllFieldsMustBeSetForPayment : 'Все поля должны быть заполнены для платежа',
@@ -99,6 +100,7 @@ DatePickerPrevText : 'Предыдущий месяц (Control+Влево)',
 DatePickerToday : 'Сегодня',
 DatePickerTodayTip : '{0} (Пробел)',
 DeactivateMustPickTerritory : 'Необходимо указать территорию, на которую будут назначены клиенты и фирмы.',
+DealMustPickOtherReason : 'Необходимо указать другую причину закрытия Сделки.',
 December : 'Декабрь',
 DecreaseFontSizeText : 'Уменьшение размера шрифта.',
 DecreaseFontSizeTitle : 'Уменьшить размер',
@@ -108,6 +110,7 @@ DeleteText : 'Удалить',
 DeleteValue : 'Удалить значение',
 DisabledDatesText : 'Данная дата недоступна для выбора',
 DisabledDaysText : 'Данная дата недоступна для выбора',
+DisabledFunctionality : 'Данный функционал временно недоступен',
 DiscountResetWarning : 'По всем позициям заказа будет удалена информация о скидках! Продолжаем?',
 DisplayErrorsList : 'Просмотреть список ошибок...',
 DisplayMsg : 'Отображаются записи с {0} по {1}, всего {2}',
