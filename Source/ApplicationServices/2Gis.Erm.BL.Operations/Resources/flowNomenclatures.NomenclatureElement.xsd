@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema targetNamespace="http://tempuri.org/XMLSchema.xsd" elementFormDefault="qualified" xmlns="http://tempuri.org/XMLSchema.xsd" xmlns:mstns="http://tempuri.org XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
 
+  <xs:simpleType name="AccountingMethod">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GuaranteedProvision"/>
+      <xs:enumeration value="PlannedProvision"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:element name="NomenclatureElement" type="Nomenclature">
     <xs:annotation>
       <xs:documentation>Элемент номенклатуры</xs:documentation>
@@ -24,6 +31,15 @@
         <xs:documentation>Код платформы номенклатуры</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="AccountingMethod" type="AccountingMethod" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          Способ учета.
+          GuaranteedProvision - Гарантированное оказание услуги - модель продаж предполагающая, что конечная цена услуги известна в момент её продажи
+          PlannedProvision - Планируемое оказание услуги - модель продаж предполагающая, что конечная цена услуги известна только после её оказания (продажи по кликам)
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
       <xs:annotation>
         <xs:documentation>Признак активности элемента номенклатуры.</xs:documentation>
@@ -35,5 +51,5 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  
+
 </xs:schema>

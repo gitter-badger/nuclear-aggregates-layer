@@ -42,9 +42,7 @@
                             window.Entity = this.adsElemBag = cnt.add(new Ext.ux.AdvertisementBagPanel({
                                 autoScroll: true,
                                 anchor: '100%, 60%',
-                                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                                title: '@BLResources.AdvertisementElements'
+                                title: Ext.LocalizedResources.AdvertisementElements
                             }));
                                 window.Entity.store.load({ params: { id: Ext.getDom("Id").value } });
                             cnt.doLayout();
