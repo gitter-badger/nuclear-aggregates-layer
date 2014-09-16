@@ -1,4 +1,4 @@
-﻿// File updated : 15.09.2014 10:39:39
+﻿// File updated : 16.09.2014 12:46:15
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -38,6 +38,7 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : 'Do you really want to p
 AdvertisingElementAccept : 'Approve',
 AdvertisingElementValidate : 'Verification',
 AfterPageText : 'of {0}',
+AfterSalesServiceOperationStartedMessage : 'Process of after-sake service generation has been started. This is a long-term process, its progress can be tracked in the operations logbook.',
 Alert : 'Attention!',
 AllExistingBillsWillBeDeleted : 'All existing payments will be deleted. Continue?',
 AllFieldsMustBeSetForPayment : 'All payment fields should be filled in.',
@@ -97,6 +98,7 @@ DatePickerPrevText : 'Previous month (Control+Left)',
 DatePickerToday : 'Today',
 DatePickerTodayTip : '{0} (Space)',
 DeactivateMustPickTerritory : 'Specify the territory to which clients and companies will be assigned.',
+DealMustPickOtherReason : 'Please specify another reason of the opportunity closure',
 December : 'December',
 DecreaseFontSizeText : 'Decrease font size.',
 DecreaseFontSizeTitle : 'Decrease size',
@@ -106,6 +108,7 @@ DeleteText : 'Delete',
 DeleteValue : 'Delete value',
 DisabledDatesText : 'This date cannot be selected',
 DisabledDaysText : 'This date cannot be selected',
+DisabledFunctionality : 'This functionality is temporarily unavailable',
 DiscountResetWarning : 'Information on discounts will be deleted for all order items! Continue?',
 DisplayErrorsList : 'Review list of errors...',
 DisplayMsg : 'Records from {0} up to {1} are displayed, total of {2}',

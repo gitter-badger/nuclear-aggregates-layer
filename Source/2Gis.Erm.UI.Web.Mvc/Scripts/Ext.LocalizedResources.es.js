@@ -1,4 +1,4 @@
-﻿// File updated : 15.09.2014 10:39:39
+﻿// File updated : 16.09.2014 12:46:15
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -38,6 +38,7 @@ AdvertisementTemplatePublishConfirmationWithDirtyForm : '¿Está seguro que quie
 AdvertisingElementAccept : 'Aprobar',
 AdvertisingElementValidate : 'Verificación',
 AfterPageText : 'de {0}',
+AfterSalesServiceOperationStartedMessage : 'El proceso de creación del servicio postventa está en marcha. Es un proceso largo, puede seguir su ejecución en el historial de operaciones.',
 Alert : '¡Atención!',
 AllExistingBillsWillBeDeleted : 'Se eliminarán todas las facturas existentes. ¿Desea seguir?',
 AllFieldsMustBeSetForPayment : 'Todos los campos deben completarse para el pago',
@@ -97,6 +98,7 @@ DatePickerPrevText : 'Mes anterior (Control+Flecha izquierda)',
 DatePickerToday : 'Hoy',
 DatePickerTodayTip : '{0} (Espacio)',
 DeactivateMustPickTerritory : 'Hace falta especificar el territorio al que se designarán clientes y empresas.',
+DealMustPickOtherReason : 'Se requiere indicar otro motivo del cierre de la Transacción.',
 December : 'Diciembre',
 DecreaseFontSizeText : 'Disminuir el tamaño de fuente.',
 DecreaseFontSizeTitle : 'Disminuir tamaño',
@@ -106,6 +108,7 @@ DeleteText : 'Eliminar',
 DeleteValue : 'Eliminar valor',
 DisabledDatesText : 'Fecha no disponible para ser seleccionada',
 DisabledDaysText : 'Fecha no disponible para ser seleccionada',
+DisabledFunctionality : 'Esta funcionalidad no está disponible temporalmente',
 DiscountResetWarning : '¡La información sobre descuentos se eliminará de todas las posiciones de la orden! ¿Seguimos?',
 DisplayErrorsList : 'Visualizar la lista de errores...',
 DisplayMsg : 'Se muestran los registros de {0} a {1}, en total {2}',
