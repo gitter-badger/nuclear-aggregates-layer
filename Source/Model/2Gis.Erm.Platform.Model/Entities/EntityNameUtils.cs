@@ -52,11 +52,38 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.Phonecall
             };
 
-        public static readonly Type[] Async2MsCrmReplicatedEntities =
+        public static readonly Type[] AsyncReplicated2MsCrmEntities =
             {
                 typeof(Firm),
                 typeof(FirmAddress),
                 typeof(Territory)
+            };
+
+        public static readonly Type[] AllReplicated2MsCrmEntities =
+            {
+                typeof(OrganizationUnit),
+                typeof(Currency),
+                typeof(Category),
+                typeof(Territory),
+                typeof(Client),
+                typeof(Firm),
+                typeof(FirmAddress),
+                typeof(Contact),
+                typeof(Position),
+                typeof(BranchOffice),
+                typeof(BranchOfficeOrganizationUnit),
+                typeof(LegalPerson),
+                typeof(Account),
+                typeof(OperationType),
+                typeof(AccountDetail),
+                typeof(Deal),
+                typeof(Limit),
+                typeof(Order),
+                typeof(OrderPosition),
+                typeof(Bargain),
+                typeof(OrderProcessingRequest),
+                typeof(User),
+                typeof(UserTerritory)
             };
 
         /// <summary>
@@ -220,7 +247,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 throw new InvalidOperationException("Specified type " + entityType + " is not domain model entity");
             }
 
-            return Async2MsCrmReplicatedEntities.Contains(entityType);
+            return AsyncReplicated2MsCrmEntities.Contains(entityType);
         }
 
         public static string EntitiesToString(this EntityName[] entityNames)

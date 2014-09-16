@@ -5,6 +5,6 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 {
     public interface IReplicationPersistenceService : ISimplifiedPersistenceService
     {
-        void ReplicateToMscrm(Type entityType, IEnumerable<long> ids, int timeout, out IEnumerable<long> notReplicated);
+        void ReplicateToMsCrm(Type entityType, IReadOnlyCollection<long> ids, int timeout, out IReadOnlyCollection<long> notReplicated);
     }
 }

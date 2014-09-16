@@ -75,6 +75,7 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForPlannedPositionsException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
+    <Compile Include="Exceptions\Withdrawal\WithdrawalException.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\Flows\IMessageFlow.cs" />
     <Compile Include="Messaging\MessageBase.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Settings\Caching\CachingSettingsAspect.cs" />
     <Compile Include="Settings\Caching\ICachingSettings.cs" />
     <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
+    <Compile Include="Settings\CRM\MsCrmIntegrationMode.cs" />
     <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />
     <Compile Include="Settings\Globalization\IBusinessModelSettings.cs" />
     <Compile Include="Settings\Globalization\IGlobalizationSettings.cs" />
