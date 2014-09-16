@@ -85,6 +85,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public string AdvertisementsJson { get; set; }
 
+        public bool IsBlockedByRelease { get; set; }
+
         public override byte[] Timestamp { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
@@ -137,6 +139,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             CreatedOn = modelDto.CreatedOn;
             ModifiedOn = modelDto.ModifiedOn;
             IsRated = modelDto.IsRated;
+            IsBlockedByRelease = modelDto.IsBlockedByRelease;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

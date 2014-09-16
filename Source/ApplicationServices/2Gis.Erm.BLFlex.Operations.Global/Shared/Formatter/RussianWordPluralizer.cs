@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
             _currencyNameForFiveAndMore = currencyNameForFiveAndMore;
         }
 
-        public string GetPluralFor(int numberToRead)
+        public string GetPluralFor(long numberToRead)
         {
             numberToRead = Math.Abs(numberToRead);
 
