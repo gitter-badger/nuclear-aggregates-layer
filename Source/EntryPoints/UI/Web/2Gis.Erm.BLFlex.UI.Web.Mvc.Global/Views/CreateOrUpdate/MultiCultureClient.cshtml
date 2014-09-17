@@ -37,11 +37,11 @@
         @Html.SectionHead("SectionHead2", BLResources.AdditionalTabTitle)
         <div class="row-wrapper">
             @Html.TemplateField(m => m.InformationSource, FieldFlex.twins, null, EnumResources.ResourceManager)
-            @Html.TemplateField(m => m.LastQualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+            @Html.TemplateField(m => m.LastQualifyTime, FieldFlex.twins, new CalendarSettings { ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" })
-            @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+            @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new CalendarSettings { ReadOnly = true })
         </div>
     </div>
     <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">

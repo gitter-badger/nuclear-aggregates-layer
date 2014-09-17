@@ -70,9 +70,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public int PromisingScore { get; set; }
 
         // Дата взятия из резерва
+        [Calendar]
         public DateTime LastQualifyTime { get; set; }
 
         // Дата возврата в резерв
+        [Calendar]
         public DateTime? LastDisqualifyTime { get; set; }
 
         // Является ли клиент рекламным агентством

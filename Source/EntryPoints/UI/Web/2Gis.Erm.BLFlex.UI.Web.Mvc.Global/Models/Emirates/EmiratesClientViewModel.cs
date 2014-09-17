@@ -65,9 +65,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         public InformationSource InformationSource { get; set; }
 
         // Дата взятия из резерва
+        [Calendar]
         public DateTime LastQualifyTime { get; set; }
 
         // Дата возврата в резерв
+        [Calendar]
         public DateTime? LastDisqualifyTime { get; set; }
 
         // Куратор
