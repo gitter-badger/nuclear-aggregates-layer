@@ -1,4 +1,4 @@
-﻿// File updated : 05.09.2014 9:11:42
+﻿// File updated : 17.09.2014 15:34:00
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -139,6 +139,7 @@ InsertOrderedListTitle : 'Numbering',
 InsertUnorderedListText : 'Start a bulleted list.',
 InsertUnorderedListTitle : 'Bullets',
 InvalidDateText : '{0} is an incorrect date. The date format should be {1}',
+InvalidDateTimeText : 'Некорректное значение. Используйте формат "ДД/ММ/ГГГГ"',
 InvalidSelectedPositionsCount : 'Required number of selected items: {0}',
 IsNecessaryChooseLimitForStatusChange : 'Before changing status, select a limit in the list',
 IsWarmClientWarningFormat : 'Reason for opportunity is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type',

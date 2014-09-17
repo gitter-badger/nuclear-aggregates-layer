@@ -131,7 +131,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         var value = this.parseIsoDate(storeValue);
 
         if (editorValue && !storeValue) {
-            return "Некорректное значение. Используйте формат 'ДД.MM.ГГГГ'";
+            return Ext.LocalizedResources.InvalidDateTimeText;
         }
 
         if (this.maxDate && value > this.maxDate) {

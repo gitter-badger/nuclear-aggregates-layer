@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 05.09.2014 9:11:42
+// File updated : 17.09.2014 15:34:00
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -141,6 +141,7 @@ InsertOrderedListTitle : 'Нумерация',
 InsertUnorderedListText : 'Начать маркированный список.',
 InsertUnorderedListTitle : 'Маркеры',
 InvalidDateText : '{0} не является правильной датой - дата должна быть указана в формате {1}',
+InvalidDateTimeText : 'Некорректное значение. Используйте формат "ДД.MM.ГГГГ"',
 InvalidSelectedPositionsCount : 'Должно быть выбрано позиций: {0}',
 IsNecessaryChooseLimitForStatusChange : 'Перед выполнением операции смены статуса необходимо выбрать лимит в списке',
 IsWarmClientWarningFormat : 'Выставлена причина сделки "Теплый клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Теплый клиент"',

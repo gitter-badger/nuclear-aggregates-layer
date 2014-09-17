@@ -1,4 +1,4 @@
-﻿// File updated : 05.09.2014 9:11:42
+﻿// File updated : 17.09.2014 15:34:01
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI
@@ -139,6 +139,7 @@ InsertOrderedListTitle : 'Numeración',
 InsertUnorderedListText : 'Iniciar lista con viñetas.',
 InsertUnorderedListTitle : 'Viñetas',
 InvalidDateText : '{0} no es una fecha válida, la fecha debe indicarse en formato {1}',
+InvalidDateTimeText : 'Некорректное значение. Используйте формат "ДД-ММ-ГГГГ"',
 InvalidSelectedPositionsCount : 'Deben haber posiciones seleccionadas: {0}',
 IsNecessaryChooseLimitForStatusChange : 'Antes de ejecutar la operacion de cambio de estado, debe seleccionar el limite de la lista',
 IsWarmClientWarningFormat : 'Se muestra el motivo de la transacción Cliente interesado, ya que para dicho cliente existe la tarea "{0}", cerrada {1} con el tipo Cliente interesado',
