@@ -1269,60 +1269,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AfterSaleServiceActivitiesCreate {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceActivitiesCreate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceCreationErrorFormat {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceCreationErrorFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationCompletedDetailsMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationCompletedDetailsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationDescriptionFormat {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationDescriptionFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationErrorsMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationErrorsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string AfterSalesServiceOperationStartedMessage {
-            get {
-                return ResourceManager.GetString("AfterSalesServiceOperationStartedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AgentBargainCanBeForBranchOnly {
             get {
                 return ResourceManager.GetString("AgentBargainCanBeForBranchOnly", resourceCulture);
@@ -4468,33 +4414,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CreateAfterSalesActivitiesAccessDeniedError {
-            get {
-                return ResourceManager.GetString("CreateAfterSalesActivitiesAccessDeniedError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CreateAfterSaleServiceActivitiesCompleted {
-            get {
-                return ResourceManager.GetString("CreateAfterSaleServiceActivitiesCompleted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CreateAfterSaleServiceActivitiesEmpty {
-            get {
-                return ResourceManager.GetString("CreateAfterSaleServiceActivitiesEmpty", resourceCulture);
             }
         }
         
@@ -14990,15 +14909,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string View {
             get {
                 return ResourceManager.GetString("View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string ViewAfterSalesActivitiesAccessDeniedError {
-            get {
-                return ResourceManager.GetString("ViewAfterSalesActivitiesAccessDeniedError", resourceCulture);
             }
         }
         

@@ -1200,18 +1200,6 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Territory</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>After-sale service1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>After-sale service2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>After-sale service3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>After-sale service4</value>
-  </data>
   <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Taking from the reserve</value>
   </data>

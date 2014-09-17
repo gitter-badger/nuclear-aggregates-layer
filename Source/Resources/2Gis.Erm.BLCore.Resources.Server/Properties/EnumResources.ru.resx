@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1199,18 +1199,6 @@
   </data>
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Территория</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>ППС1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>ППС2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>ППС3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>ППС4</value>
   </data>
   <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Взятие из резерва</value>

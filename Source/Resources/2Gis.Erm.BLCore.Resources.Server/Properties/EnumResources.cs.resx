@@ -1200,18 +1200,6 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Území</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>PPS1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>PPS2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>PPS3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>PPS4</value>
-  </data>
   <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Vzít z rezervy</value>
   </data>

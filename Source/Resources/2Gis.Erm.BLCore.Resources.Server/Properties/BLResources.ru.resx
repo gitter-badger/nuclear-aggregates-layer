@@ -696,9 +696,6 @@
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
   </data>
-  <data name="AfterSalesServiceOperationDescriptionFormat" xml:space="preserve">
-    <value>Создание ППС для отделения организации по г. {0} за {1}</value>
-  </data>
   <data name="UnableToDeleteAssignedAdvertisementElementTemplate" xml:space="preserve">
     <value>Элемент шаблона рекламного материала используется в одном или нескольких шаблонах рекламного материала и не может быть удалён.</value>
   </data>
@@ -1063,9 +1060,6 @@
   </data>
   <data name="IncorrectBeginDistributionDateMax" xml:space="preserve">
     <value>Данная дата начала размещения заказа не может быть указана</value>
-  </data>
-  <data name="AfterSalesServiceOperationErrorsMessage" xml:space="preserve">
-    <value>Ошибок при создании звонков: {0}{1}{2}</value>
   </data>
   <data name="LockListByAccount" xml:space="preserve">
     <value>Просмотр списка всех блокировок по лицевому счету</value>
@@ -1835,9 +1829,6 @@
   <data name="DisqualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Операция возврата в резерв не определена для указанного типа сущности</value>
   </data>
-  <data name="AfterSalesServiceCreationErrorFormat" xml:space="preserve">
-    <value>Ошибка при создании ППС, Id: {0}, {1}{2}</value>
-  </data>
   <data name="OrdersCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
     <value>В заказе {0} имеется позиция заказа, привязанная к рубрике, которая не привязана к отделению организации города назначения заказа</value>
   </data>
@@ -2125,9 +2116,6 @@
   </data>
   <data name="OrderAmountFact" xml:space="preserve">
     <value>Фактическия сумма заказа</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesEmpty" xml:space="preserve">
-    <value>Не найдено заказов для формирования планов ППС.</value>
   </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>Списание</value>
@@ -2658,9 +2646,6 @@
   <data name="SystemID" xml:space="preserve">
     <value>Принадлежит системе</value>
   </data>
-  <data name="AfterSaleServiceActivitiesCreate" xml:space="preserve">
-    <value>Формирование ППС</value>
-  </data>
   <data name="OrderCheckWhiteListedAdvertismentIsRequired" xml:space="preserve">
     <value>Необходимо указать РМ для белого списка</value>
   </data>
@@ -2858,9 +2843,6 @@
   </data>
   <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
     <value>Невозможно отредактировать деактивированный прайс-лист</value>
-  </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
   </data>
   <data name="ConfirmActivationLegend" xml:space="preserve">
     <value>Выбрано {0} записей {1}, чтобы активировать.</value>
@@ -3237,9 +3219,6 @@
   <data name="RegionalAdvertisingSharing" xml:space="preserve">
     <value>Обмен региональной рекламой</value>
   </data>
-  <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
-    <value>Обработано сделок : {0}, создано звонков: {1}</value>
-  </data>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Результаты проверки заказа</value>
   </data>
@@ -3594,9 +3573,6 @@
   <data name="MergeLegalPersonsMainNotFoundError" xml:space="preserve">
     <value>Невозможно выполнить слияние, т.к. основное юридическое лицо не найдено.</value>
   </data>
-  <data name="ViewAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Недостаточно прав для просмотра журнала ППС</value>
-  </data>
   <data name="CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning" xml:space="preserve">
     <value>Запуск отмены невозможен, дождитесь окончания предыдущей операции</value>
   </data>
@@ -3623,9 +3599,6 @@
   </data>
   <data name="AdsCheckInvalidImageDimension" xml:space="preserve">
     <value>Разрешение загружаемого изображения не соответствует ни одному из указанных ограничений</value>
-  </data>
-  <data name="CreateAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Недостаточно прав для формирования ППС</value>
   </data>
   <data name="UserControllerDefaultDeactivateError" xml:space="preserve">
     <value>Для объекта Пользователь недоступен стандартный функционал деактивации.</value>
@@ -3788,9 +3761,6 @@
   </data>
   <data name="OrderFirmHiddenForAscertainmentTemplate" xml:space="preserve">
     <value>Фирма {0} скрыта до выяснения.</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
-    <value>Планы ППС сформированы. Обработано сделок: {0}, создано звонков: {1}</value>
   </data>
   <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
     <value>Не указана причина расторжения в поле Комментарий</value>

@@ -1212,18 +1212,6 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Territorio</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>Servicio postventa 1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>Servicio postventa 2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>Servicio postventa 3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>Servicio postventa 4</value>
-  </data>
   <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Tomar de la reserva</value>
   </data>

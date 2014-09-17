@@ -565,42 +565,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ППС1.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS1 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ППС2.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS2 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ППС3.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS3 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ППС4.
-        /// </summary>
-        public static string AfterSaleServiceTypeASS4 {
-            get {
-                return ResourceManager.GetString("AfterSaleServiceTypeASS4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string AfterSaleServiceTypeNone {

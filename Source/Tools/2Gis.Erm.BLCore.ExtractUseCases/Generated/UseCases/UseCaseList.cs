@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Advertisements;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AfterSaleServices;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
@@ -30,7 +29,6 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Advertisements;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.AfterSalesService;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.BranchOfficeOrganizationUnits;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
@@ -374,16 +372,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(CalculateReleaseWithdrawalsHandler),
                         Request = typeof(CalculateReleaseWithdrawalsRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.AfterSaleServiceController\CreateAfterSaleServiceActivities",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CreateAfterSaleServiceActivitiesHandler),
-                        Request = typeof(CreateAfterSaleServiceActivitiesRequest)
                     }
                 },
                 new UseCase
@@ -1263,16 +1251,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(ValidateOwnerIsNotReserve<>),
                         Request = typeof(ValidateOwnerIsNotReserveRequest<>)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.AfterSaleServiceController\CreateAfterSaleServiceActivities",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CrmCreateAfterSaleServiceActivitiesHandler),
-                        Request = typeof(CrmCreateAfterSaleServiceActivitiesRequest)
                     }
                 },
                 new UseCase
