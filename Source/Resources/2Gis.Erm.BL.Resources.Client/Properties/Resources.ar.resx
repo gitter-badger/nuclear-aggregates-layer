@@ -957,4 +957,7 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Ошибка выполнения операции</value>
   </data>
+  <data name="InvalidDateTimeText" xml:space="preserve">
+    <value>Некорректное значение. Используйте формат 'ДД/ММ/ГГГГ'</value>
+  </data>
 </root>
