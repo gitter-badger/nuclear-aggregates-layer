@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
-@model DateTime
+@model DateTime?
 
 @{
     const string ShortIsoFormat = "yyyy-MM-ddTHH:mm:ss";
@@ -16,10 +16,14 @@
     var isoFormat = settings.Store == CalendarSettings.StoreMode.Relative 
         ? ShortIsoFormat 
         : FullIsoFormat;
-    var dt = Model.ToString(isoFormat, CultureInfo.InvariantCulture);
+    
     var storeMode = settings.Store.ToString().ToLower();
     var displayMode = settings.Display.ToString().ToLower();
     var readOnly = settings.ReadOnly.ToString().ToLower();
+
+    var value = Model.HasValue
+                      ? Model.Value.ToString(isoFormat, CultureInfo.InvariantCulture)
+                      : string.Empty;
     
     var minDate = settings.MinDate.HasValue
                       ? settings.MinDate.Value.ToString(isoFormat, CultureInfo.InvariantCulture)
@@ -30,7 +34,7 @@
                       : string.Empty;
 }
 
-@Html.Hidden(string.Empty, dt)
+@Html.Hidden(string.Empty, value)
 <table id="@Html.IdForModel()_wrapper" class="x-calendar-v2" >
     <tbody>
         <tr>

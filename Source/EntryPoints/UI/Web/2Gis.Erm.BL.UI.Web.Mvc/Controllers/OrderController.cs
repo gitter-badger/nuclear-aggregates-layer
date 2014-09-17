@@ -323,7 +323,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             public DateTime Item2 { get; set; }
 
             [Calendar]
-            public DateTime Item3 { get; set; }
+            public DateTime? Item3 { get; set; }
 
             [Calendar]
             public DateTime Item4 { get; set; }
