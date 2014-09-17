@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
@@ -72,6 +73,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                                                           settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           loggerContextManager))
                         .ConfigureServiceClient();
         }
@@ -87,32 +89,34 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             IConnectionStringSettings connectionStringSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
+            IMsCrmSettings msCrmSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
-                        .ConfigureLogging(loggerContextManager)
-                        .CreateErmSpecific()
-                        .CreateSecuritySpecific()
-                        .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                .ConfigureLogging(loggerContextManager)
+                .CreateErmSpecific()
+                .CreateSecuritySpecific()
+                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                         .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
-                        .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
-                        .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                        .ConfigureIdentityInfrastructure()
-                        .ConfigureReadWriteModels()
-                        .ConfigureMetadata()
+                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                        .ConfigureReplicationMetadata(msCrmSettings)
+                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                .ConfigureIdentityInfrastructure()
+                .ConfigureReadWriteModels()
+                .ConfigureMetadata()
                 .ConfigureLocalization(typeof(Resources),
                                        typeof(ResPlatform),
                                        typeof(BLResources),
                                        typeof(MetadataResources),
                                        typeof(EnumResources),
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
-                        .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                        .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
-                        .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
-                        .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
-                        .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
-                        .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
-                        .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
+                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
+                .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
+                .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
+                .RegisterType<IErrorHandlerFactory, ErrorHandlerFactory>(Lifetime.Singleton)
+                .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton);
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)

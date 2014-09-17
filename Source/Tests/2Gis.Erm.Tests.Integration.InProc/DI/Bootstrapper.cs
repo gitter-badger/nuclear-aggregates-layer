@@ -125,7 +125,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                                              : new Type[0])
                 };
 
-            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
+            CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TestsIntegrationInProcRoot.Instance,
                             settingsContainer,
@@ -164,6 +164,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
                 .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
@@ -176,7 +177,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 .ConfigureTestsDependenciesExplicitly();
         }
 
-        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
+        private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
                 {

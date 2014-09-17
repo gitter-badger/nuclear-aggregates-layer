@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
+using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
@@ -107,7 +109,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     new TaskServiceJobsMassProcessor(container)
                 };
 
-            CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
+            CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TaskServiceRoot.Instance,
                                                     settingsContainer,
@@ -118,7 +120,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
-                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>()))
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                          settingsContainer.AsSettings<IIntegrationSettings>()))
                             .ConfigureServiceClient();
 
             container.ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>())
@@ -132,14 +135,7 @@ namespace DoubleGis.Erm.TaskService.DI
             return Lifetime.PerScope;
         }
 
-        private static IUnityContainer ConfigureUnity(
-            this IUnityContainer container, 
-            IEnvironmentSettings environmentSettings,
-            IConnectionStringSettings connectionStringSettings,
-            IGlobalizationSettings globalizationSettings,
-            IMsCrmSettings msCrmSettings,
-            ICachingSettings cachingSettings,
-            IOperationLoggingSettings operationLoggingSettings)
+        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings, IGlobalizationSettings globalizationSettings, IMsCrmSettings msCrmSettings, ICachingSettings cachingSettings, IOperationLoggingSettings operationLoggingSettings, IIntegrationSettings integrationSettings)
         {
             return container
                     .ConfigureGlobal(globalizationSettings)
@@ -147,6 +143,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     .CreateSecuritySpecific()
                     .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
+                    .ConfigureReplicationMetadata(msCrmSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                     .ConfigureIdentityInfrastructure()
                     .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
@@ -159,7 +156,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     .ConfigurePerformedOperationsProcessing();
         }
 
-        private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
+        private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
         {
