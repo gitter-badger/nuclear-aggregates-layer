@@ -123,7 +123,6 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\AdvertisementTemplateController.cs" />
-    <Compile Include="Controllers\AfterSaleServiceController.cs" />
     <Compile Include="Controllers\BargainController.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\BranchOfficeOrganizationUnitController.cs" />
@@ -157,7 +156,6 @@
     <Compile Include="Models\AdvertisementElementViewModel.cs" />
     <Compile Include="Models\AdvertisementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementViewModel.cs" />
-    <Compile Include="Models\AfterSaleServiceCreateDialogModel.cs" />
     <Compile Include="Models\AllClientsDebtReportViewModel.cs" />
     <Compile Include="Models\AssociatedPositionsGroupViewModel.cs" />
     <Compile Include="Models\AssociatedPositionViewModel.cs" />
@@ -344,11 +342,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PreviewOnline.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CreateAfterSaleServiceActivitiesDialog.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Bargain\CloseBargains.generated.cs">
       <AutoGen>True</AutoGen>
@@ -846,10 +839,6 @@
     <None Include="Views\Advertisement\PreviewOnline.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PreviewOnline.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>CreateAfterSaleServiceActivitiesDialog.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Bargain\CloseBargains.cshtml">
       <Generator>RazorGenerator</Generator>

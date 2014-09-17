@@ -474,9 +474,6 @@
   <data name="DListOperations" xml:space="preserve">
     <value>All operations</value>
   </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Operations on after-sale service formation</value>
-  </data>
   <data name="DListThemeCategory" xml:space="preserve">
     <value>Categories</value>
   </data>

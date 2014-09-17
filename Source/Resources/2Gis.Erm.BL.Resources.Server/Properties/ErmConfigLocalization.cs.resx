@@ -474,9 +474,6 @@
   <data name="DListOperations" xml:space="preserve">
     <value>Všechny operace</value>
   </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Operace vytváření PPS</value>
-  </data>
   <data name="DListThemeCategory" xml:space="preserve">
     <value>Rubriky</value>
   </data>
