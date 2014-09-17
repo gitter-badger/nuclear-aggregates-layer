@@ -1,7 +1,6 @@
 ﻿@using System.Globalization
-@using Platform.Model.Metadata.Enums
 
-@model Models.CheckOrdersReadinessForReleaseDialogViewModel
+@model CheckOrdersReadinessForReleaseDialogViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -108,9 +107,7 @@
         // Временно отключаем галку "Включая подчинённых", ERM-925
         var tt = new Ext.ToolTip({
             target: 'IncludeOwnerDescendants-wrapper',
-            // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-            html: '@BLResources.DisabledFunctionality'
+            html: Ext.LocalizedResources.DisabledFunctionality
         });
     });
 
