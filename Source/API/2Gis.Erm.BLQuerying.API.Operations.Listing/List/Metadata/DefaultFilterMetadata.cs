@@ -257,7 +257,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilter<ListLockDetailDto>("DListNotActiveLockDetails", x => !x.IsActive)
 
             .RegisterFilter<ListOperationDto>("DListOperations", x => true)
-            .RegisterFilter<ListOperationDto>("DListOperationsAfterSaleService", x => x.TypeEnum == BusinessOperation.AfterSaleServiceActivitiesCreation)
 
             .RegisterFilter<ListOrderPositionDto>("DListOrderPositions", x => !x.IsDeleted)
 
