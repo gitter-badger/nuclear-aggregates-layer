@@ -8,7 +8,6 @@
         public const int PriorityPropertyId = 4;
         public const int PurposePropertyId = 5;
         public const int StatusPropertyId = 6;
-        public const int AfterSaleServiceTypePropertyId = 7;
         public const int DescriptionPropertyId = 8;
         public const int TaskTypePropertyId = 9;
         public const int DealIdPropertyId = 10;

@@ -7,6 +7,5 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Deal = EntityName.Deal,
         Order = EntityName.Order,
         OrderPosition = EntityName.OrderPosition,
-        AfterSaleServiceActivity = EntityName.AfterSaleServiceActivity // возможно - ППС место в агрегате activity
     }
 }
