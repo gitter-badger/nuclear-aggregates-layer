@@ -1772,7 +1772,6 @@
 					<Field Name="Description" Width="0" FieldType="String" ExtTypeName="String" />
 				</Fields>
 			</DataList>
-			<DataList BasedOn="DListOperations" TitleLocaleResourceId="EnMOperation" NameLocaleResourceId="DListOperationsAfterSaleService"/>
 		</DataLists>
 	</Entity>
 	<Entity Name="OperationType">
