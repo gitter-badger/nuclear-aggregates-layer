@@ -166,6 +166,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
             firm.OwnerCode = ownerCode;
             firm.LastQualifyTime = qualifyDate;
+
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(firm);
             return _firmGenericSecureRepository.Save();
         }
@@ -263,6 +265,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         public int SetFirmClient(Firm firm, long clientId)
         {
             firm.ClientId = clientId;
+
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(firm);
             return _firmGenericSecureRepository.Save();
         }
@@ -275,6 +279,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             }
 
             firm.TerritoryId = territoryId;
+
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(firm);
             return _firmGenericSecureRepository.Save();
         }
@@ -380,6 +386,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
             // update firm and client
             // Старый вариант использовал число 4096. Почему не 42? Не знаю.
+            // 42 - недостаточно :P
             const int FirmUpdateBlockSize = 4096;
             var position = 0;
 
@@ -740,7 +747,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 scope.Complete();
             }
 
-            return _firmGenericRepository.Save();
+            return _firmGenericSecureRepository.Save();
         }
 
         public long[] GetAdvertisementIds(long firmId)
@@ -1062,6 +1069,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             entity.ClientId = clientId;
             entity.OwnerCode = clientOwnerCode;
 
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(entity);
             return _firmGenericSecureRepository.Save();
         }

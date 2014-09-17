@@ -3651,9 +3651,6 @@
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Внесенные изменения не сохранены. Чтобы остаться на этой странице и сохранить изменения, нажмите кнопку "Отмена".</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value>Попытка сохранить бюджетную Позицию заказа с ненулевым размером скидки</value>
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value>У юр. лица клиента, в профиле {0} указан договор с датой окончания действия раньше даты подписания заказа.</value>
   </data>

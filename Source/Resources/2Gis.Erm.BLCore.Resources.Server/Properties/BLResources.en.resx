@@ -3650,9 +3650,6 @@ The operation has been executed: {4}.</value>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Changes are not saved. To remain on the page and save changes, click "Cancel".</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value>Attempt to save a budget item of the order with a non-zero discount</value>
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value>A contract with expiry date earlier than the date of order signature is specified in the profile {0} of the client's legal entity.</value>
   </data>

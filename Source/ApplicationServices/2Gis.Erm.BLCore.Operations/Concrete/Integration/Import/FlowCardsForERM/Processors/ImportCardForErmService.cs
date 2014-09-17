@@ -162,13 +162,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
 
             _bulkChangeFirmTerritoryAggregateService.ChangeTerritory(firmsToUpdate);
 
-            var clients = _clientReadModel.GetClientsToUpdateTerritoryByFirms(firmsToUpdate.Select(x => x.Firm.Id));
-            var clientsToUpdate = clients.Select(client => new ChangeClientTerritoryDto
-                                                               {
-                                                                   Client = client.Value,
-                                                                   TerritoryId = firmTerritories[client.Key]
-                                                               })
-                                         .ToArray();
+            var clientsByFirmIds = _clientReadModel.GetClientsToUpdateTerritoryByFirms(firmsToUpdate.Select(x => x.Firm.Id));
+
+
+            var clientsToUpdate = clientsByFirmIds.SelectMany(clientsByFirm => clientsByFirm.Value
+                                                                                            .Select(client => new ChangeClientTerritoryDto
+                                                                                                {
+                                                                                                    Client = client,
+                                                                                                    TerritoryId = firmTerritories[clientsByFirm.Key]
+                                                                                                }))
+                                                  .ToArray();
 
             _bulkChangeClientTerritoryAggregateService.ChangeTerritory(clientsToUpdate);
         }

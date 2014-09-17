@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
                 };
 
             Because of = () =>
-                ResultRequests = SimplifiedModelConsumer.GetPrologationRequestsToProcess();
+                ResultRequests = SimplifiedModelConsumer.GetProlongationRequestsToProcess();
 
             It should_return_only_opened_order_processing_requests = () =>
                 ResultRequests.All(x => x.RequestType == (int)OrderProcessingRequestState.Opened).Should().BeTrue();
