@@ -33,11 +33,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
             // Клиентские списания мы еще не выгружаем
             // Договорились с Олегом, что в переходный период будем выгружать пустой объект
             var emptyData = new DebitsInfoDto
-            {
-                OrganizationUnitCode = _organizationUnitReadModel.GetSyncCode(request.OrganizationUnitId),
-                EndDate = request.EndPeriodDate,
-                StartDate = request.StartPeriodDate
-            };
+                {
+                    OrganizationUnitCode = _organizationUnitReadModel.GetSyncCode(request.OrganizationUnitId),
+                    EndDate = request.EndPeriodDate,
+                    StartDate = request.StartPeriodDate,
+                    Debits = new DebitDto[0]
+                };
 
             streamDictionary.Add("DebitsInfo_" + DateTime.Today.ToShortDateString() + ".xml",
                                  new MemoryStream(Encoding.UTF8.GetBytes(emptyData.ToXElement().ToString(SaveOptions.None))));
