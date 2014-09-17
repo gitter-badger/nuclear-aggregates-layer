@@ -64,6 +64,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                 entityViewModel.Message = string.Format(BLResources.CategoryGroupInfoMessage, (double)entityViewModel.CategoryRate);
                 entityViewModel.MessageType = MessageType.Info;
             }
+
+            if (entityViewModel.IsBlockedByRelease)
+            {
+                entityViewModel.SetWarning(BLResources.CannotEditOrderPositionSinceReleaseIsInProgress);
+            }
         }
     }
 }

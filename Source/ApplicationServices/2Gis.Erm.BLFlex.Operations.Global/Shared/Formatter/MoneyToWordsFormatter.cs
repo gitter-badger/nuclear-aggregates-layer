@@ -23,14 +23,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
 
             var roundedVal = Math.Round(val, 2, MidpointRounding.ToEven);
 
-            var n = (int)roundedVal;
-            var remainder = (int)(roundedVal * 100) - n * 100;
+            var n = (long)roundedVal;
+            var remainder = (long)(roundedVal * 100) - n * 100;
 
             return string.Format("{0} {1} {2} {3}",
                                  _numberToWordsConverter.Convert(n),
                                  _baseWordPluralizer.GetPluralFor(n),
                                  remainder.ToString("00"),
                                  _tokenMoneyReader.GetPluralFor(remainder));
-		}
+        }
     }
 }

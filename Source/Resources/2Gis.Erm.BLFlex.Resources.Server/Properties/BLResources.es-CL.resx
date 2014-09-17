@@ -392,6 +392,6 @@
     <value>Verificación de elemento del material publicitario</value>
   </data>
   <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
-    <value>Операция редактирования коммуны не поддерживается системой</value>
+    <value>Operación de edición de la comuna no está soportada por el sistema</value>
   </data>
 </root>
