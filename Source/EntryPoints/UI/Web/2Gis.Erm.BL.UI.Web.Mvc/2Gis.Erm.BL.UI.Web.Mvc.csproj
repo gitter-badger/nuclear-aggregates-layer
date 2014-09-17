@@ -211,7 +211,6 @@
     <Compile Include="Models\PriceViewModel.cs" />
     <Compile Include="Models\PrintFormTemplateViewModel.cs" />
     <Compile Include="Models\PrintLimitsViewModel.cs" />
-    <Compile Include="Models\PrintOrderType.cs" />
     <Compile Include="Models\DenialReasonViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\PublishAdvertisementTemplateModel.cs" />
