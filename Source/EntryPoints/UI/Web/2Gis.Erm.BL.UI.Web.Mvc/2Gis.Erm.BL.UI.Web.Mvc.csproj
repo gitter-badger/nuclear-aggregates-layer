@@ -265,6 +265,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Order\Test.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Test.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\DateTimeOffsetViewModel.generated.cs">
+      <DependentUpon>DateTimeOffsetViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -760,6 +770,14 @@
     <None Include="Views\Account\ExportToServiceBusDialog.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\Test.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Test.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DateTimeOffsetViewModel.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>

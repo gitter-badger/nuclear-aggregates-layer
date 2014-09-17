@@ -1,0 +1,58 @@
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.OrderController.TestViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { "Ащщ" }
+@section TopBarTitle { "Ащщ" }
+@section TopBarMessage { "Ащщ" }
+
+@section PageScript
+{
+    <link rel="stylesheet" type="text/css" href="/Content/ext-ux-calendar2.css?@SolutionInfo.ProductVersion.Build" />
+    <script src="/Scripts/Ext.ux.MonthMenu.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.MonthPicker.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.Calendar2.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section PageContent
+{
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Item1, 
+                FieldFlex.lone, 
+                new DateTimeSettings
+                    {
+                        ShiftOffset = false, 
+                        PeriodType = PeriodType.MonthlyLowerBound, 
+                        DisplayStyle = DisplayStyle.WithoutDayNumber,
+                    })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Item2, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Item3, 
+                FieldFlex.lone, 
+                new CalendarSettings
+                    {
+                        Display = CalendarSettings.DisplayMode.Month, 
+                        Store = CalendarSettings.StoreMode.Absolute, 
+                        ReadOnly = true
+                    })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Item4,
+                FieldFlex.lone,
+                new CalendarSettings
+                    {
+                        Display = CalendarSettings.DisplayMode.Day,
+                        Store = CalendarSettings.StoreMode.Relative,
+                        MinDate = DateTime.UtcNow,
+                    })
+        </div>
+        <input type="submit" />
+    }
+}
