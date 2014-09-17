@@ -55,8 +55,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int AttachExternalReleaseProcessingMessagesIdentity = 1009;
         public const int ValidateOrdersForReleaseIdentity = 1010;
         public const int EnsureOrdersForReleaseCompletelyExportedIdentity = 1011;
-        public const int ReplicateDealStageIdentity = 1012;
-        public const int UpdateAfterSaleServiceIdentity = 1013;
+        public const int ChangeDealStageIdentity = 1012;
         public const int ActualizeAccountsDuringWithdrawalIdentity = 1014;
         public const int WithdrawFromAccountsIdentity = 1015;
         public const int ActualizeOrdersDuringWithdrawalIdentity = 1016;
@@ -227,5 +226,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.BranchOfficeOrganizationUnit = 139
         public const int SetBranchOfficeOrganizationUnitAsPrimaryIdentity = 13901;
         public const int SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity = 13902;
+
+        // EntityName.Activity = 500
+        public const int CheckRelatedActivitiesIdentity = 50001;
     }
 }
