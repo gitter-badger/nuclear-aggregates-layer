@@ -5162,9 +5162,9 @@ Placement period: {3}.</value>
     <value>{0}-bills.zip</value>
   </data>
   <data name="DealClientIsInReserve" xml:space="preserve">
-    <value>Клиент сделки находится в резерве.</value>
+    <value>The opportunity client is in the reserve.</value>
   </data>
   <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
-    <value>Идет сборка. Редактирование позиции заказа запрещено.</value>
+    <value>Building. Order item editing is not allowed.</value>
   </data>
 </root>
