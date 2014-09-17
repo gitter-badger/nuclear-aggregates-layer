@@ -38,8 +38,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
             this.mon(this.editor, 'focus', this.onButtonClick, this);
         }
 
-        var date = this.parseIsoDate(this.store.getValue());
-        this.onDateSelect(null, date);
+        this.setValue(this.parseIsoDate(this.store.getValue()));
 
         this.mon(this.editor, 'change', this.onEditorChange, this);
         this.mon(this.button, 'mouseout', this.updateButtonState, this);
@@ -103,8 +102,8 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
     setValue: function (date) {
         this.ignoreChangeEvent = true;
-        this.editor.setValue(date.format(this.displayFormat));
-        this.store.setValue(date.format(this.storeFormat));
+        this.editor.setValue(date ? date.format(this.displayFormat) : '');
+        this.store.setValue(date ? date.format(this.storeFormat) : '');
         delete this.ignoreChangeEvent;
 
         this.validate();
