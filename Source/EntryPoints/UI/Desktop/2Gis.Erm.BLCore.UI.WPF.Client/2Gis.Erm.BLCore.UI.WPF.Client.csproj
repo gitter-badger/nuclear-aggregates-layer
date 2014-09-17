@@ -631,6 +631,10 @@
       <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
       <Name>2Gis.Erm.BLCore.DI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj">
+      <Project>{153868e3-4c4c-45fe-86d6-6b4fbd39249c}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
