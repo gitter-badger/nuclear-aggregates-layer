@@ -147,4 +147,7 @@
   <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
     <value>Поле {0} может содержать только цифры</value>
   </data>
+  <data name="UserIdDoesNotHaveTheRightToOperationOnEntity" xml:space="preserve">
+    <value>Пользователь id=[{0}] не имеет право {1} на сущность {2}</value>
+  </data>
 </root>

@@ -228,6 +228,12 @@
     <Compile Include="Operations\Detail\Concrete\QualifyMetadata.cs" />
     <Compile Include="Operations\Detail\OperationMetadataDetailContainer.cs" />
     <Compile Include="Operations\Detail\OperationMetadataDetailRegistry.cs" />
+    <Compile Include="Replication\Metadata\EntityReplicationInfo.cs" />
+    <Compile Include="Replication\Metadata\EntityReplicationMetadata.cs" />
+    <Compile Include="Replication\Metadata\IMsCrmReplicationMetadataProvider.cs" />
+    <Compile Include="Replication\Metadata\MsCrmReplicationMetadataProvider.cs" />
+    <Compile Include="Replication\Metadata\NullMsCrmReplicationMetadataProvider.cs" />
+    <Compile Include="Replication\Metadata\ReplicationMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
