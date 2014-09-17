@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace DoubleGis.Erm.Platform.API.Core.Exceptions.Withdrawal.Operations
 {
-    public class MissingChargesForProjectException : BusinessLogicException
+    public class MissingChargesForProjectException : WithdrawalException
     {
         public MissingChargesForProjectException()
         {
