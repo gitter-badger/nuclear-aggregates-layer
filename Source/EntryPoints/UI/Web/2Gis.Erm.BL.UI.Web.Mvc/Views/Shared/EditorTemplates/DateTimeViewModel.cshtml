@@ -1,10 +1,17 @@
 ﻿@using System.Globalization
-@model DateTimeOffset
+@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
+@model DateTime
 
 @{
     const string ShortIsoFormat = "yyyy-MM-ddTHH:mm:ss";
     const string FullIsoFormat = "o";
-    
+
+    if (!ViewData.ModelMetadata.AdditionalValues.ContainsKey(CalendarAttribute.Name))
+    {
+        var message = string.Format("Field {0} should contain attribute CalendarAttribute in order to use new calendar control", @Html.IdForModel());
+        throw new InvalidOperationException(message);
+    }
+
     var settings = (CalendarSettings)ViewData["CalendarSettings"];
     var isoFormat = settings.Store == CalendarSettings.StoreMode.Relative 
         ? ShortIsoFormat 

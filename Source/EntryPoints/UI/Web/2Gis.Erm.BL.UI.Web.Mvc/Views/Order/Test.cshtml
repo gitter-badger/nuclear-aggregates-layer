@@ -38,9 +38,8 @@
                 FieldFlex.lone, 
                 new CalendarSettings
                     {
-                        Display = CalendarSettings.DisplayMode.Month, 
+                        Display = CalendarSettings.DisplayMode.Day, 
                         Store = CalendarSettings.StoreMode.Absolute, 
-                        ReadOnly = true
                     })
         </div>
         <div class="row-wrapper">
@@ -50,7 +49,6 @@
                     {
                         Display = CalendarSettings.DisplayMode.Day,
                         Store = CalendarSettings.StoreMode.Relative,
-                        MinDate = DateTime.UtcNow,
                     })
         </div>
         <input type="submit" />

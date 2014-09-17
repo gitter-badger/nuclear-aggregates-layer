@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared.EditorTemplates
     using System;
     using System.Collections.Generic;
     
-    #line 1 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+    #line 1 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
     using System.Globalization;
     
     #line default
@@ -35,6 +35,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared.EditorTemplates
     using System.Web.WebPages;
     using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    
+    #line 2 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+    
+    #line default
+    #line hidden
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
@@ -46,20 +52,26 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared.EditorTemplates
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/EditorTemplates/DateTimeOffsetViewModel.cshtml")]
-    public partial class _DateTimeOffsetViewModel : System.Web.Mvc.WebViewPage<DateTimeOffset>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/EditorTemplates/DateTimeViewModel.cshtml")]
+    public partial class _DateTimeViewModel : System.Web.Mvc.WebViewPage<DateTime>
     {
-        public _DateTimeOffsetViewModel()
+        public _DateTimeViewModel()
         {
         }
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 5 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
   
     const string ShortIsoFormat = "yyyy-MM-ddTHH:mm:ss";
     const string FullIsoFormat = "o";
-    
+
+    if (!ViewData.ModelMetadata.AdditionalValues.ContainsKey(CalendarAttribute.Name))
+    {
+        var message = string.Format("Field {0} should contain attribute CalendarAttribute in order to use new calendar control", @Html.IdForModel());
+        throw new InvalidOperationException(message);
+    }
+
     var settings = (CalendarSettings)ViewData["CalendarSettings"];
     var isoFormat = settings.Store == CalendarSettings.StoreMode.Relative 
         ? ShortIsoFormat 
@@ -83,7 +95,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared.EditorTemplates
 WriteLiteral("\r\n\r\n");
 
             
-            #line 26 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 33 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
 Write(Html.Hidden(string.Empty, dt));
 
             
@@ -91,15 +103,15 @@ Write(Html.Hidden(string.Empty, dt));
             #line hidden
 WriteLiteral("\r\n<table");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 1024), Tuple.Create("\"", 1055)
+WriteAttribute("id", Tuple.Create(" id=\"", 1374), Tuple.Create("\"", 1405)
             
-            #line 27 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 1029), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+            #line 34 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+, Tuple.Create(Tuple.Create("", 1379), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 1029), false)
-, Tuple.Create(Tuple.Create("", 1047), Tuple.Create("_wrapper", 1047), true)
+, 1379), false)
+, Tuple.Create(Tuple.Create("", 1397), Tuple.Create("_wrapper", 1397), true)
 );
 
 WriteLiteral(" class=\"x-calendar-v2\"");
@@ -109,7 +121,7 @@ WriteLiteral(" >\r\n    <tbody>\r\n        <tr>\r\n            <td>\r\n");
 WriteLiteral("                ");
 
             
-            #line 31 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 38 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
            Write(Html.TextBox("editor", "", new Dictionary<string, object> { { "class", "inputfields" } }));
 
             
@@ -121,15 +133,15 @@ WriteLiteral(" style=\"width: 36px;\"");
 
 WriteLiteral(">\r\n                <div");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 1313), Tuple.Create("\"", 1340)
+WriteAttribute("id", Tuple.Create(" id=\"", 1663), Tuple.Create("\"", 1690)
             
-            #line 34 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
-, Tuple.Create(Tuple.Create("", 1318), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
+            #line 41 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
+, Tuple.Create(Tuple.Create("", 1668), Tuple.Create<System.Object, System.Int32>(Html.IdForModel()
             
             #line default
             #line hidden
-, 1318), false)
-, Tuple.Create(Tuple.Create("", 1336), Tuple.Create("_btn", 1336), true)
+, 1668), false)
+, Tuple.Create(Tuple.Create("", 1686), Tuple.Create("_btn", 1686), true)
 );
 
 WriteLiteral(" class=\"calendar-button calendar-button-normal\"");
@@ -141,7 +153,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n    new Ext.ux.Calendar2({\r\n        readOnly: ");
 
             
-            #line 42 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 49 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(readOnly);
 
             
@@ -150,7 +162,7 @@ WriteLiteral(">\r\n    new Ext.ux.Calendar2({\r\n        readOnly: ");
 WriteLiteral(",\r\n        storeId: \'");
 
             
-            #line 43 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 50 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(Html.IdForModel());
 
             
@@ -159,7 +171,7 @@ WriteLiteral(",\r\n        storeId: \'");
 WriteLiteral("\',\r\n        editorId: \'");
 
             
-            #line 44 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 51 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
               Write(Html.IdForModel());
 
             
@@ -168,7 +180,7 @@ WriteLiteral("\',\r\n        editorId: \'");
 WriteLiteral("_editor\',\r\n        buttonId: \'");
 
             
-            #line 45 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 52 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
               Write(Html.IdForModel());
 
             
@@ -177,7 +189,7 @@ WriteLiteral("_editor\',\r\n        buttonId: \'");
 WriteLiteral("_btn\',\r\n        mode: {\r\n            store: \'");
 
             
-            #line 47 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 54 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
                Write(storeMode);
 
             
@@ -186,7 +198,7 @@ WriteLiteral("_btn\',\r\n        mode: {\r\n            store: \'");
 WriteLiteral("\',\r\n            display: \'");
 
             
-            #line 48 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 55 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
                  Write(displayMode);
 
             
@@ -195,7 +207,7 @@ WriteLiteral("\',\r\n            display: \'");
 WriteLiteral("\'\r\n        },\r\n        minDate: \'");
 
             
-            #line 50 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 57 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(minDate);
 
             
@@ -204,7 +216,7 @@ WriteLiteral("\'\r\n        },\r\n        minDate: \'");
 WriteLiteral("\',\r\n        maxDate: \'");
 
             
-            #line 51 "..\..\Views\Shared\EditorTemplates\DateTimeOffsetViewModel.cshtml"
+            #line 58 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
              Write(maxDate);
 
             

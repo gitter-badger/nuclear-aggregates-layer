@@ -221,9 +221,8 @@ WriteLiteral("            ");
                 FieldFlex.lone, 
                 new CalendarSettings
                     {
-                        Display = CalendarSettings.DisplayMode.Month, 
+                        Display = CalendarSettings.DisplayMode.Day, 
                         Store = CalendarSettings.StoreMode.Absolute, 
-                        ReadOnly = true
                     }));
 
             
@@ -240,14 +239,13 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 47 "..\..\Views\Order\Test.cshtml"
+            #line 46 "..\..\Views\Order\Test.cshtml"
        Write(Html.TemplateField(m => m.Item4,
                 FieldFlex.lone,
                 new CalendarSettings
                     {
                         Display = CalendarSettings.DisplayMode.Day,
                         Store = CalendarSettings.StoreMode.Relative,
-                        MinDate = DateTime.UtcNow,
                     }));
 
             
@@ -262,7 +260,7 @@ WriteLiteral(" type=\"submit\"");
 WriteLiteral(" />\r\n");
 
             
-            #line 57 "..\..\Views\Order\Test.cshtml"
+            #line 55 "..\..\Views\Order\Test.cshtml"
     }
 
             

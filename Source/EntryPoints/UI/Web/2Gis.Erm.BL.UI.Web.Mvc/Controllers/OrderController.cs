@@ -321,8 +321,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             public DateTime Item1 { get; set; }
             public DateTime Item2 { get; set; }
-            public DateTimeOffset Item3 { get; set; }
-            public DateTimeOffset Item4 { get; set; }
+
+            [Calendar]
+            public DateTime Item3 { get; set; }
+
+            [Calendar]
+            public DateTime Item4 { get; set; }
         }
 
         [HttpGet]
@@ -332,8 +336,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             {
                                 Item1 = DateTime.UtcNow,
                                 Item2 = DateTime.Now,
-                                Item3 = DateTimeOffset.UtcNow,
-                                Item4 = DateTimeOffset.Now,
+                                Item3 = DateTime.UtcNow,
+                                Item4 = DateTime.Now,
                             });
         }
 
