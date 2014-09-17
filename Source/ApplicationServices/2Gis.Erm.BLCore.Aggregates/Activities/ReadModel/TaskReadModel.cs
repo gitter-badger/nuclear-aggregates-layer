@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
@@ -27,9 +28,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.SourceEntityId == taskId)).ToList();
         }
 
-        public bool CheckIfRelatedActivitiesExists(long clientId)
+        public bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityId == clientId)).Any();
+            return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
+        }
+
+        public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
+        {
+            return (
+                from task in _finder.FindMany(Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress))
+                join regardingObject in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                    on task.Id equals regardingObject.SourceEntityId
+                select task
+                ).Any();
         }
     }
 }

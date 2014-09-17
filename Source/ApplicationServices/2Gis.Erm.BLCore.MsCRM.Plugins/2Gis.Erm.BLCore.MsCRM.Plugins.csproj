@@ -73,57 +73,18 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="ErmWcfServiceHelper.cs" />
     <Compile Include="BasePlugin.cs" />
     <Compile Include="Concrete\ExecuteHandler.cs" />
     <Compile Include="Concrete\RetrieveMultipleHandler.cs" />
     <Compile Include="Concrete\RollupHandler.cs" />
     <Compile Include="Concrete\AfterSalePhonecallStateChangedPlugin.cs" />
     <Compile Include="Concrete\UpdateAndReplicateOpportunityToErmPlugin.cs" />
-    <Compile Include="Service References\ErmServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Service References\ErmServiceReference\DoubleGis.Erm.MsCRM.ErmServiceReference.Response.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ErmServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ErmServiceReference\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ErmServiceReference\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ErmServiceReference\MsCrm.wsdl" />
-    <None Include="Service References\ErmServiceReference\MsCrm.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ErmServiceReference\MsCrm1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ErmServiceReference\MsCrm2ErmApplicationService.wsdl" />
-    <None Include="Service References\ErmServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="PluginRegistration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Service References\ErmServiceReference\MsCrm.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

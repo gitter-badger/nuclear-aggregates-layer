@@ -166,8 +166,6 @@
     <Compile Include="Deals\DTO\DealWithNonRejectedOrderInfos.cs" />
     <Compile Include="Deals\IDealRepository.cs" />
     <Compile Include="Deals\Operations\IDealChangeStageAggregateService.cs" />
-    <Compile Include="Deals\Operations\IDealCreateAfterSaleServiceAggregateService.cs" />
-    <Compile Include="Deals\Operations\IDeleteAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\Operations\IDetachDealFromFirmAggregateService.cs" />
     <Compile Include="Deals\ReadModel\DealSpecs.Deals.cs" />
     <Compile Include="Deals\ReadModel\IDealReadModel.cs" />

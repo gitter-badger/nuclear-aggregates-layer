@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;

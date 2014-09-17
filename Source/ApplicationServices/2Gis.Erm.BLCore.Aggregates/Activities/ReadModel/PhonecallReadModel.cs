@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
@@ -32,9 +33,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindOne(Specs.Find.Custom<PhonecallRecipient>(x => x.SourceEntityId == phonecallId));
         }
 
-        public bool CheckIfRelatedActivitiesExists(long clientId)
+        public bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(Specs.Find.Custom<PhonecallRegardingObject>(x => x.TargetEntityId == clientId)).Any();
+            return _finder.FindMany(Specs.Find.Custom<PhonecallRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
+        }
+
+        public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
+        {
+            return (
+                from phonecall in _finder.FindMany(Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress))
+                join regardingObject in _finder.FindMany(Specs.Find.Custom<PhonecallRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                    on phonecall.Id equals regardingObject.SourceEntityId
+                select phonecall
+                ).Any();
         }
     }
 }

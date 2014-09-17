@@ -60,9 +60,8 @@
     <Compile Include="Concrete\AdvertisementElements\Workflow\NullAdvertisementElementStatusChangingStrategy.cs" />
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviour.cs" />
     <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
-    <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
-    <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
+    <Compile Include="Concrete\Deals\ChangeDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\CreateBlankFirmsOperationService.cs" />
     <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
@@ -104,8 +103,6 @@
     <Compile Include="Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandler.cs" />
     <Compile Include="Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandler.cs" />
-    <Compile Include="Concrete\Old\AfterSalesService\CreateAfterSaleServiceActivitiesHandler.cs" />
-    <Compile Include="Concrete\Old\AfterSalesService\CrmCreateAfterSaleServiceActivitiesHandler.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillInfoForOrdersByTemplateHandler.cs" />
     <Compile Include="Concrete\Old\Bills\CreateBillsHandler.cs" />
     <Compile Include="Concrete\Old\Bills\DeleteBillsHandler.cs" />
@@ -443,6 +440,7 @@
     <Compile Include="Generic\Get\GetUserDtoService.cs" />
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
+    <Compile Include="Generic\Modify\Custom\ActivityReadService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />

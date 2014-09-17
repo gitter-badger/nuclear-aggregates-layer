@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
@@ -37,9 +38,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindOne(Specs.Find.Custom<LetterRecipient>(x => x.SourceEntityId == letterId));
         }
 
-        public bool CheckIfRelatedActivitiesExists(long clientId)
+        public bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityId == clientId)).Any();
+            return _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
+        }
+
+        public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
+        {
+            return (
+                from letter in _finder.FindMany(Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress))
+                join regardingObject in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                    on letter.Id equals regardingObject.SourceEntityId
+                select letter
+                ).Any();
         }
     }
 }
