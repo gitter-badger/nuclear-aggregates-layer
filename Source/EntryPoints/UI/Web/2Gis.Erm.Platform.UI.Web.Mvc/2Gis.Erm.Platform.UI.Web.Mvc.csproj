@@ -114,6 +114,7 @@
     <Compile Include="Services\Enums\IEnumItemsCache.cs" />
     <Compile Include="Services\IEntityUIService.cs" />
     <Compile Include="Services\IUIService.cs" />
+    <Compile Include="Utils\CalendarSettings.cs" />
     <Compile Include="Utils\DateTimeSettings.cs" />
     <Compile Include="Utils\JsonNetResult.cs" />
     <Compile Include="Utils\JsonNetStrictResult.cs" />
