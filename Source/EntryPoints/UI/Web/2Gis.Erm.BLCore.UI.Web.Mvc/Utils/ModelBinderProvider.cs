@@ -20,6 +20,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             typeof(LookupField),
             typeof(DateTime),
             typeof(DateTime?),
+            typeof(DateTimeOffset),
+            typeof(DateTimeOffset?),
             typeof(TimeSpan),
             typeof(TimeSpan?),
             typeof(Guid[]),
@@ -77,6 +79,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 if (modelType == typeof(DateTime) || modelType == typeof(DateTime?))
                 {
                     return BindDateTime(bindingContext);
+                }
+
+                // DateTimeOffset, parse in invariant culture
+                if (modelType == typeof(DateTimeOffset) || modelType == typeof(DateTimeOffset?))
+                {
+                    return BindDateTimeOffset(bindingContext);
                 }
 
                 // TIMESPAN
@@ -222,6 +230,33 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 if (DateTime.TryParse(valueProviderResult.AttemptedValue, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out rawValue))
                 {
                     valueProviderResult = new ValueProviderResult(rawValue, valueProviderResult.AttemptedValue, CultureInfo.InvariantCulture);
+                    bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                    return rawValue;
+                }
+
+                // if cannot parse datetime, raise an error
+                var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
+                return null;
+            }
+
+            private static object BindDateTimeOffset(ModelBindingContext bindingContext)
+            {
+                var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+                // set null for nullable datetime
+                if (bindingContext.ModelType == typeof(DateTimeOffset?) && (valueProviderResult == null || string.IsNullOrWhiteSpace(valueProviderResult.AttemptedValue)))
+                {
+                    bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                    return null;
+                }
+
+                // Используем формат, определённый в iso-8601, помимо собственно времени, используем из него 
+                // Этот формат может нести информацию о часовом поясе, но при парсинге мы переводим его в UTC, 
+                // благодаря чему в коде не возникнет вопросов "а в какой-же зоне это время"?
+                DateTimeOffset rawValue;
+                if (DateTimeOffset.TryParse(valueProviderResult.AttemptedValue, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind | DateTimeStyles.AssumeUniversal, out rawValue))
+                {
                     bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
                     return rawValue;
                 }
