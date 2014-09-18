@@ -131,7 +131,7 @@
         <File Source="$(var.PackagesDir)\$(var.Topaz).Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.$(var.Topaz).Caching.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\$(var.Topaz).ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.$(var.Topaz).ServiceBus.dll" />
+        <File Source= "$(var.PackagesDir)\$(var.Topaz).ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.$(var.Topaz).ServiceBus.dll" />
       </Component>
     </ComponentGroup>
     <ComponentGroup Id="BinaryThirdParty" Directory="INSTALLFOLDER">
