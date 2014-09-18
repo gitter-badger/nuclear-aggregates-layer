@@ -1,4 +1,5 @@
 ﻿
+@using DoubleGis.Erm.Platform.Common.Utils
 @model CopyNewPriceViewModel
 
 @{
@@ -16,7 +17,7 @@
         {
             return function (value, context)
             {
-                var date = new Date(Ext.getCmp(rule.ValidationParameters.dateField) ? Ext.getCmp(rule.ValidationParameters.dateField).getValue() : Ext.getDom(rule.ValidationParameters.dateField).value);
+                var date = Date.parseDate(Ext.get(rule.ValidationParameters.dateField).getValue(), 'c');
                 var expectedDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0); //first day
                 if (rule.ValidationParameters.isFirstDay == false)
                 {
@@ -48,9 +49,6 @@
             if (Ext.DoubleGis.FormValidator.validate(EntityForm, null))
             {
                 Ext.getDom("Id").value = window.dialogArguments.sourcePriceId;
-
-                Ext.getDom("BeginDate").value = new Date(Ext.getCmp("BeginDate").getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern);
-                Ext.getDom("PublishDate").value = new Date(Ext.getCmp("PublishDate").getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern);
 
                 Ext.getDom("OK").disabled = "disabled";
                 Ext.getDom("Cancel").disabled = "disabled";
@@ -88,10 +86,10 @@
         @Model.Message
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.BeginDate, FieldFlex.lone, new DateTimeSettings { MinDate = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1), ShiftOffset = false})
+        @Html.TemplateField(m => m.BeginDate, FieldFlex.lone, new CalendarSettings { MinDate = DateTime.Today.GetNextMonthFirstDate(), Store = CalendarSettings.StoreMode.Relative })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.PublishDate, FieldFlex.lone, new DateTimeSettings { MinDate = DateTime.Now, ShiftOffset = false })
+        @Html.TemplateField(m => m.PublishDate, FieldFlex.lone, new CalendarSettings { MinDate = DateTime.Today, Store = CalendarSettings.StoreMode.Relative })
     </div>
     <div class="row-wrapper">
         @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })

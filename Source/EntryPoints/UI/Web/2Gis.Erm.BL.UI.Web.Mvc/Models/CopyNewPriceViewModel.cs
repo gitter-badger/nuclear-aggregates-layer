@@ -17,10 +17,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [RequiredLocalized]
         public LookupField OrganizationUnit { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         [DisplayNameLocalized("PricePublishDate")]
         public DateTime PublishDate { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         [DisplayNameLocalized("PublishBeginDate")]
         [GreaterOrEqualThan("PublishDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "BeginDateMustBeGreaterOrEqualThenPublishDate")]
