@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             _databaseCaller = databaseCaller;
         }
 
-        public IEnumerable<long> ImportFirmPromising(long organizationUnitDgppId, long modifiedBy, int timeout)
+        public IEnumerable<long> ImportFirmPromising(long organizationUnitDgppId, long modifiedBy, TimeSpan timeout)
         {
             return _databaseCaller.ExecuteProcedureWithResultSequenceOf<long>(
                                         "Integration.ImportFirmPromising",
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
                                         new Tuple<string, object>("ModifiedBy", modifiedBy));
         }
 
-        public void ReplicateObjectsAfterImportCards(int timeout)
+        public void ReplicateObjectsAfterImportCards(TimeSpan timeout)
         {
             _databaseCaller.ExecuteProcedure("Integration.ReplicateObjectsAfterImportCards", timeout);
         }
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             string cardsXml, 
             long modifiedBy, 
             long ownerCode, 
-            int timeout,
+            TimeSpan timeout,
             long[] pregeneratedIds, 
             string regionalTerritoryLocaleSpecificWord)
         {
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             return changedEntitiesReport.ToEntityChanges();
         }
 
-        public EntityChangesContext ImportFirmFromXml(string firmXml, long modifiedBy, long ownerCode, int timeout, bool enableReplication, string regionalTerritoryLocaleSpecificWord)
+        public EntityChangesContext ImportFirmFromXml(string firmXml, long modifiedBy, long ownerCode, TimeSpan timeout, bool enableReplication, string regionalTerritoryLocaleSpecificWord)
         {
             var changedEntitiesReport = _databaseCaller.ExecuteProcedureWithResultTable(
                                                             "Integration.ImportFirmFromXml",
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             return changedEntitiesReport.ToEntityChanges();
         }
 
-        public IEnumerable<long> UpdateBuildings(string buildingsXml, int timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication, bool useWarehouseIntegration)
+        public IEnumerable<long> UpdateBuildings(string buildingsXml, TimeSpan timeout, string regionalTerritoryLocaleSpecificWord, bool enableReplication, bool useWarehouseIntegration)
         {
             return _databaseCaller.ExecuteProcedureWithResultSequenceOf<long>(
                                         "Integration.UpdateBuildings",
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
                                         new Tuple<string, object>("UseWarehouseIntegration", useWarehouseIntegration));
         }
 
-        public void DeleteBuildings(string codesXml, int timeout)
+        public void DeleteBuildings(string codesXml, TimeSpan timeout)
         {
             _databaseCaller.ExecuteProcedure(
                                 "Integration.DeleteBuildings",

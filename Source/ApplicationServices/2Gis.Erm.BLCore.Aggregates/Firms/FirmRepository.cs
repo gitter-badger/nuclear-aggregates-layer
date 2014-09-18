@@ -31,8 +31,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 {
     public class FirmRepository : IFirmRepository
     {
-        // timeout should be increased due to long sql updates (15:00:00 min = 900 sec)
-        private const int ImportFirmPrimisingCommandTimeout = 3600;
+        // timeout should be increased due to long sql updates
+        private readonly TimeSpan _importFirmPromisingCommandTimeout = TimeSpan.FromHours(1);
 
         private readonly IRepository<CategoryFirmAddress> _categoryFirmAddressGenericRepository;
         private readonly IRepository<Client> _clientGenericRepository;
@@ -720,7 +720,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             {
                 using (var scope = _scopeFactory.CreateNonCoupled<ImportFirmPromisingIdentity>())
                 {
-                    var updatedFirms = _firmPersistanceService.ImportFirmPromising(organizationUnitDgppId, userId, ImportFirmPrimisingCommandTimeout);
+                    var updatedFirms = _firmPersistanceService.ImportFirmPromising(organizationUnitDgppId, userId, _importFirmPromisingCommandTimeout);
 
                     scope.Updated<Firm>(updatedFirms);
                     scope.Complete();
