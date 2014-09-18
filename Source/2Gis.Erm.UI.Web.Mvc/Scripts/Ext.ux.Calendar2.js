@@ -111,6 +111,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
     validate: function() {
         var message = this.getValidationMessage();
+        this.store.dom.validationMessage = message;
 
         if (Ext.DoubleGis.FormValidator) {
             var field = {

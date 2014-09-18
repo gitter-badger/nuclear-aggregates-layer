@@ -821,6 +821,7 @@
     <Content Include="Scripts\Russia\Ext.DoubleGis.UI.RussiaOrder.js" />
     <Content Include="Scripts\Russia\MergeClients.Russia.js" />
     <Content Include="Scripts\Silverlight.js" />
+    <Content Include="Scripts\test.js" />
     <Content Include="Scripts\tinymce\langs\cs.js" />
     <Content Include="Scripts\tinymce\langs\el.js" />
     <Content Include="Scripts\tinymce\langs\en.js" />
