@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
 
         public void ExecuteProcedure(string procedureName, TimeSpan commandTimeout, params Tuple<string, object>[] inputParameters)
         {
-            ExecuteStoredProcedure(procedureName, commandTimeout.Seconds, inputParameters, null);
+            ExecuteStoredProcedure(procedureName, (int)commandTimeout.TotalSeconds, inputParameters, null);
         }
 
         public T ExecuteProcedureWithResultSingleValue<T>(string procedureName, params Tuple<string, object>[] inputParameters)
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
-                        command.CommandTimeout = commandTimeout.Value.Seconds;
+                        command.CommandTimeout = (int)commandTimeout.Value.TotalSeconds;
                     }
 
                     connection.Open();
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
-                        command.CommandTimeout = commandTimeout.Value.Seconds;
+                        command.CommandTimeout = (int)commandTimeout.Value.TotalSeconds;
                     }
 
                     connection.Open();
@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
-                        command.CommandTimeout = commandTimeout.Value.Seconds;
+                        command.CommandTimeout = (int)commandTimeout.Value.TotalSeconds;
                     }
 
                     connection.Open();
