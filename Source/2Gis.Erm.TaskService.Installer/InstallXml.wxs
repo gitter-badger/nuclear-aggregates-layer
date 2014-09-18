@@ -120,6 +120,19 @@
       <Component>
         <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
       </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\WindowsAzure.ServiceBus.2.3.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
+      </Component>
+      <?define Topaz = "EnterpriseLibrary.TransientFaultHandling" ?>
+      <Component>
+        <File Source="$(var.PackagesDir)\$(var.Topaz).6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.$(var.Topaz).dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\$(var.Topaz).Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.$(var.Topaz).Caching.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\$(var.Topaz).ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.$(var.Topaz).ServiceBus.dll" />
+      </Component>
     </ComponentGroup>
     <ComponentGroup Id="BinaryThirdParty" Directory="INSTALLFOLDER">
       <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
@@ -146,18 +159,6 @@
       </Component>
       <Component>
         <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Data.Common.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Caching.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\WindowsAzure.ServiceBus.2.3.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus.dll" />
       </Component>
     </ComponentGroup>
 
