@@ -121,7 +121,7 @@
         <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\WindowsAzure.ServiceBus.2.3.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
+        <File Source="$(var.PackagesDir)\ServiceBus.v1_1.1.0.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
       </Component>
       <?define Topaz = "EnterpriseLibrary.TransientFaultHandling" ?>
       <Component>
