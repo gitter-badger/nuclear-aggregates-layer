@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             {
                 _replicationPersistenceService.ReplicateToMsCrm(replicationType,
                                                                 replicationEntities,
-                                                                _asyncMsCRMReplicationSettings.ReplicationTimeoutSec,
+                                                                TimeSpan.FromSeconds(_asyncMsCRMReplicationSettings.ReplicationTimeoutSec),
                                                                 out replicationFailed);
 
                 return replicationFailed == null || !replicationFailed.Any();

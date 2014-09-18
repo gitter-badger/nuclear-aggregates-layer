@@ -20,9 +20,9 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             ExecuteStoredProcedure(procedureName, null, inputParameters, null);
         }
 
-        public void ExecuteProcedure(string procedureName, int commandTimeout, params Tuple<string, object>[] inputParameters)
+        public void ExecuteProcedure(string procedureName, TimeSpan commandTimeout, params Tuple<string, object>[] inputParameters)
         {
-            ExecuteStoredProcedure(procedureName, commandTimeout, inputParameters, null);
+            ExecuteStoredProcedure(procedureName, commandTimeout.Seconds, inputParameters, null);
         }
 
         public T ExecuteProcedureWithResultSingleValue<T>(string procedureName, params Tuple<string, object>[] inputParameters)
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             return ExecuteProcedureWithResultSingleValue<T>(procedureName, null, inputParameters);
         }
 
-        public T ExecuteProcedureWithResultSingleValue<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
+        public T ExecuteProcedureWithResultSingleValue<T>(string procedureName, TimeSpan? commandTimeout, params Tuple<string, object>[] inputParameters)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
-                        command.CommandTimeout = commandTimeout.Value;
+                        command.CommandTimeout = commandTimeout.Value.Seconds;
                     }
 
                     connection.Open();
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             }
         }
 
-        public IEnumerable<T> ExecuteProcedureWithResultSequenceOf<T>(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
+        public IEnumerable<T> ExecuteProcedureWithResultSequenceOf<T>(string procedureName, TimeSpan? commandTimeout, params Tuple<string, object>[] inputParameters)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
-                        command.CommandTimeout = commandTimeout.Value;
+                        command.CommandTimeout = commandTimeout.Value.Seconds;
                     }
 
                     connection.Open();
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
             }
         }
 
-        public DataTable ExecuteProcedureWithResultTable(string procedureName, int? commandTimeout, params Tuple<string, object>[] inputParameters)
+        public DataTable ExecuteProcedureWithResultTable(string procedureName, TimeSpan? commandTimeout, params Tuple<string, object>[] inputParameters)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.Platform.DAL.AdoNet
                     FillInputParameters(command, inputParameters);
                     if (commandTimeout.HasValue)
                     {
-                        command.CommandTimeout = commandTimeout.Value;
+                        command.CommandTimeout = commandTimeout.Value.Seconds;
                     }
 
                     connection.Open();
