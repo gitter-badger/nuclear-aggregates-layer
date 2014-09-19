@@ -1,4 +1,5 @@
-﻿@model LocalMessageExportViewModel
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model LocalMessageExportViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -40,11 +41,6 @@
                 if (Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
                     Ext.getDom("OK").disabled = "disabled";
                     Ext.getDom("Cancel").disabled = "disabled";
-                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function(node) {
-                        node.value = window.Ext.getCmp(node.id).getValue()
-                            ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern)
-                            : "";
-                    });
                     Ext.getDom("Notifications").style.display = "none";
                     window.EntityForm.submit();
                 }
@@ -84,18 +80,18 @@
                 @Html.TemplateField(m => m.MailSendingType, FieldFlex.lone, null, EnumResources.ResourceManager)
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new DateTimeSettings
-                    {
-                        ShiftOffset = false,
-                        PeriodType = PeriodType.MonthlyLowerBound,
-                        MinDate = new DateTime(2010, 12, 1),
-                        MaxDate = DateTime.UtcNow.AddMonths(1).AddDays(-1 * (DateTime.UtcNow.Day - 1))
-                    })
+                @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings
+                                                                            {
+                                                                                Store = CalendarSettings.StoreMode.Relative,
+                                                                                Display = CalendarSettings.DisplayMode.Month,
+                                                                                MinDate = new DateTime(2010, 12, 1),
+                                                                                MaxDate = DateTime.Now.GetNextMonthFirstDate()
+                                                                            })
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.PeriodStartFor1C, FieldFlex.lone, new DateTimeSettings
+                @Html.TemplateField(m => m.PeriodStartFor1C, FieldFlex.lone, new CalendarSettings
                     {
-                        ShiftOffset = false,
+                        Store = CalendarSettings.StoreMode.Relative,
                         MinDate = new DateTime(2010, 12, 1),
                         MaxDate = DateTime.Today
                     })
