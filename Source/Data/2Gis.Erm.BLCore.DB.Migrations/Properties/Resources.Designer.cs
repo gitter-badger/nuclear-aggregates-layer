@@ -1732,14 +1732,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirmAddresses]    Script Date: 06.08.2014 11:29:20 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddresses]
         ///	@Ids [Shared].[Int64IdsTableType] readonly
@@ -1756,7 +1749,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///	CREATE TABLE [rest of string was truncated]&quot;;.
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 Modifi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _BusinessDirectory___ReplicateFirmAddresses_24271 {
             get {
@@ -1765,14 +1763,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirms]    Script Date: 06.08.2014 10:30:15 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirms]
         ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
@@ -1789,7 +1780,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///	CREATE TABLE #ReferenceInfo ( [rest of string was truncated]&quot;;.
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 ModifiedByUserD [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _BusinessDirectory___ReplicateFirms_24271 {
             get {
@@ -1798,14 +1794,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateTerritories]    Script Date: 06.08.2014 11:29:39 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritories]
         ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
@@ -1822,7 +1811,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///    CREATE TABLE # [rest of string was truncated]&quot;;.
+        ///    CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 Modifi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _BusinessDirectory___ReplicateTerritories_24271 {
             get {
@@ -1894,7 +1888,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///CREATE VIEW [dbo].[SystemUserErmView]
         ///WITH SCHEMABINDING
         ///AS
-        ///SELECT LEFT(STUFF([DomainName], 1, CHARINDEX(&apos;\&apos;, [DomainName]), &apos;&apos;), 50) AS [ErmUserAccount],
+        ///SELECT LEFT(STUFF([DomainName], 1, CHARINDEX(&apos;\&apos;, [DomainName]), &apos;&apos;), 250) AS [ErmUserAccount],
         ///       [SystemUserId],
         ///	   [BusinessUnitId],
         ///	   [OrganizationId]
@@ -1902,11 +1896,34 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///GO
         ///
         ///CREATE UNIQUE CLUSTERED INDEX [IX_SystemUserErmView_SystemUserId] ON [dbo].[SystemUserErmView] ([SystemUserId])
-        ///CREATE NONCLUSTERED INDEX [IX_SystemUserErmView_ErmUserAccount] ON [dbo].[Sy [rest of string was truncated]&quot;;.
+        ///CREATE NONCLUSTERED INDEX [IX_SystemUserErmView_ErmUserAccount] ON [dbo].[S [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _dbo___SystemUserErmView_24270 {
             get {
                 return ResourceManager.GetString("_dbo___SystemUserErmView_24270", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   29.05.2014, a.gutorov: Добавления условия при Update, чтобы заменялись только различающиеся значения.
+        ///--   18.09.2014, a.tukaev: fix ERM-4939 - поддержка отложенной репликации
+        ///ALTER PROCEDURE [Integration].[CalculateClientPromising]
+        ///    @ModifiedBy BIGINT = NULL
+        ///    WITH EXECUTE AS CALLER
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    DECLARE @ClientUpdatedIds TABLE ( Id BIGINT PRIMARY KEY )
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRA [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Integration___CalculateClientPromising_24362 {
+            get {
+                return ResourceManager.GetString("_Integration___CalculateClientPromising_24362", resourceCulture);
             }
         }
         

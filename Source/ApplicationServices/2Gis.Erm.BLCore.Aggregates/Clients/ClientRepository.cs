@@ -580,10 +580,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             }
         }
 
-        public void CalculatePromising()
+        public void CalculatePromising(long modifiedBy)
         {
-            // timeout should be increased due to long sql updates (60 min = 3600 sec)
-            _clientPersistenceService.CalculateClientPromising(_userContext.Identity.Code, 3600, false);
+            using (var scope = _scopeFactory.CreateNonCoupled<CalculateClientPromisingIdentity>())
+            {
+                var changedEntities = _clientPersistenceService.CalculateClientPromising(modifiedBy, TimeSpan.FromHours(1));
+
+                scope.ApplyChanges<Client>(changedEntities)
+                     .Complete();
+            }
         }
 
         public void CreateOrUpdate(Contact contact)

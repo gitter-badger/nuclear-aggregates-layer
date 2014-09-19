@@ -448,4 +448,7 @@
   <data name="_BusinessDirectory___ReplicateTerritories_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicateterritories].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="_Integration___CalculateClientPromising_24362" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.18 rev. 24362\[integration].[calculateclientpromising].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
