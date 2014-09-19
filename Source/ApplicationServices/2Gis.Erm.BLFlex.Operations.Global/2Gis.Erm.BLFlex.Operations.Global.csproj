@@ -110,7 +110,6 @@
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Deserializers\MultiCultureDeserializeCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Processors\MultiCultureImportCardService.cs" />
     <Compile Include="MultiCulture\Generic\Activate\ActivateBranchOfficeService.cs" />
-    <Compile Include="MultiCulture\Concrete\Old\Clients\MultiCultureCheckClientActivitiesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileValidatePaymentRequisitesIsUniqueHandler.cs" />
     <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
@@ -293,7 +292,6 @@
     <Compile Include="MultiCulture\Generic\List\MultiCultureListOrderService.cs" />
     <Compile Include="Russia\Concrete\Old\AccountDetails\ValidateCreateAccountDetailHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bills\PrintBillHandler.cs" />
-    <Compile Include="Russia\Concrete\Old\Clients\CheckClientActivitiesHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditClientHandler.cs" />
     <Compile Include="Russia\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonHandler.cs" />
