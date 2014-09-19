@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         
             var model = new ExportAccountTo1CViewModel
             {
-                PeriodStart = DateTime.UtcNow.Date.AddMonths(1).GetFirstDateOfMonth(),
+                PeriodStart = DateTime.UtcNow.Date.GetNextMonthFirstDate(),
                 OrganizationUnit = new LookupField
                 {
                     Key = organizationUnitsCount == 1 ? organizationUnits[0].Id : (long?)null,
