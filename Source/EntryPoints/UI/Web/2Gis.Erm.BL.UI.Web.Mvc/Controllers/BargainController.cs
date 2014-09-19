@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 throw new NotificationException(BLResources.CloseBargains_AccessDenied);
             }
 
-            var model = new CloseBargainsViewModel { CloseDate = DateTime.Now };
+            var model = new CloseBargainsViewModel { CloseDate = DateTime.UtcNow };
             return View(model);
         }
 
