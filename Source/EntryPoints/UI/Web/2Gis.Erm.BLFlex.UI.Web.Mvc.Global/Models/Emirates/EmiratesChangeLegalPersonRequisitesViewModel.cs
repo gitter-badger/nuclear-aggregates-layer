@@ -25,9 +25,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         [OnlyDigitsLocalized]
         public string CommercialLicense { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         public DateTime? CommercialLicenseBeginDate { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         [GreaterOrEqualThan("CommercialLicenseBeginDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "EndDateMustntBeLessThanBeginDate")]
         public DateTime? CommercialLicenseEndDate { get; set; }
