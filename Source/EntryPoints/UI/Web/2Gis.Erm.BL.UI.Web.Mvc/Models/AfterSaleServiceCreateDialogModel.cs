@@ -11,6 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [RequiredLocalized]
         public LookupField OrganizationUnit { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         public DateTime Month { get; set; }
 
