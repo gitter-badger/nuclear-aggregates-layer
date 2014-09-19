@@ -729,6 +729,7 @@
     <Compile Include="2.1\2014.09.11 rev. 24223 - Boost for replication.cs" />
     <Compile Include="2.1\2014.09.12 rev. 24270 - Create view SystemUserErmView.cs" />
     <Compile Include="2.1\2014.09.12 rev. 24271 - Super boost for replication.cs" />
+    <Compile Include="2.1\2014.09.18 rev. 24362 - Alter CalculateClientPromising.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -1096,6 +1097,7 @@
     <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateTerritory].sql" />
     <Content Include="Resources\2014.09.12 rev. 24271\[Security].[ReplicateUserTerritory].sql" />
     <Content Include="Resources\2014.09.12 rev. 24271\[Security].[ReplicateUser].sql" />
+    <Content Include="Resources\2014.09.18 rev. 24362\[Integration].[CalculateClientPromising].sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />
