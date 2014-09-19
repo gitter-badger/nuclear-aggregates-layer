@@ -479,7 +479,6 @@ Global
 		SccProvider18 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName19 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.Platform.UI.WPF.Infrastructure\\2Gis.Erm.Platform.UI.WPF.Infrastructure.csproj
 		SccProjectTopLevelParentUniqueName19 = 2GIS.ERM.MW.sln
-		SccProjectName19 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Erm.Platform.UI.WPF.Infrastructure
 		SccAuxPath19 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath19 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Erm.Platform.UI.WPF.Infrastructure
 		SccProvider19 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -545,19 +544,16 @@ Global
 		SccProvider29 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName30 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Infrastructure\\2Gis.Platform.UI.WPF.Infrastructure.csproj
 		SccProjectTopLevelParentUniqueName30 = 2GIS.ERM.MW.sln
-		SccProjectName30 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Infrastructure
 		SccAuxPath30 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath30 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Infrastructure
 		SccProvider30 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName31 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Shell\\2Gis.Platform.UI.WPF.Shell.csproj
 		SccProjectTopLevelParentUniqueName31 = 2GIS.ERM.MW.sln
-		SccProjectName31 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Shell
 		SccAuxPath31 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath31 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Shell
 		SccProvider31 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName32 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Resources\\2Gis.Platform.UI.WPF.Resources.csproj
 		SccProjectTopLevelParentUniqueName32 = 2GIS.ERM.MW.sln
-		SccProjectName32 = ../../Platform/Source/EntryPoints/UI/Desktop/2Gis.Platform.UI.WPF.Resources
 		SccAuxPath32 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath32 = ..\\..\\Platform\\Source\\EntryPoints\\UI\\Desktop\\2Gis.Platform.UI.WPF.Resources
 		SccProvider32 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -623,7 +619,6 @@ Global
 		SccProvider42 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName43 = 2Gis.Erm.API.WCF.OrderValidation\\2Gis.Erm.API.WCF.OrderValidation.csproj
 		SccProjectTopLevelParentUniqueName43 = 2GIS.ERM.MW.sln
-		SccProjectName43 = 2Gis.Erm.API.WCF.OrderValidation
 		SccAuxPath43 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath43 = 2Gis.Erm.API.WCF.OrderValidation
 		SccProvider43 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -635,7 +630,6 @@ Global
 		SccProvider44 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName45 = 2Gis.Erm.API.WCF.Releasing\\2Gis.Erm.API.WCF.Releasing.csproj
 		SccProjectTopLevelParentUniqueName45 = 2GIS.ERM.MW.sln
-		SccProjectName45 = 2Gis.Erm.API.WCF.Releasing
 		SccAuxPath45 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath45 = 2Gis.Erm.API.WCF.Releasing
 		SccProvider45 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -701,7 +695,6 @@ Global
 		SccProvider55 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName56 = 2Gis.Erm.API.WCF.Operations.Special\\2Gis.Erm.API.WCF.Operations.Special.csproj
 		SccProjectTopLevelParentUniqueName56 = 2GIS.ERM.MW.sln
-		SccProjectName56 = 2Gis.Erm.API.WCF.Operations.Special
 		SccAuxPath56 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath56 = 2Gis.Erm.API.WCF.Operations.Special
 		SccProvider56 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -785,7 +778,6 @@ Global
 		SccProvider69 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName70 = 2Gis.Erm.UI.Desktop.WPF\\2Gis.Erm.UI.Desktop.WPF.csproj
 		SccProjectTopLevelParentUniqueName70 = 2GIS.ERM.MW.sln
-		SccProjectName70 = 2Gis.Erm.UI.Desktop.WPF
 		SccAuxPath70 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath70 = 2Gis.Erm.UI.Desktop.WPF
 		SccProvider70 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -929,7 +921,6 @@ Global
 		SccProvider93 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName94 = 2Gis.Erm.Qds.Migrator\\2Gis.Erm.Qds.Migrator.csproj
 		SccProjectTopLevelParentUniqueName94 = 2GIS.ERM.MW.sln
-		SccProjectName94 = 2Gis.Erm.Qds.Migrator
 		SccAuxPath94 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath94 = 2Gis.Erm.Qds.Migrator
 		SccProvider94 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -995,7 +986,6 @@ Global
 		SccProvider104 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName105 = Tests\\2Gis.Erm.TaskService.Tests.Unit\\2Gis.Erm.TaskService.Tests.Unit.csproj
 		SccProjectTopLevelParentUniqueName105 = 2GIS.ERM.MW.sln
-		SccProjectName105 = Tests/2Gis.Erm.TaskService.Tests.Unit
 		SccAuxPath105 = http://uk-tfs02:8080/tfs/defaultcollection
 		SccLocalPath105 = Tests\\2Gis.Erm.TaskService.Tests.Unit
 		SccProvider105 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}

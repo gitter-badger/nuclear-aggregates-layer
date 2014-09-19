@@ -166,7 +166,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\AssignClientRelatedEntitiesHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CheckClientActivitiesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CheckIsWarmClientHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\GetHotClientTaskToReplicateOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\MergeClientsHandlerTest.cs" />
