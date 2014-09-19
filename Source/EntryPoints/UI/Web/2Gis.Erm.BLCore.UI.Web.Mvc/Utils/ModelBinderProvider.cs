@@ -246,6 +246,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                     return null;
                 }
 
+                if (bindingContext.ModelType == typeof(DateTime) && (valueProviderResult == null || string.IsNullOrWhiteSpace(valueProviderResult.AttemptedValue)))
+                {
+                    bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                    return default(DateTime);
+                }
+
                 // Используем формат, определённый в iso-8601
                 // Этот формат может нести информацию о часовом поясе, но при парсинге мы переводим его в UTC, 
                 // благодаря чему в коде не возникнет вопросов "а в какой-же зоне это время" - структура DateTime не способна нести информацию о поясе.
