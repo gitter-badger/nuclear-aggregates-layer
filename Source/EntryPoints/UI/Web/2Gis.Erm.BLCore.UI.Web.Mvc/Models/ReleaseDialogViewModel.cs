@@ -15,6 +15,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
         [YesNoRadio]
         public bool IsBeta { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         [DisplayNameLocalized("PaymentMonth")]
         public DateTime PeriodStart { get; set; }

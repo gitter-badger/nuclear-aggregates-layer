@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         {
             var model = new ReleaseDialogViewModel
             {
-                PeriodStart = DateTime.UtcNow.Date.AddMonths(1).GetFirstDateOfMonth()
+                PeriodStart = DateTime.UtcNow.Date.GetNextMonthFirstDate()
             };
 
             return View(model);
