@@ -104,6 +104,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.Client = 200
         public const int CreateClientByFirmIdentity = 20001;
         public const int SetMainFirmIdentity = 20002;
+        public const int CalculateClientPromisingIdentity = 20003;
 
         // EntityName.LegalPersonProfile = 219
         public const int SetAsMainLegalPersonProfileIdentity = 21901;
