@@ -11,6 +11,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
         [RequiredLocalized]
         public LookupField OrganizationUnit { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         [DisplayNameLocalized("PaymentMonth")]
         public DateTime PeriodStart { get; set; }
