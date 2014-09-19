@@ -45,12 +45,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
         {
-            return (
-                from letter in _finder.FindMany(Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress))
-                join regardingObject in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                    on letter.Id equals regardingObject.SourceEntityId
-                select letter
-                ).Any();
+            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Letter>(ids)).Any();
+        }
+
+        public IEnumerable<Letter> LookupRelatedActivities(EntityName entityName, long entityId)
+        {
+            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Letter>() && Specs.Find.ByIds<Letter>(ids));
         }
     }
 }

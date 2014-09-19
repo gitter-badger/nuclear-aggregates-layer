@@ -40,12 +40,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
         
         public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
         {
-            return (
-                from appointment in _finder.FindMany(Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress))
-                join regardingObject in _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                    on appointment.Id equals regardingObject.SourceEntityId
-                select appointment
-                ).Any();
+            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Appointment>(ids)).Any();
+        }
+
+        public IEnumerable<Appointment> LookupRelatedActivities(EntityName entityName, long entityId)
+        {
+            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Appointment>() && Specs.Find.ByIds<Appointment>(ids));
         }
     }
 }

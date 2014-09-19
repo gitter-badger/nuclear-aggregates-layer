@@ -19,5 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId);
 
         bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId);
+
+        IEnumerable<Letter> LookupRelatedActivities(EntityName entityName, long entityId);
     }
 }

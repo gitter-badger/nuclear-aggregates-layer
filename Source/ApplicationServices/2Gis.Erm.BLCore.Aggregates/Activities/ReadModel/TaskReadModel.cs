@@ -35,12 +35,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
         {
-            return (
-                from task in _finder.FindMany(Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress))
-                join regardingObject in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                    on task.Id equals regardingObject.SourceEntityId
-                select task
-                ).Any();
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).Any();
+        }
+
+        public IEnumerable<Task> LookupRelatedActivities(EntityName entityName, long entityId)
+        {
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Task>() && Specs.Find.ByIds<Task>(ids));
         }
     }
 }

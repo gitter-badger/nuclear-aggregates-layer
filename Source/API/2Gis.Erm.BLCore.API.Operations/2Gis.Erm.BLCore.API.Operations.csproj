@@ -444,7 +444,6 @@
     <Compile Include="Remote\CheckForDebts\ICheckForDebtsApplicationService.cs" />
     <Compile Include="Remote\CreateOrUpdate\CreateOrUpdateOperationErrorDescription.cs" />
     <Compile Include="Remote\CreateOrUpdate\ICreateOrUpdateApplicationService.cs" />
-    <Compile Include="Remote\Disqualify\CheckClientActivitiesRequest.cs" />
     <Compile Include="Remote\Disqualify\IDisqualifyApplicationRestService.cs" />
     <Compile Include="Remote\Disqualify\IDisqualifyApplicationService.cs" />
     <Compile Include="Remote\Disqualify\DisqualifyOperationErrorDescription.cs" />

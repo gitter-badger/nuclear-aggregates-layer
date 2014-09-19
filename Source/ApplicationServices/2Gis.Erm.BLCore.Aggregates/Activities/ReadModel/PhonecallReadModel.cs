@@ -40,12 +40,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
         {
-            return (
-                from phonecall in _finder.FindMany(Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress))
-                join regardingObject in _finder.FindMany(Specs.Find.Custom<PhonecallRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                    on phonecall.Id equals regardingObject.SourceEntityId
-                select phonecall
-                ).Any();
+            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<PhonecallRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Phonecall>(ids)).Any();
+        }
+
+        public IEnumerable<Phonecall> LookupRelatedActivities(EntityName entityName, long entityId)
+        {
+            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<PhonecallRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Phonecall>() && Specs.Find.ByIds<Phonecall>(ids));
         }
     }
 }

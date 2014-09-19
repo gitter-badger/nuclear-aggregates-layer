@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -31,6 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly IPublicService _publicService;
         private readonly ICommonLog _logger;
         private readonly IClientReadModel _clientReadModel;
+        private readonly IActivityReadService _activityReadService;
 
         public DisqualifyClientService(IUserContext userContext,
                                        IClientRepository clientRepository,
@@ -39,7 +41,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                                        IPublicService publicService,
                                        ICommonLog logger,
                                        ISecurityServiceEntityAccess securityServiceEntityAccess,
-                                       IClientReadModel clientReadModel)
+                                       IClientReadModel clientReadModel,
+                                       IActivityReadService activityReadService)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;
@@ -49,6 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             _logger = logger;
             _securityServiceEntityAccess = securityServiceEntityAccess;
             _clientReadModel = clientReadModel;
+            _activityReadService = activityReadService;
         }
 
         public virtual DisqualifyResult Disqualify(long entityId, bool bypassValidation)
@@ -66,9 +70,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 
             try
             {
-                // проверки активностей клиента в MSCRM (фактически выполняет только чтение), 
-                // должен выполняться до любых изменений реплицируемых в MSCRM в рамках данной транзакции, чтобы избежать блокировки 
-                _publicService.Handle(new CheckClientActivitiesRequest { ClientId = entityId });
+                // Проверяем открытые связанные объекты:
+                // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данным Клиентом и его фирмами, 
+                // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
+                var hasRelatedOpenedActivities = _activityReadService.CheckIfRelatedActivitiesExists(EntityName.Client, entityId);
+                if (hasRelatedOpenedActivities)
+                {
+                    throw new NotificationException(BLResources.NeedToCloseAllActivities);
+                }
 
                 var reserveUser = _userIdentifierService.GetReserveUserIdentity();
                 _publicService.Handle(new AssignClientRelatedEntitiesRequest { OwnerCode = reserveUser.Code, ClientId = entityId });
