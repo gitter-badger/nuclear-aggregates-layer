@@ -702,6 +702,64 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateAccountDetails]
+        ///    @Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///
+        ///    IF NOT EXISTS ( SELECT  1
+        ///                    FROM    @Ids )
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///
+        ///        BEGIN TRAN;
+        ///
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Dg_accountdetailBase] AS [Current]
+        ///        USING
+        ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
+        ///        [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateAccountDetails_24442 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateAccountDetails_24442", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateAccounts]
+        ///    @Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///
+        ///    IF NOT EXISTS ( SELECT  1
+        ///                    FROM    @Ids )
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///
+        ///        BEGIN TRAN;
+        ///
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Dg_accountBase] AS [Current]
+        ///        USING
+        ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
+        ///                    [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateAccounts_24442 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateAccounts_24442", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   15.07.2014, y.baranihin: репликация типа договора и даты окончания действия
@@ -1238,6 +1296,35 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateLimits]
+        ///    @Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///
+        ///    IF NOT EXISTS ( SELECT  1
+        ///                    FROM    @Ids )
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///
+        ///        BEGIN TRAN;
+        ///
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Dg_limitBase] AS [Current]
+        ///        USING
+        ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
+        ///                        [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateLimits_24442 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateLimits_24442", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
@@ -1450,6 +1537,35 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string _Billing___ReplicateOrderProcessingRequest_24271 {
             get {
                 return ResourceManager.GetString("_Billing___ReplicateOrderProcessingRequest_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateOrders]
+        ///    @Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///
+        ///    IF NOT EXISTS ( SELECT  1
+        ///                    FROM    @Ids )
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///
+        ///        BEGIN TRAN;
+        ///
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Dg_orderBase] AS [Current]
+        ///        USING
+        ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
+        ///                        [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrders_24442 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrders_24442", resourceCulture);
             }
         }
         
@@ -1732,14 +1848,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirmAddresses]    Script Date: 06.08.2014 11:29:20 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddresses]
         ///	@Ids [Shared].[Int64IdsTableType] readonly
@@ -1756,7 +1865,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///	CREATE TABLE [rest of string was truncated]&quot;;.
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 Modifi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _BusinessDirectory___ReplicateFirmAddresses_24271 {
             get {
@@ -1765,14 +1879,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateFirms]    Script Date: 06.08.2014 10:30:15 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirms]
         ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
@@ -1789,7 +1896,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///	CREATE TABLE #ReferenceInfo ( [rest of string was truncated]&quot;;.
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 ModifiedByUserD [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _BusinessDirectory___ReplicateFirms_24271 {
             get {
@@ -1798,14 +1910,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to USE [ErmRU]
-        ///GO
-        ////****** Object:  StoredProcedure [BusinessDirectory].[ReplicateTerritories]    Script Date: 06.08.2014 11:29:39 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///-- changes
+        ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritories]
         ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
@@ -1822,7 +1927,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	
         ///	BEGIN TRAN
         ///
-        ///    CREATE TABLE # [rest of string was truncated]&quot;;.
+        ///    CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 Modifi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _BusinessDirectory___ReplicateTerritories_24271 {
             get {
@@ -1894,7 +2004,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///CREATE VIEW [dbo].[SystemUserErmView]
         ///WITH SCHEMABINDING
         ///AS
-        ///SELECT LEFT(STUFF([DomainName], 1, CHARINDEX(&apos;\&apos;, [DomainName]), &apos;&apos;), 50) AS [ErmUserAccount],
+        ///SELECT LEFT(STUFF([DomainName], 1, CHARINDEX(&apos;\&apos;, [DomainName]), &apos;&apos;), 250) AS [ErmUserAccount],
         ///       [SystemUserId],
         ///	   [BusinessUnitId],
         ///	   [OrganizationId]
@@ -1902,7 +2012,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///GO
         ///
         ///CREATE UNIQUE CLUSTERED INDEX [IX_SystemUserErmView_SystemUserId] ON [dbo].[SystemUserErmView] ([SystemUserId])
-        ///CREATE NONCLUSTERED INDEX [IX_SystemUserErmView_ErmUserAccount] ON [dbo].[Sy [rest of string was truncated]&quot;;.
+        ///CREATE NONCLUSTERED INDEX [IX_SystemUserErmView_ErmUserAccount] ON [dbo].[S [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _dbo___SystemUserErmView_24270 {
             get {
