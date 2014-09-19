@@ -9,6 +9,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
     public sealed class EmiratesGenerateAcceptanceReportViewModel : ViewModel, IEmiratesAdapted
     {
+        [Calendar]
         [RequiredLocalized]
         public DateTime Month { get; set; }
 
