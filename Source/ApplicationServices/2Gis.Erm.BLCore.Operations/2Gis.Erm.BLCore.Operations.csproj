@@ -122,7 +122,6 @@
     <Compile Include="Concrete\Old\Deals\CheckDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\CloseDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\ReopenDealHandler.cs" />
-    <Compile Include="Concrete\Old\Firms\CheckMsCrmFirmActivitiesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />

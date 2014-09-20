@@ -78,48 +78,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             return result;
         }
 
-        public static bool HasAnyOpenedActivities(ICrmDataContext dataContext, Guid entityReplicationCode)
-        {
-            var tasks = RetrieveAllLinkedActivities(dataContext,
-                                                    entityReplicationCode,
-                                                    EntityName.task,
-                                                    new[] {(int) TaskState.Open}, null,
-                                                    null);
-            var faxes = RetrieveAllLinkedActivities(dataContext,
-                                                    entityReplicationCode,
-                                                    EntityName.fax,
-                                                    new[] {(int) FaxState.Open}, new[] {ParticipationType.Recipient},
-                                                    null);
-            var phoneCalls = RetrieveAllLinkedActivities(dataContext,
-                                                         entityReplicationCode,
-                                                         EntityName.phonecall,
-                                                         new[] {(int) PhoneCallState.Open}, new[] {ParticipationType.Recipient},
-                                                         null);
-            var emails = RetrieveAllLinkedActivities(dataContext,
-                                                     entityReplicationCode,
-                                                     EntityName.email,
-                                                     new[] {(int) EmailState.Open}, new[] {ParticipationType.Recipient},
-                                                     null);
-            var letters = RetrieveAllLinkedActivities(dataContext,
-                                                      entityReplicationCode,
-                                                      EntityName.letter,
-                                                      new[] {(int) LetterState.Open}, new[] {ParticipationType.Recipient},
-                                                      null);
-            var appointments = RetrieveAllLinkedActivities(dataContext,
-                                                           entityReplicationCode,
-                                                           EntityName.appointment,
-                                                           new[] { (int)AppointmentState.Open, (int)AppointmentState.Scheduled }, 
-                                                           new[] {ParticipationType.RequiredAttendee},
-                                                           null);
-            var serviceAppointments = RetrieveAllLinkedActivities(dataContext,
-                                                                  entityReplicationCode,
-                                                                  EntityName.serviceappointment,
-                                                                  new[] {(int) ServiceAppointmentState.Open, (int) ServiceAppointmentState.Scheduled},
-                                                                  new[] {ParticipationType.RequiredAttendee},
-                                                                  null);
-            return tasks.Any() || faxes.Any() || phoneCalls.Any() || emails.Any() || letters.Any() || appointments.Any() || serviceAppointments.Any();
-        }
-        
         private static IEnumerable<Guid> RetrieveLinkedActivities(
             ICrmDataContext dataContext,
             Guid entityReplicationCode,

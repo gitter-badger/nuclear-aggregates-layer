@@ -24,7 +24,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
-using DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -34,7 +33,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.BranchOfficeOrganizationUnits
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.CrmActivities;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Firms;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC;
@@ -59,7 +57,6 @@ using DoubleGis.Erm.BLCore.Releasing.Release.Old;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.AccountDetails;
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Clients;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old;
@@ -1197,16 +1194,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.Disqualify.DisqualifyClientService\Disqualify",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CheckClientActivitiesHandler),
-                        Request = typeof(CheckClientActivitiesRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintRegionalTerminationNotice",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -1759,16 +1746,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(PrintLimitsHandler),
                         Request = typeof(PrintLimitsRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.Disqualify.DisqualifyFirmService\Disqualify",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CheckMsCrmFirmActivitiesHandler),
-                        Request = typeof(CheckMsCrmFirmActivitiesRequest)
                     }
                 },
                 new UseCase

@@ -1,6 +1,10 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
@@ -39,6 +43,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 || _letterReadModel.CheckIfRelatedActiveActivitiesExists(entityName, entityId)
                 || _phonecallReadModel.CheckIfRelatedActiveActivitiesExists(entityName, entityId)
                 || _taskReadModel.CheckIfRelatedActiveActivitiesExists(entityName, entityId);
+        }
+
+        public IEnumerable<IEntity> LookupRelatedActivities(EntityName entityName, long entityId)
+        {
+            return
+                _appointmentReadModel.LookupRelatedActivities(entityName, entityId).Cast<IEntity>()
+                                     .Concat(_letterReadModel.LookupRelatedActivities(entityName, entityId))
+                                     .Concat(_phonecallReadModel.LookupRelatedActivities(entityName, entityId))
+                                     .Concat(_taskReadModel.LookupRelatedActivities(entityName, entityId));
         }
     }
 }
