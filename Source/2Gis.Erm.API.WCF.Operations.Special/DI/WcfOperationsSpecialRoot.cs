@@ -8,8 +8,11 @@ using DoubleGis.Erm.BLCore.API.OrderValidation.DI;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.BLCore.Operations.DI;
 using DoubleGis.Erm.BLCore.Operations.Special;
+using DoubleGis.Erm.BLCore.OrderValidation.DI;
+using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.BLCore.OrderValidation.DI;
+using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
@@ -25,6 +28,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
             {
                 return CompositionRoot.Config
                                       .RequireZone<AggregatesZone>()
+                                          .UseAnchor<PlatformAggregatesAssembly>()
                                           .UseAnchor<BlCoreAggregatesAssembly>()
                                           .UseAnchor<BlAggregatesAssembly>()
                                       .RequireZone<OperationsZone>()
@@ -43,7 +47,9 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                                           .UseAnchor<PlatformModelAssembly>()
                                           .UseAnchor<PlatformCoreAssembly>()
                                       .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>();
+                                          .UseAnchor<PlatformModelMetadataAssembly>()
+                                      .RequireZone<AppFabricZone>()
+                                          .UseAnchor<PlatformAppFabricAssembly>();
             }
         } 
     }

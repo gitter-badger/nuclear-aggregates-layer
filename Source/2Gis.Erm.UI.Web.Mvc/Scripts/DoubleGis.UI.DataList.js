@@ -271,7 +271,8 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                         method: 'GET',
                         url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.EntityName
                     }
-                }
+                },
+                timeout : 1200000
             }),
             baseParams: {
                 start: 0,
@@ -439,7 +440,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                     Logger.HandleError(error.Message, window.location, 0);
                     
                     window.Ext.MessageBox.show({
-                        title: 'Ошибка выполенения операции',
+                        title: Ext.LocalizedResources.OperationFailed,
                         msg: error.Message,
                         buttons: window.Ext.MessageBox.OK,
                         icon: window.Ext.MessageBox.ERROR

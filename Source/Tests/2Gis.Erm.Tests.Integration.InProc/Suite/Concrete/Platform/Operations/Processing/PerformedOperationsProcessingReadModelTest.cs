@@ -7,10 +7,12 @@ using System.Transactions;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
+using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel.DTOs;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 
@@ -18,26 +20,34 @@ using FluentAssertions;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing
 {
+    [UseCase(Duration = UseCaseDuration.VeryLong)]
     public sealed class PerformedOperationsProcessingReadModelTest : IIntegrationTest
     {
         private const string ProdDbConnectionString = "Data Source=uk-sql20\\erm;Initial Catalog=ErmRU;Integrated Security=True";
         private const int BatchSize = 1000;
 
         private static readonly XNamespace SqlServerNamespace = "http://schemas.microsoft.com/sqlserver/2004/07/showplan";
-        private static readonly IMessageFlow SourceMessageFlow = AllPerformedOperationsFlow.Instance;
+        private static readonly IMessageFlow SourceMessageFlow = PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance;
         private static readonly DateTime IgnoreOperationsPrecedingDate = DateTime.Now.Date.AddDays(-5);
 
+        private readonly IConnectionStringSettings _connectionStringSettings;
         private readonly IFinder _finder;
         private readonly IPerformedOperationsProcessingReadModel _readModel;
         private readonly IProducedQueryLogContainer _producedQueryLogContainer;
+        private readonly IUseCaseTuner _useCaseTuner;
 
-        public PerformedOperationsProcessingReadModelTest(IFinder finder,
-                                                          IPerformedOperationsProcessingReadModel readModel,
-                                                          IProducedQueryLogContainer producedQueryLogContainer)
+        public PerformedOperationsProcessingReadModelTest(
+            IConnectionStringSettings connectionStringSettings,
+            IFinder finder,
+            IPerformedOperationsProcessingReadModel readModel,
+            IProducedQueryLogContainer producedQueryLogContainer,
+            IUseCaseTuner useCaseTuner)
         {
+            _connectionStringSettings = connectionStringSettings;
             _finder = finder;
             _readModel = readModel;
             _producedQueryLogContainer = producedQueryLogContainer;
+            _useCaseTuner = useCaseTuner;
         }
 
         public ITestResult Execute()
@@ -48,22 +58,34 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
                 .Then(result => result.Status == TestResultStatus.Succeeded);
         }
 
+        private string TargetEnvironmentConnectionString
+        {
+            get 
+            { 
+                return 
+                    _connectionStringSettings.GetConnectionString(ConnectionStringName.Erm);
+                    //ProdDbConnectionString;
+            }
+        }
+
         private bool GetOperationsForPrimaryProcessingUsingReadModel()
         {
+            _useCaseTuner.AlterDuration<PerformedOperationsProcessingReadModelTest>();
+
             _producedQueryLogContainer.Reset();
             var operations = _readModel.GetOperationsForPrimaryProcessing(SourceMessageFlow, IgnoreOperationsPrecedingDate, BatchSize);
-            var operationsForPrimaryProcessingQuerySyntax = _producedQueryLogContainer.Queries.Single();
-            
+            var operationsForPrimaryProcessingByReadModel = _producedQueryLogContainer.Queries.Single();
+
             _producedQueryLogContainer.Reset();
-            var fluentSyntaxQueryResult = ExecuteFluentSyntaxQuery();
-            var operationsForPrimaryProcessingFluentSyntax = _producedQueryLogContainer.Queries.Single();
+            var operationsAlternative = GetOperationsForPrimaryProcessingAlternative(SourceMessageFlow, IgnoreOperationsPrecedingDate, BatchSize);
+            var operationsForPrimaryProcessingByAlternativeMethod = _producedQueryLogContainer.Queries.Single();
 
             using (new TransactionScope(TransactionScopeOption.RequiresNew))
             {
-                ExecuteLoggedQueries(new[] { operationsForPrimaryProcessingQuerySyntax, operationsForPrimaryProcessingFluentSyntax });
+                ExecuteLoggedQueries(new[] { operationsForPrimaryProcessingByReadModel, operationsForPrimaryProcessingByAlternativeMethod });
             }
 
-            return operations.Count() == fluentSyntaxQueryResult.Count();
+            return operations != null;
         }
 
         private void ExecuteLoggedQueries(IEnumerable<string> queries)
@@ -71,7 +93,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             foreach (var query in queries)
             {
                 string planXml;
-                using (var connection = new SqlConnection(ProdDbConnectionString))
+                using (var connection = new SqlConnection(TargetEnvironmentConnectionString))
                 {
                     using (var command = new SqlCommand { Connection = connection })
                     {
@@ -96,56 +118,31 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
                     cost = (double)stmtSimpleNode.Attribute("StatementSubTreeCost");
                 }
 
-                Console.WriteLine("Query executed on PROD environment. Cost: {0}", cost != null ? cost.ToString() : "N/A");
+                Console.WriteLine("Query executed on target environment. Cost: {0}", cost != null ? cost.ToString() : "N/A");
             }
         }
 
-        private IEnumerable<IEnumerable<PerformedBusinessOperation>> ExecuteFluentSyntaxQuery()
+        private IReadOnlyList<DBPerformedOperationsMessage> GetOperationsForPrimaryProcessingAlternative(
+            IMessageFlow sourceMessageFlow,
+            DateTime oldestOperationBoundaryDate,
+            int maxUseCaseCount)
         {
-            var defaultUseCaseId = new Guid("00000000-0000-0000-0000-000000000000");
+            var performedOperations = _finder.Find(OperationSpecs.Performed.Find.AfterDate(oldestOperationBoundaryDate));
+            var processingTargetUseCases =
+                _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowIds(new[] { sourceMessageFlow.Id }))
+                       .OrderBy(targetUseCase => targetUseCase.CreatedOn)
+                       .Take(maxUseCaseCount);
 
-            var performedUseCases =
-                _finder.FindAll<PerformedBusinessOperation>()
-                       .Where(o => o.UseCaseId != defaultUseCaseId && o.Date > IgnoreOperationsPrecedingDate && o.Parent == null);
-
-            var processedOperations =
-                _finder.FindAll<PerformedOperationPrimaryProcessing>()
-                       .Where(o => o.MessageFlowId == SourceMessageFlow.Id && o.Date > IgnoreOperationsPrecedingDate);
-
-            var query = performedUseCases
-                .GroupJoin(
-                    processedOperations,
-                    performedOperation => performedOperation.Id,
-                    processedOperation => processedOperation.Id,
-                    (performedOperation, performedOperationProcessings) => new
+            return (from targetUseCase in processingTargetUseCases
+                    join performedOperation in performedOperations on targetUseCase.UseCaseId equals performedOperation.UseCaseId
+                        into useCaseOperations
+                    orderby targetUseCase.CreatedOn
+                    select new DBPerformedOperationsMessage
                         {
-                            TargetOperation = performedOperation,
-                            Processing = performedOperationProcessings.FirstOrDefault()
+                            TargetUseCase = targetUseCase,
+                            Operations = useCaseOperations
                         })
-                .Where(performedOperationInfo => performedOperationInfo.Processing == null)
-                .Select(performedOperationInfo => performedOperationInfo.TargetOperation)
-                .GroupBy(
-                    pbo => pbo.UseCaseId,
-                    (guid, pbos) => new
-                        {
-                            Date = pbos.Min(operation => operation.Date),
-                            UseCaseId = guid
-                        })
-                .OrderBy(x => x.Date)
-                .Take(BatchSize)
-                .GroupJoin(
-                    _finder.FindAll<PerformedBusinessOperation>().Where(o => o.UseCaseId != defaultUseCaseId && o.Date > IgnoreOperationsPrecedingDate),
-                    targetUseCase => targetUseCase.UseCaseId,
-                    performedOperation => performedOperation.UseCaseId,
-                    (targetUseCase, operations) => new
-                        {
-                            Operations = operations,
-                            Date = targetUseCase.Date
-                        })
-                .OrderBy(useCase => useCase.Date)
-                .Select(useCase => useCase.Operations);
-
-            return query.ToArray();
+                    .ToList();
         }
     }
 }

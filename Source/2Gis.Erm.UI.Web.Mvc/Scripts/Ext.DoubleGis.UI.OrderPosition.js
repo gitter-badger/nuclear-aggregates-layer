@@ -127,6 +127,7 @@ window.InitPage = function ()
         });
         this.Advertisements.setLocalData({
             firmId: window.Ext.getDom('OrderFirmId').value,
+            readOnly: this.ReadOnly,
             areLinkingObjectParametersLocked: this.form.IsLocked.value.toLowerCase() == true.toString().toLowerCase(),
             organizationUnitId: window.Ext.getDom('OrganizationUnitId').value
         });
