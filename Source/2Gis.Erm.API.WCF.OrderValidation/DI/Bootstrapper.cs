@@ -78,7 +78,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           loggerContextManager))
-                        .ConfigureServiceClient();
+                        .ConfigureServiceClient()
+                        .EnsureMetadataCorrectness();
         }
 
         private static LifetimeManager EntryPointSpecificLifetimeManagerFactory()
