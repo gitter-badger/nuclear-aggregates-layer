@@ -1,7 +1,6 @@
 ﻿@using System.Globalization
-@using Platform.Model.Metadata.Enums
 
-@model Models.AfterSaleServiceCreateDialogModel
+@model AfterSaleServiceCreateDialogModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -52,9 +51,7 @@
                         node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
                     });
 
-                    // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                    // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                    Ext.getDom("Notifications").innerHTML = '@BLResources.AfterSalesServiceOperationStartedMessage';
+                    Ext.getDom("Notifications").innerHTML = Ext.LocalizedResources.AfterSalesServiceOperationStartedMessage;
                     Ext.get("Notifications").addClass("Notifications");
                     Ext.getDom("Notifications").style.display = "block";
                     EntityForm.submit();

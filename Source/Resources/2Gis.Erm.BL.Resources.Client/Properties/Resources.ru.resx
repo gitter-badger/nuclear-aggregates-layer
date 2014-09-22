@@ -213,9 +213,6 @@
   <data name="ClickHereToAddNote" xml:space="preserve">
     <value>Щелкните здесь для добавления примечания...</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Закрыть</value>
-  </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Внесенные изменения не сохранены. Чтобы остаться на этой странице и сохранить изменения, нажмите кнопку "Отмена".</value>
   </data>
@@ -950,5 +947,20 @@
   </data>
   <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
     <value>Вы действительно хотите отменить публикацию шаблона рекламного материала?</value>
+  </data>
+  <data name="CannotSetDefaultTheme" xml:space="preserve">
+    <value>Не удалось установить тематику по умолчанию</value>
+  </data>
+  <data name="OperationFailed" xml:space="preserve">
+    <value>Ошибка выполнения операции</value>
+  </data>
+  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
+    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
+  </data>
+  <data name="DisabledFunctionality" xml:space="preserve">
+    <value>Данный функционал временно недоступен</value>
+  </data>
+  <data name="DealMustPickOtherReason" xml:space="preserve">
+    <value>Необходимо указать другую причину закрытия Сделки.</value>
   </data>
 </root>

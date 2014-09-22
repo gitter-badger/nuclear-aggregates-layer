@@ -213,9 +213,6 @@
   <data name="ClickHereToAddNote" xml:space="preserve">
     <value />
   </data>
-  <data name="Close" xml:space="preserve">
-    <value />
-  </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value />
   </data>
@@ -949,6 +946,21 @@
     <value />
   </data>
   <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotSetDefaultTheme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OperationFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DisabledFunctionality" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealMustPickOtherReason" xml:space="preserve">
     <value />
   </data>
 </root>

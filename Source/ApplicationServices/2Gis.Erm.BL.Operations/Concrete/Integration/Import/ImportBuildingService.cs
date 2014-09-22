@@ -15,17 +15,20 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Integration.Import
     {
         private readonly IImportBuildingAggregateService _importBuildingAggregateService;
         private readonly IIntegrationLocalizationSettings _integrationLocalizationSettings;
+        private readonly IIntegrationSettings _integrationSettings;
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public ImportBuildingService(IIntegrationLocalizationSettings integrationLocalizationSettings,
+        public ImportBuildingService(IImportBuildingAggregateService importBuildingAggregateService,
+                                     IIntegrationLocalizationSettings integrationLocalizationSettings,
+                                     IIntegrationSettings integrationSettings,
                                      IMsCrmSettings msCrmSettings,
-                                     IImportBuildingAggregateService importBuildingAggregateService,
                                      IOperationScopeFactory scopeFactory)
         {
-            _integrationLocalizationSettings = integrationLocalizationSettings;
-            _msCrmSettings = msCrmSettings;
             _importBuildingAggregateService = importBuildingAggregateService;
+            _integrationLocalizationSettings = integrationLocalizationSettings;
+            _integrationSettings = integrationSettings;
+            _msCrmSettings = msCrmSettings;
             _scopeFactory = scopeFactory;
         }
 
@@ -37,7 +40,8 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Integration.Import
             {
                 _importBuildingAggregateService.ImportBuildingFromServiceBus(buildingServiceBusDtos,
                                                                              _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
-                                                                             _msCrmSettings.EnableReplication);
+                                                                             _msCrmSettings.EnableReplication,
+                                                                             _integrationSettings.UseWarehouseIntegration);
 
                 scope.Complete();
             }
