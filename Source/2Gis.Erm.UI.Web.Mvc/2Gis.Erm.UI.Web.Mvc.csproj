@@ -1163,6 +1163,10 @@
       <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
       <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj">
+      <Project>{153868e3-4c4c-45fe-86d6-6b4fbd39249c}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
