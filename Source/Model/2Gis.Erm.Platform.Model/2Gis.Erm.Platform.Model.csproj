@@ -633,14 +633,6 @@
       <Link>Entities\Erm\OrderValidationResult.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroup.cs">
-      <Link>Entities\Erm\OrderValidationRuleGroup.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroupDetail.cs">
-      <Link>Entities\Erm\OrderValidationRuleGroupDetail.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnit.cs">
       <Link>Entities\Erm\OrganizationUnit.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>

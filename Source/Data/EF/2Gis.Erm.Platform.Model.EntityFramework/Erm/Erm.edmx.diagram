@@ -73,8 +73,6 @@
         <edmx:EntityTypeShape EntityType="ErmModel.NotificationEmailsTo" Width="1.5" PointX="13.25" PointY="8" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.NotificationProcessings" Width="1.5" PointX="10.25" PointY="21.125" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.CityPhoneZone" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationRuleGroupDetail" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationRuleGroup" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationResult" Width="1.5" PointX="31.5" PointY="130" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.DepCard" Width="1.5" PointX="32.25" PointY="107" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.PrintFormTemplate" Width="1.5" PointX="15.75" PointY="82.375" IsExpanded="true" />
@@ -216,7 +214,6 @@
         <edmx:AssociationConnector Association="ErmModel.FK_NotificationEmailsCc_NotificationEmailsCc" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_NotificationEmailsTo_NotificationEmailsTo" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_NotificationProcessings_NotificationEmails" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderValidationResults_Orders" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_Contacts_DepCards" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_PrintFormTemplates_BranchOfficeOrganizationUnits" ManuallyRouted="false" />

@@ -991,21 +991,6 @@
           <Property Name="OrderValidationType" Type="int" Nullable="false" />
           <Property Name="IsValid" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderValidationRuleGroupDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="OrderValidationGroupId" Type="bigint" Nullable="false" />
-          <Property Name="RuleCode" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OrderValidationRuleGroups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="Code" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="OrganizationUnits">
           <Key>
             <PropertyRef Name="Id" />
@@ -3484,18 +3469,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-          <End Role="OrderValidationRuleGroups" Type="Self.OrderValidationRuleGroups" Multiplicity="1" />
-          <End Role="OrderValidationRuleGroupDetails" Type="Self.OrderValidationRuleGroupDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderValidationRuleGroups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderValidationRuleGroupDetails">
-              <PropertyRef Name="OrderValidationGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrganizationUnits_Countries">
           <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
           <End Role="OrganizationUnits" Type="Self.OrganizationUnits" Multiplicity="*" />
@@ -4026,8 +3999,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrdersRegionalAdvertisingSharings" EntityType="Self.OrdersRegionalAdvertisingSharings" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrderValidationResults" EntityType="Self.OrderValidationResults" Schema="Billing" store:Type="Tables" />
-          <EntitySet Name="OrderValidationRuleGroupDetails" EntityType="Self.OrderValidationRuleGroupDetails" Schema="Billing" store:Type="Tables" />
-          <EntitySet Name="OrderValidationRuleGroups" EntityType="Self.OrderValidationRuleGroups" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrganizationUnits" EntityType="Self.OrganizationUnits" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Platforms" EntityType="Self.Platforms" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="PositionCategories" EntityType="Self.PositionCategories" Schema="Billing" store:Type="Tables" />
@@ -4597,10 +4568,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_OrderValidationResults_Orders" Association="Self.FK_OrderValidationResults_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderValidationResults" EntitySet="OrderValidationResults" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" Association="Self.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-            <End Role="OrderValidationRuleGroups" EntitySet="OrderValidationRuleGroups" />
-            <End Role="OrderValidationRuleGroupDetails" EntitySet="OrderValidationRuleGroupDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_OrganizationUnits_Countries" Association="Self.FK_OrganizationUnits_Countries">
             <End Role="Countries" EntitySet="Countries" />
@@ -5314,12 +5281,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <End Role="NotificationProcessings" EntitySet="NotificationProcessings" />
         </AssociationSet>
         <EntitySet Name="CityPhoneZone" EntityType="ErmModel.CityPhoneZone" />
-        <EntitySet Name="OrderValidationRuleGroupDetails" EntityType="ErmModel.OrderValidationRuleGroupDetail" />
-        <EntitySet Name="OrderValidationRuleGroups" EntityType="ErmModel.OrderValidationRuleGroup" />
-        <AssociationSet Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" Association="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-          <End Role="OrderValidationRuleGroup" EntitySet="OrderValidationRuleGroups" />
-          <End Role="OrderValidationRuleGroupDetail" EntitySet="OrderValidationRuleGroupDetails" />
-        </AssociationSet>
         <EntitySet Name="OrderValidationResults" EntityType="ErmModel.OrderValidationResult" />
         <AssociationSet Name="FK_OrderValidationResults_Orders" Association="ErmModel.FK_OrderValidationResults_Orders">
           <End Role="Order" EntitySet="Orders" />
@@ -8537,35 +8498,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Boolean" Name="IsDefault" />
         <Property Type="Boolean" Name="IsDeleted" />
       </EntityType>
-      <EntityType Name="OrderValidationRuleGroupDetail">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="Int64" Name="OrderValidationGroupId" Nullable="false" />
-        <Property Type="Int32" Name="RuleCode" Nullable="false" />
-        <NavigationProperty Name="OrderValidationRuleGroup" Relationship="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" FromRole="OrderValidationRuleGroupDetail" ToRole="OrderValidationRuleGroup" />
-      </EntityType>
-      <EntityType Name="OrderValidationRuleGroup">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="Int32" Name="Code" Nullable="false" />
-        <NavigationProperty Name="OrderValidationRuleGroupDetails" Relationship="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" FromRole="OrderValidationRuleGroup" ToRole="OrderValidationRuleGroupDetail" />
-      </EntityType>
-      <Association Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-        <End Type="ErmModel.OrderValidationRuleGroup" Role="OrderValidationRuleGroup" Multiplicity="1" />
-        <End Type="ErmModel.OrderValidationRuleGroupDetail" Role="OrderValidationRuleGroupDetail" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="OrderValidationRuleGroup">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="OrderValidationRuleGroupDetail">
-            <PropertyRef Name="OrderValidationGroupId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
       <EntityType Name="OrderValidationResult">
         <Key>
           <PropertyRef Name="Id" />
@@ -11350,23 +11282,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
               <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
               <ScalarProperty Name="CityCode" ColumnName="CityCode" />
               <ScalarProperty Name="Name" ColumnName="Name" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="OrderValidationRuleGroupDetails">
-          <EntityTypeMapping TypeName="ErmModel.OrderValidationRuleGroupDetail">
-            <MappingFragment StoreEntitySet="OrderValidationRuleGroupDetails">
-              <ScalarProperty Name="RuleCode" ColumnName="RuleCode" />
-              <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="OrderValidationRuleGroups">
-          <EntityTypeMapping TypeName="ErmModel.OrderValidationRuleGroup">
-            <MappingFragment StoreEntitySet="OrderValidationRuleGroups">
-              <ScalarProperty Name="Code" ColumnName="Code" />
               <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
           </EntityTypeMapping>
