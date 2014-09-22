@@ -1,4 +1,5 @@
-﻿@model ViewModels.ErrorHandlerModel
+﻿@using DoubleGis.Erm.BLCore.Resources.Client.Properties
+@model ErrorHandlerModel
 
 <html>
 <head>
@@ -39,7 +40,7 @@
         <div style="padding-left: 300px">
             <input type="button" onclick="tryAgain();" value="@BLResources.RepeatAttempts" />
             &nbsp;
-            <input type="button" onclick="goBack();" value="@BLResources.Close" />
+            <input type="button" onclick="goBack();" value="@Resources.Close" />
         </div>
         <div class="clear">
         </div>
