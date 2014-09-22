@@ -317,36 +317,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         #endregion
 
-        public class TestViewModel
-        {
-            public DateTime Item1 { get; set; }
-            public DateTime Item2 { get; set; }
-
-            [Calendar]
-            public DateTime? Item3 { get; set; }
-
-            [Calendar]
-            public DateTime Item4 { get; set; }
-        }
-
-        [HttpGet]
-        public ViewResult Test()
-        {
-            return View(new TestViewModel
-                            {
-                                Item1 = DateTime.UtcNow,
-                                Item2 = DateTime.Now,
-                                Item3 = DateTime.UtcNow,
-                                Item4 = DateTime.Now,
-                            });
-        }
-
-        [HttpPost]
-        public ViewResult Test(TestViewModel model)
-        {
-            return View(model);
-        }
-
         public ActionResult CheckOrdersReadinessForReleaseDialog()
         {
             var currentUser = UserContext.Identity;
