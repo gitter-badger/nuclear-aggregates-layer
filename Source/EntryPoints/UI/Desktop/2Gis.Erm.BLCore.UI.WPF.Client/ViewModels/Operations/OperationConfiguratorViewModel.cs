@@ -63,11 +63,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
             Status = OperationProcessingStatus.NotStarted;
             Progress = 0;
 
-            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-            _operationResultsTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.GroupOperationResultsTitle));
+            _operationResultsTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => Resources.Client.Properties.Resources.GroupOperationResultsTitle));
             _operationConfirmMessage = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.GroupOperationConfirm));
-            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-            _operationResultsMessageFormat = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.GroupOperationResultsMessage));
+            _operationResultsMessageFormat = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => Resources.Client.Properties.Resources.GroupOperationResultsMessage));
             _operationOperationTopBarMessageFormat = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.GroupOperationTopBarMessage2));
             _operationOperationTopBarTitleFormat = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.GroupOperationTopBarTitle));
         }

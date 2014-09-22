@@ -171,6 +171,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowCardsF
                                                                                                     Client = client,
                                                                                                     TerritoryId = firmTerritories[clientsByFirm.Key]
                                                                                                 }))
+                                                  .DistinctBy(x => x.Client.Id)
                                                   .ToArray();
 
             _bulkChangeClientTerritoryAggregateService.ChangeTerritory(clientsToUpdate);

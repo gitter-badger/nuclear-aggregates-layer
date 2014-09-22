@@ -2,11 +2,13 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Exceptions.Deal;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,11 +19,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
     {
         private readonly IDealRepository _dealRepository;
         private readonly IGetBaseCurrencyService _currencyService;
+        private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
 
-        public EditDealHandler(IDealRepository dealRepository, IGetBaseCurrencyService currencyService)
+        public EditDealHandler(IDealRepository dealRepository, IGetBaseCurrencyService currencyService, ISecurityServiceUserIdentifier securityServiceUserIdentifier)
         {
             _dealRepository = dealRepository;
             _currencyService = currencyService;
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
 
         protected override EmptyResponse Handle(EditRequest<Deal> request)
@@ -42,6 +46,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
             }
 
             var client = dealInfo.Client;
+
+            if (client.OwnerCode == _securityServiceUserIdentifier.GetReserveUserIdentity().Code)
+            {
+                throw new DealClientIsInReserveException(BLResources.DealClientIsInReserve);
+            }
 
             // check that main firm exists
             var mainFirm = dealInfo.MainFirm;

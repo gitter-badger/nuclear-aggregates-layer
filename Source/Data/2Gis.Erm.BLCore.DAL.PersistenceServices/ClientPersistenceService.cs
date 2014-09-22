@@ -1,6 +1,8 @@
 ﻿using System;
 
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
+using DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
 {
@@ -13,12 +15,13 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices
             _databaseCaller = databaseCaller;
         }
 
-        public void CalculateClientPromising(long modifiedBy, int timeout, bool enableReplication)
+        public EntityChangesContext CalculateClientPromising(long modifiedBy, TimeSpan timeout)
         {
-            _databaseCaller.ExecuteProcedure("Integration.CalculateClientPromising",
-                                             timeout,
-                                             new Tuple<string, object>("ModifiedBy", modifiedBy),
-                                             new Tuple<string, object>("EnableReplication", enableReplication));
+            var changedEntitiesReport = _databaseCaller.ExecuteProcedureWithResultTable("Integration.CalculateClientPromising",
+                                                                                        timeout,
+                                                                                        new Tuple<string, object>("ModifiedBy", modifiedBy));
+
+            return changedEntitiesReport.ToEntityChanges();
         }
     }
 }

@@ -249,7 +249,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                      .Select(x => new
                                      {
                                          BranchCode = x.DgppId.Value,
-                                         Territory = x.Territories.FirstOrDefault(t => t.IsActive && t.Name.Contains(regionalTerritoryPhrase))
+                                         Territory = x.Territories.OrderByDescending(t => t.Id).FirstOrDefault(t => t.IsActive && t.Name.Contains(regionalTerritoryPhrase))
                                      })
                                      .Where(x => x.Territory != null)
                                      .ToDictionary(x => x.BranchCode,
