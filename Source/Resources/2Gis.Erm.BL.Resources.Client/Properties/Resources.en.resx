@@ -213,9 +213,6 @@
   <data name="ClickHereToAddNote" xml:space="preserve">
     <value>Click here to add notes...</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Changes are not saved. To remain on the page and save changes, click "Cancel".</value>
   </data>
@@ -952,9 +949,18 @@
     <value>Are you sure you want to cancel advertising material template publishing?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Не удалось установить тематику по умолчанию</value>
+    <value>Failed to set the default topic</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Ошибка выполнения операции</value>
+    <value>Operation failed</value>
+  </data>
+  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
+    <value>Process of after-sake service generation has been started. This is a long-term process, its progress can be tracked in the operations logbook.</value>
+  </data>
+  <data name="DisabledFunctionality" xml:space="preserve">
+    <value>This functionality is temporarily unavailable</value>
+  </data>
+  <data name="DealMustPickOtherReason" xml:space="preserve">
+    <value>Please specify another reason of the opportunity closure</value>
   </data>
 </root>

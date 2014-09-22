@@ -1645,10 +1645,10 @@
     <value>Nuevas órdenes de mis subordinados</value>
   </data>
   <data name="DListOrdersToProlongate" xml:space="preserve">
-    <value>Órdenes que necesitan prórroga</value>
+    <value>Ordenes  que necesitan renovación</value>
   </data>
   <data name="DListOrdersToProlongateForSubordinates" xml:space="preserve">
-    <value>Órdenes de mis subordinados que necesitan prórroga</value>
+    <value>Ordenes de mis subordinados que necesitan renovación</value>
   </data>
   <data name="DListMyOrdersToNextEdition" xml:space="preserve">
     <value>Mis órdenes para el próximo lanzamiento</value>

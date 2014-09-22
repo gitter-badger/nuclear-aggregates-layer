@@ -1,5 +1,5 @@
 ﻿
-@model Models.ChangeOrderDealViewModel
+@model ChangeOrderDealViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -28,10 +28,8 @@
 
             if (!window.dialogArguments.length)
             {
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
                 // TODO {all, 18.12.2013}: alert можно заменить на ext'овый messagebox
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                alert('@BLResources.NeedToSelectOneOrMoreItems');
+                alert(Ext.LocalizedResources.NeedToSelectOneOrMoreItems);
                 window.close();
                 return;
             }
