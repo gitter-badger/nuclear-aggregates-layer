@@ -31,8 +31,8 @@ AS
                         JOIN [Security].[Users] AS [OU] ON [OU].[Id] = [TBL].[OwnerCode]
                         JOIN [Security].[Users] AS [CU] ON [CU].[Id] = [TBL].[CreatedBy]
                         LEFT JOIN [Security].[Users] AS [MU] ON [MU].[Id] = [TBL].[ModifiedBy]
-                        JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [OCU] WITH ( NOEXPAND ) ON [OCU].[ErmUserAccount] = [OU].[Account] COLLATE Database_Default
-                        JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [CCU] WITH ( NOEXPAND ) ON [CCU].[ErmUserAccount] = [CU].[Account] COLLATE Database_Default
+                        LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [OCU] WITH ( NOEXPAND ) ON [OCU].[ErmUserAccount] = [OU].[Account] COLLATE Database_Default
+                        LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [CCU] WITH ( NOEXPAND ) ON [CCU].[ErmUserAccount] = [CU].[Account] COLLATE Database_Default
                         LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [MCU] WITH ( NOEXPAND ) ON [MCU].[ErmUserAccount] = [MU].[Account] COLLATE Database_Default
               WHERE     [TBL].[Id] IN ( SELECT  [Id]
                                         FROM    @Ids )
@@ -116,7 +116,7 @@ AS
                         JOIN [Billing].[OrganizationUnits] AS [DOU] ON [DOU].[Id] = [TBL].[DestOrganizationUnitId]
                         JOIN [BusinessDirectory].[Firms] AS [F] ON [F].[Id] = [TBL].[FirmId]
                         JOIN [Security].[Users] AS [U] ON [U].[Id] = [TBL].[InspectorCode]
-                        JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [CU] WITH ( NOEXPAND ) ON [CU].[ErmUserAccount] = [U].[Account] COLLATE Database_Default
+                        LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [CU] WITH ( NOEXPAND ) ON [CU].[ErmUserAccount] = [U].[Account] COLLATE Database_Default
                         LEFT JOIN [Billing].[LegalPersons] AS [LP] ON [LP].[Id] = [TBL].[LegalPersonId]
                         JOIN [Billing].[OrganizationUnits] AS [SOU] ON [SOU].[Id] = [TBL].[SourceOrganizationUnitId]
                         LEFT JOIN [Billing].[Accounts] AS [A] ON [A].[Id] = [TBL].[AccountId]
