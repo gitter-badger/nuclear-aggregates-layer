@@ -12,61 +12,74 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.OrderValidation.MultiCulture
 {
-    public sealed class OrderValidationRuleMetadataSource : MetadataSourceBase<MetadataOrderValidationRulesIdentity>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IEmiratesAdapted
+    public sealed class OrderValidationRuleMetadataSource : MetadataSourceBase<MetadataOrderValidationIdentity>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IEmiratesAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
         #region RulesMetadata
 
-        private readonly IReadOnlyCollection<OrderValidationRuleMetadata> _originalMetadata = new OrderValidationRuleMetadata[]
-            {
-                OrderValidationRuleMetadata.Config.Rule<AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule>(OrderValidationRuleGroup.Generic, 29)
+        private readonly OrderValidationRuleGroupMetadata _genericGroupMetadata =
+            OrderValidationRuleGroupMetadata.Config
+                .Group(OrderValidationRuleGroup.Generic)
+                .Rules(OrderValidationRuleMetadata.Config.Rule<AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule>(29)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
                                                                                 .DisableFor(BusinessModel.Chile)
                                                                                 .DisableFor(BusinessModel.Emirates),
-                OrderValidationRuleMetadata.Config.Rule<IsAdvertisementLinkedWithLocatedOnTheMapAddressOrderValidationRule>(OrderValidationRuleGroup.Generic, 34)
+                        OrderValidationRuleMetadata.Config.Rule<IsAdvertisementLinkedWithLocatedOnTheMapAddressOrderValidationRule>(34)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
                                                                                 .DisableFor(BusinessModel.Chile)
                                                                                 .DisableFor(BusinessModel.Emirates),
-                OrderValidationRuleMetadata.Config.Rule<CouponIsUniqueForFirmOrderValidationRule>(OrderValidationRuleGroup.Generic, 35)
+                        OrderValidationRuleMetadata.Config.Rule<CouponIsUniqueForFirmOrderValidationRule>(35)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
                                                                                 .DisableFor(BusinessModel.Chile)
                                                                                 .DisableFor(BusinessModel.Emirates),
-                OrderValidationRuleMetadata.Config.Rule<SelfAdvertisementOrderValidationRule>(OrderValidationRuleGroup.Generic, 36)
+                        OrderValidationRuleMetadata.Config.Rule<SelfAdvertisementOrderValidationRule>(36)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
                                                                                 .DisableFor(BusinessModel.Chile)
                                                                                 .DisableFor(BusinessModel.Emirates),
-                OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(OrderValidationRuleGroup.Generic, 37)
+                        OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(37)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
                                                                                 .DisableFor(BusinessModel.Chile)
                                                                                 .DisableFor(BusinessModel.Emirates),
-                OrderValidationRuleMetadata.Config.Rule<IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule>(OrderValidationRuleGroup.Generic, 38)
+                        OrderValidationRuleMetadata.Config.Rule<IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule>(38)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
                                                                                 .DisableFor(BusinessModel.Chile)
-                                                                                .DisableFor(BusinessModel.Emirates),
-                OrderValidationRuleMetadata.Config.Rule<AdvertisementsWithoutWhiteListOrderValidationRule>(OrderValidationRuleGroup.AdvertisementMaterialsValidation, 22)
+                                                                                .DisableFor(BusinessModel.Emirates));
+        private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =
+            OrderValidationRuleGroupMetadata.Config
+                .Group(OrderValidationRuleGroup.AdvertisementMaterialsValidation)
+                .UseCaching
+                .Rules(OrderValidationRuleMetadata.Config.Rule<AdvertisementsWithoutWhiteListOrderValidationRule>(22)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
                                                                                 .DisableFor(BusinessModel.Chile)
-                                                                                .DisableFor(BusinessModel.Emirates),
-                OrderValidationRuleMetadata.Config.Rule<AdvertisementForCategoryAmountOrderValidationRule>(OrderValidationRuleGroup.AdvertisementAmountValidation, 31)
-                                                                                .DisableFor(BusinessModel.Cyprus)
-                                                                                .DisableFor(BusinessModel.Czech)
-                                                                                .DisableFor(BusinessModel.Chile)
-                                                                                .DisableFor(BusinessModel.Emirates)
-            };
+                                                                                .DisableFor(BusinessModel.Emirates));
 
+         private readonly OrderValidationRuleGroupMetadata _advertisementAmountGroupMetadata =
+            OrderValidationRuleGroupMetadata.Config
+                .Group(OrderValidationRuleGroup.AdvertisementAmountValidation)
+                .UseCaching
+                .Rules(OrderValidationRuleMetadata.Config.Rule<AdvertisementForCategoryAmountOrderValidationRule>(31)
+                                                                                .DisableFor(BusinessModel.Cyprus)
+                                                                                .DisableFor(BusinessModel.Czech)
+                                                                                .DisableFor(BusinessModel.Chile)
+                                                                                .DisableFor(BusinessModel.Emirates));
         #endregion
 
         public OrderValidationRuleMetadataSource()
         {
-            _metadata = _originalMetadata.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
+            _metadata = new Dictionary<Uri, IMetadataElement>
+                {
+                    { _genericGroupMetadata.Identity.Id, _genericGroupMetadata },
+                    { _advertisementMaterialsGroupMetadata.Identity.Id, _advertisementMaterialsGroupMetadata },
+                    { _advertisementAmountGroupMetadata.Identity.Id, _advertisementAmountGroupMetadata },
+                };
         }
 
         public override IReadOnlyDictionary<Uri, IMetadataElement> Metadata
