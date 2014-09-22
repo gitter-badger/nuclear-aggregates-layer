@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
         {
             // FIXME {i.maslennikov, 22.09.2014}: перевести навигацию по методанным на новый способ представления групп проверок
             var orderValidationMetadataRegistry = new Dictionary<int, List<OrderValidationRuleMetadata>>();
-            foreach (var ruleMetadata in targetMetadata.Metadata.OfType<OrderValidationRuleMetadata>())
+            foreach (var ruleMetadata in targetMetadata.Metadata.Values.OfType<OrderValidationRuleMetadata>())
             {
                 List<OrderValidationRuleMetadata> rulesContainer;
                 if (!orderValidationMetadataRegistry.TryGetValue(ruleMetadata.RuleCode, out rulesContainer))
