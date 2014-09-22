@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace DoubleGis.Erm.Platform.API.Core.Exceptions.Withdrawal.Operations
 {
-    public class MultipleChargesSessionsFoundException : BusinessLogicException
+    public class MultipleChargesSessionsFoundException : WithdrawalException
     {
         public MultipleChargesSessionsFoundException()
         {

@@ -94,7 +94,6 @@
     <Compile Include="Attributes\DependencyAttribute.cs" />
     <Compile Include="Attributes\PresentationLayerPropertyAttribute.cs" />
     <Compile Include="Attributes\YesNoRadioAttribute.cs" />
-    <Compile Include="Caching\WebCacheAdapter.cs" />
     <Compile Include="DI\CustomLifetime.cs" />
     <Compile Include="DI\MassProcessing\ControllersProcessor.cs" />
     <Compile Include="DI\MassProcessing\EnumAdaptationMassProcessor.cs" />

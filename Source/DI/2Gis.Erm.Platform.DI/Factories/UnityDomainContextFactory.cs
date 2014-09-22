@@ -3,6 +3,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
@@ -12,19 +13,20 @@ namespace DoubleGis.Erm.Platform.DI.Factories
     {
         private readonly IUnityContainer _unityContainer;
 
-        public UnityDomainContextFactory(IUnityContainer unityContainer,
-                                         IEFConnectionFactory connectionFactory,
+        public UnityDomainContextFactory(IEFConnectionFactory connectionFactory,
                                          IDomainContextMetadataProvider domainContextMetadataProvider,
                                          IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
                                          IProducedQueryLogAccessor producedQueryLogAccessor,
-                                         IMsCrmSettings msCrmSettings,
-                                         ICommonLog logger)
-            : base(connectionFactory,
-                   domainContextMetadataProvider,
-                   pendingChangesHandlingStrategy,
-                   producedQueryLogAccessor,
-                   msCrmSettings,
-                   logger)
+                                         ICommonLog logger,
+                                         IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider,
+                                         IUnityContainer unityContainer)
+            : base(
+                connectionFactory,
+                domainContextMetadataProvider,
+                pendingChangesHandlingStrategy,
+                producedQueryLogAccessor,
+                logger,
+                msCrmReplicationMetadataProvider)
         {
             _unityContainer = unityContainer;
         }

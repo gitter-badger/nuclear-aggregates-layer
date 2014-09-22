@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
 
@@ -55,7 +57,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                                                         "Erm",
                                                         objectContext.Object,
                                                         Mock.Of<IPendingChangesHandlingStrategy>(),
-                                                        Mock.Of<IMsCrmSettings>(),
+                                                        new MsCrmReplicationMetadataProvider(EntityNameUtils.AsyncReplicated2MsCrmEntities, EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities)),
                                                         Mock.Of<ICommonLog>());
 
                 var modifiableDomainContextProviderMock = new Mock<IModifiableDomainContextProvider>();

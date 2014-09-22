@@ -75,6 +75,7 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForPlannedPositionsException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
+    <Compile Include="Exceptions\Withdrawal\WithdrawalException.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\Flows\IMessageFlow.cs" />
     <Compile Include="Messaging\MessageBase.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalProcessingMessage.cs" />
     <Compile Include="Operations\Processing\Final\FinalProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\IPerformedOperationsTransportSettings.cs" />
-    <Compile Include="Operations\Processing\Primary\AllPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\FinalReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
@@ -142,6 +142,7 @@
     <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\IPerformedOperationsFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\IPerformedOperationsPrimaryProcessingFlow.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFinalFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PrimaryProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\PrimaryReplicate2MsCRMPerformedOperationsFlow.cs" />
@@ -152,7 +153,10 @@
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElementCollection.cs" />
     <Compile Include="Settings\APIServices\RequiredServices.cs" />
+    <Compile Include="Settings\Caching\CachingSettingsAspect.cs" />
+    <Compile Include="Settings\Caching\ICachingSettings.cs" />
     <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
+    <Compile Include="Settings\CRM\MsCrmIntegrationMode.cs" />
     <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />
     <Compile Include="Settings\Globalization\IBusinessModelSettings.cs" />
     <Compile Include="Settings\Globalization\IGlobalizationSettings.cs" />
