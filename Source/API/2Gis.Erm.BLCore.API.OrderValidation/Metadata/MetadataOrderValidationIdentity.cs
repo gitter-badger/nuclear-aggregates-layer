@@ -5,9 +5,9 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 {
-    public sealed class MetadataOrderValidationRulesIdentity : MetadataKindIdentityBase<MetadataOrderValidationRulesIdentity>
+    public sealed class MetadataOrderValidationIdentity : MetadataKindIdentityBase<MetadataOrderValidationIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("OrderValidation/Rules");
+        private readonly Uri _id = IdBuilder.For("OrderValidation");
 
         public override Uri Id
         {
@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 
         public override string Description
         {
-            get { return "Erm order validation rules descriptive metadata"; }
+            get { return "Erm order validation subsystem descriptive metadata"; }
         }
     }
 }

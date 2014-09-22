@@ -175,7 +175,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                                                         IEnumerable<long> invalidOrderIds,
                                                                         ValidResultsContainer validResultsContainer)
         {
-            bool useCachedResultsDisabled = ruleGroupContainer.RuleDescriptors.Any(rd => rd.CachingExplicitlyDisabled);
+            bool useCachedResultsDisabled = !ruleGroupContainer.UseCaching || ruleGroupContainer.RuleDescriptors.Any(rd => !rd.UseCaching);
 
             // FIXME {all, 03.03.2014}: нужно использовать другой механизм сортировки кэша результатов проверок, т.к. сортировка по ID не дает гарантии, что будет учтен именно результат самой последней проверки 
             var combinedPredicate = 
@@ -212,34 +212,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 groupMessages.AddRange(ruleMessages);
             }
 
-            switch (ruleGroupContainer.Group)
+            if (ruleGroupContainer.UseCaching && ruleGroupContainer.AllRulesScheduled)
             {
-                case OrderValidationRuleGroup.Generic:
-                case OrderValidationRuleGroup.AdvertisementAmountValidation:
-                    // Сохраняем результаты пройденных проверок только для конкретных групп, 
-                    // для которых определены события сброса признака корректности группы
-                    break;
-                case OrderValidationRuleGroup.ADPositionsValidation:
-                    // Для группы СЗП сохраняем результаты пройденных проверок только в случае запуска перед сборкой, т.к.
-                    // существуют ситуации для региональных заказов, когда заказ является валидным с точки зрения индивидуальной проверки,
-                    // но при массовой проверке в выборку для валидации добавляются заказы, которые конфликтуют с этим заказом.
-                    // Вероятно, ошибки здесь нет (т.к. для разных городов возможна продажа, например, запрещенных позиций),
-                    // но для сохранения предсказуемого поведения на текущий момомент не сохраняем результаты индивидуальной проверки
-                    if (validationType == ValidationType.PreReleaseBeta || validationType == ValidationType.PreReleaseFinal)
-                    {
-                        AppendValidationResults(validationType, ruleGroupContainer.Group, groupMessages, validResultsContainer);
-                    }
-
-                    break;
-                default:
-                    // Для проверок, запущенных через UI признак корректности группы не выставляем, 
-                    // т.к. в этом случае запускаются не все проверки в группе, и поэтому заказ не может считаться валидным с точки зрения этой группы
-                    if (validationType != ValidationType.ManualReport && validationType != ValidationType.ManualReportWithAccountsCheck)
-                    {
-                        AppendValidationResults(validationType, ruleGroupContainer.Group, groupMessages, validResultsContainer);
-                    }
-
-                    break;
+                AppendValidationResults(validationType, ruleGroupContainer.Group, groupMessages, validResultsContainer);
             }
 
             groupStopwatch.Stop();

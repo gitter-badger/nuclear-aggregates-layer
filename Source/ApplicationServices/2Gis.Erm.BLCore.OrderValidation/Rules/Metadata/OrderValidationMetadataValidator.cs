@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
 {
-    public sealed class OrderValidationMetadataValidator : MetadataValidatorBase<MetadataOrderValidationRulesIdentity>
+    public sealed class OrderValidationMetadataValidator : MetadataValidatorBase<MetadataOrderValidationIdentity>
     {
         public OrderValidationMetadataValidator(IMetadataProvider metadataProvider) 
             : base(metadataProvider)
@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
 
         protected override bool IsValidImpl(MetadataSet targetMetadata, out string report)
         {
+            // FIXME {i.maslennikov, 22.09.2014}: перевести навигацию по методанным на новый способ представления групп проверок
             var orderValidationMetadataRegistry = new Dictionary<int, List<OrderValidationRuleMetadata>>();
             foreach (var ruleMetadata in targetMetadata.Metadata.OfType<OrderValidationRuleMetadata>())
             {

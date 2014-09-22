@@ -62,9 +62,13 @@
     <Compile Include="Metadata\Features\AvailableForValidationTypeFeature.cs" />
     <Compile Include="Metadata\Features\CommonRuleFeature.cs" />
     <Compile Include="Metadata\Features\DisabledForBusinessModelFeature.cs" />
+    <Compile Include="Metadata\Features\EnableCachingForValidationTypeFeature.cs" />
     <Compile Include="Metadata\Features\NonManualRuleFeature.cs" />
     <Compile Include="Metadata\Features\SingleOrderValidationRuleFeature.cs" />
-    <Compile Include="Metadata\MetadataOrderValidationRulesIdentity.cs" />
+    <Compile Include="Metadata\Features\UseCachingFeature.cs" />
+    <Compile Include="Metadata\MetadataOrderValidationIdentity.cs" />
+    <Compile Include="Metadata\OrderValidationRuleGroupMetadata.cs" />
+    <Compile Include="Metadata\OrderValidationRuleGroupMetadataBuilder.cs" />
     <Compile Include="Metadata\OrderValidationRuleMetadata.cs" />
     <Compile Include="Metadata\OrderValidationRuleMetadataBuilder.cs" />
     <Compile Include="Remote\IOrderValidationApplicationRestService.cs" />

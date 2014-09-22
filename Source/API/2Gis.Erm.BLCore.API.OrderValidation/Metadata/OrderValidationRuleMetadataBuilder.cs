@@ -9,7 +9,6 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
     public sealed class OrderValidationRuleMetadataBuilder : MetadataElementBuilder<OrderValidationRuleMetadataBuilder, OrderValidationRuleMetadata>
     {
         private Type _ruleType;
-        private OrderValidationRuleGroup _ruleGroup;
         private int _ruleCode;
 
         public OrderValidationRuleMetadataBuilder NonManual
@@ -17,7 +16,6 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
             get
             {
                 AddFeatures(new NonManualRuleFeature());
-
                 return this;
             }
         }
@@ -27,7 +25,6 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
             get
             {
                 AddFeatures(new CommonRuleFeature());
-
                 return this;
             }
         }
@@ -37,16 +34,14 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
             get
             {
                 AddFeatures(new SingleOrderValidationRuleFeature());
-
                 return this;
             }
         }
 
-        public OrderValidationRuleMetadataBuilder Rule<TOrderValidationRule>(OrderValidationRuleGroup ruleGroup, int ruleCode)
+        public OrderValidationRuleMetadataBuilder Rule<TOrderValidationRule>(int ruleCode)
             where TOrderValidationRule : class, IOrderValidationRule
         {
             _ruleType = typeof(TOrderValidationRule);
-            _ruleGroup = ruleGroup;
             _ruleCode = ruleCode;
             return this;
         }
@@ -65,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 
         protected override OrderValidationRuleMetadata Create()
         {
-            return new OrderValidationRuleMetadata(_ruleType, _ruleGroup, _ruleCode);
+            return new OrderValidationRuleMetadata(_ruleType, _ruleCode);
         }
     }
 }

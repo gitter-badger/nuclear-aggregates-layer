@@ -1,4 +1,3 @@
-﻿using System;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -7,18 +6,16 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 {
-    public sealed class OrderValidationRuleMetadata : MetadataElement<OrderValidationRuleMetadata, OrderValidationRuleMetadataBuilder>
+    public sealed class OrderValidationRuleGroupMetadata : MetadataElement<OrderValidationRuleGroupMetadata, OrderValidationRuleGroupMetadataBuilder>
     {
-        private readonly Type _ruleType;
-        private readonly int _ruleCode;
+        private readonly OrderValidationRuleGroup _ruleGroup;
         private IMetadataElementIdentity _identity;
 
-        public OrderValidationRuleMetadata(Type ruleType, int ruleCode)
+        public OrderValidationRuleGroupMetadata(OrderValidationRuleGroup ruleGroup)
             : base(Enumerable.Empty<IMetadataFeature>())
         {
-            _identity = new Uri(ruleType.Name, UriKind.Relative).AsIdentity();
-            _ruleType = ruleType;
-            _ruleCode = ruleCode;
+            _identity = IdBuilder.For<MetadataOrderValidationIdentity>("Rules", ruleGroup.ToString()).AsIdentity();
+            _ruleGroup = ruleGroup;
         }
 
         public override IMetadataElementIdentity Identity
@@ -26,14 +23,9 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
             get { return _identity; }
         }
 
-        public Type RuleType
+        public OrderValidationRuleGroup RuleGroup
         {
-            get { return _ruleType; }
-        }
-
-        public int RuleCode
-        {
-            get { return _ruleCode; }
+            get { return _ruleGroup; }
         }
 
         public override void ActualizeId(IMetadataElementIdentity actualMetadataElementIdentity)
@@ -43,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 
         public override string ToString()
         {
-            return _ruleType.Name;
+            return _ruleGroup.ToString();
         }
     }
 }

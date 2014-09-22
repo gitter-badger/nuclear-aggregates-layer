@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata.Features;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
@@ -70,16 +71,36 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         public IEnumerable<OrderValidationRulesContianer> GetAppropriateRules(ValidationType validationType)
         {
-            var groupDescriptors = GetApropriateRuleDescriptors(validationType);
+            var ruleContaners = new List<OrderValidationRulesContianer>();
 
-            return groupDescriptors.Select(gd => new OrderValidationRulesContianer(
-                                                     gd.Group,
-                                                     gd.RuleDescriptors
-                                                            .Select(rd => new OrderValidationRuleDescritpor(
-                                                                                _orderValidationRuleFactory.Create(rd.RuleType),
-                                                                                rd.RuleCode,
-                                                                                rd.CachingExplicitlyDisabled))
-                                                            .ToArray()));
+            foreach (var groupDescriptor in GetApropriateRuleDescriptors(validationType))
+            {
+                var ruleDescriptors = new List<OrderValidationRuleDescritpor>();
+                bool allRulesScheduled = true;
+                foreach (var ruleDescriptor in groupDescriptor.RuleDescriptors)
+                {
+                    if (allRulesScheduled && !ruleDescriptor.Enabled)
+                    {
+                        allRulesScheduled = false;
+                        continue;
+                    }
+
+                    ruleDescriptors.Add(
+                        new OrderValidationRuleDescritpor(
+                                _orderValidationRuleFactory.Create(ruleDescriptor.RuleType),
+                                ruleDescriptor.RuleCode,
+                                ruleDescriptor.UseCaching));
+                }
+
+                ruleContaners.Add(
+                    new OrderValidationRulesContianer(
+                            groupDescriptor.Group,
+                            groupDescriptor.UseCaching,
+                            allRulesScheduled,
+                            ruleDescriptors));
+            }
+
+            return ruleContaners;
         }
 
         private static void AttachValidationTypeRules(
@@ -100,47 +121,56 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 return groupDescriptors;
             }
 
-            MetadataSet orderValidationMetadata;
-            if (!_metadataProvider.TryGetMetadata<MetadataOrderValidationRulesIdentity>(out orderValidationMetadata))
+            groupDescriptors = _orderedValidationRuleGroupsSequence.Select(targetRulesGroup => CreateGroupDescriptor(validationType, targetRulesGroup));
+
+            _ruleGroupsDescriptorsCache.Add(validationType, groupDescriptors);
+            return groupDescriptors;
+        }
+
+        private OrderValidationRuleGroupDescriptor CreateGroupDescriptor(ValidationType validationType, OrderValidationRuleGroup targetRulesGroup)
+        {
+            var groupMetadataId = IdBuilder.For<MetadataOrderValidationIdentity>("Rules", targetRulesGroup.ToString());
+            OrderValidationRuleGroupMetadata groupMetadata;
+            if (!_metadataProvider.TryGetMetadata(groupMetadataId, out groupMetadata))
             {
-                throw new InvalidOperationException("Metadata for order validation rules is not configured");
+                throw new InvalidOperationException("Metadata for order validation rules group " + targetRulesGroup + " is not configured");
             }
 
+            var useCaching = groupMetadata.Uses<UseCachingFeature>()
+                             && (!groupMetadata.Features<EnableCachingForValidationTypeFeature>().Any()
+                                 || groupMetadata.Features<EnableCachingForValidationTypeFeature>().Any(f => f.ValidationType == validationType));
+
+            var groupDescriptor = new OrderValidationRuleGroupDescriptor
+                {
+                    Group = targetRulesGroup,
+                    UseCaching = useCaching
+                };
+
+            var ruleDescriptors = groupMetadata.Elements<OrderValidationRuleMetadata>().Select(m => CreateRuleDescriptor(validationType, useCaching, m));
+            groupDescriptor.RuleDescriptors.AddRange(ruleDescriptors);
+            return groupDescriptor;
+        }
+
+        private OrderValidationRuleDescriptor CreateRuleDescriptor(
+            ValidationType validationType,
+            bool groupUseCaching,
+            OrderValidationRuleMetadata ruleMetadata)
+        {
             Predicate<OrderValidationRuleMetadata> validationRulesFilter;
             if (!_validationRulesFilters.TryGetValue(validationType, out validationRulesFilter))
             {
                 throw new InvalidOperationException("Can't get validation rule metadata filters " + validationType);
             }
 
-            var appropriateRulesMetadata =
-                    orderValidationMetadata.Metadata.Values
-                                           .OfType<OrderValidationRuleMetadata>()
-                                           .Where(metadata => metadata.Features<DisabledForBusinessModelFeature>().All(f => f.BusinessModel != _businessModelSettings.BusinessModel)
-                                                              && validationRulesFilter(metadata))
-                                           .ToArray();
-
-            groupDescriptors = new List<OrderValidationRuleGroupDescriptor>(
-                            _orderedValidationRuleGroupsSequence.Select(orderValidationRuleGroup => GetGroupDescriptor(orderValidationRuleGroup, appropriateRulesMetadata)));
-            _ruleGroupsDescriptorsCache.Add(validationType, groupDescriptors);
-            
-            return groupDescriptors;
-        }
-
-        private OrderValidationRuleGroupDescriptor GetGroupDescriptor(OrderValidationRuleGroup ruleGroup, IEnumerable<OrderValidationRuleMetadata> rulesMetadata)
-        {
-            var groupDescriptor = new OrderValidationRuleGroupDescriptor { Group = ruleGroup };
-            var ruleDescriptors =
-                    rulesMetadata
-                        .Where(m => m.RuleGroup == ruleGroup)
-                        .Select(m => new OrderValidationRuleDescriptor
-                        {
-                            RuleType = m.RuleType,
-                            RuleCode = m.RuleCode,
-                            CachingExplicitlyDisabled = _orderValidationRulesSettings.RulesExplicitlyDisabledCaching.Contains(m.RuleType.Name)
-                        });
-            groupDescriptor.RuleDescriptors.AddRange(ruleDescriptors);
-
-            return groupDescriptor;
+            return new OrderValidationRuleDescriptor
+                {
+                    RuleType = ruleMetadata.RuleType,
+                    RuleCode = ruleMetadata.RuleCode,
+                    Enabled = ruleMetadata.Features<DisabledForBusinessModelFeature>().All(f => f.BusinessModel != _businessModelSettings.BusinessModel)
+                              && validationRulesFilter(ruleMetadata),
+                    UseCaching = groupUseCaching
+                                 && !_orderValidationRulesSettings.RulesExplicitlyDisabledCaching.Contains(ruleMetadata.RuleType.Name)
+                };
         }
 
         private sealed class OrderValidationRuleGroupDescriptor
@@ -151,6 +181,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             }
 
             public OrderValidationRuleGroup Group { get; set; }
+            public bool UseCaching { get; set; }
             public List<OrderValidationRuleDescriptor> RuleDescriptors { get; private set; }
         }
 
@@ -158,7 +189,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         {
             public Type RuleType { get; set; }
             public int RuleCode { get; set; }
-            public bool CachingExplicitlyDisabled { get; set; }
+            public bool Enabled { get; set; }
+            public bool UseCaching { get; set; }
         }
     }
 }
