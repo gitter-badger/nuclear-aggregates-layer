@@ -20,9 +20,9 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.OrderValidation
         public IOrderValidationRule Create(Type orderValidationRuleType)
         {
             var orderValidationRuleIndicator = typeof(IOrderValidationRule);
-            if (orderValidationRuleIndicator.IsAssignableFrom(orderValidationRuleType))
+            if (!orderValidationRuleIndicator.IsAssignableFrom(orderValidationRuleType))
             {
-                throw new InvalidOperationException("Specified type " + orderValidationRuleType.FullName + " doen't implement " + orderValidationRuleIndicator.FullName);
+                throw new InvalidOperationException("Specified type " + orderValidationRuleType.FullName + " doesn't implement " + orderValidationRuleIndicator.FullName);
             }
 
             return (IOrderValidationRule)_container.Resolve(orderValidationRuleType, Mapping.OrderValidationRulesScope);

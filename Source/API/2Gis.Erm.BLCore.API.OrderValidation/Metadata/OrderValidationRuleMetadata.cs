@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
@@ -13,8 +13,8 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
         private readonly int _ruleCode;
         private IMetadataElementIdentity _identity;
 
-        public OrderValidationRuleMetadata(Type ruleType, int ruleCode)
-            : base(Enumerable.Empty<IMetadataFeature>())
+        public OrderValidationRuleMetadata(Type ruleType, int ruleCode, IEnumerable<IMetadataFeature> features)
+            : base(features)
         {
             _identity = new Uri(ruleType.Name, UriKind.Relative).AsIdentity();
             _ruleType = ruleType;

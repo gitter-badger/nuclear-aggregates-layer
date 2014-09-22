@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 
         protected override OrderValidationRuleMetadata Create()
         {
-            return new OrderValidationRuleMetadata(_ruleType, _ruleCode);
+            return new OrderValidationRuleMetadata(_ruleType, _ruleCode, Features);
         }
     }
 }

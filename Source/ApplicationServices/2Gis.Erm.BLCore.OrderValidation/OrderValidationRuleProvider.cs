@@ -121,7 +121,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 return groupDescriptors;
             }
 
-            groupDescriptors = _orderedValidationRuleGroupsSequence.Select(targetRulesGroup => CreateGroupDescriptor(validationType, targetRulesGroup));
+            groupDescriptors = 
+                _orderedValidationRuleGroupsSequence
+                    .Select(targetRulesGroup => CreateGroupDescriptor(validationType, targetRulesGroup))
+                    .ToArray();
 
             _ruleGroupsDescriptorsCache.Add(validationType, groupDescriptors);
             return groupDescriptors;

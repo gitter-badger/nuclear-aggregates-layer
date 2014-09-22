@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
@@ -11,8 +11,8 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
         private readonly OrderValidationRuleGroup _ruleGroup;
         private IMetadataElementIdentity _identity;
 
-        public OrderValidationRuleGroupMetadata(OrderValidationRuleGroup ruleGroup)
-            : base(Enumerable.Empty<IMetadataFeature>())
+        public OrderValidationRuleGroupMetadata(OrderValidationRuleGroup ruleGroup, IEnumerable<IMetadataFeature> features)
+            : base(features)
         {
             _identity = IdBuilder.For<MetadataOrderValidationIdentity>("Rules", ruleGroup.ToString()).AsIdentity();
             _ruleGroup = ruleGroup;
