@@ -66,6 +66,9 @@ function window.onload()
     hideDropDownItem("Другие действия", "Активировать");
     hideById("_MBopenObj10006"); // Кнопка "Создать" в гриде "Лимиты"
     hideById("_MBopenObj10011"); // Кнопка "Создать" в гриде "Юр. лица клиента"
+    hideById("_MBopenObj10013"); // Кнопка "Создать" в гриде "Фирма"
+    hideById("_MBopenObj10023"); // Кнопка "Создать" в гриде "Лицевой счет"
+    hideById("_MBopenObj10026"); // Кнопка "Создать" в гриде "Заявка на создание заказа"
     /* End CRM Hack */
 }
 </script>

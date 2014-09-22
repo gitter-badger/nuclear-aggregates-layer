@@ -2212,6 +2212,33 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Продажа алкогольных напитков.
+        /// </summary>
+        public static string FasCommentChileAlcohol {
+            get {
+                return ResourceManager.GetString("FasCommentChileAlcohol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Продажа лекарств, лекарственных препаратов и медицинского оборудования.
+        /// </summary>
+        public static string FasCommentChileDrugsAndService {
+            get {
+                return ResourceManager.GetString("FasCommentChileDrugsAndService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Продажа лекарств, которые требуют рецепта.
+        /// </summary>
+        public static string FasCommentChileMedicalReceiptDrugs {
+            get {
+                return ResourceManager.GetString("FasCommentChileMedicalReceiptDrugs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [Not defined for current business model and language].
         /// </summary>
         public static string FasCommentDietarySupplement {
@@ -2253,6 +2280,33 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FasCommentDisplayTextChildNutrition {
             get {
                 return ResourceManager.GetString("FasCommentDisplayTextChildNutrition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextChileAlcohol {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextChileAlcohol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextChileDrugsAndService {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextChileDrugsAndService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextChileMedicalReceiptDrugs {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextChileMedicalReceiptDrugs", resourceCulture);
             }
         }
         
@@ -2334,6 +2388,33 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FasCommentDisplayTextSupplements {
             get {
                 return ResourceManager.GetString("FasCommentDisplayTextSupplements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextUkraineAlcohol {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineAlcohol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextUkraineDrugsAndService {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineDrugsAndService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Not defined for current business model and language].
+        /// </summary>
+        public static string FasCommentDisplayTextUkraineTobaccoGoods {
+            get {
+                return ResourceManager.GetString("FasCommentDisplayTextUkraineTobaccoGoods", resourceCulture);
             }
         }
         
@@ -2424,6 +2505,33 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FasCommentSupplements {
             get {
                 return ResourceManager.GetString("FasCommentSupplements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Реклама алкогольных напитков, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются алкогольные напитки.
+        /// </summary>
+        public static string FasCommentUkraineAlcohol {
+            get {
+                return ResourceManager.GetString("FasCommentUkraineAlcohol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Реклама лекарственных средств, медтехники, методов профилактики, диагностики, лечения и реабилитации.
+        /// </summary>
+        public static string FasCommentUkraineDrugsAndService {
+            get {
+                return ResourceManager.GetString("FasCommentUkraineDrugsAndService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Реклама табачных изделий, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются табачные изделия.
+        /// </summary>
+        public static string FasCommentUkraineTobaccoGoods {
+            get {
+                return ResourceManager.GetString("FasCommentUkraineTobaccoGoods", resourceCulture);
             }
         }
         

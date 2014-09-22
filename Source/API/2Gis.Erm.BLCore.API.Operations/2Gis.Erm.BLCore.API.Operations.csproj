@@ -72,6 +72,7 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
@@ -214,7 +215,6 @@
     <Compile Include="Generic\File\UploadFileParams.cs" />
     <Compile Include="Generic\File\UploadFileResult.cs" />
     <Compile Include="Generic\File\ValidateFileSettingsAspect.cs" />
-
     <Compile Include="Generic\List\RemoteCollection.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
@@ -233,6 +233,7 @@
     <Compile Include="Generic\Modify\Exceptions\Bargains\LegalPersonOrganizationUnitCodeIsUndefinedException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Deal\DealClientIsInReserveException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
@@ -272,7 +273,6 @@
     <Compile Include="Concrete\Old\Integration\ImportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ImportResponse.cs" />
     <Compile Include="Concrete\Old\Integration\MessageProcessingResponse.cs" />
-    <Compile Include="Concrete\Old\Integration\Olap\CalculateClientPromisingRequest.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForBranchRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForFranchiseesRequest.cs" />

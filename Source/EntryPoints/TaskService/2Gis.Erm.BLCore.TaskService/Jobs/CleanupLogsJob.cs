@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
+﻿using System;
+
+using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
@@ -31,10 +33,10 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
 
             // TODO {all, 09.04.2014}: раскомментировать или удалить после решения тикета ERM-3841
             // _cleanupPersistenceService.CleanupErmLogging(7200, _settings.LogSizeInDays);
-            _cleanupPersistenceService.CleanupErm(7200, _settings.LogSizeInDays);
+            _cleanupPersistenceService.CleanupErm(TimeSpan.FromHours(2), _settings.LogSizeInDays);
             
             // cleanup crm
-            _cleanupPersistenceService.CleanupCrm(7200, _settings.LogSizeInDays);
+            _cleanupPersistenceService.CleanupCrm(TimeSpan.FromHours(2), _settings.LogSizeInDays);
         }
     }
 }

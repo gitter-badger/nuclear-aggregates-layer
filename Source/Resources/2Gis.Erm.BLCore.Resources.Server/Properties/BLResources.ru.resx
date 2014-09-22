@@ -255,9 +255,6 @@
   <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value>Вы действительно хотите обработать выбранные сообщения?</value>
   </data>
-  <data name="GroupOperationResultsTitle" xml:space="preserve">
-    <value>Результаты выполнения операции</value>
-  </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value>{0}, тел. {1}, {2}</value>
   </data>
@@ -959,9 +956,6 @@
 Неблокирующих ошибок:{1}
 Блокирующих ошибок:{2}</value>
   </data>
-  <data name="AdvertisementElements" xml:space="preserve">
-    <value>Элементы рекламного материала</value>
-  </data>
   <data name="ActionsHistory" xml:space="preserve">
     <value>История изменений</value>
   </data>
@@ -1568,9 +1562,6 @@
   <data name="EditCurrency" xml:space="preserve">
     <value>Изменить валюту</value>
   </data>
-  <data name="AssignMustPickUser" xml:space="preserve">
-    <value>Выбран режим "Назначить пользователю", но пользователь не указан.</value>
-  </data>
   <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
     <value>Нельзя дективировать юридическое лицо клиента, данные о котором уже есть в 1С</value>
   </data>
@@ -1640,9 +1631,6 @@
   <data name="QualifyOwnerNotReserved" xml:space="preserve">
     <value>Данная фирма не числится в резерве.</value>
   </data>
-  <data name="QualifyMustPickClient" xml:space="preserve">
-    <value>Выбран режим "Указать клиента", но клиент не указан.</value>
-  </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value>Содержимое отсутствует</value>
   </data>
@@ -1681,9 +1669,6 @@
   </data>
   <data name="MergeClientsSameIdError" xml:space="preserve">
     <value>Нельзя выполнять слияние клиента с самим собой.</value>
-  </data>
-  <data name="DeactivateMustPickTerritory" xml:space="preserve">
-    <value>Необходимо указать территорию, на которую будут назначены клиенты и фирмы.</value>
   </data>
   <data name="PayableBudgetFact" xml:space="preserve">
     <value>К оплате (бюджет) факт</value>
@@ -2246,9 +2231,6 @@
   <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
     <value>Необходимо указать причину расторжения</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Закрыть</value>
-  </data>
   <data name="ExportLegalPersons" xml:space="preserve">
     <value>Выгрузить данные о юридических лицах клиентов</value>
   </data>
@@ -2440,9 +2422,6 @@
   </data>
   <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Нельзя добавить запрещенную позицию позиции прайс-листа в опубликованном прайс-листе</value>
-  </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
-    <value>Для выполнения данной операции необходимо выбрать одну запись.</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
     <value>Попытка сохранить Позицию заказа с отрицательной Суммой скидки</value>
@@ -2859,9 +2838,6 @@
   <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
     <value>Невозможно отредактировать деактивированный прайс-лист</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
-  </data>
   <data name="ConfirmActivationLegend" xml:space="preserve">
     <value>Выбрано {0} записей {1}, чтобы активировать.</value>
   </data>
@@ -3249,9 +3225,6 @@
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Идентификатор 1С</value>
   </data>
-  <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value>Необходимо указать другую причину закрытия Сделки.</value>
-  </data>
   <data name="AssignClient" xml:space="preserve">
     <value>Назначить Клиента</value>
   </data>
@@ -3338,9 +3311,6 @@
   </data>
   <data name="OperationTypeNotFound" xml:space="preserve">
     <value>Тип операции не найден</value>
-  </data>
-  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
-    <value>Для выполнения данной операции необходимо выбрать одну или несколько записей.</value>
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
     <value>Размер неизвестен</value>
@@ -3663,9 +3633,6 @@
   <data name="CopyPricetReplaceExisting" xml:space="preserve">
     <value>Переписать существующий</value>
   </data>
-  <data name="QualifyMustPickUser" xml:space="preserve">
-    <value>Выбран режим "Назначить другому пользователю", но пользователь не указан.</value>
-  </data>
   <data name="CurrencyRate" xml:space="preserve">
     <value>Курс валюты</value>
   </data>
@@ -3728,9 +3695,6 @@
   </data>
   <data name="Title1CIntegration" xml:space="preserve">
     <value>Интеграция с 1С</value>
-  </data>
-  <data name="SaveError" xml:space="preserve">
-    <value>Ошибка при сохранении</value>
   </data>
   <data name="AccesDeniedForMergingClients" xml:space="preserve">
     <value>Доступ запрещен.{0}Действие: Слияние.{0}Сущность: Клиент{0}</value>
@@ -3842,9 +3806,6 @@
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
     <value>Для выполнения данной операции необходимо выбрать неактивную Сделку</value>
-  </data>
-  <data name="GroupOperationResultsMessage" xml:space="preserve">
-    <value>Успешно обработано:{0}.Не удалось обработать:{1}. </value>
   </data>
   <data name="FirmEdit" xml:space="preserve">
     <value>Редактирование предприятия</value>
@@ -4631,9 +4592,6 @@
   <data name="MainPageHeader" xml:space="preserve">
     <value>2ГИС</value>
   </data>
-  <data name="DisplayErrorsList" xml:space="preserve">
-    <value>Просмотреть список ошибок...</value>
-  </data>
   <data name="MoDiUnknownError" xml:space="preserve">
     <value>Неизвестная ошибка в сервисе распределения денег</value>
   </data>
@@ -4793,9 +4751,6 @@
   </data>
   <data name="NotWorkingDay" xml:space="preserve">
     <value>Не работает</value>
-  </data>
-  <data name="DisabledFunctionality" xml:space="preserve">
-    <value>Данный функционал временно недоступен</value>
   </data>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у заказа № '{0}'</value>
@@ -5206,5 +5161,11 @@
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
+  </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value>Клиент сделки находится в резерве.</value>
+  </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Идет сборка. Редактирование позиции заказа запрещено.</value>
   </data>
 </root>

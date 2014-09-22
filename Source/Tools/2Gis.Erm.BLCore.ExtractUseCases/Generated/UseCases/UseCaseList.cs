@@ -1455,16 +1455,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.Olap.CalculateClientPromising\ExecuteInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CalculateClientPromisingHandler),
-                        Request = typeof(CalculateClientPromisingRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderPositionController\GetViewModel",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)

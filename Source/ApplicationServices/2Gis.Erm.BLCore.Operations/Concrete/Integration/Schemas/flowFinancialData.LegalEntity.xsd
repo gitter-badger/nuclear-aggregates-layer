@@ -167,6 +167,11 @@
         <xs:documentation>Тип договора</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="LegalEntityBranchCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор юридического лица отделения организации</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="LegalEntityBranchCode1C" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>Код 1С юридического лица отделения организации</xs:documentation>
