@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Formatter
                 "nineteen "
             };
 
-        public string Convert(int number)
+        public string Convert(long number)
         {
             var isNegative = false;
             if (number < 0m)

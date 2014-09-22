@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                 {
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
                     return x;
-                            });
+                });
         }
     }
 }
