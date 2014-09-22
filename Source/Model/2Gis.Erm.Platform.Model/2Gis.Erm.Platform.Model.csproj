@@ -273,10 +273,6 @@
       <Link>Entities\Erm\Building.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BuildingDomainEntityDto.cs">
-      <Link>Entities\DTOs\BuildingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstance.cs">
       <Link>Entities\Erm\BusinessEntityInstance.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -653,21 +649,17 @@
       <Link>Entities\Erm\PerformedBusinessOperation.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperationDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessing.cs">
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessingDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedOperationFinalProcessingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessing.cs">
       <Link>Entities\Erm\PerformedOperationPrimaryProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessingDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedOperationPrimaryProcessingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
       <Link>Entities\Erm\Platform.cs</Link>
@@ -1270,10 +1262,6 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnitDomainEntityDto.cs">
       <Link>Entities\DTOs\OrganizationUnitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperationDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PlatformDomainEntityDto.cs">
