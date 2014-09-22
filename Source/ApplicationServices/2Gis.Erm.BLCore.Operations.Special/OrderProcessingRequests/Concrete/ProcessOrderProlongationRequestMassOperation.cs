@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public void ProcessAll()
         {
-            foreach (var request in _orderProcessingRequestService.GetPrologationRequestsToProcess())
+            foreach (var request in _orderProcessingRequestService.GetProlongationRequestsToProcess())
             {
                 try
                 {

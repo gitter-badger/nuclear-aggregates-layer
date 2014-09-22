@@ -255,9 +255,6 @@
   <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value />
   </data>
-  <data name="GroupOperationResultsTitle" xml:space="preserve">
-    <value />
-  </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value />
   </data>
@@ -957,9 +954,6 @@
   <data name="LocalMessageProcessingResultTemplate" xml:space="preserve">
     <value />
   </data>
-  <data name="AdvertisementElements" xml:space="preserve">
-    <value />
-  </data>
   <data name="ActionsHistory" xml:space="preserve">
     <value />
   </data>
@@ -1563,9 +1557,6 @@
   <data name="EditCurrency" xml:space="preserve">
     <value />
   </data>
-  <data name="AssignMustPickUser" xml:space="preserve">
-    <value />
-  </data>
   <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
     <value />
   </data>
@@ -1635,9 +1626,6 @@
   <data name="QualifyOwnerNotReserved" xml:space="preserve">
     <value />
   </data>
-  <data name="QualifyMustPickClient" xml:space="preserve">
-    <value />
-  </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value />
   </data>
@@ -1675,9 +1663,6 @@
     <value />
   </data>
   <data name="MergeClientsSameIdError" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DeactivateMustPickTerritory" xml:space="preserve">
     <value />
   </data>
   <data name="PayableBudgetFact" xml:space="preserve">
@@ -2241,9 +2226,6 @@
   <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
     <value />
   </data>
-  <data name="Close" xml:space="preserve">
-    <value />
-  </data>
   <data name="ExportLegalPersons" xml:space="preserve">
     <value />
   </data>
@@ -2434,9 +2416,6 @@
     <value />
   </data>
   <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
     <value />
   </data>
   <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
@@ -2850,9 +2829,6 @@
   <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
     <value />
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value />
-  </data>
   <data name="ConfirmActivationLegend" xml:space="preserve">
     <value />
   </data>
@@ -3240,9 +3216,6 @@
   <data name="AccountingSystemId" xml:space="preserve">
     <value />
   </data>
-  <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value />
-  </data>
   <data name="AssignClient" xml:space="preserve">
     <value />
   </data>
@@ -3328,9 +3301,6 @@
     <value />
   </data>
   <data name="OperationTypeNotFound" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
     <value />
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
@@ -3642,9 +3612,6 @@
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value />
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value />
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value />
   </data>
@@ -3655,9 +3622,6 @@
     <value />
   </data>
   <data name="CopyPricetReplaceExisting" xml:space="preserve">
-    <value />
-  </data>
-  <data name="QualifyMustPickUser" xml:space="preserve">
     <value />
   </data>
   <data name="CurrencyRate" xml:space="preserve">
@@ -3721,9 +3685,6 @@
     <value />
   </data>
   <data name="Title1CIntegration" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SaveError" xml:space="preserve">
     <value />
   </data>
   <data name="AccesDeniedForMergingClients" xml:space="preserve">
@@ -3835,9 +3796,6 @@
     <value />
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GroupOperationResultsMessage" xml:space="preserve">
     <value />
   </data>
   <data name="FirmEdit" xml:space="preserve">
@@ -4623,9 +4581,6 @@
   <data name="MainPageHeader" xml:space="preserve">
     <value />
   </data>
-  <data name="DisplayErrorsList" xml:space="preserve">
-    <value />
-  </data>
   <data name="MoDiUnknownError" xml:space="preserve">
     <value />
   </data>
@@ -4783,9 +4738,6 @@
     <value />
   </data>
   <data name="NotWorkingDay" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DisabledFunctionality" xml:space="preserve">
     <value />
   </data>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
@@ -5188,6 +5140,15 @@
     <value />
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BillFileNameTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
     <value />
   </data>
 </root>

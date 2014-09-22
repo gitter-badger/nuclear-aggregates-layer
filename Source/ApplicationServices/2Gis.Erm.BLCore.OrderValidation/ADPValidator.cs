@@ -395,11 +395,24 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                             continue;
                         }
 
-                        if (suitablePosition.Order.Id == orderId &&
-                            suitablePosition.OrderPositionAdvertisementId <= pricePosition.OrderPositionAdvertisementId)
+                        // All denial rules are symmetrical so we don't want to output the same error twice
+                        // У пакетов нет OrderPositionAdvertisementId, поэтому их последовательность будем контроллировать через OrderPositionId (ERM-3572)
+                        if (suitablePosition.Type != PositionType.Composite || pricePosition.Type != PositionType.Composite)
                         {
-                            // All denial rules are symmetrical so we don't want to output the same error twice
-                            continue;
+                            if (suitablePosition.Order.Id == orderId &&
+                                suitablePosition.OrderPositionAdvertisementId <= pricePosition.OrderPositionAdvertisementId)
+                            {
+                                // All denial rules are symmetrical so we don't want to output the same error twice
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if (suitablePosition.Order.Id == orderId &&
+                                suitablePosition.OrderPositionId <= pricePosition.OrderPositionId)
+                            {
+                                continue;
+                            }
                         }
 
                         // Пакет не может быть запрещен своей подпозиции

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -15,21 +16,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
     public class ImportBuildingAggregateService : IImportBuildingAggregateService
     {
-        // timeout should be increased due to long sql updates (15:00:00 min = 900 sec)
-        private const int ImportCommandTimeout = 900;
+        // timeout should be increased due to long sql updates
+        private readonly TimeSpan _importCommandTimeout = TimeSpan.FromMinutes(15);
 
-        private readonly IFirmPersistenceService _firmPersistanceService;
+        private readonly IFirmPersistenceService _firmPersistenceService;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public ImportBuildingAggregateService(IFirmPersistenceService firmPersistanceService, IOperationScopeFactory scopeFactory)
+        public ImportBuildingAggregateService(IFirmPersistenceService firmPersistenceService, IOperationScopeFactory scopeFactory)
         {
-            _firmPersistanceService = firmPersistanceService;
+            _firmPersistenceService = firmPersistenceService;
             _scopeFactory = scopeFactory;
         }
 
-        public void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos,
-                                                 string regionalTerritoryLocaleSpecificWord,
-                                                 bool enableReplication)
+        public void ImportBuildingFromServiceBus(IEnumerable<BuildingServiceBusDto> buildingDtos, string regionalTerritoryLocaleSpecificWord, bool enableReplication, bool useWarehouseIntegration)
         {
             var filteredBuildingDtos = buildingDtos.Where(x => x.SaleTerritoryCode != null || x.IsDeleted);
 
@@ -48,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
                 using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Building>())
                 {
                     // TODO {all, 08.07.2014}: пока UpdateBuildings возвращает только измененные фирмы, если необходимо будет логироать все изменения (например, по клиентам для целей репликации в CRM) - нужно дорабатывать хранимку
-                    var updatedFirms = _firmPersistanceService.UpdateBuildings(xml, ImportCommandTimeout, regionalTerritoryLocaleSpecificWord, enableReplication);
+                    var updatedFirms = _firmPersistenceService.UpdateBuildings(xml, _importCommandTimeout, regionalTerritoryLocaleSpecificWord, enableReplication, useWarehouseIntegration);
 
                     scope.Updated<Firm>(updatedFirms)
                          .Complete();
@@ -60,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
             if (deletedBuildingCodes.Any())
             {
                 var xml = SerializeDeletedBuildingCodes(deletedBuildingCodes);
-                _firmPersistanceService.DeleteBuildings(xml, ImportCommandTimeout);
+                _firmPersistenceService.DeleteBuildings(xml, _importCommandTimeout);
             }
         }
 

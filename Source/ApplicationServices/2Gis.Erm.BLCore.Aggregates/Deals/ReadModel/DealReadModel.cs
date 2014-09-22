@@ -57,5 +57,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel
                     .ToArray();
             return result;
         }
+
+        public IEnumerable<Deal> GetDealsByMainFirmIds(IEnumerable<long> mainFirmIds)
+        {
+            return _finder.Find(DealSpecs.Deals.Find.ByMainFirms(mainFirmIds)).ToArray();
+        } 
     }
 }

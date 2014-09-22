@@ -255,9 +255,6 @@
   <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value>Skutečně si přejete zpracovat vybrané zprávy?</value>
   </data>
-  <data name="GroupOperationResultsTitle" xml:space="preserve">
-    <value>Výsledky operace</value>
-  </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value>{0}, tel {1}, {2}</value>
   </data>
@@ -959,9 +956,6 @@
 Neblokující chyby:{1}
 Blokujících chyb:{2}</value>
   </data>
-  <data name="AdvertisementElements" xml:space="preserve">
-    <value>Prvky reklamního materiálu</value>
-  </data>
   <data name="ActionsHistory" xml:space="preserve">
     <value>Historie změn</value>
   </data>
@@ -1568,9 +1562,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="EditCurrency" xml:space="preserve">
     <value>Změnit měnu</value>
   </data>
-  <data name="AssignMustPickUser" xml:space="preserve">
-    <value>Vybrán režim „Přidělit uživateli“, uživatel však není uveden.</value>
-  </data>
   <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
     <value>Není možné deaktivovat právnickou osobu klienta, jejíž udaje jsou již zavedeny do 1C</value>
   </data>
@@ -1640,9 +1631,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="QualifyOwnerNotReserved" xml:space="preserve">
     <value>Tato firma není v rezervě.</value>
   </data>
-  <data name="QualifyMustPickClient" xml:space="preserve">
-    <value>Vybrán režim „Uvést klienta“, klient však není uveden </value>
-  </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value>Chybí obsah</value>
   </data>
@@ -1681,9 +1669,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="MergeClientsSameIdError" xml:space="preserve">
     <value>Nelze slučovat klienta se sebou samým.</value>
-  </data>
-  <data name="DeactivateMustPickTerritory" xml:space="preserve">
-    <value>Je třeba uvést území, ke kterému budou přiděleni klienti a firmy.</value>
   </data>
   <data name="PayableBudgetFact" xml:space="preserve">
     <value>K úhradě (rozpočet) skut.</value>
@@ -2246,9 +2231,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
     <value>Je třeba uvést důvod zrušení</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Zavřít</value>
-  </data>
   <data name="ExportLegalPersons" xml:space="preserve">
     <value>Načíst údaje o právnických osobách klientů</value>
   </data>
@@ -2440,9 +2422,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Není možné přidat zakázanou položku v ceníkové položce zveřejněného ceníku</value>
-  </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
-    <value>Pro provedení této operace je třeba vybrat jeden záznam.</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
     <value>Pokus o uložení položky objednávky se zápornou slevou</value>
@@ -2859,9 +2838,6 @@ Operace provedena: {4}.</value>
   <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
     <value>Není možné upravovat deaktivovaný ceník</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.</value>
-  </data>
   <data name="ConfirmActivationLegend" xml:space="preserve">
     <value>K aktivaci bylo vybráno {0} záznamů {1}.</value>
   </data>
@@ -3249,9 +3225,6 @@ Operace provedena: {4}.</value>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identifikátor 1C</value>
   </data>
-  <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value>Je třeba uvést jiný důvod ukončení obchodní transakce.</value>
-  </data>
   <data name="AssignClient" xml:space="preserve">
     <value>Přidělit klienta</value>
   </data>
@@ -3338,9 +3311,6 @@ Operace provedena: {4}.</value>
   </data>
   <data name="OperationTypeNotFound" xml:space="preserve">
     <value>Typ operace nebyl nalezen</value>
-  </data>
-  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
-    <value>Pro provedení této operace je třeba vybrat jeden nebo více záznamů.</value>
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
     <value>Neznámá velikost</value>
@@ -3651,9 +3621,6 @@ Operace provedena: {4}.</value>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Provedené změny nebyly uloženy. Abyste zůstali na této stránce a mohli změny uložit, stiskněte tlačítko „Zrušit“.</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value>Pokus o uložení rozpočtové položky objednávky s nenulovou výší slevy</value>
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value>V profilu {0} pr. osoby klienta je uvedena smlouva, jejíž platnost končí před datem podepsání objednávky.</value>
   </data>
@@ -3665,9 +3632,6 @@ Operace provedena: {4}.</value>
   </data>
   <data name="CopyPricetReplaceExisting" xml:space="preserve">
     <value>Přepsat aktuální</value>
-  </data>
-  <data name="QualifyMustPickUser" xml:space="preserve">
-    <value>Vybrán režim „Přidělit jinému uživateli“, není však uveden uživatel.</value>
   </data>
   <data name="CurrencyRate" xml:space="preserve">
     <value>Směnný kurz</value>
@@ -3731,9 +3695,6 @@ Operace provedena: {4}.</value>
   </data>
   <data name="Title1CIntegration" xml:space="preserve">
     <value>Integrace s 1C</value>
-  </data>
-  <data name="SaveError" xml:space="preserve">
-    <value>Při ukládání došlo k chybě</value>
   </data>
   <data name="AccesDeniedForMergingClients" xml:space="preserve">
     <value>Přístup odepřen.{0}Akce: Sloučení.{0}Entita: Klient{0}</value>
@@ -3845,9 +3806,6 @@ Operace provedena: {4}.</value>
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
     <value>Pro provedení této operace je třeba vybrat neaktivní obchodní transakci</value>
-  </data>
-  <data name="GroupOperationResultsMessage" xml:space="preserve">
-    <value>Úspěšně zpracováno:{0}.Nebylo možné zpracovat:{1}. </value>
   </data>
   <data name="FirmEdit" xml:space="preserve">
     <value>Úprava podniku</value>
@@ -4633,9 +4591,6 @@ Operace provedena: {4}.</value>
   <data name="MainPageHeader" xml:space="preserve">
     <value>2GIS</value>
   </data>
-  <data name="DisplayErrorsList" xml:space="preserve">
-    <value>Zobrazit seznam chyb...</value>
-  </data>
   <data name="MoDiUnknownError" xml:space="preserve">
     <value>Neznámá chyba v servisu rozdělení peněz</value>
   </data>
@@ -4795,9 +4750,6 @@ Kontakt: {1}</value>
   </data>
   <data name="NotWorkingDay" xml:space="preserve">
     <value>Mimo provoz</value>
-  </data>
-  <data name="DisabledFunctionality" xml:space="preserve">
-    <value>Tato funkce je dočasně nedostupná</value>
   </data>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
     <value>Nemáte dostatečné oprávnění pro změnu správce u objednávky č. „{0}“</value>
@@ -5205,5 +5157,14 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Nelze zadat neaktivní příčinu odmítnutí</value>
+  </data>
+  <data name="BillFileNameTemplate" xml:space="preserve">
+    <value>{0}-faktury.zip</value>
+  </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value>Klient z objednávky je v rezervě.</value>
+  </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Probíhá aktualizace. Editace objednávky je zakazána.</value>
   </data>
 </root>

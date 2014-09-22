@@ -596,6 +596,1444 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateAccount]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomain [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateAccount_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateAccount_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateAccount]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomain [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateAccount_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateAccount_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateAccountDetail]
+        ///	@ID bigint = NULL
+        ///WITH EXECUTE AS CALLER
+        ///AS
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateAccountDetail_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateAccountDetail_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateAccountDetail]
+        ///	@ID bigint = NULL
+        ///WITH EXECUTE AS CALLER
+        ///AS
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateAccountDetail_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateAccountDetail_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   15.07.2014, y.baranihin: репликация типа договора и даты окончания действия
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateBargain]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///	
+        ///    IF @Id IS NULL
+        ///	    RETURN 0;
+        ///		
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVAR [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateBargain_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateBargain_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   15.07.2014, y.baranihin: репликация типа договора и даты окончания действия
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateBargain]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///	
+        ///    IF @Id IS NULL
+        ///	    RETURN 0;
+        ///		
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVAR [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateBargain_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateBargain_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateBranchOffice]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///    SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUse [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateBranchOffice_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateBranchOffice_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateBranchOffice]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///    SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUse [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateBranchOffice_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateBranchOffice_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateBranchOfficeOrganizationUnit]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateBranchOfficeOrganizationUnit_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateBranchOfficeOrganizationUnit_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateBranchOfficeOrganizationUnit]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateBranchOfficeOrganizationUnit_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateBranchOfficeOrganizationUnit_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateClient]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateClient_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateClient_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateClient]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateClient_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateClient_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateContact]
+        ///	@Id bigint = NULL
+        ///AS
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainNam [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateContact_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateContact_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateContact]
+        ///	@Id bigint = NULL
+        ///AS
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainNam [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateContact_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateContact_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateContacts]
+        ///	@Ids [Shared].[Int64IdsTableType] readonly
+        ///AS
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF Not Exists (SELECt * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @ReferenceInfo Table (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByU [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateContacts_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateContacts_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateContacts]
+        ///	@Ids [Shared].[Int64IdsTableType] readonly
+        ///AS
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF Not Exists (SELECt * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @ReferenceInfo Table (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByU [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateContacts_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateContacts_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateCurrency]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateCurrency_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateCurrency_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateCurrency]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateCurrency_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateCurrency_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   23.07.2014, i.maslennikov: drop deal profit indicators 
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateDeal]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    
+        ///        SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateDeal_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateDeal_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   23.07.2014, i.maslennikov: drop deal profit indicators 
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateDeal]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    
+        ///        SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateDeal_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateDeal_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateLegalPerson]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///   	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUser [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateLegalPerson_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateLegalPerson_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateLegalPerson]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///   	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUser [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateLegalPerson_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateLegalPerson_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateLimit]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainNam [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateLimit_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateLimit_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateLimit]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainNam [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateLimit_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateLimit_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOperationType]
+        ///	@ID bigint = NULL
+        ///WITH EXECUTE AS CALLER
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOperationType_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOperationType_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOperationType]
+        ///	@ID bigint = NULL
+        ///WITH EXECUTE AS CALLER
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOperationType_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOperationType_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrder]
+        ///	@Id bigint = NULL
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainName [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrder_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrder_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrder]
+        ///	@Id bigint = NULL
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainName [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrder_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrder_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrderPosition]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserD [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrderPosition_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrderPosition_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrderPosition]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserD [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrderPosition_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrderPosition_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.10.2013, a.rechkalov: Исправил репликацию идентификаторов пользователей
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrderProcessingRequest]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrderProcessingRequest_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrderProcessingRequest_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.10.2013, a.rechkalov: Исправил репликацию идентификаторов пользователей
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrderProcessingRequest]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrderProcessingRequest_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrderProcessingRequest_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrganizationUnit]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedB [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrganizationUnit_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrganizationUnit_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicateOrganizationUnit]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedB [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrganizationUnit_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrganizationUnit_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicatePosition]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUs [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicatePosition_24233 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicatePosition_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Billing].[ReplicatePosition]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///
+        ///    
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUs [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicatePosition_24271 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicatePosition_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateCategory]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedBy [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateCategory_24233 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateCategory_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateCategory]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedBy [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateCategory_24271 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateCategory_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirm]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUser [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateFirm_24233 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateFirm_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirm]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUser [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateFirm_24271 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateFirm_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddress]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///	DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///	DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///	DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///	DECLARE @ModifiedByUserDo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateFirmAddress_24233 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateFirmAddress_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddress]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///	DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///	DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///	DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///	DECLARE @ModifiedByUserDo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateFirmAddress_24271 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateFirmAddress_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddresses]
+        ///	@Ids [Shared].[Int64IdsTableType] readonly
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF Not Exists (SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 Modifi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateFirmAddresses_24271 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateFirmAddresses_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirms]
+        ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF NOT EXISTS(SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///	
+        ///	BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 ModifiedByUserD [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateFirms_24271 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateFirms_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritories]
+        ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF NOT EXISTS(SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///		BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///    CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 Modifi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateTerritories_24271 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateTerritories_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritory]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedB [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateTerritory_24233 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateTerritory_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritory]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedB [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateTerritory_24271 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateTerritory_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SET ANSI_NULLS ON
+        ///GO
+        ///
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///
+        ///CREATE VIEW [dbo].[SystemUserErmView]
+        ///WITH SCHEMABINDING
+        ///AS
+        ///SELECT LEFT(STUFF([DomainName], 1, CHARINDEX(&apos;\&apos;, [DomainName]), &apos;&apos;), 250) AS [ErmUserAccount],
+        ///       [SystemUserId],
+        ///	   [BusinessUnitId],
+        ///	   [OrganizationId]
+        ///FROM  [dbo].[SystemUserBase]	 
+        ///GO
+        ///
+        ///CREATE UNIQUE CLUSTERED INDEX [IX_SystemUserErmView_SystemUserId] ON [dbo].[SystemUserErmView] ([SystemUserId])
+        ///CREATE NONCLUSTERED INDEX [IX_SystemUserErmView_ErmUserAccount] ON [dbo].[S [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _dbo___SystemUserErmView_24270 {
+            get {
+                return ResourceManager.GetString("_dbo___SystemUserErmView_24270", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   29.05.2014, a.gutorov: Добавления условия при Update, чтобы заменялись только различающиеся значения.
+        ///--   18.09.2014, a.tukaev: fix ERM-4939 - поддержка отложенной репликации
+        ///ALTER PROCEDURE [Integration].[CalculateClientPromising]
+        ///    @ModifiedBy BIGINT = NULL
+        ///    WITH EXECUTE AS CALLER
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    DECLARE @ClientUpdatedIds TABLE ( Id BIGINT PRIMARY KEY )
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRA [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Integration___CalculateClientPromising_24362 {
+            get {
+                return ResourceManager.GetString("_Integration___CalculateClientPromising_24362", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Security].[ReplicateUser]
+        ///	@Id bigint = NULL
+        ///WITH EXECUTE AS CALLER
+        ///AS
+        ///
+        ///    SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	--Логин пользователя в системе erm, даёт нам пользователя в crm
+        ///	declare @login as nvarchar(255)
+        ///	select @login = Account from Security.Users [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Security___ReplicateUser_24233 {
+            get {
+                return ResourceManager.GetString("_Security___ReplicateUser_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Security].[ReplicateUser]
+        ///	@Id bigint = NULL
+        ///WITH EXECUTE AS CALLER
+        ///AS
+        ///
+        ///    SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	--Логин пользователя в системе erm, даёт нам пользователя в crm
+        ///	declare @login as nvarchar(255)
+        ///	select @login = Account from Security.Users [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Security___ReplicateUser_24271 {
+            get {
+                return ResourceManager.GetString("_Security___ReplicateUser_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Security].[ReplicateUserTerritory]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///SET NOCOUNT ON;
+        ///	
+        ///IF @Id IS NULL
+        ///	RETURN 0;
+        ///
+        ///SET XACT_ABORT ON;
+        ///
+        ///--Логин пользователя в системе erm, даёт нам пользователя в crm
+        ///declare @login as nvarchar(255)
+        ///select @login = Account from Security.Users inner join Security.User [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Security___ReplicateUserTerritory_24233 {
+            get {
+                return ResourceManager.GetString("_Security___ReplicateUserTerritory_24233", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///ALTER PROCEDURE [Security].[ReplicateUserTerritory]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///SET NOCOUNT ON;
+        ///	
+        ///IF @Id IS NULL
+        ///	RETURN 0;
+        ///
+        ///SET XACT_ABORT ON;
+        ///
+        ///--Логин пользователя в системе erm, даёт нам пользователя в crm
+        ///declare @login as nvarchar(255)
+        ///select @login = Account from Security.Users inner join Security.User [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Security___ReplicateUserTerritory_24271 {
+            get {
+                return ResourceManager.GetString("_Security___ReplicateUserTerritory_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///  &lt;/Entities&gt;
@@ -700,6 +2138,21 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
             get {
                 object obj = ResourceManager.GetObject("DoubleGis_Erm_SqlClr", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///-- 05.06.2013, a.rechkalov: добавил параметр RegionalTerritoryLocalName
+        ///-- 05.06.2013, a.rechkalov: добавил условие, чтобы в Integration.Builings не пытался вставиться NULL
+        ///-- 24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///-- 05.07.2013, a.rechkalov: слияние с версией из 0.18, из ветки пришло изменение: возврат идентификаторов фирм из хранимки вместо записи их в таблицу
+        ///-- 09.07.2013, v.sinitsyn: поправлен вызов STR(FirmCode): для больших значений возвращал &apos;*********************&apos;
+        ///-- 27.08.2 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ImportCardsFromXml_23795 {
+            get {
+                return ResourceManager.GetString("ImportCardsFromXml_23795", resourceCulture);
             }
         }
         
@@ -1104,6 +2557,44 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string Migration20435 {
             get {
                 return ResourceManager.GetString("Migration20435", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   12.12.2013, a.tukaev: fix ERM-2651 
+        ///ALTER PROCEDURE [Shared].[GetFirmTerritories](
+        ///	@FirmIds Shared.Int64IdsTableType READONLY,
+        ///	@RegionalTerritoryLocalName nvarchar(255)
+        ///)
+        ///AS
+        ///BEGIN
+        ///	-- определяем первый активный адрес для фирмы, чтобы далее обновить у нее территорию 
+        ///	-- сначала смотрим только активные адреса
+        ///        DECLARE @FirmTerritoriesInfo TABLE(SortingPosition int NOT NULL, FirmId bigint NOT NULL, TerritoryId bigint NULL)
+        ///        INSERT INTO @FirmTerritoriesInfo
+        ///        S [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration22583_GetFirmTerritories {
+            get {
+                return ResourceManager.GetString("Migration22583_GetFirmTerritories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   30.07.2013, a.tukaev: [ERM-387] заменил все вхождения Territories.DgppId на Territories.Id
+        ///--   10.09.2013, y.baranihin: dgppid-&gt;id
+        ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode
+        ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
+        ///--   29.01.2014, y.baranihin: при изменении территории у фирмы будем проставлять дату изменения
+        ///--   30.01.2014, y.baranihin: включаем репликацию клиентов
+        ///--   14.02.2014, a.tuk [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration22583_UpdateBuildings {
+            get {
+                return ResourceManager.GetString("Migration22583_UpdateBuildings", resourceCulture);
             }
         }
         

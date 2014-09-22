@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations
                 Operation.ProcessAll();
 
             It should_get_order_processing_requests = () =>
-                Mock.Get(OrderProcessingRequestService).Verify(x => x.GetPrologationRequestsToProcess(), Times.Once);
+                Mock.Get(OrderProcessingRequestService).Verify(x => x.GetProlongationRequestsToProcess(), Times.Once);
         }
     }
 }

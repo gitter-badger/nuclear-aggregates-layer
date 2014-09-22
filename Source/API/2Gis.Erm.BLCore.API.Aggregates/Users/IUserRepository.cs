@@ -13,32 +13,26 @@ using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.Organi
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
 {
     public interface IUserRepository : IAggregateRootRepository<User>,
-                                       IActivateAggregateRepository<User>,
                                        IActivateAggregateRepository<Department>,
                                        IActivateAggregateRepository<OrganizationUnit>,
-                                       IDeactivateAggregateRepository<User>,
                                        IDeactivateAggregateRepository<OrganizationUnit>,
                                        IDeactivateAggregateRepository<Territory>,
                                        IDeactivateAggregateRepository<Department>,
                                        IDeleteAggregateRepository<OrganizationUnit>,
                                        IDeleteAggregateRepository<UserOrganizationUnit>
     {
-        int Activate(User user);
         int Activate(Department department);
         int Activate(OrganizationUnit organizationUnit);
-        int Deactivate(User user);
         int Deactivate(OrganizationUnit organizationUnit);
         int Deactivate(Territory territory);
         int Deactivate(Department department);
-        int Delete(OrganizationUnit unit);
+        int Delete(OrganizationUnit organizationUnit);
 
         int Delete(UserRole userRole);
         int Delete(UserOrganizationUnit userOrganizationUnit);
-        int Delete(UserTerritory userTerritory);
 
         int DeleteUserRole(long userId, long roleId);
         int DeleteUserOrganizationUnit(long userId, long organizationUnitId);
-        int DeleteUserTerritory(long userId, long territoryId);
 
         IEnumerable<User> GetUsersByDepartments(IEnumerable<long> departmentIds);
         IEnumerable<User> GetUsersByTerritory(long territoryId);
@@ -78,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
 
         void CreateOrUpdate(OrganizationUnit organizationUnit);
 
-        void AssignUserRelatedEntites(long userId, long newOwnerCode);
+        void AssignUserRelatedEntities(long userId, long newOwnerCode);
 
         bool TryGetSingleUserOrganizationUnit(long userId, out OrganizationUnit organizationUnit);
 

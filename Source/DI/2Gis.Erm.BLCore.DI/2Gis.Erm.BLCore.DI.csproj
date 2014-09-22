@@ -75,7 +75,7 @@
     <Compile Include="Config\CommonBootstrapper.Initialize.cs" />
     <Compile Include="Config\CommonBootstrapper.Aspects.cs" />
     <Compile Include="Config\CommonBootstrapper.Workflow.cs" />
-    <Compile Include="Config\MassProcessing\IntergationServicesMassProcessor.cs" />
+    <Compile Include="Config\MassProcessing\IntegrationServicesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\CheckApplicationServicesConventionsMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\OrderValidationRuleMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\RequestHandlersMassProcessor.cs" />
@@ -113,6 +113,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
       <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
       <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
+      <Project>{E97BC051-BC95-4183-950B-0685DDE66D7D}</Project>
+      <Name>2Gis.Erm.Platform.AppFabric</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
       <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>

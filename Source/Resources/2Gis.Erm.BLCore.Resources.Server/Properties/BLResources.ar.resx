@@ -255,9 +255,6 @@
   <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value>Do you really want to process selected messages?</value>
   </data>
-  <data name="GroupOperationResultsTitle" xml:space="preserve">
-    <value>Results of the operation</value>
-  </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value>{0}, tel. {1}, {2}</value>
   </data>
@@ -959,9 +956,6 @@
 Non-locking errors:{1}
 Locking errors:{2}</value>
   </data>
-  <data name="AdvertisementElements" xml:space="preserve">
-    <value>Components of advertising material</value>
-  </data>
   <data name="ActionsHistory" xml:space="preserve">
     <value>Change history</value>
   </data>
@@ -1567,9 +1561,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="EditCurrency" xml:space="preserve">
     <value>Change currency</value>
   </data>
-  <data name="AssignMustPickUser" xml:space="preserve">
-    <value>The "Assign to the user" is selected but the user is not specified.</value>
-  </data>
   <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
     <value>You cannot deactivate client's legal entity whose data is already present in 1C</value>
   </data>
@@ -1639,9 +1630,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="QualifyOwnerNotReserved" xml:space="preserve">
     <value>This company is not listed in the reserve.</value>
   </data>
-  <data name="QualifyMustPickClient" xml:space="preserve">
-    <value>"Specify client" mode is selected but the client is not specified.</value>
-  </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value>Content is unavailable</value>
   </data>
@@ -1680,9 +1668,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="MergeClientsSameIdError" xml:space="preserve">
     <value>Cannot merge a client with itself.</value>
-  </data>
-  <data name="DeactivateMustPickTerritory" xml:space="preserve">
-    <value>Specify the territory to which clients and companies will be assigned.</value>
   </data>
   <data name="PayableBudgetFact" xml:space="preserve">
     <value>Due for payment (budget), actual</value>
@@ -2245,9 +2230,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
     <value>Please specify the reason for cancellation</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="ExportLegalPersons" xml:space="preserve">
     <value>Upload data about legal entities of clients</value>
   </data>
@@ -2439,9 +2421,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Cannot add a prohibited price-list item in a published price-list</value>
-  </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
-    <value>Select one record to perform this operation.</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
     <value>Attempt to save an order item with a negative discount</value>
@@ -2858,9 +2837,6 @@ The operation has been executed: {4}.</value>
   <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
     <value>Impossible to edit a deactivated price-list</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Process of after-sake service generation has been started. This is a long-term process, its progress can be tracked in the operations logbook.</value>
-  </data>
   <data name="ConfirmActivationLegend" xml:space="preserve">
     <value>{0} records {1} are selected for activation.</value>
   </data>
@@ -3248,9 +3224,6 @@ The operation has been executed: {4}.</value>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>1C identifier</value>
   </data>
-  <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value>Please specify another reason of the opportunity closure</value>
-  </data>
   <data name="AssignClient" xml:space="preserve">
     <value>Assign Client</value>
   </data>
@@ -3337,9 +3310,6 @@ The operation has been executed: {4}.</value>
   </data>
   <data name="OperationTypeNotFound" xml:space="preserve">
     <value>Operation type is not found</value>
-  </data>
-  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
-    <value>Select one or several records to perform this operation.</value>
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
     <value>The size is not known</value>
@@ -3650,9 +3620,6 @@ The operation has been executed: {4}.</value>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Changes are not saved. To remain on the page and save changes, click "Cancel".</value>
   </data>
-  <data name="AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount" xml:space="preserve">
-    <value>Attempt to save a budget item of the order with a non-zero discount</value>
-  </data>
   <data name="ProfileBargainEndDateIsLessThanSignDate" xml:space="preserve">
     <value>A contract with expiry date earlier than the date of order signature is specified in the profile {0} of the client's legal entity.</value>
   </data>
@@ -3664,9 +3631,6 @@ The operation has been executed: {4}.</value>
   </data>
   <data name="CopyPricetReplaceExisting" xml:space="preserve">
     <value>Rewrite existing</value>
-  </data>
-  <data name="QualifyMustPickUser" xml:space="preserve">
-    <value>The mode "Assign to another user" is selected but the user is not specified.</value>
   </data>
   <data name="CurrencyRate" xml:space="preserve">
     <value>Currency exchange rate</value>
@@ -3730,9 +3694,6 @@ The operation has been executed: {4}.</value>
   </data>
   <data name="Title1CIntegration" xml:space="preserve">
     <value>Integration with 1C</value>
-  </data>
-  <data name="SaveError" xml:space="preserve">
-    <value>Error while saving</value>
   </data>
   <data name="AccesDeniedForMergingClients" xml:space="preserve">
     <value>Access is denied.{0}Action: Merging.{0}Entity: Client {0}</value>
@@ -3844,9 +3805,6 @@ The operation has been executed: {4}.</value>
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
     <value>Select non-active Opportunity in order to perform this operation</value>
-  </data>
-  <data name="GroupOperationResultsMessage" xml:space="preserve">
-    <value>Processed successfully:{0}.Failed to process:{1}. </value>
   </data>
   <data name="FirmEdit" xml:space="preserve">
     <value>Editing of the enterprise</value>
@@ -4633,9 +4591,6 @@ The operation has been executed: {4}.</value>
   <data name="MainPageHeader" xml:space="preserve">
     <value>2GIS</value>
   </data>
-  <data name="DisplayErrorsList" xml:space="preserve">
-    <value>Review list of errors...</value>
-  </data>
   <data name="MoDiUnknownError" xml:space="preserve">
     <value>Unknown error in the money distribution service</value>
   </data>
@@ -4795,9 +4750,6 @@ Contact: {1}</value>
   </data>
   <data name="NotWorkingDay" xml:space="preserve">
     <value>day off</value>
-  </data>
-  <data name="DisabledFunctionality" xml:space="preserve">
-    <value>This functionality is temporarily unavailable</value>
   </data>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
     <value>Not enough rights to change the owner for the order No. '{0}'</value>
@@ -5205,5 +5157,14 @@ Placement period: {3}.</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Cannot specify an inactive rejection reason</value>
+  </data>
+  <data name="BillFileNameTemplate" xml:space="preserve">
+    <value>{0}-bills.zip</value>
+  </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value>The opportunity client is in the reserve.</value>
+  </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Building. Order item editing is not allowed.</value>
   </data>
 </root>
