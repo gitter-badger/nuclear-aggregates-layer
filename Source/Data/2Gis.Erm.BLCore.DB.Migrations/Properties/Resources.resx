@@ -451,4 +451,10 @@
   <data name="_Integration___CalculateClientPromising_24362" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.18 rev. 24362\[integration].[calculateclientpromising].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="_BusinessDirectory___ReplicateTerritories_24551" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.22 rev. 24551\[businessdirectory].[replicateterritories].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateTerritory_24551" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.22 rev. 24551\[businessdirectory].[replicateterritory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>
