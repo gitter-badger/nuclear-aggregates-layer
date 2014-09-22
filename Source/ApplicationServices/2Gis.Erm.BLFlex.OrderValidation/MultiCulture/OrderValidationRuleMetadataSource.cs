@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata;
@@ -54,7 +53,6 @@ namespace DoubleGis.Erm.BLFlex.OrderValidation.MultiCulture
         private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =
             OrderValidationRuleGroupMetadata.Config
                 .Group(OrderValidationRuleGroup.AdvertisementMaterialsValidation)
-                .UseCaching
                 .Rules(OrderValidationRuleMetadata.Config.Rule<AdvertisementsWithoutWhiteListOrderValidationRule>(22)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
@@ -64,7 +62,6 @@ namespace DoubleGis.Erm.BLFlex.OrderValidation.MultiCulture
          private readonly OrderValidationRuleGroupMetadata _advertisementAmountGroupMetadata =
             OrderValidationRuleGroupMetadata.Config
                 .Group(OrderValidationRuleGroup.AdvertisementAmountValidation)
-                .UseCaching
                 .Rules(OrderValidationRuleMetadata.Config.Rule<AdvertisementForCategoryAmountOrderValidationRule>(31)
                                                                                 .DisableFor(BusinessModel.Cyprus)
                                                                                 .DisableFor(BusinessModel.Czech)
