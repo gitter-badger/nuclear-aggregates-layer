@@ -1945,4 +1945,40 @@
   <data name="EntityNameBank" xml:space="preserve">
     <value>Банк</value>
   </data>
+  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
+    <value>Реклама лекарственных средств, медтехники, методов профилактики, диагностики, лечения и реабилитации</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>Реклама алкогольных напитков, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются алкогольные напитки</value>
+  </data>
+  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
+    <value>Реклама табачных изделий, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются табачные изделия</value>
+  </data>
+  <data name="FasCommentChileAlcohol" xml:space="preserve">
+    <value>Продажа алкогольных напитков</value>
+  </data>
+  <data name="FasCommentChileDrugsAndService" xml:space="preserve">
+    <value>Продажа лекарств, лекарственных препаратов и медицинского оборудования</value>
+  </data>
+  <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>Продажа лекарств, которые требуют рецепта</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
+    <value>Самолечение может быть вредным для вашего здоровья.</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>Чрезмерное потребление алкоголя вредно для вашего здоровья.</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
+    <value>Курение может вызывать заболевание на рак.</value>
+  </data>
+  <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
 </root>

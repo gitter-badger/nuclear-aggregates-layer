@@ -1957,4 +1957,40 @@
   <data name="EntityNameBank" xml:space="preserve">
     <value>Banco</value>
   </data>
+  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentChileAlcohol" xml:space="preserve">
+    <value>Publicidad de Bebidas Alcohólicas</value>
+  </data>
+  <data name="FasCommentChileDrugsAndService" xml:space="preserve">
+    <value>Publicidad de medicamentos, equipos médicos, productos médicos</value>
+  </data>
+  <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>Publicidad de medicamentos que se venden bajo la receta médica</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
+    <value>Beber en exceso daña su salud y puede dañar a terceros. El consumo de alcohol disminuye su capacidad para conducir.</value>
+  </data>
+  <data name="FasCommentDisplayTextChileDrugsAndService" xml:space="preserve">
+    <value>No se automedique. Consulte antes con un médico.</value>
+  </data>
+  <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>La información contenida en esta sección corresponde a productos farmacéuticos autorizados para venta bajo receta médica. Conforme a la actual legislación, su promoción está dirigida sólo a profesionales médicos y químicos farmacéuticos. Parus S.p.A. no se hace responsable por la indebida interpretación y consecuencias del mal uso de la información aquí contenida.</value>
+  </data>
 </root>
