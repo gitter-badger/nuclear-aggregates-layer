@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 {
     public sealed class MakeRegionalAdsDocsViewModel : ViewModel
     {
+        [Calendar]
         [RequiredLocalized]
         public DateTime StartPeriodDate { get; set; }
 

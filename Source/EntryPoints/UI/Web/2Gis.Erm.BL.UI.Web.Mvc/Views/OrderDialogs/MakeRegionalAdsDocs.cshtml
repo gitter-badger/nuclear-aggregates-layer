@@ -1,6 +1,5 @@
-﻿@using Platform.Model.Metadata.Enums
+﻿@model MakeRegionalAdsDocsViewModel
 
-@model MakeRegionalAdsDocsViewModel
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
 }
@@ -32,9 +31,6 @@
                 if (Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
                     Ext.getDom("OK").disabled = "disabled";
                     Ext.getDom("Cancel").disabled = "disabled";
-                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function (node) {
-                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
-                    });
                     EntityForm.submit();
                 }
             });
@@ -64,7 +60,7 @@
                 @Model.Message
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber})
+                @Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month, })
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.lone, new LookupSettings

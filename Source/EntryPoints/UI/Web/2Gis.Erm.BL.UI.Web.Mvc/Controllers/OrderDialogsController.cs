@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             var model = new MakeRegionalAdsDocsViewModel
                             {
-                                StartPeriodDate = DateTime.Now.AddMonths(1).GetFirstDateOfMonth(),
+                                StartPeriodDate = DateTime.Now.GetNextMonthFirstDate(),
                                 UserId = currentUserId
                             };
 
