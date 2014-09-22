@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -10,14 +9,10 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
-
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Validation
 {
     public class OrderValidationRepository : IOrderValidationRepository
     {
-        private readonly IDictionary<OrderValidationRuleGroup, long> _validationRuleGroupMap;
-
         private readonly IFinder _finder;
         private readonly IRepository<OrderValidationResult> _orderValidationResultGenericRepository;
         private readonly IIdentityProvider _identityProvider;
@@ -33,20 +28,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Validation
             _orderValidationResultGenericRepository = orderValidationResultGenericRepository;
             _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
-            _validationRuleGroupMap = finder.FindAll<Platform.Model.Entities.Erm.OrderValidationRuleGroup>().ToDictionary(x => (OrderValidationRuleGroup)x.Code, x => x.Id);
-        }
-
-        public long GetGroupId(OrderValidationRuleGroup orderValidationRuleGroup)
-        {
-            if (!_validationRuleGroupMap.ContainsKey(orderValidationRuleGroup))
-            {
-                throw new ArgumentException(string.Format("No mapping provided for group [{0}] with code [{1}]",
-                                                          orderValidationRuleGroup, 
-                                                          (int)orderValidationRuleGroup),
-                                                          "orderValidationRuleGroup");
-            }
-
-            return _validationRuleGroupMap[orderValidationRuleGroup];
         }
 
         public int AddValidResult(long orderId, ValidationContext validationContext)
@@ -82,14 +63,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Validation
 
         private int AddOrderValidationResult(long orderId, ValidationContext validationContext, bool isValid)
         {
-            var orderValidationRuleGroupId = GetGroupId(validationContext.OrderValidationRuleGroup);
             int count;
             using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, OrderValidationResult>())
             {
                 var validationResult = new OrderValidationResult
                 {
                     OrderId = orderId,
-                    OrderValidationGroupId = orderValidationRuleGroupId,
+                    OrderValidationGroupId = (int)validationContext.OrderValidationRuleGroup,
                     OrderValidationType = (int)validationContext.ValidationType,
                     IsValid = isValid
                 };
