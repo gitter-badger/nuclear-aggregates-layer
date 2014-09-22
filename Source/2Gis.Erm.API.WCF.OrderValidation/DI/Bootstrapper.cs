@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
+using DoubleGis.Erm.BLCore.DI.Factories.OrderValidation;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata;
@@ -178,6 +179,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 
             return container
                         .RegisterType<IOrderValidationRuleProvider, OrderValidationRuleProvider>(Lifetime.Singleton)
+                        .RegisterType<IOrderValidationRuleFactory, UnityOrderValidationRuleFactory>(Lifetime.Singleton)
                         .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
                         .RegisterTypeWithDependencies<IPriceConfigurationService, PriceConfigurationService>(CustomLifetime.PerOperationContext, MappingScope);
         }
