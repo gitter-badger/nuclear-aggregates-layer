@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
     public sealed class CheckOrdersReadinessForReleaseDialogViewModel : ViewModel
     {
+        [Calendar]
         [RequiredLocalized]
         // TODO : переименовать в Month
         public DateTime StartPeriodDate { get; set; }
