@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global
@@ -15,37 +16,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
             _finder = finder;
         }
 
-        public BargainRelationsDto GetBargainRelationsDto(long orderId)
+        public BargainRelationsDto GetBargainRelationsDto(long bargainId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => new BargainRelationsDto
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+                          .Select(x => new BargainRelationsDto
                               {
-                                  BargainNumber = order.Bargain.Number,
-                                  CurrencyIsoCode = order.Currency.ISOCode,
-                                  BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                                  MainLegalPersonProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.IsMainProfile).Id,
-                                  LegalPersonId = order.LegalPersonId
+                                  BargainNumber = x.Number,
+                                  BargainKind = (BargainKind)x.BargainKind,
+                                  BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
+                                  LegalPersonId = x.CustomerLegalPersonId
                               })
                           .Single();
         }
 
-        public IQueryable<Bargain> GetBargainQuery(long orderId)
+        public IQueryable<Bargain> GetBargainQuery(long bargainId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => order.Bargain);
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId));
         }
 
-        public IQueryable<BranchOffice> GetBranchOfficeQuery(long orderId)
+        public IQueryable<BranchOffice> GetBranchOfficeQuery(long bargainId)
         {
             // COMMENT {all, 13.05.2014}: Тут нормально, поскольку этот BranchOffice не будет вытянут целиком
             // COMMENT {a.rechkalov, 21.05.2014}: Отдавая наружу IQueryable нельзя быть в этом уверенным
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => order.BranchOfficeOrganizationUnit.BranchOffice);
-        }
-
-        public IQueryable<Order> GetOrderQuery(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId));
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+                          .Select(x => x.BranchOfficeOrganizationUnit.BranchOffice);
         }
     }
 }

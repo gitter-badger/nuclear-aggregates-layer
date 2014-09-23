@@ -191,9 +191,6 @@ SWIFT {5}
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
     <value>Юридическое лицо указаного в профиле типа '{0}' не может действовать на основании {1}</value>
   </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>В заказе не указано Юр. лицо исполнителя. Невозможно выбрать печатную форму.</value>
-  </data>
   <data name="OrderTotalAmountIsZero" xml:space="preserve">
     <value>Итоговая стоимость заказа нулевая, печать невозможна</value>
   </data>

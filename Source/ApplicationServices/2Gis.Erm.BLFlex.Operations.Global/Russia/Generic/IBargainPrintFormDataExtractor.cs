@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
         PrintData GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit boou);
         PrintData GetLegalPersonProfile(LegalPersonProfile legalPersonProfile);
         PrintData GetLegalPerson(LegalPerson legalPerson);
-        PrintData GetUngroupedFields(IQueryable<Order> orderQuery);
+        PrintData GetUngroupedFields(IQueryable<Bargain> bargainQuery);
         PrintData GetBargain(IQueryable<Bargain> queryable);
     }
 }

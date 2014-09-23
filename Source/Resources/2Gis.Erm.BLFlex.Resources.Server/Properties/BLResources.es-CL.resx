@@ -172,9 +172,6 @@
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
     <value>La persona jurídica del tipo especificado en el perfil &apos;{0}&apos; no puede actuar en base a {1}</value>
   </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>En el  pedido no está especificada la Personalidad jurídica del ejecutor. Es imposible seleccionar una forma impresa.</value>
-  </data>
   <data name="OrderTotalAmountIsZero" xml:space="preserve">
     <value>El importe total de la orden es igual a cero, imposible imprimir</value>
   </data>

@@ -171,9 +171,6 @@
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
     <value>Právnická osoba typu &apos;{0}&apos; uvedená v profilu nemůže jednat na základě {1}</value>
   </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>V objednávce není uvedena pr. osoba zhotovitele. Není možné vybrat výtisk.</value>
-  </data>
   <data name="OrderTotalAmountIsZero" xml:space="preserve">
     <value>Celková hodnota objednávky je nulová, není možné vytisknout</value>
   </data>

@@ -182,9 +182,6 @@ Bank Name: {7}
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
     <value>Legal entities of the type &apos;{0}&apos; specified in the profile cannot act act on the basis of {1}</value>
   </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>Legal entity of the contractor is not specified in the order. Cannot select a printed form.</value>
-  </data>
   <data name="OrderTotalAmountIsZero" xml:space="preserve">
     <value>Total amount of the order is nil. Cannot print.</value>
   </data>
