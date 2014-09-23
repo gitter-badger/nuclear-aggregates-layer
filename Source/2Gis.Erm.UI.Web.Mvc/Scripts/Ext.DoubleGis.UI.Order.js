@@ -223,11 +223,11 @@ window.InitPage = function () {
                 PrintRegionalOrder: function () {
                     this.Print('PrintRegionalOrder');
                 },
-                PrintBargain: function () {
-                    this.Print('PrintBargain');
+                PrintOrderBargain: function () {
+                    this.Print('PrintOrderBargain');
                 },
-                PrintNewSalesModelBargain: function () {
-                    this.Print('PrintNewSalesModelBargain');
+                PrintNewSalesModelOrderBargain: function () {
+                    this.Print('PrintNewSalesModelOrderBargain');
                 },
                 PrintOrderBills: function () {
                     this.Print('PrintOrderBills');
