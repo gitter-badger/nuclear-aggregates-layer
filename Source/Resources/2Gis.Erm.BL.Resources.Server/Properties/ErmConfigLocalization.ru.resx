@@ -1008,7 +1008,6 @@
   <data name="DListActiveDeals" xml:space="preserve">
     <value>Активные сделки</value>
   </data>
-
   <data name="DListBargains" xml:space="preserve">
     <value>Договоры</value>
   </data>
@@ -1845,5 +1844,8 @@
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Количество документов</value>
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
   </data>
 </root>
