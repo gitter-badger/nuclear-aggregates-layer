@@ -10,10 +10,10 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Read
     // FIXME {s.pomadin, 17.09.2014}: does it make sense to intro a special service contract instead of direct IOperation usage
     public interface IActivityReadService : IOperation<CheckRelatedActivitiesIdentity>
     {
-        bool CheckIfRelatedActivitiesExists(EntityName entityName, long clientId);
+        bool CheckIfActivityExistsRegarding(EntityName entityName, long clientId);
 
-        bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long clientId);
+        bool CheckIfOpenActivityExistsRegarding(EntityName entityName, long clientId);
         
-        IEnumerable<IEntity> LookupRelatedActivities(EntityName entityName, long clientId);
+        IEnumerable<IEntity> LookupActivitiesRegarding(EntityName entityName, long clientId);
     }
 }

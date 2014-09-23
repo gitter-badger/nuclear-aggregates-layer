@@ -1,14 +1,15 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -20,26 +21,48 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly IClientRepository _clientRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IPublicService _publicService;
         private readonly ICommonLog _logger;
+        private readonly IAppointmentReadModel _appointmentReadModel;
+        private readonly ILetterReadModel _letterReadModel;
+        private readonly IPhonecallReadModel _phonecallReadModel;
+        private readonly ITaskReadModel _taskReadModel;
+        private readonly IAssignAppointmentAggregateService _assignAppointmentAggregateService;
+        private readonly IAssignLetterAggregateService _assignLetterAggregateService;
+        private readonly IAssignPhonecallAggregateService _assignPhonecallAggregateService;
+        private readonly IAssignTaskAggregateService _assignTaskAggregateService;
 
         public QualifyClientService(
             IUserContext userContext,
             IClientRepository clientRepository,
             ISecurityServiceUserIdentifier userIdentifierService,
             IOperationScopeFactory scopeFactory,
-            IPublicService publicService, 
-            ICommonLog logger)
+            ICommonLog logger,
+            IAppointmentReadModel appointmentReadModel,
+            ILetterReadModel letterReadModel,
+            IPhonecallReadModel phonecallReadModel,
+            ITaskReadModel taskReadModel,
+            IAssignAppointmentAggregateService assignAppointmentAggregateService,
+            IAssignLetterAggregateService assignLetterAggregateService,
+            IAssignPhonecallAggregateService assignPhonecallAggregateService,
+            IAssignTaskAggregateService assignTaskAggregateService
+            )
         {
             _userContext = userContext;
             _clientRepository = clientRepository;
             _userIdentifierService = userIdentifierService;
             _scopeFactory = scopeFactory;
-            _publicService = publicService;
             _logger = logger;
+            _appointmentReadModel = appointmentReadModel;
+            _letterReadModel = letterReadModel;
+            _phonecallReadModel = phonecallReadModel;
+            _taskReadModel = taskReadModel;
+            _assignAppointmentAggregateService = assignAppointmentAggregateService;
+            _assignLetterAggregateService = assignLetterAggregateService;
+            _assignPhonecallAggregateService = assignPhonecallAggregateService;
+            _assignTaskAggregateService = assignTaskAggregateService;
         }
 
-        public virtual QualifyResult Qualify(long entityId, long ownerCode, long? relatedEntityId)
+        public QualifyResult Qualify(long entityId, long ownerCode, long? relatedEntityId)
         {
             var currentUser = _userContext.Identity;
             var reserveUser = _userIdentifierService.GetReserveUserIdentity();
@@ -54,11 +77,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
                     .Complete();
             }
 
+            AssignRelatedActivities(entityId, ownerCode);
+
             _logger.InfoFormatEx("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
-            _publicService.Handle(new AssignClientRelatedEntitiesRequest { ClientId = entityId, OwnerCode = ownerCode });
-            _logger.InfoFormatEx("[CRM] Клиент с id={0} взят из резерва, с назначением пользователю c id={1}", entityId, ownerCode);
 
             return new QualifyResult();
+        }
+
+        private void AssignRelatedActivities(long clientId, long newOwnerCode)
+        {
+            foreach (var appointment in _appointmentReadModel.LookupAppointmentsRegarding(EntityName.Client, clientId))
+            {
+                _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
+            }
+            foreach (var letter in _letterReadModel.LookupLettersRegarding(EntityName.Client, clientId))
+            {
+                _assignLetterAggregateService.Assign(letter, newOwnerCode);
+            }
+            foreach (var phonecall in _phonecallReadModel.LookupPhonecallsRegarding(EntityName.Client, clientId))
+            {
+                _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
+            }
+            foreach (var task in _taskReadModel.LookupTasksRegarding(EntityName.Client, clientId))
+            {
+                _assignTaskAggregateService.Assign(task, newOwnerCode);
+            }
         }
     }
 }

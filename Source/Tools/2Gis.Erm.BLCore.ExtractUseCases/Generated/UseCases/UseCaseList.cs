@@ -1308,24 +1308,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.Deactivate.DeactivateUserService\Deactivate",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(UpdateUserCrmRelatedEntitiesHandler),
-                        Request = typeof(UpdateUserCrmRelatedEntitiesRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(UpdateRelatedCrmActivitiesHandler),
-            Request = typeof(UpdateRelatedCrmActivitiesRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.LocalMessageController\ImportFromFile",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
@@ -1687,29 +1669,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.ClientController\Merge",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(MergeClientsHandler),
-                        Request = typeof(MergeClientsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(AssignClientRelatedEntitiesHandler),
-            Request = typeof(AssignClientRelatedEntitiesRequest)
-        },
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(UpdateRelatedCrmActivitiesHandler),
-            Request = typeof(UpdateRelatedCrmActivitiesRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.List.ListTerritoryService\List",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
@@ -1746,36 +1705,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(PrintLimitsHandler),
                         Request = typeof(PrintLimitsRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.Disqualify.DisqualifyClientService\Disqualify",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(AssignClientRelatedEntitiesHandler),
-                        Request = typeof(AssignClientRelatedEntitiesRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.Assign.AssignClientService\Assign",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(AssignClientRelatedEntitiesHandler),
-                        Request = typeof(AssignClientRelatedEntitiesRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.Qualify.QualifyClientService\Qualify",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(AssignClientRelatedEntitiesHandler),
-                        Request = typeof(AssignClientRelatedEntitiesRequest)
                     }
                 },
                 new UseCase

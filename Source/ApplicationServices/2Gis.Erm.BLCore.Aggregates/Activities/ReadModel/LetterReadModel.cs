@@ -38,14 +38,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindOne(Specs.Find.Custom<LetterRecipient>(x => x.SourceEntityId == letterId));
         }
 
-        public bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfLetterExistsRegarding(EntityName entityName, long entityId)
         {
             return _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
         }
 
-        public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfOpenLetterExistsRegarding(EntityName entityName, long entityId)
         {
-            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
             var ids = (
                 from reference in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
                 select reference.SourceEntityId
@@ -54,15 +53,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Letter>(ids)).Any();
         }
 
-        public IEnumerable<Letter> LookupRelatedActivities(EntityName entityName, long entityId)
+        public IEnumerable<Letter> LookupLettersRegarding(EntityName entityName, long entityId)
         {
-            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
             var ids = (
                 from reference in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
                 select reference.SourceEntityId
                 ).ToArray();
 
             return _finder.FindMany(Specs.Find.Active<Letter>() && Specs.Find.ByIds<Letter>(ids));
+        }
+
+        public IEnumerable<Letter> LookupOpenLettersOwnedBy(long ownerCode)
+        {
+            return _finder.FindMany(Specs.Find.Owned<Letter>(ownerCode) & Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress));
         }
     }
 }

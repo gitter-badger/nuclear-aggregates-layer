@@ -1,94 +1,80 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Net;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals.Settings;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-
-using Microsoft.Xrm.Client;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 {
     public class CheckIsWarmClientHandler : RequestHandler<CheckIsWarmClientRequest, CheckIsWarmClientResponse>
     {
-        private readonly IMsCrmSettings _msCrmSettings;
         private readonly IWarmClientProcessingSettings _warmClientProcessingSettings;
-        private readonly IClientRepository _repository;
+        private readonly IClientReadModel _clientReadModel;
+        private readonly ITaskReadModel _taskReadModel;
 
         public CheckIsWarmClientHandler(
-            IMsCrmSettings msCrmSettings,
-            IWarmClientProcessingSettings warmClientProcessingSettings,
-            IClientRepository repository)
+            IClientReadModel clientReadModel,
+            ITaskReadModel taskReadModel,
+            IWarmClientProcessingSettings warmClientProcessingSettings
+            )
         {
-            _msCrmSettings = msCrmSettings;
+            _clientReadModel = clientReadModel;
+            _taskReadModel = taskReadModel;
             _warmClientProcessingSettings = warmClientProcessingSettings;
-            _repository = repository;
         }
 
         protected override CheckIsWarmClientResponse Handle(CheckIsWarmClientRequest request)
         {
             var response = new CheckIsWarmClientResponse();
-            if (_msCrmSettings.EnableReplication)
+
+            var client = _clientReadModel.GetClient(request.ClientId);
+            if (client == null)
             {
-                var clientInfo = _repository.GetClientReplicationData(request.ClientId);
+                throw new NotificationException("The client does not exist.");
+            }
 
-                try
+            // Сначала ищем закрытые задачи с типом "Тёплый клиент" у фирм клиента, 
+            // потом у самого клиента.
+            foreach (var firmId in client.Firms.Select(x => x.Id))
+            {
+                var existingFirmTask = FindRelatedWarmTask(EntityName.Firm, firmId);
+                if (existingFirmTask != null)
                 {
-                    var crmDataContext = _msCrmSettings.CreateDataContext();
-                    // Сначала ищем закрытые задачи с типом "Тёплый клиент" у фирм клиента, 
-                    // потом у самого клиента.
-                    foreach (var firmReplicationCode in clientInfo.FirmReplicationCodes)
-                    {
-                        var firmObject = crmDataContext.GetFirm(firmReplicationCode);
-
-                        var existingFirmTask = FindRelatedWarmTask(firmObject, "dg_firm_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
-
-                        if (existingFirmTask != null)
-                        {
-                            response.IsWarmClient = true;
-                            response.TaskActualEnd = existingFirmTask.ActualEnd;
-                            response.TaskDescription = existingFirmTask.Description;
-                            return response;
-                        }
-                    }
-
-                    var clientObject = crmDataContext.GetClient(clientInfo.ClientReplicationCode);
-                    var existingClosedTask = FindRelatedWarmTask(clientObject, "Account_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
-
-                    if (existingClosedTask != null)
-                    {
-                        response.IsWarmClient = true;
-                        response.TaskActualEnd = existingClosedTask.ActualEnd;
-                        response.TaskDescription = existingClosedTask.Description;
-                    }
+                    response.IsWarmClient = true;
+                    response.TaskActualEnd = existingFirmTask.ActualEnd;
+                    response.TaskDescription = existingFirmTask.Description;
+                    return response;
                 }
-                catch (WebException ex)
-                {
-                    throw new NotificationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
-                }
+            }
+
+            var existingClosedTask = FindRelatedWarmTask(EntityName.Client, client.Id);
+            if (existingClosedTask != null)
+            {
+                response.IsWarmClient = true;
+                response.TaskActualEnd = existingClosedTask.ActualEnd;
+                response.TaskDescription = existingClosedTask.Description;
             }
 
             return response;
         }
 
-        private static TaskSummary FindRelatedWarmTask(ICrmEntity crmObject, string taskRelationName, int days)
+        private TaskSummary FindRelatedWarmTask(EntityName entityName, long entityId)
         {
-            return crmObject.GetRelatedEntities(taskRelationName)
-                .Where(x => Convert.ToInt32(x["statuscode"].Value, CultureInfo.InvariantCulture) == 5 &&
-                    (DateTime.Now - x.GetPropertyValue<DateTime>("actualend")).TotalDays <= days &&
-                           Convert.ToInt32(x["dg_type"].Value, CultureInfo.InvariantCulture) == 1)
-                .Select(x => new TaskSummary
-                                 {
-                                     ActualEnd = x.GetPropertyValue<DateTime>("actualend"),
-                                     Description = x.GetPropertyValue<string>("subject")
-                                 }).FirstOrDefault();
+            var days = _warmClientProcessingSettings.WarmClientDaysCount;
+
+            return _taskReadModel.LookupTasksRegarding(entityName, entityId)
+                          .Where(x => x.Status == ActivityStatus.Completed && x.TaskType == TaskType.WarmClient && (DateTime.Now - x.ModifiedOn.Value).TotalDays <= days)
+                          .Select(x => new TaskSummary
+                              {
+                                  ActualEnd = x.ModifiedOn.Value,
+                                  Description = x.Description
+                              }).FirstOrDefault();
         }
 
         private class TaskSummary

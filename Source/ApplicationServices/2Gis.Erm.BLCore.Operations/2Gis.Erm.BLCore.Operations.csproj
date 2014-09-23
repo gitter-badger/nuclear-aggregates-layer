@@ -114,11 +114,8 @@
     <Compile Include="Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimary.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSales.cs" />
-    <Compile Include="Concrete\Old\Clients\ActivityHelper.cs" />
-    <Compile Include="Concrete\Old\Clients\AssignMsCrmClientRelatedEntities.cs" />
     <Compile Include="Concrete\Old\Clients\CheckIsWarmClientHandler.cs" />
     <Compile Include="Concrete\Old\Clients\MergeClientsHandler.cs" />
-    <Compile Include="Concrete\Old\CrmActivities\UpdateRelatedCrmActivitiesHandler.cs" />
     <Compile Include="Concrete\Old\Deals\CheckDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\CloseDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\ReopenDealHandler.cs" />
@@ -228,7 +225,6 @@
     <Compile Include="Concrete\Old\Territories\SelectCurrentUserTerritoriesHandler.cs" />
     <Compile Include="Concrete\Old\Territories\SelectOrganizationUnitTerritoriesHandler.cs" />
     <Compile Include="Concrete\Old\Territories\ValidateTerritoryAvailabilityHandler.cs" />
-    <Compile Include="Concrete\Old\UserOperations\UpdateUserCrmRelatedEntitiesHandler.cs" />
     <Compile Include="Concrete\Old\UserProfiles\SyncUserProfilesHandler.cs" />
     <Compile Include="Concrete\OrderPositions\CalculateCategoryRateOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\ViewOrderPositionOperationService.cs" />

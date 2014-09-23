@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             // Проверяем открытые связанные объекты:
             // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данной Фирмой, 
             // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данной Фирмой".
-            var hasRelatedOpenedActivities = _activityReadService.CheckIfRelatedActivitiesExists(EntityName.Firm, entityId);
+            var hasRelatedOpenedActivities = _activityReadService.CheckIfOpenActivityExistsRegarding(EntityName.Firm, entityId);
             if (hasRelatedOpenedActivities)
             {
                 throw new NotificationException(BLResources.NeedToCloseAllActivities);

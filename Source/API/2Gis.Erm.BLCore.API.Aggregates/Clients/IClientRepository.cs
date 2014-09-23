@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,7 +15,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients
                                          ICheckAggregateForDebtsRepository<Client>,
                                          IChangeAggregateTerritoryRepository<Client>
     {
-        ClientReplicationDto GetClientReplicationData(long clientId);
         int SetMainFirm(Client client, long? mainFirmId);
         int Assign(Client client, long ownerCode);
         int AssignWithRelatedEntities(long clientId, long ownerCode, bool isPartialAssign);

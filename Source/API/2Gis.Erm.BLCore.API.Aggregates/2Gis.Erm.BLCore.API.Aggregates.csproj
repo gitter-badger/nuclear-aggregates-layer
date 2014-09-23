@@ -81,6 +81,10 @@
     <Compile Include="Accounts\ReadModel\AccountSpecs.OperationTypes.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Withdrawals.cs" />
     <Compile Include="Accounts\ReadModel\IAccountReadModel.cs" />
+    <Compile Include="Activities\IAssignAppointmentAggregateService .cs" />
+    <Compile Include="Activities\IAssignLetterAggregateService.cs" />
+    <Compile Include="Activities\IAssignPhonecallAggregateService.cs" />
+    <Compile Include="Activities\IAssignTaskAggregateService.cs" />
     <Compile Include="Activities\ICreateLetterAggregateService.cs" />
     <Compile Include="Activities\ICreatePhonecallAggregateService.cs" />
     <Compile Include="Activities\ICreateTaskAggregateService.cs" />
@@ -118,7 +122,6 @@
     <Compile Include="Charges\Dto\OrderInfoDto.cs" />
     <Compile Include="Charges\Dto\OrderPositionInfoDto.cs" />
     <Compile Include="Charges\Dto\OrderPositionWithChargeInfoDto.cs" />
-    <Compile Include="Clients\DTO\ClientReplicationDto.cs" />
     <Compile Include="Clients\IClientRepository.cs" />
     <Compile Include="Clients\Operations\ICreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\ICreateHotClientRequestAggregateService.cs" />

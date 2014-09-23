@@ -33,14 +33,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<AppointmentAttendee>(x => x.SourceEntityId == appointmentId)).ToList();
         }
 
-        public bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
             return _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
         }
         
-        public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfOpenAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
-            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
             var ids = (
                 from reference in _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
                 select reference.SourceEntityId
@@ -49,15 +48,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Appointment>(ids)).Any();
         }
 
-        public IEnumerable<Appointment> LookupRelatedActivities(EntityName entityName, long entityId)
+        public IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId)
         {
-            // TODO {s.pomadin, 18.09.2014}: support other refeneces not only regarding objects
             var ids = (
                 from reference in _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
                 select reference.SourceEntityId
                 ).ToArray();
 
             return _finder.FindMany(Specs.Find.Active<Appointment>() && Specs.Find.ByIds<Appointment>(ids));
+        }
+
+        public IEnumerable<Appointment> LookupOpenAppointmentsOwnedBy(long ownerCode)
+        {
+            return _finder.FindMany(Specs.Find.Owned<Appointment>(ownerCode) & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress));
         }
     }
 }

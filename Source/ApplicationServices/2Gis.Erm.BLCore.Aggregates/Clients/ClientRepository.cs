@@ -9,7 +9,6 @@ using System.Transactions;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
-using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
@@ -110,17 +109,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _scopeFactory = scopeFactory;
             _legalPersonProfileGenericRepository = legalPersonProfileGenericRepository;
             _contactGenericSecureRepository = contactGenericSecureRepository;
-        }
-
-        public ClientReplicationDto GetClientReplicationData(long clientId)
-        {
-            return _finder.Find(Specs.Find.ById<Client>(clientId))
-                          .Select(x => new ClientReplicationDto
-                              {
-                                  ClientReplicationCode = x.ReplicationCode,
-                                  FirmReplicationCodes = x.Firms.Where(f => f.IsActive && !f.IsDeleted).Select(f => f.ReplicationCode)
-                              })
-                          .Single();
         }
 
         public int SetMainFirm(Client client, long? mainFirmId)
@@ -289,14 +277,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 _contactGenericRepository.Save();
 
-	            if (relatedEntities.PreviousOwner != null)
-	            {
-					// COMMENT {all, 31.07.2014}: вынести из репозитория клиента
-//					UpdateActivity(operationScope, _appointmentRepository, relatedEntities.PreviousOwner.Value, ownerCode);
-//					UpdateActivity(operationScope, _phonecallRepository, relatedEntities.PreviousOwner.Value, ownerCode);
-//					UpdateActivity(operationScope, _taskRepository, relatedEntities.PreviousOwner.Value, ownerCode);
-	            }
-
                 operationScope.Complete();
                 return count;
             }
@@ -361,8 +341,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 operationScope.Updated<Client>(client.Id);
                 _clientGenericSecureRepository.Save();
 
-                var count = AssignWithRelatedEntities(client.Id, ownerCode, false);
-
                 var clientFirms = _finder.Find(FirmSpecs.Firms.Find.ByClient(client.Id)).ToArray();
                 foreach (var firm in clientFirms)
                 {
@@ -371,7 +349,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     operationScope.Updated<Firm>(firm.Id);
                 }
 
-                _firmGenericRepository.Save();
+                var count = _firmGenericRepository.Save();
 
                 operationScope.Complete();
 
@@ -410,6 +388,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 scope.Updated<Client>(client.Id);
                 _clientGenericSecureRepository.Save();
 
+                // FIXME {all, 23.09.2014}: is it correct to pass bypassValidation as isPartialAssign?
                 var count = AssignWithRelatedEntities(client.Id, reserveCode, bypassValidation);
 
                 scope.Complete();

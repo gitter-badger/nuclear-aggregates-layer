@@ -9,15 +9,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
     public interface IPhonecallReadModel : IAggregateReadModel<Phonecall>
     {
         Phonecall GetPhonecall(long phonecallId);
-
         IEnumerable<PhonecallRegardingObject> GetRegardingObjects(long phonecallId);
-
         PhonecallRecipient GetRecipient(long phonecallId);
 
-        bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId);
+        bool CheckIfPhonecallExistsRegarding(EntityName entityName, long entityId);
+        bool CheckIfOpenPhonecallExistsRegarding(EntityName entityName, long entityId);
 
-        bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId);
-
-        IEnumerable<Phonecall> LookupRelatedActivities(EntityName entityName, long entityId);
+        IEnumerable<Phonecall> LookupPhonecallsRegarding(EntityName entityName, long entityId);
+        IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode);
     }
 }

@@ -28,12 +28,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.SourceEntityId == taskId)).ToList();
         }
 
-        public bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfTaskExistsRegarding(EntityName entityName, long entityId)
         {
             return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
         }
 
-        public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId)
         {
             var ids = (
                 from reference in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).Any();
         }
 
-        public IEnumerable<Task> LookupRelatedActivities(EntityName entityName, long entityId)
+        public IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId)
         {
             var ids = (
                 from reference in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
@@ -51,6 +51,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                 ).ToArray();
 
             return _finder.FindMany(Specs.Find.Active<Task>() && Specs.Find.ByIds<Task>(ids));
+        }
+
+        public IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode)
+        {
+            return _finder.FindMany(Specs.Find.Owned<Task>(ownerCode) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress));
         }
     }
 }

@@ -27,31 +27,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             _taskReadModel = taskReadModel;
         }
 
-        public bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfActivityExistsRegarding(EntityName entityName, long entityId)
         {
             return
-                _appointmentReadModel.CheckIfRelatedActivitiesExists(entityName, entityId)
-                || _letterReadModel.CheckIfRelatedActivitiesExists(entityName, entityId)
-                || _phonecallReadModel.CheckIfRelatedActivitiesExists(entityName, entityId)
-                || _taskReadModel.CheckIfRelatedActivitiesExists(entityName, entityId);
+                _appointmentReadModel.CheckIfAppointmentExistsRegarding(entityName, entityId)
+                || _letterReadModel.CheckIfLetterExistsRegarding(entityName, entityId)
+                || _phonecallReadModel.CheckIfPhonecallExistsRegarding(entityName, entityId)
+                || _taskReadModel.CheckIfTaskExistsRegarding(entityName, entityId);
         }
 
-        public bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId)
+        public bool CheckIfOpenActivityExistsRegarding(EntityName entityName, long entityId)
         {
             return
-                _appointmentReadModel.CheckIfRelatedActiveActivitiesExists(entityName, entityId)
-                || _letterReadModel.CheckIfRelatedActiveActivitiesExists(entityName, entityId)
-                || _phonecallReadModel.CheckIfRelatedActiveActivitiesExists(entityName, entityId)
-                || _taskReadModel.CheckIfRelatedActiveActivitiesExists(entityName, entityId);
+                _appointmentReadModel.CheckIfOpenAppointmentExistsRegarding(entityName, entityId)
+                || _letterReadModel.CheckIfOpenLetterExistsRegarding(entityName, entityId)
+                || _phonecallReadModel.CheckIfOpenPhonecallExistsRegarding(entityName, entityId)
+                || _taskReadModel.CheckIfOpenTaskExistsRegarding(entityName, entityId);
         }
 
-        public IEnumerable<IEntity> LookupRelatedActivities(EntityName entityName, long entityId)
+        public IEnumerable<IEntity> LookupActivitiesRegarding(EntityName entityName, long entityId)
         {
             return
-                _appointmentReadModel.LookupRelatedActivities(entityName, entityId).Cast<IEntity>()
-                                     .Concat(_letterReadModel.LookupRelatedActivities(entityName, entityId))
-                                     .Concat(_phonecallReadModel.LookupRelatedActivities(entityName, entityId))
-                                     .Concat(_taskReadModel.LookupRelatedActivities(entityName, entityId));
+                _appointmentReadModel.LookupAppointmentsRegarding(entityName, entityId).Cast<IEntity>()
+                                     .Concat(_letterReadModel.LookupLettersRegarding(entityName, entityId))
+                                     .Concat(_phonecallReadModel.LookupPhonecallsRegarding(entityName, entityId))
+                                     .Concat(_taskReadModel.LookupTasksRegarding(entityName, entityId));
         }
     }
 }

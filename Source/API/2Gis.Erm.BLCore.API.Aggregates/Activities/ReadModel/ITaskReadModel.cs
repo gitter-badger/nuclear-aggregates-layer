@@ -8,13 +8,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
     public interface ITaskReadModel : IAggregateReadModel<Task>
     {
         Task GetTask(long taskId);
-
         IEnumerable<TaskRegardingObject> GetRegardingObjects(long taskId);
 
-        bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId);
+        bool CheckIfTaskExistsRegarding(EntityName entityName, long entityId);
+        bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId);
 
-        bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId);
-
-        IEnumerable<Task> LookupRelatedActivities(EntityName entityName, long entityId);
+        IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId);
+        IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode);
     }
 }

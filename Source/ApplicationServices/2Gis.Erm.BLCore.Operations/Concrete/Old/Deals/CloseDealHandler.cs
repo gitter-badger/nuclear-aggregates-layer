@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals
             }
 
             // error if deal have open activities
-            if (_activityReadService.CheckIfRelatedActiveActivitiesExists(Platform.Model.Entities.EntityName.Deal, deal.Id))
+            if (_activityReadService.CheckIfOpenActivityExistsRegarding(Platform.Model.Entities.EntityName.Deal, deal.Id))
             {
                 throw new NotificationException(BLResources.NeedToCloseAllActivities);
             }

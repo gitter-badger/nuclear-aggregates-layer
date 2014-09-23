@@ -9,17 +9,14 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
     public interface ILetterReadModel : IAggregateReadModel<Letter>
     {
         Letter GetLetter(long letterId);
-
         IEnumerable<LetterRegardingObject> GetRegardingObjects(long letterId);
-
         LetterSender GetSender(long letterId);
-
         LetterRecipient GetRecipient(long letterId);
 
-        bool CheckIfRelatedActivitiesExists(EntityName entityName, long entityId);
+        bool CheckIfLetterExistsRegarding(EntityName entityName, long entityId);
+        bool CheckIfOpenLetterExistsRegarding(EntityName entityName, long entityId);
 
-        bool CheckIfRelatedActiveActivitiesExists(EntityName entityName, long entityId);
-
-        IEnumerable<Letter> LookupRelatedActivities(EntityName entityName, long entityId);
+        IEnumerable<Letter> LookupLettersRegarding(EntityName entityName, long entityId);
+        IEnumerable<Letter> LookupOpenLettersOwnedBy(long ownerCode);
     }
 }
