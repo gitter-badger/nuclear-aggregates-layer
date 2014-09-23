@@ -1185,7 +1185,7 @@
   <data name="Skypes" xml:space="preserve">
     <value />
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
     <value />
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
@@ -2511,7 +2511,7 @@
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value />
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value />
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">

@@ -12,8 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Financial
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        // FIXME {a.tukaev, 23.10.2013}: Это значение должно совпадать с кодом 1С юр. лица исполнителя, который связан с лицевым счетом, по которому происходит поступление
-        // DONE {y.baranihin, 25.10.2013}: Запилил проверку 
         public string LegalEntityBranchCode1C { get; set; }
         public ICollection<OperationDto> Operations { get; set; }
     }

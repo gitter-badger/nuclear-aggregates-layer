@@ -59,6 +59,7 @@
     <Compile Include="Accounts\DTO\ActivateLockDto.cs" />
     <Compile Include="Accounts\DTO\DeactivateLockDto.cs" />
     <Compile Include="Accounts\DTO\LockDto.cs" />
+    <Compile Include="Accounts\DTO\AccountDetailInfoToSendNotificationDto.cs" />
     <Compile Include="Accounts\DTO\RevertWithdrawalDto.cs" />
     <Compile Include="Accounts\DTO\RevertWithdrawFromAccountsDto.cs" />
     <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
