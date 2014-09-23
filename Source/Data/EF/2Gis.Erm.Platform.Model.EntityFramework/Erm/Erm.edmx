@@ -98,7 +98,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="AdvertisementElementId" Type="bigint" Nullable="false" />
           <Property Name="DenialReasonId" Type="bigint" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
@@ -338,14 +338,14 @@
           <Property Name="RegistrationCertificate" Type="nvarchar" MaxLength="256" />
           <Property Name="BranchOfficeId" Type="bigint" Nullable="false" />
           <Property Name="OrganizationUnitId" Type="bigint" Nullable="false" />
-          <Property Name="ShortLegalName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ShortLegalName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PositionInNominative" Type="nvarchar" MaxLength="256" />
           <Property Name="PositionInGenitive" Type="nvarchar" MaxLength="256" />
           <Property Name="ChiefNameInNominative" Type="nvarchar" MaxLength="256" />
           <Property Name="ChiefNameInGenitive" Type="nvarchar" MaxLength="256" />
           <Property Name="Registered" Type="nvarchar" MaxLength="150" />
           <Property Name="OperatesOnTheBasisInGenitive" Type="nvarchar" MaxLength="256" />
-          <Property Name="Kpp" Type="nvarchar" MaxLength="128" />
+          <Property Name="Kpp" Type="nvarchar" MaxLength="15" />
           <Property Name="PaymentEssentialElements" Type="nvarchar" MaxLength="256" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="ActualAddress" Type="nvarchar" MaxLength="512" Nullable="false" />
@@ -433,7 +433,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Website" Type="nvarchar" MaxLength="200" />
           <Property Name="MainFirmId" Type="bigint" />
-          <Property Name="MainAddress" Type="nvarchar" MaxLength="512" />
+          <Property Name="MainAddress" Type="nvarchar" MaxLength="250" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="IsAdvertisingAgency" Type="bit" Nullable="false" />
           <Property Name="TerritoryId" Type="bigint" Nullable="false" />
@@ -479,8 +479,8 @@
           <Property Name="Department" Type="nvarchar" MaxLength="100" />
           <Property Name="IsFired" Type="bit" Nullable="false" />
           <Property Name="BirthDate" Type="datetime2" Precision="2" />
-          <Property Name="WorkAddress" Type="nvarchar" MaxLength="512" />
-          <Property Name="HomeAddress" Type="nvarchar" MaxLength="512" />
+          <Property Name="WorkAddress" Type="nvarchar" MaxLength="450" />
+          <Property Name="HomeAddress" Type="nvarchar" MaxLength="450" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -531,7 +531,7 @@
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DgppId" Type="bigint" />
           <Property Name="ISOCode" Type="smallint" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Symbol" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="IsBase" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -570,7 +570,7 @@
           <Property Name="CurrencyId" Type="bigint" Nullable="false" />
           <Property Name="StartReason" Type="int" Nullable="false" />
           <Property Name="CloseReason" Type="int" Nullable="false" />
-          <Property Name="CloseReasonOther" Type="nvarchar" MaxLength="512" />
+          <Property Name="CloseReasonOther" Type="nvarchar" MaxLength="256" />
           <Property Name="CloseDate" Type="datetime2" Precision="2" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="DealStage" Type="int" Nullable="false" />
@@ -720,7 +720,7 @@
           <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="LockDetails">
           <Key>
@@ -983,13 +983,13 @@
         </EntityType>
         <EntityType Name="OrderValidationResults">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ValidatorId" />
+            <PropertyRef Name="ValidVersion" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="OrderId" Type="bigint" Nullable="false" />
-          <Property Name="OrderValidationGroupId" Type="bigint" Nullable="false" />
-          <Property Name="OrderValidationType" Type="int" Nullable="false" />
-          <Property Name="IsValid" Type="bit" Nullable="false" />
+          <Property Name="ValidatorId" Type="int" Nullable="false" />
+          <Property Name="ValidVersion" Type="binary" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityType Name="OrganizationUnits">
           <Key>
@@ -1000,7 +1000,7 @@
           <Property Name="SyncCode1C" Type="nvarchar" MaxLength="50" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="FirstEmitDate" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="CountryId" Type="bigint" Nullable="false" />
           <Property Name="TimeZoneId" Type="bigint" Nullable="false" />
@@ -1342,7 +1342,7 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="ParentId" Type="bigint" />
           <Property Name="Level" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
@@ -1412,7 +1412,7 @@
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FirmId" Type="bigint" Nullable="false" />
           <Property Name="TerritoryId" Type="bigint" />
-          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="4000" Nullable="false" />
           <Property Name="ClosedForAscertainment" Type="bit" Nullable="false" />
           <Property Name="IsLocatedOnTheMap" Type="bit" Nullable="false" />
           <Property Name="SortingPosition" Type="int" Nullable="false" />
@@ -3457,18 +3457,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderValidationResults_Orders">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-          <End Role="OrderValidationResults" Type="Self.OrderValidationResults" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderValidationResults">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrganizationUnits_Countries">
           <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
           <End Role="OrganizationUnits" Type="Self.OrganizationUnits" Multiplicity="*" />
@@ -4565,10 +4553,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <End Role="RegionalAdvertisingSharings" EntitySet="RegionalAdvertisingSharings" />
             <End Role="OrdersRegionalAdvertisingSharings" EntitySet="OrdersRegionalAdvertisingSharings" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderValidationResults_Orders" Association="Self.FK_OrderValidationResults_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderValidationResults" EntitySet="OrderValidationResults" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrganizationUnits_Countries" Association="Self.FK_OrganizationUnits_Countries">
             <End Role="Countries" EntitySet="Countries" />
             <End Role="OrganizationUnits" EntitySet="OrganizationUnits" />
@@ -5626,7 +5610,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Type="Guid" Name="ReplicationCode" Nullable="false" />
-        <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="Int32" Name="DgppId" />
         <Property Type="DateTime" Name="FirstEmitDate" Nullable="false" Precision="2" />
         <Property Type="Int64" Name="CountryId" Nullable="false" />
@@ -5667,7 +5651,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <PropertyRef Name="Id" />
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="ParentId" />
         <Property Type="Int32" Name="Level" Nullable="false" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -5732,7 +5716,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="Int64" Name="FirmId" Nullable="false" />
         <Property Type="Int64" Name="TerritoryId" />
-        <Property Type="String" Name="Address" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Address" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
         <Property Type="Boolean" Name="IsActive" Nullable="false" />
         <Property Type="Int64" Name="CreatedBy" Nullable="false" />
@@ -6038,7 +6022,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         </Key>
         <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         <Property Type="Guid" Name="ReplicationCode" Nullable="false" />
-        <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Symbol" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsBase" Nullable="false" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -6246,7 +6230,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int64" Name="CurrencyId" Nullable="false" />
         <Property Type="Int32" Name="StartReason" Nullable="false" />
         <Property Type="Int32" Name="CloseReason" Nullable="false" />
-        <Property Type="String" Name="CloseReasonOther" MaxLength="512" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="CloseReasonOther" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="DateTime" Name="CloseDate" Precision="2" />
         <Property Type="String" Name="Comment" MaxLength="512" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
@@ -6297,7 +6281,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="2" />
         <Property Type="DateTime" Name="ModifiedOn" Precision="2" />
         <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Comment" MaxLength="255" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="Account" Relationship="ErmModel.FK_Limits_Accounts" FromRole="Limit" ToRole="Account" />
       </EntityType>
       <EntityType Name="ReleaseWithdrawal">
@@ -7093,8 +7077,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="Department" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsFired" Nullable="false" />
         <Property Type="DateTime" Name="BirthDate" Precision="2" />
-        <Property Type="String" Name="WorkAddress" MaxLength="512" FixedLength="false" Unicode="true" />
-        <Property Type="String" Name="HomeAddress" MaxLength="512" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="WorkAddress" MaxLength="450" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="HomeAddress" MaxLength="450" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Comment" MaxLength="512" FixedLength="false" Unicode="true" />
         <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
         <Property Type="Boolean" Name="IsActive" Nullable="false" />
@@ -7666,7 +7650,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Website" MaxLength="200" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="MainFirmId" />
-        <Property Type="String" Name="MainAddress" MaxLength="512" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="MainAddress" MaxLength="250" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="Comment" MaxLength="512" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="TerritoryId" Nullable="false" />
         <Property Type="Int32" Name="InformationSource" Nullable="false" />
@@ -7797,14 +7781,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="RegistrationCertificate" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="Int64" Name="BranchOfficeId" Nullable="false" />
         <Property Type="Int64" Name="OrganizationUnitId" Nullable="false" />
-        <Property Type="String" Name="ShortLegalName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="ShortLegalName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PositionInNominative" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PositionInGenitive" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="ChiefNameInNominative" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="ChiefNameInGenitive" MaxLength="256" FixedLength="false" Unicode="true" />
 		<Property Type="String" Name="Registered" MaxLength="150" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="OperatesOnTheBasisInGenitive" MaxLength="256" FixedLength="false" Unicode="true" />
-        <Property Type="String" Name="Kpp" MaxLength="128" FixedLength="false" Unicode="true" />
+        <Property Type="String" Name="Kpp" MaxLength="15" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PaymentEssentialElements" MaxLength="256" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="ActualAddress" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
@@ -8500,14 +8484,13 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
       </EntityType>
       <EntityType Name="OrderValidationResult">
         <Key>
-          <PropertyRef Name="Id" />
+            <PropertyRef Name="ValidatorId" />
+            <PropertyRef Name="ValidVersion" />
+            <PropertyRef Name="OrderId" />
         </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="Int64" Name="OrderId" Nullable="false" />
-        <Property Type="Int64" Name="OrderValidationGroupId" Nullable="false" />
-        <Property Type="Int32" Name="OrderValidationType" Nullable="false" />
-        <Property Type="Boolean" Name="IsValid" Nullable="false" />
-        <NavigationProperty Name="Order" Relationship="ErmModel.FK_OrderValidationResults_Orders" FromRole="OrderValidationResult" ToRole="Order" />
+          <Property Name="ValidatorId" Type="Int32" Nullable="false" />
+          <Property Name="ValidVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" />
       </EntityType>
       <Association Name="FK_OrderValidationResults_Orders">
         <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
@@ -11289,11 +11272,9 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="OrderValidationResults">
           <EntityTypeMapping TypeName="ErmModel.OrderValidationResult">
             <MappingFragment StoreEntitySet="OrderValidationResults">
-              <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-              <ScalarProperty Name="OrderValidationType" ColumnName="OrderValidationType" />
-              <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
-              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
+              <ScalarProperty Name="ValidVersion" ColumnName="ValidVersion" />
+                <ScalarProperty Name="ValidatorId" ColumnName="ValidatorId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
             </MappingFragment>
           </EntityTypeMapping>
         </EntitySetMapping>

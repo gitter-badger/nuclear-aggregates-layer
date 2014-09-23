@@ -73,7 +73,7 @@
         <edmx:EntityTypeShape EntityType="ErmModel.NotificationEmailsTo" Width="1.5" PointX="13.25" PointY="8" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.NotificationProcessings" Width="1.5" PointX="10.25" PointY="21.125" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.CityPhoneZone" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationResult" Width="1.5" PointX="31.5" PointY="130" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationResult" Width="2.75" PointX="31.5" PointY="130" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.DepCard" Width="1.5" PointX="32.25" PointY="107" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.PrintFormTemplate" Width="1.5" PointX="15.75" PointY="82.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Building" Width="1.5" PointX="9.75" PointY="112.5" IsExpanded="true" />
