@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -30,13 +29,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
             entityViewModel.CanEditIsAdvertisingAgency =
                 _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement,
                                                                        _userContext.Identity.Code);
-
-            if (entityViewModel.IsNew)
-            {
-                // При создании нового клиента должна проставляться дата взятия из резерва, но не дата возвращения в резерв.
-                // TODO {all, 17.06.2014}: вероятно, этой логике место в сервисе получения DomainEntityDto
-                entityViewModel.LastQualifyTime = DateTime.UtcNow.Date;
-            }
         }
     }
 }

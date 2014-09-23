@@ -288,7 +288,6 @@
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Emirates\EmiratesClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
@@ -356,7 +355,6 @@
     <Compile Include="Models\Czech\CzechLegalPersonViewModel.cs" />
     <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
-    <Compile Include="Services\Cards\MultiCultureClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonViewModelCustomizationService.cs" />

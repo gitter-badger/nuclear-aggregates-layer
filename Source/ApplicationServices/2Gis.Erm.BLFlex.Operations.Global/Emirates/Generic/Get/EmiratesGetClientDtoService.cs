@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
@@ -36,7 +38,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new EmiratesClientDomainEntityDto();
+            return new EmiratesClientDomainEntityDto
+                       {
+                           LastQualifyTime = DateTime.UtcNow
+                       };
         }
     }
 }
