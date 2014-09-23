@@ -23,16 +23,6 @@ using DoubleGis.Erm.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
-    [DataContract]
-    public partial class PerformedOperationPrimaryProcessingDomainEntityDto : IDomainEntityDto<DoubleGis.Erm.Platform.Model.Entities.Erm.PerformedOperationPrimaryProcessing>
-    {
-    	[DataMember]
-        public long Id { get; set; }
-    	[DataMember]
-        public System.DateTime Date { get; set; }
-    	[DataMember]
-        public EntityReference MessageFlowRef { get; set; }
-    }
 }
 
 // ReSharper enable RedundantUsingDirective

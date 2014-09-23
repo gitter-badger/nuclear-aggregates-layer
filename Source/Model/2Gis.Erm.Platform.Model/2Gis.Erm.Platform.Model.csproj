@@ -649,6 +649,10 @@
       <Link>Entities\Erm\PerformedBusinessOperation.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperationDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessing.cs">
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -827,6 +831,7 @@
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="IBoundedContext.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\NotifyAboutAccountDetailModificationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\BulkUpdateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\DenyAdvertisementElementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ApproveAdvertisementElementIdentity.cs" />
@@ -1258,10 +1263,6 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnitDomainEntityDto.cs">
       <Link>Entities\DTOs\OrganizationUnitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperationDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PlatformDomainEntityDto.cs">

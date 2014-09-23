@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(OrderValidationRuleGroupDetail),
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
-                typeof(SecurityAccelerator),
+                typeof(SecurityAccelerator)
             };
 
         /// <summary>

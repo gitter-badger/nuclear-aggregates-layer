@@ -152,6 +152,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.AccountDetail = 141
         public const int ImportOperationsInfoIdentity = 14101;
+        public const int NotifyAboutAccountDetailModificationIdentity = 14102;
 
         // EntityName.OrderProcessingRequest = 550
         public const int RequestOrderProlongationIdentity = 55001;
