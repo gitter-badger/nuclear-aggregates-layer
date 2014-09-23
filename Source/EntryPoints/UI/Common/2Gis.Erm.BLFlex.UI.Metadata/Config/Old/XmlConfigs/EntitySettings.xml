@@ -82,7 +82,7 @@
 					<Field Name="OperationType" NameLocaleResourceId="DFieldTitleV2" Width="200" FieldType="String" ExtTypeName="String" />
 					<Field Name="AmountCharged" NameLocaleResourceId="DFieldAmountCharged" Width="200" FieldType="Money" ExtTypeName="Float" />
 					<Field Name="AmountWithdrawn" NameLocaleResourceId="DFieldAmountWithdrawn" Width="200" FieldType="Money" ExtTypeName="Float" />
-					<Field Name="TransactionDate" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+					<Field Name="TransactionDate" Width="200" FieldType="Period" ExtTypeName="Date" />
 					<Field Name="Description" Width="400" FieldType="String" ExtTypeName="String" />
 				</Fields>
 			</DataList>
@@ -94,7 +94,7 @@
 					<Field Name="AmountCharged" NameLocaleResourceId="DFieldAmountCharged" Width="200" FieldType="Money" ExtTypeName="Float" />
 					<Field Name="AmountWithdrawn" NameLocaleResourceId="DFieldAmountWithdrawn" Width="200" FieldType="Money" ExtTypeName="Float" />
 					<Field Name="IsDeleted" Width="60" FieldType="Boolean" ExtTypeName="Boolean" />
-					<Field Name="TransactionDate" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+					<Field Name="TransactionDate" Width="200" FieldType="Period" ExtTypeName="Date" />
 					<Field Name="Description" Width="400" FieldType="String" ExtTypeName="String" />
 				</Fields>
 			</DataList>
