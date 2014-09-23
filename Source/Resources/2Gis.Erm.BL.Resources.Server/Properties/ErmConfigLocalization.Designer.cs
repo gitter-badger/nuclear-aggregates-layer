@@ -621,6 +621,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlPrintBargainProlongationAgreementAction {
+            get {
+                return ResourceManager.GetString("ControlPrintBargainProlongationAgreementAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlPrintBillAction {
             get {
                 return ResourceManager.GetString("ControlPrintBillAction", resourceCulture);

@@ -1846,4 +1846,7 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value />
   </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value />
+  </data>
 </root>
