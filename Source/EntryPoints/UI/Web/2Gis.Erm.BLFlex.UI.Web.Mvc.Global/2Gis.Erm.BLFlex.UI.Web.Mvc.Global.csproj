@@ -160,6 +160,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

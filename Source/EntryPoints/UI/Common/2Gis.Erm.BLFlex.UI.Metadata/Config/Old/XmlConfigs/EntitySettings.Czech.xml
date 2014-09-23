@@ -73,7 +73,7 @@
           <Field Name="OperationType" NameLocaleResourceId="DFieldTitleV2" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="AmountCharged" NameLocaleResourceId="DFieldAmountCharged" Width="200" FieldType="Money" ExtTypeName="Float" />
           <Field Name="AmountWithdrawn" NameLocaleResourceId="DFieldAmountWithdrawn" Width="200" FieldType="Money" ExtTypeName="Float" />
-          <Field Name="TransactionDate" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="TransactionDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="Description" Width="400" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
@@ -85,7 +85,7 @@
           <Field Name="AmountCharged" NameLocaleResourceId="DFieldAmountCharged" Width="200" FieldType="Money" ExtTypeName="Float" />
           <Field Name="AmountWithdrawn" NameLocaleResourceId="DFieldAmountWithdrawn" Width="200" FieldType="Money" ExtTypeName="Float" />
           <Field Name="IsDeleted" Width="60" FieldType="Boolean" ExtTypeName="Boolean" />
-          <Field Name="TransactionDate" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="TransactionDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="Description" Width="400" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
@@ -495,7 +495,10 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="PrintActions" NameLocaleResourceId="ControlPrintActions" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
+        <ToolbarItem ParentName="PrintActions" Name="PrintBargainAction" NameLocaleResourceId="ControlPrintBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="true" Action="scope.PrintBargain" />
       </ToolbarItems>
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
@@ -1816,13 +1819,13 @@
         <ToolbarItem ParentName="PrintActions" Name="PrintOrderAction" NameLocaleResourceId="ControlPrintOrderAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrder" />
         <ToolbarItem ParentName="PrintActions" Name="PrintActionsAdditional" NameLocaleResourceId="ControlPrintActionsAdditional" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBills" SecurityPrivelegeFlag="0" />
-        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAction" NameLocaleResourceId="ControlPrintBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBargain" />
+        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAction" NameLocaleResourceId="ControlPrintBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBargain" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationNoticeAction" NameLocaleResourceId="ControlPrintTermNoticeAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationNotice" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationNoticeWithoutReasonAction" NameLocaleResourceId="ControlPrintTermNoticeWithoutReasonAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationNoticeWithoutReason" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationBargainNoticeAction" NameLocaleResourceId="ControlPrintTermBargainNoticeAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationBargainNotice" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationBargainNoticeWithoutReasonAction" NameLocaleResourceId="ControlPrintTermBargainNoticeWithoutReasonAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationBargainNoticeWithoutReason" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintAdditionalAgreementAction" NameLocaleResourceId="ControlPrintAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintAdditionalAgreement" SecurityPrivelegeFlag="0" />
-        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAdditionalAgreementAction" NameLocaleResourceId="ControlPrintBargainAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBargainAdditionalAgreement" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAdditionalAgreementAction" NameLocaleResourceId="ControlPrintBargainAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBargainAdditionalAgreement" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintLetterOfGuarantee" NameLocaleResourceId="ControlPrintSwornStatementAction" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintLetterOfGuarantee" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="Actions" Name="CheckOrder" NameLocaleResourceId="ControlCheckOrder" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.CheckOrder" />
         <ToolbarItem ParentName="Actions" Name="ChangeOwner" NameLocaleResourceId="ControlChangeOwner" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.ChangeOwner" SecurityPrivelegeFlag="524288" />

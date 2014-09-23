@@ -168,9 +168,6 @@
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value />
-  </data>
   <data name="OrderTotalAmountIsZero" xml:space="preserve">
     <value />
   </data>
