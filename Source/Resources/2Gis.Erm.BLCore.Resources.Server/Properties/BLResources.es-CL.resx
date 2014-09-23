@@ -1187,8 +1187,8 @@ Errores de bloqueo:{2}</value>
   <data name="Skypes" xml:space="preserve">
     <value>Números de Skype</value>
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
-    <value>Se ha efectuado el pago en la cuenta personal</value>
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
+    <value>Уведомление об изменении баланса лицевого счета клиента</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>Para ejecutar esta operación es necesario tener el privilegio Verificación masiva de órdenes</value>
@@ -2516,12 +2516,14 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>No se puede desactivar la posición bloqueada de una lista de precios publicada</value>
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>El pago se ha ingresado en la cuenta personal: {0}.
-Persona jurídica del cliente: {1}.
-Persona jurídica del ejecutor: {2}.
-Pago recibido: {3}.
-Operación realizada: {4}.</value>
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
+    <value>Юридическое лицо клиента: {0}.
+Юридическое лицо исполнителя: {1}.
+Лицевой счет: {2}.
+Название операции: {3}.
+Тип операции: {4}.
+Cумма по операции: {5}.
+Операция проведена: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Se requiere cerrar todos los planes activos con este objeto</value>

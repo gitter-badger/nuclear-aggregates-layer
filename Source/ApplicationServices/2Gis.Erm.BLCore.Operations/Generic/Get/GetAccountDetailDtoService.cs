@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AccountDetail> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            var dto = new AccountDetailDomainEntityDto { TransactionDate = DateTime.UtcNow.Date, OwnerCanBeChanged = false };
+            var dto = new AccountDetailDomainEntityDto { TransactionDate = DateTime.Today, OwnerCanBeChanged = false };
 
             switch (parentEntityName)
             {

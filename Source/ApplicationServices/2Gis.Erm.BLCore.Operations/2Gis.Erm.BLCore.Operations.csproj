@@ -53,6 +53,7 @@
     <Compile Include="..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AccountDetails\NotifyAboutAccountDetailModificationOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementWorkflowViolationStrategy.cs" />
     <Compile Include="Concrete\AdvertisementElements\ChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />

@@ -1187,8 +1187,8 @@
   <data name="Skypes" xml:space="preserve">
     <value>Номера Skype</value>
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
-    <value>Поступила оплата на лицевой счет</value>
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
+    <value>Уведомление об изменении баланса лицевого счета клиента</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>Для запуска операции необходимо наличие привилегии "Массовая проверка заказа"</value>
@@ -2516,12 +2516,14 @@
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Нельзя дективировать запрещенную позицию из опубликованного прайс-листа</value>
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>Поступила оплата на лицевой счет: {0}.
-Юридическое лицо клиента: {1}.
-Юридическое лицо исполнителя: {2}.
-Поступившая сумма: {3}.
-Операция проведена: {4}.</value>
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
+    <value>Юридическое лицо клиента: {0}.
+Юридическое лицо исполнителя: {1}.
+Лицевой счет: {2}.
+Название операции: {3}.
+Тип операции: {4}.
+Cумма по операции: {5}.
+Операция проведена: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Необходимо закрыть все активные планы с данным объектом</value>
