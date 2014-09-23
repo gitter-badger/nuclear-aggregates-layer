@@ -8,8 +8,8 @@
     PrintTerminationBargainNoticeWithoutReason: function () {
         this.Print('PrintTerminationBargainNoticeWithoutReason');
     },
-    PrintBargainAdditionalAgreement: function () {
-        this.Print('PrintBargainAdditionalAgreement');
+    PrintOrderBargainAdditionalAgreement: function () {
+        this.Print('PrintOrderBargainAdditionalAgreement');
     },
 
     refreshBargainButtons: function () {
