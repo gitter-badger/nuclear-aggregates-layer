@@ -14,8 +14,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Emirates
                 {
                     TemplateCode.OrderWithoutVatWithDiscount,
                     TemplateCode.BillLegalPerson,
-                    TemplateCode.BargainLegalPerson,
-                    TemplateCode.BargainLegalPersonAlternativeLanguage,
+                    TemplateCode.ClientBargain,
+                    TemplateCode.ClientBargainAlternativeLanguage,
                     TemplateCode.AdditionalAgreementLegalPerson,
                     TemplateCode.BargainAdditionalAgreementLegalPerson,
                     TemplateCode.AcceptanceReport,

@@ -522,15 +522,6 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OrderHasNoBranchOfficeOrganizationUnit {
-            get {
-                return ResourceManager.GetString("OrderHasNoBranchOfficeOrganizationUnit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string OrderPositionNameWithContextCategory {
             get {
                 return ResourceManager.GetString("OrderPositionNameWithContextCategory", resourceCulture);
