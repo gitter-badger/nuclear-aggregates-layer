@@ -5,8 +5,8 @@
     PrintRegionalOrder: function () {
         this.Print('PrintRegionalOrder');
     },
-    PrintBargain: function () {
-        this.Print('PrintBargain');
+    PrintOrderBargain: function () {
+        this.Print('PrintOrderBargain');
     },
     PrintBill: function () {
         this.Print('PrintBill');
@@ -29,8 +29,8 @@
     PrintAdditionalAgreement: function () {
         this.Print('PrintAdditionalAgreement');
     },
-    PrintBargainAdditionalAgreement: function () {
-        this.Print('PrintBargainAdditionalAgreement');
+    PrintOrderBargainAdditionalAgreement: function () {
+        this.Print('PrintOrderBargainAdditionalAgreement');
     },
     PrintReferenceInformation: function () {
         this.Print('PrintReferenceInformation');
