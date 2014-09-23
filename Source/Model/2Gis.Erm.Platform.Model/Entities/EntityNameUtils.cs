@@ -102,8 +102,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
                 typeof(PerformedOperationFinalProcessing),
-                typeof(PerformedOperationPrimaryProcessing),
-                typeof(Building)
+                typeof(PerformedOperationPrimaryProcessing)
             };
 
         /// <summary>
