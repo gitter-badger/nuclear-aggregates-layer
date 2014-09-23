@@ -4,16 +4,12 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.AccountDetails;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.FinancialData1C;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AccountDetail;
 
@@ -22,29 +18,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowFinanc
     public class ImportOperationsInfoService : IImportOperationsInfoService
     {
         private readonly IAccountRepository _accountRepository;
-        private readonly IEmployeeEmailResolver _employeeEmailResolver;
-        private readonly ILocalizationSettings _localizationSettings;
-        private readonly ICommonLog _logger;
-        private readonly INotificationSender _notificationSender;
-        private readonly INotificationsSettings _notificationsSettings;
         private readonly Lazy<IReadOnlyCollection<OperationType>> _operations;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly INotifyAboutAccountDetailModificationOperationService _notifyAboutAccountDetailModificationOperationService;
 
         public ImportOperationsInfoService(IAccountRepository accountRepository,
-                                           IEmployeeEmailResolver employeeEmailResolver,
-                                           ILocalizationSettings localizationSettings,
-                                           ICommonLog logger,
-                                           INotificationSender notificationSender,
-                                           INotificationsSettings notificationsSettings,
-                                           IOperationScopeFactory scopeFactory)
+                                           IOperationScopeFactory scopeFactory,
+                                           INotifyAboutAccountDetailModificationOperationService notifyAboutAccountDetailModificationOperationService)
         {
             _accountRepository = accountRepository;
-            _employeeEmailResolver = employeeEmailResolver;
-            _localizationSettings = localizationSettings;
-            _logger = logger;
-            _notificationSender = notificationSender;
-            _notificationsSettings = notificationsSettings;
             _scopeFactory = scopeFactory;
+            _notifyAboutAccountDetailModificationOperationService = notifyAboutAccountDetailModificationOperationService;
             _operations = new Lazy<IReadOnlyCollection<OperationType>>(() => _accountRepository.GetOperationsInSyncWith1C());
         }
 
@@ -60,6 +44,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowFinanc
                 }
 
                 scope.Complete();
+            }
+        }
+
+        private static void ValidateOperationDates(OperationsInfoServiceBusDto operationsInfo)
+        {
+            var invalidOperations = operationsInfo.Operations
+                                                  .Where(x => x.TransactionDate > operationsInfo.EndDate || x.TransactionDate < operationsInfo.StartDate)
+                                                  .Select(x => x.DocumentNumber)
+                                                  .ToArray();
+
+            if (invalidOperations.Any())
+            {
+                throw new BusinessLogicException(
+                    string.Format("Дата проведения операций с DocumentNumber = [{0}] не попадает в период [{1:G} - {2:G}], указанный в заголовке сообщения",
+                                  string.Join(", ", invalidOperations),
+                                  operationsInfo.StartDate,
+                                  operationsInfo.EndDate));
             }
         }
 
@@ -96,42 +97,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowFinanc
                                                                    dto.LegalEntityBranchCode1C));
                 }
 
-                var newAccountDetails = CreateNewAccountDetails(operations, accountInfo.OwnerCode);
+                var newAccountDetails = GetAccountDetailsByOperations(operations, accountInfo.OwnerCode);
                 _accountRepository.Create(newAccountDetails);
 
-                foreach (var accountDetail in newAccountDetails)
-                {
-                    NotifyAboutPaymentReceived(accountInfo.Id,
-                                               accountInfo.OwnerCode,
-                                               accountInfo.LegalPersonName,
-                                               accountInfo.BranchOfficeLegalName,
-                                               accountDetail.Amount,
-                                               accountDetail.TransactionDate);
-                }
+                var newAccountDetailsIds = newAccountDetails.Select(x => x.Id).ToArray();
+                _notifyAboutAccountDetailModificationOperationService.Notify(newAccountDetailsIds.First(), newAccountDetailsIds.Skip(1).ToArray());
             }
 
             var accountIds = operationsByAccount.Select(x => x.Key).Union(accountInfosById.Values.SelectMany(x => x.AccountDetails).Select(x => x.AccountId));
             _accountRepository.UpdateAccountBalance(accountIds);
         }
 
-        private static void ValidateOperationDates(OperationsInfoServiceBusDto operationsInfo)
-        {
-            var invalidOperations = operationsInfo.Operations
-                                                  .Where(x => x.TransactionDate > operationsInfo.EndDate || x.TransactionDate < operationsInfo.StartDate)
-                                                  .Select(x => x.DocumentNumber)
-                                                  .ToArray();
-
-            if (invalidOperations.Any())
-            {
-                throw new BusinessLogicException(
-                    string.Format("Дата проведения операций с DocumentNumber = [{0}] не попадает в период [{1:G} - {2:G}], указанный в заголовке сообщения",
-                                  string.Join(", ", invalidOperations),
-                                  operationsInfo.StartDate,
-                                  operationsInfo.EndDate));
-            }
-        }
-
-        private IReadOnlyCollection<AccountDetail> CreateNewAccountDetails(IEnumerable<OperationDto> operationGroup, long ownerCode)
+        private IReadOnlyCollection<AccountDetail> GetAccountDetailsByOperations(IEnumerable<OperationDto> operationGroup, long ownerCode)
         {
             var result = new List<AccountDetail>();
 
@@ -159,41 +136,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowFinanc
             }
 
             return result;
-        }
-
-        private void NotifyAboutPaymentReceived(long accountId,
-                                                long accountOwnerCode,
-                                                string legalPersonName,
-                                                string branchOfficeLegalName,
-                                                decimal accountDetailAmount,
-                                                DateTime transactionDate)
-        {
-            if (!_notificationsSettings.EnableNotifications)
-            {
-                _logger.InfoEx("Notifications disabled in config file");
-                return;
-            }
-
-            string accountOwnerEmail;
-            if (_employeeEmailResolver.TryResolveEmail(accountOwnerCode, out accountOwnerEmail) && !string.IsNullOrEmpty(accountOwnerEmail))
-            {
-                var body = string.Format(BLResources.PaymentReceivedBodyTemplate,
-                                         accountId,
-                                         legalPersonName,
-                                         branchOfficeLegalName,
-                                         accountDetailAmount,
-                                         transactionDate.ToString(_localizationSettings.ApplicationCulture));
-
-                _notificationSender.PostMessage(new[] { new NotificationAddress(accountOwnerEmail) },
-                                                BLResources.PaymentReceivedSubject,
-                                                body);
-            }
-            else
-            {
-                _logger.ErrorFormatEx("Can't send notification about - payment received. Can't get to_address email. Account id: {0}. Owner code: {1}",
-                                      accountId,
-                                      accountOwnerCode);
-            }
         }
     }
 }
