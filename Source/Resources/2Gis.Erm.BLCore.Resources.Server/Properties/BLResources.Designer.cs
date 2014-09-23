@@ -7688,6 +7688,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ItIsNotAllowedToCreateAgentBargains {
+            get {
+                return ResourceManager.GetString("ItIsNotAllowedToCreateAgentBargains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ItsReadOnlyMode {
             get {
                 return ResourceManager.GetString("ItsReadOnlyMode", resourceCulture);
@@ -10220,6 +10229,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OrderHasLinkedDeal {
             get {
                 return ResourceManager.GetString("OrderHasLinkedDeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderHasNoBranchOfficeOrganizationUnit {
+            get {
+                return ResourceManager.GetString("OrderHasNoBranchOfficeOrganizationUnit", resourceCulture);
             }
         }
         

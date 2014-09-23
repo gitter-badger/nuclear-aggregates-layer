@@ -543,9 +543,6 @@
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
     <value>Доп. соглашение для ИП</value>
   </data>
-  <data name="TemplateCodeBargainBusinessman" xml:space="preserve">
-    <value>Договор для ИП</value>
-  </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
     <value>Счёт на оплату для ИП</value>
   </data>
@@ -554,9 +551,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Доп. соглашение для юр. лица</value>
-  </data>
-  <data name="TemplateCodeBargainLegalPerson" xml:space="preserve">
-    <value>Договор для юр. лица</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
     <value>Счёт на оплату для юр. лица</value>
@@ -593,9 +587,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
     <value>Доп. соглашение для физ. лица</value>
-  </data>
-  <data name="TemplateCodeBargainNaturalPerson" xml:space="preserve">
-    <value>Договор для физ. лица</value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
     <value>Счёт на оплату для физ. лица</value>
@@ -1980,5 +1971,17 @@
   </data>
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Клиентский договор</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>Клиентский договор (дополнительный язык)</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>Агентский договор</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
   </data>
 </root>

@@ -63,6 +63,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         {
             var entity = _bargainObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
+            // Сейчас временно запрещаем создавать агентские договоры
+            if (entity.BargainKind == (int)BargainKind.Agent)
+            {
+                throw new AccessToAgentBargainCreationIsDeniedException(BLResources.ItIsNotAllowedToCreateAgentBargains);
+            }
+
             if (entity.BargainKind == (int)BargainKind.Agent && entity.BargainEndDate == null)
             {
                 throw new AgentBargainEndDateIsNotSpecifiedException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.BargainEndDate));

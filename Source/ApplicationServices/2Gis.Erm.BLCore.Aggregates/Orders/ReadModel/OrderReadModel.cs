@@ -122,7 +122,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount)
         {
             return _finder.Find(OrderSpecs.Orders.Select.OrderInfosForRelease(),
-                                                  OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
+                                OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
                           .OrderBy(o => o.Id)
                           .Skip(skipCount)
                           .Take(takeCount)
@@ -1078,12 +1078,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             if (sourceOrganizationUnitId.HasValue)
             {
                 sourceVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                                                    Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
+                                         Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
                                    .Single();
             }
 
             var destVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                                                  Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
+                                       Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                                  .Single();
 
             if (sourceVat == decimal.Zero)
@@ -1166,10 +1166,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             {
                 var chargeInfo = orderPositionChargeInfo;
                 var appropriateOrderPositionIds = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
-                                                                                   x.PositionId == chargeInfo.PositionId &&
-                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId)
-                                                                       .Select(x => x.OrderPositionId)
-                                                                       .ToArray();
+                                                                                     x.PositionId == chargeInfo.PositionId &&
+                                                                                     x.CategoryIds.First() == chargeInfo.CategoryId)
+                                                                         .Select(x => x.OrderPositionId)
+                                                                         .ToArray();
                 if (appropriateOrderPositionIds.Length == 0)
                 {
                     errors.Add(string.Format("Cant't find appropriate order position for charge [{0}].", chargeInfo));
@@ -1253,7 +1253,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 _finder.Find(OrderSpecs.Bargains.Find.ByLegalPersons(legalPersonId, branchOfficeOrganizationUnitId) && Specs.Find.ActiveAndNotDeleted<Bargain>()
                              && OrderSpecs.Bargains.Find.NotClosedByCertainDate(orderEndDistributionDate))
                        .Select(x => new OrderSuitableBargainDto
-        {
+                           {
                                Id = x.Id,
                                EndDate = x.BargainEndDate,
                                Number = x.Number,
@@ -1262,17 +1262,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .ToArray();
         }
 
+        public long? GetBargainIdByOrder(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
+        }
+
+        public long GetBargainLegalPersonId(long bargainId)
+        {
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
+        }
+
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)
         {
             var list = _finder.Find<OrganizationUnit>(unit => organizationUnitIds.Contains(unit.Id))
                               .Select(x => new
-                                  {
-                                      OrgUnitId = x.Id,
-                                      ContributionType = x.BranchOfficeOrganizationUnits
-                                                          .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
-                                                          .Select(boou => boou.BranchOffice.ContributionTypeId)
-                                                          .FirstOrDefault()
-                                  })
+                              {
+                                  OrgUnitId = x.Id,
+                                  ContributionType = x.BranchOfficeOrganizationUnits
+                                                      .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
+                                                      .Select(boou => boou.BranchOffice.ContributionTypeId)
+                                                      .FirstOrDefault()
+                              })
                               .ToArray();
 
             return list.ToDictionary(x => x.OrgUnitId, x => (ContributionTypeEnum?)x.ContributionType);

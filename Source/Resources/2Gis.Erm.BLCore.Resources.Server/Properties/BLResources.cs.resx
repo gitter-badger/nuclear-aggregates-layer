@@ -5142,6 +5142,9 @@ Doba zveřejnění: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
   </data>
+  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>V objednávce není uvedena pr. osoba zhotovitele. Není možné vybrat výtisk.</value>
+  </data>
   <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
     <value>Nemáte práva pro převedení prvku reklamního materiálu do statusu {0}</value>
   </data>
@@ -5159,6 +5162,9 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Nelze zadat neaktivní příčinu odmítnutí</value>
+  </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value>Создание агентских договоров запрещено</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-faktury.zip</value>
