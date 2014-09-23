@@ -5143,6 +5143,9 @@ Cумма по операции: {5}.
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Дата окончания действия договора не может быть меньше даты подписания</value>
   </data>
+  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>В заказе не указано Юр. лицо исполнителя. Невозможно выбрать печатную форму.</value>
+  </data>
   <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
     <value>Нет прав для перевода ЭРМ в статус {0}</value>
   </data>
@@ -5160,6 +5163,9 @@ Cумма по операции: {5}.
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Нельзя указать неактивную причину отклонения</value>
+  </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value>Создание агентских договоров запрещено</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
