@@ -1187,8 +1187,8 @@ Locking errors:{2}</value>
   <data name="Skypes" xml:space="preserve">
     <value>Skype IDs</value>
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
-    <value>Payment was received to the personal account</value>
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
+    <value>Уведомление об изменении баланса лицевого счета клиента</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>The privilege "Mass check of the order" is required in order to start the operation</value>
@@ -2515,12 +2515,14 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Cannot deactivate a prohibited item from a published price-list</value>
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>Payment has been received to the personal account: {0}.
-Legal entity of the client: {1}.
-Legal entity of the contractor: {2}.
-Received amount: {3}.
-The operation has been executed: {4}.</value>
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
+    <value>Юридическое лицо клиента: {0}.
+Юридическое лицо исполнителя: {1}.
+Лицевой счет: {2}.
+Название операции: {3}.
+Тип операции: {4}.
+Cумма по операции: {5}.
+Операция проведена: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Please close all active actions with this object</value>
@@ -5157,6 +5159,9 @@ Placement period: {3}.</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Cannot specify an inactive rejection reason</value>
+  </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value>Создание агентских договоров запрещено</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>

@@ -29,5 +29,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         string GetBranchOfficeOrganizationUnitName(long branchOfficeOrganizationUnitId);
         IReadOnlyCollection<LockDto> GetLockDetailsWithPlannedProvision(long organizationUnitId, TimePeriod period);
         bool AnyLockDetailsCreated(Guid chargeSessionId);
+        IEnumerable<AccountDetailInfoToSendNotificationDto> GetAccountDetailsInfoToSendNotification(IEnumerable<long> accountDetailIds);
     }
 }

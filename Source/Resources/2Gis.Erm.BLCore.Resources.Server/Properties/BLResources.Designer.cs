@@ -369,6 +369,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AccountOperationLetterBodyTemplate {
+            get {
+                return ResourceManager.GetString("AccountOperationLetterBodyTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AccountOperationLetterSubject {
+            get {
+                return ResourceManager.GetString("AccountOperationLetterSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AcquireOrderExtensionFailed {
             get {
                 return ResourceManager.GetString("AcquireOrderExtensionFailed", resourceCulture);
@@ -7670,6 +7688,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ItIsNotAllowedToCreateAgentBargains {
+            get {
+                return ResourceManager.GetString("ItIsNotAllowedToCreateAgentBargains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ItsReadOnlyMode {
             get {
                 return ResourceManager.GetString("ItsReadOnlyMode", resourceCulture);
@@ -10208,6 +10235,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string OrderHasNoBranchOfficeOrganizationUnit {
+            get {
+                return ResourceManager.GetString("OrderHasNoBranchOfficeOrganizationUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string OrderInfoNotFound {
             get {
                 return ResourceManager.GetString("OrderInfoNotFound", resourceCulture);
@@ -11318,24 +11354,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string PaymentPeriodStartMustBeLessThanPaymentPeriodEnd {
             get {
                 return ResourceManager.GetString("PaymentPeriodStartMustBeLessThanPaymentPeriodEnd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PaymentReceivedBodyTemplate {
-            get {
-                return ResourceManager.GetString("PaymentReceivedBodyTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PaymentReceivedSubject {
-            get {
-                return ResourceManager.GetString("PaymentReceivedSubject", resourceCulture);
             }
         }
         

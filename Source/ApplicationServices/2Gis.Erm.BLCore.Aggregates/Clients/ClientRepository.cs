@@ -561,7 +561,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public IEnumerable<Client> GetClientsByTerritory(long territoryId)
         {
-            return _finder.Find<Client>(x => x.TerritoryId == territoryId).ToArray();
+            return _finder.FindMany(ClientSpecs.Clients.Find.ByTerritory(territoryId));
         }
 
         public void ChangeTerritory(IEnumerable<Client> clients, long territoryId)

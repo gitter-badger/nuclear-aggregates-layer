@@ -1187,8 +1187,8 @@ Blokujících chyb:{2}</value>
   <data name="Skypes" xml:space="preserve">
     <value>Čísla Skype</value>
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
-    <value>Na osobní účet byla připsána platba</value>
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
+    <value>Уведомление об изменении баланса лицевого счета клиента</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>Operaci je možné spustit pouze s oprávněním „Hromadná kontrola objednávky“</value>
@@ -2516,12 +2516,14 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Není možné deaktivovat zakázanou položku ze zveřejněného ceníku</value>
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>Na osobní účet byla připsána platba: {0}.
-Právnická osoba objednatele: {1}.
-Právnická osoba zhotovitele: {2}.
-Připsaná částka: {3}.
-Operace provedena: {4}.</value>
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
+    <value>Юридическое лицо клиента: {0}.
+Юридическое лицо исполнителя: {1}.
+Лицевой счет: {2}.
+Название операции: {3}.
+Тип операции: {4}.
+Cумма по операции: {5}.
+Операция проведена: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Je třeba zavřít všechny aktivní plány spojené s tímto objektem</value>
@@ -5140,6 +5142,9 @@ Doba zveřejnění: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Datum ukončení platnosti smlouvy nemůže být před datem podepsání smlouvy</value>
   </data>
+  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>V objednávce není uvedena pr. osoba zhotovitele. Není možné vybrat výtisk.</value>
+  </data>
   <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
     <value>Nemáte práva pro převedení prvku reklamního materiálu do statusu {0}</value>
   </data>
@@ -5157,6 +5162,9 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Nelze zadat neaktivní příčinu odmítnutí</value>
+  </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value>Создание агентских договоров запрещено</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-faktury.zip</value>
