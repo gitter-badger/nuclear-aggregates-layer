@@ -1845,4 +1845,7 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Počet dokumentů</value>
   </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
+  </data>
 </root>
