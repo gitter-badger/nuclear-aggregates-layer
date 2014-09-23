@@ -324,6 +324,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
             return _finder.Find(Specs.Find.NotDeleted<LockDetail>() && AccountSpecs.LockDetails.Find.ForChargeSessionId(chargeSessionId)).Any();
         }
 
+        public IEnumerable<AccountDetailInfoToSendNotificationDto> GetAccountDetailsInfoToSendNotification(IEnumerable<long> accountDetailIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<AccountDetail>(accountDetailIds))
+                          .Select(x => new AccountDetailInfoToSendNotificationDto
+                              {
+                                  Amount = x.Amount,
+                                  AccountId = x.AccountId,
+                                  IsPlusOperation = x.OperationType.IsPlus,
+                                  OperationName = x.OperationType.Name,
+                                  TransactionDate = x.TransactionDate,
+                                  BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.ShortLegalName,
+                                  LegalPersonName = x.Account.LegalPerson.LegalName,
+                                  AccountOwnerCode = x.Account.OwnerCode
+                              })
+                          .ToArray();
+        }
+
         public IReadOnlyCollection<LockDto> GetLockDetailsWithPlannedProvision(long organizationUnitId, TimePeriod period)
         {
             var orderPositionsQuery = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
