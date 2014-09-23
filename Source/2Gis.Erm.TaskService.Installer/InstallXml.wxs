@@ -62,7 +62,7 @@
     </ComponentGroup>
 
     <ComponentGroup Id="NugetThirdParty" Directory="INSTALLFOLDER">
-      <?define PackagesDir = "$(var.ProjectDir)..\packages" ?>
+      <?define PackagesDir = "..\packages" ?>
       <Component>
         <File Source="$(var.PackagesDir)\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
       </Component>
@@ -123,19 +123,18 @@
       <Component>
         <File Source="$(var.PackagesDir)\ServiceBus.v1_1.1.0.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
       </Component>
-      <?define Topaz = "EnterpriseLibrary.TransientFaultHandling" ?>
       <Component>
-        <File Source="$(var.PackagesDir)\$(var.Topaz).6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.$(var.Topaz).dll" />
+        <File Source="$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\$(var.Topaz).Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.$(var.Topaz).Caching.dll" />
+        <File Source="$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Caching.dll" />
       </Component>
       <Component>
-        <File Source= "$(var.PackagesDir)\$(var.Topaz).ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.$(var.Topaz).ServiceBus.dll" />
+        <File Source= "$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus.dll" />
       </Component>
     </ComponentGroup>
     <ComponentGroup Id="BinaryThirdParty" Directory="INSTALLFOLDER">
-      <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
+      <?define LibsDir = "..\Libs" ?>
       <Component>
         <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
       </Component>
