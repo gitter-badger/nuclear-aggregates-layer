@@ -47,9 +47,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             {
                 EntityName.Bank,
                 EntityName.Commune,
+            };
+
+		public static readonly EntityName[] MappingEntities =
+            {
                 EntityName.Appointment,
+                EntityName.Phonecall,
                 EntityName.Task,
-                EntityName.Phonecall
+				EntityName.RegardingObjectReference
             };
 
         public static readonly Type[] AsyncReplicated2MsCrmEntities =
@@ -100,7 +105,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(OrderValidationRuleGroupDetail),
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
-                typeof(SecurityAccelerator)
+                typeof(SecurityAccelerator),
+                
+				typeof(AppointmentBase),
+				typeof(AppointmentReference),
+				typeof(PhonecallBase),
+				typeof(PhonecallReference),
+				typeof(TaskBase),
+				typeof(TaskReference),
             };
 
         /// <summary>
@@ -140,14 +152,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             };
 
         /// <summary>
-        /// Список сущностей являющихся базовыми классами, т.е. 
-        /// </summary>
-        public static readonly HashSet<Type> BaseEntities = new HashSet<Type>
-            {
-                typeof(ActivityBase)
-            };
-
-        /// <summary>
         /// Разложить composed значение на составляющие, если на вход передано не composed (элементарное) значение EntityName - возвращается оно без изменений
         /// </summary>
         public static EntityName[] GetDecomposed(this EntityName entityName)
@@ -182,6 +186,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool IsDynamic(this EntityName entityName)
         {
             return DynamicEntities.Contains(entityName);
+        }
+
+        public static bool HasMapping(this EntityName entityName)
+        {
+            return MappingEntities.Contains(entityName);
         }
 
         public static bool IsPersistenceOnly(this Type checkingType)

@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
+    // FIXME {all, 31.07.2014}: в функционале уровня persistence ignorance  не должно быть OperationsScopes и т.п. - данный фнукционал фактически часть DAL, если это нужно чтобы consistencyverifier не ругался, так и нужно доработать verifier для поддержки EAV, а не впиливать сюда филиал слоя applicationservices
     public sealed class ConsistentRepositoryDecorator<TEntity> : IRepository<TEntity>, IDynamicEntityRepository
         where TEntity : class, IEntity, IEntityKey, IPartable
     {

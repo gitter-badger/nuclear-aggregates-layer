@@ -33,17 +33,16 @@ namespace DoubleGis.Erm.Platform.Security
         private static readonly IEnumerable<EntityAccessTypes> AtomicAccessTypes =
             ((EntityAccessTypes[])typeof(EntityAccessTypes).GetEnumValues()).Where(x => x != EntityAccessTypes.None && x != EntityAccessTypes.All);
 
+        // FIXME {all, 31.07.2014}: непонятно как данный routing будет работать c EAV сущностями, т.к. в их случае в query будет фигурировать не domain entity, а внутренние сущности хранилища EAV
         // Для каждой пары в словаре проверка привилегий для первой сущности заменяется  
         // проверкой привилегий для второй сущности.
         // TODO : не проверено мирное сосуществование рутингов и Access sharing'а.
         private static readonly Dictionary<EntityName, EntityName> EntityPrivilegesRoutings = 
             new Dictionary<EntityName, EntityName>
                 {
-                    { EntityName.ActivityInstance, EntityName.ActivityBase },
-                    { EntityName.ActivityPropertyInstance, EntityName.ActivityBase },
-                    { EntityName.Appointment, EntityName.ActivityBase }, 
-                    { EntityName.Phonecall, EntityName.ActivityBase }, 
-                    { EntityName.Task, EntityName.ActivityBase }
+                    { EntityName.Appointment, EntityName.Activity}, 
+                    { EntityName.Phonecall, EntityName.Activity}, 
+                    { EntityName.Task, EntityName.Activity}
                 };
 
         private readonly IFinder _finder;
@@ -53,9 +52,9 @@ namespace DoubleGis.Erm.Platform.Security
         private readonly TimeSpan _cacheSlidingSpan = TimeSpan.FromSeconds(60);
 
         public SecurityServiceFacade(IFinder finder,
-                                     IUserEntityService userEntityService,
-                                     ICacheAdapter cacheAdapter,
-                                     ICommonLog commonLog)
+            IUserEntityService userEntityService,
+            ICacheAdapter cacheAdapter,
+            ICommonLog commonLog)
         {
             _finder = finder;
             _userEntityService = userEntityService;
@@ -307,7 +306,7 @@ namespace DoubleGis.Erm.Platform.Security
             if (isSecure.HasValue)
             {
                 return isSecure.Value;
-            }
+        }
 
             var result = _finder.FindAll<Privilege>().Any(x => x.EntityType == (int)entityToCheck);
             _cacheAdapter.Add(key, result, CacheAbsoluteSpan);
