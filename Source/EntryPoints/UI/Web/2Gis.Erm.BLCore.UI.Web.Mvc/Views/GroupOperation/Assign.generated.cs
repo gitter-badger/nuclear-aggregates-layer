@@ -189,90 +189,103 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Assign\');\r\n      
 ": false, // информация о том, есть ли привилегия \"Обработка лицевых счетов с зад" +
 "олжностью\"\r\n            BypassValidationView: {},   // представление для Предлож" +
 "енния продолжить операцию, если есть задолженность по лицевым счетам\r\n          " +
-"  constructor: function (config) {\r\n                Ext.apply(config, {\r\n       " +
-"             listeners: {\r\n                        configspecificcontrols: funct" +
-"ion () {\r\n                            this.ConfigCustomControls();\r\n            " +
-"            },\r\n                        applyusersettings: function () {\r\n      " +
-"                      this.ApplyUserSettings();\r\n                        },\r\n   " +
-"                     processingfinished: function () {\r\n                        " +
-"    this.ProcessingFinished();\r\n                        },\r\n                    " +
-"    entityprocessingfail: function (msg) {\r\n                            this.Ent" +
-"ityAssignFailed(msg);\r\n                        }\r\n                    }\r\n       " +
-"         });\r\n                Ext.DoubleGis.UI.Assign.AssignProcessor.superclass" +
-".constructor.call(this, config);\r\n            },\r\n            ConfigCustomContro" +
-"ls: function () {\r\n                var onRadioClick = this.RadioClick.createDele" +
-"gate(this);\r\n                Ext.get(\"rdoAssignToMe\").on(\"click\", onRadioClick);" +
-"\r\n                Ext.get(\"rdoAssignToUser\").on(\"click\", onRadioClick);\r\n       " +
-"         this.UserCodeLookup = Ext.getCmp(\"UserCode\");\r\n            },\r\n        " +
-"    RadioClick: function () {\r\n                if (Ext.getDom(\"rdoAssignToMe\").c" +
-"hecked) {\r\n                    this.UserCodeLookup.disable();\r\n                }" +
-"\r\n                else if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n           " +
-"         this.UserCodeLookup.enable();\r\n                }\r\n            },\r\n     " +
-"       IsUserSettingsValid: function () {\r\n                if (Ext.getDom(\"rdoAs" +
-"signToUser\").checked) {\r\n                    if (Ext.getDom(\"UserCode\").value ==" +
-" \"\") {\r\n                        Ext.MessageBox.show({\r\n                         " +
-"   title: \'\',\r\n                            msg: Ext.LocalizedResources.AssignMus" +
-"tPickUser,\r\n                            buttons: window.Ext.MessageBox.OK,\r\n    " +
-"                        width: 300,\r\n                            icon: window.Ex" +
-"t.MessageBox.ERROR\r\n                        });\r\n                        return " +
-"false;\r\n                    }\r\n                }\r\n\r\n                return true;" +
-"\r\n            },\r\n            ApplyUserSettings: function () {\r\n                " +
-"this.OwnerCode = Ext.getDom(\"rdoAssignToUser\").checked ? this.UserCodeLookup.get" +
-"Value().id : \"\";\r\n\r\n                var ctx = Ext.getDom(\"rdoCascadeAssign\");\r\n " +
-"               this.IsPartialAssign = ctx && !ctx.checked;\r\n\r\n                Ex" +
-"t.getDom(\"rdoAssignToMe\").disabled = \"disabled\";\r\n                Ext.getDom(\"rd" +
-"oAssignToUser\").disabled = \"disabled\";\r\n                this.UserCodeLookup.disa" +
-"ble();\r\n            },\r\n            CreateParamsForControllerCall: function (ent" +
-"ityId) {\r\n                return { entityId: entityId, ownerCode: this.OwnerCode" +
-", isPartialAssign: this.IsPartialAssign, bypassValidation: null };\r\n            " +
-"},\r\n            ValidateEntryProcessingSuccessStatus: function (message) {\r\n    " +
-"            var bypassValidationInfo = window.Ext.decode(message);\r\n            " +
-"    if (bypassValidationInfo.CanProceed && bypassValidationInfo.CanProceed == tr" +
-"ue) {\r\n                    var isOperationContinue = confirm(bypassValidationInf" +
-"o.Message);\r\n                    if (isOperationContinue) {\r\n                   " +
-"     var params = this.CreateParamsForControllerCall(bypassValidationInfo.Entity" +
-"Id);\r\n                        params.bypassValidation = true;\r\n                 " +
-"       var url = this.EvaluateOperationUrl();\r\n                        this.Proc" +
-"essSingleEntity(url, params);\r\n\r\n                        return this.SuccessStat" +
-"us.ReprocessingRequired;\r\n                    }\r\n\r\n                    return th" +
-"is.SuccessStatus.Rejected;\r\n                }\r\n                return this.Succe" +
-"ssStatus.Approved;\r\n            },\r\n            ProcessingFinished: function () " +
-"{\r\n                // innerHTML элемента Notifications присваивается по окончани" +
-"и операции (см. файл GroupOperations.js),\r\n                // динамически засовы" +
-"ваем туда линк.\r\n                if (this.SuccessProcessed < this.EntitiesCount " +
-"&& !this.IsSingleEntityProcessing) {\r\n\r\n                    this.FinishOperation" +
-"(this.FailedEntitiesMessages.join(\'\\r\\n\'));\r\n\r\n                    var notificat" +
-"ions = Ext.getDom(\'Notifications\');\r\n                    var errorsLinkNode = do" +
-"cument.createElement(\"a\");\r\n                    errorsLinkNode.id = \'ErrorsLink\'" +
-";\r\n                    errorsLinkNode.href = \'#\';\r\n                    errorsLin" +
-"kNode.appendChild(document.createTextNode(Ext.LocalizedResources.DisplayErrorsLi" +
-"st));\r\n                    notifications.appendChild(errorsLinkNode);\r\n         " +
-"           Ext.getDom(\'ErrorsLink\').onclick = function () {\r\n                   " +
-"     Ext.getDom(\'ErrorsForm\').submit();\r\n                    };\r\n               " +
-"     Ext.getDom(\'ErrorsLink\').onclick();\r\n                }\r\n                els" +
-"e {\r\n                    this.FinishOperation();\r\n                }\r\n           " +
-" },\r\n            EntityAssignFailed: function (msg) {\r\n                this.Fail" +
-"edEntitiesMessages[this.FailedEntitiesMessages.length] = msg;\r\n            },\r\n " +
-"           FinishOperation: function (msg) {\r\n                var finishOperatio" +
-"nResponse = window.Ext.Ajax.syncRequest({\r\n                    method: \'POST\',\r\n" +
-"                    url: \'/Operation/CreateOperationWithErrorLog\',\r\n            " +
-"        params: { operationId: Ext.getDom(\"operationId\").value, log: msg, conten" +
-"tType: \'text/csv\', logFileName: \'Assign_errors.csv\' }\r\n                });\r\n    " +
-"            if ((finishOperationResponse.conn.status >= 200 && finishOperationRe" +
-"sponse.conn.status < 300) || (Ext.isIE && finishOperationResponse.conn.status ==" +
-" 1223)) {\r\n                }\r\n                else {\r\n                    alert(" +
-"finishOperationResponse.conn.responseText);\r\n                    return;\r\n      " +
-"          }\r\n            }\r\n        });\r\n\r\n        Ext.onReady(function ()\r\n    " +
-"    {\r\n            var ids = !window.dialogArguments ? [] : (window.dialogArgume" +
-"nts.Values ? window.dialogArguments.Values : window.dialogArguments);\r\n\r\n       " +
-"     //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(document);\r\n            Ext" +
-".getDom(\'DivErrors\').style.visibility = \'hidden\';\r\n            Ext.getDom(\'PageC" +
-"ontentCell\').style[\"vertical-align\"] = \"top\";\r\n            var config = {\r\n     " +
-"           Entities: ids, // массив id сущностей\r\n                OperationName:" +
-" \'");
+"  EntitiesToProcess: {},\r\n            constructor: function (config) {\r\n        " +
+"        Ext.apply(config, {\r\n                    listeners: {\r\n                 " +
+"       configspecificcontrols: function () {\r\n                            this.C" +
+"onfigCustomControls();\r\n                        },\r\n                        appl" +
+"yusersettings: function () {\r\n                            this.ApplyUserSettings" +
+"();\r\n                        },\r\n                        processingfinished: fun" +
+"ction () {\r\n                            this.ProcessingFinished();\r\n            " +
+"            },\r\n                        entityprocessingfail: function (msg) {\r\n" +
+"                            this.EntityAssignFailed(msg);\r\n                     " +
+"   }\r\n                    }\r\n                });\r\n                Ext.DoubleGis." +
+"UI.Assign.AssignProcessor.superclass.constructor.call(this, config);\r\n          " +
+"      if (config.EntitiesToProcess) {\r\n                \tvar entitiesToProcess = " +
+"{};\r\n                \tExt.each(config.EntitiesToProcess, function (x) {\r\n       " +
+"         \t\tentitiesToProcess[x.entityId] = x.entityName;\r\n                \t});\r\n" +
+"                \tthis.EntitiesToProcess = entitiesToProcess;\r\n                }\r" +
+"\n            },\r\n            ConfigCustomControls: function () {\r\n              " +
+"  var onRadioClick = this.RadioClick.createDelegate(this);\r\n                Ext." +
+"get(\"rdoAssignToMe\").on(\"click\", onRadioClick);\r\n                Ext.get(\"rdoAss" +
+"ignToUser\").on(\"click\", onRadioClick);\r\n                this.UserCodeLookup = Ex" +
+"t.getCmp(\"UserCode\");\r\n            },\r\n            RadioClick: function () {\r\n  " +
+"              if (Ext.getDom(\"rdoAssignToMe\").checked) {\r\n                    th" +
+"is.UserCodeLookup.disable();\r\n                }\r\n                else if (Ext.ge" +
+"tDom(\"rdoAssignToUser\").checked) {\r\n                    this.UserCodeLookup.enab" +
+"le();\r\n                }\r\n            },\r\n            IsUserSettingsValid: funct" +
+"ion () {\r\n                if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n        " +
+"            if (Ext.getDom(\"UserCode\").value == \"\") {\r\n                        E" +
+"xt.MessageBox.show({\r\n                            title: \'\',\r\n                  " +
+"          msg: Ext.LocalizedResources.AssignMustPickUser,\r\n                     " +
+"       buttons: window.Ext.MessageBox.OK,\r\n                            width: 30" +
+"0,\r\n                            icon: window.Ext.MessageBox.ERROR\r\n             " +
+"           });\r\n                        return false;\r\n                    }\r\n  " +
+"              }\r\n\r\n                return true;\r\n            },\r\n            App" +
+"lyUserSettings: function () {\r\n                this.OwnerCode = Ext.getDom(\"rdoA" +
+"ssignToUser\").checked ? this.UserCodeLookup.getValue().id : \"\";\r\n\r\n             " +
+"   var ctx = Ext.getDom(\"rdoCascadeAssign\");\r\n                this.IsPartialAssi" +
+"gn = ctx && !ctx.checked;\r\n\r\n                Ext.getDom(\"rdoAssignToMe\").disable" +
+"d = \"disabled\";\r\n                Ext.getDom(\"rdoAssignToUser\").disabled = \"disab" +
+"led\";\r\n                this.UserCodeLookup.disable();\r\n            },\r\n         " +
+"   ResolveEntityName: function (entityId) {\r\n            \tif (this.EntitiesToPro" +
+"cess.hasOwnProperty(entityId))\r\n            \t\treturn this.EntitiesToProcess[enti" +
+"tyId];\r\n            \telse \r\n            \t\treturn this.superclass().ResolveEntity" +
+"Name.call(this, entityId);\r\n            },\r\n            CreateParamsForControlle" +
+"rCall: function (entityId) {\r\n                return { entityId: entityId, owner" +
+"Code: this.OwnerCode, isPartialAssign: this.IsPartialAssign, bypassValidation: n" +
+"ull };\r\n            },\r\n            ValidateEntryProcessingSuccessStatus: functi" +
+"on (message) {\r\n                var bypassValidationInfo = window.Ext.decode(mes" +
+"sage);\r\n                if (bypassValidationInfo.CanProceed && bypassValidationI" +
+"nfo.CanProceed == true) {\r\n                    var isOperationContinue = confirm" +
+"(bypassValidationInfo.Message);\r\n                    if (isOperationContinue) {\r" +
+"\n                        var params = this.CreateParamsForControllerCall(bypassV" +
+"alidationInfo.EntityId);\r\n                        params.bypassValidation = true" +
+";\r\n                        var url = this.EvaluateOperationUrl();\r\n             " +
+"           this.ProcessSingleEntity(url, params);\r\n\r\n                        ret" +
+"urn this.SuccessStatus.ReprocessingRequired;\r\n                    }\r\n\r\n         " +
+"           return this.SuccessStatus.Rejected;\r\n                }\r\n             " +
+"   return this.SuccessStatus.Approved;\r\n            },\r\n            ProcessingFi" +
+"nished: function () {\r\n                // innerHTML элемента Notifications присв" +
+"аивается по окончании операции (см. файл GroupOperations.js),\r\n                /" +
+"/ динамически засовываем туда линк.\r\n                if (this.SuccessProcessed <" +
+" this.EntitiesCount && !this.IsSingleEntityProcessing) {\r\n\r\n                    " +
+"this.FinishOperation(this.FailedEntitiesMessages.join(\'\\r\\n\'));\r\n\r\n             " +
+"       var notifications = Ext.getDom(\'Notifications\');\r\n                    var" +
+" errorsLinkNode = document.createElement(\"a\");\r\n                    errorsLinkNo" +
+"de.id = \'ErrorsLink\';\r\n                    errorsLinkNode.href = \'#\';\r\n         " +
+"           errorsLinkNode.appendChild(document.createTextNode(Ext.LocalizedResou" +
+"rces.DisplayErrorsList));\r\n                    notifications.appendChild(errorsL" +
+"inkNode);\r\n                    Ext.getDom(\'ErrorsLink\').onclick = function () {\r" +
+"\n                        Ext.getDom(\'ErrorsForm\').submit();\r\n                   " +
+" };\r\n                    Ext.getDom(\'ErrorsLink\').onclick();\r\n                }\r" +
+"\n                else {\r\n                    this.FinishOperation();\r\n          " +
+"      }\r\n            },\r\n            EntityAssignFailed: function (msg) {\r\n     " +
+"           this.FailedEntitiesMessages[this.FailedEntitiesMessages.length] = msg" +
+";\r\n            },\r\n            FinishOperation: function (msg) {\r\n              " +
+"  var finishOperationResponse = window.Ext.Ajax.syncRequest({\r\n                 " +
+"   method: \'POST\',\r\n                    url: \'/Operation/CreateOperationWithErro" +
+"rLog\',\r\n                    params: { operationId: Ext.getDom(\"operationId\").val" +
+"ue, log: msg, contentType: \'text/csv\', logFileName: \'Assign_errors.csv\' }\r\n     " +
+"           });\r\n                if ((finishOperationResponse.conn.status >= 200 " +
+"&& finishOperationResponse.conn.status < 300) || (Ext.isIE && finishOperationRes" +
+"ponse.conn.status == 1223)) {\r\n                }\r\n                else {\r\n      " +
+"              alert(finishOperationResponse.conn.responseText);\r\n               " +
+"     return;\r\n                }\r\n            }\r\n        });\r\n\r\n        Ext.onRea" +
+"dy(function ()\r\n        {\r\n            var dialogArguments = !window.dialogArgum" +
+"ents ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : win" +
+"dow.dialogArguments);\r\n            var ids = dialogArguments;\r\n\r\n            var" +
+" isExtendedMode = (dialogArguments != null && dialogArguments.length > 0 && dial" +
+"ogArguments[0].hasOwnProperty(\'entityId\'));\r\n            if (isExtendedMode) {\r\n" +
+"            \tids = [];\r\n            \tExt.each(dialogArguments, function (x) { id" +
+"s.push(x.entityId); });\r\n            }\r\n\r\n            //window.Tooltip = new Ext" +
+".DoubleGis.UI.Tooltip(document);\r\n            Ext.getDom(\'DivErrors\').style.visi" +
+"bility = \'hidden\';\r\n            Ext.getDom(\'PageContentCell\').style[\"vertical-al" +
+"ign\"] = \"top\";\r\n            var config = {\r\n            \tEntitiesToProcess: isEx" +
+"tendedMode ? dialogArguments : null,\r\n                Entities: ids, // массив i" +
+"d сущностей\r\n                OperationName: \'");
 
             
-            #line 157 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 179 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(Model.OperationName);
 
             
@@ -302,13 +315,13 @@ WriteLiteral(" id=\"DivErrors\"");
 WriteLiteral(">\r\n");
 
             
-            #line 173 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 195 "..\..\Views\GroupOperation\Assign.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 173 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 195 "..\..\Views\GroupOperation\Assign.cshtml"
      using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
     {
 
@@ -321,20 +334,20 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 9363), Tuple.Create("\"", 9386)
+WriteAttribute("value", Tuple.Create(" value=\"", 10446), Tuple.Create("\"", 10469)
             
-            #line 175 "..\..\Views\GroupOperation\Assign.cshtml"
-, Tuple.Create(Tuple.Create("", 9371), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
+            #line 197 "..\..\Views\GroupOperation\Assign.cshtml"
+, Tuple.Create(Tuple.Create("", 10454), Tuple.Create<System.Object, System.Int32>(Guid.NewGuid()
             
             #line default
             #line hidden
-, 9371), false)
+, 10454), false)
 );
 
 WriteLiteral(" />\r\n");
 
             
-            #line 176 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 198 "..\..\Views\GroupOperation\Assign.cshtml"
     }
 
             
@@ -343,13 +356,13 @@ WriteLiteral(" />\r\n");
 WriteLiteral("        \r\n   </div>\r\n\r\n");
 
             
-            #line 180 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 202 "..\..\Views\GroupOperation\Assign.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 180 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 202 "..\..\Views\GroupOperation\Assign.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -392,7 +405,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 193 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 215 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(Model.Message);
 
             
@@ -430,7 +443,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 203 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 225 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(BLResources.AssignAssignToMe);
 
             
@@ -445,7 +458,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 206 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 228 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(String.Format(BLResources.AssignAssignToMeLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -486,7 +499,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 220 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 242 "..\..\Views\GroupOperation\Assign.cshtml"
                        Write(BLResources.AssignAssignToOther);
 
             
@@ -505,7 +518,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 224 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 246 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(String.Format(BLResources.AssignAssignToOtherLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -527,7 +540,7 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 229 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 251 "..\..\Views\GroupOperation\Assign.cshtml"
                                    Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" }));
 
             
@@ -538,13 +551,13 @@ WriteLiteral("\r\n                                    </td>\r\n                 
 "               </td>\r\n                </tr>\r\n");
 
             
-            #line 236 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 258 "..\..\Views\GroupOperation\Assign.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 236 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 258 "..\..\Views\GroupOperation\Assign.cshtml"
                  if (Model.PartialAssignSupported)
                 {
 
@@ -565,14 +578,14 @@ WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"IsPartialAssign\"");
 
-WriteAttribute("disabled", Tuple.Create(" disabled=\"", 12744), Tuple.Create("\"", 12786)
+WriteAttribute("disabled", Tuple.Create(" disabled=\"", 13827), Tuple.Create("\"", 13869)
             
-            #line 240 "..\..\Views\GroupOperation\Assign.cshtml"
-                                          , Tuple.Create(Tuple.Create("", 12755), Tuple.Create<System.Object, System.Int32>(Model.IsCascadeAssignForbidden
+            #line 262 "..\..\Views\GroupOperation\Assign.cshtml"
+                                          , Tuple.Create(Tuple.Create("", 13838), Tuple.Create<System.Object, System.Int32>(Model.IsCascadeAssignForbidden
             
             #line default
             #line hidden
-, 12755), false)
+, 13838), false)
 );
 
 WriteLiteral(" />\r\n                        </td>\r\n                        <td >\r\n              " +
@@ -587,7 +600,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 244 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 266 "..\..\Views\GroupOperation\Assign.cshtml"
                            Write(BLResources.AssignInAllHierarchy);
 
             
@@ -597,7 +610,7 @@ WriteLiteral("\r\n                            </label>\r\n                      
 "          </tr>\r\n");
 
             
-            #line 248 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 270 "..\..\Views\GroupOperation\Assign.cshtml"
 
                 }
 
@@ -623,34 +636,34 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 260 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 282 "..\..\Views\GroupOperation\Assign.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 260 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 282 "..\..\Views\GroupOperation\Assign.cshtml"
    Write(Html.HiddenFor(m => m.EntityTypeName));
 
             
             #line default
             #line hidden
             
-            #line 260 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 282 "..\..\Views\GroupOperation\Assign.cshtml"
                                               
         
             
             #line default
             #line hidden
             
-            #line 261 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 283 "..\..\Views\GroupOperation\Assign.cshtml"
    Write(Html.HiddenFor(m => m.PartialAssignSupported));
 
             
             #line default
             #line hidden
             
-            #line 261 "..\..\Views\GroupOperation\Assign.cshtml"
+            #line 283 "..\..\Views\GroupOperation\Assign.cshtml"
                                                       
     }
 
