@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     BargainKind = BargainKind,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp,
-                    UserCanWorkWithAdvertisingAgencies = UserCanWorkWithAdvertisingAgencies,
+                    UserCanWorkWithAdvertisingAgencies = false,
                     IsLegalPersonChoosingDenied = IsLegalPersonChoosingDenied,
                     IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied,
                     ClientId = ClientId

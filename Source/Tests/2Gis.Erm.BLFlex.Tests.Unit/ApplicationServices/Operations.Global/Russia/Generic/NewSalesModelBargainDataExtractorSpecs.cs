@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Russia
                                               DataExtractor.GetLegalPerson(LegalPerson),
                                               DataExtractor.GetBranchOfficeOrganizationUnit(BranchOfficeOrganizationUnit),
                                               DataExtractor.GetBranchOffice(Query(BranchOffice)),
-                                              DataExtractor.GetUngroupedFields(Query(Order)));
+                                              DataExtractor.GetUngroupedFields(Query(Bargain)));
                 };
 
             It should_contain_certain_data_set_for_root = () => Result.Select(pair => pair.Key).Should().Contain(RootFieldSet);

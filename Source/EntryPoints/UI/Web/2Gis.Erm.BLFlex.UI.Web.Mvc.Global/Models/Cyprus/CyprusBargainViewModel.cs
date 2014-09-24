@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     DocumentsComment = DocumentsComment,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp,
-                    UserCanWorkWithAdvertisingAgencies = UserCanWorkWithAdvertisingAgencies,
+                    UserCanWorkWithAdvertisingAgencies = false,
                     IsLegalPersonChoosingDenied = IsLegalPersonChoosingDenied,
                     IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied,
                     ClientId = ClientId
