@@ -3,94 +3,158 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public sealed class ListActivityService : ListEntityDtoServiceBase<Activity, ListActivityInstanceDto>
+    public sealed class ListActivityService : ListEntityDtoServiceBase<Activity, ListActivityDto>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICompositeEntityDecorator _compositeEntityDecorator;
+        private readonly IFinder _finder;
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListActivityService(ISecurityServiceUserIdentifier userIdentifierService,
             ICompositeEntityDecorator compositeEntityDecorator,
+            IFinder finder,
             IUserContext userContext,
             FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _compositeEntityDecorator = compositeEntityDecorator;
+            _finder = finder;
             _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
+        private IQueryable<ListActivityDto> ListAppointments()
+        {
+            var appointments = _compositeEntityDecorator.Find(Specs.Find.Active<Appointment>());
+            var appointmentRegardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == EntityName.Client));
+            var appointmentRegardingContacts = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == EntityName.Contact));
+            var appointmentRegardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == EntityName.Firm));
+            var appointmentRegardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == EntityName.Deal));
+
+            return
+                from appointment in appointments
+                from regardingClient in appointmentRegardingClients.Where(x => x.SourceEntityId == appointment.Id).DefaultIfEmpty()
+                from regardingContact in appointmentRegardingContacts.Where(x => x.SourceEntityId == appointment.Id).DefaultIfEmpty()
+                from regardingFirm in appointmentRegardingFirms.Where(x => x.SourceEntityId == appointment.Id).DefaultIfEmpty()
+                from regardingDeal in appointmentRegardingDeals.Where(x => x.SourceEntityId == appointment.Id).DefaultIfEmpty()
+                select new ListActivityDto
+                {
+                    ActivityTypeEnum = ActivityType.Appointment,
+                    Id = appointment.Id,
+                    OwnerCode = appointment.OwnerCode,
+                    Header = appointment.Header,
+                    ScheduledStart = appointment.ScheduledStart,
+                    ScheduledEnd = appointment.ScheduledEnd,
+                    ActualEnd = appointment.Status == ActivityStatus.Completed || appointment.Status == ActivityStatus.Canceled ? appointment.ActualEnd : null,
+                    StatusEnum = appointment.Status,
+                    IsDeleted = appointment.IsDeleted,
+                    IsActive = appointment.IsActive,
+                    TaskType = TaskType.NotSet,
+                    ClientId = regardingClient.TargetEntityId,
+                    ContactId = regardingContact.TargetEntityId,
+                    FirmId = regardingFirm.TargetEntityId,
+                    DealId = regardingDeal.TargetEntityId,
+					ActivityType = ActivityType.Appointment.ToStringLocalizedExpression(),
+                    Priority = ActivityPriority.Average.ToStringLocalizedExpression(),
+                    Status = appointment.Status.ToStringLocalizedExpression(),
+                };
+        }
+
+        private IQueryable<ListActivityDto> ListPhonecalls()
+        {
+            var phonecalls = _compositeEntityDecorator.Find(Specs.Find.Active<Phonecall>());
+            var phonecallRegardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Phonecall>>(x => x.TargetEntityName == EntityName.Client));
+            var phonecallRegardingContacts = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Phonecall>>(x => x.TargetEntityName == EntityName.Contact));
+            var phonecallRegardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Phonecall>>(x => x.TargetEntityName == EntityName.Firm));
+            var phonecallRegardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Phonecall>>(x => x.TargetEntityName == EntityName.Deal));
+
+            return
+                from phonecall in phonecalls
+                from regardingClient in phonecallRegardingClients.Where(x => x.SourceEntityId == phonecall.Id).DefaultIfEmpty()
+                from regardingContact in phonecallRegardingContacts.Where(x => x.SourceEntityId == phonecall.Id).DefaultIfEmpty()
+                from regardingFirm in phonecallRegardingFirms.Where(x => x.SourceEntityId == phonecall.Id).DefaultIfEmpty()
+                from regardingDeal in phonecallRegardingDeals.Where(x => x.SourceEntityId == phonecall.Id).DefaultIfEmpty()
+                select new ListActivityDto
+                {
+                    ActivityTypeEnum = ActivityType.Phonecall,
+                    Id = phonecall.Id,
+                    OwnerCode = phonecall.OwnerCode,
+                    Header = phonecall.Header,
+                    ScheduledStart = phonecall.ScheduledStart,
+                    ScheduledEnd = phonecall.ScheduledEnd,
+                    ActualEnd = phonecall.Status == ActivityStatus.Completed || phonecall.Status == ActivityStatus.Canceled ? phonecall.ActualEnd : null,
+                    StatusEnum = phonecall.Status,
+                    IsDeleted = phonecall.IsDeleted,
+                    IsActive = phonecall.IsActive,
+                    TaskType = TaskType.NotSet,
+                    ClientId = regardingClient.TargetEntityId,
+                    ContactId = regardingContact.TargetEntityId,
+                    FirmId = regardingFirm.TargetEntityId,
+                    DealId = regardingDeal.TargetEntityId,
+					ActivityType = ActivityType.Phonecall.ToStringLocalizedExpression(),
+                    Priority = phonecall.Priority.ToStringLocalizedExpression(),
+                    Status = phonecall.Status.ToStringLocalizedExpression(),
+                };
+        }
+
+        private IQueryable<ListActivityDto> ListTasks()
+        {
+            var tasks = _compositeEntityDecorator.Find(Specs.Find.Active<Task>());
+            var taskRegardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Task>>(x => x.TargetEntityName == EntityName.Client));
+            var taskRegardingContacts = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Task>>(x => x.TargetEntityName == EntityName.Contact));
+            var taskRegardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Task>>(x => x.TargetEntityName == EntityName.Firm));
+            var taskRegardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<RegardingObject<Task>>(x => x.TargetEntityName == EntityName.Deal));
+
+            return
+                from task in tasks
+                from regardingClient in taskRegardingClients.Where(x => x.SourceEntityId == task.Id).DefaultIfEmpty()
+                from regardingContact in taskRegardingContacts.Where(x => x.SourceEntityId == task.Id).DefaultIfEmpty()
+                from regardingFirm in taskRegardingFirms.Where(x => x.SourceEntityId == task.Id).DefaultIfEmpty()
+                from regardingDeal in taskRegardingDeals.Where(x => x.SourceEntityId == task.Id).DefaultIfEmpty()
+                select new ListActivityDto
+                {
+                    ActivityTypeEnum = ActivityType.Task,
+                    Id = task.Id,
+                    OwnerCode = task.OwnerCode,
+                    Header = task.Header,
+                    ScheduledStart = task.ScheduledStart,
+                    ScheduledEnd = task.ScheduledEnd,
+                    ActualEnd = task.Status == ActivityStatus.Completed || task.Status == ActivityStatus.Canceled ? task.ActualEnd : null,
+                    StatusEnum = task.Status,
+                    IsDeleted = task.IsDeleted,
+                    IsActive = task.IsActive,
+                    TaskType = task.TaskType,
+                    ClientId = regardingClient.TargetEntityId,
+                    ContactId = regardingContact.TargetEntityId,
+                    FirmId = regardingFirm.TargetEntityId,
+                    DealId = regardingDeal.TargetEntityId,
+					ActivityType = ActivityType.Task.ToStringLocalizedExpression(),
+                    Priority = task.Priority.ToStringLocalizedExpression(),
+                    Status = task.Status.ToStringLocalizedExpression(),
+                };
+        }
+
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            // FIXME {s.pomadin, 12.08.2014}: resolving of references is not processing
-            // AfterSaleServiceTypeEnum = x.AfterSaleServiceType == null ? AfterSaleServiceType.None : (AfterSaleServiceType)(int)x.AfterSaleServiceType.Value,
-            // ClientId = x.ClientId,
-            // ContactId = x.ContactId,
-            // DealId = x.DealId,
-            // FirmId = x.FirmId,
+            var appointmentDtos = ListAppointments();
+            var phonecalls = ListPhonecalls();
+            var taskDtos = ListTasks();
 
-            var activities =
-                _compositeEntityDecorator.Find(Specs.Find.Any<Appointment>()).Select(x => new ListActivityInstanceDto
-                    {
-                        ActivityTypeEnum = ActivityType.Appointment,
-                        Id = x.Id,
-                        OwnerCode = x.OwnerCode,
-                        Header = x.Header,
-                        ScheduledStart = x.ScheduledStart,
-                        ScheduledEnd = x.ScheduledEnd,
-                        ActualEnd = x.ActualEnd,
-                        PriorityEnum = x.Priority,
-                        StatusEnum = x.Status,
-                        IsDeleted = x.IsDeleted,
-                        IsActive = x.IsActive,
-                        TaskType = TaskType.NotSet,
-                    })
-                .Concat(_compositeEntityDecorator.Find(Specs.Find.Any<Phonecall>()).Select(x => new ListActivityInstanceDto
-                    {
-                        ActivityTypeEnum = ActivityType.Phonecall,
-                        Id = x.Id,
-                        OwnerCode = x.OwnerCode,
-                        Header = x.Header,
-                        ScheduledStart = x.ScheduledStart,
-                        ScheduledEnd = x.ScheduledEnd,
-                        ActualEnd = x.ActualEnd,
-                        PriorityEnum = x.Priority,
-                        StatusEnum = x.Status,
-                        IsDeleted = x.IsDeleted,
-                        IsActive = x.IsActive,
-                        TaskType = TaskType.NotSet,
-                    }))
-                .Concat(_compositeEntityDecorator.Find(Specs.Find.Any<Task>()).Select(x => new ListActivityInstanceDto
-                    {
-                        ActivityTypeEnum = ActivityType.Task,
-                        Id = x.Id,
-                        OwnerCode = x.OwnerCode,
-                        Header = x.Header,
-                        ScheduledStart = x.ScheduledStart,
-                        ScheduledEnd = x.ScheduledEnd,
-                        ActualEnd = x.ActualEnd,
-                        PriorityEnum = x.Priority,
-                        StatusEnum = x.Status,
-                        IsDeleted = x.IsDeleted,
-                        IsActive = x.IsActive,
-                        TaskType = x.TaskType,
-                    }))
-                ;
+            var activities = appointmentDtos.Concat(phonecalls).Concat(taskDtos);
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
@@ -134,12 +198,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 .QuerySettings(_filterHelper, querySettings)
                 .Transform(x =>
                 {
-                    x.ActivityType = x.ActivityTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
                     x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    x.Priority = x.PriorityEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    x.AfterSaleServiceType = x.AfterSaleServiceTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-
                     return x;
                 });
 
