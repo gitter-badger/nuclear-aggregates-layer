@@ -12,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
@@ -24,10 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
         private readonly ICreateTaskAggregateService _createTaskAggregateService;
         private readonly IUpdateTaskAggregateService _updateTaskAggregateService;
         private readonly ICommonLog _logger;
-        private readonly IMsCrmSettings _msCrmSettings;
 
         public ReplicateHotClientMessageAggregatedProcessingResultHandler(
-            IMsCrmSettings msCrmSettings,
             IBindCrmTaskToHotClientRequestAggregateService bindCrmTaskToHotClientRequestAggregateService,
             ICreateTaskAggregateService createTaskAggregateService,
             IUpdateTaskAggregateService updateTaskAggregateService,
@@ -37,17 +34,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
             _createTaskAggregateService = createTaskAggregateService;
             _updateTaskAggregateService = updateTaskAggregateService;
             _logger = logger;
-            _msCrmSettings = msCrmSettings;
         }
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
         {
-            if (!_msCrmSettings.EnableReplication)
-            {
-                _logger.WarnFormatEx("Replication to MsCRM disabled in config. Do nothing ...");
-                return processingResultBuckets.Select(pair => new KeyValuePair<Guid, MessageProcessingStageResult>(pair.Key, MessageProcessingStage.Handle.EmptyResult().AsSucceeded()));
-            }
-
             var handlingResults = new Dictionary<Guid, MessageProcessingStageResult>();
             var hotClientInfos = new Dictionary<long, HotClientInfo>();
 
@@ -106,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                 try
                 {
                     // TODO {all, 17.07.2014}: возможно стоит вынести процесс создания task в operationservice, т.к. после отказа от MsCRM бизнесс процесс останется, просто действия будут заводиться в ERM
-                    var taskId = ReplicateTask(
+                    var taskId = CreateTask(
                                     hotClientInfo.Owner, 
                                     hotClientInfo.HotClient, 
                                     hotClientInfo.RegardingObject);
@@ -150,7 +140,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
         }
 
         // TODO {all, 15.07.2014}: скорее всего код должен обладать свойством идемпотентности, т.е. если в CRM уже создали задачу, повторно создавать её аналог не стоит, вопрос как этого достичь
-        private Guid ReplicateTask(UserDto owner, HotClientRequestDto hotClient, RegardingObject regardingObject)
+        private Guid CreateTask(UserDto owner, HotClientRequestDto hotClient, RegardingObject regardingObject)
         {
             try
             {
