@@ -5142,6 +5142,9 @@ Placement period: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Contract expiry date cannot be earlier than the signing date</value>
   </data>
+  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>Legal entity of the contractor is not specified in the order. Cannot select a printed form.</value>
+  </data>
   <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
     <value>You do not have rights to change the status of the AME to {0}</value>
   </data>
@@ -5159,6 +5162,9 @@ Placement period: {3}.</value>
   </data>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Cannot specify an inactive rejection reason</value>
+  </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value>Создание агентских договоров запрещено</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>

@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.AccountDetails
                 foreach (var ownerCode in ownerCodes)
                 {
                     string accountOwnerEmail;
-                    if (_employeeEmailResolver.TryResolveEmail(ownerCode, out accountOwnerEmail) && !string.IsNullOrEmpty(accountOwnerEmail))
+                    if (!_ownerEmailsMap.ContainsKey(ownerCode) && _employeeEmailResolver.TryResolveEmail(ownerCode, out accountOwnerEmail) && !string.IsNullOrEmpty(accountOwnerEmail))
                     {
                         _ownerEmailsMap.Add(ownerCode, accountOwnerEmail);
                     }
