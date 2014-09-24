@@ -6,8 +6,17 @@ INSERT INTO [Activity].[AppointmentBase]
 	([Id],[ReplicationCode],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
 	,[Subject],[Description],[ScheduledStart],[ScheduledEnd],[ActualEnd],[Priority],[Status],[IsAllDayEvent],[Location],[Purpose]
 	)
-SELECT [Id], NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
-	, [Header], [Description], [ScheduledStart], [ScheduledEnd], [ActualEnd], [Priority], [Status], 0, NULL, [Purpose]
+SELECT [Id],NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+	, CASE WHEN LEN(Header) > 256 THEN LEFT(Header, 256) ELSE Header END AS [Header]
+	, CASE WHEN LEN(Header) > 256 THEN CONCAT(Header, char(13), char(10), Description) ELSE Description END AS [Description]
+    , [ScheduledStart]
+    , [ScheduledEnd]
+    , [ActualEnd]
+    , [Priority]
+    , [Status]
+    , 0
+    , NULL
+    , [Purpose]
   FROM [Activity].[ActivityInstances] ai
   LEFT OUTER JOIN (SELECT ActivityId,[TextValue] AS [Header] FROM [Activity].[ActivityPropertyInstances] WHERE [PropertyId] = 1) p1 ON ai.Id = p1.ActivityId
   LEFT OUTER JOIN (SELECT ActivityId,[TextValue] AS [Description] FROM [Activity].[ActivityPropertyInstances] WHERE [PropertyId] = 8) p2 ON ai.Id = p2.ActivityId
