@@ -56,10 +56,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 oldRegardingObjects,
                 new[]
                     {
-                        task.ReferenceIfAny(EntityName.Client, taskDto.ClientRef.Id),
-                        task.ReferenceIfAny(EntityName.Contact, taskDto.ContactRef.Id),
-                        task.ReferenceIfAny(EntityName.Deal, taskDto.DealRef.Id),
-                        task.ReferenceIfAny(EntityName.Firm, taskDto.FirmRef.Id)
+                        task.ReferenceIfAny(EntityName.Client, taskDto.ClientRef != null ? taskDto.ClientRef.Id : null),
+                        task.ReferenceIfAny(EntityName.Contact, taskDto.ContactRef != null ? taskDto.ContactRef.Id : null),
+                        task.ReferenceIfAny(EntityName.Deal, taskDto.DealRef != null ? taskDto.DealRef.Id : null),
+                        task.ReferenceIfAny(EntityName.Firm, taskDto.FirmRef != null ? taskDto.FirmRef.Id : null)
                     }.Where(x => x != null));
 
             return task.Id;
