@@ -22,9 +22,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 
         public ITestResult Execute()
         {
-	        var appropriateAppointment = _finder.FindMany(Specs.Find.Any<Appointment>()).FirstOrDefault();
-	        var appropriatePhonecall = _finder.FindMany(Specs.Find.Any<Phonecall>()).FirstOrDefault();
-	        var appropriateTask = _finder.FindMany(Specs.Find.Any<Task>()).FirstOrDefault();
+	        var appropriateAppointment = _finder.FindMany(Specs.Find.Active<Appointment>()).FirstOrDefault();
+            var appropriatePhonecall = _finder.FindMany(Specs.Find.Active<Phonecall>()).FirstOrDefault();
+            var appropriateTask = _finder.FindMany(Specs.Find.Active<Task>()).FirstOrDefault();
 	        var reference = _finder.FindMany(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == EntityName.Client)).FirstOrDefault();
 	        var activityWithClient = reference != null ? _finder.FindMany(Specs.Find.ById<Appointment>(reference.SourceEntityId)) : null;
 
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 	        var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
 
 	        // ReSharper disable once PossibleInvalidOperationException
-	        _activityReadModel.CheckIfRelatedActivitiesExists(reference.TargetEntityId);
+	        _activityReadModel.CheckIfActivityExistsRegarding(reference.TargetEntityId);
 
 	        return new object[]
 		        {
