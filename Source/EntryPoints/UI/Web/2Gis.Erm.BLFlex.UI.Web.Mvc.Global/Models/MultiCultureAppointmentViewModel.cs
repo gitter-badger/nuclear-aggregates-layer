@@ -1,9 +1,8 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -14,17 +13,21 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
     public sealed class MultiCultureAppointmentViewModel : ActivityBaseViewModelAbstract<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
+		public MultiCultureAppointmentViewModel()
+			: base(ActivityType.Appointment)
+	    {
+	    }
+
         [RequiredLocalized]
         [Dependency(DependencyType.Required, "Purpose", "this.value != 'NotSet'")]
-        public ActivityPurpose Purpose { get; set; }
+		public ActivityPurpose Purpose { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (AppointmentDomainEntityDto)domainEntityDto;
             
             Id = modelDto.Id;
-            Type = modelDto.Type;
-            Priority = modelDto.Priority;
+			Priority = modelDto.Priority;
             Status = modelDto.Status;
             Purpose = modelDto.Purpose;
             Header = modelDto.Header;
@@ -47,7 +50,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             return new AppointmentDomainEntityDto
                 {
                     Id = Id,
-                    Type = Type,
                     Priority = Priority,
                     Status = Status,
                     Purpose = Purpose,

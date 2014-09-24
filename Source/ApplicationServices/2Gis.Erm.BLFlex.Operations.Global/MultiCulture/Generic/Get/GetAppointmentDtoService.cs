@@ -2,14 +2,13 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -17,47 +16,56 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
     public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
-        private readonly IFinder _finder;
         private readonly IActivityReadModel _activityReadModel;
+        private readonly IClientReadModel _clientReadModel;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly IUserContext _userContext;
 
-        public GetAppointmentDtoService(IUserContext userContext, IFinder finder, IActivityReadModel activityReadModel)
+        public GetAppointmentDtoService(IUserContext userContext,
+                                        IActivityReadModel activityReadModel,
+                                        IClientReadModel clientReadModel,
+                                        IFirmReadModel firmReadModel)
             : base(userContext)
         {
-            _finder = finder;
             _activityReadModel = activityReadModel;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
             _userContext = userContext;
         }
 
         protected override IDomainEntityDto<Appointment> GetDto(long entityId)
         {
-            var appointment = _activityReadModel.GetActivity<Appointment>(entityId);
+            var appointment = _activityReadModel.GetAppointment(entityId);
+            var regardingObjects = _activityReadModel.GetRegardingObjects<Appointment>(entityId).ToList();
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
             return new AppointmentDomainEntityDto
             {
                 Id = appointment.Id,
-                ClientRef = new EntityReference { Id = appointment.ClientId, Name = appointment.ClientName },
-                ContactRef = new EntityReference { Id = appointment.ContactId, Name = appointment.ContactName },
-                Description = appointment.Description,
-                FirmRef = new EntityReference { Id = appointment.FirmId, Name = appointment.FirmName },
-                Header = appointment.Header,
-                Priority = appointment.Priority,
-                Purpose = appointment.Purpose,
-                ScheduledEnd = appointment.ScheduledEnd.Add(timeOffset),
-                ScheduledStart = appointment.ScheduledStart.Add(timeOffset),
-                ActualEnd = appointment.ActualEnd.HasValue ? appointment.ActualEnd.Value.Add(timeOffset) : appointment.ActualEnd,
-                Status = appointment.Status,
-                Type = appointment.Type,
-                OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
                 CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
                 CreatedOn = appointment.CreatedOn,
-                IsActive = appointment.IsActive,
-                IsDeleted = appointment.IsDeleted,
                 ModifiedByRef = new EntityReference { Id = appointment.ModifiedBy, Name = null },
                 ModifiedOn = appointment.ModifiedOn,
-                Timestamp = appointment.Timestamp
+                IsActive = appointment.IsActive,
+                IsDeleted = appointment.IsDeleted,
+                Timestamp = appointment.Timestamp,
+                OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
+
+                Header = appointment.Header,
+                Description = appointment.Description,
+                ScheduledStart = appointment.ScheduledStart.Add(timeOffset),
+                ScheduledEnd = appointment.ScheduledEnd.Add(timeOffset),
+                ActualEnd = appointment.ActualEnd.HasValue ? appointment.ActualEnd.Value.Add(timeOffset) : appointment.ActualEnd,
+                Priority = appointment.Priority,
+                Status = appointment.Status,
+
+                ClientRef = regardingObjects.Lookup(EntityName.Client, _clientReadModel.GetClientName),
+                ContactRef = regardingObjects.Lookup(EntityName.Contact, _clientReadModel.GetContactName),
+                FirmRef = regardingObjects.Lookup(EntityName.Firm, _firmReadModel.GetFirmName),
+
+                Purpose = appointment.Purpose,
+                // AfterSaleServiceType = appointment.AfterSaleServiceType,
             };
         }
 
@@ -66,7 +74,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             var now = DateTime.Now;
             var dto = new AppointmentDomainEntityDto
             {
-                Type = ActivityType.Appointment,
                 IsActive = true,
                 ScheduledStart = now,
                 ScheduledEnd = now.Add(TimeSpan.FromMinutes(15.0)),
@@ -85,21 +92,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                     dto.ClientRef = new EntityReference
                     {
                         Id = parentEntityId,
-                        Name = _finder.Find(Specs.Find.ById<Client>(parentEntityId.Value)).Select(x => x.Name).Single()
-                    };
-                    break;
-                case EntityName.Firm:
-                    dto.FirmRef = new EntityReference
-                    {
-                        Id = parentEntityId,
-                        Name = _finder.Find(Specs.Find.ById<Firm>(parentEntityId.Value)).Select(x => x.Name).Single()
+                        Name = _clientReadModel.GetClientName(parentEntityId.Value)
                     };
                     break;
                 case EntityName.Contact:
                     dto.ContactRef = new EntityReference
                     {
                         Id = parentEntityId,
-                        Name = _finder.Find(Specs.Find.ById<Contact>(parentEntityId.Value)).Select(x => x.FullName).Single()
+                        Name = _clientReadModel.GetContactName(parentEntityId.Value)
+                    };
+                    break;
+                case EntityName.Firm:
+                    dto.FirmRef = new EntityReference
+                    {
+                        Id = parentEntityId,
+                        Name = _firmReadModel.GetFirmName(parentEntityId.Value)
                     };
                     break;
             }
