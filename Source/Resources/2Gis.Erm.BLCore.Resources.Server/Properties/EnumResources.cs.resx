@@ -543,9 +543,6 @@
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
     <value>Dohoda o zrušení objednávky pro SP</value>
   </data>
-  <data name="TemplateCodeBargainBusinessman" xml:space="preserve">
-    <value>Smlouva pro SP</value>
-  </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
     <value>Faktura pro SP</value>
   </data>
@@ -554,9 +551,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Dohoda o zrušení objednávky pro pr. osobu</value>
-  </data>
-  <data name="TemplateCodeBargainLegalPerson" xml:space="preserve">
-    <value>Smlouva pro pr. osobu</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
     <value>Faktura pro pr. osobu</value>
@@ -593,9 +587,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
     <value>Dod. dohoda pro fyz. osobu</value>
-  </data>
-  <data name="TemplateCodeBargainNaturalPerson" xml:space="preserve">
-    <value>Smlouva pro fyz. osobu</value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
     <value>Faktura pro fyz. osobu</value>
@@ -1980,5 +1971,17 @@
   </data>
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Клиентский договор</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>Клиентский договор (дополнительный язык)</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>Агентский договор</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
   </data>
 </root>

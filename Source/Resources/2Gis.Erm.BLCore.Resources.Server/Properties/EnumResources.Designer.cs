@@ -5128,6 +5128,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Агентский договор.
+        /// </summary>
+        public static string TemplateCodeAgentBargain {
+            get {
+                return ResourceManager.GetString("TemplateCodeAgentBargain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Соглашение о расторжении договора для ИП.
         /// </summary>
         public static string TemplateCodeBargainAdditionalAgreementBusinessman {
@@ -5146,47 +5155,20 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Договор для ИП.
-        /// </summary>
-        public static string TemplateCodeBargainBusinessman {
-            get {
-                return ResourceManager.GetString("TemplateCodeBargainBusinessman", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Договор для юр. лица.
-        /// </summary>
-        public static string TemplateCodeBargainLegalPerson {
-            get {
-                return ResourceManager.GetString("TemplateCodeBargainLegalPerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Договор для юр. лица (дополнительный язык).
-        /// </summary>
-        public static string TemplateCodeBargainLegalPersonAlternativeLanguage {
-            get {
-                return ResourceManager.GetString("TemplateCodeBargainLegalPersonAlternativeLanguage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Договор для физ. лица.
-        /// </summary>
-        public static string TemplateCodeBargainNaturalPerson {
-            get {
-                return ResourceManager.GetString("TemplateCodeBargainNaturalPerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Договор (новая модель продаж).
         /// </summary>
         public static string TemplateCodeBargainNewSalesModel {
             get {
                 return ResourceManager.GetString("TemplateCodeBargainNewSalesModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Соглашение о продлении договора.
+        /// </summary>
+        public static string TemplateCodeBargainProlongationAgreement {
+            get {
+                return ResourceManager.GetString("TemplateCodeBargainProlongationAgreement", resourceCulture);
             }
         }
         
@@ -5214,6 +5196,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TemplateCodeBillNaturalPerson {
             get {
                 return ResourceManager.GetString("TemplateCodeBillNaturalPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Клиентский договор.
+        /// </summary>
+        public static string TemplateCodeClientBargain {
+            get {
+                return ResourceManager.GetString("TemplateCodeClientBargain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Клиентский договор (дополнительный язык).
+        /// </summary>
+        public static string TemplateCodeClientBargainAlternativeLanguage {
+            get {
+                return ResourceManager.GetString("TemplateCodeClientBargainAlternativeLanguage", resourceCulture);
             }
         }
         
