@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Chile
             return new[]
                 {
                     TemplateCode.OrderWithVatWithDiscount,
-                    TemplateCode.BargainLegalPerson,
+                    TemplateCode.ClientBargain,
                     TemplateCode.LetterOfGuarantee,
                     TemplateCode.BillLegalPerson,
                     TemplateCode.TerminationNoticeLegalPerson,

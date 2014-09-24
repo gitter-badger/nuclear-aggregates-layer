@@ -8,9 +8,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 {
     public interface IBargainPrintFormReadModel : IPrintingBoundedContext, IAggregateReadModel<Bargain>
     {
-        BargainRelationsDto GetBargainRelationsDto(long orderId);
-        IQueryable<Bargain> GetBargainQuery(long orderId);
-        IQueryable<BranchOffice> GetBranchOfficeQuery(long orderId);
-        IQueryable<Order> GetOrderQuery(long orderId);
+        BargainRelationsDto GetBargainRelationsDto(long bargainId);
+        IQueryable<Bargain> GetBargainQuery(long bargainId);
+        IQueryable<BranchOffice> GetBranchOfficeQuery(long bargainId);
     }
 }

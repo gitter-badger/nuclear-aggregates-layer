@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.MoDi.Remote.PrintRegional;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.DAL;
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLFlexResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             return PrintRegionalOrder(request.OrderId, orderInfo.RegionalNumber);

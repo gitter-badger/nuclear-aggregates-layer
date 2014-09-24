@@ -13,8 +13,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Ukraine
             return new[]
                 {
                     TemplateCode.OrderWithVatWithDiscount,
-                    TemplateCode.BargainLegalPerson,
-                    TemplateCode.BargainBusinessman,
+                    TemplateCode.ClientBargain,
                     TemplateCode.LetterOfGuarantee,
                     TemplateCode.BillLegalPerson,
                     TemplateCode.BillBusinessman,
