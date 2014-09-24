@@ -1188,6 +1188,35 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateDeals]
+        ///    @Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///
+        ///    IF NOT EXISTS ( SELECT  1
+        ///                    FROM    @Ids )
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///
+        ///        BEGIN TRAN;
+        ///
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[OpportunityBase] AS [Current]
+        ///        USING
+        ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
+        ///                      [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateDeals_24442 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateDeals_24442", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account

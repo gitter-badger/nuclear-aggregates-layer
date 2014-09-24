@@ -82,6 +82,7 @@ AS
                      [New].[ActualCloseDate],
                      [New].[Name] );
         
+	   -- extension
         MERGE [DoubleGis_MSCRM].[dbo].[OpportunityExtensionBase] AS [Current]
         USING
             ( SELECT    [TBL].[ReplicationCode] AS [OpportunityId],
@@ -130,10 +131,10 @@ AS
 
 
 	   -- closed deal handling
-        DECLARE @ClosedDealIds AS [Shared].[Int64IdsTableType];
+        CREATE TABLE #ClosedDealIds ( Id BIGINT PRIMARY KEY );
 
 	   -- add new closed deal
-        INSERT  INTO @ClosedDealIds
+        INSERT  INTO #ClosedDealIds
                 ( Id )
                 SELECT  [Id]
                 FROM    [Billing].[Deals]
@@ -141,74 +142,111 @@ AS
                                   FROM      @Ids )
                         AND [CloseDate] IS NOT NULL;
 
-        DECLARE @OpportunityActivityInfo TABLE
+        CREATE TABLE #OpportunityActivityInfo
             (
-              [ActivityId] UNIQUEIDENTIFIER NOT NULL
-                                            PRIMARY KEY,
+              [Action] NVARCHAR(10),
+              [ActivityId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
               [OpportunityId] UNIQUEIDENTIFIER NOT NULL,
+              [RegardingObjectIdName] NVARCHAR(400),
               [OwningUser] UNIQUEIDENTIFIER
             );
 
-        INSERT  INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase]
-                ( [ActivityId],
-                  [ActualEnd],
-                  [Description],
-                  [OwningBusinessUnit],
-                  [IsBilled],
-                  [RegardingObjectIdName],
-                  [StateCode],
-                  [ModifiedOn],
-                  [StatusCode],
-                  [Subject],
-                  [IsWorkflowCreated],
-                  [CreatedBy],
-                  [OwningUser],
-                  [ModifiedBy],
-                  [RegardingObjectIdDsc],
-                  [RegardingObjectId],
-                  [RegardingObjectTypeCode],
-                  [DeletionStateCode],
-                  [CreatedOn],
-                  [TimeZoneRuleVersionNumber],
-                  [ActivityTypeCode] )
-        OUTPUT  [Inserted].[ActivityId],
-                [Inserted].[RegardingObjectId],
-                [Inserted].[OwningUser]
-                INTO @OpportunityActivityInfo ( [ActivityId], [OpportunityId], [OwningUser] )
-                SELECT  NEWID(),
-                        [D].[CloseDate],
-                        [D].[Comment],
-                        [OCU].[BusinessUnitId],
-                        0,
-                        [D].[Name],
-                        CASE WHEN [D].[IsActive] = 1 THEN 0 ELSE 1 END,
-                        [D].[ModifiedOn],
-                        CASE WHEN [D].[IsActive] = 1 THEN 1 ELSE 3 END,
-                        [D].[Name],
-                        0,
-                        [CCU].[SystemUserId],
-                        [OCU].[SystemUserId],
-                        [MCU].[SystemUserId],
-                        0,
-                        [D].[ReplicationCode],
-                        3, -- 3 is opportunity object type code
-                        CASE WHEN [D].[IsDeleted] = 1 THEN 2 ELSE 0 END,
-                        [D].[CreatedOn],
-                        0,
-                        4208 -- 4208 is opportunityclose activity type code
-                FROM    [Billing].[Deals] AS [D]
+	   
+        MERGE [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        USING
+            ( SELECT    NEWID() AS [ActivityId],
+                        [D].[CloseDate] AS [ActualEnd],
+                        [D].[Comment] AS [Description],
+                        [OCU].[BusinessUnitId] AS [OwningBusinessUnit],
+                        0 AS [IsBilled],
+                        [D].[Name] AS [RegardingObjectIdName],
+                        CASE WHEN [D].[IsActive] = 1 THEN 0 ELSE 1 END AS [StateCode],
+                        [D].[ModifiedOn] AS [ModifiedOn],
+                        CASE WHEN [D].[IsActive] = 1 THEN 1 ELSE 3 END AS [StatusCode],
+                        [D].[Name] AS [Subject],
+                        0 AS [IsWorkflowCreated],
+                        [CCU].[SystemUserId] AS [CreatedBy],
+                        [OCU].[SystemUserId] AS [OwningUser],
+                        [MCU].[SystemUserId] AS [ModifiedBy],
+                        0 AS [RegardingObjectIdDsc],
+                        [D].[ReplicationCode] AS [RegardingObjectId],
+				        -- 3 is opportunity object type code
+                        3 AS [RegardingObjectTypeCode], 
+                        CASE WHEN [D].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
+                        [D].[CreatedOn] AS [CreatedOn],
+                        0 AS [TimeZoneRuleVersionNumber],
+				        -- 4208 is opportunityclose activity type code
+                        4208 AS [ActivityTypeCode]
+              FROM      [Billing].[Deals] AS [D]
                         JOIN [Security].[Users] AS [OU] ON [OU].[Id] = [D].[OwnerCode]
                         JOIN [Security].[Users] AS [CU] ON [CU].[Id] = [D].[CreatedBy]
                         LEFT JOIN [Security].[Users] AS [MU] ON [MU].[Id] = [D].[ModifiedBy]
                         LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [OCU] WITH ( NOEXPAND ) ON [OCU].[ErmUserAccount] = [OU].[Account] COLLATE Database_Default
                         LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [CCU] WITH ( NOEXPAND ) ON [CCU].[ErmUserAccount] = [CU].[Account] COLLATE Database_Default
                         LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] AS [MCU] WITH ( NOEXPAND ) ON [MCU].[ErmUserAccount] = [MU].[Account] COLLATE Database_Default
-                WHERE   [D].[Id] IN ( SELECT    [Id]
-                                      FROM      @ClosedDealIds );
+              WHERE     [D].[Id] IN ( SELECT    [Id]
+                                      FROM      #ClosedDealIds )
+							 
+            ) AS [New]
+        ON ( [Current].[RegardingObjectId] = [New].[RegardingObjectId] )
+        WHEN MATCHED AND [Current].[RegardingObjectTypeCode] = 3 THEN
+            UPDATE SET
+                    [Current].[RegardingObjectIdName] = [New].[RegardingObjectIdName]
+        WHEN NOT MATCHED BY TARGET THEN
+            INSERT ( [ActivityId],
+                     [ActualEnd],
+                     [Description],
+                     [OwningBusinessUnit],
+                     [IsBilled],
+                     [RegardingObjectIdName],
+                     [StateCode],
+                     [ModifiedOn],
+                     [StatusCode],
+                     [Subject],
+                     [IsWorkflowCreated],
+                     [CreatedBy],
+                     [OwningUser],
+                     [ModifiedBy],
+                     [RegardingObjectIdDsc],
+                     [RegardingObjectId],
+                     [RegardingObjectTypeCode],
+                     [DeletionStateCode],
+                     [CreatedOn],
+                     [TimeZoneRuleVersionNumber],
+                     [ActivityTypeCode] )
+            VALUES ( [New].[ActivityId],
+                     [New].[ActualEnd],
+                     [New].[Description],
+                     [New].[OwningBusinessUnit],
+                     [New].[IsBilled],
+                     [New].[RegardingObjectIdName],
+                     [New].[StateCode],
+                     [New].[ModifiedOn],
+                     [New].[StatusCode],
+                     [New].[Subject],
+                     [New].[IsWorkflowCreated],
+                     [New].[CreatedBy],
+                     [New].[OwningUser],
+                     [New].[ModifiedBy],
+                     [New].[RegardingObjectIdDsc],
+                     [New].[RegardingObjectId],
+                     [New].[RegardingObjectTypeCode],
+                     [New].[DeletionStateCode],
+                     [New].[CreatedOn],
+                     [New].[TimeZoneRuleVersionNumber],
+                     [New].[ActivityTypeCode] )
+        OUTPUT
+            $action,
+            [Inserted].[ActivityId],
+            [Inserted].[RegardingObjectId],
+            [Inserted].[RegardingObjectIdName],
+            [Inserted].[OwningUser]
+            INTO #OpportunityActivityInfo ( [Action], [ActivityId], [OpportunityId], [RegardingObjectIdName], [OwningUser] );
 
 
-	   	-- OpportunityCloseBase
-		-- TODO: репликация требует указания TransactionCurrency, она никак не связана с нашей dg_currency, разобраться
+
+	   -- OpportunityCloseBase
+	   -- TODO: репликация требует указания TransactionCurrency, она никак не связана с нашей dg_currency, разобраться
         DECLARE @TransactionCurrency UNIQUEIDENTIFIER;
         SET @TransactionCurrency = ( SELECT TOP 1
                                             [TransactionCurrencyId]
@@ -222,11 +260,12 @@ AS
                 SELECT  [ActivityId],
                         @TransactionCurrency,
                         1 -- echange rate is always 1
-                FROM    @OpportunityActivityInfo;
+                FROM    #OpportunityActivityInfo
+                WHERE   [Action] = 'INSERT';
 
 
 	   -- ActivityPartyBase - opprtunityclose-user relation
-        INSERT  INTO [DoubleGis_MSCRM].[dbo].ActivityPartyBase
+        INSERT  INTO [DoubleGis_MSCRM].[dbo].[ActivityPartyBase]
                 ( [ActivityPartyId],
                   [ActivityId],
                   [PartyId],
@@ -237,9 +276,10 @@ AS
                         [OwningUser],
                         8, -- 8 is user object type code
                         9 -- compatibility with dynamics crm 3.0
-                FROM    @OpportunityActivityInfo;
+                FROM    #OpportunityActivityInfo
+                WHERE   [Action] = 'INSERT';
 
-    -- ActivityPartyBase - opprtunityclose-opprtunity relation
+        -- ActivityPartyBase - opprtunityclose-opprtunity relation
         INSERT  INTO [DoubleGis_MSCRM].[dbo].[ActivityPartyBase]
                 ( [ActivityPartyId],
                   [ActivityId],
@@ -251,8 +291,29 @@ AS
                         [OpportunityId],
                         3, -- 3 is opprtunity object type code
                         8 -- compatibility with dynamics crm 3.0
-                FROM    @OpportunityActivityInfo;
+                FROM    #OpportunityActivityInfo
+                WHERE   [Action] = 'INSERT';
 
+
+	   -- update existing closed deal, very rare case, not tested, may contain bugs
+	   -- ActivityPointerBase
+        UPDATE  [AP]
+        SET     [AP].[RegardingObjectIdName] = [OAI].[RegardingObjectIdName]
+        FROM    [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [AP]
+                JOIN #OpportunityActivityInfo AS [OAI] ON [OAI].[OpportunityId] = [AP].[RegardingObjectId]
+                                                          AND [AP].[RegardingObjectTypeCode] = 3
+        WHERE   [OAI].[Action] = 'UPDATE';
+
+
+	   -- ActivityPartyBase - opprtunityclose-opprtunity relation
+        UPDATE  [APB]
+        SET     [APB].[PartyIdName] = [OAI].[RegardingObjectIdName]
+        FROM    [DoubleGis_MSCRM].[dbo].[ActivityPartyBase] AS [APB]
+                JOIN [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [AP] ON [AP].[ActivityId] = [APB].[PartyId]
+                                                                                AND [APB].[PartyObjectTypeCode] = 3
+                JOIN #OpportunityActivityInfo AS [OAI] ON [OAI].[OpportunityId] = [AP].[RegardingObjectId]
+                                                          AND [AP].[RegardingObjectTypeCode] = 3
+        WHERE   [OAI].[Action] = 'UPDATE';
 
         COMMIT TRAN;
 
