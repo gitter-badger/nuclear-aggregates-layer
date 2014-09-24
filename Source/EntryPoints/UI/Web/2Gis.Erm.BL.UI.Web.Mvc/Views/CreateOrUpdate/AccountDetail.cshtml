@@ -1,4 +1,4 @@
-﻿@model Models.AccountDetailViewModel
+﻿@model AccountDetailViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -39,7 +39,7 @@
         @Html.TemplateField(m => m.OperationType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OperationType, ShowReadOnlyCard = true, ReadOnly = !Model.IsNew, ExtendedInfo = "excludeSyncCode=11" })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.TransactionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = !Model.IsNew })
+        @Html.TemplateField(m => m.TransactionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = !Model.IsNew, ShiftOffset = false})
     </div>
     <div class="row-wrapper">
         @Html.TemplateField(m => m.Description, FieldFlex.lone)
