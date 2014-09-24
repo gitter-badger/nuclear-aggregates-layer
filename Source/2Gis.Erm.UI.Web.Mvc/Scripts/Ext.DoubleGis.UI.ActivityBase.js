@@ -309,7 +309,7 @@
             }
         },
         CancelActivity: function() {
-            this.changeState("Cancelled");
+            this.changeState("Canceled");
         },
         CompleteActivity: function () {
             this.changeState("Completed");
@@ -320,8 +320,8 @@
         Assign: function () {
             if (!this.checkDirty()) return;
             var params = "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no; ";
-            var sUrl = "/GroupOperation/Assign/ActivityInstance";
-            var result = window.showModalDialog(sUrl, [this.form.Id.value], params);
+            var sUrl = "/GroupOperation/Assign/Activity";
+            var result = window.showModalDialog(sUrl, [{ entityId: this.form.Id.value, entityName: this.form.Type.value }], params);
             if (result === true) {
                 this.refresh(true);
             }
@@ -334,7 +334,7 @@
             if (newStatus == 'InProgress') {
                 Ext.fly("ActualEnd").setValue(null);
             }
-            else if (newStatus == 'Completed' || newStatus == 'Cancelled') {
+            else if (newStatus == 'Completed' || newStatus == 'Canceled') {
                 var currentDate = new Date();
                 Ext.fly("ActualEnd").setValue(currentDate);
                 Ext.getCmp("ActualEnd").setRawValue(currentDate);
