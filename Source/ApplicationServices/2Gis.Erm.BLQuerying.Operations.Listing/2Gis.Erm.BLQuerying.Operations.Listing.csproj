@@ -76,7 +76,7 @@
     <Compile Include="List\ListAdsTemplatesAdsElementTemplateService.cs" />
     <Compile Include="List\ListAccountDetailService.cs" />
     <Compile Include="List\ListAccountService.cs" />
-    <Compile Include="List\ListActivityInstanceService.cs" />
+    <Compile Include="List\ListActivityService.cs" />
     <Compile Include="List\ListAdditionalFirmServiceService.cs" />
     <Compile Include="List\ListAdvertisementElementService.cs" />
     <Compile Include="List\ListAdvertisementElementTemplateService.cs" />
@@ -171,7 +171,6 @@
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

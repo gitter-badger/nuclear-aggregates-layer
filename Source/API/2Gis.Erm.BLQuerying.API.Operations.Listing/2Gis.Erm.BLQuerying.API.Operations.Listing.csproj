@@ -77,7 +77,7 @@
     <Compile Include="List\DTO\ListAdsTemplatesAdsElementTemplateDto.cs" />
     <Compile Include="List\DTO\ListAccountDetailDto.cs" />
     <Compile Include="List\DTO\ListAccountDto.cs" />
-    <Compile Include="List\DTO\ListActivityInstanceDto.cs" />
+    <Compile Include="List\DTO\ListActivityDto.cs" />
     <Compile Include="List\DTO\ListAdditionalFirmServiceDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementDto.cs" />

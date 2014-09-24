@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
@@ -27,29 +28,29 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilter<ListAccountDetailDto>("DListAccountDetails", x => !x.IsDeleted)
             .RegisterFilter<ListAccountDetailDto>("DListAccountDetailsWithDeletedOperations", x => x.IsDeleted)
 
-            .RegisterFilter<ListActivityInstanceDto>("DListAllActivities", x => !x.IsDeleted)
+            .RegisterFilter<ListActivityDto>("DListAllActivities", x => !x.IsDeleted)
             // Активные действия
-            .RegisterFilter<ListActivityInstanceDto>("DListActiveActivities", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
+            .RegisterFilter<ListActivityDto>("DListActiveActivities", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
             // Закрытые действия
-            .RegisterFilter<ListActivityInstanceDto>("DListInactiveActivities", x => x.IsDeleted || !x.IsActive || x.StatusEnum == ActivityStatus.Completed || x.StatusEnum == ActivityStatus.Cancelled)
+            .RegisterFilter<ListActivityDto>("DListInactiveActivities", x => x.IsDeleted || !x.IsActive || x.StatusEnum == ActivityStatus.Completed || x.StatusEnum == ActivityStatus.Canceled)
             // Мои действия
-            .RegisterFilter<ListActivityInstanceDto>("DListMyActivities", x =>x.IsActive && !x.IsDeleted)
+            .RegisterFilter<ListActivityDto>("DListMyActivities", x =>x.IsActive && !x.IsDeleted)
             // Действия по моим подчиненным
-            .RegisterFilter<ListActivityInstanceDto>("DListActivitiesForSubordinates", x => x.IsActive && !x.IsDeleted)
+            .RegisterFilter<ListActivityDto>("DListActivitiesForSubordinates", x => x.IsActive && !x.IsDeleted)
             // Мои завершенные действия
-            .RegisterFilter<ListActivityInstanceDto>("DListMyCompletedActivities", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.Completed)
+            .RegisterFilter<ListActivityDto>("DListMyCompletedActivities", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.Completed)
             // Завершенные действия по моим подчиненным
-            .RegisterFilter<ListActivityInstanceDto>("DListCompletedActivitiesForSubordinates", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.Completed)
+            .RegisterFilter<ListActivityDto>("DListCompletedActivitiesForSubordinates", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.Completed)
             // Мои запланированные действия
-            .RegisterFilter<ListActivityInstanceDto>("DListMyActivitiesInProgress", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
+            .RegisterFilter<ListActivityDto>("DListMyActivitiesInProgress", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
             // Запланированные действия по моим подчиненным
-            .RegisterFilter<ListActivityInstanceDto>("DListActivitiesInProgressForSubordinates", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
+            .RegisterFilter<ListActivityDto>("DListActivitiesInProgressForSubordinates", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
             // Мои запланированные действия на сегодня
-            .RegisterFilter<ListActivityInstanceDto>("DListMyActivitiesInProgressForToday", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
+            .RegisterFilter<ListActivityDto>("DListMyActivitiesInProgressForToday", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress)
             // Действия по теплым клиентам
-            .RegisterFilter<ListActivityInstanceDto>("DListActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient)
+            .RegisterFilter<ListActivityDto>("DListActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == TaskType.WarmClient)
             // Просроченные действия по теплым клиентам
-            .RegisterFilter<ListActivityInstanceDto>("DListOverdueActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == ActivityTaskType.WarmClient)
+            .RegisterFilter<ListActivityDto>("DListOverdueActivitiesForWarmClients", x => x.IsActive && !x.IsDeleted && x.StatusEnum == ActivityStatus.InProgress && x.TaskType == TaskType.WarmClient)
 
             .RegisterFilter<ListAdditionalFirmServiceDto>("AdditionalFirmServices", x => true)
 

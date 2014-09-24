@@ -15,10 +15,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterRelatedFilter<ListAccountDto>(EntityName.LegalPerson, x => x.LegalPersonId)
 
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Contact, x => x.ContactId)
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Deal, x => x.DealId)
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Firm, x => x.FirmId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Contact, x => x.ContactId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Deal, x => x.DealId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Firm, x => x.FirmId)
 
             .RegisterRelatedFilter<ListLockDto>(EntityName.Account, x => x.AccountId)
             .RegisterRelatedFilter<ListLockDto>(EntityName.Order, x => x.OrderId)
