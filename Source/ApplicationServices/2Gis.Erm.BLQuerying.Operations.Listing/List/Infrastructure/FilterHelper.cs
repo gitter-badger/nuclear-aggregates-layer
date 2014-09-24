@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
         private static IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             bool filterToParent;
-            if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent))
+            if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent) || querySettings.ParentEntityId == null)
             {
                 return query;
             }
