@@ -4,15 +4,7 @@ IF object_id('[Activity].[AppointmentBase]') IS NOT NULL DROP TABLE [Activity].[
 CREATE TABLE [Activity].[AppointmentBase](
 	[Id] [bigint] NOT NULL CONSTRAINT [PK_Appointments] PRIMARY KEY CLUSTERED,
 	[ReplicationCode] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [bigint] NOT NULL,
-	[CreatedOn] [datetime2] NOT NULL,
-	[ModifiedBy] [bigint] NULL,
-	[ModifiedOn] [datetime2] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_Appointment_IsActive]  DEFAULT 1,
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_Appointment_IsDeleted]  DEFAULT 0,
-	[Timestamp] [timestamp] NOT NULL,
 
-	[OwnerCode] [bigint] NOT NULL,
 	[Subject] [nvarchar](256) NULL,
 	[Description] [nvarchar](max) NULL,
 	[ScheduledStart] [datetime2] NOT NULL,
@@ -24,7 +16,16 @@ CREATE TABLE [Activity].[AppointmentBase](
 	[IsAllDayEvent] [bit] NOT NULL CONSTRAINT [DF_Appointment_IsAllDayEvent]  DEFAULT 0,
 	[Location] [nvarchar](256) NULL,
 	[Purpose] [int] NOT NULL CONSTRAINT [DF_Appointment_Purpose]  DEFAULT 0,
-	[AfterSaleType] [int] NOT NULL CONSTRAINT [DF_Appointment_AfterSaleType]  DEFAULT 0
+	[AfterSaleType] [int] NOT NULL CONSTRAINT [DF_Appointment_AfterSaleType]  DEFAULT 0,
+
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_Appointment_IsActive]  DEFAULT 1,
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_Appointment_IsDeleted]  DEFAULT 0,
+	[OwnerCode] [bigint] NOT NULL,
+	[CreatedBy] [bigint] NOT NULL,
+	[CreatedOn] [datetime2] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime2] NULL,
+	[Timestamp] [timestamp] NOT NULL
 )
 
 -- holds regarding object, organizer and attendees
@@ -42,15 +43,7 @@ IF object_id('[Activity].[PhonecallBase]') IS NOT NULL DROP TABLE [Activity].[Ph
 CREATE TABLE [Activity].[PhonecallBase](
 	[Id] [bigint] NOT NULL CONSTRAINT [PK_Phonecalls] PRIMARY KEY CLUSTERED,
 	[ReplicationCode] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [bigint] NOT NULL,
-	[CreatedOn] [datetime2] NOT NULL,
-	[ModifiedBy] [bigint] NULL,
-	[ModifiedOn] [datetime2] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_Phonecall_IsActive]  DEFAULT 1,
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_Phonecall_IsDeleted]  DEFAULT 0,
-	[Timestamp] [timestamp] NOT NULL,
 
-	[OwnerCode] [bigint] NOT NULL,
 	[Subject] [nvarchar](256) NULL,
 	[Description] [nvarchar](max) NULL,
 	[ScheduledStart] [datetime2] NOT NULL,
@@ -62,7 +55,16 @@ CREATE TABLE [Activity].[PhonecallBase](
 	[Direction] [bit] NOT NULL CONSTRAINT [DF_Phonecall_Direction]  DEFAULT 0,
 	[PhoneNumber] [nvarchar](200) NULL,
 	[Purpose] [int] NOT NULL CONSTRAINT [DF_Phonecall_Purpose]  DEFAULT 0,
-	[AfterSaleType] [int] NOT NULL CONSTRAINT [DF_Phonecall_AfterSaleType]  DEFAULT 0
+	[AfterSaleType] [int] NOT NULL CONSTRAINT [DF_Phonecall_AfterSaleType]  DEFAULT 0,
+
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_Phonecall_IsActive]  DEFAULT 1,
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_Phonecall_IsDeleted]  DEFAULT 0,
+	[OwnerCode] [bigint] NOT NULL,
+	[CreatedBy] [bigint] NOT NULL,
+	[CreatedOn] [datetime2] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime2] NULL,
+	[Timestamp] [timestamp] NOT NULL
 )
 
 -- holds regarding object and from/to contacts
@@ -80,15 +82,7 @@ IF object_id('[Activity].[TaskBase]') IS NOT NULL DROP TABLE [Activity].[TaskBas
 CREATE TABLE [Activity].[TaskBase](
 	[Id] [bigint] NOT NULL CONSTRAINT [PK_Tasks] PRIMARY KEY CLUSTERED,
 	[ReplicationCode] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [bigint] NOT NULL,
-	[CreatedOn] [datetime2] NOT NULL,
-	[ModifiedBy] [bigint] NULL,
-	[ModifiedOn] [datetime2] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_Task_IsActive]  DEFAULT 1,
-	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_Task_IsDeleted]  DEFAULT 0,
-	[Timestamp] [timestamp] NOT NULL,
 
-	[OwnerCode] [bigint] NOT NULL,
 	[Subject] [nvarchar](256) NULL,
 	[Description] [nvarchar](max) NULL,
 	[ScheduledStart] [datetime2] NOT NULL,
@@ -97,7 +91,16 @@ CREATE TABLE [Activity].[TaskBase](
 	[Priority] [int] NOT NULL CONSTRAINT [DF_Task_Priority]  DEFAULT 0,
 	[Status] [int] NOT NULL CONSTRAINT [DF_Task_Status]  DEFAULT 0,
 
-	[TaskType] [int] NOT NULL CONSTRAINT [DF_Task_Type]  DEFAULT 0
+	[TaskType] [int] NOT NULL CONSTRAINT [DF_Task_Type]  DEFAULT 0,
+
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_Task_IsActive]  DEFAULT 1,
+	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_Task_IsDeleted]  DEFAULT 0,
+	[OwnerCode] [bigint] NOT NULL,
+	[CreatedBy] [bigint] NOT NULL,
+	[CreatedOn] [datetime2] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime2] NULL,
+	[Timestamp] [timestamp] NOT NULL
 )
 
 -- holds regarding object references
