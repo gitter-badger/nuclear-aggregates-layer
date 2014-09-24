@@ -2,31 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Processing.Final.HotClient;
-using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 {
     public sealed class ReplicateHotClientMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
         private readonly IBindCrmTaskToHotClientRequestAggregateService _bindCrmTaskToHotClientRequestAggregateService;
+        private readonly ICreateTaskAggregateService _createTaskAggregateService;
+        private readonly IUpdateTaskAggregateService _updateTaskAggregateService;
         private readonly ICommonLog _logger;
         private readonly IMsCrmSettings _msCrmSettings;
 
         public ReplicateHotClientMessageAggregatedProcessingResultHandler(
             IMsCrmSettings msCrmSettings,
             IBindCrmTaskToHotClientRequestAggregateService bindCrmTaskToHotClientRequestAggregateService,
+            ICreateTaskAggregateService createTaskAggregateService,
+            IUpdateTaskAggregateService updateTaskAggregateService,
             ICommonLog logger)
         {
             _bindCrmTaskToHotClientRequestAggregateService = bindCrmTaskToHotClientRequestAggregateService;
+            _createTaskAggregateService = createTaskAggregateService;
+            _updateTaskAggregateService = updateTaskAggregateService;
             _logger = logger;
             _msCrmSettings = msCrmSettings;
         }
@@ -68,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                     if (concreteProcessingResult.RequestEntity.TaskId != null)
                     {
                         _logger.WarnFormatEx(
-                            "Hot client request with id {0} is processed already. Task id {1} and is not null. Skip further processing", 
+                            "Hot client request with id {0} has been already processed. Task id {1} is not null. Skip the request processing.", 
                             concreteProcessingResult.RequestEntity.Id,
                             concreteProcessingResult.RequestEntity.TaskId);
 
@@ -97,8 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                 try
                 {
                     // TODO {all, 17.07.2014}: возможно стоит вынести процесс создания task в operationservice, т.к. после отказа от MsCRM бизнесс процесс останется, просто действия будут заводиться в ERM
-                    var taskId = CrmTaskUtils.ReplicateTask(
-                                    _msCrmSettings.CreateDataContext(), 
+                    var taskId = ReplicateTask(
                                     hotClientInfo.Owner, 
                                     hotClientInfo.HotClient, 
                                     hotClientInfo.RegardingObject);
@@ -139,6 +147,53 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 
             public ISet<Guid> OriginalMessageIds { get; private set; }
             public ReplicateHotClientFinalProcessingResultsMessage ReducedMessage { get; set; }
+        }
+
+        // TODO {all, 15.07.2014}: скорее всего код должен обладать свойством идемпотентности, т.е. если в CRM уже создали задачу, повторно создавать её аналог не стоит, вопрос как этого достичь
+        private Guid ReplicateTask(UserDto owner, HotClientRequestDto hotClient, RegardingObject regardingObject)
+        {
+            try
+            {
+                var task = new Task
+                    {
+                        Header = BLResources.HotClientSubject,
+                        Description = string.Format(BLResources.HotClientDescriptionTemplate, hotClient.ContactPhone, hotClient.ContactName),
+                        ScheduledOn = hotClient.CreationDate,
+                        TaskType = TaskType.WarmClient,
+
+                        OwnerCode = owner.Id,
+                        IsActive = true,
+                    };
+
+                if (!string.IsNullOrWhiteSpace(hotClient.Description))
+                {
+                    task.Description += Environment.NewLine + hotClient.Description;
+                }
+
+                _createTaskAggregateService.Create(task);
+
+                // В отношении
+                if (regardingObject != null)
+                {
+                    _updateTaskAggregateService.ChangeRegardingObjects(task, Enumerable.Empty<TaskRegardingObject>(), new[] { 
+                        new TaskRegardingObject
+                        {
+                            SourceEntityId = task.Id, 
+                            TargetEntityName = regardingObject.EntityName, 
+                            TargetEntityId = regardingObject.EntityId
+                        } });
+                }
+
+                // TODO {all, 24.09.2014}: по-прежнему работаем с Guid'ами, т.к. HotClientRequest.TaskId того же типа, надо будет менять синхронно
+                return task.ReplicationCode;
+            }
+            catch (Exception ex)
+            {
+                var message = string.Format("Ошибка при репликации сущности {0} с идентификатором {1}",
+                                            "HotClientRequest",
+                                            hotClient.Id);
+                throw new IntegrationException(message, ex);
+            }
         }
     }
 }

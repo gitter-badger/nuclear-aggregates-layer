@@ -12,10 +12,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-
-using Microsoft.Crm.SdkTypeProxy;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 {
@@ -120,8 +119,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                     HotClientDto = hotClientDto,
                     Regarding = new RegardingObject
                         {
-                            EntityName = EntityName.account.ToString(),
-                            ReplicationCode = client.ReplicationCode,
+                            EntityName = EntityName.Client,
+                            EntityId = client.Id,
                         },
                     Strategies = isTelesaleTask
                                      ? new[]
@@ -144,8 +143,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                     HotClientDto = hotClientDto,
                     Regarding = new RegardingObject
                         {
-                            EntityName = "dg_firm",
-                            ReplicationCode = firm.ReplicationCode
+                            EntityName = EntityName.Firm,
+                            EntityId = firm.Id,
                         },
                     Strategies = isTelesaleTask
                                      ? new[]
