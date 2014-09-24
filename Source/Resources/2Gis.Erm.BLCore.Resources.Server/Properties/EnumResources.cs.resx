@@ -1407,16 +1407,16 @@
   <data name="ActivityStatusCompleted" xml:space="preserve">
     <value>Provedeno</value>
   </data>
-  <data name="ActivityStatusCancelled" xml:space="preserve">
+  <data name="ActivityStatusCanceled" xml:space="preserve">
     <value>Zrušeno</value>
   </data>
-  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+  <data name="TaskTypeWarmClient" xml:space="preserve">
     <value>Potencionální klient</value>
   </data>
-  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+  <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Pokyn</value>
   </data>
-  <data name="ActivityTaskTypeOther" xml:space="preserve">
+  <data name="TaskTypeOther" xml:space="preserve">
     <value>Jiné</value>
   </data>
   <data name="EntityNameProject" xml:space="preserve">
@@ -1476,7 +1476,7 @@
   <data name="PaymentMethodCreditCard" xml:space="preserve">
     <value>Kreditní karta</value>
   </data>
-  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+  <data name="TaskTypeNotSet" xml:space="preserve">
     <value>Nezadáno</value>
   </data>
   <data name="ActivityPriorityNotSet" xml:space="preserve">
