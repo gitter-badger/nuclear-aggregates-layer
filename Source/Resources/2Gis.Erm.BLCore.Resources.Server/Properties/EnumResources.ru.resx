@@ -1395,16 +1395,16 @@
   <data name="ActivityStatusCompleted" xml:space="preserve">
     <value>Выполнено</value>
   </data>
-  <data name="ActivityStatusCancelled" xml:space="preserve">
+  <data name="ActivityStatusCanceled" xml:space="preserve">
     <value>Отменено</value>
   </data>
-  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+  <data name="TaskTypeWarmClient" xml:space="preserve">
     <value>Теплый клиент</value>
   </data>
-  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+  <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Поручение</value>
   </data>
-  <data name="ActivityTaskTypeOther" xml:space="preserve">
+  <data name="TaskTypeOther" xml:space="preserve">
     <value>Прочее</value>
   </data>
   <data name="EntityNameProject" xml:space="preserve">
@@ -1455,7 +1455,7 @@
   <data name="PaymentMethodBankCard" xml:space="preserve">
     <value>Банковская карта</value>
   </data>
-  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+  <data name="TaskTypeNotSet" xml:space="preserve">
     <value>Не задано</value>
   </data>
   <data name="ActivityPriorityNotSet" xml:space="preserve">

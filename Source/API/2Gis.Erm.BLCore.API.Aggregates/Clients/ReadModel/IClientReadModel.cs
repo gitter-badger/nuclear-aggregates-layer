@@ -10,6 +10,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
         Client GetClient(long clientId);
         string GetClientName(long clientId);
 
+		string GetContactName(long contactId);
         IEnumerable<string> GetContactEmailsByBirthDate(int month, int day);
         IReadOnlyDictionary<long, IEnumerable<Client>> GetClientsToUpdateTerritoryByFirms(IEnumerable<long> firmIds);
         IEnumerable<Client> GetClientsByMainFirmIds(IEnumerable<long> mainFirmIds);

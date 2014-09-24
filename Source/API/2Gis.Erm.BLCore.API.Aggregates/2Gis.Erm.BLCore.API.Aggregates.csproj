@@ -82,10 +82,10 @@
     <Compile Include="Accounts\ReadModel\AccountSpecs.OperationTypes.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Withdrawals.cs" />
     <Compile Include="Accounts\ReadModel\IAccountReadModel.cs" />
-    <Compile Include="Activities\DTO\ActivityDto.cs" />
-    <Compile Include="Activities\DTO\ActivityInstanceDto.cs" />
-    <Compile Include="Activities\IActivityAggregateService.cs" />
-    <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
+    <Compile Include="Activities\IUpdateAppointmentAggregateService.cs" />
+    <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
+    <Compile Include="Activities\IUpdateRegardingObjectAggregateService.cs" />
+    <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
     <Compile Include="Activities\ReadModel\IActivityReadModel.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementBagItem.cs" />
     <Compile Include="Advertisements\DTO\AdvertisementElementCreationDto.cs" />
@@ -166,7 +166,6 @@
     <Compile Include="Deals\ReadModel\DealSpecs.Deals.cs" />
     <Compile Include="Deals\ReadModel\IDealReadModel.cs" />
     <Compile Include="Deals\ReleaseNumberUtils.cs" />
-    <Compile Include="Dynamic\ReadModel\EavFinderActivityExtensions.cs" />
     <Compile Include="Firms\DTO\ExportFirmsDTOs.cs" />
     <Compile Include="Firms\DTO\FirmInfo\CategoryDto.cs" />
     <Compile Include="Firms\DTO\FirmInfo\FirmAddressWithCategoriesDto.cs" />

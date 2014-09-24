@@ -200,30 +200,31 @@ WriteLiteral("></script>\r\n    \r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(@">
-        Ext.namespace('Ext.DoubleGis.UI.Delete');
-        Ext.DoubleGis.UI.Delete.DeleteProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
-            constructor: function (config) {
-                Ext.DoubleGis.UI.Delete.DeleteProcessor.superclass.constructor.call(this, config);
-            },
-            IsUserSettingsValid: function () {
-                return true;
-            },
-            CreateParamsForControllerCall: function (entityId) {
-                return { entityId: entityId };
-            }
-        });
-        Ext.onReady(function () {
-            Ext.getDom('PageContentCell').style[""vertical-align""] = ""top"";
-
-            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
-
-            var config = {
-                Entities: ids, // массив id сущностей
-                OperationName: '");
+WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Delete\');\r\n        Ext.DoubleGis.UI.De" +
+"lete.DeleteProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {\r\n\t\t\tEntitie" +
+"sToProcess: {},\r\n\t\t\tconstructor: function(config) {\r\n                Ext.DoubleG" +
+"is.UI.Delete.DeleteProcessor.superclass.constructor.call(this, config);\r\n\t\t\t\tif " +
+"(config.EntitiesToProcess) {\r\n\t\t\t\t\tvar entitiesToProcess = {};\r\n\t\t\t\t\tExt.each(co" +
+"nfig.EntitiesToProcess, function (x) {\r\n\t\t\t\t\t\tentitiesToProcess[x.entityId] = x." +
+"entityName;\r\n\t\t\t\t\t});\r\n\t\t\t\t\tthis.EntitiesToProcess = entitiesToProcess;\r\n\t\t\t\t}\r\n" +
+"            },\r\n\t\t\tIsUserSettingsValid: function() {\r\n                return tru" +
+"e;\r\n            },\r\n\t\t\tResolveEntityName: function(entityId) {\r\n\t\t\t\tif (this.Ent" +
+"itiesToProcess.hasOwnProperty(entityId))\r\n\t\t\t\t\treturn this.EntitiesToProcess[ent" +
+"ityId];\r\n\t\t\t\telse \r\n\t\t\t\t\treturn this.superclass().ResolveEntityName.call(this, e" +
+"ntityId);\r\n\t\t\t},\r\n            CreateParamsForControllerCall: function (entityId)" +
+" {\r\n                return { entityId: entityId };\r\n            }\r\n        });\r\n" +
+"\t\tExt.onReady(function() {\r\n            Ext.getDom(\'PageContentCell\').style[\"ver" +
+"tical-align\"] = \"top\";\r\n\r\n\t\t\tvar dialogArguments = !window.dialogArguments ? [] " +
+": (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialog" +
+"Arguments);\r\n\t\t\tvar ids = dialogArguments;\r\n\r\n\t\t\tvar isExtendedMode = (dialogArg" +
+"uments != null && dialogArguments.length > 0 && dialogArguments[0].hasOwnPropert" +
+"y(\'entityId\'));\r\n\t\t\tif (isExtendedMode) {\r\n\t\t\t\tids = [];\r\n\t\t\t\tExt.each(dialogArg" +
+"uments, function(x) { ids.push(x.entityId); });\r\n\t\t\t}\r\n\r\n            var config " +
+"= {\r\n\t\t\t\tEntitiesToProcess: isExtendedMode ? dialogArguments : null,\r\n\t\t\t\tEntiti" +
+"es: ids, // массив id сущностейsss\r\n                OperationName: \'");
 
             
-            #line 43 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 65 "..\..\Views\GroupOperation\Delete.cshtml"
                            Write(Model.OperationName);
 
             
@@ -262,26 +263,27 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n                        onmouseover=\"", 3262), Tuple.Create("\"", 3329)
-, Tuple.Create(Tuple.Create("", 3302), Tuple.Create("AddTooltip(", 3302), true)
+WriteAttribute("onmouseover", Tuple.Create(" \r\n\t\t\t\t     onmouseover=\"", 4088), Tuple.Create("\"", 4142)
+, Tuple.Create(Tuple.Create(" ", 4113), Tuple.Create("AddTooltip(", 4114), true)
             
-            #line 60 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 3313), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 82 "..\..\Views\GroupOperation\Delete.cshtml"
+, Tuple.Create(Tuple.Create("", 4125), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 3313), false)
-, Tuple.Create(Tuple.Create("", 3327), Tuple.Create(");", 3327), true)
+, 4125), false)
+, Tuple.Create(Tuple.Create("", 4139), Tuple.Create(");", 4139), true)
+, Tuple.Create(Tuple.Create(" ", 4141), Tuple.Create("", 4141), true)
 );
 
-WriteLiteral(" \r\n                        onmouseout=\"RemoveTooltip();\"");
+WriteLiteral(" \r\n\t\t\t\t     onmouseout=\" RemoveTooltip(); \"");
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                    ");
 
             
-            #line 62 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 84 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(Model.Message);
 
             
@@ -297,7 +299,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 69 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 91 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(DeleteIdentity.Instance, new EntitySet(Model.EntityTypeName))));
 
             
@@ -318,7 +320,7 @@ WriteLiteral(">\r\n                    </div>\r\n                </div>\r\n     
 WriteLiteral("    ");
 
             
-            #line 82 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 104 "..\..\Views\GroupOperation\Delete.cshtml"
 Write(Html.HiddenFor(x => x.EntityTypeName));
 
             
