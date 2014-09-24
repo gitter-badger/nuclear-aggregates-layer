@@ -21,14 +21,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Getters[typeof(byte)] = x => Convert.ToByte(x.NumericValue);
             Getters[typeof(int)] = x => Convert.ToInt32(x.NumericValue);
             Getters[typeof(long)] = x => Convert.ToInt64(x.NumericValue);
-            Getters[typeof(long?)] = x => x.NumericValue.HasValue ? (long?)Convert.ToInt64(x.NumericValue.Value) : null;
+            Getters[typeof(long?)] = x => x == null ? null : x.NumericValue.HasValue ? (long?)Convert.ToInt64(x.NumericValue.Value) : null;
             Getters[typeof(Guid)] = x => new Guid(x.TextValue);
             Getters[typeof(DateTime)] = x => x.DateTimeValue;
             Getters[typeof(DateTime?)] = x => x != null ? x.DateTimeValue : null;
-            Getters[typeof(ActivityPriority)] = x => x.NumericValue.HasValue ? (ActivityPriority)x.NumericValue : ActivityPriority.NotSet;
-            Getters[typeof(ActivityStatus)] = x => x.NumericValue.HasValue ? (ActivityStatus)x.NumericValue : ActivityStatus.NotSet;
-            Getters[typeof(ActivityPurpose)] = x => x.NumericValue.HasValue ? (ActivityPurpose)x.NumericValue : ActivityPurpose.NotSet;
-            Getters[typeof(ActivityTaskType)] = x => x.NumericValue.HasValue ? (ActivityTaskType)x.NumericValue : ActivityTaskType.NotSet;
             Getters[typeof(EntityName)] = x => x.NumericValue.HasValue ? (EntityName)x.NumericValue : EntityName.None;
             Getters[typeof(AccountType)] = x => x.NumericValue.HasValue ? (AccountType)x.NumericValue : AccountType.NotSet;
             Getters[typeof(TaxationType)] = x => x.NumericValue.HasValue ? (TaxationType)x.NumericValue : TaxationType.NotSet;
@@ -43,10 +39,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Setters[typeof(Guid)] = (x, y) => x.TextValue = ((Guid)y).ToString();
             Setters[typeof(DateTime)] = (x, y) => x.DateTimeValue = (DateTime)y;
             Setters[typeof(DateTime?)] = (x, y) => x.DateTimeValue = (DateTime?)y;
-            Setters[typeof(ActivityPriority)] = (x, y) => x.NumericValue = (int)y;
-            Setters[typeof(ActivityStatus)] = (x, y) => x.NumericValue = (int)y;
-            Setters[typeof(ActivityPurpose)] = (x, y) => x.NumericValue = (int)y;
-            Setters[typeof(ActivityTaskType)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(EntityName)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(AccountType)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(TaxationType)] = (x, y) => x.NumericValue = (int)y;

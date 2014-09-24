@@ -165,12 +165,11 @@
         // Ambivalent
         FileWithContent = 400,
 
-        ActivityInstance = 498,
-        ActivityPropertyInstance = 499,
-        ActivityBase = 500,
-        Appointment = 501,
+		Activity = 500,
+		Appointment = 501,
         Phonecall = 502,
         Task = 503,
+		RegardingObjectReference = 510,
 
         // заявка на создание или продление заказа от Личного кабинета
         OrderProcessingRequest = 550,

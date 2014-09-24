@@ -62,9 +62,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             PersistanceOnlyEntitiesMustBePartOfDomainModel(violationsReport);
             PersistanceOnlyEntitiesCantHaveEntityName2TypeMapping(violationsReport);
             VirtualEntitiesCantHaveMappingOrPersistance(violationsReport);
-            BaseEntitiesMustBeAbstract(violationsReport);
 
-            BaseEntitiesMustBeInModelEntitiesIndex(violationsReport);
             PersistenceOnlyEntitiesMustBeInModelEntitiesIndex(violationsReport);
             EntitiesHasMappingToTypesMustBeInModelEntitiesIndex(violationsReport);
 
@@ -124,21 +122,6 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
             if (report.Length > 0)
             {
                 throw new InvalidOperationException("Can't check domain model consistency. " + report);
-            }
-        }
-
-        private static void BaseEntitiesMustBeAbstract(StringBuilder report)
-        {
-            foreach (var type in EntityNameUtils.BaseEntities)
-            {
-                if (!type.IsAbstract || !BaseEntityType.IsAssignableFrom(type))
-                {
-                    report.AppendFormat(
-                        "Type {0} is element of base types list, so type must be abstract and must implement {1} interface {2}",
-                        type,
-                        BaseEntityType.Name,
-                        Environment.NewLine);
-                }
             }
         }
 
@@ -228,20 +211,6 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
                     report.AppendFormat(
                         "Business or simplified model entity {0} have persistance mapping, but haven't domain entity type {1}",
                         entityName,
-                        Environment.NewLine);
-                }
-            }
-        }
-
-        private void BaseEntitiesMustBeInModelEntitiesIndex(StringBuilder report)
-        {
-            foreach (var type in EntityNameUtils.BaseEntities)
-            {
-                if (!_modelEntityTypesIndex.Contains(type))
-                {
-                    report.AppendFormat(
-                        "Type {0} is element of base types list, but not found in model entities index. Check implemented type interfaces{1}",
-                        type,
                         Environment.NewLine);
                 }
             }
