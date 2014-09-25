@@ -279,7 +279,15 @@ Ext.DoubleGis.UI.MainPage = Ext.extend(Object, {
         {
             Ext.getCmp("StageContainer").setTitle(n.text);
             this.Mask.show();
-            ContentFrame.location.href = n.attributes ? n.attributes.requestUrl : n.requestUrl;
+
+
+            var innerDoc;
+            if (ContentFrame.contentDocument) {
+                innerDoc = ContentFrame.contentDocument;
+            } else {
+                innerDoc = ContentFrame;
+            }
+            innerDoc.location.href = n.attributes ? n.attributes.requestUrl : n.requestUrl;
         }
         else
         {

@@ -47,6 +47,8 @@ using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLQuerying.DI;
 using DoubleGis.Erm.BLQuerying.DI.Config;
+using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing;
+using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -133,7 +135,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .ConfigureServiceClient();
 
             // HACK дико извиняюсь, но пока метаданные для листинга регистрируются только так, скоро поправим
-            BLFlex.DI.Config.Bootstrapper.ConfigureGlobalListing(settingsContainer.AsSettings<IGlobalizationSettings>());
+            container.ConfigureGlobalListing(settingsContainer.AsSettings<IGlobalizationSettings>());
 
             return container;
         }
@@ -209,14 +211,14 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
         }
 
         private static IUnityContainer ConfigureUnity(this IUnityContainer container,
-                                                      IEnvironmentSettings environmentSettings,
-                                                      IConnectionStringSettings connectionStringSettings,
-                                                      IGlobalizationSettings globalizationSettings,
-                                                      IMsCrmSettings msCrmSettings,
-                                                      ICachingSettings cachingSettings,
-                                                      IOperationLoggingSettings operationLoggingSettings,
-                                                      INestSettings nestSettings,
-                                                      ILoggerContextManager loggerContextManager)
+            IEnvironmentSettings environmentSettings,
+            IConnectionStringSettings connectionStringSettings,
+            IGlobalizationSettings globalizationSettings,
+            IMsCrmSettings msCrmSettings,
+            ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings,
+            INestSettings nestSettings,
+            ILoggerContextManager loggerContextManager)
         {
             return container
                 .ConfigureLogging(loggerContextManager)
@@ -244,7 +246,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata()
-                .ConfigureElasticApi(nestSettings);
+                .ConfigureElasticApi(nestSettings)
+                .ConfigureQdsListing();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
