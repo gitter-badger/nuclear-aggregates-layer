@@ -65,8 +65,6 @@ using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories.Messaging;
-using DoubleGis.Erm.Platform.Model.Entities.EAV;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
@@ -308,12 +306,7 @@ namespace DoubleGis.Erm.TaskService.DI
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
             {
-            return container
-                .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                
-                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+            return container;
         }
     }
 }
