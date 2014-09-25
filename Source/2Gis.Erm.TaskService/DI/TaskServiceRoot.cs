@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;
+using DoubleGis.Erm.Qds.Operations.DI;
 
 namespace DoubleGis.Erm.TaskService.DI
 {
@@ -53,6 +54,7 @@ namespace DoubleGis.Erm.TaskService.DI
                                           .UseAnchor<PlatformCoreAssembly>()
                                       .RequireZone<MetadataZone>()
                                           .UseAnchor<PlatformModelMetadataAssembly>()
+                                          .UseAnchor<QdsMetadataZonePartAssembly>()
                                       .RequireZone<AppFabricZone>()
                                           .UseAnchor<PlatformAppFabricAssembly>();
             }
