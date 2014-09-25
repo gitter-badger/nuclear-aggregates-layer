@@ -157,6 +157,9 @@
       <Component>
         <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Data.Common.dll" />
       </Component>
+      <Component>
+        <File Source="!(bindpath.PlatformLibsDir)\protobuf-net_2.0.0.669\protobuf-net.dll" />
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">
