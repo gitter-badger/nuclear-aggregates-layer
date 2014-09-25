@@ -38,11 +38,10 @@
   <ItemGroup>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.1.1\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.1\lib\Nest.dll</HintPath>
+    <Reference Include="Nest">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.1.1\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -65,6 +64,9 @@
     <Compile Include="2.0\2014.07.18 rev. 22447 - OrderGridDoc, FirmGridDoc mappings.cs" />
     <Compile Include="2.0\2014.07.09 rev. 22156 - Remove RecordIdState mapping.cs" />
     <Compile Include="2.0\2014.07.01 rev. 21859 - OrderGridDoc, RecordIdState mappings.cs" />
+    <Compile Include="2.0\2014.09.18 rev. 24393 - LegalPersonGridDoc, BargainGridDoc, OrderGridDoc.cs" />
+    <Compile Include="2.0\2014.09.10 rev. 24160 - Update number of replicas.cs" />
+    <Compile Include="2.0\2014.09.05 rev. 24082 - TerritoryGridDoc, ClientGridDoc mapping.cs" />
     <Compile Include="Base\ElasticSearchMigration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -112,7 +114,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

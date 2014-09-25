@@ -39,6 +39,9 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
         public string LegalPersonName { get; set; }
         public string BargainId { get; set; }
         public string BargainNumber { get; set; }
+        public string AccountId { get; set; }
+        public string ClientId { get; set; }
+        public string DealId { get; set; }
 
         public DocumentAuthorization Authorization { get; set; }
     }

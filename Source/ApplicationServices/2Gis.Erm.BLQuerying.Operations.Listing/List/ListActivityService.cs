@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -20,20 +16,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICompositeEntityDecorator _compositeEntityDecorator;
-        private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListActivityService(ISecurityServiceUserIdentifier userIdentifierService,
             ICompositeEntityDecorator compositeEntityDecorator,
-            IFinder finder,
-            IUserContext userContext,
             FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _compositeEntityDecorator = compositeEntityDecorator;
-            _finder = finder;
-            _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
@@ -162,52 +152,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 activities = _filterHelper.ForSubordinates(activities);
             }
 
-            var forTodayFilter = CreateForExtendedProperty(activities, "ForToday", querySettings, forToday =>
-            {
-                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTomorrowUtc = userDateTimeTodayUtc.AddDays(1);
-
-                return
-                    x =>
-                    userDateTimeTodayUtc <= x.ScheduledStart && x.ScheduledStart < userDateTimeTomorrowUtc ||
-                    userDateTimeTodayUtc <= x.ScheduledEnd && x.ScheduledEnd < userDateTimeTomorrowUtc;
-            });
-
-            var forMeFilter = CreateForExtendedProperty(activities, "ForMe", querySettings, forMe =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var expiredFilter = CreateForExtendedProperty(activities, "Expired", querySettings, expired =>
-            {
-                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-
-                if (expired)
-                {
-                    return x => x.ScheduledEnd < userDateTimeTodayUtc;
-                }
-
-                return x => x.ScheduledEnd >= userDateTimeTodayUtc;
-            });
-
-            var result = activities
-                .Filter(_filterHelper, forTodayFilter, forMeFilter, expiredFilter)
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
-
+            var result = activities.QuerySettings(_filterHelper, querySettings);
             return result;
         }
 
-        private static Expression<Func<TEntity, bool>> CreateForExtendedProperty<TEntity>(IQueryable<TEntity> query, string key, QuerySettings querySettings, Func<bool, Expression<Func<TEntity, bool>>> action)
+        protected override void Transform(ListActivityDto dto)
         {
-            return querySettings.CreateForExtendedProperty(key, action);
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

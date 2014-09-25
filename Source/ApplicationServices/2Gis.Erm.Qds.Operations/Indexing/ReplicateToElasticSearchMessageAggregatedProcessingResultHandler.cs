@@ -63,7 +63,10 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         {
             try
             {
-                _documentUpdater.IndexDocuments(tuple.Item2.EntityLinks);
+                if (tuple.Item2.EntityLinks.Any())
+                {
+                    _documentUpdater.IndexDocuments(tuple.Item2.EntityLinks);                    
+                }
             }
             catch (Exception ex)
             {

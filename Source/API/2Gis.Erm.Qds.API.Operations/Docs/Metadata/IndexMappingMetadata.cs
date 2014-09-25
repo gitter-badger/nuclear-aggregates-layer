@@ -11,7 +11,6 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs.Metadata
             Tuple.Create(typeof(MigrationDoc), "Metadata"),
             Tuple.Create(typeof(ReplicationQueue), "Metadata"),
             Tuple.Create(typeof(UserAuthorizationDoc), "Metadata"),
-            Tuple.Create(typeof(TerritoryDoc), "Metadata"),
 
             Tuple.Create(typeof(ClientGridDoc), "Data"),
             Tuple.Create(typeof(OrderGridDoc), "Data"),
@@ -23,6 +22,7 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs.Metadata
             Tuple.Create(typeof(OrgUnitGridDoc), "Data"),
             Tuple.Create(typeof(LegalPersonGridDoc), "Data"),
             Tuple.Create(typeof(BargainGridDoc), "Data"),
+            Tuple.Create(typeof(TerritoryGridDoc), "Data"),
         };
 
         public static Type GetDocumentType(string documentTypeName)

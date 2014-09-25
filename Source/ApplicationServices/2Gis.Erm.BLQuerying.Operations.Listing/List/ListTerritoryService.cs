@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -31,20 +33,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Territory>();
 
-            var restrictToCurrentUserFilter = querySettings
-                .CreateByParentEntity<Territory>(EntityName.User,
-                                                 () =>
-                                                     {
-                                                         var currentUserTerritories = (SelectCurrentUserTerritoriesResponse)
-                                                                                      _publicService.Handle(new SelectCurrentUserTerritoriesRequest());
-                                                         return x => currentUserTerritories.TerritoryIds.Contains(x.Id);
-                                                     });
+            Expression<Func<Territory, bool>> restrictToCurrentUserFilter = null;
+            if (querySettings.ParentEntityName == EntityName.User && querySettings.ParentEntityId != null)
+            {
+                var currentUserTerritories = (SelectCurrentUserTerritoriesResponse)_publicService.Handle(new SelectCurrentUserTerritoriesRequest());
+                restrictToCurrentUserFilter = x => currentUserTerritories.TerritoryIds.Contains(x.Id);
+            }
 
             var restrictToOrganizationUnit = querySettings.CreateForExtendedProperty<Territory, long>("restrictToOrganizationUnit",
                 organizationUnit =>
                     {
                         var request = new SelectOrganizationUnitTerritoriesRequest { OrganizationUnitId = organizationUnit };
-                        var territories = ((SelectOrganizationUnitTerritoriesResponse)this._publicService.Handle(request)).TerritoryIds;
+                        var territories = ((SelectOrganizationUnitTerritoriesResponse)_publicService.Handle(request)).TerritoryIds;
 
                         return x => territories.Contains(x.Id);
                     });

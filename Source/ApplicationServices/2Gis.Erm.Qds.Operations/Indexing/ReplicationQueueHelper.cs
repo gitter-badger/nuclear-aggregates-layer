@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Qds.API.Operations.Docs;
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Common;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
@@ -29,10 +32,24 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _elasticApi.Index(documentWrapper.Document, x => x.Id(documentWrapper.Id));
         }
 
+        public ICollection<ReplicationQueue.IndexSettings> MergeIndexSettings(IEnumerable<IDocumentWrapper<ReplicationQueue>> items)
+        {
+            var indexSettings = items.Where(x => x.Document.IndexesSettings != null)
+                .SelectMany(x => x.Document.IndexesSettings)
+                .GroupBy(x => x.IndexName)
+                .Select(x => new ReplicationQueue.IndexSettings
+                {
+                    IndexName = x.Key,
+                    NumberOfReplicas = x.Max(y => y.NumberOfReplicas),
+                    RefreshInterval = x.OrderByDescending(y => y.RefreshInterval, StringComparer.OrdinalIgnoreCase).Select(y => y.RefreshInterval).First()
+                }).ToArray();
+
+            return indexSettings;
+        }
+
         public IDocumentWrapper<ReplicationQueue>[] LoadQueue()
         {
             _elasticApi.Refresh<ReplicationQueue>();
-
             var documentTypes = _elasticApi.Scroll<ReplicationQueue>(x => x.MatchAll()).Select(x => (IDocumentWrapper<ReplicationQueue>)new DocumentWrapper<ReplicationQueue>
                 {
                     Id = x.Id,
