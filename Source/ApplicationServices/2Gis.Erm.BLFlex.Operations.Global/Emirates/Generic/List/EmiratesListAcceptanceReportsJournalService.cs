@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.SimplifiedModel.ReadModel.AcceptanceReportsJournal;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
@@ -60,12 +59,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                                         IsActive = x.IsActive,
                                         IsDeleted = x.IsDeleted
                                     })
-                          .QuerySettings(_filterHelper, querySettings)
-                          .Transform(x =>
-                              {
-                                  x.AuthorName = _userIdentifierService.GetUserInfo(x.AuthorId).DisplayName;
-                                  return x;
-                              });
+                          .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(EmiratesListAcceptanceReportsJournalRecordDto dto)
+        {
+            dto.AuthorName = _userIdentifierService.GetUserInfo(dto.AuthorId).DisplayName;
         }
     }
 }
