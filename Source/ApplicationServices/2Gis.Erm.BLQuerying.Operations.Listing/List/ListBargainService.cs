@@ -38,47 +38,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Bargain>();
 
-            var myFilter = querySettings.CreateForExtendedProperty<Bargain, bool>(
-                "ForMe",
-                info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var restrictByLegalPersonFilter = querySettings.CreateForExtendedProperty<Bargain, long>(
-                "legalPersonId",
-                legalPersonId =>
-                    {
-                        if (legalPersonId == 0)
-                        {
-                            return x => true;
-                        }
-
-                        return
-                            x => x.CustomerLegalPersonId == legalPersonId;
-                    });
-
-            var restrictByBranchOfficeOrganizationUnitFilter = querySettings.CreateForExtendedProperty<Bargain, long>(
-                "branchOfficeOrganizationUnitId",
-                branchOfficeOrganizationUnitId =>
-                {
-                    if (branchOfficeOrganizationUnitId == 0)
-                    {
-                        return x => true;
-                    }
-
-                    return
-                        x => x.ExecutorBranchOfficeId == branchOfficeOrganizationUnitId;
-                });
-
             var hasAdvertisementAgencyManagementPrivilege =
                 _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, _userContext.Identity.Code);
             Expression<Func<Bargain, bool>> agentBargainsFilter = x => hasAdvertisementAgencyManagementPrivilege || x.BargainKind != (int)BargainKind.Agent;
 
             return query
                 .Where(x => !x.IsDeleted)
-                .Filter(_filterHelper, myFilter, restrictByLegalPersonFilter, restrictByBranchOfficeOrganizationUnitFilter, agentBargainsFilter)
+                .Filter(_filterHelper, agentBargainsFilter)
                 .Select(x => new ListBargainDto
                 {
                     Id = x.Id,
@@ -95,6 +61,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ClientName = x.LegalPerson.Client.Name,
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
+                    ExecutorBranchOfficeId = x.ExecutorBranchOfficeId,
+                    BargainKindEnum = (BargainKind)x.BargainKind,
                     BargainKind = ((BargainKind)x.BargainKind).ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);

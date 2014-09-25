@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -99,28 +98,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.Deals.Count(y => !y.IsDeleted && y.IsActive) > dealCount;
             });
 
-            var reserveFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForReserve", info =>
-            {
-                var reserveId = _userIdentifierService.GetReserveUserIdentity().Code;
-                return x => x.OwnerCode == reserveId;
-            });
-
-            var myFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForMe", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var todayFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForToday", info =>
-            {
-                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTomorrowUtc = userDateTimeTodayUtc.AddDays(1);
-
-                return x => userDateTimeTodayUtc <= x.CreatedOn && x.CreatedOn < userDateTimeTomorrowUtc;
-            });
-
-            query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter, reserveFilter, myFilter);
+            query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter);
 
             RemoteCollection<ListClientDto> clients;
             if (TryGetClientsRestrictedByUser(query, querySettings, out clients))
@@ -191,8 +169,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     , outdatedActivityFilter
                     , contactFilter
                     , dealFilter
-                    , firmFilter
-                    , todayFilter)
+                    , firmFilter)
                     , querySettings);
         }
 
@@ -322,12 +299,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 InformationSourceEnum = (InformationSource)x.InformationSource,
                 OwnerName = null,
             })
-            .QuerySettings(_filterHelper, querySettings)
-            .Transform(x =>
-            {
-                x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                return x;
-            });
+            .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListClientDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

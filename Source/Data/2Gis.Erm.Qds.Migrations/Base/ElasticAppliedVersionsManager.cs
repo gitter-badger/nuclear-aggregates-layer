@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
                 return;
             }
 
+            _elasticApi.Refresh<MigrationDoc>();
             var hits = _elasticApi.Scroll<MigrationDoc>(x => x.MatchAll());
             foreach (var hit in hits)
             {

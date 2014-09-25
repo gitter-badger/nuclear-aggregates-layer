@@ -25,10 +25,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<OperationType>();
 
-            var syncCodeFilter = querySettings.CreateForExtendedProperty<OperationType, string>("excludeSyncCode", code => x => x.SyncCode1C != code);
-
             return query
-                .Filter(_filterHelper, syncCodeFilter)
                 .Select(x => new ListOperationTypeDto
                 {
                     Id = x.Id,

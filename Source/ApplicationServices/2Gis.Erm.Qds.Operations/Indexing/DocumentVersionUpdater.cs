@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Common;
 
 using Nest;
@@ -13,9 +14,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
     {
         public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
         {
-            var ids = documentWrappers.OfType<IDocumentWrapper<TDocument>>().Select(x => x.Id);
+            var castedDocumentWrappers = documentWrappers.OfType<IDocumentWrapper<TDocument>>();
 
-            return x => (ElasticApi.ErmMultiGetDescriptor)x.GetManyDistinct<TDocument>(ids).SourceEnabled(false).Preference("_primary");
+            return x => castedDocumentWrappers.Aggregate(x, (current, documentWrapper) => (ElasticApi.ErmMultiGetDescriptor)current.GetDistinct<TDocument>(g => (ElasticApi.ErmMultiGetDescriptor.ErmMultiGetOperationDescriptor<TDocument>)g
+                .Source(s => s.Exclude(new[] { "*" }))
+                .Id(documentWrapper.Id))
+                .Preference("_primary"));
         }
 
         public void UpdateDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)

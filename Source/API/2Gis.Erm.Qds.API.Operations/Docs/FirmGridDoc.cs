@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
         public bool? ClosedForAscertainment { get; set; }
 
         // relations
-        //public string ClientId { get; set; }
-        //public string ClientName { get; set; }
+        public string ClientId { get; set; }
+        public string ClientName { get; set; }
         public string OwnerCode { get; set; }
         public string OwnerName { get; set; }
-        //public string TerritoryId { get; set; }
-        //public string TerritoryName { get; set; }
+        public string TerritoryId { get; set; }
+        public string TerritoryName { get; set; }
         public string OrganizationUnitId { get; set; }
         public string OrganizationUnitName { get; set; }
 

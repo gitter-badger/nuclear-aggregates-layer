@@ -139,43 +139,26 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             // т.к. не обязательно время жизни operationservice всегда будет perusecase) применять к ней знания из метаданных
             _useCaseTuner.AlterDuration<ListApplicationService>();
 
-            var listService = _operationServicesManager.GetListEntityService(entityName);
-
-            var searchListModel = new SearchListModel
-                {
-                    Start = start,
-                    FilterInput = filterInput,
-                    ExtendedInfo = extendedInfo,
-                    NameLocaleResourceId = nameLocaleResourceId,
-                    Limit = limit,
-                    Dir = dir,
-                    Sort = sort,
-                    ParentEntityId = parentId,
-                    ParentEntityName = parentType
-                };
-
-            var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
-            var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);
-
-            DataListStructure dataListStructure;
-            if (!string.IsNullOrEmpty(nameLocaleResourceId))
-            {
-                dataListStructure = gridSettings.DataViews.Single(
-                    x => string.Equals(x.NameLocaleResourceId, nameLocaleResourceId, StringComparison.OrdinalIgnoreCase));
-            }
-            else
-            {
-                // lookup case
-                dataListStructure = gridSettings.DataViews.First();
-                searchListModel.Sort = dataListStructure.DefaultSortField;
-                searchListModel.Dir = dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC";
-            }
-
+            var dataListStructure = GetDataListStructure(entityName, nameLocaleResourceId);
             if (string.IsNullOrEmpty(dataListStructure.MainAttribute))
             {
                 throw new ArgumentException(BLResources.MainAttributeForEntityIsNotSpecified);
             }
 
+            var searchListModel = new SearchListModel
+            {
+                Start = start,
+                FilterInput = filterInput,
+                ExtendedInfo = extendedInfo,
+                NameLocaleResourceId = dataListStructure.NameLocaleResourceId,
+                Limit = limit,
+                Dir = !string.IsNullOrEmpty(dir) ? dir : dataListStructure.DefaultSortDirection == 1 ? "DESC" : "ASC",
+                Sort = !string.IsNullOrEmpty(sort) ? sort : dataListStructure.DefaultSortField,
+                ParentEntityId = parentId,
+                ParentEntityName = parentType
+            };
+
+            var listService = _operationServicesManager.GetListEntityService(entityName);
             var remoteCollection = listService.List(searchListModel);
 
             return new EntityDtoListResult
@@ -184,6 +167,20 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 RowCount = remoteCollection.TotalCount,
                 MainAttribute = dataListStructure.MainAttribute,
             };
+        }
+
+        private DataListStructure GetDataListStructure(EntityName entityName, string nameLocaleResourceId)
+        {
+            var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
+            var gridSettings = _configurationService.GetGridSettings(entityName, userCultureInfo);
+
+            if (string.IsNullOrEmpty(nameLocaleResourceId))
+            {
+                // lookup case
+                return gridSettings.DataViews.First();
+            }
+
+            return gridSettings.DataViews.Single(x => string.Equals(x.NameLocaleResourceId, nameLocaleResourceId, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

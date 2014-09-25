@@ -24,12 +24,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Department>();
 
-            var excludeIdFilter = querySettings.CreateForExtendedProperty<Department, long>(
-                "excludeId",
-                excludeId => x => x.Id != excludeId);
-
             return query
-                .Filter(_filterHelper, excludeIdFilter)
                 .Select(x => new ListDepartmentDto
                 {
                     Id = x.Id,

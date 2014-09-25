@@ -8,19 +8,31 @@ using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.Operations.Listing;
 
-namespace DoubleGis.Erm.BLQuerying.DI
+namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
 {
     // ReSharper disable InconsistentNaming
-    public class BLQueryingConflictResolver
+    public static class BLQueryingConflictResolver
     // ReSharper restore InconsistentNaming
     {
-        private static readonly EntityName[] QdsEntityNames = { EntityName.Order };
+        private static readonly EntityName[] QdsEntityNames =
+            {
+                EntityName.Order,
+                EntityName.Client,
+                EntityName.Firm,
+            };
 
         public static Type ListServices(Type operationType, EntitySet entitySet, IEnumerable<Type> candidates)
         {
             if (!typeof(IListEntityService).IsAssignableFrom(operationType))
             {
                 return null;
+            }
+
+            // настройка для экстренного выключения Elasticsearch
+            var enableElasticsearch = ConfigFileSetting.Bool.Required("EnableElasticsearch").Value;
+            if (!enableElasticsearch)
+            {
+                return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
             }
 
             var businessModel = ConfigFileSetting.Enum.Required<BusinessModel>("BusinessModel").Value;

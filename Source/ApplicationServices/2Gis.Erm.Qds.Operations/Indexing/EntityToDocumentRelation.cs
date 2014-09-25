@@ -1,43 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
+using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
+
+using FastMember;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
-    public class DefaultEntityToDocumentRelation<TEntity, TDocument> : IEntityToDocumentRelation<TEntity, TDocument>
+    public sealed class EntityToDocumentRelation<TEntity, TDocument> : IEntityToDocumentRelation<TEntity, TDocument>
         where TEntity : class, IEntity, IEntityKey
     {
         private readonly IFinder _finder;
-        private readonly ILocalizationSettings _localizationSettings;
+        private readonly ISelectSpecification<TEntity, object> _selectSpec;
+        private readonly IProjectSpecification<ObjectAccessor, IDocumentWrapper<TDocument>> _projectSpec;
 
-        public DefaultEntityToDocumentRelation(IFinder finder, ILocalizationSettings localizationSettings)
+        public EntityToDocumentRelation(IFinder finder,
+                                        EntityRelationFeature<TDocument, TEntity> entityRelationFeature)
         {
             _finder = finder;
-            _localizationSettings = localizationSettings;
+            _selectSpec = entityRelationFeature.SelectSpec;
+            _projectSpec = entityRelationFeature.ProjectSpec;
         }
-
-        public Func<IQueryable<TEntity>, CultureInfo, IEnumerable<IDocumentWrapper<TDocument>>> SelectDocumentsFunc { private get; set; }
 
         public IEnumerable<IDocumentWrapper> SelectAllDocuments()
         {
-            return SelectDocuments(q => q);
+            return SelectDocuments(Specs.Find.Custom<TEntity>(x => true));
         }
 
         public IEnumerable<IDocumentWrapper> SelectDocuments(IReadOnlyCollection<long> ids)
         {
-            return SelectDocuments(q => q.Where(x => ids.Contains(x.Id)));
+            return SelectDocuments(Specs.Find.ByIds<TEntity>(ids));
         }
 
-        private IEnumerable<IDocumentWrapper<TDocument>> SelectDocuments(Func<IQueryable<TEntity>, IQueryable<TEntity>> querySelector)
+        private IEnumerable<IDocumentWrapper> SelectDocuments(IFindSpecification<TEntity> findSpec)
         {
-            var query = querySelector(_finder.FindAll<TEntity>());
-            var documentWrappers = SelectDocumentsFunc(query, _localizationSettings.ApplicationCulture);
-            return documentWrappers;
+            var entities = _finder.Find(_selectSpec, findSpec).AsEnumerable();
+            return entities.Select(x => _projectSpec.Project(ObjectAccessor.Create(x)));
         }
     }
 }

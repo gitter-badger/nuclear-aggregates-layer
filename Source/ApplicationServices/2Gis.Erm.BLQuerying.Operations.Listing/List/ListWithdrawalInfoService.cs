@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
@@ -48,12 +47,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Status = ((WithdrawalStatus)x.Status).ToStringLocalizedExpression(),
                     Owner = null,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListWithdrawalInfoDto dto)
+        {
+            dto.Owner = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

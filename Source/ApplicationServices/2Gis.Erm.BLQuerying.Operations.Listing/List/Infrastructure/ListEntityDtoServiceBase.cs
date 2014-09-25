@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+﻿using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
@@ -14,9 +16,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
         {
             var querySettings = searchListModel.ToQuerySettings();
             var remoteCollection = List(querySettings);
+            foreach (var dto in remoteCollection.OfType<TEntityListDto>())
+            {
+                Transform(dto);
+            }
             return remoteCollection;
         }
 
         protected abstract IRemoteCollection List(QuerySettings querySettings);
+
+        protected virtual void Transform(TEntityListDto dto) { }
     }
 }

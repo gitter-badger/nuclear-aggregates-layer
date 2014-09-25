@@ -24,21 +24,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<DeniedPosition>();
 
-            var positionIdFilter = querySettings.CreateForExtendedProperty<DeniedPosition, long>(
-                "PositionId",
-                positionId => x => x.PositionId == positionId);
-
-            var priceIdFilter = querySettings.CreateForExtendedProperty<DeniedPosition, long>(
-                "PriceId",
-                priceId => x => x.PriceId == priceId);
-
             return query
-                .Filter(_filterHelper, positionIdFilter, priceIdFilter)
                 .Select(x => new ListDeniedPositionDto
                 {
                     Id = x.Id,
                     PositionDeniedId = x.PositionDeniedId,
                     PositionDeniedName = x.PositionDenied.Name,
+                    PositionId = x.PositionId,
+                    PriceId = x.PriceId,
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                 })

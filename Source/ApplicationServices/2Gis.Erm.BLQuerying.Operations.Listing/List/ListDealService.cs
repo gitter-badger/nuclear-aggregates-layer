@@ -48,12 +48,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
             });
 
-            var myFilter = querySettings.CreateForExtendedProperty<Deal, bool>("ForMe", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
             var filterExpression = querySettings.CreateForExtendedProperty<Deal, long>(
                 "OrderId", 
                 orderId =>
@@ -89,7 +83,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     });
 
             return query
-                .Filter(_filterHelper, filterExpression, barterOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, filterExpression, barterOrdersFilter, myBranchFilter)
                 .Select(x => new ListDealDto
                 {
                     Id = x.Id,

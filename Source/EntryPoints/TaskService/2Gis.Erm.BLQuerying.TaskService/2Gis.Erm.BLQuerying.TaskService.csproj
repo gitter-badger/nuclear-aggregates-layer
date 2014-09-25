@@ -44,8 +44,6 @@
     </Compile>
     <Compile Include="DI\BlQueryingTaskServiceAssembly.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
-    <Compile Include="DI\DocumentRelationMetadataMassProcessor.cs" />
-    <Compile Include="DI\EntityToDocumentRelationMetadataMassProcessor.cs" />
     <Compile Include="DI\UnityDocumentRelationFactory.cs" />
     <Compile Include="DI\UnityEntityToDocumentRelationFactory.cs" />
     <Compile Include="Jobs\ReplicateDocumentsToElasticSearchJob.cs" />
@@ -91,6 +89,10 @@
     <ProjectReference Include="..\..\..\..\..\Platform\Source\EntryPoints\TaskService\2Gis.Erm.Platform.TaskService\2Gis.Erm.Platform.TaskService.csproj">
       <Project>{49D0D1C2-49A4-4063-BD9C-AC36BE6C36DD}</Project>
       <Name>2Gis.Erm.Platform.TaskService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
