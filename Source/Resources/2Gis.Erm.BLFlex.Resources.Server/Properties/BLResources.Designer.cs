@@ -72,6 +72,15 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CannotFindActivity {
+            get {
+                return ResourceManager.GetString("CannotFindActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotPrintOrderForLegalPerson {
             get {
                 return ResourceManager.GetString("CannotPrintOrderForLegalPerson", resourceCulture);

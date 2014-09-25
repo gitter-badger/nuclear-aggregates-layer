@@ -5,6 +5,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
+using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -36,6 +38,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         protected override IDomainEntityDto<Task> GetDto(long entityId)
         {
             var task = _activityReadModel.GetTask(entityId);
+            if (task == null)
+            {
+                throw new NotificationException(string.Format(BLResources.CannotFindActivity, entityId));
+            }
+
             var regardingObjects = _activityReadModel.GetRegardingObjects<Task>(entityId).ToList();
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
