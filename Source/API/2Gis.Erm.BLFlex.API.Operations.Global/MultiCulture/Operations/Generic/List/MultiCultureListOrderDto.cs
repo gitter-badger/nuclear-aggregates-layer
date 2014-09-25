@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Gen
         public decimal AmountWithdrawn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public decimal PayablePlan { get; set; }
+        public long? InspectorCode { get; set; }
 
         public OrderState WorkflowStepEnum { get; set; }
         public long? AccountId { get; set; }

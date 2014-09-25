@@ -1371,8 +1371,10 @@
 					<Field Name="Name" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
 					<Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
 					<Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
-					<Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
-					<Field Name="PromisingScore" Width="200" FieldType="Int" ExtTypeName="Int" />
+          <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
+          <Field Name="OrganizationUnitId" NameLocaleResourceId="OrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
+          <Field Name="PromisingScore" Width="200" FieldType="Int" ExtTypeName="Int" />
 					<Field Name="ClosedForAscertainment" NameLocaleResourceId="DFieldIsHidden" Width="200" FieldType="Boolean" ExtTypeName="Boolean" />
 				</Fields>
 			</DataList>
@@ -2682,7 +2684,7 @@
 	</Entity>
 	<Entity Name="ThemeOrganizationUnit">
 		<DataLists>
-			<DataList NameLocaleResourceId="DListUserOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
+			<DataList NameLocaleResourceId="DListThemeOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
 				<ToolbarItems>
 					<ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" SecurityPrivelegeFlag="16" />
 					<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />

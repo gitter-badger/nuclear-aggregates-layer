@@ -2560,7 +2560,7 @@
   </Entity>
   <Entity Name="ThemeOrganizationUnit">
     <DataLists>
-      <DataList NameLocaleResourceId="DListUserOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
+      <DataList NameLocaleResourceId="DListThemeOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
         <ToolbarItems>
           <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" SecurityPrivelegeFlag="16" />
           <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
