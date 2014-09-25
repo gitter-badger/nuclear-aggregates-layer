@@ -639,6 +639,9 @@
   <data name="DListUserOrganizationUnit" xml:space="preserve">
     <value>Отделение организации</value>
   </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
+    <value>Отделение организации</value>
+  </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">
     <value>Отделение организации</value>
   </data>
