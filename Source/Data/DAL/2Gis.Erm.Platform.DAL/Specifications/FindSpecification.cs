@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.Common.Utils.Data;
 
 namespace DoubleGis.Erm.Platform.DAL.Specifications
 {
+    // FIXME {d.ivanov, 15.09.2014}: Move to 2Gis.Erm.Platform.Common
     /// <summary>
     /// Specification pattern base type.
     /// </summary>
