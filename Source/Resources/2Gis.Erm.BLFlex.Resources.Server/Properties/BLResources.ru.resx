@@ -412,4 +412,8 @@ SWIFT {5}
   <data name="VerificationTitle" xml:space="preserve">
     <value>Выверка ЭРМ</value>
   </data>
+  <data name="CannotFindActivity" xml:space="preserve">
+    <value>Активность с ID {0} не найдена.</value>
+    <comment>Активность с ID {0} не найдена.</comment>
+  </data>
 </root>
