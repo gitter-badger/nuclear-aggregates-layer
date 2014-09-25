@@ -45,6 +45,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                         IsActive = order.IsActive,
                         IsDeleted = order.IsDeleted,
                         IsTerminated = order.IsTerminated,
+                        InspectorCode = order.InspectorCode,
                         HasDocumentsDebtEnum = (DocumentsDebt)order.HasDocumentsDebt,
                         OrderTypeEnum = (OrderType)order.OrderType,
                         TerminationReasonEnum = (OrderTerminationReason)order.TerminationReason,

@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             HasDocumentsDebt = modelDto.HasDocumentsDebt;
             DocumentsComment = modelDto.DocumentsComment;
             Timestamp = modelDto.Timestamp;
-            UserCanWorkWithAdvertisingAgencies = modelDto.UserCanWorkWithAdvertisingAgencies;
+            UserCanWorkWithAdvertisingAgencies = false;
             IsLegalPersonChoosingDenied = modelDto.IsLegalPersonChoosingDenied;
             IsBranchOfficeOrganizationUnitChoosingDenied = modelDto.IsBranchOfficeOrganizationUnitChoosingDenied;
             ClientId = modelDto.ClientId;

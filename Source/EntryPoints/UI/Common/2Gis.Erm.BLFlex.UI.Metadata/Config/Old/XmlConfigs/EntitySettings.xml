@@ -100,7 +100,7 @@
 			</DataList>
 		</DataLists>
 	</Entity>
-	<Entity Name="ActivityInstance">
+	<Entity Name="Activity">
 		<DataLists>
 			<DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="*" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
 				<Scripts>
@@ -905,7 +905,6 @@
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<!--<RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/ActivityInstance" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />-->
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=1&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=1&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 				</RelatedItemsArea>
@@ -1006,7 +1005,6 @@
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Contact.gif" />
 					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=2&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
-					<!--<RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/ActivityInstance" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>-->
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=2&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 				</RelatedItemsArea>
 			</RelatedItems>
@@ -1216,7 +1214,6 @@
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Deal.gif" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=3&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
-					<!--<RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/ActivityInstance" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>-->
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=3&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 				</RelatedItemsArea>
 			</RelatedItems>
@@ -1374,8 +1371,10 @@
 					<Field Name="Name" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
 					<Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
 					<Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
-					<Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
-					<Field Name="PromisingScore" Width="200" FieldType="Int" ExtTypeName="Int" />
+          <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
+          <Field Name="OrganizationUnitId" NameLocaleResourceId="OrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
+          <Field Name="PromisingScore" Width="200" FieldType="Int" ExtTypeName="Int" />
 					<Field Name="ClosedForAscertainment" NameLocaleResourceId="DFieldIsHidden" Width="200" FieldType="Boolean" ExtTypeName="Boolean" />
 				</Fields>
 			</DataList>
@@ -2685,7 +2684,7 @@
 	</Entity>
 	<Entity Name="ThemeOrganizationUnit">
 		<DataLists>
-			<DataList NameLocaleResourceId="DListUserOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
+			<DataList NameLocaleResourceId="DListThemeOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
 				<ToolbarItems>
 					<ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" SecurityPrivelegeFlag="16" />
 					<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />

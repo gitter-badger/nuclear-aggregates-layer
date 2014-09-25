@@ -404,4 +404,8 @@ Bank Name: {7}
   <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="CannotFindActivity" xml:space="preserve">
+    <value>Действие с ID {0} не найдено.</value>
+    <comment>Действие с ID {0} не найдено.</comment>
+  </data>
 </root>

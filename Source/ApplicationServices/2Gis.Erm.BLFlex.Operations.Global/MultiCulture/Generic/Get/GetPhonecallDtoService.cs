@@ -2,14 +2,15 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
+using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -17,48 +18,60 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
     public class GetPhonecallDtoService : GetDomainEntityDtoServiceBase<Phonecall>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
-        private readonly IFinder _finder;
         private readonly IActivityReadModel _activityReadModel;
+        private readonly IClientReadModel _clientReadModel;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly IUserContext _userContext;
 
-        public GetPhonecallDtoService(IUserContext userContext, IFinder finder, IActivityReadModel activityReadModel)
+        public GetPhonecallDtoService(IUserContext userContext,
+                                      IActivityReadModel activityReadModel,
+                                      IClientReadModel clientReadModel,
+                                      IFirmReadModel firmReadModel)
             : base(userContext)
         {
-            _finder = finder;
             _activityReadModel = activityReadModel;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
             _userContext = userContext;
         }
 
         protected override IDomainEntityDto<Phonecall> GetDto(long entityId)
         {
-            var phonecall = _activityReadModel.GetActivity<Phonecall>(entityId);
+            var phonecall = _activityReadModel.GetPhonecall(entityId);
+            if (phonecall == null)
+            {
+                throw new NotificationException(string.Format(BLResources.CannotFindActivity, entityId));
+            }
+            var regardingObjects = _activityReadModel.GetRegardingObjects<Phonecall>(entityId).ToList();
 
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
             return new PhonecallDomainEntityDto
                 {
                     Id = phonecall.Id,
-                    AfterSaleServiceType = phonecall.AfterSaleServiceType,
-                    ClientRef = new EntityReference { Id = phonecall.ClientId, Name = phonecall.ClientName },
-                    ContactRef = new EntityReference { Id = phonecall.ContactId, Name = phonecall.ContactName },
-                    Description = phonecall.Description,
-                    FirmRef = new EntityReference { Id = phonecall.FirmId, Name = phonecall.FirmName },
-                    Header = phonecall.Header,
-                    Priority = phonecall.Priority,
-                    Purpose = phonecall.Purpose,
-                    ScheduledEnd = phonecall.ScheduledEnd.Add(timeOffset),
-                    ScheduledStart = phonecall.ScheduledStart.Add(timeOffset),
-                    ActualEnd = phonecall.ActualEnd.HasValue ? phonecall.ActualEnd.Value.Add(timeOffset) : phonecall.ActualEnd,
-                    Status = phonecall.Status,
-                    Type = phonecall.Type,
-                    OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
                     CreatedOn = phonecall.CreatedOn,
-                    IsActive = phonecall.IsActive,
-                    IsDeleted = phonecall.IsDeleted,
                     ModifiedByRef = new EntityReference { Id = phonecall.ModifiedBy, Name = null },
                     ModifiedOn = phonecall.ModifiedOn,
-                    Timestamp = phonecall.Timestamp
+                    IsActive = phonecall.IsActive,
+                    IsDeleted = phonecall.IsDeleted,
+                    Timestamp = phonecall.Timestamp,
+                    OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
+
+                    Header = phonecall.Header,
+                    Description = phonecall.Description,
+                    ScheduledStart = phonecall.ScheduledStart.Add(timeOffset),
+                    ScheduledEnd = phonecall.ScheduledEnd.Add(timeOffset),
+                    ActualEnd = phonecall.ActualEnd.HasValue ? phonecall.ActualEnd.Value.Add(timeOffset) : phonecall.ActualEnd,
+                    Priority = phonecall.Priority,
+                    Status = phonecall.Status,
+
+                    ClientRef = regardingObjects.Lookup(EntityName.Client, _clientReadModel.GetClientName),
+                    ContactRef = regardingObjects.Lookup(EntityName.Contact, _clientReadModel.GetContactName),
+                    FirmRef = regardingObjects.Lookup(EntityName.Firm, _firmReadModel.GetFirmName),
+
+                    Purpose = phonecall.Purpose,
+                    // AfterSaleServiceType = phonecall.AfterSaleServiceType,
                 };
         }
 
@@ -68,7 +81,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
             var dto = new PhonecallDomainEntityDto
                 {
-                    Type = ActivityType.Phonecall,
                     IsActive = true,
                     ScheduledStart = now,
                     ScheduledEnd = now.Add(TimeSpan.FromMinutes(15.0)),
@@ -85,24 +97,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             {
                 case EntityName.Client:
                     dto.ClientRef = new EntityReference
-                        {
-                            Id = parentEntityId,
-                            Name = _finder.Find(Specs.Find.ById<Client>(parentEntityId.Value)).Select(x => x.Name).Single()
-                        };
-                    break;
-                case EntityName.Firm:
-                    dto.FirmRef = new EntityReference
-                        {
-                            Id = parentEntityId,
-                            Name = _finder.Find(Specs.Find.ById<Firm>(parentEntityId.Value)).Select(x => x.Name).Single()
-                        };
+                    {
+                        Id = parentEntityId,
+                        Name = _clientReadModel.GetClientName(parentEntityId.Value)
+                    };
                     break;
                 case EntityName.Contact:
                     dto.ContactRef = new EntityReference
-                        {
-                            Id = parentEntityId,
-                            Name = _finder.Find(Specs.Find.ById<Contact>(parentEntityId.Value)).Select(x => x.FullName).Single()
-                        };
+                    {
+                        Id = parentEntityId,
+                        Name = _clientReadModel.GetContactName(parentEntityId.Value)
+                    };
+                    break;
+                case EntityName.Firm:
+                    dto.FirmRef = new EntityReference
+                    {
+                        Id = parentEntityId,
+                        Name = _firmReadModel.GetFirmName(parentEntityId.Value)
+                    };
                     break;
             }
 
