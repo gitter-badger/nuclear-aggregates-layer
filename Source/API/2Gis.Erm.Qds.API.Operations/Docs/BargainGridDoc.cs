@@ -21,8 +21,8 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
         public string LegalPersonId { get; set; }
         public string LegalPersonLegalName { get; set; }
         public string LegalPersonLegalAddress { get; set; }
-        //public string ClientId { get; set; }
-        //public string ClientName { get; set; }
+        public string ClientId { get; set; }
+        public string ClientName { get; set; }
         //public string BranchOfficeId { get; set; }
         //public string BranchOfficeName { get; set; }
         public string OwnerCode { get; set; }

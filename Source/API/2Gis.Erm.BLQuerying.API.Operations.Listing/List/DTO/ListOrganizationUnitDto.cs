@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 
+        public long CurrencyId { get; set; }
         public long CountryId { get; set; }
         public string CountryName { get; set; }
     }

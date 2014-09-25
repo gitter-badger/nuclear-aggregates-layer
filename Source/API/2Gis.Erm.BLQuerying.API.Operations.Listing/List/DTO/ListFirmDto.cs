@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public DateTime? LastDisqualifyTime { get; set; }
         public long OrganizationUnitId { get; set; }
         public string OrganizationUnitName { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }

@@ -17,21 +17,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
     {
         private readonly SubordinatesFilter _subordinatesFilter;
         private readonly EnumLocalizationVisitor _enumLocalizationVisitor;
+        private readonly IExtendedInfoFilterMetadata _extendedInfoFilterMetadata;
 
-        public FilterHelper(SubordinatesFilter subordinatesFilter, EnumLocalizationVisitor enumLocalizationVisitor)
+        public FilterHelper(SubordinatesFilter subordinatesFilter, EnumLocalizationVisitor enumLocalizationVisitor, IExtendedInfoFilterMetadata extendedInfoFilterMetadata)
         {
             _subordinatesFilter = subordinatesFilter;
             _enumLocalizationVisitor = enumLocalizationVisitor;
+            _extendedInfoFilterMetadata = extendedInfoFilterMetadata;
         }
 
         public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> query, params Expression<Func<TEntity, bool>>[] expressions)
         {
-            foreach (var expression in expressions.Where(x => x != null))
-            {
-                query = query.Where(expression);
-            }
-
-            return query;
+            return expressions.Where(x => x != null).Aggregate(query, (x, y) => x.Where(y));
         }
 
         public IQueryable<TEntity> ForSubordinates<TEntity>(IQueryable<TEntity> queryable)
@@ -41,31 +38,25 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
         public RemoteCollection<TDocument> QuerySettings<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
-            var query1 = DefaultFilter(query, querySettings);
-            var query2 = RelativeFilter(query1, querySettings);
-            var query3 = FieldFilter(query2, querySettings);
+            var extendedInfoFilters = _extendedInfoFilterMetadata.GetExtendedInfoFilters<TDocument>(querySettings.ExtendedInfoMap);
+            query = extendedInfoFilters.Aggregate(query, (x, y) => x.Where(y));
 
-            return SortedPaged(query3, querySettings);
-        }
+            query = RelativeFilter(query, querySettings);
+            query = FieldFilter(query, querySettings);
 
-        private static IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
-        {
-            Expression expression;
-            if (!DefaultFilterMetadata.TryGetFilter<TDocument>(querySettings.FilterName, out expression))
-            {
-                throw new ArgumentException(string.Format("Для типа {0} не определен фильтр по умолчанию", typeof(TDocument).Name));
-            }
-
-            var whereMethod = MethodInfos.Queryable.WhereMethodInfo.MakeGenericMethod(typeof(TDocument));
-            var whereExpression = Expression.Call(whereMethod, queryable.Expression, expression);
-
-            return queryable.Provider.CreateQuery<TDocument>(whereExpression);
+            return SortedPaged(query, querySettings);
         }
 
         private static IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             bool filterToParent;
-            if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent))
+            if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent) || querySettings.ParentEntityId == null)
+            {
+                return query;
+            }
+
+            // никогда не ограничиваем по null и 0 (можно убрать после того как зарефакторим js)
+            if (querySettings.ParentEntityId == null || querySettings.ParentEntityId.Value == 0)
             {
                 return query;
             }

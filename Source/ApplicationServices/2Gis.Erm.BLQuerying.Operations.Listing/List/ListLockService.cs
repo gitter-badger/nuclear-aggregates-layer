@@ -4,7 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -42,14 +41,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     AccountId = x.AccountId,
                     IsActive = x.IsActive,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.PeriodStartDate = new DateTime(x.PeriodStartDate.Ticks, DateTimeKind.Local);
-                    x.PeriodEndDate = new DateTime(x.PeriodEndDate.Ticks, DateTimeKind.Local);
+                .QuerySettings(_filterHelper, querySettings);
+        }
 
-                    return x;
-                });
+        protected override void Transform(ListLockDto dto)
+        {
+            dto.PeriodStartDate = new DateTime(dto.PeriodStartDate.Ticks, DateTimeKind.Local);
+            dto.PeriodEndDate = new DateTime(dto.PeriodEndDate.Ticks, DateTimeKind.Local);
         }
     }
 }

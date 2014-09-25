@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
@@ -15,10 +16,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterRelatedFilter<ListAccountDto>(EntityName.LegalPerson, x => x.LegalPersonId)
 
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Client, x => x.ClientId)
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Contact, x => x.ContactId)
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Deal, x => x.DealId)
-            .RegisterRelatedFilter<ListActivityInstanceDto>(EntityName.Firm, x => x.FirmId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Contact, x => x.ContactId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Deal, x => x.DealId)
+            .RegisterRelatedFilter<ListActivityDto>(EntityName.Firm, x => x.FirmId)
 
             .RegisterRelatedFilter<ListLockDto>(EntityName.Account, x => x.AccountId)
             .RegisterRelatedFilter<ListLockDto>(EntityName.Order, x => x.OrderId)
@@ -33,6 +34,12 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterRelatedFilter<ListOrderDto>(EntityName.Firm, x => x.FirmId)
             .RegisterRelatedFilter<ListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId)
             .RegisterRelatedFilter<ListOrderDto>(EntityName.Bargain, x => x.BargainId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Account, x => x.AccountId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Deal, x => x.DealId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Firm, x => x.FirmId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityName.LegalPerson, x => x.LegalPersonId)
+            .RegisterRelatedFilter<OrderGridDoc>(EntityName.Bargain, x => x.BargainId)
 
             .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementTemplate, x => x.AdsTemplateId)
             .RegisterRelatedFilter<ListAdsTemplatesAdsElementTemplateDto>(EntityName.AdvertisementElementTemplate, x => x.AdsElementTemplateId)
@@ -54,21 +61,25 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterRelatedFilter<ListFirmDto>(EntityName.Client, x => x.ClientId)
             .RegisterRelatedFilter<ListFirmDto>(EntityName.Territory, x => x.TerritoryId)
-            //.RegisterRelatedFilter<FirmGridDoc>(EntityName.Client, x => x.ClientId)
-            //.RegisterRelatedFilter<FirmGridDoc>(EntityName.Territory, x => x.TerritoryId)
+            .RegisterRelatedFilter<FirmGridDoc>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<FirmGridDoc>(EntityName.Territory, x => x.TerritoryId)
 
             .RegisterRelatedFilter<ListContactDto>(EntityName.Client, x => x.ClientId)
 
             .RegisterRelatedFilter<ListDealDto>(EntityName.Client, x => x.ClientId)
 
             .RegisterRelatedFilter<ListLegalPersonDto>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<LegalPersonGridDoc>(EntityName.Client, x => x.ClientId)
 
             .RegisterRelatedFilter<ListBargainDto>(EntityName.Client, x => x.ClientId)
             .RegisterRelatedFilter<ListBargainDto>(EntityName.LegalPerson, x => x.LegalPersonId)
+            .RegisterRelatedFilter<BargainGridDoc>(EntityName.Client, x => x.ClientId)
+            .RegisterRelatedFilter<BargainGridDoc>(EntityName.LegalPerson, x => x.LegalPersonId)
 
             .RegisterRelatedFilter<ListCurrencyRateDto>(EntityName.Currency, x => x.CurrencyId)
 
             .RegisterRelatedFilter<ListCountryDto>(EntityName.Currency, x => x.CurrencyId)
+            .RegisterRelatedFilter<CountryGridDoc>(EntityName.Currency, x => x.CurrencyId)
 
             .RegisterRelatedFilter<ListFirmAddressDto>(EntityName.Firm, x => x.FirmId)
 

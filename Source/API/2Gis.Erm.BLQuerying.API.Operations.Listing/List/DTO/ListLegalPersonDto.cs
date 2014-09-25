@@ -1,6 +1,7 @@
 using System;
 
 using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
@@ -13,6 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string Inn { get; set; }
         public string Kpp { get; set; }
         public string LegalAddress { get; set; }
+        public string PassportSeries { get; set; }
         public string PassportNumber { get; set; }
         public long? ClientId { get; set; }
         public string ClientName { get; set; }
@@ -21,5 +23,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string OwnerName { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public LegalPersonType LegalPersonTypeEnum { get; set; }
     }
 }
