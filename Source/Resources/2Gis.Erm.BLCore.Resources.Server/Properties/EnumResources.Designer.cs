@@ -324,9 +324,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Отменено.
         /// </summary>
-        public static string ActivityStatusCancelled {
+        public static string ActivityStatusCanceled {
             get {
-                return ResourceManager.GetString("ActivityStatusCancelled", resourceCulture);
+                return ResourceManager.GetString("ActivityStatusCanceled", resourceCulture);
             }
         }
         
@@ -354,42 +354,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ActivityStatusNotSet {
             get {
                 return ResourceManager.GetString("ActivityStatusNotSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Поручение.
-        /// </summary>
-        public static string ActivityTaskTypeBossTask {
-            get {
-                return ResourceManager.GetString("ActivityTaskTypeBossTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Не задано.
-        /// </summary>
-        public static string ActivityTaskTypeNotSet {
-            get {
-                return ResourceManager.GetString("ActivityTaskTypeNotSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Прочее.
-        /// </summary>
-        public static string ActivityTaskTypeOther {
-            get {
-                return ResourceManager.GetString("ActivityTaskTypeOther", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Теплый клиент.
-        /// </summary>
-        public static string ActivityTaskTypeWarmClient {
-            get {
-                return ResourceManager.GetString("ActivityTaskTypeWarmClient", resourceCulture);
             }
         }
         
@@ -5061,6 +5025,42 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string StaffAmountNone {
             get {
                 return ResourceManager.GetString("StaffAmountNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поручение.
+        /// </summary>
+        public static string TaskTypeBossTask {
+            get {
+                return ResourceManager.GetString("TaskTypeBossTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не задано.
+        /// </summary>
+        public static string TaskTypeNotSet {
+            get {
+                return ResourceManager.GetString("TaskTypeNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Прочее.
+        /// </summary>
+        public static string TaskTypeOther {
+            get {
+                return ResourceManager.GetString("TaskTypeOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Теплый клиент.
+        /// </summary>
+        public static string TaskTypeWarmClient {
+            get {
+                return ResourceManager.GetString("TaskTypeWarmClient", resourceCulture);
             }
         }
         

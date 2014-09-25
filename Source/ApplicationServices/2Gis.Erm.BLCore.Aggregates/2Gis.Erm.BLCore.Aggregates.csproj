@@ -80,7 +80,13 @@
     <Compile Include="Accounts\Operations\AccountWithdrawFromAccountsAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLocksAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
-    <Compile Include="Activities\ActivityAggregateService.cs" />
+    <Compile Include="Activities\CreatePhonecallAggregateService.cs" />
+    <Compile Include="Activities\CreateAppointmentAggregateService.cs" />
+    <Compile Include="Activities\CreateTaskAggregateService.cs" />
+    <Compile Include="Activities\EntityReferenceRepositoryExtensions.cs" />
+    <Compile Include="Activities\UpdateAppointmentAggregationService.cs" />
+    <Compile Include="Activities\UpdatePhonecallAggregationService.cs" />
+    <Compile Include="Activities\UpdateTaskAggregationService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
     <Compile Include="Advertisements\Operations\CreateAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />

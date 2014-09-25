@@ -28,6 +28,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -56,7 +57,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private readonly IRepository<Order> _orderGenericRepository;
         private readonly IRepository<OrderPosition> _orderPositionGenericRepository;
         private readonly IRepository<Contact> _contactGenericRepository;
-        private readonly IRepository<ActivityInstance> _activityInstanceRepository;
+        private readonly IRepository<Appointment> _appointmentRepository;
+        private readonly IRepository<Phonecall> _phonecallRepository;
+        private readonly IRepository<Task> _taskRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IClientPersistenceService _clientPersistenceService;
@@ -79,7 +82,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             IRepository<Order> orderGenericRepository,
             IRepository<OrderPosition> orderPositionGenericRepository,
             IRepository<Contact> contactGenericRepository,
-            IRepository<ActivityInstance> activityInstanceRepository,
+            IRepository<Appointment> appointmentRepository,
+            IRepository<Phonecall> phonecallRepository,
+            IRepository<Task> taskRepository,
             ISecureRepository<Contact> contactGenericSecureRepository,
             ISecurityServiceFunctionalAccess functionalAccessService, 
             ISecurityServiceUserIdentifier userIdentifierService, 
@@ -102,7 +107,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _orderGenericRepository = orderGenericRepository;
             _orderPositionGenericRepository = orderPositionGenericRepository;
             _contactGenericRepository = contactGenericRepository;
-            _activityInstanceRepository = activityInstanceRepository;
+            _appointmentRepository = appointmentRepository;
+            _phonecallRepository = phonecallRepository;
+            _taskRepository = taskRepository;
             _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
             _userContext = userContext;
@@ -189,12 +196,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                                                      Order = order,
                                                                      order.OrderPositions
                                                                  },
-                                           Activities = client.ActivityInstances
-                                                              .Where(x => x.IsActive && (clientPrevOwner == null || x.OwnerCode == clientPrevOwner))
                                        })
                                       .Single();
 
                 var clientToAssign = _finder.FindOne(Specs.Find.ById<Client>(clientId));
+                var prevOwnerCode = clientToAssign.OwnerCode;
                 clientToAssign.OwnerCode = ownerCode;
                 _clientGenericSecureRepository.Update(clientToAssign);
                 operationScope.Updated<Client>(clientToAssign.Id);
@@ -293,16 +299,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 _contactGenericRepository.Save();
 
-                foreach (var activity in relatedEntities.Activities)
-                {
-                    activity.OwnerCode = ownerCode;
-                    _activityInstanceRepository.Update(activity);
-                    operationScope.Updated<ActivityInstance>(activity.Id);
-                }
-
-                _activityInstanceRepository.Save();
+                // COMMENT {all, 31.07.2014}: вынести из репозитория клиента
+                AssignRelatedActivities(clientId, prevOwnerCode, ownerCode, isPartialAssign);
 
                 operationScope.Complete();
+
                 return count;
             }
         }
@@ -816,5 +817,112 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     break;
             }
         }
+
+        #region Activity Quick Hack (a proper solution was implemented in AM branch)
+
+        private void AssignRelatedActivities(long clientId, long prevOwnerCode, long newOwnerCode, bool isPartialAssign)
+        {
+            foreach (var appointment in LookupAppointmentsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            {
+                Assign(appointment, newOwnerCode);
+            }
+            foreach (var phonecall in LookupPhonecallsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            {
+                Assign(phonecall, newOwnerCode);
+            }
+            foreach (var task in LookupTasksRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            {
+                Assign(task, newOwnerCode);
+            }
+        }
+
+        private void Assign(Appointment appointment, long ownerCode)
+        {
+            if (appointment == null)
+            {
+                throw new ArgumentNullException("appointment");
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Appointment>())
+            {
+                appointment.OwnerCode = ownerCode;
+
+                _appointmentRepository.Update(appointment);
+                _appointmentRepository.Save();
+
+                operationScope.Updated<Appointment>(appointment.Id);
+                operationScope.Complete();
+            }
+        }
+
+        public void Assign(Phonecall phonecall, long ownerCode)
+        {
+            if (phonecall == null)
+            {
+                throw new ArgumentNullException("phonecall");
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Phonecall>())
+            {
+                phonecall.OwnerCode = ownerCode;
+
+                _phonecallRepository.Update(phonecall);
+                _phonecallRepository.Save();
+
+                operationScope.Updated<Phonecall>(phonecall.Id);
+                operationScope.Complete();
+            }
+        }
+
+        public void Assign(Task task, long ownerCode)
+        {
+            if (task == null)
+            {
+                throw new ArgumentNullException("task");
+            }
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Task>())
+            {
+                task.OwnerCode = ownerCode;
+
+                _taskRepository.Update(task);
+                _taskRepository.Save();
+
+                operationScope.Updated<Task>(task.Id);
+                operationScope.Complete();
+            }
+        }
+
+        private IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId)
+        {
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Appointment>() & Specs.Find.ByIds<Appointment>(ids) & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress)).ToArray();
+        }
+
+        private IEnumerable<Phonecall> LookupPhonecallsRegarding(EntityName entityName, long entityId)
+        {
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<RegardingObject<Phonecall>>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Phonecall>() & Specs.Find.ByIds<Phonecall>(ids) & Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress)).ToArray();
+        }
+
+        private IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId)
+        {
+            var ids = (
+                from reference in _finder.FindMany(Specs.Find.Custom<RegardingObject<Task>>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                select reference.SourceEntityId
+                ).ToArray();
+
+            return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.ByIds<Task>(ids) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress)).ToArray();
+        }
+
+        #endregion
     }
 }

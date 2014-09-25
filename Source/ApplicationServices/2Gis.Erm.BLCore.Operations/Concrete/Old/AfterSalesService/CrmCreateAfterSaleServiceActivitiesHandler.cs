@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -186,7 +186,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.AfterSalesService
                 case AfterSaleServiceType.ASS3:
                     return new Picklist((int)ActivityPurpose.Service);
                 case AfterSaleServiceType.ASS4:
-                    return new Picklist((int)ActivityPurpose.Prolongation);
+					return new Picklist((int)ActivityPurpose.Prolongation);
 
                 default: throw new InvalidOperationException("Unexpected value for activity: " + activity);
             }
