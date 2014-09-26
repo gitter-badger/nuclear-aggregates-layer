@@ -1,4 +1,4 @@
-﻿// File updated : 16.09.2014 12:46:15
+﻿// File updated : 25.09.2014 18:38:58
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -74,6 +74,7 @@ CardIsUndefined : 'Para esta esencia no se ha declarado ninguna ficha de edició
 Category : 'Categoría',
 CategoryAlreasyExistsInTheList : 'La categoría "{0}" ya está en la lista.',
 CategoryName : 'Nombre de categoría',
+ChangeNeedToPickClient : 'Se requiere indicar el Cliente.',
 CheckClientsDebtsFailed : 'No se han podido verificar las deudas de clientes seleccionados. Tal vez algunos clientes seleccionados tienen deudas.',
 Checking : 'Validación',
 CheckInProgressPleaseStandBy : 'Verificando. Por favor, espere...',

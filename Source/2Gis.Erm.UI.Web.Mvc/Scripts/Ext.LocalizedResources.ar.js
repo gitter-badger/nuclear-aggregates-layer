@@ -1,4 +1,4 @@
-﻿// File updated : 16.09.2014 12:46:15
+﻿// File updated : 25.09.2014 18:38:58
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -74,6 +74,7 @@ CardIsUndefined : 'There is no card to edit for this entity.',
 Category : 'Category',
 CategoryAlreasyExistsInTheList : 'Category {0} is already in the list.',
 CategoryName : 'Category name',
+ChangeNeedToPickClient : 'It is necessary to specify a Client.',
 CheckClientsDebtsFailed : 'Failed to check debts of the selected clients. Probably some of the selected clients have debts.',
 Checking : 'Check',
 CheckInProgressPleaseStandBy : 'Checking. Please wait...',
