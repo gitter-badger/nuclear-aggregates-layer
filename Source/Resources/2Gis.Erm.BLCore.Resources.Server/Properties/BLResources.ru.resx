@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>Данный документ не подходит для этого типа юр. лица</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>Не найдена основная фирма для сделки</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Вернуть клиента в резерв</value>
   </data>
@@ -2165,9 +2162,6 @@
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;пустой адрес&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>Не найден связанный клиент для сделки</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>Смена состояния лимита в состояние '{0}' возможна только из состояний: '{1}'</value>
   </data>
@@ -2401,9 +2395,6 @@
   </data>
   <data name="AssignCategory" xml:space="preserve">
     <value>Назначить категорию</value>
-  </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>Необходимо указать Клиента.</value>
   </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>Запуск операции восстановления невозможен, предыдущая сборка не найдена</value>

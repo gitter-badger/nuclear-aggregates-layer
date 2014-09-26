@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>This document does not suit for this type of legal entity</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>The main company for the opportunity is not found</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Return the client to the reserve</value>
   </data>
@@ -2164,9 +2161,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;empty address&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>The linked client for opportunity is not found</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>Change of limit status to status '{0}' can be done only from in the following states: '{1}'</value>
   </data>
@@ -2400,9 +2394,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="AssignCategory" xml:space="preserve">
     <value>Assign category</value>
-  </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>It is necessary to specify a Client.</value>
   </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>Cannot start recovery operation, the previous build is not found</value>

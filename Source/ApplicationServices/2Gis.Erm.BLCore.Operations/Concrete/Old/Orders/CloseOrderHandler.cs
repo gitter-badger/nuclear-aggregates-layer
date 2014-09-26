@@ -63,7 +63,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             
             using (var operationScope = _scopeFactory.CreateNonCoupled<CloseWithDenialIdentity>())
             {
-                var orderPositions = _orderReadModel.GetPositions(request.OrderId);
                 _orderRepository.CloseOrder(order, request.Reason);
 
                 _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = order }, Context);

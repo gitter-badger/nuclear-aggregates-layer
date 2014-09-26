@@ -188,18 +188,19 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Deal\');\r\n\r\n    
 "indow.Ext.MessageBox.ERROR\r\n                    });\r\n                    return " +
 "false;\r\n                }\r\n\r\n                if (!this.Config || !this.Config.En" +
 "tities || this.Config.Entities.length == 0) {\r\n                    Ext.MessageBo" +
-"x.show({\r\n                        title: \'\',\r\n                        msg: \'Необ" +
-"ходимо указать клиента\',\r\n                        buttons: window.Ext.MessageBox" +
-".OK,\r\n                        width: 300,\r\n                        icon: window." +
-"Ext.MessageBox.ERROR\r\n                    });\r\n                    return false;" +
-"\r\n                }\r\n\r\n                return true;\r\n            },\r\n           " +
-" ApplyUserSettings: function () {\r\n                this.ClientLookup.disable();\r" +
-"\n            },\r\n            CreateParamsForControllerCall: function (entityId) " +
-"{\r\n                return { entityId: entityId, clientId: this.ClientId };\r\n    " +
-"        }\r\n        });\r\n\r\n        Ext.onReady(function () {\r\n\r\n            var i" +
-"ds = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dial" +
-"ogArguments.Values : window.dialogArguments);\r\n\r\n            var config =\r\n     " +
-"       {\r\n                Entities: ids,\r\n                OperationName: \'");
+"x.show({\r\n                        title: \'\',\r\n                        msg: Ext.L" +
+"ocalizedResources.ChangeNeedToPickClient,\r\n                        buttons: wind" +
+"ow.Ext.MessageBox.OK,\r\n                        width: 300,\r\n                    " +
+"    icon: window.Ext.MessageBox.ERROR\r\n                    });\r\n                " +
+"    return false;\r\n                }\r\n\r\n                return true;\r\n          " +
+"  },\r\n            ApplyUserSettings: function () {\r\n                this.ClientL" +
+"ookup.disable();\r\n            },\r\n            CreateParamsForControllerCall: fun" +
+"ction (entityId) {\r\n                return { entityId: entityId, clientId: this." +
+"ClientId };\r\n            }\r\n        });\r\n\r\n        Ext.onReady(function () {\r\n\r\n" +
+"            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Val" +
+"ues ? window.dialogArguments.Values : window.dialogArguments);\r\n\r\n            va" +
+"r config =\r\n            {\r\n                Entities: ids,\r\n                Opera" +
+"tionName: \'");
 
             
             #line 85 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
@@ -274,7 +275,16 @@ WriteLiteral(">");
             #line default
             #line hidden
 WriteLiteral("</div>\r\n                </td>\r\n            </tr>\r\n            <tr>\r\n             " +
-"   <td>Клиент:</td>\r\n                <td>\r\n                    <table");
+"   <td>");
+
+            
+            #line 114 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+               Write(Html.LabelFor(m => m.Client));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                <td>\r\n                    <table");
 
 WriteLiteral(" style=\"table-layout: fixed\"");
 
