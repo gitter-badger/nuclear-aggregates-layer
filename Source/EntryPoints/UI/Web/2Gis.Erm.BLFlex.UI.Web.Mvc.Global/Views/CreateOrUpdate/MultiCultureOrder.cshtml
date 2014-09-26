@@ -52,13 +52,13 @@
         @Html.HiddenFor(m => m.PreviousWorkflowStepId)
         @Html.HiddenFor(m => m.AvailableSteps)
         @Html.HiddenFor(m => m.ClientId)
+        @Html.HiddenFor(m => m.DealCurrencyId)
         @Html.HiddenFor(m => m.HasAnyOrderPosition)
         @Html.HiddenFor(m => m.MakeReadOnly)
         @Html.HiddenFor(m => m.HasDestOrganizationUnitPublishedPrice)
         @Html.HiddenFor(m => m.IsWorkflowLocked)
         @Html.HiddenFor(m => m.CurrenctUserCode)
         @Html.HiddenFor(m => m.HasOrderBranchOfficeOrganizationUnitSelection)
-        @Html.HiddenFor(m => m.HasOrderCreationExtended)
         @Html.HiddenFor(m => m.CanEditOrderType)
         @Html.CheckBoxFor(m => m.EditRegionalNumber)
         @Html.CheckBoxFor(m => m.ShowRegionalAttributes)
@@ -83,7 +83,11 @@
             @Html.TemplateField(m => m.Platform, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
+            @Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings
+                                                                            {
+                                                                                EntityName = EntityName.Deal,
+                                                                                ReadOnly = true,
+                                                                            })
             @Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                                    {
                                                                                        EntityName = EntityName.LegalPerson,
@@ -102,7 +106,7 @@
             @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "sourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "userId={CurrenctUserCode}", ShowReadOnlyCard = true })
+            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}", ShowReadOnlyCard = true })
             @Html.TemplateField(m => m.Bargain, FieldFlex.twins, new LookupSettings
                 {
                     EntityName = EntityName.Bargain,

@@ -233,8 +233,6 @@
     <Compile Include="MultiCulture\Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonProfileService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonService.cs" />
-    <Compile Include="MultiCulture\Generic\Get\IOrderReferencesReadModel.cs" />
-    <Compile Include="MultiCulture\Generic\Get\OrderReferencesReadModel.cs" />
     <Compile Include="MultiCulture\Generic\List\MultiCultureListBranchOfficeService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\ModifyBranchOfficeService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\NullBranchOfficeOrganizationUnitValidator.cs" />
@@ -280,7 +278,6 @@
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetAppointmentDtoService.cs" />
-    <Compile Include="MultiCulture\Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetPhonecallDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetTaskDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\AppointmentObtainer.cs" />
@@ -315,7 +312,6 @@
     <Compile Include="Russia\Generic\Activate\ActivateLegalPersonService.cs" />
     <Compile Include="Russia\Generic\Get\GetAppointmentDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetLegalPersonDtoService.cs" />
-    <Compile Include="Russia\Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="Russia\Generic\Get\GetPhonecallDtoService.cs" />
     <Compile Include="Russia\Generic\Get\GetTaskDtoService.cs" />
     <Compile Include="Russia\Generic\List\ListLegalPersonProfileService.cs" />

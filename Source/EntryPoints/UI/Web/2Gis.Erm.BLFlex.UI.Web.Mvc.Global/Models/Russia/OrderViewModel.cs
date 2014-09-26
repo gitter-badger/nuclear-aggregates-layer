@@ -65,7 +65,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public bool HasDestOrganizationUnitPublishedPrice { get; set; }
 
         public bool HasOrderBranchOfficeOrganizationUnitSelection { get; set; }
-        public bool HasOrderCreationExtended { get; set; }
         public bool CanEditOrderType { get; set; }
         public bool HasOrderDocumentsDebtChecking { get; set; }
 
@@ -99,8 +98,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
         public DateTime BeginDistributionDate { get; set; }
 
-        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage"
-            )]
+        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage")]
         [DisplayNameLocalized("EndPlanReleaseDate")]
         [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
             ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
