@@ -43,7 +43,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             {
                 var userIdentifierService = _unityContainer.Resolve<ISecurityServiceUserIdentifier>();
                 var reserveId = userIdentifierService.GetReserveUserIdentity().Code.ToString();
-                return x => x.Term(y => y.OwnerCode, reserveId);
+                if (value)
+                {
+                    return x => x.Term(t => t.OwnerCode, reserveId);
+                }
+                return x => x.Not(n => n.Term(t => t.OwnerCode, reserveId));
             });
             RegisterExtendedInfoFilter<FirmGridDoc, bool>("ForMe", value =>
             {
@@ -58,7 +62,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             {
                 var userIdentifierService = _unityContainer.Resolve<ISecurityServiceUserIdentifier>();
                 var reserveId = userIdentifierService.GetReserveUserIdentity().Code.ToString();
-                return x => x.Term(y => y.OwnerCode, reserveId);
+                if (value)
+                {
+                    return x => x.Term(t => t.OwnerCode, reserveId);
+                }
+                return x => x.Not(n => n.Term(t => t.OwnerCode, reserveId));
             });
             RegisterExtendedInfoFilter<ClientGridDoc, bool>("ForMe", value =>
             {
