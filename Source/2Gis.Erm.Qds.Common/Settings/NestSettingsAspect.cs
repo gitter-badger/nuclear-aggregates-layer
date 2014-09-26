@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.Common.Settings;
 
 using Elasticsearch.Net.ConnectionPool;
 
 using Nest;
-
-using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.Qds.Common.Settings
 {
@@ -17,11 +17,12 @@ namespace DoubleGis.Erm.Qds.Common.Settings
         {
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
 
-            Protocol = GetSettingValue(builder, "Protocol", Protocol.None);
+            Protocol = GetSettingValue(builder, "Protocol", Protocol.Http);
+            ConnectionSettings = CreateConnectionSettings(builder, Protocol);
+
             IndexPrefix = GetSettingValue(builder, "IndexPrefix", (string)null).ToLowerInvariant();
             BatchSize = GetSettingValue(builder, "BatchSize", 1000);
             BatchTimeout = GetSettingValue(builder, "BatchTimeout", "1m");
-            ConnectionSettings = CreateConnectionSettings(builder);
         }
 
         public Protocol Protocol { get; private set; }
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.Qds.Common.Settings
             object value;
             if (!builder.TryGetValue(key, out value))
             {
-                value = defaultValue;
+                return defaultValue;
             }
 
             T convertedValue;
@@ -51,10 +52,10 @@ namespace DoubleGis.Erm.Qds.Common.Settings
             return convertedValue;
         }
 
-        private static ConnectionSettings CreateConnectionSettings(DbConnectionStringBuilder connectionStringBuilder)
+        private static ConnectionSettings CreateConnectionSettings(DbConnectionStringBuilder connectionStringBuilder, Protocol protocol)
         {
-            var urisNonParsed = (string)connectionStringBuilder["Uris"];
-            var uris = JsonConvert.DeserializeObject<Uri[]>(urisNonParsed);
+            var endpoint = (string)connectionStringBuilder["Endpoint"];
+            var uris = ParseUris(endpoint, protocol);
             var connectionPool = new StaticConnectionPool(uris);
 
             var connectionSettings = new ConnectionSettings(connectionPool)
@@ -65,6 +66,37 @@ namespace DoubleGis.Erm.Qds.Common.Settings
                 .ThrowOnElasticsearchServerExceptions();    // кидать исключения вместо выставления IResponse.IsValid
 
             return connectionSettings;
+        }
+
+        private static IEnumerable<Uri> ParseUris(string endpoint, Protocol protocol)
+        {
+            var uris = endpoint.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x =>
+            {
+                string host;
+                int port;
+
+                var hostAndPort = x.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                switch (hostAndPort.Length)
+                {
+                    case 0:
+                        throw new ArgumentException();
+                    case 1:
+                        host = hostAndPort[0].Trim();
+                        port = (int)protocol;
+                        break;
+                    case 2:
+                        host = hostAndPort[0].Trim();
+                        port = int.Parse(hostAndPort[1]);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                var uriBuilder = new UriBuilder(Uri.UriSchemeHttp, host, port);
+                return uriBuilder.Uri;
+            });
+
+            return uris;
         }
     }
 }
