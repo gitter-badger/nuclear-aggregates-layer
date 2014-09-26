@@ -889,6 +889,7 @@
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Client.gif" />
           <RelatedItem Name="Firm" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Contact" NameLocaleResourceId="CrdRelContacts" Icon="en_ico_16_Contact.gif" RequestUrl="/Grid/View/Contact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Deal" NameLocaleResourceId="CrdRelDeals" Icon="en_ico_16_Deal.gif" RequestUrl="/Grid/View/Deal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
@@ -1196,7 +1197,7 @@
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Deal.gif" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <!--<RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />-->
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -1829,6 +1830,7 @@
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBills" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintAdditionalAgreementAction" NameLocaleResourceId="ControlPrintAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintAdditionalAgreement" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAdditionalAgreementAction" NameLocaleResourceId="ControlPrintBargainAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBargainAdditionalAgreement" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="Actions" Name="ChangeDeal" NameLocaleResourceId="ControlChangeDeal" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.ChangeDeal" SecurityPrivelegeFlag="34" />
         <ToolbarItem ParentName="Actions" Name="CheckOrder" NameLocaleResourceId="ControlCheckOrder" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.CheckOrder" />
         <ToolbarItem ParentName="Actions" Name="ChangeOwner" NameLocaleResourceId="ControlChangeOwner" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.ChangeOwner" SecurityPrivelegeFlag="524288" />
         <ToolbarItem ParentName="Actions" Name="CloseWithDenial" NameLocaleResourceId="ControlCloseWithDenial" ControlType="ImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CloseWithDenial" SecurityPrivelegeFlag="34" />

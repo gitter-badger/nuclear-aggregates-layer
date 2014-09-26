@@ -416,4 +416,7 @@ SWIFT {5}
     <value>Действие с ID {0} не найдено.</value>
     <comment>Действие с ID {0} не найдено.</comment>
   </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>Создание региональных заказов не поддерживается</value>
+  </data>
 </root>
