@@ -392,7 +392,7 @@
     <value>Operación de edición de la comuna no está soportada por el sistema</value>
   </data>
   <data name="CannotFindActivity" xml:space="preserve">
-    <value>Активность с ID {0} не найдена.</value>
-    <comment>Активность с ID {0} не найдена.</comment>
+    <value>Действие с ID {0} не найдено.</value>
+    <comment>Действие с ID {0} не найдено.</comment>
   </data>
 </root>

@@ -55,61 +55,26 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Properties\BLResources.ar.Designer.cs">
-      <DependentUpon>BLResources.ar.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Properties\BLResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BLResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\BLResources.ru.Designer.cs">
-      <DependentUpon>BLResources.ru.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Properties\BLResources.es-CL.Designer.cs">
-      <DependentUpon>BLResources.es-CL.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Properties\BLResources.cs.Designer.cs">
-      <DependentUpon>BLResources.cs.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Properties\BLResources.en.Designer.cs">
-      <DependentUpon>BLResources.en.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\BLResources.ar.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>BLResources.ar.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.ru.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BLResources.ru.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.es-CL.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>BLResources.es-CL.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.cs.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>BLResources.cs.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>BLResources.en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.resx">

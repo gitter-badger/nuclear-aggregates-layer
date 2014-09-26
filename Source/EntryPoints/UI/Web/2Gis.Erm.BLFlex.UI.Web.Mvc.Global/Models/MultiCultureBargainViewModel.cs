@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             BargainEndDate = modelDto.BargainEndDate;
             BargainKind = modelDto.BargainKind;
             Timestamp = modelDto.Timestamp;
-            UserCanWorkWithAdvertisingAgencies = modelDto.UserCanWorkWithAdvertisingAgencies;
+            UserCanWorkWithAdvertisingAgencies = false;
             IsLegalPersonChoosingDenied = modelDto.IsLegalPersonChoosingDenied;
             IsBranchOfficeOrganizationUnitChoosingDenied = modelDto.IsBranchOfficeOrganizationUnitChoosingDenied;
             ClientId = modelDto.ClientId;
