@@ -11,12 +11,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals
                                        IChangeAggregateClientRepository<Deal>
     {
         void Update(Deal deal);
-        void Add(Deal deal);
         int Assign(Deal deal, long ownerCode);
         bool CheckIfDealHasOpenOrders(long dealId);
         void CloseDeal(Deal deal, CloseDealReason closeReason, string closeReasonOther, string comment);
         void ReopenDeal(Deal deal);
-        ClientAndFirmForDealInfo GetClientAndFirmForDealInfo(Deal deal);
         int SetOrderApprovedForReleaseStage(long dealId);
         int SetOrderFormedStage(long dealId, long orderId);
         DealLegalPersonDto GetDealLegalPerson(long dealId);

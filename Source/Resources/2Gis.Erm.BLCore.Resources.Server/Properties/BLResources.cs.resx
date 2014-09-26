@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>Tento dokument není vhodný pro tento typ pr. osoby.</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>Nebyla nalezena hlavní firma pro obchodní transakci</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Vrátit klienta do rezervy</value>
   </data>
@@ -2165,9 +2162,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;prázdná adresa&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>Nebyl nalezen propojený klient s obchodní transakcí</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>Změnit stav limitu na stav '{0}' je možné pouze ze stavů: '{1}'</value>
   </data>
@@ -2401,9 +2395,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="AssignCategory" xml:space="preserve">
     <value>Přidělit kategorii</value>
-  </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>Je třeba uvést klienta.</value>
   </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>Operaci obnovy není možné spustit, nebyla nalezena předchozí tvorba sestavy</value>

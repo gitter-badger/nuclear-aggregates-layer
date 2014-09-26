@@ -3772,15 +3772,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ChangeNeedToPickClient {
-            get {
-                return ResourceManager.GetString("ChangeNeedToPickClient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string ChangeOrderOwner {
             get {
                 return ResourceManager.GetString("ChangeOrderOwner", resourceCulture);
@@ -5692,24 +5683,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string EditCurrencyRate {
             get {
                 return ResourceManager.GetString("EditCurrencyRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string EditDealClientNotFound {
-            get {
-                return ResourceManager.GetString("EditDealClientNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string EditDealMainFirmNotFound {
-            get {
-                return ResourceManager.GetString("EditDealMainFirmNotFound", resourceCulture);
             }
         }
         

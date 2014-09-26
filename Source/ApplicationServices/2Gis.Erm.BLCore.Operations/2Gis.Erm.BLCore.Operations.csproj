@@ -421,6 +421,7 @@
     <Compile Include="Generic\Get\GetNoteDtoService.cs" />
     <Compile Include="Generic\Get\GetOperationDtoService.cs" />
     <Compile Include="Generic\Get\GetOperationTypeDtoService.cs" />
+    <Compile Include="Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="Generic\Get\GetOrderFileDtoService.cs" />
     <Compile Include="Generic\Get\GetOrderPositionDtoService.cs" />
     <Compile Include="Generic\Get\GetOrganizationUnitDtoService.cs" />
@@ -517,7 +518,7 @@
     <Compile Include="Generic\Modify\Old\EditCountryHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCurrencyHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCurrencyRateHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditDealHandler.cs" />
+    <Compile Include="Generic\Modify\ModifyDealService.cs" />
     <Compile Include="Generic\Modify\Old\EditDeniedPositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditDepartmentHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmAddressHandler.cs" />

@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>Este documento no es adecuado para este tipo de persona jurídica</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>No se ha encontrado la empresa principal para la transacción</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Devolver el cliente a la reserva</value>
   </data>
@@ -2165,9 +2162,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;dirección en blanco&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>No se ha encontrado un cliente enlazado para la transacción</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>El cambio de estado de límite a estado '{0}' es posible sólo en base de estados: '{1}'</value>
   </data>
@@ -2401,9 +2395,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="AssignCategory" xml:space="preserve">
     <value>Designar categoría</value>
-  </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>Se requiere indicar el Cliente.</value>
   </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>La ejecución de la operación de restauración no es posible, la compilación anterior no se ha encontrado</value>

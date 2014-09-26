@@ -341,6 +341,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                           .ToArray();
         }
 
+        public AccountIdAndOwnerCodeDto GetAccountIdAndOwnerCodeByOrder(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(x => new AccountIdAndOwnerCodeDto { AccountId = x.Account.Id, OwnerCode = x.Account.OwnerCode })
+                          .SingleOrDefault();
+        }
+
         public IReadOnlyCollection<LockDto> GetLockDetailsWithPlannedProvision(long organizationUnitId, TimePeriod period)
         {
             var orderPositionsQuery = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
