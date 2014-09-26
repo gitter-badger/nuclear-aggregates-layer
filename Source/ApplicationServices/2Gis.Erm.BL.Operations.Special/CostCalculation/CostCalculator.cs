@@ -149,18 +149,5 @@ namespace DoubleGis.Erm.BL.Operations.Special.CostCalculation
                 Vat = vat
             };
         }
-
-        public decimal RoundValueToSignificantDigits(decimal value)
-        {
-            // TODO {y.baranihin, 05.02.2014}: Перенести форматирование денег на клиент
-            // если внезапно за значимыми знаками стоят не 0, то округлять не будем
-            var x = value * (long)Math.Pow(10, _businessModelSettings.SignificantDigitsNumber);
-            if ((x - (long)x) != 0)
-            {
-                return value;
-            }
-
-            return Math.Round(value, _businessModelSettings.SignificantDigitsNumber, MidpointRounding.ToEven);
-        }
     }
 }
