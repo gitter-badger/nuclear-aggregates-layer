@@ -1099,8 +1099,11 @@
     <Content Include="Resources\2014.09.12 rev. 24271\[Security].[ReplicateUser].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateAccountDetails].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateAccounts].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateClients].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateDeals].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateLegalPersons].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateLimits].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateOrderPositions].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateOrders].sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
