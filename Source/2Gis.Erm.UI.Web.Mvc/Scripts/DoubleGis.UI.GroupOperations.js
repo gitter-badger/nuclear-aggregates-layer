@@ -13,7 +13,6 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         Rejected: 1,
         ReprocessingRequired: 2
     },
-    OperationUrlTemplate: null,
     IsCallFromCrm: false,
     ProcessingQueue: [],
     EntitiesCount: -1,
@@ -43,7 +42,6 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         this.IsSingleEntityProcessing = this.EntitiesCount === 1;
 
         this.IsCallFromCrm = !Ext.isNumber(parseFloat(+this.Config.Entities[0]));
-        this.OperationUrlTemplate = this.EvaluateOperationUrl();
 
         if (this.Config.listeners) {
             var p, l = this.Config.listeners;
@@ -87,8 +85,11 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
 
         this.fireEvent('configspecificcontrols');
     },
-    EvaluateOperationUrl: function () {
+    EvaluateOperationUrlTemplate: function () {
         return String.format("{0}{1}.svc/Rest/", Ext.BasicOperationsServiceRestUrl, this.Config.OperationName) + "{0}";
+    },
+    EvaluateOperationUrl: function () {
+        return String.format(this.EvaluateOperationUrlTemplate(), this.ResolveEntityName());
     },
     EvaluateConvertIdsUrl: function () {
         return String.format("/{0}/{1}", "GroupOperation", "ConvertToEntityIds");
@@ -149,11 +150,11 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         }
     },
     ProcessNextEntityInQueue: function () {
-        if (this.ProcessingQueue.length != 0)
-        {
+        if (this.ProcessingQueue.length != 0) {
+            
         	var entityId = this.ProcessingQueue.shift();
         	var entityName = this.ResolveEntityName(entityId);
-        	var operationUrl = String.format(this.OperationUrlTemplate, entityName);
+        	var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
 	        var params = this.CreateParamsForControllerCall(entityId);
 
             this.ProcessSingleEntity(operationUrl, params);
