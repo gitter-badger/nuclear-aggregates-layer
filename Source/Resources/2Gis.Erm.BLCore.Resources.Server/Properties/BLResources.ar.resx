@@ -1185,7 +1185,7 @@ Locking errors:{2}</value>
     <value>Skype IDs</value>
   </data>
   <data name="AccountOperationLetterSubject" xml:space="preserve">
-    <value>Уведомление об изменении баланса лицевого счета клиента</value>
+    <value>Notification of a change in the personal account balance</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>The privilege "Mass check of the order" is required in order to start the operation</value>
@@ -2507,13 +2507,13 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Cannot deactivate a prohibited item from a published price-list</value>
   </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
-    <value>Юридическое лицо клиента: {0}.
-Юридическое лицо исполнителя: {1}.
-Лицевой счет: {2}.
-Название операции: {3}.
-Тип операции: {4}.
-Cумма по операции: {5}.
-Операция проведена: {6}.</value>
+    <value>Legal entity of the client: {0}.
+Legal entity of the contractor: {1}.
+Personal account: {2}.
+Name of operation: {3}.
+Type of operation: {4}.
+Operation‎ amount: {5}.
+The operation has been executed: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Please close all active actions with this object</value>

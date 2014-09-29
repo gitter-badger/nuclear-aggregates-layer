@@ -1185,7 +1185,7 @@ Errores de bloqueo:{2}</value>
     <value>Números de Skype</value>
   </data>
   <data name="AccountOperationLetterSubject" xml:space="preserve">
-    <value>Уведомление об изменении баланса лицевого счета клиента</value>
+    <value>Aviso sobre el cambio del saldo de la cuenta personal del cliente</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>Para ejecutar esta operación es necesario tener el privilegio Verificación masiva de órdenes</value>
@@ -2508,13 +2508,13 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
     <value>No se puede desactivar la posición bloqueada de una lista de precios publicada</value>
   </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
-    <value>Юридическое лицо клиента: {0}.
-Юридическое лицо исполнителя: {1}.
-Лицевой счет: {2}.
-Название операции: {3}.
-Тип операции: {4}.
-Cумма по операции: {5}.
-Операция проведена: {6}.</value>
+    <value>Razón social del cliente: {0}.
+Razón social del ejecutor: {1}.
+Cuenta personal: {2}.
+Nombre de la operación: {3}.
+Tipo  de la operación: {4}.
+Monto total de la operación: {5}.
+Operación realizada con éxito: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Se requiere cerrar todos los planes activos con este objeto</value>
