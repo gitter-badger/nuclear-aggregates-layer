@@ -178,14 +178,8 @@
     <Compile Include="Concrete\Integration\Import\FlowStickers\Deserializers\DeserializeHotClientService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowStickers\Processors\ImportHotClientService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportFromServiceBusService.cs" />
-    <Compile Include="Concrete\Old\Journal\Concrete\IJournalMakeRegionalAdsDocsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Concrete\JournalMakeRegionalAdsDocsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\IJournalBusinessOperationsService.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBag.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBagContainer.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\NullJournalBusinessOperationsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationAttribute.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationHandler.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\PropertyBag.cs" />
     <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandler.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsHandler.cs" />
@@ -212,10 +206,8 @@
     <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\MakeRegionalAdsDocsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />

@@ -1431,9 +1431,6 @@ Errores de bloqueo:{2}</value>
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value>Durante el procesamiento de mensaje(s) se han encontrado errores. Vea archivo de registro para obtener más información. Número de errores: {0}</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value>La publicación de la información del Cliente en más de cinco categorías se paga según la Lista de precios de los medios de comunicación electrónicos correspondientes.</value>
-  </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value>Crear un contrato sólo es posible desde la ficha de la orden.</value>
   </data>
@@ -1708,9 +1705,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Imposible la ejecución rápida de la compilación, ejecute la compilación a través del cliente de Exportación</value>
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
-    <value>Formación de la publicidad regional {0} de {1}</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>Valor inicial</value>
@@ -2870,9 +2864,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="Modified" xml:space="preserve">
     <value>Modificado</value>
   </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value>En la ciudad de origen no se ha realizado la compilación final.</value>
-  </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value>Recuperar en caso de problemas</value>
   </data>
@@ -3014,9 +3005,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value>No se ha encontrado ninguna orden que cumpla las condiciones establecidas</value>
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value>Reseñas: En la ficha no se publica el enlace con las reseñas acerca de la empresa en Flamp.ru</value>
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value>Se ha especificado un importe incorrecto del límite.</value>
   </data>
@@ -3079,9 +3067,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="RenderFn" xml:space="preserve">
     <value>Función de formateo</value>
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
-    <value>Reseñas: En la ficha se publica el enlace con las reseñas acerca de la empresa en Flamp.ru</value>
   </data>
   <data name="Approved" xml:space="preserve">
     <value>Aprobado</value>
@@ -3956,9 +3941,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value>Verificación de fondos suficientes en las cuentas personales para la publicación de las órdenes</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value>El contratante reconoce que el volumen de la información reflejada en las plataformas Web y/o en las aplicaciones Web puede ser restringido por sus propietarios.  Es obligatorio mostrar la información como la denominación, dirección, teléfono y la publicidad relacionada con esta información.</value>
-  </data>
   <data name="AmountLocked" xml:space="preserve">
     <value>Bloqueado</value>
   </data>
@@ -4158,9 +4140,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
     <value>El campo de control de versiones es demasiado largo</value>
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
-    <value>No se ha especificado la plataforma de la orden. Es necesario crear la posición de la orden.</value>
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
     <value>El elemento &lt;greater&gt; no se ha generado de forma correcta</value>

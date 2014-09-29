@@ -224,6 +224,7 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.09.08 rev. 24116 - MsCRM delete print regional orders button.cs" />
     <Compile Include="2.1\2014.09.03 rev. 23953 - Sync UserProfile.IsActive with User.IsActive.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23002 - Boost SPs for batch replication.cs" />
     <Compile Include="2.1\2014.05.30 rev. 20842 - Delete FasComment values Smoke And Abortion.cs" />
@@ -748,12 +749,12 @@
     <Compile Include="1.0\2013.10.14. rev. 12727 - alter ReplicateEnitiesToCrm.cs" />
     <Compile Include="1.0\2013.10.15 rev. 12781 - update AdvertisementElementsStatus.cs" />
     <Compile Include="1.0\2013.10.16 rev. 12809 - revert 12443 and 12528.cs" />
+    <Compile Include="1.2\2013.11.12 rev. 13530 - Add ImportAccountsToServiceBus button to crm grid.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="1.2\2013.11.12 rev. 13530 - Add ImportAccountsToServiceBus button to crm grid.cs" />
     <Content Include="Resources\2014.07.30 rev. 22706\Drop Old Activity Schema.sql" />
     <Content Include="Resources\2014.07.30 rev. 22706\Migrate Tasks.sql" />
     <Content Include="Resources\2014.07.30 rev. 22706\Migrate Phonecalls.sql" />
@@ -1111,6 +1112,9 @@
     <Content Include="Resources\2014.09.18 rev. 24362\[Integration].[CalculateClientPromising].sql" />
     <Content Include="Resources\2014.09.22 rev. 24551\[BusinessDirectory].[ReplicateTerritories].sql" />
     <Content Include="Resources\2014.09.22 rev. 24551\[BusinessDirectory].[ReplicateTerritory].sql" />
+    <Content Include="Resources\2014.09.08 rev. 24116\customizations.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />

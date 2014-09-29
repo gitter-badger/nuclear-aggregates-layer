@@ -472,4 +472,7 @@
   <data name="_BusinessDirectory___ReplicateTerritory_24551" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.22 rev. 24551\[businessdirectory].[replicateterritory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="Customizations_24116" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.08 rev. 24116\customizations.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>
