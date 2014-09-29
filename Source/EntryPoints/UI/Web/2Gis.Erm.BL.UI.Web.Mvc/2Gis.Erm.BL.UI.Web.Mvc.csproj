@@ -135,7 +135,6 @@
     <Compile Include="Controllers\LimitController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\OrderDialogsController.cs" />
     <Compile Include="Controllers\OrderFileController.cs" />
     <Compile Include="Controllers\OrderPositionController.cs" />
     <Compile Include="Controllers\OrderProcessingRequestController.cs" />
@@ -194,7 +193,6 @@
     <Compile Include="Models\LimitViewModel.cs" />
     <Compile Include="Models\LockDetailViewModel.cs" />
     <Compile Include="Models\LockViewModel.cs" />
-    <Compile Include="Models\MakeRegionalAdsDocsViewModel.cs" />
     <Compile Include="Models\NoteViewModel.cs" />
     <Compile Include="Models\OperationTypeViewModel.cs" />
     <Compile Include="Models\OrderFileViewModel.cs" />
@@ -566,11 +564,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SetStatus.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderDialogs\MakeRegionalAdsDocs.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MakeRegionalAdsDocs.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Order\ChangeOrderDeal.generated.cs">
       <AutoGen>True</AutoGen>
@@ -991,10 +984,6 @@
     <None Include="Views\Limit\SetStatus.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SetStatus.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\OrderDialogs\MakeRegionalAdsDocs.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>MakeRegionalAdsDocs.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Order\ChangeOrderDeal.cshtml">
       <Generator>RazorGenerator</Generator>
