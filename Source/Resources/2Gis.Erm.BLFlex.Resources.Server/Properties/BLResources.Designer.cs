@@ -63,6 +63,15 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AddressWithReferencePoint {
+            get {
+                return ResourceManager.GetString("AddressWithReferencePoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotDeleteUsedBank {
             get {
                 return ResourceManager.GetString("CannotDeleteUsedBank", resourceCulture);
@@ -540,9 +549,99 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OrderTotalAmountIsZero {
+        public static string PositionNameFormatAddressCategoryMultiple {
             get {
-                return ResourceManager.GetString("OrderTotalAmountIsZero", resourceCulture);
+                return ResourceManager.GetString("PositionNameFormatAddressCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressCategorySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressFirstLevelCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressFirstLevelCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressFirstLevelCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressFirstLevelCategorySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatAddressSingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatAddressSingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatCategoryMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatCategoryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatCategoryMultipleAsterix {
+            get {
+                return ResourceManager.GetString("PositionNameFormatCategoryMultipleAsterix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatCategorySingle {
+            get {
+                return ResourceManager.GetString("PositionNameFormatCategorySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatCompositeDetalization {
+            get {
+                return ResourceManager.GetString("PositionNameFormatCompositeDetalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PositionNameFormatThemeMultiple {
+            get {
+                return ResourceManager.GetString("PositionNameFormatThemeMultiple", resourceCulture);
             }
         }
         
@@ -711,6 +810,15 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string QuotedValue {
+            get {
+                return ResourceManager.GetString("QuotedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string SpecifiedIbanIsInvalid {
             get {
                 return ResourceManager.GetString("SpecifiedIbanIsInvalid", resourceCulture);
@@ -867,6 +975,15 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         public static string UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists {
             get {
                 return ResourceManager.GetString("UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание для позиции с типом привязки {0} не задано.
+        /// </summary>
+        public static string UnsupportedPositionBindingObjectType {
+            get {
+                return ResourceManager.GetString("UnsupportedPositionBindingObjectType", resourceCulture);
             }
         }
         
