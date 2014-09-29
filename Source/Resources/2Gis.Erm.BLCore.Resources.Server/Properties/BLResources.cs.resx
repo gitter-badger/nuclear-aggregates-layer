@@ -1431,9 +1431,6 @@ Blokujících chyb:{2}</value>
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value>Během zpracování zpráv(y) byly zjištěny chyby. Podrobnější informace naleznete v protokolu. Počet chyb: {0}</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value>Zveřejnění informací objednatele ve více než pěti rubrikách je zpoplatněno podle platného ceníku příslušného elektronického HSP.</value>
-  </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value>Smlouvu je možné vytvořit pouze prostřednictvím karty objednávky.</value>
   </data>
@@ -1708,9 +1705,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Zjednodušené spuštění tvorby sestavy není možné, proveďte tvorbu sestavy prostřednictvím klienta exportu</value>
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
-    <value>Vytváření regionální reklamy {0} za {1}</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>Výchozí hodnota</value>
@@ -2870,9 +2864,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="Modified" xml:space="preserve">
     <value>Změněno</value>
   </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value>Ve výchozím městě nebyla provedena konečná tvorba sestavy.</value>
-  </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value>Obnovovat v případě selhání</value>
   </data>
@@ -3014,9 +3005,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value>Nebyly nalezeny objednávky odpovídající zadaným kritériím</value>
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value>Recenze: Na kartě není zveřejněn odkaz na recenze společnosti na stránkách Flamp.ru</value>
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value>Uvedena chybná částka limitu.</value>
   </data>
@@ -3079,9 +3067,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="RenderFn" xml:space="preserve">
     <value>Funkce formátování</value>
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
-    <value>Recenze: Na kartě je zveřejněn odkaz na recenze společnosti na stránkách Flamp.ru</value>
   </data>
   <data name="Approved" xml:space="preserve">
     <value>Schváleno</value>
@@ -3956,9 +3941,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value>Kontrola dostatečného množství finančních prostředků na osobních účtech pro účely zobrazení objednávek</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value>Objednatel si uvědomuje, že objem zveřejňovaných informací na internetových stránkách a/nebo ve webových aplikacích může být omezen jejich vlastníky.  Informace o názvu, adrese, telefonickém kontaktu a vztahující se k nim reklama jsou zobrazeny povinně.</value>
-  </data>
   <data name="AmountLocked" xml:space="preserve">
     <value>Zablokováno</value>
   </data>
@@ -4157,9 +4139,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
     <value>Pole verze je příliš dlouhé</value>
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
-    <value>Neurčená platforma objednávky. Je třeba vytvořit položku objednávky.</value>
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
     <value>Chybně vytvořený prvek &lt;greater&gt;</value>

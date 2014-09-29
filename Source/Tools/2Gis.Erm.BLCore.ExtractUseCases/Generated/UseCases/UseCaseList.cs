@@ -221,32 +221,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderDialogsController\MakeRegionalAdsDocs",
-                    MaxUseCaseDepth = 2,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(MakeRegionalAdsDocsHandler),
-                        Request = typeof(MakeRegionalAdsDocsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(PrintOrderHandler),
-            Request = typeof(PrintOrderRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(PrintDocumentHandler),
-                    Request = typeof(PrintDocumentRequest)
-                }
-            }
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.LocalMessages.ReprocessLocalMessages\ExecuteInternal",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
@@ -1038,24 +1012,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(SaveLocalMessageHandler),
                         Request = typeof(SaveLocalMessageRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintReferenceInformation",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(PrintReferenceInformationHandler),
-                        Request = typeof(PrintReferenceInformationRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(PrintDocumentHandler),
-            Request = typeof(PrintDocumentRequest)
-        }
-    }
                     }
                 },
                 new UseCase

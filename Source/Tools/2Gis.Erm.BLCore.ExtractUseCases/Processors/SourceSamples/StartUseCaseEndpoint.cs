@@ -823,12 +823,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.SourceSamples
         }
 
         [HttpGet]
-        public ActionResult PrintReferenceInformation(long id)
-        {
-            return TryPrintDocument(new PrintReferenceInformationRequest { OrderId = id });
-        }
-
-        [HttpGet]
         public ActionResult PrintRegionalOrder(long id)
         {
             return TryPrintDocument(new PrintOrderRequest { OrderId = id, PrintRegionalVersion = true });
