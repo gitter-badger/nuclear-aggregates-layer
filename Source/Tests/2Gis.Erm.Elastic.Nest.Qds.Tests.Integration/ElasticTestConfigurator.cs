@@ -11,13 +11,11 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Integration
 {
     public static class ElasticTestConfigurator
     {
-        private const string TestIndexPrefix = "Test.Integration";
         private const string TestIndexName = "Data";
 
         public static INestSettings CreateSettings(string host)
         {
-            var connectionString = "Uris=['http://" + host + ":9200'];Protocol=http;IndexPrefix=" + TestIndexPrefix + ";BatchSize=10000";
-            return new NestSettingsAspect(connectionString);
+            return new NestSettingsAspect(null);
         }
 
         public static IElasticApi CreateElasticApi(INestSettings nestSettings)

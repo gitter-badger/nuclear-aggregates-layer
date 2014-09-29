@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 documentType = IndexMappingMetadata.GetDocumentType(queueItem.Document.DocumentType);
 
                 SaveIndexSettings(first, queueItem, documentType);
-                _replicationQueueHelper.Delete(queueItem.Id);
+                _replicationQueueHelper.DeleteItem(queueItem);
 
                 _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
                 _documentUpdater.IndexAllDocuments(documentType);
@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             }
 
             RestoreIndexSettings(first);
-            _replicationQueueHelper.Delete(first.Id);
+            _replicationQueueHelper.DeleteItem(first);
         }
 
         public void Interrupt()
@@ -88,10 +88,10 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                                 var first = @group.First();
                                 first.Document.IndexesSettings = _replicationQueueHelper.MergeIndexSettings(@group);
 
-                                _replicationQueueHelper.Save(first);
+                                _replicationQueueHelper.UpdateItem(first);
                                 foreach (var queueItem in @group.Skip(1))
                                 {
-                                    _replicationQueueHelper.Delete(queueItem.Id);
+                                    _replicationQueueHelper.DeleteItem(queueItem);
                                 }
 
                                 return new
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
                 queueItemTo.Document.DocumentType = queueItemFrom.Document.DocumentType;
                 queueItemTo.Document.IndexesSettings = _replicationQueueHelper.MergeIndexSettings(new[] { queueItemTo, queueItemFrom });
-                _replicationQueueHelper.Save(queueItemTo);
+                _replicationQueueHelper.UpdateItem(queueItemTo);
             }
 
             foreach (var indexType in indexTypes)
