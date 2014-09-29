@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.Qds.Migrations
         {
             return x => x
             .NumberOfShards(1)
-            .NumberOfReplicas(2)
+            .NumberOfReplicas(1)
             .Settings(s => s.Add("refresh_interval", "1s"))
             .Analysis(
                 z => z.TokenFilters(p => p
