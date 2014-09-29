@@ -220,9 +220,6 @@ window.InitPage = function () {
                 PrintOrder: function () {
                     this.Print('PrintOrder');
                 },
-                PrintRegionalOrder: function () {
-                    this.Print('PrintRegionalOrder');
-                },
                 PrintOrderBargain: function () {
                     this.Print('PrintOrderBargain');
                 },
@@ -240,9 +237,6 @@ window.InitPage = function () {
                 },
                 PrintAdditionalAgreement: function () {
                     this.Print('PrintAdditionalAgreement');
-                },
-                PrintReferenceInformation: function () {
-                    this.Print('PrintReferenceInformation');
                 },
                 PrintLetterOfGuarantee: function () {
                     this.Print('PrintLetterOfGuarantee');

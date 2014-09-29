@@ -2,13 +2,11 @@
 using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.AccountingSystem;
-using DoubleGis.Erm.BLCore.API.MoDi.Remote.PrintRegional;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
@@ -46,7 +44,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Config
                 .AddEndpoint<IIdentityProviderApplicationService>(wsHttpBinding, identityServiceSettings.BaseUrl, "Identity.svc/Soap")
 
                 // modi service
-                .AddEndpoint<IPrintRegionalApplicationService>(wsHttpBinding, moDiServiceSettings.BaseUrl, "PrintRegional.svc")
                 .AddEndpoint<IAccountingSystemApplicationService>(wsHttpBinding, moDiServiceSettings.BaseUrl, "AccountingSystem.svc")
                 .AddEndpoint<IWithdrawalInfoApplicationService>(wsHttpBinding, moDiServiceSettings.BaseUrl, "WithdrawalInfo.svc")
                 .AddEndpoint<IReportsApplicationService>(basicHttpBinding, moDiServiceSettings.BaseUrl, "Reports.svc");
