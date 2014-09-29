@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.API.Core.PersistenceCleanup;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Settings;
@@ -57,6 +58,8 @@ namespace DoubleGis.Erm.TaskService.Settings
 
         public TaskServiceAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
+            var connectionStrings = new ConnectionStringsSettingsAspect();
+
             Aspects
                .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
                .Use<GetUserInfoFromAdSettingsAspect>()
@@ -64,7 +67,7 @@ namespace DoubleGis.Erm.TaskService.Settings
                .Use<IntegrationSettingsAspect>()
                .Use<NotificationsSettingsAspect>()
                .Use<CachingSettingsAspect>()
-               .UseElasticClientNestSettingsAspect()
+               .Use(new NestSettingsAspect(connectionStrings))
                .Use<OperationLoggingSettingsAspect>()
                .IfRequiredUseOperationLogging2ServiceBus()
                .Use<PerformedOperationsTransportSettingsAspect>()
