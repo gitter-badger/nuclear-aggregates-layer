@@ -23,6 +23,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         AfterSaleServiceActivitiesCreation = 150,
         ExportAccountDetailsTo1CForFranchisees = 151,
         CheckOrdersReadinessForRelease = 152,
+        
+        [Obsolete]
         MakeRegionalAdsDocs = 153
     }
 
