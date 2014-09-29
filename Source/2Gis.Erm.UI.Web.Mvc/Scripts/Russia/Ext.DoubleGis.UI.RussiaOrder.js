@@ -10,12 +10,7 @@
     },
 
     setupMenuAvailability: function () {
-        var item = this.getMenuItem('PrintActions', 'PrintActionsAdditional', 'PrintRegionalOrderAction');
-        if (!Ext.getDom("ShowRegionalAttributes").checked) {
-            item.disable();
-        }
-
-        item = this.getMenuItem('Actions', 'SwitchToAccount');
+        var item = this.getMenuItem('Actions', 'SwitchToAccount');
         if (Ext.getDom("CanSwitchToAccount").checked)
             item.enable();
         else {
