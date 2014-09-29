@@ -19,17 +19,17 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public void Add(string documentType)
         {
-            _elasticApi.Index(new ReplicationQueue { DocumentType = documentType });
+            _elasticApi.Create(new ReplicationQueue { DocumentType = documentType });
         }
 
-        public void Delete(string id)
+        public void DeleteItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            _elasticApi.Delete<ReplicationQueue>(id);
+            _elasticApi.Delete<ReplicationQueue>(documentWrapper.Id, documentWrapper.Version);
         }
 
-        public void Save(IDocumentWrapper<ReplicationQueue> documentWrapper)
+        public void UpdateItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            _elasticApi.Index(documentWrapper.Document, x => x.Id(documentWrapper.Id));
+            _elasticApi.Update(documentWrapper.Document, documentWrapper.Id, documentWrapper.Version);
         }
 
         public ICollection<ReplicationQueue.IndexSettings> MergeIndexSettings(IEnumerable<IDocumentWrapper<ReplicationQueue>> items)
@@ -45,6 +45,11 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 }).ToArray();
 
             return indexSettings;
+        }
+
+        public long QueueCount()
+        {
+            return _elasticApi.Count<ReplicationQueue>();
         }
 
         public IDocumentWrapper<ReplicationQueue>[] LoadQueue()

@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
 
         public void SaveVersionInfo(long version)
         {
-            _elasticApi.Index(new MigrationDoc(), i => i.Id(version.ToString()));
+            _elasticApi.Create(new MigrationDoc(), version.ToString());
         }
     }
 }

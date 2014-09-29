@@ -70,14 +70,42 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public void Delete<T>(string id) where T : class
+        public void Create<T>(T @object, string id = null) where T : class
         {
-            _elasticClient.Delete<T>(x => x.Id(id));
+            _elasticClient.Index(@object, x =>
+            {
+                if (id != null)
+                {
+                    x = x.Id(id);
+                }
+                return x.OpType(OpType.Create);
+            });
         }
 
-        public void Index<T>(T @object, Func<IndexDescriptor<T>, IndexDescriptor<T>> indexSelector = null) where T : class
+        public void Update<T>(T @object, string id, string version = null) where T : class
         {
-            _elasticClient.Index(@object, indexSelector);
+            _elasticClient.Update<T, T>(x =>
+            {
+                if (version != null)
+                {
+                    x = x.Version(long.Parse(version));
+                }
+
+                return x.Doc(@object).Id(id);
+            });
+        }
+
+        public void Delete<T>(string id, string version = null) where T : class
+        {
+            _elasticClient.Delete<T>(x =>
+            {
+                if (version != null)
+                {
+                    x = x.Version(long.Parse(version));
+                }
+
+                return x.Id(id);
+            });
         }
 
         public T Get<T>(string id) where T : class
@@ -106,11 +134,6 @@ namespace DoubleGis.Erm.Qds.Common
         public void Refresh<T>() where T : class
         {
             _elasticClient.Refresh(x => x.Index<T>());
-        }
-
-        public void Refresh(Type[] indexTypes)
-        {
-            _elasticClient.Refresh(x => x.Indices(indexTypes));
         }
 
         public void DeleteIndex<T>() where T : class
@@ -173,6 +196,12 @@ namespace DoubleGis.Erm.Qds.Common
                 .Size(_nestSettings.BatchSize));
 
             return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(searchFunc, _elasticClient, _nestSettings.BatchTimeout));
+        }
+
+        public long Count<T>(Func<CountDescriptor<T>, CountDescriptor<T>> countSelector = null) where T : class
+        {
+            var response = _elasticClient.Count(countSelector);
+            return response.Count;
         }
 
         private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
