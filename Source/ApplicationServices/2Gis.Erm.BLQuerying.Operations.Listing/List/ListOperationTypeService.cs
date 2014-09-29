@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Id = x.Id,
                     Name = x.Name,
                     OperationTypeName = x.IsPlus ? BLResources.Charge : BLResources.Withdrawal,
+                    SyncCode1C = x.SyncCode1C,
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

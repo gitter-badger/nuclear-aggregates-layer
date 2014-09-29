@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Common.Settings;
 
 using Elasticsearch.Net.ConnectionPool;
@@ -13,14 +14,20 @@ namespace DoubleGis.Erm.Qds.Common.Settings
 {
     public sealed class NestSettingsAspect : ISettingsAspect, INestSettings
     {
-        public NestSettingsAspect(string connectionString)
+        public NestSettingsAspect(IConnectionStringSettings connectionStringsSettings)
         {
+            string connectionString;
+            if (!connectionStringsSettings.AllConnections.TryGetValue(ConnectionStringName.ErmSearch, out connectionString))
+            {
+                connectionString = string.Empty;
+            }
+
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
 
             Protocol = GetSettingValue(builder, "Protocol", Protocol.Http);
             ConnectionSettings = CreateConnectionSettings(builder, Protocol);
 
-            IndexPrefix = GetSettingValue(builder, "IndexPrefix", (string)null).ToLowerInvariant();
+            IndexPrefix = GetSettingValue(builder, "IndexPrefix", string.Empty).ToLowerInvariant();
             BatchSize = GetSettingValue(builder, "BatchSize", 1000);
             BatchTimeout = GetSettingValue(builder, "BatchTimeout", "1m");
         }
@@ -52,9 +59,9 @@ namespace DoubleGis.Erm.Qds.Common.Settings
             return convertedValue;
         }
 
-        private static ConnectionSettings CreateConnectionSettings(DbConnectionStringBuilder connectionStringBuilder, Protocol protocol)
+        private static ConnectionSettings CreateConnectionSettings(DbConnectionStringBuilder builder, Protocol protocol)
         {
-            var endpoint = (string)connectionStringBuilder["Endpoint"];
+            var endpoint = GetSettingValue(builder, "Endpoint", "localhost");
             var uris = ParseUris(endpoint, protocol);
             var connectionPool = new StaticConnectionPool(uris);
 

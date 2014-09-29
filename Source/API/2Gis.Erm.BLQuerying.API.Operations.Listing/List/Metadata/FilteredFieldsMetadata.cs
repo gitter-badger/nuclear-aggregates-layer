@@ -172,7 +172,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListOrderPositionAdvertisementDto>(
                 x => x.Id)
             .RegisterFilteredFields<ListOrderDto>(
-                x => x.OrderNumber,
+                x => x.Number,
                 x => x.FirmName,
                 x => x.SourceOrganizationUnitName,
                 x => x.DestOrganizationUnitName,
