@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static void ConfigureGlobalListing(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             FilteredFieldsMetadata.RegisterFilteredFields<MultiCultureListOrderDto>(
-                x => x.OrderNumber,
+                x => x.Number,
                 x => x.FirmName,
                 x => x.ClientName,
                 x => x.DestOrganizationUnitName,

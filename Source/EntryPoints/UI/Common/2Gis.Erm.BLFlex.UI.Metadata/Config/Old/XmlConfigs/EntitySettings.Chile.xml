@@ -1895,7 +1895,7 @@
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="DestOrganizationUnitId" NameLocaleResourceId="DFieldDestOrganizationUnitId" Width="50" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="Number" NameLocaleResourceId="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="FirmName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />

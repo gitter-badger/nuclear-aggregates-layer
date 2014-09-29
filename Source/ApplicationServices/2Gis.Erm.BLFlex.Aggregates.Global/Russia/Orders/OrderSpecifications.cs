@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
                     x => new ListOrderDto
                     {
                         Id = x.Id,
-                        OrderNumber = x.Number,
+                        Number = x.Number,
                         CreatedOn = x.CreatedOn,
                         FirmId = x.FirmId,
                         FirmName = x.Firm.Name,

@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                     order => new MultiCultureListOrderDto
                     {
                         Id = order.Id,
-                        OrderNumber = order.Number,
+                        Number = order.Number,
                         CreatedOn = order.CreatedOn,
                         FirmId = order.FirmId,
                         FirmName = order.Firm.Name,

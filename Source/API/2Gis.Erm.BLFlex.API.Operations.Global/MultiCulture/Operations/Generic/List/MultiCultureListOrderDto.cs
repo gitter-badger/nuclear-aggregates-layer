@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Gen
     public sealed class MultiCultureListOrderDto : IOperationSpecificEntityDto, IChileAdapted, ICzechAdapted, ICyprusAdapted, IUkraineAdapted
     {
         public long Id { get; set; }
-        public string OrderNumber { get; set; }
+        public string Number { get; set; }
         public DateTime CreatedOn { get; set; }
         public long FirmId { get; set; }
         public string FirmName { get; set; }
