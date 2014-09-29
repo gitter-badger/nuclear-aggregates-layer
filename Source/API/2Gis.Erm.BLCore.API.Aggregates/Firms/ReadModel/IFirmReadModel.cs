@@ -46,5 +46,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         bool IsTelesaleFirmAddress(long firmAddressId);
         IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord);
         IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds);
+        bool IsFirmInReserve(long firmId);
     }
 }

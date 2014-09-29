@@ -5145,4 +5145,13 @@ Doba zveřejnění: {3}.</value>
   <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
     <value>Probíhá aktualizace. Editace objednávky je zakazána.</value>
   </data>
+  <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
+    <value>Клиент {0} находится в резерве, невозможно создать заказ с её участием</value>
+  </data>
+  <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
+    <value>Фирма {0} находится в резерве, невозможно создать заказ с её участием</value>
+  </data>
+  <data name="FirmCreationIsNotSupported" xml:space="preserve">
+    <value>Создание фирм в ERM не поддерживается.</value>
+  </data>
 </root>

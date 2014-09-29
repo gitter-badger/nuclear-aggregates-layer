@@ -2511,6 +2511,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CanNotCreateOrderWithReservedClient {
+            get {
+                return ResourceManager.GetString("CanNotCreateOrderWithReservedClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CanNotCreateOrderWithReservedFirm {
+            get {
+                return ResourceManager.GetString("CanNotCreateOrderWithReservedFirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotCreateTemplateAlreadyExists {
             get {
                 return ResourceManager.GetString("CannotCreateTemplateAlreadyExists", resourceCulture);
@@ -6682,6 +6700,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string FirmContactOrFirmAddressOrFirmIsInactiveAlertText {
             get {
                 return ResourceManager.GetString("FirmContactOrFirmAddressOrFirmIsInactiveAlertText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string FirmCreationIsNotSupported {
+            get {
+                return ResourceManager.GetString("FirmCreationIsNotSupported", resourceCulture);
             }
         }
         
