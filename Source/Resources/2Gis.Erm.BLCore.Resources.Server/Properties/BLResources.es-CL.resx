@@ -5147,7 +5147,7 @@ Periodo de la publicación: {3}.</value>
     <value>Estamos en el proceso de compilación. Edición de posición de la orden no está permitida.</value>
   </data>
   <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
-    <value>Клиент {0} находится в резерве, невозможно создать заказ с её участием</value>
+    <value>Клиент {0} находится в резерве, невозможно создать заказ с его участием</value>
   </data>
   <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
     <value>Фирма {0} находится в резерве, невозможно создать заказ с её участием</value>
