@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Změnit správce</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Vytvořit regionální výtisky</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Změnit klienta</value>
   </data>

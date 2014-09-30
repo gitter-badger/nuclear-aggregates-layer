@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Change owner</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Generate regional printed forms</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Change client</value>
   </data>

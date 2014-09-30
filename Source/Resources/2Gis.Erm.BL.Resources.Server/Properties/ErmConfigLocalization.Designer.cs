@@ -522,15 +522,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlMakeRegionalAdsDocs {
-            get {
-                return ResourceManager.GetString("ControlMakeRegionalAdsDocs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string ControlManageCategories {
             get {
                 return ResourceManager.GetString("ControlManageCategories", resourceCulture);
