@@ -1,4 +1,4 @@
-﻿// File updated : 16.09.2014 12:46:15
+﻿// File updated : 25.09.2014 18:38:58
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -74,6 +74,7 @@ CardIsUndefined : 'Pro tuto entitu není deklarována karta pro úpravu.',
 Category : 'Rubrika',
 CategoryAlreasyExistsInTheList : 'Seznam již obsahuje rubriku "{0}".',
 CategoryName : 'Název rubriky',
+ChangeNeedToPickClient : 'Je třeba uvést klienta.',
 CheckClientsDebtsFailed : 'Nebylo možné zkontrolovat zůstatky vybraných klientů. Pravděpodobně někteří z vybraných klientů mají pohledávky.',
 Checking : 'Kontrola',
 CheckInProgressPleaseStandBy : 'Probíhá kontrola. Počkejte, prosím...',
