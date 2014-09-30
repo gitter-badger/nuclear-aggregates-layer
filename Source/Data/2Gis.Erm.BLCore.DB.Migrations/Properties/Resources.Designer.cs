@@ -810,6 +810,35 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateBargains]
+        ///    @Ids [Shared].[Int64IdsTableType] READONLY
+        ///AS
+        ///    SET NOCOUNT ON;
+        ///
+        ///    IF NOT EXISTS ( SELECT  1
+        ///                    FROM    @Ids )
+        ///        BEGIN
+        ///            RETURN 0;
+        ///        END;
+        ///
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///
+        ///        BEGIN TRAN;
+        ///
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Dg_bargainBase] AS [Current]
+        ///        USING
+        ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
+        ///                    [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateBargains_24442 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateBargains_24442", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
@@ -1301,7 +1330,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ALTER PROCEDURE [Billing].[ReplicateLegalPersons]
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateLegalPersons]
         ///    @Ids [Shared].[Int64IdsTableType] READONLY
         ///AS
         ///    SET NOCOUNT ON;
@@ -1318,10 +1347,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///
         ///        BEGIN TRAN;
         ///
-        ///        MERGE [DoubleGis02_MSCRM].[dbo].[Dg_legalpersonBase] AS [Current]
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Dg_legalpersonBase] AS [Current]
         ///        USING
         ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
-        ///           [rest of string was truncated]&quot;;.
+        ///            [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _Billing___ReplicateLegalPersons_24442 {
             get {
@@ -1577,7 +1606,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ALTER PROCEDURE [Billing].[ReplicateOrderPositions]
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Billing].[ReplicateOrderPositions]
         ///    @Ids [Shared].[Int64IdsTableType] READONLY
         ///AS
         ///    SET NOCOUNT ON;
@@ -1594,10 +1623,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///
         ///        BEGIN TRAN;
         ///
-        ///        MERGE [DoubleGis02_MSCRM].[dbo].[Dg_orderpositionBase] AS [Current]
+        ///        MERGE [DoubleGis_MSCRM].[dbo].[Dg_orderpositionBase] AS [Current]
         ///        USING
         ///            ( SELECT    CASE WHEN [TBL].[IsDeleted] = 1 THEN 2 ELSE 0 END AS [DeletionStateCode],
-        ///       [rest of string was truncated]&quot;;.
+        ///        [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _Billing___ReplicateOrderPositions_24442 {
             get {

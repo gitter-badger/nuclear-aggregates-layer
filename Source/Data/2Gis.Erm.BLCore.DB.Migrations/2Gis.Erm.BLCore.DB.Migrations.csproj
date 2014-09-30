@@ -1099,6 +1099,7 @@
     <Content Include="Resources\2014.09.12 rev. 24271\[Security].[ReplicateUser].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateAccountDetails].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateAccounts].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateBargains].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateClients].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateDeals].sql" />
     <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateLegalPersons].sql" />

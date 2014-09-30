@@ -17,6 +17,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
             context.Database.ExecuteNonQuery(Resources._Billing___ReplicateClients_24442);
             context.Database.ExecuteNonQuery(Resources._Billing___ReplicateOrderPositions_24442);
             context.Database.ExecuteNonQuery(Resources._Billing___ReplicateLegalPersons_24442);
+            context.Database.ExecuteNonQuery(Resources._Billing___ReplicateBargains_24442);
         }
     }
 }
