@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.Common.Settings;
-using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.Operations.Listing;
 
@@ -18,7 +17,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
             {
                 EntityName.Order,
                 EntityName.Client,
-                EntityName.Firm,
+                EntityName.Firm
             };
 
         public static Type ListServices(Type operationType, EntitySet entitySet, IEnumerable<Type> candidates)
@@ -35,14 +34,10 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
                 return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);
             }
 
-            var businessModel = ConfigFileSetting.Enum.Required<BusinessModel>("BusinessModel").Value;
-            if (businessModel == BusinessModel.Russia)
+            var entityName = entitySet.Entities.Single();
+            if (QdsEntityNames.Contains(entityName))
             {
-                var entityName = entitySet.Entities.Single();
-                if (QdsEntityNames.Contains(entityName))
-                {
-                    return candidates.Single(x => x.Assembly == typeof(QdsListOrderService).Assembly);
-                }
+                return candidates.Single(x => x.Assembly == typeof(QdsListOrderService).Assembly);
             }
 
             return candidates.Single(x => x.Assembly != typeof(QdsListOrderService).Assembly);

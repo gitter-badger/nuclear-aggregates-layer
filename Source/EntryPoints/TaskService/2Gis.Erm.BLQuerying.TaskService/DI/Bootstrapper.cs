@@ -4,7 +4,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Operations.Indexing;
-using DoubleGis.Erm.Qds.Operations.Metadata;
 
 using Microsoft.Practices.Unity;
 
@@ -21,6 +20,7 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.DI
                 .RegisterType<IEntityToDocumentRelationFactory, UnityEntityToDocumentRelationFactory>(lifetime())
                 .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(lifetime())
                 .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
+                .RegisterType<ReplicationQueueHelper>(lifetime())
                 .RegisterType<IDocumentUpdater, DocumentUpdater>(lifetime())
                 .RegisterType(typeof(IDocumentVersionUpdater<>), typeof(DocumentVersionUpdater<>), lifetime());
         }

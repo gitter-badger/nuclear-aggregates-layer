@@ -147,7 +147,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             {
                 var userIdentifierService = _unityContainer.Resolve<ISecurityServiceUserIdentifier>();
                 var reserveId = userIdentifierService.GetReserveUserIdentity().Code;
-                return x => x.OwnerCode == reserveId;
+                if (value)
+                {
+                    return x => x.OwnerCode == reserveId;
+                }
+                return x => x.OwnerCode != reserveId;
             });
             RegisterExtendedInfoFilter<ListClientDto, bool>("ForMe", value =>
             {
@@ -230,7 +234,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             {
                 var userIdentifierService = _unityContainer.Resolve<ISecurityServiceUserIdentifier>();
                 var reserveId = userIdentifierService.GetReserveUserIdentity().Code;
-                return x => x.OwnerCode == reserveId;
+                if (value)
+                {
+                    return x => x.OwnerCode == reserveId;
+                }
+                return x => x.OwnerCode != reserveId;
             });
             RegisterExtendedInfoFilter<ListFirmDto, bool>("ForMe", value =>
             {

@@ -63,7 +63,6 @@
     <Compile Include="ElasticApi.cs" />
     <Compile Include="Settings\INestSettings.cs" />
     <Compile Include="Settings\NestSettingsAspect.cs" />
-    <Compile Include="Settings\NestSettingsAspectUtils.cs" />
     <Compile Include="Settings\Protocol.cs" />
   </ItemGroup>
   <ItemGroup>

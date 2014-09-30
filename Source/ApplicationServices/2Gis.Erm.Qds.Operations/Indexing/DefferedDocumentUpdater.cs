@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
@@ -14,17 +15,19 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class DefferedDocumentUpdater : IDefferedDocumentUpdater
     {
+        private readonly ICommonLog _logger;
         private readonly IElasticManagementApi _elasticManagementApi;
         private readonly ReplicationQueueHelper _replicationQueueHelper;
         private readonly IDocumentUpdater _documentUpdater;
         private readonly IReadOnlyDictionary<Type, IEnumerable<IDocumentPartFeature>> _documentRelations;
         private bool _interrupted;
 
-        public DefferedDocumentUpdater(IElasticManagementApi elasticManagementApi,
+        public DefferedDocumentUpdater(ICommonLog logger, IElasticManagementApi elasticManagementApi,
                                        ReplicationQueueHelper replicationQueueHelper,
                                        IDocumentUpdater documentUpdater,
                                        IMetadataProvider metadataProvider)
         {
+            _logger = logger;
             _elasticManagementApi = elasticManagementApi;
             _replicationQueueHelper = replicationQueueHelper;
             _documentUpdater = documentUpdater;
@@ -44,24 +47,29 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
             var documentType = IndexMappingMetadata.GetDocumentType(first.Document.DocumentType);
             SaveIndexSettings(first, first, documentType);
-                    _documentUpdater.IndexAllDocuments(documentType);
+            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
+            _documentUpdater.IndexAllDocuments(documentType);
+            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
 
             foreach (var queueItem in queueItems.Skip(1))
             {
-                    if (_interrupted)
-                    {
-                        return;
-                    }
+                if (_interrupted)
+                {
+                    return;
+                }
 
                 documentType = IndexMappingMetadata.GetDocumentType(queueItem.Document.DocumentType);
 
                 SaveIndexSettings(first, queueItem, documentType);
-                _replicationQueueHelper.Delete(queueItem.Id);
+                _replicationQueueHelper.DeleteItem(queueItem);
+
+                _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
                 _documentUpdater.IndexAllDocuments(documentType);
+                _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
             }
 
             RestoreIndexSettings(first);
-            _replicationQueueHelper.Delete(first.Id);
+            _replicationQueueHelper.DeleteItem(first);
         }
 
         public void Interrupt()
@@ -80,10 +88,10 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                                 var first = @group.First();
                                 first.Document.IndexesSettings = _replicationQueueHelper.MergeIndexSettings(@group);
 
-                                _replicationQueueHelper.Save(first);
+                                _replicationQueueHelper.UpdateItem(first);
                                 foreach (var queueItem in @group.Skip(1))
                                 {
-                                    _replicationQueueHelper.Delete(queueItem.Id);
+                                    _replicationQueueHelper.DeleteItem(queueItem);
                                 }
 
                                 return new
@@ -150,7 +158,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
                 queueItemTo.Document.DocumentType = queueItemFrom.Document.DocumentType;
                 queueItemTo.Document.IndexesSettings = _replicationQueueHelper.MergeIndexSettings(new[] { queueItemTo, queueItemFrom });
-                _replicationQueueHelper.Save(queueItemTo);
+                _replicationQueueHelper.UpdateItem(queueItemTo);
             }
 
             foreach (var indexType in indexTypes)
