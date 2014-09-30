@@ -61,18 +61,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             }
         }
 
-        public void Add(Deal deal)
-        {
-            using (var operationScope = _operationScopeFactory.CreateOrUpdateOperationFor(deal))
-            {
-                _identityProvider.SetFor(deal);
-                _dealGenericSecureRepository.Add(deal);
-                _dealGenericSecureRepository.Save();
-                operationScope.Added<Deal>(deal.Id)
-                              .Complete();
-            }
-        }
-
         public int Assign(Deal deal, long ownerCode)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Deal>())
@@ -146,25 +134,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             deal.CloseDate = DateTime.UtcNow.TrimToSeconds();
 
             Update(deal);
-        }
-
-        public ClientAndFirmForDealInfo GetClientAndFirmForDealInfo(Deal deal)
-        {
-            var clientInfo = _finder.Find(Specs.Find.ById<Client>(deal.ClientId) && Specs.Find.ActiveAndNotDeleted<Client>())
-                                    .Select(x => new
-                                        {
-                                            ClientId = x.Id,
-                                            MainFirm = x.Firms.FirstOrDefault(y => !y.IsDeleted && y.IsActive && y.Id == deal.MainFirmId),
-                                        })
-                                    .SingleOrDefault();
-
-            return clientInfo != null
-                       ? new ClientAndFirmForDealInfo
-                           {
-                               Client = _finder.FindOne(Specs.Find.ById<Client>(clientInfo.ClientId)),
-                               MainFirm = clientInfo.MainFirm
-                           }
-                       : null;
         }
 
         public void ReopenDeal(Deal deal)
