@@ -81,7 +81,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                                                                entityViewModel.SourceOrganizationUnit.Key);
 
             // Проверить функциональные разрешения
-            entityViewModel.HasOrderCreationExtended = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderCreationExtended);
             entityViewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
             entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection =
                 functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);

@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Cyprus
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Emirates
 {
     using System;
     using System.Collections.Generic;
@@ -39,45 +39,24 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Cyprus
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Cyprus/Order.cshtml")]
-    public partial class Order : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Emirates/Deal.cshtml")]
+    public partial class Deal : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureDealViewModel>
     {
-        public Order()
+        public Deal()
         {
         }
         public override void Execute()
         {
+WriteLiteral("\r\n");
+
             
-            #line 3 "..\..\Views\CreateOrUpdate\Cyprus\Order.cshtml"
+            #line 4 "..\..\Views\CreateOrUpdate\Emirates\Deal.cshtml"
   
-    Layout = "../MultiCultureOrder.cshtml";
+    Layout = "../MultiCultureDeal.cshtml";
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n");
-
-DefineSection("CultureSpecificScript", () => {
-
-WriteLiteral("\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 181), Tuple.Create("\"", 269)
-, Tuple.Create(Tuple.Create("", 187), Tuple.Create("/Scripts/Cyprus/Ext.DoubleGis.UI.CyprusOrder.js?", 187), true)
-            
-            #line 8 "..\..\Views\CreateOrUpdate\Cyprus\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 235), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
-            
-            #line default
-            #line hidden
-, 235), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n");
-
-});
-
         }
     }
 }

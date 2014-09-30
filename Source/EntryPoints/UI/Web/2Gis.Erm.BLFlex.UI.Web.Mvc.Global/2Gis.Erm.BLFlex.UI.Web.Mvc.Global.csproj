@@ -160,6 +160,33 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Models\MultiCultureDealViewModel.cs" />
+    <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
+    <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureDeal.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureDeal.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Services\Enumeration\Chile\ChileFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.generated.cs">
@@ -473,8 +500,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\OrderPosition.generated.cs">
       <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -1001,6 +1038,26 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Chile\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureDeal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureDeal.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>AdvertisementElementStatus.generated.cs</LastGenOutput>
@@ -1094,9 +1151,17 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Russia\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Russia\OrderPosition.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Ukraine\FirmAddress.cshtml">
       <Generator>RazorGenerator</Generator>
