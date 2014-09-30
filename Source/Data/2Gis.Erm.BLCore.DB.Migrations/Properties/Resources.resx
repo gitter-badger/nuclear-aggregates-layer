@@ -475,4 +475,18 @@
   <data name="Customizations_24116" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.08 rev. 24116\customizations.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="Customizations_23819" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23819\Customizations_23819.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Customizations_23820" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23820\Customizations_23820.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ReplicateOrder_23822" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23822\ReplicateOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ReplicateOrderPosition_23822" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23822\ReplicateOrderPosition.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+
+
 </root>
