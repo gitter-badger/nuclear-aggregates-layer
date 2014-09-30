@@ -52,6 +52,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata
                                                            .Then.Batch<Order>("Billing", "ReplicateOrders")
                                                            .Then.Batch<OrderPosition>("Billing", "ReplicateOrderPositions")
                                                            .Then.Single<OrderPosition>("Billing")
+                                                           .Then.Batch<Bargain>("Billing", "ReplicateBargains")
                                                            .Then.Single<Bargain>("Billing")
                                                            .Then.Single<OrderProcessingRequest>("Billing")
                                                            .Then.Single<User>("Security")
