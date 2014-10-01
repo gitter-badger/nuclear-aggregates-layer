@@ -107,6 +107,7 @@
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonProfileDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Generic\Modify\ModifyBranchOfficeOrganizationUnitServiceSpecs.cs" />
+    <Compile Include="BL\Print\MultiCulture\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\KopekInRussianPluralizerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\HryvniaInRussianPluralizerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\RoublesInRussianPluralizerSpecs.cs" />
@@ -129,7 +130,6 @@
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Concrete\RegionalNumberNotSupportedServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Concrete\EvaluateOrderNumberServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardServiceSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.Common.cs" />

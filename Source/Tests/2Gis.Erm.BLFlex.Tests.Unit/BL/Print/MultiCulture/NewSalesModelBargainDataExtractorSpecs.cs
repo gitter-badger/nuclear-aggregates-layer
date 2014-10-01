@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
+using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -13,7 +12,7 @@ using Moq;
 
 using It = Machine.Specifications.It;
 
-namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Russia
+namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.MultiCulture
 {
     public static class NewSalesModelBargainDataExtractorSpecs
     {

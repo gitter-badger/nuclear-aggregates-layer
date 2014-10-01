@@ -3,7 +3,7 @@
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
+namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
 {
     public interface IBargainPrintFormDataExtractor
     {

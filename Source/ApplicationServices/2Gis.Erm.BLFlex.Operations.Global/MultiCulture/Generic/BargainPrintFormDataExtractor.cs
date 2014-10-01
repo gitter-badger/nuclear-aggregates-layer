@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
+namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
 {
     public sealed class BargainPrintFormDataExtractor : IBargainPrintFormDataExtractor
     {
