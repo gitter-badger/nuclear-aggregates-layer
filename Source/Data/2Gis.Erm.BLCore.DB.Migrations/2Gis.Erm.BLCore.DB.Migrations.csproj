@@ -323,6 +323,8 @@
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6712 - Make ThemeOrganizationUnit deactivable.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6718 - Alter SiteMap.xml.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6747 - Alter procedure CreateExportSession v3.cs" />
+    <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrderPosition].sql" />
+    <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrder].sql" />
     <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
       <LogicalName>Migration6766CreateCleanupERM</LogicalName>
       <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
@@ -730,7 +732,7 @@
     <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule.cs" />
     <Compile Include="2.1\2014.07.23 rev. 22571 - Deal profit indicators removed.cs" />
-    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />    
+    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />
     <Compile Include="2.1\2014.08.19 rev. 23425 - Alter ImportFirmFromXml.cs" />
     <Compile Include="2.1\2014.07.22 rev. 22529 - Fill column TerritoryId by BuildingCode in FirmAddresses.cs" />
     <Compile Include="2.1\2014.07.23 rev. 22583 - Alter Shared.GetFirmTerritories and Integration.UpdateBuildings.cs" />
@@ -740,6 +742,7 @@
     <Compile Include="2.1\2014.09.12 rev. 24271 - Super boost for replication.cs" />
     <Compile Include="2.1\2014.09.18 rev. 24362 - Alter CalculateClientPromising.cs" />
     <Compile Include="2.1\2014.09.22 rev. 24551 - Alter territory replication.cs" />
+    <Compile Include="2.1\2014.10.01 rev. 24898 - Alter replicate order and order position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
