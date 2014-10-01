@@ -81,6 +81,7 @@ AS
         USING
             ( SELECT    [TBL].[ReplicationCode] AS [Dg_orderpositionId],
                         [TBL].[Amount] AS [Dg_amount],
+						[TBL].[DiscountSum] AS [Dg_discountvalue],
                         [TBL].[DiscountPercent] AS [Dg_discountinpercent],
                         [TBL].[CategoryRate] AS [Dg_CategoryRate],
                         [O].[ReplicationCode] AS [Dg_order],
@@ -96,6 +97,7 @@ AS
         WHEN MATCHED THEN
             UPDATE SET
                     [Dg_amount] = [New].[Dg_amount],
+					[Dg_discountvalue] = [New].[Dg_discountvalue],
                     [Dg_discountinpercent] = [New].[Dg_discountinpercent],
                     [Dg_CategoryRate] = [New].[Dg_CategoryRate],
                     [Dg_order] = [New].[Dg_order],
@@ -103,12 +105,14 @@ AS
         WHEN NOT MATCHED BY TARGET THEN
             INSERT ( [Dg_orderpositionId],
                      [Dg_amount],
+					 [Dg_discountvalue],
                      [Dg_discountinpercent],
                      [Dg_CategoryRate],
                      [Dg_order],
                      [Dg_position] )
             VALUES ( [New].[Dg_orderpositionId],
                      [New].[Dg_amount],
+					 [New].[Dg_discountvalue],
                      [New].[Dg_discountinpercent],
                      [New].[Dg_CategoryRate],
                      [New].[Dg_order],
