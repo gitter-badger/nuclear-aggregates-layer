@@ -62,7 +62,6 @@
     <Compile Include="2.1\2014.09.01 rev. 23810 - Add LegalPersonDealsLink.cs" />
     <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization.cs" />
     <Compile Include="2.1\2014.09.10 rev. 23921 - CRM order customization.cs" />
-    <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization - Copy.cs" />
     <Compile Include="2.1\2014.08.14 rev. 23210 - alter some columns length.cs" />
     <Compile Include="2.1\2014.08.11 rev. 23049 - Alter BOS.cs" />
     <Compile Include="2.1\2014.08.07 rev. 23000 - Set dummy advertisement status as valid.cs" />
