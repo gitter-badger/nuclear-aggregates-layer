@@ -12,6 +12,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long AdvertisementTemplateId { get; set; }
         public string AdvertisementTemplateName { get; set; }
         public bool IsSelectedToWhiteList { get; set; }
+        public bool IsAllowedToWhiteList { get; set; }
         public long? FirmId { get; set; }
         public bool IsDeleted { get; set; }
     }

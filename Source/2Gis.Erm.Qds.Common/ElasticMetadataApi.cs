@@ -1,21 +1,20 @@
 using System;
+using System.Collections.Generic;
 
-using DoubleGis.Erm.Qds.API.Operations.Docs.Metadata;
 using DoubleGis.Erm.Qds.Common.Settings;
 
 using Nest;
 
 namespace DoubleGis.Erm.Qds.Common
 {
-    // FIXME {m.pashuk, 04.09.2014}:  ласс измен€ет состо€ние своей зависимости. ѕон€ть действительно ли это нужно и, если да, то завести специальную абстракцию над INestSettings 
     public sealed class ElasticMetadataApi : IElasticMetadataApi
     {
         private readonly INestSettings _nestSettings;
 
-        public ElasticMetadataApi(INestSettings nestSettings)
+        public ElasticMetadataApi(INestSettings nestSettings, IEnumerable<Tuple<Type, string>> docTypeToIndexNameMap)
         {
             _nestSettings = nestSettings;
-            RegisterKnownTypes();
+            RegisterKnownTypes(docTypeToIndexNameMap);
         }
 
         private FluentDictionary<Type, string> DefaultIndices
@@ -38,9 +37,9 @@ namespace DoubleGis.Erm.Qds.Common
             RegisterType(typeof(T), docIndexName, docTypeName);
         }
 
-        private void RegisterKnownTypes()
+        private void RegisterKnownTypes(IEnumerable<Tuple<Type, string>> docTypeToIndexNameMap)
         {
-            foreach (var indexNameMapping in IndexMappingMetadata.DocTypeToIndexNameMap)
+            foreach (var indexNameMapping in docTypeToIndexNameMap)
             {
                 RegisterType(indexNameMapping.Item1, indexNameMapping.Item2);
             }

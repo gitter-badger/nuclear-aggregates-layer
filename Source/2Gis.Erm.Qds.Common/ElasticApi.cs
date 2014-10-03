@@ -5,11 +5,12 @@ using System.Linq;
 using DoubleGis.Erm.Qds.Common.Settings;
 using Elasticsearch.Net;
 using Nest;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DoubleGis.Erm.Qds.Common
 {
-    // COMMENT {m.pashuk, 23.04.2014}: Идея с названиями: NestElasticApi : IStorageElasticApi, IConfigElasticApi
     public sealed class ElasticApi : IElasticApi, IElasticManagementApi
     {
         private readonly IElasticClient _elasticClient;
@@ -23,20 +24,10 @@ namespace DoubleGis.Erm.Qds.Common
             _metadataApi = metadataApi;
         }
 
-        // TODO {m.pashuk, 05.08.2014}: message https://github.com/elasticsearch/elasticsearch-net/issues/504
         public bool TypeExists<T>() where T : class
         {
-            var documentType = typeof(T);
-
-            string isolatedIndexName;
-            if (!_nestSettings.ConnectionSettings.DefaultIndices.TryGetValue(documentType, out isolatedIndexName))
-            {
-                throw new ArgumentException("Cannot find index name for type " + documentType.Name);
-            }
-
-            var documentTypeName = documentType.Name.ToLowerInvariant();
-            var response = _elasticClient.Raw.IndicesExistsType<VoidResponse>(isolatedIndexName, documentTypeName);
-            return response.Success;
+            var response = _elasticClient.TypeExists(x => x.Index<T>().Type<T>());
+            return response.Exists;
         }
 
         public void Bulk(IReadOnlyCollection<Func<ErmBulkDescriptor, ErmBulkDescriptor>> funcs)
@@ -79,14 +70,42 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public void Delete<T>(string id) where T : class
+        public void Create<T>(T @object, string id = null) where T : class
         {
-            _elasticClient.Delete<T>(x => x.Id(id));
+            _elasticClient.Index(@object, x =>
+            {
+                if (id != null)
+                {
+                    x = x.Id(id);
+                }
+                return x.OpType(OpType.Create);
+            });
         }
 
-        public void Index<T>(T @object, Func<IndexDescriptor<T>, IndexDescriptor<T>> indexSelector = null) where T : class
+        public void Update<T>(T @object, string id, string version = null) where T : class
         {
-            _elasticClient.Index(@object, indexSelector);
+            _elasticClient.Update<T, T>(x =>
+            {
+                if (version != null)
+                {
+                    x = x.Version(long.Parse(version));
+                }
+
+                return x.Doc(@object).Id(id);
+            });
+        }
+
+        public void Delete<T>(string id, string version = null) where T : class
+        {
+            _elasticClient.Delete<T>(x =>
+            {
+                if (version != null)
+                {
+                    x = x.Version(long.Parse(version));
+                }
+
+                return x.Id(id);
+            });
         }
 
         public T Get<T>(string id) where T : class
@@ -115,11 +134,6 @@ namespace DoubleGis.Erm.Qds.Common
         public void Refresh<T>() where T : class
         {
             _elasticClient.Refresh(x => x.Index<T>());
-        }
-
-        public void Refresh(Type[] indexTypes)
-        {
-            _elasticClient.Refresh(x => x.Indices(indexTypes));
         }
 
         public void DeleteIndex<T>() where T : class
@@ -164,13 +178,12 @@ namespace DoubleGis.Erm.Qds.Common
 
         public void UpdateIndexSettings(Type indexType, Func<UpdateSettingsDescriptor, UpdateSettingsDescriptor> updateSettingsSelector, bool optimize = false)
         {
-            var type = indexType;
-            _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(type));
-
             if (optimize)
             {
-                _elasticClient.Optimize(x => x.Indices(new[] { indexType }).MaxNumSegments(5));
+                _elasticClient.Optimize(x => x.Indices(new[] { indexType }));
             }
+
+            _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(indexType));
         }
 
         public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector) where T : class
@@ -183,6 +196,12 @@ namespace DoubleGis.Erm.Qds.Common
                 .Size(_nestSettings.BatchSize));
 
             return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(searchFunc, _elasticClient, _nestSettings.BatchTimeout));
+        }
+
+        public long Count<T>(Func<CountDescriptor<T>, CountDescriptor<T>> countSelector = null) where T : class
+        {
+            var response = _elasticClient.Count(countSelector);
+            return response.Count;
         }
 
         private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
@@ -294,38 +313,42 @@ namespace DoubleGis.Erm.Qds.Common
 
                 return this;
             }
-
-            public ErmBulkDescriptor Create2<T>(Func<BulkCreateDescriptor<T>, BulkCreateDescriptor<T>> bulkCreateSelector) where T : class
-            {
-                return (ErmBulkDescriptor)Create(bulkCreateSelector);
-            }
         }
 
         public sealed class ErmMultiGetDescriptor : MultiGetDescriptor
         {
-            // TODO {m.pashuk, 05.08.2014}: message https://github.com/elasticsearch/elasticsearch-net/issues/849
-            public ErmMultiGetDescriptor SourceEnabled(bool enabled = true)
+            public ErmMultiGetDescriptor GetDistinct<T>(Func<ErmMultiGetOperationDescriptor<T>, ErmMultiGetOperationDescriptor<T>> getSelector) where T : class
             {
-                Request.RequestParameters.AddQueryString("_source", enabled);
-                return this;
-            }
+                var descriptor = (IMultiGetOperation)getSelector(new ErmMultiGetOperationDescriptor<T>());
 
-            public ErmMultiGetDescriptor GetManyDistinct<T>(IEnumerable<string> ids) where T : class
-            {
                 var documentType = typeof(T);
                 var operations = ((IMultiGetRequest)this).GetOperations;
-
-                foreach (var id in ids)
+                var idExists = operations.Any(x => string.Equals(x.Id, descriptor.Id, StringComparison.OrdinalIgnoreCase) && x.ClrType == documentType);
+                if (!idExists)
                 {
-                    var idRef = id;
-                    var idExists = operations.Any(x => string.Equals(x.Id, idRef, StringComparison.OrdinalIgnoreCase) && x.ClrType == documentType);
-                    if (!idExists)
-                    {
-                        operations.Add(new MultiGetOperationDescriptor<T>().Id(id));
-                    }
+                    operations.Add(descriptor);
                 }
 
                 return this;
+            }
+
+            // FIXME {m.pashuk, 24.09.2014}: https://github.com/elasticsearch/elasticsearch-net/issues/954 (убрать после выхода NEST 1.2)
+            [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+            private interface IErmMultiGetOperation
+            {
+                [JsonProperty(PropertyName = "_source")]
+                ISourceFilter Source { get; set; }
+            }
+            public sealed class ErmMultiGetOperationDescriptor<T> : MultiGetOperationDescriptor<T>, IErmMultiGetOperation
+                where T: class
+            {
+                public ErmMultiGetOperationDescriptor<T> Source(Func<SearchSourceDescriptor<T>, SearchSourceDescriptor<T>> source)
+                {
+                    ((IErmMultiGetOperation)this).Source = source(new SearchSourceDescriptor<T>());
+                    return this;
+                }
+
+                ISourceFilter IErmMultiGetOperation.Source { get; set; }
             }
         }
     }

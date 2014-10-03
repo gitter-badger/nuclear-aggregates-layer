@@ -4,7 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -49,12 +48,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.LegalPerson.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
             });
 
-            var myFilter = querySettings.CreateForExtendedProperty<Account, bool>("ForMe", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
             var withHostedOrdersFilter = querySettings.CreateForExtendedProperty<Account, bool>(
                 "WithHostedOrders",
                 withHostedOrders =>
@@ -80,7 +73,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     });
 
             return query
-            .Filter(_filterHelper, withHostedOrdersFilter, myBranchFilter, myFilter)
+            .Filter(_filterHelper, withHostedOrdersFilter, myBranchFilter)
             .Select(x => new ListAccountDto
             {
                 Id = x.Id,
@@ -112,12 +105,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
                 Balance = x.Balance,
             })
-            .QuerySettings(_filterHelper, querySettings)
-            .Transform(x =>
-            {
-                x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                return x;
-            });
+            .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListAccountDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

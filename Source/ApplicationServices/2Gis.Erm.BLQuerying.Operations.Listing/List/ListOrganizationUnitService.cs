@@ -38,9 +38,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<OrganizationUnit>();
 
-            var currencyFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
-                 "currencyId", currencyId => x => x.Country.CurrencyId == currencyId);
-
             var orgUnitFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "userId", userId => x => x.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId));
 
@@ -109,11 +106,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                     .FirstOrDefault(y => y.IsPrimary)
                                                     .BranchOffice.ContributionTypeId == (int)ContributionTypeEnum.Branch);
 
-            var movedToErmFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
-                "filterByMovedToErm",
-                filterByMovedToErm => x => x.IsActive && !x.IsDeleted &&
-                                           x.ErmLaunchDate != null);
-
             var singlePrimaryBranchOfficeFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, bool>(
                 "singlePrimaryBranchOffice",
                 singlePrimaryBranchOffice => x => x.IsActive && !x.IsDeleted && 
@@ -122,13 +114,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper
-                , currencyFilter
                 , orgUnitFilter
                 , firmFilter
                 , franchiseesFilter
                 , projectsFilter
                 , branchesMovedToErmFilter
-                , movedToErmFilter
                 , singlePrimaryBranchOfficeFilter)
                 .Select(x => new ListOrganizationUnitDto
                 {
@@ -144,6 +134,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ErmLaunched = x.ErmLaunchDate != null,
                     ErmLaunchDate = x.ErmLaunchDate,
                     InfoRussiaLaunchDate = x.InfoRussiaLaunchDate,
+                    CurrencyId = x.Country.CurrencyId,
                 })
                 .QuerySettings(_filterHelper, querySettings);
          }

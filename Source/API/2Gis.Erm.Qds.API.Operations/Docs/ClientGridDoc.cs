@@ -7,8 +7,7 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
 {
     public sealed class ClientGridDoc : IOperationSpecificEntityDto, IAuthorizationDoc
     {
-        public LegalPersonDoc[] LegalPersons { get; set; }
-        public string Id { get; set; }
+        public long? Id { get; set; }
         public string Name { get; set; }
         public string MainAddress { get; set; }
         public string TerritoryId { get; set; }
@@ -23,9 +22,9 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
         public DateTime? CreatedOn { get; set; }
         public DateTime? LastQualifyTime { get; set; }
         public DateTime? LastDisqualifyTime { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public InformationSource InformationSourceEnum { get; set; }
+        public bool? IsActive { get; set; }
+        public bool? IsDeleted { get; set; }
+        public InformationSource? InformationSourceEnum { get; set; }
 
         public DocumentAuthorization Authorization { get; set; }
     }

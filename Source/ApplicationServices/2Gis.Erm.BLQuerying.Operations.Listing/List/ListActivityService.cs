@@ -270,5 +270,31 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             return querySettings.CreateForExtendedProperty(key, action);
         }
+
+        /*
+        protected override IRemoteCollection List(QuerySettings querySettings)
+        {
+            var appointmentDtos = ListAppointments();
+            var phonecalls = ListPhonecalls();
+            var taskDtos = ListTasks();
+
+            var activities = appointmentDtos.Concat(phonecalls).Concat(taskDtos);
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                activities = _filterHelper.ForSubordinates(activities);
+            }
+
+            var result = activities.QuerySettings(_filterHelper, querySettings);
+            return result;
+        }
+
+        protected override void Transform(ListActivityDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
+        }
+         * */
+
     }
 }

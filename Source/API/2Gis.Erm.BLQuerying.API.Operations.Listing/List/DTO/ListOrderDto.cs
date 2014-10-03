@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
     public sealed class ListOrderDto : IRussiaAdapted, IOperationSpecificEntityDto
     {
         public long Id { get; set; }
-        public string OrderNumber { get; set; }
+        public string Number { get; set; }
         public DateTime CreatedOn { get; set; }
         public long FirmId { get; set; }
         public string FirmName { get; set; }
@@ -30,6 +30,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public decimal PayablePlan { get; set; }
         public decimal AmountWithdrawn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public long? InspectorCode { get; set; }
 
         public OrderState WorkflowStepEnum { get; set; }
         public long? ClientId { get; set; }
