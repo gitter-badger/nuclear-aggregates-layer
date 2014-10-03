@@ -1861,7 +1861,7 @@
     <value>Все доступные для связывания клиенты</value>
   </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Contract Extension Agreement</value>
   </data>
   <data name="ControlMakeMain" xml:space="preserve">
     <value>Сделать основным</value>
