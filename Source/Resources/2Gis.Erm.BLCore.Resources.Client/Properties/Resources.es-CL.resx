@@ -147,4 +147,7 @@
   <data name="DisplayErrorsList" xml:space="preserve">
     <value>Visualizar la lista de errores...</value>
   </data>
+  <data name="ChangeNeedToPickClient" xml:space="preserve">
+    <value>Se requiere indicar el Cliente.</value>
+  </data>
 </root>

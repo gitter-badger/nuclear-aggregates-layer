@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>Este documento no es adecuado para este tipo de persona jurídica</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>No se ha encontrado la empresa principal para la transacción</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Devolver el cliente a la reserva</value>
   </data>
@@ -1188,7 +1185,7 @@ Errores de bloqueo:{2}</value>
     <value>Números de Skype</value>
   </data>
   <data name="AccountOperationLetterSubject" xml:space="preserve">
-    <value>Уведомление об изменении баланса лицевого счета клиента</value>
+    <value>Aviso sobre el cambio del saldo de la cuenta personal del cliente</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>Para ejecutar esta operación es necesario tener el privilegio Verificación masiva de órdenes</value>
@@ -1433,9 +1430,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value>Durante el procesamiento de mensaje(s) se han encontrado errores. Vea archivo de registro para obtener más información. Número de errores: {0}</value>
-  </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value>La publicación de la información del Cliente en más de cinco categorías se paga según la Lista de precios de los medios de comunicación electrónicos correspondientes.</value>
   </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value>Crear un contrato sólo es posible desde la ficha de la orden.</value>
@@ -1711,9 +1705,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Imposible la ejecución rápida de la compilación, ejecute la compilación a través del cliente de Exportación</value>
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
-    <value>Formación de la publicidad regional {0} de {1}</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>Valor inicial</value>
@@ -2165,9 +2156,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;dirección en blanco&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>No se ha encontrado un cliente enlazado para la transacción</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>El cambio de estado de límite a estado '{0}' es posible sólo en base de estados: '{1}'</value>
   </data>
@@ -2402,9 +2390,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="AssignCategory" xml:space="preserve">
     <value>Designar categoría</value>
   </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>Se requiere indicar el Cliente.</value>
-  </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>La ejecución de la operación de restauración no es posible, la compilación anterior no se ha encontrado</value>
   </data>
@@ -2517,13 +2502,13 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
     <value>No se puede desactivar la posición bloqueada de una lista de precios publicada</value>
   </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
-    <value>Юридическое лицо клиента: {0}.
-Юридическое лицо исполнителя: {1}.
-Лицевой счет: {2}.
-Название операции: {3}.
-Тип операции: {4}.
-Cумма по операции: {5}.
-Операция проведена: {6}.</value>
+    <value>Razón social del cliente: {0}.
+Razón social del ejecutor: {1}.
+Cuenta personal: {2}.
+Nombre de la operación: {3}.
+Tipo  de la operación: {4}.
+Monto total de la operación: {5}.
+Operación realizada con éxito: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Se requiere cerrar todos los planes activos con este objeto</value>
@@ -2879,9 +2864,6 @@ Cумма по операции: {5}.
   <data name="Modified" xml:space="preserve">
     <value>Modificado</value>
   </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value>En la ciudad de origen no se ha realizado la compilación final.</value>
-  </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value>Recuperar en caso de problemas</value>
   </data>
@@ -3023,9 +3005,6 @@ Cумма по операции: {5}.
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value>No se ha encontrado ninguna orden que cumpla las condiciones establecidas</value>
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value>Reseñas: En la ficha no se publica el enlace con las reseñas acerca de la empresa en Flamp.ru</value>
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value>Se ha especificado un importe incorrecto del límite.</value>
   </data>
@@ -3088,9 +3067,6 @@ Cумма по операции: {5}.
   </data>
   <data name="RenderFn" xml:space="preserve">
     <value>Función de formateo</value>
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
-    <value>Reseñas: En la ficha se publica el enlace con las reseñas acerca de la empresa en Flamp.ru</value>
   </data>
   <data name="Approved" xml:space="preserve">
     <value>Aprobado</value>
@@ -3965,9 +3941,6 @@ Cумма по операции: {5}.
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value>Verificación de fondos suficientes en las cuentas personales para la publicación de las órdenes</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value>El contratante reconoce que el volumen de la información reflejada en las plataformas Web y/o en las aplicaciones Web puede ser restringido por sus propietarios.  Es obligatorio mostrar la información como la denominación, dirección, teléfono y la publicidad relacionada con esta información.</value>
-  </data>
   <data name="AmountLocked" xml:space="preserve">
     <value>Bloqueado</value>
   </data>
@@ -4167,9 +4140,6 @@ Cумма по операции: {5}.
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
     <value>El campo de control de versiones es demasiado largo</value>
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
-    <value>No se ha especificado la plataforma de la orden. Es necesario crear la posición de la orden.</value>
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
     <value>El elemento &lt;greater&gt; no se ha generado de forma correcta</value>

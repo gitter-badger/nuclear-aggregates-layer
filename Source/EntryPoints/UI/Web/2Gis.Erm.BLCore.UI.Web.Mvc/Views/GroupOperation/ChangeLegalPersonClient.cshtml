@@ -109,7 +109,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client})
+                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" })
                                 </td>
                             </tr>
                         </tbody>

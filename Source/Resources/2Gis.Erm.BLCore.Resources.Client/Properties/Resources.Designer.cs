@@ -72,6 +72,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ChangeNeedToPickClient {
+            get {
+                return ResourceManager.GetString("ChangeNeedToPickClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);

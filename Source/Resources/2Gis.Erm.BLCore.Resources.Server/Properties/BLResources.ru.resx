@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>Данный документ не подходит для этого типа юр. лица</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>Не найдена основная фирма для сделки</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Вернуть клиента в резерв</value>
   </data>
@@ -1434,9 +1431,6 @@
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value>В процессе обработки сообщения(ий) были обнаружены ошибки. См. лог для получения детальной информации. Количество ошибок: {0}</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value>Размещение информации Заказчиком более чем в пяти рубриках оплачивается согласно действующему Прайс-листу соответствующего Электронного СМИ.</value>
-  </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value>Создание договора возможно только через карточку заказа.</value>
   </data>
@@ -1711,9 +1705,6 @@
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Облегченный запуск сборки невозможен, выполните сборку через клиент Экспорта</value>
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
-    <value>Формирование региональной рекламы {0} за {1}</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>Исходное значение</value>
@@ -2165,9 +2156,6 @@
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;пустой адрес&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>Не найден связанный клиент для сделки</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>Смена состояния лимита в состояние '{0}' возможна только из состояний: '{1}'</value>
   </data>
@@ -2401,9 +2389,6 @@
   </data>
   <data name="AssignCategory" xml:space="preserve">
     <value>Назначить категорию</value>
-  </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>Необходимо указать Клиента.</value>
   </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>Запуск операции восстановления невозможен, предыдущая сборка не найдена</value>
@@ -2879,9 +2864,6 @@ Cумма по операции: {5}.
   <data name="Modified" xml:space="preserve">
     <value>Изменено</value>
   </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value>В городе-источнике не была проведена финальная сборка.</value>
-  </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value>Восстанавливать при сбоях</value>
   </data>
@@ -3023,9 +3005,6 @@ Cумма по операции: {5}.
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value>Не найдено заказов, удовлетворяющих заданным условиям</value>
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value>Отзывы: В карточке не публикуется ссылка на отзывы о компании на Flamp.ru</value>
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value>Указана некорректная сумма лимита.</value>
   </data>
@@ -3088,9 +3067,6 @@ Cумма по операции: {5}.
   </data>
   <data name="RenderFn" xml:space="preserve">
     <value>Функция форматирования</value>
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
-    <value>Отзывы: В карточке публикуется ссылка на отзывы о компании на Flamp.ru</value>
   </data>
   <data name="Approved" xml:space="preserve">
     <value>Одобрено</value>
@@ -3965,9 +3941,6 @@ Cумма по операции: {5}.
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value>Проверка достаточности денежных средств на лицевых счетах для размещения заказов</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value>Заказчик осознает, что объем отображаемой на Интернет-площадках и/или в Веб-приложениях информации может быть ограничен их владельцами.  Обязательны к показу сведения о наименовании, адресе, телефоне и относящаяся к ним реклама.</value>
-  </data>
   <data name="AmountLocked" xml:space="preserve">
     <value>Заблокировано</value>
   </data>
@@ -4167,9 +4140,6 @@ Cумма по операции: {5}.
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
     <value>Поле версионирования слишком длинное</value>
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
-    <value>Платформа заказа не определена. Необходимо создать позицию заказа.</value>
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
     <value>Неправильно сформирован элемент &lt;greater&gt;</value>
