@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
@@ -10,9 +12,13 @@ using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using Microsoft.Practices.Unity;
@@ -43,6 +49,99 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
                     .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "ОФ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia));
+        }
+
+        internal static void ConfigureRussiaListingMetadata(this IUnityContainer container)
+        {
+            var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
+
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListLegalPersonDto, bool>("ForMe", value =>
+            {
+                var userContext = container.Resolve<IUserContext>();
+                var userId = userContext.Identity.Code;
+                if (value)
+                {
+                    return x => x.OwnerCode == userId;
+                }
+
+                return x => x.OwnerCode != userId;
+            });
+
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("ActiveBusinessMeaning", value => x => (x.IsActive && !x.IsDeleted && x.WorkflowStepEnum != OrderState.Archive) || (!x.IsDeleted && (x.WorkflowStepEnum == OrderState.Archive || x.WorkflowStepEnum == OrderState.OnTermination) && x.EndDistributionDateFact > DateTime.Now));
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("NotDeleted", value => x => !x.IsDeleted);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("Approved", value => x => x.WorkflowStepEnum == OrderState.Approved);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("Archive", value => x => x.WorkflowStepEnum == OrderState.Archive);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("OnTermination", value => x => x.WorkflowStepEnum == OrderState.OnTermination);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("OnApproval", value => x => x.WorkflowStepEnum == OrderState.OnApproval);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("OnRegistration", value => x => x.WorkflowStepEnum == OrderState.OnRegistration);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("Rejected", value => x => x.WorkflowStepEnum == OrderState.Rejected);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("AllActiveStatuses", value => x => x.WorkflowStepEnum == OrderState.OnRegistration || x.WorkflowStepEnum == OrderState.OnApproval || x.WorkflowStepEnum == OrderState.Rejected || x.WorkflowStepEnum == OrderState.Approved);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("Absent", value => x => x.HasDocumentsDebtEnum == DocumentsDebt.Absent);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("SelfAds", value => x => x.OrderTypeEnum == OrderType.SelfAds);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("Barter", value => x => x.OrderTypeEnum == OrderType.AdsBarter || x.OrderTypeEnum == OrderType.ProductBarter || x.OrderTypeEnum == OrderType.ServiceBarter);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("New", value => x => ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) <= 2 && ((x.BeginDistributionDate.Month - DateTime.Now.Month) + 12 * (x.BeginDistributionDate.Year - DateTime.Now.Year)) > 0);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("TechnicalTerminated", value => x => (x.WorkflowStepEnum == OrderState.OnTermination || x.IsTerminated) && x.TerminationReasonEnum == OrderTerminationReason.RejectionTechnical);
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("NonTechnicalTerminated", value => x => (x.WorkflowStepEnum == OrderState.OnTermination || x.IsTerminated) && x.TerminationReasonEnum != OrderTerminationReason.RejectionTechnical && x.TerminationReasonEnum != OrderTerminationReason.None);
+
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("ForNextEdition", value =>
+            {
+                if (!value)
+                {
+                    return null;
+                }
+
+                var nextMonth = DateTime.Now.AddMonths(1);
+                nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
+
+                var currentMonthLastDate = nextMonth.AddSeconds(-1);
+                var currentMonthFirstDate = new DateTime(currentMonthLastDate.Year, currentMonthLastDate.Month, 1);
+
+                return
+                    x => x.EndDistributionDateFact >= currentMonthLastDate && x.BeginDistributionDate <= currentMonthFirstDate;
+            });
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("ForNextMonthEdition", value =>
+            {
+                if (!value)
+                {
+                    return null;
+                }
+
+                var tmpMonth = DateTime.Now.AddMonths(2);
+                tmpMonth = new DateTime(tmpMonth.Year, tmpMonth.Month, 1);
+
+                var nextMonthLastDate = tmpMonth.AddSeconds(-1);
+                var nextMonthFirstDate = new DateTime(nextMonthLastDate.Year, nextMonthLastDate.Month, 1);
+
+                return x => x.EndDistributionDateFact >= nextMonthLastDate && x.BeginDistributionDate <= nextMonthFirstDate;
+            });
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("useCurrentMonthForEndDistributionDateFact", value =>
+            {
+                if (!value)
+                {
+                    return null;
+                }
+
+                var nextMonth = DateTime.Now.AddMonths(1);
+                nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
+
+                var currentMonth = nextMonth.AddSeconds(-1);
+
+                return x => x.EndDistributionDateFact == currentMonth;
+            });
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("ForMe", value =>
+            {
+                var userContext = container.Resolve<IUserContext>();
+                var userId = userContext.Identity.Code;
+                return x => x.OwnerCode == userId;
+            });
+            extendedInfoFilterMetadata.RegisterExtendedInfoFilter<ListOrderDto, bool>("MyInspection", value =>
+            {
+                var userContext = container.Resolve<IUserContext>();
+                var userId = userContext.Identity.Code;
+                return x => x.InspectorCode == userId;
+            });
         }
     }
 }

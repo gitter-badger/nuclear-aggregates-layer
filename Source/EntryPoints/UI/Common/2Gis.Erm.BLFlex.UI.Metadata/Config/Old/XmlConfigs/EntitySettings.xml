@@ -508,7 +508,7 @@
 				<ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
 				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
 				<ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="PrintActions" NameLocaleResourceId="ControlPrintActions" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
 				<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
 				<ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
@@ -1372,6 +1372,8 @@
 					<Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
 					<Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
 					<Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
+          <Field Name="OrganizationUnitId" NameLocaleResourceId="OrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
 					<Field Name="PromisingScore" Width="200" FieldType="Int" ExtTypeName="Int" />
 					<Field Name="ClosedForAscertainment" NameLocaleResourceId="DFieldIsHidden" Width="200" FieldType="Boolean" ExtTypeName="Boolean" />
 				</Fields>
@@ -1854,11 +1856,9 @@
 				<ToolbarItem Name="Actions" NameLocaleResourceId="ControlActions" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
 				<ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
 				<ToolbarItem ParentName="PrintActions" Name="PrintOrderAction" NameLocaleResourceId="ControlPrintOrderAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrder" />
-				<ToolbarItem ParentName="PrintActions" Name="PrintReferenceAction" NameLocaleResourceId="ControlPrintReferenceAction" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintReferenceInformation" SecurityPrivelegeFlag="0" />
 				<ToolbarItem ParentName="PrintActions" Name="PrintActionsAdditional" NameLocaleResourceId="ControlPrintActionsAdditional" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
 				<ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBargainAction" NameLocaleResourceId="ControlPrintBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBargain" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintNewSalesModelBargainAction" NameLocaleResourceId="ControlPrintNewSalesModelBargainAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintNewSalesModelOrderBargain" />
-				<ToolbarItem ParentName="PrintActionsAdditional" Name="PrintRegionalOrderAction" NameLocaleResourceId="ControlPrintRegionalOrderAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintRegionalOrder" SecurityPrivelegeFlag="0" />
 				<ToolbarItem ParentName="PrintActionsAdditional" Name="PrepareJointBillsAction" NameLocaleResourceId="ControlPrepareJointBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrepareJointBill" SecurityPrivelegeFlag="0" />
 				<ToolbarItem ParentName="PrintActionsAdditional" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillsAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintOrderBills" SecurityPrivelegeFlag="0" />
 				<ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationNoticeAction" NameLocaleResourceId="ControlPrintTermNoticeAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationNotice" SecurityPrivelegeFlag="0" />
@@ -1894,12 +1894,11 @@
 					<ToolbarItem ParentName="Actions" DisableOnEmpty="true" Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
 					<ToolbarItem ParentName="Actions" DisableOnEmpty="true" Name="CloseWithDenial" NameLocaleResourceId="ControlCloseWithDenial" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CloseWithDenial" Icon="Delete.gif" SecurityPrivelegeFlag="0" />
 					<ToolbarItem ParentName="Actions" Name="CheckOrdersReadinessForRelease" HideInCardRelatedGrid="*" NameLocaleResourceId="ControlCheckOrdersReadinessForRelease" ControlType="TextButton" LockOnInactive="true" Action="scope.CheckOrdersReadinessForRelease" Icon="en_ico_16_Binding.gif" SecurityPrivelegeFlag="0" />
-					<ToolbarItem ParentName="Actions" Name="MakeRegionalAdsDocs" HideInCardRelatedGrid="*" NameLocaleResourceId="ControlMakeRegionalAdsDocs" ControlType="ImageButton" LockOnInactive="true" Action="scope.MakeRegionalAdsDocs" Icon="en_ico_16_DataListToolbar.gif" SecurityPrivelegeFlag="0" />
 				</ToolbarItems>
 				<Fields>
 					<Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
+          <Field Name="Number" NameLocaleResourceId="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
 					<Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="FirmName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
           <Field Name="DestOrganizationUnitId" NameLocaleResourceId="DFieldDestOrganizationUnitId" Width="50" Hidden="true" FieldType="String" ExtTypeName="String" />
@@ -1934,7 +1933,7 @@
 					<Field Name="SourceOrganizationUnitId" NameLocaleResourceId="DFieldSourceOrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="CreatedOn" Width="0" Hidden="true" FieldType="DateTime" ExtTypeName="Date" />
-					<Field Name="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
+					<Field Name="Number" NameLocaleResourceId="OrderNumber" Width="100" FieldType="String" ExtTypeName="String" />
 					<Field Name="DestOrganizationUnitId" NameLocaleResourceId="DFieldDestOrganizationUnitId" Width="50" Hidden="true" FieldType="String" ExtTypeName="String" />
 					<Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
 					<Field Name="FirmName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
@@ -2682,7 +2681,7 @@
 	</Entity>
 	<Entity Name="ThemeOrganizationUnit">
 		<DataLists>
-			<DataList NameLocaleResourceId="DListUserOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
+			<DataList NameLocaleResourceId="DListThemeOrganizationUnit" DefaultSortField="OrganizationUnitName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="OrganizationUnitName" Icon="en_ico_16_OrganizationUnit.gif">
 				<ToolbarItems>
 					<ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" SecurityPrivelegeFlag="16" />
 					<ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />

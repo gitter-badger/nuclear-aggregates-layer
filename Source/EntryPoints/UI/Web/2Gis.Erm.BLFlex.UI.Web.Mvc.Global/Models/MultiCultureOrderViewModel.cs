@@ -65,7 +65,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         public bool HasDestOrganizationUnitPublishedPrice { get; set; }
 
         public bool HasOrderBranchOfficeOrganizationUnitSelection { get; set; }
-        public bool HasOrderCreationExtended { get; set; }
         public bool CanEditOrderType { get; set; }
         public bool HasOrderDocumentsDebtChecking { get; set; }
 
@@ -88,6 +87,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public LookupField LegalPerson { get; set; }
 
+        public LookupField Deal { get; set; }
+
+        public long? DealCurrencyId { get; set; }
+
         [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources),
             ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
         [DisplayNameLocalized("BeginReleaseDate")]
@@ -95,8 +98,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             ErrorMessageResourceName = "IncorrectBeginDistributionDate")]
         public DateTime BeginDistributionDate { get; set; }
 
-        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage"
-            )]
+        [CheckDayOfMonth(CheckDayOfMonthType.LastDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredLastDayOfMonthMessage")]
         [DisplayNameLocalized("EndPlanReleaseDate")]
         [GreaterOrEqualThan("BeginDistributionDate", ErrorMessageResourceType = typeof(BLResources),
             ErrorMessageResourceName = "EndDateMustBeGreaterThenBeginDate")]
@@ -159,6 +161,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public decimal AmountWithdrawn { get; set; }
 
+        [Dependency(DependencyType.ReadOnly, "Bargain",
+            "!Ext.getCmp('LegalPerson').getValue() || !Ext.getCmp('BranchOfficeOrganizationUnit').getValue()")]
         public LookupField Bargain { get; set; }
 
         [CustomClientValidation("validateDiscountSum", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "MustBePositive")]
@@ -240,6 +244,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             DestinationOrganizationUnit = LookupField.FromReference(modelDto.DestOrganizationUnitRef);
             BranchOfficeOrganizationUnit = LookupField.FromReference(modelDto.BranchOfficeOrganizationUnitRef);
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
+            Deal = LookupField.FromReference(modelDto.DealRef);
+            DealCurrencyId = modelDto.DealCurrencyId;
             Currency = LookupField.FromReference(modelDto.CurrencyRef);
             BeginDistributionDate = modelDto.BeginDistributionDate;
             EndDistributionDatePlan = modelDto.EndDistributionDatePlan;
@@ -296,6 +302,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     HasDestOrganizationUnitPublishedPrice = HasDestOrganizationUnitPublishedPrice,
                     BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
                     LegalPersonRef = LegalPerson.ToReference(),
+                    DealRef = Deal.ToReference(),
+                    DealCurrencyId = DealCurrencyId,
                     CurrencyRef = Currency.ToReference(),
                     BeginDistributionDate = BeginDistributionDate,
                     EndDistributionDatePlan = EndDistributionDatePlan,

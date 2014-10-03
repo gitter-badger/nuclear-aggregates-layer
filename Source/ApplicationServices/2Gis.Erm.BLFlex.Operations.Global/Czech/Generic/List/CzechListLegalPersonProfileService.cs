@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
@@ -44,13 +43,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                     LegalPersonId = x.LegalPersonId,
                     OwnerName = null,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                .QuerySettings(_filterHelper, querySettings);
+        }
 
-                    return x;
-                });
+        protected override void Transform(CzechListLegalPersonProfileDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }
