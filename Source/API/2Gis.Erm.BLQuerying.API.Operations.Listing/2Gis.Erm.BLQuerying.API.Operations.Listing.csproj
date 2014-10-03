@@ -52,6 +52,9 @@
     <Compile Include="DI\BlQueryingApiOperationsListingAssembly.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementDenialReasonsDto.cs" />
     <Compile Include="List\DTO\ListBranchOfficeDto.cs" />
+    <Compile Include="List\DTO\ListLegalPersonDealDto.cs" />
+    <Compile Include="List\DTO\ListFirmDealDto.cs" />
+    <Compile Include="List\DTO\ListClientLinkDto.cs" />
     <Compile Include="List\DTO\ListDenialReasonDto.cs" />
     <Compile Include="List\DTO\ListClientDto.cs" />
     <Compile Include="List\DTO\ListDepartmentDto.cs" />
