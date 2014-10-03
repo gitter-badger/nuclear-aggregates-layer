@@ -963,4 +963,7 @@
   <data name="DealMustPickOtherReason" xml:space="preserve">
     <value>Je třeba uvést jiný důvod ukončení obchodní transakce.</value>
   </data>
+  <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
+    <value> Данное юр. лицо уже является основным</value>
+  </data>
 </root>
