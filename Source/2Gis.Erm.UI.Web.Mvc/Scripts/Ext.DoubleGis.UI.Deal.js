@@ -1,4 +1,13 @@
-﻿window.InitPage = function () {
+﻿Ext.DoubleGis.CustomValidatorRegistry["validateAgencyFeePercent"] = function () {
+    var discountPercent = Ext.getDom('AgencyFee');
+    if (discountPercent) {
+        var formatedPercent = Number.parseFromLocal(discountPercent.value);
+        return (isNaN(formatedPercent) || (formatedPercent >= 0 && formatedPercent <= 100));
+    };
+    return true;
+};
+
+window.InitPage = function () {
     window.Card.on("beforebuild", function (card) {
         this.ChangeOwner = function () {
             if (Ext.getDom("Id").value != 0) {
@@ -81,8 +90,8 @@
 
             var isReasonSet = false;
 
-            // Если по данному клиенту существует задача с признаком 
-            // "Теплый клиент", то, не спрашивая, выставляем 
+            // Если по данному клиенту существует задача с признаком
+            // "Теплый клиент", то, не спрашивая, выставляем
             // соответствующую причину сделки.
             var clientLookup = Ext.getCmp('Client');
             if (clientLookup.item) {
@@ -158,4 +167,52 @@
         });
     });
 
+    Ext.apply(this, {
+        BuildLegalPersonsList: function () {
+            if (this.form.Id.value != 0) {
+                var cnt = Ext.getCmp('ContentTab_holder');
+                var tp = Ext.getCmp('TabWrapper');
+
+                tp.anchor = "100%, 60%";
+                delete tp.anchorSpec;
+                cnt.add(new Ext.Panel({
+                    id: 'legalPersonsFrame_holder',
+                    anchor: '100%, 40%',
+                    html: '<iframe id="legalPersonsFrame_frame"></iframe>'
+                }));
+                cnt.doLayout();
+                var mask = new window.Ext.LoadMask(window.Ext.get("legalPersonsFrame_holder"));
+                mask.show();
+                var iframe = Ext.get('legalPersonsFrame_frame');
+
+                iframe.dom.src = '/Grid/View/LegalPersonDeal/Deal/{0}/{1}/LegalPerson?extendedInfo=filterToParent%3Dtrue'.replace(/\{0\}/g, this.form.Id.value).replace(/\{1\}/g, this.ReadOnly ? 'Inactive' : 'Active');
+                iframe.on('load', function (evt, el) {
+                    el.height = Ext.get(el.parentElement).getComputedHeight();
+                    el.width = Ext.get(el.parentElement).getComputedWidth();
+                    el.style.height = "100%";
+                    el.style.width = "100%";
+                    el.contentWindow.Ext.onReady(function () {
+                        el.contentWindow.IsBottomLegalPersonDataList = true;
+                    });
+                    this.hide();
+                }, mask);
+                cnt.doLayout();
+            }
+        }
+    });
+
+    this.on("afterbuild", this.BuildLegalPersonsList, this);
+
+    this.on("afterrelatedlistready", function (card, details) {
+        var dataListName = details.dataList.currentSettings.Name;
+
+        if (dataListName === 'LegalPersonDeal') {
+            var dataListWindow = details.dataList.ContentContainer.container.dom.document.parentWindow;
+            if (dataListWindow.IsBottomLegalPersonDataList) {
+                dataListWindow.Ext.getDom('Toolbar').style.display = 'none';
+                details.dataList.Items.Grid.getBottomToolbar().hide();
+                details.dataList.ContentContainer.doLayout();
+            }
+        }
+    }, this);
 }
