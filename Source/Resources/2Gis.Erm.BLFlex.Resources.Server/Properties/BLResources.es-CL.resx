@@ -172,12 +172,6 @@
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
     <value>La persona jurídica del tipo especificado en el perfil &apos;{0}&apos; no puede actuar en base a {1}</value>
   </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>En el  pedido no está especificada la Personalidad jurídica del ejecutor. Es imposible seleccionar una forma impresa.</value>
-  </data>
-  <data name="OrderTotalAmountIsZero" xml:space="preserve">
-    <value>El importe total de la orden es igual a cero, imposible imprimir</value>
-  </data>
   <data name="ContributionTypeIsNotSet" xml:space="preserve">
     <value>No se ha definido la forma de colaboración de la sucursal de la entidad con el id [{0}]</value>
   </data>
@@ -392,6 +386,55 @@
     <value>Verificación de elemento del material publicitario</value>
   </data>
   <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
-    <value>Операция редактирования коммуны не поддерживается системой</value>
+    <value>Operación de edición de la comuna no está soportada por el sistema</value>
+  </data>
+  <data name="QuotedValue" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AddressWithReferencePoint" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressSingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultipleAsterix" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatThemeMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCompositeDetalization" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UnsupportedPositionBindingObjectType" xml:space="preserve">
+    <value>Описание для позиции с типом привязки {0} не задано</value>
+  </data>
+  <data name="CannotFindActivity" xml:space="preserve">
+    <value>Действие с ID {0} не найдено.</value>
+    <comment>Действие с ID {0} не найдено.</comment>
+  </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>Создание региональных заказов не поддерживается</value>
   </data>
 </root>

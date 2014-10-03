@@ -2,6 +2,6 @@
 {
     public interface IWordPluralizer
     {
-        string GetPluralFor(int numberToRead);
+        string GetPluralFor(long numberToRead);
     }
 }

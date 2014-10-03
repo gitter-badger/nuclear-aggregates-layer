@@ -10,6 +10,7 @@
     <Items Name="NavAreaSales">
       <Items Name="EnMClients" Icon="en_ico_16_Client.gif" RequestUrl="/Grid/View/Client" />
       <Items Name="EnMContact" Icon="en_ico_16_Contact.gif" RequestUrl="/Grid/View/Contact" />
+      <Items Name="EnMDeal" Icon="en_ico_16_Deal.gif" RequestUrl="/Grid/View/Deal" />
       <Items Name="NavGroupOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" />
     </Items>
     <Items Name="NavAreaFinances">

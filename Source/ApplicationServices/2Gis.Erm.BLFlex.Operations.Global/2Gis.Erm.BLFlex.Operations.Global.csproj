@@ -109,6 +109,7 @@
     <Compile Include="MultiCulture\Concrete\Clients\MultiCultureCreateClientByFirmOperationService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Deserializers\MultiCultureDeserializeCardService.cs" />
     <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Processors\MultiCultureImportCardService.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\MultiCulturePrintHelper.cs" />
     <Compile Include="MultiCulture\Generic\Activate\ActivateBranchOfficeService.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
     <Compile Include="Chile\Concrete\Old\LegalPersons\ChileValidatePaymentRequisitesIsUniqueHandler.cs" />
@@ -147,6 +148,8 @@
     <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
     <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
     <Compile Include="MultiCulture\Generic\Modify\Old\MultiCultureEditOrderPositionHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="Russia\Generic\Get\GetAdvertisementElementStatusDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBargainTypeDtoService.cs" />
     <Compile Include="Russia\Generic\Get\RussiaGetBranchOfficeDtoService.cs" />
@@ -161,6 +164,7 @@
     <Compile Include="Russia\Generic\Get\GetClientDtoService.cs" />
     <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\ClientObtainer.cs" />
     <Compile Include="Shared\Consistency\EmiratesLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\PositionDetailedName.cs" />
     <Compile Include="Shared\EmiratesFormatterFactory.cs" />
     <Compile Include="Shared\Formatter\DirhamFormatter.cs" />
     <Compile Include="Shared\Formatter\EmiratesDateFormatter.cs" />
@@ -180,6 +184,7 @@
     <Compile Include="Shared\Generic\Get\GetLegalPersonDtoServiceBase.cs" />
     <Compile Include="Shared\Generic\Get\GetLegalPersonProfileDtoServiceBase.cs" />
     <Compile Include="Shared\GetDtoServiceHelper.cs" />
+    <Compile Include="Shared\PositionSimpleName.cs" />
     <Compile Include="Shared\UkraineFormatterFactory.cs" />
     <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardService.cs" />
     <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\FirmWorkTimeFormatter.cs" />
@@ -229,18 +234,14 @@
     <Compile Include="MultiCulture\Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonProfileService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonService.cs" />
-    <Compile Include="MultiCulture\Generic\Get\IOrderReferencesReadModel.cs" />
-    <Compile Include="MultiCulture\Generic\Get\OrderReferencesReadModel.cs" />
     <Compile Include="MultiCulture\Generic\List\MultiCultureListBranchOfficeService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\ModifyBranchOfficeService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\NullBranchOfficeOrganizationUnitValidator.cs" />
     <Compile Include="Shared\Consistency\UkraineLegalPersonProfileConsistencyRuleContainer.cs" />
-    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Generic\BargainPrintFormDataExtractor.cs" />
     <Compile Include="Russia\Generic\IBargainPrintFormDataExtractor.cs" />
     <Compile Include="Shared\CommonFormatterFactory.cs" />
     <Compile Include="Shared\CzechFormatterFactory.cs" />
-    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintRegionalOrderHandler.cs" />
     <Compile Include="Russia\Generic\IOrderPrintFormDataExtractor.cs" />
     <Compile Include="Russia\Generic\OrderPrintFormDataExtractor.cs" />
     <Compile Include="Shared\ChileFormatterFactory.cs" />

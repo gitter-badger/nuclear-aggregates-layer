@@ -46,6 +46,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     { "ShortLegalName", boou.ShortLegalName },
                     { "ActualAddress", boou.ActualAddress },
                     { "Email", boou.Email },
+                    { "PhoneNumber", boou.PhoneNumber },
                 };
 
             return new PrintData
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
         public PrintData GetLegalPersonProfile(LegalPersonProfile legalPersonProfile)
         {
             var operatesOnTheBasis = (OperatesOnTheBasisType)legalPersonProfile.OperatesOnTheBasisInGenitive.Value;
-            
+
             var profileData = new PrintData
                 {
                     { "ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
@@ -93,6 +94,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     { "WarrantyBeginDate", legalPersonProfile.WarrantyBeginDate },
                     { "BargainNumber", legalPersonProfile.BargainNumber },
                     { "BargainBeginDate", legalPersonProfile.BargainBeginDate },
+                    { "IBAN", legalPersonProfile.IBAN },
+                    { "SWIFT", legalPersonProfile.SWIFT },
+                    { "AccountNumber", legalPersonProfile.AccountNumber },
+                    { "BankName", legalPersonProfile.BankName },
+                    { "AdditionalPaymentElements", legalPersonProfile.AdditionalPaymentElements },
+                    { "Phone", legalPersonProfile.Phone },
+                    { "Email", legalPersonProfile.AdditionalEmail },
                 };
 
             return new PrintData
@@ -107,13 +115,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                 };
         }
 
-        public PrintData GetUngroupedFields(IQueryable<Order> orderQuery)
+        public PrintData GetUngroupedFields(IQueryable<Bargain> bargainQuery)
         {
-            return orderQuery
-                .Select(order => new
+            return bargainQuery
+                .Select(x => new
                     {
-                        LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
-                        OrganizationUnitName = order.DestOrganizationUnit.Name,
+                        LegalPersonType = (LegalPersonType)x.LegalPerson.LegalPersonTypeEnum,
+                        OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
+                        EndDate = x.BargainEndDate
                     })
                 .AsEnumerable()
                 .Select(x => new PrintData
@@ -121,6 +130,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                         { "UseBusinessman", x.LegalPersonType == LegalPersonType.Businessman },
                         { "UseLegalPerson", x.LegalPersonType == LegalPersonType.LegalPerson },
                         { "UseNaturalPerson", x.LegalPersonType == LegalPersonType.NaturalPerson },
+                        { "UseEndlessBargain", x.EndDate == null },
+                        { "UseLimitedBargain", x.EndDate != null },
                         { "OrganizationUnitName", x.OrganizationUnitName },
                     })
                 .Single();
@@ -129,12 +140,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
         public PrintData GetBargain(IQueryable<Bargain> queryable)
         {
             var bargainData = queryable
-                .Select(bargain => new { bargain.Number, bargain.SignedOn })
+                .Select(bargain => new { bargain.Number, bargain.SignedOn, bargain.BargainEndDate })
                 .AsEnumerable()
                 .Select(x => new PrintData
                     {
                         { "Number", x.Number },
                         { "SignedOn", x.SignedOn },
+                        { "EndDate", x.BargainEndDate },
                     })
                 .Single();
 
