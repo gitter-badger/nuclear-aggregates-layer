@@ -35,6 +35,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.ClientId = dto.ClientRef.Id.Value;
             entity.OwnerCode = dto.OwnerRef.Id.Value;
 
+            // Рекламная кампания
+            entity.AdvertisingCampaignBeginDate = dto.AdvertisingCampaignBeginDate;
+            entity.AdvertisingCampaignEndDate = dto.AdvertisingCampaignEndDate;
+            entity.AdvertisingCampaignGoalText = dto.AdvertisingCampaignGoalText;
+            entity.AdvertisingCampaignGoals = (int?)dto.AdvertisingCampaignGoals;
+            entity.AgencyFee = dto.AgencyFee;
+            entity.BargainId = dto.BargainRef.Id;
+            entity.PaymentFormat = (int?)dto.PaymentFormat;
+
             // Параметры сделки могут быть изменены при редактировании заказа
             // Если были открыты карточкы сделки и заказа и заказ был изменен -> сериализованный объект в карточке сделки становится невалидным,
             // т.к. в хранилище данных этот объект был изменен
