@@ -7,5 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Deal = EntityName.Deal,
         Order = EntityName.Order,
         OrderPosition = EntityName.OrderPosition,
+        FirmDeal = EntityName.FirmDeal,
+        LegalPersonDeal = EntityName.LegalPersonDeal
     }
 }

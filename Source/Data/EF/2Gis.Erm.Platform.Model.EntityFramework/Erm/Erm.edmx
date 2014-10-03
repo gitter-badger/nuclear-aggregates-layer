@@ -522,6 +522,19 @@
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
         </EntityType>
+        <EntityType Name="ClientLinks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="MasterClientId" Type="bigint" Nullable="false" />
+          <Property Name="ChildClientId" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="Id" />
@@ -671,12 +684,19 @@
           <Property Name="Name" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="MainFirmId" Type="bigint" />
           <Property Name="ClientId" Type="bigint" Nullable="false" />
+          <Property Name="BargainId" Type="bigint" />
           <Property Name="CurrencyId" Type="bigint" Nullable="false" />
           <Property Name="StartReason" Type="int" Nullable="false" />
           <Property Name="CloseReason" Type="int" Nullable="false" />
           <Property Name="CloseReasonOther" Type="nvarchar" MaxLength="256" />
           <Property Name="CloseDate" Type="datetime2" Precision="2" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
+          <Property Name="AdvertisingCampaignBeginDate" Type="datetime2" Precision="2" />
+          <Property Name="AdvertisingCampaignEndDate" Type="datetime2" Precision="2" />
+          <Property Name="AdvertisingCampaignGoalText" Type="nvarchar" MaxLength="512" />
+          <Property Name="AdvertisingCampaignGoals" Type="int" />
+          <Property Name="PaymentFormat" Type="int" />
+          <Property Name="AgencyFee" Type="decimal" Precision="19" Scale="4" />
           <Property Name="DealStage" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -720,6 +740,47 @@
           <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DenormalizedClientLinks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="MasterClientId" Type="bigint" Nullable="false" />
+          <Property Name="ChildClientId" Type="bigint" Nullable="false" />
+          <Property Name="IsLinkedDirectly" Type="bit" Nullable="false" />
+          <Property Name="GraphKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+        </EntityType>
+        <EntityType Name="FirmDeals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="FirmId" Type="bigint" Nullable="false" />
+          <Property Name="DealId" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LegalPersonDeals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="LegalPersonId" Type="bigint" Nullable="false" />
+          <Property Name="DealId" Type="bigint" Nullable="false" />
+          <Property Name="IsMain" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="LegalPersonProfiles">
           <Key>
@@ -2640,6 +2701,30 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClientLinks_ChildClientId_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="ClientLinks" Type="Self.ClientLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientLinks">
+              <PropertyRef Name="ChildClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientLinks_MasterClientId_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="ClientLinks" Type="Self.ClientLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientLinks">
+              <PropertyRef Name="MasterClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Clients_Firms">
           <End Role="Firms" Type="Self.Firms" Multiplicity="0..1" />
           <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
@@ -2736,6 +2821,18 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Deals_Bargains">
+          <End Role="Bargains" Type="Self.Bargains" Multiplicity="0..1" />
+          <End Role="Deals" Type="Self.Deals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bargains">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deals">
+              <PropertyRef Name="BargainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Deals_Clients">
           <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
           <End Role="Deals" Type="Self.Deals" Multiplicity="*" />
@@ -2793,6 +2890,30 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Principal>
             <Dependent Role="DeniedPositions">
               <PropertyRef Name="PriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DenormalizedClientLinks_ChildClientId_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="DenormalizedClientLinks" Type="Self.DenormalizedClientLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DenormalizedClientLinks">
+              <PropertyRef Name="ChildClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DenormalizedClientLinks_MasterClientId_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="DenormalizedClientLinks" Type="Self.DenormalizedClientLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DenormalizedClientLinks">
+              <PropertyRef Name="MasterClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2880,6 +3001,30 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FirmDeals_Deals">
+          <End Role="Deals" Type="Self.Deals" Multiplicity="1" />
+          <End Role="FirmDeals" Type="Self.FirmDeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deals">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FirmDeals">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FirmDeals_Firms">
+          <End Role="Firms" Type="Self.Firms" Multiplicity="1" />
+          <End Role="FirmDeals" Type="Self.FirmDeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FirmDeals">
+              <PropertyRef Name="FirmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Firms_Clients">
           <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
           <End Role="Firms" Type="Self.Firms" Multiplicity="*" />
@@ -2913,6 +3058,30 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Principal>
             <Dependent Role="Firms">
               <PropertyRef Name="TerritoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegalPersonDeals_Deals">
+          <End Role="Deals" Type="Self.Deals" Multiplicity="1" />
+          <End Role="LegalPersonDeals" Type="Self.LegalPersonDeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deals">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegalPersonDeals">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegalPersonDeals_LegalPersons">
+          <End Role="LegalPersons" Type="Self.LegalPersons" Multiplicity="1" />
+          <End Role="LegalPersonDeals" Type="Self.LegalPersonDeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LegalPersons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegalPersonDeals">
+              <PropertyRef Name="LegalPersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4112,6 +4281,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="BranchOffices" EntityType="Self.BranchOffices" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Charges" EntityType="Self.Charges" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="ChargesHistory" EntityType="Self.ChargesHistory" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="ClientLinks" EntityType="Self.ClientLinks" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="ContributionTypes" EntityType="Self.ContributionTypes" Schema="Billing" store:Type="Tables" />
@@ -4121,6 +4291,9 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="Deals" EntityType="Self.Deals" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="DenialReasons" EntityType="Self.DenialReasons" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="DeniedPositions" EntityType="Self.DeniedPositions" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="DenormalizedClientLinks" EntityType="Self.DenormalizedClientLinks" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="FirmDeals" EntityType="Self.FirmDeals" Schema="Billing" store:Type="Tables" />
+          <EntitySet Name="LegalPersonDeals" EntityType="Self.LegalPersonDeals" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="LegalPersonProfiles" EntityType="Self.LegalPersonProfiles" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="LegalPersons" EntityType="Self.LegalPersons" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Limits" EntityType="Self.Limits" Schema="Billing" store:Type="Tables" />
@@ -4392,6 +4565,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <End Role="OrganizationUnits" EntitySet="OrganizationUnits" />
             <End Role="CategoryOrganizationUnits" EntitySet="CategoryOrganizationUnits" />
           </AssociationSet>
+          <AssociationSet Name="FK_ClientLinks_ChildClientId_Clients" Association="Self.FK_ClientLinks_ChildClientId_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientLinks" EntitySet="ClientLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientLinks_MasterClientId_Clients" Association="Self.FK_ClientLinks_MasterClientId_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientLinks" EntitySet="ClientLinks" />
+          </AssociationSet>
           <AssociationSet Name="FK_Clients_Firms" Association="Self.FK_Clients_Firms">
             <End Role="Firms" EntitySet="Firms" />
             <End Role="Clients" EntitySet="Clients" />
@@ -4424,6 +4605,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <End Role="Currencies" EntitySet="Currencies" />
             <End Role="CurrencyRates" EntitySet="CurrencyRates" />
           </AssociationSet>
+          <AssociationSet Name="FK_Deals_Bargains" Association="Self.FK_Deals_Bargains">
+            <End Role="Bargains" EntitySet="Bargains" />
+            <End Role="Deals" EntitySet="Deals" />
+          </AssociationSet>
           <AssociationSet Name="FK_Deals_Clients" Association="Self.FK_Deals_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Deals" EntitySet="Deals" />
@@ -4443,6 +4628,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_DeniedPositions_Prices" Association="Self.FK_DeniedPositions_Prices">
             <End Role="Prices" EntitySet="Prices" />
             <End Role="DeniedPositions" EntitySet="DeniedPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DenormalizedClientLinks_ChildClientId_Clients" Association="Self.FK_DenormalizedClientLinks_ChildClientId_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="DenormalizedClientLinks" EntitySet="DenormalizedClientLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DenormalizedClientLinks_MasterClientId_Clients" Association="Self.FK_DenormalizedClientLinks_MasterClientId_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="DenormalizedClientLinks" EntitySet="DenormalizedClientLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_DestOrgUnitOrder" Association="Self.FK_DestOrgUnitOrder">
             <End Role="OrganizationUnits" EntitySet="OrganizationUnits" />
@@ -4472,6 +4665,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <End Role="FirmAddresses" EntitySet="FirmAddresses" />
             <End Role="FirmAddressServices" EntitySet="FirmAddressServices" />
           </AssociationSet>
+          <AssociationSet Name="FK_FirmDeals_Deals" Association="Self.FK_FirmDeals_Deals">
+            <End Role="Deals" EntitySet="Deals" />
+            <End Role="FirmDeals" EntitySet="FirmDeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FirmDeals_Firms" Association="Self.FK_FirmDeals_Firms">
+            <End Role="Firms" EntitySet="Firms" />
+            <End Role="FirmDeals" EntitySet="FirmDeals" />
+          </AssociationSet>
           <AssociationSet Name="FK_Firms_Clients" Association="Self.FK_Firms_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Firms" EntitySet="Firms" />
@@ -4483,6 +4684,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_Firms_Territories" Association="Self.FK_Firms_Territories">
             <End Role="Territories" EntitySet="Territories" />
             <End Role="Firms" EntitySet="Firms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalPersonDeals_Deals" Association="Self.FK_LegalPersonDeals_Deals">
+            <End Role="Deals" EntitySet="Deals" />
+            <End Role="LegalPersonDeals" EntitySet="LegalPersonDeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalPersonDeals_LegalPersons" Association="Self.FK_LegalPersonDeals_LegalPersons">
+            <End Role="LegalPersons" EntitySet="LegalPersons" />
+            <End Role="LegalPersonDeals" EntitySet="LegalPersonDeals" />
           </AssociationSet>
           <AssociationSet Name="FK_LegalPersonProfiles_LegalPersons" Association="Self.FK_LegalPersonProfiles_LegalPersons">
             <End Role="LegalPersons" EntitySet="LegalPersons" />
@@ -5655,6 +5864,15 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="PerformedOperationFinalProcessings" EntityType="ErmModel.PerformedOperationFinalProcessing" />
           <EntitySet Name="PerformedOperationPrimaryProcessings" EntityType="ErmModel.PerformedOperationPrimaryProcessing" />
           <EntitySet Name="ExportFlowOrders_DenialReason" EntityType="ErmModel.ExportFlowOrders_DenialReason" />
+          <EntitySet Name="ClientLinks" EntityType="ErmModel.ClientLink" />
+          <AssociationSet Name="FK_ClientLinks_ChildClientId_Clients" Association="ErmModel.FK_ClientLinks_ChildClientId_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientLink" EntitySet="ClientLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientLinks_MasterClientId_Clients" Association="ErmModel.FK_ClientLinks_MasterClientId_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientLink" EntitySet="ClientLinks" />
+          </AssociationSet>
           <EntitySet Name="AdvertisementElementDenialReasons" EntityType="ErmModel.AdvertisementElementDenialReason" />
           <EntitySet Name="AdvertisementElementStatuses" EntityType="ErmModel.AdvertisementElementStatus" />
           <AssociationSet Name="FK_AdvertisementElementDenialReasons_AdvertisementElements" Association="ErmModel.FK_AdvertisementElementDenialReasons_AdvertisementElements">
@@ -5692,6 +5910,41 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_Letters" Association="ErmModel.FK_Letters">
             <End Role="LetterBase" EntitySet="LetterBases" />
             <End Role="LetterReference" EntitySet="LetterReferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_ClientLink" Association="ErmModel.FK_Client_ClientLink">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientLink" EntitySet="ClientLinks" />
+          </AssociationSet>
+          <EntitySet Name="DenormalizedClientLinks" EntityType="ErmModel.DenormalizedClientLink" />
+          <AssociationSet Name="FK_DenormalizedClientLinks_ChildClientId_Clients" Association="ErmModel.FK_DenormalizedClientLinks_ChildClientId_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="DenormalizedClientLink" EntitySet="DenormalizedClientLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DenormalizedClientLinks_MasterClientId_Clients" Association="ErmModel.FK_DenormalizedClientLinks_MasterClientId_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="DenormalizedClientLink" EntitySet="DenormalizedClientLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deals_Bargains" Association="ErmModel.FK_Deals_Bargains">
+            <End Role="Bargain" EntitySet="Bargains" />
+            <End Role="Deal" EntitySet="Deals" />
+          </AssociationSet>
+          <EntitySet Name="FirmDeals" EntityType="ErmModel.FirmDeal" />
+          <EntitySet Name="LegalPersonDeals" EntityType="ErmModel.LegalPersonDeal" />
+          <AssociationSet Name="FK_FirmDeals_Deals" Association="ErmModel.FK_FirmDeals_Deals">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="FirmDeal" EntitySet="FirmDeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalPersonDeals_Deals" Association="ErmModel.FK_LegalPersonDeals_Deals">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="LegalPersonDeal" EntitySet="LegalPersonDeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FirmDeals_Firms" Association="ErmModel.FK_FirmDeals_Firms">
+            <End Role="Firm" EntitySet="Firms" />
+            <End Role="FirmDeal" EntitySet="FirmDeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalPersonDeals_LegalPersons" Association="ErmModel.FK_LegalPersonDeals_LegalPersons">
+            <End Role="LegalPerson" EntitySet="LegalPersons" />
+            <End Role="LegalPersonDeal" EntitySet="LegalPersonDeals" />
           </AssociationSet>
       </EntityContainer>
       <EntityType Name="CurrencyRate">
@@ -6418,6 +6671,16 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="Firm" Relationship="ErmModel.FK_Deals_Firms" FromRole="Deal" ToRole="Firm" />
         <Property Type="Int32" Name="DealStage" Nullable="false" />
         <NavigationProperty Name="AfterSaleServiceActivities" Relationship="ErmModel.FK_AfterSaleServiceActivities_Deals" FromRole="Deal" ToRole="AfterSaleServiceActivity" />
+          <Property Name="BargainId" Type="Int64" />
+          <Property Name="AdvertisingCampaignBeginDate" Type="DateTime" Precision="2" />
+          <Property Name="AdvertisingCampaignEndDate" Type="DateTime" Precision="2" />
+          <Property Name="AdvertisingCampaignGoalText" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="AdvertisingCampaignGoals" Type="Int32" />
+          <Property Name="PaymentFormat" Type="Int32" />
+          <Property Name="AgencyFee" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Bargain" Relationship="ErmModel.FK_Deals_Bargains" FromRole="Deal" ToRole="Bargain" />
+          <NavigationProperty Name="FirmDeals" Relationship="ErmModel.FK_FirmDeals_Deals" FromRole="Deal" ToRole="FirmDeal" />
+          <NavigationProperty Name="LegalPersonDeals" Relationship="ErmModel.FK_LegalPersonDeals_Deals" FromRole="Deal" ToRole="LegalPersonDeal" />
       </EntityType>
       <Association Name="FK_Deals_Currencies">
         <End Type="ErmModel.Currency" Role="Currency" Multiplicity="1" />
@@ -6732,6 +6995,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="BargainEndDate" Type="DateTime" Precision="2" />
           <Property Name="BargainKind" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deals" Relationship="ErmModel.FK_Deals_Bargains" FromRole="Bargain" ToRole="Deal" />
       </EntityType>
       <EntityType Name="Price">
         <Key>
@@ -7842,6 +8106,9 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="Firms" Relationship="ErmModel.FK_Firms_Clients" FromRole="Client" ToRole="Firm" />
         <NavigationProperty Name="LegalPersons" Relationship="ErmModel.FK_LegalPersons_Clients" FromRole="Client" ToRole="LegalPerson" />
           <Property Name="IsAdvertisingAgency" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ChildClientLinks" Relationship="ErmModel.FK_ClientLinks_MasterClientId_Clients" FromRole="Client" ToRole="ClientLink" />
+          <NavigationProperty Name="DenormalizedLinksForClientAsChild" Relationship="ErmModel.FK_DenormalizedClientLinks_ChildClientId_Clients" FromRole="Client" ToRole="DenormalizedClientLink" />
+          <NavigationProperty Name="DenormalizedLinksForClientAsMaster" Relationship="ErmModel.FK_DenormalizedClientLinks_MasterClientId_Clients" FromRole="Client" ToRole="DenormalizedClientLink" />
       </EntityType>
       <Association Name="FK_Bargains_BranchOffices">
         <End Type="ErmModel.BranchOffice" Role="BranchOffice" Multiplicity="1" />
@@ -8083,6 +8350,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="FirmAddresses" Relationship="ErmModel.FK_FirmAddresses_Firms" FromRole="Firm" ToRole="FirmAddress" />
         <NavigationProperty Name="Territory" Relationship="ErmModel.FK_Firms_Territories" FromRole="Firm" ToRole="Territory" />
           <NavigationProperty Name="OrderProcessingRequests" Relationship="ErmModel.FK_OrderProcessingRequests_Firms" FromRole="Firm" ToRole="OrderProcessingRequest" />
+          <NavigationProperty Name="FirmDeals" Relationship="ErmModel.FK_FirmDeals_Firms" FromRole="Firm" ToRole="FirmDeal" />
       </EntityType>
       <Association Name="FK_Advertisements_Firms">
         <End Type="ErmModel.Firm" Role="Firm" Multiplicity="0..1" />
@@ -8959,6 +9227,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="String" Name="VAT" MaxLength="11" FixedLength="false" Unicode="true" />
         <Property Type="String" Name="CardNumber" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Ic" FixedLength="false" MaxLength="8" Unicode="true" Nullable="true" />
+          <NavigationProperty Name="LegalPersonDeals" Relationship="ErmModel.FK_LegalPersonDeals_LegalPersons" FromRole="LegalPerson" ToRole="LegalPersonDeal" />
       </EntityType>
       <Association Name="FK_Accounts_LegalPersons">
         <End Type="ErmModel.LegalPerson" Role="LegalPerson" Multiplicity="1" />
@@ -10042,6 +10311,97 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClientLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="MasterClientId" Type="Int64" Nullable="false" />
+          <Property Name="ChildClientId" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ChildClient" Relationship="ErmModel.FK_ClientLinks_ChildClientId_Clients" FromRole="ClientLink" ToRole="Client" />
+          <NavigationProperty Name="MasterClient" Relationship="ErmModel.FK_ClientLinks_MasterClientId_Clients" FromRole="ClientLink" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_ClientLinks_ChildClientId_Clients">
+          <End Type="ErmModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ErmModel.ClientLink" Role="ClientLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientLink">
+              <PropertyRef Name="ChildClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientLinks_MasterClientId_Clients">
+          <End Type="ErmModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ErmModel.ClientLink" Role="ClientLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientLink">
+              <PropertyRef Name="MasterClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_ClientLink">
+          <End Type="ErmModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ErmModel.ClientLink" Role="ClientLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientLink">
+              <PropertyRef Name="MasterClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DenormalizedClientLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="MasterClientId" Type="Int64" Nullable="false" />
+          <Property Name="ChildClientId" Type="Int64" Nullable="false" />
+          <Property Name="IsLinkedDirectly" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <NavigationProperty Name="ChildClient" Relationship="ErmModel.FK_DenormalizedClientLinks_ChildClientId_Clients" FromRole="DenormalizedClientLink" ToRole="Client" />
+          <NavigationProperty Name="MasterClient" Relationship="ErmModel.FK_DenormalizedClientLinks_MasterClientId_Clients" FromRole="DenormalizedClientLink" ToRole="Client" />
+          <Property Name="GraphKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DenormalizedClientLinks_ChildClientId_Clients">
+          <End Type="ErmModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ErmModel.DenormalizedClientLink" Role="DenormalizedClientLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DenormalizedClientLink">
+              <PropertyRef Name="ChildClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DenormalizedClientLinks_MasterClientId_Clients">
+          <End Type="ErmModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ErmModel.DenormalizedClientLink" Role="DenormalizedClientLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DenormalizedClientLink">
+              <PropertyRef Name="MasterClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Phonecalls">
           <End Type="ErmModel.PhonecallBase" Role="PhonecallBase" Multiplicity="1" />
           <End Type="ErmModel.PhonecallReference" Role="PhonecallReference" Multiplicity="*" />
@@ -10109,6 +10469,97 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Principal>
             <Dependent Role="LetterReference">
               <PropertyRef Name="LetterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deals_Bargains">
+          <End Type="ErmModel.Bargain" Role="Bargain" Multiplicity="0..1" />
+          <End Type="ErmModel.Deal" Role="Deal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bargain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deal">
+              <PropertyRef Name="BargainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FirmDeal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="FirmId" Type="Int64" Nullable="false" />
+          <Property Name="DealId" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Deal" Relationship="ErmModel.FK_FirmDeals_Deals" FromRole="FirmDeal" ToRole="Deal" />
+          <NavigationProperty Name="Firm" Relationship="ErmModel.FK_FirmDeals_Firms" FromRole="FirmDeal" ToRole="Firm" />
+        </EntityType>
+        <EntityType Name="LegalPersonDeal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="LegalPersonId" Type="Int64" Nullable="false" />
+          <Property Name="DealId" Type="Int64" Nullable="false" />
+          <Property Name="IsMain" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="2" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Deal" Relationship="ErmModel.FK_LegalPersonDeals_Deals" FromRole="LegalPersonDeal" ToRole="Deal" />
+          <NavigationProperty Name="LegalPerson" Relationship="ErmModel.FK_LegalPersonDeals_LegalPersons" FromRole="LegalPersonDeal" ToRole="LegalPerson" />
+        </EntityType>
+        <Association Name="FK_FirmDeals_Deals">
+          <End Type="ErmModel.Deal" Role="Deal" Multiplicity="1" />
+          <End Type="ErmModel.FirmDeal" Role="FirmDeal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FirmDeal">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegalPersonDeals_Deals">
+          <End Type="ErmModel.Deal" Role="Deal" Multiplicity="1" />
+          <End Type="ErmModel.LegalPersonDeal" Role="LegalPersonDeal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegalPersonDeal">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FirmDeals_Firms">
+          <End Type="ErmModel.Firm" Role="Firm" Multiplicity="1" />
+          <End Type="ErmModel.FirmDeal" Role="FirmDeal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FirmDeal">
+              <PropertyRef Name="FirmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegalPersonDeals_LegalPersons">
+          <End Type="ErmModel.LegalPerson" Role="LegalPerson" Multiplicity="1" />
+          <End Type="ErmModel.LegalPersonDeal" Role="LegalPersonDeal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LegalPerson">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegalPersonDeal">
+              <PropertyRef Name="LegalPersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -10525,6 +10976,13 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="Deals">
           <EntityTypeMapping TypeName="ErmModel.Deal">
             <MappingFragment StoreEntitySet="Deals">
+              <ScalarProperty Name="AgencyFee" ColumnName="AgencyFee" />
+                <ScalarProperty Name="PaymentFormat" ColumnName="PaymentFormat" />
+                <ScalarProperty Name="AdvertisingCampaignGoals" ColumnName="AdvertisingCampaignGoals" />
+                <ScalarProperty Name="AdvertisingCampaignGoalText" ColumnName="AdvertisingCampaignGoalText" />
+                <ScalarProperty Name="AdvertisingCampaignEndDate" ColumnName="AdvertisingCampaignEndDate" />
+                <ScalarProperty Name="AdvertisingCampaignBeginDate" ColumnName="AdvertisingCampaignBeginDate" />
+                <ScalarProperty Name="BargainId" ColumnName="BargainId" />
               <ScalarProperty Name="DealStage" ColumnName="DealStage" />
               <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
@@ -12371,6 +12829,35 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ClientLinks">
+            <EntityTypeMapping TypeName="ErmModel.ClientLink">
+              <MappingFragment StoreEntitySet="ClientLinks">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ChildClientId" ColumnName="ChildClientId" />
+                <ScalarProperty Name="MasterClientId" ColumnName="MasterClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DenormalizedClientLinks">
+            <EntityTypeMapping TypeName="ErmModel.DenormalizedClientLink">
+              <MappingFragment StoreEntitySet="DenormalizedClientLinks">
+                <ScalarProperty Name="GraphKey" ColumnName="GraphKey" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsLinkedDirectly" ColumnName="IsLinkedDirectly" />
+                <ScalarProperty Name="ChildClientId" ColumnName="ChildClientId" />
+                <ScalarProperty Name="MasterClientId" ColumnName="MasterClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TaskReferences">
             <EntityTypeMapping TypeName="ErmModel.TaskReference">
               <MappingFragment StoreEntitySet="TaskReferences">
@@ -12409,6 +12896,35 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
                 <ScalarProperty Name="ReferencedType" ColumnName="ReferencedType" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
                 <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FirmDeals">
+            <EntityTypeMapping TypeName="ErmModel.FirmDeal">
+              <MappingFragment StoreEntitySet="FirmDeals">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DealId" ColumnName="DealId" />
+                <ScalarProperty Name="FirmId" ColumnName="FirmId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LegalPersonDeals">
+            <EntityTypeMapping TypeName="ErmModel.LegalPersonDeal">
+              <MappingFragment StoreEntitySet="LegalPersonDeals">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+                <ScalarProperty Name="DealId" ColumnName="DealId" />
+                <ScalarProperty Name="LegalPersonId" ColumnName="LegalPersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -165,6 +165,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Deal = 199
         public const int GenerateDealNameIdentity = 19901;
+        public const int SetMainLegalPersonForDealIdentity = 19902;
 
         // EntityName.Charge = 226
         public const int ImportChargesInfoIdentity = 22601;
@@ -231,5 +232,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Activity = 500
         public const int CheckRelatedActivitiesIdentity = 50001;
+
+        // EntityName.ClientLink = 609
+        public const int UpdateOrganizationStructureDenormalization = 60901;
     }
 }

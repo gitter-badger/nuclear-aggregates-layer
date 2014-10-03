@@ -294,6 +294,21 @@
         <edmx:EntityTypeShape EntityType="ErmModel.LetterBase" Width="1.5" PointX="21.375" PointY="15" />
         <edmx:EntityTypeShape EntityType="ErmModel.LetterReference" Width="1.5" PointX="23.625" PointY="16.25" />
         <edmx:AssociationConnector Association="ErmModel.FK_Letters" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ClientLink" Width="1.5" PointX="18" PointY="98" />
+        <edmx:AssociationConnector Association="ErmModel.FK_ClientLinks_ChildClientId_Clients" />
+        <edmx:AssociationConnector Association="ErmModel.FK_ClientLinks_MasterClientId_Clients" />
+        <edmx:EntityTypeShape EntityType="ErmModel.DenormalizedClientLink" Width="1.5" PointX="18" PointY="102.125" />
+        <edmx:AssociationConnector Association="ErmModel.FK_DenormalizedClientLinks_ChildClientId_Clients" />
+        <edmx:AssociationConnector Association="ErmModel.FK_DenormalizedClientLinks_MasterClientId_Clients" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Deals_Bargains" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Deals_CustomerLegalPersons" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Deals_PayerLegalPersons" />
+        <edmx:EntityTypeShape EntityType="ErmModel.FirmDeal" Width="1.5" PointX="30.25" PointY="72.875" />
+        <edmx:EntityTypeShape EntityType="ErmModel.LegalPersonDeal" Width="1.5" PointX="23.25" PointY="102.25" />
+        <edmx:AssociationConnector Association="ErmModel.FK_FirmDeals_Deals" />
+        <edmx:AssociationConnector Association="ErmModel.FK_LegalPersonDeals_Deals" />
+        <edmx:AssociationConnector Association="ErmModel.FK_FirmDeals_Firms" />
+        <edmx:AssociationConnector Association="ErmModel.FK_LegalPersonDeals_LegalPersons" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
