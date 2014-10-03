@@ -132,6 +132,8 @@
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardServiceSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\Russia\EditIsAdvertisingAgencyViewModelCustomizationSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\WarnLinkToAdvAgencyExistsVmCustomizationSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.Common.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonProfileViewModelSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonViewModelSpecs.cs" />
@@ -157,7 +159,6 @@
     <Compile Include="ApplicationServices\Operations.Global\Shared\CyprusFormatterSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\CzechFormatterSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\RussianFormatterSpecs.cs" />
-    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\Russia\ClientViewModelCustomizationServiceSpecs.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,6 +248,10 @@
     <ProjectReference Include="..\..\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
       <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
       <Name>2Gis.Erm.BLFlex.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{CB20D7AE-1EAA-4A35-A667-C9BF86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

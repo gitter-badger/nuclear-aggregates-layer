@@ -437,6 +437,9 @@ Bank Name: {7}
   <data name="PositionNameFormatThemeMultiple" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>С данным клиентом работает рекламное агентство:</value>
+  </data>
   <data name="PositionNameFormatCompositeDetalization" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>

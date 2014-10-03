@@ -89,9 +89,7 @@
             @Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                                    {
                                                                                        EntityName = EntityName.LegalPerson,
-                                                                                       ExtendedInfo = "filterToParent=true",
-                                                                                       ParentEntityName = EntityName.Client,
-                                                                                       ParentIdPattern = "ClientId",
+                                                                                       ExtendedInfo = "dealId={DealId}"
                                                                                    })
         </div>
         <div class="row-wrapper">

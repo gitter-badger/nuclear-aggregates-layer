@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         [RequiredLocalized]
         public override LookupField Owner { get; set; }
-        
+
         public override bool IsSecurityRoot
         {
             get
