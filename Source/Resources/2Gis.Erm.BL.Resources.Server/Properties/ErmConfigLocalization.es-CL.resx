@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Cambiar de supervisor</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Preparar los documentos regionales para publicar</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Cambiar de cliente</value>
   </data>
@@ -637,6 +634,9 @@
     <value>Sucursales de la entidad</value>
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value>Sucursal de la entidad</value>
+  </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
     <value>Sucursal de la entidad</value>
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">

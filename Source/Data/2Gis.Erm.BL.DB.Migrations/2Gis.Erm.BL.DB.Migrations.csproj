@@ -58,6 +58,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.09.10 rev. 23921 - CRM order customization.cs" />
     <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization - Copy.cs" />
     <Compile Include="2.1\2014.08.14 rev. 23210 - alter some columns length.cs" />
     <Compile Include="2.1\2014.08.11 rev. 23049 - Alter BOS.cs" />
@@ -143,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\customizations_23209.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_23921.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

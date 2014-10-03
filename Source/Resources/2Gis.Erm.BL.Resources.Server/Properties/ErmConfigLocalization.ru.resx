@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Сменить куратора</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Сформировать региональные печатные формы</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Сменить клиента</value>
   </data>
@@ -637,6 +634,9 @@
     <value>Отделения организации</value>
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value>Отделение организации</value>
+  </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
     <value>Отделение организации</value>
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">

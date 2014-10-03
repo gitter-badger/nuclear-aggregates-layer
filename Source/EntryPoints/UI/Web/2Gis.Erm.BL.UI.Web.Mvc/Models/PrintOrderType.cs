@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
+﻿using System;
+
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
     public enum PrintOrderType
     {
@@ -6,7 +8,7 @@
         /// Заказ
         /// </summary>
         PrintOrder,
-        PrintRegionalOrder,
+        [Obsolete] PrintRegionalOrder,
         PrintBargain,
         PrintSingleBill,
         PrintOrderBills,
@@ -17,7 +19,7 @@
         PrintRegionalTerminationNotice,
         PrintAdditionalAgreement,
         PrintBargainAdditionalAgreement,
-        PrintReferenceInformation,
+        [Obsolete] PrintReferenceInformation,
         PrepareJointBill,
         PrintLetterOfGuarantee,
         PrintNewSalesModelBargain,

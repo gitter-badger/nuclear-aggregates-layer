@@ -39,17 +39,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IOrderReadModel _orderReadModel;
         private readonly ProfileChooseHelper _profileChooseHelper;
 
-        public PrintController(IMsCrmSettings msCrmSettings, 
-            IUserContext userContext, 
-            ICommonLog logger, 
-            IAPIOperationsServiceSettings operationsServiceSettings,
+        public PrintController(IMsCrmSettings msCrmSettings,
+                               IUserContext userContext,
+                               ICommonLog logger,
+                               IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-            IGetBaseCurrencyService getBaseCurrencyService,
-            IPublicService publicService,
-            ISecureFinder secureFinder,
-            IOrderReadModel orderReadModel,
-            ILegalPersonReadModel legalPersonReadModel,
-            ISecurityServiceEntityAccess securityServiceEntityAccess)
+                               IGetBaseCurrencyService getBaseCurrencyService,
+                               IPublicService publicService,
+                               ISecureFinder secureFinder,
+                               IOrderReadModel orderReadModel,
+                               ILegalPersonReadModel legalPersonReadModel,
+                               ISecurityServiceEntityAccess securityServiceEntityAccess)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -181,26 +181,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             return
                 TryPrintDocument(order.Id, profileId, new PrintBillRequest { Id = id, LegalPersonProfileId = profileId }, true);
-        }
-
-        [HttpGet]
-        public ActionResult PrintReferenceInformation(long id, long profileId)
-        {
-            return
-                TryPrintDocument(id, profileId, new PrintReferenceInformationRequest { OrderId = id, LegalPersonProfileId = profileId }, true);
-        }
-
-        [HttpGet]
-        public ActionResult PrintRegionalOrder(long id, long profileId)
-        {
-            return
-                TryPrintDocument(id, profileId, new PrintRegionalOrderRequest { OrderId = id, LegalPersonProfileId = profileId }, true);
-        }
-
-        [HttpGet]
-        public ActionResult PrintBargainProlongationAgreement(long id, long profileId)
-        {
-            return TryPrintDocument(id, profileId, new PrintBargainProlongationAgreementRequest { BargainId = id, LegalPersonProfileId = profileId }, false);
         }
 
         [HttpGet]
