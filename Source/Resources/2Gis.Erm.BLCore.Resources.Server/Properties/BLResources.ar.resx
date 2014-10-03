@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>This document does not suit for this type of legal entity</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>The main company for the opportunity is not found</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Return the client to the reserve</value>
   </data>
@@ -1188,7 +1185,7 @@ Locking errors:{2}</value>
     <value>Skype IDs</value>
   </data>
   <data name="AccountOperationLetterSubject" xml:space="preserve">
-    <value>Уведомление об изменении баланса лицевого счета клиента</value>
+    <value>Notification of a change in the personal account balance</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>The privilege "Mass check of the order" is required in order to start the operation</value>
@@ -1432,9 +1429,6 @@ Locking errors:{2}</value>
   </data>
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value>Errors were found during message(s) processing See the log for detailed information. Number of errors: {0}</value>
-  </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value>Placement of information by the Customer in more than five categories shall be paid according to the current Price-list of respective electronic media.</value>
   </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value>A contract can be created only via an order card.</value>
@@ -1710,9 +1704,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Cannot start light building, please perform building through Export client</value>
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
-    <value>Formation of regional advertising {0} for {1}</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>Initial value</value>
@@ -2164,9 +2155,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;empty address&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>The linked client for opportunity is not found</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>Change of limit status to status '{0}' can be done only from in the following states: '{1}'</value>
   </data>
@@ -2401,9 +2389,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="AssignCategory" xml:space="preserve">
     <value>Assign category</value>
   </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>It is necessary to specify a Client.</value>
-  </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>Cannot start recovery operation, the previous build is not found</value>
   </data>
@@ -2516,13 +2501,13 @@ Total number of records: {2}, {3} records processed successfully.</value>
     <value>Cannot deactivate a prohibited item from a published price-list</value>
   </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
-    <value>Юридическое лицо клиента: {0}.
-Юридическое лицо исполнителя: {1}.
-Лицевой счет: {2}.
-Название операции: {3}.
-Тип операции: {4}.
-Cумма по операции: {5}.
-Операция проведена: {6}.</value>
+    <value>Legal entity of the client: {0}.
+Legal entity of the contractor: {1}.
+Personal account: {2}.
+Name of operation: {3}.
+Type of operation: {4}.
+Operation‎ amount: {5}.
+The operation has been executed: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Please close all active actions with this object</value>
@@ -2878,9 +2863,6 @@ Cумма по операции: {5}.
   <data name="Modified" xml:space="preserve">
     <value>Modified</value>
   </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value>Final assembly has not been made in the source-city.</value>
-  </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value>Recover at failure</value>
   </data>
@@ -3022,9 +3004,6 @@ Cумма по операции: {5}.
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value>No orders satisfying the set conditions are found</value>
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value>Feedbacks: The link to feedback about the company at Flamp.ru is not published in the card</value>
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value>Incorrect amount of limit is specified.</value>
   </data>
@@ -3087,9 +3066,6 @@ Cумма по операции: {5}.
   </data>
   <data name="RenderFn" xml:space="preserve">
     <value>Format function</value>
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
-    <value>Feedbacks: A link to feedback about the company at Flamp.ru is published in the card</value>
   </data>
   <data name="Approved" xml:space="preserve">
     <value>Approved</value>
@@ -3964,9 +3940,6 @@ Cумма по операции: {5}.
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value>Check for sufficient money funds available on personal accounts for orders placement</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value>The Customer realizes that volume of information displayed on Internet-sites and/or web-applications could be limited by their owners.  Information about name, address, telephone, and related advertising are mandatory.</value>
-  </data>
   <data name="AmountLocked" xml:space="preserve">
     <value>On hold</value>
   </data>
@@ -4166,9 +4139,6 @@ Cумма по операции: {5}.
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
     <value>Version field is too long</value>
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
-    <value>Platform of the order is not defined. It is necessary to create an order item.</value>
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
     <value>The element &lt;greater&gt; is formed incorrectly</value>

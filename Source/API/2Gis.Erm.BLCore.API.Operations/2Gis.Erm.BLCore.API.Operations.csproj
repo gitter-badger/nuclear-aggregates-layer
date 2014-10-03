@@ -171,7 +171,6 @@
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
     <Compile Include="Concrete\Old\OrderPositions\NewSalesModelNotEnabledForCategoryOrOrganizationUnitException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsService.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\OrderPositionAdvertisementValidationError.cs" />
@@ -331,7 +330,6 @@
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementRequest.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementResponse.cs" />
     <Compile Include="Concrete\Old\Orders\OrderShortInfo.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\MakeRegionalAdsDocsRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintAdditionalAgreementTarget.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintDocumentRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeRequest.cs" />
@@ -342,7 +340,6 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeRequest.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedRequest.cs" />

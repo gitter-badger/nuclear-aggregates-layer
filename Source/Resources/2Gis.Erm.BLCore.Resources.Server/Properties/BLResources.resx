@@ -867,9 +867,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value />
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value />
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value />
   </data>
@@ -1431,9 +1428,6 @@
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value />
-  </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value />
   </data>
@@ -1705,9 +1699,6 @@
     <value />
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
     <value />
   </data>
   <data name="OriginalValue" xml:space="preserve">
@@ -2160,9 +2151,6 @@
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value />
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value />
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value />
   </data>
@@ -2395,9 +2383,6 @@
     <value />
   </data>
   <data name="AssignCategory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
     <value />
   </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
@@ -2868,9 +2853,6 @@
   <data name="Modified" xml:space="preserve">
     <value />
   </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value />
-  </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value />
   </data>
@@ -3012,9 +2994,6 @@
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value />
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value />
   </data>
@@ -3076,9 +3055,6 @@
     <value />
   </data>
   <data name="RenderFn" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
     <value />
   </data>
   <data name="Approved" xml:space="preserve">
@@ -3954,9 +3930,6 @@
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value />
-  </data>
   <data name="AmountLocked" xml:space="preserve">
     <value />
   </data>
@@ -4153,9 +4126,6 @@
     <value />
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
     <value />
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
