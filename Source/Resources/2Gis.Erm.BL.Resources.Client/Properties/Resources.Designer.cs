@@ -1341,6 +1341,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string LegalPersonIsAlreadyMain {
+            get {
+                return ResourceManager.GetString("LegalPersonIsAlreadyMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string LegalPersonProfileIsAlreadyMain {
             get {
                 return ResourceManager.GetString("LegalPersonProfileIsAlreadyMain", resourceCulture);

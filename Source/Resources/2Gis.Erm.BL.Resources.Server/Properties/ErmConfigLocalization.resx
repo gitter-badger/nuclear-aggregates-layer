@@ -1734,6 +1734,9 @@
   <data name="DListClientsWithOutdatedWarmClientTask" xml:space="preserve">
     <value />
   </data>
+  <data name="DListClientsAvailableForLinking" xml:space="preserve">
+    <value />
+  </data>
   <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
     <value />
   </data>
@@ -1847,6 +1850,24 @@
     <value />
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CrdRelClientLinks" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DListClientLinks" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DListClientLinksDeleted" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DListClientLinksMaster" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlMakeMain" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value />
   </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
