@@ -384,6 +384,9 @@
   <data name="VerificationTitle" xml:space="preserve">
     <value />
   </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value />
+  </data>
   <data name="QuotedValue" xml:space="preserve">
     <value />
   </data>
