@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
                 return;
             }
 
+            _elasticApi.Refresh<MigrationDoc>();
             var hits = _elasticApi.Scroll<MigrationDoc>(x => x.MatchAll());
             foreach (var hit in hits)
             {
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
 
         public void SaveVersionInfo(long version)
         {
-            _elasticApi.Index(new MigrationDoc(), i => i.Id(version.ToString()));
+            _elasticApi.Create(new MigrationDoc(), version.ToString());
         }
     }
 }

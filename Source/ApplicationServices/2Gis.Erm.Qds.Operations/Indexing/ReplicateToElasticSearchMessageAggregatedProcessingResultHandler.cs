@@ -13,15 +13,18 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class ReplicateToElasticSearchMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
-        private readonly IDocumentUpdater _documentUpdater;
         private readonly ICommonLog _logger;
+        private readonly IDocumentUpdater _documentUpdater;
+        private readonly ReplicationQueueHelper _replicationQueueHelper;
 
         public ReplicateToElasticSearchMessageAggregatedProcessingResultHandler(
+            ICommonLog logger,
             IDocumentUpdater documentUpdater,
-            ICommonLog logger)
+            ReplicationQueueHelper replicationQueueHelper)
         {
-            _documentUpdater = documentUpdater;
             _logger = logger;
+            _documentUpdater = documentUpdater;
+            _replicationQueueHelper = replicationQueueHelper;
         }
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
@@ -61,9 +64,20 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         private bool TryReplicate(Tuple<Guid, ReplicateToElasticSearchPrimaryProcessingResultsMessage> tuple)
         {
+            if (!tuple.Item2.EntityLinks.Any())
+            {
+                return true;
+            }
+
+            // приостанавливаем фоновую репликацию если идёт массовая
+            if (_replicationQueueHelper.QueueCount() != 0)
+            {
+                return false;
+            }
+
             try
             {
-                _documentUpdater.IndexDocuments(tuple.Item2.EntityLinks);
+                _documentUpdater.IndexDocuments(tuple.Item2.EntityLinks);                    
             }
             catch (Exception ex)
             {

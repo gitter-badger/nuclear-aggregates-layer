@@ -38,11 +38,11 @@
   <ItemGroup>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.1.1\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
-      <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.1.0.1\lib\Nest.dll</HintPath>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\NEST.1.1.1\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -63,9 +63,7 @@
     <Compile Include="ElasticApi.cs" />
     <Compile Include="Settings\INestSettings.cs" />
     <Compile Include="Settings\NestSettingsAspect.cs" />
-    <Compile Include="Settings\NestSettingsAspectUtils.cs" />
     <Compile Include="Settings\Protocol.cs" />
-    <Compile Include="WindowsAuthHttpConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -75,10 +73,6 @@
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
-      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
-      <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

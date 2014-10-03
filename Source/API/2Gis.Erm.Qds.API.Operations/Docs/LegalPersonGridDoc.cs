@@ -18,8 +18,8 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
         public bool? IsDeleted { get; set; }
 
         // relations
-        //public string ClientId { get; set; }
-        //public string ClientName { get; set; }
+        public string ClientId { get; set; }
+        public string ClientName { get; set; }
         public string OwnerCode { get; set; }
         public string OwnerName { get; set; }
 

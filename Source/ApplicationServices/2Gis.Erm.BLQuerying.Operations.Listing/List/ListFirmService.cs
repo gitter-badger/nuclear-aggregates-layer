@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -60,57 +58,17 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && y.OrderType == (int)OrderType.SelfAds);
             });
 
-            var reserveFilter = querySettings.CreateForExtendedProperty<Firm, bool>("ForReserve", info =>
-            {
-                var reserveId = _userIdentifierService.GetReserveUserIdentity().Code;
-                return x => x.OwnerCode == reserveId;
-            });
-
-            var myFilter = querySettings.CreateForExtendedProperty<Firm, bool>("ForMe", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var createdInCurrentMonthFilter = querySettings.CreateForExtendedProperty<Firm, bool>(
-                "CreatedInCurrentMonth",
-                createdInCurrentMonth =>
-                    {
-                        if (!createdInCurrentMonth)
-                        {
-                            return null;
-                        }
-
-                        var nextMonth = DateTime.Now.AddMonths(1);
-                        nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
-
-                        var currentMonthLastDate = nextMonth.AddSeconds(-1);
-                        var currentMonthFirstDate = new DateTime(currentMonthLastDate.Year, currentMonthLastDate.Month, 1);
-
-                        return x => x.CreatedOn >= currentMonthFirstDate && x.CreatedOn <= currentMonthLastDate;
-                    });
-
-            var organizationUnitFilter = querySettings.CreateForExtendedProperty<Firm, long>(
-                "organizationUnitId", organizationUnitId => x => x.OrganizationUnitId == organizationUnitId);
-
-            var clientFilter = querySettings.CreateForExtendedProperty<Firm, long>(
-                "clientId", clientId => x => x.ClientId == clientId);
-
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper,
-                    clientFilter,
-                    createdInCurrentMonthFilter,
-                    organizationUnitFilter,
                     myTerritoryFilter,
                     myBranchFilter,
-                    selfAdsOrdersFilter,
-                    reserveFilter,
-                    myFilter)
+                    selfAdsOrdersFilter)
                 .Select(x => new ListFirmDto
                     {
                         Id = x.Id,
                         Name = x.Name,
+                        CreatedOn = x.CreatedOn,
 
                         ClientId = x.Client != null ? x.Client.Id : (long?)null,
                         ClientName = x.Client != null ? x.Client.Name : null,
@@ -131,12 +89,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         ClosedForAscertainment = x.ClosedForAscertainment,
                         OwnerName = null,
                     })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListFirmDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

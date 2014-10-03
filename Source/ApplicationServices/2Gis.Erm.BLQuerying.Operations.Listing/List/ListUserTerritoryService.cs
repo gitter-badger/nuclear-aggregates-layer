@@ -30,8 +30,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 Id = x.Id,
                 TerritoryId = x.TerritoryId,
                 TerritoryName = x.TerritoryDto.Name,
-                IsDeleted = x.IsDeleted,
                 UserId = x.UserId,
+                TerritoryIsActive = x.TerritoryDto != null,
+                IsDeleted = x.IsDeleted,
             })
             .QuerySettings(_filterHelper, querySettings);
 
