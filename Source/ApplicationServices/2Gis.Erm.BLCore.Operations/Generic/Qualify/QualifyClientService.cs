@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -21,6 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly IClientRepository _clientRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IClientReadModel _readModel;
         private readonly ICommonLog _logger;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
@@ -36,7 +40,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             IClientRepository clientRepository,
             ISecurityServiceUserIdentifier userIdentifierService,
             IOperationScopeFactory scopeFactory,
-            ICommonLog logger,
             IAppointmentReadModel appointmentReadModel,
             ILetterReadModel letterReadModel,
             IPhonecallReadModel phonecallReadModel,
@@ -44,13 +47,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             IAssignAppointmentAggregateService assignAppointmentAggregateService,
             IAssignLetterAggregateService assignLetterAggregateService,
             IAssignPhonecallAggregateService assignPhonecallAggregateService,
-            IAssignTaskAggregateService assignTaskAggregateService
-            )
+            IAssignTaskAggregateService assignTaskAggregateService,
+            IClientReadModel readModel,
+            ICommonLog logger)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;
             _userIdentifierService = userIdentifierService;
             _scopeFactory = scopeFactory;
+            _readModel = readModel;
             _logger = logger;
             _appointmentReadModel = appointmentReadModel;
             _letterReadModel = letterReadModel;
@@ -81,7 +86,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
             _logger.InfoFormatEx("[ERM] Клиент с id={0} взят из резерва, с назначением пользователю с id={1}", entityId, ownerCode);
 
-            return new QualifyResult();
+            return new QualifyResult
+                {
+                    EntityId = entityId,
+                    RelatedEntityId = relatedEntityId,
+                    Message = CreateMessageWhenHasParentAdAgency(entityId)
+                };
+        }
+
+        private string CreateMessageWhenHasParentAdAgency(long entityId)
+        {
+            var agencyNames = string.Join("; ", _readModel.GetMasterAdvertisingAgencies(entityId).Select(ad => ad.Name));
+
+            if (string.IsNullOrEmpty(agencyNames))
+            {
+                return string.Empty;
+            }
+
+            var client = _readModel.GetClient(entityId);
+            return string.Format(BLResources.ClientFromReserveHasParentAdAgency, client.Name, agencyNames);
         }
 
         private void AssignRelatedActivities(long clientId, long newOwnerCode)

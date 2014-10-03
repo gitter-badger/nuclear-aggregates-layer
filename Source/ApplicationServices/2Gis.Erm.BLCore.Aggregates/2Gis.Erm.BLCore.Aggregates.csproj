@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -102,13 +103,19 @@
     <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
     <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
+    <Compile Include="Clients\Operations\DeleteClientLinkAggregateService.cs" />
+    <Compile Include="Clients\Operations\CreateClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\DetachClientFromFirmAggregateService.cs" />
+    <Compile Include="Clients\Operations\GraphDenormalizationExtensions.cs" />
     <Compile Include="Clients\Operations\UpdateClientAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientReadModel.cs" />
     <Compile Include="Deals\Operations\CreateDealAggregateService.cs" />
     <Compile Include="Deals\Operations\DetachDealFromFirmAggregateService.cs" />
+    <Compile Include="Deals\Operations\UpdateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\CreateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\CreateFirmDealAggregateService.cs" />
     <Compile Include="DI\BlCoreAggregatesAssembly.cs" />
     <Compile Include="BranchOffices\Operations\CreateBranchOfficeAggregateService.cs" />
     <Compile Include="BranchOffices\Operations\DeleteBranchOfficeAggregateService.cs" />

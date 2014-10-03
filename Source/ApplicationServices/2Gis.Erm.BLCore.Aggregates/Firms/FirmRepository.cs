@@ -136,8 +136,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                     throw new SecurityException(BLResources.QualifyReserveOperationDenied);
 
                 case ReserveAccess.Territory:
-                    var hasTerritories =
-                        _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode && x.TerritoryId == firm.TerritoryId).Any();
+                    var hasTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode && x.TerritoryId == firm.TerritoryId).Any();
                     if (!hasTerritories)
                     {
                         throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisTerritory);
@@ -145,16 +144,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
                     break;
                 case ReserveAccess.OrganizationUnit:
-                {
-                    var hasFirmOrgUnitOrTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
-                                                                                                          (x.OrganizationUnitId == firm.OrganizationUnitId ||
-                                                                                                           x.TerritoryId == firm.TerritoryId))
-                                                             .Any();
-                    if (!hasFirmOrgUnitOrTerritories)
                     {
-                        throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisOrgUnit);
+                        var hasFirmOrgUnitOrTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
+                                                                                                              (x.OrganizationUnitId == firm.OrganizationUnitId ||
+                                                                                                               x.TerritoryId == firm.TerritoryId))
+                                                                 .Any();
+                        if (!hasFirmOrgUnitOrTerritories)
+                        {
+                            throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisOrgUnit);
+                        }
                     }
-                }
 
                     break;
                 case ReserveAccess.Full:

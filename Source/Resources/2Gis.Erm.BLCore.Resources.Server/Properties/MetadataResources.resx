@@ -1416,4 +1416,49 @@
     <value>Отправитель</value>
     <comment>От кого направлено действие, например, письмо.</comment>
   </data>
+  <data name="NameOfChildClient" xml:space="preserve">
+    <value>Дочерний клиент</value>
+  </data>
+  <data name="NameOfMasterClient" xml:space="preserve">
+    <value>Родительский клиент</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
+    <value>Начало рекламной кампании</value>
+  </data>
+  <data name="AdvertisingCampaignEndDate" xml:space="preserve">
+    <value>Окончание рекламной кампании</value>
+  </data>
+  <data name="AdvertisingCampaignGoalText" xml:space="preserve">
+    <value>Цели</value>
+  </data>
+  <data name="AgencyFee" xml:space="preserve">
+    <value>Агентское вознаграждение</value>
+  </data>
+  <data name="AttractAudienceToSiteGoal" xml:space="preserve">
+    <value>Привлечение ЦА на сайт клиента</value>
+  </data>
+  <data name="CustomerLegalPerson" xml:space="preserve">
+    <value>Юр. лицо заказчика</value>
+  </data>
+  <data name="IncreaseBrandAwarenessGoal" xml:space="preserve">
+    <value>Увеличение узнаваемости ТМ</value>
+  </data>
+  <data name="IncreasePhoneCallsGoal" xml:space="preserve">
+    <value>Увеличение количества звонков</value>
+  </data>
+  <data name="IncreaseSalesGoal" xml:space="preserve">
+    <value>Увеличение продаж/заявок</value>
+  </data>
+  <data name="PayerLegalPerson" xml:space="preserve">
+    <value>Юр. лицо плательщика</value>
+  </data>
+  <data name="PaymentFormat" xml:space="preserve">
+    <value>Формат оплаты</value>
+  </data>
+  <data name="DListActiveFirmsForDeal" xml:space="preserve">
+    <value>Активные фирмы</value>
+  </data>
+  <data name="DListInactiveFirmsForDeal" xml:space="preserve">
+    <value>Удаленные связи</value>
+  </data>
 </root>

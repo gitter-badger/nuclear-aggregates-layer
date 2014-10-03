@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private readonly IRepository<Appointment> _appointmentRepository;
         private readonly IRepository<Phonecall> _phonecallRepository;
         private readonly IRepository<Task> _taskRepository;
-	    private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IClientPersistenceService _clientPersistenceService;
         private readonly ISecureFinder _secureFinder;
@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _appointmentRepository = appointmentRepository;
             _phonecallRepository = phonecallRepository;
             _taskRepository = taskRepository;
-	        _functionalAccessService = functionalAccessService;
+            _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
             _userContext = userContext;
             _secureFinder = secureFinder;
@@ -307,12 +307,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     throw new ArgumentException(BLResources.QualifyClientMustInReserve);
                 }
 
-                var reserveRights =
-                    GetMaxAccessForReserve(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.ReserveAccess, currentUserCode));
+                var reserveRights = GetMaxAccessForReserve(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.ReserveAccess, currentUserCode));
                 switch (reserveRights)
                 {
                     case ReserveAccess.None:
                         throw new ArgumentException(BLResources.QualifyReserveOperationDenied);
+
                     case ReserveAccess.Territory:
                     {
                         var withinTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
@@ -573,7 +573,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 scope.ApplyChanges<Client>(changedEntities)
                      .Complete();
-        }
+            }
         }
 
         public void CreateOrUpdate(Contact contact)
@@ -800,6 +800,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                     break;
             }
-        }
+            }
     }
 }

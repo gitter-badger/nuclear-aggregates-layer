@@ -224,6 +224,8 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.08.26 rev. 23589 - Extend DenormalizedClientLinks table.cs" />
+    <Compile Include="2.1\2014.08.18 rev. 23404 - Create DenormalizedClientLinks table.cs" />
     <Compile Include="2.1\2014.09.01 rev. 23822 - update order, orderposition replication.cs" />
     <Compile Include="2.1\2014.09.01 rev. 23820 - Add discount value in MsCRM order position.cs" />
     <Compile Include="2.1\2014.09.01 rev. 23819 - Add discount value in MsCRM order.cs" />
@@ -807,6 +809,7 @@
     <Compile Include="0.15 - HangzhouBay\2012.11.22 rev. 5260 Add ProcessingTime column into LocalMessages.cs" />
     <Compile Include="0.15 - HangzhouBay\2012.11.30 rev. 5419 alter impotFim and updateBuilding SPs.cs" />
     <Compile Include="0.18\2013.06.14 rev. 9337 - Alter AdvertisementElements.cs" />
+    <Compile Include="2.1\2014.07.24 rev. 22717 - Create ClientLinks table.cs" />
     <None Include="Resources\DoubleGis.Erm.SqlClr.dll" />
   </ItemGroup>
   <ItemGroup>

@@ -1618,11 +1618,29 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Связь фирмы со сделкой.
+        /// </summary>
+        public static string EntityNameFirmDeal {
+            get {
+                return ResourceManager.GetString("EntityNameFirmDeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Юр. лицо клиента.
         /// </summary>
         public static string EntityNameLegalPerson {
             get {
                 return ResourceManager.GetString("EntityNameLegalPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Связь юр. лица со сделкой.
+        /// </summary>
+        public static string EntityNameLegalPersonDeal {
+            get {
+                return ResourceManager.GetString("EntityNameLegalPersonDeal", resourceCulture);
             }
         }
         
@@ -4242,6 +4260,42 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OutCityBranchesAmountNone {
             get {
                 return ResourceManager.GetString("OutCityBranchesAmountNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отсрочка.
+        /// </summary>
+        public static string PaymentFormatDeferredPayment {
+            get {
+                return ResourceManager.GetString("PaymentFormatDeferredPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Рассрочка.
+        /// </summary>
+        public static string PaymentFormatPaymentByInstalments {
+            get {
+                return ResourceManager.GetString("PaymentFormatPaymentByInstalments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Постоплата.
+        /// </summary>
+        public static string PaymentFormatPostpay {
+            get {
+                return ResourceManager.GetString("PaymentFormatPostpay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Предоплата.
+        /// </summary>
+        public static string PaymentFormatPrepayment {
+            get {
+                return ResourceManager.GetString("PaymentFormatPrepayment", resourceCulture);
             }
         }
         

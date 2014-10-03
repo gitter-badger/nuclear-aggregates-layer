@@ -12,5 +12,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel
         bool HasOrders(long dealId);
         IEnumerable<DealActualizeDuringWithdrawalDto> GetInfoForWithdrawal(IEnumerable<long> dealIds);
         IEnumerable<Deal> GetDealsByMainFirmIds(IEnumerable<long> mainFirmIds);
+        DealAndFirmNamesDto GetRelatedDealAndFirmNames(long dealId, long firmId);
+        DealAndLegalPersonNamesDto GetRelatedDealAndLegalPersonNames(long dealId, long legalPersonId);
+        bool AreThereAnyLegalPersonsForDeal(long dealId);
+        LegalPersonDeal GetMainLegalPersonForDeal(long dealId);
+        LegalPersonDeal GetLegalPersonDeal(long dealId, long legalPersonId);
     }
 }

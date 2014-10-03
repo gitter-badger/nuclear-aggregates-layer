@@ -210,6 +210,8 @@
     <Compile Include="Models\WithdrawalInfoViewModel.cs" />
     <Compile Include="Models\WithdrawalRevertDialogViewModel.cs" />
     <Compile Include="Security\WebCookieSignInService.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomizationProvider.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LocalMessageViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\NullViewModelCustomizationService.cs" />

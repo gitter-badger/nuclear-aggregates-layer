@@ -5088,6 +5088,48 @@
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value />
   </data>
+  <data name="AdvertisingCampaign" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DetailsForOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisingCampaignGoals" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvertisingCampaignPeriod" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
+    <value />
+  </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
     <value />
   </data>

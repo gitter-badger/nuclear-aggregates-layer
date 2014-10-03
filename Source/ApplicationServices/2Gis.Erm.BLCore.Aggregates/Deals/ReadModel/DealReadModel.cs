@@ -46,5 +46,44 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel
         {
             return _finder.Find(DealSpecs.Deals.Find.ByMainFirms(mainFirmIds)).ToArray();
         } 
+
+        public DealAndFirmNamesDto GetRelatedDealAndFirmNames(long dealId, long firmId)
+        {
+            return _finder.Find(DealSpecs.FirmDeals.Find.ByDealAndFirmIds(dealId, firmId) && Specs.Find.NotDeleted<FirmDeal>())
+                          .Select(x => new DealAndFirmNamesDto
+                              {
+                                  DealName = x.Deal.Name,
+                                  FirmName = x.Firm.Name
+                              })
+                          .FirstOrDefault();
+        }
+
+        public DealAndLegalPersonNamesDto GetRelatedDealAndLegalPersonNames(long dealId, long legalPersonId)
+        {
+            return _finder.Find(DealSpecs.LegalPersonDeals.Find.ByDealAndLegalPersonIds(dealId, legalPersonId) && Specs.Find.NotDeleted<LegalPersonDeal>())
+                          .Select(x => new DealAndLegalPersonNamesDto
+                              {
+                                  DealName = x.Deal.Name,
+                                  LegalPersonName = x.LegalPerson.LegalName
+                              })
+                          .FirstOrDefault();
+        }
+
+        public bool AreThereAnyLegalPersonsForDeal(long dealId)
+        {
+            return _finder.Find(DealSpecs.LegalPersonDeals.Find.ByDeal(dealId) && Specs.Find.NotDeleted<LegalPersonDeal>()).Any();
+        }
+
+        public LegalPersonDeal GetMainLegalPersonForDeal(long dealId)
+        {
+            return
+                _finder.Find(DealSpecs.LegalPersonDeals.Find.ByDeal(dealId) && Specs.Find.NotDeleted<LegalPersonDeal>() && DealSpecs.LegalPersonDeals.Find.Main())
+                       .SingleOrDefault();
+        }
+
+        public LegalPersonDeal GetLegalPersonDeal(long dealId, long legalPersonId)
+        {
+            return _finder.FindOne(DealSpecs.LegalPersonDeals.Find.ByDealAndLegalPersonIds(dealId, legalPersonId) && Specs.Find.NotDeleted<LegalPersonDeal>());
+        }
     }
 }

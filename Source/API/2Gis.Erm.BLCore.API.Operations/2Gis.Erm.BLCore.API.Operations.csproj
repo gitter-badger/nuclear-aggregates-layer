@@ -72,8 +72,9 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
-    <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
+    <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
