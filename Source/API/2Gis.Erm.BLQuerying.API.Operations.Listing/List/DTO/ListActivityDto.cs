@@ -5,10 +5,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
 {
-    public sealed class ListActivityDto : IOperationSpecificEntityDto
+    public sealed class ListActivityDto : IOperationSpecificEntityDto 
     {
         public long Id { get; set; }
-        // используется в js
         public ActivityType ActivityTypeEnum { get; set; }
         public string ActivityType { get; set; }
         public string Header { get; set; }
@@ -22,9 +21,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string OwnerName { get; set; }
 
         public long? ClientId { get; set; }
-        public long? ContactId { get; set; }
         public long? FirmId { get; set; }
+        public long? FirmClientId { get; set; }
         public long? DealId { get; set; }
+        public long? DealClientId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public TaskType TaskType { get; set; }

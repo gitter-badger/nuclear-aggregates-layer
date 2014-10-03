@@ -3,7 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -22,19 +21,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICompositeEntityDecorator _compositeEntityDecorator;
         private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListActivityService(ISecurityServiceUserIdentifier userIdentifierService,
-            ICompositeEntityDecorator compositeEntityDecorator,
-            IFinder finder,
-            IUserContext userContext,
-            FilterHelper filterHelper)
+                                   ICompositeEntityDecorator compositeEntityDecorator,
+                                   IFinder finder,
+                                   FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _compositeEntityDecorator = compositeEntityDecorator;
             _finder = finder;
-            _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
@@ -55,27 +51,27 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
                 select new ListActivityDto
-                {
-                    ActivityTypeEnum = ActivityType.Appointment,
-                    Id = appointment.Id,
-                    OwnerCode = appointment.OwnerCode,
-                    Header = appointment.Header,
-                    ScheduledStart = appointment.ScheduledStart,
-                    ScheduledEnd = appointment.ScheduledEnd,
-                    ActualEnd = appointment.Status == ActivityStatus.Completed || appointment.Status == ActivityStatus.Canceled ? appointment.ModifiedOn : null,
-                    StatusEnum = appointment.Status,
-                    IsDeleted = appointment.IsDeleted,
-                    IsActive = appointment.IsActive,
-                    TaskType = TaskType.NotSet,
-                    ClientId = regardingClient.TargetEntityId,
-                    FirmId = regardingFirm.TargetEntityId,
-                    FirmClientId = firm.ClientId,
-                    DealId = regardingDeal.TargetEntityId,
-                    DealClientId = deal.ClientId,
-					ActivityType = ActivityType.Appointment.ToStringLocalizedExpression(),
-                    Priority = ActivityPriority.Average.ToStringLocalizedExpression(),
-                    Status = appointment.Status.ToStringLocalizedExpression(),
-                };
+                           {
+                               ActivityTypeEnum = ActivityType.Appointment,
+                               Id = appointment.Id,
+                               OwnerCode = appointment.OwnerCode,
+                               Header = appointment.Header,
+                               ScheduledStart = appointment.ScheduledStart,
+                               ScheduledEnd = appointment.ScheduledEnd,
+                               ActualEnd = appointment.Status == ActivityStatus.Completed || appointment.Status == ActivityStatus.Canceled ? appointment.ModifiedOn : null,
+                               StatusEnum = appointment.Status,
+                               IsDeleted = appointment.IsDeleted,
+                               IsActive = appointment.IsActive,
+                               TaskType = TaskType.NotSet,
+                               ClientId = regardingClient.TargetEntityId,
+                               FirmId = regardingFirm.TargetEntityId,
+                               FirmClientId = firm.ClientId,
+                               DealId = regardingDeal.TargetEntityId,
+                               DealClientId = deal.ClientId,
+                               ActivityType = ActivityType.Appointment.ToStringLocalizedExpression(),
+                               Priority = ActivityPriority.Average.ToStringLocalizedExpression(),
+                               Status = appointment.Status.ToStringLocalizedExpression(),
+                           };
         }
 
         private IQueryable<ListActivityDto> ListLetters()
@@ -95,27 +91,27 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
                 select new ListActivityDto
-                {
-                    ActivityTypeEnum = ActivityType.Letter,
-                    Id = letter.Id,
-                    OwnerCode = letter.OwnerCode,
-                    Header = letter.Header,
-                    ScheduledStart = letter.ScheduledOn,
-                    ScheduledEnd = null,
-                    ActualEnd = letter.Status == ActivityStatus.Completed || letter.Status == ActivityStatus.Canceled ? letter.ModifiedOn : null,
-                    StatusEnum = letter.Status,
-                    IsDeleted = letter.IsDeleted,
-                    IsActive = letter.IsActive,
-                    TaskType = TaskType.NotSet,
-                    ClientId = regardingClient.TargetEntityId,
-                    FirmId = regardingFirm.TargetEntityId,
-                    FirmClientId = firm.ClientId,
-                    DealId = regardingDeal.TargetEntityId,
-                    DealClientId = deal.ClientId,
-					ActivityType = ActivityType.Letter.ToStringLocalizedExpression(),
-                    Priority = letter.Priority.ToStringLocalizedExpression(),
-                    Status = letter.Status.ToStringLocalizedExpression(),
-                };
+                           {
+                               ActivityTypeEnum = ActivityType.Letter,
+                               Id = letter.Id,
+                               OwnerCode = letter.OwnerCode,
+                               Header = letter.Header,
+                               ScheduledStart = letter.ScheduledOn,
+                               ScheduledEnd = null,
+                               ActualEnd = letter.Status == ActivityStatus.Completed || letter.Status == ActivityStatus.Canceled ? letter.ModifiedOn : null,
+                               StatusEnum = letter.Status,
+                               IsDeleted = letter.IsDeleted,
+                               IsActive = letter.IsActive,
+                               TaskType = TaskType.NotSet,
+                               ClientId = regardingClient.TargetEntityId,
+                               FirmId = regardingFirm.TargetEntityId,
+                               FirmClientId = firm.ClientId,
+                               DealId = regardingDeal.TargetEntityId,
+                               DealClientId = deal.ClientId,
+                               ActivityType = ActivityType.Letter.ToStringLocalizedExpression(),
+                               Priority = letter.Priority.ToStringLocalizedExpression(),
+                               Status = letter.Status.ToStringLocalizedExpression(),
+                           };
         }
 
         private IQueryable<ListActivityDto> ListPhonecalls()
@@ -135,27 +131,27 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
                 select new ListActivityDto
-                {
-                    ActivityTypeEnum = ActivityType.Phonecall,
-                    Id = phonecall.Id,
-                    OwnerCode = phonecall.OwnerCode,
-                    Header = phonecall.Header,
-                    ScheduledStart = phonecall.ScheduledOn,
-                    ScheduledEnd = null,
-                    ActualEnd = phonecall.Status == ActivityStatus.Completed || phonecall.Status == ActivityStatus.Canceled ? phonecall.ModifiedOn : null,
-                    StatusEnum = phonecall.Status,
-                    IsDeleted = phonecall.IsDeleted,
-                    IsActive = phonecall.IsActive,
-                    TaskType = TaskType.NotSet,
-                    ClientId = regardingClient.TargetEntityId,
-                    FirmId = regardingFirm.TargetEntityId,
-                    FirmClientId = firm.ClientId,
-                    DealId = regardingDeal.TargetEntityId,
-                    DealClientId = deal.ClientId,
-					ActivityType = ActivityType.Phonecall.ToStringLocalizedExpression(),
-                    Priority = phonecall.Priority.ToStringLocalizedExpression(),
-                    Status = phonecall.Status.ToStringLocalizedExpression(),
-                };
+                           {
+                               ActivityTypeEnum = ActivityType.Phonecall,
+                               Id = phonecall.Id,
+                               OwnerCode = phonecall.OwnerCode,
+                               Header = phonecall.Header,
+                               ScheduledStart = phonecall.ScheduledOn,
+                               ScheduledEnd = null,
+                               ActualEnd = phonecall.Status == ActivityStatus.Completed || phonecall.Status == ActivityStatus.Canceled ? phonecall.ModifiedOn : null,
+                               StatusEnum = phonecall.Status,
+                               IsDeleted = phonecall.IsDeleted,
+                               IsActive = phonecall.IsActive,
+                               TaskType = TaskType.NotSet,
+                               ClientId = regardingClient.TargetEntityId,
+                               FirmId = regardingFirm.TargetEntityId,
+                               FirmClientId = firm.ClientId,
+                               DealId = regardingDeal.TargetEntityId,
+                               DealClientId = deal.ClientId,
+                               ActivityType = ActivityType.Phonecall.ToStringLocalizedExpression(),
+                               Priority = phonecall.Priority.ToStringLocalizedExpression(),
+                               Status = phonecall.Status.ToStringLocalizedExpression(),
+                           };
         }
 
         private IQueryable<ListActivityDto> ListTasks()
@@ -175,27 +171,27 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 from firm in firms.Where(x => x.Id == regardingFirm.TargetEntityId).DefaultIfEmpty()
                 from deal in deals.Where(x => x.Id == regardingDeal.TargetEntityId).DefaultIfEmpty()
                 select new ListActivityDto
-                {
-                    ActivityTypeEnum = ActivityType.Task,
-                    Id = task.Id,
-                    OwnerCode = task.OwnerCode,
-                    Header = task.Header,
-                    ScheduledStart = task.ScheduledOn,
-                    ScheduledEnd = null,
-                    ActualEnd = task.Status == ActivityStatus.Completed || task.Status == ActivityStatus.Canceled ? task.ModifiedOn : null,
-                    StatusEnum = task.Status,
-                    IsDeleted = task.IsDeleted,
-                    IsActive = task.IsActive,
-                    TaskType = task.TaskType,
-                    ClientId = regardingClient.TargetEntityId,
-                    FirmId = regardingFirm.TargetEntityId,
-                    FirmClientId = firm.ClientId,
-                    DealId = regardingDeal.TargetEntityId,
-                    DealClientId = deal.ClientId,
-					ActivityType = ActivityType.Task.ToStringLocalizedExpression(),
-                    Priority = task.Priority.ToStringLocalizedExpression(),
-                    Status = task.Status.ToStringLocalizedExpression(),
-                };
+                           {
+                               ActivityTypeEnum = ActivityType.Task,
+                               Id = task.Id,
+                               OwnerCode = task.OwnerCode,
+                               Header = task.Header,
+                               ScheduledStart = task.ScheduledOn,
+                               ScheduledEnd = null,
+                               ActualEnd = task.Status == ActivityStatus.Completed || task.Status == ActivityStatus.Canceled ? task.ModifiedOn : null,
+                               StatusEnum = task.Status,
+                               IsDeleted = task.IsDeleted,
+                               IsActive = task.IsActive,
+                               TaskType = task.TaskType,
+                               ClientId = regardingClient.TargetEntityId,
+                               FirmId = regardingFirm.TargetEntityId,
+                               FirmClientId = firm.ClientId,
+                               DealId = regardingDeal.TargetEntityId,
+                               DealClientId = deal.ClientId,
+                               ActivityType = ActivityType.Task.ToStringLocalizedExpression(),
+                               Priority = task.Priority.ToStringLocalizedExpression(),
+                               Status = task.Status.ToStringLocalizedExpression(),
+                           };
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
@@ -213,80 +209,23 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 activities = _filterHelper.ForSubordinates(activities);
             }
 
-            var byParentFilter = CreateForExtendedProperty(activities, "filterByParents", querySettings, byParent =>
-                {
-                    var parentEntityId = querySettings.ParentEntityId;
-                    var parentEntityName = querySettings.ParentEntityName;
-                    return x =>
-                        (parentEntityName == EntityName.Client && (x.ClientId == parentEntityId || x.FirmClientId == parentEntityId || x.DealClientId == parentEntityId))
-                        || (parentEntityName == EntityName.Firm && x.FirmId == parentEntityId)
-                        || (parentEntityName == EntityName.Deal && x.DealId == parentEntityId);
-                });
-
-            var forTodayFilter = CreateForExtendedProperty(activities, "ForToday", querySettings, forToday =>
-            {
-                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTomorrowUtc = userDateTimeTodayUtc.AddDays(1);
-
-                return
-                    x =>
-                    userDateTimeTodayUtc <= x.ScheduledStart && x.ScheduledStart < userDateTimeTomorrowUtc ||
-                    userDateTimeTodayUtc <= x.ScheduledEnd && x.ScheduledEnd < userDateTimeTomorrowUtc;
-            });
-
-            var forMeFilter = CreateForExtendedProperty(activities, "ForMe", querySettings, forMe =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var expiredFilter = CreateForExtendedProperty(activities, "Expired", querySettings, expired =>
-            {
-                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-
-                if (expired)
-                {
-                    return x => x.ScheduledEnd < userDateTimeTodayUtc;
-                }
-
-                return x => x.ScheduledEnd >= userDateTimeTodayUtc;
-            });
+            var byParentFilter = CreateForExtendedProperty(activities,
+                                                           "filterByParents",
+                                                           querySettings,
+                                                           byParent =>
+                                                           {
+                                                               var parentEntityId = querySettings.ParentEntityId;
+                                                               var parentEntityName = querySettings.ParentEntityName;
+                                                               return x =>
+                                                                      (parentEntityName == EntityName.Client &&
+                                                                       (x.ClientId == parentEntityId || x.FirmClientId == parentEntityId || x.DealClientId == parentEntityId))
+                                                                      || (parentEntityName == EntityName.Firm && x.FirmId == parentEntityId)
+                                                                      || (parentEntityName == EntityName.Deal && x.DealId == parentEntityId);
+                                                           });
 
             var result = activities
-                .Filter(_filterHelper, byParentFilter, forTodayFilter, forMeFilter, expiredFilter)
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
-
-            return result;
-        }
-
-        private static Expression<Func<TEntity, bool>> CreateForExtendedProperty<TEntity>(IQueryable<TEntity> query, string key, QuerySettings querySettings, Func<bool, Expression<Func<TEntity, bool>>> action)
-        {
-            return querySettings.CreateForExtendedProperty(key, action);
-        }
-
-        /*
-        protected override IRemoteCollection List(QuerySettings querySettings)
-        {
-            var appointmentDtos = ListAppointments();
-            var phonecalls = ListPhonecalls();
-            var taskDtos = ListTasks();
-
-            var activities = appointmentDtos.Concat(phonecalls).Concat(taskDtos);
-
-            bool forSubordinates;
-            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
-            {
-                activities = _filterHelper.ForSubordinates(activities);
-            }
-
-            var result = activities.QuerySettings(_filterHelper, querySettings);
+                .Filter(_filterHelper, byParentFilter)
+                .QuerySettings(_filterHelper, querySettings);
             return result;
         }
 
@@ -294,7 +233,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
-         * */
 
+        private static Expression<Func<TEntity, bool>> CreateForExtendedProperty<TEntity>(IQueryable<TEntity> query, string key, QuerySettings querySettings, Func<bool, Expression<Func<TEntity, bool>>> action)
+        {
+            return querySettings.CreateForExtendedProperty(key, action);
+        }
     }
 }
