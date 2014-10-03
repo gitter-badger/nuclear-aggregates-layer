@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             this.LegalPersonProfiles = new HashSet<LegalPersonProfile>();
             this.Orders = new HashSet<Order>();
             this.OrderProcessingRequests = new HashSet<OrderProcessingRequest>();
+            this.LegalPersonDeals = new HashSet<LegalPersonDeal>();
         }
         public long Id { get; set; }
         public System.Guid ReplicationCode { get; set; }
@@ -81,6 +82,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<LegalPersonProfile> LegalPersonProfiles { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<OrderProcessingRequest> OrderProcessingRequests { get; set; }
+        public ICollection<LegalPersonDeal> LegalPersonDeals { get; set; }
     
     	public override bool Equals(object obj)
         {

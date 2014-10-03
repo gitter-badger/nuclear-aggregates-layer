@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             this.Orders = new HashSet<Order>();
             this.FirmAddresses = new HashSet<FirmAddress>();
             this.OrderProcessingRequests = new HashSet<OrderProcessingRequest>();
+            this.FirmDeals = new HashSet<FirmDeal>();
         }
         public long Id { get; set; }
         public System.Guid ReplicationCode { get; set; }
@@ -86,6 +87,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<FirmAddress> FirmAddresses { get; set; }
         public Territory Territory { get; set; }
         public ICollection<OrderProcessingRequest> OrderProcessingRequests { get; set; }
+        public ICollection<FirmDeal> FirmDeals { get; set; }
     
     	public override bool Equals(object obj)
         {

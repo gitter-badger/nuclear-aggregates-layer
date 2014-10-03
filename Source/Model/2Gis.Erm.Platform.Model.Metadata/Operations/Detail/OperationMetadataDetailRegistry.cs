@@ -152,6 +152,29 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             EntityName appendedEntityName = entityNames[0];
             switch (parentEntityName)
             {
+                case EntityName.Client:
+                    {
+                        switch (appendedEntityName)
+                        {
+                            case EntityName.Client:
+                                return new AppendMetadata();
+                        }
+
+                        break;
+                    }
+
+                case EntityName.Deal:
+                    {
+                        switch (appendedEntityName)
+                        {
+                            case EntityName.Firm:
+                            case EntityName.LegalPerson:
+                                return new AppendMetadata();
+                        }
+
+                        break;
+                    }
+
                 case EntityName.User:
                     {
                         switch (appendedEntityName)

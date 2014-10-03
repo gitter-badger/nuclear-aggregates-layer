@@ -62,7 +62,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums.Infrastructure
                 { CreateKey<OrderProcessingRequestMessage>(entity => entity.MessageType), typeof(RequestMessageType) },
                 { CreateKey<OrderProcessingRequest>(entity => entity.RequestType), typeof(OrderProcessingRequestType) },
                 { CreateKey<PricePosition>(entity => entity.RateType), typeof(PricePositionRateType) },
-                { CreateKey<DenialReason>(entity => entity.Type), typeof(DenialReasonType) }
+                { CreateKey<DenialReason>(entity => entity.Type), typeof(DenialReasonType) },
+                { CreateKey<Deal>(entity => entity.AdvertisingCampaignGoals), typeof(AdvertisingCampaignGoals?) },
+                { CreateKey<Deal>(entity => entity.PaymentFormat), typeof(PaymentFormat?) }
             };
 
         private static string CreateKey<TEntity>(Expression<Func<TEntity, object>> propertyExpression)
