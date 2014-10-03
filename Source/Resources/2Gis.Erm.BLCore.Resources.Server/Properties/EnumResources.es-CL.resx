@@ -1949,16 +1949,16 @@
     <value>Banco</value>
   </data>
   <data name="TemplateCodeClientBargain" xml:space="preserve">
-    <value>Клиентский договор</value>
+    <value>Contrato de cliente</value>
   </data>
   <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
-    <value>Клиентский договор (дополнительный язык)</value>
+    <value>Contrato de cliente (idioma adicional)</value>
   </data>
   <data name="TemplateCodeAgentBargain" xml:space="preserve">
-    <value>Агентский договор</value>
+    <value>Contrato de agente</value>
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Acuerdo de prolongar el contrato</value>
   </data>
   <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>

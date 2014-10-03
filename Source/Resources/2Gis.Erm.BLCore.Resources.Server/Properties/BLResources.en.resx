@@ -5134,7 +5134,7 @@ Placement period: {3}.</value>
     <value>Cannot specify an inactive rejection reason</value>
   </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
-    <value>Создание агентских договоров запрещено</value>
+    <value>Agency contracts are not allowed</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
@@ -5146,12 +5146,12 @@ Placement period: {3}.</value>
     <value>Building. Order item editing is not allowed.</value>
   </data>
   <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
-    <value>Клиент {0} находится в резерве, невозможно создать заказ с его участием</value>
+    <value>Client {0} is in the reserve. Unable to create an order with this client</value>
   </data>
   <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
-    <value>Фирма {0} находится в резерве, невозможно создать заказ с её участием</value>
+    <value>Company {0} is in the reserve. Unable to create an order with this company</value>
   </data>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
-    <value>Создание фирм в ERM не поддерживается.</value>
+    <value>ERM does not support company creation.</value>
   </data>
 </root>

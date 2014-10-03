@@ -1981,4 +1981,16 @@
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Client Contract</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>Client Contract (in another language)</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>Agency Contract</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Contract Extension Agreement</value>
+  </data>
 </root>

@@ -5135,7 +5135,7 @@ Periodo de la publicación: {3}.</value>
     <value>No se puede indicar el motivo de rechazo no activo</value>
   </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
-    <value>Создание агентских договоров запрещено</value>
+    <value>No está permitido crear los contratos de agente</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
@@ -5147,12 +5147,12 @@ Periodo de la publicación: {3}.</value>
     <value>Estamos en el proceso de compilación. Edición de posición de la orden no está permitida.</value>
   </data>
   <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
-    <value>Клиент {0} находится в резерве, невозможно создать заказ с его участием</value>
+    <value>Cliente {0} se encuentra en reserva, imposible crear una orden</value>
   </data>
   <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
-    <value>Фирма {0} находится в резерве, невозможно создать заказ с её участием</value>
+    <value>Empresa {0} se encuentra en reserva, imposible crear una orden</value>
   </data>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
-    <value>Создание фирм в ERM не поддерживается.</value>
+    <value>No se permite crear las empresas en ERM.</value>
   </data>
 </root>
