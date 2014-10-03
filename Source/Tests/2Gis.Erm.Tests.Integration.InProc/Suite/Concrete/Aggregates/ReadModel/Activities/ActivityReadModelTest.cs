@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 	        var phonecall = _activityReadModel.GetPhonecall(appropriatePhonecall.Id);
 
 	        // ReSharper disable once PossibleInvalidOperationException
-	        _activityReadModel.CheckIfRelatedActivitiesExists(reference.TargetEntityId);
+	        _activityReadModel.CheckIfActivityExistsRegarding(reference.TargetEntityId);
 
 	        return new object[]
 		        {

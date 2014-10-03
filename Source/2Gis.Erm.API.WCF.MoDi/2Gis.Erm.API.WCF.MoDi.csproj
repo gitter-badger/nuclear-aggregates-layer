@@ -78,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccountingSystem.svc" />
-    <Content Include="PrintRegional.svc" />
     <Content Include="Reports.svc" />
     <Content Include="WithdrawalInfo.svc" />
   </ItemGroup>
@@ -101,12 +100,6 @@
     </Content>
     <Content Include="..\..\..\BLFlex\Templates\Отчет по выручке.dotx">
       <Link>Templates\Отчет по выручке.dotx</Link>
-    </Content>
-    <Content Include="..\..\..\BLFlex\Templates\Региональный бланк заказа без НДС.dotx">
-      <Link>Templates\Региональный бланк заказа без НДС.dotx</Link>
-    </Content>
-    <Content Include="..\..\..\BLFlex\Templates\Региональный бланк заказа с НДС.dotx">
-      <Link>Templates\Региональный бланк заказа с НДС.dotx</Link>
     </Content>
     <Content Include="packagePositions.config" />
     <Content Include="packages.config" />

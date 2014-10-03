@@ -13,7 +13,6 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         Rejected: 1,
         ReprocessingRequired: 2
     },
-    OperationUrlTemplate: null,
     IsCallFromCrm: false,
     ProcessingQueue: [],
     EntitiesCount: -1,
@@ -23,6 +22,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
     ErrorProcessed: 0,
     QuantProgress: 0,
     OperationProgressBar: {},
+    ResponseMessages: [],
     constructor: function (config) {
         // пример конфига, показывает какие элементы должен содержать конфиг, в коде не используется
         var sampleconfig = {
@@ -43,7 +43,6 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         this.IsSingleEntityProcessing = this.EntitiesCount === 1;
 
         this.IsCallFromCrm = !Ext.isNumber(parseFloat(+this.Config.Entities[0]));
-        this.OperationUrlTemplate = this.EvaluateOperationUrl();
 
         if (this.Config.listeners) {
             var p, l = this.Config.listeners;
@@ -87,8 +86,11 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
 
         this.fireEvent('configspecificcontrols');
     },
-    EvaluateOperationUrl: function () {
+    EvaluateOperationUrlTemplate: function () {
         return String.format("{0}{1}.svc/Rest/", Ext.BasicOperationsServiceRestUrl, this.Config.OperationName) + "{0}";
+    },
+    EvaluateOperationUrl: function () {
+        return String.format(this.EvaluateOperationUrlTemplate(), this.ResolveEntityName());
     },
     EvaluateConvertIdsUrl: function () {
         return String.format("/{0}/{1}", "GroupOperation", "ConvertToEntityIds");
@@ -138,23 +140,20 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         // return { id: entityId, ownerCode: argOwnerCode }
     },
     ProcessEntities: function () {
-        if (this.PreProcessEntities() == true)
-        {
+        if (this.PreProcessEntities() == true) {
             this.ProcessingQueue = Ext.apply([], this.Config.Entities);
             this.ProcessNextEntityInQueue();
         }
-        else
-        {
+        else {
             this.FinishProcessing();
         }
     },
     ProcessNextEntityInQueue: function () {
-        if (this.ProcessingQueue.length != 0)
-        {
-        	var entityId = this.ProcessingQueue.shift();
+        if (this.ProcessingQueue.length != 0) {
+            var entityId = this.ProcessingQueue.shift();
         	var entityName = this.ResolveEntityName(entityId);
-        	var operationUrl = String.format(this.OperationUrlTemplate, entityName);
-	        var params = this.CreateParamsForControllerCall(entityId);
+        	var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
+            var params = this.CreateParamsForControllerCall(entityId);
 
             this.ProcessSingleEntity(operationUrl, params);
         }
@@ -163,12 +162,10 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         // Параметры передаем в REST стиле
         for (var index in params) {
             var param = params[index];
-            if (param == undefined || param === '')
-            {
+            if (param == undefined || param === '') {
                 operationUrl += "/null";
             }
-            else
-            {
+            else {
                 operationUrl += "/" + param;
             }
         }
@@ -199,6 +196,11 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
 
             this.fireEvent('entityprocessingsuccess', response.responseText);
 
+            var result = Ext.decode(response.responseText);
+            if (result.Message) {
+                this.ResponseMessages.push(result.Message);
+            }
+
             ++this.SuccessProcessed;
             if (--this.EntitiesLeft == 0) {
                 this.FinishProcessing();
@@ -211,25 +213,18 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
     FinishProcessing: function (errorMessage) {
         var isFullSuccessProcessing = this.EntitiesCount === this.SuccessProcessed;
         if (this.IsSingleEntityProcessing) {
-            if (errorMessage)
-            {
-                Ext.getDom("Notifications").innerHTML = errorMessage;
-                Ext.get("Notifications").addClass("Notifications");
-                Ext.getDom("Notifications").style.display = "block";
+            if (errorMessage) {
+                this.SetNotification(errorMessage);
             }
         }
-        else
-        {
+        else {
             // FinishProcessing может вызываться когда this.OperationProgressBar не инициирован.
             if (this.OperationProgressBar && this.OperationProgressBar.destroy) {
                 this.OperationProgressBar.destroy();
             }
 
             if (!isFullSuccessProcessing) {
-                var resultMessageContainer = Ext.getDom("Notifications");
-                resultMessageContainer.innerHTML = String.format(' ' + this.Config.ResultMessageTitle + '. ' + this.Config.ResultMessageTemplate, this.SuccessProcessed, this.ErrorProcessed);
-                Ext.get("Notifications").addClass("Notifications");
-                Ext.getDom("Notifications").style.display = "block";
+                this.SetNotification(String.format(' ' + this.Config.ResultMessageTitle + '. ' + this.Config.ResultMessageTemplate, this.SuccessProcessed, this.ErrorProcessed));
             }
         }
 
@@ -245,6 +240,11 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
             // если все сущности обработаны успешно - тогда закрывем окно,
             // иначе пусть пользователь смотрит или notification area или статус групповой операции и вручную закрывает окно
             // окно закрываем в самом конце при успешной обработке, т.к. есть событие processingfinished в обработчике которого могут делаться разные вещи
+
+            if (this.ResponseMessages.length > 0) {
+                this.SetNotification(this.ResponseMessages.join("<p/>"));
+            }
+            else
             window.close();
         }
     },
@@ -269,5 +269,11 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         if (--this.EntitiesLeft == 0) {
             this.FinishProcessing(errorDescription.Message);
         }
+    },
+
+    SetNotification: function(innerhtml) {
+        Ext.getDom("Notifications").innerHTML = innerhtml;
+        Ext.get("Notifications").addClass("Notifications");
+        Ext.getDom("Notifications").style.display = "block";
     }
 });

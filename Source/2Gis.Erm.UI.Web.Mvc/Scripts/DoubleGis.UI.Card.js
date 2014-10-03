@@ -107,7 +107,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }
         }, this);
         window.Ext.EventManager.on(window, "beforeunload", this.commitClose, this);
-        
+
         // Поддержка maxlength для textarea
         var txts = document.getElementsByTagName('TEXTAREA');
 
@@ -219,9 +219,9 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                                                     autoTabSelector: 'div.Tab'
                                                 })]
                                             })
-                                            ]
+                                        ]
                                     })
-                                ]
+                            ]
                         })]
                 });
         this.Items.Toolbar = s.getTopToolbar();
@@ -235,8 +235,44 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             this.AddNotification(window.Ext.getDom("Message").innerHTML.trim(), window.Ext.getDom("MessageType").innerHTML.trim(), "ServerError");
         }
     },
+
     //Операции с карточкой
     AddNotification: function (message, level, messageId) {
+
+        var div = document.createElement("div");
+        div.innerHTML = message;
+        var text = div.textContent || div.innerText;
+
+        // FIXME {f.zaharov, 21.08.2014}: Copypaste from \Scripts\Ext.DoubleGis.Order.CheckResultWindow.js processLinks = function(text)
+        // Но проблема глубже, там используется иной подход к формированию сообщений, наверно нужен общий
+
+        var result = document.createElement('span');
+        var j;
+        for (var i = 0; i < text.length; i++) {
+            if (text.charAt(i) != '<') {
+                j = i;
+                while (j + 1 < text.length && text.charAt(j + 1) != '<') {
+                    j++;
+                }
+                var span = document.createElement('span');
+                span.innerText = text.substring(i, j + 1);
+                result.appendChild(span);
+                i = j;
+            } else {
+                j = i + 1;
+                while (text.charAt(j) != '>') {
+                    j++;
+                }
+
+                var sp = text.substring(i + 1, j).split(':');
+
+                var link = document.createElement('a');
+                link.setAttribute('href', Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl(sp[0], sp[2], ''));
+                link.innerText = sp[1];
+                result.appendChild(link);
+                i = j;
+            }
+        }
 
         if (level == "None")
             return;
@@ -258,7 +294,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }
         }
 
-        var nopt = { message: message, level: window.Ext.Notification.Icon[level], messageId: messageId };
+        var nopt = { message: result.innerHTML, level: window.Ext.Notification.Icon[level], messageId: messageId };
         var nc = Ext.getCmp('ContentTab_holder');
         if (!this.NotificationTemplate) {
             this.NotificationTemplate = new Ext.XTemplate(
@@ -337,7 +373,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
         if (Ext.isChrome) {
             window.open('', '_self', '');
         }
-        
+
         window.close();
     },
     Print: function (methodName) {
@@ -382,14 +418,14 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             timeout: 300000
         });
     },
-    
+
     clearMessages: function () {
         this.RemoveNotification("ServerWarning");
         this.RemoveNotification("ServerError");
         this.RemoveNotification("ServerInfo");
         this.validator.clearMessages();
     },
-    
+
     postFormSuccess: function (response, opts) {
         if (this.fireEvent('afterpost', this) === false) {
             return;
@@ -447,8 +483,8 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             case "Warning":
             case "Info":
                 {
-            this.isDirty = false;
-        }
+                    this.isDirty = false;
+                }
                 break;
         }
 
@@ -511,7 +547,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
         }
         this.recalcToolbarButtonsAvailability();
     },
-    recalcToolbarButtonsAvailability : function() {
+    recalcToolbarButtonsAvailability: function () {
         Ext.each(this.Settings.CardToolbar, function (item) {
             var cmp = Ext.getCmp(item.Name);
             if (cmp) {
@@ -604,7 +640,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }
             catch (e) {
                 alert(xhr.responseText);
-            } 
+            }
         } else {
 
             var errorText = xhr.statusText;
@@ -858,13 +894,13 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }, this);
 
             if (n.attributes.isCrmView) {
-                
+
                 var pId = window.Ext.get('ReplicationCode') ? window.Ext.get('ReplicationCode').dom.value : null;
                 var pType = this.CrmEntityCode;
                 var pName = window.Ext.getDom(this.Settings.EntityMainAttribute).value;
                 // чтобы crm не падал ограничиваем число символов
                 pName = pName.slice(0, 256);
-                
+
                 var partyId = window.Ext.get('ClientReplicationCode') ? window.Ext.get('ClientReplicationCode').dom.value : pId;
                 var partyType = 1; // ObjectTypeCode of Account entity
                 var partyName = window.Ext.get('ClientName') ? window.Ext.get('ClientName').dom.value : pName;
@@ -882,7 +918,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                     encodeURIComponent(partyName));
 
                 frame.setAttribute("src", url);
-                
+
                 // закомментарено, т.к. мы не можем лазить в чужой фрейм, надо по-другому
                 //window.Ext.fly(frame).on("load",
                 //function (evt, el) {
@@ -892,7 +928,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 //    el.contentWindow.document.body.childNodes[0].rows[0].cells[0].style.padding = "0px";
                 //    el.locAssocOneToMany = window.locAssocOneToMany;
                 //});
-                
+
             }
             else {
                 var parentEntityTypeName = this.EntityName ? this.EntityName : null;
@@ -902,8 +938,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 var frameUrl;
 
                 // Determine that related view is grid or not
-                if (!requestUrl || requestUrl.indexOf("Grid") < 0)
-                {
+                if (!requestUrl || requestUrl.indexOf("Grid") < 0) {
                     // Related view is not grid
                     // Construct generic URL: <server>/{controller}/{action}/{entityTypeName}/{entityId}/{entityState}
                     frameUrl = String.format("{0}/{1}/{2}/{3}",
@@ -912,8 +947,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                         parentEntityId,
                         parentEntityState);
                 }
-                else
-                {
+                else {
                     // Related view is grid
                     // Construct generic URL: <server>/Grid/{action}/{entityTypeName}/{parentEntityType}/{parentEntityId}/{parentEntityState}/{appendedEntityType}
                     var appendedEntityType = n.attributes.appendableEntity ? n.attributes.appendableEntity : null;
@@ -956,11 +990,50 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
         var queryString = this.ReadOnly ? '?readOnly=true' : '';
         var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl(entityName, id, queryString);
-        
+
         window.open(sUrl, '_blank', params);
+    },
+
+    processLinks: function (textToProcess) {
+
+        var div = document.createElement("div");
+        div.innerHTML = textToProcess;
+        var text = div.textContent || div.innerText;
+
+        var result = document.createElement('span');
+        var j;
+        for (var i = 0; i < text.length; i++) {
+            if (text.charAt(i) != '<') {
+                j = i;
+                while (j + 1 < text.length && text.charAt(j + 1) != '<') {
+                    j++;
+                }
+                var span = document.createElement('span');
+                span.innerText = text.substring(i, j + 1);
+                result.appendChild(span);
+                i = j;
+            } else {
+                j = i + 1;
+                while (text.charAt(j) != '>') {
+                    j++;
+                }
+
+                var sp = text.substring(i + 1, j).split(':');
+
+                var link = document.createElement('a');
+                link.setAttribute('href', '#');
+                link.innerText = sp[1];
+                link.onclick = (function (entityName, entId) {
+                    return function () { Ext.DoubleGis.Global.Helpers.OpenEntity(entityName, entId); };
+                })(sp[0], sp[2]);
+
+                result.appendChild(link);
+                i = j;
+            }
+        }
+        return result;
     }
 });
-
 
 Ext.DoubleGis.UI.SharableCard = Ext.extend(Ext.DoubleGis.UI.Card,
     {
