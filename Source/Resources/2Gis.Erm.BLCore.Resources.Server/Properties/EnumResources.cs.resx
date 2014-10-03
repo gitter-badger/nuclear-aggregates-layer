@@ -1973,16 +1973,16 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeClientBargain" xml:space="preserve">
-    <value>Клиентский договор</value>
+    <value>Klientská smlouva</value>
   </data>
   <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
-    <value>Клиентский договор (дополнительный язык)</value>
+    <value>Klientská smlouva (dodatečný jazyk)</value>
   </data>
   <data name="TemplateCodeAgentBargain" xml:space="preserve">
-    <value>Агентский договор</value>
+    <value>Mandátní smlouva</value>
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Dohoda o prodloužení smlouvy</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Отсрочка</value>

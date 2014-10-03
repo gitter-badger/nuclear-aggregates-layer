@@ -5169,4 +5169,13 @@
   <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
     <value />
   </data>
+  <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirmCreationIsNotSupported" xml:space="preserve">
+    <value />
+  </data>
 </root>

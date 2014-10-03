@@ -5167,7 +5167,7 @@ Placement period: {3}.</value>
     <value>Нет доступа на создание связи с клиентом '{0}'</value>
   </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
-    <value>Создание агентских договоров запрещено</value>
+    <value>Agency contracts are not allowed</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
@@ -5177,6 +5177,15 @@ Placement period: {3}.</value>
   </data>
   <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
     <value>Building. Order item editing is not allowed.</value>
+  </data>
+  <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
+    <value>Client {0} is in the reserve. Unable to create an order with this client</value>
+  </data>
+  <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
+    <value>Company {0} is in the reserve. Unable to create an order with this company</value>
+  </data>
+  <data name="FirmCreationIsNotSupported" xml:space="preserve">
+    <value>ERM does not support company creation.</value>
   </data>
   <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
     <value>Не указаны идентификаторы сделки или юр. лица</value>
