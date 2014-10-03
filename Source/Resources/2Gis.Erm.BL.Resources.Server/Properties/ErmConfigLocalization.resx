@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value />
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value />
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value />
   </data>
@@ -640,6 +637,9 @@
     <value />
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
     <value />
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">
@@ -1847,6 +1847,9 @@
     <value />
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
     <value />
   </data>
 </root>

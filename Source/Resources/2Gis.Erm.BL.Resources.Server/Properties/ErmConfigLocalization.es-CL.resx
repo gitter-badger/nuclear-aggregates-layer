@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Cambiar de supervisor</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Preparar los documentos regionales para publicar</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Cambiar de cliente</value>
   </data>
@@ -634,6 +631,9 @@
     <value>Sucursales de la entidad</value>
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value>Sucursal de la entidad</value>
+  </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
     <value>Sucursal de la entidad</value>
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">
@@ -1642,10 +1642,10 @@
     <value>Nuevas órdenes de mis subordinados</value>
   </data>
   <data name="DListOrdersToProlongate" xml:space="preserve">
-    <value>Órdenes que necesitan prórroga</value>
+    <value>Ordenes  que necesitan renovación</value>
   </data>
   <data name="DListOrdersToProlongateForSubordinates" xml:space="preserve">
-    <value>Órdenes de mis subordinados que necesitan prórroga</value>
+    <value>Ordenes de mis subordinados que necesitan renovación</value>
   </data>
   <data name="DListMyOrdersToNextEdition" xml:space="preserve">
     <value>Mis órdenes para el próximo lanzamiento</value>
@@ -1847,5 +1847,11 @@
   </data>
   <data name="ControlCreateLetter" xml:space="preserve">
     <value>Создать Письмо</value>
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
   </data>
 </root>

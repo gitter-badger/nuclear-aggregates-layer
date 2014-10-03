@@ -29,37 +29,43 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
         public ChooseProfileDialogState GetChooseProfileDialogStateForBill(long billId)
         {
             var order = _orderReadModel.GetOrderByBill(billId);
-            return GetChooseProfileDialogState(order);
+            return GetChooseProfileDialogState(order.LegalPersonProfileId, order.LegalPersonId);
+        }
+
+        public ChooseProfileDialogState GetChooseProfileDialogStateForBargain(long bargainId)
+        {
+            var legalPersonId = _orderReadModel.GetBargainLegalPersonId(bargainId);
+            return GetChooseProfileDialogState(null, legalPersonId);
         }
 
         public ChooseProfileDialogState GetChooseProfileDialogStateForOrder(long orderId)
         {
             var order = _orderReadModel.GetOrder(orderId);
-            return GetChooseProfileDialogState(order);
+            return GetChooseProfileDialogState(order.LegalPersonProfileId, order.LegalPersonId);
         }
 
-        private ChooseProfileDialogState GetChooseProfileDialogState(Order order)
+        private ChooseProfileDialogState GetChooseProfileDialogState(long? entityLegalPersonProfileId, long? entityLegalPersonId)
         {
-            if (!order.LegalPersonId.HasValue)
+            if (!entityLegalPersonId.HasValue)
             {
                 return new ChooseProfileDialogState
-                {
-                    IsChooseProfileNeeded = true,
-                    LegalPersonProfileId = null
-                };
+                    {
+                        IsChooseProfileNeeded = true,
+                        LegalPersonProfileId = null
+                    };
             }
 
-            var profileIds = _legalPersonReadModel.GetLegalPersonProfileIds(order.LegalPersonId.Value);
+            var profileIds = _legalPersonReadModel.GetLegalPersonProfileIds(entityLegalPersonId.Value);
             return new ChooseProfileDialogState
-            {
-                IsChooseProfileNeeded = IsChooseProfileNeeded(order, profileIds),
-                LegalPersonProfileId = GetLegalPersonProfileId(order, profileIds)
-            };
+                {
+                    IsChooseProfileNeeded = IsChooseProfileNeeded(entityLegalPersonProfileId, profileIds),
+                    LegalPersonProfileId = GetLegalPersonProfileId(entityLegalPersonProfileId, entityLegalPersonId, profileIds)
+                };
         }
 
-        private bool IsChooseProfileNeeded(Order order, IEnumerable<long> profileIds)
+        private bool IsChooseProfileNeeded(long? entityLegalPersonProfileId, IEnumerable<long> profileIds)
         {
-            var orderContainsValidProfileId = !order.LegalPersonProfileId.HasValue || profileIds.Contains(order.LegalPersonProfileId.Value);
+            var orderContainsValidProfileId = !entityLegalPersonProfileId.HasValue || profileIds.Contains(entityLegalPersonProfileId.Value);
             if (!orderContainsValidProfileId)
             {
                 return true;
@@ -68,14 +74,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
             return profileIds.Count() != 1;
         }
 
-        private long? GetLegalPersonProfileId(Order order, IEnumerable<long> profileIds)
+        private long? GetLegalPersonProfileId(long? entityLegalPersonProfileId, long? entityLegalPersonId, IEnumerable<long> profileIds)
         {
-            if (order.LegalPersonProfileId.HasValue)
+            if (entityLegalPersonProfileId.HasValue)
             {
-                return order.LegalPersonProfileId.Value;
+                return entityLegalPersonProfileId.Value;
             }
 
-            if (order.LegalPersonId.HasValue)
+            if (entityLegalPersonId.HasValue)
             {
                 if (profileIds.Count() == 1)
                 {
@@ -95,28 +101,34 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
         public ChooseProfileViewModel GetViewModelByOrder(long orderId, long userId, long? profileId)
         {
             var order = _orderReadModel.GetOrder(orderId);
-            return CreateViewModel(order, userId, profileId);
+            return CreateViewModel(order.LegalPersonId, profileId, !OrderUpdateAccessAllowed(order, userId));
         }
 
         public ChooseProfileViewModel GetViewModelByBill(long billId, long userId, long? profileId)
         {
             var order = _orderReadModel.GetOrderByBill(billId);
-            return CreateViewModel(order, userId, profileId);
+            return CreateViewModel(order.LegalPersonId, profileId, !OrderUpdateAccessAllowed(order, userId));
         }
 
-        private ChooseProfileViewModel CreateViewModel(Order order, long userId, long? profileId)
+        public ChooseProfileViewModel GetViewModelByBargain(long bargainId, long? profileId)
         {
-            if (!order.LegalPersonId.HasValue)
+            var legalPersonId = _orderReadModel.GetBargainLegalPersonId(bargainId);
+            return CreateViewModel(legalPersonId, profileId, false);
+        }
+
+        private ChooseProfileViewModel CreateViewModel(long? legalPersonId, long? profileId, bool isCardReadOnly)
+        {
+            if (!legalPersonId.HasValue)
             {
-                throw new ArgumentException(string.Format("Order {0} has no LegalPerson specified", order.Id), "order");
+                throw new ArgumentException("LegalPersonId is not specified", "legalPersonId");
             }
 
             return new ChooseProfileViewModel
                 {
-                    LegalPersonId = order.LegalPersonId.Value,
+                    LegalPersonId = legalPersonId.Value,
                     DefaultLegalPersonProfileId = profileId,
                     LegalPersonProfile = profileId.HasValue ? CreateLookupField(profileId.Value) : null,
-                    IsCardReadOnly = !OrderUpdateAccessAllowed(order, userId)
+                    IsCardReadOnly = isCardReadOnly 
                 };
         }
 

@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Změnit správce</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Vytvořit regionální výtisky</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Změnit klienta</value>
   </data>
@@ -634,6 +631,9 @@
     <value>Oddělení organizace</value>
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
     <value>Oddělení organizace</value>
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">
@@ -1847,5 +1847,11 @@
   </data>
   <data name="ControlCreateLetter" xml:space="preserve">
     <value>Создать Письмо</value>
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
   </data>
 </root>
