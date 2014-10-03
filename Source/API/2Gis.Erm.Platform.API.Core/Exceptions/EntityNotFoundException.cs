@@ -11,6 +11,11 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
         {
         }
 
+        public EntityNotFoundException(Type entityType) :
+            base(GenerateMessage(entityType))
+        {
+        }
+
         protected EntityNotFoundException(SerializationInfo serializationInfo, StreamingContext streamingContext)
             : base(serializationInfo, streamingContext)
         {
@@ -24,6 +29,16 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
             }
 
             return string.Format("Сущность {0}.Id = {1} не найдена", entityType.Name, entityId);
+        }
+
+        private static string GenerateMessage(Type entityType)
+        {
+            if (entityType == null)
+            {
+                throw new ArgumentNullException("entityType");
+            }
+
+            return string.Format("Сущность {0} не найдена", entityType.Name);
         }
     }
 }

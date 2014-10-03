@@ -66,6 +66,20 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public byte[] Timestamp { get; set; }
     	[DataMember]
         public DealStage DealStage { get; set; }
+    	[DataMember]
+        public EntityReference BargainRef { get; set; }
+    	[DataMember]
+        public Nullable<System.DateTime> AdvertisingCampaignBeginDate { get; set; }
+    	[DataMember]
+        public Nullable<System.DateTime> AdvertisingCampaignEndDate { get; set; }
+    	[DataMember]
+        public string AdvertisingCampaignGoalText { get; set; }
+    	[DataMember]
+        public Nullable<AdvertisingCampaignGoals> AdvertisingCampaignGoals { get; set; }
+    	[DataMember]
+        public Nullable<PaymentFormat> PaymentFormat { get; set; }
+    	[DataMember]
+        public Nullable<decimal> AgencyFee { get; set; }
     }
 }
 
