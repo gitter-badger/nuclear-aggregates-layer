@@ -87,6 +87,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.MainFirmName,
                 x => x.TerritoryName,
                 x => x.MainPhoneNumber)
+            .RegisterFilteredFields<ListClientLinkDto>(
+                x => x.ChildClientName,
+                x => x.MasterClientName)
             .RegisterFilteredFields<ClientGridDoc>(
                 x => x.Name,
                 x => x.MainAddress,

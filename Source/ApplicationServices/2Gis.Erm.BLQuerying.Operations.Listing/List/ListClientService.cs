@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -14,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
@@ -28,6 +30,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IFinder _finder;
+        private readonly ISecureFinder _secureFinder;
         private readonly IDebtProcessingSettings _debtProcessingSettings;
 
         public ListClientService(
@@ -35,6 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
+            ISecureFinder secureFinder,
             IUserContext userContext,
             FilterHelper filterHelper,
             IDebtProcessingSettings debtProcessingSettings)
@@ -46,11 +50,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _finder = finder;
+            _secureFinder = secureFinder;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Client>();
+
+            bool availableForLinking;
+            if (querySettings.TryGetExtendedProperty("AvailableForLinking", out availableForLinking))
+            {
+                return GetClientsAvailableForLinking(querySettings);
+            }
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
@@ -171,6 +182,84 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     , dealFilter
                     , firmFilter)
                     , querySettings);
+        }
+
+        private IRemoteCollection GetClientsAvailableForLinking(QuerySettings querySettings)
+        {
+            var expr = CreateExpToFilterReserveClientsByPermission();
+            var excludeClients = GetClientsAlreadyLinked(querySettings);
+
+            var clientsQuery = _secureFinder.Find(expr)
+                                            .Where(c => !excludeClients.Contains(c.Id))
+                                            .Where(c => !c.IsAdvertisingAgency);
+
+            return SelectClients(clientsQuery, querySettings);
+        }
+
+        private Expression<Func<Client, bool>> CreateExpToFilterReserveClientsByPermission()
+        {
+            var userCode = _userContext.Identity.Code;
+            var reserveRights = GetMaxAccessForReserve(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.ReserveAccess, userCode));
+            var reserveUserCode = _userIdentifierService.GetReserveUserIdentity().Code;
+
+            switch (reserveRights)
+            {
+                case ReserveAccess.None:
+                    {
+                        return c => c.OwnerCode != reserveUserCode;
+                    }
+
+                case ReserveAccess.Territory:
+                    {
+                        return c => c.OwnerCode != reserveUserCode ||
+                                    c.Territory.UserTerritoriesOrganizationUnits.Any(u => u.UserId == userCode);
+                    }
+
+                case ReserveAccess.OrganizationUnit:
+                    {
+                        return c => c.OwnerCode != reserveUserCode ||
+                                   (c.Territory.UserTerritoriesOrganizationUnits.Any(u => u.UserId == userCode) ||
+                                     c.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(u => u.UserId == userCode));
+                    }
+
+                case ReserveAccess.Full:
+                    {
+                        return c => true;
+                    }
+
+                default:
+                    throw new NotSupportedException(reserveRights.ToString());
+            }
+        }
+
+        private IEnumerable<long> GetClientsAlreadyLinked(QuerySettings querySettings)
+        {
+            bool excludeChildClients;
+            querySettings.TryGetExtendedProperty("ExcludeChildClients", out excludeChildClients);
+
+            if (excludeChildClients && querySettings.ParentEntityId.HasValue)
+            {
+                var currentClient = querySettings.ParentEntityId.Value;
+                var list = _finder.Find<ClientLink>(cl => cl.MasterClientId == currentClient && !cl.IsDeleted).Select(cl => cl.ChildClientId).ToList();
+
+                list.Add(currentClient);
+                return list;
+            }
+
+            return new long[0];
+        }
+
+        private static ReserveAccess GetMaxAccessForReserve(int[] accesses)
+        {
+            if (!accesses.Any())
+            {
+                return ReserveAccess.None;
+            }
+
+            var priorities = new[] { ReserveAccess.None, ReserveAccess.Territory, ReserveAccess.OrganizationUnit, ReserveAccess.Full };
+
+            var maxPriority = accesses.Select(x => Array.IndexOf(priorities, (ReserveAccess)x)).Max();
+            return priorities[maxPriority];
         }
 
         private bool TryGetClientsRestrictedByUser(
