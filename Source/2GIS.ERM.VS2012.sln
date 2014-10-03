@@ -513,6 +513,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.Platform.AppFabric
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Resources.Client", "..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj", "{153868E3-4C4C-45FE-86D6-6B4FBD39249C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations.Tests.Unit", "..\..\BL\Source\Tests\2Gis.Erm.BL.Operations.Tests.Unit\2Gis.Erm.BL.Operations.Tests.Unit.csproj", "{50B591AE-4761-4324-83F9-9359A876033C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1743,6 +1745,16 @@ Global
 		{153868E3-4C4C-45FE-86D6-6B4FBD39249C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{153868E3-4C4C-45FE-86D6-6B4FBD39249C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{153868E3-4C4C-45FE-86D6-6B4FBD39249C}.Release|x64.ActiveCfg = Release|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{50B591AE-4761-4324-83F9-9359A876033C}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1946,6 +1958,7 @@ Global
 		{25116287-6464-416E-986B-65E374B8FC7C} = {6E231F7B-880F-44F2-92BD-F0C5CBC1FBE0}
 		{E97BC051-BC95-4183-950B-0685DDE66D7D} = {25116287-6464-416E-986B-65E374B8FC7C}
 		{153868E3-4C4C-45FE-86D6-6B4FBD39249C} = {BF15FB1A-8859-4BC4-9BAF-083D37AF2DB5}
+		{50B591AE-4761-4324-83F9-9359A876033C} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45

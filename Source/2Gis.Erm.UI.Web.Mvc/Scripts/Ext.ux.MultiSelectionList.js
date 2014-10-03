@@ -8,7 +8,13 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         this.viewSettings = config.viewSettings;
         this.entityModel = config.entityModel;
         this.extendedInfo = config.extendedInfo;
-        this.initColumnSet();
+        this.initReaderFieldSet();
+        if (config.honourDataListFields) {
+            this.initColumnSetFromDataList();
+        } else {
+            this.initColumnSetDefault();
+        }
+        
         this.initStore();
 
 
@@ -94,19 +100,41 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         });
         window.Ext.ux.SearchFormMultiple.superclass.constructor.call(this, config);
     },
-    initColumnSet: function() {
-        this.fromColumnSet = [{
-            header: Ext.LocalizedResources.AvailableRecords,
-            tpl: "<nobr unselectable='on'><img class='x-multiselect-icon' src='" + window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.viewSettings.Icon) + "'/>{" + this.viewSettings.MainAttribute + "}</nobr>"
-        }];
-        this.toColumnSet = [{
-            header: Ext.LocalizedResources.SelectedRecords,
-            tpl: "<nobr unselectable='on'><img class='x-multiselect-icon' src='" + window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.viewSettings.Icon) + "'/>{" + this.viewSettings.MainAttribute + "}</nobr>"
-        }];
+    initReaderFieldSet: function () {
         this.rdrFieldSet = [];
         window.Ext.each(this.viewSettings.Fields, function(field, i) {
             this.rdrFieldSet.push(new Object({ name: field.Name }));
         }, this);
+    },
+    initColumnSetDefault: function () {
+        this.fromColumnSet = [];
+        this.toColumnSet = [];
+        var imageTag = this.formatEntityIconTag();
+
+        this.addColumn(this.fromColumnSet, Ext.LocalizedResources.AvailableRecords, this.viewSettings.MainAttribute, imageTag);
+        this.addColumn(this.toColumnSet, Ext.LocalizedResources.SelectedRecords, this.viewSettings.MainAttribute, imageTag);
+    },
+    initColumnSetFromDataList: function () {
+        this.fromColumnSet = [];
+        this.toColumnSet = [];
+        var imageTag = this.formatEntityIconTag();
+
+        Ext.each(this.viewSettings.Fields, function (field, i) {
+            if (!field.Hidden) {
+                this.addColumn(this.fromColumnSet, field.LocalizedName, field.Name, imageTag);
+                this.addColumn(this.toColumnSet, field.LocalizedName, field.Name, imageTag);
+                imageTag = ''; // image only on first visible column
+            }
+        }, this);
+    },
+    formatEntityIconTag: function () {
+        return "<img class='x-multiselect-icon' src='" + window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.viewSettings.Icon) + "'/>";
+    },
+    addColumn: function (targetArray, localizedName, name, imageTag) {
+        targetArray.push({
+            header: localizedName,
+            tpl: "<nobr unselectable='on'>" + imageTag + "{" + name + "}" + "</nobr>"
+        });
     },
     initStore: function() {
         var qstringparams = this.parseWindowLocation();
@@ -220,7 +248,7 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         this.btnRemove.dom.disabled = this.toList.getSelectedRecords().length == 0 ? "disabled" : null;
         if (this.fromList.getSelectedRecords().length == 0 || this.fromList.getSelectedRecords().length > 1) {
             this.btnProp.disable();
-        } else if (this.EntityModel && this.EntityModel.HasCard) {
+        } else if (this.entityModel && this.entityModel.HasCard) {
             this.btnProp.enable();
         }
     },
@@ -356,6 +384,11 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         // Removing last slash component
         if (urlComponents[urlComponents.length - 1] == '') {
             urlComponents.splice(urlComponents.length - 1, 1);
+        }
+
+        // Removing first slash component
+        if (urlComponents[0] == '') {
+            urlComponents.splice(0, 1);
         }
 
         return {
