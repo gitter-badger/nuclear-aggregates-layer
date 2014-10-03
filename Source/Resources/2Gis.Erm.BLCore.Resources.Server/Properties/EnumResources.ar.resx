@@ -1993,4 +1993,22 @@
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Contract Extension Agreement</value>
   </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Отсрочка</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Рассрочка</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Постоплата</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Предоплата</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Связь фирмы со сделкой</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Связь юр. лица со сделкой</value>
+  </data>
 </root>

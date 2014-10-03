@@ -1996,4 +1996,22 @@
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>La información contenida en esta sección corresponde a productos farmacéuticos autorizados para venta bajo receta médica. Conforme a la actual legislación, su promoción está dirigida sólo a profesionales médicos y químicos farmacéuticos. Parus S.p.A. no se hace responsable por la indebida interpretación y consecuencias del mal uso de la información aquí contenida.</value>
   </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Отсрочка</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Рассрочка</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Постоплата</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Предоплата</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Связь фирмы со сделкой</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Связь юр. лица со сделкой</value>
+  </data>
 </root>
