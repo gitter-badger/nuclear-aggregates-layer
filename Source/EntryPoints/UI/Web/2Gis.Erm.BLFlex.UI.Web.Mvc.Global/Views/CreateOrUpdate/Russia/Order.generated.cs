@@ -1159,14 +1159,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14996), Tuple.Create("\"", 15035)
+WriteAttribute("title", Tuple.Create(" title=\"", 14747), Tuple.Create("\"", 14786)
             
-            #line 245 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 15004), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+            #line 243 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+, Tuple.Create(Tuple.Create("", 14755), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 15004), false)
+, 14755), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1361,14 +1361,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17559), Tuple.Create("\"", 17602)
+WriteAttribute("title", Tuple.Create(" title=\"", 17310), Tuple.Create("\"", 17353)
             
-            #line 277 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 17567), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+            #line 275 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
+, Tuple.Create(Tuple.Create("", 17318), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17567), false)
+, 17318), false)
 );
 
 WriteLiteral(">\r\n");
