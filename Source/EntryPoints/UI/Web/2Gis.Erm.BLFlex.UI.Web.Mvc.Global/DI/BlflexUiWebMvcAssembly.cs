@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services;
@@ -14,7 +15,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI
                                                  IContainsType<IUIService>,
                                                  IContainsType<IEnumAdaptationService>,
                                                  IContainsType<IEntityUIService>,
-                                                 IContainsType<IViewModel>
+                                                 IContainsType<IViewModel>,
+                                                 IContainsType<IViewModelCustomization>
     {
     }
 }
