@@ -63,6 +63,7 @@
     <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\Integration\Olap\CalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Deals\SetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\CreateBlankFirmsOperationService.cs" />
@@ -298,6 +299,8 @@
     <Compile Include="Generic\Activate\ActivatePriceService.cs" />
     <Compile Include="Generic\Activate\ActivateUserService.cs" />
     <Compile Include="Generic\Activate\ActivateBargainOperationService.cs" />
+    <Compile Include="Generic\Append\AppendLegalPersonDealService.cs" />
+    <Compile Include="Generic\Append\AppendFirmDealService.cs" />
     <Compile Include="Generic\Append\AppendThemeCategoryService.cs" />
     <Compile Include="Generic\Append\AppendThemeOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
@@ -341,6 +344,7 @@
     <Compile Include="Generic\Deactivate\DeactivateTerritoryService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateUserService.cs" />
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
+    <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
     <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
     <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementElementTemplateService.cs" />

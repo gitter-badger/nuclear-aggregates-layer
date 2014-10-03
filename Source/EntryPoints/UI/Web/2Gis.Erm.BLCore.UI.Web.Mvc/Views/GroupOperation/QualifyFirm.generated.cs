@@ -177,91 +177,91 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Firm\');\r\n        
 "stomControls();\r\n                        },\r\n                        applyuserse" +
 "ttings: function() {\r\n                            this.ApplyUserSettings();\r\n   " +
 "                     },\r\n                        entityprocessingsuccess: functi" +
-"on(entityId) {\r\n                            this.EntityProcessingSuccess(entityI" +
-"d);\r\n                        },\r\n                        entityprocessingfail: f" +
-"unction(entityId) {\r\n                            this.EntityProcessingFail(entit" +
-"yId);\r\n                        },\r\n                        processingfinished: f" +
-"unction() {\r\n                            this.ProcessingFinished();\r\n           " +
-"             }\r\n                    }\r\n                });\r\n                Ext." +
-"DoubleGis.UI.Firm.QualifyProcessor.superclass.constructor.call(this, config);\r\n " +
-"           },\r\n            ConfigCustomControls: function() {\r\n                /" +
-"/ show error messages\r\n                if (Ext.getDom(\"Notifications\").innerHTML" +
-".trim() == \"OK\") {\r\n                    window.close();\r\n                    ret" +
-"urn;\r\n                } else if (Ext.getDom(\"Notifications\").innerHTML.trim() !=" +
-" \"\" && Ext.getDom(\"Notifications\").innerHTML.trim() != \"OK\") {\r\n                " +
-"    Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n                }\r\n\r\n  " +
-"              var onRadioClick = this.RadioClick.createDelegate(this);\r\n        " +
-"        Ext.get(\"rdoNewAccount\").on(\"click\", onRadioClick);\r\n                Ext" +
-".get(\"rdoOther\").on(\"click\", onRadioClick);\r\n                Ext.get(\"rdoAssignT" +
-"oMe\").on(\"click\", onRadioClick);\r\n                Ext.get(\"rdoAssignToUser\").on(" +
-"\"click\", onRadioClick);\r\n\r\n                this.UserCodeLookup = Ext.getCmp(\"Use" +
-"rCode\");\r\n                this.ClientCodeLookup = Ext.getCmp(\"ClientCode\");\r\n\r\n " +
-"               // filter client lookup\r\n                this.UserCodeLookup.on(\"" +
-"change\", function() {\r\n                    if (this.UserCodeLookup.getValue())\r\n" +
-"                        this.ClientCodeLookup.extendedInfo = \"userId=\" + this.Us" +
-"erCodeLookup.getValue().id;\r\n                    else\r\n                        t" +
-"his.ClientCodeLookup.extendedInfo = \"\";\r\n\r\n                    this.ClientCodeLo" +
-"okup.clearValue();\r\n                }, this);\r\n\r\n                // set checkbox" +
-"es initial values\r\n                Ext.getDom(\"rdoOther\").checked = false;\r\n    " +
-"            Ext.getDom(\"rdoAssignToUser\").checked = false;\r\n            },\r\n    " +
-"        RadioClick: function() {\r\n                if (Ext.getDom(\"rdoAssignToMe\"" +
-").checked) {\r\n                    this.UserCodeLookup.disable();\r\n              " +
-"  } else if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n                    this." +
-"UserCodeLookup.enable();\r\n                }\r\n\r\n                if (Ext.getDom(\"r" +
-"doNewAccount\").checked) {\r\n                    this.ClientCodeLookup.disable();\r" +
-"\n                } else if (Ext.getDom(\"rdoOther\").checked) {\r\n                 " +
-"   this.ClientCodeLookup.enable();\r\n                }\r\n\r\n                if (Ext" +
-".getDom(\"rdoAssignToMe\").checked) {\r\n                    this.ClientCodeLookup.e" +
-"xtendedInfo = \"filterToCurrentUser=true\";\r\n                    this.UserCodeLook" +
-"up.disable();\r\n                } else if (Ext.getDom(\"rdoAssignToUser\").checked)" +
-" {\r\n                    if (this.UserCodeLookup.getValue())\r\n                   " +
-"     this.ClientCodeLookup.extendedInfo = \"userId=\" + this.UserCodeLookup.getVal" +
-"ue().id;\r\n                    else\r\n                        this.ClientCodeLooku" +
-"p.extendedInfo = \"\";\r\n\r\n                    this.UserCodeLookup.enable();\r\n     " +
-"           }\r\n            },\r\n            IsUserSettingsValid: function() {\r\n   " +
-"             // warning if client to set\r\n                if (Ext.getDom(\"rdoOth" +
-"er\").checked) {\r\n                    if (Ext.getDom(\"ClientCode\").value == \"\") {" +
-"\r\n                        Ext.MessageBox.show({\r\n                            tit" +
-"le: \'\',\r\n                            msg: Ext.LocalizedResources.QualifyMustPick" +
-"Client,\r\n                            buttons: window.Ext.MessageBox.OK,\r\n       " +
-"                     width: 300,\r\n                            icon: window.Ext.M" +
-"essageBox.ERROR\r\n                        });\r\n                        return fal" +
-"se;\r\n                    }\r\n                }\r\n\r\n                // warning if o" +
-"wner to set\r\n                if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n     " +
-"               if (Ext.getDom(\"UserCode\").value == \"\") {\r\n                      " +
-"  Ext.MessageBox.show({\r\n                            title: \'\',\r\n               " +
-"             msg: Ext.LocalizedResources.QualifyMustPickUser,\r\n                 " +
-"           buttons: window.Ext.MessageBox.OK,\r\n                            width" +
-": 300,\r\n                            icon: window.Ext.MessageBox.ERROR\r\n         " +
-"               });\r\n                        return false;\r\n                    }" +
-"\r\n                }\r\n\r\n                return true;\r\n            },\r\n           " +
-" ApplyUserSettings: function() {\r\n                this.IsCreateNewClients = wind" +
-"ow.Ext.getDom(\"rdoNewAccount\").checked;\r\n                this.UserId = Ext.getDo" +
-"m(\"rdoAssignToUser\").checked ? this.UserCodeLookup.getValue().id : \"\";\r\n        " +
-"        this.ClientId = Ext.getDom(\"rdoOther\").checked ? this.ClientCodeLookup.g" +
-"etValue().id : \"\";\r\n\r\n                Ext.getDom(\"rdoAssignToMe\").disabled = \"di" +
-"sabled\";\r\n                Ext.getDom(\"rdoAssignToUser\").disabled = \"disabled\";\r\n" +
-"                Ext.getDom(\"rdoNewAccount\").disabled = \"disabled\";\r\n            " +
-"    Ext.getDom(\"rdoOther\").disabled = \"disabled\";\r\n                this.UserCode" +
-"Lookup.disable();\r\n                this.ClientCodeLookup.disable();\r\n           " +
-" },\r\n            CreateParamsForControllerCall: function(entityId) {\r\n          " +
-"      return { entityId: entityId, userId: this.UserId, clientId: this.ClientId " +
-"};\r\n            },\r\n            EntityProcessingSuccess: function(responseText) " +
-"{\r\n                var entityId = Ext.decode(responseText);\r\n                if " +
-"(this.IsCreateNewClients) {\r\n                    this.ClientCardsToOpen.push(ent" +
-"ityId); // открываем карточки всех вновь созданных клиентов\r\n                } e" +
-"lse if (this.ClientCardsToOpen.length == 0) {\r\n                    this.ClientCa" +
-"rdsToOpen.push(entityId); // открываем карточку клиента - к которому привязали ф" +
-"ирмы\r\n                }\r\n            },\r\n            EntityProcessingFail: funct" +
-"ion(entityId) {\r\n            },\r\n            ProcessingFinished: function() {\r\n " +
-"               if (!this.IsSingleEntityProcessing || this.ClientCardsToOpen.leng" +
-"th != 1) {\r\n                    return;\r\n                }\r\n\r\n                Ex" +
-"t.DoubleGis.Global.Helpers.OpenEntity(\'Client\', this.ClientCardsToOpen[0]);\r\n   " +
-"         }\r\n        });\r\n        Ext.onReady(function() {\r\n\r\n            var ids" +
-" = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialog" +
-"Arguments.Values : window.dialogArguments);\r\n\r\n            var config = {\r\n     " +
-"           Entities: ids, // массив id сущностей\r\n                OperationName:" +
-" \'");
+"on (responseText) {\r\n                            this.EntityProcessingSuccess(re" +
+"sponseText);\r\n                        },\r\n                        entityprocessi" +
+"ngfail: function (message) {\r\n                            this.EntityProcessingF" +
+"ail(message);\r\n                        },\r\n                        processingfin" +
+"ished: function() {\r\n                            this.ProcessingFinished();\r\n   " +
+"                     }\r\n                    }\r\n                });\r\n            " +
+"    Ext.DoubleGis.UI.Firm.QualifyProcessor.superclass.constructor.call(this, con" +
+"fig);\r\n            },\r\n            ConfigCustomControls: function() {\r\n         " +
+"       // show error messages\r\n                if (Ext.getDom(\"Notifications\").i" +
+"nnerHTML.trim() == \"OK\") {\r\n                    window.close();\r\n               " +
+"     return;\r\n                } else if (Ext.getDom(\"Notifications\").innerHTML.t" +
+"rim() != \"\" && Ext.getDom(\"Notifications\").innerHTML.trim() != \"OK\") {\r\n        " +
+"            Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n               " +
+" }\r\n\r\n                var onRadioClick = this.RadioClick.createDelegate(this);\r\n" +
+"                Ext.get(\"rdoNewAccount\").on(\"click\", onRadioClick);\r\n           " +
+"     Ext.get(\"rdoOther\").on(\"click\", onRadioClick);\r\n                Ext.get(\"rd" +
+"oAssignToMe\").on(\"click\", onRadioClick);\r\n                Ext.get(\"rdoAssignToUs" +
+"er\").on(\"click\", onRadioClick);\r\n\r\n                this.UserCodeLookup = Ext.get" +
+"Cmp(\"UserCode\");\r\n                this.ClientCodeLookup = Ext.getCmp(\"ClientCode" +
+"\");\r\n\r\n                // filter client lookup\r\n                this.UserCodeLoo" +
+"kup.on(\"change\", function() {\r\n                    if (this.UserCodeLookup.getVa" +
+"lue())\r\n                        this.ClientCodeLookup.extendedInfo = \"userId=\" +" +
+" this.UserCodeLookup.getValue().id;\r\n                    else\r\n                 " +
+"       this.ClientCodeLookup.extendedInfo = \"\";\r\n\r\n                    this.Clie" +
+"ntCodeLookup.clearValue();\r\n                }, this);\r\n\r\n                // set " +
+"checkboxes initial values\r\n                Ext.getDom(\"rdoOther\").checked = fals" +
+"e;\r\n                Ext.getDom(\"rdoAssignToUser\").checked = false;\r\n            " +
+"},\r\n            RadioClick: function() {\r\n                if (Ext.getDom(\"rdoAss" +
+"ignToMe\").checked) {\r\n                    this.UserCodeLookup.disable();\r\n      " +
+"          } else if (Ext.getDom(\"rdoAssignToUser\").checked) {\r\n                 " +
+"   this.UserCodeLookup.enable();\r\n                }\r\n\r\n                if (Ext.g" +
+"etDom(\"rdoNewAccount\").checked) {\r\n                    this.ClientCodeLookup.dis" +
+"able();\r\n                } else if (Ext.getDom(\"rdoOther\").checked) {\r\n         " +
+"           this.ClientCodeLookup.enable();\r\n                }\r\n\r\n               " +
+" if (Ext.getDom(\"rdoAssignToMe\").checked) {\r\n                    this.ClientCode" +
+"Lookup.extendedInfo = \"filterToCurrentUser=true\";\r\n                    this.User" +
+"CodeLookup.disable();\r\n                } else if (Ext.getDom(\"rdoAssignToUser\")." +
+"checked) {\r\n                    if (this.UserCodeLookup.getValue())\r\n           " +
+"             this.ClientCodeLookup.extendedInfo = \"userId=\" + this.UserCodeLooku" +
+"p.getValue().id;\r\n                    else\r\n                        this.ClientC" +
+"odeLookup.extendedInfo = \"\";\r\n\r\n                    this.UserCodeLookup.enable()" +
+";\r\n                }\r\n            },\r\n            IsUserSettingsValid: function(" +
+") {\r\n                // warning if client to set\r\n                if (Ext.getDom" +
+"(\"rdoOther\").checked) {\r\n                    if (Ext.getDom(\"ClientCode\").value " +
+"== \"\") {\r\n                        Ext.MessageBox.show({\r\n                       " +
+"     title: \'\',\r\n                            msg: Ext.LocalizedResources.Qualify" +
+"MustPickClient,\r\n                            buttons: window.Ext.MessageBox.OK,\r" +
+"\n                            width: 300,\r\n                            icon: wind" +
+"ow.Ext.MessageBox.ERROR\r\n                        });\r\n                        re" +
+"turn false;\r\n                    }\r\n                }\r\n\r\n                // warn" +
+"ing if owner to set\r\n                if (Ext.getDom(\"rdoAssignToUser\").checked) " +
+"{\r\n                    if (Ext.getDom(\"UserCode\").value == \"\") {\r\n              " +
+"          Ext.MessageBox.show({\r\n                            title: \'\',\r\n       " +
+"                     msg: Ext.LocalizedResources.QualifyMustPickUser,\r\n         " +
+"                   buttons: window.Ext.MessageBox.OK,\r\n                         " +
+"   width: 300,\r\n                            icon: window.Ext.MessageBox.ERROR\r\n " +
+"                       });\r\n                        return false;\r\n             " +
+"       }\r\n                }\r\n\r\n                return true;\r\n            },\r\n   " +
+"         ApplyUserSettings: function() {\r\n                this.IsCreateNewClient" +
+"s = window.Ext.getDom(\"rdoNewAccount\").checked;\r\n                this.UserId = E" +
+"xt.getDom(\"rdoAssignToUser\").checked ? this.UserCodeLookup.getValue().id : \"\";\r\n" +
+"                this.ClientId = Ext.getDom(\"rdoOther\").checked ? this.ClientCode" +
+"Lookup.getValue().id : \"\";\r\n\r\n                Ext.getDom(\"rdoAssignToMe\").disabl" +
+"ed = \"disabled\";\r\n                Ext.getDom(\"rdoAssignToUser\").disabled = \"disa" +
+"bled\";\r\n                Ext.getDom(\"rdoNewAccount\").disabled = \"disabled\";\r\n    " +
+"            Ext.getDom(\"rdoOther\").disabled = \"disabled\";\r\n                this." +
+"UserCodeLookup.disable();\r\n                this.ClientCodeLookup.disable();\r\n   " +
+"         },\r\n            CreateParamsForControllerCall: function(entityId) {\r\n  " +
+"              return { entityId: entityId, userId: this.UserId, clientId: this.C" +
+"lientId };\r\n            },\r\n            EntityProcessingSuccess: function(respon" +
+"seText) {\r\n                var response = Ext.decode(responseText);\r\n           " +
+"     if (this.IsCreateNewClients) {\r\n                    this.ClientCardsToOpen." +
+"push(response.RelatedEntityId); // открываем карточки всех вновь созданных клиен" +
+"тов\r\n                } else if (this.ClientCardsToOpen.length == 0) {\r\n         " +
+"           this.ClientCardsToOpen.push(response.RelatedEntityId); // открываем к" +
+"арточку клиента - к которому привязали фирмы\r\n                }\r\n            },\r" +
+"\n            EntityProcessingFail: function (message) {\r\n            },\r\n       " +
+"     ProcessingFinished: function() {\r\n                if (!this.IsSingleEntityP" +
+"rocessing || this.ClientCardsToOpen.length != 1) {\r\n                    return;\r" +
+"\n                }\r\n\r\n                Ext.DoubleGis.Global.Helpers.OpenEntity(\'C" +
+"lient\', this.ClientCardsToOpen[0]);\r\n            }\r\n        });\r\n        Ext.onR" +
+"eady(function() {\r\n\r\n            var ids = !window.dialogArguments ? [] : (windo" +
+"w.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArgument" +
+"s);\r\n\r\n            var config = {\r\n                Entities: ids, // массив id с" +
+"ущностей\r\n                OperationName: \'");
 
             
             #line 177 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
