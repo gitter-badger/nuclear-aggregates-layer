@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Qds.Migrator
                .Use<EnvironmentsAspect>()
                .Use<DebtProcessingSettingsAspect>()
                .Use(new MsCRMSettingsAspect(connectionStrings)) // IFinder не сресолвится без ms crm settings
-               .UseElasticClientNestSettingsAspect();
+               .Use(new NestSettingsAspect(connectionStrings));
         }
     }
 }
