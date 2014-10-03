@@ -63,6 +63,9 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterRelatedFilter<ListFirmDto>(EntityName.Territory, x => x.TerritoryId)
             .RegisterRelatedFilter<FirmGridDoc>(EntityName.Client, x => x.ClientId)
             .RegisterRelatedFilter<FirmGridDoc>(EntityName.Territory, x => x.TerritoryId)
+            .RegisterRelatedFilter<ListFirmDealDto>(EntityName.Deal, x => x.DealId)
+
+            .RegisterRelatedFilter<ListLegalPersonDealDto>(EntityName.Deal, x => x.DealId)
 
             .RegisterRelatedFilter<ListContactDto>(EntityName.Client, x => x.ClientId)
 
