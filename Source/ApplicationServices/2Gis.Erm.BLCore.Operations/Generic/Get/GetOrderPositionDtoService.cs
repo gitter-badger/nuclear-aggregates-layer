@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
@@ -22,17 +22,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private readonly ISecureFinder _finder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly IPublicService _publicService;
+        private readonly IReleaseReadModel _releaseReadModel;
 
         public GetOrderPositionDtoService(IUserContext userContext,
                                           ISecureFinder finder,
                                           ISecurityServiceUserIdentifier userIdentifierService,
-                                          IPublicService publicService)
+                                          IReleaseReadModel releaseReadModel)
             : base(userContext)
         {
             _finder = finder;
             _userIdentifierService = userIdentifierService;
-            _publicService = publicService;
+            _releaseReadModel = releaseReadModel;
         }
 
         protected override IDomainEntityDto<OrderPosition> GetDto(long entityId)
@@ -120,6 +120,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                        {
                                            x.WorkflowStepId,
                                            x.DestOrganizationUnitId,
+                                           x.BeginDistributionDate,
+                                           x.EndDistributionDateFact,
                                            DestOrganizationUnitName = x.DestOrganizationUnit.Name,
                                            x.FirmId,
                                            PriceId = x.DestOrganizationUnit.Prices
@@ -150,9 +152,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             modelDto.RequiredPlatformId = orderInfo.OrderPositionCount > (modelDto.Id == 0 ? 0 : 1) ? orderInfo.PlatformId : null;
 
             // Сборка в статусе "InProgress" за период, который пересекается с периодом размещения заказа или заказ в Архиве 
-            var response =
-                (CheckOrderReleasePeriodResponse)_publicService.Handle(new CheckOrderReleasePeriodRequest { OrderId = modelDto.OrderId, InProgressOnly = true });
-            modelDto.IsBlockedByRelease = !response.Success;
+            if (orderInfo.WorkflowStepId == (int)OrderState.Approved || orderInfo.WorkflowStepId == (int)OrderState.OnTermination)
+            {
+                modelDto.IsBlockedByRelease = _releaseReadModel.HasFinalReleaseInProgress(orderInfo.DestOrganizationUnitId,
+                                                                                          new TimePeriod(orderInfo.BeginDistributionDate, orderInfo.EndDistributionDateFact));
+            }
+
             modelDto.OrderWorkflowStepId = orderInfo.WorkflowStepId;
             modelDto.IsRated = modelDto.PricePositionRef != null &&
                                _finder.Find<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id).Select(x => x.RateType != 0).Single();

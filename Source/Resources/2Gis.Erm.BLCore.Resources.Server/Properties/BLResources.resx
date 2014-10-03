@@ -255,9 +255,6 @@
   <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value />
   </data>
-  <data name="GroupOperationResultsTitle" xml:space="preserve">
-    <value />
-  </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value />
   </data>
@@ -867,9 +864,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value />
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value />
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value />
   </data>
@@ -952,9 +946,6 @@
     <value />
   </data>
   <data name="LocalMessageProcessingResultTemplate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AdvertisementElements" xml:space="preserve">
     <value />
   </data>
   <data name="ActionsHistory" xml:space="preserve">
@@ -1185,7 +1176,7 @@
   <data name="Skypes" xml:space="preserve">
     <value />
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
     <value />
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
@@ -1431,9 +1422,6 @@
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value />
-  </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value />
   </data>
@@ -1557,9 +1545,6 @@
   <data name="EditCurrency" xml:space="preserve">
     <value />
   </data>
-  <data name="AssignMustPickUser" xml:space="preserve">
-    <value />
-  </data>
   <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
     <value />
   </data>
@@ -1629,9 +1614,6 @@
   <data name="QualifyOwnerNotReserved" xml:space="preserve">
     <value />
   </data>
-  <data name="QualifyMustPickClient" xml:space="preserve">
-    <value />
-  </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value />
   </data>
@@ -1669,9 +1651,6 @@
     <value />
   </data>
   <data name="MergeClientsSameIdError" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DeactivateMustPickTerritory" xml:space="preserve">
     <value />
   </data>
   <data name="PayableBudgetFact" xml:space="preserve">
@@ -1714,9 +1693,6 @@
     <value />
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
     <value />
   </data>
   <data name="OriginalValue" xml:space="preserve">
@@ -2163,9 +2139,6 @@
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value />
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value />
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value />
   </data>
@@ -2227,9 +2200,6 @@
     <value />
   </data>
   <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Close" xml:space="preserve">
     <value />
   </data>
   <data name="ExportLegalPersons" xml:space="preserve">
@@ -2403,9 +2373,6 @@
   <data name="AssignCategory" xml:space="preserve">
     <value />
   </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value />
-  </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value />
   </data>
@@ -2422,9 +2389,6 @@
     <value />
   </data>
   <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
     <value />
   </data>
   <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
@@ -2520,7 +2484,7 @@
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value />
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value />
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
@@ -2874,9 +2838,6 @@
   <data name="Modified" xml:space="preserve">
     <value />
   </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value />
-  </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value />
   </data>
@@ -3018,9 +2979,6 @@
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value />
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value />
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value />
   </data>
@@ -3082,9 +3040,6 @@
     <value />
   </data>
   <data name="RenderFn" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
     <value />
   </data>
   <data name="Approved" xml:space="preserve">
@@ -3219,9 +3174,6 @@
   <data name="AccountingSystemId" xml:space="preserve">
     <value />
   </data>
-  <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value />
-  </data>
   <data name="AssignClient" xml:space="preserve">
     <value />
   </data>
@@ -3307,9 +3259,6 @@
     <value />
   </data>
   <data name="OperationTypeNotFound" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
     <value />
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
@@ -3627,9 +3576,6 @@
   <data name="CopyPricetReplaceExisting" xml:space="preserve">
     <value />
   </data>
-  <data name="QualifyMustPickUser" xml:space="preserve">
-    <value />
-  </data>
   <data name="CurrencyRate" xml:space="preserve">
     <value />
   </data>
@@ -3691,9 +3637,6 @@
     <value />
   </data>
   <data name="Title1CIntegration" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SaveError" xml:space="preserve">
     <value />
   </data>
   <data name="AccesDeniedForMergingClients" xml:space="preserve">
@@ -3802,9 +3745,6 @@
     <value />
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GroupOperationResultsMessage" xml:space="preserve">
     <value />
   </data>
   <data name="FirmEdit" xml:space="preserve">
@@ -3961,9 +3901,6 @@
     <value />
   </data>
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
     <value />
   </data>
   <data name="AmountLocked" xml:space="preserve">
@@ -4162,9 +4099,6 @@
     <value />
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
-    <value />
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
     <value />
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
@@ -4590,9 +4524,6 @@
   <data name="MainPageHeader" xml:space="preserve">
     <value />
   </data>
-  <data name="DisplayErrorsList" xml:space="preserve">
-    <value />
-  </data>
   <data name="MoDiUnknownError" xml:space="preserve">
     <value />
   </data>
@@ -4750,9 +4681,6 @@
     <value />
   </data>
   <data name="NotWorkingDay" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DisabledFunctionality" xml:space="preserve">
     <value />
   </data>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
@@ -5136,6 +5064,9 @@
   <data name="PrivilegeToCreateAgentBargainIsMissing" xml:space="preserve">
     <value />
   </data>
+  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value />
+  </data>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value />
   </data>
@@ -5157,7 +5088,16 @@
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value />
   </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value />
+  </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
     <value />
   </data>
 </root>

@@ -55,10 +55,12 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Accounts\DTO\AccountDTOs.cs" />
+    <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
     <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />
     <Compile Include="Accounts\DTO\ActivateLockDto.cs" />
     <Compile Include="Accounts\DTO\DeactivateLockDto.cs" />
     <Compile Include="Accounts\DTO\LockDto.cs" />
+    <Compile Include="Accounts\DTO\AccountDetailInfoToSendNotificationDto.cs" />
     <Compile Include="Accounts\DTO\RevertWithdrawalDto.cs" />
     <Compile Include="Accounts\DTO\RevertWithdrawFromAccountsDto.cs" />
     <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
@@ -162,12 +164,12 @@
     <Compile Include="Common\Specs\Simplified\OrderProcessingRequestSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\PlatformSpecifications.cs" />
     <Compile Include="Common\Specs\Simplified\PrintFormTemplateSpecifications.cs" />
-    <Compile Include="Deals\DTO\ClientAndFirmForDealInfo.cs" />
     <Compile Include="Deals\DTO\DealActualizeDuringWithdrawalDto.cs" />
     <Compile Include="Deals\DTO\DealChangeStageDto.cs" />
     <Compile Include="Deals\DTO\DealLegalPersonDto.cs" />
     <Compile Include="Deals\DTO\DealWithNonRejectedOrderInfos.cs" />
     <Compile Include="Deals\IDealRepository.cs" />
+    <Compile Include="Deals\Operations\ICreateDealAggregateService.cs" />
     <Compile Include="Deals\Operations\IDealChangeStageAggregateService.cs" />
     <Compile Include="Deals\Operations\IDetachDealFromFirmAggregateService.cs" />
     <Compile Include="Deals\ReadModel\DealSpecs.Deals.cs" />
@@ -225,8 +227,10 @@
     <Compile Include="Orders\DTO\ForRelease\AdvertisingMaterialInfo.cs" />
     <Compile Include="Orders\DTO\ForRelease\CategoryInAddressElementInfo.cs" />
     <Compile Include="Orders\DTO\ForRelease\OrderInfo.cs" />
+    <Compile Include="Orders\DTO\OrderOrganizationUnitDerivedFieldsDto.cs" />
     <Compile Include="Orders\DTO\ForRelease\OrderPositionInfo.cs" />
     <Compile Include="Orders\DTO\OrderDTOs.cs" />
+    <Compile Include="Orders\DTO\OrderParentEntityDerivedFieldsDto.cs" />
     <Compile Include="Orders\DTO\OrderSuitableBargainDto.cs" />
     <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
     <Compile Include="Orders\DTO\OrderNumberDto.cs" />

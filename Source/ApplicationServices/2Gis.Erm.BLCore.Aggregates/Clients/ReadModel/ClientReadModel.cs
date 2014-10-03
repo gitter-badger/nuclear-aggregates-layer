@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
 
         public string GetClientName(long clientId)
         {
-            return _finder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.Name).Single();
+            return _finder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.Name).SingleOrDefault();
         }
 
 	    public string GetContactName(long contactId)

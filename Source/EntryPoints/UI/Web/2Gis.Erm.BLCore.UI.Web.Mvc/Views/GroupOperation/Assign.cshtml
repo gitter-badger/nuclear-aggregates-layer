@@ -1,5 +1,5 @@
 ﻿@using DoubleGis.Erm.Platform.Common.Utils
-@model Models.GroupOperation.AssignViewModel
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.AssignViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -72,9 +72,7 @@
                     if (Ext.getDom("UserCode").value == "") {
                         Ext.MessageBox.show({
                             title: '',
-                            // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                            msg: '@BLResources.AssignMustPickUser',
+                            msg: Ext.LocalizedResources.AssignMustPickUser,
                             buttons: window.Ext.MessageBox.OK,
                             width: 300,
                             icon: window.Ext.MessageBox.ERROR
@@ -101,7 +99,7 @@
             	else 
             		return this.superclass().ResolveEntityName.call(this, entityId);
             },
-        	CreateParamsForControllerCall: function (entityId) {
+            CreateParamsForControllerCall: function (entityId) {
                 return { entityId: entityId, ownerCode: this.OwnerCode, isPartialAssign: this.IsPartialAssign, bypassValidation: null };
             },
             ValidateEntryProcessingSuccessStatus: function (message) {
@@ -132,7 +130,7 @@
                     var errorsLinkNode = document.createElement("a");
                     errorsLinkNode.id = 'ErrorsLink';
                     errorsLinkNode.href = '#';
-                    errorsLinkNode.appendChild(document.createTextNode('@BLResources.DisplayErrorsList'));
+                    errorsLinkNode.appendChild(document.createTextNode(Ext.LocalizedResources.DisplayErrorsList));
                     notifications.appendChild(errorsLinkNode);
                     Ext.getDom('ErrorsLink').onclick = function () {
                         Ext.getDom('ErrorsForm').submit();
@@ -176,12 +174,12 @@
             Ext.getDom('PageContentCell').style["vertical-align"] = "top";
             var config = {
             	EntitiesToProcess: isExtendedMode ? dialogArguments : null,
-            	Entities: ids, // массив id сущностей
+                Entities: ids, // массив id сущностей
                 OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
-                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
-                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
-                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
-                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
             var assignProcessor = new Ext.DoubleGis.UI.Assign.AssignProcessor(config);
             if (!assignProcessor.CheckProcessingPossibility())

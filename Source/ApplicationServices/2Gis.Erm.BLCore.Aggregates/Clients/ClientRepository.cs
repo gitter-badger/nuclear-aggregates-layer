@@ -27,6 +27,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -55,6 +56,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private readonly IRepository<Order> _orderGenericRepository;
         private readonly IRepository<OrderPosition> _orderPositionGenericRepository;
         private readonly IRepository<Contact> _contactGenericRepository;
+        private readonly IRepository<Appointment> _appointmentRepository;
+        private readonly IRepository<Phonecall> _phonecallRepository;
+        private readonly IRepository<Task> _taskRepository;
 	    private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IClientPersistenceService _clientPersistenceService;
@@ -77,6 +81,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             IRepository<Order> orderGenericRepository,
             IRepository<OrderPosition> orderPositionGenericRepository,
             IRepository<Contact> contactGenericRepository,
+            IRepository<Appointment> appointmentRepository,
+            IRepository<Phonecall> phonecallRepository,
+            IRepository<Task> taskRepository,
             ISecureRepository<Contact> contactGenericSecureRepository,
             ISecurityServiceFunctionalAccess functionalAccessService, 
             ISecurityServiceUserIdentifier userIdentifierService, 
@@ -99,6 +106,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             _orderGenericRepository = orderGenericRepository;
             _orderPositionGenericRepository = orderPositionGenericRepository;
             _contactGenericRepository = contactGenericRepository;
+            _appointmentRepository = appointmentRepository;
+            _phonecallRepository = phonecallRepository;
+            _taskRepository = taskRepository;
 	        _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
             _userContext = userContext;
@@ -174,11 +184,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                                                      Order = order,
                                                                      order.OrderPositions
                                                                  },
-										   PreviousOwner = clientPrevOwner
                                        })
                                       .Single();
 
                 var clientToAssign = _finder.FindOne(Specs.Find.ById<Client>(clientId));
+                var prevOwnerCode = clientToAssign.OwnerCode;
                 clientToAssign.OwnerCode = ownerCode;
                 _clientGenericSecureRepository.Update(clientToAssign);
                 operationScope.Updated<Client>(clientToAssign.Id);
@@ -278,6 +288,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 _contactGenericRepository.Save();
 
                 operationScope.Complete();
+
                 return count;
             }
         }
@@ -535,7 +546,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public IEnumerable<Client> GetClientsByTerritory(long territoryId)
         {
-            return _finder.Find<Client>(x => x.TerritoryId == territoryId).ToArray();
+            return _finder.FindMany(ClientSpecs.Clients.Find.ByTerritory(territoryId));
         }
 
         public void ChangeTerritory(IEnumerable<Client> clients, long territoryId)
@@ -554,10 +565,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             }
         }
 
-        public void CalculatePromising()
+        public void CalculatePromising(long modifiedBy)
         {
-            // timeout should be increased due to long sql updates (60 min = 3600 sec)
-            _clientPersistenceService.CalculateClientPromising(_userContext.Identity.Code, 3600, false);
+            using (var scope = _scopeFactory.CreateNonCoupled<CalculateClientPromisingIdentity>())
+            {
+                var changedEntities = _clientPersistenceService.CalculateClientPromising(modifiedBy, TimeSpan.FromHours(1));
+
+                scope.ApplyChanges<Client>(changedEntities)
+                     .Complete();
+        }
         }
 
         public void CreateOrUpdate(Contact contact)

@@ -5,6 +5,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -261,6 +263,79 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                                                                                         }
                                                          }
                             });
+                }
+
+                public static ISelectSpecification<Order, OrderDomainEntityDto> OrderDomainEntityDto()
+                {
+                    return new SelectSpecification<Order, OrderDomainEntityDto>(x => new OrderDomainEntityDto
+                    {
+                        Id = x.Id,
+                        OrderNumber = x.Number,
+                        RegionalNumber = x.RegionalNumber,
+                        FirmRef = new EntityReference { Id = x.FirmId, Name = x.Firm.Name },
+                        ClientRef = new EntityReference
+                        {
+                            Id = x.Deal != null ? x.Deal.ClientId : x.Firm.ClientId,
+                            Name = (x.Deal != null) ? x.Deal.Client.Name : (x.Firm.Client != null ? x.Firm.Client.Name : null)
+                        },
+                        DgppId = x.DgppId,
+                        HasAnyOrderPosition = x.OrderPositions.Any(op => op.IsActive && !op.IsDeleted),
+                        HasDestOrganizationUnitPublishedPrice = x.DestOrganizationUnit.Prices
+                                                                 .Any(price => price.IsPublished && price.IsActive &&
+                                                                               !price.IsDeleted && price.BeginDate <= x.BeginDistributionDate),
+                        SourceOrganizationUnitRef = new EntityReference { Id = x.SourceOrganizationUnitId, Name = x.SourceOrganizationUnit.Name },
+                        DestOrganizationUnitRef = new EntityReference { Id = x.DestOrganizationUnitId, Name = x.DestOrganizationUnit.Name },
+                        BranchOfficeOrganizationUnitRef = new EntityReference { Id = x.BranchOfficeOrganizationUnitId, Name = x.BranchOfficeOrganizationUnit.ShortLegalName },
+                        LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName },
+                        LegalPersonProfileRef = new EntityReference { Id = x.LegalPersonProfileId, Name = x.LegalPersonProfile.Name },
+                        DealRef = new EntityReference { Id = x.DealId, Name = x.Deal.Name },
+                        DealCurrencyId = x.Deal.CurrencyId,
+                        CurrencyRef = new EntityReference { Id = x.CurrencyId, Name = x.Currency.Name },
+                        BeginDistributionDate = x.BeginDistributionDate,
+                        EndDistributionDatePlan = x.EndDistributionDatePlan,
+                        EndDistributionDateFact = x.EndDistributionDateFact,
+                        BeginReleaseNumber = x.BeginReleaseNumber,
+                        EndReleaseNumberPlan = x.EndReleaseNumberPlan,
+                        EndReleaseNumberFact = x.EndReleaseNumberFact,
+                        SignupDate = x.SignupDate,
+                        ReleaseCountPlan = x.ReleaseCountPlan,
+                        ReleaseCountFact = x.ReleaseCountFact,
+                        PreviousWorkflowStepId = (OrderState)x.WorkflowStepId,
+                        WorkflowStepId = (OrderState)x.WorkflowStepId,
+                        PayablePlan = x.PayablePlan,
+                        PayableFact = x.PayableFact,
+                        PayablePrice = x.PayablePrice,
+                        VatPlan = x.VatPlan,
+                        AmountToWithdraw = x.AmountToWithdraw,
+                        AmountWithdrawn = x.AmountWithdrawn,
+                        DiscountSum = x.DiscountSum,
+                        DiscountPercent = x.DiscountPercent,
+                        DiscountReasonEnum = (OrderDiscountReason)x.DiscountReasonEnum,
+                        DiscountComment = x.DiscountComment,
+                        DiscountPercentChecked = x.OrderPositions
+                                                  .Where(y => !y.IsDeleted && y.IsActive)
+                                                  .All(y => y.CalculateDiscountViaPercent),
+                        Comment = x.Comment,
+                        IsTerminated = x.IsTerminated,
+                        TerminationReason = (OrderTerminationReason)x.TerminationReason,
+                        OrderType = (OrderType)x.OrderType,
+                        InspectorRef = new EntityReference { Id = x.InspectorCode, Name = null },
+                        BargainRef = new EntityReference { Id = x.BargainId, Name = x.Bargain.Number },
+                        Platform = x.Platform == null ? string.Empty : x.Platform.Name,
+                        PlatformRef = new EntityReference { Id = x.PlatformId, Name = x.Platform == null ? string.Empty : x.Platform.Name },
+                        HasDocumentsDebt = (DocumentsDebt)x.HasDocumentsDebt,
+                        DocumentsComment = x.DocumentsComment,
+                        AccountRef = new EntityReference { Id = x.AccountId, Name = null },
+                        OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },
+                        PaymentMethod = (PaymentMethod)x.PaymentMethod,
+                        IsActive = x.IsActive,
+                        IsDeleted = x.IsDeleted,
+                        CreatedByRef = new EntityReference { Id = x.CreatedBy, Name = null },
+                        ModifiedByRef = new EntityReference { Id = x.ModifiedBy, Name = null },
+                        CreatedOn = x.CreatedOn,
+                        ModifiedOn = x.ModifiedOn,
+                        Timestamp = x.Timestamp
+                    });
                 }
             }
         }

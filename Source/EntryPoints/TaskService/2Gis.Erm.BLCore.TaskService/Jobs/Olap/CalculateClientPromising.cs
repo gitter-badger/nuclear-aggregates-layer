@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
-using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Olap;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
@@ -10,17 +9,19 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.Olap
 {
     public sealed class CalculateClientPromising : TaskServiceJobBase
     {
-        private readonly IPublicService _publicService;
+        private readonly ICalculateClientPromisingOperationService _calculateClientPromisingOperationService;
 
-        public CalculateClientPromising(ICommonLog logger, IPublicService publicService, ISignInService signInService, IUserImpersonationService userImpersonationService)
-            : base(signInService, userImpersonationService, logger)
+        public CalculateClientPromising(ISignInService signInService,
+                                        IUserImpersonationService userImpersonationService,
+                                        ICommonLog logger,
+                                        ICalculateClientPromisingOperationService calculateClientPromisingOperationService) : base(signInService, userImpersonationService, logger)
         {
-            _publicService = publicService;
+            _calculateClientPromisingOperationService = calculateClientPromisingOperationService;
         }
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
-            _publicService.Handle(new CalculateClientPromisingRequest());
+            _calculateClientPromisingOperationService.CalculateClientPromising();
         }
     }
 }
