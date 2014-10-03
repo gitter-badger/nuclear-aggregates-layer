@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity
         {
             IQueryable<TEntity> mappedQueryable;
-            if (TryFindMapped(expression, out mappedQueryable))
+            if (TryFindMapped(new FindSpecification<TEntity>(expression), out mappedQueryable))
             {
                 return mappedQueryable;
             }
@@ -117,24 +117,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
         private bool TryFindMapped<TEntity>(IFindSpecification<TEntity> findSpecification, out IQueryable<TEntity> queryable)
         {
-            if (typeof(TEntity).AsEntityName().HasMapping())
-            {
-                queryable = _compositeEntityDecorator.Find(findSpecification);
-                return true;
-            }
-
-            queryable = null;
-            return false;
-        }
-
-        private bool TryFindMapped<TEntity>(Expression<Func<TEntity, bool>> expression, out IQueryable<TEntity> queryable)
-        {
             var entityType = typeof(TEntity);
-            
+
             EntityName entityName;
             if (entityType.TryGetEntityName(out entityName) && entityName.HasMapping())
             {
-                queryable = _compositeEntityDecorator.Find(expression);
+                queryable = _compositeEntityDecorator.Find(findSpecification);
                 return true;
             }
 

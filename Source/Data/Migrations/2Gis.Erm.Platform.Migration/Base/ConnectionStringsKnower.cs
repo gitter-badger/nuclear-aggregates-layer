@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace DoubleGis.Erm.Platform.Migration.Base
 {
@@ -113,10 +114,7 @@ namespace DoubleGis.Erm.Platform.Migration.Base
                             return false;
                         }
 
-                        var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
-                        connectionStringBuilder["initial catalog"] = crmDatabaseName;
-                        connectionString = connectionStringBuilder.ConnectionString;
-
+                        connectionString = new SqlConnectionStringBuilder(connectionString) { InitialCatalog = crmDatabaseName }.ConnectionString;
                         return true;
                     }
             }

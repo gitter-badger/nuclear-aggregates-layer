@@ -13,17 +13,17 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             _databaseCaller = databaseCaller;
         }
 
-        public void CleanupErm(int timeout, int logSizeInDays)
+        public void CleanupErm(TimeSpan timeout, int logSizeInDays)
         {
             _databaseCaller.ExecuteProcedure("[Shared].[CleanupERM]", timeout, new Tuple<string, object>("@logSizeInDays", logSizeInDays));
         }
 
-        public void CleanupErmLogging(int timeout, int logSizeInDays)
+        public void CleanupErmLogging(TimeSpan timeout, int logSizeInDays)
         {
             _databaseCaller.ExecuteProcedure("[Shared].[CleanupERMLogging]", timeout, new Tuple<string, object>("@logSizeInDays", logSizeInDays));
         }
-        
-        public void CleanupCrm(int timeout, int logSizeInDays)
+
+        public void CleanupCrm(TimeSpan timeout, int logSizeInDays)
         {
             _databaseCaller.ExecuteProcedure("[Shared].[CleanupMSCRM]", timeout, new Tuple<string, object>("@logSizeInDays", logSizeInDays));
         } 

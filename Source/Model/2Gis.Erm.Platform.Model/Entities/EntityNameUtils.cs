@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
-
+                
 				typeof(AppointmentBase),
 				typeof(AppointmentReference),
 				typeof(PhonecallBase),

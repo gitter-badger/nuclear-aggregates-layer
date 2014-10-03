@@ -103,6 +103,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.Client = 200
         public const int CreateClientByFirmIdentity = 20001;
         public const int SetMainFirmIdentity = 20002;
+        public const int CalculateClientPromisingIdentity = 20003;
 
         // EntityName.LegalPersonProfile = 219
         public const int SetAsMainLegalPersonProfileIdentity = 21901;
@@ -150,6 +151,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.AccountDetail = 141
         public const int ImportOperationsInfoIdentity = 14101;
+        public const int NotifyAboutAccountDetailModificationIdentity = 14102;
 
         // EntityName.OrderProcessingRequest = 550
         public const int RequestOrderProlongationIdentity = 55001;

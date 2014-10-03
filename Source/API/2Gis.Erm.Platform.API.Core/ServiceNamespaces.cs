@@ -60,12 +60,6 @@ namespace DoubleGis.Erm.Platform.API.Core
                 public const string DataContract = ServiceContract + "/data";
             }
 
-            public static class PrintRegional
-            {
-                public const string ServiceContract = "http://2gis.ru/erm/api/moneydistribution/printregional/2013/07";
-                public const string DataContract = ServiceContract + "/data";
-            }
-
             public static class AccountingSystem
             {
                 public const string ServiceContract = "http://2gis.ru/erm/api/moneydistribution/accountingsystem/2013/07";
