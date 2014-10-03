@@ -185,6 +185,7 @@
     <Compile Include="Shared\Generic\Get\GetLegalPersonProfileDtoServiceBase.cs" />
     <Compile Include="Shared\GetDtoServiceHelper.cs" />
     <Compile Include="Shared\PositionSimpleName.cs" />
+    <Compile Include="Shared\Specs\LegalPersonListSpecs.cs" />
     <Compile Include="Shared\UkraineFormatterFactory.cs" />
     <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardService.cs" />
     <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\FirmWorkTimeFormatter.cs" />
@@ -277,7 +278,6 @@
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderHandler.cs" />
     <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
     <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
-    <Compile Include="MultiCulture\Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="Czech\Concrete\Old\Bills\CzechPrintBillHandler.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
     <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
@@ -305,7 +305,6 @@
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
     <Compile Include="Russia\Generic\Activate\ActivateLegalPersonService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetLegalPersonDtoService.cs" />
-    <Compile Include="Russia\Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="Russia\Generic\List\ListLegalPersonProfileService.cs" />
     <Compile Include="Russia\Generic\List\ListLegalPersonService.cs" />
     <Compile Include="Russia\Generic\List\ListOrderService.cs" />

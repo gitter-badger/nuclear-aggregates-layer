@@ -189,6 +189,10 @@
     </Compile>
     <Compile Include="Services\Enumeration\Chile\ChileFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
+    <Compile Include="DI\ViewModelCustomizationsMassProcessor.cs" />
+    <Compile Include="Services\Cards\Russia\EditIsAdvertisingAgencyViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationProvider.cs" />
+    <Compile Include="Services\Cards\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -298,7 +302,7 @@
     <Compile Include="Services\Cards\Chile\ChileLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Chile\ChileLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\RussiaClientViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaClientCustomizationsListViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\FirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\LegalPersonProfileViewModelCustomizationService.cs" />
@@ -307,7 +311,6 @@
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Emirates\EmiratesClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
@@ -371,7 +374,7 @@
     <Compile Include="Models\Czech\CzechLegalPersonViewModel.cs" />
     <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
-    <Compile Include="Services\Cards\MultiCultureClientViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureClientCustomizationsListViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonViewModelCustomizationService.cs" />
@@ -1434,6 +1437,10 @@
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
