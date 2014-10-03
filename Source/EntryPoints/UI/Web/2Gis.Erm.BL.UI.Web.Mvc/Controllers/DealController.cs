@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly IPublicService _publicService;
         private readonly IGenerateDealNameService _dealNameService;
+        private readonly ISetMainLegalPersonForDealOperationService _setMainLegalPersonForDealOperationService;
 
         public DealController(
             IMsCrmSettings msCrmSettings,
@@ -32,7 +33,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             IAPIOperationsServiceSettings operationsServiceSettings,
             IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
             IGetBaseCurrencyService getBaseCurrencyService,
-            IGenerateDealNameService dealNameService)
+            IGenerateDealNameService dealNameService,
+            ISetMainLegalPersonForDealOperationService setMainLegalPersonForDealOperationService)
             : base(
                 msCrmSettings,
                 userContext,
@@ -43,6 +45,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             _publicService = publicService;
             _dealNameService = dealNameService;
+            _setMainLegalPersonForDealOperationService = setMainLegalPersonForDealOperationService;
         }
 
         public ActionResult PickCreateReason()
@@ -107,7 +110,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             return new JsonNetResult(dealName);
         }
-        
+
+        [HttpPost]
+        public JsonNetResult SetMainLegalPerson(long dealId, long legalPersonId)
+        {
+            _setMainLegalPersonForDealOperationService.SetMainLegalPerson(dealId, legalPersonId);
+
+            return new JsonNetResult();
+        }
+
         public JsonNetResult CheckIsWarmClient(long clientId)
         {
             var request = new CheckIsWarmClientRequest { ClientId = clientId };
