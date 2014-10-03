@@ -115,6 +115,8 @@ namespace DoubleGis.Erm.Platform.Migration.Base
 
                         var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
                         connectionStringBuilder["initial catalog"] = crmDatabaseName;
+                        connectionString = connectionStringBuilder.ConnectionString;
+
                         return true;
                     }
             }
