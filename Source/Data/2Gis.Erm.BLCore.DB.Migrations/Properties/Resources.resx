@@ -385,20 +385,20 @@
   <data name="Migration_22766_AlterSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.08.26 rev. 22766\Alter Activity Schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Migration_23630_GetCrmUserId" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2014.08.26 rev. 23630\Create Shared.GetCrmUserId.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="Migration_24481_GetCrmUserId" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create Shared.GetCrmUserId.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Migration_23630_ReplicateAppointment" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2014.08.26 rev. 23630\Create ReplicateAppointment.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="Migration_24481_ReplicateAppointment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicateAppointment.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="Migration_23630_ReplicatePhonecall" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2014.08.26 rev. 23630\Create ReplicatePhonecall.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="Migration_24481_ReplicatePhonecall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicatePhonecall.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="Migration_23630_ReplicateTask" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2014.08.26 rev. 23630\Create ReplicateTask.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="Migration_24481_ReplicateTask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicateTask.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="Migration_23630_ReplicateLetter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2014.08.26 rev. 23630\Create ReplicateLetter.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="Migration_24481_ReplicateLetter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.26 rev. 24481\Create ReplicateLetter.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
   <data name="Migration_22776_AlterSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

@@ -1560,11 +1560,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///CREATE TABLE [Activity].[LetterBase](
         ///	[Id] [bigint] NOT NULL CONSTRAINT [PK_Letters] PRIMARY KEY CLUSTERED,
         ///	[ReplicationCode] [uniqueidentifier] NOT NULL,
-        ///	[CreatedBy] [bigint] NOT NULL,
-        ///	[CreatedOn] [datetime2] NOT NULL,
-        ///	[ModifiedBy] [bigint] NULL,
-        ///	[ModifiedOn] [datetime2] NULL,
-        ///	[IsActive] [bit] NOT NULL C [rest of string was truncated]&quot;;.
+        ///
+        ///	[OwnerCode] [bigint] NOT NULL,
+        ///	[Subject] [nvarchar](256) NULL,
+        ///	[Description] [nvarchar](max) NULL,
+        ///	[ScheduledStart] [datetime2] NOT NULL,
+        ///	[ScheduledE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration_22766_AlterSchema {
             get {
@@ -1608,16 +1609,14 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///END
         ///.
         /// </summary>
-        internal static string Migration_23630_GetCrmUserId {
+        internal static string Migration_24481_GetCrmUserId {
             get {
-                return ResourceManager.GetString("Migration_23630_GetCrmUserId", resourceCulture);
+                return ResourceManager.GetString("Migration_24481_GetCrmUserId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -- changes
-        ///--   rev.1 - initial
-        ///CREATE PROCEDURE [Activity].[ReplicateAppointment]
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateAppointment]
         ///	@Id bigint = NULL
         ///AS
         ///    IF @Id IS NULL RETURN 0;
@@ -1625,25 +1624,27 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///    SET NOCOUNT ON;
         ///    SET XACT_ABORT ON;
         ///
-        ///    DECLARE @CrmId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserDomainName NVARCHAR(250);
-        ///    DECLARE @OwnerUserId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserBusinessUnitId UNIQUEIDENTIFIER;
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
         ///
-        ///    -- get owner user domain name, CRM replication code
-        ///    SELECT @CrmId = [ermBase].[ReplicationCode],
-        ///           @OwnerUserDomain [rest of string was truncated]&quot;;.
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4201 as [ActivityTypeCode]
+        ///	            , [appointments].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [appointments].[Subject]
+        ///	            , [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Migration_23630_ReplicateAppointment {
+        internal static string Migration_24481_ReplicateAppointment {
             get {
-                return ResourceManager.GetString("Migration_23630_ReplicateAppointment", resourceCulture);
+                return ResourceManager.GetString("Migration_24481_ReplicateAppointment", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -- changes
-        ///--   rev.1 - initial
-        ///CREATE PROCEDURE [Activity].[ReplicateLetter]
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateLetter]
         ///	@Id bigint = NULL
         ///AS
         ///    IF @Id IS NULL RETURN 0;
@@ -1651,25 +1652,27 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///    SET NOCOUNT ON;
         ///    SET XACT_ABORT ON;
         ///
-        ///    DECLARE @CrmId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserDomainName NVARCHAR(250);
-        ///    DECLARE @OwnerUserId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserBusinessUnitId UNIQUEIDENTIFIER;
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
         ///
-        ///    -- get owner user domain name, CRM replication code
-        ///    SELECT @CrmId = [ermBase].[ReplicationCode],
-        ///           @OwnerUserDomainName  [rest of string was truncated]&quot;;.
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4207 as [ActivityTypeCode]
+        ///	            , [letters].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [letters].[Subject]
+        ///	            , [letters].[Des [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Migration_23630_ReplicateLetter {
+        internal static string Migration_24481_ReplicateLetter {
             get {
-                return ResourceManager.GetString("Migration_23630_ReplicateLetter", resourceCulture);
+                return ResourceManager.GetString("Migration_24481_ReplicateLetter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -- changes
-        ///--   rev.1 - initial
-        ///CREATE PROCEDURE [Activity].[ReplicatePhonecall]
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicatePhonecall]
         ///	@Id bigint = NULL
         ///AS
         ///    IF @Id IS NULL RETURN 0;
@@ -1677,25 +1680,27 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///    SET NOCOUNT ON;
         ///    SET XACT_ABORT ON;
         ///
-        ///    DECLARE @CrmId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserDomainName NVARCHAR(250);
-        ///    DECLARE @OwnerUserId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserBusinessUnitId UNIQUEIDENTIFIER;
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
         ///
-        ///    -- get owner user domain name, CRM replication code
-        ///    SELECT @CrmId = [ermBase].[ReplicationCode],
-        ///           @OwnerUserDomainNa [rest of string was truncated]&quot;;.
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4210 as [ActivityTypeCode]
+        ///	            , [phonecalls].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [phonecalls].[Subject]
+        ///	            , [phon [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Migration_23630_ReplicatePhonecall {
+        internal static string Migration_24481_ReplicatePhonecall {
             get {
-                return ResourceManager.GetString("Migration_23630_ReplicatePhonecall", resourceCulture);
+                return ResourceManager.GetString("Migration_24481_ReplicatePhonecall", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -- changes
-        ///--   rev.1 - initial
-        ///CREATE PROCEDURE [Activity].[ReplicateTask]
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateTask]
         ///	@Id bigint = NULL
         ///AS
         ///    IF @Id IS NULL RETURN 0;
@@ -1703,18 +1708,22 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///    SET NOCOUNT ON;
         ///    SET XACT_ABORT ON;
         ///
-        ///    DECLARE @CrmId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserDomainName NVARCHAR(250);
-        ///    DECLARE @OwnerUserId UNIQUEIDENTIFIER;
-        ///    DECLARE @OwnerUserBusinessUnitId UNIQUEIDENTIFIER;
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
         ///
-        ///    -- get owner user domain name, CRM replication code
-        ///    SELECT @CrmId = [ermBase].[ReplicationCode],
-        ///           @OwnerUserDomainName =  [rest of string was truncated]&quot;;.
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4212 as [ActivityTypeCode]
+        ///	            , [tasks].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [tasks].[Subject]
+        ///	            , [tasks].[Description [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Migration_23630_ReplicateTask {
+        internal static string Migration_24481_ReplicateTask {
             get {
-                return ResourceManager.GetString("Migration_23630_ReplicateTask", resourceCulture);
+                return ResourceManager.GetString("Migration_24481_ReplicateTask", resourceCulture);
             }
         }
         
