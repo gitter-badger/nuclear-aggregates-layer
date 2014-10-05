@@ -1,0 +1,12 @@
+﻿.time-period {
+    width:100%;
+}
+
+.time-period-date {
+    width: 50%;
+}
+
+.time-period-span {
+    text-align:center; 
+    width: 10px;
+}
