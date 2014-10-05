@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -62,19 +61,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                 return x => x.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
             });
 
-            var myFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("ForMe", forMe =>
-            {
-                var userId = _userContext.Identity.Code;
-                if (forMe)
-                {
-                    return x => x.OwnerCode == userId;
-                }
-
-                return x => x.OwnerCode != userId;
-            });
-
             return query
-                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter)
                 .Select(x => new CzechListLegalPersonDto
                 {
                     Id = x.Id,
@@ -89,12 +77,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(CzechListLegalPersonDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

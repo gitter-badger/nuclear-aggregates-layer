@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             HasDocumentsDebt = modelDto.HasDocumentsDebt;
             DocumentsComment = modelDto.DocumentsComment;
             Timestamp = modelDto.Timestamp;
-            UserCanWorkWithAdvertisingAgencies = modelDto.UserCanWorkWithAdvertisingAgencies;
+            UserCanWorkWithAdvertisingAgencies = false;
             IsLegalPersonChoosingDenied = modelDto.IsLegalPersonChoosingDenied;
             IsBranchOfficeOrganizationUnitChoosingDenied = modelDto.IsBranchOfficeOrganizationUnitChoosingDenied;
             ClientId = modelDto.ClientId;
@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     DocumentsComment = DocumentsComment,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp,
-                    UserCanWorkWithAdvertisingAgencies = UserCanWorkWithAdvertisingAgencies,
+                    UserCanWorkWithAdvertisingAgencies = false,
                     IsLegalPersonChoosingDenied = IsLegalPersonChoosingDenied,
                     IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied,
                     ClientId = ClientId

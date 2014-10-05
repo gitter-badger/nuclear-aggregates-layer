@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
+using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete
 {
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete
                                        string destinationOrganizationUnitSyncCode1C,
                                        long? generatedOrderIndex)
         {
-            throw new NotSupportedException("Regional orders not supported by business model");
+            throw new NotSupportedException(BLResources.RegionalOrdersAreNotSupported);
         }
     }
 }

@@ -4,7 +4,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -63,17 +62,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                 return x => x.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
             });
 
-            var myFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("ForMe", forMe =>
-            {
-                var userId = _userContext.Identity.Code;
-                if (forMe)
-                {
-                    return x => x.OwnerCode == userId;
-                }
-
-                return x => x.OwnerCode != userId;
-            });
-
             var restrictForMergeFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>(
                 "restrictForMergeId",
                 restrictForMergeId =>
@@ -99,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                                         x =>
                                         x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted &&
                                         x.Inn == restrictedLegalPerson.Inn &&
-                                        x.Kpp == restrictedLegalPerson.Kpp && 
+                                        x.Kpp == restrictedLegalPerson.Kpp &&
                                         x.LegalPersonTypeEnum == restrictedLegalPerson.LegalPersonTypeEnum;
                                 case LegalPersonType.Businessman:
                                     return
@@ -121,7 +109,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                     });
 
             return query
-                .Filter(_filterHelper, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter, restrictForMergeFilter)
                 .Select(x => new ListLegalPersonDto
                 {
                     Id = x.Id,
@@ -130,6 +118,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                     Inn = x.Inn,
                     Kpp = x.Kpp,
                     LegalAddress = x.LegalAddress,
+                    PassportSeries = x.PassportSeries,
                     PassportNumber = x.PassportNumber,
                     ClientId = x.ClientId,
                     ClientName = x.Client.Name,
@@ -137,14 +126,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                     CreatedOn = x.CreatedOn,
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
+                    LegalPersonTypeEnum = (LegalPersonType)x.LegalPersonTypeEnum,
                     OwnerName = null,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListLegalPersonDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

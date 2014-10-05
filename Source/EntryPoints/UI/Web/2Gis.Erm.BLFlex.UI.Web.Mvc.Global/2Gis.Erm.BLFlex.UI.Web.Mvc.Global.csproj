@@ -160,6 +160,39 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Models\MultiCultureDealViewModel.cs" />
+    <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
+    <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureDeal.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureDeal.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Enumeration\Chile\ChileFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
+    <Compile Include="DI\ViewModelCustomizationsMassProcessor.cs" />
+    <Compile Include="Services\Cards\Russia\EditIsAdvertisingAgencyViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationProvider.cs" />
+    <Compile Include="Services\Cards\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -275,7 +308,7 @@
     <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCulturePhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureTaskViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\RussiaClientViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaClientCustomizationsListViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
     <Compile Include="Services\Cards\Russia\AppointmentViewModelCustomizationService.cs" />
@@ -288,7 +321,6 @@
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Emirates\EmiratesClientViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
@@ -356,7 +388,7 @@
     <Compile Include="Models\Czech\CzechLegalPersonViewModel.cs" />
     <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
-    <Compile Include="Services\Cards\MultiCultureClientViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureClientCustomizationsListViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonViewModelCustomizationService.cs" />
@@ -471,8 +503,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\CreateOrUpdate\Russia\OrderPosition.generated.cs">
       <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -999,6 +1041,26 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Chile\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureDeal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureDeal.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>AdvertisementElementStatus.generated.cs</LastGenOutput>
@@ -1092,9 +1154,17 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
     </None>
+    <None Include="Views\CreateOrUpdate\Russia\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\CreateOrUpdate\Russia\OrderPosition.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\Ukraine\FirmAddress.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1570,6 +1640,10 @@
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>

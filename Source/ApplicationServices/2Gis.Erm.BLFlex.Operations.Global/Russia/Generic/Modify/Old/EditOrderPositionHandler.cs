@@ -78,7 +78,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     x.FirmId,
                     x.WorkflowStepId,
                     x.ReleaseCountFact,
-                    x.DealId,
                     x.EndDistributionDateFact,
                     x.OwnerCode,
                     x.SourceOrganizationUnitId,

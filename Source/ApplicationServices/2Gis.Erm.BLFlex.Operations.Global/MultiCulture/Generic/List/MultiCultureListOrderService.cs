@@ -1,14 +1,11 @@
-using System;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -19,26 +16,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
 {
     public sealed class MultiCultureListOrderService : ListEntityDtoServiceBase<Order, MultiCultureListOrderDto>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
     {
-        private static readonly Func<MultiCultureListOrderDto, ISecurityServiceUserIdentifier, MultiCultureListOrderDto> ListDataSelectFunc =
-            (order, userIdentifierService) =>
-                {
-                    order.OwnerName = userIdentifierService.GetUserInfo(order.OwnerCode).DisplayName;
-                    return order;
-                };
-
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public MultiCultureListOrderService(ISecurityServiceUserIdentifier userIdentifierService,
                                       IFinder finder,
-                                      IUserContext userContext,
                                       FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
-            _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
@@ -53,18 +40,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
             }
 
             var selectExpression = OrderSpecifications.Select.OrdersForMulticultureGridView().Selector;
-
-            var myFilter = querySettings.CreateForExtendedProperty<Order, bool>("ForMe", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var myInspectionFilter = querySettings.CreateForExtendedProperty<Order, bool>("MyInspection", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.InspectorCode == userId;
-            });
 
             var dummyAdvertisementsFilter = querySettings.CreateForExtendedProperty<Order, bool>(
                 "WithDummyValues",
@@ -88,60 +63,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                         x =>
                         x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
                             .Any(y => y.OrderPositionAdvertisements.Any(z => dummyAdvertisementIds.Contains(z.AdvertisementId)));
-                });
-
-            var useCurrentMonthForEndDistributionDateFactFilter = querySettings.CreateForExtendedProperty<Order, bool>(
-                "useCurrentMonthForEndDistributionDateFact",
-                useCurrentMonth =>
-                {
-                    if (!useCurrentMonth)
-                    {
-                        return null;
-                    }
-
-                    var nextMonth = DateTime.Now.AddMonths(1);
-                    nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
-
-                    var currentMonth = nextMonth.AddSeconds(-1);
-
-                    return x => x.EndDistributionDateFact == currentMonth;
-                });
-
-            var forNextEditionFilter = querySettings.CreateForExtendedProperty<Order, bool>(
-                "ForNextEdition",
-                forNextEdition =>
-                {
-                    if (!forNextEdition)
-                    {
-                        return null;
-                    }
-
-                    var nextMonth = DateTime.Now.AddMonths(1);
-                    nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
-
-                    var currentMonthLastDate = nextMonth.AddSeconds(-1);
-                    var currentMonthFirstDate = new DateTime(currentMonthLastDate.Year, currentMonthLastDate.Month, 1);
-
-                    return
-                        x => x.EndDistributionDateFact >= currentMonthLastDate && x.BeginDistributionDate <= currentMonthFirstDate;
-                });
-
-            var forNextMonthEditionFilter = querySettings.CreateForExtendedProperty<Order, bool>(
-                "ForNextMonthEdition",
-                forNextMontEdition =>
-                {
-                    if (!forNextMontEdition)
-                    {
-                        return null;
-                    }
-
-                    var tmpMonth = DateTime.Now.AddMonths(2);
-                    tmpMonth = new DateTime(tmpMonth.Year, tmpMonth.Month, 1);
-
-                    var nextMonthLastDate = tmpMonth.AddSeconds(-1);
-                    var nextMonthFirstDate = new DateTime(nextMonthLastDate.Year, nextMonthLastDate.Month, 1);
-
-                    return x => x.EndDistributionDateFact >= nextMonthLastDate && x.BeginDistributionDate <= nextMonthFirstDate;
                 });
 
             var withoutAdvertisementFilter = querySettings.CreateForExtendedProperty<Order, bool>(
@@ -206,82 +127,57 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                     return query
                         .Where(x => x.Firm.ClientId == querySettings.ParentEntityId || x.LegalPerson.ClientId == querySettings.ParentEntityId)
                         .Filter(_filterHelper
-                        , forNextEditionFilter
-                        , forNextMonthEditionFilter
                         , withoutAdvertisementFilter
-                        , rejectedByMeFilter
-                        , useCurrentMonthForEndDistributionDateFactFilter
                         , dummyAdvertisementsFilter
-                        , myFilter
-                        , myInspectionFilter)
+                        , rejectedByMeFilter)
                         .Select(selectExpression)
                         .Distinct()
-                        .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
+                        .QuerySettings(_filterHelper, querySettings);
                 case EntityName.LegalPerson:
                     return query
                         .Where(x => x.LegalPersonId == querySettings.ParentEntityId)
                         .Filter(_filterHelper
-                        , forNextEditionFilter
-                        , forNextMonthEditionFilter
                         , withoutAdvertisementFilter
-                        , rejectedByMeFilter
-                        , useCurrentMonthForEndDistributionDateFactFilter
                         , dummyAdvertisementsFilter
-                        , myFilter
-                        , myInspectionFilter)
+                        , rejectedByMeFilter)
                         .Select(selectExpression)
                         .Distinct()
-                        .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
+                        .QuerySettings(_filterHelper, querySettings);
                 case EntityName.Account:
                     return query
                         .Where(x => x.AccountId == querySettings.ParentEntityId)
                         .Filter(_filterHelper
-                        , forNextEditionFilter
-                        , forNextMonthEditionFilter
                         , withoutAdvertisementFilter
-                        , rejectedByMeFilter
-                        , useCurrentMonthForEndDistributionDateFactFilter
                         , dummyAdvertisementsFilter
-                        , myFilter
-                        , myInspectionFilter)
+                        , rejectedByMeFilter)
                         .Select(selectExpression)
                         .Distinct()
-                        .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
+                        .QuerySettings(_filterHelper, querySettings);
                 case EntityName.Firm:
                     return query
                         .Where(x => x.FirmId == querySettings.ParentEntityId)
                         .Filter(_filterHelper
-                        , forNextEditionFilter
-                        , forNextMonthEditionFilter
                         , withoutAdvertisementFilter
-                        , rejectedByMeFilter
-                        , useCurrentMonthForEndDistributionDateFactFilter
                         , dummyAdvertisementsFilter
-                        , myFilter
-                        , myInspectionFilter)
+                        , rejectedByMeFilter)
                         .Select(selectExpression)
                         .Distinct()
-                        .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
+                        .QuerySettings(_filterHelper, querySettings);
                 default:
                     return query
                         .Filter(_filterHelper
-                        , forNextEditionFilter
-                        , forNextMonthEditionFilter
                         , withoutAdvertisementFilter
-                        , rejectedByMeFilter
-                        , useCurrentMonthForEndDistributionDateFactFilter
                         , dummyAdvertisementsFilter
-                        , myFilter
-                        , myInspectionFilter)
+                        , rejectedByMeFilter)
                         .Select(selectExpression)
                         .Distinct()
-                        .QuerySettings(_filterHelper, querySettings)
-                        .Transform(x => ListDataSelectFunc(x, _userIdentifierService));
+                        .QuerySettings(_filterHelper, querySettings);
             }
+        }
+
+        protected override void Transform(MultiCultureListOrderDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

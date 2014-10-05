@@ -3,12 +3,15 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -25,7 +28,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
         public CyprusListLegalPersonService(
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
-            FilterHelper filterHelper, IUserContext userContext, IDebtProcessingSettings debtProcessingSettings)
+            FilterHelper filterHelper,
+            IUserContext userContext,
+            IDebtProcessingSettings debtProcessingSettings)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -44,37 +49,35 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt", info =>
+            long clientId;
+            if (querySettings.TryGetExtendedProperty("ClientAndItsDescendants", out clientId))
             {
-                var minDebtAmount = _debtProcessingSettings.MinDebtAmount;
-                return x => x.Accounts.Any(y => !y.IsDeleted && y.IsActive && y.Balance < minDebtAmount);
-            });
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
 
-            var hasMyOrdersFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("HasMyOrders", info =>
+            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
             {
-                var userId = _userContext.Identity.Code;
-                return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && y.OwnerCode == userId);
-            });
+                clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
 
-            var myBranchFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("MyBranch", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
-            });
+            var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt",
+                                                                                        info => LegalPersonListSpecs.Filter.WithDebt(_debtProcessingSettings.MinDebtAmount));
 
-            var myFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("ForMe", forMe =>
-            {
-                var userId = _userContext.Identity.Code;
-                if (forMe)
-                {
-                    return x => x.OwnerCode == userId;
-                }
+            var hasMyOrdersFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("HasMyOrders",
+                                                                                               info => LegalPersonListSpecs.Filter.WithUserOrders(_userContext.Identity.Code));
 
-                return x => x.OwnerCode != userId;
-            });
+
+            var myBranchFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("MyBranch",
+                                                                                            info => LegalPersonListSpecs.Filter.ByMyBranch(_userContext.Identity.Code));
+
+            var myFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("ForMe",
+                                                                                      forMe => LegalPersonListSpecs.Filter.ByOwner(forMe, _userContext.Identity.Code));
+
+            var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
 
             return query
-                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, dealFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
                 .Select(x => new CyprusListLegalPersonDto
                 {
                     Id = x.Id,
@@ -93,12 +96,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
                     IsActive = x.IsActive,
                     OwnerName = null,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(CyprusListLegalPersonDto dto)
                 {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
@@ -100,21 +99,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                                                                                y => y.UserId == userId);
                                                                   });
 
-            var myFilter = querySettings
-                .CreateForExtendedProperty<LegalPerson, bool>("ForMe",
-                                                              forMe =>
-                                                                  {
-                                                                      var userId = _userContext.Identity.Code;
-                                                                      if (forMe)
-                                                                      {
-                                                                          return x => x.OwnerCode == userId;
-                                                                      }
-
-                                                                      return x => x.OwnerCode != userId;
-                                                                  });
-
             return query
-                .Filter(_filterHelper, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter)
                 .Select(x => new EmiratesListLegalPersonDto
                     {
                         Id = x.Id,
@@ -127,12 +113,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted
                     })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                    {
-                        x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                        return x;
-                    });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(EmiratesListLegalPersonDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }
