@@ -57,6 +57,9 @@
     <Compile Include="CheckOrdersReadinessForReleaseResponse.cs" />
     <Compile Include="DI\OrderValidationZone.cs" />
     <Compile Include="IOrderValidationRule.cs" />
+    <Compile Include="IValidaionRuleDescriptor.cs" />
+    <Compile Include="IValidationResultsBrowser.cs" />
+    <Compile Include="MassOrdersValidationParams.cs" />
     <Compile Include="IOrderValidationRuleFactory.cs" />
     <Compile Include="IOrderValidationRuleProvider.cs" />
     <Compile Include="Metadata\Features\AvailableForValidationTypeFeature.cs" />
@@ -73,10 +76,8 @@
     <Compile Include="Metadata\OrderValidationRuleMetadataBuilder.cs" />
     <Compile Include="Remote\IOrderValidationApplicationRestService.cs" />
     <Compile Include="Remote\IOrderValidationApplicationService.cs" />
-    <Compile Include="IOrderValidationOnStateChangeService.cs" />
     <Compile Include="IOrderValidationPredicateFactory.cs" />
-    <Compile Include="IOrderValidationInvalidator.cs" />
-    <Compile Include="IOrderValidationOperationService.cs" />
+    <Compile Include="IValidateOrdersOperationService.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="OrderValidationAdditionalInfo.cs" />
     <Compile Include="OrderValidationMessage.cs" />
@@ -86,11 +87,13 @@
     <Compile Include="Remote\Settings\IAPIOrderValidationServiceSettings.cs" />
     <Compile Include="Settings\IOrderValidationRulesSettings.cs" />
     <Compile Include="Settings\OrderValidationRulesSettingsAspect.cs" />
-    <Compile Include="ValidateOrdersRequest.cs" />
-    <Compile Include="ValidateOrdersResponse.cs" />
-    <Compile Include="ValidateOrdersResult.cs" />
+    <Compile Include="SingleOrderValidationParams.cs" />
+    <Compile Include="ValidationParams.cs" />
+    <Compile Include="ValidationResult.cs" />
+    <Compile Include="ValidationResultsContainer.cs" />
     <Compile Include="ValidationType.cs" />
     <Compile Include="ValidationUtils.cs" />
+    <Compile Include="ValidatorDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

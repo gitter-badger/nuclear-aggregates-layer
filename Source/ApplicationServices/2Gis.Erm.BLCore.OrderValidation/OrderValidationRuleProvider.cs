@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             _validationRulesFilters = validationRulesFilters;
         }
 
-        public IEnumerable<OrderValidationRulesContianer> GetAppropriateRules(ValidationType validationType)
+        public IReadOnlyCollection<OrderValidationRulesContianer> GetAppropriateRules(ValidationType validationType)
         {
             var ruleContaners = new List<OrderValidationRulesContianer>();
 
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 bool allRulesScheduled = true;
                 foreach (var ruleDescriptor in groupDescriptor.RuleDescriptors)
                 {
-                    if (allRulesScheduled && !ruleDescriptor.Enabled)
+                    if (!ruleDescriptor.Enabled)
                     {
                         allRulesScheduled = false;
                         continue;

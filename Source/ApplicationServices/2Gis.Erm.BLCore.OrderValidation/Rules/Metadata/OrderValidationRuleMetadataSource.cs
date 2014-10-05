@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
@@ -122,7 +123,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                 .Rules(OrderValidationRuleMetadata.Config.Rule<AssociatedAndDeniedPricePositionsOrderValidationRule>(6)
                                                                                 .Common
                                                                                 .AvailableFor(ValidationType.SingleOrderOnStateChanging));
-
+        
+        // нужно чтобы группа проверок, OrderValidationRuleGroup.AdvertisementAmountValidation всегда шла последней, т.к. в ней есть правила (например, AdvertisementAmountOrderValidationRule), анализирующие результаты работы правил из предыдущих групп
         private readonly OrderValidationRuleGroupMetadata _advertisementAmountGroupMetadata =
             OrderValidationRuleGroupMetadata.Config
                 .Group(OrderValidationRuleGroup.AdvertisementAmountValidation)

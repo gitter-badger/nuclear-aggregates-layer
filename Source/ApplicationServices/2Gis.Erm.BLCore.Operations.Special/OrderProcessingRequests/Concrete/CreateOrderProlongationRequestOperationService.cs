@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public long CreateOrderProlongationRequest(long orderId, short releaseCountPlan, string description)
         {
-            var orderToProlongate = _orderReadModel.GetOrder(orderId);
+            var orderToProlongate = _orderReadModel.GetOrderSecure(orderId);
             if (orderToProlongate == null)
             {
                 throw new EntityNotFoundException(typeof(Order), orderId);

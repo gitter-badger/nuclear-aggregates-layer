@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class AdvertisementsOnlyWhiteListOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class AdvertisementsOnlyWhiteListOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -24,9 +22,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var orderInfos = _finder.Find(filterPredicate).Select(x => new
+            var orderInfos = _finder.Find(ruleContext.OrdersFilterPredicate).Select(x => new
             {
                 x.Id,
                 x.Number,
@@ -39,8 +37,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                         .Where(y => (y.WorkflowStepId == (int)OrderState.OnApproval ||
                                                     y.WorkflowStepId == (int)OrderState.Approved ||
                                                     y.WorkflowStepId == (int)OrderState.OnTermination) &&
-                                                    y.BeginDistributionDate <= request.Period.Start &&
-                                                    y.EndDistributionDateFact >= request.Period.End))
+                                                    y.BeginDistributionDate <= ruleContext.ValidationParams.Period.Start &&
+                                                    y.EndDistributionDateFact >= ruleContext.ValidationParams.Period.End))
                                         .SelectMany(y => y.OrderPositions)
                                         .Where(y => y.IsActive && !y.IsDeleted)
                                         .Select(y => new
@@ -76,6 +74,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                         .FirstOrDefault()
             }).ToArray();
 
+            var results = new List<OrderValidationMessage>();
+
             foreach (var orderInfo in orderInfos)
             {
                 if (orderInfo.WhiteListPosition != null)
@@ -86,11 +86,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     {
                         case 0:
                             {
-                                if (IsCheckMassive || request.OrderId == orderInfo.Id)
+                                if (ruleContext.ValidationParams.IsMassValidation || ruleContext.ValidationParams.Single.OrderId == orderInfo.Id)
                                 {
-                                    messages.Add(new OrderValidationMessage
+                                    results.Add(new OrderValidationMessage
                                     {
-                                        Type = request.Type == ValidationType.PreReleaseFinal ? MessageType.Error : MessageType.Warning,
+                                        Type = ruleContext.ValidationParams.Type == ValidationType.PreReleaseFinal ? MessageType.Error : MessageType.Warning,
                                         OrderId = orderInfo.Id,
                                         OrderNumber = orderInfo.Number,
 
@@ -104,9 +104,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         case 1:
                             {
                                 var advertisement = whiteListPosition.WhiteListAd;
-                                var advertisementDescription = GenerateDescription(EntityName.Advertisement, advertisement.Name, advertisement.Id);
+                                var advertisementDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Advertisement, advertisement.Name, advertisement.Id);
 
-                                messages.Add(new OrderValidationMessage
+                                results.Add(new OrderValidationMessage
                                 {
                                     Type = MessageType.Info,
                                     OrderId = orderInfo.Id,
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                         default:
                             {
-                                messages.Add(new OrderValidationMessage
+                                results.Add(new OrderValidationMessage
                                 {
                                     Type = MessageType.Error,
                                     OrderId = orderInfo.Id,
@@ -134,6 +134,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     }                    
                 }
             }
+
+            return results;
         }
     }
 }

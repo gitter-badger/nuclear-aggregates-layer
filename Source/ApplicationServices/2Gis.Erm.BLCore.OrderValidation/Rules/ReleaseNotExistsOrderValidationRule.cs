@@ -1,84 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class ReleaseNotExistsOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class ReleaseNotExistsOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private readonly ISubRequestProcessor _subRequestProcessor;
-        private readonly IFinder _finder;
-        private readonly IReleaseReadModel _releaseRepository;
+        private readonly IReleaseReadModel _releaseReadModel;
 
-        public ReleaseNotExistsOrderValidationRule(ISubRequestProcessor subRequestProcessor, IFinder finder, IReleaseReadModel releaseRepository)
+        public ReleaseNotExistsOrderValidationRule(ISubRequestProcessor subRequestProcessor, IReleaseReadModel releaseReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
-            _finder = finder;
-            _releaseRepository = releaseRepository;
+            _releaseReadModel = releaseReadModel;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            if (request.Type == ValidationType.SingleOrderOnRegistration)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentException("request.OrderId");
-                }
-
-                if (request.OrderId != null)
-                {
-                    var response = (CheckOrderReleasePeriodResponse)_subRequestProcessor.HandleSubRequest(
+                var response = 
+                    (CheckOrderReleasePeriodResponse)_subRequestProcessor.HandleSubRequest(
                         new CheckOrderReleasePeriodRequest
-                            {
-                                OrderId = request.OrderId.Value,
-                                InProgressOnly = false,
-                            },
-                        null);
+                                {
+                                    OrderId = ruleContext.ValidationParams.Single.OrderId,
+                                    InProgressOnly = false,
+                                },
+                            null);
                     if (!response.Success)
                     {
-                        if (request.CurrentOrderState != OrderState.Approved)
+                        if (ruleContext.ValidationParams.Single.CurrentOrderState != OrderState.Approved)
                         {
-                            messages.Add(response.Message);                            
+                            return new[] { response.Message };                         
                         }
                     }
-                }                
             }
             else
             {
                 // we just need to check whether there exists a release for the speicified period/OrganizationUnit
                 const short SuccessReleaseStatus = (short)ReleaseStatus.Success;
 
-                var organizationUnitId = request.OrganizationUnitId ?? 0;
-
-                var prevReleaseInfo = _releaseRepository.GetLastRelease(organizationUnitId, request.Period);
-
-                if (prevReleaseInfo != null && !prevReleaseInfo.IsBeta && prevReleaseInfo.Status == SuccessReleaseStatus)
+                var previousReleaseInfo = _releaseReadModel.GetLastRelease(ruleContext.ValidationParams.Mass.OrganizationUnitId, ruleContext.ValidationParams.Mass.Period);
+                if (previousReleaseInfo != null && !previousReleaseInfo.IsBeta && previousReleaseInfo.Status == SuccessReleaseStatus)
                 {
-                    var organizationUnit = _finder.Find<OrganizationUnit>(ou => ou.Id == request.OrganizationUnitId)
-                        .Select(ou => new {ou.Name})
-                        .Single();
-
-                    messages.Add(new OrderValidationMessage
-                        {
-                            Type = MessageType.Error,
-                            MessageText = string.Format(BLResources.OrdersCheckOrderHasReleaseInfo, request.Period.Start, request.Period.End, organizationUnit.Name),
-                            OrderId = 0,
-                            OrderNumber = string.Empty
-                        });
+                    var organizationUnitName = _releaseReadModel.GetOrganizationUnitName(ruleContext.ValidationParams.Mass.OrganizationUnitId);
+                    return new[]
+                               {
+                                   new OrderValidationMessage
+                                       {
+                                           Type = MessageType.Error,
+                                           MessageText =
+                                               string.Format(BLResources.OrdersCheckOrderHasReleaseInfo,
+                                                             ruleContext.ValidationParams.Mass.Period.Start,
+                                                             ruleContext.ValidationParams.Mass.Period.End,
+                                                             organizationUnitName),
+                                           OrderId = 0,
+                                           OrderNumber = string.Empty
+                                       }
+                               };
                 }
             }
+
+            return Enumerable.Empty<OrderValidationMessage>();
         }
     }
 }

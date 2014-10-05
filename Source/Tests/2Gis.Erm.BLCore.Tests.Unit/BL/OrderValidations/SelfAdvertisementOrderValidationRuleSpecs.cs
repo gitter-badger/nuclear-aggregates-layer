@@ -32,21 +32,21 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             protected static SelfAdvertisementOrderValidationRule Target;
             protected static IFinder Finder;
-            protected static ValidateOrdersRequest Request;
+            protected static MassOrdersValidationParams ValidationParams;
             protected static OrderValidationPredicate Predicate;
-            protected static IReadOnlyCollection<OrderValidationMessage> ValidationMessages;
+            protected static IEnumerable<OrderValidationMessage> ValidationMessages;
 
             private Establish context = () =>
                 {
                     Finder = SetupFinder();
 
-                    Request = new ValidateOrdersRequest { Type = ValidationType.PreReleaseBeta };
+                    ValidationParams = new MassOrdersValidationParams(ValidationType.PreReleaseBeta);
                     Predicate = new OrderValidationPredicate(order => true, order => true, order => true);
 
                     Target = new SelfAdvertisementOrderValidationRule(Finder);
                 }; 
             
-            private Because of = () => ValidationMessages = ((IOrderValidationRule)Target).Validate(Predicate, null, Request);
+            private Because of = () => ValidationMessages = ((IOrderValidationRule)Target).Validate(ValidationParams, Predicate, null);
 
             private static IFinder SetupFinder()
                 {
@@ -194,7 +194,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                         };
             };
 
-            private It should_returns_single_validation_message = () => ValidationMessages.Count.Should().Be(1);
+            private It should_returns_single_validation_message = () => ValidationMessages.Count().Should().Be(1);
 
             private It should_returns_validation_message_about_order =
                 () => ValidationMessages.Should().Contain(x => x.OrderId == ORDER_ID && x.OrderNumber == ORDER_NUMBER);
@@ -217,7 +217,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                         };
             };
 
-            private It should_returns_double_validation_message = () => ValidationMessages.Count.Should().Be(2);
+            private It should_returns_double_validation_message = () => ValidationMessages.Count().Should().Be(2);
 
             private It should_returns_validation_message_about_first_order =
                 () => ValidationMessages.Should().Contain(x => x.OrderId == ORDER_ID && x.OrderNumber == ORDER_NUMBER);
@@ -237,7 +237,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                     Order_2.OrderPositions = new[] { CreateSelfAdvertisementPosition() }; 
                 };
 
-            private It should_returns_single_validation_message = () => ValidationMessages.Count.Should().Be(1);
+            private It should_returns_single_validation_message = () => ValidationMessages.Count().Should().Be(1);
 
             private It should_returns_validation_message_about_selfAdv_order =
                 () => ValidationMessages.Should().Contain(x => x.OrderId == ORDER_ID_2 && x.OrderNumber == ORDER_NUMBER_2);
@@ -256,7 +256,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                 Order_3.OrderPositions = new[] { CreateNotDesktopPosition() };
             };
 
-            private It should_returns_single_validation_message = () => ValidationMessages.Count.Should().Be(1);
+            private It should_returns_single_validation_message = () => ValidationMessages.Count().Should().Be(1);
 
             private It should_returns_validation_message_about_selfAdv_order =
                 () => ValidationMessages.Should().Contain(x => x.OrderId == ORDER_ID_2 && x.OrderNumber == ORDER_NUMBER_2);
@@ -291,7 +291,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                 Order_3.OrderPositions = new[] { CreateSelfAdvertisementPosition() };
             };
 
-            private It should_returns_single_validation_message = () => ValidationMessages.Count.Should().Be(1);
+            private It should_returns_single_validation_message = () => ValidationMessages.Count().Should().Be(1);
 
             private It should_returns_validation_message_about_first_selfAdv_order =
                 () => ValidationMessages.Should().Contain(x => x.OrderId == ORDER_ID && x.OrderNumber == ORDER_NUMBER);

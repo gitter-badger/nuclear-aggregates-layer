@@ -6,8 +6,10 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -19,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// <summary>
     /// Проверить позиции заказа на принадлежность к актуальному прайс-листу
     /// </summary>
-    public sealed class OrderPositionsRefereceCurrentPriceListOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class OrderPositionsRefereceCurrentPriceListOrderValidationRule : OrderValidationRuleBase<SingleValidationRuleContext>
     {
         private readonly IOrderReadModel _orderReadModel;
         private readonly IFinder _finder;
@@ -30,28 +32,23 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(SingleValidationRuleContext ruleContext)
         {
-            if (request.OrderId == null)
-            {
-                throw new ArgumentException("request.OrderId");
-            }
-
             long actualPriceId;
-            if (!_orderReadModel.TryGetActualPriceIdForOrder(request.OrderId.Value, out actualPriceId))
+            if (!_orderReadModel.TryGetActualPriceIdForOrder(ruleContext.ValidationParams.OrderId, out actualPriceId))
             {
-                messages.Add(new OrderValidationMessage
-                    {
-                        Type = MessageType.Error,
-                        OrderId = request.OrderId.Value,
-                        MessageText = BLResources.OrderCheckOrderPositionsDoesntCorrespontToActualPrice,
-                    });
-
-                return;
+                return new[]
+                           {
+                               new OrderValidationMessage
+                                   {
+                                       Type = MessageType.Error,
+                                       OrderId = ruleContext.ValidationParams.OrderId,
+                                       MessageText = BLResources.OrderCheckOrderPositionsDoesntCorrespontToActualPrice,
+                                   }
+                           };
             }
 
-            // FIXME {all, 12.12.2013}: Возможно, этот запрос возвращает слишком много данных,: он возвращает и валидные и невалидные заказы. Есть мнение, что, если добавить фильтр - работать будет лучше.
-            var orderInfos = _finder.Find(filterPredicate)
+            var orderInfos = _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.OrderId))
                 .Select(x => new
                     {
                         x.Id,
@@ -71,15 +68,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     })
                 .ToArray();
 
+            var results = new List<OrderValidationMessage>();
+
             foreach (var orderInfo in orderInfos)
             {
                 foreach (var orderPosition in orderInfo.OrderPositions)
                 {
                     if (orderPosition.BadPriceList)
                     {
-                    var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
+                        var orderPositionDescription = GenerateDescription(false, EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
                         var messageType = orderInfo.WorkflowStepId == (int)OrderState.Approved ? MessageType.Warning : MessageType.Error;
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                         {
                                 Type = messageType,
                             OrderId = orderInfo.Id,
@@ -91,8 +90,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     if (!orderPosition.BadPriceList && orderPosition.PricePositionIsNotActive)
                     {
-                        var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
-                        messages.Add(new OrderValidationMessage
+                        var orderPositionDescription = GenerateDescription(false, EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
+                        results.Add(new OrderValidationMessage
                         {
                             Type = MessageType.Error,
                             OrderId = orderInfo.Id,
@@ -103,6 +102,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     }
                 }
             }
+
+            return results;
         }
     }
 }

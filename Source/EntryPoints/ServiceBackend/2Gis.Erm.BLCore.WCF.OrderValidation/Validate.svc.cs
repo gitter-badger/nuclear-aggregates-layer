@@ -6,7 +6,6 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -16,24 +15,21 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class OrderValidationApplicationService : IOrderValidationApplicationService, IOrderValidationApplicationRestService
     {
-        private readonly IBusinessModelSettings _businessModelSettings;
-        private readonly IOrderValidationOperationService _orderValidationOperationService;
+        private readonly IValidateOrdersOperationService _validateOrdersOperationService;
         private readonly IOrderValidationPredicateFactory _orderValidationPredicateFactory;
 
-        public OrderValidationApplicationService(IBusinessModelSettings businessModelSettings,
-                                                 IUserContext userContext,
-                                                 IOrderValidationOperationService orderValidationOperationService,
+        public OrderValidationApplicationService(IUserContext userContext,
+                                                 IValidateOrdersOperationService validateOrdersOperationService,
                                                  IOrderValidationPredicateFactory orderValidationPredicateFactory,
                                                  IResourceGroupManager resourceGroupManager)
         {
-            _businessModelSettings = businessModelSettings;
-            _orderValidationOperationService = orderValidationOperationService;
+            _validateOrdersOperationService = validateOrdersOperationService;
             _orderValidationPredicateFactory = orderValidationPredicateFactory;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
-        public ValidateOrdersResult ValidateSingleOrder(string specifiedOrderId)
+        public ValidationResult ValidateSingleOrder(string specifiedOrderId)
         {
             long orderId;
             if (!long.TryParse(specifiedOrderId, out orderId))
@@ -41,10 +37,10 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                 throw new WebFaultException<ArgumentException>(new ArgumentException("Order Id cannot be parsed"), HttpStatusCode.BadRequest);
             }
 
-            return ValidateSingleOrder(orderId);
+            return _validateOrdersOperationService.Validate(orderId);
         }
 
-        public ValidateOrdersResult ValidateSingleOrder(string specifiedOrderId, string specifiedNewOrderState)
+        public ValidationResult ValidateSingleOrder(string specifiedOrderId, string specifiedNewOrderState)
         {
             long orderId;
             if (!long.TryParse(specifiedOrderId, out orderId))
@@ -63,47 +59,17 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                 throw new WebFaultException<ArgumentException>(new ArgumentException(string.Format("Unrecognized Order State: {0}", newOrderState)), HttpStatusCode.BadRequest);
             }
 
-            return ValidateSingleOrder(orderId, (OrderState)newOrderState);
+            return _validateOrdersOperationService.Validate(orderId, (OrderState)newOrderState);
         }
 
-        public ValidateOrdersResult ValidateSingleOrder(long orderId)
+        public ValidationResult ValidateSingleOrder(long orderId)
         {
-            return ValidateSingleOrder(orderId, null);
+            return _validateOrdersOperationService.Validate(orderId);
         }
 
-        public ValidateOrdersResult ValidateOrders(ValidationType validationType, long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants)
+        public ValidationResult ValidateOrders(ValidationType validationType, long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants)
         {
-            var orderValidationPredicate = _orderValidationPredicateFactory.CreatePredicate(organizationUnitId, period, ownerCode, includeOwnerDescendants);
-            var validateOrdersRequest = new ValidateOrdersRequest
-                {
-                    Type = validationType,
-                    OrganizationUnitId = organizationUnitId,
-                    Period = period,
-                    OwnerId = ownerCode,
-                    IncludeOwnerDescendants = includeOwnerDescendants,
-                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
-                };
-            return _orderValidationOperationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
-        }
-
-        private ValidateOrdersResult ValidateSingleOrder(long orderId, OrderState? newOrderState)
-        {
-            OrderState currentOrderState;
-            TimePeriod period;
-            var orderValidationPredicate = _orderValidationPredicateFactory.CreatePredicate(orderId, out currentOrderState, out period);
-            var validateOrdersRequest = new ValidateOrdersRequest
-                {
-                    Type = newOrderState == null || currentOrderState == OrderState.OnRegistration
-                               ? ValidationType.SingleOrderOnRegistration
-                               : ValidationType.SingleOrderOnStateChanging,
-                    OrderId = orderId,
-                    CurrentOrderState = currentOrderState,
-                    NewOrderState = newOrderState == null ? OrderState.NotSet : newOrderState.Value,
-                    Period = period,
-                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
-                };
-
-            return _orderValidationOperationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
+            return _validateOrdersOperationService.Validate(validationType, organizationUnitId, period, ownerCode, includeOwnerDescendants);
         }
     }
 }

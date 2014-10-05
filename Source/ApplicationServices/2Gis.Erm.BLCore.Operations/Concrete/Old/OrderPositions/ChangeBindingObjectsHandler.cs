@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -15,15 +16,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
 
         public ChangeBindingObjectsHandler(IUnitOfWork unitOfWork, 
-            ISubRequestProcessor requestProcessor, 
-            IOrderValidationInvalidator orderValidationInvalidator)
+            ISubRequestProcessor requestProcessor,
+            IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService)
         {
             _unitOfWork = unitOfWork;
             _requestProcessor = requestProcessor;
-            _orderValidationInvalidator = orderValidationInvalidator;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
         }
 
         // TODO {all, 09.09.2013}: Скорее всего, нужно логировать как отдельную операцию. Сейчас логируется, как удаление и создание OrderPositionAdvertisement
@@ -44,9 +45,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
 
                 var repo = scope.CreateRepository<IOrderRepository>();
                 repo.ChangeOrderPositionBindingObjects(request.OrderPositionId, request.Advertisements);
-                _orderValidationInvalidator.Invalidate(new []{checkResponse.OrderId}, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
-                _orderValidationInvalidator.Invalidate(new []{checkResponse.OrderId}, OrderValidationRuleGroup.ADPositionsValidation);
-                _orderValidationInvalidator.Invalidate(new []{checkResponse.OrderId}, OrderValidationRuleGroup.Generic);
+
+                _registerOrderStateChangesOperationService.Changed(checkResponse.OrderId,
+                                                                   OrderValidationRuleGroup.Generic,
+                                                                   OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                   OrderValidationRuleGroup.ADPositionsValidation);
+                
                 scope.Complete();
                 transaction.Complete();
                 return Response.Empty;

@@ -237,11 +237,8 @@
     <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
-    <Compile Include="Orders\Operations\Validation\IOrderValidationRepository.cs" />
-    <Compile Include="Orders\Operations\Validation\OrderToFirmMap.cs" />
-    <Compile Include="Orders\Operations\Validation\ValidationContext.cs" />
-    <Compile Include="Orders\Operations\Validation\ValidResult.cs" />
-    <Compile Include="Orders\Operations\Validation\ValidResultsContainer.cs" />
+    <Compile Include="Orders\Operations\Validation\IAttachValidResultToCacheAggregateService.cs" />
+    <Compile Include="Orders\Operations\Validation\IInvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\IGetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />

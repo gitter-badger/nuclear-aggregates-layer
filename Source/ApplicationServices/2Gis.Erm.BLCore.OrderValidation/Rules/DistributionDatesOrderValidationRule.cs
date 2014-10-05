@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// <summary>
     /// Проверить указанные даты размещения заказа
     /// </summary>
-    public sealed class DistributionDatesOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class DistributionDatesOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -25,9 +26,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var orderDetails = _finder.Find(filterPredicate)
+            var orderDetails = _finder.Find(ruleContext.OrdersFilterPredicate)
                     .Select(o => new
                         {
                             o.Id,
@@ -50,11 +51,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     .Where(o => !o.IsEndDateValid || !o.IsBeginDateValid)
                     .ToList();
 
+            var results = new List<OrderValidationMessage>();
+
             foreach (var orderDetail in orderDetails)
             {
                 if (!orderDetail.IsBeginDateValid)
                 {
-                    messages.Add(new OrderValidationMessage
+                    results.Add(new OrderValidationMessage
                                      {
                                          Type = MessageType.Error,
                                          MessageText = BLResources.OrderCheckIncorrectBeginDistributionDate,
@@ -62,18 +65,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                          OrderNumber = orderDetail.Number
                                      });
                 }
-                else
-                    if (!orderDetail.IsEndDateValid)
-                    {
-                        messages.Add(new OrderValidationMessage
-                                            {
-                                                Type = MessageType.Error,
-                                                MessageText = BLResources.OrderCheckIncorrectEndDistributionDate,
-                                                OrderId = orderDetail.Id,
-                                                OrderNumber = orderDetail.Number
-                                            });
-                    }
+                else if (!orderDetail.IsEndDateValid)
+                {
+                    results.Add(new OrderValidationMessage
+                                        {
+                                            Type = MessageType.Error,
+                                            MessageText = BLResources.OrderCheckIncorrectEndDistributionDate,
+                                            OrderId = orderDetail.Id,
+                                            OrderNumber = orderDetail.Number
+                                        });
+                }
             }
+
+            return results;
         }
     }
 }

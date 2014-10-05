@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -12,7 +13,7 @@ using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class AdditionalAdvertisementsOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class AdditionalAdvertisementsOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -21,17 +22,16 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             new PositionCategoryDto
             {
                 // Микрокомментарий в рубрике
-                        PrimaryPositionCategoryIds = new[] { 30L, 40L },
+                PrimaryPositionCategoryIds = new[] { 30L, 40L },
                 SecondaryPositionCategoryId = 25,
                 AdditionalPositionCategoryName = BLResources.AdditionalTextForMicrocomment,
             },
             new PositionCategoryDto
             {
                 // Баннер в рубрике
-                        PrimaryPositionCategoryIds = new[] { 23L, 2L },
-
+                PrimaryPositionCategoryIds = new[] { 23L, 2L },
                 SecondaryPositionCategoryId = 3,
-                        AdditionalPositionCategoryName = "Дополнительный макет для баннера",
+                AdditionalPositionCategoryName = "Дополнительный макет для баннера",
             }
         };
 
@@ -40,43 +40,38 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var predicate = filterPredicate;
+            Expression<Func<Order, bool>> filterPredicate = ruleContext.OrdersFilterPredicate;
             long? firmId = null;
-            if (!IsCheckMassive)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentNullException("request.OrderId");
-                }
-
                 long organizationUnitId;
-                predicate = GetFilterPredicateToGetLinkedOrders(_finder, request.OrderId.Value, out organizationUnitId, out firmId);
+                filterPredicate = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
             foreach (var positionCategory in _positionCategories)
             {
                 var primaryOrderPositions =
-                    _finder.Find(predicate)
-                          .SelectMany(x => x.OrderPositions
-                                            .Where(y => y.IsActive && !y.IsDeleted &&
-                                                        (!firmId.HasValue || y.Order.FirmId == firmId.Value) &&
+                    _finder.Find(filterPredicate)
+                           .SelectMany(x => x.OrderPositions
+                                             .Where(y => y.IsActive && !y.IsDeleted &&
+                                                         (!firmId.HasValue || y.Order.FirmId == firmId.Value) &&
                                                          y.OrderPositionAdvertisements.Any(
-                                                             z => positionCategory.PrimaryPositionCategoryIds.Contains(z.Position.CategoryId)))
-                                            .Select(y => new
-                                                {
-                                                    y.Id,
-                                                    FirmId = y.Order.FirmId,
-                                                    OrderId = y.OrderId,
-                                                    OrderNumber = y.Order.Number,
-                                                    AdvertisementIds = y.OrderPositionAdvertisements
-                                                                         .Where(z => positionCategory.PrimaryPositionCategoryIds.Contains(z.Position.CategoryId))
-                                                                        .Select(z => z.AdvertisementId)
-                                                                        .Distinct(),
-                                                })
-                                            .Where(y => y.AdvertisementIds.Any()))
-                          .ToArray();
+                                                                                           z => positionCategory.PrimaryPositionCategoryIds.Contains(z.Position.CategoryId)))
+                                             .Select(y => new
+                                                              {
+                                                                  y.Id,
+                                                                  FirmId = y.Order.FirmId,
+                                                                  OrderId = y.OrderId,
+                                                                  OrderNumber = y.Order.Number,
+                                                                  AdvertisementIds = y.OrderPositionAdvertisements
+                                                                                      .Where(z => positionCategory.PrimaryPositionCategoryIds.Contains(z.Position.CategoryId))
+                                                                                      .Select(z => z.AdvertisementId)
+                                                                                      .Distinct(),
+                                                              })
+                                             .Where(y => y.AdvertisementIds.Any()))
+                           .ToArray();
 
                 if (!primaryOrderPositions.Any())
                 {
@@ -86,12 +81,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 var primaryOrderPositionsWithSharedAds = primaryOrderPositions
                     .Where(x => primaryOrderPositions.Any(y => y.Id != x.Id && y.FirmId == x.FirmId && y.AdvertisementIds.Except(x.AdvertisementIds).Any()))
                     .Select(x => new
-                        {
-                            x.Id,
-                            x.FirmId,
-                            x.OrderId,
-                            x.OrderNumber
-                        })
+                                     {
+                                         x.Id,
+                                         x.FirmId,
+                                         x.OrderId,
+                                         x.OrderNumber
+                                     })
                     .ToArray();
 
                 if (!primaryOrderPositionsWithSharedAds.Any())
@@ -100,54 +95,60 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 }
 
                 var ordersWithSecondaryPositions =
-                    _finder.Find(predicate)
+                    _finder.Find(filterPredicate)
                            .Select(x => new
-                               {
-                                   x.Id,
-                                   x.Number,
-                                   Positions = x.OrderPositions
-                                                .Where(y => y.IsActive && !y.IsDeleted &&
-                                                            (!firmId.HasValue || y.Order.FirmId == firmId.Value))
-                                                .SelectMany(
-                                                    y =>
-                                                    y.OrderPositionAdvertisements.Where(
-                                                        z => z.Position.CategoryId == positionCategory.SecondaryPositionCategoryId)),
-                                   FirmId = x.FirmId
-                               })
+                                            {
+                                                x.Id,
+                                                x.Number,
+                                                Positions = x.OrderPositions
+                                                             .Where(y => y.IsActive && !y.IsDeleted &&
+                                                                         (!firmId.HasValue || y.Order.FirmId == firmId.Value))
+                                                             .SelectMany(
+                                                                         y =>
+                                                                         y.OrderPositionAdvertisements.Where(
+                                                                                                             z =>
+                                                                                                             z.Position.CategoryId == positionCategory.SecondaryPositionCategoryId)),
+                                                FirmId = x.FirmId
+                                            })
                            .Where(x => x.Positions.Any())
                            .ToArray();
 
                 var primaryOrderPositionsWithSharedAdsWithoutSecondaryPositions =
                     primaryOrderPositionsWithSharedAds.Where(x => ordersWithSecondaryPositions.All(y => y.FirmId != x.FirmId)).ToArray();
 
-                if (!IsCheckMassive)
+                if (!ruleContext.ValidationParams.IsMassValidation)
                 {
-                    var badItem = primaryOrderPositionsWithSharedAdsWithoutSecondaryPositions.FirstOrDefault(x => x.OrderId == request.OrderId);
+                    var badItem = primaryOrderPositionsWithSharedAdsWithoutSecondaryPositions.FirstOrDefault(x => x.OrderId == ruleContext.ValidationParams.Single.OrderId);
                     if (badItem != null)
                     {
-                        messages.Add(new OrderValidationMessage
+                        return new[] 
                         {
-                            OrderId = badItem.OrderId,
-                            OrderNumber = badItem.OrderNumber,
-                            Type = MessageType.Error,
-                            MessageText = string.Format(BLResources.PositionRequiredTemplate, positionCategory.AdditionalPositionCategoryName),
-                        });
+                            new OrderValidationMessage
+                                         {
+                                             OrderId = badItem.OrderId,
+                                             OrderNumber = badItem.OrderNumber,
+                                             Type = MessageType.Error,
+                                             MessageText = string.Format(BLResources.PositionRequiredTemplate, positionCategory.AdditionalPositionCategoryName),
+                                         }
+                        };
                     }
                 }
                 else
                 {
-                    foreach (var badItem in primaryOrderPositionsWithSharedAdsWithoutSecondaryPositions.GroupBy(x => x.FirmId))
-                    {
-                        messages.Add(new OrderValidationMessage
-                            {
-                                OrderId = badItem.First().OrderId,
-                                OrderNumber = badItem.First().OrderNumber,
-                                Type = MessageType.Error,
-                                MessageText = string.Format(BLResources.PositionRequiredTemplate, positionCategory.AdditionalPositionCategoryName),
-                            });
-                    }
+                    PositionCategoryDto category = positionCategory;
+                    return primaryOrderPositionsWithSharedAdsWithoutSecondaryPositions
+                                .GroupBy(x => x.FirmId)
+                                .Select(x => new OrderValidationMessage
+                                                 {
+                                                     OrderId = x.First().OrderId,
+                                                     OrderNumber = x.First().OrderNumber,
+                                                     Type = MessageType.Error,
+                                                     MessageText = string.Format(BLResources.PositionRequiredTemplate, category.AdditionalPositionCategoryName),
+                                                 });
                 }
             }
+
+            return Enumerable.Empty<OrderValidationMessage>();
         }
 
         private sealed class PositionCategoryDto

@@ -4,7 +4,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public interface IOrderValidationRuleProvider
     {
-        IEnumerable<OrderValidationRulesContianer> GetAppropriateRules(ValidationType validationType);
+        IReadOnlyCollection<OrderValidationRulesContianer> GetAppropriateRules(ValidationType validationType);
     }
 
     public sealed class OrderValidationRulesContianer

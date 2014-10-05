@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// <summary>
     /// Проверить отделение организации выбранных сущностей "Рубрика фирмы" на соотнесение с отделением организации города назначения заказа
     /// </summary>
-    public sealed class CategoriesLinkedToDestOrgUnitOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class CategoriesLinkedToDestOrgUnitOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -26,9 +27,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var badOrderPositions = _finder.Find(filterPredicate)
+            var badOrderPositions = _finder.Find(ruleContext.OrdersFilterPredicate)
                 .SelectMany(order => order.OrderPositions)
                 .Where(orderPosition => orderPosition.IsActive && !orderPosition.IsDeleted)
                 .Select(orderPosition =>
@@ -51,7 +52,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     })
                 .Where(orderPosition => orderPosition.BadCategories.Any())
                 .ToArray();
-
+            
+            var results = new List<OrderValidationMessage>();
             foreach (var orderPosition in badOrderPositions)
             {
                 var stringBuilder = new StringBuilder();
@@ -59,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 var was = false;
                 foreach (var item in orderPosition.BadCategories.OrderBy(item => item.Name))
                 {
-                    var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, item.PositionName, orderPosition.OrderPositionId);
+                    var orderPositionDescription = GenerateDescription(ruleContext.IsMassValidation, EntityName.OrderPosition, item.PositionName, orderPosition.OrderPositionId);
                     stringBuilder.AppendFormat(BLResources.OrderCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit, orderPositionDescription);
                     if (was)
                     {
@@ -68,8 +70,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     was = true;
 
-                    stringBuilder.Append(GenerateDescription(EntityName.Category, item.Name, item.Id));
-                    messages.Add(new OrderValidationMessage
+                    stringBuilder.Append(GenerateDescription(ruleContext.IsMassValidation, EntityName.Category, item.Name, item.Id));
+                    results.Add(new OrderValidationMessage
                         {
                             Type = MessageType.Error,
                             OrderId = orderPosition.OrderId,
@@ -78,6 +80,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         });
                 }
             }
+
+            return results;
         }
     }
 }

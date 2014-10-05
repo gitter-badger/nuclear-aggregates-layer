@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Configuration;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
@@ -24,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// В случае, если подразделение (в массовом варианте) или заказ (в единичном) не содержат тематики по умолчанию,
     /// проверка проходит успешно.
     /// </summary>
-    public sealed class DefaultThemeMustContainOnlySelfAdvValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class DefaultThemeMustContainOnlySelfAdvValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -32,40 +34,41 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         {
             _finder = finder;
         }
-
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var defaultThemeId = IsCheckMassive
-                                         ? GetDefaultThemeId(request.OrganizationUnitId, request.Period)
-                                         : GetDefaultThemeId(request.OrderId);
+            var defaultThemeId = ruleContext.ValidationParams.IsMassValidation
+                                         ? GetDefaultThemeId(ruleContext.ValidationParams.Mass.OrganizationUnitId, ruleContext.ValidationParams.Mass.Period)
+                                         : GetDefaultThemeId(ruleContext.ValidationParams.Single.OrderId);
             var filterByThemeUsage = GetFilterByThemeUsagePredicate(defaultThemeId);
 
-            var existsInvalid = _finder.Find(filterPredicate)
+            var existsInvalid = _finder.Find(ruleContext.OrdersFilterPredicate)
                                       .Where(filterByThemeUsage)
                                       .Any(order => order.OrderType != (int)OrderType.SelfAds);
 
             if (!existsInvalid)
             {
-                return;
+                return Enumerable.Empty<OrderValidationMessage>();
             }
 
-            var themeLabel = GetThemeDescription(defaultThemeId);
-            var orderInfo = IsCheckMassive
+            var themeLabel = GetThemeDescription(ruleContext.ValidationParams.IsMassValidation, defaultThemeId);
+            var orderInfo = ruleContext.ValidationParams.IsMassValidation
                                 ? null
-                                : _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)) // для не массовых проверок идентификатор присутствует
+                                : _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)) // для не массовых проверок идентификатор присутствует
                                         .Select(order => new { order.Id, order.Number })
                                         .SingleOrDefault();
-            var message = new OrderValidationMessage
-                {
-                    Type = MessageType.Error,
-                    OrderId = orderInfo == null ? 0 : orderInfo.Id,
-                    OrderNumber = orderInfo == null ? null : orderInfo.Number,
-                    MessageText = string.Format(BLResources.DeafaultThemeMustContainOnlySelfAds, themeLabel),
-                };
-            messages.Add(message);
+            return new[]
+                       {
+                           new OrderValidationMessage
+                               {
+                                   Type = MessageType.Error,
+                                   OrderId = orderInfo == null ? 0 : orderInfo.Id,
+                                   OrderNumber = orderInfo == null ? null : orderInfo.Number,
+                                   MessageText = string.Format(BLResources.DeafaultThemeMustContainOnlySelfAds, themeLabel),
+                               }
+                       };
         }
 
-        private string GetThemeDescription(long? themeId)
+        private string GetThemeDescription(bool isMassValidation, long? themeId)
         {
             if (!themeId.HasValue)
             {
@@ -76,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                          .Select(theme => theme.Name)
                          .SingleOrDefault();
 
-            return GenerateDescription(EntityName.Theme, name, themeId.Value);
+            return GenerateDescription(isMassValidation, EntityName.Theme, name, themeId.Value);
         }
 
         private Expression<Func<Order, bool>> GetFilterByThemeUsagePredicate(long? themeId)
