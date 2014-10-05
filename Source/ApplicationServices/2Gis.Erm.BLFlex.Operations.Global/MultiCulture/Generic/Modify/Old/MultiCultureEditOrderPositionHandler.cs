@@ -5,12 +5,11 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -25,12 +24,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
-
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 {
     // FIXME {all, 10.07.2014}: почти полная copy/paste других adapted версий этого handler, при рефакторинге ApplicationServices - попытаться объеденить обратно + использование finder и т.п.
-
     public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
     {
         private readonly IFinder _finder;
@@ -41,28 +37,28 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
         private readonly IPublicService _publicService;
         private readonly IOrderRepository _orderRepository;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
 
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public MultiCultureEditOrderPositionHandler(IFinder finder,
-                                             IOrderReadModel orderReadModel,
+                                                    IOrderReadModel orderReadModel,
                                                     IPositionReadModel positionReadModel,
                                                     IOrganizationUnitReadModel organizationUnitReadModel,
                                                     IPublicService publicService,
-                                             IOrderRepository orderRepository,
-                                             ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
-                                                    IOrderValidationInvalidator orderValidationInvalidator,
+                                                    IOrderRepository orderRepository,
+                                                    ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
+                                                    IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
                                                     IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
             _orderReadModel = orderReadModel;
             _positionReadModel = positionReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
-            _orderValidationInvalidator = orderValidationInvalidator;
             _publicService = publicService;
             _orderRepository = orderRepository;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
         }
 
@@ -204,7 +200,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                         _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                     }
 
-                    var order = _orderReadModel.GetOrder(orderPosition.OrderId);
+                    var order = _orderReadModel.GetOrderSecure(orderPosition.OrderId);
 
                     _orderReadModel.UpdateOrderPlatform(order);
 
@@ -278,7 +274,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _orderValidationInvalidator.Invalidate(new[] { orderId }, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _registerOrderStateChangesOperationService.Changed(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
         }
     }
 }

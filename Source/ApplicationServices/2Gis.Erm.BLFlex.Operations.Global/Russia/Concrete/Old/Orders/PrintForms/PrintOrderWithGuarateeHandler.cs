@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 LegalPersonProfileId = request.LegalPersonProfileId
             };
 
-            var order = _orderReadModel.GetOrder(request.OrderId);
+            var order = _orderReadModel.GetOrderSecure(request.OrderId);
             return new StreamResponse
             {
                 Stream = ProcessRequests(orderRequest, letterRequest).ZipStreamDictionary(),
