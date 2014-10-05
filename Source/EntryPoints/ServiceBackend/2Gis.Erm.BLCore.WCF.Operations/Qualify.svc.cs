@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Qualify;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
-        public long? Execute(string specifiedEntityName, string specifiedEntityId, string specifiedOwnerCode, string specifiedRelatedEntityId)
+        public QualifyResult Execute(string specifiedEntityName, string specifiedEntityId, string specifiedOwnerCode, string specifiedRelatedEntityId)
         {
             var entityName = EntityName.None;
 
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public long? Execute(EntityName entityName, long entityId, long? ownerCode, long? relatedEntityId)
+        public QualifyResult Execute(EntityName entityName, long entityId, long? ownerCode, long? relatedEntityId)
         {
             var actualOwnerCode = ownerCode ?? _userContext.Identity.Code;
             try
@@ -84,11 +85,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private long? ExecuteInternal(EntityName entityName, long entityId, long ownerCode, long? relatedEntityId)
+        private QualifyResult ExecuteInternal(EntityName entityName, long entityId, long ownerCode, long? relatedEntityId)
         {
             var qualifyEntityService = _operationServicesManager.GetQualifyEntityService(entityName);
-            var qualifyResult = qualifyEntityService.Qualify(entityId, ownerCode, relatedEntityId);
-            return qualifyResult.RelatedEntityId;
+            return qualifyEntityService.Qualify(entityId, ownerCode, relatedEntityId);
         }
     }
 }

@@ -105,6 +105,11 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="ApplicationServices\Aggregates\Clients\CreateClientLinkAggregateServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Aggregates\Clients\DeleteClientLinkAggregateServiceSpecs.cs" />
+    <Compile Include="ApplicationServices\Aggregates\Clients\DenormalizedClientLinkEqualityComparer.cs" />
+    <Compile Include="ApplicationServices\Aggregates\Clients\DenormalizedClientLinkTestsHelper.cs" />
+    <Compile Include="ApplicationServices\Aggregates\Clients\DenormalizedLinksTestData.cs" />
     <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\LegalPersonObtainerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\BranchOfficeObtainerSpecs.cs" />

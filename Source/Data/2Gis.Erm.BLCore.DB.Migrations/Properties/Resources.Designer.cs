@@ -1350,6 +1350,33 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   24.06.2013, a.rechkalov: добавил репликацию Order.DiscountSum
+        ///ALTER PROCEDURE [Billing].[ReplicateOrder]
+        ///	@Id bigint = NULL
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainName NVARCHAR(2 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrder_24898 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrder_24898", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
         ///ALTER PROCEDURE [Billing].[ReplicateOrderPosition]
         ///	@Id bigint = NULL
@@ -1398,6 +1425,33 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string _Billing___ReplicateOrderPosition_24271 {
             get {
                 return ResourceManager.GetString("_Billing___ReplicateOrderPosition_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   24.06.2013, a.rechkalov: добавил репликацию OrderPosition.DiscountSum
+        ///ALTER PROCEDURE [Billing].[ReplicateOrderPosition]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDoma [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Billing___ReplicateOrderPosition_24898 {
+            get {
+                return ResourceManager.GetString("_Billing___ReplicateOrderPosition_24898", resourceCulture);
             }
         }
         
@@ -1827,6 +1881,37 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   22.09.2014, a.tukaev: ERM-4967 fix
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritories]
+        ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF NOT EXISTS(SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///		BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///    CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 Modified [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateTerritories_24551 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateTerritories_24551", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritory]
         ///	@Id bigint = NULL
@@ -1875,6 +1960,33 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string _BusinessDirectory___ReplicateTerritory_24271 {
             get {
                 return ResourceManager.GetString("_BusinessDirectory___ReplicateTerritory_24271", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///--   22.09.2014, a.tukaev: ERM-4967 fix
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateTerritory]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateTerritory_24551 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateTerritory_24551", resourceCulture);
             }
         }
         
@@ -2132,6 +2244,67 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Заказ&quot; OriginalName=&quot;&quot;&gt;Dg_order&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Dg_order&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Dg_orders&lt;/CollectionName&gt;
+        ///          &lt;LogicalCo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Customizations_23819 {
+            get {
+                return ResourceManager.GetString("Customizations_23819", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Позиция заказа&quot; OriginalName=&quot;&quot;&gt;Dg_orderposition&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;10015&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Dg_orderposition&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;10015&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Dg_orderpositions&lt;/Coll [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Customizations_23820 {
+            get {
+                return ResourceManager.GetString("Customizations_23820", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///  &lt;/Entities&gt;
+        ///  &lt;Roles&gt;
+        ///  &lt;/Roles&gt;
+        ///  &lt;Workflows&gt;
+        ///  &lt;/Workflows&gt;
+        ///  &lt;IsvConfig&gt;
+        ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
+        ///      &lt;Root&gt;
+        ///        &lt;ToolBar&gt;
+        ///          &lt;Button Icon=&quot;/_imgs/AdvFind/new.GIF&quot; JavaScript=&quot;openStdWin(&apos;https://web-app.prod.erm.2gis.ru/Grid/View/Order?singleDataView=DListOrdersFast&apos;, &apos;FastSearch&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
+        ///            &lt;Titles&gt;
+        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot;Бы [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Customizations_24116 {
+            get {
+                return ResourceManager.GetString("Customizations_24116", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] DoubleGis_Erm_SqlClr {
@@ -2237,6 +2410,90 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string ImportFirmFromXml_23425 {
             get {
                 return ResourceManager.GetString("ImportFirmFromXml_23425", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF object_id(&apos;[Activity].[AppointmentReferences]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentReferences];
+        ///IF object_id(&apos;[Activity].[AppointmentBase]&apos;) IS NOT NULL DROP TABLE [Activity].[AppointmentBase];
+        ///
+        ///CREATE TABLE [Activity].[AppointmentBase](
+        ///	[Id] [bigint] NOT NULL CONSTRAINT [PK_Appointments] PRIMARY KEY CLUSTERED,
+        ///	[ReplicationCode] [uniqueidentifier] NOT NULL,
+        ///
+        ///	[Subject] [nvarchar](256) NULL,
+        ///	[Description] [nvarchar](max) NULL,
+        ///	[ScheduledStart] [datetime2] NOT NULL,
+        ///	[ScheduledEnd] [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Alter_Activity_Schema {
+            get {
+                return ResourceManager.GetString("Migration_22706_Alter_Activity_Schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF object_id(&apos;[Activity].[ActivityPropertyInstances]&apos;) IS NOT NULL DROP TABLE [Activity].ActivityPropertyInstances;
+        ///IF object_id(&apos;[Activity].[ActivityInstances]&apos;) IS NOT NULL DROP TABLE [Activity].ActivityInstances;
+        ///.
+        /// </summary>
+        internal static string Migration_22706_Drop_Old_Activity_Schema {
+            get {
+                return ResourceManager.GetString("Migration_22706_Drop_Old_Activity_Schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [Activity].[AppointmentReferences]
+        ///DELETE FROM [Activity].[AppointmentBase]
+        ///GO
+        ///
+        ///INSERT INTO [Activity].[AppointmentBase]
+        ///	([Id],[ReplicationCode],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	,[Subject],[Description],[ScheduledStart],[ScheduledEnd],[ActualEnd],[Priority],[Status],[IsAllDayEvent],[Location],[Purpose]
+        ///	)
+        ///SELECT [Id],NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	, CASE WHEN LEN(Header)  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Migrate_Appointments {
+            get {
+                return ResourceManager.GetString("Migration_22706_Migrate_Appointments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [Activity].[PhonecallReferences]
+        ///DELETE FROM [Activity].[PhonecallBase]
+        ///GO
+        ///
+        ///INSERT INTO [Activity].[PhonecallBase]
+        ///	([Id],[ReplicationCode],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	,[Subject],[Description],[ScheduledStart],[ScheduledEnd],[ActualEnd],[Priority],[Status],[Direction],[PhoneNumber],[Purpose]
+        ///	)
+        ///SELECT [Id], NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	, CASE WHEN LEN(Header) &gt; 256  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Migrate_Phonecalls {
+            get {
+                return ResourceManager.GetString("Migration_22706_Migrate_Phonecalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM [Activity].[TaskReferences]
+        ///DELETE FROM [Activity].[TaskBase]
+        ///GO
+        ///
+        ///INSERT INTO [Activity].[TaskBase]
+        ///	([Id],[ReplicationCode],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	,[Subject],[Description],[ScheduledStart],[ScheduledEnd],[ActualEnd],[Priority],[Status],[TaskType]
+        ///	)
+        ///SELECT [Id], NEWID(),[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[IsActive],[IsDeleted],[OwnerCode]
+        ///	, CASE WHEN LEN(Header) &gt; 256 THEN LEFT(Header, 256) ELSE Header END A [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22706_Migrate_Tasks {
+            get {
+                return ResourceManager.GetString("Migration_22706_Migrate_Tasks", resourceCulture);
             }
         }
         
@@ -2797,6 +3054,60 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string Migration8145 {
             get {
                 return ResourceManager.GetString("Migration8145", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   24.06.2013, a.rechkalov: добавил репликацию Order.DiscountSum
+        ///ALTER PROCEDURE [Billing].[ReplicateOrder]
+        ///	@Id bigint = NULL
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDomainName NVARCHAR(2 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ReplicateOrder_23822 {
+            get {
+                return ResourceManager.GetString("ReplicateOrder_23822", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   24.06.2013, a.rechkalov: добавил репликацию OrderPosition.DiscountSum
+        ///ALTER PROCEDURE [Billing].[ReplicateOrderPosition]
+        ///	@Id bigint = NULL
+        ///AS
+        ///
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF @Id IS NULL
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	DECLARE @CrmId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @CreatedByUserDomainName NVARCHAR(250);
+        ///    DECLARE @ModifiedByUserId UNIQUEIDENTIFIER;
+        ///    DECLARE @ModifiedByUserDoma [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ReplicateOrderPosition_23822 {
+            get {
+                return ResourceManager.GetString("ReplicateOrderPosition_23822", resourceCulture);
             }
         }
     }

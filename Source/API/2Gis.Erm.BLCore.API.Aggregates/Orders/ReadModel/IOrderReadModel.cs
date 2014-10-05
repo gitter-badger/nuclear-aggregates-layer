@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -104,5 +105,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IDictionary<string, DateTime> GetBargainUsage(long bargainId);
         BargainEndAndCloseDatesDto GetBargainEndAndCloseDates(long bargainId);
         IEnumerable<OrderSuitableBargainDto> GetSuitableBargains(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderEndDistributionDate);
+
+        OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId);
+        OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
+        long? GetBargainIdByOrder(long orderId);
+        long GetBargainLegalPersonId(long bargainId);
     }
 }

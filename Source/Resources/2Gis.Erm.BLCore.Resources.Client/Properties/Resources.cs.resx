@@ -147,4 +147,7 @@
   <data name="DisplayErrorsList" xml:space="preserve">
     <value>Zobrazit seznam chyb...</value>
   </data>
+  <data name="ChangeNeedToPickClient" xml:space="preserve">
+    <value>Je třeba uvést klienta.</value>
+  </data>
 </root>
