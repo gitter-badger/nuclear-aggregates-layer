@@ -11,7 +11,6 @@ using DoubleGis.Erm.BLCore.Operations.Special;
 using DoubleGis.Erm.BLCore.OrderValidation.DI;
 using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
-using DoubleGis.Erm.BLCore.OrderValidation.DI;
 using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;

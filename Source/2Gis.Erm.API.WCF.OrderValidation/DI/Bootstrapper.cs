@@ -11,6 +11,7 @@ using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.DI.Factories.OrderValidation;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
