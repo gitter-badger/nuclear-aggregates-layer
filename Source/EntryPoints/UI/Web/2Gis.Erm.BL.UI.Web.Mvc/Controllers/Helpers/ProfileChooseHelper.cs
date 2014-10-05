@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
         public ChooseProfileDialogState GetChooseProfileDialogStateForOrder(long orderId)
         {
-            var order = _orderReadModel.GetOrder(orderId);
+            var order = _orderReadModel.GetOrderSecure(orderId);
             return GetChooseProfileDialogState(order);
         }
 
@@ -94,7 +94,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
         public ChooseProfileViewModel GetViewModelByOrder(long orderId, long userId, long? profileId)
         {
-            var order = _orderReadModel.GetOrder(orderId);
+            var order = _orderReadModel.GetOrderSecure(orderId);
             return CreateViewModel(order, userId, profileId);
         }
 

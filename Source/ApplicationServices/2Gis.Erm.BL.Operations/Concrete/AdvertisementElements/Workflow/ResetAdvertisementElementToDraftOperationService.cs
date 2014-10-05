@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
 using DoubleGis.Erm.BL.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -11,7 +14,6 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
-using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
 {
@@ -20,7 +22,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IAdvertisementReadModel _advertisementReadModel;
         private readonly IUpdateAggregateRepository<AdvertisementElementStatus> _updateAdvertisementElementStatusRepository;
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
 
@@ -28,12 +30,12 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
             IOperationScopeFactory operationScopeFactory,
             IAdvertisementReadModel advertisementReadModel,
             IUpdateAggregateRepository<AdvertisementElementStatus> updateAdvertisementElementStatusRepository,
-            IOrderValidationInvalidator orderValidationInvalidator,
+            IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext)
         {
             _updateAdvertisementElementStatusRepository = updateAdvertisementElementStatusRepository;
-            _orderValidationInvalidator = orderValidationInvalidator;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _operationScopeFactory = operationScopeFactory;
@@ -63,7 +65,16 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                 operationScope.Updated(currentStatus);
 
                 var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { currentStatus.Id });
-                _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+                _registerOrderStateChangesOperationService.Changed(orderIds.Select(x =>
+                                                                                   new OrderChangesDescriptor
+                                                                                       {
+                                                                                           OrderId = x,
+                                                                                           ChangedAspects =
+                                                                                               new[]
+                                                                                                   {
+                                                                                                       OrderValidationRuleGroup.AdvertisementMaterialsValidation
+                                                                                                   }
+                                                                                       }));
 
                 operationScope.Complete();
                 return count;
