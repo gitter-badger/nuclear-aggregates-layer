@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
+    // FIXME {a.rechkalov, 17.09.2014}: Этот класс и функционал, связанный с ним не нужны больше
     public sealed partial class RegionalAdvertisingSharing : 
         IEntity, 
         IEntityKey, 

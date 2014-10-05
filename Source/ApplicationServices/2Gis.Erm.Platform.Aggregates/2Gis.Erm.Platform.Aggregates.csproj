@@ -55,7 +55,6 @@
     <Compile Include="EAV\DictionaryEntitySpecs.cs" />
     <Compile Include="EAV\DynamicEntityMetadataProvider.cs" />
     <Compile Include="EAV\DynamicEntityPropertiesConverter.cs" />
-    <Compile Include="EAV\ActivityDynamicPropertiesConverter.cs" />
     <Compile Include="EAV\DictionaryEntityPropertiesConverter.cs" />
     <Compile Include="EAV\BusinessEntityPropertiesConverter.cs" />
     <Compile Include="EAV\PartableEntityAccessor.cs" />

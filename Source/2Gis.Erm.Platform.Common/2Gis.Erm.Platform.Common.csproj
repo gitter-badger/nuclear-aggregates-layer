@@ -88,6 +88,9 @@
     <Compile Include="Crosscutting\ICrosscuttingServiceConsumer.cs" />
     <Compile Include="Crosscutting\ICrosscuttingService.cs" />
     <Compile Include="Crosscutting\IInvariantSafeCrosscuttingService.cs" />
+    <Compile Include="Identities\IdentityProviderService.cs" />
+    <Compile Include="Identities\IIdentityProviderService.cs" />
+    <Compile Include="Identities\IIdentityProviderSettings.cs" />
     <Compile Include="Logging\ILoggerContextManager.cs" />
     <Compile Include="Logging\LogUtils.cs" />
     <Compile Include="Logging\SystemInfo\AssemblyVersionInfo.cs" />
@@ -187,6 +190,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

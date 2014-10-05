@@ -18,6 +18,14 @@
         ChildNutrition = 205,
         FinancilaServices = 206,
         MedsTraditional = 207,
-        Biocides = 208
+        Biocides = 208,
+
+        ChileAlcohol = 301,
+        ChileDrugsAndService = 302,
+        ChileMedicalReceiptDrugs = 303,
+
+        UkraineDrugsAndService = 401,
+        UkraineAlcohol = 402,
+        UkraineTobaccoGoods = 403,
     }
 }

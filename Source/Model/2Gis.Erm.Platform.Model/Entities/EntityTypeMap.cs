@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
@@ -21,6 +22,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ChileBranchOfficeOrganizationUnitPart, typeof(ChileBranchOfficeOrganizationUnitPart) },
                 { EntityName.EmiratesBranchOfficeOrganizationUnitPart, typeof(EmiratesBranchOfficeOrganizationUnitPart) },
                 { EntityName.LegalPerson, typeof(LegalPerson) },
+                { EntityName.LegalPersonDeal, typeof(LegalPersonDeal) },
                 { EntityName.ChileLegalPersonPart, typeof(ChileLegalPersonPart) },
                 { EntityName.UkraineLegalPersonPart, typeof(UkraineLegalPersonPart) },
                 { EntityName.EmiratesLegalPersonPart, typeof(EmiratesLegalPersonPart) },
@@ -33,6 +35,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.AccountDetail, typeof(AccountDetail) },
                 { EntityName.Price, typeof(Price) },
                 { EntityName.Firm, typeof(Firm) },
+                { EntityName.FirmDeal, typeof(FirmDeal) },
                 { EntityName.FirmAddress, typeof(FirmAddress) },
                 { EntityName.EmiratesFirmAddressPart, typeof(EmiratesFirmAddressPart) },
                 { EntityName.FirmContact, typeof(FirmContact) },
@@ -41,6 +44,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.OrganizationUnit, typeof(OrganizationUnit) },
                 { EntityName.Project, typeof(Project) },
                 { EntityName.Client, typeof(Client) },
+                { EntityName.ClientLink, typeof(ClientLink) },
+                { EntityName.DenormalizedClientLink, typeof(DenormalizedClientLink) },
                 { EntityName.EmiratesClientPart, typeof(EmiratesClientPart) },
                 { EntityName.Bargain, typeof(Bargain) },
                 { EntityName.BargainType, typeof(BargainType) },
@@ -66,8 +71,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Advertisement, typeof(Advertisement) },
                 { EntityName.AdvertisementTemplate, typeof(AdvertisementTemplate) },
                 { EntityName.AdvertisementElement, typeof(AdvertisementElement) },
-            { EntityName.AdvertisementElementDenialReason, typeof(AdvertisementElementDenialReason) },
-            { EntityName.AdvertisementElementStatus, typeof(AdvertisementElementStatus) },
+                { EntityName.AdvertisementElementDenialReason, typeof(AdvertisementElementDenialReason) },
+                { EntityName.AdvertisementElementStatus, typeof(AdvertisementElementStatus) },
                 { EntityName.AdvertisementElementTemplate, typeof(AdvertisementElementTemplate) },
                 { EntityName.AdsTemplatesAdsElementTemplate, typeof(AdsTemplatesAdsElementTemplate) },
                 { EntityName.Bill, typeof(Bill) },
@@ -113,12 +118,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Building, typeof(Building) },
 
                 // Activity subsystem
-                { EntityName.ActivityInstance, typeof(ActivityInstance) },
-                { EntityName.ActivityPropertyInstance, typeof(ActivityPropertyInstance) },
-                { EntityName.ActivityBase, typeof(ActivityBase) },
+                { EntityName.Activity, typeof(Activity.Activity) },
                 { EntityName.Appointment, typeof(Appointment) },
                 { EntityName.Phonecall, typeof(Phonecall) },
                 { EntityName.Task, typeof(Task) },
+                { EntityName.RegardingObjectReference, typeof(RegardingObject<>) },
 
                 // Security
                 { EntityName.User, typeof(User) },
@@ -214,6 +218,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool TryGetEntityName(this Type type, out EntityName entityName)
         {
             entityName = EntityName.None;
+
+	        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(RegardingObject<>))
+	        {
+		        entityName = EntityName.RegardingObjectReference;
+		        return true;
+	        }
+
             return !type.IsPersistenceOnly() && ReverseTypeMap.TryGetValue(type, out entityName);
         }
 

@@ -8,6 +8,11 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
     [Serializable]
     public class OperationAccessDeniedException : BusinessLogicException
     {
+        public OperationAccessDeniedException(string message) :
+            base(message)
+        {
+        }
+
         public OperationAccessDeniedException(IOperationIdentity operation) :
             base(GenerateMessage(operation))
         {
