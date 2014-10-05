@@ -513,18 +513,18 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlMakeProfileMain {
+        public static string ControlMakeMain {
             get {
-                return ResourceManager.GetString("ControlMakeProfileMain", resourceCulture);
+                return ResourceManager.GetString("ControlMakeMain", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlMakeRegionalAdsDocs {
+        public static string ControlMakeProfileMain {
             get {
-                return ResourceManager.GetString("ControlMakeRegionalAdsDocs", resourceCulture);
+                return ResourceManager.GetString("ControlMakeProfileMain", resourceCulture);
             }
         }
         
@@ -615,6 +615,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string ControlPrintBargainAdditAgreementAction {
             get {
                 return ResourceManager.GetString("ControlPrintBargainAdditAgreementAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ControlPrintBargainProlongationAgreementAction {
+            get {
+                return ResourceManager.GetString("ControlPrintBargainProlongationAgreementAction", resourceCulture);
             }
         }
         
@@ -1110,6 +1119,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string CrdRelChildrenPositions {
             get {
                 return ResourceManager.GetString("CrdRelChildrenPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CrdRelClientLinks {
+            get {
+                return ResourceManager.GetString("CrdRelClientLinks", resourceCulture);
             }
         }
         
@@ -1668,6 +1686,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DFieldIsHidden {
             get {
                 return ResourceManager.GetString("DFieldIsHidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DFieldIsMainLegalPerson {
+            get {
+                return ResourceManager.GetString("DFieldIsMainLegalPerson", resourceCulture);
             }
         }
         
@@ -2493,6 +2520,33 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DListClientLinks {
+            get {
+                return ResourceManager.GetString("DListClientLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListClientLinksDeleted {
+            get {
+                return ResourceManager.GetString("DListClientLinksDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListClientLinksMaster {
+            get {
+                return ResourceManager.GetString("DListClientLinksMaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DListClients {
             get {
                 return ResourceManager.GetString("DListClients", resourceCulture);
@@ -2505,6 +2559,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DListClientsAtMyBranch {
             get {
                 return ResourceManager.GetString("DListClientsAtMyBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListClientsAvailableForLinking {
+            get {
+                return ResourceManager.GetString("DListClientsAvailableForLinking", resourceCulture);
             }
         }
         
@@ -3972,6 +4035,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DListThemeCategory {
             get {
                 return ResourceManager.GetString("DListThemeCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListThemeOrganizationUnit {
+            get {
+                return ResourceManager.GetString("DListThemeOrganizationUnit", resourceCulture);
             }
         }
         

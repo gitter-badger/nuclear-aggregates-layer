@@ -61,6 +61,25 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  StoredProcedure [Billing].[ReplicateDeal]    Script Date: 01.09.2014 10:28:28 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///-- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   23.07.2014, i.maslennikov: drop deal profit indicators 
+        ///--   12.08.2014, y.baranikhin: добавилась репликация полей по рекламной кампании
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///--   02.10.2014, a.rechkalov: выполнил слияние двух предыдущих измен [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BusinessDirectory_ReplicateDeal_24906 {
+            get {
+                return ResourceManager.GetString("BusinessDirectory_ReplicateDeal_24906", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///    &lt;Entity&gt;
@@ -104,6 +123,26 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Сделка&quot; OriginalName=&quot;Opportunity&quot;&gt;Opportunity&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;3&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Opportunity&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;3&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Opportunities&lt;/CollectionName&gt;
+        ///       [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string customizations_23099 {
+            get {
+                return ResourceManager.GetString("customizations_23099", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
         ///      &lt;Name LocalizedName=&quot;Рубрика&quot; OriginalName=&quot;&quot;&gt;Dg_category&lt;/Name&gt;
         ///      &lt;ObjectTypeCode&gt;10008&lt;/ObjectTypeCode&gt;
         ///      &lt;EntityInfo&gt;
@@ -117,6 +156,26 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         internal static string customizations_23209 {
             get {
                 return ResourceManager.GetString("customizations_23209", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Заказ&quot; OriginalName=&quot;&quot;&gt;Dg_order&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Dg_order&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Dg_orders&lt;/CollectionName&gt;
+        ///          &lt;LogicalCo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string customizations_23921 {
+            get {
+                return ResourceManager.GetString("customizations_23921", resourceCulture);
             }
         }
         
@@ -232,6 +291,15 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         internal static string Migration22367 {
             get {
                 return ResourceManager.GetString("Migration22367", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Migration23100 {
+            get {
+                return ResourceManager.GetString("Migration23100", resourceCulture);
             }
         }
     }
