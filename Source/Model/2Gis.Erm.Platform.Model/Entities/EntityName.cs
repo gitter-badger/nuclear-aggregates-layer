@@ -99,6 +99,7 @@
         ActionsHistory = 230, 
         ActionsHistoryDetail = 242, 
         AfterSaleServiceActivity = 231,
+        
         OrderValidationResult = 232,
         CityPhoneZone = 233,
         Reference = 234,

@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(OrdersRegionalAdvertisingSharing),
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
-                typeof(SecurityAccelerator),
+                typeof(SecurityAccelerator)
             };
 
         /// <summary>

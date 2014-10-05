@@ -100,7 +100,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ActionsHistory, typeof(ActionsHistory) },
                 { EntityName.ActionsHistoryDetail, typeof(ActionsHistoryDetail) },
                 { EntityName.AfterSaleServiceActivity, typeof(AfterSaleServiceActivity) },
-                { EntityName.OrderValidationResult, typeof(OrderValidationResult) },
                 { EntityName.CityPhoneZone, typeof(CityPhoneZone) },
                 { EntityName.Reference, typeof(Reference) },
                 { EntityName.ReferenceItem, typeof(ReferenceItem) },
@@ -142,8 +141,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.FileWithContent, typeof(FileWithContent) },
                 { EntityName.HotClientRequest, typeof(HotClientRequest) },
                 { EntityName.PerformedBusinessOperation, typeof(PerformedBusinessOperation) },
-            { EntityName.PerformedOperationPrimaryProcessing, typeof(PerformedOperationPrimaryProcessing) },
-            { EntityName.PerformedOperationFinalProcessing, typeof(PerformedOperationFinalProcessing) },
+                { EntityName.PerformedOperationPrimaryProcessing, typeof(PerformedOperationPrimaryProcessing) },
+                { EntityName.PerformedOperationFinalProcessing, typeof(PerformedOperationFinalProcessing) },
                 { EntityName.ExportFlowCardExtensionsCardCommercial, typeof(ExportFlowCardExtensionsCardCommercial) },
                 { EntityName.ExportFlowFinancialDataLegalEntity, typeof(ExportFlowFinancialDataLegalEntity) },
                 { EntityName.ExportFlowOrdersAdvMaterial, typeof(ExportFlowOrdersAdvMaterial) },
@@ -166,13 +165,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Commune, typeof(Commune) },
                 { EntityName.AcceptanceReportsJournalRecord, typeof(AcceptanceReportsJournalRecord) },
                 { EntityName.DenialReason, typeof(DenialReason) },
-
                 { EntityName.BirthdayCongratulation, typeof(BirthdayCongratulation) },
+                { EntityName.OrderValidationResult, typeof(OrderValidationResult) },
+
                 // Dynamic Storage
                 { EntityName.DictionaryEntityInstance, typeof(DictionaryEntityInstance) },
                 { EntityName.DictionaryEntityPropertyInstance, typeof(DictionaryEntityPropertyInstance) },
                 { EntityName.BusinessEntityInstance, typeof(BusinessEntityInstance) },
                 { EntityName.BusinessEntityPropertyInstance, typeof(BusinessEntityPropertyInstance) },
+               
             };
 
         private static readonly Dictionary<Type, EntityName> ReverseTypeMap = TypeMap.ToDictionary(x => x.Value, x => x.Key);

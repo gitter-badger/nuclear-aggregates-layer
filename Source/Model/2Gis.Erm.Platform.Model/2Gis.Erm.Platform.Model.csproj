@@ -92,6 +92,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateErmDomainEntityDTOs.log</LastGenOutput>
       <CustomToolNamespace>DoubleGis.Erm.Platform.Model.Entities.DTOs</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +273,10 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Building.cs">
       <Link>Entities\Erm\Building.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BuildingDomainEntityDto.cs">
+      <Link>Entities\DTOs\BuildingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstance.cs">
       <Link>Entities\Erm\BusinessEntityInstance.cs</Link>
@@ -645,9 +650,17 @@
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessingDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedOperationFinalProcessingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessing.cs">
       <Link>Entities\Erm\PerformedOperationPrimaryProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessingDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedOperationPrimaryProcessingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
       <Link>Entities\Erm\Platform.cs</Link>
@@ -871,7 +884,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderCreationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderProlongationIdentity .cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\SelectOrderProcessingOwnerIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ResetOrderValidationResultsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\RegisterOrderStateChangesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
@@ -1244,10 +1257,6 @@
       <Link>Entities\DTOs\OrderReleaseTotalDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationResultDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderValidationResultDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnitDomainEntityDto.cs">
       <Link>Entities\DTOs\OrganizationUnitDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
@@ -1483,7 +1492,6 @@
     <Compile Include="Aggregates\Aliases\LegalPersonAggregate.cs" />
     <Compile Include="Aggregates\Aliases\LocalMessageAggregate.cs" />
     <Compile Include="Aggregates\Aliases\OrderAggregate.cs" />
-    <Compile Include="Aggregates\Aliases\OrderValidationResultAggregate.cs" />
     <Compile Include="Aggregates\Aliases\PositionAggregate.cs" />
     <Compile Include="Aggregates\Aliases\PriceAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ReleaseAggregate.cs" />
@@ -1601,7 +1609,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
