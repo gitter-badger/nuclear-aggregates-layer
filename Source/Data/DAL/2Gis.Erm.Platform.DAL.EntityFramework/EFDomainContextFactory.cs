@@ -7,14 +7,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
     public abstract class EFDomainContextFactory : IReadDomainContextFactory, IModifiableDomainContextFactory
     {
         private readonly IDomainContextMetadataProvider _domainContextMetadataProvider;
-        private readonly IEFConnectionFactory _connectionFactory;
+        private readonly IEFObjectContextFactory _connectionFactory;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly IProducedQueryLogAccessor _producedQueryLogAccessor;
         private readonly ICommonLog _logger;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         protected EFDomainContextFactory(
-            IEFConnectionFactory connectionFactory,
+            IEFObjectContextFactory connectionFactory,
             IDomainContextMetadataProvider domainContextMetadataProvider,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
             IProducedQueryLogAccessor producedQueryLogAccessor,
@@ -47,12 +47,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         private EFDomainContext CreateDomainContext(DomainContextMetadata domainContextMetadata)
         {
-            var entityConnection = _connectionFactory.CreateEntityConnection(domainContextMetadata);
-            var objectContext = new EFDbContext(entityConnection, _producedQueryLogAccessor);
+            var objectContext = _connectionFactory.CreateObjectContext(domainContextMetadata);
+            var dbContext = new EFDbContext(objectContext, _producedQueryLogAccessor);
 
             return new EFDomainContext(ProcessingContext,
                                        domainContextMetadata.EntityContainerName,
-                                       objectContext,
+                                       dbContext,
                                        _pendingChangesHandlingStrategy,
                                        _msCrmReplicationMetadataProvider,
                                        _logger);

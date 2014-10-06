@@ -1,0 +1,27 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
+
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
+{
+    public class MessageTypeMap : EntityTypeConfiguration<MessageType>
+    {
+        public MessageTypeMap()
+        {
+            // Primary Key
+            HasKey(t => t.Id);
+
+            // Properties
+            Property(t => t.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            // Table & Column Mappings
+            ToTable("MessageTypes", "Shared");
+            Property(t => t.Id).HasColumnName("Id");
+            Property(t => t.SenderSystem).HasColumnName("SenderSystem");
+            Property(t => t.ReceiverSystem).HasColumnName("ReceiverSystem");
+            Property(t => t.IntegrationType).HasColumnName("IntegrationType");
+        }
+    }
+}

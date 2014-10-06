@@ -80,13 +80,13 @@
     <Compile Include="EFDbContext.cs" />
     <Compile Include="EFRepository.cs" />
     <Compile Include="EFDomainContextFactory.cs" />
-    <Compile Include="EFConnectionFactory.cs" />
+    <Compile Include="EFObjectContextFactory.cs" />
     <Compile Include="EFSecureGenericRepository.cs" />
     <Compile Include="EFUtils.cs" />
     <Compile Include="EFDomainContext.cs" />
     <Compile Include="IDbEntityEntry.cs" />
     <Compile Include="IDomainEntityEntryAccessor.cs" />
-    <Compile Include="IEFConnectionFactory.cs" />
+    <Compile Include="IEFObjectContextFactory.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepositoryProxy.cs" />
     <Compile Include="CompositeEntityDecorator.cs" />
@@ -113,6 +113,10 @@
     <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
+      <Project>{DAE94B56-59E8-4907-A2BB-6372707C0B3B}</Project>
+      <Name>2Gis.Erm.Platform.Model.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
