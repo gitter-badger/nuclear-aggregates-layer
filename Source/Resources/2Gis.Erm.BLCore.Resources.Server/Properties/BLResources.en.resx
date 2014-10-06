@@ -5196,4 +5196,7 @@ Placement period: {3}.</value>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value>ERM does not support company creation.</value>
   </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивное отделение организации {0} для юридического лица {1}</value>
+  </data>
 </root>

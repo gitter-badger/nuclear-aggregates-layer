@@ -5178,4 +5178,7 @@
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value />
   </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
 </root>
