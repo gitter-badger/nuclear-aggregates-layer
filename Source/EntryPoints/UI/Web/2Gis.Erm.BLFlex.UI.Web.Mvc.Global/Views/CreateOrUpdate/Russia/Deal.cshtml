@@ -46,7 +46,7 @@
         </div>
         @Html.SectionHead("detailsForOrders", BLResources.DetailsForOrders)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ExtendedInfo = "dealId={Id}" })
+            @Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}" })
         </div>
     </div>
     <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">
