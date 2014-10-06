@@ -49,15 +49,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            long clientId;
-            if (querySettings.TryGetExtendedProperty("ClientAndItsDescendants", out clientId))
-            {
-                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
-            }
-
             if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
             {
-                clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
@@ -74,13 +68,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
             var myFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("ForMe",
                                                                                       forMe => LegalPersonListSpecs.Filter.ByOwner(forMe, _userContext.Identity.Code));
 
-            // FIXME {y.baranihin, 03.09.2014}: Довольно большой кусок логики скопирован во много мест.
-            // почему бы не создать реестр. аналогичный IFindSpecification?
-            // есть зависимость от IFinder - его можно передавать параметром.
-            // Нужно обговорить с Максимом, может, у него есть другое решение.
-            // COMMENT {y.baranihin;a.rechkalov, 03.09.2014}: Кроме того, это временно решение - до полного внедрения рекламных кампаний вместо привычных сделок. 
-            // Важно держать этот кусок логики в отдельном, хорошо отсвечивающем месте, чтобы можно было его легко выпилить
-            // DONE {a.rechkalov, 05.09.2014}: done
             var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
                     
             return query

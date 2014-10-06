@@ -54,15 +54,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            long clientId;
-            if (querySettings.TryGetExtendedProperty("ClientAndItsDescendants", out clientId))
-            {
-                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
-            }
-
             if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
             {
-                clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
@@ -86,8 +80,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 
             return query
                 .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter)
-                // FIXME {y.baranihin, 19.03.2014}: Эта выборка точно нужна? Ниже, в join снова выбираются поля в анонимный объект.
-                // DONE {a.rechkalov, 20.03.2014}: убрал
                 .Join(dynamicObjectsQuery,
                       x => x.Id,
                       y => y.Instance.EntityId,

@@ -45,15 +45,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            long clientId;
-            if (querySettings.TryGetExtendedProperty("ClientAndItsDescendants", out clientId))
-            {
-                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
-            }
-
             if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
             {
-                clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
