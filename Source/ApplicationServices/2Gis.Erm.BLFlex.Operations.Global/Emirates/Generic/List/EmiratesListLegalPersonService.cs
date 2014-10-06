@@ -8,6 +8,8 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -61,6 +63,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
 
                         return x => x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted;
                     });
+
+            long clientId;
+            if (querySettings.TryGetExtendedProperty("ClientAndItsDescendants", out clientId))
+            {
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
+
+            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            {
+                clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
 
             var debtFilter = querySettings
                 .CreateForExtendedProperty<LegalPerson, bool>("WithDebt",

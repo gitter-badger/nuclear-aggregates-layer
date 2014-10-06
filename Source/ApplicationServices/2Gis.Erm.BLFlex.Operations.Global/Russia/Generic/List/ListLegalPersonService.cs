@@ -8,6 +8,8 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -25,7 +27,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
         public ListLegalPersonService(
             ISecurityServiceUserIdentifier userIdentifierService, 
             IFinder finder,
-            FilterHelper filterHelper, IUserContext userContext, IDebtProcessingSettings debtProcessingSettings)
+            FilterHelper filterHelper,
+            IUserContext userContext,
+            IDebtProcessingSettings debtProcessingSettings)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -42,6 +46,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
             {
                 query = _filterHelper.ForSubordinates(query);
+            }
+
+            long clientId;
+            if (querySettings.TryGetExtendedProperty("ClientAndItsDescendants", out clientId))
+            {
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
+
+            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            {
+                clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
             var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt", info =>
