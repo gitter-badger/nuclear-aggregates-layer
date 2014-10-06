@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                                                                                              long branchOfficeId,
                                                                                              long branchOfficeOrganizationUnitId)
         {
-            var findSpec = Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+            var findSpec = Specs.Find.NotDeleted<BranchOfficeOrganizationUnit>() &&
                            BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.DuplicatesByOrganizationUnitAndBranchOffice(organizationUnitId,
                                                                                                                             branchOfficeId,
                                                                                                                             branchOfficeOrganizationUnitId);

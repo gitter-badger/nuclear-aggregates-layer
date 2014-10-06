@@ -5197,4 +5197,7 @@ Periodo de la publicación: {3}.</value>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value>No se permite crear las empresas en ERM.</value>
   </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивное отделение организации {0} для юридического лица {1}</value>
+  </data>
 </root>

@@ -5193,4 +5193,7 @@ Placement period: {3}.</value>
   <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
     <value>Связь сделки {0} и юр.лица {1} уже существует</value>
   </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивное отделение организации {0} для юридического лица {1}</value>
+  </data>
 </root>
