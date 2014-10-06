@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Migration.Core;
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
     [Migration(24481, "Creates the procedures to replicate the activities.", "s.pomadin")]
-    public class Migration23630 : TransactedMigration
+    public class Migration24481 : TransactedMigration
     {
         protected override void ApplyOverride(IMigrationContext context)
         {

@@ -487,8 +487,6 @@
   <data name="ReplicateOrderPosition_23822" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.09.01 rev. 23822\ReplicateOrderPosition.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-
-
   <data name="Migration_22766_AddIndexes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.08.26 rev. 22766\Add Indexes.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
