@@ -1959,9 +1959,6 @@ Global
 		{E97BC051-BC95-4183-950B-0685DDE66D7D} = {25116287-6464-416E-986B-65E374B8FC7C}
 		{153868E3-4C4C-45FE-86D6-6B4FBD39249C} = {BF15FB1A-8859-4BC4-9BAF-083D37AF2DB5}
 		{50B591AE-4761-4324-83F9-9359A876033C} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35
+		{58A0F734-DCB0-44FC-B6D6-2D62BDA10F29} = {DFD596D7-4F3A-4E1C-AB51-B74670621B41}
 	EndGlobalSection
 EndGlobal
