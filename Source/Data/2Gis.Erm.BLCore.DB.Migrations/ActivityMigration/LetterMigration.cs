@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmLetterPriority = Metadata.Erm.ActivityPriority;
     using ErmLetterStatus = Metadata.Erm.ActivityStatus;
 
-    [Migration(23487, "Migrates the letters from CRM to ERM.", "s.pomadin")]
+    //[Migration(23487, "Migrates the letters from CRM to ERM.", "s.pomadin")]
     public class LetterMigration : LetterMigrationBase
     {
         internal override QueryExpression CreateQuery()

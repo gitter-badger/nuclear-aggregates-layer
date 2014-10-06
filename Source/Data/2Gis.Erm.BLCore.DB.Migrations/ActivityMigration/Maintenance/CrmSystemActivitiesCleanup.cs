@@ -14,7 +14,7 @@ using Microsoft.Crm.SdkTypeProxy;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
 {
-    [Migration(23613, "Cleaning up system activities in MS CRM.", "s.pomadin")]
+    //[Migration(23613, "Cleaning up system activities in MS CRM.", "s.pomadin")]
     public class CrmSystemActivitiesCleanup : IContextedMigration<ICrmMigrationContext>
     {
         private static readonly TimeSpan Timeout = new TimeSpan(0, 30, 0);      // 30 minutes

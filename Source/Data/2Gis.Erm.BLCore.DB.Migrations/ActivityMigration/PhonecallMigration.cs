@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmPhonecallStatus = Metadata.Erm.ActivityStatus;
     using ErmPhonecallPurpose = Metadata.Erm.ActivityPurpose;
 
-    [Migration(23484, "Migrates the phonecalls from CRM to ERM.", "s.pomadin")]
+    //[Migration(23484, "Migrates the phonecalls from CRM to ERM.", "s.pomadin")]
     public sealed class PhonecallMigration : ActivityMigration<PhonecallMigration.Phonecall>
     {
         private const string InsertEntityTemplate = @"

@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Migration.Core;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
 {
-    [Migration(23612, "Cleaning up the activities in MS CRM.", "s.pomadin")]
+    //[Migration(23612, "Cleaning up the activities in MS CRM.", "s.pomadin")]
     public sealed class CrmActivitiesCleanup : TransactedMigration, INonDefaultDatabaseMigration
     {
         private static readonly string[] CleanupTemplates =

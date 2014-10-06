@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmTaskStatus = Metadata.Erm.ActivityStatus;
     using ErmTaskType = Metadata.Erm.TaskType;
 
-    [Migration(23486, "Migrates the tasks from CRM to ERM.", "s.pomadin")]
+    //[Migration(23486, "Migrates the tasks from CRM to ERM.", "s.pomadin")]
     public sealed class TaskMigration : ActivityMigration<TaskMigration.Task>
     {
         private const string InsertEntityTemplate = @"

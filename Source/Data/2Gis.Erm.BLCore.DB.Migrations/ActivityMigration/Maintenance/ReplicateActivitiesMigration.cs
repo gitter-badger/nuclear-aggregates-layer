@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Migration.Core;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
 {
-    [Migration(24480, "Replicates the migrated activities back to MS CRM.", "s.pomadin")]
+    //[Migration(24480, "Replicates the migrated activities back to MS CRM.", "s.pomadin")]
     public sealed class ReplicateActivitiesMigration : TransactedMigration
     {
         protected override void ApplyOverride(IMigrationContext context)

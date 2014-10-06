@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmAppointmentStatus = Metadata.Erm.ActivityStatus;
     using ErmAppointmentPurpose = Metadata.Erm.ActivityPurpose;
 
-    [Migration(23483, "Migrates the appointments from CRM to ERM.", "s.pomadin")]
+    //[Migration(23483, "Migrates the appointments from CRM to ERM.", "s.pomadin")]
     public sealed class AppointmentMigration : ActivityMigration<AppointmentMigration.Appointment>
     {
         private const string InsertEntityTemplate = @"
