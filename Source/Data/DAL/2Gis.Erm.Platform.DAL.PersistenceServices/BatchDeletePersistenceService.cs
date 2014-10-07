@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 {
                     { typeof(PerformedOperationFinalProcessing), "Shared.PerformedOperationFinalProcessings" },
                     { typeof(PerformedOperationPrimaryProcessing), "Shared.PerformedOperationPrimaryProcessings" },
+                    { typeof(OrderValidationResult), "Billing.OrderValidationResults" },
                 };
 
         public BatchDeletePersistenceService(IDatabaseCaller databaseCaller, ICommonLog logger)
