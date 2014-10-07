@@ -3,6 +3,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
@@ -69,8 +70,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                 return x => x.Client.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
             });
 
+            var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
+
             return query
-                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter)
+                .Filter(_filterHelper, dealFilter, debtFilter, hasMyOrdersFilter, myBranchFilter)
                 .Select(x => new CzechListLegalPersonDto
                 {
                     Id = x.Id,

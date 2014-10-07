@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
@@ -118,8 +119,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         return x => x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted;
                     });
 
+            var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
+
             return query
-                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter, restrictForMergeFilter)
+                .Filter(_filterHelper, dealFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, restrictForMergeFilter)
                 .Select(x => new ListLegalPersonDto
                 {
                     Id = x.Id,

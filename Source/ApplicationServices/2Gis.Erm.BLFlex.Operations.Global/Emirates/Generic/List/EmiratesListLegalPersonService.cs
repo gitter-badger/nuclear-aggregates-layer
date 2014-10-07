@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
@@ -107,8 +108,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                                                                                y => y.UserId == userId);
                                                                   });
 
+            var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
+
             return query
-                .Filter(_filterHelper, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter)
+                .Filter(_filterHelper, dealFilter, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter)
                 .Select(x => new EmiratesListLegalPersonDto
                     {
                         Id = x.Id,
