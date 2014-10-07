@@ -45,7 +45,7 @@ FROM
 	JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId
 WHERE boou.OrganizationUnitId = @City
 	AND o.BeginDistributionDate < DATEADD(m, 1, @IssueDate)
-	AND convert(date,o.EndDistributionDateFact) >= DATEADD(dd,-1,DATEADD(m, 1, @IssueDate))
+	AND o.EndDistributionDateFact >= DATEADD(m, 1, @IssueDate)
 	AND o.IsDeleted = 0
 	AND o.WorkflowStepId IN (4,5)
 	AND o.PayablePlan > 0
