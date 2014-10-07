@@ -2,7 +2,6 @@
 
 namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Deal
 {
-    // 2+ \Platform\Source\Model\2Gis.Erm.Platform.Model\Identities\Operations\Identity\Specific\Deal
     [DataContract]
     public sealed class GenerateDealNameIdentity : OperationIdentityBase<GenerateDealNameIdentity>, INonCoupledOperationIdentity
     {

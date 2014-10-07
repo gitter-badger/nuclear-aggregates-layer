@@ -1,3 +1,4 @@
+
 namespace DoubleGis.Erm.Platform.Model.Entities.Enums
 {
     public enum TemplateCode
@@ -5,11 +6,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         None = 0,
 
         // договор
-        BargainLegalPerson = 10,
-        BargainLegalPersonAlternativeLanguage = 14,
-        BargainBusinessman = 11,
-        BargainNaturalPerson = 12,
+        BargainProlongationAgreement = 12,
         BargainNewSalesModel = 13,
+        ClientBargainAlternativeLanguage = 14,
+        ClientBargain = 15,
+        AgentBargain = 16,
 
         // доп. соглашение
         AdditionalAgreementLegalPerson = 20,

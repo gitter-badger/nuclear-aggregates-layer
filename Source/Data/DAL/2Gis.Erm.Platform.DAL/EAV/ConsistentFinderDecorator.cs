@@ -13,28 +13,49 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     {
         private readonly IFinder _finder;
         private readonly DynamicStorageFinderWrapper _dynamicStorageFinderWrapper;
+        private readonly ICompositeEntityDecorator _compositeEntityDecorator;
 
         public ConsistentFinderDecorator(IFinder finder,
                                          IDynamicStorageFinder dynamicStorageFinder,
+                                         ICompositeEntityDecorator compositeEntityDecorator,
                                          IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
         {
             _finder = finder;
+            _compositeEntityDecorator = compositeEntityDecorator;
             _dynamicStorageFinderWrapper = new DynamicStorageFinderWrapper(dynamicStorageFinder, dynamicEntityMetadataProvider);
         }
 
         public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
+            IQueryable<TEntity> mappedQueryable;
+            if (TryFindMapped(findSpecification, out mappedQueryable))
+            {
+                return mappedQueryable;
+            }
+
             return _finder.Find(findSpecification).ValidateQueryCorrectness();
         }
 
         public IQueryable<TOutput> Find<TEntity, TOutput>(ISelectSpecification<TEntity, TOutput> selectSpecification,
                                                           IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
+            IQueryable<TEntity> mappedQueryable;
+            if (TryFindMapped(findSpecification, out mappedQueryable))
+            {
+                return mappedQueryable.Select(selectSpecification.Selector);
+            }
+
             return _finder.Find(selectSpecification, findSpecification).ValidateQueryCorrectness();
         }
 
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity
         {
+            IQueryable<TEntity> mappedQueryable;
+            if (TryFindMapped(new FindSpecification<TEntity>(expression), out mappedQueryable))
+            {
+                return mappedQueryable;
+            }
+
             return _finder.Find(expression).ValidateQueryCorrectness();
         }
 
@@ -62,11 +83,17 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, id).SingleOrDefault();
             }
 
+            IQueryable<TEntity> mappedQueryable;
+            if (TryFindMapped(findSpecification, out mappedQueryable))
+            {
+                return mappedQueryable.SingleOrDefault();
+            }
+
             return Find(findSpecification).SingleOrDefault();
         }
 
-        public IReadOnlyCollection<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
             {
@@ -76,10 +103,31 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             if (typeof(TEntity).AsEntityName().IsDynamic())
             {
                 var ids = findSpecification.ExtractEntityIds();
-                return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).ToArray();
+                return _dynamicStorageFinderWrapper.FindDynamic<TEntity>(q => q, ids).AsEnumerable();
             }
 
-            return Find(findSpecification).ToArray();
+            IQueryable<TEntity> mappedQueryable;
+            if (TryFindMapped(findSpecification, out mappedQueryable))
+            {
+                return mappedQueryable.AsEnumerable();
+            }
+
+            return Find(findSpecification).AsEnumerable();
+        }
+
+        private bool TryFindMapped<TEntity>(IFindSpecification<TEntity> findSpecification, out IQueryable<TEntity> queryable)
+        {
+            var entityType = typeof(TEntity);
+
+            EntityName entityName;
+            if (entityType.TryGetEntityName(out entityName) && entityName.HasMapping())
+            {
+                queryable = _compositeEntityDecorator.Find(findSpecification);
+                return true;
+            }
+
+            queryable = null;
+            return false;
         }
     }
 }

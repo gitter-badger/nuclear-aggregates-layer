@@ -11,7 +11,7 @@
         public const int AfterSaleServiceTypePropertyId = 7;
         public const int DescriptionPropertyId = 8;
         public const int TaskTypePropertyId = 9;
-        public const int DealIdId = 10;
+        public const int DealIdPropertyId = 10;
         public const int ActualEndPropertyId = 11;
         public const int NamePropertyId = 12;
         public const int EntityTypeNamePropertyId = 13;
@@ -36,5 +36,5 @@
         public const int EndDistributionDatePropertyId = 32;
         public const int AuthorIdPropertyId = 33;
         public const int DocumentsAmountPropertyId = 34;
-    }
+	}
 }

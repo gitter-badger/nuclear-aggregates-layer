@@ -14,6 +14,7 @@
 
         // erm
         LegalPerson = 147,
+        LegalPersonDeal = 612,
         ChileLegalPersonPart = 601,
         UkraineLegalPersonPart = 602,
         EmiratesLegalPersonPart = 604,
@@ -30,6 +31,7 @@
         Price = 155,
         Firm = 146,
         FirmAddress = 164,
+        FirmDeal = 610,
         EmiratesFirmAddressPart = 608,
         FirmContact = 165,
         BranchOffice = 156,
@@ -37,6 +39,8 @@
         OrganizationUnit = 157,
         Project = 158,
         Client = 200,
+        ClientLink = 609,
+        DenormalizedClientLink = 611,
         EmiratesClientPart = 605,
 
         Bargain = 198,
@@ -165,12 +169,11 @@
         // Ambivalent
         FileWithContent = 400,
 
-        ActivityInstance = 498,
-        ActivityPropertyInstance = 499,
-        ActivityBase = 500,
-        Appointment = 501,
+		Activity = 500,
+		Appointment = 501,
         Phonecall = 502,
         Task = 503,
+		RegardingObjectReference = 510,
 
         // заявка на создание или продление заказа от Личного кабинета
         OrderProcessingRequest = 550,

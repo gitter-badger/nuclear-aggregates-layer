@@ -177,14 +177,6 @@
       <Link>Entities\Erm\ActionsHistoryDetail.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityInstance.cs">
-      <Link>Entities\Erm\ActivityInstance.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityPropertyInstance.cs">
-      <Link>Entities\Erm\ActivityPropertyInstance.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdditionalFirmService.cs">
       <Link>Entities\Erm\AdditionalFirmService.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -229,6 +221,22 @@
       <Link>Entities\Erm\AfterSaleServiceActivity.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentBase.cs">
+      <Link>Entities\Erm\AppointmentBase.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentBaseDomainEntityDto.cs">
+      <Link>Entities\DTOs\AppointmentBaseDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentReference.cs">
+      <Link>Entities\Erm\AppointmentReference.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentReferenceDomainEntityDto.cs">
+      <Link>Entities\DTOs\AppointmentReferenceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPosition.cs">
       <Link>Entities\Erm\AssociatedPosition.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -272,6 +280,10 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Building.cs">
       <Link>Entities\Erm\Building.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BuildingDomainEntityDto.cs">
+      <Link>Entities\DTOs\BuildingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstance.cs">
       <Link>Entities\Erm\BusinessEntityInstance.cs</Link>
@@ -337,6 +349,14 @@
       <Link>Entities\Erm\Client.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ClientLink.cs">
+      <Link>Entities\Erm\ClientLink.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ClientLinkDomainEntityDto.cs">
+      <Link>Entities\DTOs\ClientLinkDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Contact.cs">
       <Link>Entities\Erm\Contact.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -372,6 +392,14 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DeniedPosition.cs">
       <Link>Entities\Erm\DeniedPosition.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DenormalizedClientLink.cs">
+      <Link>Entities\Erm\DenormalizedClientLink.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DenormalizedClientLinkDomainEntityDto.cs">
+      <Link>Entities\DTOs\DenormalizedClientLinkDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DepCard.cs">
       <Link>Entities\Erm\DepCard.cs</Link>
@@ -493,6 +521,14 @@
       <Link>Entities\Erm\FirmContact.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmDeal.cs">
+      <Link>Entities\Erm\FirmDeal.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmDealDomainEntityDto.cs">
+      <Link>Entities\DTOs\FirmDealDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\HotClientRequest.cs">
       <Link>Entities\Erm\HotClientRequest.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -504,6 +540,14 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPerson.cs">
       <Link>Entities\Erm\LegalPerson.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonDeal.cs">
+      <Link>Entities\Erm\LegalPersonDeal.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonDealDomainEntityDto.cs">
+      <Link>Entities\DTOs\LegalPersonDealDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonProfile.cs">
       <Link>Entities\Erm\LegalPersonProfile.cs</Link>
@@ -649,6 +693,10 @@
       <Link>Entities\Erm\PerformedBusinessOperation.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperationDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessing.cs">
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -656,6 +704,26 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessing.cs">
       <Link>Entities\Erm\PerformedOperationPrimaryProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessingDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedOperationPrimaryProcessingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallBase.cs">
+      <Link>Entities\Erm\PhonecallBase.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallBaseDomainEntityDto.cs">
+      <Link>Entities\DTOs\PhonecallBaseDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallReference.cs">
+      <Link>Entities\Erm\PhonecallReference.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallReferenceDomainEntityDto.cs">
+      <Link>Entities\DTOs\PhonecallReferenceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Platform.cs">
       <Link>Entities\Erm\Platform.cs</Link>
@@ -721,6 +789,22 @@
       <Link>Entities\Erm\SecurityAccelerator.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskBase.cs">
+      <Link>Entities\Erm\TaskBase.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskBaseDomainEntityDto.cs">
+      <Link>Entities\DTOs\TaskBaseDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskReference.cs">
+      <Link>Entities\Erm\TaskReference.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskReferenceDomainEntityDto.cs">
+      <Link>Entities\DTOs\TaskReferenceDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Territory.cs">
       <Link>Entities\Erm\Territory.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -763,8 +847,11 @@
     <Compile Include="DI\PlatformZone.cs" />
     <Compile Include="Entities\DTOs\Partial\AdvertisementElementResponsibilities.cs" />
     <Compile Include="Entities\DTOs\Partial\AdvertisementElementStatusDomainEntityDto.partial.cs" />
+    <Compile Include="Entities\Activity\Activity.cs" />
+    <Compile Include="Entities\Activity\ActivityPurpose.cs" />
+    <Compile Include="Entities\Activity\EntityReference.cs" />
+    <Compile Include="Entities\Activity\EntityToEntityReferenceExtensions.cs" />
     <Compile Include="Entities\DTOs\Partial\DenialReasonDomainEntityDto.partial.cs" />
-    <Compile Include="Entities\EAV\IActivityDynamicPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicPropertiesConverterFactory.cs" />
     <Compile Include="Entities\Enums\AccountType.cs" />
@@ -773,12 +860,15 @@
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
     <Compile Include="Entities\Enums\BargainKind.cs" />
+    <Compile Include="Entities\Enums\AdvertisingCampaignGoals.cs" />
+    <Compile Include="Entities\Enums\PaymentFormat.cs" />
     <Compile Include="Entities\Enums\PricePositionRateType.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
     <Compile Include="Entities\Enums\TaxationType.cs" />
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\Erm\AcceptanceReportsJournalRecord.cs" />
     <Compile Include="Entities\Erm\Bank.cs" />
+    <Compile Include="Entities\Erm\ReferenceType.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElementRelation.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElement.cs" />
@@ -796,8 +886,6 @@
     <Compile Include="Entities\Erm\Parts\Emirates\EmiratesClientPart.cs" />
     <Compile Include="Entities\Erm\Parts\Emirates\EmiratesLegalPersonPart.cs" />
     <Compile Include="Entities\Erm\Parts\Ukraine\UkraineLegalPersonProfilePart.cs" />
-    <Compile Include="Entities\Erm\Partial\ActivityInstance.cs" />
-    <Compile Include="Entities\Erm\Partial\ActivityPropertyInstance.cs" />
     <Compile Include="Entities\Erm\Partial\BranchOfficeOrganizationUnit.cs" />
     <Compile Include="Entities\Erm\Partial\BusinessEntityInstance.cs" />
     <Compile Include="Entities\Erm\Partial\BusinessEntityPropertyInstance.cs" />
@@ -827,6 +915,7 @@
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
     <Compile Include="IBoundedContext.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\NotifyAboutAccountDetailModificationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\BulkUpdateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\DenyAdvertisementElementIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ApproveAdvertisementElementIdentity.cs" />
@@ -834,6 +923,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\TransferAdvertisementElementToReadyForValidationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\UpdateAdvertisementElementAndSetAsReadyForVerificationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\ChangeAdvertisementElementStatusIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Activity\AssignRegardingObjectIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementFileChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AdvertisementElement\NotifyAboutAdvertisementElementValidationStatusChangedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Bargain\BindToOrderIdentity.cs" />
@@ -845,9 +935,12 @@
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportChargesInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Category\ImportRubricIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Client\CalculateClientPromisingIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\ClientLink\UpdateOrganizationStructureDenormalizationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\CreateClientByFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\SetMainFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Contact\RequestBirthdayCongratulationsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Deal\SetMainLegalPersonForDealIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\CreateBlankFirmsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\GetFirmInfoIdentity.cs" />
@@ -904,11 +997,11 @@
     <Compile Include="ModelIndicators.Boundaries.cs" />
     <Compile Include="ModelIndicators.Simplified.cs" />
     <Compile Include="DI\PlatformModelAssembly.cs" />
-    <Compile Include="Entities\DTOs\AppointmentDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Activity\AppointmentDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\DomainEntityDtoRegistry.cs" />
     <Compile Include="Entities\DTOs\Infrastructure\IDomainEntityDtoRegistry.cs" />
-    <Compile Include="Entities\DTOs\TaskDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\PhonecallDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Activity\TaskDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Activity\PhonecallDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Partial\AccountDetailDomainEntityDto.partial.cs" />
     <Compile Include="Entities\DTOs\Partial\AccountDomainEntityDto.partial.cs" />
     <Compile Include="Entities\DTOs\Partial\AdvertisementDomainEntityDto.partial.cs" />
@@ -973,14 +1066,6 @@
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistoryDomainEntityDto.cs">
       <Link>Entities\DTOs\ActionsHistoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\ActivityInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActivityPropertyInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\ActivityPropertyInstanceDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdditionalFirmServiceDomainEntityDto.cs">
@@ -1259,10 +1344,6 @@
       <Link>Entities\DTOs\OrganizationUnitDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperationDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PlatformDomainEntityDto.cs">
       <Link>Entities\DTOs\PlatformDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
@@ -1396,19 +1477,16 @@
     <Compile Include="Entities\EntityReference.cs" />
     <Compile Include="Entities\EntityTypeMap.cs" />
     <Compile Include="Entities\EntityUtils.cs" />
-    <Compile Include="Entities\Erm\Appointment.cs" />
-    <Compile Include="Entities\Enums\ActivityPriority.cs" />
-    <Compile Include="Entities\Enums\ActivityPurpose.cs" />
-    <Compile Include="Entities\Enums\ActivityStatus.cs" />
-    <Compile Include="Entities\Enums\ActivityTaskType.cs" />
-    <Compile Include="Entities\Enums\ActivityType.cs" />
+    <Compile Include="Entities\Activity\Appointment.cs" />
+    <Compile Include="Entities\Activity\ActivityPriority.cs" />
+    <Compile Include="Entities\Activity\ActivityStatus.cs" />
+    <Compile Include="Entities\Activity\TaskType.cs" />
     <Compile Include="Entities\Erm\Partial\Building.cs" />
     <Compile Include="Entities\Erm\Partial\CardRelation.cs" />
     <Compile Include="Entities\Erm\Partial\CityPhoneZone.cs" />
     <Compile Include="Entities\Erm\Partial\DepCard.cs" />
-    <Compile Include="Entities\Erm\Task.cs" />
-    <Compile Include="Entities\Erm\Phonecall.cs" />
-    <Compile Include="Entities\Erm\ActivityBase.cs" />
+    <Compile Include="Entities\Activity\Task.cs" />
+    <Compile Include="Entities\Activity\Phonecall.cs" />
     <Compile Include="Entities\Erm\FileWithContent.cs" />
     <Compile Include="Entities\Security\Partial\User.partial.cs" />
     <Compile Include="Entities\Security\Partial\UserTerritory.partial.cs" />
@@ -1610,6 +1688,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

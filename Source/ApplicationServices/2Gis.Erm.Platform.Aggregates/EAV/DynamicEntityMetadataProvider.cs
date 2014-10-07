@@ -56,11 +56,6 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
                 return new SpecsBundle<TEntityInstance, TEntityPropertyInstance>(findSpecification, selectSpecification);
             }
 
-            if (typeof(TEntityInstance) == typeof(ActivityInstance))
-            {
-                throw new NotImplementedException("Пока не сделано, но очень хотелось бы");
-            }
-
             throw new InvalidOperationException("Кто здесь? " + typeof(TEntityInstance).Name);
         }
     }

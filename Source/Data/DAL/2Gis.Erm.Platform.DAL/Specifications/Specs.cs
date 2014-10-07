@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
     {
         public static class Find
         {
-            public static FindSpecification<TEntity> ById<TEntity>(long id) where TEntity : class, IEntity, IEntityKey
+			public static FindSpecification<TEntity> ById<TEntity>(long id) where TEntity : class, IEntity, IEntityKey
             {
                 return new FindSpecification<TEntity>(x => x.Id == id);
             }
