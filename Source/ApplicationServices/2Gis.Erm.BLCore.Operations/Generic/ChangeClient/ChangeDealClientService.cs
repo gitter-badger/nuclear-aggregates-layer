@@ -68,6 +68,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
                 throw new SecurityException(BLResources.ReserveIdentityIsNotFound);
             }
 
+            var linkedLegalPersons = _dealReadModel.GetDealLegalPersonNames(entityId);
+            if (linkedLegalPersons.Any())
+            {
+                var message = string.Format(BLResources.CannotChangeDealClientWithLinkedLegalPersons, string.Join(", ", linkedLegalPersons));
+                throw new ChangeClientOfLinkedDealException(message);
+            }
+
+            var linkedFirms = _dealReadModel.GetDealFirmNames(entityId);
+            if (linkedFirms.Any())
+            {
+                var message = string.Format(BLResources.CannotChangeDealClientWithLinkedFirms, string.Join(", ", linkedFirms));
+                throw new ChangeClientOfLinkedDealException(message);
+            }
+
             using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, Deal>())
             {
                 var validationResult = _changeAggregateClientRepository.Validate(entityId, _userContext.Identity.Code, reserveUserIdentity.Code);

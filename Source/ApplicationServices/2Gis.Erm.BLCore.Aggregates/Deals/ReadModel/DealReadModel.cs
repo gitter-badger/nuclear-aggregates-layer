@@ -101,5 +101,23 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel
         {
             return _finder.FindOne(DealSpecs.LegalPersonDeals.Find.ByDealAndLegalPersonIds(dealId, legalPersonId) && Specs.Find.NotDeleted<LegalPersonDeal>());
         }
+
+        public IEnumerable<string> GetDealLegalPersonNames(long dealId)
+        {
+            return _finder.Find(Specs.Find.ById<Deal>(dealId))
+                          .SelectMany(deal => deal.LegalPersonDeals)
+                          .Where(Specs.Find.NotDeleted<LegalPersonDeal>())
+                          .Select(link => link.LegalPerson.ShortName)
+                          .ToArray();
+        }
+
+        public IEnumerable<string> GetDealFirmNames(long dealId)
+        {
+            return _finder.Find(Specs.Find.ById<Deal>(dealId))
+                          .SelectMany(deal => deal.FirmDeals)
+                          .Where(Specs.Find.NotDeleted<FirmDeal>())
+                          .Select(link => link.Firm.Name)
+                          .ToArray();
+        }
     }
 }

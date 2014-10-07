@@ -5196,4 +5196,10 @@ Placement period: {3}.</value>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивное отделение организации {0} для юридического лица {1}</value>
   </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>Смена клиента запрещена, поскольку сделка связана с юрлицами: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>Смена клиента запрещена, поскольку сделка связана с фирмами: {0}</value>
+  </data>
 </root>

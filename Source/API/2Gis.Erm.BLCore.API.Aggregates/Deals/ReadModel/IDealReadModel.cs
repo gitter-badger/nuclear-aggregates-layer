@@ -21,5 +21,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel
         bool AreThereAnyLegalPersonsForDeal(long dealId);
         LegalPersonDeal GetMainLegalPersonForDeal(long dealId);
         LegalPersonDeal GetLegalPersonDeal(long dealId, long legalPersonId);
+        IEnumerable<string> GetDealLegalPersonNames(long dealId);
+        IEnumerable<string> GetDealFirmNames(long dealId);
     }
 }
