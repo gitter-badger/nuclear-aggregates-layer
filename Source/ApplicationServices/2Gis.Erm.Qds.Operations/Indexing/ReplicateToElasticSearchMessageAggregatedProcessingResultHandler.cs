@@ -64,11 +64,6 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         private bool TryReplicate(Tuple<Guid, ReplicateToElasticSearchPrimaryProcessingResultsMessage> tuple)
         {
-            if (!tuple.Item2.EntityLinks.Any())
-            {
-                return true;
-            }
-
             // приостанавливаем фоновую репликацию если идёт массовая
             if (_replicationQueueHelper.QueueCount() != 0)
             {
