@@ -183,6 +183,10 @@
       <Project>{7D920B28-CA75-4F54-8605-AA1E57388326}</Project>
       <Name>2Gis.Erm.Qds.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\API\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
+      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
+      <Name>2Gis.Erm.Qds.API.Operations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.Qds.Operations\2Gis.Erm.Qds.Operations.csproj">
       <Project>{CD6C5329-F9EA-41A0-8446-2B26FB92720E}</Project>
       <Name>2Gis.Erm.Qds.Operations</Name>
@@ -274,6 +278,10 @@
     <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
       <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
       <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Extensions\2Gis.Erm.Platform.WCF.Extensions.csproj">
+      <Project>{f09e7148-2f47-4bca-bf3c-410cda8018a4}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>

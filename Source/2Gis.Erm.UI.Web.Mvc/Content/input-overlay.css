@@ -1,0 +1,15 @@
+﻿.input-overlay-parent {
+    position: relative;
+}
+
+/* задача блока перекрытия не только отобразить нужный текст, но и скрыть крестик очистки поля - иначе они наложатся друг на друга */
+/* есть и цивилизованный путь для скрытия этого крестика, но - когда IE в режиме совместимости - этот путь не работает */
+/* https://connect.microsoft.com/IE/feedback/details/783743/disable-ie10-clear-field-button-when-rendering-in-compatibility-mode */
+.input-overlay {
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    height: 100%;
+    padding-right: 2px;
+    background-color: white; 
+}

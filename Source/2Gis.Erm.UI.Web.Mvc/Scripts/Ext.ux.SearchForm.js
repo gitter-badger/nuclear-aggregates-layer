@@ -206,7 +206,8 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
             }),
             proxy: new window.Ext.data.HttpProxy({
                 method: "GET",
-                url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.entityModel.EntityName
+                url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.entityModel.EntityName,
+                timeout: 1200000
             }),
             baseParams: new Object({
                 nameLocaleResourceId: this.currentSettings.NameLocaleResourceId,
