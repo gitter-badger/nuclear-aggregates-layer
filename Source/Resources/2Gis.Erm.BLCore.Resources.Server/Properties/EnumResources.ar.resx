@@ -1416,16 +1416,16 @@
   <data name="ActivityStatusCompleted" xml:space="preserve">
     <value>Completed</value>
   </data>
-  <data name="ActivityStatusCancelled" xml:space="preserve">
+  <data name="ActivityStatusCanceled" xml:space="preserve">
     <value>Canceled</value>
   </data>
-  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+  <data name="TaskTypeWarmClient" xml:space="preserve">
     <value>Warm Lead</value>
   </data>
-  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+  <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Assignment of the executive</value>
   </data>
-  <data name="ActivityTaskTypeOther" xml:space="preserve">
+  <data name="TaskTypeOther" xml:space="preserve">
     <value>Other</value>
   </data>
   <data name="EntityNameProject" xml:space="preserve">
@@ -1485,7 +1485,7 @@
   <data name="PaymentMethodCreditCard" xml:space="preserve">
     <value>Credit card</value>
   </data>
-  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+  <data name="TaskTypeNotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
   <data name="ActivityPriorityNotSet" xml:space="preserve">
@@ -1944,5 +1944,71 @@
   </data>
   <data name="EntityNameBank" xml:space="preserve">
     <value>Bank</value>
+  </data>
+  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentChileAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentChileDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Client Contract</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>Client Contract (in another language)</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>Agency Contract</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Contract Extension Agreement</value>
+  </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Отсрочка</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Рассрочка</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Постоплата</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Предоплата</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Связь фирмы со сделкой</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Связь юр. лица со сделкой</value>
   </data>
 </root>

@@ -54,6 +54,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Printing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserOperations;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles;
+using DoubleGis.Erm.BLCore.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.OrderValidation;
@@ -216,32 +217,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(EditAccessSharingHandler),
                         Request = typeof(EditAccessSharingRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderDialogsController\MakeRegionalAdsDocs",
-                    MaxUseCaseDepth = 2,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(MakeRegionalAdsDocsHandler),
-                        Request = typeof(MakeRegionalAdsDocsRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(PrintOrderHandler),
-            Request = typeof(PrintOrderRequest),
-            ChildNodes = new[]
-            {
-                new UseCaseNode(2)
-                {
-                    ContainingClass = typeof(PrintDocumentHandler),
-                    Request = typeof(PrintDocumentRequest)
-                }
-            }
-        }
-    }
                     }
                 },
                 new UseCase
@@ -494,16 +469,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(EditAdsTemplatesAdsElementTemplateHandler),
                         Request = typeof(EditRequest<AdsTemplatesAdsElementTemplate>)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(EditDealHandler),
-                        Request = typeof(EditRequest<Deal>)
                     }
                 },
                 new UseCase
@@ -1051,24 +1016,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintReferenceInformation",
-                    MaxUseCaseDepth = 1,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(PrintReferenceInformationHandler),
-                        Request = typeof(PrintReferenceInformationRequest),
-                        ChildNodes = new[]
-    {
-        new UseCaseNode(1)
-        {
-            ContainingClass = typeof(PrintDocumentHandler),
-            Request = typeof(PrintDocumentRequest)
-        }
-    }
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderPositionController\CustomizeModelAfterMetadataReady",
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
@@ -1451,16 +1398,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(UpdateOrderFinancialPerformanceHandler),
                         Request = typeof(UpdateOrderFinancialPerformanceRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.Olap.CalculateClientPromising\ExecuteInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(CalculateClientPromisingHandler),
-                        Request = typeof(CalculateClientPromisingRequest)
                     }
                 },
                 new UseCase

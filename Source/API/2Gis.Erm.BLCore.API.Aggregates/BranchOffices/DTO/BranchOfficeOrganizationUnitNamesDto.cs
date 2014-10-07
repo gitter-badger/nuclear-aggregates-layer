@@ -4,5 +4,6 @@
     {
         public string OrganizationUnitName { get; set; }
         public string BranchOfficeName { get; set; }
+        public bool IsActive { get; set; }
     }
 }

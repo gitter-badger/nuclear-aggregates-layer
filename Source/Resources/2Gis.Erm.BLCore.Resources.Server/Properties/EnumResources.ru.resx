@@ -543,9 +543,6 @@
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
     <value>Доп. соглашение для ИП</value>
   </data>
-  <data name="TemplateCodeBargainBusinessman" xml:space="preserve">
-    <value>Договор для ИП</value>
-  </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
     <value>Счёт на оплату для ИП</value>
   </data>
@@ -554,9 +551,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Доп. соглашение для юр. лица</value>
-  </data>
-  <data name="TemplateCodeBargainLegalPerson" xml:space="preserve">
-    <value>Договор для юр. лица</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
     <value>Счёт на оплату для юр. лица</value>
@@ -593,9 +587,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
     <value>Доп. соглашение для физ. лица</value>
-  </data>
-  <data name="TemplateCodeBargainNaturalPerson" xml:space="preserve">
-    <value>Договор для физ. лица</value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
     <value>Счёт на оплату для физ. лица</value>
@@ -1404,16 +1395,16 @@
   <data name="ActivityStatusCompleted" xml:space="preserve">
     <value>Выполнено</value>
   </data>
-  <data name="ActivityStatusCancelled" xml:space="preserve">
+  <data name="ActivityStatusCanceled" xml:space="preserve">
     <value>Отменено</value>
   </data>
-  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+  <data name="TaskTypeWarmClient" xml:space="preserve">
     <value>Теплый клиент</value>
   </data>
-  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+  <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Поручение</value>
   </data>
-  <data name="ActivityTaskTypeOther" xml:space="preserve">
+  <data name="TaskTypeOther" xml:space="preserve">
     <value>Прочее</value>
   </data>
   <data name="EntityNameProject" xml:space="preserve">
@@ -1464,7 +1455,7 @@
   <data name="PaymentMethodBankCard" xml:space="preserve">
     <value>Банковская карта</value>
   </data>
-  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+  <data name="TaskTypeNotSet" xml:space="preserve">
     <value>Не задано</value>
   </data>
   <data name="ActivityPriorityNotSet" xml:space="preserve">
@@ -1944,5 +1935,71 @@
   </data>
   <data name="EntityNameBank" xml:space="preserve">
     <value>Банк</value>
+  </data>
+  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
+    <value>Реклама лекарственных средств, медтехники, методов профилактики, диагностики, лечения и реабилитации</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>Реклама алкогольных напитков, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются алкогольные напитки</value>
+  </data>
+  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
+    <value>Реклама табачных изделий, знаков для товаров и услуг, других объектов права интеллектуальной собственности, под которыми выпускаются табачные изделия</value>
+  </data>
+  <data name="FasCommentChileAlcohol" xml:space="preserve">
+    <value>Продажа алкогольных напитков</value>
+  </data>
+  <data name="FasCommentChileDrugsAndService" xml:space="preserve">
+    <value>Продажа лекарств, лекарственных препаратов и медицинского оборудования</value>
+  </data>
+  <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>Продажа лекарств, которые требуют рецепта</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
+    <value>Самолечение может быть вредным для вашего здоровья.</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>Чрезмерное потребление алкоголя вредно для вашего здоровья.</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
+    <value>Курение может вызывать заболевание на рак.</value>
+  </data>
+  <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Клиентский договор</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>Клиентский договор (дополнительный язык)</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>Агентский договор</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Отсрочка</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Рассрочка</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Постоплата</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Предоплата</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Связь фирмы со сделкой</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Связь юр. лица со сделкой</value>
   </data>
 </root>

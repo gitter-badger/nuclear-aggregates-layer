@@ -45,6 +45,7 @@ using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
@@ -108,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
-
+                        
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
                         .RegisterType<IDomainContextHost>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
@@ -126,11 +127,20 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IFileContentFinder, EFFileRepository>(Lifetime.PerResolve)
 
                         .RegisterType<IDynamicStorageFinder, DynamicStorageFinder>(Lifetime.PerResolve)
+                        .RegisterType<ICompositeEntityDecorator, CompositeEntityDecorator>(Lifetime.PerResolve)
 
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
 
-                        // TODO {y.baranihin, 25.04.2014}: пропылесосить
+                        // TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
+                        .RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<RegardingObject<Appointment>>, EFMappingRepository<RegardingObject<Appointment>, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<RegardingObject<Phonecall>>, EFMappingRepository<RegardingObject<Phonecall>, PhonecallReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<RegardingObject<Task>>, EFMappingRepository<RegardingObject<Task>, TaskReference>>(Lifetime.PerResolve)
+
+                        // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityInstance>, EFGenericRepository<BusinessEntityInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
 
@@ -152,8 +162,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterTypeWithDependencies<IRepository<FirmAddress>, ConsistentRepositoryDecorator<FirmAddress>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
 
                         .RegisterTypeWithDependencies<IRepository<Bank>, DynamicStorageRepositoryDecorator<Bank>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
-                        .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>,
-                            DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>, DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         
                         .RegisterType<IRepository<FileWithContent>, EFFileRepository>(Lifetime.PerResolve);
         }

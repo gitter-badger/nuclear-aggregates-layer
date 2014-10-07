@@ -121,12 +121,22 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
             column.Drop();
         }
 
-        public static void CreateForeignKey(this Table table, 
+        public static void CreateForeignKey(this Table table,
                                             string keyColumnName,
                                             SchemaQualifiedObjectName referencedTable,
                                             string referencedTableColumnName)
         {
-            var foreignKey = new ForeignKey(table, "FK_" + table.Name + "_" + referencedTable.Name);
+            var foreignKeyName = "FK_" + table.Name + "_" + referencedTable.Name;
+            CreateForeignKey(table, keyColumnName, referencedTable, referencedTableColumnName, foreignKeyName);
+        }
+
+        public static void CreateForeignKey(this Table table,
+                                            string keyColumnName,
+                                            SchemaQualifiedObjectName referencedTable,
+                                            string referencedTableColumnName,
+                                            string foreignKeyName)
+        {
+            var foreignKey = new ForeignKey(table, foreignKeyName);
             var foreignKeyColumn = new ForeignKeyColumn(foreignKey, keyColumnName, referencedTableColumnName);
             foreignKey.Columns.Add(foreignKeyColumn);
             foreignKey.ReferencedTable = referencedTable.Name;
