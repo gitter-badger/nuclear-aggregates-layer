@@ -4,6 +4,14 @@
 
     this.on("beforebuild", function() {
         Ext.apply(this, {
+            AppendLegalPerson: function() {
+                // Параметры pId, pType предназначены не для сервера, 
+                // они будут прочитаны существующим механизмом в диалоге операции Append 
+                // и использованы, если из него будет создана карточка юрлица.
+                var parameters = { pId: this.ParentId, pType: this.ParentType };
+                this.Append({ UrlParameters: parameters });
+            },
+
             MakeMain: function() {
                 if (this.Items.Grid.getSelectionModel().selections.items.length != 1) {
                     window.Ext.MessageBox.show({
