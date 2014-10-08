@@ -2683,6 +2683,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CannotDeleteMainLegalPersonDeal {
+            get {
+                return ResourceManager.GetString("CannotDeleteMainLegalPersonDeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotDeleteOrganizationUnitsUsedInOrderByThatTheme {
             get {
                 return ResourceManager.GetString("CannotDeleteOrganizationUnitsUsedInOrderByThatTheme", resourceCulture);

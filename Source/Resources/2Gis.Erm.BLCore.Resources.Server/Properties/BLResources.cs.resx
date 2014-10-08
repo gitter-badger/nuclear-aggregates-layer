@@ -5205,4 +5205,7 @@ Doba zveřejnění: {3}.</value>
   <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
     <value>Смена клиента запрещена, поскольку сделка связана с фирмами: {0}</value>
   </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>Нельзя удалить основную связь с основным юрлицом, пока есть другие</value>
+  </data>
 </root>

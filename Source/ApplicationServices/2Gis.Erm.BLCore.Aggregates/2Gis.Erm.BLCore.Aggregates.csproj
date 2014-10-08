@@ -103,6 +103,7 @@
     <Compile Include="Clients\Operations\UpdateClientAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientReadModel.cs" />
     <Compile Include="Deals\Operations\CreateDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\DeleteClientLinkAggregateService.cs" />
     <Compile Include="Deals\Operations\DetachDealFromFirmAggregateService.cs" />
     <Compile Include="Deals\Operations\UpdateLegalPersonDealAggregateService.cs" />
     <Compile Include="Deals\Operations\CreateLegalPersonDealAggregateService.cs" />

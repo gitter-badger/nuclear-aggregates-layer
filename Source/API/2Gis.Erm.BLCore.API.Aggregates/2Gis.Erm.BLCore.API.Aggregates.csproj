@@ -170,6 +170,7 @@
     <Compile Include="Deals\Operations\AgencyFeeFormatException.cs" />
     <Compile Include="Deals\Operations\AdvertisingCampaignPeriodException.cs" />
     <Compile Include="Deals\Operations\ICreateFirmDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\IDeleteLegalPersonDealService.cs" />
     <Compile Include="Deals\Operations\IUpdateLegalPersonDealAggregateService.cs" />
     <Compile Include="Deals\Operations\ICreateLegalPersonDealAggregateService.cs" />
     <Compile Include="Deals\Operations\IDealChangeStageAggregateService.cs" />

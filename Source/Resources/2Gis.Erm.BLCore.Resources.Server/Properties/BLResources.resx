@@ -5187,4 +5187,7 @@
   <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
     <value />
   </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value />
+  </data>
 </root>
