@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -65,10 +66,38 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 "dealId",
                 dealId =>
                     {
-                        var dealLegalPersons =
-                            _finder.Find(DealSpecs.LegalPersonDeals.Find.ByDeal(dealId) && Specs.Find.NotDeleted<LegalPersonDeal>()).Select(x => x.LegalPersonId).ToArray();
+                        if (dealId == 0)
+                        {
+                            return x => false;
+                        }
 
-                        return x => dealLegalPersons.Contains(x.CustomerLegalPersonId);
+                        var filterInfo = _finder.Find(Specs.Find.ById<Deal>(dealId))
+                            .Select(deal => new
+                                {
+                                    deal.ClientId,
+                                    LegalPersonIds = deal.LegalPersonDeals.Where(link => !link.IsDeleted && link.LegalPerson.IsActive && !link.LegalPerson.IsDeleted)
+                                                         .Select(link => link.LegalPersonId)
+                                })
+                            .Single();
+
+                        IEnumerable<long> legalPersons;
+                        if (filterInfo.LegalPersonIds.Any())
+                        {
+                            legalPersons = filterInfo.LegalPersonIds;
+                        }
+                        else
+                        {
+                            var childClients = _finder.Find<DenormalizedClientLink>(link => link.MasterClientId == filterInfo.ClientId)
+                                                      .Select(link => link.ChildClientId)
+                                                      .ToList();
+                            childClients.Add(filterInfo.ClientId);
+
+                            legalPersons = _finder.Find<LegalPerson>(person => childClients.Contains(person.ClientId.Value))
+                                                  .Select(person => person.Id)
+                                                  .ToArray();
+                        }
+
+                        return x => legalPersons.Contains(x.CustomerLegalPersonId);
                     });
 
             var restrictByBranchOfficeOrganizationUnitFilter = querySettings.CreateForExtendedProperty<Bargain, long>(
