@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.1.1\lib\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.1.2\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,8 +60,9 @@
       <Private>True</Private>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\NCrunch.Framework.2.4.0.2\lib\portable-windows8+net45\NCrunch.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.1.1\lib\Nest.dll</HintPath>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.1.2\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
