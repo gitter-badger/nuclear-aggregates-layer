@@ -28,8 +28,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         {
             return new StringBuilder()
                 .AppendFormat("ValidationType: {0}. Token: {1}. ", Type, Token)
-                .AppendFormat(
-                              "OrganizationUnitId: {0}. {1}. Owner: {2}. IncludeOwnerDescendants: {3}",
+                .AppendFormat("OrganizationUnitId: {0}. {1}. Owner: {2}. IncludeOwnerDescendants: {3}",
                               OrganizationUnitId,
                               Period,
                               OwnerId.HasValue ? OwnerId.Value.ToString() : "Not used",

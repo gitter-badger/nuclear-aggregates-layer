@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         /// Период размещения заказа(ов) затрагиваемый проверками
         /// </summary>
         // FIXME {i.maslennikov, 29.09.2014}: если неиспользуется в едиичных режимах rules - тогда перенести этой свойство в Mass*Params
+        // COMMENT {i.maslennikov, 08.10.2014}: Правильная cr-ка
         public TimePeriod Period { get; set; }
     }
 }

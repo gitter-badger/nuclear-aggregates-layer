@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public interface IOrderValidationRuleProvider
     {
-        IReadOnlyCollection<OrderValidationRulesContianer> GetAppropriateRules(ValidationType validationType);
+        IReadOnlyCollection<OrderValidationRulesContainer> GetAppropriateRules(ValidationType validationType);
     }
 
-    public sealed class OrderValidationRulesContianer
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderValidationRulesContainer
     {
-        public OrderValidationRulesContianer(
+        public OrderValidationRulesContainer(
             OrderValidationRuleGroup group,
             bool useCaching,
             bool allRulesScheduled,
-            IReadOnlyCollection<OrderValidationRuleDescritpor> ruleDescriptors)
+            IReadOnlyCollection<OrderValidationRuleDescriptor> ruleDescriptors)
         {
             Group = group;
             UseCaching = useCaching;
@@ -24,12 +26,13 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         public OrderValidationRuleGroup Group { get; private set; }
         public bool UseCaching { get; private set; }
         public bool AllRulesScheduled { get; private set; }
-        public IReadOnlyCollection<OrderValidationRuleDescritpor> RuleDescriptors { get; private set; }
+        public IReadOnlyCollection<OrderValidationRuleDescriptor> RuleDescriptors { get; private set; }
     }
 
-    public sealed class OrderValidationRuleDescritpor
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public sealed class OrderValidationRuleDescriptor
     {
-        public OrderValidationRuleDescritpor(IOrderValidationRule rule, int ruleCode, bool useCaching)
+        public OrderValidationRuleDescriptor(IOrderValidationRule rule, int ruleCode, bool useCaching)
         {
             RuleCode = ruleCode;
             Rule = rule;

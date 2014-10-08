@@ -16,11 +16,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
     public abstract class OrderValidationRuleBase<TValidationRuleContext> : IOrderValidationRule
         where TValidationRuleContext : class, IValidationRuleContext
     {
-        protected delegate IValidationRuleContext RuleContextFactory(
-            ValidationParams validationParams,
-            OrderValidationPredicate combinedPredicate,
-            IValidationResultsBrowser validationResultsBrowser);
-
         private readonly IReadOnlyDictionary<Type, RuleContextFactory> _ruleContextFactories;
 
         protected OrderValidationRuleBase()
@@ -34,6 +29,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                             { typeof(SingleValidationRuleContext), SingleContextFactory },
                                         };
         }
+
+        protected delegate IValidationRuleContext RuleContextFactory(ValidationParams validationParams,
+                                                                     OrderValidationPredicate combinedPredicate,
+                                                                     IValidationResultsBrowser validationResultsBrowser);
 
         IEnumerable<OrderValidationMessage> IOrderValidationRule.Validate(
             ValidationParams validationParams, 
@@ -89,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                              (orderInfo.EndReleaseNumber >= order.BeginReleaseNumber && orderInfo.EndReleaseNumber <= order.EndReleaseNumberFact));
         }
 
-        private OrdinaryValidationRuleContext OrdinaryContextFactory(
+        private static OrdinaryValidationRuleContext OrdinaryContextFactory(
             ValidationParams validationParams,
             OrderValidationPredicate combinedPredicate,
             IValidationResultsBrowser validationResultsBrowser)
@@ -97,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             return new OrdinaryValidationRuleContext(validationParams is MassOrdersValidationParams, combinedPredicate.GetCombinedPredicate());
         }
 
-        private HybridParamsValidationRuleContext HybridContextFactory(
+        private static HybridParamsValidationRuleContext HybridContextFactory(
             ValidationParams validationParams,
             OrderValidationPredicate combinedPredicate,
             IValidationResultsBrowser validationResultsBrowser)
@@ -105,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             return new HybridParamsValidationRuleContext(new HybridValidationParams(validationParams), combinedPredicate.GetCombinedPredicate());
         }
 
-        private MassOverridibleValidationRuleContext MassContextFactory(
+        private static MassOverridibleValidationRuleContext MassContextFactory(
             ValidationParams validationParams,
             OrderValidationPredicate combinedPredicate,
             IValidationResultsBrowser validationResultsBrowser)
@@ -113,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             return new MassOverridibleValidationRuleContext((MassOrdersValidationParams)validationParams, combinedPredicate);
         }
 
-        private BrowsableResultsValidationRuleContext BrowsableContextFactory(
+        private static BrowsableResultsValidationRuleContext BrowsableContextFactory(
             ValidationParams validationParams,
             OrderValidationPredicate combinedPredicate,
             IValidationResultsBrowser validationResultsBrowser)
@@ -121,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             return new BrowsableResultsValidationRuleContext(new HybridValidationParams(validationParams), combinedPredicate.GetCombinedPredicate(), validationResultsBrowser);
         }
 
-        private SingleValidationRuleContext SingleContextFactory(
+        private static SingleValidationRuleContext SingleContextFactory(
             ValidationParams validationParams,
             OrderValidationPredicate combinedPredicate,
             IValidationResultsBrowser validationResultsBrowser)

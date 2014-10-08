@@ -1,7 +1,6 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;

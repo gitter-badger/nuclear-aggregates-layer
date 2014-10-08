@@ -257,7 +257,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             return results;
         }
 
-        private IEnumerable<long> GetInvalidOrderIdsFromValidationResults(IValidationResultsBrowser validationResultsBrowser)
+        private static IEnumerable<long> GetInvalidOrderIdsFromValidationResults(IValidationResultsBrowser validationResultsBrowser)
         {
             var invalidOrderIds = new HashSet<long>();
 

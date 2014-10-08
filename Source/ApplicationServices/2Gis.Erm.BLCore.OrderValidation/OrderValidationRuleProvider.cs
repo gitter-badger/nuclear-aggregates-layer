@@ -44,6 +44,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             _orderValidationRuleFactory = orderValidationRuleFactory;
 
             var validationRulesFilters = new Dictionary<ValidationType, Predicate<OrderValidationRuleMetadata>>();
+
+            // COMMENT {i.maslennikov, 07.10.2014}: Немного смущает тот факт, что в OrderValidationRuleMetadataSource конфигурирование происходит через fluent-свойствах, 
+            //                                      скрывая набор добавляемых OrderValidationRuleMetadata фич, а при использовании типы этих фич надо знать явно
+            //                                      Может как-то тоже обернуть в лежащие рядом extension-методы?
             AttachValidationTypeRules(validationRulesFilters,
                                       ValidationType.SingleOrderOnRegistration,
                                       metadata => metadata.Uses<CommonRuleFeature>(),
@@ -69,13 +73,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             _validationRulesFilters = validationRulesFilters;
         }
 
-        public IReadOnlyCollection<OrderValidationRulesContianer> GetAppropriateRules(ValidationType validationType)
+        public IReadOnlyCollection<OrderValidationRulesContainer> GetAppropriateRules(ValidationType validationType)
         {
-            var ruleContaners = new List<OrderValidationRulesContianer>();
+            var ruleContaners = new List<OrderValidationRulesContainer>();
 
             foreach (var groupDescriptor in GetApropriateRuleDescriptors(validationType))
             {
-                var ruleDescriptors = new List<OrderValidationRuleDescritpor>();
+                var ruleDescriptors = new List<API.OrderValidation.OrderValidationRuleDescriptor>();
                 bool allRulesScheduled = true;
                 foreach (var ruleDescriptor in groupDescriptor.RuleDescriptors)
                 {
@@ -86,14 +90,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                     }
 
                     ruleDescriptors.Add(
-                        new OrderValidationRuleDescritpor(
+                        new API.OrderValidation.OrderValidationRuleDescriptor(
                                 _orderValidationRuleFactory.Create(ruleDescriptor.RuleType),
                                 ruleDescriptor.RuleCode,
                                 ruleDescriptor.UseCaching));
                 }
 
                 ruleContaners.Add(
-                    new OrderValidationRulesContianer(
+                    new OrderValidationRulesContainer(
                             groupDescriptor.Group,
                             groupDescriptor.UseCaching,
                             allRulesScheduled,
@@ -188,6 +192,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             public List<OrderValidationRuleDescriptor> RuleDescriptors { get; private set; }
         }
 
+        // COMMENT {i.maslennikov, 07.10.2014}: Есть класс с таким же названием в неймспейсе DoubleGis.Erm.BLCore.API.OrderValidation и он похож по контракту. Это запутывает.
         private sealed class OrderValidationRuleDescriptor
         {
             public Type RuleType { get; set; }

@@ -104,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             return resultsContainer.ToValidationResult();
         }
 
-        private void ValidateOrders(ValidationParams validationParams, IEnumerable<OrderValidationRulesContianer> ruleGroupContainers, ValidationResultsContainer resultsContainer)
+        private void ValidateOrders(ValidationParams validationParams, IEnumerable<OrderValidationRulesContainer> ruleGroupContainers, ValidationResultsContainer resultsContainer)
         {
             var stopwatch = Stopwatch.StartNew();
             
@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             _logger.InfoFormatEx("Validation completed in {0:F2} sec. {1}", stopwatch.ElapsedMilliseconds / 1000D, validationParams);
         }
 
-        private void ValidateByRuleGroup(ValidationParams validationParams, OrderValidationRulesContianer ruleGroupContainer, ValidationResultsContainer resultsContainer)
+        private void ValidateByRuleGroup(ValidationParams validationParams, OrderValidationRulesContainer ruleGroupContainer, ValidationResultsContainer resultsContainer)
         {
             bool useCachedResultsDisabled = !ruleGroupContainer.UseCaching || ruleGroupContainer.RuleDescriptors.Any(rd => !rd.UseCaching);
 
@@ -172,7 +172,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             IOrderValidationRule rule,
             ValidationParams validationParams,
             OrderValidationPredicate combinedPredicate,
-            ValidationResultsContainer resultsContainer)
+            IValidationResultsBrowser validationResultsBrowser)
         {
             IEnumerable<OrderValidationMessage> ruleMessages;
             
@@ -180,7 +180,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
             try
             {
-                ruleMessages = rule.Validate(validationParams, combinedPredicate, resultsContainer);
+                ruleMessages = rule.Validate(validationParams, combinedPredicate, validationResultsBrowser);
                 stopwatch.Stop();
                 _logger.InfoFormatEx("Rule '{0}' executed in {1:F2} sec. {2}",
                                      rule.GetType().Name,
@@ -205,7 +205,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         private void AttachResultsToCache(
             ValidationParams validationParams, 
-            IEnumerable<OrderValidationRulesContianer> ruleGroupContainers, 
+            IEnumerable<OrderValidationRulesContainer> ruleGroupContainers, 
             IValidationResultsBrowser validationResultsBrowser)
         {
             var stopwatch = Stopwatch.StartNew();

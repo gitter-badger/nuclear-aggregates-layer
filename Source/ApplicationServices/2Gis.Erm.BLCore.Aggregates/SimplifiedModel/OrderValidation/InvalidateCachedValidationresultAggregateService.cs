@@ -4,7 +4,6 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Validation;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -42,14 +41,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.OrderValidation
                         invalidatedOrderDescriptors.Aggregate(new List<OrderValidationResult>(),
                                                             (list, descriptor) =>
                                                                 {
-                                                                    list.AddRange(
-                                                                                    descriptor.ChangedAspects.Select(
-                                                                                                                    a =>
-                                                                                                                    new OrderValidationResult
-                                                                                                                        {
-                                                                                                                            OrderId = descriptor.OrderId,
-                                                                                                                            ValidatorId = (int)a
-                                                                                                                        }));
+                                                                    list.AddRange(descriptor.ChangedAspects
+                                                                                            .Select(a => new OrderValidationResult
+                                                                                                             {
+                                                                                                                 OrderId = descriptor.OrderId,
+                                                                                                                 ValidatorId = (int)a
+                                                                                                             }));
                                                                     return list;
                                                                 });
 

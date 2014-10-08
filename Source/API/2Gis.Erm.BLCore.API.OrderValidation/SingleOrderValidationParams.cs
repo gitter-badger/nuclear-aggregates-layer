@@ -30,8 +30,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         {
             return new StringBuilder()
                 .AppendFormat("ValidationType: {0}. Token: {1}. ", Type, Token)
-                .AppendFormat(
-                              "OrderId: {0}. CurrentState: {1}. TargetState: {2}",
+                .AppendFormat("OrderId: {0}. CurrentState: {1}. TargetState: {2}",
                               OrderId,
                               CurrentOrderState,
                               NewOrderState)

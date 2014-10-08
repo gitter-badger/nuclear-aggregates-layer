@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             {
                 // TODO {all, 24.09.2014}: рассмотреть возможность/необходимость реакции на уведомление об изменении заказа не только путем сброса кэша, но и путем, реального изменения заказа (например, через fake update) - чтобы инициировать изменение timestamp => появление новой версии + операции по заказу, на что смогут отреагировать выгружальщики в шину и т.п.
                 // также возможно сигнатуру данного метода можно будет доработать чтобы он получал набор экземпляров изменившихся заказов заказов, выполнял нужные действия, и возвращал уже измененные экземпляры вызывающему коду, чтобы при выполнении каки-то доп. действий не возникало ложного optimistic concurrency из-за многократного независимого изменения заказа в одном и том же usecase
+                // COMMENT {i.maslennikov, 08.10.2014}: Не хотелось бы, чтобы здесь возникали побочные эффекты - вместе с инвалидацией кеша изменялись заказы. Правильная последовательность: изменение в агрегате → всевозможные обработчики
                 var changedOrdersRegistry = new Dictionary<long, HashSet<OrderValidationRuleGroup>>();
                 foreach (var changedOrder in changedOrderDescriptors)
                 {
@@ -49,13 +50,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                     }
                 }
 
-                var processedOrdersDescriptors = 
-                        changedOrdersRegistry
-                            .Select(currentOrderEntry => new OrderChangesDescriptor
-                                                            {
-                                                                OrderId = currentOrderEntry.Key, 
-                                                                ChangedAspects = currentOrderEntry.Value
-                                                            });
+                var processedOrdersDescriptors = changedOrdersRegistry.Select(currentOrderEntry => new OrderChangesDescriptor
+                                                                                                       {
+                                                                                                           OrderId = currentOrderEntry.Key,
+                                                                                                           ChangedAspects = currentOrderEntry.Value
+                                                                                                       });
 
                 _invalidateCachedValidationResultAggregateService.Invalidate(processedOrdersDescriptors);
                 

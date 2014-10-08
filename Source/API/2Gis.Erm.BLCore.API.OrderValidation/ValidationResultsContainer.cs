@@ -40,8 +40,8 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         }
 
         bool IValidationResultsBrowser.TryGetValidatorReport(ValidatorDescriptor validatorDescriptor,
-                                          out IReadOnlyDictionary<long, byte[]> validatorTargetOrders,
-                                          out IReadOnlyList<OrderValidationMessage> validatorResults)
+                                                             out IReadOnlyDictionary<long, byte[]> validatorTargetOrders,
+                                                             out IReadOnlyList<OrderValidationMessage> validatorResults)
         {
             validatorResults = new List<OrderValidationMessage>();
 
