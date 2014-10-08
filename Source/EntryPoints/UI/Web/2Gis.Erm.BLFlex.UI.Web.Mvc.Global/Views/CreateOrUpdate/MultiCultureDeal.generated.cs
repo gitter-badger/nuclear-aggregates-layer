@@ -326,7 +326,7 @@ WriteLiteral("            ");
 
             
             #line 47 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}" }));
+       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
 
             
             #line default
@@ -337,14 +337,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2141), Tuple.Create("\"", 2180)
+WriteAttribute("title", Tuple.Create(" title=\"", 2165), Tuple.Create("\"", 2204)
             
             #line 50 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 2149), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 2173), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 2149), false)
+, 2173), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -439,14 +439,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdvertisementCampaignTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3390), Tuple.Create("\"", 3430)
+WriteAttribute("title", Tuple.Create(" title=\"", 3414), Tuple.Create("\"", 3454)
             
             #line 68 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 3398), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
+, Tuple.Create(Tuple.Create("", 3422), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
             
             #line default
             #line hidden
-, 3398), false)
+, 3422), false)
 );
 
 WriteLiteral(">\r\n");
