@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmFaxPriority = Metadata.Erm.ActivityPriority;
     using ErmFaxStatus = Metadata.Erm.ActivityStatus;
 
-    //[Migration(23488, "Migrates the faxes as letters from CRM to ERM.", "s.pomadin")]
+    [Migration(23488, "Migrates the faxes as letters from CRM to ERM.", "s.pomadin")]
     public sealed class FaxMigration : LetterMigrationBase
     {
         internal override QueryExpression CreateQuery()
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     .Select(x => x.ToReferenceWithin(context))
                     .ToList(),
                 // requirement: получателем может быть только контакт
-                Recipients = (entity.Value(CrmFaxMetadata.To) as DynamicEntity[]).EnumerateActivityReferences()
+                Recipients = recipients
                     .FilterByEntityName(ErmEntityName.Contact)
                     .Select(x => x.ToReferenceWithin(context))
                     .ToList(),

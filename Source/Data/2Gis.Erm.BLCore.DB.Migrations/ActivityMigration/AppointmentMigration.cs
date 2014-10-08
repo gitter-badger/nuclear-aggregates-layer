@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmAppointmentStatus = Metadata.Erm.ActivityStatus;
     using ErmAppointmentPurpose = Metadata.Erm.ActivityPurpose;
 
-    //[Migration(23483, "Migrates the appointments from CRM to ERM.", "s.pomadin")]
+    [Migration(23483, "Migrates the appointments from CRM to ERM.", "s.pomadin")]
     public sealed class AppointmentMigration : ActivityMigration<AppointmentMigration.Appointment>
     {
         private const string InsertEntityTemplate = @"
@@ -134,6 +134,10 @@ INSERT INTO [Activity].[AppointmentReferences]
                 if (entity.Name != CrmEntityName.appointment.ToString())
                     throw new ArgumentException("The specified entity is not an appointment.", "entity");
 
+                var regardingObjects = new[] { entity.Value(CrmAppointmentMetadata.RegardingObjectId) as CrmReference };
+                var attendees = (entity.Value(CrmAppointmentMetadata.RequiredAttendees) as DynamicEntity[]).EnumerateActivityReferences()
+                        .Concat((entity.Value(CrmAppointmentMetadata.OptionalAttendees) as DynamicEntity[]).EnumerateActivityReferences()).ToList();
+
                 var appointment = new Appointment
                 {
                     Id = context.NewIdentity(),
@@ -153,9 +157,10 @@ INSERT INTO [Activity].[AppointmentReferences]
                     Purpose = context.Parse<int>(entity.Value(CrmAppointmentMetadata.Purpose)).Map(ToPurpose),
 
                     // requirement: привязанным объектом м.б. только клиент, фирма или сделка
-                    RegardingObjects = new[] { entity.Value(CrmAppointmentMetadata.RegardingObjectId) as CrmReference }
+                    RegardingObjects = regardingObjects.Concat(attendees)
                         .FilterByEntityName(ErmEntityName.Client, ErmEntityName.Firm, ErmEntityName.Deal)
                         .Select(x => x.ToReferenceWithin(context))
+                        .Distinct() // it's safe as ActivityReference implements IEquatable<>
                         .ToList(),
                     // requirement: организатором могут быть только пользователи
                     OrganizerId = (entity.Value(CrmAppointmentMetadata.Organizer) as DynamicEntity[]).EnumerateActivityReferences()
@@ -163,9 +168,7 @@ INSERT INTO [Activity].[AppointmentReferences]
                         .Select(context.Parse<long?>)
                         .FirstOrDefault(),
                     // requirement: участниками могут быть только контакты
-                    RequiredAttendees = (entity.Value(CrmAppointmentMetadata.RequiredAttendees) as DynamicEntity[]).EnumerateActivityReferences()
-                        .Concat((entity.Value(CrmAppointmentMetadata.OptionalAttendees) as DynamicEntity[]).EnumerateActivityReferences())
-                        .Concat(new[] { entity.Value(CrmAppointmentMetadata.RegardingObjectId) as CrmReference })
+                    RequiredAttendees = attendees.Concat(regardingObjects)
                         .FilterByEntityName(ErmEntityName.Contact)
                         .Select(x => x.ToReferenceWithin(context))
                         .Distinct() // it's safe as ActivityReference implements IEquatable<>

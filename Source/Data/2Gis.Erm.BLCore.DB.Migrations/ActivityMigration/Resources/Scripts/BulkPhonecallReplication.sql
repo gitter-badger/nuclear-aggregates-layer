@@ -34,17 +34,21 @@ SELECT
 	, [refs].[RegardingObjectId]
 	, [refs].[RegardingObjectIdName]
 
-	, [crmUsers].[BusinessUnitId] AS [OwningBusinessUnit]
-	, [crmUsers].[SystemUserId] AS [OwningUser]
+	, [crmOwners].[BusinessUnitId] AS [OwningBusinessUnit]
+	, [crmOwners].[SystemUserId] AS [OwningUser]
 
-	, [Shared].[GetCrmUserId]([phonecalls].[CreatedBy]) as [CreatedBy]
+	, [crmCreators].[SystemUserId] as [CreatedBy]
 	, [phonecalls].[CreatedOn]
-	, [Shared].[GetCrmUserId]([phonecalls].[ModifiedBy]) as [ModifiedBy]
+	, [crmModifiers].[SystemUserId] as [ModifiedBy]
 	, [phonecalls].[ModifiedOn]
     , CASE WHEN [phonecalls].[IsDeleted] = 1 THEN 2 ELSE 0 END as [DeletionStateCode]
 FROM [Activity].[PhonecallBase] [phonecalls]
-JOIN [Security].[Users] [users] ON [users].[Id] = [phonecalls].[OwnerCode]
-LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmUsers] WITH ( NOEXPAND ) ON [crmUsers].[ErmUserAccount] = [users].[Account] COLLATE Database_Default
+JOIN [Security].[Users] [owners] ON [owners].[Id] = [phonecalls].[OwnerCode]
+LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+JOIN [Security].[Users] [creators] ON [creators].[Id] = [phonecalls].[CreatedBy]
+LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmCreators] WITH ( NOEXPAND ) ON [crmCreators].[ErmUserAccount] = [creators].[Account] COLLATE Database_Default
+JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [phonecalls].[CreatedBy]
+LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmModifiers] WITH ( NOEXPAND ) ON [crmModifiers].[ErmUserAccount] = [modifiers].[Account] COLLATE Database_Default
 OUTER APPLY (
 	SELECT TOP 1
 	    CASE [refs].[ReferencedType] 
@@ -91,8 +95,9 @@ FROM [Activity].[PhonecallBase]
 
 -- обновляем связи
 INSERT INTO [{0}].[dbo].[ActivityPartyBase]
-    ([ActivityPartyId], [ActivityId], [PartyId], [PartyObjectTypeCode], [ParticipationTypeMask], [PartyIdName])
+    ([ActivityPartyId], [ActivityId], [ParticipationTypeMask], [PartyObjectTypeCode], [PartyId], [PartyIdName])
 SELECT 
+	NEWID(),
     [phonecalls].[ReplicationCode] as [ActivityId],
 	CASE [refs].[Reference]
 		WHEN 0 THEN 9			-- Owner			(CRM: 9)
@@ -138,11 +143,12 @@ CROSS APPLY (
     SELECT 
 		[Reference],
 		[ReferencedType], 
-		coalesce([contacts].[ReplicationCode],Shared.GetCrmUserId([users].[Id])) as [ReferencedObjectId], 
-		coalesce([contacts].[FullName],[users].[DisplayName]) as [ReferencedObjectName]
+		coalesce([contacts].[ReplicationCode],[crmOwners].[SystemUserId]) as [ReferencedObjectId], 
+		coalesce([contacts].[FullName],[owners].[DisplayName]) as [ReferencedObjectName]
 	FROM [Activity].[PhonecallReferences]
 	LEFT JOIN [Billing].[Contacts] contacts on ReferencedObjectId = contacts.Id and ReferencedType = 206
-	LEFT JOIN [Security].[Users] users on ReferencedObjectId = users.Id and ReferencedType = 53
+	LEFT JOIN [Security].[Users] [owners] on ReferencedObjectId = [owners].Id and ReferencedType = 53
+	LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
 	WHERE [Reference] != 1 and [PhonecallId] = [phonecalls].[Id]
 	            
     UNION ALL
@@ -150,9 +156,10 @@ CROSS APPLY (
     SELECT 
 		0 as [Reference], 
 		53 as [ReferencedType], 
-		Shared.GetCrmUserId(OwnerCode) as [ReferencedObjectId], 
-		[users].DisplayName as [ReferencedObjectName]
+		[crmOwners].[SystemUserId] as [ReferencedObjectId], 
+		[owners].DisplayName as [ReferencedObjectName]
 	FROM [Activity].[PhonecallBase] [ab]
-	LEFT JOIN [Security].[Users] [users] on [ab].[OwnerCode] = [users].Id
+	JOIN [Security].[Users] [owners] ON [owners].[Id] = [ab].[OwnerCode]
+	LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
 	WHERE [ab].[Id] = [phonecalls].[Id]
 ) [refs]

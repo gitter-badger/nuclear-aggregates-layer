@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using CrmAnnotationMetadata = Metadata.Crm.Annotation;
     using ErmEntityName = Metadata.Erm.EntityName;
 
-    //[Migration(23494, "Migrates the activity annotations from CRM to ERM.", "s.pomadin")]
+    [Migration(23494, "Migrates the activity annotations from CRM to ERM.", "s.pomadin")]
 	public sealed class AnnotationMigration : ActivityMigration<AnnotationMigration.Annotation>
 	{
 		private const string InsertNoteTemplate = @"

@@ -61,6 +61,33 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /*
+        ///    4201 : Appointment
+        ///    4202 : Email
+        ///    4204 : Fax
+        ///    4207 : Letter
+        ///    4210 : PhoneCall
+        ///    4212 : Task
+        ///    4214 : ServiceAppointment
+        ///    4401 : CampaignResponse
+        ///*/
+        ///
+        ///-- чистим примечания
+        ///DELETE FROM [dbo].[AnnotationBase] WHERE [ObjectTypeCode] in (4201, 4202, 4204, 4207, 4210, 4212, 4214, 4401);
+        ///
+        ///-- чистим связи с внешними объектами
+        ///DELETE FROM [dbo].[ActivityPartyBase] WHERE ActivityId in (select ActivityId from dbo.PhonecallBase)
+        ///
+        ///-- сохраняем прочие действия
+        ///SELECT * INTO #Act [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ActivityCleanup {
+            get {
+                return ResourceManager.GetString("ActivityCleanup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- обновляем общую таблицу
         ///INSERT INTO [{0}].[dbo].[ActivityPointerBase]
         ///    (

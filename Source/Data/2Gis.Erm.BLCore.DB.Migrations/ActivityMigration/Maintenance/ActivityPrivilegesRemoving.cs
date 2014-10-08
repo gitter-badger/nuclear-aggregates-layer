@@ -13,7 +13,7 @@ using Microsoft.Crm.SdkTypeProxy;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
 {
-    //[Migration(24482, "Removes privileges to activities except the reading.", "s.pomadin")]
+    [Migration(24482, "Removes privileges to activities except the reading.", "s.pomadin")]
     public class ActivityPrivilegesRemoving : IContextedMigration<ICrmMigrationContext>
     {
         public ErmConnectionStringKey ConnectionStringKey

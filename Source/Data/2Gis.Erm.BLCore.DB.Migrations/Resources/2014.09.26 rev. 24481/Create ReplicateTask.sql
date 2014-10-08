@@ -36,17 +36,21 @@ AS
 	            , [refs].[RegardingObjectId]
 	            , [refs].[RegardingObjectIdName]
 
-	            , [crmUsers].[BusinessUnitId] AS [OwningBusinessUnit]
-	            , [crmUsers].[SystemUserId] AS [OwningUser]
+	            , [crmOwners].[BusinessUnitId] AS [OwningBusinessUnit]
+	            , [crmOwners].[SystemUserId] AS [OwningUser]
 
-	            , [Shared].[GetCrmUserId]([tasks].[CreatedBy]) as [CreatedBy]
+	            , [crmCreators].[SystemUserId] as [CreatedBy]
 	            , [tasks].[CreatedOn]
-	            , [Shared].[GetCrmUserId]([tasks].[ModifiedBy]) as [ModifiedBy]
+	            , [crmModifiers].[SystemUserId] as [ModifiedBy]
 	            , [tasks].[ModifiedOn]
                 , CASE WHEN [tasks].[IsDeleted] = 1 THEN 2 ELSE 0 END as [DeletionStateCode]
             FROM [Activity].[TaskBase] [tasks]
-            JOIN [Security].[Users] [users] ON [users].[Id] = [tasks].[OwnerCode]
-            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmUsers] WITH ( NOEXPAND ) ON [crmUsers].[ErmUserAccount] = [users].[Account] COLLATE Database_Default
+            JOIN [Security].[Users] [owners] ON [owners].[Id] = [tasks].[OwnerCode]
+            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+            JOIN [Security].[Users] [creators] ON [creators].[Id] = [tasks].[CreatedBy]
+            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmCreators] WITH ( NOEXPAND ) ON [crmCreators].[ErmUserAccount] = [creators].[Account] COLLATE Database_Default
+            JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [tasks].[CreatedBy]
+            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmModifiers] WITH ( NOEXPAND ) ON [crmModifiers].[ErmUserAccount] = [modifiers].[Account] COLLATE Database_Default
             OUTER APPLY (
 	            SELECT TOP 1
 	                CASE [refs].[ReferencedType] 
@@ -159,73 +163,68 @@ AS
 		;
 
         -- обновл€ем св€зи
-        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPartyBase] AS [Current]
-        USING (
-	        SELECT 
-                [tasks].[ReplicationCode] as [ActivityId],
-	            CASE [refs].[Reference]
-		            WHEN 0 THEN 9			-- Owner				(CRM: 9)
-		            WHEN 1 THEN 8			-- RegardingObject		(ERM: 1, CRM: 8)
-		            END AS [ParticipationTypeMask], 
-	            CASE refs.ReferencedType 
-		            WHEN 200 THEN 1			-- Clients		(ERM: 200, CRM: 1)
-		            WHEN 206 THEN 2			-- Contacts		(ERM: 206, CRM: 2)
-		            WHEN 199 THEN 3			-- Deals		(ERM: 199, CRM: 3)
-		            WHEN 146 THEN 10013		-- Firms		(ERM: 146, CRM: 10013)
-		            WHEN  53 THEN 8			-- Users		(ERM:  53, CRM: 8)
-		            END AS [PartyObjectTypeCode],
-                [refs].[ReferencedObjectId] as [PartyId], 
-                [refs].[ReferencedObjectName] as [PartyIdName]
-            FROM [Activity].[TaskBase] [tasks]
-            CROSS APPLY (
-	            SELECT TOP 1
-                    [Reference], 
-		            [ReferencedType], 
-		            coalesce([clients].[ReplicationCode],[deals].[ReplicationCode],[firms].[ReplicationCode]) as [ReferencedObjectId], 
-		            coalesce([clients].[Name],[deals].[Name],[firms].[Name]) as [ReferencedObjectName]
-	            FROM (
-		            SELECT [TaskId], [Reference], [ReferencedType], [ReferencedObjectId]
-		            FROM [Activity].[TaskReferences]
-		            WHERE [Reference] = 1 and [ReferencedType] = 199
-		            UNION ALL
-		            SELECT [TaskId], [Reference], [ReferencedType], [ReferencedObjectId]
-		            FROM [Activity].[TaskReferences]
-		            WHERE [Reference] = 1 and [ReferencedType] = 200
-		            UNION ALL
-		            SELECT [TaskId], [Reference], [ReferencedType], [ReferencedObjectId]
-		            FROM [Activity].[TaskReferences]
-		            WHERE [Reference] = 1 and [ReferencedType] = 146
-	            ) [refs]
-	            LEFT JOIN [Billing].[Clients] [clients] on [refs].[ReferencedObjectId] = [clients].[Id] and [ReferencedType] = 200
-	            LEFT JOIN [Billing].[Deals] [deals] on [refs].[ReferencedObjectId] = [deals].[Id] and [ReferencedType] = 199
-	            LEFT JOIN [BusinessDirectory].[Firms] [firms] on [refs].[ReferencedObjectId] = [firms].[Id] and [ReferencedType] = 146
-	            WHERE [refs].[TaskId] = [tasks].[Id]
+
+		DELETE FROM [DoubleGis_MSCRM].[dbo].[ActivityPartyBase] 
+		FROM [DoubleGis_MSCRM].[dbo].[ActivityPartyBase]
+		JOIN [Activity].[TaskBase] [tasks]
+		ON [ActivityId] = [tasks].[ReplicationCode] AND [tasks].[Id] = @Id;
+
+        INSERT INTO [DoubleGis_MSCRM].[dbo].[ActivityPartyBase]
+            ([ActivityPartyId], [ActivityId], [ParticipationTypeMask], [PartyObjectTypeCode], [PartyId], [PartyIdName])
+        SELECT 
+	        NEWID(),
+            [tasks].[ReplicationCode] as [ActivityId],
+	        CASE [refs].[Reference]
+		        WHEN 0 THEN 9			-- Owner				(CRM: 9)
+		        WHEN 1 THEN 8			-- RegardingObject		(ERM: 1, CRM: 8)
+		        END AS [ParticipationTypeMask], 
+	        CASE refs.ReferencedType 
+		        WHEN 200 THEN 1			-- Clients		(ERM: 200, CRM: 1)
+		        WHEN 206 THEN 2			-- Contacts		(ERM: 206, CRM: 2)
+		        WHEN 199 THEN 3			-- Deals		(ERM: 199, CRM: 3)
+		        WHEN 146 THEN 10013		-- Firms		(ERM: 146, CRM: 10013)
+		        WHEN  53 THEN 8			-- Users		(ERM:  53, CRM: 8)
+		        END AS [PartyObjectTypeCode],
+            [refs].[ReferencedObjectId] as [PartyId], 
+            [refs].[ReferencedObjectName] as [PartyIdName]
+        FROM [Activity].[TaskBase] [tasks]
+        CROSS APPLY (
+	        SELECT TOP 1
+                [Reference], 
+		        [ReferencedType], 
+		        coalesce([clients].[ReplicationCode],[deals].[ReplicationCode],[firms].[ReplicationCode]) as [ReferencedObjectId], 
+		        coalesce([clients].[Name],[deals].[Name],[firms].[Name]) as [ReferencedObjectName]
+	        FROM (
+		        SELECT [TaskId], [Reference], [ReferencedType], [ReferencedObjectId]
+		        FROM [Activity].[TaskReferences]
+		        WHERE [Reference] = 1 and [ReferencedType] = 199
+		        UNION ALL
+		        SELECT [TaskId], [Reference], [ReferencedType], [ReferencedObjectId]
+		        FROM [Activity].[TaskReferences]
+		        WHERE [Reference] = 1 and [ReferencedType] = 200
+		        UNION ALL
+		        SELECT [TaskId], [Reference], [ReferencedType], [ReferencedObjectId]
+		        FROM [Activity].[TaskReferences]
+		        WHERE [Reference] = 1 and [ReferencedType] = 146
+	        ) [refs]
+	        LEFT JOIN [Billing].[Clients] [clients] on [refs].[ReferencedObjectId] = [clients].[Id] and [ReferencedType] = 200
+	        LEFT JOIN [Billing].[Deals] [deals] on [refs].[ReferencedObjectId] = [deals].[Id] and [ReferencedType] = 199
+	        LEFT JOIN [BusinessDirectory].[Firms] [firms] on [refs].[ReferencedObjectId] = [firms].[Id] and [ReferencedType] = 146
+	        WHERE [refs].[TaskId] = [tasks].[Id]
                 
-                UNION ALL
+            UNION ALL
 	            
-                SELECT 
-		            0 as [Reference], 
-		            53 as [ReferencedType], 
-		            Shared.GetCrmUserId(OwnerCode) as [ReferencedObjectId], 
-		            [users].DisplayName as [ReferencedObjectName]
-	            FROM [Activity].[TaskBase] [ab]
-	            LEFT JOIN [Security].[Users] [users] on [ab].[OwnerCode] = [users].Id
-	            WHERE [ab].[Id] = [tasks].[Id]
-            ) [refs]
-        ) [Modified]
-        -- будет работать до тех пор пока дл€ одного типа св€зи может быть не боле одного объекта
-        ON [Current].[ActivityId] = [Modified].[ActivityId] 
-	        AND [Current].[ParticipationTypeMask] = [Modified].[ParticipationTypeMask]
-	        AND [Current].[PartyObjectTypeCode] = [Modified].[PartyObjectTypeCode]
-        WHEN MATCHED THEN
-	        UPDATE SET 
-				[Current].[PartyId] = [Modified].[PartyId],
-				[Current].[PartyIdName] = [Modified].[PartyIdName]
-        WHEN NOT MATCHED BY TARGET THEN
-	        INSERT ([ActivityPartyId], [ActivityId], [PartyId], [PartyObjectTypeCode], [ParticipationTypeMask], [PartyIdName])
-	        VALUES (NEWID(), [ActivityId], [PartyId], [PartyObjectTypeCode], [ParticipationTypeMask], [PartyIdName])
-        WHEN NOT MATCHED BY SOURCE AND [Current].[ActivityId] in (select [ReplicationCode] from [Activity].[TaskBase] WHERE Id = @Id)
-	        THEN DELETE;
+            SELECT 
+		        0 as [Reference], 
+		        53 as [ReferencedType], 
+		        [crmOwners].[SystemUserId] as [ReferencedObjectId], 
+		        [owners].[DisplayName] as [ReferencedObjectName]
+	        FROM [Activity].[TaskBase] [ab]
+	        JOIN [Security].[Users] [owners] ON [owners].[Id] = [ab].[OwnerCode]
+	        LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+	        WHERE [ab].[Id] = [tasks].[Id]
+        ) [refs]
+        WHERE [tasks].[Id] = @Id;
 
         COMMIT TRAN;
 

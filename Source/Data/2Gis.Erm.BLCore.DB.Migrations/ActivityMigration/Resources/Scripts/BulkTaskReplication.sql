@@ -34,17 +34,21 @@ SELECT
 	, [refs].[RegardingObjectId]
 	, [refs].[RegardingObjectIdName]
 
-	, [crmUsers].[BusinessUnitId] AS [OwningBusinessUnit]
-	, [crmUsers].[SystemUserId] AS [OwningUser]
+	, [crmOwners].[BusinessUnitId] AS [OwningBusinessUnit]
+	, [crmOwners].[SystemUserId] AS [OwningUser]
 
-	, [Shared].[GetCrmUserId]([tasks].[CreatedBy]) as [CreatedBy]
+	, [crmCreators].[SystemUserId] as [CreatedBy]
 	, [tasks].[CreatedOn]
-	, [Shared].[GetCrmUserId]([tasks].[ModifiedBy]) as [ModifiedBy]
+	, [crmModifiers].[SystemUserId] as [ModifiedBy]
 	, [tasks].[ModifiedOn]
     , CASE WHEN [tasks].[IsDeleted] = 1 THEN 2 ELSE 0 END as [DeletionStateCode]
 FROM [Activity].[TaskBase] [tasks]
-JOIN [Security].[Users] [users] ON [users].[Id] = [tasks].[OwnerCode]
-LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmUsers] WITH ( NOEXPAND ) ON [crmUsers].[ErmUserAccount] = [users].[Account] COLLATE Database_Default
+JOIN [Security].[Users] [owners] ON [owners].[Id] = [tasks].[OwnerCode]
+LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+JOIN [Security].[Users] [creators] ON [creators].[Id] = [tasks].[CreatedBy]
+LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmCreators] WITH ( NOEXPAND ) ON [crmCreators].[ErmUserAccount] = [creators].[Account] COLLATE Database_Default
+JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [tasks].[CreatedBy]
+LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmModifiers] WITH ( NOEXPAND ) ON [crmModifiers].[ErmUserAccount] = [modifiers].[Account] COLLATE Database_Default
 OUTER APPLY (
 	SELECT TOP 1
 	    CASE [refs].[ReferencedType] 
@@ -90,8 +94,9 @@ FROM [Activity].[TaskBase]
 
 -- обновляем связи
 INSERT INTO [{0}].[dbo].[ActivityPartyBase]
-    ([ActivityPartyId], [ActivityId], [PartyId], [PartyObjectTypeCode], [ParticipationTypeMask], [PartyIdName])
+    ([ActivityPartyId], [ActivityId], [ParticipationTypeMask], [PartyObjectTypeCode], [PartyId], [PartyIdName])
 SELECT 
+	NEWID(),
     [tasks].[ReplicationCode] as [ActivityId],
 	CASE [refs].[Reference]
 		WHEN 0 THEN 9			-- Owner				(CRM: 9)
@@ -136,9 +141,10 @@ CROSS APPLY (
     SELECT 
 		0 as [Reference], 
 		53 as [ReferencedType], 
-		Shared.GetCrmUserId(OwnerCode) as [ReferencedObjectId], 
-		[users].DisplayName as [ReferencedObjectName]
+		[crmOwners].[SystemUserId] as [ReferencedObjectId], 
+		[owners].[DisplayName] as [ReferencedObjectName]
 	FROM [Activity].[TaskBase] [ab]
-	LEFT JOIN [Security].[Users] [users] on [ab].[OwnerCode] = [users].Id
+	JOIN [Security].[Users] [owners] ON [owners].[Id] = [ab].[OwnerCode]
+	LEFT JOIN [{0}].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
 	WHERE [ab].[Id] = [tasks].[Id]
 ) [refs]

@@ -9,7 +9,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
     {
         protected override void ApplyOverride(IMigrationContext context)
         {
-            context.Connection.ExecuteNonQuery(Resources.Migration_24481_GetCrmUserId);
             context.Connection.ExecuteNonQuery(Resources.Migration_24481_ReplicateAppointment);
             context.Connection.ExecuteNonQuery(Resources.Migration_24481_ReplicatePhonecall);
             context.Connection.ExecuteNonQuery(Resources.Migration_24481_ReplicateTask);

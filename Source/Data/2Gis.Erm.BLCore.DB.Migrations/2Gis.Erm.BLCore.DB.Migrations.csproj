@@ -340,6 +340,7 @@
     <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6747 - Alter procedure CreateExportSession v3.cs" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
     <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
+    <Content Include="ActivityMigration\Resources\Scripts\ActivityCleanup.sql" />
     <Content Include="ActivityMigration\Resources\Scripts\BulkAppointmentReplication.sql" />
     <Content Include="ActivityMigration\Resources\Scripts\BulkLetterReplication.sql" />
     <Content Include="ActivityMigration\Resources\Scripts\BulkPhonecallReplication.sql" />
@@ -779,7 +780,6 @@
     <Compile Include="ActivityMigration\LetterMigrationBase.cs" />
     <Compile Include="ActivityMigration\Maintenance\ActivityPrivilegesRemoving.cs" />
     <Compile Include="ActivityMigration\Maintenance\CrmActivitiesCleanup.cs" />
-    <Compile Include="ActivityMigration\Maintenance\CrmSystemActivitiesCleanup.cs" />
     <Compile Include="ActivityMigration\Maintenance\ReplicateActivitiesMigration.cs" />
     <Compile Include="ActivityMigration\Metadata\Crm\ActivityParty.cs" />
     <Compile Include="ActivityMigration\Metadata\Crm\Annotation.cs" />
@@ -1129,7 +1129,6 @@
     <Content Include="Resources\2014.08.19 rev. 23425\ImportFirmFromXml.sql" />
     <Content Include="Resources\2014.07.23 rev. 22583\GetFirmTerritories.sql" />
     <Content Include="Resources\2014.07.23 rev. 22583\UpdateBuildings.sql" />
-    <Content Include="Resources\2014.09.26 rev. 24481\Create Shared.GetCrmUserId.sql" />
     <Content Include="Resources\2014.09.01 rev. 23795\ImportCardsFromXml_23795.sql" />
     <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateAccountDetail].sql" />
     <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateAccount].sql" />

@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmPhonecallStatus = Metadata.Erm.ActivityStatus;
     using ErmPhonecallPurpose = Metadata.Erm.ActivityPurpose;
 
-    //[Migration(23484, "Migrates the phonecalls from CRM to ERM.", "s.pomadin")]
+    [Migration(23484, "Migrates the phonecalls from CRM to ERM.", "s.pomadin")]
     public sealed class PhonecallMigration : ActivityMigration<PhonecallMigration.Phonecall>
     {
         private const string InsertEntityTemplate = @"
@@ -138,10 +138,14 @@ INSERT INTO [Activity].[PhonecallReferences]
                     OwnerId = context.Parse<long?>(entity.Value(CrmPhonecallMetadata.OwnerId)),
                     Subject = context.Parse<string>(entity.Value(CrmPhonecallMetadata.Subject)),
                     Description = context.Parse<string>(entity.Value(CrmPhonecallMetadata.Description)),
-                    ScheduledOn = context.Parse<DateTime>(entity.Value(CrmPhonecallMetadata.ScheduledStart)),
                     Priority = context.Parse<int>(entity.Value(CrmPhonecallMetadata.PriorityCode)).Map(ToPriority),
                     Status = context.Parse<CrmPhonecallState>(entity.Value(CrmPhonecallMetadata.StateCode)).Map(ToStatus),
                     Purpose = context.Parse<int>(entity.Value(CrmPhonecallMetadata.Purpose)).Map(ToPurpose),
+                    // it might have empty schedule time
+                    ScheduledOn = context.Parse<DateTime?>(entity.Value(CrmPhonecallMetadata.ScheduledStart))
+                        ?? context.Parse<DateTime?>(entity.Value(CrmPhonecallMetadata.ActualStart))
+                        ?? context.Parse<DateTime?>(entity.Value(CrmPhonecallMetadata.ActualEnd))
+                        ?? context.Parse<DateTime>(entity.Value(CrmPhonecallMetadata.ModifiedOn)),
 
                     // requirement: привязанным объектом м.б. только клиент, фирма или сделка
                     RegardingObjects = regardingObjects

@@ -36,17 +36,21 @@ AS
 	            , [refs].[RegardingObjectId]
 	            , [refs].[RegardingObjectIdName]
 
-	            , [crmUsers].[BusinessUnitId] AS [OwningBusinessUnit]
-	            , [crmUsers].[SystemUserId] AS [OwningUser]
+	            , [crmOwners].[BusinessUnitId] AS [OwningBusinessUnit]
+	            , [crmOwners].[SystemUserId] AS [OwningUser]
 
-	            , [Shared].[GetCrmUserId]([letters].[CreatedBy]) as [CreatedBy]
+	            , [crmCreators].[SystemUserId] as [CreatedBy]
 	            , [letters].[CreatedOn]
-	            , [Shared].[GetCrmUserId]([letters].[ModifiedBy]) as [ModifiedBy]
+	            , [crmModifiers].[SystemUserId] as [ModifiedBy]
 	            , [letters].[ModifiedOn]
                 , CASE WHEN [letters].[IsDeleted] = 1 THEN 2 ELSE 0 END as [DeletionStateCode]
             FROM [Activity].[LetterBase] [letters]
-            JOIN [Security].[Users] [users] ON [users].[Id] = [letters].[OwnerCode]
-            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmUsers] WITH ( NOEXPAND ) ON [crmUsers].[ErmUserAccount] = [users].[Account] COLLATE Database_Default
+            JOIN [Security].[Users] [owners] ON [owners].[Id] = [letters].[OwnerCode]
+            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+            JOIN [Security].[Users] [creators] ON [creators].[Id] = [letters].[CreatedBy]
+            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmCreators] WITH ( NOEXPAND ) ON [crmCreators].[ErmUserAccount] = [creators].[Account] COLLATE Database_Default
+            JOIN [Security].[Users] [modifiers] ON [modifiers].[Id] = [letters].[CreatedBy]
+            LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmModifiers] WITH ( NOEXPAND ) ON [crmModifiers].[ErmUserAccount] = [modifiers].[Account] COLLATE Database_Default
             OUTER APPLY (
 	            SELECT TOP 1
 	                CASE [refs].[ReferencedType] 
@@ -155,87 +159,83 @@ AS
 		;
 
         -- обновл€ем св€зи
-        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPartyBase] AS [Current]
-        USING (
-	        SELECT 
-                [letters].[ReplicationCode] as [ActivityId],
-	            CASE [refs].[Reference]
-			        WHEN 0 THEN 9			-- Owner			(CRM: 9)
-			        WHEN 1 THEN 8			-- RegardingObject	(ERM: 1, CRM: 8)
-			        WHEN 2 THEN 1			-- Sender			(ERM: 2, CRM: 1)
-			        WHEN 3 THEN 2			-- Recipient		(ERM: 3, CRM: 2)
-		            END AS [ParticipationTypeMask], 
-	            CASE refs.ReferencedType 
-		            WHEN 200 THEN 1			-- Clients		(ERM: 200, CRM: 1)
-		            WHEN 206 THEN 2			-- Contacts		(ERM: 206, CRM: 2)
-		            WHEN 199 THEN 3			-- Deals		(ERM: 199, CRM: 3)
-		            WHEN 146 THEN 10013		-- Firms		(ERM: 146, CRM: 10013)
-		            WHEN  53 THEN 8			-- Users		(ERM:  53, CRM: 8)
-		            END AS [PartyObjectTypeCode],
-                [refs].[ReferencedObjectId] as [PartyId], 
-                [refs].[ReferencedObjectName] as [PartyIdName]
-            FROM [Activity].[LetterBase] [letters]
-            CROSS APPLY (
-	            SELECT TOP 1
-                    [Reference], 
-		            [ReferencedType], 
-		            coalesce([clients].[ReplicationCode],[deals].[ReplicationCode],[firms].[ReplicationCode]) as [ReferencedObjectId], 
-		            coalesce([clients].[Name],[deals].[Name],[firms].[Name]) as [ReferencedObjectName]
-	            FROM (
-		            SELECT [LetterId], [Reference], [ReferencedType], [ReferencedObjectId]
-		            FROM [Activity].[LetterReferences]
-		            WHERE [Reference] = 1 and [ReferencedType] = 199
-		            UNION ALL
-		            SELECT [LetterId], [Reference], [ReferencedType], [ReferencedObjectId]
-		            FROM [Activity].[LetterReferences]
-		            WHERE [Reference] = 1 and [ReferencedType] = 200
-		            UNION ALL
-		            SELECT [LetterId], [Reference], [ReferencedType], [ReferencedObjectId]
-		            FROM [Activity].[LetterReferences]
-		            WHERE [Reference] = 1 and [ReferencedType] = 146
-	            ) [refs]
-	            LEFT JOIN [Billing].[Clients] [clients] on [refs].[ReferencedObjectId] = [clients].[Id] and [ReferencedType] = 200
-	            LEFT JOIN [Billing].[Deals] [deals] on [refs].[ReferencedObjectId] = [deals].[Id] and [ReferencedType] = 199
-	            LEFT JOIN [BusinessDirectory].[Firms] [firms] on [refs].[ReferencedObjectId] = [firms].[Id] and [ReferencedType] = 146
-	            WHERE [refs].[LetterId] = [letters].[Id]
+
+		DELETE FROM [DoubleGis_MSCRM].[dbo].[ActivityPartyBase] 
+		FROM [DoubleGis_MSCRM].[dbo].[ActivityPartyBase]
+		JOIN [Activity].[LetterBase] [letters]
+		ON [ActivityId] = [letters].[ReplicationCode] AND [letters].[Id] = @Id;
+
+		INSERT INTO [DoubleGis_MSCRM].[dbo].[ActivityPartyBase]
+			([ActivityPartyId], [ActivityId], [ParticipationTypeMask], [PartyObjectTypeCode], [PartyId], [PartyIdName])
+		SELECT
+			NEWID(), 
+            [letters].[ReplicationCode] as [ActivityId],
+	        CASE [refs].[Reference]
+			    WHEN 0 THEN 9			-- Owner			(CRM: 9)
+			    WHEN 1 THEN 8			-- RegardingObject	(ERM: 1, CRM: 8)
+			    WHEN 2 THEN 1			-- Sender			(ERM: 2, CRM: 1)
+			    WHEN 3 THEN 2			-- Recipient		(ERM: 3, CRM: 2)
+		        END AS [ParticipationTypeMask], 
+	        CASE refs.ReferencedType 
+		        WHEN 200 THEN 1			-- Clients		(ERM: 200, CRM: 1)
+		        WHEN 206 THEN 2			-- Contacts		(ERM: 206, CRM: 2)
+		        WHEN 199 THEN 3			-- Deals		(ERM: 199, CRM: 3)
+		        WHEN 146 THEN 10013		-- Firms		(ERM: 146, CRM: 10013)
+		        WHEN  53 THEN 8			-- Users		(ERM:  53, CRM: 8)
+		        END AS [PartyObjectTypeCode],
+            [refs].[ReferencedObjectId] as [PartyId], 
+            [refs].[ReferencedObjectName] as [PartyIdName]
+        FROM [Activity].[LetterBase] [letters]
+        CROSS APPLY (
+	        SELECT TOP 1
+                [Reference], 
+		        [ReferencedType], 
+		        coalesce([clients].[ReplicationCode],[deals].[ReplicationCode],[firms].[ReplicationCode]) as [ReferencedObjectId], 
+		        coalesce([clients].[Name],[deals].[Name],[firms].[Name]) as [ReferencedObjectName]
+	        FROM (
+		        SELECT [LetterId], [Reference], [ReferencedType], [ReferencedObjectId]
+		        FROM [Activity].[LetterReferences]
+		        WHERE [Reference] = 1 and [ReferencedType] = 199
+		        UNION ALL
+		        SELECT [LetterId], [Reference], [ReferencedType], [ReferencedObjectId]
+		        FROM [Activity].[LetterReferences]
+		        WHERE [Reference] = 1 and [ReferencedType] = 200
+		        UNION ALL
+		        SELECT [LetterId], [Reference], [ReferencedType], [ReferencedObjectId]
+		        FROM [Activity].[LetterReferences]
+		        WHERE [Reference] = 1 and [ReferencedType] = 146
+	        ) [refs]
+	        LEFT JOIN [Billing].[Clients] [clients] on [refs].[ReferencedObjectId] = [clients].[Id] and [ReferencedType] = 200
+	        LEFT JOIN [Billing].[Deals] [deals] on [refs].[ReferencedObjectId] = [deals].[Id] and [ReferencedType] = 199
+	        LEFT JOIN [BusinessDirectory].[Firms] [firms] on [refs].[ReferencedObjectId] = [firms].[Id] and [ReferencedType] = 146
+	        WHERE [refs].[LetterId] = [letters].[Id]
                 
-                UNION ALL
+            UNION ALL
 	            
-                SELECT 
-		            [Reference],
-		            [ReferencedType], 
-		            coalesce([contacts].[ReplicationCode],Shared.GetCrmUserId([users].[Id])) as [ReferencedObjectId], 
-		            coalesce([contacts].[FullName],[users].[DisplayName]) as [ReferencedObjectName]
-	            FROM [Activity].[LetterReferences]
-	            LEFT JOIN [Billing].[Contacts] contacts on ReferencedObjectId = contacts.Id and ReferencedType = 206
-	            LEFT JOIN [Security].[Users] users on ReferencedObjectId = users.Id and ReferencedType = 53
-	            WHERE [Reference] != 1 and [LetterId] = [letters].[Id]
+            SELECT 
+		        [Reference],
+		        [ReferencedType], 
+		        coalesce([contacts].[ReplicationCode],[crmOwners].[SystemUserId]) as [ReferencedObjectId], 
+		        coalesce([contacts].[FullName],[owners].[DisplayName]) as [ReferencedObjectName]
+	        FROM [Activity].[LetterReferences]
+	        LEFT JOIN [Billing].[Contacts] contacts on ReferencedObjectId = contacts.Id and ReferencedType = 206
+	        LEFT JOIN [Security].[Users] [owners] on ReferencedObjectId = [owners].Id and ReferencedType = 53
+	        LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+	        WHERE [Reference] != 1 and [LetterId] = [letters].[Id]
 	            
-                UNION ALL
+            UNION ALL
 	            
-                SELECT 
-		            0 as [Reference], 
-		            53 as [ReferencedType], 
-		            Shared.GetCrmUserId(OwnerCode) as [ReferencedObjectId], 
-		            [users].DisplayName as [ReferencedObjectName]
-	            FROM [Activity].[LetterBase] [ab]
-	            LEFT JOIN [Security].[Users] [users] on [ab].[OwnerCode] = [users].Id
-	            WHERE [ab].[Id] = [letters].[Id]
-            ) [refs]
-        ) [Modified]
-        -- будет работать до тех пор пока дл€ одного типа св€зи может быть не боле одного объекта
-        ON [Current].[ActivityId] = [Modified].[ActivityId] 
-	        AND [Current].[ParticipationTypeMask] = [Modified].[ParticipationTypeMask]
-	        AND [Current].[PartyObjectTypeCode] = [Modified].[PartyObjectTypeCode]
-        WHEN MATCHED THEN
-	        UPDATE SET 
-				[Current].[PartyId] = [Modified].[PartyId],
-				[Current].[PartyIdName] = [Modified].[PartyIdName]
-        WHEN NOT MATCHED BY TARGET THEN
-	        INSERT ([ActivityPartyId], [ActivityId], [PartyId], [PartyObjectTypeCode], [ParticipationTypeMask], [PartyIdName])
-	        VALUES (NEWID(), [ActivityId], [PartyId], [PartyObjectTypeCode], [ParticipationTypeMask], [PartyIdName])
-        WHEN NOT MATCHED BY SOURCE AND [Current].[ActivityId] in (select [ReplicationCode] from [Activity].[LetterBase] WHERE Id = @Id)
-	        THEN DELETE;
+            SELECT 
+		        0 as [Reference], 
+		        53 as [ReferencedType], 
+		        [crmOwners].[SystemUserId] as [ReferencedObjectId], 
+		        [owners].DisplayName as [ReferencedObjectName]
+	        FROM [Activity].[LetterBase] [ab]
+	        JOIN [Security].[Users] [owners] ON [owners].[Id] = [ab].[OwnerCode]
+	        LEFT JOIN [DoubleGis_MSCRM].[dbo].[SystemUserErmView] [crmOwners] WITH ( NOEXPAND ) ON [crmOwners].[ErmUserAccount] = [owners].[Account] COLLATE Database_Default
+	        WHERE [ab].[Id] = [letters].[Id]
+        ) [refs]
+		WHERE [letters].[Id] = @Id;
 
         COMMIT TRAN;
 

@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmTaskStatus = Metadata.Erm.ActivityStatus;
     using ErmTaskType = Metadata.Erm.TaskType;
 
-    //[Migration(23486, "Migrates the tasks from CRM to ERM.", "s.pomadin")]
+    [Migration(23486, "Migrates the tasks from CRM to ERM.", "s.pomadin")]
     public sealed class TaskMigration : ActivityMigration<TaskMigration.Task>
     {
         private const string InsertEntityTemplate = @"
@@ -129,10 +129,14 @@ Values ({0}, {1}, {2}, {3})";
                     OwnerId = context.Parse<long?>(entity.Value(CrmTaskMetadata.OwnerId)),
                     Subject = context.Parse<string>(entity.Value(CrmTaskMetadata.Subject)),
                     Description = context.Parse<string>(entity.Value(CrmTaskMetadata.Description)),
-                    ScheduledOn = context.Parse<DateTime>(entity.Value(CrmTaskMetadata.ScheduledStart)),
                     Priority = context.Parse<int>(entity.Value(CrmTaskMetadata.PriorityCode)).Map(ToPriority),
                     Status = context.Parse<CrmTaskState>(entity.Value(CrmTaskMetadata.StateCode)).Map(ToStatus),
                     TaskType = context.Parse<int>(entity.Value(CrmTaskMetadata.TaskType)).Map(ToType),
+                    // it might have empty schedule time
+                    ScheduledOn = context.Parse<DateTime?>(entity.Value(CrmTaskMetadata.ScheduledStart))
+                        ?? context.Parse<DateTime?>(entity.Value(CrmTaskMetadata.ActualStart))
+                        ?? context.Parse<DateTime?>(entity.Value(CrmTaskMetadata.ActualEnd))
+                        ?? context.Parse<DateTime>(entity.Value(CrmTaskMetadata.ModifiedOn)),
 
                     // requirement: привязанным объектом м.б. только клиент, фирма или сделка
                     RegardingObjects = new[] { entity.Value(CrmTaskMetadata.RegardingObjectId) as CrmReference }
