@@ -1443,7 +1443,7 @@
 			<DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsForSubordinates" HideInCardRelatedGrid="*" />
 			<!--Фирмы с заказами с типом Самореклама-->
 			<DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsWithSelfAds" HideInCardRelatedGrid="*" />
-      <DataList NameLocaleResourceId="DListActiveFirmsToAppend" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Firm.gif">
+      <DataList NameLocaleResourceId="DListActiveFirmsToAppend" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Firm.gif" IsHidden="true">
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="OrganizationUnitId"  Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
