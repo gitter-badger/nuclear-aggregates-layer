@@ -320,23 +320,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             return _finder.FindMany(Specs.Find.ByIds<LegalPerson>(ids));
         }
 
-        public LegalPersonName GetLegalPersonNameByClientId(long clientId)
-        {
-            var legalPersonInfos = _finder.Find(Specs.Find.ById<Client>(clientId) && Specs.Find.ActiveAndNotDeleted<Client>())
-                                          .SelectMany(client => client.LegalPersons)
-                                          .Where(Specs.Find.ActiveAndNotDeleted<LegalPerson>())
-                                          .Select(x => new LegalPersonName { Id = x.Id, Name = x.LegalName })
-                                          .Take(2)
-                                          .ToArray();
-
-            if (legalPersonInfos.Length != 1)
-            {
-                return null;
-            }
-
-            return legalPersonInfos.Single();
-        }
-
         public IEnumerable<LegalPersonFor1CExportDto> GetLegalPersonsForExportTo1C(long organizationUnitId, DateTime startPeriod)
         {
             var data = _finder.Find<LegalPersonProfile>(x => x.IsActive && !x.IsDeleted &&

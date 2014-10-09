@@ -45,7 +45,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
         IEnumerable<LegalPerson> FindBusinessmenByInn(string inn);
         IEnumerable<LegalPerson> FindNaturalPersonsByPassport(string passportSeries, string passportNumber);
         IEnumerable<LegalPerson> FindLegalPersons(string syncCodeWith1C, long branchOfficeOrganizationUnitId);
-        LegalPersonName GetLegalPersonNameByClientId(long clientId);
         IEnumerable<LegalPersonFor1CExportDto> GetLegalPersonsForExportTo1C(long organizationUnitId, DateTime startPeriod);
     }
 }
