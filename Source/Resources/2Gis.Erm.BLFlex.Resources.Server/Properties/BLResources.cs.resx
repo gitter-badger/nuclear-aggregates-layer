@@ -439,4 +439,7 @@
   <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
     <value>Vytváření regionálních objednávek není podporováno</value>
   </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>S tímto klientem spolupracuje následující reklamní agentura:</value>
+  </data>
 </root>

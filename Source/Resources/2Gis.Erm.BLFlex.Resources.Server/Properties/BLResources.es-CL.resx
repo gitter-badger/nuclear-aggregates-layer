@@ -438,6 +438,6 @@
     <value>No se permite crear las ordenes regionales</value>
   </data>
   <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
-    <value>С данным клиентом работает рекламное агентство:</value>
+    <value>Con este cliente trabaja la agencia de publicidad:</value>
   </data>
 </root>
