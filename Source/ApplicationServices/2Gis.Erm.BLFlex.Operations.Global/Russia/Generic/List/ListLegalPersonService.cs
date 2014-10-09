@@ -55,6 +55,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
+            if (querySettings.ParentEntityName == EntityName.Client && querySettings.ParentEntityId.HasValue)
+            {
+                query = _filterHelper.ForClientAndItsDescendants(query, querySettings.ParentEntityId.Value);
+            }
+
             var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt", info =>
             {
                 var minDebtAmount = _debtProcessingSettings.MinDebtAmount;

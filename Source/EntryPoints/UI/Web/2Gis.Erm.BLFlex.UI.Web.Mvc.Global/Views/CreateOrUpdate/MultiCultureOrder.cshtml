@@ -89,12 +89,12 @@
                                                                                 ReadOnly = true,
                                                                             })
             @Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
-                                                                                   {
-                                                                                       EntityName = EntityName.LegalPerson,
-                                                                                       ExtendedInfo = "filterToParent=true",
-                                                                                       ParentEntityName = EntityName.Client,
-                                                                                       ParentIdPattern = "ClientId",
-                                                                                   })
+                                                                        {
+                                                                            EntityName = EntityName.LegalPerson,
+                                                                            ExtendedInfo = "Deal={DealId}",
+                                                                            ParentEntityName = EntityName.Client,
+                                                                            ParentIdPattern = "ClientId",
+                                                                        })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings
