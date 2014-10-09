@@ -937,16 +937,16 @@
     <value>Accrual</value>
   </data>
   <data name="ControlChangeDealClient" xml:space="preserve">
-    <value>Change client for opportunity</value>
+    <value>Change client for the deal</value>
   </data>
   <data name="ControlChangeBindingObjects" xml:space="preserve">
     <value>Change reference objects</value>
   </data>
   <data name="ControlCloseDeal" xml:space="preserve">
-    <value>Close opportunity</value>
+    <value>Close deal</value>
   </data>
   <data name="ControlReopenDeal" xml:space="preserve">
-    <value>Reopen opportunity</value>
+    <value>Reopen deal</value>
   </data>
   <data name="ControlPrintActions" xml:space="preserve">
     <value>Print</value>
@@ -955,7 +955,7 @@
     <value>Contract</value>
   </data>
   <data name="ControlPrintOrderAction" xml:space="preserve">
-    <value>Order</value>
+    <value>Quotation</value>
   </data>
   <data name="ControlPrintActionsAdditional" xml:space="preserve">
     <value>Additional</value>
@@ -976,7 +976,7 @@
     <value>Company name</value>
   </data>
   <data name="CrdRelDeals" xml:space="preserve">
-    <value>Opportunities</value>
+    <value>Deals</value>
   </data>
   <data name="DFieldTitleV2" xml:space="preserve">
     <value>Name</value>
@@ -1006,7 +1006,7 @@
     <value>Limit</value>
   </data>
   <data name="DListActiveDeals" xml:space="preserve">
-    <value>Active opportunities</value>
+    <value>Active deals</value>
   </data>
   <data name="DListBargains" xml:space="preserve">
     <value>Contracts</value>
@@ -1024,7 +1024,7 @@
     <value>Deleted elements of AM templates</value>
   </data>
   <data name="ControlChangeDeal" xml:space="preserve">
-    <value>Change opportunity</value>
+    <value>Change deal</value>
   </data>
   <data name="ControlAppend" xml:space="preserve">
     <value>Add</value>
@@ -1042,7 +1042,7 @@
     <value>Category of company division</value>
   </data>
   <data name="EnDeal" xml:space="preserve">
-    <value>Opportunity</value>
+    <value>Deal</value>
   </data>
   <data name="EnFirmContact" xml:space="preserve">
     <value>Company contacts</value>
@@ -1075,7 +1075,7 @@
     <value>Go to personal account</value>
   </data>
   <data name="EnMDeal" xml:space="preserve">
-    <value>Opportunities</value>
+    <value>Deals</value>
   </data>
   <data name="CrdRelOrderFiles" xml:space="preserve">
     <value>Order files</value>
@@ -1153,13 +1153,13 @@
     <value>Reg. cancellation notice</value>
   </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
-    <value>Supplemental agreement</value>
+    <value>Termination of the Quotation</value>
   </data>
   <data name="DListDeal" xml:space="preserve">
-    <value>Opportunities</value>
+    <value>Deals</value>
   </data>
   <data name="DListInactiveDeals" xml:space="preserve">
-    <value>Closed opportunities</value>
+    <value>Closed deals</value>
   </data>
   <data name="DListClients" xml:space="preserve">
     <value>Clients</value>
@@ -1489,13 +1489,13 @@
     <value>Clients of my subordinates without decision-makers</value>
   </data>
   <data name="DListClientsWithSeveralOpenDealsForSubordinates" xml:space="preserve">
-    <value>Clients of my subordinates that have several open opportunities</value>
+    <value>Clients of my subordinates that have several open deals</value>
   </data>
   <data name="DListDealsAtBranch" xml:space="preserve">
-    <value>All opportunities for the branch</value>
+    <value>All deals for the branch</value>
   </data>
   <data name="DListDealsForSubordinates" xml:space="preserve">
-    <value>Opportunities of my subordinates</value>
+    <value>Deals of my subordinates</value>
   </data>
   <data name="DListFirmsAtMyBranch" xml:space="preserve">
     <value>All companies for the branch</value>
@@ -1513,7 +1513,7 @@
     <value>My contracts</value>
   </data>
   <data name="DListMyBarterDeals" xml:space="preserve">
-    <value>My barter opportunities</value>
+    <value>My barter deals</value>
   </data>
   <data name="DListMyClientsCreatedToday" xml:space="preserve">
     <value>My clients created today</value>
@@ -1522,7 +1522,7 @@
     <value>My clients with receivables</value>
   </data>
   <data name="DListMyClientsWithoutDeals" xml:space="preserve">
-    <value>My clients that have no opportunity</value>
+    <value>My clients that have no deal</value>
   </data>
   <data name="DListMyClientsWithoutMakeDecisionContacts" xml:space="preserve">
     <value>My clients without decision-makers</value>
@@ -1531,13 +1531,13 @@
     <value>My contacts</value>
   </data>
   <data name="DListMyDeals" xml:space="preserve">
-    <value>My opportunities</value>
+    <value>My deals</value>
   </data>
   <data name="DListMyFirms" xml:space="preserve">
     <value>My companies</value>
   </data>
   <data name="DListMyInactiveDeals" xml:space="preserve">
-    <value>My completed opportunities</value>
+    <value>My completed deals</value>
   </data>
   <data name="DListMyRegionalClients" xml:space="preserve">
     <value>My regional clients</value>
@@ -1762,7 +1762,7 @@
     <value>Terminating a contract without a reason specified</value>
   </data>
   <data name="ControlPrintBargainAdditAgreementAction" xml:space="preserve">
-    <value>Agreement on rescission of a contract</value>
+    <value>Termination of the Contract</value>
   </data>
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
     <value>Customer's sworn statement</value>
@@ -1849,24 +1849,24 @@
     <value>Links</value>
   </data>
   <data name="DListClientLinks" xml:space="preserve">
-    <value>Дочерние клиенты</value>
+    <value>Subclients</value>
   </data>
   <data name="DListClientLinksDeleted" xml:space="preserve">
-    <value>Удалённые связи</value>
+    <value>Deleted links</value>
   </data>
   <data name="DListClientLinksMaster" xml:space="preserve">
-    <value>Родительские клиенты</value>
+    <value>Parent clients</value>
   </data>
   <data name="DListClientsAvailableForLinking" xml:space="preserve">
-    <value>Все доступные для связывания клиенты</value>
+    <value>All clients that can be linked</value>
   </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
     <value>Contract Extension Agreement</value>
   </data>
   <data name="ControlMakeMain" xml:space="preserve">
-    <value>Сделать основным</value>
+    <value>Make it the main one</value>
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
-    <value>Основное</value>
+    <value>Main</value>
   </data>
 </root>

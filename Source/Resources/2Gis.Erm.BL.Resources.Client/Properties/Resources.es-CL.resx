@@ -964,6 +964,6 @@
     <value>Se requiere indicar otro motivo del cierre de la Transacción.</value>
   </data>
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
-    <value> Данное юр. лицо уже является основным</value>
+    <value> Esta razón social ya figura como principal</value>
   </data>
 </root>
