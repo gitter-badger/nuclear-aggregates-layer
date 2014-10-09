@@ -6,11 +6,13 @@ using DoubleGis.Erm.Platform.Migration.Core;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
 {
-    //[Migration(24480, "Replicates the migrated activities back to MS CRM.", "s.pomadin")]
-    public sealed class ReplicateActivitiesMigration : TransactedMigration
+    [Migration(24480, "Replicates the migrated activities back to MS CRM.", "s.pomadin")]
+    public sealed class ReplicateActivitiesMigration : IContextedMigration<IMigrationContext>
     {
-        protected override void ApplyOverride(IMigrationContext context)
+        public void Apply(IMigrationContext context)
         {
+            context.Connection.StatementTimeout = 1 * 60 * 60; // a hour
+
             foreach (var tuple in new[]
                 {
                     Tuple.Create(Scripts.BulkAppointmentReplication, context.CrmDatabaseName, "appointments"),
@@ -21,15 +23,23 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
             {
                 try
                 {
+                    context.Connection.BeginTransaction();
                     context.Connection.ExecuteNonQuery(BuildSql(tuple.Item1, tuple.Item2));
+                    context.Connection.CommitTransaction();
                 }
                 catch (Exception ex)
                 {
+                    context.Connection.RollBackTransaction();
                     Console.WriteLine("Replication of {0} was failed.", tuple.Item3);
                     Console.WriteLine(ex);
                     throw;
                 }
             }
+        }
+
+        public void Revert(IMigrationContext context)
+        {
+            throw new NotImplementedException();
         }
 
         private static string BuildSql(string script, string crmDatabaseName)
