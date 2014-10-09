@@ -5165,7 +5165,7 @@ Cумма по операции: {5}.
     <value>Период рекламной кампании</value>
   </data>
   <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
-    <value>Взятый из резерва клиента '{0}' работает с рекламным агенством '{1}'.</value>
+    <value>Взятый из резерва клиент '{0}' работает с рекламным агенством '{1}'</value>
   </data>
   <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
     <value>Не указаны идентификаторы сделки или юр. лица</value>
