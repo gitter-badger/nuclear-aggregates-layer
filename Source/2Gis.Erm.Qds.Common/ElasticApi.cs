@@ -198,12 +198,6 @@ namespace DoubleGis.Erm.Qds.Common
             return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(searchFunc, _elasticClient, _nestSettings.BatchTimeout));
         }
 
-        public long Count<T>(Func<CountDescriptor<T>, CountDescriptor<T>> countSelector = null) where T : class
-        {
-            var response = _elasticClient.Count(countSelector);
-            return response.Count;
-        }
-
         private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
         {
             private readonly Func<IEnumerator<THit>> _func;

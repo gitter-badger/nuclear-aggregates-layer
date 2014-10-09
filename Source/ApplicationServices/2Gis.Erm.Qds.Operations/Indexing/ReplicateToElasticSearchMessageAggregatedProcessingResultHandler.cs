@@ -43,6 +43,13 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             var failDetected = false;
             foreach (var entityLinksBucket in entityLinksBuckets)
             {
+                if (!entityLinksBucket.Item2.EntityLinks.Any())
+                {
+                    handlingResults.Add(
+                        entityLinksBucket.Item1,
+                        MessageProcessingStage.Handle.EmptyResult().AsSucceeded());
+                }
+
                 if (!failDetected && TryReplicate(entityLinksBucket))
                 {
                     handlingResults.Add(
