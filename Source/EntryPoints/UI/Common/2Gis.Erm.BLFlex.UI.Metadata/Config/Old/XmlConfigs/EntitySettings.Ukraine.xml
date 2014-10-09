@@ -1490,7 +1490,7 @@
           <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="Client" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
           <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
           <Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
           <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
@@ -1507,7 +1507,7 @@
           <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="Client" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
           <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
           <Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
           <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
