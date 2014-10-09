@@ -232,7 +232,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         else if (result.Data.length > 1)
         {
-            this.linkItem.dom.innerHTML = filter;
+            this.linkItem.dom.innerHTML = filter || Ext.LocalizedResources.MultipleMatchesFound;
             if (!this.supressMatchesErrors) {
                 this.setInvalid(Ext.LocalizedResources.MultipleMatchesFound, "Warning");
                 this.prepareThumbPanel(result);
