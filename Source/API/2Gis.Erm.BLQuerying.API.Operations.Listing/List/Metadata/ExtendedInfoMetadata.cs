@@ -195,6 +195,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListFirmsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Фирмы с заказами с типом Самореклама
             {"DListFirmsWithSelfAds", "ActiveAndNotDeleted=true;WithSelfAdsOrders=true" },
+            {"DListActiveFirmsToAppend", "ActiveAndNotDeleted=true" },
 
             {"DListActiveFirmAddresses", "ActiveBusinessMeaning=true"},
             {"DListInactiveFirmAddresses", "InactiveBusinessMeaning=true"},
