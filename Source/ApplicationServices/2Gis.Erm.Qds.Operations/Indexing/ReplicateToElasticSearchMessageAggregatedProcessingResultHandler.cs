@@ -48,6 +48,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     handlingResults.Add(
                         entityLinksBucket.Item1,
                         MessageProcessingStage.Handle.EmptyResult().AsSucceeded());
+                    continue;
                 }
 
                 if (!failDetected && TryReplicate(entityLinksBucket))
