@@ -158,7 +158,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             this.el.dom.value = "";
         }
     },
-    getDataFromServer: function (config)
+    getDataFromServer: function (config, silent)
     {
         if (this.fireEvent("beforequery", this) === false)
         {
@@ -199,11 +199,11 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             timeout: 1200000,
             url: url,
             scope: this,
-            success: function (jsonResponse) { this.getDataFromServerSuccess(jsonResponse, queryStringParams.filterInput); },
+            success: function (jsonResponse) { this.getDataFromServerSuccess(jsonResponse, queryStringParams.filterInput, silent); },
             failure: function (xhr) { this.getDataFromServerFailure(xhr, queryStringParams.filterInput); }
         });
     },
-    getDataFromServerSuccess: function (jsonResponse, filter)
+    getDataFromServerSuccess: function (jsonResponse, filter, silent)
     {
         this.searchBtn.dom.src = this.disabled || this.readOnly ? this.btnDis : this.btnOn;
         var result = undefined;
@@ -225,7 +225,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
 
         if (!result || !result.Data || !result.Data.length)
         {
-            this.linkItem.dom.innerHTML = filter;
+            this.linkItem.dom.innerHTML = filter || Ext.LocalizedResources.MatchesNotFound;
             if (!this.supressMatchesErrors) {
                 this.setInvalid(Ext.LocalizedResources.MatchesNotFound, "CriticalError");
             }
@@ -241,7 +241,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         else if (result.Data.length === 1)
         {
             var item = { id: result.Data[0].Id, name: result.Data[0][result.MainAttribute], data: result.Data[0] };
-            this.setValue(item);
+            this.setValue(item, silent);
         }
         this.fireEvent("afterquery", this);
 
@@ -522,17 +522,17 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             }
         }
     },
-    forceGetData: function (config) {
-        this.clearValue();
-        this.getDataFromServer(config);
+    forceGetData: function (config, silent) {
+        this.clearValue(silent);
+        this.getDataFromServer(config, silent);
         this.filter.dom.value = "";
     },
 
     setBtnOff: function (event) { if (event.target) { event.target.src = this.disabled || this.readOnly ? this.btnDis : this.btnOff; } },
     setBtnOn: function (event) { if (event.target) { event.target.src = this.disabled || this.readOnly ? this.btnDis : this.btnOn; } },
-    clearValue: function ()
+    clearValue: function (silent)
     {
-        this.setValue(undefined);
+        this.setValue(undefined, silent);
         return this.item;
 
     },

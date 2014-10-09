@@ -635,9 +635,7 @@ window.InitPage = function () {
             Ext.getCmp("Firm").on("change", this.onFirmChanged, this);
             Ext.getCmp('SourceOrganizationUnit').on("change", this.onSourceOrganizationUnitChanged, this);
             Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
-            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.clearBargain();
-                this.tryDetermineBargain();
-            }, this);
+            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.clearBargain(); this.tryDetermineBargain(); }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
             Ext.getCmp("LegalPerson").on("change", function () { this.resetLegalPersonProfile(); }, this);
 
@@ -721,6 +719,16 @@ window.InitPage = function () {
             }
         },
 
+        fillAutocalculatedValues: function() {
+            var clientIdControl = Ext.get('ClientId');
+            var firmLookup = Ext.getCmp('Firm');
+            if (clientIdControl.getValue() && !firmLookup.getValue()) {
+                firmLookup.forceGetData();
+            } else if (clientIdControl.getValue() && firmLookup.getValue()) {
+                this.onFirmChanged(firmLookup);
+            }
+        },
+
         refreshDiscountRelatedAvailability: function () {
             // Блокируем поля "причина скидки", "комментарий по скидке", если скидка не задана
             var discountReason = Ext.get('DiscountReason');
@@ -742,26 +750,13 @@ window.InitPage = function () {
 
         // Обновление Отделения организации юр лица исполнителя/Валюты
         onSourceOrganizationUnitChanged: function (cmp) {
-
-            Ext.getCmp('BranchOfficeOrganizationUnit').clearValue();
+            var branchOfficeOrganizationUnitLookup = Ext.getCmp('BranchOfficeOrganizationUnit');
+            branchOfficeOrganizationUnitLookup.clearValue();
             Ext.getCmp('Currency').clearValue();
 
             if (cmp.getValue()) {
                 var sourceOrgUnitId = cmp.getValue().id;
-                this.Request({
-                    method: 'POST',
-                    url: '/Order/GetBranchOfficeOrganizationUnit',
-                    params: { organizationUnitid: sourceOrgUnitId },
-                    success: function (xhr) {
-                        var branchOfficeOrganizationUnitInfo = Ext.decode(xhr.responseText);
-                        if (branchOfficeOrganizationUnitInfo) {
-                            Ext.getCmp('BranchOfficeOrganizationUnit').setValue({ id: branchOfficeOrganizationUnitInfo.Id, name: branchOfficeOrganizationUnitInfo.Name });
-                        }
-                    },
-                    failure: function (xhr) {
-                        alert(xhr.responseText);
-                    }
-                });
+                branchOfficeOrganizationUnitLookup.forceGetData({ extendedInfo: 'OrganizationUnitId=' + sourceOrgUnitId });
 
                 this.Request({
                     method: 'POST',
@@ -812,62 +807,36 @@ window.InitPage = function () {
             }
         },
 
+        isClientFixed: function () {
+            // Когда заказ создаётся из грида заказов или из фирмы - возможна смена клиента.
+            // В противном случае, клиент определяет возможный выбор фирм и юрлиц, но сам не меняется.
+            var parentType = Ext.get('ViewConfig_PType').getValue();
+            return parentType && parentType != "None" && parentType != 'Firm';
+        },
+
         // Определение Юр.лица клиента/Города назначения в зависимости от фирмы
-        onFirmChanged: function (cmp) {
+        onFirmChanged: function (firmElement) {
             var legalPersonLookup = Ext.getCmp('LegalPerson');
+            var destinationOrganizationUnitLookup = Ext.getCmp('DestinationOrganizationUnit');
             var clientElement = Ext.get('ClientId');
-            var oldClientId = clientElement.dom.value;
 
-            if (!Ext.getDom('DealId').value) {
-                clientElement.setValue('');
-                legalPersonLookup.showReadOnlyCard = true;
-            }
+            if (firmElement.item && firmElement.item.data) {
+                var firmClientId = firmElement.item.data.ClientId;
 
-            if (cmp.item) {
-                if (cmp.item.data) {
-                    var firmClientId = cmp.item.data.ClientId;
-
-                    // Если указана сделка, то смена фирмы не аффектит на юр. лицо. Смена юр лица только при смене клиента фирмы
-                    if (!Ext.getDom('DealId').value && (oldClientId != firmClientId)) {
-                        clientElement.setValue(firmClientId);
-                        legalPersonLookup.clearValue();
-                        legalPersonLookup.showReadOnlyCard = false;
-                        this.Request({
-                            method: 'POST',
-                            url: '/Order/GetLegalPerson',
-                            params: { firmClientId: firmClientId },
-                            success: function (xhr) {
-                                var legalPersonInfo = Ext.decode(xhr.responseText);
-                                if (legalPersonInfo && legalPersonInfo.Id && legalPersonInfo.Name) {
-                                    Ext.getCmp('LegalPerson').setValue({ id: legalPersonInfo.Id, name: legalPersonInfo.Name });
-                                }
-                            },
-                            failure: function (xhr) {
-                                alert(xhr.responseText);
-                            }
-                        });
-                    }
+                // Если при, то смена фирмы не аффектит на юр. лицо. Смена юр лица только при смене клиента фирмы
+                if (!this.isClientFixed() && clientElement.getValue() != firmClientId || !legalPersonLookup.getValue()) {
+                    clientElement.setValue(firmClientId);
+                    legalPersonLookup.forceGetData();
                 }
 
                 // Если отделение организации указано, фирмы и так будут находиться в рамках него и смена значения не нужна
-                if (!Ext.getCmp('DestinationOrganizationUnit').getValue()) {
-                    this.Request({
-                        method: 'POST',
-                        url: '/Order/GetDestinationOrganizationUnit',
-                        params: { firmId: cmp.getValue().id },
-                        success: function (xhr) {
-                            var orgUnitInfo = Ext.decode(xhr.responseText);
-                            if (orgUnitInfo) {
-                                // Ставим флаг, чтобы в обработчике смены города назначения не обнулилась фирма.
-                                this.destinationOrgUnitChangedByFirmChangedEvent = true;
-                                Ext.getCmp('DestinationOrganizationUnit').setValue({ id: orgUnitInfo.Id, name: orgUnitInfo.Name });
-                                delete (this.destinationOrgUnitChangedByFirmChangedEvent);
-                            }
-                        },
-                        failure: function (xhr) {
-                            alert(xhr.responseText);
-                        }
-                    });
+                if (!destinationOrganizationUnitLookup.getValue()) {
+                    destinationOrganizationUnitLookup.forceGetData({ extendedInfo: 'FirmId=' + firmElement.item.id }, true);
+                }
+            } else {
+                if (!this.isClientFixed()) {
+                    clientElement.setValue('');
+                    legalPersonLookup.clearValue();
                 }
             }
         },
@@ -891,6 +860,7 @@ window.InitPage = function () {
 
 
     this.on("afterbuild", this.initEventListeners, this);
+    this.on("afterbuild", this.fillAutocalculatedValues, this);
 
     this.on("afterrelatedlistready", function (card, details) {
         var dataListName = details.dataList.currentSettings.Name;
