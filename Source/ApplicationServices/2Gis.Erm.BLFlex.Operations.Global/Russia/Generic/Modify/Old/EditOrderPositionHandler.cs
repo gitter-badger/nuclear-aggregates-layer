@@ -319,7 +319,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _registerOrderStateChangesOperationService.Changed(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _registerOrderStateChangesOperationService.Changed(new[]
+                                                                   {
+                                                                       new OrderChangesDescriptor
+                                                                           {
+                                                                               OrderId = orderId,
+                                                                               ChangedAspects = new[]
+                                                                                                    {
+                                                                                                        OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                    }
+                                                                           }
+                                                                   });
         }
     }
 }

@@ -273,7 +273,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _registerOrderStateChangesOperationService.Changed(orderId, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _registerOrderStateChangesOperationService.Changed(new[]
+                                                                   {
+                                                                       new OrderChangesDescriptor
+                                                                           {
+                                                                               OrderId = orderId,
+                                                                               ChangedAspects = new[]
+                                                                                                    {
+                                                                                                        OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                    }
+                                                                           }
+                                                                   });
         }
     }
 }
