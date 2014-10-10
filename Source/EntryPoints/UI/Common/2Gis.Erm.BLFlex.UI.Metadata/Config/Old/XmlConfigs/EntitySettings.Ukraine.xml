@@ -1598,7 +1598,7 @@
           <Script FileName="DataList/LegalPersonDeal.DataList.js" />
         </Scripts>
         <ToolbarItems>
-          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" />
+          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.AppendLegalPerson" />
           <ToolbarItem Name="MakeMain" NameLocaleResourceId="ControlMakeMain" ControlType="TextButton" LockOnInactive="true" Action="scope.MakeMain" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" />
         </ToolbarItems>
