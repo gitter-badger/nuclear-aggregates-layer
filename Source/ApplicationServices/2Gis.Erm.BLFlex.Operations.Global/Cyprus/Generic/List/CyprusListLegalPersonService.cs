@@ -55,6 +55,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
+            if (querySettings.ParentEntityName == EntityName.Client && querySettings.ParentEntityId.HasValue)
+            {
+                query = _filterHelper.ForClientAndItsDescendants(query, querySettings.ParentEntityId.Value);
+            }
+
             var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt",
                                                                                         info => LegalPersonListSpecs.Filter.WithDebt(_debtProcessingSettings.MinDebtAmount));
 
