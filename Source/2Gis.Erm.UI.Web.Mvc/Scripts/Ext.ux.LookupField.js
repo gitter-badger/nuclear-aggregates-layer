@@ -390,7 +390,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                 return;
             }
 
-            filter = this.linkItem.dom.innerHTML;
+            filter = this.linkItem.dom.innerHTML != Ext.LocalizedResources.MultipleMatchesFound ? this.linkItem.dom.innerHTML : '';
         }
         this.filter.dom.value = "";
 
