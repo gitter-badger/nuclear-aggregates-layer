@@ -17,8 +17,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
 
         protected override bool IsValidImpl(MetadataSet targetMetadata, out string report)
         {
-            // FIXME {i.maslennikov, 22.09.2014}: перевести навигацию по метаданным на новый способ представления групп проверок
-            // FIXME {i.maslennikov, 07.10.2014}: FIXME актуальна?
             var orderValidationMetadataRegistry = new Dictionary<int, List<OrderValidationRuleMetadata>>();
             foreach (var ruleMetadata in targetMetadata.Metadata.Values.OfType<OrderValidationRuleMetadata>())
             {

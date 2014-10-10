@@ -40,8 +40,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
         /// <summary>
         /// Период размещения заказа(ов) затрагиваемый проверками
         /// </summary>
-        // FIXME {i.maslennikov, 29.09.2014}: если неиспользуется в едиичных режимах rules - тогда перенести этой свойство в Mass*Params
-        // COMMENT {i.maslennikov, 08.10.2014}: Правильная cr-ка
+        // FIXME {all, 29.09.2014}: пока используется в единственном rule = AdvertisementsOnlyWhiteListOrderValidationRule, без конкретной привязки к массовой/единичной проверке - если там реализовать определение period для режима единичной проверки непосредственно в rule, то можно это свойство удалить из базового класса, оставив только в Mass*Params
         public TimePeriod Period { get; set; }
     }
 }

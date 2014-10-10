@@ -18,7 +18,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
 
         #region RulesMetadata
 
-        // COMMENT {i.maslennikov, 07.10.2014}: Может быть, нам отказаться от rule code?
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
         private readonly OrderValidationRuleGroupMetadata _genericGroupMetadata =
             OrderValidationRuleGroupMetadata.Config

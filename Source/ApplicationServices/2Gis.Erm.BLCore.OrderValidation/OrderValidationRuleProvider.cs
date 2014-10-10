@@ -45,9 +45,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
             var validationRulesFilters = new Dictionary<ValidationType, Predicate<OrderValidationRuleMetadata>>();
 
-            // COMMENT {i.maslennikov, 07.10.2014}: Немного смущает тот факт, что в OrderValidationRuleMetadataSource конфигурирование происходит через fluent-свойствах, 
-            //                                      скрывая набор добавляемых OrderValidationRuleMetadata фич, а при использовании типы этих фич надо знать явно
-            //                                      Может как-то тоже обернуть в лежащие рядом extension-методы?
             AttachValidationTypeRules(validationRulesFilters,
                                       ValidationType.SingleOrderOnRegistration,
                                       metadata => metadata.Uses<CommonRuleFeature>(),

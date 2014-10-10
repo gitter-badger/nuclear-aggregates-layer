@@ -24,6 +24,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
+            // TODO {all, 10.10.2014}: попробовать избавиться от использования ruleContext.ValidationParams.Period, пока без конкретной привязки к массовой/единичной проверке - если там реализовать определение period для режима единичной проверки непосредственно в rule, то можно это свойство удалить из базового класса, оставив только в Mass*Paramsреализовав вариант с использованием Mass.Period, либо выводом period из свойств заказа для единичной валидации
             var orderInfos = _finder.Find(ruleContext.OrdersFilterPredicate).Select(x => new
             {
                 x.Id,

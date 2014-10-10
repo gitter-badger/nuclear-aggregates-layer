@@ -46,10 +46,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
                 var repo = scope.CreateRepository<IOrderRepository>();
                 repo.ChangeOrderPositionBindingObjects(request.OrderPositionId, request.Advertisements);
 
-                _registerOrderStateChangesOperationService.Changed(checkResponse.OrderId,
-                                                                   OrderValidationRuleGroup.Generic,
-                                                                   OrderValidationRuleGroup.AdvertisementMaterialsValidation,
-                                                                   OrderValidationRuleGroup.ADPositionsValidation);
+                _registerOrderStateChangesOperationService.Changed(new[]
+                                                                       {
+                                                                           new OrderChangesDescriptor
+                                                                               {
+                                                                                   OrderId = checkResponse.OrderId,
+                                                                                   ChangedAspects = new[]
+                                                                                                        {
+                                                                                                            OrderValidationRuleGroup.Generic,
+                                                                                                            OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                            OrderValidationRuleGroup.ADPositionsValidation
+                                                                                                        }
+                                                                               }
+                                                                       });
                 
                 scope.Complete();
                 transaction.Complete();

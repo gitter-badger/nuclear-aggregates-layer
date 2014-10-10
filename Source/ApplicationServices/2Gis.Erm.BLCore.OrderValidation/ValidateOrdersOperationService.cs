@@ -129,7 +129,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
             var filterPredicate = _orderValidationPredicateFactory.CreatePredicate(validationParams);
             
-            // FIXME {i.maslennikov, 25.09.2014}: проверить корректность сравнения версий в генерируемом SQL
             var combinedPredicate = 
                 !useCachedResultsDisabled 
                     ? new OrderValidationPredicate(filterPredicate.GeneralPart,

@@ -22,11 +22,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _scopeFactory = scopeFactory;
         }
 
-        public void Changed(long orderId, params OrderValidationRuleGroup[] aspects)
-        {
-            Changed(new[] { new OrderChangesDescriptor { OrderId = orderId, ChangedAspects = aspects } });
-        }
-
         public void Changed(IEnumerable<OrderChangesDescriptor> changedOrderDescriptors)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<RegisterOrderStateChangesIdentity>())
