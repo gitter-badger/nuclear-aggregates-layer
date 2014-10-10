@@ -756,7 +756,7 @@ window.InitPage = function () {
 
             if (cmp.getValue()) {
                 var sourceOrgUnitId = cmp.getValue().id;
-                branchOfficeOrganizationUnitLookup.forceGetData({ extendedInfo: 'OrganizationUnitId=' + sourceOrgUnitId });
+                branchOfficeOrganizationUnitLookup.forceGetData();
 
                 this.Request({
                     method: 'POST',
