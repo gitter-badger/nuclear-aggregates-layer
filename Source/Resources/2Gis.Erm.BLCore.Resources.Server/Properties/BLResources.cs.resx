@@ -5197,15 +5197,15 @@ Doba zveřejnění: {3}.</value>
     <value>ERM nepodporuje vytváření společností.</value>
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует неактивное отделение организации {0} для юридического лица {1}</value>
+    <value>Již existuje neaktivní oddělení organizace {0} pro PO {1}</value>
   </data>
   <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
-    <value>Смена клиента запрещена, поскольку сделка связана с юрлицами: {0}</value>
+    <value>Změna klientu je zakázána, protože obchod je spojen s následujícími PO: {0}</value>
   </data>
   <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
-    <value>Смена клиента запрещена, поскольку сделка связана с фирмами: {0}</value>
+    <value>Změna klientu je zakázána, protože obchod je spojen s následujícími společnostmi: {0}</value>
   </data>
   <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
-    <value>Нельзя удалить основную связь с основным юрлицом, пока есть другие</value>
+    <value>Nelze odstranit hlavní spojení s hlavní PO dokud jsou jiné</value>
   </data>
 </root>

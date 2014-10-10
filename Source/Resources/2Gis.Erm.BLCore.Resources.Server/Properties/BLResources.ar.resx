@@ -5194,15 +5194,15 @@ Placement period: {3}.</value>
     <value>A link between the deal {0} and the legal entity {1} already exists</value>
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует неактивное отделение организации {0} для юридического лица {1}</value>
+    <value>Inactive company branch {0} already exists for legal entity {1}</value>
   </data>
   <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
-    <value>Смена клиента запрещена, поскольку сделка связана с юрлицами: {0}</value>
+    <value>Cannot change client. The deal is linked to the following legal entities: {0}</value>
   </data>
   <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
-    <value>Смена клиента запрещена, поскольку сделка связана с фирмами: {0}</value>
+    <value>Cannot change client. The deal is linked to the following companies: {0}</value>
   </data>
   <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
-    <value>Нельзя удалить основную связь с основным юрлицом, пока есть другие</value>
+    <value>Cannot delete an active link with the main legal entity while there are others</value>
   </data>
 </root>
