@@ -21,6 +21,6 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
     public interface IDocumentPartRelation
     {
-        IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> documentParts);
+        IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> documentParts, IProgress<long> progress = null);
     }
 }

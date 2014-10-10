@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _relation = new EntityToDocumentRelation<User, UserAuthorizationDoc>(finder, feature);
         }
 
-        public IEnumerable<IDocumentWrapper> SelectAllDocuments()
+        public IEnumerable<IDocumentWrapper> SelectAllDocuments(IProgress<long> progress = null)
         {
             return _relation.SelectAllDocuments();
         }

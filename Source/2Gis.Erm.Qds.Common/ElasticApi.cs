@@ -186,7 +186,7 @@ namespace DoubleGis.Erm.Qds.Common
             _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(indexType));
         }
 
-        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector) where T : class
+        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector, IProgress<long> progress = null) where T : class
         {
             const string FirstScrollTimeout = "1s";
 
@@ -195,7 +195,7 @@ namespace DoubleGis.Erm.Qds.Common
                 .Scroll(FirstScrollTimeout)
                 .Size(_nestSettings.BatchSize));
 
-            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(searchFunc, _elasticClient, _nestSettings.BatchTimeout));
+            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(_elasticClient, searchFunc, _nestSettings.BatchTimeout, progress));
         }
 
         private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
@@ -221,18 +221,20 @@ namespace DoubleGis.Erm.Qds.Common
         private sealed class ScrollEnumerator<TDocument> : IEnumerator<IHit<TDocument>>
             where TDocument : class
         {
-            private readonly Func<ISearchResponse<TDocument>> _searchFunc;
             private readonly IElasticClient _elasticClient;
+            private readonly Func<ISearchResponse<TDocument>> _searchFunc;
             private readonly string _scrollTimeout;
+            private readonly IProgress<long> _progress;
 
             private string _scrollId;
             private IEnumerator<IHit<TDocument>> _internalEnumerator;
 
-            public ScrollEnumerator(Func<ISearchResponse<TDocument>> searchFunc, IElasticClient elasticClient, string scrollTimeout)
+            public ScrollEnumerator(IElasticClient elasticClient, Func<ISearchResponse<TDocument>> searchFunc, string scrollTimeout, IProgress<long> progress = null)
             {
-                _searchFunc = searchFunc;
                 _elasticClient = elasticClient;
+                _searchFunc = searchFunc;
                 _scrollTimeout = scrollTimeout;
+                _progress = progress;
             }
 
             public IHit<TDocument> Current { get { return _internalEnumerator.Current; } }
@@ -243,6 +245,12 @@ namespace DoubleGis.Erm.Qds.Common
                 if (_scrollId == null)
                 {
                     var searchResponse = _searchFunc();
+
+                    if (_progress != null)
+                    {
+                        _progress.Report(searchResponse.Total);
+                    }
+
                     if (searchResponse.Total <= 0)
                     {
                         return false;

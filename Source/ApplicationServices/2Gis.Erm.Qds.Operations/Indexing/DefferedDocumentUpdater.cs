@@ -47,9 +47,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
             var documentType = IndexMappingMetadata.GetDocumentType(first.Document.DocumentType);
             SaveIndexSettings(first, first, documentType);
-            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
-            _documentUpdater.IndexAllDocuments(documentType);
-            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
+            IndexAllDocumentsWithProgress(first, documentType);
 
             foreach (var queueItem in queueItems.Skip(1))
             {
@@ -59,17 +57,25 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 }
 
                 documentType = IndexMappingMetadata.GetDocumentType(queueItem.Document.DocumentType);
-
                 SaveIndexSettings(first, queueItem, documentType);
                 _replicationQueueHelper.DeleteItem(queueItem);
-
-                _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
-                _documentUpdater.IndexAllDocuments(documentType);
-                _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
+                IndexAllDocumentsWithProgress(queueItem, documentType);
             }
 
             RestoreIndexSettings(first);
             _replicationQueueHelper.DeleteItem(first);
+        }
+
+        private void IndexAllDocumentsWithProgress(IDocumentWrapper<ReplicationQueue> queueItem, Type documentType)
+        {
+            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
+            var progress = new Progress<ProgressDto>(x =>
+            {
+                queueItem.Document.Progress = string.Format("{0}/{1}", x.Count, x.TotalCount);
+                _replicationQueueHelper.UpdateItem(queueItem);
+            });
+            _documentUpdater.IndexAllDocuments(documentType, progress);
+            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
         }
 
         public void Interrupt()

@@ -26,12 +26,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public void DeleteItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            _elasticApi.Delete<ReplicationQueue>(documentWrapper.Id, documentWrapper.Version);
+            _elasticApi.Delete<ReplicationQueue>(documentWrapper.Id);
         }
 
         public void UpdateItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            _elasticApi.Update(documentWrapper.Document, documentWrapper.Id, documentWrapper.Version);
+            _elasticApi.Update(documentWrapper.Document, documentWrapper.Id);
         }
 
         public ICollection<ReplicationQueue.IndexSettings> MergeIndexSettings(IEnumerable<IDocumentWrapper<ReplicationQueue>> items)
