@@ -24,6 +24,11 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public void IndexDocuments(IReadOnlyCollection<EntityLink> entityLinks)
         {
+            if (!entityLinks.Any())
+            {
+                return;
+            }
+
             var documentWrappers = GetDocumentWrappers(entityLinks);
             IndexDocuments(documentWrappers);
         }
