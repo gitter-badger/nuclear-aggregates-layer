@@ -826,8 +826,10 @@ window.InitPage = function () {
             var destinationOrganizationUnitLookup = Ext.getCmp('DestinationOrganizationUnit');
             var clientElement = Ext.get('ClientId');
 
-            if (firmElement.item && firmElement.item.data) {
-                var firmClientId = firmElement.item.data.ClientId;
+            var firmClientId = firmElement.item && firmElement.item.data && firmElement.item.data.ClientId
+                ? firmElement.item.data.ClientId
+                : clientElement.getValue();
+            if (firmElement.item && firmClientId) {
 
                 // Если при, то смена фирмы не аффектит на юр. лицо. Смена юр лица только при смене клиента фирмы
                 if (!this.isClientFixed() && clientElement.getValue() != firmClientId || !legalPersonLookup.getValue()) {
