@@ -727,6 +727,11 @@ window.InitPage = function () {
             } else if (clientIdControl.getValue() && firmLookup.getValue()) {
                 this.onFirmChanged(firmLookup);
             }
+
+            var sourceOrganizationUnit = Ext.getCmp('SourceOrganizationUnit');
+            if (!sourceOrganizationUnit.getValue()) {
+                sourceOrganizationUnit.forceGetData();
+            }
         },
 
         refreshDiscountRelatedAvailability: function () {
