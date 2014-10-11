@@ -722,9 +722,10 @@ window.InitPage = function () {
         fillAutocalculatedValues: function() {
             var clientIdControl = Ext.get('ClientId');
             var firmLookup = Ext.getCmp('Firm');
+            var isNew = Ext.get("IsNew").getValue().toLowerCase() == 'true';
             if (clientIdControl.getValue() && !firmLookup.getValue()) {
                 firmLookup.forceGetData();
-            } else if (clientIdControl.getValue() && firmLookup.getValue()) {
+            } else if (clientIdControl.getValue() && firmLookup.getValue() && isNew) {
                 this.onFirmChanged(firmLookup);
             }
 
