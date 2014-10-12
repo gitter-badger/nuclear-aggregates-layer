@@ -3,13 +3,14 @@
 using DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Resources;
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
+using DoubleGis.Erm.Platform.Migration.MW;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
 {
     [Migration(24480, "Replicates the migrated activities back to MS CRM.", "s.pomadin")]
-    public sealed class ReplicateActivitiesMigration : IContextedMigration<IMigrationContext>
+    public sealed class ReplicateActivitiesMigration : IContextedMigration<IActivityMigrationContext>
     {
-        public void Apply(IMigrationContext context)
+        public void Apply(IActivityMigrationContext context)
         {
             context.Connection.StatementTimeout = 1 * 60 * 60; // a hour
 
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Maintenance
             }
         }
 
-        public void Revert(IMigrationContext context)
+        public void Revert(IActivityMigrationContext context)
         {
             throw new NotImplementedException();
         }

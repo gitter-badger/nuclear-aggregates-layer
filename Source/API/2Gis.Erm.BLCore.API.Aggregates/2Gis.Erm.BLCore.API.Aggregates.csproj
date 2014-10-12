@@ -132,7 +132,7 @@
     <Compile Include="Clients\Operations\ICreateClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\ICreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\ICreateHotClientRequestAggregateService.cs" />
-    <Compile Include="Clients\Operations\IBindCrmTaskToHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\Operations\IBindTaskToHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientSpecs.DenormalizedClientLinks.cs" />
     <Compile Include="Clients\Operations\IDetachClientFromFirmAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientSpecs.Contacts.cs" />

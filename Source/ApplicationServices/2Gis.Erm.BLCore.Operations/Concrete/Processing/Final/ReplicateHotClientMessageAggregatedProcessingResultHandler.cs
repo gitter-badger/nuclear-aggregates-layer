@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
+using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Processing.Final.HotClient;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
@@ -19,18 +20,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 {
     public sealed class ReplicateHotClientMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
-        private readonly IBindCrmTaskToHotClientRequestAggregateService _bindCrmTaskToHotClientRequestAggregateService;
+        private readonly IBindTaskToHotClientRequestAggregateService _bindTaskToHotClientRequestAggregateService;
+        private readonly ITaskReadModel _taskReadModel;
         private readonly ICreateTaskAggregateService _createTaskAggregateService;
         private readonly IUpdateTaskAggregateService _updateTaskAggregateService;
         private readonly ICommonLog _logger;
 
         public ReplicateHotClientMessageAggregatedProcessingResultHandler(
-            IBindCrmTaskToHotClientRequestAggregateService bindCrmTaskToHotClientRequestAggregateService,
+            IBindTaskToHotClientRequestAggregateService bindTaskToHotClientRequestAggregateService,
+            ITaskReadModel taskReadModel,
             ICreateTaskAggregateService createTaskAggregateService,
             IUpdateTaskAggregateService updateTaskAggregateService,
             ICommonLog logger)
         {
-            _bindCrmTaskToHotClientRequestAggregateService = bindCrmTaskToHotClientRequestAggregateService;
+            _bindTaskToHotClientRequestAggregateService = bindTaskToHotClientRequestAggregateService;
+            _taskReadModel = taskReadModel;
             _createTaskAggregateService = createTaskAggregateService;
             _updateTaskAggregateService = updateTaskAggregateService;
             _logger = logger;
@@ -101,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                                     hotClientInfo.HotClient, 
                                     hotClientInfo.RegardingObject);
 
-                    _bindCrmTaskToHotClientRequestAggregateService.BindWithCrmTask(hotClientInfo.RequestEntity, taskId);
+                    _bindTaskToHotClientRequestAggregateService.BindWithCrmTask(hotClientInfo.RequestEntity, taskId);
 
                     messageProcessingStageResult = MessageProcessingStage.Handle
                                                                          .EmptyResult()
@@ -174,7 +178,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                         } });
                 }
 
-                // TODO {all, 24.09.2014}: по-прежнему работаем с Guid'ами, т.к. HotClientRequest.TaskId того же типа, надо будет менять синхронно
+                // TODO {all, 24.09.2014}: по-прежнему работаем с Guid'ами, т.к. HotClientRequest.TaskId того же типа, это надо будет менять синхронно после выхода ERM действий
+                // только из-за этого мы должны заново прочитать задачу, так как ReplicationCode назначен при сохранении без синхронизации
+                // как будет связь по task.Id - чтение надо убрать
+                task = _taskReadModel.GetTask(task.Id);
+
                 return task.ReplicationCode;
             }
             catch (Exception ex)

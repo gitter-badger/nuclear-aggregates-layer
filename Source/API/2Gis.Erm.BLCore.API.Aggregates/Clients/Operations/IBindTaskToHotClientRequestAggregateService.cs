@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.HotCl
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations
 {
-    public interface IBindCrmTaskToHotClientRequestAggregateService : IAggregateSpecificOperation<Firm, BindCrmTaskToHotClientRequestIdentity>
+    public interface IBindTaskToHotClientRequestAggregateService : IAggregateSpecificOperation<Firm, BindTaskToHotClientRequestIdentity>
     {
         void BindWithCrmTask(HotClientRequest hotClientRequest, Guid taskId);
     }

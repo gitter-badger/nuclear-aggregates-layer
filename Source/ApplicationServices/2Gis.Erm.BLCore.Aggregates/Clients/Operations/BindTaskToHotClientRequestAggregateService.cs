@@ -8,13 +8,13 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.HotCl
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
 {
-    public class BindCrmTaskToHotClientRequestAggregateService : IBindCrmTaskToHotClientRequestAggregateService
+    public class BindTaskToHotClientRequestAggregateService : IBindTaskToHotClientRequestAggregateService
     {
         private readonly IRepository<HotClientRequest> _hotClientRequestGenericRepository;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public BindCrmTaskToHotClientRequestAggregateService(IRepository<HotClientRequest> hotClientRequestGenericRepository,
-                                                             IOperationScopeFactory scopeFactory)
+        public BindTaskToHotClientRequestAggregateService(IRepository<HotClientRequest> hotClientRequestGenericRepository,
+                                                          IOperationScopeFactory scopeFactory)
         {
             _hotClientRequestGenericRepository = hotClientRequestGenericRepository;
             _scopeFactory = scopeFactory;
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
 
         public void BindWithCrmTask(HotClientRequest hotClientRequest, Guid taskId)
         {
-            using (var operationScope = _scopeFactory.CreateNonCoupled<BindCrmTaskToHotClientRequestIdentity>())
+            using (var operationScope = _scopeFactory.CreateNonCoupled<BindTaskToHotClientRequestIdentity>())
             {
                 hotClientRequest.TaskId = taskId;
                 _hotClientRequestGenericRepository.Update(hotClientRequest);
