@@ -1,10 +1,10 @@
 ﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.HotClientRequest
 {
-    public class BindCrmTaskToHotClientRequestIdentity : OperationIdentityBase<BindCrmTaskToHotClientRequestIdentity>, INonCoupledOperationIdentity
+    public class BindTaskToHotClientRequestIdentity : OperationIdentityBase<BindTaskToHotClientRequestIdentity>, INonCoupledOperationIdentity
     {
         public override int Id
         {
-            get { return OperationIdentityIds.BindCrmTaskToHotClientRequestIdentity; }
+            get { return OperationIdentityIds.BindTaskToHotClientRequestIdentity; }
         }
 
         public override string Description

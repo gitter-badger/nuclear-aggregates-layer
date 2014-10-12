@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.HotClientRequest = 257
         public const int ImportHotClientIdentity = 25701;
         public const int GetHotClientTaskToReplicateIdentity = 25702;
-        public const int BindCrmTaskToHotClientRequestIdentity = 25703;
+        public const int BindTaskToHotClientRequestIdentity = 25703;
 
         // EntityName.AccountDetail = 141
         public const int ImportOperationsInfoIdentity = 14101;
