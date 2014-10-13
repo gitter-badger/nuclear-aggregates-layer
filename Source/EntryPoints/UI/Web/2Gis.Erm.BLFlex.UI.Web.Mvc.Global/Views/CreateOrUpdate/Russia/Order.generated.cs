@@ -584,7 +584,7 @@ WriteLiteral("            ");
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                         {
                                                                             EntityName = EntityName.LegalPerson,
-                                                                            ExtendedInfo = "Deal={DealId}",
+                                                                            ExtendedInfo = "DealId={DealId}",
                                                                             ParentEntityName = EntityName.Client,
                                                                             ParentIdPattern = "ClientId"
                                                                         }));
@@ -606,7 +606,7 @@ WriteLiteral("            ");
                                                                             {
                                                                                 EntityName = EntityName.Firm,
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
-                                                                                ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false"
+                                                                                ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false&DealId={DealId}"
                                                                             }));
 
             
@@ -1161,14 +1161,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14917), Tuple.Create("\"", 14956)
+WriteAttribute("title", Tuple.Create(" title=\"", 14935), Tuple.Create("\"", 14974)
             
             #line 245 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 14925), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14943), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14925), false)
+, 14943), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1363,14 +1363,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17480), Tuple.Create("\"", 17523)
+WriteAttribute("title", Tuple.Create(" title=\"", 17498), Tuple.Create("\"", 17541)
             
             #line 277 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 17488), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17506), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17488), false)
+, 17506), false)
 );
 
 WriteLiteral(">\r\n");

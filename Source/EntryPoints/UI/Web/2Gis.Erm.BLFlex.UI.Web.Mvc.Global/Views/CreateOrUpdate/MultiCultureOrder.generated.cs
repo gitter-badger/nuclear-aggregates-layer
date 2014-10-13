@@ -607,7 +607,7 @@ WriteLiteral("            ");
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                         {
                                                                             EntityName = EntityName.LegalPerson,
-                                                                            ExtendedInfo = "Deal={DealId}",
+                                                                            ExtendedInfo = "DealId={DealId}",
                                                                             ParentEntityName = EntityName.Client,
                                                                             ParentIdPattern = "ClientId",
                                                                         }));
@@ -629,7 +629,7 @@ WriteLiteral("            ");
                                                                             {
                                                                                 EntityName = EntityName.Firm,
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
-                                                                                ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false"
+                                                                                ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false&DealId={DealId}"
                                                                             }));
 
             
@@ -1184,14 +1184,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14978), Tuple.Create("\"", 15017)
+WriteAttribute("title", Tuple.Create(" title=\"", 14996), Tuple.Create("\"", 15035)
             
             #line 247 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 14986), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 15004), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14986), false)
+, 15004), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1371,14 +1371,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17413), Tuple.Create("\"", 17456)
+WriteAttribute("title", Tuple.Create(" title=\"", 17431), Tuple.Create("\"", 17474)
             
             #line 276 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 17421), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17439), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17421), false)
+, 17439), false)
 );
 
 WriteLiteral(">\r\n");
