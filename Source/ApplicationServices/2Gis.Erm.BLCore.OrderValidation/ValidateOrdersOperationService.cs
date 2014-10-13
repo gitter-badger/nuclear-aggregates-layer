@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private void ValidateOrders(ValidationParams validationParams, IEnumerable<OrderValidationRulesContainer> ruleGroupContainers, ValidationResultsContainer resultsContainer)
         {
             var stopwatch = Stopwatch.StartNew();
-            
+
             foreach (var ruleGroupContainer in ruleGroupContainers)
             {
                 if (!ruleGroupContainer.RuleDescriptors.Any())
@@ -115,10 +115,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                     _logger.InfoFormatEx("Skip validation by group [{0}]. Appropriate rules count: 0. {1}", ruleGroupContainer.Group, validationParams);
                     continue;
                 }
-
-                ValidateByRuleGroup(validationParams, ruleGroupContainer, resultsContainer);
+            
+                try
+                {
+                        ValidateByRuleGroup(validationParams, ruleGroupContainer, resultsContainer);
+                }
+                catch (Exception ex)
+                {
+                    stopwatch.Stop();
+                    _logger.ErrorFormatEx(ex, "Validation failed on group {0} after {1:F2} sec. {2}", ruleGroupContainer.Group, stopwatch.Elapsed.TotalSeconds, validationParams);
+                    throw;
+                }
             }
-
+            
             stopwatch.Stop();
             _logger.InfoFormatEx("Validation completed in {0:F2} sec. {1}", stopwatch.ElapsedMilliseconds / 1000D, validationParams);
         }

@@ -117,17 +117,22 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private IEnumerable<OrderValidationRuleGroupDescriptor> GetApropriateRuleDescriptors(ValidationType validationType)
         {
             IEnumerable<OrderValidationRuleGroupDescriptor> groupDescriptors;
-            if (_ruleGroupsDescriptorsCache.TryGetValue(validationType, out groupDescriptors))
+
+            lock (_ruleGroupsDescriptorsCache)
             {
-                return groupDescriptors;
+                if (_ruleGroupsDescriptorsCache.TryGetValue(validationType, out groupDescriptors))
+                {
+                    return groupDescriptors;
+                }
+
+                groupDescriptors =
+                    _orderedValidationRuleGroupsSequence
+                        .Select(targetRulesGroup => CreateGroupDescriptor(validationType, targetRulesGroup))
+                        .ToArray();
+
+                _ruleGroupsDescriptorsCache.Add(validationType, groupDescriptors);
             }
 
-            groupDescriptors = 
-                _orderedValidationRuleGroupsSequence
-                    .Select(targetRulesGroup => CreateGroupDescriptor(validationType, targetRulesGroup))
-                    .ToArray();
-
-            _ruleGroupsDescriptorsCache.Add(validationType, groupDescriptors);
             return groupDescriptors;
         }
 
