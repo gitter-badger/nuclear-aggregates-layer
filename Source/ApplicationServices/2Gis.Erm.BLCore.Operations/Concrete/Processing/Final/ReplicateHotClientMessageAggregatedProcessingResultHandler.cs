@@ -154,6 +154,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                         Description = string.Format(BLResources.HotClientDescriptionTemplate, hotClient.ContactPhone, hotClient.ContactName),
                         ScheduledOn = hotClient.CreationDate,
                         TaskType = TaskType.WarmClient,
+                        Status = ActivityStatus.InProgress,
+                        Priority = ActivityPriority.Average,
 
                         OwnerCode = owner.Id,
                         IsActive = true,
