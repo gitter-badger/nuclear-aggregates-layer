@@ -1307,7 +1307,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                       Currency = new { x.Currency.Id, x.Currency.Name },
                                       Client = new { x.Client.Id, x.Client.Name },
                                       x.OwnerCode,
+
+                                      AnyLinkedFirm = x.FirmDeals.Any(firmDeal => !firmDeal.IsDeleted),
                                       x.MainFirmId,
+                                      MainFirmName = x.Firm.Name,
                                   })
                                   .SingleOrDefault();
 
@@ -1322,6 +1325,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 Deal = new EntityReference(dto.Deal.Id, dto.Deal.Name),
                 Client = new EntityReference(dto.Client.Id, dto.Client.Name),
                 Owner = new EntityReference(dto.OwnerCode),
+                Firm = dto.MainFirmId.HasValue && !dto.AnyLinkedFirm ? new EntityReference(dto.MainFirmId, dto.MainFirmName) : null,
             };
         }
 

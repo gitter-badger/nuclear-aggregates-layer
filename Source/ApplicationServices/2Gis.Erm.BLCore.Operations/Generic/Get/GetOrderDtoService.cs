@@ -167,7 +167,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
                 resultDto.CurrencyRef = refs.Currency;
                 resultDto.SourceOrganizationUnitRef = refs.OrganizationUnit;
-                resultDto.DestOrganizationUnitRef = refs.OrganizationUnit;
             }
         }
 

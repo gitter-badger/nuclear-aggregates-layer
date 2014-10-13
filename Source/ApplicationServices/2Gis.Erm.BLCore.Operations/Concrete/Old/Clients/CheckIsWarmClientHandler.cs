@@ -44,19 +44,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                     var crmDataContext = _msCrmSettings.CreateDataContext();
                     // Сначала ищем закрытые задачи с типом "Тёплый клиент" у фирм клиента, 
                     // потом у самого клиента.
-                    foreach (var firmReplicationCode in clientInfo.FirmReplicationCodes)
+                    var positiveResponseForFirm =
+                        clientInfo.FirmReplicationCodes
+                                  .AsParallel()
+                                  .Select(firmReplicationCode =>
+                                              {
+                                                  var firmObject = crmDataContext.GetFirm(firmReplicationCode);
+
+                                                  var existingFirmTask = FindRelatedWarmTask(firmObject, "dg_firm_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
+
+                                                  if (existingFirmTask != null)
+                                                  {
+                                                      response.IsWarmClient = true;
+                                                      response.TaskActualEnd = existingFirmTask.ActualEnd;
+                                                      response.TaskDescription = existingFirmTask.Description;
+                                                      return response;
+                                                  }
+
+                                                  return null;
+                                              })
+                                  .AsEnumerable()
+                                  .FirstOrDefault(clientResponse => clientResponse != null);
+                    
+                    if (positiveResponseForFirm != null)
                     {
-                        var firmObject = crmDataContext.GetFirm(firmReplicationCode);
-
-                        var existingFirmTask = FindRelatedWarmTask(firmObject, "dg_firm_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
-
-                        if (existingFirmTask != null)
-                        {
-                            response.IsWarmClient = true;
-                            response.TaskActualEnd = existingFirmTask.ActualEnd;
-                            response.TaskDescription = existingFirmTask.Description;
-                            return response;
-                        }
+                        return positiveResponseForFirm;
                     }
 
                     var clientObject = crmDataContext.GetClient(clientInfo.ClientReplicationCode);
