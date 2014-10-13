@@ -570,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Guardar estado</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Ya existe la sucursal de la entidad {0} para la persona jurídica {1}</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Prohibido cambiar el enlace con los objetos de una orden bloqueada.</value>
   </data>
@@ -5197,9 +5194,6 @@ Periodo de la publicación: {3}.</value>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value>No se permite crear las empresas en ERM.</value>
   </data>
-  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Ya existe una sucursal inactiva de la empresa {0} para la razón social {1}</value>
-  </data>
   <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
     <value>No se permite cambiar de cliente porque el acuerdo está vinculado con las razones sociales: {0}</value>
   </data>
@@ -5209,4 +5203,10 @@ Periodo de la publicación: {3}.</value>
   <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
     <value>No se permite borrar el vínculo principal con la razón social principal mientras existen los demás</value>
   </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует активная связь отделения организации {0} с юридическим лицом {1}</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
+</data>
 </root>
