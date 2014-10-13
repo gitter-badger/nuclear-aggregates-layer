@@ -78,8 +78,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             return x => dealFirms.Contains(x.Id);
                         }
 
-                        var clientId = _finder.Find(Specs.Find.ById<Deal>(dealId)).Select(x => x.ClientId).Single();
-                        return x => x.ClientId == clientId;
+                        return null;
                     });
 
             return query
