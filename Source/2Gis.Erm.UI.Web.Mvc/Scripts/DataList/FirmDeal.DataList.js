@@ -9,7 +9,7 @@
                 UrlParameters: {
                     HonourDataListFields: true,
                     NameLocaleResourceId: 'DListActiveFirmsToAppend',
-                    extendedInfo: "appendToDealId=" + parentEntityId
+                    extendedInfo: String.format("appendToDealId={0}&ForReserve={1}", parentEntityId, 'false')
                 }
             }
 
