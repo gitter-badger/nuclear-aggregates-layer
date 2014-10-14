@@ -67,8 +67,7 @@ namespace DoubleGis.Erm.Qds.Common.Settings
 
             var connectionSettings = new ConnectionSettings(connectionPool)
                 .ExposeRawResponse()                        // более подробные сообщения об ошибках
-                // TODO {m.pashuk, 18.09.2014}: https://github.com/elasticsearch/elasticsearch-net/issues/953
-                //.EnableCompressedResponses()                // accept-encoding: gzip, deflate
+                .EnableCompressedResponses()                // accept-encoding: gzip, deflate
                 .SetPingTimeout(2000)                       // на тестовом кластере живая нода может пинговаться долго, таймаут по умолчанию не подходит
                 .ThrowOnElasticsearchServerExceptions();    // кидать исключения вместо выставления IResponse.IsValid
 

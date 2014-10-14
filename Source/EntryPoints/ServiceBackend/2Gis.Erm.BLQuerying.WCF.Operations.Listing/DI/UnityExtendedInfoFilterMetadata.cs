@@ -128,6 +128,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("ParentsNotDeleted", value => x => !x.OrganizationUnitIsDeleted && !x.BranchOfficeIsDeleted);
+            RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, long>("OrganizationUnitId", value => x => x.OrganizationUnitId == value);
 
             RegisterExtendedInfoFilter<ListCategoryDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListCategoryDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
@@ -137,9 +138,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
 
             RegisterExtendedInfoFilter<ListCategoryFirmAddressDto, bool>("ActiveBusinessMeaning", value => x => x.IsActive && !x.IsDeleted && x.CategoryIsActive && !x.CategoryIsDeleted && x.CategoryOrganizationUnitIsActive && !x.CategoryOrganizationUnitIsDeleted);
             RegisterExtendedInfoFilter<ListCategoryFirmAddressDto, bool>("InactiveBusinessMeaning", value => x => !x.IsActive && !x.IsDeleted || !x.CategoryIsActive && !x.CategoryIsDeleted || !x.CategoryOrganizationUnitIsActive && !x.CategoryOrganizationUnitIsDeleted);
-
+            
             RegisterExtendedInfoFilter<ListCategoryGroupDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListCategoryGroupDto, bool>("NotDeleted", value => x => !x.IsDeleted);
+
+            RegisterExtendedInfoFilter<ListClientLinkDto, bool>("IsDeleted", value => x => x.IsDeleted == value);
 
             RegisterExtendedInfoFilter<ListClientDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListClientDto, bool>("Warm", value => x => x.InformationSourceEnum == InformationSource.WarmClient);
@@ -250,11 +253,14 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListFirmAddressDto, bool>("ActiveBusinessMeaning", value => x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment);
             RegisterExtendedInfoFilter<ListFirmAddressDto, bool>("InactiveBusinessMeaning", value => x => !x.IsDeleted && (!x.IsActive || x.ClosedForAscertainment));
 
+            RegisterExtendedInfoFilter<ListFirmDealDto, bool>("Deleted", value => x => x.IsDeleted == value);
 
             RegisterExtendedInfoFilter<ListLegalPersonDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListLegalPersonDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
 
             RegisterExtendedInfoFilter<ListLegalPersonProfileDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
+
+            RegisterExtendedInfoFilter<ListLegalPersonDealDto, bool>("NotDeleted", value => x => !x.IsDeleted);
 
             RegisterExtendedInfoFilter<ListLockDto, bool>("Active", value => x => x.IsActive == value);
             RegisterExtendedInfoFilter<ListLockDetailDto, bool>("Active", value => x => x.IsActive == value);

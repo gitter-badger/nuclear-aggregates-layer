@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -7,6 +8,7 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -35,6 +37,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Firm>();
 
+            long appendToDealId;
+            if (querySettings.TryGetExtendedProperty("appendToDealId", out appendToDealId))
+            {
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(appendToDealId)).Select(x => x.ClientId).Single();
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
+
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
             {
@@ -58,9 +67,24 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && y.OrderType == (int)OrderType.SelfAds);
             });
 
+            var dealFilter = querySettings.CreateForExtendedProperty<Firm, long>(
+                "dealId",
+                dealId =>
+                    {
+                        var dealFirms = _finder.Find(DealSpecs.FirmDeals.Find.ByDeal(dealId) && Specs.Find.NotDeleted<FirmDeal>()).Select(x => x.FirmId).ToArray();
+
+                        if (dealFirms.Any())
+                        {
+                            return x => dealFirms.Contains(x.Id);
+                        }
+
+                        return null;
+                    });
+
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper,
+                    dealFilter,
                     myTerritoryFilter,
                     myBranchFilter,
                     selfAdsOrdersFilter)
@@ -93,7 +117,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         }
 
         protected override void Transform(ListFirmDto dto)
-        {
+                {
             dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }

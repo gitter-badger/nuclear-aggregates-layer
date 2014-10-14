@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             }
         }
 
-        public IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> documentParts)
+        public IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> documentParts, IProgress<long> progress = null)
         {
             var documentPartsMap = documentParts.OfType<IDocumentWrapper<TDocumentPart>>().ToDictionary(x => x.Id, x => x.Document);
             if (!documentPartsMap.Any())
@@ -75,8 +75,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 .Filter(f => DocumentsForPartFilter(f, documentPartsMap.Keys))
                 .Source(src => src.Include(i => _accessors.Aggregate(i, (ii, metadata) => ii.Add(metadata.GetDocumentPartIdAsObjectExpression))))
                 .Version()
-                .Preference("_primary")
-                );
+                .Preference("_primary"), progress);
 
             var documentWrappers = hits.Select(hit =>
             {

@@ -136,6 +136,17 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             {"DListActiveContacts", "ActiveAndNotDeleted=true;Fired=false" },
             {"DListFiredContacts", "ActiveAndNotDeleted=true;Fired=true" },
+
+            // Все доступные для связывания клиенты
+            {"DListClientsAvailableForLinking", "ActiveAndNotDeleted=true" },
+            
+            // Дочерние клиенты
+            {"DListClientLinks", "IsDeleted=false;ClientLinks=true" },
+            // Родительские клиенты
+            {"DListClientLinksMaster", "IsDeleted=false;ClientLinksMaster=true" },
+            // Удалённые связи
+            {"DListClientLinksDeleted", "IsDeleted=true;ClientLinksDeleted=true" },
+
             // Мои контактные лица
             {"DListMyContacts", "ActiveAndNotDeleted=true;Fired=false;ForMe=true" },
 
@@ -184,9 +195,13 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListFirmsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Фирмы с заказами с типом Самореклама
             {"DListFirmsWithSelfAds", "ActiveAndNotDeleted=true;WithSelfAdsOrders=true" },
+            {"DListActiveFirmsToAppend", "ActiveAndNotDeleted=true" },
 
             {"DListActiveFirmAddresses", "ActiveBusinessMeaning=true"},
             {"DListInactiveFirmAddresses", "InactiveBusinessMeaning=true"},
+
+            {"DListActiveFirmsForDeal", "Deleted=false"},
+            {"DListInactiveFirmsForDeal", "Deleted=true"},
 
             {"DListLegalPersons", "ActiveAndNotDeleted=true"},
             {"DListLegalPersonsInactive", "NotActiveAndNotDeleted=true"},
@@ -206,6 +221,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListLegalPersonsWithDebtAtMyBranch", "ActiveAndNotDeleted=true;MyBranch=true;WithDebt=true" },
 
             {"DListLegalPersonProfiles", "ActiveAndNotDeleted=true"},
+
+            {"DListActiveLegalPersonsForDeal", "NotDeleted=true"},
 
             {"DListLimits", "ActiveAndNotDeleted=true"},
             {"DListLimitsInactive", "NotActiveAndNotDeleted=true"},

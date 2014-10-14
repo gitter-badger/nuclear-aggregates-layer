@@ -6,6 +6,8 @@ using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Common;
 
+using Elasticsearch.Net;
+
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class ReplicationQueueHelper
@@ -24,12 +26,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public void DeleteItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            _elasticApi.Delete<ReplicationQueue>(documentWrapper.Id, documentWrapper.Version);
+            _elasticApi.Delete<ReplicationQueue>(documentWrapper.Id);
         }
 
         public void UpdateItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            _elasticApi.Update(documentWrapper.Document, documentWrapper.Id, documentWrapper.Version);
+            _elasticApi.Update(documentWrapper.Document, documentWrapper.Id);
         }
 
         public ICollection<ReplicationQueue.IndexSettings> MergeIndexSettings(IEnumerable<IDocumentWrapper<ReplicationQueue>> items)
@@ -49,7 +51,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public long QueueCount()
         {
-            return _elasticApi.Count<ReplicationQueue>();
+            var response = _elasticApi.Search<ReplicationQueue>(s => s.SearchType(SearchType.Count));
+            return response.Total;
         }
 
         public IDocumentWrapper<ReplicationQueue>[] LoadQueue()

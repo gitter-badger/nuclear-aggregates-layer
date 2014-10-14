@@ -34,8 +34,7 @@ namespace DoubleGis.Erm.Qds.Common
         void Delete<T>(string id, string version = null) where T : class;
 
         ISearchResponse<T> Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class;
-        IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class;
-        long Count<T>(Func<CountDescriptor<T>, CountDescriptor<T>> countSelector = null) where T : class;
+        IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher, IProgress<long> progress = null) where T : class;
 
         IEnumerable<IReadOnlyCollection<T>> CreateBatches<T>(IEnumerable<T> items);
         void Bulk(IReadOnlyCollection<Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor>> selectors);
