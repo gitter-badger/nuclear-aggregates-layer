@@ -93,7 +93,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
             _logger.InfoFormatEx("Фирма с id={0} взята из резерва, с назначением пользователю {1}", entityId, ownerCode);
 
-            return new QualifyResult { RelatedEntityId = client.Id };
+            return new QualifyResult
+                       {
+                           EntityId = entityId,
+                           RelatedEntityId = client.Id
+                       };
         }
     }
 }

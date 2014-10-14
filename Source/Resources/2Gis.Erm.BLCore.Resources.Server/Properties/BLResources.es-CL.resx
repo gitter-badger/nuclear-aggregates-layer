@@ -570,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Guardar estado</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Ya existe la sucursal de la entidad {0} para la persona jurídica {1}</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Prohibido cambiar el enlace con los objetos de una orden bloqueada.</value>
   </data>
@@ -4760,7 +4757,7 @@ Contacto: {1}</value>
   <data name="InvalidAddressIsPickedForPosition" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para la posición: "{0}"</value>
   </data>
-  <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
+    <data name="ActiveLegalPersonWithSpecifiedInnExist" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DeletedLegalPersonWithSpecifiedInnExist" xml:space="preserve">
@@ -5134,8 +5131,50 @@ Periodo de la publicación: {3}.</value>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>No se puede indicar el motivo de rechazo no activo</value>
   </data>
+  <data name="AdvertisingCampaign" xml:space="preserve">
+    <value>Campaña Publicitaria</value>
+  </data>
+  <data name="DetailsForOrders" xml:space="preserve">
+    <value>Datos para la orden</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
+    <value>Hay que indicar la fecha de inicio de la campaña publicitaria</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
+    <value>Hay que indicar la fecha de término de la campaña publicitaria</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
+    <value>Fecha del término de la campaña publicitaria no puede ser anterior a su inicio</value>
+  </data>
+  <data name="AdvertisingCampaignGoals" xml:space="preserve">
+    <value>Objetivos</value>
+  </data>
+  <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
+    <value>El porcentaje de la comisión de la agencia debe ser entre 0 y 100</value>
+  </data>
+  <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
+    <value>No están indicadas las identificaciones del acuerdo o empresa</value>
+  </data>
+  <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
+    <value>Vínculo del acuerdo {0} y de la empresa {1} ya existe</value>
+  </data>
+  <data name="AdvertisingCampaignPeriod" xml:space="preserve">
+    <value>Período de la campaña publicitaria</value>
+  </data>
+  <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
+    <value>Cliente tomado de la reserva '{0}' trabaja con la agencia publicitaria '{1}'</value>
+  </data>
+  <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
+    <value>No están indicadas las identificaciones del acuerdo o razón social</value>
+  </data>
+  <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
+    <value>Vínculo del acuerdo {0} y de la razón social {1} ya existe</value>
+  </data>
+  <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
+    <value>No hay acceso para crear el vínculo con el cliente '{0}'</value>
+  </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
-    <value>Создание агентских договоров запрещено</value>
+    <value>No está permitido crear los contratos de agente</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
@@ -5147,12 +5186,27 @@ Periodo de la publicación: {3}.</value>
     <value>Estamos en el proceso de compilación. Edición de posición de la orden no está permitida.</value>
   </data>
   <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
-    <value>Клиент {0} находится в резерве, невозможно создать заказ с его участием</value>
+    <value>Cliente {0} se encuentra en reserva, imposible crear una orden</value>
   </data>
   <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
-    <value>Фирма {0} находится в резерве, невозможно создать заказ с её участием</value>
+    <value>Empresa {0} se encuentra en reserva, imposible crear una orden</value>
   </data>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
-    <value>Создание фирм в ERM не поддерживается.</value>
+    <value>No se permite crear las empresas en ERM.</value>
   </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>No se permite cambiar de cliente porque el acuerdo está vinculado con las razones sociales: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>No se permite cambiar de cliente porque el acuerdo está vinculado con las empresas: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>No se permite borrar el vínculo principal con la razón social principal mientras existen los demás</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует активная связь отделения организации {0} с юридическим лицом {1}</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
+</data>
 </root>

@@ -1949,16 +1949,16 @@
     <value>Banco</value>
   </data>
   <data name="TemplateCodeClientBargain" xml:space="preserve">
-    <value>Клиентский договор</value>
+    <value>Contrato de cliente</value>
   </data>
   <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
-    <value>Клиентский договор (дополнительный язык)</value>
+    <value>Contrato de cliente (idioma adicional)</value>
   </data>
   <data name="TemplateCodeAgentBargain" xml:space="preserve">
-    <value>Агентский договор</value>
+    <value>Contrato de agente</value>
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Acuerdo de prolongar el contrato</value>
   </data>
   <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -1995,5 +1995,23 @@
   </data>
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>La información contenida en esta sección corresponde a productos farmacéuticos autorizados para venta bajo receta médica. Conforme a la actual legislación, su promoción está dirigida sólo a profesionales médicos y químicos farmacéuticos. Parus S.p.A. no se hace responsable por la indebida interpretación y consecuencias del mal uso de la información aquí contenida.</value>
+  </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Prórroga</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Pago a plazos</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Pago posterior</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Pago por adelantado</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Vínculo de la empresa con el acuerdo</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Vínculo de la razón social con el acuerdo</value>
   </data>
 </root>

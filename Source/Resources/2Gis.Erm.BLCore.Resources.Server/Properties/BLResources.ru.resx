@@ -570,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Сохранять состояние</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует отделение организации {0} для  юр.лица  {1}</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Изменения объектов привязки заблокированного заказа запрещены.</value>
   </data>
@@ -5134,6 +5131,48 @@ Cумма по операции: {5}.
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Нельзя указать неактивную причину отклонения</value>
   </data>
+  <data name="AdvertisingCampaign" xml:space="preserve">
+    <value>Рекламная кампания</value>
+  </data>
+  <data name="DetailsForOrders" xml:space="preserve">
+    <value>Данные для заказов</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
+    <value>Необходимо указать дату начала рекламной кампании</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
+    <value>Необходимо указать дату окончания рекламной кампании</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
+    <value>Дата окончания рекламной кампании не может быть меньше даты начала</value>
+  </data>
+  <data name="AdvertisingCampaignGoals" xml:space="preserve">
+    <value>Цели</value>
+  </data>
+  <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
+    <value>Процент агентского вознаграждения должен быть числом в диапазоне от 0 до 100</value>
+  </data>
+  <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
+    <value>Не указаны идентификаторы сделки или фирмы</value>
+  </data>
+  <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
+    <value>Связь сделки {0} и фирмы {1} уже существует</value>
+  </data>
+  <data name="AdvertisingCampaignPeriod" xml:space="preserve">
+    <value>Период рекламной кампании</value>
+  </data>
+  <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
+    <value>Взятый из резерва клиент '{0}' работает с рекламным агенством '{1}'</value>
+  </data>
+  <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
+    <value>Не указаны идентификаторы сделки или юр. лица</value>
+  </data>
+  <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
+    <value>Связь сделки {0} и юр.лица {1} уже существует</value>
+  </data>
+  <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
+    <value>Нет доступа на создание связи с клиентом '{0}'</value>
+  </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
     <value>Создание агентских договоров запрещено</value>
   </data>
@@ -5155,4 +5194,19 @@ Cумма по операции: {5}.
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value>Создание фирм в ERM не поддерживается.</value>
   </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>Смена клиента запрещена, поскольку сделка связана с юрлицами: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>Смена клиента запрещена, поскольку сделка связана с фирмами: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>Нельзя удалить основную связь с основным юрлицом, пока есть другие</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует активная связь отделения организации {0} с юридическим лицом {1}</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
+</data>
 </root>

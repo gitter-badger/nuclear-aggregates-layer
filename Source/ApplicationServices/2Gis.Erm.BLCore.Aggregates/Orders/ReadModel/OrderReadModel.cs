@@ -1307,7 +1307,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                       Currency = new { x.Currency.Id, x.Currency.Name },
                                       Client = new { x.Client.Id, x.Client.Name },
                                       x.OwnerCode,
+
+                                      AnyLinkedFirm = x.FirmDeals.Any(firmDeal => !firmDeal.IsDeleted),
                                       x.MainFirmId,
+                                      MainFirmName = x.Firm.Name,
                                   })
                                   .SingleOrDefault();
 
@@ -1316,50 +1319,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 throw new EntityNotFoundException(typeof(Deal), dealId);
             }
 
-            var legalPersonInfo = _finder.Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>() & LegalPersonSpecs.LegalPersons.Find.WithActiveAndNotDeletedClient(dto.Client.Id))
-                .Select(x => new { x.Id, x.LegalName })
-                .Take(2)
-                .ToArray();
-
-            // Если не удаётся установить юрлицо однозначно - считаем, что значения по-умолчанию нет.
-            var singleLegalPerson = (EntityReference)null;
-            if (legalPersonInfo.Length == 1)
-            {
-                var single = legalPersonInfo.Single();
-                singleLegalPerson = new EntityReference(single.Id, single.LegalName);
-            }
-
-            var destOrganizationUnit = (EntityReference)null;
-            var firm = (EntityReference)null;
-            if (dto.MainFirmId.HasValue)
-            {
-                var firmDto = _finder.Find(Specs.Find.ById<Firm>(dto.MainFirmId.Value) & Specs.Find.ActiveAndNotDeleted<Firm>())
-                                  .Select(f => new
-                                  {
-                                      Firm = new { f.Id, f.Name },
-                                      OrganizationUnit = new { f.OrganizationUnit.Id, f.OrganizationUnit.Name }
-                                  })
-                                  .SingleOrDefault();
-
-                if (firmDto == null)
-                {
-                    throw new EntityNotFoundException(typeof(Firm), dto.MainFirmId.Value);
-                }
-
-                // [MSCRM-2207] При создании заказа из сделки в поле "Город назначения " необходимо указывать отделение организации к которому привязана фирма (Фирма -> Отделение организации).
-                firm = new EntityReference(firmDto.Firm.Id, firmDto.Firm.Name);
-                destOrganizationUnit = new EntityReference(firmDto.OrganizationUnit.Id, firmDto.OrganizationUnit.Name);
-            }
-
             return new OrderParentEntityDerivedFieldsDto
             {
                 DealCurrency = new EntityReference(dto.Currency.Id, dto.Currency.Name),
                 Deal = new EntityReference(dto.Deal.Id, dto.Deal.Name),
                 Client = new EntityReference(dto.Client.Id, dto.Client.Name),
                 Owner = new EntityReference(dto.OwnerCode),
-                DestOrganizationUnit = destOrganizationUnit,
-                Firm = firm,
-                LegalPerson = singleLegalPerson
+                Firm = dto.MainFirmId.HasValue && !dto.AnyLinkedFirm ? new EntityReference(dto.MainFirmId, dto.MainFirmName) : null,
             };
         }
 

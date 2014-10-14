@@ -1407,4 +1407,49 @@
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Editovat</value>
   </data>
+  <data name="NameOfChildClient" xml:space="preserve">
+    <value>Zprostředkovaný klient</value>
+  </data>
+  <data name="NameOfMasterClient" xml:space="preserve">
+    <value>Zprostředkovatel</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
+    <value>Začátek reklamní kampaně</value>
+  </data>
+  <data name="AdvertisingCampaignEndDate" xml:space="preserve">
+    <value>Konec reklamní kampaně</value>
+  </data>
+  <data name="AdvertisingCampaignGoalText" xml:space="preserve">
+    <value>Cíle</value>
+  </data>
+  <data name="AgencyFee" xml:space="preserve">
+    <value>Agenturní provize</value>
+  </data>
+  <data name="AttractAudienceToSiteGoal" xml:space="preserve">
+    <value>Přilákání cílové skupiny na web klienta</value>
+  </data>
+  <data name="CustomerLegalPerson" xml:space="preserve">
+    <value>PO zákazníka</value>
+  </data>
+  <data name="IncreaseBrandAwarenessGoal" xml:space="preserve">
+    <value>Zvýšení povědomí o značce</value>
+  </data>
+  <data name="IncreasePhoneCallsGoal" xml:space="preserve">
+    <value>Zvýšení počtu volání</value>
+  </data>
+  <data name="IncreaseSalesGoal" xml:space="preserve">
+    <value>Zvýšení prodejů</value>
+  </data>
+  <data name="PayerLegalPerson" xml:space="preserve">
+    <value>PO plátce</value>
+  </data>
+  <data name="PaymentFormat" xml:space="preserve">
+    <value>Způsob úhrady</value>
+  </data>
+  <data name="DListActiveFirmsForDeal" xml:space="preserve">
+    <value>Aktivní organizace</value>
+  </data>
+  <data name="DListInactiveFirmsForDeal" xml:space="preserve">
+    <value>Odstraněná spojení</value>
+  </data>
 </root>

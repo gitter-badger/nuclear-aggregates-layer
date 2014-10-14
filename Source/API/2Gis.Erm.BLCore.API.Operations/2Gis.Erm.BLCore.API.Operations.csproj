@@ -63,7 +63,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Concrete\AccountDetails\INotifyAboutAccountDetailModificationOperationService.cs" />
-    <Compile Include="Concrete\AdvertisementElements\AdvertisementElementValidationAccessDeniedException.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotVerifiableAdvertisementElementStatusChangingException.cs" />
     <Compile Include="Concrete\AdvertisementElements\AdvertisementElementValidationWorkflowIsViolatedException.cs" />
     <Compile Include="Concrete\AdvertisementElements\IAdvertisementElementStatusChangingStrategy.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
@@ -210,6 +210,7 @@
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Crosscutting\IPaymentsDistributor.cs" />
     <Compile Include="DI\OperationsZone.cs" />
+    <Compile Include="Generic\ChangeClient\ChangeClientOfLinkedDealException.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\File\DownloadFileParams.cs" />
     <Compile Include="Generic\File\IValidateFileSettings.cs" />
@@ -325,8 +326,6 @@
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountRequest.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditOrderRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonRequest.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementRequest.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementResponse.cs" />
     <Compile Include="Concrete\Old\Orders\OrderShortInfo.cs" />

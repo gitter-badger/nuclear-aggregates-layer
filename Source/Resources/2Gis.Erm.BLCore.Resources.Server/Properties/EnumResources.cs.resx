@@ -1973,15 +1973,33 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeClientBargain" xml:space="preserve">
-    <value>Клиентский договор</value>
+    <value>Klientská smlouva</value>
   </data>
   <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
-    <value>Клиентский договор (дополнительный язык)</value>
+    <value>Klientská smlouva (dodatečný jazyk)</value>
   </data>
   <data name="TemplateCodeAgentBargain" xml:space="preserve">
-    <value>Агентский договор</value>
+    <value>Mandátní smlouva</value>
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Dohoda o prodloužení smlouvy</value>
+  </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Odklad</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Splátky</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Zaplacení po zveřejnění reklamy ve 2GIS</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Zálohová platba</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Spojení organizace s obchodem</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Spojení PO s obchodem</value>
   </data>
 </root>

@@ -287,16 +287,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                 },
                 new UseCase
                 {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\GetDestinationOrganizationUnit",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(GetOrderDestinationOrganizationUnitHandler),
-                        Request = typeof(GetOrderDestinationOrganizationUnitRequest)
-                    }
-                },
-                new UseCase
-                {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintOrder",
                     MaxUseCaseDepth = 1,
                     Root = new UseCaseNode(0)
@@ -1688,16 +1678,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     {
                         ContainingClass = typeof(SelectOrganizationUnitTerritoriesHandler),
                         Request = typeof(SelectOrganizationUnitTerritoriesRequest)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\GetLegalPerson",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
-                        ContainingClass = typeof(GetOrderLegalPersonHandler),
-                        Request = typeof(GetOrderLegalPersonRequest)
                     }
                 },
                 new UseCase

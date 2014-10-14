@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
         public byte DefaultSortDirection { get; set; }
         public bool DisableEdit { get; set; }
         public string HideInCardRelatedGrid { get; set; }
+        public bool IsHidden { get; set; }
 
         public IEnumerable<DataListColumnStructure> Fields { get; set; }
         public IEnumerable<ToolbarElementStructure> ToolbarItems { get; set; }

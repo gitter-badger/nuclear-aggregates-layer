@@ -570,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Ukládat stav</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Oddělení organizace {0} již u pr. osoby {1} existuje</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Je zakázáno měnit vázané objekty blokované objednávky.</value>
   </data>
@@ -5133,8 +5130,50 @@ Doba zveřejnění: {3}.</value>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Nelze zadat neaktivní příčinu odmítnutí</value>
   </data>
+  <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
+    <value>Klient převzaty z rezervy '{0}' spolupracuje s reklamní agenturou '{1}'</value>
+  </data>
+  <data name="AdvertisingCampaign" xml:space="preserve">
+    <value>Reklamní kampaň</value>
+  </data>
+  <data name="DetailsForOrders" xml:space="preserve">
+    <value>Údaje pro objednávky</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
+    <value>Je třeba zadat datum začátku reklamní kampaně</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
+    <value>Je třeba zadat datum ukončení reklamní kampaně</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
+    <value>Datum ukončení reklamní kampaně nemůže být před jejím začátkem</value>
+  </data>
+  <data name="AdvertisingCampaignGoals" xml:space="preserve">
+    <value>Cíle</value>
+  </data>
+  <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
+    <value>Procento agenturní provize musí být v rozmezí od 0 do 100</value>
+  </data>
+  <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
+    <value>Nejsou zadány identifikátory obchodu nebo společnosti</value>
+  </data>
+  <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
+    <value>Spojení obchodu {0} a organizace {1} již existuje</value>
+  </data>
+  <data name="AdvertisingCampaignPeriod" xml:space="preserve">
+    <value>Období reklamní kampaně</value>
+  </data>
+  <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
+    <value>Nejsou zadány identifikátory obchodu nebo PO</value>
+  </data>
+  <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
+    <value>Spojení obchodu {0} a PO {1} již existuje</value>
+  </data>
+  <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
+    <value>Nemáte přístup k vytvoření spojení s klientem '{0}'</value>
+  </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
-    <value>Создание агентских договоров запрещено</value>
+    <value>Vytvoření mandátních smluv je zakázáno</value>
   </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-faktury.zip</value>
@@ -5146,12 +5185,27 @@ Doba zveřejnění: {3}.</value>
     <value>Probíhá aktualizace. Editace objednávky je zakazána.</value>
   </data>
   <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
-    <value>Клиент {0} находится в резерве, невозможно создать заказ с его участием</value>
+    <value>Klient {0} je v rezervě, nelze vytvořit objednávku s ním</value>
   </data>
   <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
-    <value>Фирма {0} находится в резерве, невозможно создать заказ с её участием</value>
+    <value>Společnost {0} je v rezervě, nelze vytvořit objednávku s ním</value>
   </data>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
-    <value>Создание фирм в ERM не поддерживается.</value>
+    <value>ERM nepodporuje vytváření společností.</value>
   </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>Změna klientu je zakázána, protože obchod je spojen s následujícími PO: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>Změna klientu je zakázána, protože obchod je spojen s následujícími společnostmi: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>Nelze odstranit hlavní spojení s hlavní PO dokud jsou jiné</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует активная связь отделения организации {0} с юридическим лицом {1}</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
+</data>
 </root>
