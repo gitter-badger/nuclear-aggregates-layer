@@ -349,6 +349,14 @@
       <Link>Entities\Erm\Client.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ClientLink.cs">
+      <Link>Entities\Erm\ClientLink.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ClientLinkDomainEntityDto.cs">
+      <Link>Entities\DTOs\ClientLinkDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Contact.cs">
       <Link>Entities\Erm\Contact.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -384,6 +392,14 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DeniedPosition.cs">
       <Link>Entities\Erm\DeniedPosition.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DenormalizedClientLink.cs">
+      <Link>Entities\Erm\DenormalizedClientLink.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DenormalizedClientLinkDomainEntityDto.cs">
+      <Link>Entities\DTOs\DenormalizedClientLinkDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DepCard.cs">
       <Link>Entities\Erm\DepCard.cs</Link>
@@ -505,6 +521,14 @@
       <Link>Entities\Erm\FirmContact.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmDeal.cs">
+      <Link>Entities\Erm\FirmDeal.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmDealDomainEntityDto.cs">
+      <Link>Entities\DTOs\FirmDealDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\HotClientRequest.cs">
       <Link>Entities\Erm\HotClientRequest.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
@@ -516,6 +540,14 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPerson.cs">
       <Link>Entities\Erm\LegalPerson.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonDeal.cs">
+      <Link>Entities\Erm\LegalPersonDeal.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonDealDomainEntityDto.cs">
+      <Link>Entities\DTOs\LegalPersonDealDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonProfile.cs">
       <Link>Entities\Erm\LegalPersonProfile.cs</Link>
@@ -828,6 +860,8 @@
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
     <Compile Include="Entities\Enums\BargainKind.cs" />
+    <Compile Include="Entities\Enums\AdvertisingCampaignGoals.cs" />
+    <Compile Include="Entities\Enums\PaymentFormat.cs" />
     <Compile Include="Entities\Enums\PricePositionRateType.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
     <Compile Include="Entities\Enums\TaxationType.cs" />
@@ -902,9 +936,11 @@
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Category\ImportRubricIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\CalculateClientPromisingIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\ClientLink\UpdateOrganizationStructureDenormalizationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\CreateClientByFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\SetMainFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Contact\RequestBirthdayCongratulationsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Deal\SetMainLegalPersonForDealIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\CreateBlankFirmsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\GetFirmInfoIdentity.cs" />
