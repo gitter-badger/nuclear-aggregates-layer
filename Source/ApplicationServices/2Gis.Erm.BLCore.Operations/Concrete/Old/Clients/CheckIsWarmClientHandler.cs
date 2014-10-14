@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
@@ -13,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 
 using Microsoft.Xrm.Client;
+using Microsoft.Xrm.Client.Data.Services;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 {
@@ -22,10 +24,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
         private readonly IWarmClientProcessingSettings _warmClientProcessingSettings;
         private readonly IClientRepository _repository;
 
-        public CheckIsWarmClientHandler(
-            IMsCrmSettings msCrmSettings,
-            IWarmClientProcessingSettings warmClientProcessingSettings,
-            IClientRepository repository)
+        public CheckIsWarmClientHandler(IMsCrmSettings msCrmSettings,
+                                        IWarmClientProcessingSettings warmClientProcessingSettings,
+                                        IClientRepository repository)
         {
             _msCrmSettings = msCrmSettings;
             _warmClientProcessingSettings = warmClientProcessingSettings;
@@ -34,73 +35,98 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 
         protected override CheckIsWarmClientResponse Handle(CheckIsWarmClientRequest request)
         {
-            var response = new CheckIsWarmClientResponse();
-            if (_msCrmSettings.EnableReplication)
+            var negativeResponse = new CheckIsWarmClientResponse { IsWarmClient = false };
+
+            if (_msCrmSettings.IntegrationMode == MsCrmIntegrationMode.Disabled)
             {
-                var clientInfo = _repository.GetClientReplicationData(request.ClientId);
-
-                try
-                {
-                    var crmDataContext = _msCrmSettings.CreateDataContext();
-                    // Сначала ищем закрытые задачи с типом "Тёплый клиент" у фирм клиента, 
-                    // потом у самого клиента.
-                    var positiveResponseForFirm =
-                        clientInfo.FirmReplicationCodes
-                                  .AsParallel()
-                                  .Select(firmReplicationCode =>
-                                              {
-                                                  var firmObject = crmDataContext.GetFirm(firmReplicationCode);
-
-                                                  var existingFirmTask = FindRelatedWarmTask(firmObject, "dg_firm_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
-
-                                                  if (existingFirmTask != null)
-                                                  {
-                                                      response.IsWarmClient = true;
-                                                      response.TaskActualEnd = existingFirmTask.ActualEnd;
-                                                      response.TaskDescription = existingFirmTask.Description;
-                                                      return response;
-                                                  }
-
-                                                  return null;
-                                              })
-                                  .AsEnumerable()
-                                  .FirstOrDefault(clientResponse => clientResponse != null);
-                    
-                    if (positiveResponseForFirm != null)
-                    {
-                        return positiveResponseForFirm;
-                    }
-
-                    var clientObject = crmDataContext.GetClient(clientInfo.ClientReplicationCode);
-                    var existingClosedTask = FindRelatedWarmTask(clientObject, "Account_Tasks", _warmClientProcessingSettings.WarmClientDaysCount);
-
-                    if (existingClosedTask != null)
-                    {
-                        response.IsWarmClient = true;
-                        response.TaskActualEnd = existingClosedTask.ActualEnd;
-                        response.TaskDescription = existingClosedTask.Description;
-                    }
-                }
-                catch (WebException ex)
-                {
-                    throw new NotificationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
-                }
+                return negativeResponse;
             }
 
-            return response;
+            var clientInfo = _repository.GetClientReplicationData(request.ClientId);
+
+            // Ищем закрытые задачи с типом "Тёплый клиент" у фирм клиента и у самого клиента.
+            var checkTasks = clientInfo.FirmReplicationCodes
+                                       .Select(code => new Task<CheckIsWarmClientResponse>(() => CheckFirm(_msCrmSettings.CreateDataContext(),
+                                                                                                           code,
+                                                                                                           _warmClientProcessingSettings.WarmClientDaysCount)))
+                                       .Union(new[]
+                                                  {
+                                                      new Task<CheckIsWarmClientResponse>(() => CheckClient(_msCrmSettings.CreateDataContext(),
+                                                                                                            clientInfo.ClientReplicationCode,
+                                                                                                            _warmClientProcessingSettings.WarmClientDaysCount))
+                                                  })
+                                       .ToArray();
+
+            try
+            {
+                foreach (var task in checkTasks)
+                {
+                    task.Start();
+                }
+
+                Task.WaitAll(checkTasks);
+
+                var positiveResponse = checkTasks.Select(x => x.Result).FirstOrDefault(response => response != null && response.IsWarmClient);
+                return positiveResponse ?? negativeResponse;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new NotificationException(BLResources.Errors_DynamicsCrmConectionFailed, ex);
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerExceptions.All(exception => exception is WebException))
+                {
+                    throw new NotificationException(BLResources.Errors_DynamicsCrmConectionFailed, ex.InnerExceptions.First());
+                }
+
+                throw new BusinessLogicException(ex.Message, ex);
+            }
+        }
+
+        private static CheckIsWarmClientResponse CheckFirm(ICrmDataContext crmDataContext, Guid firmReplicationCode, int warmClientDaysCount)
+        {
+            var firmObject = crmDataContext.GetFirm(firmReplicationCode);
+
+            var existingFirmTask = FindRelatedWarmTask(firmObject, "dg_firm_Tasks", warmClientDaysCount);
+
+            return existingFirmTask == null
+                       ? null
+                       : new CheckIsWarmClientResponse
+                       {
+                           IsWarmClient = true,
+                           TaskActualEnd = existingFirmTask.ActualEnd,
+                           TaskDescription = existingFirmTask.Description,
+                       };
+        }
+
+        private static CheckIsWarmClientResponse CheckClient(ICrmDataContext crmDataContext, Guid clientReplicationCode, int warmClientDaysCount)
+        {
+            var clientObject = crmDataContext.GetClient(clientReplicationCode);
+            var existingClosedTask = FindRelatedWarmTask(clientObject, "Account_Tasks", warmClientDaysCount);
+
+            return existingClosedTask == null
+                       ? null
+                       : new CheckIsWarmClientResponse
+                       {
+                           IsWarmClient = true,
+                           TaskActualEnd = existingClosedTask.ActualEnd,
+                           TaskDescription = existingClosedTask.Description,
+                       };
         }
 
         private static TaskSummary FindRelatedWarmTask(ICrmEntity crmObject, string taskRelationName, int days)
         {
             return crmObject.GetRelatedEntities(taskRelationName)
-                .Where(x => Convert.ToInt32(x["statuscode"].Value, CultureInfo.InvariantCulture) == 5 &&
-                    (DateTime.Now - x.GetPropertyValue<DateTime>("actualend")).TotalDays <= days &&
-                           Convert.ToInt32(x["dg_type"].Value, CultureInfo.InvariantCulture) == 1)
-                .Select(x => new TaskSummary
-                                 {
-                                     ActualEnd = x.GetPropertyValue<DateTime>("actualend"),
-                                     Description = x.GetPropertyValue<string>("subject")
-                                 }).FirstOrDefault();
+                            .Where(x => Convert.ToInt32(x["statuscode"].Value, CultureInfo.InvariantCulture) == 5 &&
+                                        (DateTime.Now - x.GetPropertyValue<DateTime>("actualend")).TotalDays <= days &&
+                                        Convert.ToInt32(x["dg_type"].Value, CultureInfo.InvariantCulture) == 1)
+                            .Select(x => new TaskSummary
+                                             {
+                                                 ActualEnd = x.GetPropertyValue<DateTime>("actualend"),
+                                                 Description = x.GetPropertyValue<string>("subject")
+                                             })
+                            .FirstOrDefault();
         }
 
         private class TaskSummary
