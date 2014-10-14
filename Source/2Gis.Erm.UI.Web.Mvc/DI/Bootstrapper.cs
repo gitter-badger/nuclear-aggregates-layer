@@ -46,11 +46,14 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Security;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -112,6 +115,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new UIServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
+                    new ViewModelCustomizationsMassProcessor(container),
                     new EnumAdaptationMassProcessor(container),
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
@@ -291,16 +295,16 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(CustomLifetime.PerRequest, mappingScope)
 
-                .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, mappingScope)
+                .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, Mapping.ConstructorInjectionReadModelsScope)
 
                 // notification sender
                 .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>()
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
 
-                .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
+                .RegisterTypeWithDependencies<IViewModelCustomizationProvider, ViewModelCustomizationProvider>(CustomLifetime.PerRequest, mappingScope)
 
-            return container;
+                .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -349,7 +353,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return container.RegisterType<IUserContextProvider, UnityUserContextProvider>(Lifetime.Singleton)
                 .RegisterType<ModelMetadataProvider, LocalizedMetaDataProvider>(Lifetime.Singleton,
                                                          new InjectionConstructor(
-                                                             typeof(IUserContextProvider), new[] {MetadataResources.ResourceManager}));
+                                                             typeof(IUserContextProvider), new[] { MetadataResources.ResourceManager }));
         }
     }
 }
