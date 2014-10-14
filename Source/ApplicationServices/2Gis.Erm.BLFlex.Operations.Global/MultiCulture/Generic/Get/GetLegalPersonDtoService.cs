@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
@@ -12,8 +13,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
     public class GetLegalPersonDtoService : GetLegalPersonDtoServiceBase<LegalPersonDomainEntityDto>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted
     {
-        public GetLegalPersonDtoService(IUserContext userContext, IClientReadModel clientReadModel, ILegalPersonReadModel legalPersonReadModel)
-            : base(userContext, clientReadModel, legalPersonReadModel)
+        public GetLegalPersonDtoService(IUserContext userContext, IClientReadModel clientReadModel, ILegalPersonReadModel legalPersonReadModel, IDealReadModel dealReadModel)
+            : base(userContext, clientReadModel, legalPersonReadModel, dealReadModel)
         {
         }
 

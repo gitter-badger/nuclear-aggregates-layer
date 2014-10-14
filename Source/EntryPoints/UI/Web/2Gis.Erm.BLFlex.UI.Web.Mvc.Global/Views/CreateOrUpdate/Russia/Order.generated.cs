@@ -582,12 +582,12 @@ WriteLiteral("            ");
             
             #line 89 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
-                                                                                   {
-                                                                                       EntityName = EntityName.LegalPerson,
-                                                                                       ExtendedInfo = "filterToParent=true",
-                                                                                       ParentEntityName = EntityName.Client,
-                                                                                       ParentIdPattern = "ClientId",
-                                                                                   }));
+                                                                        {
+                                                                            EntityName = EntityName.LegalPerson,
+                                                                            ExtendedInfo = "DealId={DealId}",
+                                                                            ParentEntityName = EntityName.Client,
+                                                                            ParentIdPattern = "ClientId"
+                                                                        }));
 
             
             #line default
@@ -606,7 +606,7 @@ WriteLiteral("            ");
                                                                             {
                                                                                 EntityName = EntityName.Firm,
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
-                                                                                ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false"
+                                                                                ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false&DealId={DealId}"
                                                                             }));
 
             
@@ -618,7 +618,7 @@ WriteLiteral("            ");
 
             
             #line 104 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "sourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
+       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "OrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
 
             
             #line default
@@ -1161,14 +1161,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14996), Tuple.Create("\"", 15035)
+WriteAttribute("title", Tuple.Create(" title=\"", 14935), Tuple.Create("\"", 14974)
             
             #line 245 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 15004), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14943), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 15004), false)
+, 14943), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1363,14 +1363,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17559), Tuple.Create("\"", 17602)
+WriteAttribute("title", Tuple.Create(" title=\"", 17498), Tuple.Create("\"", 17541)
             
             #line 277 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 17567), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17506), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17567), false)
+, 17506), false)
 );
 
 WriteLiteral(">\r\n");

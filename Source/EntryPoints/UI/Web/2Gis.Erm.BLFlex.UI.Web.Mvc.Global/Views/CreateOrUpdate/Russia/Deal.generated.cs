@@ -61,17 +61,56 @@ WriteLiteral("\r\n\r\n");
 
 DefineSection("CardScripts", () => {
 
-WriteLiteral("\r\n    <script");
+WriteLiteral("\r\n    <link");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 178), Tuple.Create("\"", 252)
-, Tuple.Create(Tuple.Create("", 184), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 184), true)
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 209), Tuple.Create("\"", 275)
+, Tuple.Create(Tuple.Create("", 216), Tuple.Create("/Content/time-period.css?", 216), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 218), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 241), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 218), false)
+, 241), false)
+);
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 323), Tuple.Create("\"", 391)
+, Tuple.Create(Tuple.Create("", 330), Tuple.Create("/Content/input-overlay.css?", 330), true)
+            
+            #line 11 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+, Tuple.Create(Tuple.Create("", 357), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 357), false)
+);
+
+WriteLiteral(" />\r\n    <style");
+
+WriteLiteral(" type=\"text/css\"");
+
+WriteLiteral(">\r\n        .wide-labels div.label-wrapper { width: 180px; }\r\n    </style>\r\n\r\n    " +
+"<script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 511), Tuple.Create("\"", 585)
+, Tuple.Create(Tuple.Create("", 517), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 517), true)
+            
+            #line 16 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+, Tuple.Create(Tuple.Create("", 551), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            
+            #line default
+            #line hidden
+, 551), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -87,13 +126,13 @@ DefineSection("CardBody", () => {
 WriteLiteral("\r\n");
 
             
-            #line 15 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 21 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 15 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 21 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
      if (Model != null)
     {
         
@@ -101,28 +140,28 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 23 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
    Write(Html.HiddenFor(m => m.Id));
 
             
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 23 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
                                   
         
             
             #line default
             #line hidden
             
-            #line 18 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 24 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
    Write(Html.HiddenFor(m => m.ReplicationCode));
 
             
             #line default
             #line hidden
             
-            #line 18 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 24 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
                                                
 
         
@@ -130,35 +169,35 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 20 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 26 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
                                                     
         
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 27 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
    Write(Html.HiddenFor(m => m.ClientReplicationCode));
 
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 27 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
                                                      
         
             
             #line default
             #line hidden
             
-            #line 22 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 28 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
    Write(Html.HiddenFor(m => m.ClientName));
 
             
             #line default
             #line hidden
             
-            #line 22 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 28 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
                                           
     }
 
@@ -169,16 +208,16 @@ WriteLiteral("    <div");
 
 WriteLiteral(" class=\"Tab\"");
 
-WriteLiteral(" id=\"Div2\"");
+WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 624), Tuple.Create("\"", 660)
+WriteAttribute("title", Tuple.Create(" title=\"", 960), Tuple.Create("\"", 996)
             
-            #line 24 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 632), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 30 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+, Tuple.Create(Tuple.Create("", 968), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 632), false)
+, 968), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -190,7 +229,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 26 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.Name, FieldFlex.lone));
 
             
@@ -205,7 +244,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 29 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 35 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew }));
 
             
@@ -220,7 +259,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 38 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.DealStage, FieldFlex.lone, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager));
 
             
@@ -235,7 +274,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 41 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -246,7 +285,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 37 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 43 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
    Write(Html.SectionHead("section", BLResources.DealFinancialIndicatorsHead));
 
             
@@ -261,8 +300,34 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 39 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 45 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 47 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+   Write(Html.SectionHead("detailsForOrders", BLResources.DetailsForOrders));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 49 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
 
             
             #line default
@@ -273,14 +338,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1673), Tuple.Create("\"", 1712)
+WriteAttribute("title", Tuple.Create(" title=\"", 2337), Tuple.Create("\"", 2376)
             
-            #line 42 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 1681), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+            #line 52 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+, Tuple.Create(Tuple.Create("", 2345), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 1681), false)
+, 2345), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -292,7 +357,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 44 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 54 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
@@ -307,7 +372,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 57 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.StartReason, FieldFlex.lone, new Dictionary<string, object>{{"disabled", "disabled"}}, EnumResources.ResourceManager));
 
             
@@ -318,7 +383,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 49 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 59 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
    Write(Html.SectionHead("sectionCloseReason", BLResources.DealCloseInfoHead));
 
             
@@ -333,7 +398,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 51 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 61 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -348,7 +413,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 54 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 64 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.CloseReason, FieldFlex.lone, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager));
 
             
@@ -363,8 +428,235 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 57 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+            #line 67 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
        Write(Html.TemplateField(m => m.CloseReasonOther, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 }, { "disabled", "disabled" } }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n    </div>\r\n    <div");
+
+WriteLiteral(" class=\"Tab\"");
+
+WriteLiteral(" id=\"AdvertisementCampaignTab\"");
+
+WriteAttribute("title", Tuple.Create(" title=\"", 3586), Tuple.Create("\"", 3626)
+            
+            #line 70 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+, Tuple.Create(Tuple.Create("", 3594), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
+            
+            #line default
+            #line hidden
+, 3594), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 71 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+   Write(Html.SectionHead("advertisingCampaignDetails", BLResources.AdvertisingCampaign));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"display-wrapper field-wrapper twins\"");
+
+WriteLiteral(">\r\n                <div");
+
+WriteLiteral(" class=\"label-wrapper\"");
+
+WriteLiteral(">\r\n                    <span>");
+
+            
+            #line 75 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+                     Write(BLResources.AdvertisingCampaignPeriod);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(":</span>\r\n                </div>\r\n                <div");
+
+WriteLiteral(" class=\"input-wrapper\"");
+
+WriteLiteral(">\r\n                    <table");
+
+WriteLiteral(" class=\"time-period\"");
+
+WriteLiteral(">\r\n                        <tr>\r\n                            <td");
+
+WriteLiteral(" class=\"time-period-date\"");
+
+WriteLiteral(">");
+
+            
+            #line 80 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+                                                    Write(Html.DateFor(m => m.AdvertisingCampaignBeginDate, new DateTimeSettings { ShiftOffset = false }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                            <td");
+
+WriteLiteral(" class=\"time-period-span\"");
+
+WriteLiteral(">-</td>\r\n                            <td");
+
+WriteLiteral(" class=\"time-period-date\"");
+
+WriteLiteral(">");
+
+            
+            #line 82 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+                                                    Write(Html.DateFor(m => m.AdvertisingCampaignEndDate, new DateTimeSettings { ShiftOffset = false }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</td>\r\n                        </tr>\r\n                    </table>\r\n             " +
+"   </div>\r\n            </div>\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 89 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+       Write(Html.TemplateField(m => m.PaymentFormat, FieldFlex.twins, null, EnumResources.ResourceManager));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"display-wrapper field-wrapper twins\"");
+
+WriteLiteral(">\r\n                <div");
+
+WriteLiteral(" class=\"label-wrapper\"");
+
+WriteLiteral(">\r\n                    <span>");
+
+            
+            #line 94 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+                     Write(MetadataResources.AgencyFee);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(":</span>\r\n                </div>\r\n                <div");
+
+WriteLiteral(" class=\"input-wrapper input-overlay-parent\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                    ");
+
+            
+            #line 97 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+               Write(Html.TextBoxFor(m => m.AgencyFee, new Dictionary<string, object> { { "class", "inputfields" } }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("                    ");
+
+            
+            #line 98 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+               Write(Html.ValidationMessageFor(m => m.AgencyFee, null, new Dictionary<string, object> { { "class", "error" } }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                    <div");
+
+WriteLiteral(" class=\"input-overlay\"");
+
+WriteLiteral(">%</div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 103 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+   Write(Html.SectionHead("advertisingCampaignGoals", BLResources.AdvertisingCampaignGoals));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper wide-labels\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 105 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+       Write(Html.TemplateField(m => m.IncreaseSalesGoal, FieldFlex.quadruplet));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 106 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+       Write(Html.TemplateField(m => m.AttractAudienceToSiteGoal, FieldFlex.quadruplet));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 107 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+       Write(Html.TemplateField(m => m.IncreasePhoneCallsGoal, FieldFlex.quadruplet));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 108 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+       Write(Html.TemplateField(m => m.IncreaseBrandAwarenessGoal, FieldFlex.quadruplet));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 111 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
+       Write(Html.TemplateField(m => m.AdvertisingCampaignGoalText, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } }));
 
             
             #line default

@@ -186,8 +186,8 @@
     <Compile Include="Shared\Generic\Get\GetBranchOfficeOrganizationUnitDtoServiceBase.cs" />
     <Compile Include="Shared\Generic\Get\GetLegalPersonDtoServiceBase.cs" />
     <Compile Include="Shared\Generic\Get\GetLegalPersonProfileDtoServiceBase.cs" />
-    <Compile Include="Shared\GetDtoServiceHelper.cs" />
     <Compile Include="Shared\PositionSimpleName.cs" />
+    <Compile Include="Shared\Specs\LegalPersonListSpecs.cs" />
     <Compile Include="Shared\UkraineFormatterFactory.cs" />
     <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardService.cs" />
     <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\FirmWorkTimeFormatter.cs" />

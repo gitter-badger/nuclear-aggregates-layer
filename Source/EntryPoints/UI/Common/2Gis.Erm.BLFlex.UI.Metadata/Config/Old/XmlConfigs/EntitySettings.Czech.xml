@@ -885,6 +885,7 @@
           <RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Links" NameLocaleResourceId="CrdRelClientLinks" Icon="en_ico_16_Links.gif" RequestUrl="/Grid/View/ClientLink" AppendableEntity="Client" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -923,6 +924,14 @@
           <Field Name="LastQualifyTime" NameLocaleResourceId="LastQualifyTime" Width="110" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="LastDisqualifyTime" NameLocaleResourceId="LastDisqualifyTime" Width="110" FieldType="DateTime" ExtTypeName="Date" />
           
+        </Fields>
+      </DataList>
+       <DataList BasedOn="DListClients" NameLocaleResourceId="DListActiveClientsToAppend" >
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="Name" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="250" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
         </Fields>
       </DataList>
       <!--Мои клиенты-->
@@ -965,6 +974,46 @@
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithWarmClientTask" />
       <!--Тёплые клиенты с просроченной задачей-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithOutdatedWarmClientTask" />
+      <!--Все доступные для связывания клиенты-->
+      <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsAvailableForLinking" />
+    </DataLists>
+  </Entity>
+  <Entity Name="ClientLink">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListClientLinks" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="ChildClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_Links.gif">
+        <Scripts>
+          <Script FileName="DataList/ClientLink.DataList.js" />
+        </Scripts>
+        <ToolbarItems>
+          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.AppendClients" SecurityPrivelegeFlag="16" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="false" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
+        </ToolbarItems>
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="MasterClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="ChildClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="MasterClientName" Hidden="true" NameLocaleResourceId="NameOfMasterClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="MasterClientId" />
+          <Field Name="ChildClientName" Hidden="false" NameLocaleResourceId="NameOfChildClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ChildClientId" />
+        </Fields>
+      </DataList>
+      <DataList NameLocaleResourceId="DListClientLinksMaster" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="MasterClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_Links.gif">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="MasterClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="ChildClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="MasterClientName" Hidden="false" NameLocaleResourceId="NameOfMasterClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="MasterClientId" />
+          <Field Name="ChildClientName" Hidden="true" NameLocaleResourceId="NameOfChildClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ChildClientId" />
+        </Fields>
+      </DataList>
+      <DataList NameLocaleResourceId="DListClientLinksDeleted" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="ChildClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_Links.gif">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="MasterClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="ChildClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="MasterClientName" Hidden="false" NameLocaleResourceId="NameOfMasterClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="MasterClientId" />
+          <Field Name="ChildClientName" Hidden="false" NameLocaleResourceId="NameOfChildClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ChildClientId" />
+        </Fields>
+      </DataList>
     </DataLists>
   </Entity>
   <Entity Name="Contact">
@@ -1189,7 +1238,8 @@
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Deal.gif" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <!--<RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />-->
+          <RelatedItem Name="ErmActions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" RequestUrl="/Grid/View/FirmDeal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Firm" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -1368,6 +1418,14 @@
       <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsForSubordinates" HideInCardRelatedGrid="*" />
       <!--Фирмы с заказами с типом Самореклама-->
       <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsWithSelfAds" HideInCardRelatedGrid="*" />
+      <DataList NameLocaleResourceId="DListActiveFirmsToAppend" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Firm.gif" IsHidden="true">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="OrganizationUnitId"  Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="Name" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
+        </Fields>
+      </DataList>
     </DataLists>
   </Entity>
   <Entity Name="FirmAddress">
@@ -1411,6 +1469,51 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="ContactType" NameLocaleResourceId="DFieldContactType" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="Contact" NameLocaleResourceId="FirmContact" Width="200" FieldType="String" ExtTypeName="String" />
+        </Fields>
+      </DataList>
+    </DataLists>
+  </Entity>
+  <Entity Name="FirmDeal">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListActiveFirmsForDeal" DefaultSortField="FirmName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="FirmName" Icon="en_ico_16_Firm.gif">
+        <Scripts>
+          <Script FileName="DataList/FirmDeal.DataList.js" />
+        </Scripts>
+        <ToolbarItems>
+          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.AppendFirms" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" />
+        </ToolbarItems>
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="FirmId" NameLocaleResourceId="Firm" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="DealId" NameLocaleResourceId="Deal" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="ClientId" NameLocaleResourceId="Client" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
+          <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
+          <Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
+          <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
+          <Field Name="PromisingScore" Width="200" FieldType="Int" ExtTypeName="Int" />
+          <Field Name="ClosedForAscertainment" NameLocaleResourceId="DFieldIsHidden" Width="200" FieldType="Boolean" ExtTypeName="Boolean" />
+          <Field Name="IsDeleted" Width="200" Hidden="true" FieldType="Boolean" ExtTypeName="Boolean" />
+        </Fields>
+      </DataList>
+      <DataList NameLocaleResourceId="DListInactiveFirmsForDeal" DefaultSortField="FirmName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="FirmName" Icon="en_ico_16_Firm.gif">
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="FirmId" NameLocaleResourceId="Firm" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="DealId" NameLocaleResourceId="Deal" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="ClientId" NameLocaleResourceId="Client" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
+          <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
+          <Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
+          <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
+          <Field Name="PromisingScore" Width="200" FieldType="Int" ExtTypeName="Int" />
+          <Field Name="ClosedForAscertainment" NameLocaleResourceId="DFieldIsHidden" Width="200" FieldType="Boolean" ExtTypeName="Boolean" />
+          <Field Name="IsDeleted" Width="200" Hidden="true" FieldType="Boolean" ExtTypeName="Boolean" />
         </Fields>
       </DataList>
     </DataLists>
@@ -1486,6 +1589,28 @@
       <!--Юридические лица, с региональными БЗ-->
       <!--скрыто-->
       <!--<DataList BasedOn="DListLegalPersons" NameLocaleResourceId="DListLegalPersonsWithRegionalOrders" />-->
+    </DataLists>
+  </Entity>
+  <Entity Name="LegalPersonDeal">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListActiveLegalPersonsForDeal" DefaultSortField="LegalName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="LegalName" Icon="en_ico_16_Firm.gif">
+        <Scripts>
+          <Script FileName="DataList/LegalPersonDeal.DataList.js" />
+        </Scripts>
+        <ToolbarItems>
+          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.AppendLegalPerson" />
+          <ToolbarItem Name="MakeMain" NameLocaleResourceId="ControlMakeMain" ControlType="TextButton" LockOnInactive="true" Action="scope.MakeMain" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" />
+        </ToolbarItems>
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="LegalPersonId" NameLocaleResourceId="Firm" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="DealId" NameLocaleResourceId="Deal" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="LegalName" NameLocaleResourceId="LegalPerson" Width="350" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
+          <Field Name="IsMain" NameLocaleResourceId="DFieldIsMainLegalPerson" Width="100" FieldType="Boolean" ExtTypeName="Boolean" />
+          <Field Name="IsDeleted" Width="200" Hidden="true" FieldType="Boolean" ExtTypeName="Boolean" />
+        </Fields>
+      </DataList>
     </DataLists>
   </Entity>
   <Entity Name="Limit">
