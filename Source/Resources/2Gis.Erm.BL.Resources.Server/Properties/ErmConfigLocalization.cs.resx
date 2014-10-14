@@ -1849,24 +1849,24 @@
     <value>Links</value>
   </data>
   <data name="DListClientLinks" xml:space="preserve">
-    <value>Дочерние клиенты</value>
+    <value>Zprostředkované klienty</value>
   </data>
   <data name="DListClientLinksDeleted" xml:space="preserve">
-    <value>Удалённые связи</value>
+    <value>Odstraněná spojení</value>
   </data>
   <data name="DListClientLinksMaster" xml:space="preserve">
-    <value>Родительские клиенты</value>
+    <value>Zprostředkovatelé</value>
   </data>
   <data name="DListClientsAvailableForLinking" xml:space="preserve">
-    <value>Все доступные для связывания клиенты</value>
+    <value>Všichni klienti, kteří jsou dostupné pro vytvoření spojení</value>
   </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
     <value>Dohoda o prodloužení smlouvy</value>
   </data>
   <data name="ControlMakeMain" xml:space="preserve">
-    <value>Сделать основным</value>
+    <value>Udělat hlavním</value>
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
-    <value>Основное</value>
+    <value>Hlavní</value>
   </data>
 </root>

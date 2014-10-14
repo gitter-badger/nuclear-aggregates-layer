@@ -85,6 +85,7 @@
     <Compile Include="2.1\2014.06.30 rev. 21755 - drop status in Billing.AdvertisementElements.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
+    <Compile Include="2.1\2014.10.10 rev. 25168 - Merge ReplicateDeal SP - fix.cs" />
     <Compile Include="2.1\2014.09.22 rev. 24906 - Merge ReplicateDeal SP.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
     <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
@@ -164,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\customizations_23921.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2014.10.10 rev. 25168\[Billing].[ReplicateDeal].sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
