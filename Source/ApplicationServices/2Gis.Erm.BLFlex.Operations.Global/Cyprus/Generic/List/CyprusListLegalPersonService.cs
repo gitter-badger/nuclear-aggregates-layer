@@ -49,16 +49,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            long clientId;
-            if (querySettings.TryGetExtendedProperty("ClientAndItsDescendants", out clientId))
+            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
             {
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
-            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            if (querySettings.ParentEntityName == EntityName.Client && querySettings.ParentEntityId.HasValue)
             {
-                clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
-                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+                query = _filterHelper.ForClientAndItsDescendants(query, querySettings.ParentEntityId.Value);
             }
 
             var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt",
@@ -71,13 +70,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.List
             var myBranchFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("MyBranch",
                                                                                             info => LegalPersonListSpecs.Filter.ByMyBranch(_userContext.Identity.Code));
 
-            var myFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("ForMe",
-                                                                                      forMe => LegalPersonListSpecs.Filter.ByOwner(forMe, _userContext.Identity.Code));
-
             var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
 
             return query
-                .Filter(_filterHelper, dealFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, dealFilter, debtFilter, hasMyOrdersFilter, myBranchFilter)
                 .Select(x => new CyprusListLegalPersonDto
                 {
                     Id = x.Id,

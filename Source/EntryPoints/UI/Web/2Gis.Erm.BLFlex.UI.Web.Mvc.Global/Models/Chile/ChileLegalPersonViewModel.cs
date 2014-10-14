@@ -28,7 +28,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         public string OperationsKind { get; set; }
 
         [RequiredLocalized]
-        [Dependency(DependencyType.ReadOnly, "Client", "Ext.getDom('Id').value != '0'")]
         public LookupField Client { get; set; }
 
         [RequiredLocalized]
