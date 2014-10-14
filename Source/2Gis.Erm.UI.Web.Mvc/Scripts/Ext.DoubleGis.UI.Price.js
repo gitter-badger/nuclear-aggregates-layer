@@ -46,7 +46,9 @@
             var nextAction = window.showModalDialog(url, arguments, params);
 
             if (nextAction == "Close") {
-                window.opener.Entity.refresh();
+                if (window.opener && window.opener.Entity) {
+                    window.opener.Entity.refresh();
+                }
                 window.close();
             }
 
