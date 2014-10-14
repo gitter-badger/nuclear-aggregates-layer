@@ -4,7 +4,6 @@ using System.Linq;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified;
-using DoubleGis.Erm.BL.Operations.Properties;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
@@ -34,7 +33,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
 
         protected override string GetXsdSchemaContent(string schemaName)
         {
-            return Resources.ResourceManager.GetString(schemaName);
+            return Properties.Resources.ResourceManager.GetString(schemaName);
         }
 
         protected override XElement SerializeDtoToXElement(IExportableEntityDto entityDto)
@@ -77,7 +76,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                 dto.EmailFrom = EmailFrom;
                 dto.Subject = Subject;
                 dto.Name = Name;
-                dto.Text = Resources.BirthdayLetter;
+                dto.Text = Properties.Resources.BirthdayLetter;
                 dto.Emails = _clientReadModel.GetContactEmailsByBirthDate(dto.CongratulationDate.Month, dto.CongratulationDate.Day);
                 dto.IsAutoSend = true;
             }

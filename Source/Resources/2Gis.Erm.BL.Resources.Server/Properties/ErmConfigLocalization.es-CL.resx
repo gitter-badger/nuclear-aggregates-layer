@@ -1845,7 +1845,28 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Número de documentos</value>
   </data>
+  <data name="CrdRelClientLinks" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="DListClientLinks" xml:space="preserve">
+    <value>Clientes afiliados</value>
+  </data>
+  <data name="DListClientLinksDeleted" xml:space="preserve">
+    <value>Vínculos cancelados</value>
+  </data>
+  <data name="DListClientLinksMaster" xml:space="preserve">
+    <value>Clientes casa matriz</value>
+  </data>
+  <data name="DListClientsAvailableForLinking" xml:space="preserve">
+    <value>Todos los clientes disponibles para enlazar</value>
+  </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Acuerdo de prolongar el contrato</value>
+  </data>
+  <data name="ControlMakeMain" xml:space="preserve">
+    <value>Establecer como principal</value>
+  </data>
+  <data name="DFieldIsMainLegalPerson" xml:space="preserve">
+    <value>Principal</value>
   </data>
 </root>

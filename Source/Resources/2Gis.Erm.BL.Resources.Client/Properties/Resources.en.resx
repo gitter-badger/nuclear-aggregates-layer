@@ -652,7 +652,7 @@
     <value>The current contract is out-of-date, to place an order under a contract, a new contract has to be created</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Reason for opportunity is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type</value>
+    <value>Reason for the deal is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>Approval is required!</value>
@@ -961,6 +961,9 @@
     <value>This functionality is temporarily unavailable</value>
   </data>
   <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value>Please specify another reason of the opportunity closure</value>
+    <value>Please specify another reason for deal closure</value>
+  </data>
+  <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
+    <value> This legal entity is already specified as the main one</value>
   </data>
 </root>

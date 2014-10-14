@@ -58,11 +58,17 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.09.02 rev. 23836 - Add priveleges.cs" />
+    <Compile Include="2.1\2014.09.01 rev. 23810 - Add LegalPersonDealsLink.cs" />
+    <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization.cs" />
     <Compile Include="2.1\2014.09.10 rev. 23921 - CRM order customization.cs" />
-    <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization - Copy.cs" />
     <Compile Include="2.1\2014.08.14 rev. 23210 - alter some columns length.cs" />
     <Compile Include="2.1\2014.08.11 rev. 23049 - Alter BOS.cs" />
     <Compile Include="2.1\2014.08.07 rev. 23000 - Set dummy advertisement status as valid.cs" />
+    <Compile Include="2.1\2014.08.12 rev. 23100 - Alter deal replication.cs" />
+    <Compile Include="2.1\2014.08.12 rev. 23099 - CRM deal customization.cs" />
+    <Compile Include="2.1\2014.08.11 rev. 23098 - Add FirmDealsLink.cs" />
+    <Compile Include="2.1\2014.08.08 rev. 23097 - Extend Deals table.cs" />
     <Compile Include="2.1\2014.08.04 rev. 22874 - Remove redundant AdvertisementElementStatus Privilege.cs" />
     <Compile Include="2.1\2014.07.30 rev. 22797 - Alter BOS for Advertisement export.cs" />
     <Compile Include="2.1\2014.07.30 rev. 22791 - Set some AE statuses.cs" />
@@ -79,6 +85,8 @@
     <Compile Include="2.1\2014.06.30 rev. 21755 - drop status in Billing.AdvertisementElements.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
+    <Compile Include="2.1\2014.10.10 rev. 25168 - Merge ReplicateDeal SP - fix.cs" />
+    <Compile Include="2.1\2014.09.22 rev. 24906 - Merge ReplicateDeal SP.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
     <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
     <Compile Include="bb-s2\2014.01.27 rev. 15501 - ERM-3117.cs" />
@@ -119,6 +127,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -143,10 +152,22 @@
     <None Include="Resources\Migration22367.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\customizations_23099.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration23100.sql" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\customizations_23209.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\2014.10.02 rev. 24906\[Billing].[ReplicateDeal].sql" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\customizations_23921.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2014.10.10 rev. 25168\[Billing].[ReplicateDeal].sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
