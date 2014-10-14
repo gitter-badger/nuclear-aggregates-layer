@@ -2439,6 +2439,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CannotChangeDealClientWithLinkedFirms {
+            get {
+                return ResourceManager.GetString("CannotChangeDealClientWithLinkedFirms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotChangeDealClientWithLinkedLegalPersons {
+            get {
+                return ResourceManager.GetString("CannotChangeDealClientWithLinkedLegalPersons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CanNotChangeDummyAdvertisementWithPublishedTemplate {
             get {
                 return ResourceManager.GetString("CanNotChangeDummyAdvertisementWithPublishedTemplate", resourceCulture);
@@ -2659,6 +2677,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CannotDeleteLegalPersonWithLinkedAccounts {
             get {
                 return ResourceManager.GetString("CannotDeleteLegalPersonWithLinkedAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CannotDeleteMainLegalPersonDeal {
+            get {
+                return ResourceManager.GetString("CannotDeleteMainLegalPersonDeal", resourceCulture);
             }
         }
         

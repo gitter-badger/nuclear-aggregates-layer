@@ -204,8 +204,6 @@
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
@@ -344,6 +342,7 @@
     <Compile Include="Generic\Deactivate\DeactivateTerritoryService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateUserService.cs" />
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
+    <Compile Include="Generic\Delete\DeleteLegalPersonDealService.cs" />
     <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
     <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
     <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
