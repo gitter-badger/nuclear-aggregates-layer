@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -10,7 +9,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -39,9 +37,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Firm>();
 
-            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            long appendToDealId;
+            if (querySettings.TryGetExtendedProperty("appendToDealId", out appendToDealId))
             {
-                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(appendToDealId)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
@@ -68,42 +67,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && y.OrderType == (int)OrderType.SelfAds);
             });
 
-            var reserveFilter = querySettings.CreateForExtendedProperty<Firm, bool>("ForReserve", info =>
-            {
-                var reserveId = _userIdentifierService.GetReserveUserIdentity().Code;
-                return x => x.OwnerCode == reserveId;
-            });
-
-            var myFilter = querySettings.CreateForExtendedProperty<Firm, bool>("ForMe", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var createdInCurrentMonthFilter = querySettings.CreateForExtendedProperty<Firm, bool>(
-                "CreatedInCurrentMonth",
-                createdInCurrentMonth =>
-                    {
-                        if (!createdInCurrentMonth)
-                        {
-                            return null;
-                        }
-
-                        var nextMonth = DateTime.Now.AddMonths(1);
-                        nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
-
-                        var currentMonthLastDate = nextMonth.AddSeconds(-1);
-                        var currentMonthFirstDate = new DateTime(currentMonthLastDate.Year, currentMonthLastDate.Month, 1);
-
-                        return x => x.CreatedOn >= currentMonthFirstDate && x.CreatedOn <= currentMonthLastDate;
-                    });
-
-            var organizationUnitFilter = querySettings.CreateForExtendedProperty<Firm, long>(
-                "organizationUnitId", organizationUnitId => x => x.OrganizationUnitId == organizationUnitId);
-
-            var clientFilter = querySettings.CreateForExtendedProperty<Firm, long>(
-                "clientId", clientId => x => x.ClientId == clientId);
-
             var dealFilter = querySettings.CreateForExtendedProperty<Firm, long>(
                 "dealId",
                 dealId =>
@@ -115,17 +78,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             return x => dealFirms.Contains(x.Id);
                         }
 
-                        var clientId = _finder.Find(Specs.Find.ById<Deal>(dealId)).Select(x => x.ClientId).Single();
-                        return x => x.ClientId == clientId;
+                        return null;
                     });
 
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper,
-                    clientFilter,
                     dealFilter,
-                    createdInCurrentMonthFilter,
-                    organizationUnitFilter,
                     myTerritoryFilter,
                     myBranchFilter,
                     selfAdsOrdersFilter)

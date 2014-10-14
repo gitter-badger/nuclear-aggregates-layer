@@ -29,58 +29,42 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
         {
-            var entityLinksBuckets = processingResultBuckets.Select(x => new 
+            var handlingResults = processingResultBuckets.Select(x => new
             {
-                x.Key,
-                Value = x.Value
+                OriginalMessageId = x.Key,
+                WellKnownMessages = x.Value
                     .Where(y => y.TargetFlow.Equals(PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance))
-                    .Cast<ReplicateToElasticSearchPrimaryProcessingResultsMessage>().SingleOrDefault(),
+                    .OfType<ReplicateToElasticSearchPrimaryProcessingResultsMessage>()
+                    .ToList(),
             })
-            .Where(x => x.Value != null)
-            .Select(x => Tuple.Create(x.Key, x.Value));
-
-            var handlingResults = new Dictionary<Guid, MessageProcessingStageResult>();
-            var failDetected = false;
-            foreach (var entityLinksBucket in entityLinksBuckets)
-            {
-                if (!failDetected && TryReplicate(entityLinksBucket))
-                {
-                    handlingResults.Add(
-                        entityLinksBucket.Item1,
-                        MessageProcessingStage.Handle.EmptyResult().AsSucceeded());
-                }
-                else
-                {
-                    failDetected = true;
-
-                    handlingResults.Add(
-                        entityLinksBucket.Item1,
-                        MessageProcessingStage.Handle.EmptyResult().AsFailed());
-                }
-            }
+            .Where(x => x.WellKnownMessages.Any())
+            .ToDictionary(x => x.OriginalMessageId, x => TryReplicate(x.OriginalMessageId, x.WellKnownMessages));
 
             return handlingResults;
         }
 
-        private bool TryReplicate(Tuple<Guid, ReplicateToElasticSearchPrimaryProcessingResultsMessage> tuple)
+        private MessageProcessingStageResult TryReplicate(Guid originalMessageId, IEnumerable<ReplicateToElasticSearchPrimaryProcessingResultsMessage> messages)
         {
-            // приостанавливаем фоновую репликацию если идёт массовая
-            if (_replicationQueueHelper.QueueCount() != 0)
-            {
-                return false;
-            }
-
             try
             {
-                _documentUpdater.IndexDocuments(tuple.Item2.EntityLinks);                    
+                // приостанавливаем фоновую репликацию если идёт массовая
+                if (_replicationQueueHelper.QueueCount() != 0)
+                {
+                    return MessageProcessingStage.Handle.EmptyResult().AsFailed();
+                }
+
+                var entityLinks = messages
+                    .SelectMany(x => x.EntityLinks)
+                    .ToList();
+                _documentUpdater.IndexDocuments(entityLinks);
+
+                return MessageProcessingStage.Handle.EmptyResult().AsSucceeded();
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate to elastic usecase with id {0}", tuple.Item1);
-                return false;
+                _logger.ErrorFormatEx(ex, "Can't replicate to elastic message with id {0}", originalMessageId);
+                return MessageProcessingStage.Handle.EmptyResult().AsFailed();
             }
-
-            return true;
         }
     }
 }

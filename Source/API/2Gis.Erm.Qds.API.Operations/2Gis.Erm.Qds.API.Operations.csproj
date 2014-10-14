@@ -85,6 +85,7 @@
     <Compile Include="Indexing\Metadata\DocumentRelationMetadataBuilder.cs" />
     <Compile Include="Indexing\Metadata\DocumentRelationsIdentity.cs" />
     <Compile Include="Indexing\Metadata\Features\DocumentPartFeature.cs" />
+    <Compile Include="Indexing\ProgressDto.cs" />
     <Compile Include="Replication\Metadata\Features\EntityRelationFeature.cs" />
     <Compile Include="Indexing\Metadata\Features\IDocumentPartFeature.cs" />
     <Compile Include="Replication\Metadata\Features\IEntityRelationFeature.cs" />

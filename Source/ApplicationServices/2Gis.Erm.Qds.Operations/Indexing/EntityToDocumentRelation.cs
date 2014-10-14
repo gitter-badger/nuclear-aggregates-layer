@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Core.EntityProjection;
@@ -27,8 +28,14 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _projectSpec = entityRelationFeature.ProjectSpec;
         }
 
-        public IEnumerable<IDocumentWrapper> SelectAllDocuments()
+        public IEnumerable<IDocumentWrapper> SelectAllDocuments(IProgress<long> progress = null)
         {
+            if (progress != null)
+            {
+                var totalCount = _finder.Find(Specs.Find.Custom<TEntity>(x => true)).LongCount();
+                progress.Report(totalCount);
+            }
+
             return SelectDocuments(Specs.Find.Custom<TEntity>(x => true));
         }
 
