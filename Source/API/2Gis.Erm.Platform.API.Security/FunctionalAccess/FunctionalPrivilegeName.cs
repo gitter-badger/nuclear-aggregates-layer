@@ -1,6 +1,5 @@
 ﻿namespace DoubleGis.Erm.Platform.API.Security.FunctionalAccess
 {
-    // 2+: Platform\Source\API\2Gis.Erm.Platform.API.Security\FunctionalAccess\FunctionalPrivilegeName.cs
     // refers to table 'Security.Privileges', column 'Id'
     public enum FunctionalPrivilegeName
     {
@@ -35,7 +34,8 @@
         MergeLegalPersons = 546,
         FranchiseesWithdrawalExport = 604,
         CreateAfterSalesServiceActivities = 605,
-        DeleteLegalPersonProfile = 606,
+        // FIXME {all, 15.10.2014}: Выпилить эту привилегию из базы после релиза ERM-5100 (ветка $/ERM.BL/Dev/Features/ERM-4827-LegalPersonDeactivation)
+        //DeleteLegalPersonProfile = 606,
         LimitRecalculation = 638,
         LimitPeriodChanging = 639,
         CascadeLegalPersonAssign = 640,
@@ -48,5 +48,6 @@
         HotClientTelemarketingProcessingFranchisee = 647,
         AdvertisementAgencyManagement = 648,
         HotClientTelemarketingProcessingBranch = 649,
+        LegalPersonDeactivationOrActivation = 650,
     }
 }
