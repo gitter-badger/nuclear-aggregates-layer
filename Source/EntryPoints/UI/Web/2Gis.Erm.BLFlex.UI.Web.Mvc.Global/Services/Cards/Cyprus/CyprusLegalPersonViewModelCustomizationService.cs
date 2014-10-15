@@ -22,6 +22,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
                 return;
             }
 
+            if (!entityViewModel.HasProfiles)
+            {
+                entityViewModel.SetWarning(BLResources.MustMakeLegalPersonProfile);
+            }
+
             if (entityViewModel.IsDeleted || !entityViewModel.IsActive)
             {
                 entityViewModel.MessageType = (MessageType)(entityViewModel.IsDeleted
@@ -31,11 +36,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
                 entityViewModel.Message = entityViewModel.IsDeleted
                                     ? BLResources.LegalPersonIsDeletedAlertText
                                     : !entityViewModel.IsActive ? BLResources.LegalPersonIsInactiveAlertText : string.Empty;
-            }
-
-            if (!entityViewModel.HasProfiles)
-            {
-                entityViewModel.SetWarning(BLResources.MustMakeLegalPersonProfile);
             }
         }
     }

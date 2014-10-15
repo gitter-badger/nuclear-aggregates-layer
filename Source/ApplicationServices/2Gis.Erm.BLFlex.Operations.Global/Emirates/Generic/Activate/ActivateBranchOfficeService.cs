@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Common.Exceptions;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Activate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Activate
                 var restoringBranchOffice = _branchOfficeReadModel.GetBranchOffice(entityId);
                 if (restoringBranchOffice.IsActive)
                 {
-                    throw new NotificationException(string.Format(BLResources.LegalPersonToRestoreIsAlreadyActive, restoringBranchOffice.Name));
+                    throw new ActiveEntityActivationException(typeof(BranchOffice), restoringBranchOffice.Name);
                 }
 
                 var duplicateBranchOfficeName = _branchOfficeReadModel.GetNameOfActiveDuplicateByInn(restoringBranchOffice.Id, restoringBranchOffice.Inn);

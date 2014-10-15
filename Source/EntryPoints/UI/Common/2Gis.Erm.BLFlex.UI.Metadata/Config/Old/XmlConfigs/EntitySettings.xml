@@ -1577,8 +1577,7 @@
 				<ToolbarItems>
 					<ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
 					<ToolbarItem Name="Actions" NameLocaleResourceId="ControlActions" ControlType="Menu" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />
-					<ToolbarItem ParentName="Actions" Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
-					<ToolbarItem ParentName="Actions" Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
+					<ToolbarItem ParentName="Actions" Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="650" />
 					<ToolbarItem ParentName="Actions" Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
 					<ToolbarItem ParentName="Actions" Name="Merge" NameLocaleResourceId="ControlMerge" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Merge" Icon="Merge.gif" SecurityPrivelegeFlag="546" />
 				</ToolbarItems>
@@ -1599,7 +1598,7 @@
 			</DataList>
 			<DataList BasedOn="DListLegalPersons" NameLocaleResourceId="DListLegalPersonsInactive">
 				<ToolbarItems>
-					<ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
+					<ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="650" />
 				</ToolbarItems>
 			</DataList>
 			<!--Мои юридические лица-->

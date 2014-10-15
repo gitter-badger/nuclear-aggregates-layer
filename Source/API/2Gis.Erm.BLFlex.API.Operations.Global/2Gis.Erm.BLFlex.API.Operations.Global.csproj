@@ -63,6 +63,7 @@
     <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\ThereIsNoOrdersToPrintException.cs" />
     <Compile Include="Emirates\Operations\Concrete\Old\AcceptanceReport\SomeOrdersToPrintAcceptanceReportDontHaveSpecifiedProfileException.cs" />
     <Compile Include="MultiCulture\Operations\Concrete\Integration\Dto\Cards\MultiCultureCardServiceBusDto.cs" />
+    <Compile Include="MultiCulture\Operations\Concrete\Old\LegalPersons\ChangeInactiveLegalPersonRequisitesException.cs" />
     <Compile Include="MultiCulture\Operations\Generic\List\MultiCultureListOrderDto.cs" />
     <Compile Include="Chile\Operations\Generic\List\ChileListLegalPersonProfileDto.cs" />
     <Compile Include="Cyprus\Operations\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesRequest.cs" />
