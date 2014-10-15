@@ -1,4 +1,4 @@
-﻿// File updated : 02.09.2014 15:35:06
+﻿// File updated : 15.10.2014 11:44:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -165,6 +165,7 @@ JustifyLeftTitle : 'Alinear texto a la izquierda',
 JustifyRightText : 'Alineación del texto a la derecha.',
 JustifyRightTitle : 'Alinear texto a la derecha.',
 LastPageText : 'Última página',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Este perfil ya es el principal',
 LimitStatusApproved : 'Aprobado',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Las operaciones de cambio de estado del límite no se admiten como operaciones de grupo. Cambie el estado de límites uno por uno.',
@@ -293,7 +294,6 @@ SumRemainingMustBeNull : 'El resto del importe de la orden no es igual a cero. E
 Sunday : 'Domingo',
 SymbolsLeft : 'Caracteres restantes: {0}',
 TabPanelItemCloseText : 'Cerrar pestaña',
-Task : 'Tarea',
 TextEditorLineBreaksOverflow : 'El número de líneas excede el permitido {0} en {1}.',
 TextEditorOverflow : 'El número de caracteres excede el permitido {0} en {1} caracteres.',
 TheAdvertisement : 'Material publicitario',

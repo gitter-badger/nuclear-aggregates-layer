@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 02.09.2014 15:35:05
+// File updated : 15.10.2014 11:44:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -167,6 +167,7 @@ JustifyLeftTitle : 'Выровнять текст по левому краю',
 JustifyRightText : 'Выравнивание текста по правому краю.',
 JustifyRightTitle : 'Выровнять текст по правому краю.',
 LastPageText : 'Последняя страница',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',
@@ -295,7 +296,6 @@ SumRemainingMustBeNull : 'Остаток суммы заказа не равен
 Sunday : 'Воскресенье',
 SymbolsLeft : 'Символов осталось: {0}',
 TabPanelItemCloseText : 'Закрыть вкладку',
-Task : 'Задача',
 TextEditorLineBreaksOverflow : 'Количество строк превышает допустимые {0} на {1}.',
 TextEditorOverflow : 'Количество символов превышает допустимые {0} символов на {1}.',
 TheAdvertisement : 'Рекламный материал',

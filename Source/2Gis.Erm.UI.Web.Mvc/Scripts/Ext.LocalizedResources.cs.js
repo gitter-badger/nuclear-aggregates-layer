@@ -1,4 +1,4 @@
-﻿// File updated : 02.09.2014 15:35:06
+﻿// File updated : 15.10.2014 11:44:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -165,6 +165,7 @@ JustifyLeftTitle : 'Zarovnat text doleva',
 JustifyRightText : 'Zarovnání textu doprava.',
 JustifyRightTitle : 'Zarovnat text doprava.',
 LastPageText : 'Poslední strana',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Tento profil je již nastaven jako hlavní',
 LimitStatusApproved : 'Schválená',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Operace změny stavu limitu nejsou podporovány jako hromadné operace. Provádějte změnu stavu u limitů po jednom.',
@@ -293,7 +294,6 @@ SumRemainingMustBeNull : 'Zůstatek objednávky se nerovná nule. Zůstatek je t
 Sunday : 'Neděle',
 SymbolsLeft : 'Zbyvajici symboly: {0}',
 TabPanelItemCloseText : 'Zavřít záložku',
-Task : 'Úkol',
 TextEditorLineBreaksOverflow : 'Pocet radku presahuje povoleny pocet {0} o {1}.',
 TextEditorOverflow : 'Pocet symbolu presahuje povoleny pocet {0} symbolu o {1}.',
 TheAdvertisement : 'Reklamní materiál',

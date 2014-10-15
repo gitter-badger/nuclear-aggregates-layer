@@ -1,4 +1,4 @@
-﻿// File updated : 02.09.2014 15:35:06
+﻿// File updated : 15.10.2014 11:44:40
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -165,6 +165,7 @@ JustifyLeftTitle : 'Align text left.',
 JustifyRightText : 'Right text alignment.',
 JustifyRightTitle : 'Align text right.',
 LastPageText : 'The last page',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'This profile is already the main one',
 LimitStatusApproved : 'Approved',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Change status operation cannot be performed for a group. Please change limit status one by one.',
@@ -293,7 +294,6 @@ SumRemainingMustBeNull : 'The remaining amount of the order is not equal to zero
 Sunday : 'Sunday',
 SymbolsLeft : 'Number of symbols remained: {0}',
 TabPanelItemCloseText : 'Close the tab',
-Task : 'Task',
 TextEditorLineBreaksOverflow : 'Number of lines exceeds permitted {0} lines per {1}.',
 TextEditorOverflow : 'Number of symbols exceeds permitted {0} symbols per {1}.',
 TheAdvertisement : 'Advertising material',

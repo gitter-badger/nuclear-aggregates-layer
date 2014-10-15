@@ -2,10 +2,10 @@
 Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     reagrdingObjectController: null,
     autoHeader: {
-        clientName: null,
-        purpose: null,
+        prefix: null,
+        suffix: null,
         build: function () {
-            return this.clientName + ' - ' + this.purpose;
+            return this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix;
         }
     },
     createTimeCombo: function (id) {
@@ -28,7 +28,10 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         }
         return null;
     },
-    getPurpose : function() {
+    getTitlePrefix : function() {
+        return Ext.get("ClientName").getValue();
+    },
+    getTitleSuffix : function() {
         return null;
     },
 
@@ -36,8 +39,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         Ext.DoubleGis.UI.ActivityBase.superclass.constructor.call(this, config);
     },
     autocompleteHeader: function () {
-        var clientName = Ext.fly("ClientName").getValue();
-        if (!clientName) return;
+        var prefix = this.getTitlePrefix();
+        if (!prefix) return;
 
         var headerElement = Ext.get("Title");
         var header = headerElement.getValue();
@@ -45,8 +48,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
         var shouldAutoCompleteHeader = !header || header.trim() == this.autoHeader.build().trim();
         if (shouldAutoCompleteHeader) {
-            this.autoHeader.clientName = clientName;
-            this.autoHeader.purpose = this.getPurpose();
+            this.autoHeader.prefix = prefix;
+            this.autoHeader.suffix = this.getTitleSuffix();
             headerElement.setValue(this.autoHeader.build());
         }
     },
@@ -104,8 +107,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
 
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
 
-        this.autoHeader.clientName = Ext.get("ClientName").getValue();
-        this.autoHeader.purpose = this.getPurpose();
+        this.autoHeader.prefix = this.getTitlePrefix();
+        this.autoHeader.suffix = this.getTitleSuffix();
         Ext.getCmp("Client").on("change", this.autocompleteHeader, this);
     }
 });

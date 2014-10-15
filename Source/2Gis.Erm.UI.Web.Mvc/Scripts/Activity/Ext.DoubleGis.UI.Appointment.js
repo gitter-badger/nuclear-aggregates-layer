@@ -3,7 +3,7 @@ Ext.DoubleGis.UI.Appointment = Ext.extend(Ext.DoubleGis.UI.ActivityBase, {
     constructor: function (config) {
         Ext.DoubleGis.UI.Appointment.superclass.constructor.call(this, config);
     },
-    getPurpose: function () {
+    getTitleSuffix: function () {
         return this.getComboboxText("Purpose");
     },
     Build: function () {
