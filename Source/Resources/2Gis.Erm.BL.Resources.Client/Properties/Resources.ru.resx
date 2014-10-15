@@ -900,9 +900,6 @@
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
     <value>Сообщения по заявке</value>
   </data>
-  <data name="Task" xml:space="preserve">
-    <value>Задача</value>
-  </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
     <value>Вы действительно хотите изменить статус лимита на</value>
   </data>
