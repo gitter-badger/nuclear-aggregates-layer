@@ -77,8 +77,6 @@
     <Compile Include="Concrete\ExecuteHandler.cs" />
     <Compile Include="Concrete\RetrieveMultipleHandler.cs" />
     <Compile Include="Concrete\RollupHandler.cs" />
-    <Compile Include="Concrete\AfterSalePhonecallStateChangedPlugin.cs" />
-    <Compile Include="Concrete\UpdateAndReplicateOpportunityToErmPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PluginRegistration.xml">
