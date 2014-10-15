@@ -203,6 +203,12 @@
       </xs:element>
     </xs:sequence>
 
+    <xs:attribute name="LinkObjectType" type="LinkObjectType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип объекта привязки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
     <xs:attribute name="NomenclatureElementCode" type="xs:long" use="required">
       <xs:annotation>
         <xs:documentation>Код дочернего элемента номенклатуры</xs:documentation>
@@ -212,19 +218,14 @@
   </xs:complexType>
 
   <xs:complexType name="LinkObject">
-    <xs:attribute name="LinkObjectType" type="LinkObjectType" use="optional">
-      <xs:annotation>
-        <xs:documentation>Тип объекта привязки</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
     <xs:attribute name="RubricCode" type="xs:long" use="optional">
       <xs:annotation>
-        <xs:documentation>Код объекта привязки</xs:documentation>
+        <xs:documentation>Код рубрики</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="RubricName" type="xs:string" use="optional">
+    <xs:attribute name="CardCode" type="xs:long" use="optional">
       <xs:annotation>
-        <xs:documentation>Название объекта привязки</xs:documentation>
+        <xs:documentation>Код адреса фирмы</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
