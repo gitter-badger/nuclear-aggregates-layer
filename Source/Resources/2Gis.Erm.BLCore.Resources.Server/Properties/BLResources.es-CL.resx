@@ -5204,9 +5204,9 @@ Periodo de la publicación: {3}.</value>
     <value>No se permite borrar el vínculo principal con la razón social principal mientras existen los demás</value>
   </data>
   <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует активная связь отделения организации {0} с юридическим лицом {1}</value>
+    <value>Actualmente ya existe un vínculo activo de la sucursal de la empresa {0} con la razón social {1}</value>
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
+    <value>Actualmente ya existe un vínculo inactivo de la sucursal de la empresa {0} con la razón social {1}</value>
 </data>
 </root>
