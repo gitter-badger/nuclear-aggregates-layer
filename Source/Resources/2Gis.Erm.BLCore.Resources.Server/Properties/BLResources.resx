@@ -915,9 +915,6 @@
   <data name="Height" xml:space="preserve">
     <value />
   </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value />
-  </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value />
   </data>
@@ -1546,9 +1543,6 @@
     <value />
   </data>
   <data name="EditCurrency" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
     <value />
   </data>
   <data name="DealClosing" xml:space="preserve">
@@ -4728,9 +4722,6 @@
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value />
   </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value />
-  </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value />
   </data>
@@ -4813,9 +4804,6 @@
     <value />
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value />
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
@@ -5188,6 +5176,12 @@
     <value />
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
     <value />
   </data>
 </root>

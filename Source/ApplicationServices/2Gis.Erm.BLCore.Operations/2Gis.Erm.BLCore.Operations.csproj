@@ -549,7 +549,6 @@
     <Compile Include="Generic\Modify\UsingHandler\ModifyProjectUsingHandlerService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifySimplifiedModelEntityUsingHandlerService.cs" />
     <Compile Include="Generic\Old\ValidateOwnerIsNotReserve.cs" />
-    <Compile Include="Generic\OperationSession.cs" />
     <Compile Include="Generic\Qualify\QualifyClientService.cs" />
     <Compile Include="Generic\Qualify\QualifyFirmService.cs" />
     <Compile Include="Generic\Qualify\QualifyGenericEntityService.cs" />

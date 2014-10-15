@@ -915,9 +915,6 @@
   <data name="Height" xml:space="preserve">
     <value>Altura</value>
   </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>La persona jurídica {0} tiene órdenes archivadas o cerradas por ser rechazadas. ¿Ocultar de todas formas?</value>
-  </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>Falta configurar el traspaso de estados de límite para el estado '{0}'</value>
   </data>
@@ -1552,9 +1549,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="EditCurrency" xml:space="preserve">
     <value>Cambiar de moneda</value>
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>No se puede desactivar la persona jurídica del cliente con los datos existentes en el el sofnware contable</value>
   </data>
   <data name="DealClosing" xml:space="preserve">
     <value>Cerrar Transacción</value>
@@ -4742,9 +4736,6 @@ Contacto: {1}</value>
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Extensiones permitidas de archivos</value>
   </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>La persona jurídica a restablecer {0} ya está activa      </value>
-  </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>No se puede cancelar la publicación de la lista de precios cuyas posiciones están enlazadas con órdenes activas</value>
   </data>
@@ -4828,9 +4819,6 @@ Contacto: {1}</value>
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>La categoría Id = [{0}] no contiene nombre</value>
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>No se puede desactivar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
     <value>No se ha encontrado la orden a renovar</value>
@@ -5208,5 +5196,11 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже активна</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже скрыта</value>
+  </data>
 </root>
