@@ -39,15 +39,6 @@
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="microsoft.crm.sdk">
-      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="microsoft.crm.sdktypeproxy">
-      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdktypeproxy.dll</HintPath>
-    </Reference>
-    <Reference Include="microsoft.xrm.client">
-      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
