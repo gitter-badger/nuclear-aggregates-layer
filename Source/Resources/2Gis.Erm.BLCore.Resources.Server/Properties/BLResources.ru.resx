@@ -915,9 +915,6 @@
   <data name="Height" xml:space="preserve">
     <value>Высота</value>
   </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>Юр.лицо {0} имеет архивные или закрытые отказом заказы. Все равно скрыть?</value>
-  </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>Отсутствует конфигурация переходов статусов лимита для статуса '{0}'</value>
   </data>
@@ -1552,9 +1549,6 @@
   </data>
   <data name="EditCurrency" xml:space="preserve">
     <value>Изменить валюту</value>
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>Нельзя дективировать юридическое лицо клиента, данные о котором уже есть в 1С</value>
   </data>
   <data name="DealClosing" xml:space="preserve">
     <value>Закрытие Сделки</value>
@@ -4742,9 +4736,6 @@ Cумма по операции: {5}.
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Допустимые расширения файлов</value>
   </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>Восстанавливаемое юр. лицо {0} уже активно</value>
-  </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>Невозможно отменить опубликование прайс-листа, позиции которого связаны с активными заказами</value>
   </data>
@@ -4828,9 +4819,6 @@ Cумма по операции: {5}.
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>Рубрика Id = [{0}] не содержит названия</value>
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>Нельзя деактивировать юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
     <value>Не найден заказ для продления</value>
@@ -5208,5 +5196,11 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже активна</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже скрыта</value>
+  </data>
 </root>

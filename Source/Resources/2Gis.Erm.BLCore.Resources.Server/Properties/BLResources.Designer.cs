@@ -2637,15 +2637,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CannotDeactivateLegalPersonWithLinkedAccounts {
-            get {
-                return ResourceManager.GetString("CannotDeactivateLegalPersonWithLinkedAccounts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string CannotDeactivateOrgUnitWithChildren {
             get {
                 return ResourceManager.GetString("CannotDeactivateOrgUnitWithChildren", resourceCulture);
@@ -3181,15 +3172,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CantDeactivateDeniedPositionWhenPriceIsPublished {
             get {
                 return ResourceManager.GetString("CantDeactivateDeniedPositionWhenPriceIsPublished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem {
-            get {
-                return ResourceManager.GetString("CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem", resourceCulture);
             }
         }
         
@@ -5050,15 +5032,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DeactivateLegalPersonConfirmation {
-            get {
-                return ResourceManager.GetString("DeactivateLegalPersonConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DeactivateOperationTypeConfirmation {
             get {
                 return ResourceManager.GetString("DeactivateOperationTypeConfirmation", resourceCulture);
@@ -5197,7 +5170,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DealIdOrFirmIdIsNotSpecified {
             get {
                 return ResourceManager.GetString("DealIdOrFirmIdIsNotSpecified", resourceCulture);
-            }
+        }
         }
         
         /// <summary>
@@ -6088,6 +6061,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string EntityDoesNotSupportFileOperations {
             get {
                 return ResourceManager.GetString("EntityDoesNotSupportFileOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EntityIsAlreadyActive {
+            get {
+                return ResourceManager.GetString("EntityIsAlreadyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EntityIsAlreadyInactive {
+            get {
+                return ResourceManager.GetString("EntityIsAlreadyInactive", resourceCulture);
             }
         }
         
@@ -7844,7 +7835,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ItIsNotAllowedToCreateAgentBargains {
             get {
                 return ResourceManager.GetString("ItIsNotAllowedToCreateAgentBargains", resourceCulture);
-            }
+        }
         }
         
         /// <summary>
@@ -8051,15 +8042,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string LegalPersonProfileNameIsNotUnique {
             get {
                 return ResourceManager.GetString("LegalPersonProfileNameIsNotUnique", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string LegalPersonToRestoreIsAlreadyActive {
-            get {
-                return ResourceManager.GetString("LegalPersonToRestoreIsAlreadyActive", resourceCulture);
             }
         }
         

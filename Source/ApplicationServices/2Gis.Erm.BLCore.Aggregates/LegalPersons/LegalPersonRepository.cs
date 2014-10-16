@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity, LegalPerson>())
             {
-                var profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPerson.Id));
+                var profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPerson.Id) && Specs.Find.NotDeleted<LegalPersonProfile>());
                 foreach (var legalPersonProfile in profiles)
                 {
                     legalPersonProfile.IsActive = true;
@@ -421,12 +421,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         {
             var entity = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
             return Activate(entity);
-        }
-
-        int IDeactivateAggregateRepository<LegalPerson>.Deactivate(long entityId)
-        {
-            var entity = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
-            return Deactivate(entity);
         }
 
         void ICheckAggregateForDebtsRepository<LegalPerson>.CheckForDebts(long entityId, long currentUserCode, bool bypassValidation)

@@ -223,6 +223,9 @@
     <Compile Include="Firms\ReadModel\IFirmReadModel.cs" />
     <Compile Include="LegalPersons\DTO\CheckForDublicatesResultDto.cs" />
     <Compile Include="LegalPersons\DTO\LegalPersonDTOs.cs" />
+    <Compile Include="LegalPersons\Operations\IDeleteLegalPersonProfileAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\IDeleteLegalPersonAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\IDeactivateLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\ILegalPersonRepository.cs" />
     <Compile Include="LegalPersons\ReadModel\ILegalPersonReadModel.cs" />
     <Compile Include="LegalPersons\ReadModel\LegalPersonSpecs.LegalPersons.cs" />

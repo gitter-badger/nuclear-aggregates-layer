@@ -2002,4 +2002,7 @@
   <data name="EntityNameLegalPersonDeal" xml:space="preserve">
     <value>Spojení PO s obchodem</value>
   </data>
+  <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
+    <value>Деактивация/активация юр. лица клиента</value>
+  </data>
 </root>
