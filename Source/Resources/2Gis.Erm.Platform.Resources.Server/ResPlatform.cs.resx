@@ -150,4 +150,7 @@
   <data name="UserIdDoesNotHaveTheRightToOperationOnEntity" xml:space="preserve">
     <value>Uživatel id=[{0}] nemá právo {1} na entitu {2}</value>
   </data>
+  <data name="AccessToOperationIsDenied" xml:space="preserve">
+    <value>Доступ на выполнение операции '{0}' запрещен</value>
+  </data>
 </root>

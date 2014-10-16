@@ -252,6 +252,10 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
