@@ -926,7 +926,7 @@
 
         </Fields>
       </DataList>
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListActiveClientsToAppend" >
+      <DataList BasedOn="DListClients" NameLocaleResourceId="DListActiveClientsToAppend" IsHidden="true" >
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
