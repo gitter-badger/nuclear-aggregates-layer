@@ -166,10 +166,10 @@
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Není možné vytvořit objednávku pro typ právnické osoby &apos;{0}&apos; uvedený v profilu</value>
+    <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Právnická osoba typu &apos;{0}&apos; uvedená v profilu nemůže jednat na základě {1}</value>
+    <value>Právnická osoba typu '{0}' uvedená v profilu nemůže jednat na základě {1}</value>
   </data>
   <data name="ContributionTypeIsNotSet" xml:space="preserve">
     <value>Oddělení organizace s ID [{0}] nemá určenou formu spolupráce</value>
@@ -441,5 +441,8 @@
   </data>
   <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
     <value>S tímto klientem spolupracuje následující reklamní agentura:</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
   </data>
 </root>
