@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.Platform.API.Security;
+﻿using System;
+using System.Threading;
+
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
@@ -11,6 +14,7 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.Jobs
     public sealed class ReplicateDocumentsToElasticSearchJob : TaskServiceJobBase, IInterruptableJob
     {
         private readonly IDefferedDocumentUpdater _defferedDocumentUpdater;
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public ReplicateDocumentsToElasticSearchJob(ISignInService signInService, IUserImpersonationService userImpersonationService, ICommonLog logger, IDefferedDocumentUpdater defferedDocumentUpdater)
             : base(signInService, userImpersonationService, logger)
@@ -20,12 +24,16 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.Jobs
 
         protected override void ExecuteInternal(IJobExecutionContext context)
         {
-            _defferedDocumentUpdater.IndexAllDocuments();
+            try
+            {
+                _defferedDocumentUpdater.IndexAllDocuments(_cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException) { }
         }
 
         public void Interrupt()
         {
-            _defferedDocumentUpdater.Interrupt();
+            _cancellationTokenSource.Cancel();
         }
     }
 }

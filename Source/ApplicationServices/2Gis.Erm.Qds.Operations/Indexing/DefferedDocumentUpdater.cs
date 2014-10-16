@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
@@ -20,7 +21,6 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         private readonly ReplicationQueueHelper _replicationQueueHelper;
         private readonly IDocumentUpdater _documentUpdater;
         private readonly IReadOnlyDictionary<Type, IEnumerable<IDocumentPartFeature>> _documentRelations;
-        private bool _interrupted;
 
         public DefferedDocumentUpdater(ICommonLog logger, IElasticManagementApi elasticManagementApi,
                                        ReplicationQueueHelper replicationQueueHelper,
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _documentRelations = metadataProvider.GetDocumentRelationMetadatas();
         }
 
-        public void IndexAllDocuments()
+        public void IndexAllDocuments(CancellationToken cancellationToken)
         {
             var queueItems = GetCleanedQueueItems();
 
@@ -47,26 +47,21 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
             var documentType = IndexMappingMetadata.GetDocumentType(first.Document.DocumentType);
             SaveIndexSettings(first, first, documentType);
-            IndexAllDocumentsWithProgress(first, documentType);
+            IndexAllDocumentsForDocumentType(first, documentType, cancellationToken);
 
             foreach (var queueItem in queueItems.Skip(1))
             {
-                if (_interrupted)
-                {
-                    return;
-                }
-
                 documentType = IndexMappingMetadata.GetDocumentType(queueItem.Document.DocumentType);
                 SaveIndexSettings(first, queueItem, documentType);
                 _replicationQueueHelper.DeleteItem(queueItem);
-                IndexAllDocumentsWithProgress(queueItem, documentType);
+                IndexAllDocumentsForDocumentType(queueItem, documentType, cancellationToken);
             }
 
             RestoreIndexSettings(first);
             _replicationQueueHelper.DeleteItem(first);
         }
 
-        private void IndexAllDocumentsWithProgress(IDocumentWrapper<ReplicationQueue> queueItem, Type documentType)
+        private void IndexAllDocumentsForDocumentType(IDocumentWrapper<ReplicationQueue> queueItem, Type documentType, CancellationToken cancellationToken)
         {
             _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
             var progress = new Progress<ProgressDto>(x =>
@@ -74,14 +69,9 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 queueItem.Document.Progress = string.Format("{0}/{1}", x.Count, x.TotalCount);
                 _replicationQueueHelper.UpdateItem(queueItem);
             });
-            _documentUpdater.IndexAllDocuments(documentType, progress);
-            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
-        }
 
-        public void Interrupt()
-        {
-            _interrupted = true;
-            _documentUpdater.Interrupt();
+            _documentUpdater.IndexAllDocuments(documentType, cancellationToken, progress);
+            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
         }
 
         private IReadOnlyList<IDocumentWrapper<ReplicationQueue>> GetCleanedQueueItems()
