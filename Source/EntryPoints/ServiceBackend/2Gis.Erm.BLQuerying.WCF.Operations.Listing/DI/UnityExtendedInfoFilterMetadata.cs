@@ -128,7 +128,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("ParentsNotDeleted", value => x => !x.OrganizationUnitIsDeleted && !x.BranchOfficeIsDeleted);
-            RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, long>("OrganizationUnitId", value => x => x.OrganizationUnitId == value);
 
             RegisterExtendedInfoFilter<ListCategoryDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListCategoryDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
