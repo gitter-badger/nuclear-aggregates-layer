@@ -348,7 +348,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                             dataView,
                             new window.Ext.Panel({ height: 20, html: '<div class="x-lookup-thumb-bottom"><span style="text-align: center;" id="' + this.name + '_AdditionalLink" class="x-lookup-item">' + Ext.LocalizedResources.FindMoreRecords + '</span><div>' })]
         });
-        window.Ext.get(this.name + '_AdditionalLink').on('click', this.openSearchWin, this);
+        window.Ext.get(this.name + '_AdditionalLink').on('click', this.openSearchHint, this);
 
         this.thumbPanel.on("beforedestroy", function () { window.Ext.get(this.name + '_AdditionalLink').removeAllListeners(); }, this);
     },
@@ -363,13 +363,27 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         else
         {
-            this.openSearchWin();
+            this.openSearchHint();
+        }
+    },
+    openSearchHint: function() {
+        if (this.d1isabled || this.readOnly) {
+            return;
+        }
+
+        if (this.errorMessage === Ext.LocalizedResources.MultipleMatchesFound) {
+            if (this.thumbEl.dom.style.display == "none") {
+                this.thumbEl.fadeIn({ useDisplay: true, duration: 0.5 });
+            } else {
+                this.thumbEl.fadeOut({ useDisplay: true, duration: 0.5 });
+            }
         }
     },
     openSearchWin: function (evt, el)
     {
-        if (this.disabled || this.readOnly)
-        { return; }
+        if (this.d1isabled || this.readOnly) {
+             return;
+        }
 
         if (this.fireEvent("beforequery", this) === false)
         {
@@ -383,13 +397,6 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         else if (this.errorMessage === Ext.LocalizedResources.MultipleMatchesFound)
         {
-            if (!el || el.id !== this.name + '_AdditionalLink')
-            {
-                if (this.thumbEl.dom.style.display == "none")
-                    this.thumbEl.fadeIn({ useDisplay: true, duration: 0.5 });
-                return;
-            }
-
             filter = this.linkItem.dom.innerHTML != Ext.LocalizedResources.MultipleMatchesFound ? this.linkItem.dom.innerHTML : '';
         }
         this.filter.dom.value = "";
