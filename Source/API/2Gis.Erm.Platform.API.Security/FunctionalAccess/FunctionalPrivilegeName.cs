@@ -35,7 +35,7 @@
         FranchiseesWithdrawalExport = 604,
         CreateAfterSalesServiceActivities = 605,
         // FIXME {all, 15.10.2014}: Выпилить эту привилегию из базы после релиза ERM-5100 (ветка $/ERM.BL/Dev/Features/ERM-4827-LegalPersonDeactivation)
-        //DeleteLegalPersonProfile = 606,
+        DeleteLegalPersonProfile = 606,
         LimitRecalculation = 638,
         LimitPeriodChanging = 639,
         CascadeLegalPersonAssign = 640,
