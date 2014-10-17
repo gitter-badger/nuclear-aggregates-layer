@@ -8,16 +8,17 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public abstract class ValidationParams
     {
-        private readonly Guid _token = Guid.NewGuid();
+        private readonly Guid _token;
         private readonly ValidationType _type;
 
-        protected ValidationParams(ValidationType type, IReadOnlyCollection<ValidationType> admissibleValidationTypes)
+        protected ValidationParams(Guid validationToken, ValidationType type, IReadOnlyCollection<ValidationType> admissibleValidationTypes)
         {
             if (!admissibleValidationTypes.Contains(type))
             {
                 throw new ArgumentException("Specified value " + type + " is not in the admissible values list: " + string.Join(";", admissibleValidationTypes));
             }
 
+            _token = validationToken;
             _type = type;
         }
 

@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                 {
                     Finder = SetupFinder();
 
-                    ValidationParams = new MassOrdersValidationParams(ValidationType.PreReleaseBeta);
+                    ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.PreReleaseBeta);
                     Predicate = new OrderValidationPredicate(order => true, order => true, order => true);
 
                     Target = new SelfAdvertisementOrderValidationRule(Finder);

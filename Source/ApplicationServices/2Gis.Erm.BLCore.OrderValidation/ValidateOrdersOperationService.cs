@@ -59,27 +59,33 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         {
             var order = _orderReadModel.GetOrderUnsecure(orderId);
             var currentOrderState = (OrderState)order.WorkflowStepId;
-            var validationParams = new SingleOrderValidationParams(newOrderState == OrderState.NotSet || currentOrderState == OrderState.OnRegistration
-                                                                   ? ValidationType.SingleOrderOnRegistration
-                                                                   : ValidationType.SingleOrderOnStateChanging)
-            {
-                OrderId = orderId,
-                CurrentOrderState = currentOrderState,
-                NewOrderState = newOrderState,
-                Period = new TimePeriod(order.BeginDistributionDate, order.BeginDistributionDate.AddMonths(1).AddSeconds(-1))
-            };
 
-            return Validate(validationParams);
+            var scope = _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>();
+
+            var validationParams = new SingleOrderValidationParams(scope.Id,
+                                                                   newOrderState == OrderState.NotSet || currentOrderState == OrderState.OnRegistration
+                                                                       ? ValidationType.SingleOrderOnRegistration
+                                                                       : ValidationType.SingleOrderOnStateChanging)
+                                       {
+                                           OrderId = orderId,
+                                           CurrentOrderState = currentOrderState,
+                                           NewOrderState = newOrderState,
+                                           Period = new TimePeriod(order.BeginDistributionDate, order.BeginDistributionDate.AddMonths(1).AddSeconds(-1))
+                                       };
+
+            return Validate(validationParams, scope);
         }
 
         ValidationResult IValidateOrdersOperationService.Validate(
             ValidationType validationType, 
             long organizationUnitId, 
             TimePeriod period, 
-            long? ownerCode, 
+            long? ownerCode,
             bool includeOwnerDescendants)
         {
-            var validationParams = new MassOrdersValidationParams(validationType)
+            var scope = _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>();
+
+            var validationParams = new MassOrdersValidationParams(scope.Id, validationType)
             {
                 OrganizationUnitId = organizationUnitId,
                 Period = period,
@@ -87,10 +93,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 IncludeOwnerDescendants = includeOwnerDescendants
             };
 
-            return Validate(validationParams);
+            return Validate(validationParams, scope);
         }
 
-        private ValidationResult Validate(ValidationParams validationParams)
+        private ValidationResult Validate(ValidationParams validationParams, IOperationScope validationOperationScope)
         {
             _useCaseTuner.AlterDuration<ValidateOrdersOperationService>();
 
@@ -98,7 +104,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             
             var resultsContainer = new ValidationResultsContainer();
             var ruleGroupContainers = _orderValidationRuleProvider.GetAppropriateRules(validationParams.Type);
-            using (var scope = _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>())
+            
+            using (validationOperationScope)
             using (var diagnosticSession = _validationDiagnosticSessionFactory.Create())
             {
                 diagnosticSession.Get()[Counters.Sessions.ActiveCount].Increment();
@@ -108,7 +115,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
                 diagnosticSession.Get()[Counters.Sessions.ActiveCount].Decrement();
                 
-                scope.Complete();
+                validationOperationScope.Complete();
             }
 
             return resultsContainer.ToValidationResult();
@@ -313,7 +320,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                                                                             {
                                                                                                 OrderId = x.Key,
                                                                                                 ValidatorId = (int)validatorsGroup.Key,
-                                                                                                ValidVersion = x.Value
+                                                                                                ValidVersion = x.Value,
+                                                                                                OperationId = validationParams.Token
                                                                                             }));
             }
 

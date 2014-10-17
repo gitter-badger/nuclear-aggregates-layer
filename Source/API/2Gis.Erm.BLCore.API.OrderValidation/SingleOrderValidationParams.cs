@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
@@ -6,8 +7,8 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public sealed class SingleOrderValidationParams : ValidationParams
     {
-        public SingleOrderValidationParams(ValidationType type) 
-            : base(type, new[] { ValidationType.SingleOrderOnRegistration, ValidationType.SingleOrderOnStateChanging })
+        public SingleOrderValidationParams(Guid validationToken, ValidationType type)
+            : base(validationToken, type, new[] { ValidationType.SingleOrderOnRegistration, ValidationType.SingleOrderOnStateChanging })
         {
         }
 

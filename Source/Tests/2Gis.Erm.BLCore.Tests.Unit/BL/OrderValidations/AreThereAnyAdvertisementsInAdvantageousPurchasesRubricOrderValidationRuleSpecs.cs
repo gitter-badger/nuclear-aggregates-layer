@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         [Subject(typeof(AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule))]
         class When_validating_with_default_values_as_arguments_by_manual_report_mode : FinderMockContext
         {
-            Establish context = () => ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+            Establish context = () => ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
             It should_be_no_messages = () => Messages.Should().BeEmpty();
         }
@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
                 {
-                    ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+                    ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
                     var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
                     var positionCategory = Orders.Single().OrderPositions.Single().PricePosition.Position.PositionCategory;
@@ -166,7 +166,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new SingleOrderValidationParams(ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
+                ValidationParams = new SingleOrderValidationParams(Guid.NewGuid(), ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
 
                 var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
                 var positionCategory = Orders.Single().OrderPositions.Single().PricePosition.Position.PositionCategory;
@@ -185,7 +185,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+                ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
                 var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
                 var positionCategory = Orders.Single().OrderPositions.Single().PricePosition.Position.PositionCategory;
@@ -206,7 +206,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new SingleOrderValidationParams(ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
+                ValidationParams = new SingleOrderValidationParams(Guid.NewGuid(), ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
 
                 var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
                 var positionCategory = Orders.Single().OrderPositions.Single().PricePosition.Position.PositionCategory;
@@ -227,7 +227,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+                ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
                 var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
                 var positionCategory = Orders.Single().OrderPositions.Single().PricePosition.Position.PositionCategory;
@@ -248,7 +248,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new SingleOrderValidationParams(ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
+                ValidationParams = new SingleOrderValidationParams(Guid.NewGuid(), ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
 
                 var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
                 var positionCategory = Orders.Single().OrderPositions.Single().PricePosition.Position.PositionCategory;
@@ -269,7 +269,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+                ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
                 var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
 
@@ -291,7 +291,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new SingleOrderValidationParams(ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
+                ValidationParams = new SingleOrderValidationParams(Guid.NewGuid(), ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
 
                 var firmAddressCategory = Firms.Single().FirmAddresses.Single().CategoryFirmAddresses.Single().Category;
 

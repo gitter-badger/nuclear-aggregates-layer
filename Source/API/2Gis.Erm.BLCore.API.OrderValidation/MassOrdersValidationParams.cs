@@ -1,11 +1,12 @@
+using System;
 using System.Text;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public sealed class MassOrdersValidationParams : ValidationParams
     {
-        public MassOrdersValidationParams(ValidationType type) 
-            : base(type, new[] { ValidationType.PreReleaseBeta, ValidationType.PreReleaseFinal, ValidationType.ManualReport, ValidationType.ManualReportWithAccountsCheck })
+        public MassOrdersValidationParams(Guid validationToken, ValidationType type)
+            : base(validationToken, type, new[] { ValidationType.PreReleaseBeta, ValidationType.PreReleaseFinal, ValidationType.ManualReport, ValidationType.ManualReportWithAccountsCheck })
         {
         }
 

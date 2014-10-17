@@ -134,7 +134,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         [Subject(typeof(IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule))]
         class When_validating_with_default_values_as_arguments_by_manual_report_mode : FinderMockContext
         {
-            Establish context = () => ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+            Establish context = () => ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
             It should_be_no_messages = () => Messages.Should().BeEmpty();
         }
@@ -143,7 +143,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         [Subject(typeof(IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule))]
         class When_validating_with_default_values_as_arguments_by_single_order_on_registration_mode : FinderMockContext
         {
-            Establish context = () => ValidationParams = new SingleOrderValidationParams(ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
+            Establish context = () => ValidationParams = new SingleOrderValidationParams(Guid.NewGuid(), ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
 
             It should_be_no_messages = () => Messages.Should().BeEmpty();
         }
@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
                 {
-                    ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+                    ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
                     var orderPositionAdvertisement = Orders.Single().OrderPositions.Single().OrderPositionAdvertisements.Single();
                     
@@ -171,7 +171,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new SingleOrderValidationParams(ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
+                ValidationParams = new SingleOrderValidationParams(Guid.NewGuid(), ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
 
                 var orderPositionAdvertisement = Orders.Single().OrderPositions.Single().OrderPositionAdvertisements.Single();
 
@@ -188,7 +188,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new MassOrdersValidationParams(ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
+                ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.ManualReport) { OrganizationUnitId = TargetOrganizationUnitId };
 
                 var orderPositionAdvertisement = Orders.Single().OrderPositions.Single().OrderPositionAdvertisements.Single();
 
@@ -209,7 +209,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
         {
             Establish context = () =>
             {
-                ValidationParams = new SingleOrderValidationParams(ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
+                ValidationParams = new SingleOrderValidationParams(Guid.NewGuid(), ValidationType.SingleOrderOnRegistration) { OrderId = TargetOrderId };
 
                 var orderPositionAdvertisement = Orders.Single().OrderPositions.Single().OrderPositionAdvertisements.Single();
 
