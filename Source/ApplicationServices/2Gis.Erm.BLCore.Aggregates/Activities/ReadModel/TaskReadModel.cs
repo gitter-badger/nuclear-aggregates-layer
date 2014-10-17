@@ -40,7 +40,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                 select reference.SourceEntityId
                 ).ToArray();
 
-            return _finder.FindMany(Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).Any();
+            return _finder.FindMany(
+                Specs.Find.Active<Task>()
+                & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) 
+                & Specs.Find.ByIds<Task>(ids)).Any();
         }
 
         public IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId)

@@ -45,7 +45,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                 select reference.SourceEntityId
                 ).ToArray();
 
-            return _finder.FindMany(Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Appointment>(ids)).Any();
+            return _finder.FindMany(
+                Specs.Find.Active<Appointment>()
+                & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) 
+                & Specs.Find.ByIds<Appointment>(ids)).Any();
         }
 
         public IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId)

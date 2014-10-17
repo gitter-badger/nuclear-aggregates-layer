@@ -45,7 +45,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                 select reference.SourceEntityId
                 ).ToArray();
 
-            return _finder.FindMany(Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Phonecall>(ids)).Any();
+            return _finder.FindMany(
+                Specs.Find.Active<Phonecall>()
+                & Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) 
+                & Specs.Find.ByIds<Phonecall>(ids)).Any();
         }
 
         public IEnumerable<Phonecall> LookupPhonecallsRegarding(EntityName entityName, long entityId)
