@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     AccountCode = x.AccountCode,
                     ProfileCode = x.ProfileCode,
                     Amount = GetAccountDetailAmount(x),
-                    SignedOnDate = x.OrderSignupDateUtc,
+                    SignupDate = x.OrderSignupDateUtc,
                     ClientOrderNumber = x.ClientOrderNumber,
                     OrderType = x.OrderType,
                     OrderNumber = x.OrderNumber,
