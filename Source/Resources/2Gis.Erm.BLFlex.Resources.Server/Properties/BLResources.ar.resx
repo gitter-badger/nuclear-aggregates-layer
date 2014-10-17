@@ -143,10 +143,10 @@ Bank Name: {7}
 {8}</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
-    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Quotation to the following effect:</value>
+    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and {4}, hereinafter referred to as "Customer", represented by {5} {6}, acting on the basis of {7}, on the other hand, have signed the present Quotation to the following effect:</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph1" xml:space="preserve">
-    <value>{0}, hereinafter referred to as &quot;Contractor&quot;, represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as &quot;Customer&quot;, represented by {5}, on the other hand, have signed the present Quotation to the following effect:</value>
+    <value>{0}, hereinafter referred to as "Contractor", represented by {1} {2}, acting on the basis of {3}, on the one hand, and citizen {4}, hereinafter referred to as "Customer", represented by {5}, on the other hand, have signed the present Quotation to the following effect:</value>
   </data>
   <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
     <value>Total discount: {0} - {1} ({2}).
@@ -156,18 +156,18 @@ Bank Name: {7}
     <value>Internet-sites and Web-applications specified in Price-list as of date of advertisement placement</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Mass media: &quot;{0}&quot; (PC and mobile versions). Mass media issues from No. {2} to No. {3}.
+    <value>1. Mass media: "{0}" (PC and mobile versions). Mass media issues from No. {2} to No. {3}.
 2. Internet-site 2gis.ae.
 3. Internet-sites and Web-applications specified in Price-list as of date of advertisement placement.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Mass media: &quot;{0}&quot; (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (mobile version for Android, Windows Mobile, Symbian OS, iPhone). Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Internet-site at 2gis.ae</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Mass media: &quot;{0}&quot; (PC version). Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
+    <value>Mass media: "{0}" (PC version). Mass media issues from No. {2} to No. {3}. Issue period: from {4} to {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>7.</value>
@@ -177,10 +177,10 @@ Bank Name: {7}
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Cannot create an Quotation for legal entity of the type &apos;{0}&apos; specified in the profile</value>
+    <value>Cannot create an Quotation for legal entity of the type '{0}' specified in the profile</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Legal entities of the type &apos;{0}&apos; specified in the profile cannot act act on the basis of {1}</value>
+    <value>Legal entities of the type '{0}' specified in the profile cannot act act on the basis of {1}</value>
   </data>
   <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>Legal entity of the contractor is not specified in the order. Cannot select a printed form.</value>
@@ -297,7 +297,7 @@ Bank Name: {7}
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
-    <value>The Customer&apos;s legal entity with the specified T.I.C. already exists</value>
+    <value>The Customer's legal entity with the specified T.I.C. already exists</value>
   </data>
   <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
     <value>The deleted legal entity of the Customer with the specified T.I.C. exists </value>
@@ -360,7 +360,7 @@ Bank Name: {7}
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
-    <value>Client&apos;s legal entity with the specified commercial license number already exists</value>
+    <value>Client's legal entity with the specified commercial license number already exists</value>
   </data>
   <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
     <value>A deleted legal entity of the Client with the specified commercial license number exists</value>
@@ -452,5 +452,8 @@ Bank Name: {7}
   </data>
   <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
     <value>Creation of regional orders is not supported</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
   </data>
 </root>

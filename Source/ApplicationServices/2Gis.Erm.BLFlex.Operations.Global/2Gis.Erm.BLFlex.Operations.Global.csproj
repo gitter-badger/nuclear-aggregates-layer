@@ -139,6 +139,7 @@
     <Compile Include="Cyprus\Generic\OrderPrintFormDataExtractor.cs" />
     <Compile Include="Czech\Generic\IOrderPrintFormDataExtractor.cs" />
     <Compile Include="Czech\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonOperationService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetClientDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\GetFirmAddressDtoService.cs" />
     <Compile Include="MultiCulture\Generic\Get\MultiCultureGetBargainTypeDtoService.cs" />
@@ -236,7 +237,6 @@
     <Compile Include="MultiCulture\Concrete\Old\Orders\Number\OrderNumberGenerationStrategies.cs" />
     <Compile Include="MultiCulture\Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonProfileService.cs" />
-    <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonService.cs" />
     <Compile Include="MultiCulture\Generic\List\MultiCultureListBranchOfficeService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\ModifyBranchOfficeService.cs" />
     <Compile Include="MultiCulture\Generic\Modify\NullBranchOfficeOrganizationUnitValidator.cs" />
