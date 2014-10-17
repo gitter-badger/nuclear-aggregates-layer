@@ -6,6 +6,8 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Validation;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Performance.Counters;
+using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
@@ -25,6 +27,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly IAttachValidResultToCacheAggregateService _attachValidResultToCacheAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IOrderValidationDiagnosticSessionFactory _validationDiagnosticSessionFactory;
         private readonly ICommonLog _logger;
 
         public ValidateOrdersOperationService(
@@ -34,6 +37,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             IAttachValidResultToCacheAggregateService attachValidResultToCacheAggregateService,
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
+            IOrderValidationDiagnosticSessionFactory validationDiagnosticSessionFactory,
             ICommonLog logger)
         {
             _orderReadModel = orderReadModel;
@@ -42,6 +46,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             _attachValidResultToCacheAggregateService = attachValidResultToCacheAggregateService;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
+            _validationDiagnosticSessionFactory = validationDiagnosticSessionFactory;
             _logger = logger;
         }
 
@@ -94,9 +99,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             var resultsContainer = new ValidationResultsContainer();
             var ruleGroupContainers = _orderValidationRuleProvider.GetAppropriateRules(validationParams.Type);
             using (var scope = _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>())
+            using (var diagnosticSession = _validationDiagnosticSessionFactory.Create())
             {
+                diagnosticSession.Get()[Counters.Sessions.ActiveCount].Increment();
+
                 ValidateOrders(validationParams, ruleGroupContainers, resultsContainer);
                 AttachResultsToCache(validationParams, ruleGroupContainers, resultsContainer);
+
+                diagnosticSession.Get()[Counters.Sessions.ActiveCount].Decrement();
                 
                 scope.Complete();
             }
