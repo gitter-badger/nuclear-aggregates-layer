@@ -348,7 +348,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
                             dataView,
                             new window.Ext.Panel({ height: 20, html: '<div class="x-lookup-thumb-bottom"><span style="text-align: center;" id="' + this.name + '_AdditionalLink" class="x-lookup-item">' + Ext.LocalizedResources.FindMoreRecords + '</span><div>' })]
         });
-        window.Ext.get(this.name + '_AdditionalLink').on('click', this.openSearchHint, this);
+        window.Ext.get(this.name + '_AdditionalLink').on('click', this.openSearchWin, this);
 
         this.thumbPanel.on("beforedestroy", function () { window.Ext.get(this.name + '_AdditionalLink').removeAllListeners(); }, this);
     },
