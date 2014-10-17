@@ -19,6 +19,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long OrderId { get; set; }
         public int ValidatorId { get; set; }
         public byte[] ValidVersion { get; set; }
+        public System.Guid OperationId { get; set; }
     
     
     	override public int GetHashCode()
