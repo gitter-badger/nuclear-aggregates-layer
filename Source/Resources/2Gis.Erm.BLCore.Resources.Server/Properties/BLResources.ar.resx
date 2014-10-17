@@ -915,9 +915,6 @@
   <data name="Height" xml:space="preserve">
     <value>Height</value>
   </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>The legal entity {0} has orders that are archived or closed as rejected. Still hide?</value>
-  </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>No configuration of limit status transfer for the status '{0}'</value>
   </data>
@@ -1551,9 +1548,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   </data>
   <data name="EditCurrency" xml:space="preserve">
     <value>Change currency</value>
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>You cannot deactivate client's legal entity whose data is already present in 1C</value>
   </data>
   <data name="DealClosing" xml:space="preserve">
     <value>Deal closure</value>
@@ -4741,9 +4735,6 @@ Contact: {1}</value>
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Permitted file extensions</value>
   </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>The restored legal entity {0} is already active</value>
-  </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>Publication of a price list whose items are linked with active orders cannot be canceled</value>
   </data>
@@ -4827,9 +4818,6 @@ Contact: {1}</value>
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>Category Id = [{0}] does not contain a name</value>
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>A customer's legal entity that has linked personal accounts cannot be deactivated</value>
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
     <value>No order is found for extension</value>
@@ -5205,4 +5193,10 @@ Placement period: {3}.</value>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>An inactive link between the company branch {0} and legal entity {1) already exists</value>
 </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже активна</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже скрыта</value>
+  </data>
 </root>

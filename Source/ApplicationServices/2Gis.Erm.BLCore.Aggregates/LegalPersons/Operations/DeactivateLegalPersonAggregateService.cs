@@ -8,13 +8,13 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
 {
-    public class DeleteLegalPersonAggregateService : IDeleteLegalPersonAggregateService
+    public class DeactivateLegalPersonAggregateService : IDeactivateLegalPersonAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<LegalPerson> _legalPersonSecureRepository;
         private readonly ISecureRepository<LegalPersonProfile> _legalPersonProfileSecureRepository;
 
-        public DeleteLegalPersonAggregateService(
+        public DeactivateLegalPersonAggregateService(
             IOperationScopeFactory operationScopeFactory,
             ISecureRepository<LegalPerson> legalPersonSecureRepository,
             ISecureRepository<LegalPersonProfile> legalPersonProfileSecureRepository)
@@ -24,22 +24,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
             _legalPersonProfileSecureRepository = legalPersonProfileSecureRepository;
         }
 
-        public void Delete(LegalPerson legalPerson, IEnumerable<LegalPersonProfile> profiles)
+        public void Deactivate(LegalPerson legalPerson, IEnumerable<LegalPersonProfile> profiles)
         {
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, LegalPerson>())
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, LegalPerson>())
             {
                 foreach (var profile in profiles)
                 {
-                    _legalPersonProfileSecureRepository.Delete(profile);
-                    operationScope.Deleted(profile);
+                    profile.IsActive = false;
+                    _legalPersonProfileSecureRepository.Update(profile);
+                    operationScope.Updated(profile);
                 }
 
                 _legalPersonProfileSecureRepository.Save();
 
-                _legalPersonSecureRepository.Delete(legalPerson);
+                legalPerson.IsActive = false;
+                _legalPersonSecureRepository.Update(legalPerson);
                 _legalPersonSecureRepository.Save();
 
-                operationScope.Deleted(legalPerson);
+                operationScope.Updated(legalPerson);
                 operationScope.Complete();
             }
         }
