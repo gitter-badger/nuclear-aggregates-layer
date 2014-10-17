@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions
 {
-    public sealed partial class PerformanceCounterOrderValidationDiagnosticSession : IOrderValidationDiagnosticSession
+    public sealed partial class PerformanceCounterOrderValidationDiagnosticStorage : IOrderValidationDiagnosticStorage
     {
         private readonly CounterSet<Counters.Counters.Sessions> _sessionsCounterSet = new CounterSet<Counters.Counters.Sessions>();
         private readonly CounterSet<Counters.Counters.RuleGroups> _ruleGroupsCounterSet = new CounterSet<Counters.Counters.RuleGroups>();
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions
         private readonly Dictionary<OrderValidationRuleGroup, CounterSetInstance<Counters.Counters.RuleGroups>> _ruleGroupsCounterSetInstances;
         private readonly Dictionary<Type, CounterSetInstance<Counters.Counters.Rules>> _rulesCounterSetInstances;
 
-        public PerformanceCounterOrderValidationDiagnosticSession(IMetadataProvider metadataProvider)
+        public PerformanceCounterOrderValidationDiagnosticStorage(IMetadataProvider metadataProvider)
         {
             _sessionsCounterSetInstance = _sessionsCounterSet.CreateInstance("Default");
 
@@ -41,19 +41,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions
                                                                   m => _rulesCounterSet.CreateInstance(m.RuleType.Name));
         }
 
-        public CounterSetInstance<Counters.Counters.Sessions> Get()
+        CounterSetInstance<Counters.Counters.Sessions> IOrderValidationDiagnosticStorage.Session
         {
-            throw new NotImplementedException();
+            get { return _sessionsCounterSetInstance; }
         }
 
-        public CounterSetInstance<Counters.Counters.RuleGroups> Get(OrderValidationRuleGroup ruleGroup)
+        CounterSetInstance<Counters.Counters.RuleGroups> IOrderValidationDiagnosticStorage.this[OrderValidationRuleGroup ruleGroup]
         {
-            throw new NotImplementedException();
+            get { return _ruleGroupsCounterSetInstances[ruleGroup]; }
         }
 
-        public CounterSetInstance<Counters.Counters.Rules> Get(Type ruleType)
+        CounterSetInstance<Counters.Counters.Rules> IOrderValidationDiagnosticStorage.this[Type ruleType]
         {
-            throw new NotImplementedException();
+            get { return _rulesCounterSetInstances[ruleType]; }
         }
     }
 }

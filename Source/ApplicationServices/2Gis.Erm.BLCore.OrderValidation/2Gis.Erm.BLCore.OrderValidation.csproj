@@ -75,11 +75,9 @@
     <Compile Include="Performance\Counters\Counters.Rule.cs" />
     <Compile Include="Performance\Counters\Counters.RuleGroup.cs" />
     <Compile Include="Performance\Counters\Counters.Session.cs" />
-    <Compile Include="Performance\Sessions\IOrderValidationDiagnosticSession.cs" />
-    <Compile Include="Performance\Sessions\IOrderValidationDiagnosticSessionFactory.cs" />
-    <Compile Include="Performance\Sessions\OrderValidationDiagnosticSessionFactory.cs" />
-    <Compile Include="Performance\Sessions\PerformanceCounterOrderValidationDiagnosticSession.Dispose.cs" />
-    <Compile Include="Performance\Sessions\PerformanceCounterOrderValidationDiagnosticSession.cs" />
+    <Compile Include="Performance\Sessions\IOrderValidationDiagnosticStorage.cs" />
+    <Compile Include="Performance\Sessions\PerformanceCounterOrderValidationDiagnosticStorage.Dispose.cs" />
+    <Compile Include="Performance\Sessions\PerformanceCounterOrderValidationDiagnosticStorage.cs" />
     <Compile Include="Rules\Contexts\BrowsableResultsValidationRuleContext.cs" />
     <Compile Include="Rules\Contexts\HybridParamsValidationRuleContext.cs" />
     <Compile Include="Rules\Contexts\IValidationRuleContext.cs" />

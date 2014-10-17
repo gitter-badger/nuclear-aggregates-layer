@@ -1,6 +1,6 @@
 ﻿namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions
 {
-    public sealed partial class PerformanceCounterOrderValidationDiagnosticSession
+    public sealed partial class PerformanceCounterOrderValidationDiagnosticStorage
     {
         private readonly object _disposeSync = new object();
 
