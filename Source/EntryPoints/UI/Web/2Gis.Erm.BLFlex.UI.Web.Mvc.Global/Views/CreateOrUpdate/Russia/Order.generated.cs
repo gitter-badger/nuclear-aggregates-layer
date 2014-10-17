@@ -618,7 +618,7 @@ WriteLiteral("            ");
 
             
             #line 104 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "OrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
+       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "SourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
 
             
             #line default
@@ -1161,14 +1161,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14935), Tuple.Create("\"", 14974)
+WriteAttribute("title", Tuple.Create(" title=\"", 14941), Tuple.Create("\"", 14980)
             
             #line 245 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 14943), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14949), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14943), false)
+, 14949), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1363,14 +1363,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17498), Tuple.Create("\"", 17541)
+WriteAttribute("title", Tuple.Create(" title=\"", 17504), Tuple.Create("\"", 17547)
             
             #line 277 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 17506), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17512), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17506), false)
+, 17512), false)
 );
 
 WriteLiteral(">\r\n");
