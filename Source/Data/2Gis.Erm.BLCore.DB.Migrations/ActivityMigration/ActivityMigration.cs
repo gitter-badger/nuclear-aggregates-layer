@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using CrmUserMetadata = Metadata.Crm.User;
     using ErmEntityName = Metadata.Erm.EntityName;
 
-    public abstract class ActivityMigration<TActivity> : IContextedMigration<IActivityMigrationContext>, INonDefaultDatabaseMigration
+    public abstract class ActivityMigration<TActivity> : IContextedMigration<IActivityMigrationContext>, INonDefaultDatabaseMigration where TActivity : class
     {
         private const int PageSize = 1000;
         private const int SqlBulkSizeDefault = 10000;
@@ -109,6 +109,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     try
                     {
                         var activity = ParseActivity(context, entity);
+                        if (activity == null)
+                        {
+                            var key = entity.Properties.OfType<KeyProperty>().Select(x => x.Value).FirstOrDefault();
+                            TraceInfo("{0} '{1}' was skipped.", typeof(TActivity).Name, context.Parse<Guid>(key));
+                            continue;
+                        }
 
                         sqlCache.AppendLine(BuildSql(activity));
 

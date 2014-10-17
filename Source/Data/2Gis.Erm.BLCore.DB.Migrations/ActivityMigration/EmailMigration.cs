@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Net;
+using System.Text;
 
 using DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Extensions;
 using DoubleGis.Erm.Platform.Migration.Core;
@@ -18,8 +20,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using ErmEmailStatus = Metadata.Erm.ActivityStatus;
 
     [Migration(23489, "Migrates the emails as letters from CRM to ERM.", "s.pomadin")]
-    public sealed class EmailMigration : LetterMigration
+    public sealed class EmailMigration : LetterMigrationBase
     {
+        private readonly static CultureInfo RussianCulture = CultureInfo.GetCultureInfo("ru-RU");
+
         internal override QueryExpression CreateQuery()
         {
             var query = new QueryExpression
@@ -57,6 +61,12 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
             if (entity.Name != CrmEntityName.email.ToString())
                 throw new ArgumentException("The specified entity is not a fax.", "entity");
 
+            var subject = context.Parse<string>(entity.Value(CrmEmailMetadata.Subject));
+            if (subject != null && subject.StartsWith("Вам назначена задача:", true, RussianCulture))
+            {
+                return null;
+            }
+
             var description = context.Parse<string>(entity.Value(CrmEmailMetadata.Description));
             if (description != null && description.Contains("<HTML>"))
             {
@@ -74,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                 ModifiedBy = context.Parse<long>(entity.Value(CrmEmailMetadata.ModifiedBy)),
                 ModifiedOn = context.Parse<DateTime>(entity.Value(CrmEmailMetadata.ModifiedOn)),
                 OwnerId = context.Parse<long?>(entity.Value(CrmEmailMetadata.OwnerId)),
-                Subject = context.Parse<string>(entity.Value(CrmEmailMetadata.Subject)),
+                Subject = subject,
                 Description = StripHtml(description),
                 Priority = context.Parse<int>(entity.Value(CrmEmailMetadata.PriorityCode)).Map(ToPriority),
                 Status = context.Parse<CrmEmailState>(entity.Value(CrmEmailMetadata.StateCode)).Map(ToStatus),
@@ -138,7 +148,50 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
 
         private static string StripHtml(string html)
         {
-            return string.IsNullOrWhiteSpace(html) ? html : Regex.Replace(html, @"<[^>]+>|&nbsp;", "");
+            var text = new StringBuilder();
+            var specials = new StringBuilder();
+
+            Func<StringBuilder, bool> isCommentStarted = tag => tag.Length >= 4
+                                                                && tag[0] == '<'
+                                                                && tag[1] == '!'
+                                                                && tag[2] == '-'
+                                                                && tag[3] == '-';
+
+            Func<StringBuilder, bool> isCommentEnded = tag => isCommentStarted(tag)
+                                                              && tag.Length >= 7
+                                                              && tag[specials.Length - 3] == '-'
+                                                              && tag[specials.Length - 2] == '-'
+                                                              && tag[specials.Length - 1] == '>';
+
+            foreach (var ch in html)
+            {
+                switch (ch)
+                {
+                    case '<':
+                        specials.Append(ch);
+                        continue;
+                    case '>':
+                        specials.Append(ch);
+
+                        if (!isCommentStarted(specials) && String.Compare(specials.ToString(), "</p>", StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            text.AppendLine();
+                        }
+
+                        if (!isCommentStarted(specials) || isCommentEnded(specials))
+                        {
+                            specials.Clear();
+                        }
+                        continue;
+                }
+
+                if (specials.Length > 0)
+                    specials.Append(ch);
+                else
+                    text.Append(ch);
+            }
+
+            return WebUtility.HtmlDecode(text.ToString());
         }
     }
 }
