@@ -180,7 +180,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             const string MappingScope = Mapping.Erm;
 
             return container
-                        .RegisterType<IOrderValidationDiagnosticSessionFactory, OrderValidationDiagnosticSessionFactory>(Lifetime.Singleton)
+                        .RegisterType<IOrderValidationDiagnosticStorage, PerformanceCounterOrderValidationDiagnosticStorage>(Lifetime.Singleton)
                         .RegisterType<IOrderValidationRuleProvider, OrderValidationRuleProvider>(Lifetime.Singleton)
                         .RegisterType<IOrderValidationRuleFactory, UnityOrderValidationRuleFactory>(Lifetime.Singleton)
                         .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(CustomLifetime.PerOperationContext, MappingScope)
