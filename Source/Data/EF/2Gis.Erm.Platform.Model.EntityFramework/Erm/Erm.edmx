@@ -11,14 +11,6 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
@@ -30,6 +22,14 @@
           <Property Name="Location" Type="nvarchar" MaxLength="256" />
           <Property Name="Purpose" Type="int" Nullable="false" />
           <Property Name="AfterSaleType" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="AppointmentReferences">
           <Key>
@@ -49,14 +49,6 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
@@ -68,6 +60,14 @@
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="200" />
           <Property Name="Purpose" Type="int" Nullable="false" />
           <Property Name="AfterSaleType" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="PhonecallReferences">
           <Key>
@@ -87,14 +87,6 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
@@ -103,6 +95,14 @@
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="TaskType" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskReferences">
           <Key>
@@ -1129,10 +1129,12 @@
             <PropertyRef Name="OrderId" />
             <PropertyRef Name="ValidatorId" />
             <PropertyRef Name="ValidVersion" />
+            <PropertyRef Name="OperationId" />
           </Key>
           <Property Name="OrderId" Type="bigint" Nullable="false" />
           <Property Name="ValidatorId" Type="int" Nullable="false" />
           <Property Name="ValidVersion" Type="binary" MaxLength="8" Nullable="false" />
+          <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="OrganizationUnits">
           <Key>
@@ -2131,12 +2133,12 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Operation" Type="int" Nullable="false" />
+          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
           <Property Name="Descriptor" Type="int" Nullable="false" />
           <Property Name="Context" Type="xml" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="Parent" Type="bigint" />
           <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
         </EntityType>
         <EntityType Name="PerformedOperationFinalProcessings">
           <Key>
@@ -8822,10 +8824,12 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <PropertyRef Name="ValidatorId" />
             <PropertyRef Name="ValidVersion" />
             <PropertyRef Name="OrderId" />
+            <PropertyRef Name="OperationId" />
         </Key>
         <Property Type="Int64" Name="OrderId" Nullable="false" />
           <Property Name="ValidatorId" Type="Int32" Nullable="false" />
           <Property Name="ValidVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" />
+          <Property Name="OperationId" Type="Guid" Nullable="false" />
       </EntityType>
       <Association Name="FK_OrderValidationResults_Orders">
         <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
@@ -11868,7 +11872,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="OrderValidationResults">
           <EntityTypeMapping TypeName="ErmModel.OrderValidationResult">
             <MappingFragment StoreEntitySet="OrderValidationResults">
-              <ScalarProperty Name="ValidVersion" ColumnName="ValidVersion" />
+              <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+                <ScalarProperty Name="ValidVersion" ColumnName="ValidVersion" />
                 <ScalarProperty Name="ValidatorId" ColumnName="ValidatorId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
             </MappingFragment>
