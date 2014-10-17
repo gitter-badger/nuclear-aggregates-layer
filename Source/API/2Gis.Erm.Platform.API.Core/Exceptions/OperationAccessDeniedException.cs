@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.API.Core.Exceptions
 {
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
                 throw new ArgumentNullException("operation");
             }
 
-            return string.Format("Доступ на выполнение операции '{0}' запрещен", operation.Description);
+            return string.Format(ResPlatform.AccessToOperationIsDenied, operation.Description);
         }
     }
 }
