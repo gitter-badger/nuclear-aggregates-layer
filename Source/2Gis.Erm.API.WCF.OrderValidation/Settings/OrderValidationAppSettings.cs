@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.Settings
             Aspects
                .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
                .Use(new OrderValidationSettingsAspect(AssociatedDeniedPositionsDescriptionsAccessor.GetPricePositionDescriptions()))
-               .Use<OrderValidationRulesSettingsAspect>()
+               .Use<OrderValidationCachingSettingsAspect>()
                .Use<CachingSettingsAspect>()
                .Use<OperationLoggingSettingsAspect>()
                .IfRequiredUseOperationLogging2ServiceBus()
