@@ -1131,7 +1131,6 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="OrderId" Type="bigint" Nullable="false" />
           <Property Name="OrderValidationGroupId" Type="bigint" Nullable="false" />
-          <Property Name="OrderValidationType" Type="int" Nullable="false" />
           <Property Name="IsValid" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OrganizationUnits">
@@ -8859,7 +8858,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int64" Name="OrderId" Nullable="false" />
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="OrderValidationGroupId" Type="Int64" Nullable="false" />
-          <Property Name="OrderValidationType" Type="Int32" Nullable="false" />
           <Property Name="IsValid" Type="Boolean" Nullable="false" />
       </EntityType>
       <Association Name="FK_OrderValidationResults_Orders">
@@ -11920,7 +11918,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntityTypeMapping TypeName="ErmModel.OrderValidationResult">
             <MappingFragment StoreEntitySet="OrderValidationResults">
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="OrderValidationType" ColumnName="OrderValidationType" />
                 <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />

@@ -20,7 +20,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long OrderId { get; set; }
         public long Id { get; set; }
         public long OrderValidationGroupId { get; set; }
-        public int OrderValidationType { get; set; }
         public bool IsValid { get; set; }
     
     	public override bool Equals(object obj)
