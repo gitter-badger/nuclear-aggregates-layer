@@ -116,6 +116,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(OrderProcessingRequestMessage),
     		typeof(OrderReleaseTotal),
     		typeof(OrdersRegionalAdvertisingSharing),
+    		typeof(OrderValidationCacheEntry),
     		typeof(OrderValidationResult),
     		typeof(OrganizationUnit),
     		typeof(PerformedBusinessOperation),

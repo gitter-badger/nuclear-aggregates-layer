@@ -14,17 +14,44 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed partial class OrderValidationResult : 
-        IEntity
+        IEntity, 
+        IEntityKey
     {
         public long OrderId { get; set; }
-        public int ValidatorId { get; set; }
-        public byte[] ValidVersion { get; set; }
-        public System.Guid OperationId { get; set; }
+        public long Id { get; set; }
+        public long OrderValidationGroupId { get; set; }
+        public int OrderValidationType { get; set; }
+        public bool IsValid { get; set; }
     
+    	public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+    
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+    
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+    
+    		var entityKey = obj as IEntityKey;
+    		if (entityKey != null)
+    		{
+    			return Id == entityKey.Id;
+    		}
+    		
+    		return false;
+        }
     
     	override public int GetHashCode()
     	{
-    		return base.GetHashCode();
+    		return Id.GetHashCode();
     	}
     }
 }

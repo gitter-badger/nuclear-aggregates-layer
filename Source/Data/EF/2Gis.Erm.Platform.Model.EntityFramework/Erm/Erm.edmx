@@ -1126,15 +1126,13 @@
         </EntityType>
         <EntityType Name="OrderValidationResults">
           <Key>
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="ValidatorId" />
-            <PropertyRef Name="ValidVersion" />
-            <PropertyRef Name="OperationId" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="OrderId" Type="bigint" Nullable="false" />
-          <Property Name="ValidatorId" Type="int" Nullable="false" />
-          <Property Name="ValidVersion" Type="binary" MaxLength="8" Nullable="false" />
-          <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrderValidationGroupId" Type="bigint" Nullable="false" />
+          <Property Name="OrderValidationType" Type="int" Nullable="false" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OrganizationUnits">
           <Key>
@@ -2125,6 +2123,18 @@
           <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderValidationCacheEntries">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ValidatorId" />
+            <PropertyRef Name="ValidVersion" />
+            <PropertyRef Name="OperationId" />
+          </Key>
+          <Property Name="OrderId" Type="bigint" Nullable="false" />
+          <Property Name="ValidatorId" Type="int" Nullable="false" />
+          <Property Name="ValidVersion" Type="binary" MaxLength="8" Nullable="false" />
+          <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="PerformedBusinessOperations">
           <Key>
@@ -3674,6 +3684,18 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderValidationResults_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderValidationResults" Type="Self.OrderValidationResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderValidationResults">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrganizationUnits_Countries">
           <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
           <End Role="OrganizationUnits" Type="Self.OrganizationUnits" Multiplicity="*" />
@@ -4308,6 +4330,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="NotificationEmailsTo" EntityType="Self.NotificationEmailsTo" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="NotificationProcessings" EntityType="Self.NotificationProcessings" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="Operations" EntityType="Self.Operations" Schema="Shared" store:Type="Tables" />
+          <EntitySet Name="OrderValidationCacheEntries" EntityType="Self.OrderValidationCacheEntries" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="PerformedBusinessOperations" EntityType="Self.PerformedBusinessOperations" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="PerformedOperationFinalProcessings" EntityType="Self.PerformedOperationFinalProcessings" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="PerformedOperationPrimaryProcessings" EntityType="Self.PerformedOperationPrimaryProcessings" Schema="Shared" store:Type="Tables" />
@@ -4825,6 +4848,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings" Association="Self.FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings">
             <End Role="RegionalAdvertisingSharings" EntitySet="RegionalAdvertisingSharings" />
             <End Role="OrdersRegionalAdvertisingSharings" EntitySet="OrdersRegionalAdvertisingSharings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderValidationResults_Orders" Association="Self.FK_OrderValidationResults_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderValidationResults" EntitySet="OrderValidationResults" />
           </AssociationSet>
           <AssociationSet Name="FK_OrganizationUnits_Countries" Association="Self.FK_OrganizationUnits_Countries">
             <End Role="Countries" EntitySet="Countries" />
@@ -5846,6 +5873,11 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_LegalPersonDeals_LegalPersons" Association="ErmModel.FK_LegalPersonDeals_LegalPersons">
             <End Role="LegalPerson" EntitySet="LegalPersons" />
             <End Role="LegalPersonDeal" EntitySet="LegalPersonDeals" />
+          </AssociationSet>
+          <EntitySet Name="OrderValidationCacheEntries" EntityType="ErmModel.OrderValidationCacheEntry" />
+          <AssociationSet Name="OrderOrderValidationCacheEntry" Association="ErmModel.OrderOrderValidationCacheEntry">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderValidationCacheEntry" EntitySet="OrderValidationCacheEntries" />
           </AssociationSet>
       </EntityContainer>
       <EntityType Name="CurrencyRate">
@@ -7706,6 +7738,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int32" Name="PaymentMethod" Nullable="false" />
           <NavigationProperty Name="BaseOrderProcessingRequests" Relationship="ErmModel.FK_OrderProcessingRequests_BaseOrders" FromRole="Order" ToRole="OrderProcessingRequest" />
           <NavigationProperty Name="RenewedOrderProcessingRequests" Relationship="ErmModel.FK_OrderProcessingRequests_RenewedOrders" FromRole="Order" ToRole="OrderProcessingRequest" />
+          <NavigationProperty Name="OrderValidationCacheEntries" Relationship="ErmModel.OrderOrderValidationCacheEntry" FromRole="Order" ToRole="OrderValidationCacheEntry" />
       </EntityType>
       <Association Name="FK_Orders_Bargains">
         <End Type="ErmModel.Bargain" Role="Bargain" Multiplicity="0..1" />
@@ -8821,15 +8854,13 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
       </EntityType>
       <EntityType Name="OrderValidationResult">
         <Key>
-            <PropertyRef Name="ValidatorId" />
-            <PropertyRef Name="ValidVersion" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="OperationId" />
+            <PropertyRef Name="Id" />
         </Key>
         <Property Type="Int64" Name="OrderId" Nullable="false" />
-          <Property Name="ValidatorId" Type="Int32" Nullable="false" />
-          <Property Name="ValidVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" />
-          <Property Name="OperationId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="OrderValidationGroupId" Type="Int64" Nullable="false" />
+          <Property Name="OrderValidationType" Type="Int32" Nullable="false" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
       </EntityType>
       <Association Name="FK_OrderValidationResults_Orders">
         <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
@@ -10400,6 +10431,22 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OrderValidationCacheEntry">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ValidatorId" />
+            <PropertyRef Name="ValidVersion" />
+            <PropertyRef Name="OperationId" />
+          </Key>
+          <Property Name="OrderId" Type="Int64" Nullable="false" />
+          <Property Name="ValidatorId" Type="Int32" Nullable="false" />
+          <Property Name="ValidVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" />
+          <Property Name="OperationId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="OrderOrderValidationCacheEntry">
+          <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="ErmModel.OrderValidationCacheEntry" Role="OrderValidationCacheEntry" Multiplicity="*" />
+        </Association>
     </Schema>
   </edmx:ConceptualModels>
   <!-- C-S mapping content -->
@@ -11872,9 +11919,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="OrderValidationResults">
           <EntityTypeMapping TypeName="ErmModel.OrderValidationResult">
             <MappingFragment StoreEntitySet="OrderValidationResults">
-              <ScalarProperty Name="OperationId" ColumnName="OperationId" />
-                <ScalarProperty Name="ValidVersion" ColumnName="ValidVersion" />
-                <ScalarProperty Name="ValidatorId" ColumnName="ValidatorId" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="OrderValidationType" ColumnName="OrderValidationType" />
+                <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
             </MappingFragment>
           </EntityTypeMapping>
@@ -12723,6 +12771,16 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
                 <ScalarProperty Name="DealId" ColumnName="DealId" />
                 <ScalarProperty Name="LegalPersonId" ColumnName="LegalPersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderValidationCacheEntries">
+            <EntityTypeMapping TypeName="ErmModel.OrderValidationCacheEntry">
+              <MappingFragment StoreEntitySet="OrderValidationCacheEntries">
+                <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+                <ScalarProperty Name="ValidVersion" ColumnName="ValidVersion" />
+                <ScalarProperty Name="ValidatorId" ColumnName="ValidatorId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

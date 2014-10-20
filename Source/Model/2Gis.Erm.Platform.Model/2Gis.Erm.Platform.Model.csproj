@@ -674,6 +674,10 @@
       <Link>Entities\Erm\OrdersRegionalAdvertisingSharing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationCacheEntry.cs">
+      <Link>Entities\Erm\OrderValidationCacheEntry.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationResult.cs">
       <Link>Entities\Erm\OrderValidationResult.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>

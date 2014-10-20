@@ -171,6 +171,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.DenialReason, typeof(DenialReason) },
                 { EntityName.BirthdayCongratulation, typeof(BirthdayCongratulation) },
                 { EntityName.OrderValidationResult, typeof(OrderValidationResult) },
+                { EntityName.OrderValidationCacheEntry, typeof(OrderValidationCacheEntry) },
 
                 // Dynamic Storage
                 { EntityName.DictionaryEntityInstance, typeof(DictionaryEntityInstance) },

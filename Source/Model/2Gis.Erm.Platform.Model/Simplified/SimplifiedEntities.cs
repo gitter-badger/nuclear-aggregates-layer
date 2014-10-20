@@ -63,7 +63,8 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
                 EntityName.PerformedOperationPrimaryProcessing,
                 EntityName.PerformedOperationFinalProcessing,
                 EntityName.BirthdayCongratulation,
-                EntityName.OrderValidationResult
+                EntityName.OrderValidationResult,
+                EntityName.OrderValidationCacheEntry
             };
 
         private static readonly IDictionary<EntityName, Type> SimplifiedEntitiesMap = new Dictionary<EntityName, Type>();
