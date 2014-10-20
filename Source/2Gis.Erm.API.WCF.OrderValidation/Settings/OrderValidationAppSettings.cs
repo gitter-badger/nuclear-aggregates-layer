@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.OrderValidation.Settings.Xml;
