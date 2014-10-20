@@ -5,12 +5,12 @@ using DoubleGis.Erm.Platform.Common.Settings;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Settings
 {
-    public sealed class OrderValidationRulesSettingsAspect : ISettingsAspect, IOrderValidationRulesSettings
+    public sealed class OrderValidationCachingSettingsAspect : ISettingsAspect, IOrderValidationCachingSettings
     {
         private readonly StringSetting _rulesExplicitlyDisabledCaching = ConfigFileSetting.String.Optional("ValidationRulesDisabledCaching", string.Empty);
         private readonly BoolSetting _useLegacyCachingMode = ConfigFileSetting.Bool.Optional("UseLegacyCachingMode", false);
 
-        IEnumerable<string> IOrderValidationRulesSettings.RulesExplicitlyDisabledCaching
+        IEnumerable<string> IOrderValidationCachingSettings.RulesExplicitlyDisabledCaching
         {
             get 
             { 
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Settings
             }
         }
 
-        bool IOrderValidationRulesSettings.UseLegacyCachingMode 
+        bool IOrderValidationCachingSettings.UseLegacyCachingMode 
         {
             get { return _useLegacyCachingMode.Value; }
         }

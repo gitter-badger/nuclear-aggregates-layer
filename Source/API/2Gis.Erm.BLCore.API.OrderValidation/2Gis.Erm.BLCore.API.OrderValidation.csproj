@@ -85,8 +85,8 @@
     <Compile Include="OrderValidationRuleGroups.cs" />
     <Compile Include="Remote\Settings\APIOrderValidationServiceSettingsAspect.cs" />
     <Compile Include="Remote\Settings\IAPIOrderValidationServiceSettings.cs" />
-    <Compile Include="Settings\IOrderValidationRulesSettings.cs" />
-    <Compile Include="Settings\OrderValidationRulesSettingsAspect.cs" />
+    <Compile Include="Settings\IOrderValidationCachingSettings.cs" />
+    <Compile Include="Settings\OrderValidationCachingSettingsAspect.cs" />
     <Compile Include="SingleOrderValidationParams.cs" />
     <Compile Include="ValidationParams.cs" />
     <Compile Include="ValidationResult.cs" />

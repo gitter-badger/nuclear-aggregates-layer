@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
     public sealed class OrderValidationRuleProvider : IOrderValidationRuleProvider
     {
         private readonly IBusinessModelSettings _businessModelSettings;
-        private readonly IOrderValidationRulesSettings _orderValidationRulesSettings;
+        private readonly IOrderValidationCachingSettings _orderValidationCachingSettings;
         private readonly IMetadataProvider _metadataProvider;
         private readonly IOrderValidationRuleFactory _orderValidationRuleFactory;
 
@@ -34,12 +34,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         public OrderValidationRuleProvider(
             IBusinessModelSettings businessModelSettings,
-            IOrderValidationRulesSettings orderValidationRulesSettings,
+            IOrderValidationCachingSettings orderValidationCachingSettings,
             IMetadataProvider metadataProvider,
             IOrderValidationRuleFactory orderValidationRuleFactory)
         {
             _businessModelSettings = businessModelSettings;
-            _orderValidationRulesSettings = orderValidationRulesSettings;
+            _orderValidationCachingSettings = orderValidationCachingSettings;
             _metadataProvider = metadataProvider;
             _orderValidationRuleFactory = orderValidationRuleFactory;
 
@@ -178,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                     Enabled = ruleMetadata.Features<DisabledForBusinessModelFeature>().All(f => f.BusinessModel != _businessModelSettings.BusinessModel)
                               && validationRulesFilter(ruleMetadata),
                     UseCaching = groupUseCaching
-                                 && !_orderValidationRulesSettings.RulesExplicitlyDisabledCaching.Contains(ruleMetadata.RuleType.Name)
+                                 && !_orderValidationCachingSettings.RulesExplicitlyDisabledCaching.Contains(ruleMetadata.RuleType.Name)
                 };
         }
 

@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Validation;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.API.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderValidation;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
@@ -19,6 +23,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class ValidateOrdersOperationService : IValidateOrdersOperationService
     {
+        private readonly IOrderValidationCachingSettings _orderValidationCachingSettings;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOrderValidationRuleProvider _orderValidationRuleProvider;
         private readonly IOrderValidationPredicateFactory _orderValidationPredicateFactory;
@@ -29,6 +34,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly ICommonLog _logger;
 
         public ValidateOrdersOperationService(
+            IOrderValidationCachingSettings orderValidationCachingSettings,
             IOrderReadModel orderReadModel,
             IOrderValidationRuleProvider orderValidationRuleProvider,
             IOrderValidationPredicateFactory orderValidationPredicateFactory,
@@ -38,6 +44,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             IOrderValidationOperationFeedback operationFeedback,
             ICommonLog logger)
         {
+            _orderValidationCachingSettings = orderValidationCachingSettings;
             _orderReadModel = orderReadModel;
             _orderValidationRuleProvider = orderValidationRuleProvider;
             _orderValidationPredicateFactory = orderValidationPredicateFactory;
@@ -58,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             var order = _orderReadModel.GetOrderUnsecure(orderId);
             var currentOrderState = (OrderState)order.WorkflowStepId;
 
-            var scope = _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>();
+            var scope = CreateOperationScope();
 
             var validationType = newOrderState == OrderState.NotSet || currentOrderState == OrderState.OnRegistration
                                      ? ValidationType.SingleOrderOnRegistration
@@ -82,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             long? ownerCode,
             bool includeOwnerDescendants)
         {
-            var scope = _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>();
+            var scope = CreateOperationScope();
 
             var validationParams = new MassOrdersValidationParams(scope.Id, validationType)
             {
@@ -93,6 +100,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             };
 
             return Validate(validationParams, scope);
+        }
+
+        [Obsolete("После выпиливания UseLegacyCachingMode - избавиться от данного метода, заменив на прямое использование _scopeFactory")]
+        private IOperationScope CreateOperationScope()
+        {
+            return !_orderValidationCachingSettings.UseLegacyCachingMode
+                       ? _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>()
+                       : new NullOperationScope(true, ValidateOrdersIdentity.Instance.NonCoupled());
         }
 
         private ValidationResult Validate(ValidationParams validationParams, IOperationScope validationOperationScope)
@@ -192,15 +207,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             ValidationResultsContainer resultsContainer,
             out int ordersCount)
         {
-            bool useCachedResultsDisabled = !ruleGroupContainer.UseCaching || ruleGroupContainer.RuleDescriptors.Any(rd => !rd.UseCaching);
-
-            var combinedPredicate = 
-                !useCachedResultsDisabled 
-                    ? new OrderValidationPredicate(filterPredicate.GeneralPart,
-                                                   filterPredicate.OrgUnitPart,
-                                                   x => !x.OrderValidationCacheEntries.Any(y => y.ValidatorId == (int)ruleGroupContainer.Group && y.ValidVersion == x.Timestamp)) 
-                    : filterPredicate;
-
+            var combinedPredicate = CreateValidationPredicate(filterPredicate, ruleGroupContainer);
             var ordersForValidationWitVersions = _orderReadModel.GetOrdersCurrentVersions(combinedPredicate.GetCombinedPredicate());
             ordersCount = ordersForValidationWitVersions.Count;
             if (ordersCount == 0)
@@ -219,21 +226,59 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 var validatorDescriptor = new ValidatorDescriptor(ruleGroupContainer.Group, ruleDescriptor.RuleCode);
                 resultsContainer.AttachTargets(validatorDescriptor, ordersForValidationWitVersions);
 
+                // TODO {all, 20.10.2014}: выпилить legacyTransaction, после исключения проблем с нагрузкой на tempdb варианта кэша проверок использующего версии заказов
+                TransactionScope legacyTransaction = !_orderValidationCachingSettings.UseLegacyCachingMode
+                                                         ? null
+                                                         : new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default);
+                
                 try
                 {
                     _operationFeedback.RuleStarted(ruleDescriptor.Rule.GetType());
                     var results = ruleDescriptor.Rule.Validate(validationParams, combinedPredicate, resultsContainer);
                     resultsContainer.AttachResults(validatorDescriptor, results);
+                    
+                    if (legacyTransaction != null)
+                    {
+                        legacyTransaction.Complete();
+                    }
+
                     _operationFeedback.RuleSucceeded(ruleDescriptor.Rule.GetType(), ordersCount);
                 }
                 catch (Exception ex)
                 {
                     _operationFeedback.RuleFailed(ruleDescriptor.Rule.GetType(), ex);
-                    
+
                     // TODO {all, 01.10.2014}: оценить так ли необходимо фейлить всю сессию проверки, или можно обойтись только этим rule
                     throw;
                 }
+                finally
+                {
+                    if (legacyTransaction != null)
+                    {
+                        legacyTransaction.Dispose();
+                    }
+                }
             }
+        }
+
+        private OrderValidationPredicate CreateValidationPredicate(OrderValidationPredicate filterPredicate, OrderValidationRulesContainer ruleGroupContainer)
+        {
+            bool useCachedResultsDisabled = !ruleGroupContainer.UseCaching || ruleGroupContainer.RuleDescriptors.Any(rd => !rd.UseCaching);
+
+            return
+                useCachedResultsDisabled
+                    ? filterPredicate
+                    : !_orderValidationCachingSettings.UseLegacyCachingMode
+                        ? new OrderValidationPredicate(filterPredicate.GeneralPart,
+                                                       filterPredicate.OrgUnitPart,
+                                                       x => !x.OrderValidationCacheEntries.Any(y => y.ValidatorId == (int)ruleGroupContainer.Group && y.ValidVersion == x.Timestamp))
+                        : new OrderValidationPredicate(filterPredicate.GeneralPart,
+                                                       filterPredicate.OrgUnitPart,
+                                                       x => !x.OrderValidationResults
+                                                                        .Where(y => y.OrderValidationGroupId == (int)ruleGroupContainer.Group)
+                                                                        .OrderByDescending(y => y.Id)
+                                                                        .Select(y => y.IsValid)
+                                                                        .FirstOrDefault());
         }
 
         private void AttachResultsToCache(
