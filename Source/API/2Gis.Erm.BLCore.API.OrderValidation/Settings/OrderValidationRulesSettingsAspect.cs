@@ -8,8 +8,9 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Settings
     public sealed class OrderValidationRulesSettingsAspect : ISettingsAspect, IOrderValidationRulesSettings
     {
         private readonly StringSetting _rulesExplicitlyDisabledCaching = ConfigFileSetting.String.Optional("ValidationRulesDisabledCaching", string.Empty);
+        private readonly BoolSetting _useLegacyCachingMode = ConfigFileSetting.Bool.Optional("UseLegacyCachingMode", false);
 
-        public IEnumerable<string> RulesExplicitlyDisabledCaching
+        IEnumerable<string> IOrderValidationRulesSettings.RulesExplicitlyDisabledCaching
         {
             get 
             { 
@@ -17,6 +18,11 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Settings
                            ? Enumerable.Empty<string>() 
                            : _rulesExplicitlyDisabledCaching.Value.Split(';'); 
             }
+        }
+
+        bool IOrderValidationRulesSettings.UseLegacyCachingMode 
+        {
+            get { return _useLegacyCachingMode.Value; }
         }
     }
 }
