@@ -205,7 +205,9 @@ WriteLiteral("        ");
 
             
             #line 34 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client })));
+   Write(Html.SectionRow(
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client }),
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true })));
 
             
             #line default
@@ -215,19 +217,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Firm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true })));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("        ");
-
-            
-            #line 36 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true })));
+            #line 37 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", SupressMatchesErrors = true })));
 
             
             #line default
@@ -237,7 +228,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 38 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 39 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -248,7 +239,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 39 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 40 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -259,9 +250,9 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 40 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 41 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.Sender, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User}),
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager)));
 
             
@@ -272,8 +263,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 43 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
+            #line 44 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Sender, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User })));
 
             
             #line default
@@ -283,18 +274,18 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 44 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new DateTimeSettings {ShiftOffset = false})));
+            #line 45 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n");
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 46 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -305,13 +296,13 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\Letter.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })));
+            #line 49 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    </div>\r\n");
+WriteLiteral("\r\n   </div>\r\n");
 
 });
 
