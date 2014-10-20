@@ -5191,11 +5191,11 @@ Placement period: {3}.</value>
     <value>Cannot delete an active link with the main legal entity while there are others</value>
   </data>
   <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует активная связь отделения организации {0} с юридическим лицом {1}</value>
+    <value>An active link between the company branch {0} and legal entity {1) already exists</value>
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-  </data>
+    <value>An inactive link between the company branch {0} and legal entity {1) already exists</value>
+</data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
