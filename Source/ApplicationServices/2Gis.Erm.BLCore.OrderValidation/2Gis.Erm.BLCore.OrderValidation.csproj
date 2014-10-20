@@ -75,9 +75,14 @@
     <Compile Include="Performance\Counters\Counters.Rule.cs" />
     <Compile Include="Performance\Counters\Counters.RuleGroup.cs" />
     <Compile Include="Performance\Counters\Counters.Session.cs" />
-    <Compile Include="Performance\Sessions\IOrderValidationDiagnosticStorage.cs" />
-    <Compile Include="Performance\Sessions\PerformanceCounterOrderValidationDiagnosticStorage.Dispose.cs" />
-    <Compile Include="Performance\Sessions\PerformanceCounterOrderValidationDiagnosticStorage.cs" />
+    <Compile Include="Performance\Sessions\DiagnosticStorage\IOrderValidationDiagnosticStorage.cs" />
+    <Compile Include="Performance\Sessions\Feedback\IOrderValidationOperationFeedback.cs" />
+    <Compile Include="Performance\Sessions\Feedback\OrderValidationOperationFeedback.cs" />
+    <Compile Include="Performance\Sessions\DiagnosticStorage\PerformanceCounterOrderValidationDiagnosticStorage.Dispose.cs" />
+    <Compile Include="Performance\Sessions\DiagnosticStorage\PerformanceCounterOrderValidationDiagnosticStorage.cs" />
+    <Compile Include="Performance\Sessions\Feedback\RuleGroupIndicators.cs" />
+    <Compile Include="Performance\Sessions\Feedback\RuleIndicators.cs" />
+    <Compile Include="Performance\Sessions\Feedback\OperationIndicators.cs" />
     <Compile Include="Rules\Contexts\BrowsableResultsValidationRuleContext.cs" />
     <Compile Include="Rules\Contexts\HybridParamsValidationRuleContext.cs" />
     <Compile Include="Rules\Contexts\IValidationRuleContext.cs" />

@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions
+﻿namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.DiagnosticStorage
 {
     public sealed partial class PerformanceCounterOrderValidationDiagnosticStorage
     {

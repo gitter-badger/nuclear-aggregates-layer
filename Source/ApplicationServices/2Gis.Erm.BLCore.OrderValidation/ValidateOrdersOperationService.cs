@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Validation;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.BLCore.OrderValidation.Performance.Counters;
-using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions;
+using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
@@ -27,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         private readonly IAttachValidResultToCacheAggregateService _attachValidResultToCacheAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IOrderValidationDiagnosticStorage _diagnosticStorage;
+        private readonly IOrderValidationOperationFeedback _operationFeedback;
         private readonly ICommonLog _logger;
 
         public ValidateOrdersOperationService(
@@ -37,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             IAttachValidResultToCacheAggregateService attachValidResultToCacheAggregateService,
             IUseCaseTuner useCaseTuner,
             IOperationScopeFactory scopeFactory,
-            IOrderValidationDiagnosticStorage diagnosticStorage,
+            IOrderValidationOperationFeedback operationFeedback,
             ICommonLog logger)
         {
             _orderReadModel = orderReadModel;
@@ -46,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             _attachValidResultToCacheAggregateService = attachValidResultToCacheAggregateService;
             _useCaseTuner = useCaseTuner;
             _scopeFactory = scopeFactory;
-            _diagnosticStorage = diagnosticStorage;
+            _operationFeedback = operationFeedback;
             _logger = logger;
         }
 
@@ -62,10 +60,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
             var scope = _scopeFactory.CreateNonCoupled<ValidateOrdersIdentity>();
 
-            var validationParams = new SingleOrderValidationParams(scope.Id,
-                                                                   newOrderState == OrderState.NotSet || currentOrderState == OrderState.OnRegistration
-                                                                       ? ValidationType.SingleOrderOnRegistration
-                                                                       : ValidationType.SingleOrderOnStateChanging)
+            var validationType = newOrderState == OrderState.NotSet || currentOrderState == OrderState.OnRegistration
+                                     ? ValidationType.SingleOrderOnRegistration
+                                     : ValidationType.SingleOrderOnStateChanging;
+
+            var validationParams = new SingleOrderValidationParams(scope.Id, validationType)
                                        {
                                            OrderId = orderId,
                                            CurrentOrderState = currentOrderState,
@@ -100,60 +99,101 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
         {
             _useCaseTuner.AlterDuration<ValidateOrdersOperationService>();
 
-            _logger.InfoEx("Starting order validation. " + validationParams);
+            _operationFeedback.OperationStarted(validationParams);
             
             var resultsContainer = new ValidationResultsContainer();
-            var ruleGroupContainers = _orderValidationRuleProvider.GetAppropriateRules(validationParams.Type);
-            
-            using (validationOperationScope)
+
+            try
             {
-                _diagnosticStorage.Session[Counters.Sessions.ActiveCount].Increment();
+                using (validationOperationScope)
+                {
+                    var ruleGroupContainers = _orderValidationRuleProvider.GetAppropriateRules(validationParams.Type);
 
-                ValidateOrders(validationParams, ruleGroupContainers, resultsContainer);
-                AttachResultsToCache(validationParams, ruleGroupContainers, resultsContainer);
+                    try
+                    {
+                        int appropriateOrdersCount;
+                        _operationFeedback.ValidationStarted();
+                        ValidateOrders(validationParams, ruleGroupContainers, resultsContainer, out appropriateOrdersCount);
+                        _operationFeedback.ValidationSucceeded(appropriateOrdersCount);
+                    }
+                    catch (Exception ex)
+                    {
+                        _operationFeedback.ValidationFailed(ex);
+                        throw;
+                    }
 
-                _diagnosticStorage.Session[Counters.Sessions.ActiveCount].Decrement();
-                
-                validationOperationScope.Complete();
+                    try
+                    {
+                        _operationFeedback.CachingStarted();
+                        AttachResultsToCache(validationParams, ruleGroupContainers, resultsContainer);
+                        _operationFeedback.CachingSucceeded();
+                    }
+                    catch (Exception ex)
+                    {
+                        _operationFeedback.CachingFailed(ex);
+                        throw;
+                    }
+
+                    validationOperationScope.Complete();
+                }
+
+                _operationFeedback.OperationSucceeded();
+            }
+            catch (Exception ex)
+            {
+                _operationFeedback.OperationFailed(ex);
+                throw;
             }
 
             return resultsContainer.ToValidationResult();
         }
 
-        private void ValidateOrders(ValidationParams validationParams, IEnumerable<OrderValidationRulesContainer> ruleGroupContainers, ValidationResultsContainer resultsContainer)
+        private void ValidateOrders(
+            ValidationParams validationParams, 
+            IEnumerable<OrderValidationRulesContainer> ruleGroupContainers, 
+            ValidationResultsContainer resultsContainer, 
+            out int appropriateOrdersCount)
         {
-            var stopwatch = Stopwatch.StartNew();
+            var filterPredicate = _orderValidationPredicateFactory.CreatePredicate(validationParams);
+            appropriateOrdersCount = _orderReadModel.GetOrdersCurrentVersions(filterPredicate.GetCombinedPredicate()).Count;
+            if (appropriateOrdersCount == 0)
+            {
+                _logger.InfoEx("Orders validation. Skip validation. No orders to validate. " + validationParams);
+                return;
+            }
 
             foreach (var ruleGroupContainer in ruleGroupContainers)
             {
                 if (!ruleGroupContainer.RuleDescriptors.Any())
                 {
-                    _logger.InfoFormatEx("Skip validation by group [{0}]. Appropriate rules count: 0. {1}", ruleGroupContainer.Group, validationParams);
+                    _logger.InfoFormatEx("Orders validation. Group {0} skipped. Appropriate rules count: 0. {1}", ruleGroupContainer.Group, validationParams);
                     continue;
                 }
             
                 try
                 {
-                        ValidateByRuleGroup(validationParams, ruleGroupContainer, resultsContainer);
+                    int ordersCount;
+                    _operationFeedback.GroupStarted(ruleGroupContainer.Group);
+                    ValidateByRuleGroup(validationParams, filterPredicate, ruleGroupContainer, resultsContainer, out ordersCount);
+                    _operationFeedback.GroupSucceeded(ruleGroupContainer.Group, ordersCount);
                 }
                 catch (Exception ex)
                 {
-                    stopwatch.Stop();
-                    _logger.ErrorFormatEx(ex, "Validation failed on group {0} after {1:F2} sec. {2}", ruleGroupContainer.Group, stopwatch.Elapsed.TotalSeconds, validationParams);
+                    _operationFeedback.GroupFailed(ruleGroupContainer.Group, ex);
                     throw;
                 }
             }
-            
-            stopwatch.Stop();
-            _logger.InfoFormatEx("Validation completed in {0:F2} sec. {1}", stopwatch.ElapsedMilliseconds / 1000D, validationParams);
         }
 
-        private void ValidateByRuleGroup(ValidationParams validationParams, OrderValidationRulesContainer ruleGroupContainer, ValidationResultsContainer resultsContainer)
+        private void ValidateByRuleGroup(
+            ValidationParams validationParams, 
+            OrderValidationPredicate filterPredicate, 
+            OrderValidationRulesContainer ruleGroupContainer, 
+            ValidationResultsContainer resultsContainer,
+            out int ordersCount)
         {
             bool useCachedResultsDisabled = !ruleGroupContainer.UseCaching || ruleGroupContainer.RuleDescriptors.Any(rd => !rd.UseCaching);
 
-            var filterPredicate = _orderValidationPredicateFactory.CreatePredicate(validationParams);
-            
             var combinedPredicate = 
                 !useCachedResultsDisabled 
                     ? new OrderValidationPredicate(filterPredicate.GeneralPart,
@@ -162,69 +202,38 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                     : filterPredicate;
 
             var ordersForValidationWitVersions = _orderReadModel.GetOrdersCurrentVersions(combinedPredicate.GetCombinedPredicate());
-            if (ordersForValidationWitVersions.Count == 0)
+            ordersCount = ordersForValidationWitVersions.Count;
+            if (ordersCount == 0)
             {
-                _logger.InfoFormatEx("Skipping validating orders by group [{0}]. No orders to validate. {1}", ruleGroupContainer.Group, validationParams);
+                _logger.InfoFormatEx("Orders validation. Group {0} skipped. No orders to validate. {1}", ruleGroupContainer.Group, validationParams);
                 return;
             }
 
-            _logger.InfoFormatEx("Validating orders by group [{0}]. Rules in group actual count: [{1}]. Orders to validate count: [{2}]. {3}",
+            _logger.InfoFormatEx("Orders validation. Group {0}. Rules in group actual count: {1}. {2}",
                                  ruleGroupContainer.Group,
                                  ruleGroupContainer.RuleDescriptors.Count,
-                                 ordersForValidationWitVersions.Count,
                                  validationParams);
-
-            var stopwatch = Stopwatch.StartNew();
 
             foreach (var ruleDescriptor in ruleGroupContainer.RuleDescriptors)
             {
                 var validatorDescriptor = new ValidatorDescriptor(ruleGroupContainer.Group, ruleDescriptor.RuleCode);
                 resultsContainer.AttachTargets(validatorDescriptor, ordersForValidationWitVersions);
-                var results = ValidateByRule(ruleDescriptor.Rule, validationParams, combinedPredicate, resultsContainer);
-                resultsContainer.AttachResults(validatorDescriptor, results);
+
+                try
+                {
+                    _operationFeedback.RuleStarted(ruleDescriptor.Rule.GetType());
+                    var results = ruleDescriptor.Rule.Validate(validationParams, combinedPredicate, resultsContainer);
+                    resultsContainer.AttachResults(validatorDescriptor, results);
+                    _operationFeedback.RuleSucceeded(ruleDescriptor.Rule.GetType(), ordersCount);
+                }
+                catch (Exception ex)
+                {
+                    _operationFeedback.RuleFailed(ruleDescriptor.Rule.GetType(), ex);
+                    
+                    // TODO {all, 01.10.2014}: оценить так ли необходимо фейлить всю сессию проверки, или можно обойтись только этим rule
+                    throw;
+                }
             }
-
-            stopwatch.Stop();
-            _logger.InfoFormatEx(
-                "Validating orders by group [{0}] completed in {1:F2} sec. {2}", 
-                ruleGroupContainer.Group,
-                stopwatch.ElapsedMilliseconds / 1000D,
-                validationParams);
-        }
-
-        private IEnumerable<OrderValidationMessage> ValidateByRule(
-            IOrderValidationRule rule,
-            ValidationParams validationParams,
-            OrderValidationPredicate combinedPredicate,
-            IValidationResultsBrowser validationResultsBrowser)
-        {
-            IEnumerable<OrderValidationMessage> ruleMessages;
-            
-            var stopwatch = Stopwatch.StartNew();
-
-            try
-            {
-                ruleMessages = rule.Validate(validationParams, combinedPredicate, validationResultsBrowser);
-                stopwatch.Stop();
-                _logger.InfoFormatEx("Rule '{0}' executed in {1:F2} sec. {2}",
-                                     rule.GetType().Name,
-                                     stopwatch.ElapsedMilliseconds / 1000D,
-                                     validationParams);
-            }
-            catch (Exception ex)
-            {
-                stopwatch.Stop();
-                _logger.ErrorFormatEx(ex, 
-                                     "Rule '{0}' failed after {1:F2} sec. {2}",
-                                     rule.GetType().Name,
-                                     stopwatch.ElapsedMilliseconds / 1000D,
-                                     validationParams);
-
-                // TODO {all, 01.10.2014}: оценить так ли необходимо фейлить всю сессию проверки, или можно обойтись только этим rule
-                throw;
-            }
-
-            return ruleMessages;
         }
 
         private void AttachResultsToCache(
@@ -232,8 +241,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             IEnumerable<OrderValidationRulesContainer> ruleGroupContainers, 
             IValidationResultsBrowser validationResultsBrowser)
         {
-            var stopwatch = Stopwatch.StartNew();
-
             var cachableRuleGroups = ruleGroupContainers.Where(rg => rg.UseCaching && rg.AllRulesScheduled).Select(x => x.Group);
 
             var cachableValidatorsByGroups =
@@ -325,9 +332,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             }
 
             _attachValidResultToCacheAggregateService.Attach(validResultsForCaching);
-
-            stopwatch.Stop();
-            _logger.InfoFormatEx("Validation results cached in {0:F2} sec. {1}", stopwatch.ElapsedMilliseconds / 1000D, validationParams);
         }
     }
 }

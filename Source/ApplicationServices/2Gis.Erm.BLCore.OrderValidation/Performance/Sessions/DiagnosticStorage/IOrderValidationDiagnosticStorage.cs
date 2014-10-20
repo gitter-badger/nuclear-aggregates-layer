@@ -4,7 +4,7 @@ using DevUtils.ETWIMBA.Diagnostics.Counters;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 
-namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions
+namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.DiagnosticStorage
 {
     public interface IOrderValidationDiagnosticStorage : IDisposable
     {
