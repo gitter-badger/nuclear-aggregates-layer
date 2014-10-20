@@ -31,22 +31,22 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.DiagnosticSt
             }
             
             _sessionsCounterSetInstance = _sessionsCounterSet.CreateInstance("Default");
-            _sessionsCounterSetInstance[Counters.Counters.Sessions.ActiveCount].Value = 0;
-            _sessionsCounterSetInstance[Counters.Counters.Sessions.TotalCount].Value = 0;
-            _sessionsCounterSetInstance[Counters.Counters.Sessions.TotalTimeSec].Value = 0;
-            _sessionsCounterSetInstance[Counters.Counters.Sessions.TotalOrdersCount].Value = 0;
-            _sessionsCounterSetInstance[Counters.Counters.Sessions.AvgValidationRateOrdersPerSec].Value = 0;
+            _sessionsCounterSetInstance[Counters.Counters.Sessions.ActiveCount].RawValue = 0;
+            _sessionsCounterSetInstance[Counters.Counters.Sessions.TotalCount].RawValue = 0;
+            _sessionsCounterSetInstance[Counters.Counters.Sessions.TotalTimeSec].RawValue = 0;
+            _sessionsCounterSetInstance[Counters.Counters.Sessions.TotalOrdersCount].RawValue = 0;
+            _sessionsCounterSetInstance[Counters.Counters.Sessions.AvgValidationRateOrdersPerSec].RawValue = 0;
 
             foreach (var groupMetadata in targetMetadataSet.Metadata.Values.OfType<OrderValidationRuleGroupMetadata>())
             {
                 var ruleGroupsCounterSetInstance = _ruleGroupsCounterSet.CreateInstance(groupMetadata.RuleGroup.ToString());
                 _ruleGroupsCounterSetInstances.Add(groupMetadata.RuleGroup, ruleGroupsCounterSetInstance);
 
-                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.TotalTimeSec].Value = 0;
-                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.TotalOrdersCount].Value = 0;
-                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.ValidationResultsCacheUtilizationPercentage].Value = 0;
-                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.AvgValidationRateOrdersPerSec].Value = 0;
-                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.AvgConsumedTimePercentage].Value = 0;
+                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.TotalTimeSec].RawValue = 0;
+                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.TotalOrdersCount].RawValue = 0;
+                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.ValidationResultsCacheUtilizationPercentage].RawValue = 0;
+                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.AvgValidationRateOrdersPerSec].RawValue = 0;
+                ruleGroupsCounterSetInstance[Counters.Counters.RuleGroups.AvgConsumedTimePercentage].RawValue = 0;
             }
 
             foreach (var ruleMetadata in targetMetadataSet.Metadata.Values.OfType<OrderValidationRuleMetadata>())
@@ -54,11 +54,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.DiagnosticSt
                 var rulesCounterSetInstances = _rulesCounterSet.CreateInstance(ruleMetadata.RuleType.Name);
                 _rulesCounterSetInstances.Add(ruleMetadata.RuleType, rulesCounterSetInstances);
 
-                rulesCounterSetInstances[Counters.Counters.Rules.TotalTimeSec].Value = 0;
-                rulesCounterSetInstances[Counters.Counters.Rules.TotalOrdersCount].Value = 0;
-                rulesCounterSetInstances[Counters.Counters.Rules.ValidationResultsCacheUtilizationPercentage].Value = 0;
-                rulesCounterSetInstances[Counters.Counters.Rules.AvgValidationRateOrdersPerSec].Value = 0;
-                rulesCounterSetInstances[Counters.Counters.Rules.AvgConsumedTimePercentage].Value = 0;
+                rulesCounterSetInstances[Counters.Counters.Rules.TotalTimeSec].RawValue = 0;
+                rulesCounterSetInstances[Counters.Counters.Rules.TotalOrdersCount].RawValue = 0;
+                rulesCounterSetInstances[Counters.Counters.Rules.ValidationResultsCacheUtilizationPercentage].RawValue = 0;
+                rulesCounterSetInstances[Counters.Counters.Rules.AvgValidationRateOrdersPerSec].RawValue = 0;
+                rulesCounterSetInstances[Counters.Counters.Rules.AvgConsumedTimePercentage].RawValue = 0;
             }
         }
 

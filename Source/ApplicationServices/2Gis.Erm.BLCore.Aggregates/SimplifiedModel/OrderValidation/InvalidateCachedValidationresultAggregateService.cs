@@ -10,11 +10,11 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.OrderValidation
 {
-    public sealed class InvalidateCachedValidationresultAggregateService : IInvalidateCachedValidationResultAggregateService
+    public sealed class InvalidateCachedValidationResultAggregateService : IInvalidateCachedValidationResultAggregateService
     {
         private readonly IBatchDeletePersistenceService _batchDeletePersistenceService;
 
-        public InvalidateCachedValidationresultAggregateService(IBatchDeletePersistenceService batchDeletePersistenceService)
+        public InvalidateCachedValidationResultAggregateService(IBatchDeletePersistenceService batchDeletePersistenceService)
         {
             _batchDeletePersistenceService = batchDeletePersistenceService;
         }
@@ -25,24 +25,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.OrderValidation
             {
                 var extractors = new[]
                                      {
-                                         new EntityKeyExtractor<OrderValidationResult>
+                                         new EntityKeyExtractor<OrderValidationCacheEntry>
                                              {
                                                  KeyName = "OrderId",
                                                  KeyValueExtractor = invalidatedResult => string.Format("'{0}'", invalidatedResult.OrderId.ToString())
                                              },
-                                         new EntityKeyExtractor<OrderValidationResult>
+                                         new EntityKeyExtractor<OrderValidationCacheEntry>
                                              {
                                                  KeyName = "ValidatorId",
                                                  KeyValueExtractor = invalidatedResult => string.Format("'{0}'", invalidatedResult.ValidatorId.ToString())
                                              }
                                      };
 
-                var invalidatedResults = 
-                        invalidatedOrderDescriptors.Aggregate(new List<OrderValidationResult>(),
+                var invalidatedResults =
+                        invalidatedOrderDescriptors.Aggregate(new List<OrderValidationCacheEntry>(),
                                                             (list, descriptor) =>
                                                                 {
                                                                     list.AddRange(descriptor.ChangedAspects
-                                                                                            .Select(a => new OrderValidationResult
+                                                                                            .Select(a => new OrderValidationCacheEntry
                                                                                                              {
                                                                                                                  OrderId = descriptor.OrderId,
                                                                                                                  ValidatorId = (int)a

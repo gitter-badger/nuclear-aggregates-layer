@@ -198,7 +198,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 !useCachedResultsDisabled 
                     ? new OrderValidationPredicate(filterPredicate.GeneralPart,
                                                    filterPredicate.OrgUnitPart,
-                                                   x => !x.OrderValidationResults.Any(y => y.ValidatorId == (int)ruleGroupContainer.Group && y.ValidVersion == x.Timestamp)) 
+                                                   x => !x.OrderValidationCacheEntries.Any(y => y.ValidatorId == (int)ruleGroupContainer.Group && y.ValidVersion == x.Timestamp)) 
                     : filterPredicate;
 
             var ordersForValidationWitVersions = _orderReadModel.GetOrdersCurrentVersions(combinedPredicate.GetCombinedPredicate());
@@ -248,7 +248,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                                             .Where(v => cachableRuleGroups.Contains(v.RuleGroup))
                                             .GroupBy(v => v.RuleGroup);
 
-            var validResultsForCaching = new List<OrderValidationResult>();
+            var validResultsForCaching = new List<OrderValidationCacheEntry>();
 
             foreach (var validatorsGroup in cachableValidatorsByGroups)
             {
@@ -322,7 +322,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                     }
                 }
 
-                validResultsForCaching.AddRange(validatorsGroupTargetOrders.Select(x => new OrderValidationResult
+                validResultsForCaching.AddRange(validatorsGroupTargetOrders.Select(x => new OrderValidationCacheEntry
                                                                                             {
                                                                                                 OrderId = x.Key,
                                                                                                 ValidatorId = (int)validatorsGroup.Key,

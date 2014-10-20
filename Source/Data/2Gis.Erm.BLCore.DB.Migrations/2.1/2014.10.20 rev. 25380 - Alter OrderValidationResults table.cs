@@ -6,29 +6,12 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
-    [Migration(25340, "Меняем формат хранения кэша проверки заказов", "i.maslennikov")]
-    public sealed class Migration25340 : TransactedMigration
+    [Migration(25380, "Поддержка нового варианта кэша проверки заказов", "i.maslennikov")]
+    public sealed class Migration25380 : TransactedMigration
     {
         protected override void ApplyOverride(IMigrationContext context)
         {
-            DropOldSchemaTable(context);
-            CreateWithNewSchema(context);
-        }
-
-        private void DropOldSchemaTable(IMigrationContext context)
-        {
-            var table = context.Database.Tables[ErmTableNames.OrderValidationResults.Name, ErmTableNames.OrderValidationResults.Schema];
-            if (table == null)
-            {
-                return;
-            }
-
-            table.Drop();
-        }
-
-        private void CreateWithNewSchema(IMigrationContext context)
-        {
-            var table = new Table(context.Database, ErmTableNames.OrderValidationResults.Name, ErmTableNames.OrderValidationResults.Schema);
+            var table = new Table(context.Database, ErmTableNames.OrderValidationCacheEntries.Name, ErmTableNames.OrderValidationCacheEntries.Schema);
 
             const string OrderIdColumnName = "OrderId";
             const string ValidatorIdColumnName = "ValidatorId";
@@ -44,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 
             string primaryKeyIndexName = string.Join("_",
                                                      "PK",
-                                                     ErmTableNames.OrderValidationResults.Name,
+                                                     ErmTableNames.OrderValidationCacheEntries.Name,
                                                      OrderIdColumnName,
                                                      ValidatorIdColumnName,
                                                      ValidVersionColumnName,

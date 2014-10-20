@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Validation
 {
     public interface IAttachValidResultToCacheAggregateService : ISimplifiedModelConsumer
     {
-        void Attach(IEnumerable<OrderValidationResult> validResults);
+        void Attach(IEnumerable<OrderValidationCacheEntry> validResults);
     }
 }

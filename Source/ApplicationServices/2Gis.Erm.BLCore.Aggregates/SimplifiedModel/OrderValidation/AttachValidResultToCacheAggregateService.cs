@@ -10,19 +10,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.OrderValidation
 {
     public sealed class AttachValidResultToCacheAggregateService : IAttachValidResultToCacheAggregateService
     {
-        private readonly IRepository<OrderValidationResult> _orderValidationResultRepository;
+        private readonly IRepository<OrderValidationCacheEntry> _orderValidationCacheRepository;
 
-        public AttachValidResultToCacheAggregateService(IRepository<OrderValidationResult> orderValidationResultRepository)
+        public AttachValidResultToCacheAggregateService(IRepository<OrderValidationCacheEntry> orderValidationCacheRepository)
         {
-            _orderValidationResultRepository = orderValidationResultRepository;
+            _orderValidationCacheRepository = orderValidationCacheRepository;
         }
 
-        public void Attach(IEnumerable<OrderValidationResult> validResults)
+        public void Attach(IEnumerable<OrderValidationCacheEntry> validResults)
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                _orderValidationResultRepository.AddRange(validResults);
-                _orderValidationResultRepository.Save();
+                _orderValidationCacheRepository.AddRange(validResults);
+                _orderValidationCacheRepository.Save();
 
                 transaction.Complete();
             }

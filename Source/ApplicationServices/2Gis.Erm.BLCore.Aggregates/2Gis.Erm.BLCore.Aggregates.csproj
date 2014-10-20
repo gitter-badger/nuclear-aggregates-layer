@@ -176,7 +176,7 @@
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
-    <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationresultAggregateService.cs" />
+    <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\OrderReadModel.cs" />
     <Compile Include="OrganizationUnits\ReadModel\OrganizationUnitReadModel.cs" />
