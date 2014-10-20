@@ -10444,6 +10444,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Association Name="OrderOrderValidationCacheEntry">
           <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
           <End Type="ErmModel.OrderValidationCacheEntry" Role="OrderValidationCacheEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderValidationCacheEntry">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
     </Schema>
   </edmx:ConceptualModels>
