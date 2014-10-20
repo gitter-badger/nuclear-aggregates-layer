@@ -10,7 +10,8 @@ using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.DI.Factories.OrderValidation;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.OrderValidation;
-using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions;
+using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.DiagnosticStorage;
+using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -180,6 +181,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             const string MappingScope = Mapping.Erm;
 
             return container
+                        .RegisterType<IOrderValidationOperationFeedback, OrderValidationOperationFeedback>(CustomLifetime.PerOperationContext)
                         .RegisterType<IOrderValidationDiagnosticStorage, PerformanceCounterOrderValidationDiagnosticStorage>(Lifetime.Singleton)
                         .RegisterType<IOrderValidationRuleProvider, OrderValidationRuleProvider>(Lifetime.Singleton)
                         .RegisterType<IOrderValidationRuleFactory, UnityOrderValidationRuleFactory>(Lifetime.Singleton)
