@@ -162,6 +162,7 @@
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
     <Compile Include="Models\MultiCultureDealViewModel.cs" />
     <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesFasCommentCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
       <DependentUpon>Deal.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
