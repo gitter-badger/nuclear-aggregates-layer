@@ -800,7 +800,7 @@ window.InitPage = function () {
                 // Если смена города назначения вызвана пользователем
                 if (this.destinationOrgUnitChangedByFirmChangedEvent != true) {
                     // При смене города назначения обнулить фирму, юр. лицо клиента, договор
-                    if (this.oldDestOrgUnitId && (this.oldDestOrgUnitId != cmp.getValue().id)) {
+                    if (this.oldDestOrgUnitId != cmp.getValue().id) {
                         Ext.getCmp('Firm').clearValue();
                     }
 
