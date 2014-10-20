@@ -955,7 +955,8 @@
       <!--Мои теплые клиенты-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListMyWarmClients" />
       <!--Клиенты, у которых есть заказы с типом Бартер-->
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarter" />
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarter" />-->
       <!--Мои клиенты без ЛПР-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListMyClientsWithoutMakeDecisionContacts" />
       <!--Мои региональные клиенты -->
@@ -969,7 +970,8 @@
       <!--Теплые клиенты моих подчиненных-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListWarmClientsForSubordinates" />
       <!--Клиенты моих подчиненных, у которых есть заказы с типом Бартер-->
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarterForSubordinates" />
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarterForSubordinates" />-->
       <!--Клиенты моих подчиненных без ЛПР-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithoutMakeDecisionContactsForSubordinates" />
       <!-- Все клиенты по филиалу -->
@@ -1272,7 +1274,8 @@
       <!--Мои закрытые сделки -->
       <DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListMyInactiveDeals" HideInCardRelatedGrid="*" />
       <!--Мои бартерные сделки-->
-      <DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListMyBarterDeals" HideInCardRelatedGrid="*" />
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListMyBarterDeals" HideInCardRelatedGrid="*" />-->
       <!--Все сделки по филиалу-->
       <DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListDealsAtBranch" HideInCardRelatedGrid="*" />
       <!--Сделки моих подчиненных-->
@@ -2031,7 +2034,8 @@
       <!--Мои неактивные (заказы закрытые отказом)-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyTerminatedOrders" HideInCardRelatedGrid="*"/>
       <!--Мои заказы, у которых отсутствуют подписанные документы-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyOrdersWithDocumentsDebt" HideInCardRelatedGrid="*"/>
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyOrdersWithDocumentsDebt" HideInCardRelatedGrid="*"/>-->
       <!--Все заказы моих подчиненных-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersForSubordinates" HideInCardRelatedGrid="*" />
       <!--Региональные заказы моих подчиненных -->
@@ -2040,7 +2044,8 @@
       <!--Все мои заказы с типом Самореклама-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMySelfAdsOrders" HideInCardRelatedGrid="*"/>
       <!--Все мои заказы с типом Бартер-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyBarterOrders" HideInCardRelatedGrid="*"/>
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyBarterOrders" HideInCardRelatedGrid="*"/>-->
       <!--Мои новые заказы-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyNewOrders" HideInCardRelatedGrid="*" />
       <!--Новые заказы моих подчиненных-->
@@ -2064,7 +2069,8 @@
       <!--Заказы в выпуск следующего месяца закрытые отказом-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListTerminatedOrdersForNextMonthEdition" HideInCardRelatedGrid="*" ExtendedInfo="ForNextMonthEdition=true" />
       <!--Неподписанные БЗ за текущий выпуск-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersWithDocumentsDebtForNextMonth" HideInCardRelatedGrid="*" ExtendedInfo="ForNextEdition=true"/>
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersWithDocumentsDebtForNextMonth" HideInCardRelatedGrid="*" ExtendedInfo="ForNextEdition=true"/>-->
       <!--Список технических расторжений -->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListTechnicalTerminatedOrders" HideInCardRelatedGrid="*"/>
       <!--Список действительных расторжений -->
