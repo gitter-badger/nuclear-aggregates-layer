@@ -1052,8 +1052,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Contact.gif" />
-					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=2&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
-					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=2&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
+          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>
