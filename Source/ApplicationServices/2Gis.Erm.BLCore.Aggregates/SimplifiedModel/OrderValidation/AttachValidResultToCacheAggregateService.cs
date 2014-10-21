@@ -75,6 +75,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.OrderValidation
 
                     _identityProvider.SetFor(legacyResult);
                     _legacyOrderValidationCacheRepository.Add(legacyResult);
+                    scope.Added<OrderValidationResult>(legacyResult.Id);
                 }
 
                 _legacyOrderValidationCacheRepository.Save();
