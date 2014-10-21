@@ -33,26 +33,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             IndexDocuments(documentWrappers, new CancellationToken());
         }
 
-        public void IndexAllDocuments(Type documentType, CancellationToken cancellationToken, IProgress<ProgressDto> progress = null)
+        public void IndexAllDocuments(Type documentType, CancellationToken cancellationToken, IProgress<long> countProgress = null, IProgress<long> totalCountProgress = null)
         {
-            IProgress<long> countProgress = null;
-            IProgress<long> totalCountProgress = null;
-            if (progress != null)
-            {
-                var progressDto = new ProgressDto();
-                countProgress = new Progress<long>(x =>
-                {
-                    progressDto.Count += x;
-                    progress.Report(progressDto);
-                });
-
-                totalCountProgress = new Progress<long>(x =>
-                {
-                    progressDto.TotalCount += x;
-                    progress.Report(progressDto);
-                });
-            }
-
             var documentWrappers = GetDocumentWrappers(documentType, totalCountProgress);
             IndexDocuments(documentWrappers, cancellationToken, countProgress, totalCountProgress);
         }
