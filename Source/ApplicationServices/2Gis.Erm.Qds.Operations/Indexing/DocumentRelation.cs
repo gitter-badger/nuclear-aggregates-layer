@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 .SelectMany(x => _accessors.Select(y => y.GetDocumentPartId(x.Document)))
                 .Where(x => !string.IsNullOrEmpty(x));
 
-            return x => (ElasticApi.ErmMultiGetDescriptor)documentPartIds.Aggregate(x, (current, documentPartId) => current.GetDistinct<TDocumentPart>(g => (ElasticApi.ErmMultiGetDescriptor.ErmMultiGetOperationDescriptor<TDocumentPart>)g
+            return x => (ElasticApi.ErmMultiGetDescriptor)documentPartIds.Aggregate(x, (current, documentPartId) => current.GetDistinct<TDocumentPart>(g => g
                 .Id(documentPartId)))
                 .Preference("_primary");
         }

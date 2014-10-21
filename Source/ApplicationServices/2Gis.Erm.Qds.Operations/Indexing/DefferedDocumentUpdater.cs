@@ -54,7 +54,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 documentType = IndexMappingMetadata.GetDocumentType(queueItem.Document.DocumentType);
                 SaveIndexSettings(first, queueItem, documentType);
                 _replicationQueueHelper.DeleteItem(queueItem);
-                IndexAllDocumentsForDocumentType(queueItem, documentType, cancellationToken);
+
+                IndexAllDocumentsForDocumentType(first, documentType, cancellationToken);
             }
 
             RestoreIndexSettings(first);
