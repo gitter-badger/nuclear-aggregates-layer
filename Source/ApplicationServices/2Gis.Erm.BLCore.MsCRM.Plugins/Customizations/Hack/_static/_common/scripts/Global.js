@@ -1006,7 +1006,7 @@ function openObj(iType, sId, sParams, sUrlPrefix, bNewWindow)
     /*CRM Hack*/
     var ermUrl = GetErmUrl(iType, sId);
     var entityName = GetErmEntityName(iType);
-    var rate = 0.6;
+    var rate = 0.7;
     if (entityName == 'Order') {
         rate = 0.9;
     }
