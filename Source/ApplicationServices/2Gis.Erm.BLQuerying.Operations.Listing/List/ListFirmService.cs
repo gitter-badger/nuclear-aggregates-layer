@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -78,13 +80,23 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             return x => dealFirms.Contains(x.Id);
                         }
 
-                        return null;
+                        var clientId = _finder.Find(Specs.Find.ById<Deal>(dealId)).Select(x => x.ClientId).Single();
+                        return x => x.ClientId == clientId;
                     });
+
+            // TODO {all, 20.10.2014}: этот clientFilter нужен только при создании заказа не из сделки. После того, как такая возможность исчезнет необходимо убрать этот код и передачу clientId c клиента.
+            Expression<Func<Firm, bool>> clientFilter = null;
+            long orderDealId;
+            if (!querySettings.TryGetExtendedProperty("dealId", out orderDealId))
+            {
+                clientFilter = querySettings.CreateForExtendedProperty<Firm, long>("clientId", clientId => x => x.ClientId == clientId);
+            }
 
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper,
                     dealFilter,
+                    clientFilter,
                     myTerritoryFilter,
                     myBranchFilter,
                     selfAdsOrdersFilter)
@@ -117,7 +129,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         }
 
         protected override void Transform(ListFirmDto dto)
-                {
+        {
             dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }

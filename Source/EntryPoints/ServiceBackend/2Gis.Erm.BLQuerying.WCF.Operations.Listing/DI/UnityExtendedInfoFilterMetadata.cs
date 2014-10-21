@@ -215,7 +215,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListFirmDto, bool>("ActiveBusinessMeaning", value => x => x.IsActive && !x.IsDeleted && !x.ClosedForAscertainment);
             RegisterExtendedInfoFilter<ListFirmDto, bool>("InactiveBusinessMeaning", value => x => !x.IsDeleted && (!x.IsActive || x.ClosedForAscertainment));
             RegisterExtendedInfoFilter<ListFirmDto, bool>("QualifyTimeLastYear", value => x => x.LastDisqualifyTime == null || ((DateTime.Now.Month - x.LastDisqualifyTime.Value.Month) + 12 * (DateTime.Now.Year - x.LastDisqualifyTime.Value.Year)) > 2);
-            RegisterExtendedInfoFilter<ListFirmDto, long>("clientId", value => x => x.ClientId == value);
             RegisterExtendedInfoFilter<ListFirmDto, long>("organizationUnitId", value => x => x.OrganizationUnitId == value);
             RegisterExtendedInfoFilter<ListFirmDto, bool>("CreatedInCurrentMonth", value =>
             {
