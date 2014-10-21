@@ -9,6 +9,6 @@ namespace DoubleGis.Erm.Qds.API.Operations.Indexing
     public interface IDocumentUpdater
     {
         void IndexDocuments(IReadOnlyCollection<EntityLink> entityLinks);
-        void IndexAllDocuments(Type documentType, CancellationToken cancellationToken, IProgress<ProgressDto> progress = null);
+        void IndexAllDocuments(Type documentType, CancellationToken cancellationToken, IProgress<long> countProgress = null, IProgress<long> totalCountProgress = null);
     }
 }
