@@ -16,7 +16,7 @@ function RecalculateCardSize(rate) {
     Ext.DoubleGis.Global.UISettings.ScreenCenterTop = (window.screen.height - window.screen.height * rate) / 2;
 }
 
-RecalculateCardSize(0.6);
+RecalculateCardSize(0.7);
 
 //Статические методы, в основном для отрисовки UI
 Ext.DoubleGis.Global.Helpers = {
