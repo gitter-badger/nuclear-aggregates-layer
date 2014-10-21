@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
         private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =
             OrderValidationRuleGroupMetadata.Config
                                             .Group(OrderValidationRuleGroup.AdvertisementMaterialsValidation)
-                                            //.UseCaching
+                                            .UseCaching
                                             .Rules(OrderValidationRuleMetadata.Config.Rule<AdvertisementsOnlyWhiteListOrderValidationRule>(21)
                                                                               .Common,
                                                    OrderValidationRuleMetadata.Config.Rule<AdvertisementsWithoutWhiteListOrderValidationRule>(22)
@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
         private readonly OrderValidationRuleGroupMetadata _adPositionsGroupMetadata =
             OrderValidationRuleGroupMetadata.Config
                                             .Group(OrderValidationRuleGroup.ADPositionsValidation)
-                                            //.UseCaching
+                                            .UseCaching
                                             .EnableCachingFor(ValidationType.PreReleaseBeta)
                                             .EnableCachingFor(ValidationType.PreReleaseFinal)
                                             .Rules(OrderValidationRuleMetadata.Config.Rule<AssociatedAndDeniedPricePositionsOrderValidationRule>(6)
