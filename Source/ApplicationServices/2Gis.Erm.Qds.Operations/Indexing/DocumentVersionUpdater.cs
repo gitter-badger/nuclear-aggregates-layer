@@ -16,8 +16,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         {
             var castedDocumentWrappers = documentWrappers.OfType<IDocumentWrapper<TDocument>>();
 
-            return x => castedDocumentWrappers.Aggregate(x, (current, documentWrapper) => (ElasticApi.ErmMultiGetDescriptor)current.GetDistinct<TDocument>(g => (ElasticApi.ErmMultiGetDescriptor.ErmMultiGetOperationDescriptor<TDocument>)g
-                .Source(s => s.Exclude(new[] { "*" }))
+            return x => castedDocumentWrappers.Aggregate(x, (current, documentWrapper) => (ElasticApi.ErmMultiGetDescriptor)current.GetDistinct<TDocument>(g => g
+                .Source(s => s.Exclude("*"))
                 .Id(documentWrapper.Id))
                 .Preference("_primary"));
         }
