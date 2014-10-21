@@ -48,8 +48,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
                                  _operationIndicators.ValidationParams);
 
             _orderValidationDiagnosticStorage.Session[Counters.Counters.Sessions.ActiveCount].Decrement();
-
-            PublishIndicators();
         }
 
         void IOrderValidationOperationFeedback.OperationSucceeded()
@@ -62,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
 
             _orderValidationDiagnosticStorage.Session[Counters.Counters.Sessions.ActiveCount].Decrement();
 
-            PublishIndicators();
+            PublishIndicatorsForSucceededOperation();
         }
 
         void IOrderValidationOperationFeedback.ValidationStarted()
@@ -174,7 +172,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
                                   _operationIndicators.ValidationParams);
         }
 
-        private void PublishIndicators()
+        private void PublishIndicatorsForSucceededOperation()
         {
             _orderValidationDiagnosticStorage.Session[Counters.Counters.Sessions.TotalTimeSec].Value = (long)_operationIndicators.OperationExecutionTimeSec;
             _orderValidationDiagnosticStorage.Session[Counters.Counters.Sessions.TotalOrdersCount].IncrementBy(_operationIndicators.AppropriateOrdersCount);
