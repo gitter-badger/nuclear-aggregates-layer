@@ -1115,15 +1115,6 @@
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="LegalPersonProfileId" Type="bigint" />
         </EntityType>
-        <EntityType Name="OrdersRegionalAdvertisingSharings">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="OrderId" Type="bigint" Nullable="false" />
-          <Property Name="RegionalAdvertisingSharingId" Type="bigint" Nullable="false" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-        </EntityType>
         <EntityType Name="OrderValidationResults">
           <Key>
             <PropertyRef Name="Id" />
@@ -1323,23 +1314,6 @@
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="RegionalAdvertisingSharings">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="BeginDistributionDate" Type="datetime2" Precision="2" Nullable="false" />
-          <Property Name="SourceOrganizationUnitId" Type="bigint" Nullable="false" />
-          <Property Name="DestOrganizationUnitId" Type="bigint" Nullable="false" />
-          <Property Name="SourceBranchOfficeOrganizationUnitId" Type="bigint" Nullable="false" />
-          <Property Name="DestBranchOfficeOrganizationUnitId" Type="bigint" Nullable="false" />
-          <Property Name="TotalAmount" Type="decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="2" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="ReleaseInfos">
           <Key>
@@ -3663,30 +3637,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrdersRegionalAdvertisingSharings_Orders">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-          <End Role="OrdersRegionalAdvertisingSharings" Type="Self.OrdersRegionalAdvertisingSharings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrdersRegionalAdvertisingSharings">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings">
-          <End Role="RegionalAdvertisingSharings" Type="Self.RegionalAdvertisingSharings" Multiplicity="1" />
-          <End Role="OrdersRegionalAdvertisingSharings" Type="Self.OrdersRegionalAdvertisingSharings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RegionalAdvertisingSharings">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrdersRegionalAdvertisingSharings">
-              <PropertyRef Name="RegionalAdvertisingSharingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderValidationResults_Orders">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderValidationResults" Type="Self.OrderValidationResults" Multiplicity="*" />
@@ -3888,54 +3838,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Principal>
             <Dependent Role="ReferenceItems">
               <PropertyRef Name="ReferenceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1">
-          <End Role="BranchOfficeOrganizationUnits" Type="Self.BranchOfficeOrganizationUnits" Multiplicity="1" />
-          <End Role="RegionalAdvertisingSharings" Type="Self.RegionalAdvertisingSharings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BranchOfficeOrganizationUnits">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RegionalAdvertisingSharings">
-              <PropertyRef Name="SourceBranchOfficeOrganizationUnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2">
-          <End Role="BranchOfficeOrganizationUnits" Type="Self.BranchOfficeOrganizationUnits" Multiplicity="1" />
-          <End Role="RegionalAdvertisingSharings" Type="Self.RegionalAdvertisingSharings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BranchOfficeOrganizationUnits">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RegionalAdvertisingSharings">
-              <PropertyRef Name="DestBranchOfficeOrganizationUnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RegionalAdvertisingSharings_OrganizationUnits_1">
-          <End Role="OrganizationUnits" Type="Self.OrganizationUnits" Multiplicity="1" />
-          <End Role="RegionalAdvertisingSharings" Type="Self.RegionalAdvertisingSharings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrganizationUnits">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RegionalAdvertisingSharings">
-              <PropertyRef Name="SourceOrganizationUnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RegionalAdvertisingSharings_OrganizationUnits_2">
-          <End Role="OrganizationUnits" Type="Self.OrganizationUnits" Multiplicity="1" />
-          <End Role="RegionalAdvertisingSharings" Type="Self.RegionalAdvertisingSharings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrganizationUnits">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RegionalAdvertisingSharings">
-              <PropertyRef Name="DestOrganizationUnitId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4271,7 +4173,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="OrderProcessingRequests" EntityType="Self.OrderProcessingRequests" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrderReleaseTotals" EntityType="Self.OrderReleaseTotals" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="Billing" store:Type="Tables" />
-          <EntitySet Name="OrdersRegionalAdvertisingSharings" EntityType="Self.OrdersRegionalAdvertisingSharings" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrderValidationResults" EntityType="Self.OrderValidationResults" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrderValidationRuleGroupDetails" EntityType="Self.OrderValidationRuleGroupDetails" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrderValidationRuleGroups" EntityType="Self.OrderValidationRuleGroups" Schema="Billing" store:Type="Tables" />
@@ -4284,7 +4185,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="Prices" EntityType="Self.Prices" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="PrintFormTemplates" EntityType="Self.PrintFormTemplates" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="Billing" store:Type="Tables" />
-          <EntitySet Name="RegionalAdvertisingSharings" EntityType="Self.RegionalAdvertisingSharings" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="ReleaseInfos" EntityType="Self.ReleaseInfos" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="ReleasesWithdrawals" EntityType="Self.ReleasesWithdrawals" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="ReleasesWithdrawalsPositions" EntityType="Self.ReleasesWithdrawalsPositions" Schema="Billing" store:Type="Tables" />
@@ -4857,14 +4757,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             <End Role="Platforms" EntitySet="Platforms" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrdersRegionalAdvertisingSharings_Orders" Association="Self.FK_OrdersRegionalAdvertisingSharings_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrdersRegionalAdvertisingSharings" EntitySet="OrdersRegionalAdvertisingSharings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings" Association="Self.FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings">
-            <End Role="RegionalAdvertisingSharings" EntitySet="RegionalAdvertisingSharings" />
-            <End Role="OrdersRegionalAdvertisingSharings" EntitySet="OrdersRegionalAdvertisingSharings" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderValidationResults_Orders" Association="Self.FK_OrderValidationResults_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderValidationResults" EntitySet="OrderValidationResults" />
@@ -4932,22 +4824,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_ReferenceItems_Reference" Association="Self.FK_ReferenceItems_Reference">
             <End Role="Reference" EntitySet="Reference" />
             <End Role="ReferenceItems" EntitySet="ReferenceItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1" Association="Self.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1">
-            <End Role="BranchOfficeOrganizationUnits" EntitySet="BranchOfficeOrganizationUnits" />
-            <End Role="RegionalAdvertisingSharings" EntitySet="RegionalAdvertisingSharings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2" Association="Self.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2">
-            <End Role="BranchOfficeOrganizationUnits" EntitySet="BranchOfficeOrganizationUnits" />
-            <End Role="RegionalAdvertisingSharings" EntitySet="RegionalAdvertisingSharings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegionalAdvertisingSharings_OrganizationUnits_1" Association="Self.FK_RegionalAdvertisingSharings_OrganizationUnits_1">
-            <End Role="OrganizationUnits" EntitySet="OrganizationUnits" />
-            <End Role="RegionalAdvertisingSharings" EntitySet="RegionalAdvertisingSharings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegionalAdvertisingSharings_OrganizationUnits_2" Association="Self.FK_RegionalAdvertisingSharings_OrganizationUnits_2">
-            <End Role="OrganizationUnits" EntitySet="OrganizationUnits" />
-            <End Role="RegionalAdvertisingSharings" EntitySet="RegionalAdvertisingSharings" />
           </AssociationSet>
           <AssociationSet Name="FK_ReleaseInfos_Files" Association="Self.FK_ReleaseInfos_Files">
             <End Role="Files" EntitySet="Files" />
@@ -5508,32 +5384,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <End Role="ActionsHistory" EntitySet="ActionsHistories" />
           <End Role="ActionsHistoryDetail" EntitySet="ActionsHistoryDetails" />
         </AssociationSet>
-        <EntitySet Name="OrdersRegionalAdvertisingSharings" EntityType="ErmModel.OrdersRegionalAdvertisingSharing" />
-        <EntitySet Name="RegionalAdvertisingSharings" EntityType="ErmModel.RegionalAdvertisingSharing" />
-        <AssociationSet Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1" Association="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1">
-          <End Role="BranchOfficeOrganizationUnit" EntitySet="BranchOfficeOrganizationUnits" />
-          <End Role="RegionalAdvertisingSharing" EntitySet="RegionalAdvertisingSharings" />
-        </AssociationSet>
-        <AssociationSet Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2" Association="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2">
-          <End Role="BranchOfficeOrganizationUnit" EntitySet="BranchOfficeOrganizationUnits" />
-          <End Role="RegionalAdvertisingSharing" EntitySet="RegionalAdvertisingSharings" />
-        </AssociationSet>
-        <AssociationSet Name="FK_OrdersRegionalAdvertisingSharings_Orders" Association="ErmModel.FK_OrdersRegionalAdvertisingSharings_Orders">
-          <End Role="Order" EntitySet="Orders" />
-          <End Role="OrdersRegionalAdvertisingSharing" EntitySet="OrdersRegionalAdvertisingSharings" />
-        </AssociationSet>
-        <AssociationSet Name="FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings" Association="ErmModel.FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings">
-          <End Role="RegionalAdvertisingSharing" EntitySet="RegionalAdvertisingSharings" />
-          <End Role="OrdersRegionalAdvertisingSharing" EntitySet="OrdersRegionalAdvertisingSharings" />
-        </AssociationSet>
-        <AssociationSet Name="FK_RegionalAdvertisingSharings_OrganizationUnits_1" Association="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_1">
-          <End Role="OrganizationUnit" EntitySet="OrganizationUnits" />
-          <End Role="RegionalAdvertisingSharing" EntitySet="RegionalAdvertisingSharings" />
-        </AssociationSet>
-        <AssociationSet Name="FK_RegionalAdvertisingSharings_OrganizationUnits_2" Association="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_2">
-          <End Role="OrganizationUnit" EntitySet="OrganizationUnits" />
-          <End Role="RegionalAdvertisingSharing" EntitySet="RegionalAdvertisingSharings" />
-        </AssociationSet>
         <AssociationSet Name="FK_ReleaseValidationResults_Orders" Association="ErmModel.FK_ReleaseValidationResults_Orders">
           <End Role="Order" EntitySet="Orders" />
           <End Role="ReleaseValidationResult" EntitySet="ReleaseValidationResults" />
@@ -6013,8 +5863,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="Firms" Relationship="ErmModel.FK_Firms_OrganizationUnits" FromRole="OrganizationUnit" ToRole="Firm" />
         <Property Type="Int64" Name="TimeZoneId" Nullable="false" />
         <NavigationProperty Name="WithdrawalInfos" Relationship="ErmModel.FK_WithdrawingInfos_OrganizationUnits" FromRole="OrganizationUnit" ToRole="WithdrawalInfo" />
-        <NavigationProperty Name="RegionalAdvertisingSharings" Relationship="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_1" FromRole="OrganizationUnit" ToRole="RegionalAdvertisingSharing" />
-        <NavigationProperty Name="RegionalAdvertisingSharings1" Relationship="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_2" FromRole="OrganizationUnit" ToRole="RegionalAdvertisingSharing" />
         <NavigationProperty Name="LocalMessages" Relationship="ErmModel.FK_LocalMessages_OrganizationUnits" FromRole="OrganizationUnit" ToRole="LocalMessage" />
         <Property Type="String" Name="ElectronicMedia" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         <Property Type="DateTime" Name="ErmLaunchDate" Precision="2" />
@@ -7735,7 +7583,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="ReplacingOrders" Relationship="ErmModel.FK_Orders_Orders" FromRole="Order" ToRole="Order1" />
         <NavigationProperty Name="TechnicallyTerminatedOrder" Relationship="ErmModel.FK_Orders_Orders" FromRole="Order1" ToRole="Order" />
         <Property Type="DateTime" Name="SignupDate" Nullable="false" Precision="2" />
-        <NavigationProperty Name="OrdersRegionalAdvertisingSharings" Relationship="ErmModel.FK_OrdersRegionalAdvertisingSharings_Orders" FromRole="Order" ToRole="OrdersRegionalAdvertisingSharing" />
         <NavigationProperty Name="ReleaseValidationResults" Relationship="ErmModel.FK_ReleaseValidationResults_Orders" FromRole="Order" ToRole="ReleaseValidationResult" />
         <Property Type="String" Name="RegionalNumber" MaxLength="200" FixedLength="false" Unicode="true" />
         <NavigationProperty Name="OrderValidationResults" Relationship="ErmModel.FK_OrderValidationResults_Orders" FromRole="Order" ToRole="OrderValidationResult" />
@@ -8198,8 +8045,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <NavigationProperty Name="BranchOffice" Relationship="ErmModel.FK_BranchOfficeOrganizationUnits_BranchOffices" FromRole="BranchOfficeOrganizationUnit" ToRole="BranchOffice" />
         <NavigationProperty Name="OrganizationUnit" Relationship="ErmModel.FK_BranchOfficeOrganizationUnits_OrganizationUnits" FromRole="BranchOfficeOrganizationUnit" ToRole="OrganizationUnit" />
         <NavigationProperty Name="Orders" Relationship="ErmModel.FK_Orders_BranchOfficeOrganizationUnits" FromRole="BranchOfficeOrganizationUnit" ToRole="Order" />
-        <NavigationProperty Name="RegionalAdvertisingSharings" Relationship="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1" FromRole="BranchOfficeOrganizationUnit" ToRole="RegionalAdvertisingSharing" />
-        <NavigationProperty Name="RegionalAdvertisingSharings1" Relationship="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2" FromRole="BranchOfficeOrganizationUnit" ToRole="RegionalAdvertisingSharing" />
         <NavigationProperty Name="PrintFormTemplates" Relationship="ErmModel.FK_PrintFormTemplates_BranchOfficeOrganizationUnits" FromRole="BranchOfficeOrganizationUnit" ToRole="PrintFormTemplate" />
         <Property Type="String" Name="Email" MaxLength="64" FixedLength="false" Unicode="true" />
       </EntityType>
@@ -8484,111 +8329,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           </Principal>
           <Dependent Role="ActionsHistoryDetail">
             <PropertyRef Name="ActionsHistoryId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <EntityType Name="OrdersRegionalAdvertisingSharing">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Type="Int64" Name="OrderId" Nullable="false" />
-        <Property Type="Int64" Name="RegionalAdvertisingSharingId" Nullable="false" />
-        <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <NavigationProperty Name="Order" Relationship="ErmModel.FK_OrdersRegionalAdvertisingSharings_Orders" FromRole="OrdersRegionalAdvertisingSharing" ToRole="Order" />
-        <NavigationProperty Name="RegionalAdvertisingSharing" Relationship="ErmModel.FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings" FromRole="OrdersRegionalAdvertisingSharing" ToRole="RegionalAdvertisingSharing" />
-      </EntityType>
-      <EntityType Name="RegionalAdvertisingSharing">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <Property Type="DateTime" Name="BeginDistributionDate" Nullable="false" Precision="2" />
-        <Property Type="Int64" Name="SourceOrganizationUnitId" Nullable="false" />
-        <Property Type="Int64" Name="DestOrganizationUnitId" Nullable="false" />
-        <Property Type="Int64" Name="SourceBranchOfficeOrganizationUnitId" Nullable="false" />
-        <Property Type="Int64" Name="DestBranchOfficeOrganizationUnitId" Nullable="false" />
-        <Property Type="Decimal" Name="TotalAmount" Nullable="false" Precision="19" Scale="4" />
-        <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-        <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="2" />
-        <Property Type="Int64" Name="ModifiedBy" />
-        <Property Type="DateTime" Name="ModifiedOn" Precision="2" />
-        <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-        <NavigationProperty Name="SourceBranchOfficeOrganizationUnit" Relationship="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1" FromRole="RegionalAdvertisingSharing" ToRole="BranchOfficeOrganizationUnit" />
-        <NavigationProperty Name="DestBranchOfficeOrganizationUnit" Relationship="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2" FromRole="RegionalAdvertisingSharing" ToRole="BranchOfficeOrganizationUnit" />
-        <NavigationProperty Name="OrdersRegionalAdvertisingSharings" Relationship="ErmModel.FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings" FromRole="RegionalAdvertisingSharing" ToRole="OrdersRegionalAdvertisingSharing" />
-        <NavigationProperty Name="SourceOrganizationUnit" Relationship="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_1" FromRole="RegionalAdvertisingSharing" ToRole="OrganizationUnit" />
-        <NavigationProperty Name="DestOrganizationUnit" Relationship="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_2" FromRole="RegionalAdvertisingSharing" ToRole="OrganizationUnit" />
-      </EntityType>
-      <Association Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1">
-        <End Type="ErmModel.BranchOfficeOrganizationUnit" Role="BranchOfficeOrganizationUnit" Multiplicity="1" />
-        <End Type="ErmModel.RegionalAdvertisingSharing" Role="RegionalAdvertisingSharing" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="BranchOfficeOrganizationUnit">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="RegionalAdvertisingSharing">
-            <PropertyRef Name="SourceBranchOfficeOrganizationUnitId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2">
-        <End Type="ErmModel.BranchOfficeOrganizationUnit" Role="BranchOfficeOrganizationUnit" Multiplicity="1" />
-        <End Type="ErmModel.RegionalAdvertisingSharing" Role="RegionalAdvertisingSharing" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="BranchOfficeOrganizationUnit">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="RegionalAdvertisingSharing">
-            <PropertyRef Name="DestBranchOfficeOrganizationUnitId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_OrdersRegionalAdvertisingSharings_Orders">
-        <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
-        <End Type="ErmModel.OrdersRegionalAdvertisingSharing" Role="OrdersRegionalAdvertisingSharing" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="Order">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="OrdersRegionalAdvertisingSharing">
-            <PropertyRef Name="OrderId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings">
-        <End Type="ErmModel.RegionalAdvertisingSharing" Role="RegionalAdvertisingSharing" Multiplicity="1" />
-        <End Type="ErmModel.OrdersRegionalAdvertisingSharing" Role="OrdersRegionalAdvertisingSharing" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="RegionalAdvertisingSharing">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="OrdersRegionalAdvertisingSharing">
-            <PropertyRef Name="RegionalAdvertisingSharingId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_RegionalAdvertisingSharings_OrganizationUnits_1">
-        <End Type="ErmModel.OrganizationUnit" Role="OrganizationUnit" Multiplicity="1" />
-        <End Type="ErmModel.RegionalAdvertisingSharing" Role="RegionalAdvertisingSharing" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="OrganizationUnit">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="RegionalAdvertisingSharing">
-            <PropertyRef Name="SourceOrganizationUnitId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
-      <Association Name="FK_RegionalAdvertisingSharings_OrganizationUnits_2">
-        <End Type="ErmModel.OrganizationUnit" Role="OrganizationUnit" Multiplicity="1" />
-        <End Type="ErmModel.RegionalAdvertisingSharing" Role="RegionalAdvertisingSharing" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="OrganizationUnit">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="RegionalAdvertisingSharing">
-            <PropertyRef Name="DestOrganizationUnitId" />
           </Dependent>
         </ReferentialConstraint>
       </Association>
@@ -11780,34 +11520,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
               <ScalarProperty Name="OriginalValue" ColumnName="OriginalValue" />
               <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
               <ScalarProperty Name="ActionsHistoryId" ColumnName="ActionsHistoryId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="OrdersRegionalAdvertisingSharings">
-          <EntityTypeMapping TypeName="ErmModel.OrdersRegionalAdvertisingSharing">
-            <MappingFragment StoreEntitySet="OrdersRegionalAdvertisingSharings">
-              <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-              <ScalarProperty Name="RegionalAdvertisingSharingId" ColumnName="RegionalAdvertisingSharingId" />
-              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="RegionalAdvertisingSharings">
-          <EntityTypeMapping TypeName="ErmModel.RegionalAdvertisingSharing">
-            <MappingFragment StoreEntitySet="RegionalAdvertisingSharings">
-              <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-              <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-              <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-              <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-              <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-              <ScalarProperty Name="DestBranchOfficeOrganizationUnitId" ColumnName="DestBranchOfficeOrganizationUnitId" />
-              <ScalarProperty Name="SourceBranchOfficeOrganizationUnitId" ColumnName="SourceBranchOfficeOrganizationUnitId" />
-              <ScalarProperty Name="DestOrganizationUnitId" ColumnName="DestOrganizationUnitId" />
-              <ScalarProperty Name="SourceOrganizationUnitId" ColumnName="SourceOrganizationUnitId" />
-              <ScalarProperty Name="BeginDistributionDate" ColumnName="BeginDistributionDate" />
               <ScalarProperty Name="Id" ColumnName="Id" />
             </MappingFragment>
           </EntityTypeMapping>

@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Entities
+﻿using System;
+
+namespace DoubleGis.Erm.Platform.Model.Entities
 {
     public enum EntityName
     {
@@ -75,6 +77,7 @@
         Bill = 188,
         Lock = 159,
         LockDetail = 148,
+        [Obsolete("Сущность была удалена")]
         RegionalAdvertisingSharing = 210,
         Contact = 206,
         WithdrawalInfo = 209,

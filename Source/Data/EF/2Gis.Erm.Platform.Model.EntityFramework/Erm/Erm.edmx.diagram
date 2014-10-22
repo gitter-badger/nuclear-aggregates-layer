@@ -62,8 +62,6 @@
         <edmx:EntityTypeShape EntityType="ErmModel.WithdrawalInfo" Width="1.5" PointX="7.5" PointY="119.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ActionsHistory" Width="1.5" PointX="10.75" PointY="1" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ActionsHistoryDetail" Width="1.5" PointX="13" PointY="1.25" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.OrdersRegionalAdvertisingSharing" Width="1.5" PointX="37.5" PointY="93.375" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.RegionalAdvertisingSharing" Width="1.5" PointX="18.75" PointY="83.125" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Reference" Width="1.5" PointX="5.75" PointY="4.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ReferenceItem" Width="1.5" PointX="8" PointY="3.875" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.NotificationAddresses" Width="1.5" PointX="5.75" PointY="8" IsExpanded="true" />
@@ -197,12 +195,6 @@
         <edmx:AssociationConnector Association="ErmModel.FK_Orders_Orders" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_WithdrawingInfos_OrganizationUnits" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_ActionsHistory_ActionsHistoryDetails" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_1" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_RegionalAdvertisingSharings_BranchOfficeOrganizationUnits_2" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_OrdersRegionalAdvertisingSharings_Orders" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_OrdersRegionalAdvertisingSharings_RegionalAdvertisingSharings" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_1" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_RegionalAdvertisingSharings_OrganizationUnits_2" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_ReleaseValidationResults_Orders" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_LocalMessages_OrganizationUnits" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_ReferenceItems_Reference" ManuallyRouted="false" />
