@@ -368,7 +368,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListOperationTypes", ""},
             {"DListOrderPositionAdvertisements", ""},
             {"DListPlatform", ""},
-            {"DListRegionalAdvertisingSharing", ""},
             {"DListReleaseInfo", ""},
             {"DListRole", ""},
             {"DListTimeZones", ""},

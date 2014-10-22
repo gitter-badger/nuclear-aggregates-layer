@@ -223,11 +223,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListProjectDto>(
                 x => x.DisplayName,
                 x => x.OrganizationUnitName)
-            .RegisterFilteredFields<ListRegionalAdvertisingSharingDto>(
-                x => x.SourceOrganizationUnitName,
-                x => x.DestOrganizationUnitName,
-                x => x.SourceBranchOfficeOrgUnitName,
-                x => x.DestBranchOfficeOrgUnitName)
             .RegisterFilteredFields<ListReleaseInfoDto>(
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<ListRoleDto>(
