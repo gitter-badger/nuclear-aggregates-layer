@@ -1326,9 +1326,6 @@
   <data name="DFieldTotalAmount" xml:space="preserve">
     <value>Сумма по всем заказам</value>
   </data>
-  <data name="DListRegionalAdvertisingSharing" xml:space="preserve">
-    <value>Обмен региональной рекламой</value>
-  </data>
   <data name="DListAllUsers" xml:space="preserve">
     <value>Все пользователи</value>
   </data>

@@ -3798,15 +3798,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DListRegionalAdvertisingSharing {
-            get {
-                return ResourceManager.GetString("DListRegionalAdvertisingSharing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DListRegionalClientsForSubordinates {
             get {
                 return ResourceManager.GetString("DListRegionalClientsForSubordinates", resourceCulture);
