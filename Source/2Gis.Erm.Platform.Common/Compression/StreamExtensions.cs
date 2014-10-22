@@ -19,22 +19,6 @@ namespace DoubleGis.Erm.Platform.Common.Compression
             SevenZipBase.SetLibraryPath(libraryPath);
         }
 
-        public static Stream ZipStream(this Stream stream, string fileName)
-        {
-            var compressor = new SevenZipCompressor
-            {
-                ArchiveFormat = OutArchiveFormat.Zip,
-                FastCompression = true,
-                DefaultItemName = fileName
-            };
-
-            var zipStream = new MemoryStream();
-            compressor.CompressStream(stream, zipStream);
-            zipStream.Position = 0;
-
-            return zipStream;
-        }
-
         public static Stream ZipStreamDictionary(this Dictionary<string, Stream> streamDictionary)
         {
             var compressor = new SevenZipCompressor

@@ -130,8 +130,6 @@
     <Compile Include="Utils\Data\ReadOnlyCollectionsUtils.cs" />
     <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\EnumExtensions.cs" />
-    <Compile Include="Ftp\FtpService.cs" />
-    <Compile Include="Ftp\IFtpService.cs" />
     <Compile Include="Utils\ExceptionUtils.cs" />
     <Compile Include="Utils\IncreasingSequenceGenerator.cs" />
     <Compile Include="Utils\KeyEqualityComparer.cs" />
