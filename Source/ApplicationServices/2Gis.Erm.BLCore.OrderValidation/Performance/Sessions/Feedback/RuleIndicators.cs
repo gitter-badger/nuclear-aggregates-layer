@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback
 {
     internal sealed class RuleIndicators

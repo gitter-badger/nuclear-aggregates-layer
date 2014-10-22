@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
 {
+    // TODO {i.maslennikov, 20.10.2014}: Зачем в этом сервисе явное логирование ошибок? Есть же специальный обработчик исключений на уровне WCF, может быть его научить логировать семантически?
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class OrderValidationApplicationService : IOrderValidationApplicationService, IOrderValidationApplicationRestService
     {
