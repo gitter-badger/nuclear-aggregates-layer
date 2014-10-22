@@ -345,6 +345,7 @@
     <Content Include="ActivityMigration\Resources\Scripts\BulkLetterReplication.sql" />
     <Content Include="ActivityMigration\Resources\Scripts\BulkPhonecallReplication.sql" />
     <Content Include="ActivityMigration\Resources\Scripts\BulkTaskReplication.sql" />
+    <Content Include="ActivityMigration\Resources\Scripts\IndexingOfReferences.sql" />
     <Content Include="Resources\2014.09.26 rev. 24481\Create ReplicateLetter.sql" />
     <Content Include="Resources\2014.09.26 rev. 24481\Create ReplicateAppointment.sql" />
     <Content Include="Resources\2014.09.26 rev. 24481\Create ReplicatePhonecall.sql" />
@@ -780,6 +781,7 @@
     <Compile Include="ActivityMigration\LetterMigrationBase.cs" />
     <Compile Include="ActivityMigration\Maintenance\ActivityPrivilegesRemoving.cs" />
     <Compile Include="ActivityMigration\Maintenance\CrmActivitiesCleanup.cs" />
+    <Compile Include="ActivityMigration\Maintenance\ListActivityMigration.cs" />
     <Compile Include="ActivityMigration\Maintenance\ReplicateActivitiesMigration.cs" />
     <Compile Include="ActivityMigration\Metadata\Crm\ActivityParty.cs" />
     <Compile Include="ActivityMigration\Metadata\Crm\Annotation.cs" />

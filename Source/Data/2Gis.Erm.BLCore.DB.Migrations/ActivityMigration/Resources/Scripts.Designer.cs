@@ -61,7 +61,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /*
+        ///   Looks up a localized string similar to SET NOCOUNT ON;
+        ///DECLARE @rows INT;
+        ///
+        ////*
         ///    4201 : Appointment
         ///    4202 : Email
         ///    4204 : Fax
@@ -73,13 +76,16 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Resources {
         ///*/
         ///
         ///-- чистим примечания
+        ///BEGIN TRANSACTION;
         ///DELETE FROM [dbo].[AnnotationBase] WHERE [ObjectTypeCode] in (4201, 4202, 4204, 4207, 4210, 4212, 4214, 4401);
+        ///COMMIT TRANSACTION;
         ///
         ///-- чистим связи с внешними объектами
-        ///DELETE FROM [dbo].[ActivityPartyBase] WHERE ActivityId in (select ActivityId from dbo.PhonecallBase)
-        ///
-        ///-- сохраняем прочие действия
-        ///SELECT * INTO #Act [rest of string was truncated]&quot;;.
+        ///SET @rows = 1;
+        ///WHILE @rows &gt; 0
+        ///BEGIN
+        ///    BEGIN TRANSACTION;
+        ///    DELE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ActivityCleanup {
             get {
@@ -156,6 +162,15 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration.Resources {
         internal static string BulkTaskReplication {
             get {
                 return ResourceManager.GetString("BulkTaskReplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string IndexingOfReferences {
+            get {
+                return ResourceManager.GetString("IndexingOfReferences", resourceCulture);
             }
         }
     }
