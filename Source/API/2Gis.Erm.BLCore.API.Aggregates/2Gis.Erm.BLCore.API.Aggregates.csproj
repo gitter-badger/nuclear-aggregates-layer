@@ -233,12 +233,7 @@
     <Compile Include="LocalMessages\DTO\LocalMessageDto.cs" />
     <Compile Include="LocalMessages\ILocalMessageRepository.cs" />
     <Compile Include="Orders\DTO\BargainEndAndCloseDatesDto.cs" />
-    <Compile Include="Orders\DTO\ForRelease\AdvertisingElementInfo.cs" />
-    <Compile Include="Orders\DTO\ForRelease\AdvertisingMaterialInfo.cs" />
-    <Compile Include="Orders\DTO\ForRelease\CategoryInAddressElementInfo.cs" />
-    <Compile Include="Orders\DTO\ForRelease\OrderInfo.cs" />
     <Compile Include="Orders\DTO\OrderOrganizationUnitDerivedFieldsDto.cs" />
-    <Compile Include="Orders\DTO\ForRelease\OrderPositionInfo.cs" />
     <Compile Include="Orders\DTO\OrderDTOs.cs" />
     <Compile Include="Orders\DTO\OrderParentEntityDerivedFieldsDto.cs" />
     <Compile Include="Orders\DTO\OrderSuitableBargainDto.cs" />
