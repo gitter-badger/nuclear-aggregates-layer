@@ -134,13 +134,13 @@
         <File Source="!(bindpath.PackagesDir)\NEST.1.1.2\lib\Nest.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.1.1.2\lib\Elasticsearch.Net.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.1.2\lib\Elasticsearch.Net.Connection.Thrift.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.2.0\lib\Elasticsearch.Net.Connection.Thrift.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.HttpClient.1.1.2\lib\net45\Elasticsearch.Net.Connection.HttpClient.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.HttpClient.1.2.0\lib\net45\Elasticsearch.Net.Connection.HttpClient.dll" />
       </Component>
       <Component>
         <File Source="!(bindpath.PackagesDir)\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll" />
