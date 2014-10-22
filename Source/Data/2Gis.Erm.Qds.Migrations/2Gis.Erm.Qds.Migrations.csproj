@@ -38,11 +38,11 @@
   <ItemGroup>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.1.2\lib\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.1.2\lib\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -86,10 +86,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
-      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
-      <Name>2Gis.Erm.Platform.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2EE6DCD3-218D-4EEA-8902-8CF501C7E034}</Project>
       <Name>2Gis.Erm.Platform.Migration.Core</Name>

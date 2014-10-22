@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 .SelectMany(x => _accessors.Select(y => y.GetDocumentPartId(x.Document)))
                 .Where(x => !string.IsNullOrEmpty(x));
 
-            return x => (ElasticApi.ErmMultiGetDescriptor)documentPartIds.Aggregate(x, (current, documentPartId) => current.GetDistinct<TDocumentPart>(g => (ElasticApi.ErmMultiGetDescriptor.ErmMultiGetOperationDescriptor<TDocumentPart>)g
+            return x => (ElasticApi.ErmMultiGetDescriptor)documentPartIds.Aggregate(x, (current, documentPartId) => current.GetDistinct<TDocumentPart>(g => g
                 .Id(documentPartId)))
                 .Preference("_primary");
         }
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _elasticApi.Refresh<TDocument>();
             var hits = _elasticApi.Scroll<TDocument>(s => s
                 .Filter(f => DocumentsForPartFilter(f, documentPartsMap.Keys))
-                .Source(src => src.Include(i => _accessors.Aggregate(i, (ii, metadata) => ii.Add(metadata.GetDocumentPartIdAsObjectExpression))))
+                .Source(src => src.Include(i => _accessors.Aggregate(i, (ii, metadata) => ii.Add(metadata.GetDocumentPartIdExpression))))
                 .Version()
                 .Preference("_primary"), progress);
 
@@ -116,10 +116,10 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 case 0:
                     break;
                 case 1:
-                    filterContainer = filterDescriptor.Terms(_accessors.First().GetDocumentPartIdAsStringExpression, items);
+                    filterContainer = filterDescriptor.Terms(_accessors.First().GetDocumentPartIdExpression, items);
                     break;
                 default:
-                    var filters = _accessors.Select(x => new Func<FilterDescriptor<TDocument>, FilterContainer>(f => f.Terms(x.GetDocumentPartIdAsStringExpression, items))).ToArray();
+                    var filters = _accessors.Select(x => new Func<FilterDescriptor<TDocument>, FilterContainer>(f => f.Terms(x.GetDocumentPartIdExpression, items))).ToArray();
                     filterContainer = filterDescriptor.Or(filters);
                     break;
             }

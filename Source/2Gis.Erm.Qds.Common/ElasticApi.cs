@@ -6,7 +6,6 @@ using DoubleGis.Erm.Qds.Common.Settings;
 using Elasticsearch.Net;
 using Nest;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DoubleGis.Erm.Qds.Common
@@ -70,9 +69,9 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public void Create<T>(T @object, string id = null) where T : class
+        public string Create<T>(T @object, string id = null) where T : class
         {
-            _elasticClient.Index(@object, x =>
+            var response = _elasticClient.Index(@object, x =>
             {
                 if (id != null)
                 {
@@ -80,11 +79,13 @@ namespace DoubleGis.Erm.Qds.Common
                 }
                 return x.OpType(OpType.Create);
             });
+
+            return response.Version;
         }
 
-        public void Update<T>(T @object, string id, string version = null) where T : class
+        public string Update<T>(T @object, string id, string version) where T : class
         {
-            _elasticClient.Update<T, T>(x =>
+            var response = _elasticClient.Update<T, T>(x =>
             {
                 if (version != null)
                 {
@@ -93,9 +94,11 @@ namespace DoubleGis.Erm.Qds.Common
 
                 return x.Doc(@object).Id(id);
             });
+
+            return response.Version;
         }
 
-        public void Delete<T>(string id, string version = null) where T : class
+        public void Delete<T>(string id, string version) where T : class
         {
             _elasticClient.Delete<T>(x =>
             {
@@ -180,7 +183,7 @@ namespace DoubleGis.Erm.Qds.Common
         {
             if (optimize)
             {
-                _elasticClient.Optimize(x => x.Indices(new[] { indexType }));
+                _elasticClient.Optimize(x => x.Indices(indexType));
             }
 
             _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(indexType));
@@ -319,9 +322,9 @@ namespace DoubleGis.Erm.Qds.Common
 
         public sealed class ErmMultiGetDescriptor : MultiGetDescriptor
         {
-            public ErmMultiGetDescriptor GetDistinct<T>(Func<ErmMultiGetOperationDescriptor<T>, ErmMultiGetOperationDescriptor<T>> getSelector) where T : class
+            public ErmMultiGetDescriptor GetDistinct<T>(Func<MultiGetOperationDescriptor<T>, MultiGetOperationDescriptor<T>> getSelector) where T : class
             {
-                var descriptor = (IMultiGetOperation)getSelector(new ErmMultiGetOperationDescriptor<T>());
+                var descriptor = (IMultiGetOperation)getSelector(new MultiGetOperationDescriptor<T>());
 
                 var documentType = typeof(T);
                 var operations = ((IMultiGetRequest)this).GetOperations;
@@ -332,25 +335,6 @@ namespace DoubleGis.Erm.Qds.Common
                 }
 
                 return this;
-            }
-
-            // FIXME {m.pashuk, 24.09.2014}: https://github.com/elasticsearch/elasticsearch-net/issues/954 (убрать после выхода NEST 1.2)
-            [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-            private interface IErmMultiGetOperation
-            {
-                [JsonProperty(PropertyName = "_source")]
-                ISourceFilter Source { get; set; }
-            }
-            public sealed class ErmMultiGetOperationDescriptor<T> : MultiGetOperationDescriptor<T>, IErmMultiGetOperation
-                where T: class
-            {
-                public ErmMultiGetOperationDescriptor<T> Source(Func<SearchSourceDescriptor<T>, SearchSourceDescriptor<T>> source)
-                {
-                    ((IErmMultiGetOperation)this).Source = source(new SearchSourceDescriptor<T>());
-                    return this;
-                }
-
-                ISourceFilter IErmMultiGetOperation.Source { get; set; }
             }
         }
     }
