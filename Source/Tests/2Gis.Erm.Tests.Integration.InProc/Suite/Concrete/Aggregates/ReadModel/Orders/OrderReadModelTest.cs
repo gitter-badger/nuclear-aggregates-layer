@@ -44,15 +44,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                 return OrdinaryTestResult.As.NotExecuted;
             }
 
-            var orderInfosForRelease = _orderReadModel.GetOrderInfosForRelease(orgUnitForRelease.Id, timePeriod, 0, 5);
-            var orderReleaseInfos = _orderReadModel.GetOrderReleaseInfos(orgUnitForRelease.Id, timePeriod);
-            var orderValidationAdditionalInfos = _orderReadModel.GetOrderValidationAdditionalInfos(orderInfosForRelease != null ? orderInfosForRelease.Select(x => x.Id) : new long[0]);
-            var ordersCompletelyReleasedBySourceOrganizationUnit = _orderReadModel.GetOrdersCompletelyReleasedBySourceOrganizationUnit(orgUnitForRelease.Id);
             var ordersForRelease = _orderReadModel.GetOrdersForRelease(orgUnitForRelease.Id, timePeriod);
-
+            var orderReleaseInfos = _orderReadModel.GetOrderReleaseInfos(orgUnitForRelease.Id, timePeriod);
+            var orderValidationAdditionalInfos = _orderReadModel.GetOrderValidationAdditionalInfos(ordersForRelease != null ? ordersForRelease.Select(x => x.Id) : new long[0]);
+            var ordersCompletelyReleasedBySourceOrganizationUnit = _orderReadModel.GetOrdersCompletelyReleasedBySourceOrganizationUnit(orgUnitForRelease.Id);
+            
             return new object[]
                 {
-                    orderInfosForRelease,
                     orderReleaseInfos,
                     orderValidationAdditionalInfos,
                     ordersCompletelyReleasedBySourceOrganizationUnit,

@@ -4,7 +4,6 @@ using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.OrderValidation.Config;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
