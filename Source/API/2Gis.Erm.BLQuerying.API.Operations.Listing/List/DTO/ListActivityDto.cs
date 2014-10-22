@@ -20,11 +20,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long OwnerCode { get; set; }
         public string OwnerName { get; set; }
 
-        public long? ClientId { get; set; }
-        public long? FirmId { get; set; }
-        public long? FirmClientId { get; set; }
-        public long? DealId { get; set; }
-        public long? DealClientId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public TaskType TaskType { get; set; }
