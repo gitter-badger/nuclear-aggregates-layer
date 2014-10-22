@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
@@ -118,16 +117,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                 OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
                                             })
                              .ToArray();
-        }
-
-        public IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount)
-        {
-            return _finder.Find(OrderSpecs.Orders.Select.OrderInfosForRelease(),
-                                                  OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
-                          .OrderBy(o => o.Id)
-                          .Skip(skipCount)
-                          .Take(takeCount)
-                          .ToArray();
         }
 
         public IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
@@ -19,7 +18,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period);
         IEnumerable<Order> GetOrdersForRelease(long organizationUnitId, TimePeriod period);
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
-        IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
 
