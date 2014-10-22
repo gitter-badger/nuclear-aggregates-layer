@@ -3179,9 +3179,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value>El usuario actual no tiene permisos de lectura de esencia</value>
   </data>
-  <data name="RegionalAdvertisingSharing" xml:space="preserve">
-    <value>Cambio de la publicidad regional</value>
-  </data>
   <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
     <value>Transacciones procesadas: {0}, llamadas creadas: {1}</value>
   </data>
@@ -4530,12 +4527,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
     <value>Otros</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
-    <value>Cambio de la publicidad regional</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
-    <value>Historial de cambios de la publicidad regional</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>Listado</value>

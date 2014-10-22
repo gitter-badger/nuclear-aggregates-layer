@@ -3178,9 +3178,6 @@ The operation has been executed: {6}.</value>
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value>The current user has no rights to read entity</value>
   </data>
-  <data name="RegionalAdvertisingSharing" xml:space="preserve">
-    <value>Exchange of regional advertisements</value>
-  </data>
   <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
     <value>Number of deals processed: {0}, number of calls created: {1}</value>
   </data>
@@ -4529,12 +4526,6 @@ The operation has been executed: {6}.</value>
   </data>
   <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
     <value>Others</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
-    <value>Exchange of regional advertisements</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
-    <value>Regional advertisement exchange log</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>List</value>
