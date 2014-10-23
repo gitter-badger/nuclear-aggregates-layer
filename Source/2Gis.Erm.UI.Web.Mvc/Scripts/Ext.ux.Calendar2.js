@@ -2,12 +2,15 @@
 Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
     storeFormats: {
         absolute: 'c',
-        relative: 'Y-m-d\\TH:i:s'
+        relative: 'Y-m-d\\TH:i:s',
+        relativeWithoutTime: 'Y-m-d',
+        time: 'H:i:s'
     },
 
     displayFormats: {
         day: Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern,
-        month: Ext.CultureInfo.DateTimeFormatInfo.PhpYearMonthPattern
+        month: Ext.CultureInfo.DateTimeFormatInfo.PhpYearMonthPattern,
+        time: Ext.CultureInfo.DateTimeFormatInfo.PhpShortTimePattern
     },
 
     initComponent: function () {
@@ -33,6 +36,21 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
                 maxDate: this.maxDate
             });
 
+        if (this.mode.time)
+        {
+            var times = this.initTime(this.mode.time.min, this.mode.time.max, this.mode.time.step);
+            this.time = new Ext.form.ComboBox({
+                triggerAction: 'all',
+                mode: 'local',
+                renderTo: this.timeId,
+                store: times,
+                width: 80, // меняешь? посмотри в DateTimeViewModel.cshtml ширину ячейки.
+                fieldClass: 'inputfields',
+                triggerClass: 'calendar-time-button'
+            });
+            this.time.removeClass('x-form-text'); // Наличие этого класса заставляет контрол "прыгать"
+        }
+
         if (this.mode.display == 'month') {
             this.editor.dom.readOnly = true;
             this.mon(this.editor, 'focus', this.onButtonClick, this);
@@ -45,9 +63,27 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         this.mon(this.button, 'mouseover', this.updateButtonState, this);
         this.mon(this.button, 'click', this.onButtonClick, this);
         this.mon(this.menu, 'select', this.onDateSelect, this);
+        if (this.time) this.mon(this.time, 'change', this.onEditorChange, this);
 
         this.updateButtonState();
         this.editor.setReadOnly(this.readOnly);
+    },
+
+    initTime: function (start, end, step) {
+        // Функция возвращает массив строк, содержащий временные отмет от start до end c шагом step
+        // start, end - строки, время в формате чч:мм:сс
+        // step - число, интервал в миллисекундах
+        start = this.parseInvariantTime(start);
+        end = this.parseInvariantTime(end);
+        var offset = this.hoursToMilliseconds(new Date(0).getTimezoneOffset());
+
+        var values = [];
+        while (start <= end) {
+            values.push(new Date(offset + start).format(this.displayFormats.time));
+            start += step;
+        }
+
+        return values;
     },
 
     onButtonClick: function () {
@@ -92,8 +128,9 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         }
 
         var date = this.parseUserDate(this.editor.getValue());
+        var time = this.time ? this.parseUserTime(this.time.getValue()) : 0;
         if (date) {
-            this.setValue(date);
+            this.setValue(new Date(date.getTime() + time));
         } else {
             this.store.setValue('');
             this.validate();
@@ -103,6 +140,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
     setValue: function (date) {
         this.ignoreChangeEvent = true;
         this.editor.setValue(date ? date.format(this.displayFormat) : '');
+        if (this.time) this.time.setValue(date.format(this.displayFormats.time));
         this.store.setValue(date ? date.format(this.storeFormat) : '');
         delete this.ignoreChangeEvent;
 
@@ -157,5 +195,24 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         }
 
         return date;
+    },
+
+    parseUserTime: function(value) {
+        return this.getMillisecondsFromTimeOfDay(value, this.displayFormats.time);
+    },
+
+    parseInvariantTime: function (value) {
+        return this.getMillisecondsFromTimeOfDay(value, this.storeFormats.time);
+    },
+
+    getMillisecondsFromTimeOfDay: function (time, format) {
+        var zeroTime = new Date(0);
+        var dateString = zeroTime.format(this.storeFormats.relativeWithoutTime) + ' ' + time;
+        var date = Date.parseDate(dateString, this.storeFormats.relativeWithoutTime + ' ' + format);
+        return date.getTime() - this.hoursToMilliseconds(date.getTimezoneOffset());
+    },
+
+    hoursToMilliseconds: function(hours) {
+        return hours * 60 * 1000;
     }
 });

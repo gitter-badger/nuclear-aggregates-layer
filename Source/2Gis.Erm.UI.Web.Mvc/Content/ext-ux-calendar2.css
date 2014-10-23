@@ -16,6 +16,12 @@
     background-image: url("/Content/images/CommonUI/btn_dis_cal.gif");
 }
 
+/* Некторые фиксы для более аккуратного внешнего вида кнопки комбобокса выбора времени */
+.calendar-time-button {
+    margin-top: 1px;
+    height: 18px !important;
+}
+
 table.x-calendar-v2
 {
     border-collapse: collapse;
