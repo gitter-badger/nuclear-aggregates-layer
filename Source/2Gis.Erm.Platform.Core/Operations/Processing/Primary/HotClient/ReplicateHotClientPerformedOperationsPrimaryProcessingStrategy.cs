@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient
 {
+    // TODO {s.pomadin, 24.09.2014}: в идеале бы изменить название всех сущностей участвующих в обработке зацепок - исключить слово replicate, заменив на что-то вроде processing/complete и т.п.
     public sealed class ReplicateHotClientPerformedOperationsPrimaryProcessingStrategy :
         MessageProcessingStrategyBase<FinalStorageReplicateHotClientPerformedOperationsFlow, TrackedUseCase, PrimaryProcessingResultsMessage>
     {
