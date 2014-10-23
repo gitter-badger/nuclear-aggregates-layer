@@ -56,8 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             IAssignAppointmentAggregateService assignAppointmentAggregateService,
             IAssignLetterAggregateService assignLetterAggregateService,
             IAssignPhonecallAggregateService assignPhonecallAggregateService,
-            IAssignTaskAggregateService assignTaskAggregateService
-            )
+            IAssignTaskAggregateService assignTaskAggregateService)
         {
             _publicService = publicService;
             _clientRepository = clientRepository;
@@ -150,7 +149,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             {
                 _assignTaskAggregateService.Assign(task, newOwnerCode);
             }
-            
         }
     }
 }

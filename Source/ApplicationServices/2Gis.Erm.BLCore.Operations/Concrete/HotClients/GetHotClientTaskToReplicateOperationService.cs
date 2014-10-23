@@ -18,7 +18,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 {
-    // TODO {all, 04.02.2014}: рефакторинг с конвертацией в OperationService, SRP и т.п., при этом учесть фактическое пересечение по используемым выборкам с *OrderProcessing* функционалом - нужно обобщить, в том числе и на уровне ReadModel
     public class GetHotClientTaskToReplicateOperationService : IGetHotClientTaskToReplicateOperationService
     {
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;

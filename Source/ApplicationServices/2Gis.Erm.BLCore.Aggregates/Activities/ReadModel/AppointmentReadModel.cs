@@ -35,28 +35,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
+            return _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Appointment, AppointmentRegardingObject>(entityName, entityId)).Any();
         }
         
         public bool CheckIfOpenAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (
-                from reference in _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                select reference.SourceEntityId
-                ).ToArray();
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
+                       select reference.SourceEntityId)
+                .ToArray();
 
-            return _finder.FindMany(
-                Specs.Find.Active<Appointment>()
-                & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) 
-                & Specs.Find.ByIds<Appointment>(ids)).Any();
+            return _finder.FindMany(Specs.Find.Active<Appointment>() &&
+                                    Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) && 
+                                    Specs.Find.ByIds<Appointment>(ids))
+                          .Any();
         }
 
         public IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (
-                from reference in _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                select reference.SourceEntityId
-                ).ToArray();
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
+                       select reference.SourceEntityId)
+                .ToArray();
 
             return _finder.FindMany(Specs.Find.Active<Appointment>() && Specs.Find.ByIds<Appointment>(ids));
         }

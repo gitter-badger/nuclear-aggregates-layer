@@ -30,18 +30,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             _recipientRepository = recipientRepository;
         }
 
-        private static void CheckPhonecall(Phonecall phonecall)
-        {
-            if (phonecall == null)
-            {
-                throw new ArgumentNullException("phonecall");
-            }
-            if (phonecall.Id == 0)
-            {
-                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "phonecall");
-            }
-        }
-
         public void Update(Phonecall phonecall)
         {
             CheckPhonecall(phonecall);
@@ -75,20 +63,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Phonecall>())
             {
-                _recipientRepository.Update<Phonecall, PhonecallRecipient>(Enumerate(oldRecipient), Enumerate(newRecipient));
+                _recipientRepository.Update<Phonecall, PhonecallRecipient>(new[] { oldRecipient }, new[] { newRecipient });
 
                 operationScope.Updated<Phonecall>(phonecall.Id);
                 operationScope.Complete();
             }
         }
 
-        private static IEnumerable<PhonecallRecipient> Enumerate(PhonecallRecipient recipient)
+        private static void CheckPhonecall(Phonecall phonecall)
         {
-            if (recipient == null)
+            if (phonecall == null)
             {
-                yield break;
+                throw new ArgumentNullException("phonecall");
             }
-            yield return recipient;
+
+            if (phonecall.Id == 0)
+            {
+                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "phonecall");
+            }
         }
     }
 }

@@ -30,28 +30,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfTaskExistsRegarding(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
+            return _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Task, TaskRegardingObject>(entityName, entityId)).Any();
         }
 
         public bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (
-                from reference in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                select reference.SourceEntityId
-                ).ToArray();
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Task, TaskRegardingObject>(entityName, entityId))
+                       select reference.SourceEntityId)
+                .ToArray();
 
-            return _finder.FindMany(
-                Specs.Find.Active<Task>()
-                & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) 
-                & Specs.Find.ByIds<Task>(ids)).Any();
+            return _finder.FindMany(Specs.Find.Active<Task>() &&
+                                    Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) &&
+                                    Specs.Find.ByIds<Task>(ids))
+                          .Any();
         }
 
         public IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId)
         {
-            var ids = (
-                from reference in _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                select reference.SourceEntityId
-                ).ToArray();
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Task, TaskRegardingObject>(entityName, entityId))
+                       select reference.SourceEntityId)
+                .ToArray();
 
             return _finder.FindMany(Specs.Find.Active<Task>() && Specs.Find.ByIds<Task>(ids));
         }

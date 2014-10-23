@@ -35,8 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                                    IAssignAppointmentAggregateService assignAppointmentAggregateService,
                                    IAssignLetterAggregateService assignLetterAggregateService,
                                    IAssignPhonecallAggregateService assignPhonecallAggregateService,
-                                   IAssignTaskAggregateService assignTaskAggregateService
-            )
+                                   IAssignTaskAggregateService assignTaskAggregateService)
         {
             _clientRepository = clientRepository;
             _scopeFactory = scopeFactory;

@@ -61,9 +61,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 }
 
                 _updateOperationService.UpdateAttendees(appointment,
-                    oldAttendees, appointment.ReferencesIfAny<Appointment, AppointmentAttendee>(appointmentDto.Attendees));
+                                                        oldAttendees,
+                                                        appointment.ReferencesIfAny<Appointment, AppointmentAttendee>(appointmentDto.Attendees));
+
                 _updateOperationService.ChangeRegardingObjects(appointment,
-                    oldRegardingObjects, appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
+                                                               oldRegardingObjects,
+                                                               appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
 
                 if (appointment.Status == ActivityStatus.Completed)
                 {
@@ -85,13 +88,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         private void UpdateDealStage(AppointmentDomainEntityDto appointmentDto)
         {
             var dealRef = appointmentDto.RegardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal);
-            if (dealRef == null || !dealRef.Id.HasValue) return;
+            if (dealRef == null || !dealRef.Id.HasValue)
+            {
+                return;
+            }
 
             var dealId = dealRef.Id.Value;
             var purpose = appointmentDto.Purpose;
 
             var newDealStage = ConvertToStage(purpose);
-            if (newDealStage == DealStage.None) return;
+            if (newDealStage == DealStage.None)
+            {
+                return;
+            }
 
             _changeDealStageOperationService.Change(dealId, newDealStage);
         }

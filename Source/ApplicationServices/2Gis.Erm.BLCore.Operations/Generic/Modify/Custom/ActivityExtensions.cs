@@ -8,18 +8,18 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
-	internal static class ActivityExtensions
-	{
-	    public static IEnumerable<TEntityReference> ReferencesIfAny<TEntity, TEntityReference>(this TEntity entity, IEnumerable<EntityReference> references)
+    internal static class ActivityExtensions
+    {
+        public static IEnumerable<TEntityReference> ReferencesIfAny<TEntity, TEntityReference>(this TEntity entity, IEnumerable<EntityReference> references)
             where TEntity : class, IEntity, IEntityKey
             where TEntityReference : EntityReference<TEntity>, new()
         {
             return from reference in (references ?? Enumerable.Empty<EntityReference>())
                    where reference.Id.HasValue
-                   select entity.ReferencesIfAny<TEntity,TEntityReference>(reference);
+                   select entity.ReferencesIfAny<TEntity, TEntityReference>(reference);
         }
 
-	    public static TEntityReference ReferencesIfAny<TEntity, TEntityReference>(this TEntity entity, EntityReference reference)
+        public static TEntityReference ReferencesIfAny<TEntity, TEntityReference>(this TEntity entity, EntityReference reference)
             where TEntity : class, IEntity, IEntityKey
             where TEntityReference : EntityReference<TEntity>, new()
         {
@@ -28,9 +28,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 throw new ArgumentNullException("entity");
             }
 
-	        return reference == null || !reference.Id.HasValue
+            return reference == null || !reference.Id.HasValue
                    ? null
                    : new TEntityReference { SourceEntityId = entity.Id, TargetEntityName = reference.EntityName, TargetEntityId = reference.Id.Value };
         }
-	}
+    }
 }

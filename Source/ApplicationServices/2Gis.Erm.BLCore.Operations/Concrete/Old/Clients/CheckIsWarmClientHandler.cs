@@ -21,8 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
         public CheckIsWarmClientHandler(
             IClientReadModel clientReadModel,
             ITaskReadModel taskReadModel,
-            IWarmClientProcessingSettings warmClientProcessingSettings
-            )
+            IWarmClientProcessingSettings warmClientProcessingSettings)
         {
             _clientReadModel = clientReadModel;
             _taskReadModel = taskReadModel;
@@ -69,12 +68,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             var days = _warmClientProcessingSettings.WarmClientDaysCount;
 
             return _taskReadModel.LookupTasksRegarding(entityName, entityId)
-                          .Where(x => x.Status == ActivityStatus.Completed && x.TaskType == TaskType.WarmClient && (DateTime.Now - x.ModifiedOn.Value).TotalDays <= days)
-                          .Select(x => new TaskSummary
-                              {
-                                  ActualEnd = x.ModifiedOn.Value,
-                                  Description = x.Description
-                              }).FirstOrDefault();
+                                 .Where(x => x.Status == ActivityStatus.Completed &&
+                                             x.TaskType == TaskType.WarmClient &&
+                                             (DateTime.Now - x.ModifiedOn.Value).TotalDays <= days)
+                                 .Select(x => new TaskSummary
+                                                  {
+                                                      ActualEnd = x.ModifiedOn.Value,
+                                                      Description = x.Description
+                                                  })
+                                 .FirstOrDefault();
         }
 
         private class TaskSummary

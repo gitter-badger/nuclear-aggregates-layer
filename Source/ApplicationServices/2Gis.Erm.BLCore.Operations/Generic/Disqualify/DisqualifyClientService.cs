@@ -55,8 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                                        IAssignAppointmentAggregateService assignAppointmentAggregateService,
                                        IAssignLetterAggregateService assignLetterAggregateService,
                                        IAssignPhonecallAggregateService assignPhonecallAggregateService,
-                                       IAssignTaskAggregateService assignTaskAggregateService
-            )
+                                       IAssignTaskAggregateService assignTaskAggregateService)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;

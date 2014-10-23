@@ -17,8 +17,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
         /// Updates the references building the differences.
         /// </summary>
         public static void Update<TEntity, TEntityReference>(this IRepository<TEntityReference> repository,
-                                     IEnumerable<TEntityReference> oldReferences,
-                                     IEnumerable<TEntityReference> newReferences)
+                                                             IEnumerable<TEntityReference> oldReferences,
+                                                             IEnumerable<TEntityReference> newReferences)
             where TEntity : IEntity
             where TEntityReference : EntityReference<TEntity>, IEntity
         {
@@ -27,10 +27,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
                 throw new ArgumentNullException("repository");
             }
 
-            var oldRefs = (oldReferences ?? Enumerable.Empty<TEntityReference>()).ToList();
-            var newRefs = (newReferences ?? Enumerable.Empty<TEntityReference>()).ToList();
-            var removingLinks = oldRefs.Except(newRefs, EqualityComparer<TEntityReference>.Default).ToList();
-            var addingLinks = newRefs.Except(oldRefs, EqualityComparer<TEntityReference>.Default).ToList();
+            var oldRefs = (oldReferences ?? Enumerable.Empty<TEntityReference>()).ToArray();
+            var newRefs = (newReferences ?? Enumerable.Empty<TEntityReference>()).ToArray();
+            var removingLinks = oldRefs.Except(newRefs, EqualityComparer<TEntityReference>.Default).ToArray();
+            var addingLinks = newRefs.Except(oldRefs, EqualityComparer<TEntityReference>.Default).ToArray();
 
             repository.AddRange(addingLinks);
             repository.DeleteRange(removingLinks);

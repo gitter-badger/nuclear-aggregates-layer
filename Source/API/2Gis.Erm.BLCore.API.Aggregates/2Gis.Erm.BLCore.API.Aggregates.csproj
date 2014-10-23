@@ -95,6 +95,7 @@
     <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
     <Compile Include="Activities\IUpdateLetterAggregateService.cs" />
     <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
+    <Compile Include="Activities\ReadModel\ActivitySpecs.cs" />
     <Compile Include="Activities\ReadModel\ITaskReadModel.cs" />
     <Compile Include="Activities\ReadModel\IAppointmentReadModel.cs" />
     <Compile Include="Activities\ReadModel\ILetterReadModel.cs" />

@@ -22,37 +22,43 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
         internal override QueryExpression CreateQuery()
         {
             var query = new QueryExpression
-            {
-                EntityName = CrmEntityName.fax.ToString(),
-                ColumnSet = new ColumnSet(new[]
-						{
-							CrmFaxMetadata.ActivityId,
-							CrmFaxMetadata.CreatedBy,
-							CrmFaxMetadata.CreatedOn,
-							CrmFaxMetadata.ModifiedBy,
-							CrmFaxMetadata.ModifiedOn,
-							CrmFaxMetadata.OwnerId,
-							CrmFaxMetadata.RegardingObjectId,
-							CrmFaxMetadata.Subject,
-							CrmFaxMetadata.Description,
-							CrmFaxMetadata.ScheduledStart,
-							CrmFaxMetadata.PriorityCode,
-							CrmFaxMetadata.StateCode,
-							CrmFaxMetadata.From,
-							CrmFaxMetadata.To,
-						}),
-            };
+                            {
+                                EntityName = CrmEntityName.fax.ToString(),
+                                ColumnSet = new ColumnSet(new[]
+                                                              {
+                                                                  CrmFaxMetadata.ActivityId,
+                                                                  CrmFaxMetadata.CreatedBy,
+                                                                  CrmFaxMetadata.CreatedOn,
+                                                                  CrmFaxMetadata.ModifiedBy,
+                                                                  CrmFaxMetadata.ModifiedOn,
+                                                                  CrmFaxMetadata.OwnerId,
+                                                                  CrmFaxMetadata.RegardingObjectId,
+                                                                  CrmFaxMetadata.Subject,
+                                                                  CrmFaxMetadata.Description,
+                                                                  CrmFaxMetadata.ScheduledStart,
+                                                                  CrmFaxMetadata.PriorityCode,
+                                                                  CrmFaxMetadata.StateCode,
+                                                                  CrmFaxMetadata.From,
+                                                                  CrmFaxMetadata.To,
+                                                              }),
+                            };
             return query;
         }
 
         internal override Letter Create(IActivityMigrationContextExtended context, DynamicEntity entity)
         {
             if (context == null)
+            {
                 throw new ArgumentNullException("context");
+            }
             if (entity == null)
+            {
                 throw new ArgumentNullException("entity");
+            }
             if (entity.Name != CrmEntityName.fax.ToString())
+            {
                 throw new ArgumentException("The specified entity is not a fax.", "entity");
+            }
 
             var recipients = (entity.Value(CrmFaxMetadata.To) as DynamicEntity[]).EnumerateActivityReferences().ToList();
 
@@ -69,6 +75,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                 Description = context.Parse<string>(entity.Value(CrmFaxMetadata.Description)),
                 Priority = context.Parse<int>(entity.Value(CrmFaxMetadata.PriorityCode)).Map(ToPriority),
                 Status = context.Parse<CrmFaxState>(entity.Value(CrmFaxMetadata.StateCode)).Map(ToStatus),
+                
                 // fax might have empty schedule time
                 ScheduledOn = context.Parse<DateTime?>(entity.Value(CrmFaxMetadata.ScheduledStart))
                     ?? context.Parse<DateTime?>(entity.Value(CrmFaxMetadata.ActualStart))
@@ -82,11 +89,13 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     .Select(x => x.ToReferenceWithin(context))
                     .Distinct() // it's safe as ActivityReference implements IEquatable<>
                     .ToList(),
+                
                 // requirement: отправителем может быть только пользователь
                 Senders = (entity.Value(CrmFaxMetadata.From) as DynamicEntity[]).EnumerateActivityReferences()
                     .FilterByEntityName(ErmEntityName.User)
                     .Select(x => x.ToReferenceWithin(context))
                     .ToList(),
+                
                 // requirement: получателем может быть только контакт
                 Recipients = recipients
                     .FilterByEntityName(ErmEntityName.Contact)

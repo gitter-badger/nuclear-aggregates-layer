@@ -30,18 +30,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             _attendeeRepository = attendeeRepository;
         }
 
-        private static void CheckAppointment(Appointment appointment)
-        {
-            if (appointment == null)
-            {
-                throw new ArgumentNullException("appointment");
-            }
-            if (appointment.Id == 0)
-            {
-                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "appointment");
-            }
-        }
-
         public void Update(Appointment appointment)
         {
             CheckAppointment(appointment);
@@ -80,6 +68,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 
                 operationScope.Updated<Appointment>(appointment.Id);
                 operationScope.Complete();
+            }
+        }
+
+        private static void CheckAppointment(Appointment appointment)
+        {
+            if (appointment == null)
+            {
+                throw new ArgumentNullException("appointment");
+            }
+            if (appointment.Id == 0)
+            {
+                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "appointment");
             }
         }
     }

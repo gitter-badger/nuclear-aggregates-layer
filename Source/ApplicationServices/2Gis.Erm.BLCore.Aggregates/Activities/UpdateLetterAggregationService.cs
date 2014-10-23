@@ -33,18 +33,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             _recipientRepository = recipientRepository;
         }
 
-        private static void CheckLetter(Letter letter)
-        {
-            if (letter == null)
-            {
-                throw new ArgumentNullException("letter");
-            }
-            if (letter.Id == 0)
-            {
-                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "letter");
-            }
-        }
-
         public void Update(Letter letter)
         {
             CheckLetter(letter);
@@ -78,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Letter>())
             {
-                _senderRepository.Update<Letter, LetterSender>(Enumerate(oldSender), Enumerate(newSender));
+                _senderRepository.Update<Letter, LetterSender>(new[] { oldSender }, new[] { newSender });
 
                 operationScope.Updated<Letter>(letter.Id);
                 operationScope.Complete();
@@ -91,21 +79,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Letter>())
             {
-                _recipientRepository.Update<Letter, LetterRecipient>(Enumerate(oldRecipient), Enumerate(newRecipient));
+                _recipientRepository.Update<Letter, LetterRecipient>(new[] { oldRecipient }, new[] { newRecipient });
 
                 operationScope.Updated<Letter>(letter.Id);
                 operationScope.Complete();
             }
         }
 
-        private static IEnumerable<TEntityReference> Enumerate<TEntityReference>(TEntityReference reference)
-            where TEntityReference : EntityReference<Letter>
+        private static void CheckLetter(Letter letter)
         {
-            if (reference == null)
+            if (letter == null)
             {
-                yield break;
+                throw new ArgumentNullException("letter");
             }
-            yield return reference;
+
+            if (letter.Id == 0)
+            {
+                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "letter");
+            }
         }
     }
 }

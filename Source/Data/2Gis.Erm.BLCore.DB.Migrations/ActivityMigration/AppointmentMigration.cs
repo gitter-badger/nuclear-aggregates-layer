@@ -37,30 +37,30 @@ INSERT INTO [Activity].[AppointmentReferences]
         internal override QueryExpression CreateQuery()
         {
             var query = new QueryExpression
-            {
-                EntityName = CrmEntityName.appointment.ToString(),
-                ColumnSet = new ColumnSet(new[]
-						{
-							CrmAppointmentMetadata.ActivityId,
-							CrmAppointmentMetadata.CreatedBy,
-							CrmAppointmentMetadata.CreatedOn,
-							CrmAppointmentMetadata.ModifiedBy,
-							CrmAppointmentMetadata.ModifiedOn,
-							CrmAppointmentMetadata.OwnerId,
-							CrmAppointmentMetadata.RegardingObjectId,
-							CrmAppointmentMetadata.Subject,
-							CrmAppointmentMetadata.Description,
-							CrmAppointmentMetadata.ScheduledStart,
-							CrmAppointmentMetadata.ScheduledEnd,
-							CrmAppointmentMetadata.PriorityCode,
-							CrmAppointmentMetadata.StateCode,
-							CrmAppointmentMetadata.Location,
-							CrmAppointmentMetadata.Purpose,
-							CrmAppointmentMetadata.Organizer,
-							CrmAppointmentMetadata.RequiredAttendees,
-							CrmAppointmentMetadata.OptionalAttendees,
-						}),
-            };
+                            {
+                                EntityName = CrmEntityName.appointment.ToString(),
+                                ColumnSet = new ColumnSet(new[]
+                                                              {
+                                                                  CrmAppointmentMetadata.ActivityId,
+                                                                  CrmAppointmentMetadata.CreatedBy,
+                                                                  CrmAppointmentMetadata.CreatedOn,
+                                                                  CrmAppointmentMetadata.ModifiedBy,
+                                                                  CrmAppointmentMetadata.ModifiedOn,
+                                                                  CrmAppointmentMetadata.OwnerId,
+                                                                  CrmAppointmentMetadata.RegardingObjectId,
+                                                                  CrmAppointmentMetadata.Subject,
+                                                                  CrmAppointmentMetadata.Description,
+                                                                  CrmAppointmentMetadata.ScheduledStart,
+                                                                  CrmAppointmentMetadata.ScheduledEnd,
+                                                                  CrmAppointmentMetadata.PriorityCode,
+                                                                  CrmAppointmentMetadata.StateCode,
+                                                                  CrmAppointmentMetadata.Location,
+                                                                  CrmAppointmentMetadata.Purpose,
+                                                                  CrmAppointmentMetadata.Organizer,
+                                                                  CrmAppointmentMetadata.RequiredAttendees,
+                                                                  CrmAppointmentMetadata.OptionalAttendees,
+                                                              }),
+                            };
             return query;
         }
 
@@ -74,18 +74,31 @@ INSERT INTO [Activity].[AppointmentReferences]
             var sb = new StringBuilder();
 
             sb.AppendLine(QueryBuilder.Format(InsertEntityTemplate,
-                appointment.Id, appointment.ReplicationCode,
-                appointment.CreatedBy, appointment.CreatedOn, appointment.ModifiedBy, appointment.ModifiedOn, appointment.OwnerId,
-                appointment.Subject, appointment.Description, appointment.ScheduledStart, appointment.ScheduledEnd, appointment.Priority, appointment.Status,
-                appointment.Location, appointment.Purpose));
+                                              appointment.Id,
+                                              appointment.ReplicationCode,
+                                              appointment.CreatedBy,
+                                              appointment.CreatedOn,
+                                              appointment.ModifiedBy,
+                                              appointment.ModifiedOn,
+                                              appointment.OwnerId,
+                                              appointment.Subject,
+                                              appointment.Description,
+                                              appointment.ScheduledStart,
+                                              appointment.ScheduledEnd,
+                                              appointment.Priority,
+                                              appointment.Status,
+                                              appointment.Location,
+                                              appointment.Purpose));
 
             // regarding object
             foreach (var regardingObject in appointment.RegardingObjects)
             {
                 BuildSqlStatement<long>(InsertReferenceTemplate, appointment.Id, AppointmentReferenceType.RegardingObject, regardingObject.EntityName, regardingObject.EntityId).DoIfNotNull(x => sb.AppendLine(x));
             }
+
             // organizer
             BuildSqlStatement(InsertReferenceTemplate, appointment.Id, AppointmentReferenceType.Organizer, ErmEntityName.User, appointment.OrganizerId).DoIfNotNull(x => sb.AppendLine(x));
+            
             // attendees
             foreach (var attendee in appointment.RequiredAttendees)
             {
@@ -128,11 +141,17 @@ INSERT INTO [Activity].[AppointmentReferences]
             internal static Appointment Create(IActivityMigrationContextExtended context, DynamicEntity entity)
             {
                 if (context == null)
+                {
                     throw new ArgumentNullException("context");
+                }
                 if (entity == null)
+                {
                     throw new ArgumentNullException("entity");
+                }
                 if (entity.Name != CrmEntityName.appointment.ToString())
+                {
                     throw new ArgumentException("The specified entity is not an appointment.", "entity");
+                }
 
                 var regardingObjects = new[] { entity.Value(CrmAppointmentMetadata.RegardingObjectId) as CrmReference };
                 var attendees = (entity.Value(CrmAppointmentMetadata.RequiredAttendees) as DynamicEntity[]).EnumerateActivityReferences()
@@ -162,11 +181,13 @@ INSERT INTO [Activity].[AppointmentReferences]
                         .Select(x => x.ToReferenceWithin(context))
                         .Distinct() // it's safe as ActivityReference implements IEquatable<>
                         .ToList(),
+                    
                     // requirement: организатором могут быть только пользователи
                     OrganizerId = (entity.Value(CrmAppointmentMetadata.Organizer) as DynamicEntity[]).EnumerateActivityReferences()
                         .FilterByEntityName(ErmEntityName.User)
                         .Select(context.Parse<long?>)
                         .FirstOrDefault(),
+                    
                     // requirement: участниками могут быть только контакты
                     RequiredAttendees = attendees.Concat(regardingObjects)
                         .FilterByEntityName(ErmEntityName.Contact)

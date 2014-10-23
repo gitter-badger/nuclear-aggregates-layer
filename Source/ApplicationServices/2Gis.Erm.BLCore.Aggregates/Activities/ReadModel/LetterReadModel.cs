@@ -40,28 +40,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfLetterExistsRegarding(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId)).Any();
+            return _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Letter, LetterRegardingObject>(entityName, entityId)).Any();
         }
 
         public bool CheckIfOpenLetterExistsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (
-                from reference in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                select reference.SourceEntityId
-                ).ToArray();
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Letter, LetterRegardingObject>(entityName, entityId))
+                       select reference.SourceEntityId)
+                .ToArray();
 
-            return _finder.FindMany(
-                Specs.Find.Active<Letter>()
-                & Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress) 
-                & Specs.Find.ByIds<Letter>(ids)).Any();
+            return _finder.FindMany(Specs.Find.Active<Letter>() &&
+                                    Specs.Find.Custom<Letter>(x => x.Status == ActivityStatus.InProgress) &&
+                                    Specs.Find.ByIds<Letter>(ids))
+                          .Any();
         }
 
         public IEnumerable<Letter> LookupLettersRegarding(EntityName entityName, long entityId)
         {
-            var ids = (
-                from reference in _finder.FindMany(Specs.Find.Custom<LetterRegardingObject>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
-                select reference.SourceEntityId
-                ).ToArray();
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Letter, LetterRegardingObject>(entityName, entityId))
+                       select reference.SourceEntityId)
+                .ToArray();
 
             return _finder.FindMany(Specs.Find.Active<Letter>() && Specs.Find.ByIds<Letter>(ids));
         }

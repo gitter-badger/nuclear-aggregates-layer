@@ -12,12 +12,12 @@ using Microsoft.Crm.Sdk.Query;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
 {
-    using CrmEntityName = Microsoft.Crm.SdkTypeProxy.EntityName;
     using CrmEmailMetadata = Metadata.Crm.Email;
     using CrmEmailState = Microsoft.Crm.SdkTypeProxy.EmailState;
-    using ErmEntityName = Metadata.Erm.EntityName;
+    using CrmEntityName = Microsoft.Crm.SdkTypeProxy.EntityName;
     using ErmEmailPriority = Metadata.Erm.ActivityPriority;
     using ErmEmailStatus = Metadata.Erm.ActivityStatus;
+    using ErmEntityName = Metadata.Erm.EntityName;
 
     [Migration(23489, "Migrates the emails as letters from CRM to ERM.", "s.pomadin")]
     public sealed class EmailMigration : LetterMigrationBase
@@ -27,39 +27,45 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
         internal override QueryExpression CreateQuery()
         {
             var query = new QueryExpression
-            {
-                EntityName = CrmEntityName.email.ToString(),
-                ColumnSet = new ColumnSet(new[]
-						{
-							CrmEmailMetadata.ActivityId,
-							CrmEmailMetadata.CreatedBy,
-							CrmEmailMetadata.CreatedOn,
-							CrmEmailMetadata.ModifiedBy,
-							CrmEmailMetadata.ModifiedOn,
-							CrmEmailMetadata.OwnerId,
-							CrmEmailMetadata.RegardingObjectId,
-							CrmEmailMetadata.Subject,
-							CrmEmailMetadata.Description,
-							CrmEmailMetadata.ScheduledStart,
-							CrmEmailMetadata.ActualStart,
-							CrmEmailMetadata.ActualEnd,
-							CrmEmailMetadata.PriorityCode,
-							CrmEmailMetadata.StateCode,
-							CrmEmailMetadata.From,
-							CrmEmailMetadata.To,
-						}),
-            };
+                            {
+                                EntityName = CrmEntityName.email.ToString(),
+                                ColumnSet = new ColumnSet(new[]
+                                                              {
+                                                                  CrmEmailMetadata.ActivityId,
+                                                                  CrmEmailMetadata.CreatedBy,
+                                                                  CrmEmailMetadata.CreatedOn,
+                                                                  CrmEmailMetadata.ModifiedBy,
+                                                                  CrmEmailMetadata.ModifiedOn,
+                                                                  CrmEmailMetadata.OwnerId,
+                                                                  CrmEmailMetadata.RegardingObjectId,
+                                                                  CrmEmailMetadata.Subject,
+                                                                  CrmEmailMetadata.Description,
+                                                                  CrmEmailMetadata.ScheduledStart,
+                                                                  CrmEmailMetadata.ActualStart,
+                                                                  CrmEmailMetadata.ActualEnd,
+                                                                  CrmEmailMetadata.PriorityCode,
+                                                                  CrmEmailMetadata.StateCode,
+                                                                  CrmEmailMetadata.From,
+                                                                  CrmEmailMetadata.To,
+                                                              }),
+                            };
             return query;
         }
 
         internal override Letter Create(IActivityMigrationContextExtended context, DynamicEntity entity)
         {
             if (context == null)
+            {
                 throw new ArgumentNullException("context");
+            }
             if (entity == null)
+            {
                 throw new ArgumentNullException("entity");
+            }
             if (entity.Name != CrmEntityName.email.ToString())
+            {
                 throw new ArgumentException("The specified entity is not a fax.", "entity");
+            }
 
             var subject = context.Parse<string>(entity.Value(CrmEmailMetadata.Subject));
             if (subject != null && subject.StartsWith("Вам назначена задача:", true, RussianCulture))
@@ -101,11 +107,13 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     .Select(x => x.ToReferenceWithin(context))
                     .Distinct() // it's safe as ActivityReference implements IEquatable<>
                     .ToList(),
+                
                 // requirement: отправителем может быть только пользователь
                 Senders = (entity.Value(CrmEmailMetadata.From) as DynamicEntity[]).EnumerateActivityReferences()
                     .FilterByEntityName(ErmEntityName.User)
                     .Select(x => x.ToReferenceWithin(context))
                     .ToList(),
+                
                 // requirement: получателем может быть только контакт
                 Recipients = recipients
                     .FilterByEntityName(ErmEntityName.Contact)
@@ -173,7 +181,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     case '>':
                         specials.Append(ch);
 
-                        if (!isCommentStarted(specials) && String.Compare(specials.ToString(), "</p>", StringComparison.OrdinalIgnoreCase) == 0)
+                        if (!isCommentStarted(specials) && string.Compare(specials.ToString(), "</p>", StringComparison.OrdinalIgnoreCase) == 0)
                         {
                             text.AppendLine();
                         }
@@ -186,9 +194,13 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                 }
 
                 if (specials.Length > 0)
+                {
                     specials.Append(ch);
+                }
                 else
+                {
                     text.Append(ch);
+                }
             }
 
             return WebUtility.HtmlDecode(text.ToString());

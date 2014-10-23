@@ -37,25 +37,25 @@ Values ({0}, {1}, {2}, {3})";
         internal override QueryExpression CreateQuery()
         {
             var query = new QueryExpression
-            {
-                EntityName = CrmEntityName.task.ToString(),
-                ColumnSet = new ColumnSet(new[]
-						{
-							CrmTaskMetadata.ActivityId,
-							CrmTaskMetadata.CreatedBy,
-							CrmTaskMetadata.CreatedOn,
-							CrmTaskMetadata.ModifiedBy,
-							CrmTaskMetadata.ModifiedOn,
-							CrmTaskMetadata.OwnerId,
-							CrmTaskMetadata.RegardingObjectId,
-							CrmTaskMetadata.Subject,
-							CrmTaskMetadata.Description,
-							CrmTaskMetadata.ScheduledStart,
-							CrmTaskMetadata.PriorityCode,
-							CrmTaskMetadata.StateCode,
-							CrmTaskMetadata.TaskType,
-						}),
-            };
+                            {
+                                EntityName = CrmEntityName.task.ToString(),
+                                ColumnSet = new ColumnSet(new[]
+                                                              {
+                                                                  CrmTaskMetadata.ActivityId,
+                                                                  CrmTaskMetadata.CreatedBy,
+                                                                  CrmTaskMetadata.CreatedOn,
+                                                                  CrmTaskMetadata.ModifiedBy,
+                                                                  CrmTaskMetadata.ModifiedOn,
+                                                                  CrmTaskMetadata.OwnerId,
+                                                                  CrmTaskMetadata.RegardingObjectId,
+                                                                  CrmTaskMetadata.Subject,
+                                                                  CrmTaskMetadata.Description,
+                                                                  CrmTaskMetadata.ScheduledStart,
+                                                                  CrmTaskMetadata.PriorityCode,
+                                                                  CrmTaskMetadata.StateCode,
+                                                                  CrmTaskMetadata.TaskType,
+                                                              }),
+                            };
             return query;
         }
 
@@ -69,10 +69,19 @@ Values ({0}, {1}, {2}, {3})";
             var sb = new StringBuilder();
 
             sb.AppendLine(QueryBuilder.Format(InsertEntityTemplate,
-                task.Id, task.ReplicationCode,
-                task.CreatedBy, task.CreatedOn, task.ModifiedBy, task.ModifiedOn, task.OwnerId,
-                task.Subject, task.Description, task.ScheduledOn, task.Priority, task.Status,
-                task.TaskType));
+                                              task.Id,
+                                              task.ReplicationCode,
+                                              task.CreatedBy,
+                                              task.CreatedOn,
+                                              task.ModifiedBy,
+                                              task.ModifiedOn,
+                                              task.OwnerId,
+                                              task.Subject,
+                                              task.Description,
+                                              task.ScheduledOn,
+                                              task.Priority,
+                                              task.Status,
+                                              task.TaskType));
 
             // regarding object
             foreach (var regardingObject in task.RegardingObjects)
@@ -112,11 +121,17 @@ Values ({0}, {1}, {2}, {3})";
             internal static Task Create(IActivityMigrationContextExtended context, DynamicEntity entity)
             {
                 if (context == null)
+                {
                     throw new ArgumentNullException("context");
+                }
                 if (entity == null)
+                {
                     throw new ArgumentNullException("entity");
+                }
                 if (entity.Name != CrmEntityName.task.ToString())
+                {
                     throw new ArgumentException("The specified entity is not a task.", "entity");
+                }
 
                 var task = new Task
                 {
@@ -132,6 +147,7 @@ Values ({0}, {1}, {2}, {3})";
                     Priority = context.Parse<int>(entity.Value(CrmTaskMetadata.PriorityCode)).Map(ToPriority),
                     Status = context.Parse<CrmTaskState>(entity.Value(CrmTaskMetadata.StateCode)).Map(ToStatus),
                     TaskType = context.Parse<int>(entity.Value(CrmTaskMetadata.TaskType)).Map(ToType),
+                    
                     // it might have empty schedule time
                     ScheduledOn = context.Parse<DateTime?>(entity.Value(CrmTaskMetadata.ScheduledStart))
                         ?? context.Parse<DateTime?>(entity.Value(CrmTaskMetadata.ActualStart))

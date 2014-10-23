@@ -22,37 +22,43 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
         internal override QueryExpression CreateQuery()
         {
             var query = new QueryExpression
-            {
-                EntityName = CrmEntityName.letter.ToString(),
-                ColumnSet = new ColumnSet(new[]
-						{
-							CrmLetterMetadata.ActivityId,
-							CrmLetterMetadata.CreatedBy,
-							CrmLetterMetadata.CreatedOn,
-							CrmLetterMetadata.ModifiedBy,
-							CrmLetterMetadata.ModifiedOn,
-							CrmLetterMetadata.OwnerId,
-							CrmLetterMetadata.RegardingObjectId,
-							CrmLetterMetadata.Subject,
-							CrmLetterMetadata.Description,
-							CrmLetterMetadata.ScheduledStart,
-							CrmLetterMetadata.PriorityCode,
-							CrmLetterMetadata.StateCode,
-							CrmLetterMetadata.From,
-							CrmLetterMetadata.To,
-						}),
-            };
+                            {
+                                EntityName = CrmEntityName.letter.ToString(),
+                                ColumnSet = new ColumnSet(new[]
+                                                              {
+                                                                  CrmLetterMetadata.ActivityId,
+                                                                  CrmLetterMetadata.CreatedBy,
+                                                                  CrmLetterMetadata.CreatedOn,
+                                                                  CrmLetterMetadata.ModifiedBy,
+                                                                  CrmLetterMetadata.ModifiedOn,
+                                                                  CrmLetterMetadata.OwnerId,
+                                                                  CrmLetterMetadata.RegardingObjectId,
+                                                                  CrmLetterMetadata.Subject,
+                                                                  CrmLetterMetadata.Description,
+                                                                  CrmLetterMetadata.ScheduledStart,
+                                                                  CrmLetterMetadata.PriorityCode,
+                                                                  CrmLetterMetadata.StateCode,
+                                                                  CrmLetterMetadata.From,
+                                                                  CrmLetterMetadata.To,
+                                                              }),
+                            };
             return query;
         }
 
         internal override Letter Create(IActivityMigrationContextExtended context, DynamicEntity entity)
         {
             if (context == null)
+            {
                 throw new ArgumentNullException("context");
+            }
             if (entity == null)
+            {
                 throw new ArgumentNullException("entity");
+            }
             if (entity.Name != CrmEntityName.letter.ToString())
+            {
                 throw new ArgumentException("The specified entity is not a letter.", "entity");
+            }
 
             var recipients = (entity.Value(CrmLetterMetadata.To) as DynamicEntity[]).EnumerateActivityReferences().ToList();
 
@@ -82,11 +88,13 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     .Select(x => x.ToReferenceWithin(context))
                     .Distinct() // it's safe as ActivityReference implements IEquatable<>
                     .ToList(),
+                
                 // requirement: отправителем может быть только пользователь
                 Senders = (entity.Value(CrmLetterMetadata.From) as DynamicEntity[]).EnumerateActivityReferences()
                     .FilterByEntityName(ErmEntityName.User)
                     .Select(x => x.ToReferenceWithin(context))
                     .ToList(),
+                
                 // requirement: получателем может быть только контакт
                 Recipients = recipients
                     .FilterByEntityName(ErmEntityName.Contact)

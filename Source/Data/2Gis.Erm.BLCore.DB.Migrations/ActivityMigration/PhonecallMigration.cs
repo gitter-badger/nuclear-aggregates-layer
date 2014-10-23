@@ -17,8 +17,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
     using CrmPhonecallState = Microsoft.Crm.SdkTypeProxy.PhoneCallState;
     using ErmEntityName = Metadata.Erm.EntityName;
     using ErmPhonecallPriority = Metadata.Erm.ActivityPriority;
-    using ErmPhonecallStatus = Metadata.Erm.ActivityStatus;
     using ErmPhonecallPurpose = Metadata.Erm.ActivityPurpose;
+    using ErmPhonecallStatus = Metadata.Erm.ActivityStatus;
 
     [Migration(23484, "Migrates the phonecalls from CRM to ERM.", "s.pomadin")]
     public sealed class PhonecallMigration : ActivityMigration<PhonecallMigration.Phonecall>
@@ -37,26 +37,26 @@ INSERT INTO [Activity].[PhonecallReferences]
         internal override QueryExpression CreateQuery()
         {
             var query = new QueryExpression
-            {
-                EntityName = CrmEntityName.phonecall.ToString(),
-                ColumnSet = new ColumnSet(new[]
-						{
-							CrmPhonecallMetadata.ActivityId,
-							CrmPhonecallMetadata.CreatedBy,
-							CrmPhonecallMetadata.CreatedOn,
-							CrmPhonecallMetadata.ModifiedBy,
-							CrmPhonecallMetadata.ModifiedOn,
-							CrmPhonecallMetadata.OwnerId,
-							CrmPhonecallMetadata.RegardingObjectId,
-							CrmPhonecallMetadata.Subject,
-							CrmPhonecallMetadata.Description,
-							CrmPhonecallMetadata.ScheduledStart,
-							CrmPhonecallMetadata.PriorityCode,
-							CrmPhonecallMetadata.StateCode,
-							CrmPhonecallMetadata.To,
-							CrmPhonecallMetadata.Purpose,
-						}),
-            };
+                            {
+                                EntityName = CrmEntityName.phonecall.ToString(),
+                                ColumnSet = new ColumnSet(new[]
+                                                              {
+                                                                  CrmPhonecallMetadata.ActivityId,
+                                                                  CrmPhonecallMetadata.CreatedBy,
+                                                                  CrmPhonecallMetadata.CreatedOn,
+                                                                  CrmPhonecallMetadata.ModifiedBy,
+                                                                  CrmPhonecallMetadata.ModifiedOn,
+                                                                  CrmPhonecallMetadata.OwnerId,
+                                                                  CrmPhonecallMetadata.RegardingObjectId,
+                                                                  CrmPhonecallMetadata.Subject,
+                                                                  CrmPhonecallMetadata.Description,
+                                                                  CrmPhonecallMetadata.ScheduledStart,
+                                                                  CrmPhonecallMetadata.PriorityCode,
+                                                                  CrmPhonecallMetadata.StateCode,
+                                                                  CrmPhonecallMetadata.To,
+                                                                  CrmPhonecallMetadata.Purpose,
+                                                              }),
+                            };
             return query;
         }
 
@@ -70,15 +70,26 @@ INSERT INTO [Activity].[PhonecallReferences]
             var sb = new StringBuilder();
 
             sb.AppendLine(QueryBuilder.Format(InsertEntityTemplate,
-                phonecall.Id, phonecall.ReplicationCode,
-                phonecall.CreatedBy, phonecall.CreatedOn, phonecall.ModifiedBy, phonecall.ModifiedOn, phonecall.OwnerId,
-                phonecall.Subject, phonecall.Description, phonecall.ScheduledOn, phonecall.Priority, phonecall.Status, phonecall.Purpose));
+                                              phonecall.Id,
+                                              phonecall.ReplicationCode,
+                                              phonecall.CreatedBy,
+                                              phonecall.CreatedOn,
+                                              phonecall.ModifiedBy,
+                                              phonecall.ModifiedOn,
+                                              phonecall.OwnerId,
+                                              phonecall.Subject,
+                                              phonecall.Description,
+                                              phonecall.ScheduledOn,
+                                              phonecall.Priority,
+                                              phonecall.Status,
+                                              phonecall.Purpose));
 
             // regarding object
             foreach (var regardingObject in phonecall.RegardingObjects)
             {
                 BuildSqlStatement<long>(InsertReferenceTemplate, phonecall.Id, PhonecallReferenceType.RegardingObject, regardingObject.EntityName, regardingObject.EntityId).DoIfNotNull(x => sb.AppendLine(x));
             }
+            
             // recipients
             foreach (var attendee in phonecall.Recipients)
             {
@@ -118,11 +129,19 @@ INSERT INTO [Activity].[PhonecallReferences]
             internal static Phonecall Create(IActivityMigrationContextExtended context, DynamicEntity entity)
             {
                 if (context == null)
+                {
                     throw new ArgumentNullException("context");
+                }
+                
                 if (entity == null)
+                {
                     throw new ArgumentNullException("entity");
+                }
+
                 if (entity.Name != CrmEntityName.phonecall.ToString())
+                {
                     throw new ArgumentException("The specified entity is not a phonecall.", "entity");
+                }
 
                 var regardingObjects = new[] { entity.Value(CrmPhonecallMetadata.RegardingObjectId) as CrmReference };
                 var recipients = (entity.Value(CrmPhonecallMetadata.To) as DynamicEntity[]).EnumerateActivityReferences().ToList();
@@ -141,6 +160,7 @@ INSERT INTO [Activity].[PhonecallReferences]
                     Priority = context.Parse<int>(entity.Value(CrmPhonecallMetadata.PriorityCode)).Map(ToPriority),
                     Status = context.Parse<CrmPhonecallState>(entity.Value(CrmPhonecallMetadata.StateCode)).Map(ToStatus),
                     Purpose = context.Parse<int>(entity.Value(CrmPhonecallMetadata.Purpose)).Map(ToPurpose),
+                    
                     // it might have empty schedule time
                     ScheduledOn = context.Parse<DateTime?>(entity.Value(CrmPhonecallMetadata.ScheduledStart))
                         ?? context.Parse<DateTime?>(entity.Value(CrmPhonecallMetadata.ActualStart))
@@ -154,6 +174,7 @@ INSERT INTO [Activity].[PhonecallReferences]
                         .Select(x => x.ToReferenceWithin(context))
                         .Distinct() // it's safe as ActivityReference implements IEquatable<>
                         .ToList(),
+                    
                     // requirement: получателем может быть только контакт
                     Recipients = recipients.Concat(regardingObjects)
                         .FilterByEntityName(ErmEntityName.Contact)

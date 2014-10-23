@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 
         protected override ReplicateHotClientFinalProcessingResultsMessage Process(PerformedOperationsFinalProcessingMessage message)
         {
+            // TODO {s.pomadin, 24.09.2014}: тут подозрительно то что фактически делается одно и то же дважды в gethotclienttask + здесь используется _firmReadModel.GetHotClientRequest(message.EntityId); - возможно нужен сервис/метод вида ПодготовьШаблонTaskДляЗавершенияОбработкиЗаявки(экземпляр заявки) + само присутсвие слова Replicate в названии сервиса уже не отвечает реалиям этой ветки - теперь мастер система по дествиям ERM, а не MsCRM
             var task = _getHotClientTaskToReplicateOperationService.GetHotClientTask(message.EntityId);
             var entity = _firmReadModel.GetHotClientRequest(message.EntityId);
 

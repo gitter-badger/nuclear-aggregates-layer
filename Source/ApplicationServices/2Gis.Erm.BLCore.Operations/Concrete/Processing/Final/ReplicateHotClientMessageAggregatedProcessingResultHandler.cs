@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 
                 try
                 {
-                    // TODO {all, 17.07.2014}: возможно стоит вынести процесс создания task в operationservice, т.к. после отказа от MsCRM бизнесс процесс останется, просто действия будут заводиться в ERM
+                    // TODO {s.pomadin, 24.09.2014}: предлагаю createtask + bindwithcrmtask заменить на вызов Нового OperationService - Закрытие заявки на горячего клиента, которые будет заниматься созданием task + закрытием заявки (т.е. проставлением taskid)
                     var taskId = CreateTask(
                                     hotClientInfo.Owner, 
                                     hotClientInfo.HotClient, 
@@ -143,11 +143,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
             public ReplicateHotClientFinalProcessingResultsMessage ReducedMessage { get; set; }
         }
 
-        // TODO {all, 15.07.2014}: скорее всего код должен обладать свойством идемпотентности, т.е. если в CRM уже создали задачу, повторно создавать её аналог не стоит, вопрос как этого достичь
+        // TODO {s.pomadin, 24.09.2014}: тут явно напрашивается вынос кода в общий createtaskoperationservice, который бы вызывался и из ModifyTaskService и из ЗакрытьЗаявкуНаГорячегоКлиентаOperationService + стоит учесть что в дальнейшем modify service будут ликвидированы, и останутся createoperationservice и Update(КакойНибудьАспектАгрегата)OperationService
         private Guid CreateTask(UserDto owner, HotClientRequestDto hotClient, RegardingObject regardingObject)
         {
             try
             {
+                // TODO {s.pomadin, 24.09.2014}: в контексте объединения россйской кодовой базы с международкой выглядит подозрительно хранение в Header и Description уже локализованных строк, возможно, это должны быть enum и т.п. - т.е. identity причины создания и т.п., локализация же будет (если будет), только по необходимости при отображении и т.п.
                 var task = new Task
                     {
                         Header = BLResources.HotClientSubject,
@@ -171,13 +172,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
                 // В отношении
                 if (regardingObject != null)
                 {
-                    _updateTaskAggregateService.ChangeRegardingObjects(task, Enumerable.Empty<TaskRegardingObject>(), new[] { 
-                        new TaskRegardingObject
-                        {
-                            SourceEntityId = task.Id, 
-                            TargetEntityName = regardingObject.EntityName, 
-                            TargetEntityId = regardingObject.EntityId
-                        } });
+                    _updateTaskAggregateService.ChangeRegardingObjects(task,
+                                                                       Enumerable.Empty<TaskRegardingObject>(),
+                                                                       new[]
+                                                                           {
+                                                                               new TaskRegardingObject
+                                                                                   {
+                                                                                       SourceEntityId = task.Id,
+                                                                                       TargetEntityName = regardingObject.EntityName,
+                                                                                       TargetEntityId = regardingObject.EntityId
+                                                                                   }
+                                                                           });
                 }
 
                 // TODO {all, 24.09.2014}: по-прежнему работаем с Guid'ами, т.к. HotClientRequest.TaskId того же типа, это надо будет менять синхронно после выхода ERM действий

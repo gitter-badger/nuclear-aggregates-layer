@@ -27,18 +27,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
             _referenceRepository = referenceRepository;
         }
 
-        private static void CheckTask(Task task)
-        {
-            if (task == null)
-            {
-                throw new ArgumentNullException("task");
-            }
-            if (task.Id == 0)
-            {
-                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "task");
-            }
-        }
-
         public void Update(Task task)
         {
             CheckTask(task);
@@ -63,6 +51,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 
                 operationScope.Updated<Task>(task.Id);
                 operationScope.Complete();
+            }
+        }
+
+        private static void CheckTask(Task task)
+        {
+            if (task == null)
+            {
+                throw new ArgumentNullException("task");
+            }
+
+            if (task.Id == 0)
+            {
+                throw new ArgumentException(ActivityHasNoTheIdentityMessage, "task");
             }
         }
     }

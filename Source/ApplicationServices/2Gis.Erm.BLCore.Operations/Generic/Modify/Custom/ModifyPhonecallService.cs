@@ -85,13 +85,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         private void UpdateDealStage(PhonecallDomainEntityDto appointmentDto)
         {
             var dealRef = appointmentDto.RegardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal);
-            if (dealRef == null || !dealRef.Id.HasValue) return;
+            if (dealRef == null || !dealRef.Id.HasValue)
+            {
+                return;
+            }
 
             var dealId = dealRef.Id.Value;
             var purpose = appointmentDto.Purpose;
 
             var newDealStage = ConvertToStage(purpose);
-            if (newDealStage == DealStage.None) return;
+            if (newDealStage == DealStage.None)
+            {
+                return;
+            }
 
             _changeDealStageOperationService.Change(dealId, newDealStage);
         }
