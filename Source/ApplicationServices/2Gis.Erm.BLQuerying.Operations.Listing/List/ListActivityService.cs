@@ -151,42 +151,34 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 var firms = _finder.Find(Specs.Find.Active<Firm>());
                 var deals = _finder.Find(Specs.Find.Active<Deal>());
 
-                return activity => 
-                       (
-                           from clientRef in regardingClients
-                           where clientRef.TargetEntityId == entityId
-                           select clientRef.SourceEntityId
-                       ).Union(
-                           from firmRef in regardingFirms
-                           join firm in firms on firmRef.TargetEntityId equals firm.Id
-                           where firm.ClientId == entityId
-                           select firmRef.SourceEntityId
-                           ).Union(
-                               from dealRef in regardingDeals
-                               join deal in deals on dealRef.TargetEntityId equals deal.Id
-                               where deal.ClientId == entityId
-                               select dealRef.SourceEntityId
-                           ).Contains(activity.Id);
+                return activity => (from clientRef in regardingClients
+                                    where clientRef.TargetEntityId == entityId
+                                    select clientRef.SourceEntityId)
+                                       .Union(from firmRef in regardingFirms
+                                              join firm in firms on firmRef.TargetEntityId equals firm.Id
+                                              where firm.ClientId == entityId
+                                              select firmRef.SourceEntityId)
+                                       .Union(from dealRef in regardingDeals
+                                              join deal in deals on dealRef.TargetEntityId equals deal.Id
+                                              where deal.ClientId == entityId
+                                              select dealRef.SourceEntityId)
+                                       .Contains(activity.Id);
             }
             if (entityName == EntityName.Firm)
             {
                 var regardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<TActivityRegardingObject>(x => x.TargetEntityName == EntityName.Firm));
-                return activity => 
-                       (
-                           from firmRef in regardingFirms
-                           where firmRef.TargetEntityId == entityId
-                           select firmRef.SourceEntityId
-                       ).Contains(activity.Id);
+                return activity => (from firmRef in regardingFirms
+                                    where firmRef.TargetEntityId == entityId
+                                    select firmRef.SourceEntityId)
+                                       .Contains(activity.Id);
             }
             if (entityName == EntityName.Deal)
             {
                 var regardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<TActivityRegardingObject>(x => x.TargetEntityName == EntityName.Deal));
-                return activity => 
-                       (
-                           from regardingDeal in regardingDeals
-                           where regardingDeal.TargetEntityId == entityId
-                           select regardingDeal.SourceEntityId
-                       ).Contains(activity.Id);
+                return activity => (from regardingDeal in regardingDeals
+                                    where regardingDeal.TargetEntityId == entityId
+                                    select regardingDeal.SourceEntityId)
+                                       .Contains(activity.Id);
             }
             
             throw new NotSupportedException();
