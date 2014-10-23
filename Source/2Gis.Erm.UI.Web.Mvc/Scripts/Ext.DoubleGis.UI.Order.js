@@ -59,8 +59,8 @@ window.InitPage = function () {
     
     Ext.apply(this,
             {
-                ChangeProfiles: function() {
-                    var url = Ext.urlAppend('/Order/ChangeProfiles', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
+                ChangeLegalPersonProfile: function() {
+                    var url = Ext.urlAppend('/Order/ChangeLegalPersonProfile', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
                     var params = "dialogWidth:600px; dialogHeight:300px; status:yes; scroll:no;resizable:no;";
                     var result = window.showModalDialog(url, null, params);
                     if (!result) {
