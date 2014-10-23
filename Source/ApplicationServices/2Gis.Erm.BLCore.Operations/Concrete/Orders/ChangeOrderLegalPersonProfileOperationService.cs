@@ -7,13 +7,13 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 {
-    public class ChangeOrderProfilesOperationService : IChangeOrderProfilesOperationService
+    public class ChangeOrderLegalPersonProfileOperationService : IChangeOrderLegalPersonProfileOperationService
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public ChangeOrderProfilesOperationService(
+        public ChangeOrderLegalPersonProfileOperationService(
             IOrderRepository orderRepository,
             IOperationScopeFactory scopeFactory,
             IOrderReadModel orderReadModel)
@@ -23,9 +23,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             _orderReadModel = orderReadModel;
         }
 
-        public void ChangeProfiles(long orderId, long profileId)
+        public void ChangeLegalPersonProfile(long orderId, long profileId)
         {
-            using (var scope = _scopeFactory.CreateNonCoupled<ChangeOrderProfilesIdentity>())
+            using (var scope = _scopeFactory.CreateNonCoupled<ChangeOrderLegalPersonProfileIdentity>())
             {
                 var order = _orderReadModel.GetOrder(orderId);
                 order.LegalPersonProfileId = profileId;

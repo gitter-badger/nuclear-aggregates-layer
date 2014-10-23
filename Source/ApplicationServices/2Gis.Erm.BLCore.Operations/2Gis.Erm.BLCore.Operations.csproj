@@ -233,7 +233,6 @@
     <Compile Include="Concrete\OrderPositions\ViewOrderPositionOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\DetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\CloseClientBargainsOperationService.cs" />
-    <Compile Include="Concrete\Orders\SelectPrintProfilesOperationService.cs" />
     <Compile Include="Concrete\Orders\CopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderCreationStrategy.cs" />
     <Compile Include="Concrete\Orders\Processing\OrderEditingStrategy.cs" />
@@ -248,7 +247,7 @@
     <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourRejected.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviour.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviourFactory.cs" />
-    <Compile Include="Concrete\Orders\ChangeOrderProfilesOperationService.cs" />
+    <Compile Include="Concrete\Orders\ChangeOrderLegalPersonProfileOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />

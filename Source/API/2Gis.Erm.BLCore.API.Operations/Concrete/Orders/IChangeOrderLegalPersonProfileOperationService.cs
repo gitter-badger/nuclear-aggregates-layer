@@ -3,8 +3,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders
 {
-    public interface IChangeOrderProfilesOperationService : IOperation<ChangeOrderProfilesIdentity>
+    public interface IChangeOrderLegalPersonProfileOperationService : IOperation<ChangeOrderLegalPersonProfileIdentity>
     {
-        void ChangeProfiles(long orderId, long profileId);
+        void ChangeLegalPersonProfile(long orderId, long profileId);
     }
 }

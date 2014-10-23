@@ -2,9 +2,9 @@
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders
 {
-    public sealed class OrderProfilesDto
+    public sealed class OrderLegalPersonProfileDto
     {
-        public EntityReference Profile { get; set; }
         public EntityReference LegalPerson { get; set; }
+        public EntityReference LegalPersonProfile { get; set; }
     }
 }

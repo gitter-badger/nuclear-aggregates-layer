@@ -13,6 +13,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -1263,23 +1264,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .ToArray();
         }
 
-        public OrderProfilesDto GetOrderProfiles(long orderId)
+        public OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId)
         {
             var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
-                                   .Select(order => new
-                                   {
-                                       order.LegalPersonId,
-                                       LegalPersonName = order.LegalPerson.ShortName,
-                                       order.LegalPersonProfileId,
-                                       LegalPersonProfileName = order.LegalPersonProfile.Name,
-                                   })
+                                   .Select(order => new OrderLegalPersonProfileDto
+                                       {
+                                           LegalPerson = new EntityReference(order.LegalPersonId, order.LegalPerson.ShortName),
+                                           LegalPersonProfile = new EntityReference(order.LegalPersonProfileId, order.LegalPersonProfile.Name),
+                                       })
                                    .Single();
-
-            return new OrderProfilesDto
+            
+            if (!dto.LegalPersonProfile.Id.HasValue)
             {
-                LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
-                Profile = new EntityReference(dto.LegalPersonProfileId, dto.LegalPersonProfileName),
-            };
+                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
+            }
+
+            return dto;
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)
