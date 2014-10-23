@@ -263,10 +263,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\ChangeProfiles.generated.cs">
+    <Compile Include="Views\Order\ChangeOrderLegalPersonProfile.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ChangeProfiles.cshtml</DependentUpon>
+      <DependentUpon>ChangeOrderLegalPersonProfile.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
       <AutoGen>True</AutoGen>
@@ -759,9 +759,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\Order\ChangeProfiles.cshtml">
+    <None Include="Views\Order\ChangeOrderLegalPersonProfile.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ChangeProfiles.generated.cs</LastGenOutput>
+      <LastGenOutput>ChangeOrderLegalPersonProfile.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>

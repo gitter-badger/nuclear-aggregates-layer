@@ -66,8 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
-        private readonly IChangeOrderProfilesOperationService _changeOrderProfilesOperationService;
-        private readonly ISelectPrintProfilesOperationService _selectPrintProfilesOperationService;
+        private readonly IChangeOrderLegalPersonProfileOperationService _changeOrderLegalPersonProfileOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -91,8 +90,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ICopyOrderOperationService copyOrderOperationService,
                                IRepairOutdatedPositionsOperationService repairOutdatedPositionsOperationService,
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService,
-                               IChangeOrderProfilesOperationService changeOrderProfilesOperationService,
-                               ISelectPrintProfilesOperationService selectPrintProfilesOperationService)
+                               IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
             : base(msCrmSettings, userContext, logger, operationsServiceSettings, specialOperationsServiceSettings, getBaseCurrencyService)
         {
             _userIdentifierService = userIdentifierService;
@@ -111,8 +109,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _copyOrderOperationService = copyOrderOperationService;
             _repairOutdatedPositionsOperationService = repairOutdatedPositionsOperationService;
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
-            _changeOrderProfilesOperationService = changeOrderProfilesOperationService;
-            _selectPrintProfilesOperationService = selectPrintProfilesOperationService;
+            _changeOrderLegalPersonProfileOperationService = changeOrderLegalPersonProfileOperationService;
         }
 
         #region Ajax methods
@@ -324,23 +321,23 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         #endregion
 
         [HttpGet]
-        public ViewResult ChangeProfiles(long orderId)
+        public ViewResult ChangeOrderLegalPersonProfile(long orderId)
         {
-            var dto = _selectPrintProfilesOperationService.SelectProfilesByOrder(orderId);
+            var dto = _orderReadModel.GetOrderLegalPersonProfile(orderId);
 
             var model = new ChangeOrderProfilesViewModel
             {
                 LegalPerson = dto.LegalPerson.ToLookupField(),
-                LegalPersonProfile = dto.Profile.ToLookupField(),
+                LegalPersonProfile = dto.LegalPersonProfile.ToLookupField(),
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public EmptyResult ChangeProfiles(long orderId, long legalPersonProfileId)
+        public EmptyResult ChangeOrderLegalPersonProfile(long orderId, long legalPersonProfileId)
         {
-            _changeOrderProfilesOperationService.ChangeProfiles(orderId, legalPersonProfileId);
+            _changeOrderLegalPersonProfileOperationService.ChangeLegalPersonProfile(orderId, legalPersonProfileId);
             return new EmptyResult();
         }
 
