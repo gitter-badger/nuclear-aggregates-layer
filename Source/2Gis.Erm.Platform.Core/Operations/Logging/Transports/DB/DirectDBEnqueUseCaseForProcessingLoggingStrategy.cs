@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
             
             // FIXME {i.maslennikov, 25.08.2014}: По-сути, сейчас нет возможности выполнить primary processing, не указав интерфейс IPerformedOperationsPrimaryProcessingFlow для потока.
             //                                    Но сильно неочевидно, что это нужно сделать. Оно просто и тихо не будет работать, так?
-            _primaryProcessingFlows = messageFlowRegistry.Flows.Where(f => f is IPerformedOperationsPrimaryProcessingFlow).ToArray();
+            _primaryProcessingFlows = messageFlowRegistry.Flows.Where(PrimaryProcessing.IsPerformedOperationsSourceFlow).ToArray();
         }
 
         public LoggingSession Begin()

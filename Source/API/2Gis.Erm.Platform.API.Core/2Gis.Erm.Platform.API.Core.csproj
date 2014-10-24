@@ -178,6 +178,7 @@
     <Compile Include="Operations\Processing\Primary\PerformedOperationsPrimaryFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Primary\IPerformedOperationsPrimaryProcessingFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\PrimaryProcessing.Indicators.cs" />
     <Compile Include="Operations\Processing\Primary\PrimaryProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\PrimaryReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\PerformedOperationsTransportSettingsAspect.cs" />

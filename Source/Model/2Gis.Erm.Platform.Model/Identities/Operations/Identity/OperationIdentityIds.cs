@@ -236,5 +236,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.ClientLink = 609
         public const int UpdateOrganizationStructureDenormalization = 60901;
+
+        public const int PerformedOperationProcessingAnalysisIdentity = 19500;
     }
 }
