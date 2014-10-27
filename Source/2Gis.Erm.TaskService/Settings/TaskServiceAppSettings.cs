@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.TaskService.Settings
         INotificationProcessingSettings,
         IIntegrationLocalizationSettings,
         IDBCleanupSettings,
-        ITaskServiceProcesingSettings
+        ITaskServiceProcessingSettings
     {
         private const int LogSizeInDaysDefault = 60;
         private const string MailSenderUserNameDefault = "TEST";
@@ -41,6 +41,7 @@ namespace DoubleGis.Erm.TaskService.Settings
         private const string MailSenderEmailDisplayNameDefault = "ERM notification system";
 
         private readonly IntSetting _maxWorkingThreads = ConfigFileSetting.Int.Required("MaxWorkingThreads");
+        private readonly EnumSetting<JobStoreType> _jobStoreType = ConfigFileSetting.Enum.Required<JobStoreType>("JobStoreType");
 
         private readonly IntSetting _logSizeInDays = ConfigFileSetting.Int.Optional("LogSizeInDays", LogSizeInDaysDefault);
         
@@ -55,6 +56,7 @@ namespace DoubleGis.Erm.TaskService.Settings
         private readonly StringSetting _basicLanguage = ConfigFileSetting.String.Required("BasicLanguage");
         private readonly StringSetting _reserveLanguage = ConfigFileSetting.String.Required("ReserveLanguage");
         private readonly StringSetting _regionalTerritoryLocaleSpecificWord = ConfigFileSetting.String.Required("RegionalTerritoryLocaleSpecificWord");
+        private readonly StringSetting _schedulerName = ConfigFileSetting.String.Required("SchedulerName");
 
         public TaskServiceAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
@@ -93,12 +95,22 @@ namespace DoubleGis.Erm.TaskService.Settings
             get { return _regionalTerritoryLocaleSpecificWord.Value; }
         }
 
-        int ITaskServiceProcesingSettings.MaxWorkingThreads
+        int ITaskServiceProcessingSettings.MaxWorkingThreads
         {
             get
             {
                 return _maxWorkingThreads.Value;
             }
+        }
+
+        JobStoreType ITaskServiceProcessingSettings.JobStoreType
+        {
+            get { return _jobStoreType.Value; }
+        }
+
+        string ITaskServiceProcessingSettings.SchedulerName
+        {
+            get { return _schedulerName.Value; }
         }
 
         int IDBCleanupSettings.LogSizeInDays
