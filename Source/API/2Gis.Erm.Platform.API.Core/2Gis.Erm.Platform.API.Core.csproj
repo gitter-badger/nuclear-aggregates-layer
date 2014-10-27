@@ -128,7 +128,7 @@
     <Compile Include="Operations\Logging\OperationScopeNode.cs" />
     <Compile Include="Operations\Logging\OperationScopeUtils.cs" />
     <Compile Include="Operations\Logging\TrackedUseCase.cs" />
-    <Compile Include="Operations\Processing\Final\HotClient\FinalReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalProcessingOfHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMFinalProcessingResultsMessage.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalProcessingMessage.cs" />
     <Compile Include="Operations\Processing\Final\FinalProcessingResultsMessage.cs" />
@@ -137,8 +137,8 @@
     <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessorSettings.cs" />
-    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageReplicateHotClientPerformedOperationsFlow.cs" />
-    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageProcessingOfHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryProcessingOfHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ElasticRuntimeFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />
