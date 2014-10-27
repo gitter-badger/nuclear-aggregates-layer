@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
@@ -32,47 +34,47 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                     {
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<ClientGridDoc>()
-                                                          .Use(ProjectionSpecs.Clients.Select(), ProjectionSpecs.Clients.Project()),
+                                                          .Use<ClientGridDoc, Client>(ProjectionSpecs.Clients.Select(), ProjectionSpecs.Clients.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<CurrencyGridDoc>()
-                                                          .Use(ProjectionSpecs.Currencies.Select(), ProjectionSpecs.Currencies.Project()),
+                                                          .Use<CurrencyGridDoc, Currency>(ProjectionSpecs.Currencies.Select(), ProjectionSpecs.Currencies.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<CountryGridDoc>()
-                                                          .Use(ProjectionSpecs.Countries.Select(), ProjectionSpecs.Countries.Project()),
+                                                          .Use<CountryGridDoc, Country>(ProjectionSpecs.Countries.Select(), ProjectionSpecs.Countries.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<OrgUnitGridDoc>()
-                                                          .Use(ProjectionSpecs.OrganizationUnits.Select(), ProjectionSpecs.OrganizationUnits.Project()),
+                                                          .Use<OrgUnitGridDoc, OrganizationUnit>(ProjectionSpecs.OrganizationUnits.Select(), ProjectionSpecs.OrganizationUnits.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<DepartmentGridDoc>()
-                                                          .Use(ProjectionSpecs.Departments.Select(), ProjectionSpecs.Departments.Project()),
+                                                          .Use<DepartmentGridDoc, Department>(ProjectionSpecs.Departments.Select(), ProjectionSpecs.Departments.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<UserGridDoc>()
-                                                          .Use(ProjectionSpecs.Users.Select(), ProjectionSpecs.Users.Project()),
+                                                          .Use<UserGridDoc, User>(ProjectionSpecs.Users.Select(), ProjectionSpecs.Users.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<FirmGridDoc>()
-                                                          .Use(ProjectionSpecs.Firms.Select(), ProjectionSpecs.Firms.Project()),
+                                                          .Use<FirmGridDoc, Firm>(ProjectionSpecs.Firms.Select(), ProjectionSpecs.Firms.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<TerritoryGridDoc>()
-                                                          .Use(ProjectionSpecs.Territories.Select(), ProjectionSpecs.Territories.Project()),
+                                                          .Use<TerritoryGridDoc, Territory>(ProjectionSpecs.Territories.Select(), ProjectionSpecs.Territories.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<LegalPersonGridDoc>()
-                                                          .Use(ProjectionSpecs.LegalPersons.Select(), ProjectionSpecs.LegalPersons.Project()),
+                                                          .Use<LegalPersonGridDoc, LegalPerson>(ProjectionSpecs.LegalPersons.Select(), ProjectionSpecs.LegalPersons.Project()),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<BargainGridDoc>()
-                                                          .Use(ProjectionSpecs.Bargains.Select(), ProjectionSpecs.Bargains.Project(cultureInfo)),
+                                                          .Use<BargainGridDoc, Bargain>(ProjectionSpecs.Bargains.Select(), ProjectionSpecs.Bargains.Project(cultureInfo)),
 
                         EntityToDocumentProjectionMetadata.Config
                                                           .For<OrderGridDoc>()
-                                                          .Use(ProjectionSpecs.Orders.Select(), ProjectionSpecs.Orders.Project(cultureInfo))
+                                                          .Use<OrderGridDoc, Order>(ProjectionSpecs.Orders.Select(), ProjectionSpecs.Orders.Project(cultureInfo))
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

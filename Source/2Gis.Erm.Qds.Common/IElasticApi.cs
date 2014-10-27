@@ -29,16 +29,30 @@ namespace DoubleGis.Erm.Qds.Common
         T Get<T>(string id) where T : class;
         IReadOnlyCollection<IMultiGetHit<object>> MultiGet(Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> multiGetSelector);
 
-        long Create<T>(T @object, string id = null) where T : class;
-        long Update<T>(T @object, string id, long? version) where T : class;
-        long Delete<T>(string id, long? version) where T : class;
+        IDocumentWrapper<T> Create<T>(T @object, string id = null) where T : class;
+        IDocumentWrapper<T> Update<T>(IDocumentWrapper<T> documentWrapper) where T : class;
+        IDocumentWrapper<T> Delete<T>(IDocumentWrapper<T> documentWrapper) where T : class;
 
         ISearchResponse<T> Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class;
-        IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher, IProgress<long> progress = null) where T : class;
+        IEnumerable<IDocumentWrapper<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher, IProgress<long> progress = null) where T : class;
 
         IEnumerable<IReadOnlyCollection<T>> CreateBatches<T>(IEnumerable<T> items);
         void Bulk(IReadOnlyCollection<Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor>> selectors);
 
         void Refresh<T>() where T : class;
+    }
+
+    public class DocumentWrapper<TDocument> : IDocumentWrapper<TDocument>
+    {
+        public string Id { get; set; }
+        public TDocument Document { get; set; }
+        public long? Version { get; set; }
+    }
+
+    public interface IDocumentWrapper<out TDocument>
+    {
+        string Id { get; }
+        TDocument Document { get; }
+        long? Version { get; }
     }
 }

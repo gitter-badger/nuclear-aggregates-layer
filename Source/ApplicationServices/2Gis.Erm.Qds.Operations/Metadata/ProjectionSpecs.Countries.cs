@@ -26,13 +26,13 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, DocumentWrapper<CountryGridDoc>> Project()
+            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CountryGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, DocumentWrapper<CountryGridDoc>>(
+                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CountryGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Country>();
-                            return new DocumentWrapper<CountryGridDoc>
+                            return new IndexedDocumentWrapper<CountryGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),
                                            Document = new CountryGridDoc

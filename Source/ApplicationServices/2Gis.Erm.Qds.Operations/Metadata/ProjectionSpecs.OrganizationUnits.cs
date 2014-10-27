@@ -31,13 +31,13 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, DocumentWrapper<OrgUnitGridDoc>> Project()
+            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<OrgUnitGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, DocumentWrapper<OrgUnitGridDoc>>(
+                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<OrgUnitGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<OrganizationUnit>();
-                            return new DocumentWrapper<OrgUnitGridDoc>
+                            return new IndexedDocumentWrapper<OrgUnitGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),
                                            Document = new OrgUnitGridDoc

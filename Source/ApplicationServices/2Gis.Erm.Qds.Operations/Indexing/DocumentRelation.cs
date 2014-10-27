@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _accessors = accessors.Cast<DocumentRelationAccessor<TDocument, TDocumentPart>>();
         }
 
-        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
+        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers)
         {
             var documentPartIds = documentWrappers
                 .OfType<IDocumentWrapper<TDocument>>()
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 .Preference("_primary");
         }
 
-        public void UpdateDocumentParts(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
+        public void UpdateDocumentParts(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
         {
             var documentPartsMap = hits.OfType<IMultiGetHit<TDocumentPart>>().Where(x => x.Found).ToDictionary(x => x.Id, x => x.Source);
             if (!documentPartsMap.Any())
@@ -62,12 +62,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             }
         }
 
-        public IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> documentParts, IProgress<long> progress = null)
+        public IEnumerable<IIndexedDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IIndexedDocumentWrapper> documentParts, IProgress<long> progress = null)
         {
             var documentPartsMap = documentParts.OfType<IDocumentWrapper<TDocumentPart>>().ToDictionary(x => x.Id, x => x.Document);
             if (!documentPartsMap.Any())
             {
-                return Enumerable.Empty<IDocumentWrapper>();
+                return Enumerable.Empty<IIndexedDocumentWrapper>();
             }
 
             _elasticApi.Refresh<TDocument>();
@@ -79,16 +79,16 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
             var documentWrappers = hits.Select(hit =>
             {
-                var documentWrapper = new DocumentWrapper<TDocument>
+                var documentWrapper = new IndexedDocumentWrapper<TDocument>
                 {
                     Id = hit.Id,
-                    Document = hit.Source,
-                    Version = long.Parse(hit.Version),
+                    Document = hit.Document,
+                    Version = hit.Version,
                 };
 
                 foreach (var metadata in _accessors)
                 {
-                    var documentPartId = metadata.GetDocumentPartId(documentWrapper.Document);
+                    var documentPartId = metadata.GetDocumentPartId(hit.Document);
                     if (string.IsNullOrEmpty(documentPartId))
                     {
                         continue;
@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     TDocumentPart documentPart;
                     if (documentPartsMap.TryGetValue(documentPartId, out documentPart))
                     {
-                        metadata.InsertDocumentPart(documentWrapper.Document, documentPart);
+                        metadata.InsertDocumentPart(hit.Document, documentPart);
                     }
                 }
 

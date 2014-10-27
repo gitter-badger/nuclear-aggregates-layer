@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public long Create<T>(T @object, string id = null) where T : class
+        public IDocumentWrapper<T> Create<T>(T @object, string id = null) where T : class
         {
             var response = _elasticClient.Index(@object, x =>
             {
@@ -80,37 +80,52 @@ namespace DoubleGis.Erm.Qds.Common
                 return x.OpType(OpType.Create);
             });
 
-            return long.Parse(response.Version);
+            return new DocumentWrapper<T>
+            {
+                Id  = response.Id,
+                Document = @object,
+                Version = long.Parse(response.Version),
+            };
         }
 
-        public long Update<T>(T @object, string id, long? version) where T : class
+        public IDocumentWrapper<T> Update<T>(IDocumentWrapper<T> documentWrapper) where T : class
         {
             var response = _elasticClient.Update<T, T>(x =>
             {
-                if (version != null)
+                if (documentWrapper.Version != null)
                 {
-                    x = x.Version(version.Value);
+                    x = x.Version(documentWrapper.Version.Value);
                 }
 
-                return x.Doc(@object).Id(id);
+                return x.Id(documentWrapper.Id).Doc(documentWrapper.Document);
             });
 
-            return long.Parse(response.Version);
+            return new DocumentWrapper<T>
+            {
+                Id = response.Id,
+                Document = documentWrapper.Document,
+                Version = long.Parse(response.Version),
+            };
         }
 
-        public long Delete<T>(string id, long? version) where T : class
+        public IDocumentWrapper<T> Delete<T>(IDocumentWrapper<T> documentWrapper) where T : class
         {
             var response = _elasticClient.Delete<T>(x =>
             {
-                if (version != null)
+                if (documentWrapper.Version != null)
                 {
-                    x = x.Version(version.Value);
+                    x = x.Version(documentWrapper.Version.Value);
                 }
 
-                return x.Id(id);
+                return x.Id(documentWrapper.Id);
             });
 
-            return long.Parse(response.Version);
+            return new DocumentWrapper<T>
+            {
+                Id = response.Id,
+                Document = documentWrapper.Document,
+                Version = long.Parse(response.Version),
+            };
         }
 
         public T Get<T>(string id) where T : class
@@ -191,7 +206,7 @@ namespace DoubleGis.Erm.Qds.Common
             _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(indexType));
         }
 
-        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector, IProgress<long> progress = null) where T : class
+        public IEnumerable<IDocumentWrapper<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector, IProgress<long> progress = null) where T : class
         {
             const string FirstScrollTimeout = "1s";
 
@@ -200,7 +215,7 @@ namespace DoubleGis.Erm.Qds.Common
                 .Scroll(FirstScrollTimeout)
                 .Size(_nestSettings.BatchSize));
 
-            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(_elasticClient, searchFunc, _nestSettings.BatchTimeout, progress));
+            return new DelegateEnumerable<IDocumentWrapper<T>>(() => new ScrollEnumerator<T>(_elasticClient, searchFunc, _nestSettings.BatchTimeout, progress));
         }
 
         private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
@@ -223,7 +238,7 @@ namespace DoubleGis.Erm.Qds.Common
             }
         }
 
-        private sealed class ScrollEnumerator<TDocument> : IEnumerator<IHit<TDocument>>
+        private sealed class ScrollEnumerator<TDocument> : IEnumerator<IDocumentWrapper<TDocument>>
             where TDocument : class
         {
             private readonly IElasticClient _elasticClient;
@@ -242,7 +257,20 @@ namespace DoubleGis.Erm.Qds.Common
                 _progress = progress;
             }
 
-            public IHit<TDocument> Current { get { return _internalEnumerator.Current; } }
+            public IDocumentWrapper<TDocument> Current
+            {
+                get
+                {
+                    var current = _internalEnumerator.Current;
+                    return new DocumentWrapper<TDocument>
+                    {
+                        Id = current.Id,
+                        Document = current.Source,
+                        Version = current.Version == null ? (long?)null : long.Parse(current.Version),
+                    };
+                }
+            }
+
             object IEnumerator.Current { get { return Current; } }
 
             public bool MoveNext()
