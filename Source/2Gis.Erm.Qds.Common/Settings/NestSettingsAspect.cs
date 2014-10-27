@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Common;
 using System.Linq;
 
@@ -16,10 +17,11 @@ namespace DoubleGis.Erm.Qds.Common.Settings
     {
         public NestSettingsAspect(IConnectionStringSettings connectionStringsSettings)
         {
-            string connectionString;
-            if (!connectionStringsSettings.AllConnections.TryGetValue(ConnectionStringName.ErmSearch, out connectionString))
+            var connectionString = string.Empty;
+            ConnectionStringSettings settings;
+            if (connectionStringsSettings.AllConnections.TryGetValue(ConnectionStringName.ErmSearch, out settings))
             {
-                connectionString = string.Empty;
+                connectionString = settings.ConnectionString;
             }
 
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
