@@ -1338,9 +1338,6 @@
   <data name="EnUserProfile" xml:space="preserve">
     <value>Perfil del usuario</value>
   </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Husos horarios</value>
-  </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Husos horarios</value>
   </data>
