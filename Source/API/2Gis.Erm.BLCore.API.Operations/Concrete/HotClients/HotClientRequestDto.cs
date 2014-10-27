@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto
+namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients
 {
     public sealed class HotClientRequestDto
     {
@@ -9,5 +9,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto
         public string ContactPhone { get; set; }
         public string ContactName { get; set; }
         public string Description { get; set; }
+        public bool HasAssignedTask { get; set; }
     }
 }

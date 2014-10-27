@@ -30,7 +30,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
         private const int PageSize = 1000;
         private const int SqlBulkSizeDefault = 10000;
         private const int ProfileSlice = 5000;
-        private const long MigrationLimit = long.MaxValue;
 
         protected ActivityMigration(int sqlBulkSize = SqlBulkSizeDefault)
         {
@@ -137,7 +136,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                         times.Add(stopwatch.Elapsed);
                         stopwatch.Restart();
 
-                        // COMMENT {s.pomadin, 23.10.2014}: Какой смысл в логировании в отдельном потоке?
                         Task.Run(() =>
                         {
                             var avg = new TimeSpan((long)times.Average(x => x.Ticks));
@@ -146,21 +144,14 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                             TraceInfo("Processed {0} records: {1}", entityCount, r);
                         });
                     }
-
-                    // FIXME {s.pomadin, 23.10.2014}: Прерывание цикла должно быть в PROFILE секции?
-                    if (entityCount >= MigrationLimit)
-                    {
-                        break;
-                    }
 #endif
                 }
             }
 
-            // FIXME {s.pomadin, 23.10.2014}: if ниже без блока выполнения. Один из примеров, где пустые скобки очень помогают :)
-            if (sqlCache.Length > 0) ;
-
-            enqueueQuery(sqlCache.ToString());
-
+            if (sqlCache.Length > 0)
+            {
+                enqueueQuery(sqlCache.ToString());
+            }
             Task.WaitAll(taskStack.ToArray());
 
 #if PROFILE
@@ -278,16 +269,44 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     return value;
                 }
 
-                // dynamic approach for simple types wrapped in CRM
-                if (value is CrmBoolean || value is CrmDouble || value is CrmFloat || value is CrmNumber || value is Picklist || value is Status || value is EntityNameReference)
+                var booleanValue = value as CrmBoolean;
+                if (booleanValue != null)
                 {
-                    // COMMENT {s.pomadin, 23.10.2014}: Этот код же в цикле вызывается для каждого атрибута каждой сущности? 
-                    //                                  С dynamic может очень сильно проседать производительность, если CallSite разный на каждый вызов, а он похоже разный
-                    //                                  см например http://geekswithblogs.net/simonc/archive/2012/07/20/inside-the-dlr---callsites.aspx
-                    dynamic valueAsDynamic = value;
-                    return valueAsDynamic.IsNull
-                               ? DBNull.Value
-                               : valueAsDynamic.Value;
+                    if (booleanValue.IsNull)
+                    {
+                        return DBNull.Value;
+                    }
+                    return booleanValue.Value;
+                }
+
+                var floatValue = value as CrmFloat;
+                if (floatValue != null)
+                {
+                    if (floatValue.IsNull)
+                    {
+                        return DBNull.Value;
+                    }
+                    return floatValue.Value;
+                }
+
+                var doubleValue = value as CrmDouble;
+                if (doubleValue != null)
+                {
+                    if (doubleValue.IsNull)
+                    {
+                        return DBNull.Value;
+                    }
+                    return doubleValue.Value;
+                }
+
+                var numberValue = value as CrmNumber;
+                if (numberValue != null)
+                {
+                    if (numberValue.IsNull)
+                    {
+                        return DBNull.Value;
+                    }
+                    return numberValue.Value;
                 }
 
                 var dateTime = value as CrmDateTime;
@@ -298,6 +317,36 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                         return DBNull.Value;
                     }
                     return dateTime.UniversalTime;
+                }
+
+                var picklist = value as Picklist;
+                if (picklist != null)
+                {
+                    if (picklist.IsNull)
+                    {
+                        return DBNull.Value;
+                    }
+                    return picklist.Value;
+                }
+
+                var status = value as Status;
+                if (status != null)
+                {
+                    if (status.IsNull)
+                    {
+                        return DBNull.Value;
+                    }
+                    return status.Value;
+                }
+
+                var entityRef = value as EntityNameReference;
+                if (entityRef != null)
+                {
+                    if (entityRef.IsNull)
+                    {
+                        return DBNull.Value;
+                    }
+                    return entityRef.Value;
                 }
 
                 var reference = value as CrmReference;
@@ -315,9 +364,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     }
                     
                     throw new Exception(string.Format("The reference '{2}' with name '{1}' and type '{0}' cannot be resolved.", reference.type, reference.name, reference.Value));
-
-                    // FIXME {s.pomadin, 23.10.2014}: WTF?
-                    //return referenceId;
                 }
 
                 var key = value as Key;
@@ -336,7 +382,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
             /// <summary>
             /// Converts the value to the requested type.
             /// </summary>
-            // COMMENT {s.pomadin, 23.10.2014}: Convert.ChangeType медленнее, чем типизированные вызовы, http://stackoverflow.com/questions/4756375/what-is-the-major-differences-between-convert-changetype-or-convert-toint32
             private static T Cast<T>(object value)
             {
                 if (value == null || ReferenceEquals(value, DBNull.Value))
@@ -590,7 +635,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     return "NULL";
                 }
 
-                // FIXME {s.pomadin, 23.10.2014}: Лучше использовать as вместо is, все равно же кастишь потом
                 if (value is Guid)
                 {
                     return "'" + ((Guid)value).ToString("D") + "'";
@@ -601,14 +645,16 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     return "'" + ((DateTime)value).ToString("o", Culture) + "'"; // ISO 8601 format
                 }
 
-                if (value is Enum)
+                var @enum = value as Enum;
+                if (@enum != null)
                 {
-                    return ((Enum)value).ToString("d"); // as an integer
+                    return @enum.ToString("d"); // as an integer
                 }
 
-                if (value is string)
+                var str = value as string;
+                if (str != null)
                 {
-                    return "'" + Urn.EscapeString((string)value) + "'";
+                    return "'" + Urn.EscapeString(str) + "'";
                 }
 
                 if (value is bool)
@@ -616,9 +662,10 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
                     return ((bool)value) ? "1" : "0";
                 }
 
-                if (value is byte[])
+                var bytes = value as byte[];
+                if (bytes != null)
                 {
-                    return SerializeByteArray((byte[])value);
+                    return SerializeByteArray(bytes);
                 }
 
                 var formattableValue = value as IFormattable;

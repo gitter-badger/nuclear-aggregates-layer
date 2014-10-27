@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.HotCl
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients
 {
-    public interface IGetHotClientTaskToReplicateOperationService : IOperation<GetHotClientTaskToReplicateIdentity>
+    public interface IGetHotClientRequestOperationService : IOperation<GetHotClientRequestIdentity>
     {
         HotClientTaskDto GetHotClientTask(long hotClientRequestId);
     }

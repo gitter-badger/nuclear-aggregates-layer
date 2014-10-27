@@ -72,6 +72,7 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
+    <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardAddressDto.cs" />
     <Compile Include="Concrete\HotClients\HotClientTaskDto.cs" />
-    <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
+    <Compile Include="Concrete\HotClients\IGetHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardForErmServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardRelationForErmServiceBusDto.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\FirmForErmDto.cs" />
@@ -189,10 +190,9 @@
     <Compile Include="Concrete\Prices\ICopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\IReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Prices\PriceDto.cs" />
-    <Compile Include="Concrete\Processing\Final\HotClient\ReplicateHotClientFinalProcessingResultsMessage.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\Dto\HotClientRequestDto.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\Dto\RegardingObject.cs" />
-    <Compile Include="Concrete\Simplified\MsCRM\Dto\UserDto.cs" />
+    <Compile Include="Concrete\Processing\Final\HotClient\HotClientFinalProcessingResultsMessage.cs" />
+    <Compile Include="Concrete\HotClients\HotClientRequestDto.cs" />
+    <Compile Include="Concrete\HotClients\RegardingObject.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
@@ -507,6 +507,7 @@
   <ItemGroup>
     <Folder Include="Concrete\Integration\Import\FlowBilling\" />
     <Folder Include="Concrete\Old\PricePositions\" />
+    <Folder Include="Concrete\Simplified\MsCRM\Dto\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

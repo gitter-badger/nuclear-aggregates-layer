@@ -31,9 +31,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
                         ModifiedBy = dto.ModifiedByRef.GetId(),
                         ModifiedOn = dto.ModifiedOn,
                         Timestamp = dto.Timestamp,
-                        // TODO {s.pomadin, 05.09.2014}: could IsActive or IsDeleted be set via UI directly?
-                        IsActive = dto.IsActive,
-                        IsDeleted = dto.IsDeleted,
                     }
                 : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
 

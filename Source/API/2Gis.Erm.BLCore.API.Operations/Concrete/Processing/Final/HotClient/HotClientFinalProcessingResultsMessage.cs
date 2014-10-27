@@ -1,15 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Processing.Final.HotClient
 {
-    public class ReplicateHotClientFinalProcessingResultsMessage : MessageBase, IProcessingResultMessage
+    using DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients;
+
+    public class HotClientFinalProcessingResultsMessage : MessageBase, IProcessingResultMessage
     {
         private readonly Guid _id = Guid.NewGuid();
 
@@ -20,12 +20,11 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Processing.Final.HotClien
 
         public IMessageFlow TargetFlow
         {
-            get { return FinalReplicateHotClientPerformedOperationsFlow.Instance; }
+            get { return FinalProcessingOfHotClientPerformedOperationsFlow.Instance; }
         }
 
-        public UserDto Owner { get; set; }
-        public HotClientRequestDto HotClient { get; set; }
+        public HotClientRequestDto HotClientRequest { get; set; }
+        public long OwnerId { get; set; }
         public RegardingObject RegardingObject { get; set; }
-        public HotClientRequest RequestEntity { get; set; }
     }
 }

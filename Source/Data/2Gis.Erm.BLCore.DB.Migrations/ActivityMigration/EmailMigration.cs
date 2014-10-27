@@ -156,6 +156,11 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.ActivityMigration
 
         private static string StripHtml(string html)
         {
+            if (string.IsNullOrWhiteSpace(html))
+            {
+                return html;
+            }
+
             var text = new StringBuilder();
             var specials = new StringBuilder();
 

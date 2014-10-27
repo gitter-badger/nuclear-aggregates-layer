@@ -75,7 +75,6 @@
     <Compile Include="Infrastructure\Handlers\UseCaseResumeContext.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmDataContextExtensions.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmEntityName.cs" />
-    <Compile Include="Infrastructure\MsCRM\CrmUserDto.cs" />
     <Compile Include="Infrastructure\MsCRM\CrmUtils.cs" />
   </ItemGroup>
   <ItemGroup>

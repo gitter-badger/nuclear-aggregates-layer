@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations
 {
     public interface IBindTaskToHotClientRequestAggregateService : IAggregateSpecificOperation<Firm, BindTaskToHotClientRequestIdentity>
     {
-        void BindWithCrmTask(HotClientRequest hotClientRequest, Guid taskId);
+        void BindTask(long requestId, Guid taskId);
     }
 }

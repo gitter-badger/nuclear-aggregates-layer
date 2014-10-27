@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.MsCRM.Dto;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -18,13 +17,13 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 {
-    public class GetHotClientTaskToReplicateOperationService : IGetHotClientTaskToReplicateOperationService
+    public class GetHotClientRequestOperationService : IGetHotClientRequestOperationService
     {
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IFirmReadModel _firmReadModel;
         private readonly IUserReadModel _userReadModel;
 
-        public GetHotClientTaskToReplicateOperationService(IUserReadModel userReadModel,
+        public GetHotClientRequestOperationService(IUserReadModel userReadModel,
                                                    IFirmReadModel firmReadModel,
                                                    IBranchOfficeReadModel branchOfficeReadModel)
         {
@@ -43,12 +42,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
             return new HotClientTaskDto { TaskOwner = taskOwner, HotClientDto = dto.HotClientDto, Regarding = dto.Regarding };
         }
 
-        private UserDto ApplyOwnerSearchStrategies(long hotClientRequestId, IReadOnlyCollection<StrategyDto> strategies)
+        private long ApplyOwnerSearchStrategies(long hotClientRequestId, IReadOnlyCollection<StrategyDto> strategies)
         {
-            var user = strategies.Select(strategy => strategy.Execute()).FirstOrDefault(userDto => userDto != null);
-            if (user != null)
+            var userId = strategies.Select(strategy => strategy.Execute()).FirstOrDefault(userDto => userDto != null);
+            if (userId != null)
             {
-                return user;
+                return userId.Value;
             }
 
             var message = string.Format("При создании горячего клиента по зацепке с id - {0} не нашли, на кого повесить задачу. Поиск производился: {1}",
@@ -66,6 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                     ContactPhone = requestEntity.ContactPhone,
                     CreationDate = requestEntity.CreationDate,
                     Description = requestEntity.Description,
+                    HasAssignedTask = requestEntity.TaskId != null,
                 };
 
             if (requestEntity.CardCode != null)
@@ -159,43 +159,43 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                 };
         }
 
-        private UserDto FindOrganizationUnitFranchiseeTelesaleManager(long organizationUnit)
+        private long? FindOrganizationUnitFranchiseeTelesaleManager(long organizationUnit)
         {
             var telemarketingUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit },
                                                                             FunctionalPrivilegeName.HotClientTelemarketingProcessingFranchisee);
             return GetUserDto(telemarketingUser, user => user != null);
         }
 
-        private UserDto FindOrganizationUnitBranchTelesaleManager(long organizationUnit)
+        private long? FindOrganizationUnitBranchTelesaleManager(long organizationUnit)
         {
             var telemarketingUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit },
                                                                             FunctionalPrivilegeName.HotClientTelemarketingProcessingBranch);
             return GetUserDto(telemarketingUser, user => user != null);
         }
 
-        private UserDto FindOrganizationUnitDirector(long organizationUnit)
+        private long? FindOrganizationUnitDirector(long organizationUnit)
         {
             var directorUser = _userReadModel.FindAnyUserWithPrivelege(new[] { organizationUnit }, FunctionalPrivilegeName.HotClientProcessing);
             return GetUserDto(directorUser, user => user != null);
         }
 
-        private UserDto FindProjectDirector(long projectCode)
+        private long? FindProjectDirector(long projectCode)
         {
             var organizationUnitIds = _branchOfficeReadModel.GetProjectOrganizationUnitIds(projectCode);
             var director = _userReadModel.FindAnyUserWithPrivelege(organizationUnitIds, FunctionalPrivilegeName.HotClientProcessing);
             return GetUserDto(director, user => user != null);
         }
 
-        private UserDto FindOwner(long ownerCode)
+        private long? FindOwner(long ownerCode)
         {
             var owner = _userReadModel.GetUser(ownerCode);
             return GetUserDto(owner, user => user != null && !user.IsServiceUser);
         }
 
-        private UserDto GetUserDto(User user, Func<User, bool> acceptanceCriteria)
+        private long? GetUserDto(User user, Func<User, bool> acceptanceCriteria)
         {
             return acceptanceCriteria(user)
-                       ? new UserDto { Id = user.Id, Account = user.Account }
+                       ? (long?)user.Id
                        : null;
         }
 
@@ -237,11 +237,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 
         private sealed class StrategyDto
         {
-            private readonly Func<long, UserDto> _strategy;
+            private readonly Func<long, long?> _strategy;
             private readonly string _strategyDescriptionTemplate;
             private readonly long _strategyParameter;
 
-            public StrategyDto(string strategyDescriptionTemplate, long strategyParameter, Func<long, UserDto> strategy)
+            public StrategyDto(string strategyDescriptionTemplate, long strategyParameter, Func<long, long?> strategy)
             {
                 _strategyDescriptionTemplate = strategyDescriptionTemplate;
                 _strategyParameter = strategyParameter;
@@ -253,7 +253,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                 get { return string.Format(_strategyDescriptionTemplate, _strategyParameter); }
             }
 
-            public UserDto Execute()
+            public long? Execute()
             {
                 return _strategy.Invoke(_strategyParameter);
             }

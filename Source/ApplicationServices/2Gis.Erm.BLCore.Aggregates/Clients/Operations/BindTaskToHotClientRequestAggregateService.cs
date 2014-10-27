@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -10,23 +11,33 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
 {
     public class BindTaskToHotClientRequestAggregateService : IBindTaskToHotClientRequestAggregateService
     {
-        private readonly IRepository<HotClientRequest> _hotClientRequestGenericRepository;
+        private readonly IFirmReadModel _firmReadModel;
+        private readonly IRepository<HotClientRequest> _hotClientRequestRepository;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public BindTaskToHotClientRequestAggregateService(IRepository<HotClientRequest> hotClientRequestGenericRepository,
-                                                          IOperationScopeFactory scopeFactory)
+        public BindTaskToHotClientRequestAggregateService(
+            IFirmReadModel firmReadModel, 
+            IRepository<HotClientRequest> hotClientRequestRepository,
+            IOperationScopeFactory scopeFactory)
         {
-            _hotClientRequestGenericRepository = hotClientRequestGenericRepository;
+            _firmReadModel = firmReadModel;
+            _hotClientRequestRepository = hotClientRequestRepository;
             _scopeFactory = scopeFactory;
         }
 
-        public void BindWithCrmTask(HotClientRequest hotClientRequest, Guid taskId)
+        public void BindTask(long requestId, Guid taskId)
         {
+            var hotClientRequest = _firmReadModel.GetHotClientRequest(requestId);
+            if (hotClientRequest == null)
+            {
+                throw new InvalidOperationException("The hot client request does not exist for the specified ID.");
+            }
+
             using (var operationScope = _scopeFactory.CreateNonCoupled<BindTaskToHotClientRequestIdentity>())
             {
                 hotClientRequest.TaskId = taskId;
-                _hotClientRequestGenericRepository.Update(hotClientRequest);
-                _hotClientRequestGenericRepository.Save();
+                _hotClientRequestRepository.Update(hotClientRequest);
+                _hotClientRequestRepository.Save();
 
                 operationScope.Updated(hotClientRequest)
                               .Complete();
