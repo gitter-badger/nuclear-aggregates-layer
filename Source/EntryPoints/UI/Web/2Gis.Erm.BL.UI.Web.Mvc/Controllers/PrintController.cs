@@ -184,6 +184,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
+        public ActionResult PrintBargainProlongationAgreement(long id, long profileId)
+        {
+            return TryPrintDocument(id, profileId, new PrintBargainProlongationAgreementRequest { BargainId = id, LegalPersonProfileId = profileId }, false);
+        }
+
+        [HttpGet]
         public ActionResult PrintBargain(long id, long profileId)
         {
             return TryPrintDocument(id, profileId, new PrintOrderBargainRequest { BargainId = id, LegalPersonProfileId = profileId }, false);

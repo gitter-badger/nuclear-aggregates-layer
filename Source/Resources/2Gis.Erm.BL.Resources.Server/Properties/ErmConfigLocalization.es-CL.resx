@@ -1338,9 +1338,6 @@
   <data name="EnUserProfile" xml:space="preserve">
     <value>Perfil del usuario</value>
   </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Husos horarios</value>
-  </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Husos horarios</value>
   </data>
@@ -1849,24 +1846,24 @@
     <value>Links</value>
   </data>
   <data name="DListClientLinks" xml:space="preserve">
-    <value>Дочерние клиенты</value>
+    <value>Clientes afiliados</value>
   </data>
   <data name="DListClientLinksDeleted" xml:space="preserve">
-    <value>Удалённые связи</value>
+    <value>Vínculos cancelados</value>
   </data>
   <data name="DListClientLinksMaster" xml:space="preserve">
-    <value>Родительские клиенты</value>
+    <value>Clientes casa matriz</value>
   </data>
   <data name="DListClientsAvailableForLinking" xml:space="preserve">
-    <value>Все доступные для связывания клиенты</value>
+    <value>Todos los clientes disponibles para enlazar</value>
   </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Acuerdo de prolongar el contrato</value>
   </data>
   <data name="ControlMakeMain" xml:space="preserve">
-    <value>Сделать основным</value>
+    <value>Establecer como principal</value>
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
-    <value>Основное</value>
+    <value>Principal</value>
   </data>
 </root>

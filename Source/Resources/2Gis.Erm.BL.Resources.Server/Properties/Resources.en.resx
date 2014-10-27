@@ -148,11 +148,11 @@
     <value>Estimada</value>
   </data>
   <data name="SalutationToFemaleUkraine" xml:space="preserve">
-    <value>Уважаемая</value>
+    <value>Dear Ms.</value>
     <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
   </data>
   <data name="SalutationToMaleUkraine" xml:space="preserve">
-    <value>Уважаемый</value>
+    <value>Dear Mr.</value>
     <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
   </data>
   <data name="SalutationToFemaleEmirates" xml:space="preserve">
@@ -167,18 +167,18 @@
     <value>Attention! The profile has been changed. The specified profile will be attached to the order.</value>
   </data>
   <data name="ParentOrChildIdsNotSpecified" xml:space="preserve">
-    <value>Не указаны идентификаторы родительского или дочернего клиента</value>
+    <value>The IDs of the subclient or parent client are not specified</value>
   </data>
   <data name="InvalidEntityTypesForLinking" xml:space="preserve">
-    <value>Неверно заданы типы сущностей для добавления связи между клиентами</value>
+    <value>Cannot add a link between the clients due to incorrect entity types</value>
   </data>
   <data name="SameIdsForEntitiesToLink" xml:space="preserve">
-    <value>Идентификаторы связываемых сущностей равны.</value>
+    <value>The IDs of the entities being linked are equal.</value>
   </data>
   <data name="ClientLinkAlreadyExists" xml:space="preserve">
-    <value>Связь уже существует</value>
+    <value>The link already exists</value>
   </data>
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
-    <value>Рекламное агентство не может быть указано в качестве дочернего клиента</value>
+    <value>An advertising agency cannot be specified as a subclient</value>
   </data>
 </root>
