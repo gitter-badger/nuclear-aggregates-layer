@@ -2878,6 +2878,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Деактивация/активация юр. лица клиента.
+        /// </summary>
+        public static string FunctionalPrivilegeNameLegalPersonDeactivationOrActivation {
+            get {
+                return ResourceManager.GetString("FunctionalPrivilegeNameLegalPersonDeactivationOrActivation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Управление лимитом.
         /// </summary>
         public static string FunctionalPrivilegeNameLimitManagement {

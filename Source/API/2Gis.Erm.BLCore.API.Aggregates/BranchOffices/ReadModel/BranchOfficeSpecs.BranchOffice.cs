@@ -73,6 +73,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                             {
                                 OrganizationUnitName = x.OrganizationUnit.Name,
                                 BranchOfficeName = x.BranchOffice.Name,
+                                IsActive = x.IsActive
                             });
                 }
             }

@@ -58,11 +58,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
         private bool CheckIfOpenAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
             var ids = (
-                from reference in _finder.FindMany(Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
+                from reference in _finder.FindMany(
+                    Specs.Find.Custom<RegardingObject<Appointment>>(x => x.TargetEntityName == entityName && x.TargetEntityId == entityId))
                 select reference.SourceEntityId
                 ).ToArray();
 
-            return _finder.FindMany(Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Appointment>(ids)).Any();
+            return _finder.FindMany(
+                Specs.Find.Active<Appointment>() 
+                & Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.InProgress) 
+                & Specs.Find.ByIds<Appointment>(ids)).Any();
         }
 
         private bool CheckIfOpenPhonecallExistsRegarding(EntityName entityName, long entityId)
@@ -72,7 +76,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                 select reference.SourceEntityId
                 ).ToArray();
 
-            return _finder.FindMany(Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Phonecall>(ids)).Any();
+            return _finder.FindMany(
+                Specs.Find.Active<Phonecall>() 
+                & Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) 
+                & Specs.Find.ByIds<Phonecall>(ids)).Any();
         }
 
         private bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId)
@@ -82,7 +89,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                 select reference.SourceEntityId
                 ).ToArray();
 
-            return _finder.FindMany(Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).Any();
+            return _finder.FindMany(
+                Specs.Find.Active<Task>() 
+                & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) 
+                & Specs.Find.ByIds<Task>(ids)).Any();
         }
 
 		private static FindSpecification<RegardingObject<TEntity>> FindObjects<TEntity>(long entityId)
