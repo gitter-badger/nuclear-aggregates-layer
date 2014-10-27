@@ -5,14 +5,11 @@ using DoubleGis.Erm.Qds.Common;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
-    public sealed class DocumentWrapper<TDocument> : IDocumentWrapper<TDocument>
+    public sealed class IndexedDocumentWrapper<TDocument> : DocumentWrapper<TDocument>, IIndexedDocumentWrapper
         where TDocument : class
     {
         private static readonly Type DocumentTypePrivate = typeof(TDocument);
         
-        public string Id { get; set; }
-        public long? Version { get; set; }
-        public TDocument Document { get; set; }
         public Type DocumentType
         {
             get { return DocumentTypePrivate; }

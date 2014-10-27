@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
     public sealed class DocumentVersionUpdater<TDocument> : IDocumentVersionUpdater<TDocument>
         where TDocument : class
     {
-        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
+        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers)
         {
             var castedDocumentWrappers = documentWrappers.OfType<IDocumentWrapper<TDocument>>();
 
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 .Preference("_primary"));
         }
 
-        public void UpdateDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
+        public void UpdateDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
         {
             var versionsMap = hits.OfType<IMultiGetHit<TDocument>>().Where(x => x.Found).ToDictionary(x => x.Id, x => long.Parse(x.Version));
             if (!versionsMap.Any())
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 return;
             }
 
-            foreach (var documentWrapper in documentWrappers.OfType<DocumentWrapper<TDocument>>())
+            foreach (var documentWrapper in documentWrappers.OfType<IndexedDocumentWrapper<TDocument>>())
             {
                 long version;
                 if (!versionsMap.TryGetValue(documentWrapper.Id, out version))
