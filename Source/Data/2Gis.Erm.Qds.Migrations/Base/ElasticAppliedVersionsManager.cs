@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
         public void DeleteVersion(long version)
         {
             var migrationDoc = _migrationDocs.Single(x => string.Equals(x.Id, version.ToString(), StringComparison.OrdinalIgnoreCase));
-            _elasticApi.Delete<MigrationDoc>(migrationDoc.Id, migrationDoc.Version);
+            _elasticApi.Delete<MigrationDoc>(migrationDoc.Id, long.Parse(migrationDoc.Version));
         }
 
         public void SaveVersionInfo(long version)

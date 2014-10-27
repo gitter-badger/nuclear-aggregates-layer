@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         private static readonly Type DocumentTypePrivate = typeof(TDocument);
         
         public string Id { get; set; }
-        public string Version { get; set; }
+        public long? Version { get; set; }
         public TDocument Document { get; set; }
         public Type DocumentType
         {
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         {
             get
             {
-                if (string.IsNullOrEmpty(Version))
+                if (Version == null)
                 {
                     return bulkDescriptor => (ElasticApi.ErmBulkDescriptor)bulkDescriptor
                         .Create<TDocument>(bulkIndexDescriptor => bulkIndexDescriptor
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     .UpdateWithMerge<TDocument>(bulkUpdateDescriptor => bulkUpdateDescriptor
                         .Id(Id)
                         .Doc(Document)
-                        .Version(Version));
+                        .Version(Version.Value.ToString()));
             }
         }
     }

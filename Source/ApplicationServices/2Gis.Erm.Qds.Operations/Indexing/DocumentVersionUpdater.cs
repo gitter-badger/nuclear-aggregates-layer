@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public void UpdateDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
         {
-            var versionsMap = hits.OfType<IMultiGetHit<TDocument>>().Where(x => x.Found).ToDictionary(x => x.Id, x => x.Version);
+            var versionsMap = hits.OfType<IMultiGetHit<TDocument>>().Where(x => x.Found).ToDictionary(x => x.Id, x => long.Parse(x.Version));
             if (!versionsMap.Any())
             {
                 return;
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
             foreach (var documentWrapper in documentWrappers.OfType<DocumentWrapper<TDocument>>())
             {
-                string version;
+                long version;
                 if (!versionsMap.TryGetValue(documentWrapper.Id, out version))
                 {
                     continue;

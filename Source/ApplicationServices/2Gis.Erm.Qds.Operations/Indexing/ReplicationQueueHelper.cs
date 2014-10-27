@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 {
                     Id = x.Id,
                     Document = x.Source,
-                    Version = x.Version,
+                    Version = long.Parse(x.Version),
                 }).ToList();
 
             return documentTypes;

@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public string Create<T>(T @object, string id = null) where T : class
+        public long Create<T>(T @object, string id = null) where T : class
         {
             var response = _elasticClient.Index(@object, x =>
             {
@@ -80,35 +80,37 @@ namespace DoubleGis.Erm.Qds.Common
                 return x.OpType(OpType.Create);
             });
 
-            return response.Version;
+            return long.Parse(response.Version);
         }
 
-        public string Update<T>(T @object, string id, string version) where T : class
+        public long Update<T>(T @object, string id, long? version) where T : class
         {
             var response = _elasticClient.Update<T, T>(x =>
             {
                 if (version != null)
                 {
-                    x = x.Version(long.Parse(version));
+                    x = x.Version(version.Value);
                 }
 
                 return x.Doc(@object).Id(id);
             });
 
-            return response.Version;
+            return long.Parse(response.Version);
         }
 
-        public void Delete<T>(string id, string version) where T : class
+        public long Delete<T>(string id, long? version) where T : class
         {
-            _elasticClient.Delete<T>(x =>
+            var response = _elasticClient.Delete<T>(x =>
             {
                 if (version != null)
                 {
-                    x = x.Version(long.Parse(version));
+                    x = x.Version(version.Value);
                 }
 
                 return x.Id(id);
             });
+
+            return long.Parse(response.Version);
         }
 
         public T Get<T>(string id) where T : class

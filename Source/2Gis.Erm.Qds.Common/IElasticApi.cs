@@ -29,9 +29,9 @@ namespace DoubleGis.Erm.Qds.Common
         T Get<T>(string id) where T : class;
         IReadOnlyCollection<IMultiGetHit<object>> MultiGet(Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> multiGetSelector);
 
-        string Create<T>(T @object, string id = null) where T : class;
-        string Update<T>(T @object, string id, string version) where T : class;
-        void Delete<T>(string id, string version) where T : class;
+        long Create<T>(T @object, string id = null) where T : class;
+        long Update<T>(T @object, string id, long? version) where T : class;
+        long Delete<T>(string id, long? version) where T : class;
 
         ISearchResponse<T> Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class;
         IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher, IProgress<long> progress = null) where T : class;
