@@ -762,7 +762,7 @@ window.InitPage = function () {
 
             if (cmp.getValue()) {
                 var sourceOrgUnitId = cmp.getValue().id;
-                branchOfficeOrganizationUnitLookup.forceGetData();
+                branchOfficeOrganizationUnitLookup.forceGetData({ extendedInfo: 'Primary=true' }); // В диалоге отображаем все, автоматом посдавить можем только основное.
 
                 this.Request({
                     method: 'POST',
