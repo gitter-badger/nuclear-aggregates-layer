@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify;
@@ -14,8 +15,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
     {
         public EmiratesGetLegalPersonDtoService(IClientReadModel clientReadModel,
                                                 ILegalPersonReadModel legalPersonReadModel,
-                                                IUserContext userContext)
-            : base(userContext, clientReadModel, legalPersonReadModel)
+                                                IUserContext userContext,
+                                                IDealReadModel dealReadModel)
+            : base(userContext, clientReadModel, legalPersonReadModel, dealReadModel)
         {
         }
 

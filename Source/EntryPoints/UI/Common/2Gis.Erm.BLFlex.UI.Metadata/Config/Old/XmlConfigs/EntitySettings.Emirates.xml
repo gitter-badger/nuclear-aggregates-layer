@@ -644,8 +644,10 @@
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="PrintActions" NameLocaleResourceId="ControlPrintActions" ControlType="Menu" LockOnInactive="false" LockOnNew="false" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="PrintActions" Name="PrintBillAction" NameLocaleResourceId="ControlPrintBillAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintBill" SecurityPrivelegeFlag="0" />
       </ToolbarItems>
     </Card>
     <DataLists>
@@ -934,7 +936,7 @@
           <Field Name="LastDisqualifyTime" NameLocaleResourceId="LastDisqualifyTime" Width="150" FieldType="DateTime" ExtTypeName="Date" />
         </Fields>
       </DataList>
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListActiveClientsToAppend" >
+      <DataList BasedOn="DListClients" NameLocaleResourceId="DListActiveClientsToAppend" IsHidden="true" >
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
@@ -955,7 +957,8 @@
       <!--Мои теплые клиенты-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListMyWarmClients" />
       <!--Клиенты, у которых есть заказы с типом Бартер-->
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarter" />
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarter" />-->
       <!--Мои клиенты без ЛПР-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListMyClientsWithoutMakeDecisionContacts" />
       <!--Мои региональные клиенты -->
@@ -969,7 +972,8 @@
       <!--Теплые клиенты моих подчиненных-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListWarmClientsForSubordinates" />
       <!--Клиенты моих подчиненных, у которых есть заказы с типом Бартер-->
-      <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarterForSubordinates" />
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithBarterForSubordinates" />-->
       <!--Клиенты моих подчиненных без ЛПР-->
       <DataList BasedOn="DListClients" NameLocaleResourceId="DListClientsWithoutMakeDecisionContactsForSubordinates" />
       <!-- Все клиенты по филиалу -->
@@ -1272,7 +1276,8 @@
       <!--Мои закрытые сделки -->
       <DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListMyInactiveDeals" HideInCardRelatedGrid="*" />
       <!--Мои бартерные сделки-->
-      <DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListMyBarterDeals" HideInCardRelatedGrid="*" />
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListMyBarterDeals" HideInCardRelatedGrid="*" />-->
       <!--Все сделки по филиалу-->
       <DataList BasedOn="DListActiveDeals" NameLocaleResourceId="DListDealsAtBranch" HideInCardRelatedGrid="*" />
       <!--Сделки моих подчиненных-->
@@ -1426,7 +1431,7 @@
       <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsForSubordinates" HideInCardRelatedGrid="*" />
       <!--Фирмы с заказами с типом Самореклама-->
       <DataList BasedOn="DListActiveFirms" NameLocaleResourceId="DListFirmsWithSelfAds" HideInCardRelatedGrid="*" />
-      <DataList NameLocaleResourceId="DListActiveFirmsToAppend" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Firm.gif">
+      <DataList NameLocaleResourceId="DListActiveFirmsToAppend" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Firm.gif" IsHidden="true">
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="OrganizationUnitId"  Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
@@ -1498,7 +1503,7 @@
           <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="Client" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
           <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
           <Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
           <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
@@ -1515,7 +1520,7 @@
           <Field Name="TerritoryId" NameLocaleResourceId="Territory" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="Client" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="FirmName" NameLocaleResourceId="DFieldName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Firm" ReferenceFieldName="FirmId" />
           <Field Name="OwnerName" NameLocaleResourceId="Owner" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />
           <Field Name="ClientName" NameLocaleResourceId="Client" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ClientId" />
           <Field Name="TerritoryName" NameLocaleResourceId="Territory" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="Territory" ReferenceFieldName="TerritoryId" />
@@ -1559,8 +1564,7 @@
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Actions" NameLocaleResourceId="ControlActions" ControlType="Menu" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />
-          <ToolbarItem ParentName="Actions" Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
-          <ToolbarItem ParentName="Actions" Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
+          <ToolbarItem ParentName="Actions" Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="650" />
           <ToolbarItem ParentName="Actions" Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         </ToolbarItems>
         <Fields>
@@ -1576,7 +1580,7 @@
       </DataList>
       <DataList BasedOn="DListLegalPersons" NameLocaleResourceId="DListLegalPersonsInactive">
         <ToolbarItems>
-          <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
+          <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="650" />
         </ToolbarItems>
       </DataList>
       <!--Мои юридические лица-->
@@ -1605,7 +1609,7 @@
           <Script FileName="DataList/LegalPersonDeal.DataList.js" />
         </Scripts>
         <ToolbarItems>
-          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" />
+          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.AppendLegalPerson" />
           <ToolbarItem Name="MakeMain" NameLocaleResourceId="ControlMakeMain" ControlType="TextButton" LockOnInactive="true" Action="scope.MakeMain" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" />
         </ToolbarItems>
@@ -1804,7 +1808,7 @@
         </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Create" Icon="Create.gif" />
-          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" DisableOnEmpty="true" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="606" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" DisableOnEmpty="true" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
           <ToolbarItem Name="MakeMain" NameLocaleResourceId="ControlMakeProfileMain" DisableOnEmpty="true" ControlType="TextImageButton" LockOnInactive="true" Action="scope.MakeMain" Icon="Merge.gif" />
         </ToolbarItems>
         <Fields>
@@ -2032,7 +2036,8 @@
       <!--Мои неактивные (заказы закрытые отказом)-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyTerminatedOrders" HideInCardRelatedGrid="*"/>
       <!--Мои заказы, у которых отсутствуют подписанные документы-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyOrdersWithDocumentsDebt" HideInCardRelatedGrid="*"/>
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyOrdersWithDocumentsDebt" HideInCardRelatedGrid="*"/>-->
       <!--Все заказы моих подчиненных-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersForSubordinates" HideInCardRelatedGrid="*" />
       <!--Региональные заказы моих подчиненных -->
@@ -2041,7 +2046,8 @@
       <!--Все мои заказы с типом Самореклама-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMySelfAdsOrders" HideInCardRelatedGrid="*"/>
       <!--Все мои заказы с типом Бартер-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyBarterOrders" HideInCardRelatedGrid="*"/>
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyBarterOrders" HideInCardRelatedGrid="*"/>-->
       <!--Мои новые заказы-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyNewOrders" HideInCardRelatedGrid="*" />
       <!--Новые заказы моих подчиненных-->
@@ -2065,7 +2071,8 @@
       <!--Заказы в выпуск следующего месяца закрытые отказом-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListTerminatedOrdersForNextMonthEdition" HideInCardRelatedGrid="*" ExtendedInfo="ForNextMonthEdition=true" />
       <!--Неподписанные БЗ за текущий выпуск-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersWithDocumentsDebtForNextMonth" HideInCardRelatedGrid="*" ExtendedInfo="ForNextEdition=true"/>
+      <!--Исключено-->
+      <!--<DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersWithDocumentsDebtForNextMonth" HideInCardRelatedGrid="*" ExtendedInfo="ForNextEdition=true"/>-->
       <!--Список технических расторжений -->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListTechnicalTerminatedOrders" HideInCardRelatedGrid="*"/>
       <!--Список действительных расторжений -->
@@ -2713,17 +2720,6 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="CategoryId" NameLocaleResourceId="DFieldCategoryId" Width="200" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="CategoryName" NameLocaleResourceId="Name" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Category" ReferenceFieldName="CategoryId" />
-        </Fields>
-      </DataList>
-    </DataLists>
-  </Entity>
-  <Entity Name="TimeZone">
-    <DataLists>
-      <DataList NameLocaleResourceId="DListTimeZones" DefaultSortField="TimeZoneId" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TimeZoneId" Icon="en_ico_16_UserAccount.gif">
-        <Fields>
-          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="TimeZoneId" NameLocaleResourceId="TimeZoneId" Width="200" FieldType="String" ExtTypeName="String" />
-          <Field Name="Description" Width="0" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
     </DataLists>

@@ -1,33 +1,35 @@
 ﻿using System.Security;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
 {
     public class DeleteLegalPersonProfileService : IDeleteGenericEntityService<LegalPersonProfile>
     {
         private readonly ILegalPersonReadModel _readModel;
-        private readonly IDeactivateAggregateRepository<LegalPersonProfile> _deactivateRepository;
-        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IDeleteLegalPersonProfileAggregateService _deleteLegalPersonProfileAggregateService;
+        private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
 
         public DeleteLegalPersonProfileService(ILegalPersonReadModel readModel,
-                                               ISecurityServiceFunctionalAccess functionalAccessService,
-                                               IUserContext userContext,
-                                               IDeactivateAggregateRepository<LegalPersonProfile> deactivateRepository)
+            ISecurityServiceEntityAccess entityAccessService,
+            IUserContext userContext,
+                                               IDeleteLegalPersonProfileAggregateService deleteLegalPersonProfileAggregateService)
         {
             _readModel = readModel;
-            _functionalAccessService = functionalAccessService;
+            _entityAccessService = entityAccessService;
             _userContext = userContext;
-            _deactivateRepository = deactivateRepository;
+            _deleteLegalPersonProfileAggregateService = deleteLegalPersonProfileAggregateService;
         }
 
         public DeleteConfirmation Delete(long entityId)
@@ -38,15 +40,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
 
                 if (legalPersonProfile == null)
                 {
-                    throw new NotificationException(BLResources.EntityNotFound);
+                    throw new EntityNotFoundException(typeof(LegalPersonProfile), entityId);
                 }
 
-                var isDeleteAllowed = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.DeleteLegalPersonProfile,
-                                                                                             _userContext.Identity.Code);
+                var isDeleteAllowed = _entityAccessService.HasEntityAccess(EntityAccessTypes.Delete,
+                                                                           EntityName.LegalPersonProfile,
+                                                                           _userContext.Identity.Code,
+                                                                           legalPersonProfile.Id,
+                                                                           legalPersonProfile.OwnerCode,
+                                                                           null);
 
                 if (!isDeleteAllowed)
                 {
-                    throw new NotificationException(BLResources.AccessDenied);
+                    throw new OperationAccessDeniedException(DeleteIdentity.Instance);
                 }
 
                 if (legalPersonProfile.IsDeleted || !legalPersonProfile.IsActive)
@@ -59,11 +65,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                     throw new NotificationException(BLResources.CantDeleteMainLegalPersonProfile);
                 }
 
-                // Профиль юр. лица при удалении не удаляется, а... wait for it... деактивируется: https://confluence.2gis.ru/pages/viewpage.action?pageId=93160525
-                _deactivateRepository.Deactivate(entityId);
-
-                // FIXME {all, 28.10.2013}: По факту профиль не удаляется, а деактивируется
-                // COMMENT {all, 25.04.2014}: такие требования
+                _deleteLegalPersonProfileAggregateService.Delete(legalPersonProfile);
             }
             catch (SecurityException ex)
             {
@@ -86,8 +88,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Delete
                     };
             }
 
-            var isDeleteAllowed = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.DeleteLegalPersonProfile,
-                                                                                         _userContext.Identity.Code);
+            var isDeleteAllowed = _entityAccessService.HasEntityAccess(EntityAccessTypes.Delete,
+                                                                       EntityName.LegalPersonProfile,
+                                                                       _userContext.Identity.Code,
+                                                                       legalPersonProfile.Id,
+                                                                       legalPersonProfile.OwnerCode,
+                                                                       null);
 
             if (!isDeleteAllowed)
             {
