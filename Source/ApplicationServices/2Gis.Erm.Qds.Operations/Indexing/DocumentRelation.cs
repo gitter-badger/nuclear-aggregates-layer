@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 {
                     Id = hit.Id,
                     Document = hit.Source,
-                    Version = hit.Version,
+                    Version = long.Parse(hit.Version),
                 };
 
                 foreach (var metadata in _accessors)

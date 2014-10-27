@@ -14,6 +14,6 @@ namespace DoubleGis.Erm.Qds.API.Operations.Indexing
     {
         string Id { get; }
         TDocument Document { get; }
-        string Version { get; }
+        long? Version { get; }
     }
 }
