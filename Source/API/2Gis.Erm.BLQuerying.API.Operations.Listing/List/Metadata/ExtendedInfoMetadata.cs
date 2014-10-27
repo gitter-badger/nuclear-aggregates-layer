@@ -371,7 +371,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListRegionalAdvertisingSharing", ""},
             {"DListReleaseInfo", ""},
             {"DListRole", ""},
-            {"DListTimeZones", ""},
             {"DListUserRole", ""},
             {"DListWithdrawalInfo", ""},
         };
