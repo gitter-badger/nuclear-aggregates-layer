@@ -23,16 +23,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (AppointmentDomainEntityDto)domainEntityDto;
 
-            var appointment = dto.IsNew() 
-                ? new Appointment
-                    {
-                        CreatedBy = dto.CreatedByRef.GetId(),
-                        CreatedOn = dto.CreatedOn,
-                        ModifiedBy = dto.ModifiedByRef.GetId(),
-                        ModifiedOn = dto.ModifiedOn,
-                        Timestamp = dto.Timestamp,
-                    } 
-                : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
+            var appointment = dto.IsNew()
+                                  ? new Appointment { IsActive = true }
+                                  : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
 
             appointment.Header = dto.Header;
             appointment.Description = dto.Description;

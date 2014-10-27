@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PhonecallDomainEntityDto)domainEntityDto;
 
+            // FIXME {s.pomadin, 27.10.2014}: См изменения в AppointmentObtainer
             var phoneCall = dto.IsNew() 
                 ? new Phonecall
                     {
