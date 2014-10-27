@@ -6,6 +6,7 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
     {
         public string DocumentType { get; set; }
         public ICollection<IndexSettings> IndexesSettings { get; set; }
+        public string Progress { get; set; }
 
         public sealed class IndexSettings
         {

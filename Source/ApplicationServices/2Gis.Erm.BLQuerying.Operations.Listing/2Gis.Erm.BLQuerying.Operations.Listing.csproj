@@ -60,7 +60,6 @@
     <Compile Include="List\ListLegalPersonDealService.cs" />
     <Compile Include="List\ListFirmDealService.cs" />
     <Compile Include="List\ListDenialReasonService.cs" />
-    <Compile Include="List\ListTimeZoneService.cs" />
     <Compile Include="List\ListThemeCategoryService.cs" />
     <Compile Include="List\ListThemeOrganizationUnitService.cs" />
     <Compile Include="List\ListRoleService.cs" />

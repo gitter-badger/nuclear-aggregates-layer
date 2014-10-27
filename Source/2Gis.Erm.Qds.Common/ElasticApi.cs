@@ -6,7 +6,6 @@ using DoubleGis.Erm.Qds.Common.Settings;
 using Elasticsearch.Net;
 using Nest;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DoubleGis.Erm.Qds.Common
@@ -70,9 +69,9 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public void Create<T>(T @object, string id = null) where T : class
+        public IDocumentWrapper<T> Create<T>(T @object, string id = null) where T : class
         {
-            _elasticClient.Index(@object, x =>
+            var response = _elasticClient.Index(@object, x =>
             {
                 if (id != null)
                 {
@@ -80,32 +79,53 @@ namespace DoubleGis.Erm.Qds.Common
                 }
                 return x.OpType(OpType.Create);
             });
+
+            return new DocumentWrapper<T>
+            {
+                Id  = response.Id,
+                Document = @object,
+                Version = long.Parse(response.Version),
+            };
         }
 
-        public void Update<T>(T @object, string id, string version = null) where T : class
+        public IDocumentWrapper<T> Update<T>(IDocumentWrapper<T> documentWrapper) where T : class
         {
-            _elasticClient.Update<T, T>(x =>
+            var response = _elasticClient.Update<T, T>(x =>
             {
-                if (version != null)
+                if (documentWrapper.Version != null)
                 {
-                    x = x.Version(long.Parse(version));
+                    x = x.Version(documentWrapper.Version.Value);
                 }
 
-                return x.Doc(@object).Id(id);
+                return x.Id(documentWrapper.Id).Doc(documentWrapper.Document);
             });
+
+            return new DocumentWrapper<T>
+            {
+                Id = response.Id,
+                Document = documentWrapper.Document,
+                Version = long.Parse(response.Version),
+            };
         }
 
-        public void Delete<T>(string id, string version = null) where T : class
+        public IDocumentWrapper<T> Delete<T>(IDocumentWrapper<T> documentWrapper) where T : class
         {
-            _elasticClient.Delete<T>(x =>
+            var response = _elasticClient.Delete<T>(x =>
             {
-                if (version != null)
+                if (documentWrapper.Version != null)
                 {
-                    x = x.Version(long.Parse(version));
+                    x = x.Version(documentWrapper.Version.Value);
                 }
 
-                return x.Id(id);
+                return x.Id(documentWrapper.Id);
             });
+
+            return new DocumentWrapper<T>
+            {
+                Id = response.Id,
+                Document = documentWrapper.Document,
+                Version = long.Parse(response.Version),
+            };
         }
 
         public T Get<T>(string id) where T : class
@@ -180,13 +200,13 @@ namespace DoubleGis.Erm.Qds.Common
         {
             if (optimize)
             {
-                _elasticClient.Optimize(x => x.Indices(new[] { indexType }));
+                _elasticClient.Optimize(x => x.Indices(indexType));
             }
 
             _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(indexType));
         }
 
-        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector) where T : class
+        public IEnumerable<IDocumentWrapper<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector, IProgress<long> progress = null) where T : class
         {
             const string FirstScrollTimeout = "1s";
 
@@ -195,13 +215,7 @@ namespace DoubleGis.Erm.Qds.Common
                 .Scroll(FirstScrollTimeout)
                 .Size(_nestSettings.BatchSize));
 
-            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(searchFunc, _elasticClient, _nestSettings.BatchTimeout));
-        }
-
-        public long Count<T>(Func<CountDescriptor<T>, CountDescriptor<T>> countSelector = null) where T : class
-        {
-            var response = _elasticClient.Count(countSelector);
-            return response.Count;
+            return new DelegateEnumerable<IDocumentWrapper<T>>(() => new ScrollEnumerator<T>(_elasticClient, searchFunc, _nestSettings.BatchTimeout, progress));
         }
 
         private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
@@ -224,24 +238,39 @@ namespace DoubleGis.Erm.Qds.Common
             }
         }
 
-        private sealed class ScrollEnumerator<TDocument> : IEnumerator<IHit<TDocument>>
+        private sealed class ScrollEnumerator<TDocument> : IEnumerator<IDocumentWrapper<TDocument>>
             where TDocument : class
         {
-            private readonly Func<ISearchResponse<TDocument>> _searchFunc;
             private readonly IElasticClient _elasticClient;
+            private readonly Func<ISearchResponse<TDocument>> _searchFunc;
             private readonly string _scrollTimeout;
+            private readonly IProgress<long> _progress;
 
             private string _scrollId;
             private IEnumerator<IHit<TDocument>> _internalEnumerator;
 
-            public ScrollEnumerator(Func<ISearchResponse<TDocument>> searchFunc, IElasticClient elasticClient, string scrollTimeout)
+            public ScrollEnumerator(IElasticClient elasticClient, Func<ISearchResponse<TDocument>> searchFunc, string scrollTimeout, IProgress<long> progress = null)
             {
-                _searchFunc = searchFunc;
                 _elasticClient = elasticClient;
+                _searchFunc = searchFunc;
                 _scrollTimeout = scrollTimeout;
+                _progress = progress;
             }
 
-            public IHit<TDocument> Current { get { return _internalEnumerator.Current; } }
+            public IDocumentWrapper<TDocument> Current
+            {
+                get
+                {
+                    var current = _internalEnumerator.Current;
+                    return new DocumentWrapper<TDocument>
+                    {
+                        Id = current.Id,
+                        Document = current.Source,
+                        Version = current.Version == null ? (long?)null : long.Parse(current.Version),
+                    };
+                }
+            }
+
             object IEnumerator.Current { get { return Current; } }
 
             public bool MoveNext()
@@ -249,6 +278,12 @@ namespace DoubleGis.Erm.Qds.Common
                 if (_scrollId == null)
                 {
                     var searchResponse = _searchFunc();
+
+                    if (_progress != null)
+                    {
+                        _progress.Report(searchResponse.Total);
+                    }
+
                     if (searchResponse.Total <= 0)
                     {
                         return false;
@@ -317,9 +352,9 @@ namespace DoubleGis.Erm.Qds.Common
 
         public sealed class ErmMultiGetDescriptor : MultiGetDescriptor
         {
-            public ErmMultiGetDescriptor GetDistinct<T>(Func<ErmMultiGetOperationDescriptor<T>, ErmMultiGetOperationDescriptor<T>> getSelector) where T : class
+            public ErmMultiGetDescriptor GetDistinct<T>(Func<MultiGetOperationDescriptor<T>, MultiGetOperationDescriptor<T>> getSelector) where T : class
             {
-                var descriptor = (IMultiGetOperation)getSelector(new ErmMultiGetOperationDescriptor<T>());
+                var descriptor = (IMultiGetOperation)getSelector(new MultiGetOperationDescriptor<T>());
 
                 var documentType = typeof(T);
                 var operations = ((IMultiGetRequest)this).GetOperations;
@@ -330,25 +365,6 @@ namespace DoubleGis.Erm.Qds.Common
                 }
 
                 return this;
-            }
-
-            // FIXME {m.pashuk, 24.09.2014}: https://github.com/elasticsearch/elasticsearch-net/issues/954 (убрать после выхода NEST 1.2)
-            [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-            private interface IErmMultiGetOperation
-            {
-                [JsonProperty(PropertyName = "_source")]
-                ISourceFilter Source { get; set; }
-            }
-            public sealed class ErmMultiGetOperationDescriptor<T> : MultiGetOperationDescriptor<T>, IErmMultiGetOperation
-                where T: class
-            {
-                public ErmMultiGetOperationDescriptor<T> Source(Func<SearchSourceDescriptor<T>, SearchSourceDescriptor<T>> source)
-                {
-                    ((IErmMultiGetOperation)this).Source = source(new SearchSourceDescriptor<T>());
-                    return this;
-                }
-
-                ISourceFilter IErmMultiGetOperation.Source { get; set; }
             }
         }
     }

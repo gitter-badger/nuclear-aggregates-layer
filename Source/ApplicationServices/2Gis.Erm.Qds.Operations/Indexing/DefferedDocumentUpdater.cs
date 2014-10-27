@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
@@ -15,19 +15,16 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public sealed class DefferedDocumentUpdater : IDefferedDocumentUpdater
     {
-        private readonly ICommonLog _logger;
         private readonly IElasticManagementApi _elasticManagementApi;
         private readonly ReplicationQueueHelper _replicationQueueHelper;
         private readonly IDocumentUpdater _documentUpdater;
         private readonly IReadOnlyDictionary<Type, IEnumerable<IDocumentPartFeature>> _documentRelations;
-        private bool _interrupted;
 
-        public DefferedDocumentUpdater(ICommonLog logger, IElasticManagementApi elasticManagementApi,
+        public DefferedDocumentUpdater(IElasticManagementApi elasticManagementApi,
                                        ReplicationQueueHelper replicationQueueHelper,
                                        IDocumentUpdater documentUpdater,
                                        IMetadataProvider metadataProvider)
         {
-            _logger = logger;
             _elasticManagementApi = elasticManagementApi;
             _replicationQueueHelper = replicationQueueHelper;
             _documentUpdater = documentUpdater;
@@ -35,7 +32,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _documentRelations = metadataProvider.GetDocumentRelationMetadatas();
         }
 
-        public void IndexAllDocuments()
+        public void IndexAllDocuments(CancellationToken cancellationToken)
         {
             var queueItems = GetCleanedQueueItems();
 
@@ -45,37 +42,65 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 return;
             }
 
-            var documentType = IndexMappingMetadata.GetDocumentType(first.Document.DocumentType);
-            SaveIndexSettings(first, first, documentType);
-            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
-            _documentUpdater.IndexAllDocuments(documentType);
-            _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
-
-            foreach (var queueItem in queueItems.Skip(1))
+            var progress = new Progress<ReplicationQueue>(x =>
             {
-                if (_interrupted)
+                if (x.DocumentType != null)
                 {
-                    return;
+                    first.Document.DocumentType = x.DocumentType;
                 }
 
-                documentType = IndexMappingMetadata.GetDocumentType(queueItem.Document.DocumentType);
+                if (x.Progress != null)
+                {
+                    first.Document.Progress = x.Progress;
+                }
 
-                SaveIndexSettings(first, queueItem, documentType);
-                _replicationQueueHelper.DeleteItem(queueItem);
+                if (x.IndexesSettings != null && x.IndexesSettings.Any())
+                {
+                    first.Document.IndexesSettings = MergeIndexSettings(first.Document.IndexesSettings.Concat(x.IndexesSettings)).ToList();
+                }
 
-                _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - начало", documentType.Name);
-                _documentUpdater.IndexAllDocuments(documentType);
-                _logger.InfoFormatEx("Репликация в elasticsearch документов типа '{0}' - конец", documentType.Name);
+                first = _replicationQueueHelper.UpdateItem(first);
+            });
+
+            foreach (var queueItem in queueItems)
+            {
+                var documentType = IndexMappingMetadata.GetDocumentType(queueItem.Document.DocumentType);
+
+                SaveIndexSettings(queueItem, documentType, progress);
+                if (!string.Equals(queueItem.Id, first.Id, StringComparison.OrdinalIgnoreCase))
+                {
+                    _replicationQueueHelper.DeleteItem(queueItem);
+                }
+
+                IndexAllDocumentsForDocumentType(documentType, cancellationToken, progress);
             }
 
             RestoreIndexSettings(first);
             _replicationQueueHelper.DeleteItem(first);
         }
 
-        public void Interrupt()
+        private void IndexAllDocumentsForDocumentType(Type documentType, CancellationToken cancellationToken, IProgress<ReplicationQueue> progress)
         {
-            _interrupted = true;
-            _documentUpdater.Interrupt();
+            var progressDto = new ReplicationQueue();
+
+            var count = 0L;
+            var totalCount = 0L;
+
+            var countProgress = new Progress<long>(x =>
+            {
+                count += x;
+                progressDto.Progress = string.Format("{0}/{1}", count, totalCount);
+                progress.Report(progressDto);
+            });
+
+            var totalCountProgress = new Progress<long>(x =>
+            {
+                totalCount += x;
+                progressDto.Progress = string.Format("{0}/{1}", count, totalCount);
+                progress.Report(progressDto);
+            });
+
+            _documentUpdater.IndexAllDocuments(documentType, cancellationToken, countProgress, totalCountProgress);
         }
 
         private IReadOnlyList<IDocumentWrapper<ReplicationQueue>> GetCleanedQueueItems()
@@ -86,26 +111,33 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                 .Select(@group =>
                             {
                                 var first = @group.First();
-                                first.Document.IndexesSettings = _replicationQueueHelper.MergeIndexSettings(@group);
+                                first.Document.IndexesSettings = MergeIndexSettings(group
+                                    .Where(x => x.Document.IndexesSettings != null)
+                                    .SelectMany(x => x.Document.IndexesSettings))
+                                    .ToList();
 
-                                _replicationQueueHelper.UpdateItem(first);
+                                if (first.Document.IndexesSettings.Any())
+                                {
+                                    first = _replicationQueueHelper.UpdateItem(first);
+                                }
+
                                 foreach (var queueItem in @group.Skip(1))
                                 {
                                     _replicationQueueHelper.DeleteItem(queueItem);
                                 }
 
                                 return new
-                                           {
-                                               QueueItem = first,
-                                               NumberOfReplicas = first.Document.IndexesSettings
-                                                                       .OrderByDescending(x => x.NumberOfReplicas)
-                                                                       .Select(x => x.NumberOfReplicas)
-                                                                       .FirstOrDefault()
-                                           };
+                                {
+                                    QueueItem = first,
+                                    NumberOfReplicas = first.Document.IndexesSettings
+                                                            .OrderByDescending(x => x.NumberOfReplicas)
+                                                            .Select(x => x.NumberOfReplicas)
+                                                            .FirstOrDefault()
+                                };
                             })
                 .OrderByDescending(x => x.NumberOfReplicas)
                 .Select(x => x.QueueItem)
-                .ToArray();
+                .ToList();
 
             return queueItems;
         }
@@ -136,30 +168,30 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
 
 
-        private void SaveIndexSettings(IDocumentWrapper<ReplicationQueue> queueItemTo, IDocumentWrapper<ReplicationQueue> queueItemFrom, Type documentType)
+        private void SaveIndexSettings(IDocumentWrapper<ReplicationQueue> queueItem, Type documentType, IProgress<ReplicationQueue> progress)
         {
             var affectedDocumentTypes = new[] { documentType }.Union(_documentRelations.Where(x => x.Value.Select(y => y.DocumentPartType).Contains(documentType)).Select(x => x.Key));
-            var indexTypes = IndexMappingMetadata.GetIndexTypes(affectedDocumentTypes).ToArray();
+            var indexTypes = IndexMappingMetadata.GetIndexTypes(affectedDocumentTypes).ToList();
 
-            if (!queueItemFrom.Document.IndexesSettings.Any())
+            var indexesSettings = indexTypes.Select(x =>
             {
-                queueItemFrom.Document.IndexesSettings = indexTypes.Select(x =>
+                var indexSettings = _elasticManagementApi.GetIndexSettings(x.Item1);
+                return new ReplicationQueue.IndexSettings
                 {
-                    var indexSettings = _elasticManagementApi.GetIndexSettings(x.Item1);
-                    return new ReplicationQueue.IndexSettings
-                    {
-                        IndexName = x.Item2,
-                        NumberOfReplicas = indexSettings.NumberOfReplicas,
-                        RefreshInterval = Convert.ToString(indexSettings.Settings["refresh_interval"]),
-                    };
-                })
-                .Where(x => !(x.NumberOfReplicas == 0 && x.RefreshInterval == "-1"))
-                .ToArray();
+                    IndexName = x.Item2,
+                    NumberOfReplicas = indexSettings.NumberOfReplicas,
+                    RefreshInterval = Convert.ToString(indexSettings.Settings["refresh_interval"]),
+                };
+            })
+            .Concat(queueItem.Document.IndexesSettings)
+            .Where(x => !(x.NumberOfReplicas == 0 && x.RefreshInterval == "-1"))
+            .ToList();
 
-                queueItemTo.Document.DocumentType = queueItemFrom.Document.DocumentType;
-                queueItemTo.Document.IndexesSettings = _replicationQueueHelper.MergeIndexSettings(new[] { queueItemTo, queueItemFrom });
-                _replicationQueueHelper.UpdateItem(queueItemTo);
-            }
+            progress.Report(new ReplicationQueue
+            {
+                DocumentType = documentType.Name,
+                IndexesSettings = indexesSettings,
+            });
 
             foreach (var indexType in indexTypes)
             {
@@ -167,6 +199,20 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                                                           x => x.NumberOfReplicas(0)
                                                                 .RefreshInterval("-1"));
             }
+        }
+
+        private static IEnumerable<ReplicationQueue.IndexSettings> MergeIndexSettings(IEnumerable<ReplicationQueue.IndexSettings> indexesSettings)
+        {
+            var indexSettings = indexesSettings
+                .GroupBy(x => x.IndexName)
+                .Select(x => new ReplicationQueue.IndexSettings
+                {
+                    IndexName = x.Key,
+                    NumberOfReplicas = x.Max(y => y.NumberOfReplicas),
+                    RefreshInterval = x.OrderByDescending(y => y.RefreshInterval, StringComparer.OrdinalIgnoreCase).Select(y => y.RefreshInterval).First()
+                });
+
+            return indexSettings;
         }
     }
 }
