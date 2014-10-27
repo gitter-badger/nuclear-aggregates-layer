@@ -523,7 +523,7 @@ window.InitPage = function () {
                             Ext.get("EndReleaseNumberPlan").setValue(orderInfo.EndReleaseNumberPlan);
                             Ext.get("EndReleaseNumberFact").setValue(orderInfo.EndReleaseNumberFact);
 
-                            Ext.getCmp("BeginDistributionDate").setRawValue(new Date(orderInfo.BeginDistributionDate));
+                            Ext.getCmp("BeginDistributionDate").setValue(orderInfo.BeginDistributionDate, true);
                             Ext.getCmp("EndDistributionDatePlan").setRawValue(new Date(orderInfo.EndDistributionDatePlan));
                             Ext.getCmp("EndDistributionDateFact").setRawValue(new Date(orderInfo.EndDistributionDateFact));
                         }

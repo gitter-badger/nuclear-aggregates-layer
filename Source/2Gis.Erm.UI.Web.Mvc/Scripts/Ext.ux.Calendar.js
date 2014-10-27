@@ -106,9 +106,13 @@ Ext.ux.Calendar = Ext.extend(Ext.Component, {
     },
     parseDate: function (value)
     {
-        if (!value || Ext.isDate(value))
+        if (!value)
         {
             return value;
+        }
+
+        if (Ext.isDate(value)) {
+            return this.adjustTimezoneShit(value);
         }
 
         var v = this.safeParse(value, this.format), af = this.altFormats, afa = this.altFormatsArray;
@@ -134,12 +138,17 @@ Ext.ux.Calendar = Ext.extend(Ext.Component, {
         {
             // set time to 12 noon, then clear the time
             var parsedDate = Date.parseDate(value + ' ' + this.initTime, format + ' ' + this.initTimeFormat);
-            parsedDate = this.adjustTimezoneShit(parsedDate);
             if (parsedDate) {
-                return parsedDate.clearTime();
+                parsedDate = this.clearTimeCustom(parsedDate);
+                parsedDate = this.adjustTimezoneShit(parsedDate);
+                return parsedDate;
             }
         }
         return undefined;
+    },
+    clearTimeCustom: function (date) { // FIXME {all, 27.10.2014}: Мегакостыль. Откатить после выхода декабрьского обновления.
+        var format = 'Y-m-d';
+        return Date.parseDate(date.format(format), format);
     },
     adjustTimezoneShit: function (date) { // FIXME {all, 27.10.2014}: Мегакостыль. Убрать после выхода декабрьского обновления.
         if (!date) {
@@ -211,40 +220,42 @@ Ext.ux.Calendar = Ext.extend(Ext.Component, {
     isValid: function ()
     {
         this.validationMessage = '';
-        if (!Ext.isEmpty(this.getValue()))
+        var value = this.getValue();
+        if (!Ext.isEmpty(value))
         {
-            if (this.el.dom.value && !this.getValue())
+            if (this.el.dom.value && !value)
             {
                 this.validationMessage = String.format(this.invalidText, this.el.dom.value, this.format);
                 this.fireEvent('invalid', this);
                 return false;
             }
-            if (this.getValue() < this.minValue)
+            if (value < this.minValue)
             {
                 this.validationMessage = String.format(this.minText, this.minValue.dateFormat(this.format));
                 this.fireEvent('invalid', this);
                 return false;
             }
-            if (this.getValue() > this.maxValue)
+            if (value > this.maxValue)
             {
                 this.validationMessage = String.format(this.maxText, this.maxValue.dateFormat(this.format));
                 this.fireEvent('invalid', this);
                 return false;
             }
-            if (this.disabledDatesRE && this.format && this.disabledDatesRE.test(this.getValue().dateFormat(this.format)))
+            if (this.disabledDatesRE && this.format && this.disabledDatesRE.test(value.dateFormat(this.format)))
             {
                 this.validationMessage = this.disabledDatesText;
                 this.fireEvent('invalid', this);
                 return false;
             }
-            if (this.periodType == this.periodTypes.MONTHLY_LOWER_BOUND && this.getValue().getFirstDateOfMonth().valueOf() != this.getValue().valueOf())
+            var previousMoment = new Date(value.getTime() - 1);
+            if (this.periodType == this.periodTypes.MONTHLY_LOWER_BOUND && (value.getDate() != 1 || value.getDate() == previousMoment.getDate()))
             {
                 this.validationMessage = this.monthlyLowerBoundText;
                 this.fireEvent('invalid', this);
                 return false;
             }
 
-            if (this.periodType == this.periodTypes.MONTHLY_UPPER_BOUND && this.getValue().getLastDateOfMonth().valueOf() != this.getValue().valueOf())
+            if (this.periodType == this.periodTypes.MONTHLY_UPPER_BOUND && value.getLastDateOfMonth().valueOf() != value.valueOf())
             {
                 this.validationMessage = this.monthlyUpperBoundText;
                 this.fireEvent('invalid', this);
