@@ -127,18 +127,34 @@ Ext.ux.Calendar = Ext.extend(Ext.Component, {
         if (Date.formatContainsHourInfo(format))
         {
             // if parse format contains hour information, no DST adjustment is necessary
-            return Date.parseDate(value, format);
+            var date = Date.parseDate(value, format);
+            date = this.adjustTimezoneShit(date);
+            return date;
         } else
         {
             // set time to 12 noon, then clear the time
             var parsedDate = Date.parseDate(value + ' ' + this.initTime, format + ' ' + this.initTimeFormat);
-
-            if (parsedDate)
-            {
+            parsedDate = this.adjustTimezoneShit(parsedDate);
+            if (parsedDate) {
                 return parsedDate.clearTime();
             }
         }
         return undefined;
+    },
+    adjustTimezoneShit: function (date) { // FIXME {all, 27.10.2014}: Мегакостыль. Убрать после выхода декабрьского обновления.
+        var winterOffset = new Date(2013, 11, 31).getTimezoneOffset();
+        var summerOffset = new Date(2014, 0, 2).getTimezoneOffset();
+        var errorExists = winterOffset != summerOffset;
+        if (!errorExists) {
+            return date;
+        }
+
+        var nextHour = new Date(date.getTime() + 60 * 60 * 1000);
+        if (date.getTimezoneOffset() == winterOffset && nextHour.getTimezoneOffset() == summerOffset) {
+            return nextHour;
+        }
+
+        return date;
     },
     // private
     initDisabledDays: function ()
