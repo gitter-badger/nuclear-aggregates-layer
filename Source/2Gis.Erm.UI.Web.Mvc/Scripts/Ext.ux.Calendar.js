@@ -142,6 +142,10 @@ Ext.ux.Calendar = Ext.extend(Ext.Component, {
         return undefined;
     },
     adjustTimezoneShit: function (date) { // FIXME {all, 27.10.2014}: Мегакостыль. Убрать после выхода декабрьского обновления.
+        if (!date) {
+            return date;
+        }
+
         var winterOffset = new Date(2013, 11, 31).getTimezoneOffset();
         var summerOffset = new Date(2014, 0, 2).getTimezoneOffset();
         var errorExists = winterOffset != summerOffset;
