@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto
         public byte DefaultSortDirection { get; set; }
         public bool DisableEdit { get; set; }
         public string HideInCardRelatedGrid { get; set; }
+        public bool IsHidden { get; set; }
 
         public IEnumerable<DataViewFieldJson> Fields { get; set; }
         public IEnumerable<ToolbarJson> ToolbarItems { get; set; }

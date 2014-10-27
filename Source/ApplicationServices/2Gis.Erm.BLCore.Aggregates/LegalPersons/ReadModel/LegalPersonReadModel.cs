@@ -58,11 +58,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
 
         public IEnumerable<LegalPersonProfile> GetProfilesByLegalPerson(long legalPersonId)
         {
-            return _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId));
+            return _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>());
         }
 
         public bool HasAnyLegalPersonProfiles(long legalPersonId)
-                          {
+        {
             return _finder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPersonId)).Any();
         }
 
@@ -87,6 +87,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                           .Select(x => x.Client.Territory.OrganizationUnit.DgppId)
                           .SingleOrDefault();
+        }
+
+        public bool DoesLegalPersonHaveActiveNotArchivedAndNotRejectedOrders(long legalPersonId)
+        {
+            return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
+                          .Select(x => x.Orders
+                                        .Any(y => y.IsActive && !y.IsDeleted &&
+                                                  y.WorkflowStepId != (int)OrderState.Archive &&
+                                                  y.WorkflowStepId != (int)OrderState.Rejected))
+                          .Single();
         }
     }
 }

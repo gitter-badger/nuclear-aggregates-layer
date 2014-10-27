@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -12,10 +13,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
     public class ClientReadModel : IClientReadModel
     {
         private readonly IFinder _finder;
+        private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
 
-        public ClientReadModel(IFinder finder)
+        public ClientReadModel(IFinder finder, ISecurityServiceUserIdentifier securityServiceUserIdentifier)
         {
             _finder = finder;
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
 
         public Client GetClient(long clientId)
@@ -28,18 +31,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
             return _finder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.Name).SingleOrDefault();
         }
 
-        public string GetContactName(long contactId)
-        {
-            return _finder.Find(Specs.Find.ById<Contact>(contactId)).Select(x => x.FullName).Single();
-        }
+	    public string GetContactName(long contactId)
+	    {
+			return _finder.Find(Specs.Find.ById<Contact>(contactId)).Select(x => x.FullName).Single();
+		}
 
         public IEnumerable<string> GetContactEmailsByBirthDate(int month, int day)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Contact>() &&
                                 ClientSpecs.Contacts.Find.WithWorkEmail() &&
-                             ClientSpecs.Contacts.Find.ByBirthDate(month, day))
-                       .Select(x => x.WorkEmail)
-                       .ToArray();
+                                ClientSpecs.Contacts.Find.ByBirthDate(month, day))
+                          .Select(x => x.WorkEmail)
+                          .ToArray();
         }
 
         public bool IsClientLinksExists(long? masterClientId, long? childClientId, bool? isDeleted)
@@ -106,6 +109,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
         public IEnumerable<Client> GetClientsByMainFirmIds(IEnumerable<long> mainFirmIds)
         {
             return _finder.FindMany(ClientSpecs.Clients.Find.ByMainFirms(mainFirmIds));
+        }  
+
+        public bool IsClientInReserve(long clientId)
+        {
+            var clientOwner = _finder.Find(Specs.Find.ById<Client>(clientId)).Select(client => client.OwnerCode).Single();
+            return clientOwner == _securityServiceUserIdentifier.GetReserveUserIdentity().Code;
         }
     }
 }
