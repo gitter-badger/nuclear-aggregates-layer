@@ -917,6 +917,7 @@ window.CrmUrlToErmUrlTemplateMapping =
 
     // test environments
     { CrmUrl: "http://uk-erm-edu01/DoubleGis", ErmUrlTemplate: "//web-app.edu.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.edu.erm.2gis.ru/" },
+    { CrmUrl: "http://uk-erm-edu02/DoubleGis", ErmUrlTemplate: "//web-app.business.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.business.erm.2gis.ru/" },
     { CrmUrl: "http://uk-crm10/DoubleGis", ErmUrlTemplate: "//web-app.load.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.load.erm.2gis.ru/" },
     { CrmUrl: "http://uk-test-int02/DoubleGis", ErmUrlTemplate: "//web-app.int.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.int.erm.2gis.ru/" },
     { CrmUrl: "http://uk-erm-test01/DoubleGis01", ErmUrlTemplate: "//web-app01.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app01.test.erm.2gis.ru/" },
