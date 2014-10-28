@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Qds.API.Operations.Docs;
-using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Common;
 
 using Elasticsearch.Net;
@@ -25,18 +24,12 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public void DeleteItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            _elasticApi.Delete<ReplicationQueue>(documentWrapper.Id, documentWrapper.Version);
+            _elasticApi.Delete(documentWrapper);
         }
 
         public IDocumentWrapper<ReplicationQueue> UpdateItem(IDocumentWrapper<ReplicationQueue> documentWrapper)
         {
-            var newVersion = _elasticApi.Update(documentWrapper.Document, documentWrapper.Id, documentWrapper.Version);
-            return new DocumentWrapper<ReplicationQueue>
-            {
-                Id = documentWrapper.Id,
-                Document = documentWrapper.Document,
-                Version = newVersion,
-            };
+            return _elasticApi.Update(documentWrapper);
         }
 
         public long QueueCount()
@@ -48,13 +41,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         public IReadOnlyCollection<IDocumentWrapper<ReplicationQueue>> LoadQueue()
         {
             _elasticApi.Refresh<ReplicationQueue>();
-            var documentTypes = _elasticApi.Scroll<ReplicationQueue>(x => x.MatchAll().Version()).Select(x => (IDocumentWrapper<ReplicationQueue>)new DocumentWrapper<ReplicationQueue>
-                {
-                    Id = x.Id,
-                    Document = x.Source,
-                    Version = x.Version,
-                }).ToList();
-
+            var documentTypes = _elasticApi.Scroll<ReplicationQueue>(x => x.MatchAll().Version()).ToList();
             return documentTypes;
         }
     }

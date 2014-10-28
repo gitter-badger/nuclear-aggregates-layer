@@ -7,15 +7,13 @@ using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Common;
 
-using Nest;
-
 namespace DoubleGis.Erm.Qds.Migrations.Base
 {
     public class ElasticAppliedVersionsManager : IAppliedVersionsManager
     {
         private readonly IElasticApi _elasticApi;
         private readonly IElasticManagementApi _elasticManagementApi;
-        private IReadOnlyCollection<IHit<MigrationDoc>> _migrationDocs;
+        private IReadOnlyCollection<IDocumentWrapper<MigrationDoc>> _migrationDocs;
 
         public ElasticAppliedVersionsManager(IElasticApi elasticApi, IElasticManagementApi elasticManagementApi)
         {
@@ -46,7 +44,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
         public void DeleteVersion(long version)
         {
             var migrationDoc = _migrationDocs.Single(x => string.Equals(x.Id, version.ToString(), StringComparison.OrdinalIgnoreCase));
-            _elasticApi.Delete<MigrationDoc>(migrationDoc.Id, migrationDoc.Version);
+            _elasticApi.Delete(migrationDoc);
         }
 
         public void SaveVersionInfo(long version)

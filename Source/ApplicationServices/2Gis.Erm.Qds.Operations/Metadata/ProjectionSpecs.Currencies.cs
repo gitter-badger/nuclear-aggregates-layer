@@ -28,13 +28,13 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, DocumentWrapper<CurrencyGridDoc>> Project()
+            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CurrencyGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, DocumentWrapper<CurrencyGridDoc>>(
+                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CurrencyGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Currency>();
-                            return new DocumentWrapper<CurrencyGridDoc>
+                            return new IndexedDocumentWrapper<CurrencyGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),
                                            Document = new CurrencyGridDoc

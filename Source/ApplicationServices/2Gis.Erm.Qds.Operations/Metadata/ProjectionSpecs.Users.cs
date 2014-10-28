@@ -37,13 +37,13 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, DocumentWrapper<UserGridDoc>> Project()
+            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, DocumentWrapper<UserGridDoc>>(
+                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<User>();
-                            return new DocumentWrapper<UserGridDoc>
+                            return new IndexedDocumentWrapper<UserGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),
                                            Document = new UserGridDoc
@@ -91,11 +91,11 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, DocumentWrapper<UserAuthorizationDoc>> ProjectToUserAuthorizationDoc(
+            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>> ProjectToUserAuthorizationDoc(
                 IEnumerable<Department> departments,
                 IEnumerable<IEntityRelationFeature> relationFeatures)
             {
-                return new ProjectSpecification<ObjectAccessor, DocumentWrapper<UserAuthorizationDoc>>(
+                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>>(
                     x =>
                         {
                             var container = (UserPrivilegesContainer)x.Target;
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                             var leftBorder = container.LeftBorder;
                             var rightBorder = container.RightBorder;
 
-                            return new DocumentWrapper<UserAuthorizationDoc>
+                            return new IndexedDocumentWrapper<UserAuthorizationDoc>
                                        {
                                            Id = container.UserId.ToString(),
                                            Document = new UserAuthorizationDoc
