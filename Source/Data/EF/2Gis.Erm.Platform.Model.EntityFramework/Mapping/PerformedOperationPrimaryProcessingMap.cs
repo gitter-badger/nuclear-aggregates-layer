@@ -1,10 +1,8 @@
-using System.Data.Entity.ModelConfiguration;
-
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class PerformedOperationPrimaryProcessingMap : EntityTypeConfiguration<PerformedOperationPrimaryProcessing>
+    public class PerformedOperationPrimaryProcessingMap : EntityConfig<PerformedOperationPrimaryProcessing, ErmContainer>
     {
         public PerformedOperationPrimaryProcessingMap()
         {

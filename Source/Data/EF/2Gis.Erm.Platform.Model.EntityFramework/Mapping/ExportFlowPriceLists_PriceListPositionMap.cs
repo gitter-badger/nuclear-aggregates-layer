@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class ExportFlowPriceLists_PriceListPositionMap : EntityTypeConfiguration<ExportFlowPriceListsPriceListPosition>
+    public class ExportFlowPriceLists_PriceListPositionMap : EntityConfig<ExportFlowPriceListsPriceListPosition, ErmContainer>
     {
         public ExportFlowPriceLists_PriceListPositionMap()
         {

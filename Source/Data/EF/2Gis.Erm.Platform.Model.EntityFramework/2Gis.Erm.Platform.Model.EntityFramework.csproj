@@ -50,12 +50,14 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="EFDomainContextMetadataProvider.cs" />
+    <Compile Include="DI\PlatformModelEntityFrameworkAssembly.cs" />
+    <Compile Include="EntityConfig.cs" />
     <Compile Include="Erm\Erm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Erm.edmx</DependentUpon>
     </Compile>
+    <Compile Include="IEfDbModelConfiguration.cs" />
     <Compile Include="Mapping\AccountDetailMap.cs" />
     <Compile Include="Mapping\AccountMap.cs" />
     <Compile Include="Mapping\ActionsHistoryDetailMap.cs" />
@@ -212,13 +214,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ErmSecurity\ErmSecurity.edmx.diagram">
@@ -233,17 +230,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
-      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
-      <Name>2Gis.Erm.Platform.API.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
-      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
-      <Name>2Gis.Erm.Platform.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

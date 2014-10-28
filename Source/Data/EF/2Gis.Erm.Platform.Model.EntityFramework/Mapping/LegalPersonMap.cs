@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class LegalPersonMap : EntityTypeConfiguration<LegalPerson>
+    public class LegalPersonMap : EntityConfig<LegalPerson, ErmContainer>
     {
         public LegalPersonMap()
         {

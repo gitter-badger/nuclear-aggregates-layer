@@ -1,16 +1,15 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class vwOrganizationUnitMap : EntityTypeConfiguration<OrganizationUnitDto>
+    public class vwOrganizationUnitMap : EntityConfig<OrganizationUnitDto, ErmSecurityContainer>
     {
         public vwOrganizationUnitMap()
         {
             // Primary Key
-            HasKey(t => new { t.Id, t.Name, t.Code, t.CreatedBy, t.CreatedOn });
+            HasKey(t => t.Id);
 
             // Properties
             Property(t => t.Id)

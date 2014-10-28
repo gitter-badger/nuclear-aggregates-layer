@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class PlatformMap : EntityTypeConfiguration<Entities.Erm.Platform>
+    public class PlatformMap : EntityConfig<Entities.Erm.Platform, ErmContainer>
     {
         public PlatformMap()
         {

@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class vwUserTerritoriesOrganizationUnitMap : EntityTypeConfiguration<UserTerritoriesOrganizationUnits>
+    public class vwUserTerritoriesOrganizationUnitMap : EntityConfig<UserTerritoriesOrganizationUnits, ErmContainer>
     {
         public vwUserTerritoriesOrganizationUnitMap()
         {

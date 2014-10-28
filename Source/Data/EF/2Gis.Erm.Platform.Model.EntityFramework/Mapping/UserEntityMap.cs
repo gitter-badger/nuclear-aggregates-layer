@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class UserEntityMap : EntityTypeConfiguration<UserEntity>
+    public class UserEntityMap : EntityConfig<UserEntity, ErmSecurityContainer>
     {
         public UserEntityMap()
         {

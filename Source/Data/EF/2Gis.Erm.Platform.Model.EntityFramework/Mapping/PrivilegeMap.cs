@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class PrivilegeMap : EntityTypeConfiguration<Privilege>
+    public class PrivilegeMap : EntityConfig<Privilege, ErmSecurityContainer>
     {
         public PrivilegeMap()
         {

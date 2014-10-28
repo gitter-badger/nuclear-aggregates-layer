@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class OrderProcessingRequestMessageMap : EntityTypeConfiguration<OrderProcessingRequestMessage>
+    public class OrderProcessingRequestMessageMap : EntityConfig<OrderProcessingRequestMessage, ErmContainer>
     {
         public OrderProcessingRequestMessageMap()
         {

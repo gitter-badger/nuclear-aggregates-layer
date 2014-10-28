@@ -834,6 +834,9 @@
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\Erm\AcceptanceReportsJournalRecord.cs" />
     <Compile Include="Entities\Erm\Bank.cs" />
+    <Compile Include="Entities\EntityContainerBase.cs" />
+    <Compile Include="Entities\Erm\ErmContainer.cs" />
+    <Compile Include="Entities\IEntityContainer.cs" />
     <Compile Include="Entities\Erm\ReferenceType.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElementRelation.cs" />
@@ -880,6 +883,7 @@
     <Compile Include="Entities\Interfaces\Integration\IIntegrationProcessorState.cs" />
     <Compile Include="Entities\Interfaces\IPartable.cs" />
     <Compile Include="Entities\OpenEnitiesSetEnumerator.cs" />
+    <Compile Include="Entities\Security\ErmSecurityContainer.cs" />
     <Compile Include="IBoundedContext.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\NotifyAboutAccountDetailModificationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Generic\BulkUpdateIdentity.cs" />

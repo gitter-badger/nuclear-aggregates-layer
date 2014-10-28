@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class ExportFlowOrders_InvoiceMap : EntityTypeConfiguration<ExportFlowOrdersInvoice>
+    public class ExportFlowOrders_InvoiceMap : EntityConfig<ExportFlowOrdersInvoice, ErmContainer>
     {
         public ExportFlowOrders_InvoiceMap()
         {

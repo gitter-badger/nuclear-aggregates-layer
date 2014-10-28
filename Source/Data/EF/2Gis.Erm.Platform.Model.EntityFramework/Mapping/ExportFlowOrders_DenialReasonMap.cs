@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class ExportFlowOrders_DenialReasonMap : EntityTypeConfiguration<ExportFlowOrders_DenialReason>
+    public class ExportFlowOrders_DenialReasonMap : EntityConfig<ExportFlowOrders_DenialReason, ErmContainer>
     {
         public ExportFlowOrders_DenialReasonMap()
         {

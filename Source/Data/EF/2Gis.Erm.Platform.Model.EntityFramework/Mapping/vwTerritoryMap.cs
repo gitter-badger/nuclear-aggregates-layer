@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Model.EntityFramework;
 
 namespace EFCF_Attempt2.Models.Mapping
 {
-    public class vwTerritoryMap : EntityTypeConfiguration<TerritoryDto>
+    public class vwTerritoryMap : EntityConfig<TerritoryDto, ErmSecurityContainer>
     {
         public vwTerritoryMap()
         {

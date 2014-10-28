@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class ExportFlowNomenclatures_NomenclatureElementRelationMap : EntityTypeConfiguration<ExportFlowNomenclatures_NomenclatureElementRelation>
+    public class ExportFlowNomenclatures_NomenclatureElementRelationMap : EntityConfig<ExportFlowNomenclatures_NomenclatureElementRelation, ErmContainer>
     {
         public ExportFlowNomenclatures_NomenclatureElementRelationMap()
         {

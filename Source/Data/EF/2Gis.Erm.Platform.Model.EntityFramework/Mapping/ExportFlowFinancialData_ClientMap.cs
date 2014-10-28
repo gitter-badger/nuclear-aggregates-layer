@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Mapping
 {
-    public class ExportFlowFinancialData_ClientMap : EntityTypeConfiguration<ExportFlowFinancialDataClient>
+    public class ExportFlowFinancialData_ClientMap : EntityConfig<ExportFlowFinancialDataClient, ErmContainer>
     {
         public ExportFlowFinancialData_ClientMap()
         {
