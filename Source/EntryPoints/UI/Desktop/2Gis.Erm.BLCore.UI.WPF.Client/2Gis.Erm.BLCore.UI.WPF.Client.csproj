@@ -583,6 +583,10 @@
       <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
       <Name>2Gis.Erm.Platform.API.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.EntityFramework\2Gis.Erm.Platform.DAL.EntityFramework.csproj">
+      <Project>{1DAF0763-543A-49D3-93D2-04F43A79D538}</Project>
+      <Name>2Gis.Erm.Platform.DAL.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
       <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
       <Name>2Gis.Erm.Platform.DI</Name>

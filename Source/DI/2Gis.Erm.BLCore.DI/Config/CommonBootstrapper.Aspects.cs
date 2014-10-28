@@ -88,9 +88,15 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterType<IMsCrmReplicationMetadataProvider, NullMsCrmReplicationMetadataProvider>();
             }
 
+            if (!container.IsRegistered<IConnectionStringNameResolver>())
+            {
+                container.RegisterInstance<IConnectionStringNameResolver>(new DefaultConnectionStringNameResolver(ConnectionStringName.Erm));
+            }
+
             return container
+                        .RegisterType<IEfDbModelFactory, EfDbModelFactory>(Lifetime.Singleton)
                         .RegisterType<IEFObjectContextFactory, EFObjectContextFactory>(Lifetime.Singleton)
-                        .RegisterType<IDomainContextMetadataProvider, EFDomainContextMetadataProvider>(Lifetime.Singleton)
+                        .RegisterType<IDomainContextMetadataProvider, DomainContextMetadataProvider>(Lifetime.Singleton)
                         .RegisterType<IReadDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())
