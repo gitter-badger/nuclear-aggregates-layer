@@ -13,14 +13,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 {
     public sealed class HotClientMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
-        private readonly IProcessHotClientRequestOperationService _processHotClientRequestAggregateService;
+        private readonly IProcessHotClientRequestOperationService _processHotClientRequestOperationService;
         private readonly ICommonLog _logger;
 
         public HotClientMessageAggregatedProcessingResultHandler(
-            IProcessHotClientRequestOperationService processHotClientRequestAggregateService,
+            IProcessHotClientRequestOperationService processHotClientRequestOperationService,
             ICommonLog logger)
         {
-            _processHotClientRequestAggregateService = processHotClientRequestAggregateService;
+            _processHotClientRequestOperationService = processHotClientRequestOperationService;
             _logger = logger;
         }
 
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 
                 try
                 {
-                    _processHotClientRequestAggregateService.CreateHotClientTask(
+                    this._processHotClientRequestOperationService.CreateHotClientTask(
                         hotClientInfo.HotClientRequest,
                         hotClientInfo.OwnerId,
                         hotClientInfo.RegardingObject);
