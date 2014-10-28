@@ -69,6 +69,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Identities;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -114,7 +115,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                         Mapping.Erm,
                         new Func<Type, EntitySet, IEnumerable<Type>, Type>[] { BLQueryingConflictResolver.ListServices },
                         new Func<Type, IEnumerable<Type>, Type>[0]),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
+                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new EfDbModelMassProcessor(container)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());

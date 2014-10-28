@@ -60,6 +60,7 @@ using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -101,7 +102,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                          settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
                                                              ? new[] { typeof(CardServiceBusDto), typeof(FirmServiceBusDto) }
                                                              : new Type[0]),
-                    new TaskServiceJobsMassProcessor(container)
+                    new TaskServiceJobsMassProcessor(container),
+                    new EfDbModelMassProcessor(container)
                 };
 
             CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
