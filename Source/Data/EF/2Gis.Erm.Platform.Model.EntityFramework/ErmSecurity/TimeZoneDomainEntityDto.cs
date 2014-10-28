@@ -31,8 +31,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     	[DataMember]
         public EntityReference TimeZoneRef { get; set; }
     	[DataMember]
-        public string Description { get; set; }
-    	[DataMember]
         public EntityReference CreatedByRef { get; set; }
     	[DataMember]
         public System.DateTime CreatedOn { get; set; }
