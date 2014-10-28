@@ -401,6 +401,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Edu.Emirates.config = Environments\Erm.Edu.Emirates.config
 		Environments\Erm.Edu.Russia.config = Environments\Erm.Edu.Russia.config
 		Environments\Erm.Edu.Ukraine.config = Environments\Erm.Edu.Ukraine.config
+		Environments\Erm.Edu.Kazakhstan.config = Environments\Erm.Edu.Kazakhstan.config
 		Environments\Erm.Int.Chile.config = Environments\Erm.Int.Chile.config
 		Environments\Erm.Int.Cyprus.config = Environments\Erm.Int.Cyprus.config
 		Environments\Erm.Int.Czech.config = Environments\Erm.Int.Czech.config
@@ -414,6 +415,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Production.Emirates.config = Environments\Erm.Production.Emirates.config
 		Environments\Erm.Production.Russia.config = Environments\Erm.Production.Russia.config
 		Environments\Erm.Production.Ukraine.config = Environments\Erm.Production.Ukraine.config
+		Environments\Erm.Production.Kazakhstan.config = Environments\Erm.Production.Kazakhstan.config
 		Environments\Erm.Test.04.config = Environments\Erm.Test.04.config
 		Environments\Erm.Test.06.config = Environments\Erm.Test.06.config
 		Environments\Erm.Test.08.config = Environments\Erm.Test.08.config
@@ -422,6 +424,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Test.308.config = Environments\Erm.Test.308.config
 		Environments\Erm.Test.408.config = Environments\Erm.Test.408.config
 		Environments\Erm.Test.508.config = Environments\Erm.Test.508.config
+		Environments\Erm.Test.608.config = Environments\Erm.Test.608.config
 		Environments\quartz.Edu.MultiCulture.config = Environments\quartz.Edu.MultiCulture.config
 		Environments\quartz.Edu.Russia.config = Environments\quartz.Edu.Russia.config
 		Environments\quartz.Production.MultiCulture.config = Environments\quartz.Production.MultiCulture.config
@@ -432,6 +435,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\quartz.Test.308.config = Environments\quartz.Test.308.config
 		Environments\quartz.Test.408.config = Environments\quartz.Test.408.config
 		Environments\quartz.Test.508.config = Environments\quartz.Test.508.config
+		Environments\quartz.Test.608.config = Environments\quartz.Test.608.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817}"
@@ -443,6 +447,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Environments\Templates\Erm.Test.Russia.config = Environments\Templates\Erm.Test.Russia.config
 		Environments\Templates\Erm.Test.Russia.CRM.config = Environments\Templates\Erm.Test.Russia.CRM.config
 		Environments\Templates\Erm.Test.Ukraine.config = Environments\Templates\Erm.Test.Ukraine.config
+		Environments\Templates\Erm.Test.Kazakhstan.config = Environments\Templates\Erm.Test.Kazakhstan.config
 		Environments\Templates\quartz.Test.MultiCulture.config = Environments\Templates\quartz.Test.MultiCulture.config
 		Environments\Templates\quartz.Test.Russia.config = Environments\Templates\quartz.Test.Russia.config
 		Environments\Templates\quartz.Test.Russia.CRM.config = Environments\Templates\quartz.Test.Russia.CRM.config
@@ -1963,7 +1968,7 @@ Global
 		{50B591AE-4761-4324-83F9-9359A876033C} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal

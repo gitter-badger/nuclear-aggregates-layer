@@ -4,6 +4,14 @@
 
     this.on("beforebuild", function() {
         Ext.apply(this, {
+            AppendLegalPerson: function() {
+                // Параметры pId, pType предназначены не для сервера, 
+                // они будут прочитаны существующим механизмом в диалоге операции Append 
+                // и использованы, если из него будет создана карточка юрлица.
+                var parameters = { pId: this.ParentId, pType: this.ParentType };
+                this.Append({ UrlParameters: parameters });
+            },
+
             MakeMain: function() {
                 if (this.Items.Grid.getSelectionModel().selections.items.length != 1) {
                     window.Ext.MessageBox.show({
@@ -50,18 +58,17 @@
                     return;
                 }
 
-                if (this.Items.Grid.getSelectionModel().selections.items.length == 0) return;
+                if (this.Items.Grid.getSelectionModel().selections.items.length != 1) return;
 
-                var legalPersonId = this.Items.Grid.getSelectionModel().selections.items[0].data.LegalPersonId;
-                var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl('LegalPerson', legalPersonId);
+                var queryParameters = {};
                 if (this.ParentType) {
-                    sUrl = Ext.urlAppend(sUrl, "pType=" + this.ParentType);
+                    queryParameters['pType'] = this.ParentType;
                 }
                 if (this.ParentId) {
-                    sUrl = Ext.urlAppend(sUrl, "pId=" + this.ParentId);
+                    queryParameters['pId'] = this.ParentId;
                 }
                 if (this.currentSettings.ReadOnly) {
-                    sUrl = Ext.urlAppend(sUrl, "ReadOnly=" + this.currentSettings.ReadOnly);
+                    queryParameters['ReadOnly'] = this.currentSettings.ReadOnly;
                 }
 
                 var params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}",
@@ -70,6 +77,9 @@
                                             window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop,
                                             window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
                 
+                var legalPersonId = this.Items.Grid.getSelectionModel().selections.items[0].data.LegalPersonId;
+                var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl('LegalPerson', legalPersonId, '?' + Ext.urlEncode(queryParameters));
+
                 window.open(sUrl, "_blank", params);
             }
         });

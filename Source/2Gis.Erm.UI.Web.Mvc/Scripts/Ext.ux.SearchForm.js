@@ -296,12 +296,18 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
     },
     saveChanges: function ()
     {
-        if (this.grid.getSelectionModel().selections.items.length)
-        {
+        if (this.grid.getSelectionModel().selections.items.length) {
+
+            // очистка name от разметки
+            var name = this.grid.getSelectionModel().selections.items[0].data[this.currentSettings.MainAttribute];
+            var spanTag = document.createElement("span");
+            spanTag.innerHTML = name;
+            name = spanTag.innerText;
+
             var item =
                     {
                         id: this.grid.getSelectionModel().selections.items[0].data.Id,
-                        name: this.grid.getSelectionModel().selections.items[0].data[this.currentSettings.MainAttribute],
+                        name: name,
                         data: this.grid.getSelectionModel().selections.items[0].data
                     };
             window.returnValue = { items: [item] };
