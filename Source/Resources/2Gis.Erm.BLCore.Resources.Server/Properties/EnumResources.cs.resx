@@ -1985,21 +1985,24 @@
     <value>Dohoda o prodloužení smlouvy</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
-    <value>Отсрочка</value>
+    <value>Odklad</value>
   </data>
   <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
-    <value>Рассрочка</value>
+    <value>Splátky</value>
   </data>
   <data name="PaymentFormatPostpay" xml:space="preserve">
-    <value>Постоплата</value>
+    <value>Zaplacení po zveřejnění reklamy ve 2GIS</value>
   </data>
   <data name="PaymentFormatPrepayment" xml:space="preserve">
-    <value>Предоплата</value>
+    <value>Zálohová platba</value>
   </data>
   <data name="EntityNameFirmDeal" xml:space="preserve">
-    <value>Связь фирмы со сделкой</value>
+    <value>Spojení organizace s obchodem</value>
   </data>
   <data name="EntityNameLegalPersonDeal" xml:space="preserve">
-    <value>Связь юр. лица со сделкой</value>
+    <value>Spojení PO s obchodem</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
+    <value>Деактивация/активация юр. лица клиента</value>
   </data>
 </root>

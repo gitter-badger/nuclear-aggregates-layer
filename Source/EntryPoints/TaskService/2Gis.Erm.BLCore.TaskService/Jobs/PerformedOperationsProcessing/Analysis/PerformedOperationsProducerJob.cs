@@ -17,8 +17,6 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing.An
     [DisallowConcurrentExecution]
     public sealed class PerformedOperationsProducerJob : TaskServiceJobBase, IInterruptableJob
     {
-        private const int MaxContextChangesCount = 265000;
-
         private readonly IIdentityRequestStrategy _identityRequestStrategy;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IReadOnlyList<WorkItem> _operationsProfiles;
@@ -44,7 +42,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing.An
                                          new WorkItem { OperationsCount = 100, EntitiesCount = 5000 },
                                          new WorkItem { OperationsCount = 50, EntitiesCount = 10000 },
                                          new WorkItem { OperationsCount = 3, EntitiesCount = 100000 },
-                                         new WorkItem { OperationsCount = 1, EntitiesCount = MaxContextChangesCount }
+                                         new WorkItem { OperationsCount = 2, EntitiesCount = 250000 },
+                                         new WorkItem { OperationsCount = 2, EntitiesCount = 500000 }
                                      };
         }
 
@@ -69,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing.An
 
                 for (int j = 0; j < _operationsProfiles.Count && !_isStopped; j++)
                 {
-                    var operationProfile = _operationsProfiles[i];
+                    var operationProfile = _operationsProfiles[j];
                     Logger.InfoFormatEx(
                         "Producing performed operations. Profile processing scheduled. Operation count: {0}. Entities count: {1}",
                         operationProfile.OperationsCount,
@@ -102,10 +101,10 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing.An
                 {
                     if (workItem.EntitiesCount > 0)
                     {
-                        using (var nestedScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, FirmAddress>())
+                        using (var nestedScope = _scopeFactory.CreateSpecificFor<CreateIdentity, PerformedOperationPrimaryProcessing>())
                         {
                             var generatedIds = _identityRequestStrategy.Request(workItem.EntitiesCount);
-                            nestedScope.Updated<FirmAddress>(generatedIds)
+                            nestedScope.Updated<PerformedOperationPrimaryProcessing>(generatedIds)
                                        .Complete();
                         }
                     }

@@ -14,6 +14,7 @@ using Quartz;
 
 namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing.Analysis
 {
+    [DisallowConcurrentExecution]
     public sealed partial class PerformedOperationsConsumerJob : TaskServiceJobBase, IInterruptableJob
     {
         private const int DefaultBatchSize = 1000;

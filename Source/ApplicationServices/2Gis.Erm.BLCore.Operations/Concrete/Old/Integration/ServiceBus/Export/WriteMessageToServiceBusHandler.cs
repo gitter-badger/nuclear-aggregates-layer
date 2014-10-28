@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Transactions;
@@ -74,7 +75,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
                 foreach (var serializedObject in exportObjects)
                 {
-                    brokerApiSender.SendDataObject(serializedObject);
+                    try
+                    {
+                        brokerApiSender.SendDataObject(serializedObject);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.ErrorFormatEx(e, "Ошибка при записи объекта в шину интеграции (поток {0})", flowName);
+                        throw;
+                    }
                 }
 
                 brokerApiSender.Commit();

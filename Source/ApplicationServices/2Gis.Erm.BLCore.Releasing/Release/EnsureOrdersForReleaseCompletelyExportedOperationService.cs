@@ -87,6 +87,15 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return true;
         }
 
+        private static XElement CreateSyncronizationMessage(long releaseInfoId, int organizationUnitDgppId, TimePeriod period)
+        {
+            return new XElement("ReleaseStartedEvent",
+                                new XAttribute("ReleaseInfoCode", releaseInfoId),
+                                new XAttribute("StartDate", period.Start),
+                                new XAttribute("EndDate", period.End),
+                                new XAttribute("BranchCode", organizationUnitDgppId));
+        }
+
         private void NotifyListenersThatAllOrdersForReleaseAreExported(long releaseInfoId, int organizationUnitDgppId, TimePeriod period)
         {
             // TODO {m.pashuk, 27.01.2013}: Передавать название endpoint-а через конфигурационный объект (_integrationSettings?)
@@ -102,15 +111,6 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     brokerApiSender.Commit();
                     brokerApiSender.EndSending();
                 });
-        }
-
-        private static XElement CreateSyncronizationMessage(long releaseInfoId, int organizationUnitDgppId, TimePeriod period)
-        {
-            return new XElement("ReleaseStartedEvent",
-                                new XAttribute("ReleaseInfoCode", releaseInfoId),
-                                new XAttribute("StartDate", period.Start),
-                                new XAttribute("EndDate", period.End),
-                                new XAttribute("BranchCode", organizationUnitDgppId));
         }
     }
 }
