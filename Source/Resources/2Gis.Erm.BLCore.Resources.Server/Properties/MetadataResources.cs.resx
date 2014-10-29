@@ -1416,48 +1416,48 @@
     <comment>От кого направлено действие, например, письмо.</comment>
   </data>
   <data name="NameOfChildClient" xml:space="preserve">
-    <value>Дочерний клиент</value>
+    <value>Zprostředkovaný klient</value>
   </data>
   <data name="NameOfMasterClient" xml:space="preserve">
-    <value>Родительский клиент</value>
+    <value>Zprostředkovatel</value>
   </data>
   <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
-    <value>Начало рекламной кампании</value>
+    <value>Začátek reklamní kampaně</value>
   </data>
   <data name="AdvertisingCampaignEndDate" xml:space="preserve">
-    <value>Окончание рекламной кампании</value>
+    <value>Konec reklamní kampaně</value>
   </data>
   <data name="AdvertisingCampaignGoalText" xml:space="preserve">
-    <value>Цели</value>
+    <value>Cíle</value>
   </data>
   <data name="AgencyFee" xml:space="preserve">
-    <value>Агентское вознаграждение</value>
+    <value>Agenturní provize</value>
   </data>
   <data name="AttractAudienceToSiteGoal" xml:space="preserve">
-    <value>Привлечение ЦА на сайт клиента</value>
+    <value>Přilákání cílové skupiny na web klienta</value>
   </data>
   <data name="CustomerLegalPerson" xml:space="preserve">
-    <value>Юр. лицо заказчика</value>
+    <value>PO zákazníka</value>
   </data>
   <data name="IncreaseBrandAwarenessGoal" xml:space="preserve">
-    <value>Увеличение узнаваемости ТМ</value>
+    <value>Zvýšení povědomí o značce</value>
   </data>
   <data name="IncreasePhoneCallsGoal" xml:space="preserve">
-    <value>Увеличение количества звонков</value>
+    <value>Zvýšení počtu volání</value>
   </data>
   <data name="IncreaseSalesGoal" xml:space="preserve">
-    <value>Увеличение продаж/заявок</value>
+    <value>Zvýšení prodejů</value>
   </data>
   <data name="PayerLegalPerson" xml:space="preserve">
-    <value>Юр. лицо плательщика</value>
+    <value>PO plátce</value>
   </data>
   <data name="PaymentFormat" xml:space="preserve">
-    <value>Формат оплаты</value>
+    <value>Způsob úhrady</value>
   </data>
   <data name="DListActiveFirmsForDeal" xml:space="preserve">
-    <value>Активные фирмы</value>
+    <value>Aktivní organizace</value>
   </data>
   <data name="DListInactiveFirmsForDeal" xml:space="preserve">
-    <value>Удаленные связи</value>
+    <value>Odstraněná spojení</value>
   </data>
 </root>

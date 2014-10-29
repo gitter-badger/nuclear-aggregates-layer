@@ -319,7 +319,7 @@
     <value>Legal entity of company:</value>
   </data>
   <data name="DealName" xml:space="preserve">
-    <value>Opportunity name</value>
+    <value>Deal name</value>
   </data>
   <data name="ConsiderOnApproval" xml:space="preserve">
     <value>For approval</value>
@@ -622,10 +622,10 @@
     <value>ISO country code</value>
   </data>
   <data name="CloseDate" xml:space="preserve">
-    <value>Data of opportunity closure</value>
+    <value>Data of deal closure</value>
   </data>
   <data name="StartReason" xml:space="preserve">
-    <value>Reason for opportunity</value>
+    <value>Reason for deal</value>
   </data>
   <data name="FirstEmitDate" xml:space="preserve">
     <value>Date of the first issue</value>
@@ -676,7 +676,7 @@
     <value>Client</value>
   </data>
   <data name="CloseReason" xml:space="preserve">
-    <value>Reason for opportunity closure</value>
+    <value>Reason for deal closure</value>
   </data>
   <data name="RHasBargainDebt" xml:space="preserve">
     <value>Contract indebtedness</value>
@@ -811,7 +811,7 @@
     <value>Head category</value>
   </data>
   <data name="DealStage" xml:space="preserve">
-    <value>Opportunity stage</value>
+    <value>Deal stage</value>
   </data>
   <data name="TerminationReason" xml:space="preserve">
     <value>Reason for early termination</value>
@@ -916,7 +916,7 @@
     <value>Company</value>
   </data>
   <data name="Deal" xml:space="preserve">
-    <value>Opportunity</value>
+    <value>Deal</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>
@@ -1416,48 +1416,48 @@
     <comment>От кого направлено действие, например, письмо.</comment>
   </data>
   <data name="NameOfChildClient" xml:space="preserve">
-    <value>Дочерний клиент</value>
+    <value>Subclient</value>
   </data>
   <data name="NameOfMasterClient" xml:space="preserve">
-    <value>Родительский клиент</value>
+    <value>Parent client</value>
   </data>
   <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
-    <value>Начало рекламной кампании</value>
+    <value>Start date of the advertising campaign</value>
   </data>
   <data name="AdvertisingCampaignEndDate" xml:space="preserve">
-    <value>Окончание рекламной кампании</value>
+    <value>End date of the advertising campaign</value>
   </data>
   <data name="AdvertisingCampaignGoalText" xml:space="preserve">
-    <value>Цели</value>
+    <value>Objectives</value>
   </data>
   <data name="AgencyFee" xml:space="preserve">
-    <value>Агентское вознаграждение</value>
+    <value>Agent fee</value>
   </data>
   <data name="AttractAudienceToSiteGoal" xml:space="preserve">
-    <value>Привлечение ЦА на сайт клиента</value>
+    <value>Attracting target audience to the client's website</value>
   </data>
   <data name="CustomerLegalPerson" xml:space="preserve">
-    <value>Юр. лицо заказчика</value>
+    <value>Legal entity of the client</value>
   </data>
   <data name="IncreaseBrandAwarenessGoal" xml:space="preserve">
-    <value>Увеличение узнаваемости ТМ</value>
+    <value>Increasing trademark recognizability</value>
   </data>
   <data name="IncreasePhoneCallsGoal" xml:space="preserve">
-    <value>Увеличение количества звонков</value>
+    <value>Increasing the number of calls</value>
   </data>
   <data name="IncreaseSalesGoal" xml:space="preserve">
-    <value>Увеличение продаж/заявок</value>
+    <value>Increasing sales/orders</value>
   </data>
   <data name="PayerLegalPerson" xml:space="preserve">
-    <value>Юр. лицо плательщика</value>
+    <value>Legal entity of the payer</value>
   </data>
   <data name="PaymentFormat" xml:space="preserve">
-    <value>Формат оплаты</value>
+    <value>Payment method</value>
   </data>
   <data name="DListActiveFirmsForDeal" xml:space="preserve">
-    <value>Активные фирмы</value>
+    <value>Active companies</value>
   </data>
   <data name="DListInactiveFirmsForDeal" xml:space="preserve">
-    <value>Удаленные связи</value>
+    <value>Deleted links</value>
   </data>
 </root>

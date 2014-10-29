@@ -234,6 +234,7 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.10.15 rev. 25249 - Add Delete entity privelege for LegalPersonProfile.cs" />
     <Compile Include="2.1\2014.08.26 rev. 23589 - Extend DenormalizedClientLinks table.cs" />
     <Compile Include="2.1\2014.08.18 rev. 23404 - Create DenormalizedClientLinks table.cs" />
     <Compile Include="2.1\2014.09.01 rev. 23822 - update order, orderposition replication.cs" />
@@ -338,6 +339,9 @@
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6712 - Make ThemeOrganizationUnit deactivable.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6718 - Alter SiteMap.xml.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6747 - Alter procedure CreateExportSession v3.cs" />
+    <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrderPosition].sql" />
+    <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrder].sql" />
+    <Content Include="Resources\2014.10.19 rev. 25335\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
     <None Include="Resources\2014.08.26 rev. 22766\Add Indexes.sql" />
     <None Include="Resources\2014.08.26 rev. 22776\Alter Activity Schema.sql" />
     <Content Include="ActivityMigration\Resources\Scripts\ActivityCleanup.sql" />
@@ -767,6 +771,10 @@
     <Compile Include="2.1\2014.09.12 rev. 24271 - Super boost for replication.cs" />
     <Compile Include="2.1\2014.09.18 rev. 24362 - Alter CalculateClientPromising.cs" />
     <Compile Include="2.1\2014.09.22 rev. 24551 - Alter territory replication.cs" />
+    <Compile Include="2.1\2014.10.01 rev. 24898 - Alter replicate order and order position.cs" />
+    <Compile Include="2.1\2014.10.23 rev. 25523 - Add new some new TimeZones.cs" />
+    <Compile Include="2.1\2014.10.23 rev. 25519 - Remove description of TimeZone.cs" />
+    <Compile Include="2.1\2014.10.19 rev. 25335 - Alter ReplicateFirmAddresses.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />

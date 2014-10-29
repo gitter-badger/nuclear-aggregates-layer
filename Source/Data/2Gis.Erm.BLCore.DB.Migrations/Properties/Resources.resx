@@ -487,6 +487,15 @@
   <data name="ReplicateOrderPosition_23822" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.09.01 rev. 23822\ReplicateOrderPosition.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="_Billing___ReplicateOrderPosition_24898" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.01 rev. 24898\[billing].[replicateorderposition].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrder_24898" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.01 rev. 24898\[billing].[replicateorder].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirmAddresses_25335" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.19 rev. 25335\[businessdirectory].[replicatefirmaddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
   <data name="Migration_22766_AddIndexes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.08.26 rev. 22766\Add Indexes.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

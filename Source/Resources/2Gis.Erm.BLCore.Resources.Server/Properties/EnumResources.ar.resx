@@ -856,7 +856,7 @@
     <value>Order file</value>
   </data>
   <data name="EntityNameDeal" xml:space="preserve">
-    <value>Opportunity</value>
+    <value>Deal</value>
   </data>
   <data name="EntityNameBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>Legal entity of a company division</value>
@@ -1090,7 +1090,7 @@
     <value>Extended selection of legal entities for a company</value>
   </data>
   <data name="FunctionalPrivilegeNameOrderChangeDealExtended" xml:space="preserve">
-    <value>Referencing orders to another opportunity</value>
+    <value>Linking the order to another deal</value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonChangeClient" xml:space="preserve">
     <value>Changing client for a legal entity </value>
@@ -1378,7 +1378,7 @@
     <value>Presentations</value>
   </data>
   <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
-    <value>Presentation of advertising opportunity</value>
+    <value>Presentation of advertising deal</value>
   </data>
   <data name="ActivityPurposeOfferApproval" xml:space="preserve">
     <value>Approval and sending of CO</value>
@@ -1969,25 +1969,40 @@
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Client Contract</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>Client Contract (in another language)</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>Agency Contract</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Contract Extension Agreement</value>
+  </data>
   <data name="ActivityTypeLetter" xml:space="preserve">
     <value>Письмо</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
-    <value>Отсрочка</value>
+    <value>Postponement</value>
   </data>
   <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
-    <value>Рассрочка</value>
+    <value>Installment</value>
   </data>
   <data name="PaymentFormatPostpay" xml:space="preserve">
-    <value>Постоплата</value>
+    <value>Post-payment</value>
   </data>
   <data name="PaymentFormatPrepayment" xml:space="preserve">
-    <value>Предоплата</value>
+    <value>Pre-payment</value>
   </data>
   <data name="EntityNameFirmDeal" xml:space="preserve">
-    <value>Связь фирмы со сделкой</value>
+    <value>A link between the company and the deal</value>
   </data>
   <data name="EntityNameLegalPersonDeal" xml:space="preserve">
-    <value>Связь юр. лица со сделкой</value>
+    <value>A link between the legal entity and the deal</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
+    <value>Деактивация/активация юр. лица клиента</value>
   </data>
 </root>

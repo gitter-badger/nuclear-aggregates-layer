@@ -85,5 +85,37 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel
         {
             return _finder.FindOne(DealSpecs.LegalPersonDeals.Find.ByDealAndLegalPersonIds(dealId, legalPersonId) && Specs.Find.NotDeleted<LegalPersonDeal>());
         }
+
+        public LegalPersonDeal GetLegalPersonDeal(long entityId)
+        {
+            return _finder.FindOne(Specs.Find.ById<LegalPersonDeal>(entityId));
+        }
+
+        public IEnumerable<string> GetDealLegalPersonNames(long dealId)
+        {
+            return _finder.Find(Specs.Find.ById<Deal>(dealId))
+                          .SelectMany(deal => deal.LegalPersonDeals)
+                          .Where(Specs.Find.NotDeleted<LegalPersonDeal>())
+                          .Select(link => link.LegalPerson.ShortName)
+                          .ToArray();
+        }
+
+        public IEnumerable<string> GetDealFirmNames(long dealId)
+        {
+            return _finder.Find(Specs.Find.ById<Deal>(dealId))
+                          .SelectMany(deal => deal.FirmDeals)
+                          .Where(Specs.Find.NotDeleted<FirmDeal>())
+                          .Select(link => link.Firm.Name)
+                          .ToArray();
+        }
+
+        public bool IsLinkTheLastOneForDeal(long id, long dealId)
+        {
+            var exitstAnotherLegalPersonForDeal = _finder.Find(Specs.Find.ExceptById<LegalPersonDeal>(id)
+                                                               && DealSpecs.LegalPersonDeals.Find.ByDeal(dealId)
+                                                               && Specs.Find.NotDeleted<LegalPersonDeal>())
+                                                         .Any();
+            return !exitstAnotherLegalPersonForDeal;
+        }
     }
 }
