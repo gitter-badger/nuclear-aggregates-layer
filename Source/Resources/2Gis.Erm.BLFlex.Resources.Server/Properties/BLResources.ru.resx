@@ -459,4 +459,7 @@ SWIFT {5}
   <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
     <value>Создание региональных заказов не поддерживается</value>
   </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+  </data>
 </root>

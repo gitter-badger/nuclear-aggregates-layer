@@ -30,7 +30,7 @@
             @Html.TemplateField(m => m.OperationsKind, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew })
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Rut, FieldFlex.lone)

@@ -60,7 +60,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
             var duplicate = _branchOfficeReadModel.GetBranchOfficeOrganizationUnitDuplicate(entity.OrganizationUnitId, entity.BranchOfficeId, entity.Id);
             if (duplicate != null)
             {
-                throw new NotificationException(string.Format(BLResources.OrgUnitForBranchOfficeAlreadyExist,
+                var messageTemplate = duplicate.IsActive
+                                          ? BLResources.OrgUnitForBranchOfficeAlreadyExist
+                                          : BLResources.InactiveOrgUnitForBranchOfficeAlreadyExist;
+
+                throw new NotificationException(string.Format(messageTemplate,
                                                               duplicate.OrganizationUnitName,
                                                               duplicate.BranchOfficeName));
             }

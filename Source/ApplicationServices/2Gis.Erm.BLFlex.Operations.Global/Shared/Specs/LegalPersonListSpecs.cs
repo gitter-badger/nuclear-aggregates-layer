@@ -25,8 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs
                     return x => dealLegalPersons.Contains(x.Id);
                 }
 
-                var dealClientId = finder.Find(Platform.DAL.Specifications.Specs.Find.ById<Deal>(dealId)).Select(x => x.ClientId).Single();
-                return x => x.ClientId == dealClientId;
+                return null;
             }
 
             public static Expression<Func<LegalPerson, bool>> ByOwner(bool forMe, long userCode)

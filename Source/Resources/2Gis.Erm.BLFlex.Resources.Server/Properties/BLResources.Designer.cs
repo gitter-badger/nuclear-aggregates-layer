@@ -108,6 +108,15 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ChangingRequisitesOfInactiveLegalPersonIsForbidden {
+            get {
+                return ResourceManager.GetString("ChangingRequisitesOfInactiveLegalPersonIsForbidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ChileActiveBusinessmanWithSpecifiedRutAlreadyExist {
             get {
                 return ResourceManager.GetString("ChileActiveBusinessmanWithSpecifiedRutAlreadyExist", resourceCulture);
