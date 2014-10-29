@@ -1,11 +1,12 @@
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class CardRelation :
-        IEntity,
-        IEntityKey,
-        IDeletableEntity
+    public sealed class CardRelation : IEntity,
+                                       IEntityKey,
+                                       IDeletableEntity,
+                                       IImported
     {
         public long DepCardCode { get; set; }
         public long? PosCardCode { get; set; }

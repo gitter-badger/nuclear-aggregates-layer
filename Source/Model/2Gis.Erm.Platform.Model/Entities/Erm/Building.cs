@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class Building :
-        IEntity,
-        IDeletableEntity
+    public sealed class Building : IEntity,
+                                   IDeletableEntity,
+                                   IImported
     {
         public Building()
         {

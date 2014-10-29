@@ -1,12 +1,13 @@
 using System;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class ExportFlowOrdersAdvMaterial :
-        IEntity,
-        IEntityKey
+    public sealed class ExportFlowOrdersAdvMaterial : IEntity,
+                                                      IEntityKey,
+                                                      IIntegrationProcessorState
     {
         public long Id { get; set; }
         public DateTime Date { get; set; }

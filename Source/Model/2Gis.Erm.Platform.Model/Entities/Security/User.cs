@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Security
 {
-    public sealed partial class User :
-        IEntity,
-        IEntityKey,
-        IAuditableEntity,
-        IDeletableEntity,
-        IDeactivatableEntity,
-        IStateTrackingEntity
+    public sealed class User : IEntity,
+                               IEntityKey,
+                               IAuditableEntity,
+                               IDeletableEntity,
+                               IDeactivatableEntity,
+                               IStateTrackingEntity,
+                               IReplicableExplicitly
     {
         public User()
         {

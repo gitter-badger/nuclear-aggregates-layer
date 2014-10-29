@@ -5,14 +5,14 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class DictionaryEntityInstance :
-        IEntity,
-        IEntityKey,
-        ICuratedEntity,
-        IAuditableEntity,
-        IDeletableEntity,
-        IDeactivatableEntity,
-        IStateTrackingEntity
+    public sealed class DictionaryEntityInstance : IEntity,
+                                                   IEntityKey,
+                                                   ICuratedEntity,
+                                                   IAuditableEntity,
+                                                   IDeletableEntity,
+                                                   IDeactivatableEntity,
+                                                   IStateTrackingEntity,
+                                                   IDynamicEntityInstance
     {
         private long _ownerCode;
         private long? _oldOwnerCode;

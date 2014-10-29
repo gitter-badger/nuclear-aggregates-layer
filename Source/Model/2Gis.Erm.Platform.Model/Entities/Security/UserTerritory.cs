@@ -1,15 +1,16 @@
 using System;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Security
 {
-    public sealed partial class UserTerritory :
-        IEntity,
-        IEntityKey,
-        IAuditableEntity,
-        IDeletableEntity,
-        IStateTrackingEntity
+    public sealed class UserTerritory : IEntity,
+                                        IEntityKey,
+                                        IAuditableEntity,
+                                        IDeletableEntity,
+                                        IStateTrackingEntity,
+                                        IReplicableExplicitly
     {
         public long Id { get; set; }
         public long UserId { get; set; }

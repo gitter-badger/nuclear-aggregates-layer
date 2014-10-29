@@ -1,10 +1,11 @@
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class CityPhoneZone :
-        IEntity,
-        IEntityKey
+    public sealed class CityPhoneZone : IEntity,
+                                        IEntityKey,
+                                        IImported
     {
         public long Id { get; set; }
         public string Name { get; set; }

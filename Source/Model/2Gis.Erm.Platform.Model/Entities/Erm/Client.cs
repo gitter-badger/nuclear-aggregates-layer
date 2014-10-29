@@ -1,20 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-    public sealed partial class Client :
-        IEntity,
-        IEntityKey,
-        ICuratedEntity,
-        IAuditableEntity,
-        IDeletableEntity,
-        IDeactivatableEntity,
-        IReplicableEntity,
-        IStateTrackingEntity
+    public sealed class Client : IEntity,
+                                 IEntityKey,
+                                 ICuratedEntity,
+                                 IAuditableEntity,
+                                 IDeletableEntity,
+                                 IDeactivatableEntity,
+                                 IReplicableEntity,
+                                 IStateTrackingEntity,
+                                 IPartable
     {
         private long _ownerCode;
         private long? _oldOwnerCode;
@@ -108,5 +109,26 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         {
             return Id.GetHashCode();
         }
+
+        #region Parts
+
+        private IEnumerable<IEntityPart> _parts;
+
+        public IEnumerable<IEntityPart> Parts
+        {
+            get { return _parts ?? (_parts = Enumerable.Empty<IEntityPart>()); }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new InvalidOperationException("Parts cannot be null");
+                }
+
+                _parts = value;
+            }
+        }
+
+        #endregion
     }
 }
