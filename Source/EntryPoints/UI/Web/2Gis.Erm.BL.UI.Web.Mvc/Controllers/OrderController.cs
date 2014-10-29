@@ -246,7 +246,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _publicService.Handle(new CheckOrderBeginDistributionDateRequest
                 {
                     OrderId = orderId,
-                    BeginDistributionDate = beginDistributionDate,
+                    BeginDistributionDate = beginDistributionDate.Date, // FIXME {all, 29.10.2014}: Костыль на тему часовых посов. Если приходит 2014-01-01T01:00, то это вовсе не значит, что заказ хотят разместить начиная с часу ночи, просто в браузере ФИЗИЧЕСКИ нет возможности выбрать 2014-01-01T00:00
                     SourceOrganizationUnitId = sourceOrganizationUnitId,
                     DestinationOrganizationUnitId = destinationOrganizationUnitId
                 });
