@@ -241,9 +241,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
             Deal = LookupField.FromReference(modelDto.DealRef);
             DealCurrencyId = modelDto.DealCurrencyId;
             Currency = LookupField.FromReference(modelDto.CurrencyRef);
-            BeginDistributionDate = modelDto.BeginDistributionDate;
-            EndDistributionDatePlan = modelDto.EndDistributionDatePlan;
-            EndDistributionDateFact = modelDto.EndDistributionDateFact;
+            BeginDistributionDate = modelDto.BeginDistributionDate.Date;
+            EndDistributionDatePlan = modelDto.EndDistributionDatePlan.Date;
+            EndDistributionDateFact = modelDto.EndDistributionDateFact.Date;
             BeginReleaseNumber = modelDto.BeginReleaseNumber;
             EndReleaseNumberPlan = modelDto.EndReleaseNumberPlan;
             EndReleaseNumberFact = modelDto.EndReleaseNumberFact;
@@ -298,9 +298,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                     DealRef = Deal.ToReference(),
                     DealCurrencyId = DealCurrencyId,
                     CurrencyRef = Currency.ToReference(),
-                    BeginDistributionDate = BeginDistributionDate,
-                    EndDistributionDatePlan = EndDistributionDatePlan,
-                    EndDistributionDateFact = EndDistributionDateFact,
+                    BeginDistributionDate = BeginDistributionDate.Date,
+                    EndDistributionDatePlan = EndDistributionDatePlan.Date,
+                    EndDistributionDateFact = EndDistributionDateFact.Date,
                     BeginReleaseNumber = BeginReleaseNumber,
                     EndReleaseNumberPlan = EndReleaseNumberPlan,
                     EndReleaseNumberFact = EndReleaseNumberFact,
