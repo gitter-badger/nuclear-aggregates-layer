@@ -3,11 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Utils;
 
 using Quartz;
 
@@ -17,24 +16,26 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
     public sealed class PerformedOperationsConsumerJob : TaskServiceJobBase, IInterruptableJob
     {
         private const int DefaultBatchSize = 1000;
+        private const PerformedOperationsTransport DefaultOperationsTransport = PerformedOperationsTransport.ServiceBus;
         
         private readonly IMessageFlowRegistry _messageFlowRegistry;
-        private readonly IServiceBusMessageReceiverSettings _serviceBusMessageReceiverSettings;
+        private readonly IPerformedOperationsConsumerFactory _performedOperationsConsumerFactory;
         private readonly CancellationTokenSource _consumersCancellationTokenSource = new CancellationTokenSource();
 
         public PerformedOperationsConsumerJob(
             IMessageFlowRegistry messageFlowRegistry,
-            IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings,
+            IPerformedOperationsConsumerFactory performedOperationsConsumerFactory,
             ISignInService signInService, 
             IUserImpersonationService userImpersonationService, 
             ICommonLog logger) 
             : base(signInService, userImpersonationService, logger)
         {
             _messageFlowRegistry = messageFlowRegistry;
-            _serviceBusMessageReceiverSettings = serviceBusMessageReceiverSettings;
+            _performedOperationsConsumerFactory = performedOperationsConsumerFactory;
         }
 
         public int? BatchSize { get; set; }
+        public PerformedOperationsTransport? OperationsTransport { get; set; }
 
         public void Interrupt()
         {
@@ -56,9 +57,12 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
         {
             return _messageFlowRegistry.Flows
                         .Where(PrimaryProcessing.IsPerformedOperationsSourceFlow)
-                        .Select(performedOperationsSourceFlow => typeof(PerformedOperationsFlowConsumer<>).MakeGenericType(performedOperationsSourceFlow.GetType()))
-                        .Select(flowConsumerType =>
-                            flowConsumerType.New<IPerformedOperationsConsumer>(_serviceBusMessageReceiverSettings, BatchSize ?? DefaultBatchSize, _consumersCancellationTokenSource.Token, Logger))
+                        .Select(performedOperationsSourceFlow => 
+                            _performedOperationsConsumerFactory.Create(
+                                performedOperationsSourceFlow.GetType(),
+                                OperationsTransport ?? DefaultOperationsTransport,
+                                BatchSize ?? DefaultBatchSize,
+                                _consumersCancellationTokenSource.Token))
                         .Select(c => c.Consume())
                         .ToArray();
         }

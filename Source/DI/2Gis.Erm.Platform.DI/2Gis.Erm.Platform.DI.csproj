@@ -108,10 +108,6 @@
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
       <Name>2Gis.Erm.Platform.API.Security</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
-      <Project>{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}</Project>
-      <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL.EntityFramework\2Gis.Erm.Platform.DAL.EntityFramework.csproj">
       <Project>{1DAF0763-543A-49D3-93D2-04F43A79D538}</Project>
       <Name>2Gis.Erm.Platform.DAL.EntityFramework</Name>

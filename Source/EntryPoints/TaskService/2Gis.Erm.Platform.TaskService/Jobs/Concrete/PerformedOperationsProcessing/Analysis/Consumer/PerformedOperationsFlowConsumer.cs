@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
-using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
-
-using Microsoft.ServiceBus.Messaging;
 
 namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Consumer
 {
@@ -20,25 +17,16 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
     {
         private readonly TMessageFlow _targetFlow = new TMessageFlow();
         private readonly IMessageReceiver _performedOperationMessagesReceiver;
-        private readonly int _batchSize;
         private readonly CancellationToken _cancellationToken;
         private readonly ICommonLog _logger;
-        private readonly IServiceBusMessageReceiver<TMessageFlow> _messageReceiver;
         private readonly Task _worker;
 
-        public PerformedOperationsFlowConsumer(
-            IMessageReceiver performedOperationMessagesReceiver,
-            IServiceBusMessageReceiverSettings serviceBusMessageReceiverSettings,
-            int batchSize,
-            CancellationToken cancellationToken,
-            ICommonLog logger)
+        public PerformedOperationsFlowConsumer(IMessageReceiver performedOperationMessagesReceiver, CancellationToken cancellationToken, ICommonLog logger)
         {
             _performedOperationMessagesReceiver = performedOperationMessagesReceiver;
-            _batchSize = batchSize;
             _cancellationToken = cancellationToken;
             _logger = logger;
 
-            _messageReceiver = new ServiceBusMessageReceiver<TMessageFlow>(logger, serviceBusMessageReceiverSettings);
             _worker = new Task(WorkerFunc, TaskCreationOptions.LongRunning);
         }
 
@@ -53,16 +41,17 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             _logger.InfoFormatEx("Consuming performed operations. Consumer for flow {0} started", _targetFlow);
 
             var stopwatch = new Stopwatch();
-            using (_messageReceiver)
+
+            try
             {
                 while (!_cancellationToken.IsCancellationRequested)
                 {
                     stopwatch.Restart();
-                    IEnumerable<BrokeredMessage> receivedMessages;
+                    IReadOnlyList<IMessage> receivedMessages;
 
                     try
                     {
-                        receivedMessages = _messageReceiver.ReceiveBatch(_batchSize);
+                        receivedMessages = _performedOperationMessagesReceiver.Peek();
                     }
                     catch (Exception ex)
                     {
@@ -71,28 +60,29 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                         continue;
                     }
 
-                    var completedMessages = new List<Guid>();
-                    int messageCounter = 0;
-                    foreach (var msg in receivedMessages)
-                    {
-                        ++messageCounter;
-                        completedMessages.Add(msg.LockToken);
-                    }
-
                     try
                     {
-                        _messageReceiver.CompleteBatch(completedMessages);
+                        _performedOperationMessagesReceiver.Complete(receivedMessages, Enumerable.Empty<IMessage>());
                     }
                     catch (Exception ex)
                     {
                         stopwatch.Stop();
-                        _logger.ErrorFormatEx(ex, "Consuming performed operations. Can't complete received batch of {0} messages from service bus flow {1}, recieve/complete failed after {2}", messageCounter, _targetFlow, stopwatch.Elapsed.TotalSeconds);
+                        _logger.ErrorFormatEx(ex, "Consuming performed operations. Can't complete received batch of {0} messages from service bus flow {1}, recieve/complete failed after {2}", receivedMessages.Count, _targetFlow, stopwatch.Elapsed.TotalSeconds);
                         continue;
                     }
 
                     stopwatch.Stop();
-                    _logger.DebugFormatEx("Consuming performed operations. Consumed {0} messages from flow {1} and it takes {2:F2} sec, consuming rate {3} op/sec", messageCounter, _targetFlow, stopwatch.Elapsed.TotalSeconds, messageCounter / stopwatch.Elapsed.TotalSeconds);
+                    _logger.DebugFormatEx("Consuming performed operations. Consumed {0} messages from flow {1} and it takes {2:F2} sec, consuming rate {3} op/sec", receivedMessages.Count, _targetFlow, stopwatch.Elapsed.TotalSeconds, receivedMessages.Count / stopwatch.Elapsed.TotalSeconds);
+                    
                     Thread.Sleep(3);
+                }
+            }
+            finally
+            {
+                var disposablePerformedOperationMessagesReceiver = _performedOperationMessagesReceiver as IDisposable;
+                if (disposablePerformedOperationMessagesReceiver != null)
+                {
+                    disposablePerformedOperationMessagesReceiver.Dispose();
                 }
             }
 

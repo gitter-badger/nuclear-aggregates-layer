@@ -44,13 +44,12 @@ namespace DoubleGis.Erm.Platform.DI.Factories.PerformedOperationsAnalysis
                                                                                        });
 
             var receiverSettings = new PerformedOperationsReceiverSettings { BatchSize = batchSize };
-            var receiverSettingsType = receiverSettings.GetType();
 
             Type receiverFactoryType = receiverFactory.GetType();
             var createMethod = receiverFactoryType.GetMethod("Create", BindingFlags.Instance | BindingFlags.Public);
-
-            var methodInfo = createMethod.MakeGenericMethod(performedOperationsSourceFlowType, receiverSettingsType);
-            var messageReceiver = (IMessageReceiver)methodInfo.Invoke(receiverFactory, new object[] { receiverSettings });
+            var createMethodInfo = createMethod.MakeGenericMethod(performedOperationsSourceFlowType, typeof(IPerformedOperationsReceiverSettings));
+            
+            var messageReceiver = (IMessageReceiver)createMethodInfo.Invoke(receiverFactory, new object[] { receiverSettings });
 
             var targetConsumerType = typeof(PerformedOperationsFlowConsumer<>).MakeGenericType(performedOperationsSourceFlowType);
             return (IPerformedOperationsConsumer)_unityContainer.Resolve(
