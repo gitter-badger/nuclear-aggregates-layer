@@ -58,6 +58,7 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
             items: [
                 this.fromList = new Ext.list.ListView(
                     {
+                        id: 'grid-left',
                         deferEmptyText: false,
                         emptyText: '<table style="width:100%;height:100%;"><tr><td style="height:100%;text-align: center;">' + Ext.LocalizedResources.MultiSelectionListFromListEmptyText + '</td></tr></table>',
                         cls: 'x-multiselect-list-body',
@@ -174,6 +175,7 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
                     });
                     this.fromList.store.removeAll(true);
                 },
+                beforeload: this.beforeStoreLoad,
                 load: this.onStoreLoad,
                 scope: this
             }
@@ -342,7 +344,15 @@ Ext.ux.MultiSelectionList = Ext.extend(Ext.Panel, {
         }
         return this.fireEvent('rowdblclick', vw, index, node, e);
     },
+    beforeStoreLoad: function (scope, options) {
+        if (!this.mask) {
+            this.mask = new window.Ext.LoadMask(window.Ext.get("grid-left"));
+        }
+
+        this.mask.show();
+    },
     onStoreLoad: function(store, records, options) {
+        this.mask.hide();
         if (records.length >= 100) {
             this.addNotification(Ext.LocalizedResources.MultiSelectionListTooManyRecordsAlert, 'Info', 'TooManyRecords');
         } else {

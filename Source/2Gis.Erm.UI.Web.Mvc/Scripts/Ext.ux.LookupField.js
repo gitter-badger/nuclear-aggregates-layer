@@ -158,7 +158,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             this.el.dom.value = "";
         }
     },
-    getDataFromServer: function (config)
+    getDataFromServer: function (config, silent)
     {
         if (this.fireEvent("beforequery", this) === false)
         {
@@ -199,11 +199,11 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             timeout: 1200000,
             url: url,
             scope: this,
-            success: function (jsonResponse) { this.getDataFromServerSuccess(jsonResponse, queryStringParams.filterInput); },
+            success: function (jsonResponse) { this.getDataFromServerSuccess(jsonResponse, queryStringParams.filterInput, silent); },
             failure: function (xhr) { this.getDataFromServerFailure(xhr, queryStringParams.filterInput); }
         });
     },
-    getDataFromServerSuccess: function (jsonResponse, filter)
+    getDataFromServerSuccess: function (jsonResponse, filter, silent)
     {
         this.searchBtn.dom.src = this.disabled || this.readOnly ? this.btnDis : this.btnOn;
         var result = undefined;
@@ -225,14 +225,14 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
 
         if (!result || !result.Data || !result.Data.length)
         {
-            this.linkItem.dom.innerHTML = filter;
+            this.linkItem.dom.innerHTML = filter || Ext.LocalizedResources.MatchesNotFound;
             if (!this.supressMatchesErrors) {
                 this.setInvalid(Ext.LocalizedResources.MatchesNotFound, "CriticalError");
             }
         }
         else if (result.Data.length > 1)
         {
-            this.linkItem.dom.innerHTML = filter;
+            this.linkItem.dom.innerHTML = filter || Ext.LocalizedResources.MultipleMatchesFound;
             if (!this.supressMatchesErrors) {
                 this.setInvalid(Ext.LocalizedResources.MultipleMatchesFound, "Warning");
                 this.prepareThumbPanel(result);
@@ -241,7 +241,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         else if (result.Data.length === 1)
         {
             var item = { id: result.Data[0].Id, name: result.Data[0][result.MainAttribute], data: result.Data[0] };
-            this.setValue(item);
+            this.setValue(item, silent);
         }
         this.fireEvent("afterquery", this);
 
@@ -363,13 +363,27 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         else
         {
-            this.openSearchWin();
+            this.openSearchHint();
+        }
+    },
+    openSearchHint: function() {
+        if (this.d1isabled || this.readOnly) {
+            return;
+        }
+
+        if (this.errorMessage === Ext.LocalizedResources.MultipleMatchesFound) {
+            if (this.thumbEl.dom.style.display == "none") {
+                this.thumbEl.fadeIn({ useDisplay: true, duration: 0.5 });
+            } else {
+                this.thumbEl.fadeOut({ useDisplay: true, duration: 0.5 });
+            }
         }
     },
     openSearchWin: function (evt, el)
     {
-        if (this.disabled || this.readOnly)
-        { return; }
+        if (this.d1isabled || this.readOnly) {
+             return;
+        }
 
         if (this.fireEvent("beforequery", this) === false)
         {
@@ -383,14 +397,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
         else if (this.errorMessage === Ext.LocalizedResources.MultipleMatchesFound)
         {
-            if (!el || el.id !== this.name + '_AdditionalLink')
-            {
-                if (this.thumbEl.dom.style.display == "none")
-                    this.thumbEl.fadeIn({ useDisplay: true, duration: 0.5 });
-                return;
-            }
-
-            filter = this.linkItem.dom.innerHTML;
+            filter = this.linkItem.dom.innerHTML != Ext.LocalizedResources.MultipleMatchesFound ? this.linkItem.dom.innerHTML : '';
         }
         this.filter.dom.value = "";
 
@@ -522,17 +529,17 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
             }
         }
     },
-    forceGetData: function (config) {
-        this.clearValue();
-        this.getDataFromServer(config);
+    forceGetData: function (config, silent) {
+        this.clearValue(silent);
+        this.getDataFromServer(config, silent);
         this.filter.dom.value = "";
     },
 
     setBtnOff: function (event) { if (event.target) { event.target.src = this.disabled || this.readOnly ? this.btnDis : this.btnOff; } },
     setBtnOn: function (event) { if (event.target) { event.target.src = this.disabled || this.readOnly ? this.btnDis : this.btnOn; } },
-    clearValue: function ()
+    clearValue: function (silent)
     {
-        this.setValue(undefined);
+        this.setValue(undefined, silent);
         return this.item;
 
     },
