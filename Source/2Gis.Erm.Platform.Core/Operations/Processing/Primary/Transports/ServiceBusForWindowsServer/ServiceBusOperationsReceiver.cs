@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.S
         {
             var batch = _serviceBusMessageReceiver.ReceiveBatch(MessageReceiverSettings.BatchSize);
             return batch.Select(brokeredMessage => new ServiceBusPerformedOperationsMessage(new[] { brokeredMessage })).ToList();
-            }
+        }
 
         protected override void Complete(
             IEnumerable<ServiceBusPerformedOperationsMessage> successfullyProcessedMessages,

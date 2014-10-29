@@ -72,6 +72,15 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\TaskServiceJobsMassProcessor.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Consumer\IPerformedOperationsConsumer.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Consumer\IPerformedOperationsConsumerFactory.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Consumer\PerformedOperationsConsumerJob.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Consumer\PerformedOperationsFlowConsumer.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\IOperationScopeDisposableFactory.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\IOperationScopeDisposableFactoryAccessor.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\PerformedOperationsProducerJob.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\PerformedOperationsWorkItem.cs" />
+    <Compile Include="Jobs\Concrete\PerformedOperationsProcessing\Analysis\Producer\PerformedOperationsWorkItemProcessor.cs" />
     <Compile Include="Jobs\TaskServiceJobBase.cs" />
     <Compile Include="Jobs\ITaskServiceJob.cs" />
     <Compile Include="Schedulers\QuartzConfigFileScanInterval.cs" />
@@ -86,6 +95,10 @@
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -98,8 +111,13 @@
       <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
       <Name>2Gis.Erm.Platform.DI.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

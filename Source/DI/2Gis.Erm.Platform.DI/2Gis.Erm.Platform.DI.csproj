@@ -72,6 +72,7 @@
     <Compile Include="Factories\Messaging\UnityMessageProcessingStrategyFactory.cs" />
     <Compile Include="Factories\Messaging\UnityMessageTransformerFactory.cs" />
     <Compile Include="Factories\Messaging\UnityMessageValidatorFactory.cs" />
+    <Compile Include="Factories\PerformedOperationsAnalysis\UnityPerformedOperationsConsumerFactory.cs" />
     <Compile Include="Factories\UnityDomainContextFactory.cs" />
     <Compile Include="Factories\Messaging\UnityMessageReceiverFactory.cs" />
     <Compile Include="Factories\UnityTransactedOperationScopeFactory.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="Proxies\Messaging\UnityMessageProcessingStrategyProxy.cs" />
     <Compile Include="Proxies\Messaging\UnityMessageReceiverProxy.cs" />
     <Compile Include="Proxies\Messaging\UnityMessageTransformerProxy.cs" />
+    <Compile Include="Factories\PerformedOperationsAnalysis\UnityOperationScopeDisposableFactoryAccessor.cs" />
+    <Compile Include="Proxies\PerformedOperations\UnityOperationScopeFactoryProxy.cs" />
     <Compile Include="Proxies\UnityContainerScopeProxy.Dispose.cs" />
     <Compile Include="Proxies\UnityContainerScopeProxy.cs" />
     <Compile Include="Proxies\Messaging\UnityMessageValidatorProxy.cs" />
@@ -116,6 +119,10 @@
     <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntryPoints\TaskService\2Gis.Erm.Platform.TaskService\2Gis.Erm.Platform.TaskService.csproj">
+      <Project>{49D0D1C2-49A4-4063-BD9C-AC36BE6C36DD}</Project>
+      <Name>2Gis.Erm.Platform.TaskService</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>

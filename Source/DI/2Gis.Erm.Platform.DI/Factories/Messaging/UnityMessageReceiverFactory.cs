@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 
             var messageReceiver = (IMessageReceiver)scopedContainer.Resolve(
                 resolvedType,
-                                                        new ResolverOverride[] { new DependencyOverride(typeof(TMessageReceiverSettings), receiverSettings) });
+                new ResolverOverride[] { new DependencyOverride(typeof(TMessageReceiverSettings), receiverSettings) });
 
             return new UnityMessageReceiverProxy(scopedContainer, messageReceiver);
         }
