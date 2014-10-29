@@ -62,6 +62,9 @@
     <Compile Include="2.1\2014.09.01 rev. 23810 - Add LegalPersonDealsLink.cs" />
     <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization.cs" />
     <Compile Include="2.1\2014.09.10 rev. 23921 - CRM order customization.cs" />
+    <Compile Include="2.1\2014.09.09 rev. 24094 - deactivated legalpersonprofiles to deleted ones.cs" />
+    <Compile Include="2.1\2014.09.05 rev. 24070 - CRM isv customization.cs" />
+    <Compile Include="2.1\2014.09.03 rev. 23946 - Add functional privelege.cs" />
     <Compile Include="2.1\2014.08.14 rev. 23210 - alter some columns length.cs" />
     <Compile Include="2.1\2014.08.11 rev. 23049 - Alter BOS.cs" />
     <Compile Include="2.1\2014.08.07 rev. 23000 - Set dummy advertisement status as valid.cs" />
@@ -85,6 +88,8 @@
     <Compile Include="2.1\2014.06.30 rev. 21755 - drop status in Billing.AdvertisementElements.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
     <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
+    <Compile Include="2.1\2014.10.21 rev. 25404 - Fix fas comments.cs" />
+    <Compile Include="2.1\2014.10.10 rev. 25168 - Merge ReplicateDeal SP - fix.cs" />
     <Compile Include="2.1\2014.09.22 rev. 24906 - Merge ReplicateDeal SP.cs" />
     <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
     <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
@@ -164,6 +169,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\customizations_23921.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2014.10.10 rev. 25168\[Billing].[ReplicateDeal].sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_24070.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -152,30 +152,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                        : new JsonNetResult(new { currencyInfo.Id, currencyInfo.Name });
         }
 
-        [HttpPost]
-        public JsonNetResult GetBranchOfficeOrganizationUnit(long? organizationUnitid)
-        {
-            if (!organizationUnitid.HasValue)
-            {
-                return new JsonNetResult();
-            }
-
-            var branchOfficeOrganizationUnit = _branchOfficeRepository.GetBranchOfficeOrganizationUnitShortInfo(organizationUnitid.Value);
-            return new JsonNetResult(new { branchOfficeOrganizationUnit.Id, Name = branchOfficeOrganizationUnit.ShortLegalName });
-        }
-
-        [HttpPost]
-        public JsonNetResult GetLegalPerson(long? firmClientId)
-        {
-            if (!firmClientId.HasValue)
-            {
-                return new JsonNetResult();
-            }
-
-            var resp = (GetOrderLegalPersonResponse)_publicService.Handle(new GetOrderLegalPersonRequest { FirmClientId = firmClientId.Value });
-            return new JsonNetResult(new { Id = resp.LegalPersonId, Name = resp.LegalPersonName });
-        }
-
         public JsonNetResult GetHasDestOrganizationUnitPublishedPrice(long? orderId, long? orgUnitId)
         {
             if (!orderId.HasValue || !orgUnitId.HasValue)
@@ -191,19 +167,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                   ou.Prices.Any(price => price.IsPublished && price.IsActive && !price.IsDeleted && price.BeginDate <= beginDistributionDate));
 
             return new JsonNetResult(hasDestOrganizationUnitPublishedPrice);
-        }
-
-        [HttpPost]
-        public JsonNetResult GetDestinationOrganizationUnit(long? firmId)
-        {
-            if (!firmId.HasValue)
-            {
-                return new JsonNetResult();
-            }
-
-            var resp =
-                (GetOrderDestinationOrganizationUnitResponse)_publicService.Handle(new GetOrderDestinationOrganizationUnitRequest { FirmId = firmId.Value });
-            return new JsonNetResult(new { Id = resp.OrganizationUnitId, Name = resp.OrganizationUnitName });
         }
 
         [HttpPost]

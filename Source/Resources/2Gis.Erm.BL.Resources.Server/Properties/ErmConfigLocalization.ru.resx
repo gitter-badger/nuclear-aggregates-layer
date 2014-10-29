@@ -1335,9 +1335,6 @@
   <data name="EnUserProfile" xml:space="preserve">
     <value>Профиль пользователя</value>
   </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Часовые пояса</value>
-  </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Часовые пояса</value>
   </data>

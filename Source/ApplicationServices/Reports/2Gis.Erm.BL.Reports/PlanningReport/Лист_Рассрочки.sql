@@ -31,7 +31,7 @@ JOIN (	SELECT t.AccountId
 					AND o.WorkflowStepId NOT IN (1,2)
 					AND o.IsDeleted = 0
 					AND o.IsActive = 1
-					AND (o.EndDistributionDateFact > @IssueDate OR (o.WorkflowStepId IN (4,5,6) AND convert(date,o.EndDistributionDateFact)= DATEADD(d,-1,@IssueDate) ))
+					AND o.EndDistributionDateFact > @IssueDate
 					AND o.PayablePlan > 0
 					and o.BeginDistributionDate < dateadd(m,1,@IssueDate) -- отсекаем будующие заказы
 				GROUP BY o.Id, o.AccountId) t

@@ -151,7 +151,13 @@
   <data name="BusinessDirectory_ReplicateDeal_24906" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.10.02 rev. 24906\[Billing].[ReplicateDeal].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="BusinessDirectory_ReplicateDeal_25168" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.10.10 rev. 25168\[Billing].[ReplicateDeal].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="customizations_23921" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\customizations_23921.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="customizations_24070" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customizations_24070.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
