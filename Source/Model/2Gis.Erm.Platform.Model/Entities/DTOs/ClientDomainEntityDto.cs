@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class ClientDomainEntityDto : IDomainEntityDto<Client>
+    public class ClientDomainEntityDto : IDomainEntityDto<Client>
     {
         [DataMember]
         public long Id { get; set; }
@@ -90,5 +90,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsAdvertisingAgency { get; set; }
+
+        [DataMember]
+        public Uri BasicOperationsServiceUrl { get; set; }
     }
 }

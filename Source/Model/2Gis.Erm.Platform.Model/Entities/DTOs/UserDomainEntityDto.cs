@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class UserDomainEntityDto : IDomainEntityDto<User>
+    public class UserDomainEntityDto : IDomainEntityDto<User>
     {
         [DataMember]
         public long Id { get; set; }
@@ -53,5 +53,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsServiceUser { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

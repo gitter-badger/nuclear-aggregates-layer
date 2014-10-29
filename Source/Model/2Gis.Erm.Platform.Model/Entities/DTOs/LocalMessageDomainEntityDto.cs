@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class LocalMessageDomainEntityDto : IDomainEntityDto<LocalMessage>
+    public class LocalMessageDomainEntityDto : IDomainEntityDto<LocalMessage>
     {
         [DataMember]
         public long Id { get; set; }
@@ -54,5 +54,17 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public long? ProcessingTime { get; set; }
+
+        [DataMember]
+        public IntegrationTypeImport IntegrationTypeImport { get; set; }
+
+        [DataMember]
+        public IntegrationTypeExport IntegrationTypeExport { get; set; }
+
+        [DataMember]
+        public IntegrationSystem SenderSystem { get; set; }
+
+        [DataMember]
+        public IntegrationSystem ReceiverSystem { get; set; }
     }
 }

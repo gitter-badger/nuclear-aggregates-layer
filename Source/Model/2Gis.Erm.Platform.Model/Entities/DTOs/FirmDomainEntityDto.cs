@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class FirmDomainEntityDto : IDomainEntityDto<Firm>
+    public class FirmDomainEntityDto : IDomainEntityDto<Firm>
     {
         [DataMember]
         public long Id { get; set; }
@@ -93,5 +93,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public StaffAmount StaffAmount { get; set; }
+
+        [DataMember]
+        public Guid? ClientReplicationCode { get; set; }
+
+        [DataMember]
+        public Uri BasicOperationsServiceUrl { get; set; }
     }
 }

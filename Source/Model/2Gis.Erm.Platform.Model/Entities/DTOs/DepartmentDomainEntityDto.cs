@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class DepartmentDomainEntityDto : IDomainEntityDto<Department>
+    public class DepartmentDomainEntityDto : IDomainEntityDto<Department>
     {
         [DataMember]
         public long Id { get; set; }
@@ -44,5 +44,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

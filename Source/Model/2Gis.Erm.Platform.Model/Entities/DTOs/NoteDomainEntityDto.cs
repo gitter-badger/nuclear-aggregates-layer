@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class NoteDomainEntityDto : IDomainEntityDto<Note>
+    public class NoteDomainEntityDto : IDomainEntityDto<Note>
     {
         [DataMember]
         public long Id { get; set; }
@@ -50,5 +50,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public EntityName ParentTypeName { get; set; }
+
+        [DataMember]
+        public long FileContentLength { get; set; }
+
+        [DataMember]
+        public string FileContentType { get; set; }
     }
 }

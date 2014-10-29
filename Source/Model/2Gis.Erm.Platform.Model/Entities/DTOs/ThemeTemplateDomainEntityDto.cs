@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class ThemeTemplateDomainEntityDto : IDomainEntityDto<ThemeTemplate>
+    public class ThemeTemplateDomainEntityDto : IDomainEntityDto<ThemeTemplate>
     {
         [DataMember]
         public long Id { get; set; }
@@ -44,5 +44,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsSkyScraper { get; set; }
+
+        [DataMember]
+        public bool IsTemplateUsedInThemes { get; set; }
+
+        [DataMember]
+        public string FileContentType { get; set; }
+
+        [DataMember]
+        public long FileContentLength { get; set; }
     }
 }

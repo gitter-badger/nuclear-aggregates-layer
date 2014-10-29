@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AccountDomainEntityDto : IDomainEntityDto<Account>
+    public class AccountDomainEntityDto : IDomainEntityDto<Account>
     {
         [DataMember]
         public long Id { get; set; }
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public EntityReference LegalPersonRef { get; set; }
 
         [DataMember]
-        public string LegalPesonSyncCode1C { get; set; }
+        public string LegalPersonSyncCode1C { get; set; }
 
         [DataMember]
         public decimal Balance { get; set; }
@@ -53,5 +53,20 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public decimal AccountDetailBalance { get; set; }
+
+        [DataMember]
+        public EntityReference CurrencyRef { get; set; }
+
+        [DataMember]
+        public decimal LockDetailBalance { get; set; }
+
+        [DataMember]
+        public bool OwnerCanBeChanged { get; set; }
+
+        [DataMember]
+        public Uri BasicOperationsServiceUrl { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class ContributionTypeDomainEntityDto : IDomainEntityDto<ContributionType>
+    public class ContributionTypeDomainEntityDto : IDomainEntityDto<ContributionType>
     {
         [DataMember]
         public long Id { get; set; }
@@ -38,5 +38,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public long? DgppId { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

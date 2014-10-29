@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class FirmAddressDomainEntityDto : IDomainEntityDto<FirmAddress>
+    public class FirmAddressDomainEntityDto : IDomainEntityDto<FirmAddress>
     {
         [DataMember]
         public long Id { get; set; }
@@ -68,5 +68,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string ReferencePoint { get; set; }
+
+        [DataMember]
+        public bool IsFirmActive { get; set; }
+
+        [DataMember]
+        public bool IsFirmDeleted { get; set; }
+
+        [DataMember]
+        public bool FirmClosedForAscertainment { get; set; }
     }
 }

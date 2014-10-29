@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class PositionDomainEntityDto : IDomainEntityDto<Position>
+    public class PositionDomainEntityDto : IDomainEntityDto<Position>
     {
         [DataMember]
         public long Id { get; set; }
@@ -72,5 +72,17 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool RestrictChildPositionPlatforms { get; set; }
+
+        [DataMember]
+        public bool IsPublished { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
+
+        [DataMember]
+        public bool RestrictChildPositionPlatformsCanBeChanged { get; set; }
+
+        [DataMember]
+        public bool IsReadOnlyTemplate { get; set; }
     }
 }

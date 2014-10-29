@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -7,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class OrderPositionDomainEntityDto : IDomainEntityDto<OrderPosition>
+    public class OrderPositionDomainEntityDto : IDomainEntityDto<OrderPosition>
     {
         [DataMember]
         public long Id { get; set; }
@@ -83,5 +84,41 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public decimal CategoryRate { get; set; }
+
+        [DataMember]
+        public string OrderNumber { get; set; }
+
+        [DataMember]
+        public bool IsComposite { get; set; }
+
+        [DataMember]
+        public long OrganizationUnitId { get; set; }
+
+        [DataMember]
+        public DateTime PeriodStartDate { get; set; }
+
+        [DataMember]
+        public DateTime PeriodEndDate { get; set; }
+
+        [DataMember]
+        public long PriceId { get; set; }
+
+        [DataMember]
+        public long? OrderFirmId { get; set; }
+
+        [DataMember]
+        public long? RequiredPlatformId { get; set; }
+
+        [DataMember]
+        public bool IsBlockedByRelease { get; set; }
+
+        [DataMember]
+        public int OrderWorkflowStepId { get; set; }
+
+        [DataMember]
+        public IEnumerable<AdvertisementDescriptor> Advertisements { get; set; }
+
+        [DataMember]
+        public bool IsRated { get; set; }
     }
 }

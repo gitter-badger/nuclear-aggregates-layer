@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class LimitDomainEntityDto : IDomainEntityDto<Limit>
+    public class LimitDomainEntityDto : IDomainEntityDto<Limit>
     {
         [DataMember]
         public long Id { get; set; }
@@ -63,5 +63,20 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string Comment { get; set; }
+
+        [DataMember]
+        public EntityReference LegalPersonRef { get; set; }
+
+        [DataMember]
+        public EntityReference BranchOfficeRef { get; set; }
+
+        [DataMember]
+        public EntityReference InspectorRef { get; set; }
+
+        [DataMember]
+        public Uri BasicOperationsServiceUrl { get; set; }
+
+        [DataMember]
+        public string ErrorMessage { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class ContactDomainEntityDto : IDomainEntityDto<Contact>
+    public class ContactDomainEntityDto : IDomainEntityDto<Contact>
     {
         [DataMember]
         public long Id { get; set; }
@@ -117,5 +117,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public Guid ClientReplicationCode { get; set; }
     }
 }

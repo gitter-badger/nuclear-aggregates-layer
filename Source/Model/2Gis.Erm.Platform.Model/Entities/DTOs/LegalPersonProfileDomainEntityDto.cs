@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class LegalPersonProfileDomainEntityDto : IDomainEntityDto<LegalPersonProfile>
+    public class LegalPersonProfileDomainEntityDto : IDomainEntityDto<LegalPersonProfile>
     {
         [DataMember]
         public long Id { get; set; }
@@ -144,5 +144,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string BankAddress { get; set; }
+
+        [DataMember]
+        public LegalPersonType LegalPersonType { get; set; }
     }
 }

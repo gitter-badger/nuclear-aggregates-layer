@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class OperationTypeDomainEntityDto : IDomainEntityDto<OperationType>
+    public class OperationTypeDomainEntityDto : IDomainEntityDto<OperationType>
     {
         [DataMember]
         public long Id { get; set; }
@@ -50,5 +50,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public Guid ReplicationCode { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

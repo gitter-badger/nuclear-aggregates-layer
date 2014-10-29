@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class OrderDomainEntityDto : IDomainEntityDto<Order>
+    public class OrderDomainEntityDto : IDomainEntityDto<Order>
     {
         [DataMember]
         public long Id { get; set; }
@@ -174,5 +174,38 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public PaymentMethod PaymentMethod { get; set; }
+
+        [DataMember]
+        public string OrderNumber { get; set; }
+
+        [DataMember]
+        public EntityReference ClientRef { get; set; }
+
+        [DataMember]
+        public bool HasAnyOrderPosition { get; set; }
+
+        [DataMember]
+        public bool HasDestOrganizationUnitPublishedPrice { get; set; }
+
+        [DataMember]
+        public long? DealCurrencyId { get; set; }
+
+        [DataMember]
+        public OrderState PreviousWorkflowStepId { get; set; }
+
+        [DataMember]
+        public bool DiscountPercentChecked { get; set; }
+
+        [DataMember]
+        public EntityReference InspectorRef { get; set; }
+
+        [DataMember]
+        public string Platform { get; set; }
+
+        [DataMember]
+        public bool CanSwitchToAccount { get; set; }
+
+        [DataMember]
+        public bool ShowRegionalAttributes { get; set; }
     }
 }

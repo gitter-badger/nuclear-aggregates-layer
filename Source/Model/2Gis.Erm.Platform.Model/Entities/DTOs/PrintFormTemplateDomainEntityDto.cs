@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class PrintFormTemplateDomainEntityDto : IDomainEntityDto<PrintFormTemplate>
+    public class PrintFormTemplateDomainEntityDto : IDomainEntityDto<PrintFormTemplate>
     {
         [DataMember]
         public long Id { get; set; }
@@ -48,5 +48,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public string FileContentType { get; set; }
+
+        [DataMember]
+        public long FileContentLength { get; set; }
     }
 }

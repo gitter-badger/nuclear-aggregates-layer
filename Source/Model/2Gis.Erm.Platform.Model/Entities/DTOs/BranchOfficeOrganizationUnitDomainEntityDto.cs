@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class BranchOfficeOrganizationUnitDomainEntityDto : IDomainEntityDto<BranchOfficeOrganizationUnit>
+    public class BranchOfficeOrganizationUnitDomainEntityDto : IDomainEntityDto<BranchOfficeOrganizationUnit>
     {
         [DataMember]
         public long Id { get; set; }
@@ -95,5 +95,23 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string Email { get; set; }
+
+        [DataMember]
+        public long BranchOfficeAddlId { get; set; }
+
+        [DataMember]
+        public string BranchOfficeAddlInn { get; set; }
+
+        [DataMember]
+        public string BranchOfficeAddlLegalAddress { get; set; }
+
+        [DataMember]
+        public string BranchOfficeAddlName { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
+
+        [DataMember]
+        public string BranchOfficeAddlIc { get; set; }
     }
 }

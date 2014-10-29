@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AdvertisementElementTemplateDomainEntityDto : IDomainEntityDto<AdvertisementElementTemplate>
+    public class AdvertisementElementTemplateDomainEntityDto : IDomainEntityDto<AdvertisementElementTemplate>
     {
         [DataMember]
         public long Id { get; set; }
@@ -69,5 +69,19 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool NeedsValidation { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
+
+        [DataMember]
+        public EntityReference DummyAdvertisementElementRef { get; set; }
+
+        // supported file types
+        public bool IsPngSupported { get; set; }
+        public bool IsGifSupported { get; set; }
+        public bool IsBmpSupported { get; set; }
+
+        // supported article types
+        public bool IsChmSupported { get; set; }
     }
 }

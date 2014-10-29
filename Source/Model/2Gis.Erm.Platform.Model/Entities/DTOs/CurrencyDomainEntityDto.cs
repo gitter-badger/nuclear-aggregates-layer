@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class CurrencyDomainEntityDto : IDomainEntityDto<Currency>
+    public class CurrencyDomainEntityDto : IDomainEntityDto<Currency>
     {
         [DataMember]
         public long Id { get; set; }
@@ -50,5 +50,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public short ISOCode { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

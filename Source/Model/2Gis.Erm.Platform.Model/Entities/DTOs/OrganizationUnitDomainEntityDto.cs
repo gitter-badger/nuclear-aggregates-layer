@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class OrganizationUnitDomainEntityDto : IDomainEntityDto<OrganizationUnit>
+    public class OrganizationUnitDomainEntityDto : IDomainEntityDto<OrganizationUnit>
     {
         [DataMember]
         public long Id { get; set; }
@@ -65,5 +65,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public DateTime? InfoRussiaLaunchDate { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

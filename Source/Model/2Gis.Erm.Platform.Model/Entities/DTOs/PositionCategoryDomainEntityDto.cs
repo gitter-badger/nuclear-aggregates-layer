@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class PositionCategoryDomainEntityDto : IDomainEntityDto<PositionCategory>
+    public class PositionCategoryDomainEntityDto : IDomainEntityDto<PositionCategory>
     {
         [DataMember]
         public long Id { get; set; }
@@ -44,5 +44,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsSupportedByExport { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

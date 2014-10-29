@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class UserProfileDomainEntityDto : IDomainEntityDto<UserProfile>
+    public class UserProfileDomainEntityDto : IDomainEntityDto<UserProfile>
     {
         [DataMember]
         public long Id { get; set; }
@@ -68,5 +68,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string PlanetURL { get; set; }
+
+        [DataMember]
+        public long ProfileId { get; set; }
+
+        [DataMember]
+        public string DomainAccountName { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

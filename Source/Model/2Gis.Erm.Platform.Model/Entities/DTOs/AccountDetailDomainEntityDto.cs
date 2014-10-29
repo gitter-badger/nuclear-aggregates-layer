@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AccountDetailDomainEntityDto : IDomainEntityDto<AccountDetail>
+    public class AccountDetailDomainEntityDto : IDomainEntityDto<AccountDetail>
     {
         [DataMember]
         public long Id { get; set; }
@@ -59,5 +59,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public bool OwnerCanBeChanged { get; set; }
     }
 }

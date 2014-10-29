@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AssociatedPositionsGroupDomainEntityDto : IDomainEntityDto<AssociatedPositionsGroup>
+    public class AssociatedPositionsGroupDomainEntityDto : IDomainEntityDto<AssociatedPositionsGroup>
     {
         [DataMember]
         public long Id { get; set; }
@@ -41,5 +41,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsActive { get; set; }
+
+        [DataMember]
+        public bool PriceIsDeleted { get; set; }
+
+        [DataMember]
+        public bool PriceIsPublished { get; set; }
     }
 }

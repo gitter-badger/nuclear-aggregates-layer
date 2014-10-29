@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class PriceDomainEntityDto : IDomainEntityDto<Price>
+    public class PriceDomainEntityDto : IDomainEntityDto<Price>
     {
         [DataMember]
         public long Id { get; set; }
@@ -53,5 +53,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
     }
 }

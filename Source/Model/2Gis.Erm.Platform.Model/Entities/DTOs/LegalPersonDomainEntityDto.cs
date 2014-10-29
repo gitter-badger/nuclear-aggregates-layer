@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class LegalPersonDomainEntityDto : IDomainEntityDto<LegalPerson>
+    public class LegalPersonDomainEntityDto : IDomainEntityDto<LegalPerson>
     {
         [DataMember]
         public long Id { get; set; }
@@ -90,5 +90,12 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string Ic { get; set; }
+
+        [DataMember]
+        // Это св-во не учавствует в логике и используется только для метаданных.
+        public string BusinessmanInn { get; set; }
+
+        [DataMember]
+        public bool HasProfiles { get; set; }
     }
 }

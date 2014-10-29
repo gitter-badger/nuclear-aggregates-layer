@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AdvertisementDomainEntityDto : IDomainEntityDto<Advertisement>
+    public class AdvertisementDomainEntityDto : IDomainEntityDto<Advertisement>
     {
         [DataMember]
         public long Id { get; set; }
@@ -50,5 +50,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public long? DgppId { get; set; }
+
+        [DataMember]
+        public bool HasAssignedOrder { get; set; }
+
+        [DataMember]
+        public bool IsReadOnlyTemplate { get; set; }
+
+        [DataMember]
+        public bool UserDoesntHaveRightsToEditFirm { get; set; }
     }
 }

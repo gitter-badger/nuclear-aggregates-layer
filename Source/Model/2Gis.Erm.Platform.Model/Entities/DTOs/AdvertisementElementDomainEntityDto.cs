@@ -8,7 +8,14 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AdvertisementElementDomainEntityDto : IDomainEntityDto<AdvertisementElement>
+    public class AdvertisementElementDomainEntityDto : IDomainEntityDto<AdvertisementElement>,
+                                                       IAdvertisementElementRestrictions,
+                                                       ITextAdvertisementElementDomainEntityDto,
+                                                       IPeriodAdvertisementElementDomainEntityDto,
+                                                       IFasCommentAdvertisementElementDomainEntityDto,
+                                                       IFileAdvertisementElementDomainEntityDto,
+                                                       ILinkAdvertisementElementDomainEntityDto,
+                                                       IAdvertisementElementTimestampDomainEntityDto
     {
         [DataMember]
         public long Id { get; set; }
@@ -63,5 +70,53 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public long? DgppId { get; set; }
+
+        [DataMember]
+        public string TemplateFileExtensionRestriction { get; set; }
+
+        [DataMember]
+        public string TemplateImageDimensionRestriction { get; set; }
+
+        [DataMember]
+        public bool TemplateFormattedText { get; set; }
+
+        [DataMember]
+        public bool TemplateAdvertisementLink { get; set; }
+
+        [DataMember]
+        public int? TemplateTextLengthRestriction { get; set; }
+
+        [DataMember]
+        public byte? TemplateMaxSymbolsInWord { get; set; }
+
+        [DataMember]
+        public int? TemplateTextLineBreaksRestriction { get; set; }
+
+        [DataMember]
+        public AdvertisementElementRestrictionType TemplateRestrictionType { get; set; }
+
+        [DataMember]
+        public string PlainText { get; set; }
+
+        [DataMember]
+        public string FormattedText { get; set; }
+
+        [DataMember]
+        public long FileContentLength { get; set; }
+
+        [DataMember]
+        public string FileContentType { get; set; }
+
+        [DataMember]
+        public bool NeedsValidation { get; set; }
+
+        [DataMember]
+        public bool CanUserChangeStatus { get; set; }
+
+        [DataMember]
+        public bool DisableEdit { get; set; }
+
+        [DataMember]
+        public AdvertisementElementStatusValue Status { get; set; }
     }
 }

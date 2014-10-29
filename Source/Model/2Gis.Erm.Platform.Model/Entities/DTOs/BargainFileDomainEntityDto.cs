@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class BargainFileDomainEntityDto : IDomainEntityDto<BargainFile>
+    public class BargainFileDomainEntityDto : IDomainEntityDto<BargainFile>
     {
         [DataMember]
         public long Id { get; set; }
@@ -51,5 +51,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public BargainFileKind FileKind { get; set; }
+
+        [DataMember]
+        public string FileContentType { get; set; }
+
+        [DataMember]
+        public long FileContentLength { get; set; }
     }
 }

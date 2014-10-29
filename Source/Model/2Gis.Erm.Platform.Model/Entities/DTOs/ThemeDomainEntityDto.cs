@@ -1,13 +1,14 @@
 using System;
 using System.Runtime.Serialization;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class ThemeDomainEntityDto : IDomainEntityDto<Theme>
+    public class ThemeDomainEntityDto : IDomainEntityDto<Theme>
     {
         [DataMember]
         public long Id { get; set; }
@@ -56,5 +57,20 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public ThemeTemplateCode ThemeTemplateCode { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
+
+        [DataMember]
+        public string FileContentType { get; set; }
+
+        [DataMember]
+        public long FileContentLength { get; set; }
+
+        [DataMember]
+        public int OrganizationUnitCount { get; set; }
     }
 }

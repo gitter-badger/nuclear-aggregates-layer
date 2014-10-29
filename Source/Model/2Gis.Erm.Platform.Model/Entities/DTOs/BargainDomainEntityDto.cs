@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class BargainDomainEntityDto : IDomainEntityDto<Bargain>
+    public class BargainDomainEntityDto : IDomainEntityDto<Bargain>
     {
         [DataMember]
         public long Id { get; set; }
@@ -75,5 +75,19 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public BargainKind BargainKind { get; set; }
+
+        // COMMENT {all, 10.07.2014}: Мне кажется, что эти поля (права доступа) не имеют отношения к сущности договора, и им не место в DomainEntityDto. 
+        // С другой стороны "у нас так принято". Кто-нибудь может помочь разрешить этот вопрос?
+        [DataMember]
+        public bool UserCanWorkWithAdvertisingAgencies { get; set; }
+
+        [DataMember]
+        public bool IsLegalPersonChoosingDenied { get; set; }
+
+        [DataMember]
+        public bool IsBranchOfficeOrganizationUnitChoosingDenied { get; set; }
+
+        [DataMember]
+        public long ClientId { get; set; }
     }
 }

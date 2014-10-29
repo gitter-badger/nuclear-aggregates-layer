@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class LockDomainEntityDto : IDomainEntityDto<Lock>
+    public class LockDomainEntityDto : IDomainEntityDto<Lock>
     {
         [DataMember]
         public long Id { get; set; }
@@ -62,5 +62,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public EntityReference BranchOfficeOrganizationUnitRef { get; set; }
+
+        [DataMember]
+        public EntityReference LegalPersonRef { get; set; }
+
+        [DataMember]
+        public EntityReference OrderRef { get; set; }
     }
 }

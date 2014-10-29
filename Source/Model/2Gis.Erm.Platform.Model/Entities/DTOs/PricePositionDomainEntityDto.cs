@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class PricePositionDomainEntityDto : IDomainEntityDto<PricePosition>
+    public class PricePositionDomainEntityDto : IDomainEntityDto<PricePosition>
     {
         [DataMember]
         public long Id { get; set; }
@@ -63,5 +63,20 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public PricePositionRateType RateType { get; set; }
+
+        [DataMember]
+        public bool IsRateTypeAvailable { get; set; }
+
+        [DataMember]
+        public bool IsPositionControlledByAmount { get; set; }
+
+        [DataMember]
+        public bool PriceIsDeleted { get; set; }
+
+        [DataMember]
+        public bool PriceIsPublished { get; set; }
+
+        [DataMember]
+        public EntityReference CurrencyRef { get; set; }
     }
 }

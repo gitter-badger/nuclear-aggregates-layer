@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class DenialReasonDomainEntityDto : IDomainEntityDto<DenialReason>
+    public class DenialReasonDomainEntityDto : IDomainEntityDto<DenialReason>
     {
         [DataMember]
         public long Id { get; set; }
@@ -42,5 +42,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public byte[] Timestamp { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

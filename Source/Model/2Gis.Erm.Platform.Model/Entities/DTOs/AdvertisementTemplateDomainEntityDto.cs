@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class AdvertisementTemplateDomainEntityDto : IDomainEntityDto<AdvertisementTemplate>
+    public class AdvertisementTemplateDomainEntityDto : IDomainEntityDto<AdvertisementTemplate>
     {
         [DataMember]
         public long Id { get; set; }
@@ -47,5 +47,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool IsPublished { get; set; }
+
+        [DataMember]
+        public bool HasActiveAdvertisement { get; set; }
+
+        [DataMember]
+        public Uri IdentityServiceUrl { get; set; }
     }
 }

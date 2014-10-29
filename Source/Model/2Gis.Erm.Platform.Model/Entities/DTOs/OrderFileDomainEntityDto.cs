@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
     [DataContract]
-    public partial class OrderFileDomainEntityDto : IDomainEntityDto<OrderFile>
+    public class OrderFileDomainEntityDto : IDomainEntityDto<OrderFile>
     {
         [DataMember]
         public long Id { get; set; }
@@ -51,5 +51,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public OrderFileKind FileKind { get; set; }
+
+        [DataMember]
+        public long FileContentLength { get; set; }
+
+        [DataMember]
+        public string FileContentType { get; set; }
+
+        [DataMember]
+        public bool UserDoesntHaveRightsToEditOrder { get; set; }
     }
 }
