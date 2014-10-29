@@ -10,8 +10,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly IReadOnlyDictionary<Type, string> _entityTypeToContainerNameMap;
         private readonly IReadOnlyDictionary<string, IEnumerable<IEfDbModelConfiguration>> _containerNameToConfigurationsMap;
 
-        public EfDbModelConfigurationsProvider(Dictionary<Type, string> entityTypeToContainerNameMap,
-                                                 Dictionary<string, IEnumerable<IEfDbModelConfiguration>> containerNameToConfigurationsMap)
+        public EfDbModelConfigurationsProvider(IReadOnlyDictionary<Type, string> entityTypeToContainerNameMap,
+                                               IReadOnlyDictionary<string, IEnumerable<IEfDbModelConfiguration>> containerNameToConfigurationsMap)
         {
             _entityTypeToContainerNameMap = entityTypeToContainerNameMap;
             _containerNameToConfigurationsMap = containerNameToConfigurationsMap;
