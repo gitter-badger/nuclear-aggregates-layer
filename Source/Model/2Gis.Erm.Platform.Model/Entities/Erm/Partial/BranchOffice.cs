@@ -12,10 +12,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public IEnumerable<IEntityPart> Parts
         {
-            get
-            {
-                return _parts ?? (_parts = Enumerable.Empty<IEntityPart>());
-            }
+            get { return _parts ?? (_parts = Enumerable.Empty<IEntityPart>()); }
 
             set
             {

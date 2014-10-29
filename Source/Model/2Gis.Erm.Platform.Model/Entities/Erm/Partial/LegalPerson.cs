@@ -5,8 +5,9 @@ using System.Linq;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 // ReSharper disable CheckNamespace
+
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
-// ReSharper restore CheckNamespace
+    // ReSharper restore CheckNamespace
 {
     public partial class LegalPerson : IPartable
     {
@@ -14,10 +15,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public IEnumerable<IEntityPart> Parts
         {
-            get
-            {
-                return _parts ?? (_parts = Enumerable.Empty<IEntityPart>());
-            }
+            get { return _parts ?? (_parts = Enumerable.Empty<IEntityPart>()); }
 
             set
             {

@@ -1,8 +1,9 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 // ReSharper disable CheckNamespace
+
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
-// ReSharper restore CheckNamespace
+    // ReSharper restore CheckNamespace
 {
     public partial class DictionaryEntityInstance : IDynamicEntityInstance
     {

@@ -3,7 +3,7 @@
 // ReSharper disable CheckNamespace
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
-// ReSharper restore CheckNamespace
+    // ReSharper restore CheckNamespace
 {
     public partial class DictionaryEntityPropertyInstance : INonActivityDynamicEntityPropertyInstance
     {
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
             var propertyInstance = (DictionaryEntityPropertyInstance)obj;
 
-            return this.EntityInstanceId == propertyInstance.EntityInstanceId && this.PropertyId == propertyInstance.PropertyId;
+            return EntityInstanceId == propertyInstance.EntityInstanceId && PropertyId == propertyInstance.PropertyId;
         }
     }
 }
