@@ -90,29 +90,7 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
 
         public SearchDescriptor<TDocument> ApplyTo(SearchDescriptor<TDocument> searchDescriptor)
         {
-            switch (_filters.Count)
-            {
-                case 0:
-                    break;
-                case 1:
-                    searchDescriptor = searchDescriptor.Filter(_filters[0]);
-                    break;
-                default:
-                    searchDescriptor = searchDescriptor.Filter(y => y.And(_filters.ToArray()));
-                    break;
-            }
-
-            switch (_queries.Count)
-            {
-                case 0:
-                    break;
-                case 1:
-                    searchDescriptor = searchDescriptor.Query(_queries[0]);
-                    break;
-                default:
-                    searchDescriptor = searchDescriptor.Query(y => y.Bool(z => z.Should(_queries.ToArray())));
-                    break;
-            }
+            searchDescriptor = ApplyQueriesAndFilters(searchDescriptor);
 
             foreach (var func in _funcs)
             {
@@ -120,6 +98,60 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
             }
 
             return searchDescriptor;
+        }
+
+        private SearchDescriptor<TDocument> ApplyQueriesAndFilters(SearchDescriptor<TDocument> searchDescriptor)
+        {
+            if (_queries.Count == 0 && _filters.Count == 0)
+            {
+                return searchDescriptor;
+            }
+
+            searchDescriptor = searchDescriptor.Query(query =>
+            {
+                if (_filters.Count != 0)
+                {
+                    return query.Filtered(filtered =>
+                    {
+                        if (_queries.Count != 0)
+                        {
+                            filtered.Query(ApplyQueries);
+                        }
+
+                        filtered.Filter(ApplyFilters);
+                    });
+                }
+
+                return ApplyQueries(query);
+            });
+
+            return searchDescriptor;
+        }
+
+        private QueryContainer ApplyQueries(QueryDescriptor<TDocument> queryDescriptor)
+        {
+            switch (_queries.Count)
+            {
+                case 0:
+                    return queryDescriptor;
+                case 1:
+                    return _queries[0](queryDescriptor);
+                default:
+                    return queryDescriptor.Bool(b => b.Should(_queries.ToArray()));
+            }
+        }
+
+        private FilterContainer ApplyFilters(FilterDescriptor<TDocument> filterDescriptor)
+        {
+            switch (_filters.Count)
+            {
+                case 0:
+                    return filterDescriptor;
+                case 1:
+                    return _filters[0](filterDescriptor);
+                default:
+                    return filterDescriptor.Bool(b => b.Must(_filters.ToArray()));
+            }
         }
 
         public void AddFilter(Func<FilterDescriptor<TDocument>, FilterContainer> filter)

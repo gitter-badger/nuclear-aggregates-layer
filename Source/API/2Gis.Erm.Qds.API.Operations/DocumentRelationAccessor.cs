@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata.Features;
@@ -11,35 +12,25 @@ namespace DoubleGis.Erm.Qds.API.Operations
 
     public sealed class DocumentRelationAccessor<TDocument, TDocumentPart> : IDocumentRelationAccessor
     {
-        private readonly Expression<Func<TDocument, string>> _getDocumentPartIdAsStringExpression;
-        private readonly Func<TDocument, string> _getDocumentPartIdAsStringFunc;
-        private readonly Expression<Func<TDocument, object>> _getDocumentPartIdAsObjectExpression;
+        private readonly Func<TDocument, object> _getDocumentPartIdFunc;
+        private readonly Expression<Func<TDocument, object>> _getDocumentPartIdExpression;
         private readonly Action<TDocument, TDocumentPart> _insertDocumentPartFunc;
 
         public DocumentRelationAccessor(DocumentPartFeature<TDocument, TDocumentPart> documentPartFeature)
         {
-            _getDocumentPartIdAsStringExpression = documentPartFeature.DocumentPartIdExpression;
-            _getDocumentPartIdAsStringFunc = _getDocumentPartIdAsStringExpression.Compile();
-
-            var convertExpression = Expression.Convert(_getDocumentPartIdAsStringExpression.Body, typeof(object));
-            _getDocumentPartIdAsObjectExpression = Expression.Lambda<Func<TDocument, object>>(convertExpression, _getDocumentPartIdAsStringExpression.Parameters);
-
+            _getDocumentPartIdExpression = documentPartFeature.DocumentPartIdExpression;
+            _getDocumentPartIdFunc = documentPartFeature.DocumentPartIdExpression.Compile();
             _insertDocumentPartFunc = documentPartFeature.InsertDocumentPartFunc;
         }
 
-        public Expression<Func<TDocument, string>> GetDocumentPartIdAsStringExpression
+        public Expression<Func<TDocument, object>> GetDocumentPartIdExpression
         {
-            get { return _getDocumentPartIdAsStringExpression; }
-        }
-
-        public Expression<Func<TDocument, object>> GetDocumentPartIdAsObjectExpression
-        {
-            get { return _getDocumentPartIdAsObjectExpression; }
+            get { return _getDocumentPartIdExpression; }
         }
 
         public string GetDocumentPartId(TDocument document)
         {
-            return _getDocumentPartIdAsStringFunc(document);
+            return Convert.ToString(_getDocumentPartIdFunc(document), CultureInfo.InvariantCulture);
         }
         
         public void InsertDocumentPart(TDocument document, TDocumentPart documentPart)

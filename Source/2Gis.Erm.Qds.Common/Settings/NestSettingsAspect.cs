@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Common;
 using System.Linq;
 
@@ -16,10 +17,11 @@ namespace DoubleGis.Erm.Qds.Common.Settings
     {
         public NestSettingsAspect(IConnectionStringSettings connectionStringsSettings)
         {
-            string connectionString;
-            if (!connectionStringsSettings.AllConnections.TryGetValue(ConnectionStringName.ErmSearch, out connectionString))
+            var connectionString = string.Empty;
+            ConnectionStringSettings settings;
+            if (connectionStringsSettings.AllConnections.TryGetValue(ConnectionStringName.ErmSearch, out settings))
             {
-                connectionString = string.Empty;
+                connectionString = settings.ConnectionString;
             }
 
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };
@@ -67,8 +69,7 @@ namespace DoubleGis.Erm.Qds.Common.Settings
 
             var connectionSettings = new ConnectionSettings(connectionPool)
                 .ExposeRawResponse()                        // более подробные сообщения об ошибках
-                // TODO {m.pashuk, 18.09.2014}: https://github.com/elasticsearch/elasticsearch-net/issues/953
-                //.EnableCompressedResponses()                // accept-encoding: gzip, deflate
+                .EnableCompressedResponses()                // accept-encoding: gzip, deflate
                 .SetPingTimeout(2000)                       // на тестовом кластере живая нода может пинговаться долго, таймаут по умолчанию не подходит
                 .ThrowOnElasticsearchServerExceptions();    // кидать исключения вместо выставления IResponse.IsValid
 

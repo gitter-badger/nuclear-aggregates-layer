@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Core.EntityProjection;
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
     {
         private readonly IFinder _finder;
         private readonly ISelectSpecification<TEntity, object> _selectSpec;
-        private readonly IProjectSpecification<ObjectAccessor, IDocumentWrapper<TDocument>> _projectSpec;
+        private readonly IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> _projectSpec;
 
         public EntityToDocumentRelation(IFinder finder,
                                         EntityRelationFeature<TDocument, TEntity> entityRelationFeature)
@@ -27,17 +28,23 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _projectSpec = entityRelationFeature.ProjectSpec;
         }
 
-        public IEnumerable<IDocumentWrapper> SelectAllDocuments()
+        public IEnumerable<IIndexedDocumentWrapper> SelectAllDocuments(IProgress<long> progress = null)
         {
+            if (progress != null)
+            {
+                var totalCount = _finder.Find(Specs.Find.Custom<TEntity>(x => true)).LongCount();
+                progress.Report(totalCount);
+            }
+
             return SelectDocuments(Specs.Find.Custom<TEntity>(x => true));
         }
 
-        public IEnumerable<IDocumentWrapper> SelectDocuments(IReadOnlyCollection<long> ids)
+        public IEnumerable<IIndexedDocumentWrapper> SelectDocuments(IReadOnlyCollection<long> ids)
         {
             return SelectDocuments(Specs.Find.ByIds<TEntity>(ids));
         }
 
-        private IEnumerable<IDocumentWrapper> SelectDocuments(IFindSpecification<TEntity> findSpec)
+        private IEnumerable<IIndexedDocumentWrapper> SelectDocuments(IFindSpecification<TEntity> findSpec)
         {
             var entities = _finder.Find(_selectSpec, findSpec).AsEnumerable();
             return entities.Select(x => _projectSpec.Project(ObjectAccessor.Create(x)));

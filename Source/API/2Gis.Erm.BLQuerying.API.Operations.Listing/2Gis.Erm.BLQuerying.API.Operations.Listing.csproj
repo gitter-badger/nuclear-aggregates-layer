@@ -59,7 +59,6 @@
     <Compile Include="List\DTO\ListClientDto.cs" />
     <Compile Include="List\DTO\ListDepartmentDto.cs" />
     <Compile Include="List\DTO\ListFirmDto.cs" />
-    <Compile Include="List\DTO\ListTimeZoneDto.cs" />
     <Compile Include="List\DTO\ListThemeCategoryDto.cs" />
     <Compile Include="List\DTO\ListThemeOrganizationUnitDto.cs" />
     <Compile Include="List\DTO\ListRoleDto.cs" />

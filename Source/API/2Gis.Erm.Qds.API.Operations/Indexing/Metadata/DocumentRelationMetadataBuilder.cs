@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata
             return this;
         }
 
-        public DocumentRelationMetadataBuilder Relation<TDocument, TDocumentPart>(Expression<Func<TDocument, string>> documentPartIdExpression,
+        public DocumentRelationMetadataBuilder Relation<TDocument, TDocumentPart>(Expression<Func<TDocument, object>> documentPartIdExpression,
                                                                                   Action<TDocument, TDocumentPart> insertDocumentPartFunc)
         {
             if (typeof(TDocument) != _documentType)
