@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -15,18 +16,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
     public class ProcessHotClientRequestOperationService : IProcessHotClientRequestOperationService
     {
         private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IFirmReadModel _firmReadModel;
         private readonly ITaskReadModel _taskReadModel;
         private readonly ICreateTaskAggregateService _createTaskAggregateService;
         private readonly IUpdateTaskAggregateService _updateTaskAggregateService;
         private readonly IBindTaskToHotClientRequestAggregateService _bindTaskToHotClientRequestAggregateService;
 
         public ProcessHotClientRequestOperationService(
+            IFirmReadModel firmReadModel,
             ITaskReadModel taskReadModel,
             ICreateTaskAggregateService createTaskAggregateService,
             IUpdateTaskAggregateService updateUpdateTaskAggregateService,
             IBindTaskToHotClientRequestAggregateService bindTaskToHotClientRequestAggregateService,
             IOperationScopeFactory scopeFactory)
         {
+            _firmReadModel = firmReadModel;
             _taskReadModel = taskReadModel;
             _createTaskAggregateService = createTaskAggregateService;
             _updateTaskAggregateService = updateUpdateTaskAggregateService;
@@ -96,7 +100,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
 
         private void BindTask(long requestId, Guid taskId)
         {
-            _bindTaskToHotClientRequestAggregateService.BindTask(requestId, taskId);
+            var hotClientRequest = _firmReadModel.GetHotClientRequest(requestId);
+            _bindTaskToHotClientRequestAggregateService.BindTask(hotClientRequest, taskId);
         }
 
         private static string DescribeTask(HotClientRequestDto hotClient)
