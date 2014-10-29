@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
 using Microsoft.Practices.Unity;
 
-namespace DoubleGis.Erm.BLCore.DI.Infrastructure.RequestHandling
+namespace DoubleGis.Erm.BLCore.DI.Factories.RequestHandling
 {
     public sealed class UnityHandlerFactory : AbstractRequestHandlerFactory
     {

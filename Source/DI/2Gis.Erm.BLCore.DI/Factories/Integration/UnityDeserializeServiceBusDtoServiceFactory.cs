@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.Infrastructure
 
 using Microsoft.Practices.Unity;
 
-namespace DoubleGis.Erm.BLCore.DI.Infrastructure.Integration
+namespace DoubleGis.Erm.BLCore.DI.Factories.Integration
 {
     public class UnityDeserializeServiceBusDtoServiceFactory : IDeserializeServiceBusDtoServiceFactory
     {
