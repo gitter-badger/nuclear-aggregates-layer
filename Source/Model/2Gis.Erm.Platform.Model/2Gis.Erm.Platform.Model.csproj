@@ -46,157 +46,97 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\GenerateSecurityDomainEntityDTOs.log">
-      <Link>Entities\DTOs\GenerateSecurityDomainEntityDTOs.log</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </None>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\GenerateSecurityDomainEntityDTOs.tt">
-      <Link>Entities\DTOs\GenerateSecurityDomainEntityDTOs.tt</Link>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GenerateSecurityDomainEntityDTOs.log</LastGenOutput>
-    </None>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\GenerateErmDomainEntityDTOs.log">
-      <Link>Entities\DTOs\GenerateErmDomainEntityDTOs.log</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </None>
-    <None Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\GenerateErmDomainEntityDTOs.tt">
-      <Link>Entities\DTOs\GenerateErmDomainEntityDTOs.tt</Link>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GenerateErmDomainEntityDTOs.log</LastGenOutput>
-      <CustomToolNamespace>DoubleGis.Erm.Platform.Model.Entities.DTOs</CustomToolNamespace>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Common.cs">
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementDenialReasonDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdvertisementElementDenialReasonDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementStatusDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdvertisementElementStatusDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentBaseDomainEntityDto.cs">
-      <Link>Entities\DTOs\AppointmentBaseDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AppointmentReferenceDomainEntityDto.cs">
-      <Link>Entities\DTOs\AppointmentReferenceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BirthdayCongratulationDomainEntityDto.cs">
-      <Link>Entities\DTOs\BirthdayCongratulationDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BuildingDomainEntityDto.cs">
-      <Link>Entities\DTOs\BuildingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\BusinessEntityInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BusinessEntityPropertyInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\BusinessEntityPropertyInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ChargeDomainEntityDto.cs">
-      <Link>Entities\DTOs\ChargeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ChargesHistoryDomainEntityDto.cs">
-      <Link>Entities\DTOs\ChargesHistoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DenialReasonDomainEntityDto.cs">
-      <Link>Entities\DTOs\DenialReasonDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DepCardDomainEntityDto.cs">
-      <Link>Entities\DTOs\DepCardDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\DictionaryEntityInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DictionaryEntityPropertyInstanceDomainEntityDto.cs">
-      <Link>Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowDeliveryData_LetterSendRequestDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowDeliveryData_LetterSendRequestDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowNomenclatures_NomenclatureElementDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowNomenclatures_NomenclatureElementDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowNomenclatures_NomenclatureElementRelationDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowNomenclatures_NomenclatureElementRelationDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersInvoiceDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowOrdersInvoiceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrders_DenialReasonDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowOrders_DenialReasonDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowPriceListsPriceListDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowPriceListsPriceListPositionDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestMessageDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderProcessingRequestMessageDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedBusinessOperationDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessingDomainEntityDto.cs">
-      <Link>Entities\DTOs\PerformedOperationPrimaryProcessingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallBaseDomainEntityDto.cs">
-      <Link>Entities\DTOs\PhonecallBaseDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PhonecallReferenceDomainEntityDto.cs">
-      <Link>Entities\DTOs\PhonecallReferenceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskBaseDomainEntityDto.cs">
-      <Link>Entities\DTOs\TaskBaseDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TaskReferenceDomainEntityDto.cs">
-      <Link>Entities\DTOs\TaskReferenceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\UserTerritoriesOrganizationUnitsDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserTerritoriesOrganizationUnitsDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="Aggregates\Aliases\ChargeAggregate.cs" />
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
+    <Compile Include="Entities\DTOs\AccountDetailDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AccountDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ActionsHistoryDetailDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ActionsHistoryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdditionalFirmServiceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdsTemplatesAdsElementTemplateDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdvertisementDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdvertisementElementDenialReasonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdvertisementElementDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdvertisementElementStatusDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdvertisementElementTemplateDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AdvertisementTemplateDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AfterSaleServiceActivityDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AppointmentBaseDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AppointmentReferenceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AssociatedPositionDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\AssociatedPositionsGroupDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BargainDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BargainFileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BargainTypeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BillDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BirthdayCongratulationDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BuildingDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BusinessEntityInstanceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\BusinessEntityPropertyInstanceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CardRelationDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CategoryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CategoryFirmAddressDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CategoryGroupDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CategoryOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ChargeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ChargesHistoryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CityPhoneZoneDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ClientDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ContactDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ContributionTypeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CountryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CurrencyDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\CurrencyRateDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\DealDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\DenialReasonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\DeniedPositionDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\DepartmentDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\DepCardDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\DictionaryEntityInstanceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\FileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\FirmAddressDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\FirmAddressServiceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\FirmContactDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\FirmDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\HotClientRequestDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ImportedFirmAddressDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\LegalPersonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\LegalPersonProfileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\LimitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\LocalMessageDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\LockDetailDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\LockDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\MessageTypeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\NoteDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\NotificationAddressesDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\NotificationEmailsAttachmentsDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\NotificationEmailsCcDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\NotificationEmailsDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\NotificationEmailsToDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\NotificationProcessingsDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OperationDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OperationTypeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderFileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderPositionAdvertisementDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderPositionDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderProcessingRequestDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderProcessingRequestMessageDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderReleaseTotalDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrderValidationResultDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\OrganizationUnitDtoDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Partial\AdvertisementElementResponsibilities.cs" />
     <Compile Include="Entities\DTOs\Partial\AdvertisementElementStatusDomainEntityDto.partial.cs" />
     <Compile Include="Entities\Activity\Activity.cs" />
@@ -204,6 +144,45 @@
     <Compile Include="Entities\Activity\EntityReference.cs" />
     <Compile Include="Entities\Activity\EntityToEntityReferenceExtensions.cs" />
     <Compile Include="Entities\DTOs\Partial\DenialReasonDomainEntityDto.partial.cs" />
+    <Compile Include="Entities\DTOs\PerformedBusinessOperationDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PerformedOperationFinalProcessingDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PerformedOperationPrimaryProcessingDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PhonecallBaseDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PhonecallReferenceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PlatformDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PositionCategoryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PositionChildrenDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PositionDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PriceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PricePositionDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\PrintFormTemplateDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ProjectDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ReferenceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ReferenceItemDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\RegionalAdvertisingSharingDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ReleaseInfoDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ReleasesWithdrawalsPositionDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ReleaseValidationResultDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ReleaseWithdrawalDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\RoleDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\RolePrivilegeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\TaskBaseDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\TaskReferenceDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\TerritoryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\TerritoryDtoDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ThemeCategoryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ThemeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ThemeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\ThemeTemplateDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\TimeZoneDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UserDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UserEntityDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UserOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UserProfileDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UserRoleDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UserTerritoriesOrganizationUnitsDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\UserTerritoryDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\WithdrawalInfoDomainEntityDto.cs" />
     <Compile Include="Entities\EAV\IDynamicEntityPropertiesConverter.cs" />
     <Compile Include="Entities\EAV\IDynamicPropertiesConverterFactory.cs" />
     <Compile Include="Entities\Enums\AccountType.cs" />
@@ -524,423 +503,7 @@
     <Compile Include="Entities\DTOs\Partial\ThemeDomainEntityDto.partial.cs" />
     <Compile Include="Entities\DTOs\Partial\ThemeTemplateDomainEntityDto.partial.cs" />
     <Compile Include="Entities\DTOs\Partial\UserProfileDomainEntityDto.partial.cs" />
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AccountDetailDomainEntityDto.cs">
-      <Link>Entities\DTOs\AccountDetailDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AccountDomainEntityDto.cs">
-      <Link>Entities\DTOs\AccountDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistoryDetailDomainEntityDto.cs">
-      <Link>Entities\DTOs\ActionsHistoryDetailDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ActionsHistoryDomainEntityDto.cs">
-      <Link>Entities\DTOs\ActionsHistoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdditionalFirmServiceDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdditionalFirmServiceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdsTemplatesAdsElementTemplateDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdsTemplatesAdsElementTemplateDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdvertisementDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdvertisementElementDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementElementTemplateDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdvertisementElementTemplateDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AdvertisementTemplateDomainEntityDto.cs">
-      <Link>Entities\DTOs\AdvertisementTemplateDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AfterSaleServiceActivityDomainEntityDto.cs">
-      <Link>Entities\DTOs\AfterSaleServiceActivityDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPositionDomainEntityDto.cs">
-      <Link>Entities\DTOs\AssociatedPositionDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\AssociatedPositionsGroupDomainEntityDto.cs">
-      <Link>Entities\DTOs\AssociatedPositionsGroupDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BargainDomainEntityDto.cs">
-      <Link>Entities\DTOs\BargainDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BargainFileDomainEntityDto.cs">
-      <Link>Entities\DTOs\BargainFileDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BargainTypeDomainEntityDto.cs">
-      <Link>Entities\DTOs\BargainTypeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BillDomainEntityDto.cs">
-      <Link>Entities\DTOs\BillDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BranchOfficeDomainEntityDto.cs">
-      <Link>Entities\DTOs\BranchOfficeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\BranchOfficeOrganizationUnitDomainEntityDto.cs">
-      <Link>Entities\DTOs\BranchOfficeOrganizationUnitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CardRelationDomainEntityDto.cs">
-      <Link>Entities\DTOs\CardRelationDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryDomainEntityDto.cs">
-      <Link>Entities\DTOs\CategoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryFirmAddressDomainEntityDto.cs">
-      <Link>Entities\DTOs\CategoryFirmAddressDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryGroupDomainEntityDto.cs">
-      <Link>Entities\DTOs\CategoryGroupDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CategoryOrganizationUnitDomainEntityDto.cs">
-      <Link>Entities\DTOs\CategoryOrganizationUnitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CityPhoneZoneDomainEntityDto.cs">
-      <Link>Entities\DTOs\CityPhoneZoneDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ClientDomainEntityDto.cs">
-      <Link>Entities\DTOs\ClientDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ContactDomainEntityDto.cs">
-      <Link>Entities\DTOs\ContactDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ContributionTypeDomainEntityDto.cs">
-      <Link>Entities\DTOs\ContributionTypeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CountryDomainEntityDto.cs">
-      <Link>Entities\DTOs\CountryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CurrencyDomainEntityDto.cs">
-      <Link>Entities\DTOs\CurrencyDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\CurrencyRateDomainEntityDto.cs">
-      <Link>Entities\DTOs\CurrencyRateDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DealDomainEntityDto.cs">
-      <Link>Entities\DTOs\DealDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\DeniedPositionDomainEntityDto.cs">
-      <Link>Entities\DTOs\DeniedPositionDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFailedEntityDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFailedEntityDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowCardExtensionsCardCommercialDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowCardExtensionsCardCommercialDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowFinancialDataClientDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowFinancialDataClientDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowFinancialDataLegalEntityDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowFinancialDataLegalEntityDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersAdvMaterialDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowOrdersAdvMaterialDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersOrderDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowOrdersOrderDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersResourceDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowOrdersResourceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersThemeBranchDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowOrdersThemeBranchDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ExportFlowOrdersThemeDomainEntityDto.cs">
-      <Link>Entities\DTOs\ExportFlowOrdersThemeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FileDomainEntityDto.cs">
-      <Link>Entities\DTOs\FileDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmAddressDomainEntityDto.cs">
-      <Link>Entities\DTOs\FirmAddressDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmAddressServiceDomainEntityDto.cs">
-      <Link>Entities\DTOs\FirmAddressServiceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmContactDomainEntityDto.cs">
-      <Link>Entities\DTOs\FirmContactDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\FirmDomainEntityDto.cs">
-      <Link>Entities\DTOs\FirmDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\HotClientRequestDomainEntityDto.cs">
-      <Link>Entities\DTOs\HotClientRequestDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ImportedFirmAddressDomainEntityDto.cs">
-      <Link>Entities\DTOs\ImportedFirmAddressDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonDomainEntityDto.cs">
-      <Link>Entities\DTOs\LegalPersonDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LegalPersonProfileDomainEntityDto.cs">
-      <Link>Entities\DTOs\LegalPersonProfileDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LimitDomainEntityDto.cs">
-      <Link>Entities\DTOs\LimitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LocalMessageDomainEntityDto.cs">
-      <Link>Entities\DTOs\LocalMessageDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LockDetailDomainEntityDto.cs">
-      <Link>Entities\DTOs\LockDetailDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\LockDomainEntityDto.cs">
-      <Link>Entities\DTOs\LockDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\MessageTypeDomainEntityDto.cs">
-      <Link>Entities\DTOs\MessageTypeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NoteDomainEntityDto.cs">
-      <Link>Entities\DTOs\NoteDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationAddressesDomainEntityDto.cs">
-      <Link>Entities\DTOs\NotificationAddressesDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsAttachmentsDomainEntityDto.cs">
-      <Link>Entities\DTOs\NotificationEmailsAttachmentsDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsCcDomainEntityDto.cs">
-      <Link>Entities\DTOs\NotificationEmailsCcDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsDomainEntityDto.cs">
-      <Link>Entities\DTOs\NotificationEmailsDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationEmailsToDomainEntityDto.cs">
-      <Link>Entities\DTOs\NotificationEmailsToDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\NotificationProcessingsDomainEntityDto.cs">
-      <Link>Entities\DTOs\NotificationProcessingsDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OperationDomainEntityDto.cs">
-      <Link>Entities\DTOs\OperationDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OperationTypeDomainEntityDto.cs">
-      <Link>Entities\DTOs\OperationTypeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderFileDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderFileDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPositionAdvertisementDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderPositionAdvertisementDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderPositionDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderPositionDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderProcessingRequestDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderProcessingRequestDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderReleaseTotalDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderReleaseTotalDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationResultDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderValidationResultDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnitDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrganizationUnitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PlatformDomainEntityDto.cs">
-      <Link>Entities\DTOs\PlatformDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PositionCategoryDomainEntityDto.cs">
-      <Link>Entities\DTOs\PositionCategoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PositionChildrenDomainEntityDto.cs">
-      <Link>Entities\DTOs\PositionChildrenDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PositionDomainEntityDto.cs">
-      <Link>Entities\DTOs\PositionDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PriceDomainEntityDto.cs">
-      <Link>Entities\DTOs\PriceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PricePositionDomainEntityDto.cs">
-      <Link>Entities\DTOs\PricePositionDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PrintFormTemplateDomainEntityDto.cs">
-      <Link>Entities\DTOs\PrintFormTemplateDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ProjectDomainEntityDto.cs">
-      <Link>Entities\DTOs\ProjectDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReferenceDomainEntityDto.cs">
-      <Link>Entities\DTOs\ReferenceDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReferenceItemDomainEntityDto.cs">
-      <Link>Entities\DTOs\ReferenceItemDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\RegionalAdvertisingSharingDomainEntityDto.cs">
-      <Link>Entities\DTOs\RegionalAdvertisingSharingDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseInfoDomainEntityDto.cs">
-      <Link>Entities\DTOs\ReleaseInfoDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleasesWithdrawalsPositionDomainEntityDto.cs">
-      <Link>Entities\DTOs\ReleasesWithdrawalsPositionDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseValidationResultDomainEntityDto.cs">
-      <Link>Entities\DTOs\ReleaseValidationResultDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ReleaseWithdrawalDomainEntityDto.cs">
-      <Link>Entities\DTOs\ReleaseWithdrawalDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\TerritoryDomainEntityDto.cs">
-      <Link>Entities\DTOs\TerritoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeCategoryDomainEntityDto.cs">
-      <Link>Entities\DTOs\ThemeCategoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeDomainEntityDto.cs">
-      <Link>Entities\DTOs\ThemeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeOrganizationUnitDomainEntityDto.cs">
-      <Link>Entities\DTOs\ThemeOrganizationUnitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\ThemeTemplateDomainEntityDto.cs">
-      <Link>Entities\DTOs\ThemeTemplateDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\WithdrawalInfoDomainEntityDto.cs">
-      <Link>Entities\DTOs\WithdrawalInfoDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\DTOs\AdvertisementDescriptor.cs" />
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\DepartmentDomainEntityDto.cs">
-      <Link>Entities\DTOs\DepartmentDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\RoleDomainEntityDto.cs">
-      <Link>Entities\DTOs\RoleDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\RolePrivilegeDomainEntityDto.cs">
-      <Link>Entities\DTOs\RolePrivilegeDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\TimeZoneDomainEntityDto.cs">
-      <Link>Entities\DTOs\TimeZoneDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserEntityDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserEntityDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserOrganizationUnitDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserOrganizationUnitDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserProfileDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserProfileDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserRoleDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserRoleDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\ErmSecurity\UserTerritoryDomainEntityDto.cs">
-      <Link>Entities\DTOs\UserTerritoryDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateSecurityDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\EntitySet.cs" />
     <Compile Include="Entities\EntitySetExtension.cs" />
     <Compile Include="Entities\EntityName.cs" />
