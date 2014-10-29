@@ -232,46 +232,23 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
 
         if (window.Ext.getDom("Message").innerHTML.trim()) {
             this.isDirty = window.Ext.getDom("MessageType").innerHTML.trim() == "CriticalError";
-            this.AddNotification(window.Ext.getDom("Message").innerHTML.trim(), window.Ext.getDom("MessageType").innerHTML.trim(), "ServerError");
+            this.AddNotification(window.Ext.getDom("Message").innerText.trim(), window.Ext.getDom("MessageType").innerHTML.trim(), "ServerError");
         }
     },
 
     //Операции с карточкой
     AddNotification: function (message, level, messageId) {
 
-        var div = document.createElement("div");
-        div.innerHTML = message;
-        var text = div.textContent || div.innerText;
-
         // FIXME {f.zaharov, 21.08.2014}: Copypaste from \Scripts\Ext.DoubleGis.Order.CheckResultWindow.js processLinks = function(text)
         // Но проблема глубже, там используется иной подход к формированию сообщений, наверно нужен общий
+        // COMMENT {all, 10.10.2014}: Больше не копипаст, но это не значит, что тут или там стало хорошо. Просто пофиксил баг.
 
-        var result = document.createElement('span');
-        var j;
-        for (var i = 0; i < text.length; i++) {
-            if (text.charAt(i) != '<') {
-                j = i;
-                while (j + 1 < text.length && text.charAt(j + 1) != '<') {
-                    j++;
-                }
-                var span = document.createElement('span');
-                span.innerText = text.substring(i, j + 1);
-                result.appendChild(span);
-                i = j;
-            } else {
-                j = i + 1;
-                while (text.charAt(j) != '>') {
-                    j++;
-                }
-
-                var sp = text.substring(i + 1, j).split(':');
-
-                var link = document.createElement('a');
-                link.setAttribute('href', Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl(sp[0], sp[2], ''));
-                link.innerText = sp[1];
-                result.appendChild(link);
-                i = j;
-            }
+        var expr = /<(.+?):(.+?):(\d+)>/;
+        var match = expr.exec(message);
+        while (match) {
+            var link = String.format('<a href="{0}">{1}</a>', Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl(match[1], match[3], ''), match[2]);
+            message = message.replace(expr, link);
+            match = expr.exec(message);
         }
 
         if (level == "None")
@@ -294,7 +271,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }
         }
 
-        var nopt = { message: result.innerHTML, level: window.Ext.Notification.Icon[level], messageId: messageId };
+        var nopt = { message: message, level: window.Ext.Notification.Icon[level], messageId: messageId };
         var nc = Ext.getCmp('ContentTab_holder');
         if (!this.NotificationTemplate) {
             this.NotificationTemplate = new Ext.XTemplate(

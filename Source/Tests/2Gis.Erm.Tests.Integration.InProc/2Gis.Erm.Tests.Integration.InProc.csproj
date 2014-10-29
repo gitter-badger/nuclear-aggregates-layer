@@ -100,6 +100,7 @@
     <Compile Include="Suite\Base\StreamResponseAsserter.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Accounts\AccountReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Activities\ActivityReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Deals\DealReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Advertisements\AdvertisementReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Orders\OrderReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Release\ReleaseReadModelTest.cs" />

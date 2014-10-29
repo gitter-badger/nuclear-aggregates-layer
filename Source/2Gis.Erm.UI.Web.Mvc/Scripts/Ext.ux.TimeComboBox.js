@@ -16,7 +16,7 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
     // private override
     typeAhead: false,
     // private 
-    initDate: '1/1/2008',
+    initDate: '1/1/2007',
     initDateFormat: 'j/n/Y',
     // private
     initComponent: function () {

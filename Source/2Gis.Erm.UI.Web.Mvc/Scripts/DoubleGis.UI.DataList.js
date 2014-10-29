@@ -36,7 +36,8 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 parentEntityId = urlComponents[5];
                 parentEntityType = urlComponents[4];
             }
-            
+
+            model.DataViews = this.ExcludeHiddenViews(model.DataViews);
             if (parentEntityType && parentEntityId && model.DataViews.length > 0) {
                 var newDataViews = [];
                 for (var i = 0; i < model.DataViews.length; i++) {
@@ -755,5 +756,16 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 item.disable();
             }
         }
+    },
+
+    ExcludeHiddenViews: function (views) {
+        var result = [];
+        Ext.each(views, function (view) {
+            if (!view.IsHidden) {
+                result.push(view);
+            }
+        });
+
+        return result;
     }
 });

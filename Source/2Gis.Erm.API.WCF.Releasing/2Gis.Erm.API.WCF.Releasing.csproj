@@ -75,7 +75,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Obsolete\ErmService.svc" />
     <Content Include="Release.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -86,7 +85,6 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="exportIntegration.config" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

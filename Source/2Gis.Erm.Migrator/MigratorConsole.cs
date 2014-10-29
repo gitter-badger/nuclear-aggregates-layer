@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.Migrator
 
                 foreach (var pair in connectionStringsAspect.AllConnections)
                 {
-                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value));
+                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value.ConnectionString));
                 }
 
                 Execute(Console.Out, _arguments, calculatedArguments);
