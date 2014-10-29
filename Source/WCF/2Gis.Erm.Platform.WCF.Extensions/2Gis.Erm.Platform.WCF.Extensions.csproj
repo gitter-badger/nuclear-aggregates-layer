@@ -55,6 +55,8 @@
     <Compile Include="CollectVersionBehavior.cs" />
     <Compile Include="InjectVersionBehavior.cs" />
     <Compile Include="ProtocolStrings.cs" />
+    <Compile Include="SetMaxFaultSizeBehavior.cs" />
+    <Compile Include="SetMaxFaultSizeBehaviorExtensionElement.cs" />
     <Compile Include="VersionBehavior.cs" />
     <Compile Include="VersionBehaviorExtensionElement.cs" />
     <Compile Include="VersionExtendedMessage.cs" />

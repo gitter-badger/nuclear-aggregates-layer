@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.Platform.Security
 
         private DateTime CacheAbsoluteSpan
         {
-            get { return DateTime.Now.Add(_cacheSlidingSpan); }
+            get { return DateTime.UtcNow.Add(_cacheSlidingSpan); }
         }
 
         #region ISecurityServiceUserIdentifier

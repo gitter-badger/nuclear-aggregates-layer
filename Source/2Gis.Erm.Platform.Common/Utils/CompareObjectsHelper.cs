@@ -46,8 +46,10 @@ namespace DoubleGis.Erm.Platform.Common.Utils
                 return null;
             }
 
-            var data = JsonConvert.SerializeObject(originalObject);
-            return (TObject) JsonConvert.DeserializeObject(data, originalObject.GetType());
+            // Важно, чтобы указывались имена только для типов, но не для коллекций, чтобы не было попыток инстанцировать каой-нибудь итератор вместо массива.
+            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects };
+            var data = JsonConvert.SerializeObject(originalObject, settings);
+            return (TObject)JsonConvert.DeserializeObject(data, originalObject.GetType(), settings);
         }
     }
 }

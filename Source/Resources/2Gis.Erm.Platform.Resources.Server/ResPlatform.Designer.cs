@@ -70,6 +70,15 @@ namespace DoubleGis.Erm.Platform.Resources.Server {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доступ на выполнение операции &apos;{0}&apos; запрещен.
+        /// </summary>
+        public static string AccessToOperationIsDenied {
+            get {
+                return ResourceManager.GetString("AccessToOperationIsDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Произошла ошибка при аплоаде файла на FTP=[{0}].
         /// </summary>
         public static string AnErrorOccuredWhileUpdatingFileOnFtp {
