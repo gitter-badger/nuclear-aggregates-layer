@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Processing.Final
 
                 try
                 {
-                    this._processHotClientRequestOperationService.CreateHotClientTask(
+                    _processHotClientRequestOperationService.CreateHotClientTask(
                         hotClientInfo.HotClientRequest,
                         hotClientInfo.OwnerId,
                         hotClientInfo.RegardingObject);
