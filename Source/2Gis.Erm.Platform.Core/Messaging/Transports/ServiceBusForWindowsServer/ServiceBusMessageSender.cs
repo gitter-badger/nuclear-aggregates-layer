@@ -62,7 +62,26 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsS
 
             public void SendBatch(IEnumerable<BrokeredMessage> messages)
             {
-                ExecuteAction(messageSender => messageSender.SendBatch(messages));
+                ExecuteAction(messageSender => EnsureNotConsumedMessages(messageSender, messages));
+            }
+
+            private void EnsureNotConsumedMessages(MessageSender messageSender, IEnumerable<BrokeredMessage> messages)
+            {
+                var resultMessages = new List<BrokeredMessage>();
+
+                foreach (var message in messages)
+                {
+                    resultMessages.Add(message);
+                }
+
+                try
+                {
+                    messageSender.SendBatch(resultMessages);
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
         }
     }

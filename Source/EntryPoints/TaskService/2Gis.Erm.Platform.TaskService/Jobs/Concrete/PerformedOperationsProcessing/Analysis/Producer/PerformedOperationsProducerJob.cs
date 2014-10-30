@@ -45,8 +45,8 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                                          new PerformedOperationsWorkItem { OperationsCount = 10, EntitiesCount = 100000 },
                                          new PerformedOperationsWorkItem { OperationsCount = 7, EntitiesCount = 250000 },
                                          new PerformedOperationsWorkItem { OperationsCount = 5, EntitiesCount = 500000 },
-                                         new PerformedOperationsWorkItem { OperationsCount = 3, EntitiesCount = 1000000 },
-                                         new PerformedOperationsWorkItem { OperationsCount = 3, EntitiesCount = 5000000 }
+                                         //new PerformedOperationsWorkItem { OperationsCount = 3, EntitiesCount = 1000000 },
+                                         //new PerformedOperationsWorkItem { OperationsCount = 1, EntitiesCount = 5000000 }
                                      };
 
             _workItemsGenerator = new Task(WorkItemsGeneratorFunc, TaskCreationOptions.LongRunning);

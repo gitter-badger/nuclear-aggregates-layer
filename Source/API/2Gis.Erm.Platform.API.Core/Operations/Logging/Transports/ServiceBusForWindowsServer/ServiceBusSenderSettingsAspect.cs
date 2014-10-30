@@ -5,7 +5,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceB
     public sealed class ServiceBusSenderSettingsAspect : ISettingsAspect, IServiceBusMessageSenderSettings
     {
         private readonly StringSetting _transportEntityPath = ConfigFileSetting.String.Optional("TransportEntityPath", "topic.performedoperations");
-        private readonly IntSetting _connectionsCount = ConfigFileSetting.Int.Optional("ConnectionsCount", 1);
+        private readonly IntSetting _connectionsCount = ConfigFileSetting.Int.Optional("ServiceBusSenderConnectionsCount", 1);
         private readonly string _connectionString;
 
         public ServiceBusSenderSettingsAspect(string connectionString)

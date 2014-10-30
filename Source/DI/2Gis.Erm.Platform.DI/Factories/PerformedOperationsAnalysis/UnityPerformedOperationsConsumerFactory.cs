@@ -56,6 +56,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.PerformedOperationsAnalysis
                                                                          targetConsumerType,
                                                                          new DependencyOverrides
                                                                              {
+                                                                                 { typeof(IPerformedOperationsReceiverSettings), receiverSettings },
                                                                                  { typeof(IMessageReceiver), messageReceiver },
                                                                                  { typeof(CancellationToken), cancellationToken }
                                                                              });

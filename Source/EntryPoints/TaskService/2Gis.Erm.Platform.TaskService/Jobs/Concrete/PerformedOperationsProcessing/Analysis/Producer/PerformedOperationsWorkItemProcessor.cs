@@ -55,57 +55,75 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
         {
             _logger.InfoFormatEx("Producing performed operations. Processor id {0} started", _processorId);
 
-            var stopwatch = new Stopwatch();
+            var workItemStopwatch = new Stopwatch();
+            var operationStopwatch = new Stopwatch();
+            
             while (ContinueProcessing)
             {
                 PerformedOperationsWorkItem nextPerformedOperationsWorkItem;
-                if (!_workItemsSource.TryTake(out nextPerformedOperationsWorkItem))
+                if (!_workItemsSource.TryTake(out nextPerformedOperationsWorkItem, 1000))
                 {
-                    if (!_workItemsSource.IsCompleted)
-                    {
-                        _logger.ErrorFormatEx("Producing performed operations. Work items sequence processing aborted by processor with id {0}. Can't take next from not completed sequence" + _processorId);
-                    }
-                        
-                    break;
+                    continue;
                 }
 
-                for (int i = 0; i < nextPerformedOperationsWorkItem.OperationsCount && ContinueProcessing; i++)
-                {
-                    _logger.InfoFormatEx(
+                workItemStopwatch.Restart();
+
+                int succeeded = 0;
+                int failed = 0;
+                
+                _logger.InfoFormatEx(
                         "Producing performed operations. Processor id: {0}. Work item scheduled. Operation count: {1}. Entities count: {2}",
                         _processorId,
                         nextPerformedOperationsWorkItem.OperationsCount,
                         nextPerformedOperationsWorkItem.EntitiesCount);
-                        
-                    stopwatch.Restart();
+
+                for (int i = 0; i < nextPerformedOperationsWorkItem.OperationsCount && ContinueProcessing; i++)
+                {
+                    operationStopwatch.Restart();
 
                     try
                     {
                         PushOperations(nextPerformedOperationsWorkItem.EntitiesCount);
                         
-                        stopwatch.Stop();
+                        operationStopwatch.Stop();
+                        ++succeeded;
                         
-                        _logger.InfoFormatEx(
-                            "Producing performed operations. Processor id: {0}. Work item processed in {1} sec. Operation count: {2}. Entities count: {3}. Producing rate : {4:F2} op/sec",
+                        _logger.DebugFormatEx(
+                            "Producing performed operations. Processor id: {0}. Operation pushed in {1} sec. Operation count: {2}. Entities count: {3}. Producing rate : {4:F2} op/sec. Units (ops|entities) rate: {5:F2} unit/sec",
                             _processorId,
-                            stopwatch.Elapsed.TotalSeconds,
+                            operationStopwatch.Elapsed.TotalSeconds,
                             nextPerformedOperationsWorkItem.OperationsCount,
                             nextPerformedOperationsWorkItem.EntitiesCount,
-                            (double)nextPerformedOperationsWorkItem.OperationsCount / stopwatch.Elapsed.TotalSeconds);  
+                            1 / operationStopwatch.Elapsed.TotalSeconds,
+                            (double)(nextPerformedOperationsWorkItem.EntitiesCount + 1) / operationStopwatch.Elapsed.TotalSeconds);  
                     }
                     catch (Exception ex)
                     {
-                        stopwatch.Stop();
+                        operationStopwatch.Stop();
+                        ++failed;
                         
                         _logger.ErrorFormatEx(
                             ex, 
-                            "Producing performed operations. Processor id: {0}. Work item processing failed after {1} sec. Operation count: {2}. Entities count: {3}",
+                            "Producing performed operations. Processor id: {0}. Operation push failed after {1} sec. Operation count: {2}. Entities count: {3}",
                             _processorId,
-                            stopwatch.Elapsed.TotalSeconds,
+                            operationStopwatch.Elapsed.TotalSeconds,
                             nextPerformedOperationsWorkItem.OperationsCount,
                             nextPerformedOperationsWorkItem.EntitiesCount);
                     }
                 }
+
+                workItemStopwatch.Stop();
+
+                _logger.InfoFormatEx(
+                        "Producing performed operations. Processor id: {0}. Work item processed in {1:F2} sec by ratio {2:F2}%, succeeded {3:F2}%. Operation count: {4}. Entities count: {5}. Producing rate : {6:F2} op/sec. Units (ops|entities) rate: {7:F2} unit/sec",
+                        _processorId,
+                        workItemStopwatch.Elapsed.TotalSeconds,
+                        (double)(succeeded + failed) * 100 / nextPerformedOperationsWorkItem.OperationsCount,
+                        (double)succeeded * 100 / (failed + succeeded),
+                        nextPerformedOperationsWorkItem.OperationsCount,
+                        nextPerformedOperationsWorkItem.EntitiesCount,
+                        succeeded / operationStopwatch.Elapsed.TotalSeconds,
+                        (double)(nextPerformedOperationsWorkItem.EntitiesCount + 1) * nextPerformedOperationsWorkItem .OperationsCount / operationStopwatch.Elapsed.TotalSeconds);
             }
 
             _logger.InfoFormatEx("Producing performed operations. Processor id {0} stopped", _processorId);
