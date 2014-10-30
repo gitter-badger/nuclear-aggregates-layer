@@ -98,31 +98,31 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                 return string.Empty;
             }
 
-            switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
+            switch (profile.OperatesOnTheBasisInGenitive)
             {
                 case OperatesOnTheBasisType.Charter:
                     return string.Format(
                         BLResources.OperatesOnBasisOfCharterTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                     break;
                 case OperatesOnTheBasisType.Certificate:
                     return string.Format(
                         BLResources.OperatesOnBasisOfCertificateTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                         profile.CertificateNumber,
                         _shortDateFormatter.Format(profile.CertificateDate.Value));
                     break;
                 case OperatesOnTheBasisType.Warranty:
                     return string.Format(
                         BLResources.OperatesOnBasisOfWarantyTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                         profile.WarrantyNumber,
                         _shortDateFormatter.Format(profile.WarrantyBeginDate.Value));
                     break;
                 case OperatesOnTheBasisType.FoundingBargain:
                     return string.Format(
                         BLResources.OperatesOnBasisOfFoundingBargainTemplate,
-                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                     break;
                 default:
                     return string.Empty;

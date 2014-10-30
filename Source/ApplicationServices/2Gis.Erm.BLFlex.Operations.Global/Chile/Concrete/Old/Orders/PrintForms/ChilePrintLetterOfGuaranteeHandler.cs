@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             return _requestProcessor.HandleSubRequest(printDocumentRequest, Context);
         }
 
-        private static string LocalizeOperatesOnTheBasisInGenitive(int? operatesOnTheBasisInGenitive)
+        private static string LocalizeOperatesOnTheBasisInGenitive(OperatesOnTheBasisType? operatesOnTheBasisInGenitive)
         {
             return (operatesOnTheBasisInGenitive.HasValue
                         ? (OperatesOnTheBasisType)operatesOnTheBasisInGenitive.Value

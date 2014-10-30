@@ -22,14 +22,14 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.BL.Print.Russia
         const long LegalPersonProfileId = 2;
         const long FirmAddressId = 3;
 
-        static readonly FirmContact FirmContact = new FirmContact { ContactType = 1 };
+        static readonly FirmContact FirmContact = new FirmContact { ContactType = FirmAddressContactType.Phone };
         static readonly IDictionary<long, IEnumerable<FirmContact>> FirmContacts = new Dictionary<long, IEnumerable<FirmContact>> { { FirmAddressId, new[] { FirmContact } } };
         static readonly BargainType BargainType = new BargainType();
         static readonly BranchOffice BranchOffice = new BranchOffice { BargainType = BargainType };
         static readonly BranchOfficeOrganizationUnit BranchOfficeOrganizationUnit = new BranchOfficeOrganizationUnit { BranchOffice = BranchOffice, IsPrimaryForRegionalSales = true, IsActive = true };
         static readonly Bill Bill = new Bill();
         static readonly LegalPerson LegalPerson = new LegalPerson();
-        static readonly LegalPersonProfile LegalPersonProfile = new LegalPersonProfile { OperatesOnTheBasisInGenitive = 1 };
+        static readonly LegalPersonProfile LegalPersonProfile = new LegalPersonProfile { OperatesOnTheBasisInGenitive = OperatesOnTheBasisType.Charter };
         static readonly Bank Bank = new Bank();
         static readonly FirmAddress FirmAddress = new FirmAddress { Id = FirmAddressId };
         static readonly Platform.Model.Entities.Erm.Platform Platform = new Platform.Model.Entities.Erm.Platform();

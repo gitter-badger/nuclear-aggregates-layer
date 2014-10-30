@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
             entity.ShortName = request.ShortName;
             using (var operationScope = _scopeFactory.CreateNonCoupled<ChangeRequisitesIdentity>())
             {
-                if (entity.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson)
+                if (entity.LegalPersonTypeEnum == LegalPersonType.NaturalPerson)
                 {
                     _legalPersonRepository.ChangeNaturalRequisites(entity, request.PassportSeries, request.PassportNumber, request.RegistrationAddress);
                 }

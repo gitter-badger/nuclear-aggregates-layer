@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
         {
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                    .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
+                    .Select(order => new { WorkflowStep = order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
                     .Single();
 
             if (!orderInfoValidation.IsTerminated)
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                            {
                                OrderNumber = order.Number,
                                CurrencyISOCode = order.Currency.ISOCode,
-                               LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                               LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
                                order.BranchOfficeOrganizationUnitId,
                            })
                        .Single();
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         private static string GetOperatesOnTheBasisString(LegalPersonProfile profile)
         {
-            if (profile.OperatesOnTheBasisInGenitive != (int)OperatesOnTheBasisType.Warranty)
+            if (profile.OperatesOnTheBasisInGenitive != OperatesOnTheBasisType.Warranty)
             {
                 return string.Empty;
             }
@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
             return string.Format(
                 CultureInfo.CurrentCulture,
                 BLFlexResources.CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate,
-                ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                 profile.WarrantyBeginDate.Value.ToShortDateString());
         }
 

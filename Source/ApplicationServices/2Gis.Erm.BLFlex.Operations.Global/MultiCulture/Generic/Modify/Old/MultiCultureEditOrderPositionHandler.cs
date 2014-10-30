@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                        x.OwnerCode,
                                        x.DestOrganizationUnitId,
                                        x.PlatformId,
-                                       OrderType = (OrderType)x.OrderType
+                                       OrderType = x.OrderType
                                    })
                                    .Single();
 
@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, canCreateResponse.Message));
             }
 
-            if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration)
+            if (orderInfo.WorkflowStepId != OrderState.OnRegistration)
             {
                 // Во избежание несанкционированных изменений в позиции заказа, прошедшего этап "на оформлении",
                 // откатываем состояние сущности к тому, что лежит вместо того, что пришло от клиента
@@ -122,11 +122,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 {
                     SetAdsValidationRuleGroupAsInvalid(orderInfo.Id);
 
-                    var orderIsLocked = orderInfo.WorkflowStepId != (int)OrderState.OnRegistration;
+                    var orderIsLocked = orderInfo.WorkflowStepId != OrderState.OnRegistration;
                     _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                 }
 
-                if (orderInfo.WorkflowStepId == (int)OrderState.OnRegistration)
+                if (orderInfo.WorkflowStepId == OrderState.OnRegistration)
                 {
                     orderPosition.OwnerCode = orderInfo.OwnerCode;
 
@@ -152,7 +152,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _positionReadModel.GetNewSalesModelDeniedCategories((PositionAccountingMethod)pricePositionInfo.AccountingMethodEnum,
+                        var unsupported = _positionReadModel.GetNewSalesModelDeniedCategories(pricePositionInfo.AccountingMethodEnum,
                                                                                       orderInfo.DestOrganizationUnitId,
                                                                                       request.CategoryIds);
                         if (unsupported.Any())
@@ -188,7 +188,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     orderPosition.DiscountPercent = calculateOrderPositionPricesResponse.DiscountPercent;
                     orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
 
-                    ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision);
+                    ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision);
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);
@@ -197,7 +197,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     {
                         SetAdsValidationRuleGroupAsInvalid(orderInfo.Id);
 
-                        var orderIsLocked = orderInfo.WorkflowStepId != (int)OrderState.OnRegistration;
+                        var orderIsLocked = orderInfo.WorkflowStepId != OrderState.OnRegistration;
                         _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                     }
 

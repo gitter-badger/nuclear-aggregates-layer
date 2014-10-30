@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Activate
 
                 LegalPerson dublicateLegalPerson = null;
 
-                switch ((LegalPersonType)restoringLegalPerson.LegalPersonTypeEnum)
+                switch (restoringLegalPerson.LegalPersonTypeEnum)
                 {
                     case LegalPersonType.LegalPerson:
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Kpp) && !string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))

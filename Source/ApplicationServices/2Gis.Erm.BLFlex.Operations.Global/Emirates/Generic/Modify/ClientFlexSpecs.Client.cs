@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                             Email = x.Email,
                                             Fax = x.Fax,
                                             Website = x.Website,
-                                            InformationSource = (InformationSource)x.InformationSource,
+                                            InformationSource = x.InformationSource,
                                             Comment = x.Comment,
                                             MainAddress = x.MainAddress,
                                             LastQualifyTime = x.LastQualifyTime,
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                     client.Email = dto.Email;
                                     client.Fax = dto.Fax;
                                     client.Website = dto.Website;
-                                    client.InformationSource = (int)dto.InformationSource;
+                                    client.InformationSource = dto.InformationSource;
                                     client.LastQualifyTime = dto.LastQualifyTime;
                                     client.LastDisqualifyTime = dto.LastDisqualifyTime;
                                     client.MainFirmId = dto.MainFirmRef.Id;

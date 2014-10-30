@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                         FileName = billInfo.Bill.BillNumber,
                         BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
                         PrintData = printData,
-                        TemplateCode = GetTemplateCode((LegalPersonType)billInfo.LegalPersonTypeEnum)
+                        TemplateCode = GetTemplateCode(billInfo.LegalPersonTypeEnum)
                     },
                 Context);
         }

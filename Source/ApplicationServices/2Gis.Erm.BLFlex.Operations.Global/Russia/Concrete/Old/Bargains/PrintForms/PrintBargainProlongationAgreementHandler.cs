@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
                                   })
                               .Single();
 
-            var legalPersonType = (LegalPersonType)data.LegalPerson.LegalPersonTypeEnum;
+            var legalPersonType = data.LegalPerson.LegalPersonTypeEnum;
 
             return new PrintData
                 {

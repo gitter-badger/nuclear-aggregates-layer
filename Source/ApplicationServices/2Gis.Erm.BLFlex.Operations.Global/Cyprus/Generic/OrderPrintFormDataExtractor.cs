@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
                     { "ElectronicMedia", stuff.ElectronicMedia },
                     { "Firm.Name", stuff.FirmName },
-                    { "PaymentMethod", ((PaymentMethod)stuff.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) },
+                    { "PaymentMethod", (stuff.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) },
                     { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
                 };
 
@@ -145,7 +145,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
 
         private static string GetClientRequisitesParagraph(LegalPerson legalPerson, LegalPersonProfile profile)
         {
-            switch ((LegalPersonType)legalPerson.LegalPersonTypeEnum)
+            switch (legalPerson.LegalPersonTypeEnum)
             {
                 case LegalPersonType.NaturalPerson:
                     return string.Format(

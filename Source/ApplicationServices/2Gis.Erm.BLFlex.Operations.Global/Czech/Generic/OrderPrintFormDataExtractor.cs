@@ -117,7 +117,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
 
         public PrintData GetLegalPerson(LegalPerson legalPerson)
         {
-            var type = (LegalPersonType)legalPerson.LegalPersonTypeEnum;
+            var type = legalPerson.LegalPersonTypeEnum;
             var legalPersonData = new PrintData
                 {
                     { "Ic", legalPerson.Ic },
@@ -167,7 +167,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
         {
             return new PrintData
                 {
-                    { "ClientLegalNamePrefix", GetClientLegalNamePrefixTemplate((LegalPersonType)legalPerson.LegalPersonTypeEnum) },
+                    { "ClientLegalNamePrefix", GetClientLegalNamePrefixTemplate(legalPerson.LegalPersonTypeEnum) },
                 };
         }
 
@@ -187,7 +187,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
 
         private static string GetOperatesOnTheBasisString(LegalPersonProfile profile)
         {
-            if (profile.OperatesOnTheBasisInGenitive != (int)OperatesOnTheBasisType.Warranty)
+            if (profile.OperatesOnTheBasisInGenitive != OperatesOnTheBasisType.Warranty)
             {
                 return string.Empty;
             }
@@ -200,7 +200,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
             return string.Format(
                 CultureInfo.CurrentCulture,
                 BLFlexResources.CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate,
-                ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                 profile.WarrantyBeginDate.Value.ToShortDateString()); // FIXME {a.rechkalov, 12.03.2014}: неправильное форматирование даты
         }
 

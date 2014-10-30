@@ -182,13 +182,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
         private string GetBeginContractParagraph(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile profile)
         {
             var operatesOnTheBasisInGenitive = string.Empty;
-            switch ((LegalPersonType)legalPerson.LegalPersonTypeEnum)
+            switch (legalPerson.LegalPersonTypeEnum)
             {
                 case LegalPersonType.NaturalPerson:
 
                     if (profile != null && profile.OperatesOnTheBasisInGenitive != null)
                     {
-                        switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
+                        switch (profile.OperatesOnTheBasisInGenitive)
                         {
                             case OperatesOnTheBasisType.Undefined:
                                 operatesOnTheBasisInGenitive = string.Empty;
@@ -196,12 +196,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                             case OperatesOnTheBasisType.Warranty:
                                 operatesOnTheBasisInGenitive = string.Format(
                                     BLCoreResources.OperatesOnBasisOfWarantyTemplateForNaturalPerson,
-                                    ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                    (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                     profile.WarrantyNumber,
                                     _shortDateFormatter.Format(profile.WarrantyBeginDate));
                                 break;
                             default:
-                                throw new BusinessLogicDataException((LegalPersonType)legalPerson.LegalPersonTypeEnum, (OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive);
+                                throw new BusinessLogicDataException(legalPerson.LegalPersonTypeEnum, profile.OperatesOnTheBasisInGenitive.Value);
                         }
                     }
 
@@ -220,45 +220,45 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     {
                         if (profile != null && profile.OperatesOnTheBasisInGenitive != null)
                         {
-                            switch ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive)
+                            switch (profile.OperatesOnTheBasisInGenitive)
                             {
                                 case OperatesOnTheBasisType.Undefined:
                                     operatesOnTheBasisInGenitive =
-                                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture);
+                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture);
                                     break;
                                 case OperatesOnTheBasisType.Charter:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfCharterTemplate,
-                                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                                     break;
                                 case OperatesOnTheBasisType.Certificate:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfCertificateTemplate,
-                                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.CertificateNumber,
                                         _shortDateFormatter.Format(profile.CertificateDate));
                                     break;
                                 case OperatesOnTheBasisType.Warranty:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfWarantyTemplate,
-                                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.WarrantyNumber,
                                         _shortDateFormatter.Format(profile.WarrantyBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.Bargain:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfBargainTemplate,
-                                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.BargainNumber,
                                         _shortDateFormatter.Format(profile.BargainBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.FoundingBargain:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfFoundingBargainTemplate,
-                                        ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                                     break;
                                 default:
-                                    throw new BusinessLogicDataException((LegalPersonType)legalPerson.LegalPersonTypeEnum, (OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive);
+                                    throw new BusinessLogicDataException(legalPerson.LegalPersonTypeEnum, profile.OperatesOnTheBasisInGenitive.Value);
                             }
                         }
 
@@ -276,13 +276,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     }
 
                 default:
-                    throw new BusinessLogicDataException((LegalPersonType)legalPerson.LegalPersonTypeEnum);
+                    throw new BusinessLogicDataException(legalPerson.LegalPersonTypeEnum);
             }
         }
 
         private static string GetClientRequisitesParagraph(LegalPerson legalPerson, LegalPersonProfile profile)
         {
-            switch ((LegalPersonType)legalPerson.LegalPersonTypeEnum)
+            switch (legalPerson.LegalPersonTypeEnum)
             {
                 case LegalPersonType.NaturalPerson:
                     return string.Format(

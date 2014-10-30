@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
             }
 
             var entity = _legalPersonReadModel.GetLegalPerson(request.LegalPersonId);
-            var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
+            var legalPersonType = entity.LegalPersonTypeEnum;
 
             // TODO {all, 26.02.2014}: Возможно, стоит кидать ошибку, если к нам пришло что-то кроме ИП и Юр. лица
             if (legalPersonType == LegalPersonType.Businessman || legalPersonType == LegalPersonType.LegalPerson)

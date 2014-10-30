@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Activate
                 var egrpou = restoringLegalPerson.Within<UkraineLegalPersonPart>().GetPropertyValue(part => part.Egrpou);
                 if (_ukraineLegalPersonReadModel.AreThereAnyActiveEgrpouDuplicates(entityId, egrpou))
                 {
-                    throw new NotificationException(GetEgrpouDuplicateMessage((LegalPersonType)restoringLegalPerson.LegalPersonTypeEnum));
+                    throw new NotificationException(GetEgrpouDuplicateMessage(restoringLegalPerson.LegalPersonTypeEnum));
                 }
 
                 var result = _legalPersonRepository.Activate(entityId);

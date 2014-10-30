@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
             }
 
             var entity = _finder.FindOne(Specs.Find.ById<LegalPerson>(request.LegalPersonId));
-            var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
+            var legalPersonType = entity.LegalPersonTypeEnum;
 
             // три стратегии замены реквизитов для трех разных типов юрлиц
             if (legalPersonType == LegalPersonType.NaturalPerson)

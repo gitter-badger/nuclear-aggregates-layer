@@ -94,19 +94,19 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                 model.LegalPerson2 = null;
                 model.SetCriticalError(BLResources.MergeLegalPersonsDifferentTypesError);
             }
-            else if (legalPerson2 != null && legalPerson1.LegalPersonTypeEnum == (Int32)LegalPersonType.LegalPerson
+            else if (legalPerson2 != null && legalPerson1.LegalPersonTypeEnum == LegalPersonType.LegalPerson
                 && (legalPerson1.Inn != legalPerson2.Inn || legalPerson1.Kpp != legalPerson2.Kpp))
             {
                 model.LegalPerson2 = null;
                 model.SetCriticalError(BLResources.MergeLegalPersonsDifferentKPPINNError);
             }
-            else if (legalPerson2 != null && legalPerson1.LegalPersonTypeEnum == (Int32)LegalPersonType.Businessman
+            else if (legalPerson2 != null && legalPerson1.LegalPersonTypeEnum == LegalPersonType.Businessman
                 && (legalPerson1.Inn != legalPerson2.Inn))
             {
                 model.LegalPerson2 = null;
                 model.SetCriticalError(BLResources.MergeLegalPersonsDifferentINNError);
             }
-            else if (legalPerson2 != null && legalPerson1.LegalPersonTypeEnum == (Int32)LegalPersonType.NaturalPerson
+            else if (legalPerson2 != null && legalPerson1.LegalPersonTypeEnum == LegalPersonType.NaturalPerson
                 && (legalPerson1.PassportNumber != legalPerson2.PassportNumber || legalPerson1.PassportSeries != legalPerson2.PassportSeries))
             {
                 model.LegalPerson2 = null;
@@ -203,12 +203,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             .Select(x => new ChangeLegalPersonRequisitesViewModel
             {
                 Id = x.Id,
-                Inn = ((LegalPersonType)x.LegalPersonTypeEnum) == LegalPersonType.LegalPerson ? x.Inn : null,
-                BusinessmanInn = ((LegalPersonType)x.LegalPersonTypeEnum) == LegalPersonType.Businessman ? x.Inn : null,
+                Inn = (x.LegalPersonTypeEnum) == LegalPersonType.LegalPerson ? x.Inn : null,
+                BusinessmanInn = (x.LegalPersonTypeEnum) == LegalPersonType.Businessman ? x.Inn : null,
                 Kpp = x.Kpp,
                 LegalAddress = x.LegalAddress,
                 LegalName = x.LegalName,
-                LegalPersonType = (LegalPersonType)x.LegalPersonTypeEnum,
+                LegalPersonType = x.LegalPersonTypeEnum,
                 PassportSeries = x.PassportSeries,
                 PassportNumber = x.PassportNumber,
                 RegistrationAddress = x.RegistrationAddress,
