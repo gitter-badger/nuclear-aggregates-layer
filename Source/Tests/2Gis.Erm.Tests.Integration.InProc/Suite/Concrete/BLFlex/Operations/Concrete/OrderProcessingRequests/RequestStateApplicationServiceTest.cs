@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
 
         protected override FindSpecification<OrderProcessingRequest> ModelEntitySpec
         {
-            get { return base.ModelEntitySpec && new FindSpecification<OrderProcessingRequest>(x => x.State != (int)OrderProcessingRequestState.Undefined); }
+            get { return base.ModelEntitySpec && new FindSpecification<OrderProcessingRequest>(x => x.State != OrderProcessingRequestState.Undefined); }
         }
 
         protected override OrdinaryTestResult ExecuteWithModel(OrderProcessingRequest modelEntity)
