@@ -163,7 +163,9 @@
       <Component>
         <File Source="!(bindpath.PackagesDir)\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll" />
       </Component>
-
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\ServiceBus.v1_1.1.0.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
+      </Component>
     </ComponentGroup>
     
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">
