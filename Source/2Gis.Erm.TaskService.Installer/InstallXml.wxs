@@ -161,6 +161,9 @@
         <File Source="!(bindpath.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Caching.dll" />
       </Component>
       <Component>
+        <File Source="!(bindpath.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus.dll" />
+      </Component>
+      <Component>
         <File Source="!(bindpath.PackagesDir)\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll" />
       </Component>
       <Component>
