@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string PositionInGenitive { get; set; }
         public string ChiefNameInNominative { get; set; }
         public string ChiefNameInGenitive { get; set; }
-        public int? OperatesOnTheBasisInGenitive { get; set; }
+        public OperatesOnTheBasisType? OperatesOnTheBasisInGenitive { get; set; }
         public string CertificateNumber { get; set; }
         public DateTime? CertificateDate { get; set; }
         public string WarrantyNumber { get; set; }
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string DocumentsDeliveryAddress { get; set; }
         public string PostAddress { get; set; }
         public string RecipientName { get; set; }
-        public int DocumentsDeliveryMethod { get; set; }
+        public DocumentsDeliveryMethod DocumentsDeliveryMethod { get; set; }
         public string EmailForAccountingDocuments { get; set; }
         public string AdditionalEmail { get; set; }
         public string PersonResponsibleForDocuments { get; set; }
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public DateTime? WarrantyBeginDate { get; set; }
         public DateTime? BargainBeginDate { get; set; }
         public DateTime? BargainEndDate { get; set; }
-        public int? PaymentMethod { get; set; }
+        public PaymentMethod? PaymentMethod { get; set; }
         public string AccountNumber { get; set; }
         public string IBAN { get; set; }
         public string BankName { get; set; }

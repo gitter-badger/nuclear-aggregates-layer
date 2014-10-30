@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string Name { get; set; }
         public string Description { get; set; }
         public string ProofLink { get; set; }
-        public int Type { get; set; }
+        public DenialReasonType Type { get; set; }
         public long CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
         public DateTime CreatedOn { get; set; }

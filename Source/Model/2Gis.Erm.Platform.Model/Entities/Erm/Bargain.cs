@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -58,11 +59,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long? ModifiedBy { get; set; }
         public Guid ReplicationCode { get; set; }
         public DateTime? ClosedOn { get; set; }
-        public byte HasDocumentsDebt { get; set; }
+        public DocumentsDebt HasDocumentsDebt { get; set; }
         public string DocumentsComment { get; set; }
         public byte[] Timestamp { get; set; }
         public DateTime? BargainEndDate { get; set; }
-        public int BargainKind { get; set; }
+        public BargainKind BargainKind { get; set; }
 
         public ICollection<BargainFile> BargainFiles { get; set; }
         public ICollection<Order> Orders { get; set; }

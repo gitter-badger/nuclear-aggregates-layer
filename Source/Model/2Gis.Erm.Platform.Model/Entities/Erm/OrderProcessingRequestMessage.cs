@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -13,7 +14,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     {
         public long Id { get; set; }
         public long OrderRequestId { get; set; }
-        public int MessageType { get; set; }
+        public RequestMessageType MessageType { get; set; }
         public int MessageTemplateCode { get; set; }
         public string MessageParameters { get; set; }
         public bool IsActive { get; set; }

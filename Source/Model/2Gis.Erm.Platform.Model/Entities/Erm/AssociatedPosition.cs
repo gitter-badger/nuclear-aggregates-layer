@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long PositionId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
-        public int ObjectBindingType { get; set; }
+        public ObjectBindingType ObjectBindingType { get; set; }
 
         public long OwnerCode
         {

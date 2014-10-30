@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
-        public int FileKind { get; set; }
+        public OrderFileKind FileKind { get; set; }
 
         public File File { get; set; }
         public Order Order { get; set; }

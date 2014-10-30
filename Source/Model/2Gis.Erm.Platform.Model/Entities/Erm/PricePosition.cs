@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long PositionId { get; set; }
         public decimal Cost { get; set; }
         public int? Amount { get; set; }
-        public int AmountSpecificationMode { get; set; }
+        public PricePositionAmountSpecificationMode AmountSpecificationMode { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public byte[] Timestamp { get; set; }
         public int? MinAdvertisementAmount { get; set; }
         public int? MaxAdvertisementAmount { get; set; }
-        public int RateType { get; set; }
+        public PricePositionRateType RateType { get; set; }
 
         public ICollection<AssociatedPositionsGroup> AssociatedPositionsGroups { get; set; }
         public ICollection<OrderPosition> OrderPositions { get; set; }

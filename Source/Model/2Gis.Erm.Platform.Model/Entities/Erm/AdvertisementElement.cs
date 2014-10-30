@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long? FileId { get; set; }
         public DateTime? BeginDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public int? FasCommentType { get; set; }
+        public FasComment? FasCommentType { get; set; }
         public bool IsDeleted { get; set; }
 
         public long OwnerCode

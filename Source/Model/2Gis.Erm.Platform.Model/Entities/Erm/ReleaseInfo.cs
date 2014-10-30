@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long OrganizationUnitId { get; set; }
         public bool IsBeta { get; set; }
         public string Comment { get; set; }
-        public short Status { get; set; }
+        public ReleaseStatus Status { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 

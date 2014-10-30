@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public DateTime PeriodEndDate { get; set; }
         public long OrganizationUnitId { get; set; }
         public string Comment { get; set; }
-        public short Status { get; set; }
+        public WithdrawalStatus Status { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 

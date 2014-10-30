@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
-        public int RestrictionType { get; set; }
+        public AdvertisementElementRestrictionType RestrictionType { get; set; }
         public bool IsRequired { get; set; }
         public string ImageDimensionRestriction { get; set; }
         public bool IsAdvertisementLink { get; set; }

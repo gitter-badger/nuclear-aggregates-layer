@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -27,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long Id { get; set; }
         public Guid ReplicationCode { get; set; }
         public string Title { get; set; }
-        public int RequestType { get; set; }
+        public OrderProcessingRequestType RequestType { get; set; }
         public DateTime DueDate { get; set; }
         public long? BaseOrderId { get; set; }
         public long? RenewedOrderId { get; set; }
@@ -37,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long LegalPersonProfileId { get; set; }
         public long LegalPersonId { get; set; }
         public string Description { get; set; }
-        public int State { get; set; }
+        public OrderProcessingRequestState State { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 

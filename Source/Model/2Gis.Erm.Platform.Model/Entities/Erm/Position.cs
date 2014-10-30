@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -30,9 +31,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Guid ReplicationCode { get; set; }
         public string Name { get; set; }
         public bool IsComposite { get; set; }
-        public int CalculationMethodEnum { get; set; }
-        public int BindingObjectTypeEnum { get; set; }
-        public int AccountingMethodEnum { get; set; }
+        public PositionCalculationMethod CalculationMethodEnum { get; set; }
+        public PositionBindingObjectType BindingObjectTypeEnum { get; set; }
+        public PositionAccountingMethod AccountingMethodEnum { get; set; }
         public long PlatformId { get; set; }
         public long CategoryId { get; set; }
         public long? AdvertisementTemplateId { get; set; }

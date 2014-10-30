@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -33,9 +34,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Guid ReplicationCode { get; set; }
         public string Name { get; set; }
         public int PromisingScore { get; set; }
-        public int UsingOtherMedia { get; set; }
-        public int ProductType { get; set; }
-        public int MarketType { get; set; }
+        public UsingOtherMediaOption UsingOtherMedia { get; set; }
+        public ProductType ProductType { get; set; }
+        public MarketType MarketType { get; set; }
         public long OrganizationUnitId { get; set; }
         public long TerritoryId { get; set; }
         public long? ClientId { get; set; }
@@ -68,11 +69,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
-        public int BudgetType { get; set; }
-        public int Geolocation { get; set; }
-        public int InCityBranchesAmount { get; set; }
-        public int OutCityBranchesAmount { get; set; }
-        public int StaffAmount { get; set; }
+        public BudgetType BudgetType { get; set; }
+        public Geolocation Geolocation { get; set; }
+        public InCityBranchesAmount InCityBranchesAmount { get; set; }
+        public OutCityBranchesAmount OutCityBranchesAmount { get; set; }
+        public StaffAmount StaffAmount { get; set; }
 
         public ICollection<Advertisement> Advertisements { get; set; }
         public ICollection<Client> Clients { get; set; }

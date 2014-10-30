@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string MainAddress { get; set; }
         public string Comment { get; set; }
         public long TerritoryId { get; set; }
-        public int InformationSource { get; set; }
+        public InformationSource InformationSource { get; set; }
         public int PromisingValue { get; set; }
         public DateTime LastQualifyTime { get; set; }
         public DateTime? LastDisqualifyTime { get; set; }

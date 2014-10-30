@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -12,7 +13,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     {
         public long Id { get; set; }
         public long? FirmAddressId { get; set; }
-        public int ContactType { get; set; }
+        public FirmAddressContactType ContactType { get; set; }
         public string Contact { get; set; }
         public long CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }

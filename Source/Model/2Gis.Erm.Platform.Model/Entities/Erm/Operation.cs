@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -16,13 +17,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public long Id { get; set; }
         public Guid Guid { get; set; }
-        public byte Status { get; set; }
+        public OperationStatus Status { get; set; }
         public long? LogFileId { get; set; }
         public DateTime? StartTime { get; set; }
         public byte[] Timestamp { get; set; }
         public DateTime? FinishTime { get; set; }
         public string Description { get; set; }
-        public int Type { get; set; }
+        public BusinessOperation Type { get; set; }
 
         public long OwnerCode
         {

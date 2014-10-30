@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -15,7 +16,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long Id { get; set; }
         public DateTime EventDate { get; set; }
         public long FileId { get; set; }
-        public int Status { get; set; }
+        public LocalMessageStatus Status { get; set; }
         public string ProcessResult { get; set; }
         public long MessageTypeId { get; set; }
         public long? OrganizationUnitId { get; set; }

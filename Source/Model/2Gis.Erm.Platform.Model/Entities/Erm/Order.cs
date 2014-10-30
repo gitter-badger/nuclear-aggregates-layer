@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -52,8 +53,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public short ReleaseCountFact { get; set; }
         public long? LegalPersonId { get; set; }
         public long? BranchOfficeOrganizationUnitId { get; set; }
-        public int WorkflowStepId { get; set; }
-        public int DiscountReasonEnum { get; set; }
+        public OrderState WorkflowStepId { get; set; }
+        public OrderDiscountReason DiscountReasonEnum { get; set; }
         public string DiscountComment { get; set; }
         public DateTime? ApprovalDate { get; set; }
         public DateTime? RejectionDate { get; set; }
@@ -85,7 +86,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public byte[] Timestamp { get; set; }
-        public byte HasDocumentsDebt { get; set; }
+        public DocumentsDebt HasDocumentsDebt { get; set; }
         public string DocumentsComment { get; set; }
         public long? TechnicallyTerminatedOrderId { get; set; }
         public DateTime SignupDate { get; set; }
@@ -100,11 +101,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public decimal AmountWithdrawn { get; set; }
         public long? InspectorCode { get; set; }
         public string Comment { get; set; }
-        public int OrderType { get; set; }
-        public int TerminationReason { get; set; }
+        public OrderType OrderType { get; set; }
+        public OrderTerminationReason TerminationReason { get; set; }
         public long? PlatformId { get; set; }
         public long? LegalPersonProfileId { get; set; }
-        public int PaymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
 
         public Bargain Bargain { get; set; }
         public ICollection<Bill> Bills { get; set; }

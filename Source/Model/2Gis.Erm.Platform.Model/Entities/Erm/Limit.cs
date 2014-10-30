@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long AccountId { get; set; }
         public DateTime? CloseDate { get; set; }
         public decimal Amount { get; set; }
-        public short Status { get; set; }
+        public LimitStatus Status { get; set; }
         public DateTime StartPeriodDate { get; set; }
         public DateTime EndPeriodDate { get; set; }
         public long InspectorCode { get; set; }

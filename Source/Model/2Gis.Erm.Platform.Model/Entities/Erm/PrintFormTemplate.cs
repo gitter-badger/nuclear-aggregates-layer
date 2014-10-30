@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long Id { get; set; }
         public long? BranchOfficeOrganizationUnitId { get; set; }
         public long FileId { get; set; }
-        public int TemplateCode { get; set; }
+        public TemplateCode TemplateCode { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 

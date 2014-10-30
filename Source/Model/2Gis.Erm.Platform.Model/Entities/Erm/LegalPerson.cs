@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long? ClientId { get; set; }
         public string LegalName { get; set; }
         public string ShortName { get; set; }
-        public int LegalPersonTypeEnum { get; set; }
+        public LegalPersonType LegalPersonTypeEnum { get; set; }
         public string LegalAddress { get; set; }
         public string Inn { get; set; }
         public string Kpp { get; set; }

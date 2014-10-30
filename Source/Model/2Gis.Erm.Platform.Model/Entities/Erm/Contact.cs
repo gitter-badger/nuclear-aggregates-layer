@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
@@ -26,8 +27,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Salutation { get; set; }
-        public int GenderCode { get; set; }
-        public int FamilyStatusCode { get; set; }
+        public Gender GenderCode { get; set; }
+        public FamilyStatus FamilyStatusCode { get; set; }
         public string MainPhoneNumber { get; set; }
         public string AdditionalPhoneNumber { get; set; }
         public string MobilePhoneNumber { get; set; }
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string ImIdentifier { get; set; }
         public long ClientId { get; set; }
         public string JobTitle { get; set; }
-        public int AccountRole { get; set; }
+        public AccountRole AccountRole { get; set; }
         public string Department { get; set; }
         public bool IsFired { get; set; }
         public DateTime? BirthDate { get; set; }
