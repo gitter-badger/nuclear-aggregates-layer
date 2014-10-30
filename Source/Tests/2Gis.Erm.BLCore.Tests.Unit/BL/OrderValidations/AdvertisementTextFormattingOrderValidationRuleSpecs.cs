@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                                                     IsDeleted = false,
                                                     AdvertisementElementTemplate = new AdvertisementElementTemplate
                                                         {
-                                                            RestrictionType = (int)AdvertisementElementRestrictionType.Text,
+                                                            RestrictionType = AdvertisementElementRestrictionType.Text,
                                                             MaxSymbolsInWord = 20
                                                         },
                                                     Text = @"Обычный текст. Здесь нет никаких проблем с форматированием"

@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                  .Select(rw => rw.AmountToWithdraw)
                                                                                  .FirstOrDefault(),
                                                             IsPlannedProvision =
-                                                                op.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision
+                                                                op.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision
                                                         })
                               })
                           .ToArray();
@@ -189,7 +189,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                 OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
                                                 BeginDistributionDate = order.BeginDistributionDate,
                                                 WorkflowStep =
-                                                    ((OrderState)order.WorkflowStepId).ToStringLocalized(EnumResources.ResourceManager,
+                                                    (order.WorkflowStepId).ToStringLocalized(EnumResources.ResourceManager,
                                                                                                          CultureInfo.CurrentCulture),
                                                 FirmName = order.FirmName,
                                             })
@@ -448,7 +448,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => new OrderForProlongationDto
                 {
                     OrderId = x.Id,
-                    OrderType = (OrderType)x.OrderType,
+                    OrderType = x.OrderType,
                     SourceOrganizationUnitId = x.SourceOrganizationUnitId,
                     DestOrganizationUnitId = x.DestOrganizationUnitId,
                     FirmId = x.FirmId,
@@ -470,12 +470,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderState GetOrderState(long orderId)
         {
-            return (OrderState)_finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.WorkflowStepId).Single();
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.WorkflowStepId).Single();
         }
 
         public OrderType GetOrderType(long orderId)
         {
-            return (OrderType)_finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OrderType).Single();
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OrderType).Single();
         }
 
         public OrderPositionWithAdvertisementsDto[] GetOrderPositionsWithAdvertisements(long orderId)
@@ -488,7 +488,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                   OrderPosition = position,
                                   Advertisements = position.OrderPositionAdvertisements,
                                   IsComposite = position.PricePosition.Position.IsComposite,
-                                  BindingObjectType = (PositionBindingObjectType)position.PricePosition.Position.BindingObjectTypeEnum
+                                  BindingObjectType = position.PricePosition.Position.BindingObjectTypeEnum
                               })
                           .ToArray();
         }
@@ -617,7 +617,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                        EndDistributionDate = x.EndDistributionDatePlan,
                                        SignupDate = x.SignupDate,
                                        PayablePlan = x.PayablePlan,
-                                       IsOnRegistration = x.WorkflowStepId == (int)OrderState.OnRegistration,
+                                       IsOnRegistration = x.WorkflowStepId == OrderState.OnRegistration,
                                        BillsCount = x.Bills.Count(y => y.IsActive && !y.IsDeleted),
                                    })
                        .Single();
@@ -632,11 +632,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             // Получаем текущих рекламодателей
             var actualRecepientsInfo = _finder.Find<Order>(x => x.IsActive && !x.IsDeleted &&
-                                                                x.OrderType != (int)OrderType.SelfAds && x.OrderType != (int)OrderType.SocialAds &&
+                                                                x.OrderType != OrderType.SelfAds && x.OrderType != OrderType.SocialAds &&
                                                                 (includeRegional || x.SourceOrganizationUnitId == x.DestOrganizationUnitId) &&
-                                                                (x.WorkflowStepId == (int)OrderState.Approved ||
-                                                                 x.WorkflowStepId == (int)OrderState.Archive ||
-                                                                 x.WorkflowStepId == (int)OrderState.OnTermination) &&
+                                                                (x.WorkflowStepId == OrderState.Approved ||
+                                                                 x.WorkflowStepId == OrderState.Archive ||
+                                                                 x.WorkflowStepId == OrderState.OnTermination) &&
                                                                 x.BeginDistributionDate <= endDate && x.EndDistributionDateFact >= startDate)
                                               .Select(x => new
                                                   {
@@ -644,7 +644,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                       FirmCode = x.Firm.Id,
                                                       FirmName = x.Firm.Name,
                                                       Contact = x.Firm.Client.Contacts.Where(y => y.IsActive && !y.IsDeleted && !y.IsFired &&
-                                                                                                  y.AccountRole == (int)AccountRole.MakingDecisions)
+                                                                                                  y.AccountRole == AccountRole.MakingDecisions)
                                                                  .OrderByDescending(y => y.WorkEmail)
                                                                  .FirstOrDefault(),
                                                       IsClientActually = true,
@@ -671,10 +671,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             // Получаем бывших рекламодателей
             var notActualRecepientsInfo = _finder.Find<Order>(x => x.IsActive && !x.IsDeleted &&
-                                                                   x.OrderType != (int)OrderType.SelfAds && x.OrderType != (int)OrderType.SocialAds &&
+                                                                   x.OrderType != OrderType.SelfAds && x.OrderType != OrderType.SocialAds &&
                                                                    (includeRegional || x.SourceOrganizationUnitId == x.DestOrganizationUnitId) &&
-                                                                   (x.WorkflowStepId == (int)OrderState.Archive ||
-                                                                    x.WorkflowStepId == (int)OrderState.OnTermination) &&
+                                                                   (x.WorkflowStepId == OrderState.Archive ||
+                                                                    x.WorkflowStepId == OrderState.OnTermination) &&
                                                                    x.EndDistributionDateFact >= startDateForNotActualClientPeriod &&
                                                                    x.EndDistributionDateFact <= endDateForNotActualClientPeriod)
                                                  .Select(x => new
@@ -683,7 +683,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                          FirmCode = x.Firm.Id,
                                                          FirmName = x.Firm.Name,
                                                          Contact = x.Firm.Client.Contacts.Where(y => y.IsActive && !y.IsDeleted && !y.IsFired &&
-                                                                                                     y.AccountRole == (int)AccountRole.MakingDecisions)
+                                                                                                     y.AccountRole == AccountRole.MakingDecisions)
                                                                     .OrderByDescending(y => y.WorkEmail)
                                                                     .FirstOrDefault(),
                                                          IsClientActually = false,
@@ -817,7 +817,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                        .All(y => y.CalculateDiscountViaPercent),
                                   IsBudget = x.OrderPositions
                                               .Any(y => !y.IsDeleted && y.IsActive &&
-                                                        y.PricePosition.Position.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision)
+                                                        y.PricePosition.Position.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision)
                               })
                           .Single();
         }
@@ -885,7 +885,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                     };
             }
 
-            if (!(orderInfo.WorkflowStepId == (int)OrderState.OnRegistration || orderInfo.WorkflowStepId == (int)OrderState.Rejected))
+            if (!(orderInfo.WorkflowStepId == OrderState.OnRegistration || orderInfo.WorkflowStepId == OrderState.Rejected))
             {
                 return new OrderDeactivationPosibility
                     {
@@ -896,8 +896,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
 
             // Выбрать причину из списка причин досрочного расторжения
-            if (((orderInfo.TerminationReason == (int)OrderTerminationReason.RejectionOther) ||
-                 (orderInfo.TerminationReason == (int)OrderTerminationReason.TemporaryRejectionOther)) && string.IsNullOrEmpty(orderInfo.Comment))
+            if (((orderInfo.TerminationReason == OrderTerminationReason.RejectionOther) ||
+                 (orderInfo.TerminationReason == OrderTerminationReason.TemporaryRejectionOther)) && string.IsNullOrEmpty(orderInfo.Comment))
             {
                 return new OrderDeactivationPosibility
                     {
@@ -976,7 +976,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                         })
                                     .Single();
 
-            if (orderBatch.OrderType == (int)OrderType.SelfAds || orderBatch.OrderType == (int)OrderType.SocialAds)
+            if (orderBatch.OrderType == OrderType.SelfAds || orderBatch.OrderType == OrderType.SocialAds)
             {
                 return new OrderPositionPriceDto { CategoryRate = 1m, PricePerUnit = 0m, VatRatio = 0m };
             }
@@ -1025,8 +1025,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .Select(position => new OrderPositionRebindingDto
                               {
                                   AdverisementCount = position.OrderPositionAdvertisements.Count,
-                                  BindingType = (PositionBindingObjectType)position.PricePosition.Position.BindingObjectTypeEnum,
-                                  OrderWorkflowSate = (OrderState)position.Order.WorkflowStepId,
+                                  BindingType = position.PricePosition.Position.BindingObjectTypeEnum,
+                                  OrderWorkflowSate = position.Order.WorkflowStepId,
                                   OrderId = position.Order.Id
                               })
                           .SingleOrDefault();
@@ -1258,7 +1258,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                Id = x.Id,
                                EndDate = x.BargainEndDate,
                                Number = x.Number,
-                               BargainKind = (BargainKind)x.BargainKind
+                               BargainKind = x.BargainKind
                            })
                        .ToArray();
         }

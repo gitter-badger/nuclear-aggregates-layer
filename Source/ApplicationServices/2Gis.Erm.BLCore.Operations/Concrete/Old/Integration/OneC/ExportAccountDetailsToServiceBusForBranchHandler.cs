@@ -304,7 +304,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                                                    && !op.IsDeleted
                                                                                    &&
                                                                                    op.PricePosition.Position.AccountingMethodEnum ==
-                                                                                   (int)PositionAccountingMethod.PlannedProvision),
+                                                                                   PositionAccountingMethod.PlannedProvision),
                                          BranchOfficeOrganizationUnitSyncCode1C = x.Lock.Account.BranchOfficeOrganizationUnit.SyncCode1C,
                                          AccountCode = x.Lock.Account.Id,
                                          ProfileCode = x.Lock.Order.LegalPersonProfileId != null
@@ -315,7 +315,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                               .FirstOrDefault(),
                                          ClientOrderNumber = null,
                                          LegalPersonSyncCode1C = x.Lock.Account.LegalPesonSyncCode1C,
-                                         OrderType = (OrderType)x.Lock.Order.OrderType,
+                                         OrderType = x.Lock.Order.OrderType,
                                          OrderNumber = x.Lock.Order.Number,
                                          OrderSignupDateUtc = x.Lock.Order.SignupDate,
                                          DebitAccountDetailAmount = accountDetailsQuery.Where(y => y.Id == x.Lock.DebitAccountDetailId)
@@ -342,7 +342,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                          ProfileCode = 0,
                                          ClientOrderNumber = x.Lock.Order.Number,
                                          LegalPersonSyncCode1C = x.Lock.Account.LegalPesonSyncCode1C,
-                                         OrderType = (OrderType)x.Lock.Order.OrderType,
+                                         OrderType = x.Lock.Order.OrderType,
                                          OrderNumber = x.Lock.Order.RegionalNumber,
                                          OrderSignupDateUtc = x.Lock.Order.SignupDate,
                                          DebitAccountDetailAmount = accountDetailsQuery.Where(y => y.Id == x.Lock.DebitAccountDetailId)
@@ -455,7 +455,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                          .Where(x => x.BranchOfficeOrganizationUnit.BranchOffice.Inn == destBranchOffice.Inn &&
                                                                      x.BranchOfficeOrganizationUnit.Kpp == destBranchOfficeOrgUnit.Kpp &&
                                                                      x.BranchOfficeOrganizationUnit.OrganizationUnitId == order.DestOrganizationUnitId)
-                                                         .Where(x => (x.LegalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman)
+                                                         .Where(x => (x.LegalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman)
                                                                          ? x.LegalPerson.Inn == executingBranchOfficeInn &&
                                                                            x.LegalPerson.Kpp == null
                                                                          : x.LegalPerson.Inn == executingBranchOfficeInn &&

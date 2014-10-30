@@ -48,10 +48,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public OrderProcessingResult ExecuteRequest(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest)
         {
-            if (orderProcessingRequest.RequestType != (int)OrderProcessingRequestType.ProlongateOrder)
+            if (orderProcessingRequest.RequestType != OrderProcessingRequestType.ProlongateOrder)
             {
                 var message = string.Format(BLResources.OrderProlongationRequestTypeMismatch,
-                                            (OrderProcessingRequestType)orderProcessingRequest.RequestType);
+                                            orderProcessingRequest.RequestType);
                 throw new InvalidOperationException(message);
             }
 
@@ -164,13 +164,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         private void CompleteOrderProcessingRequest(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest, CopyOrderResult copyOrderResponse)
         {
             orderProcessingRequest.RenewedOrderId = copyOrderResponse.OrderId;
-            orderProcessingRequest.State = (int)OrderProcessingRequestState.Completed;
+            orderProcessingRequest.State = OrderProcessingRequestState.Completed;
             _orderProcessingRequestService.Update(orderProcessingRequest);
         }
 
         private void SetOrderProcessingRequestPending(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest)
         {
-            orderProcessingRequest.State = (int)OrderProcessingRequestState.Pending;
+            orderProcessingRequest.State = OrderProcessingRequestState.Pending;
             _orderProcessingRequestService.Update(orderProcessingRequest);
         }
     }

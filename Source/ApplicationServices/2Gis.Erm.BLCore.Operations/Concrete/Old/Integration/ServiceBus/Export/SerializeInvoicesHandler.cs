@@ -44,8 +44,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     StartDate = x.BeginDistributionDate,
                     EndDate = x.EndDistributionDateFact,
                     EndDatePlan = x.EndDistributionDatePlan,
-                    Status = (OrderState)x.WorkflowStepId,
-                    OrderType = (OrderType)x.OrderType,
+                    Status = x.WorkflowStepId,
+                    OrderType = x.OrderType,
                     OwnerCode = x.OwnerCode,
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                                                    CategoryLinked = q.CategoryId.HasValue,
                                                                                    RubricCode = q.Category.Id,
                                                                                    RubricName = q.Category.Name,
-                                                                                   LinkObjectType = (PositionBindingObjectType)q.Position.BindingObjectTypeEnum
+                                                                                   LinkObjectType = q.Position.BindingObjectTypeEnum
                                                                                })
                                                         })
                              })

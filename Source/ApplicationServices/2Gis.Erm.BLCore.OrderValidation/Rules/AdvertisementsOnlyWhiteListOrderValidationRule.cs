@@ -36,9 +36,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     new[] { x }
                     .Union(x.Firm.Orders.Where(y => y.Id != x.Id && !y.IsDeleted && y.IsActive)
                                         .Where(y => y.DestOrganizationUnitId == x.DestOrganizationUnitId)
-                                        .Where(y => (y.WorkflowStepId == (int)OrderState.OnApproval ||
-                                                    y.WorkflowStepId == (int)OrderState.Approved ||
-                                                    y.WorkflowStepId == (int)OrderState.OnTermination) &&
+                                        .Where(y => (y.WorkflowStepId == OrderState.OnApproval ||
+                                                    y.WorkflowStepId == OrderState.Approved ||
+                                                    y.WorkflowStepId == OrderState.OnTermination) &&
                                                     y.BeginDistributionDate <= request.Period.Start &&
                                                     y.EndDistributionDateFact >= request.Period.End))
                                         .SelectMany(y => y.OrderPositions)

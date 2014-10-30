@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
                                    .Select(order => new
                                        {
-                                           OrderState = (OrderState)order.WorkflowStepId,
+                                           OrderState = order.WorkflowStepId,
                                            order.BeginDistributionDate
                                        })
                                    .Single();
@@ -38,9 +38,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
         public OrderValidationPredicate CreatePredicate(long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants)
         {
-            const int Approved = (int)OrderState.Approved;
-            const int OnTermination = (int)OrderState.OnTermination;
-
             Expression<Func<Order, bool>> orgUnitPart = x => x.DestOrganizationUnitId == organizationUnitId || x.SourceOrganizationUnitId == organizationUnitId;
 
             OrderValidationPredicate validationPredicate;
@@ -51,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 // необходимо уточнить условия фильтрации для заказов уходящих в выпуск
                 validationPredicate = new OrderValidationPredicate(
                     x => x.IsActive && !x.IsDeleted &&
-                         (x.WorkflowStepId == Approved || (x.WorkflowStepId == OnTermination && x.EndDistributionDateFact >= period.End)) &&
+                         (x.WorkflowStepId == OrderState.Approved || (x.WorkflowStepId == OrderState.OnTermination && x.EndDistributionDateFact >= period.End)) &&
                          x.BeginDistributionDate < period.End && x.EndDistributionDateFact > period.Start &&
                          (x.OwnerCode == ownerCode || (includeOwnerDescendants &&
                                                        userDescendantsQuery.Any(ud => ud.AncestorId == ownerCode && ud.DescendantId == x.OwnerCode))),
@@ -62,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             {
                 validationPredicate = new OrderValidationPredicate(
                     x => x.IsActive && !x.IsDeleted &&
-                         (x.WorkflowStepId == Approved || (x.WorkflowStepId == OnTermination && x.EndDistributionDateFact >= period.End)) &&
+                         (x.WorkflowStepId == OrderState.Approved || (x.WorkflowStepId == OrderState.OnTermination && x.EndDistributionDateFact >= period.End)) &&
                          x.BeginDistributionDate < period.End && x.EndDistributionDateFact > period.Start,
                     orgUnitPart, 
                     null);

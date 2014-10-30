@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public PositionBindingObjectType GetPositionBindingObjectType(long positionId)
         {
-            return (PositionBindingObjectType)_finder.Find(Specs.Find.ById<Position>(positionId)).Select(x => x.BindingObjectTypeEnum).Single();
+            return _finder.Find(Specs.Find.ById<Position>(positionId)).Select(x => x.BindingObjectTypeEnum).Single();
         }
 
         public bool IsSupportedByExport(long positionId)

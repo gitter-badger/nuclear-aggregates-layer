@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     if (orderPosition.BadPriceList)
                     {
                     var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
-                        var messageType = orderInfo.WorkflowStepId == (int)OrderState.Approved ? MessageType.Warning : MessageType.Error;
+                        var messageType = orderInfo.WorkflowStepId == OrderState.Approved ? MessageType.Warning : MessageType.Error;
                         messages.Add(new OrderValidationMessage
                         {
                                 Type = messageType,

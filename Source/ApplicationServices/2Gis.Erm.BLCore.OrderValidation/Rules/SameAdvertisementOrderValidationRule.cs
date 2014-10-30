@@ -76,9 +76,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                            && !order.IsDeleted
                                            && order.FirmId == principalOrder.FirmId
                                            && (order.Id == principalOrder.Id
-                                               || order.WorkflowStepId == (int)OrderState.OnApproval
-                                               || order.WorkflowStepId == (int)OrderState.Approved
-                                               || order.WorkflowStepId == (int)OrderState.OnTermination)
+                                               || order.WorkflowStepId == OrderState.OnApproval
+                                               || order.WorkflowStepId == OrderState.Approved
+                                               || order.WorkflowStepId == OrderState.OnTermination)
                                            && (order.BeginReleaseNumber <= beginRelease && beginRelease <= order.EndReleaseNumberFact
                                                || order.BeginReleaseNumber <= endRelease && endRelease <= order.EndReleaseNumberFact
                                                || beginRelease <= order.BeginReleaseNumber && order.BeginReleaseNumber <= endRelease

@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                   Id = entity.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
                                                   Name = entity.Account.BranchOfficeOrganizationUnit.BranchOffice.Name
                                               },
-                                          Status = (LimitStatus)entity.Status,
+                                          Status = entity.Status,
                                           StartPeriodDate = entity.StartPeriodDate,
                                           InspectorRef = new EntityReference
                                               {

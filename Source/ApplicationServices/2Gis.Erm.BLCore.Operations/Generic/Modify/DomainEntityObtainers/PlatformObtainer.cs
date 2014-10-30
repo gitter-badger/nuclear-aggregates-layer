@@ -32,8 +32,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             }
 
             platform.Name = dto.Name;
-            platform.MinPlacementPeriodEnum = (int)dto.MinPlacementPeriodEnum;
-            platform.PlacementPeriodEnum = (int)dto.PlacementPeriodEnum;
+            platform.MinPlacementPeriodEnum = dto.MinPlacementPeriodEnum;
+            platform.PlacementPeriodEnum = dto.PlacementPeriodEnum;
             platform.DgppId = dto.DgppId;
             platform.IsSupportedByExport = dto.IsSupportedByExport;
             platform.Timestamp = dto.Timestamp;

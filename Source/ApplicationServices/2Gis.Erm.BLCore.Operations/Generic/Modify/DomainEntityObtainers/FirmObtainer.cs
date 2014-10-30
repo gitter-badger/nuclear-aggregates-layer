@@ -30,14 +30,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             firm.ReplicationCode = dto.ReplicationCode;
             firm.Name = dto.Name;
             firm.PromisingScore = dto.PromisingScore;
-            firm.ProductType = (int)dto.ProductType;
-            firm.UsingOtherMedia = (int)dto.UsingOtherMedia;
-            firm.MarketType = (int)dto.MarketType;
-            firm.BudgetType = (int)dto.BudgetType;
-            firm.Geolocation = (int)dto.Geolocation;
-            firm.InCityBranchesAmount = (int)dto.InCityBranchesAmount;
-            firm.OutCityBranchesAmount = (int)dto.OutCityBranchesAmount;
-            firm.StaffAmount = (int)dto.StaffAmount;
+            firm.ProductType = dto.ProductType;
+            firm.UsingOtherMedia = dto.UsingOtherMedia;
+            firm.MarketType = dto.MarketType;
+            firm.BudgetType = dto.BudgetType;
+            firm.Geolocation = dto.Geolocation;
+            firm.InCityBranchesAmount = dto.InCityBranchesAmount;
+            firm.OutCityBranchesAmount = dto.OutCityBranchesAmount;
+            firm.StaffAmount = dto.StaffAmount;
             firm.Comment = dto.Comment;
             firm.ClientId = dto.ClientRef.Id;
 

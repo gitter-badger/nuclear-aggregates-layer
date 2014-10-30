@@ -63,11 +63,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                             {
                                 IsLinkedWithActiveOrders = x.Orders
                                          .Any(y => y.IsActive && !y.IsDeleted &&
-                                                   y.WorkflowStepId != (int)OrderState.Archive && y.WorkflowStepId != (int)OrderState.Rejected),
+                                                   y.WorkflowStepId != OrderState.Archive && y.WorkflowStepId != OrderState.Rejected),
 
                                 IsLinkedWithArchivedOrRejectedOrders = x.Orders
                                          .Any(y => y.IsActive && !y.IsDeleted &&
-                                                   (y.WorkflowStepId == (int)OrderState.Archive || y.WorkflowStepId == (int)OrderState.Rejected)),
+                                                   (y.WorkflowStepId == OrderState.Archive || y.WorkflowStepId == OrderState.Rejected)),
 
                                 HasAccounts = x.Accounts.Any(a => !a.IsDeleted && a.IsActive)
                             })

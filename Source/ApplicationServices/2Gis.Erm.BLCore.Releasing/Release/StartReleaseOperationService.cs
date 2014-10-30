@@ -152,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
             return lockedRelease != null
                     && lockedRelease.Id == acquiredRelease.Id
-                    && (ReleaseStatus)lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted
+                    && lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted
                     && acquiredRelease.SameVersionAs(lockedRelease);
         }
 
@@ -409,7 +409,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             previuosReleaseId = previousRelease.Id;
             var previousReleasePeriod = new TimePeriod(previousRelease.PeriodStartDate, previousRelease.PeriodEndDate);
-            var previousReleaseStatus = (ReleaseStatus)previousRelease.Status;
+            var previousReleaseStatus = previousRelease.Status;
             switch (previousReleaseStatus)
             {
                 case ReleaseStatus.Success:

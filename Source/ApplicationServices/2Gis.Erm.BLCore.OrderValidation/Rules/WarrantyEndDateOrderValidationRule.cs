@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                ProfileNames = x.LegalPerson.LegalPersonProfiles
                                                .Where(y => y.IsActive && !y.IsDeleted
                                                            && y.OperatesOnTheBasisInGenitive != null
-                                                           && (OperatesOnTheBasisType)y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Warranty
+                                                           && y.OperatesOnTheBasisInGenitive == OperatesOnTheBasisType.Warranty
                                                            && y.WarrantyEndDate != null 
                                                            && y.WarrantyEndDate < x.SignupDate)
                                                .Select(profile => profile.Name)

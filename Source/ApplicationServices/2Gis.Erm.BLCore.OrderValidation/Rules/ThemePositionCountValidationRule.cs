@@ -95,8 +95,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             var allowedOrderStates = new[]
                 {
-                    (int)OrderState.OnTermination, 
-                    (int)OrderState.Approved
+                    OrderState.OnTermination, 
+                    OrderState.Approved
                 };
 
             // Во время массовой проверки (проверки к определенной сборке) выбираем
@@ -125,9 +125,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             var allowedOrderStates = new[]
                 {
-                    (int)OrderState.OnApproval,
-                    (int)OrderState.OnTermination, 
-                    (int)OrderState.Approved
+                    OrderState.OnApproval,
+                    OrderState.OnTermination, 
+                    OrderState.Approved
                 };
 
             // Во время единичных проверок выбираем заказы, чьи периоды пересекают период публикации данного

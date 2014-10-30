@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             var existsInvalid = _finder.Find(filterPredicate)
                                       .Where(filterByThemeUsage)
-                                      .Any(order => order.OrderType != (int)OrderType.SelfAds);
+                                      .Any(order => order.OrderType != OrderType.SelfAds);
 
             if (!existsInvalid)
             {

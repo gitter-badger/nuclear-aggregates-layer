@@ -134,7 +134,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
             var hasSuccessedRelease = organizationUnitQuery
                 .SelectMany(x => x.ReleaseInfos)
-                .Any(x => x.IsActive && !x.IsDeleted && !x.IsBeta && x.PeriodStartDate >= periodStartDate && x.Status == (int)ReleaseStatus.Success);
+                .Any(x => x.IsActive && !x.IsDeleted && !x.IsBeta && x.PeriodStartDate >= periodStartDate && x.Status == ReleaseStatus.Success);
 
             return hasSuccessedRelease;
         }

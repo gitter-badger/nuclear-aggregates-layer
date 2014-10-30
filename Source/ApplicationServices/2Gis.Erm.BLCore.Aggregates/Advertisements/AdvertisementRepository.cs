@@ -354,7 +354,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                            {
                                x.IsRequired,
                                x.NeedsValidation,
-                               IsFasComment = x.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment,
+                               IsFasComment = x.RestrictionType == AdvertisementElementRestrictionType.FasComment,
                            }).Single();
 
             using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, AdvertisementElement>())
@@ -378,7 +378,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                     } 
                     else if (elementInfo.IsFasComment)
                     {
-                        advertisementElement.FasCommentType = (int)FasComment.NewFasComment;
+                        advertisementElement.FasCommentType = FasComment.NewFasComment;
                     }
 
                     var status = new AdvertisementElementStatus
@@ -565,16 +565,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                                                   x.Template,
                                                   x.IsDummyAdvertisement,
 
-                                                  ValidText = (x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Text ||
-                                                               x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment) &&
+                                                  ValidText = (x.Template.RestrictionType == AdvertisementElementRestrictionType.Text ||
+                                                               x.Template.RestrictionType == AdvertisementElementRestrictionType.FasComment) &&
                                                               !string.IsNullOrEmpty(x.Element.Text),
 
-                                                  ValidDate = x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Date &&
+                                                  ValidDate = x.Template.RestrictionType == AdvertisementElementRestrictionType.Date &&
                                                               x.Element.BeginDate != null &&
                                                               x.Element.EndDate != null,
 
-                                                  ValidFile = (x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Image ||
-                                                               x.Template.RestrictionType == (int)AdvertisementElementRestrictionType.Article) &&
+                                                  ValidFile = (x.Template.RestrictionType == AdvertisementElementRestrictionType.Image ||
+                                                               x.Template.RestrictionType == AdvertisementElementRestrictionType.Article) &&
                                                               x.Element.FileId != null,
                                               })
                                           .Select(x => new AdvertisementBagItem

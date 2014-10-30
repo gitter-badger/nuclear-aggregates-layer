@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                                       .SelectMany(opa => opa.Advertisement.AdvertisementElements
                                                                                             .Where(x => x.IsDeleted == false &&
                                                                                                 x.AdvertisementElementTemplate.RestrictionType ==
-                                                                                                        (int)AdvertisementElementRestrictionType.Text &&
+                                                                                                        AdvertisementElementRestrictionType.Text &&
                                                                                                         x.Text != null))
                                                                       .Select(element => new
                                                                               {

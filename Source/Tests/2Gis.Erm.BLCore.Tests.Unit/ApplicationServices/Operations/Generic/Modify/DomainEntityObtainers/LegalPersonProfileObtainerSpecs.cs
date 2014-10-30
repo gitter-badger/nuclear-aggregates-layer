@@ -205,9 +205,9 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             private It should_return_expected_Registered = () => Result.Registered.Should().Be(TestRegistered);
             private It should_return_expected_ChiefNameInNominative = () => Result.ChiefNameInNominative.Should().Be(TestChiefNameInNominative);
             private It should_return_expected_ChiefNameInGenitive = () => Result.ChiefNameInGenitive.Should().Be(TestChiefNameInGenitive);
-            private It should_return_expected_OperatesOnTheBasisInGenitive = () => Result.OperatesOnTheBasisInGenitive.Should().Be((int)TestOperatesOnTheBasisInGenitive);
+            private It should_return_expected_OperatesOnTheBasisInGenitive = () => Result.OperatesOnTheBasisInGenitive.Should().Be(TestOperatesOnTheBasisInGenitive);
             private It should_return_expected_CertificateNumber = () => Result.CertificateNumber.Should().Be(TestCertificateNumber);
-            private It should_return_expected_PaymentMethod = () => Result.PaymentMethod.Should().Be((int)TestPaymentMethod);
+            private It should_return_expected_PaymentMethod = () => Result.PaymentMethod.Should().Be(TestPaymentMethod);
             private It should_return_expected_AccountNumber = () => Result.AccountNumber.Should().Be(TestAccountNumber);
             private It should_return_expected_BankCode = () => Result.BankCode.Should().Be(TestBankCode);
             private It should_return_expected_IBAN = () => Result.IBAN.Should().Be(TestIBAN);
@@ -225,7 +225,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             private It should_return_expected_DocumentsDeliveryAddress = () => Result.DocumentsDeliveryAddress.Should().Be(TestDocumentsDeliveryAddress);
             private It should_return_expected_PostAddress = () => Result.PostAddress.Should().Be(TestPostAddress);
             private It should_return_expected_RecipientName = () => Result.RecipientName.Should().Be(TestRecipientName);
-            private It should_return_expected_DocumentsDeliveryMethod = () => Result.DocumentsDeliveryMethod.Should().Be((int)TestDocumentsDeliveryMethod);
+            private It should_return_expected_DocumentsDeliveryMethod = () => Result.DocumentsDeliveryMethod.Should().Be(TestDocumentsDeliveryMethod);
             private It should_return_expected_EmailForAccountingDocuments = () => Result.EmailForAccountingDocuments.Should().Be(TestEmailForAccountingDocuments);
             private It should_return_expected_AdditionalEmail = () => Result.AdditionalEmail.Should().Be(TestAdditionalEmail);
             private It should_return_expected_PersonResponsibleForDocuments = () => Result.PersonResponsibleForDocuments.Should().Be(TestPersonResponsibleForDocuments);

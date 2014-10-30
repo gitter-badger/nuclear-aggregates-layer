@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                            AdvertisementLink = advertisement.Text,
                                                            WebContacts =
                                                        orderPosition.Order.Firm.FirmAddresses.SelectMany(y => y.FirmContacts)
-                                                                    .Where(y => y.ContactType == (int)FirmAddressContactType.Website)
+                                                                    .Where(y => y.ContactType == FirmAddressContactType.Website)
                                                        }))
                                         .Where(x => x.WebContacts.Any(y => x.AdvertisementLink.Contains(y.Contact))))
                        .ToArray();

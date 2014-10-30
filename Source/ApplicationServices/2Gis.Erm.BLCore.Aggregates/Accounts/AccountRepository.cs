@@ -632,7 +632,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             var orderOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>())
                 .Where(order => order.AccountId == limit.AccountId &&
                     (order.BeginDistributionDate < limit.EndPeriodDate && order.EndDistributionDateFact > limit.StartPeriodDate) &&
-                    (order.WorkflowStepId == (int)OrderState.Approved || order.WorkflowStepId == (int)OrderState.OnTermination))
+                    (order.WorkflowStepId == OrderState.Approved || order.WorkflowStepId == OrderState.OnTermination))
                 .Select(order => order.DestOrganizationUnitId)
                 .Distinct()
                 .ToArray();
@@ -640,7 +640,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             var releaseOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>())
                 .Where(info => (info.PeriodStartDate < limit.EndPeriodDate && info.PeriodEndDate > limit.StartPeriodDate) &&
                                !info.IsBeta &&
-                               info.Status == (int)ReleaseStatus.Success)
+                               info.Status == ReleaseStatus.Success)
                 .Select(info => info.OrganizationUnitId)
                 .Distinct()
                 .ToArray();
@@ -692,9 +692,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                     where !order.IsDeleted &&
                           (order.SourceOrganizationUnitId == organizationUnitId ||
                            order.DestOrganizationUnitId == organizationUnitId) &&
-                           (order.WorkflowStepId == (int)OrderState.Approved ||
-                           order.WorkflowStepId == (int)OrderState.OnRegistration ||
-                           order.WorkflowStepId == (int)OrderState.OnApproval)
+                           (order.WorkflowStepId == OrderState.Approved ||
+                           order.WorkflowStepId == OrderState.OnRegistration ||
+                           order.WorkflowStepId == OrderState.OnApproval)
                     select new AccountFor1CExportDto
                     {
                         LegalPersonSyncCode1C = lpSyncCode1C,
@@ -848,7 +848,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
             var orderReleaseSum = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>())
                 .Where(order => order.AccountId == accountId)
-                .Where(order => order.WorkflowStepId == (int)OrderState.Approved)
+                .Where(order => order.WorkflowStepId == OrderState.Approved)
                 .SelectMany(order => order.OrderReleaseTotals)
                 .Where(total => total.ReleaseBeginDate == periodStart && total.ReleaseEndDate == periodEnd)
                 .Sum(total => (decimal?)total.AmountToWithdraw) ?? 0;

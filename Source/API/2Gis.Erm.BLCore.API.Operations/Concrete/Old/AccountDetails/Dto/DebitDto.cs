@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
                     this.ToXAttribute(() => AccountCode, AccountCode),
                     this.ToXAttribute(() => LegalEntityBranchCode1C, LegalEntityBranchCode1C),
                     this.ToXAttribute(() => ProfileCode, ProfileCode),
-                    this.ToXAttribute(() => OrderType, (int)OrderType),
+                    this.ToXAttribute(() => OrderType, OrderType),
                     this.ToXAttribute(() => OrderNumber, OrderNumber),
                     this.ToXAttribute(() => SignedOnDate, SignedOnDate),
                     this.ToXAttribute(() => Amount, Amount),

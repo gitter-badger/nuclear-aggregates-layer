@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel
         public LegalPersonType GetLegalPersonType(long legalPersonId)
         {
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                          .Select(x => (LegalPersonType)x.LegalPersonTypeEnum)
+                          .Select(x => x.LegalPersonTypeEnum)
                           .SingleOrDefault();
         }
 

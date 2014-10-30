@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                IsRequired = template.IsRequired,
                                FormattedText = template.FormattedText,
                                IsAdvertisementLink = template.IsAdvertisementLink,
-                               RestrictionType = (AdvertisementElementRestrictionType)template.RestrictionType,
+                               RestrictionType = template.RestrictionType,
                                TextLengthRestriction = template.TextLengthRestriction,
                                MaxSymbolsInWord = template.MaxSymbolsInWord,
                                TextLineBreaksCountRestriction = template.TextLineBreaksCountRestriction,

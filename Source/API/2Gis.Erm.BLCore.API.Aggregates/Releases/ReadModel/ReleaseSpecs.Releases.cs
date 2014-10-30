@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel
                                                                    && x.PeriodStartDate == period.Start
                                                                    && x.PeriodEndDate == period.End
                                                                    && !x.IsBeta
-                                                                   && statuses.Cast<int>().Contains(x.Status));
+                                                                   && statuses.Contains(x.Status));
                 }
 
                 public static FindSpecification<ReleaseInfo> FinalInProgress(long organizationUnitId, TimePeriod period)
@@ -40,17 +40,17 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel
                                                                    && !x.IsBeta
                                                                    && x.PeriodStartDate >= period.Start && x.PeriodEndDate <= period.End
                                                                    && x.OrganizationUnitId == organizationUnitId
-                                                                   && (x.Status == (int)ReleaseStatus.InProgressInternalProcessingStarted
-                                                                       || x.Status == (int)ReleaseStatus.InProgressWaitingExternalProcessing));
+                                                                   && (x.Status == ReleaseStatus.InProgressInternalProcessingStarted
+                                                                       || x.Status == ReleaseStatus.InProgressWaitingExternalProcessing));
                 }
 
                 public static FindSpecification<ReleaseInfo> FinalSuccessOrInProgressAfterDate(long organizationUnitId, DateTime periodStartDate)
                 {
                     return new FindSpecification<ReleaseInfo>(x => x.IsActive && !x.IsDeleted &&
                                                                    !x.IsBeta &&
-                                                                   (x.Status == (int)ReleaseStatus.InProgressInternalProcessingStarted
-                                                                    || x.Status == (int)ReleaseStatus.InProgressWaitingExternalProcessing
-                                                                    || x.Status == (int)ReleaseStatus.Success) &&
+                                                                   (x.Status == ReleaseStatus.InProgressInternalProcessingStarted
+                                                                    || x.Status == ReleaseStatus.InProgressWaitingExternalProcessing
+                                                                    || x.Status == ReleaseStatus.Success) &&
                                                                    x.OrganizationUnitId == organizationUnitId &&
                                                                    x.StartDate > periodStartDate);
                 }

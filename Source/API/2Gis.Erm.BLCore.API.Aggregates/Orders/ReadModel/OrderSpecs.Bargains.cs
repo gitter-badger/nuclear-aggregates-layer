@@ -30,12 +30,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
 
                 public static FindSpecification<Bargain> ClientBargains()
                 {
-                    return new FindSpecification<Bargain>(x => x.BargainKind == (int)BargainKind.Client);
+                    return new FindSpecification<Bargain>(x => x.BargainKind == BargainKind.Client);
                 }
 
                 public static FindSpecification<Bargain> AgentBargains()
                 {
-                    return new FindSpecification<Bargain>(x => x.BargainKind == (int)BargainKind.Agent);
+                    return new FindSpecification<Bargain>(x => x.BargainKind == BargainKind.Agent);
                 }
 
                 public static FindSpecification<Bargain> Duplicate(long bargainId,

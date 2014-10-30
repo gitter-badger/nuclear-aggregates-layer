@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             var overridedPredicate = GetOrdersOverridedPredicate(request, originalPredicate);
 
-            const int ApprovedLimitStatus = (int)LimitStatus.Approved;
+            const LimitStatus ApprovedLimitStatus = LimitStatus.Approved;
             var epsilon = (decimal)Math.Pow(10, -request.SignificantDigitsNumber);
 
             _useCaseTuner.AlterDuration<BalanceOrderValidationRule>();

@@ -45,9 +45,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             contact.HomeAddress = dto.HomeAddress;
             contact.Comment = dto.Comment;
 
-            contact.GenderCode = (int)dto.GenderCode;
-            contact.FamilyStatusCode = (int)dto.FamilyStatusCode;
-            contact.AccountRole = (int)dto.AccountRole;
+            contact.GenderCode = dto.GenderCode;
+            contact.FamilyStatusCode = dto.FamilyStatusCode;
+            contact.AccountRole = dto.AccountRole;
 
             contact.ClientId = dto.ClientRef.Id.Value;
             contact.OwnerCode = dto.OwnerRef.Id.Value;

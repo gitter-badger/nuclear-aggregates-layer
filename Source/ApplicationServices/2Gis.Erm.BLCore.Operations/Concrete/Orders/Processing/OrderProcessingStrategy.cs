@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
 
             if (((order.DiscountPercent.HasValue && order.DiscountPercent != 0m) || (order.DiscountSum.HasValue && order.DiscountSum != 0m))
-                && order.DiscountReasonEnum == (int)OrderDiscountReason.None)
+                && order.DiscountReasonEnum == OrderDiscountReason.None)
             {
                 throw new ArgumentException(BLResources.OrderValidateDiscountReasonRequired);
             }
@@ -103,7 +103,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 throw new ArgumentException(BLResources.DestOrganizationUnitIsInactive);
             }
 
-            if (order.BargainId.HasValue && order.WorkflowStepId != (int)OrderState.OnTermination)
+            if (order.BargainId.HasValue && order.WorkflowStepId != OrderState.OnTermination)
             {
                 var calculatedOrderDistributionDates = OrderReadModel.CalculateDistributionDates(order.BeginDistributionDate, order.ReleaseCountPlan, order.ReleaseCountFact);
 

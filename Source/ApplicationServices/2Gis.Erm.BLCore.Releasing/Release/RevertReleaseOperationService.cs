@@ -141,7 +141,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
             return  lockedRelease != null
                     && lockedRelease.Id == acquiredRelease.Id
-                    && (ReleaseStatus)lockedRelease.Status == ReleaseStatus.Reverting 
+                    && lockedRelease.Status == ReleaseStatus.Reverting 
                     && acquiredRelease.SameVersionAs(lockedRelease);
         }
 
@@ -232,7 +232,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
 
             bool canBeReverted = false;
-            switch ((ReleaseStatus)release.Status)
+            switch (release.Status)
             {
                 case ReleaseStatus.InProgressInternalProcessingStarted:
                 {

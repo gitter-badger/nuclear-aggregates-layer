@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                             o.BranchOfficeOrganizationUnitId == null ||
                             o.InspectorCode == null ||
                             o.OwnerCode <= 0 ||
-                            ((o.DiscountPercent > 0M || o.DiscountSum > 0M) && o.DiscountReasonEnum == (int)OrderDiscountReason.None) ||
+                            ((o.DiscountPercent > 0M || o.DiscountSum > 0M) && o.DiscountReasonEnum == OrderDiscountReason.None) ||
                             o.CurrencyId == null ||
                             o.ReleaseCountPlan == 0)
                     .Select(o => new
@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         addFieldErrorAction(MetadataResources.Inspector);
                     }
 
-                    if ((orderDetail.DiscountPercent > 0M || orderDetail.DiscountSum > 0) && orderDetail.DiscountReasonEnum == (int)OrderDiscountReason.None)
+                    if ((orderDetail.DiscountPercent > 0M || orderDetail.DiscountSum > 0) && orderDetail.DiscountReasonEnum == OrderDiscountReason.None)
                     {
                         addFieldErrorAction(MetadataResources.DiscountSum);
                     }

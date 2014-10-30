@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 
                 // Теперь оставляем только те фирмы, что не имеют нужных позиций в действующих заказах проверяемого периода
                 .Where(firm => !firm.Orders.Any(order => order.IsActive && !order.IsDeleted
-                                            && (order.Id == request.OrderId || order.WorkflowStepId == (int)OrderState.OnApproval || order.WorkflowStepId == (int)OrderState.Approved || order.WorkflowStepId == (int)OrderState.OnTermination)
+                                            && (order.Id == request.OrderId || order.WorkflowStepId == OrderState.OnApproval || order.WorkflowStepId == OrderState.Approved || order.WorkflowStepId == OrderState.OnTermination)
                                             && (order.EndDistributionDateFact >= period.End && order.BeginDistributionDate <= period.Start)
                                             && order.OrderPositions
                                                     .Where(position => position.IsActive && !position.IsDeleted)

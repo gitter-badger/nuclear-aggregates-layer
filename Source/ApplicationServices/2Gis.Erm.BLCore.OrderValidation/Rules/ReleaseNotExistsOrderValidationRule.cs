@@ -58,13 +58,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             else
             {
                 // we just need to check whether there exists a release for the speicified period/OrganizationUnit
-                const short SuccessReleaseStatus = (short)ReleaseStatus.Success;
-
                 var organizationUnitId = request.OrganizationUnitId ?? 0;
 
                 var prevReleaseInfo = _releaseRepository.GetLastRelease(organizationUnitId, request.Period);
 
-                if (prevReleaseInfo != null && !prevReleaseInfo.IsBeta && prevReleaseInfo.Status == SuccessReleaseStatus)
+                if (prevReleaseInfo != null && !prevReleaseInfo.IsBeta && prevReleaseInfo.Status == ReleaseStatus.Success)
                 {
                     var organizationUnit = _finder.Find<OrganizationUnit>(ou => ou.Id == request.OrganizationUnitId)
                         .Select(ou => new {ou.Name})

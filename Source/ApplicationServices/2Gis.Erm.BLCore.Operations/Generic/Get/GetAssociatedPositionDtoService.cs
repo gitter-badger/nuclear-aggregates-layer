@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                               {
                                   Id = entity.Id,
                                   PositionRef = new EntityReference { Id = entity.PositionId, Name = entity.Position.Name },
-                                  ObjectBindingType = (ObjectBindingType)entity.ObjectBindingType,
+                                  ObjectBindingType = entity.ObjectBindingType,
                                   AssociatedPositionsGroupRef = new EntityReference { Id = entity.AssociatedPositionsGroupId, Name = entity.AssociatedPositionsGroup.Name },
                                   PricePositionRef = new EntityReference { Id = entity.AssociatedPositionsGroup.PricePositionId, Name = entity.AssociatedPositionsGroup.PricePosition.Position.Name },
                                   IsDeleted = entity.IsDeleted,

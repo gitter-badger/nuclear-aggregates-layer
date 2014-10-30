@@ -46,10 +46,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                 throw new ArgumentException(BLResources.OriginalOrderStateNotSetDuringWorkflowProcessing);
             }
 
-            var proposedOrderState = (OrderState)order.WorkflowStepId;
+            var proposedOrderState = order.WorkflowStepId;
 
             #region Logging
-            var previousOrderState = (OrderState)order.WorkflowStepId;
+            var previousOrderState = order.WorkflowStepId;
             _logger.InfoFormatEx("Логика смены состояния заказа. Переход из [{0}] в [{1}].", previousOrderState, proposedOrderState);
             #endregion
 
@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         protected override void ValidateOrderStateInternal(Order order, long currentUserCode)
         {
-            if (order.WorkflowStepId == (int)OrderState.Approved || order.WorkflowStepId == (int)OrderState.OnTermination)
+            if (order.WorkflowStepId == OrderState.Approved || order.WorkflowStepId == OrderState.OnTermination)
             {
                 var isReleaseInProgress = _releaseRepository.HasFinalReleaseInProgress(
                     order.DestOrganizationUnitId,

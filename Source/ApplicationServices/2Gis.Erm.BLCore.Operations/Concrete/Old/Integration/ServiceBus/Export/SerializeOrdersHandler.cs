@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 new XAttribute("StartDate", order.BeginDistributionDate),
                 new XAttribute("EndDate", order.EndDistributionDateFact),
                 new XAttribute("PayablePlan", orderDto.PayablePlan),
-                new XAttribute("Status", (OrderState)order.WorkflowStepId),
+                new XAttribute("Status", order.WorkflowStepId),
                 new XAttribute("Curator", curator));
 
             if (order.ApprovalDate != null)
