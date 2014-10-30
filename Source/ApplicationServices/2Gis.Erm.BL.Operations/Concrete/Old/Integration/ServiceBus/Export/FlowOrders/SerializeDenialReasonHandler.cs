@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                     Name = x.Name,
                     Description = x.Description,
                     ProofLink = x.ProofLink,
-                    TypeCode = x.Type,
+                    TypeCode = (int)x.Type,
                     IsHidden = !x.IsActive,
                 });
         }
