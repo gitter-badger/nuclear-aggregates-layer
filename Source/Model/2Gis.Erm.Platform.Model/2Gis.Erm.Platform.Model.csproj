@@ -498,7 +498,6 @@
     <Compile Include="Entities\Enums\Geolocation.cs" />
     <Compile Include="Entities\Enums\InCityBranchesAmount.cs" />
     <Compile Include="Entities\Enums\InformationSource.cs" />
-    <Compile Include="Entities\Enums\Infrastructure\PropertiesToEnumMapper.cs" />
     <Compile Include="Entities\Enums\IntegrationSystem.cs" />
     <Compile Include="Entities\Enums\IntegrationTypeExport.cs" />
     <Compile Include="Entities\Enums\IntegrationTypeImport.cs" />
