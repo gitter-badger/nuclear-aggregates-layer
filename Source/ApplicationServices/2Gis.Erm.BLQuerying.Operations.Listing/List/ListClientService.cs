@@ -80,12 +80,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var barterOrdersFilter = querySettings.CreateForExtendedProperty<Client, bool>("WithBarterOrders", info =>
             {
-                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Orders.Any(z => !z.IsDeleted && z.IsActive && (z.OrderType == (int)OrderType.AdsBarter || z.OrderType == (int)OrderType.ProductBarter || z.OrderType == (int)OrderType.ServiceBarter)));
+                return x => x.LegalPersons.Any(y => !y.IsDeleted && y.IsActive && y.Orders.Any(z => !z.IsDeleted && z.IsActive && (z.OrderType == OrderType.AdsBarter || z.OrderType == OrderType.ProductBarter || z.OrderType == OrderType.ServiceBarter)));
             });
 
             var noMakingDecisionsFilter = querySettings.CreateForExtendedProperty<Client, bool>("NoMakingDecisions", info =>
             {
-                return x => !x.Contacts.Any(y => !y.IsDeleted && y.IsActive && !y.IsFired && y.AccountRole == (int)AccountRole.MakingDecisions);
+                return x => !x.Contacts.Any(y => !y.IsDeleted && y.IsActive && !y.IsFired && y.AccountRole == AccountRole.MakingDecisions);
             });
 
             var regionalFilter = querySettings.CreateForExtendedProperty<Client, bool>("IsRegional", info =>
@@ -296,7 +296,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 IsDeleted = x.IsDeleted,
                 CreatedOn = x.CreatedOn,
                 IsAdvertisingAgency = x.IsAdvertisingAgency,
-                InformationSourceEnum = (InformationSource)x.InformationSource,
+                InformationSourceEnum = x.InformationSource,
                 OwnerName = null,
             })
             .QuerySettings(_filterHelper, querySettings);

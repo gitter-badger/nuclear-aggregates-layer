@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                                                               LastDisqualifyTime = accessor.Get(c => c.LastDisqualifyTime),
                                                               IsActive = accessor.Get(c => c.IsActive),
                                                               IsDeleted = accessor.Get(c => c.IsDeleted),
-                                                              InformationSourceEnum = (InformationSource)accessor.Get(c => c.InformationSource),
+                                                              InformationSourceEnum = accessor.Get(c => c.InformationSource),
 
                                                               // relations
                                                               TerritoryId = GetRelatedId(accessor.Get(c => c.TerritoryId)),

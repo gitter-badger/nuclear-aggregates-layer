@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 Contact = x.Contact,
                 CardId = x.CardId,
                 FirmAddressId = x.FirmAddressId,
-                ContactType = ((FirmAddressContactType)x.ContactType).ToStringLocalizedExpression(),
+                ContactType = (x.ContactType).ToStringLocalizedExpression(),
             })
             .QuerySettings(_filterHelper, querySettings);
 

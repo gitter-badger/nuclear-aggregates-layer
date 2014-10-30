@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         Comment = x.Comment,
                         Checked = true,
                         IsActive = x.DenialReason.IsActive,
-                        DenialReasonType = ((DenialReasonType)x.DenialReason.Type).ToStringLocalizedExpression(),
+                        DenialReasonType = (x.DenialReason.Type).ToStringLocalizedExpression(),
                     })
                 .QuerySettings(_filterHelper, querySettings);
 
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                   Comment = x.aedr != null ? x.aedr.Comment : string.Empty,
                                   Checked = x.aedr != null,
                                   IsActive = x.dr.IsActive,
-                                  DenialReasonType = ((DenialReasonType)x.dr.Type).ToStringLocalizedExpression(),
+                                  DenialReasonType = (x.dr.Type).ToStringLocalizedExpression(),
                               })
                           .QuerySettings(_filterHelper, querySettings);
         }

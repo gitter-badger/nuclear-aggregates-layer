@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 FileId = x.FileId,
                 FileName = x.File.FileName,
                 BranchOfficeOrganizationUnitName = x.BranchOfficeOrganizationUnit.ShortLegalName,
-                TemplateCode = ((TemplateCode)x.TemplateCode).ToStringLocalizedExpression(),
+                TemplateCode = (x.TemplateCode).ToStringLocalizedExpression(),
             })
             .QuerySettings(_filterHelper, querySettings);
 

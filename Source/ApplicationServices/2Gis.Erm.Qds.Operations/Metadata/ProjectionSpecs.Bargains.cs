@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                     x =>
                         {
                             var accessor = x.BasedOn<Bargain>();
-                            var bargainKind = (BargainKind)accessor.Get(c => c.BargainKind);
+                            var bargainKind = accessor.Get(c => c.BargainKind);
                             return new DocumentWrapper<BargainGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),

@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CreatedOn = x.CreatedOn,
                     IsDeleted = x.IsDeleted,
                     OwnerName = null,
-                    State = ((OrderProcessingRequestState)x.State).ToStringLocalizedExpression(),
+                    State = (x.State).ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

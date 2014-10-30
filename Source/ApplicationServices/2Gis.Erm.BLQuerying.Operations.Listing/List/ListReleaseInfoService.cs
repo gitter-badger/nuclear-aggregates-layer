@@ -43,10 +43,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     OrganizationUnitId = x.OrganizationUnitId,
                     OrganizationUnitName = x.OrganizationUnit.Name,
                     IsBeta = x.IsBeta,
-                    StatusEnum = (ReleaseStatus)x.Status,
+                    StatusEnum = x.Status,
                     OwnerCode = x.OwnerCode,
                     Comment = x.Comment,
-                    Status = ((ReleaseStatus)x.Status).ToStringLocalizedExpression(),
+                    Status = (x.Status).ToStringLocalizedExpression(),
                     Owner = null,
                     OperationType = (x.IsBeta ? ReleaseInfoOperationType.Beta : ReleaseInfoOperationType.Release).ToStringLocalizedExpression(),
                 })

@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Id = x.Id,
                     Name = x.Name,
                     IsDeleted = x.IsDeleted,
-                    RestrictionType = ((AdvertisementElementRestrictionType)x.RestrictionType).ToStringLocalizedExpression(),
+                    RestrictionType = (x.RestrictionType).ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

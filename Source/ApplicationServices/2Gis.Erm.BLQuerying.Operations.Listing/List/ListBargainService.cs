@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var hasAdvertisementAgencyManagementPrivilege =
                 _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, _userContext.Identity.Code);
-            Expression<Func<Bargain, bool>> agentBargainsFilter = x => hasAdvertisementAgencyManagementPrivilege || x.BargainKind != (int)BargainKind.Agent;
+            Expression<Func<Bargain, bool>> agentBargainsFilter = x => hasAdvertisementAgencyManagementPrivilege || x.BargainKind != BargainKind.Agent;
 
             return query
                 .Where(x => !x.IsDeleted)
@@ -62,8 +62,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                     ExecutorBranchOfficeId = x.ExecutorBranchOfficeId,
-                    BargainKindEnum = (BargainKind)x.BargainKind,
-                    BargainKind = ((BargainKind)x.BargainKind).ToStringLocalizedExpression(),
+                    BargainKindEnum = x.BargainKind,
+                    BargainKind = (x.BargainKind).ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

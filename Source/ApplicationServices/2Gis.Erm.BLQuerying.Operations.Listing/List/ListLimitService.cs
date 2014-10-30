@@ -65,13 +65,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ClientName = x.Account.LegalPerson.Client.Name,
                     OwnerCode = x.OwnerCode,
                     InspectorCode = x.InspectorCode,
-                    StatusEnum = (LimitStatus)x.Status,
+                    StatusEnum = x.Status,
                     AccountId = x.AccountId,
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                     LegalPersonId = x.Account.LegalPersonId,
                     OwnerName = null,
-                    Status = ((LimitStatus)x.Status).ToStringLocalizedExpression(),
+                    Status = (x.Status).ToStringLocalizedExpression(),
                     InspectorName = null,
                 })
                 .QuerySettings(_filterHelper, querySettings);

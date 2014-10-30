@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     OrganizationUnitName = x.OrganizationUnit.Name,
                     OwnerCode =  x.OwnerCode,
                     Comment = x.Comment,
-                    Status = ((WithdrawalStatus)x.Status).ToStringLocalizedExpression(),
+                    Status = (x.Status).ToStringLocalizedExpression(),
                     Owner = null,
                 })
                 .QuerySettings(_filterHelper, querySettings);

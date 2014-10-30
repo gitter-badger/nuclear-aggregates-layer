@@ -37,11 +37,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     OrganizationUnitName = x.OrganizationUnit.Name,
                     CreatedOn = x.CreatedOn,
                     ModifiedOn = x.ModifiedOn,
-                    StatusEnum = (LocalMessageStatus)x.Status,
+                    StatusEnum = x.Status,
                     SenderSystemEnum = (IntegrationSystem)x.MessageType.SenderSystem,
                     ReceiverSystemEnum = (IntegrationSystem)x.MessageType.ReceiverSystem,
                     IntegrationType = null,
-                    Status = ((LocalMessageStatus)x.Status).ToStringLocalizedExpression(),
+                    Status = (x.Status).ToStringLocalizedExpression(),
                     ReceiverSystem = ((IntegrationSystem)x.MessageType.ReceiverSystem).ToStringLocalizedExpression(),
                     SenderSystem = ((IntegrationSystem)x.MessageType.SenderSystem).ToStringLocalizedExpression(),
                 })

@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
                     IsRequired = x.AdvertisementElementTemplate.IsRequired,
                     AdvertisementId = x.AdvertisementId,
-                    RestrictionType = ((AdvertisementElementRestrictionType)x.AdvertisementElementTemplate.RestrictionType).ToStringLocalizedExpression(),
+                    RestrictionType = (x.AdvertisementElementTemplate.RestrictionType).ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }
