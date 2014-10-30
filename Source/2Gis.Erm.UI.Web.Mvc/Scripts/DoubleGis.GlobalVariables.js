@@ -403,6 +403,18 @@ var extendExt = function () {
         },
         clearOffset: function (offsetInMinutes) {
             return this.add(Date.MINUTE, (offsetInMinutes || Ext.CultureInfo.DateTimeFormatInfo.TimeOffsetInMinutes) * -1);
+        },
+        fixDateTime: function () {
+            // // FIXME {all, 30.10.2014}: Откатить после декабрьского обновления поясов
+            // Одинаковая дата сейчас и через час сигнализирует о проблемах перевода стрелок часов.
+            // Наиболее вероятно, что при десериализации даты поимели эту проблему.
+            // Поэтому принудительно добавляем час.
+            // Добавляя один час к внутреннему представлению, меняем внешнее представление на два часа.
+            if (this.add(Date.HOUR, 1).getTime() == this.getTime()) {
+                return new Date(this.getTime() + 60 * 60 * 1000);
+            }
+
+            return this;
         }
     });
 
@@ -419,6 +431,7 @@ var extendExt = function () {
                 if (!Ext.isDate(v)) {
                     v = new Date(Date.parse(v));
                 }
+                v = v.fixDateTime();
                 return v.shiftOffset().dateFormat(formatInfo.PhpFullDateTimePattern || Ext.CultureInfo.DateTimeFormatInfo.PhpFullDateTimePattern);
             },
             reformatDateFromUserLocaleToInvariant: function (v, formatInfo) {
@@ -443,6 +456,7 @@ var extendExt = function () {
                 if (!Ext.isDate(v)) {
                     v = new Date(Date.parse(v));
                 }
+                v = v.fixDateTime(v);
                 return v.dateFormat(format || Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern);
             },
             moneyRenderer: function (formatInfo) {
