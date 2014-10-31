@@ -78,11 +78,6 @@
     <Compile Include="Accounts\Operations\AccountWithdrawalStartAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountWithdrawFromAccountsAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLocksAggregateService.cs" />
-    <Compile Include="Accounts\Operations\CreateLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\ActivateLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\DeactivateLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\DeleteLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\UpdateLimitAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
     <Compile Include="Activities\CreatePhonecallAggregateService.cs" />
     <Compile Include="Activities\CreateAppointmentAggregateService.cs" />

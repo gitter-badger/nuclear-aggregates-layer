@@ -76,12 +76,7 @@
     <Compile Include="Accounts\Operations\IAccountWithdrawalChangeStatusAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountWithdrawalStartAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountWithdrawFromAccountsAggregateService.cs" />
-    <Compile Include="Accounts\Operations\ICreateLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\IActivateLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\IDeactivateLimitAggregateService.cs" />
-    <Compile Include="Accounts\Operations\IDeleteLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\IImportOperationsInfoAggregateService.cs" />
-    <Compile Include="Accounts\Operations\IUpdateLimitAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Accounts.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Limits.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Locks.cs" />

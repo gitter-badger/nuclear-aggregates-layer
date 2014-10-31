@@ -72,8 +72,6 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
-    <Compile Include="Concrete\Limits\LimitAmountException.cs" />
-    <Compile Include="Concrete\Limits\LimitWorkflowIsViolatedException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
@@ -239,7 +237,6 @@
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Deal\DealClientIsInReserveException.cs" />
-    <Compile Include="Concrete\Limits\LimitIsBlockedByReleaseException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
@@ -301,8 +298,6 @@
     <Compile Include="Concrete\Old\LegalPersons\MergeLegalPersons.cs" />
     <Compile Include="Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueRequest.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsRequest.cs" />
-    <Compile Include="Concrete\Limits\IRecalculateLimitOperationService.cs" />
-    <Compile Include="Concrete\Limits\ISetLimitStatusOperationService.cs" />
     <Compile Include="Concrete\Old\LocalMessages\CreateLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ExportLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ProcessLocalMessagesRequest.cs" />
@@ -514,6 +509,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Integration\Import\FlowBilling\" />
+    <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\PricePositions\" />
     <Folder Include="Generic\Modify\Exceptions\Limits\" />
   </ItemGroup>
