@@ -256,12 +256,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             if (property.PropertyType == typeof(DateTime))
             {
-                return ((DateTime)property.GetValue(model)).ToString(_localizationSettings.ApplicationCulture.DateTimeFormat.ShortDatePattern);
+                return ((DateTime)property.GetValue(model)).ToString(_localizationSettings.ApplicationCulture.DateTimeFormat.ShortDatePattern, _localizationSettings.ApplicationCulture);
             }
 
             if (property.PropertyType == typeof(DateTime?))
             {
-                return ((DateTime?)property.GetValue(model) ?? DateTime.Now).ToString(_localizationSettings.ApplicationCulture.DateTimeFormat.ShortDatePattern);
+                return ((DateTime?)property.GetValue(model) ?? DateTime.Now).ToString(_localizationSettings.ApplicationCulture.DateTimeFormat.ShortDatePattern, _localizationSettings.ApplicationCulture);
             }
             
             return property.GetValue(model);
