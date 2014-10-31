@@ -153,4 +153,10 @@
   <data name="AccessToOperationIsDenied" xml:space="preserve">
     <value>Доступ на выполнение операции '{0}' запрещен</value>
   </data>
+  <data name="InvalidFieldFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InvalidFieldValue" xml:space="preserve">
+    <value />
+  </data>
 </root>
