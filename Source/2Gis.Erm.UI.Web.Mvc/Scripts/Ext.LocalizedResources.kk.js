@@ -1,6 +1,4 @@
-﻿ 
-
-// File updated : 22.09.2014 17:04:46
+﻿// File updated : 22.09.2014 17:04:47
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -76,7 +74,6 @@ CardIsUndefined : 'Для данной сущности не объявлена 
 Category : 'Рубрика',
 CategoryAlreasyExistsInTheList : 'Рубрика "{0}" уже присутствует в списке.',
 CategoryName : 'Название рубрики',
-ChangeNeedToPickClient : 'Необходимо указать Клиента.',
 CheckClientsDebtsFailed : 'Не удалось проверить долги выбранных клиентов. Возможно, у некоторых из выбранных клиентов имеются долги.',
 Checking : 'Проверка',
 CheckInProgressPleaseStandBy : 'Выполняется проверка. Пожалуйста, подождите...',

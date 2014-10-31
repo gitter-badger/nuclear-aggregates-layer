@@ -566,19 +566,14 @@ var localize = function () {
     }
     Date.monthNames = Ext.CultureInfo.DateTimeFormatInfo.MonthNames;
     Date.monthNumbers = {
-        Jan: 0,
-        Feb: 1,
-        Mar: 2,
-        Apr: 3,
-        May: 4,
-        Jun: 5,
-        Jul: 6,
-        Aug: 7,
-        Sep: 8,
-        Oct: 9,
-        Nov: 10,
-        Dec: 11
+
     };
+    for (var i = 0; i < 12; i++) {
+        var shorMonthName = Date.getShortMonthName(i);
+        var firstLetter = shorMonthName.substring(0, 1);
+        var remainingLetters = shorMonthName.substring(1, shorMonthName.length);
+        Date.monthNumbers[firstLetter.toUpperCase() + remainingLetters.toLowerCase()] = i;
+    }
     Date.dayNames = Ext.CultureInfo.DateTimeFormatInfo.DayNames;
     if (Ext.MessageBox) {
         Ext.MessageBox.buttonText = {
