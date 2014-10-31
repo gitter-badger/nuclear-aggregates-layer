@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureOrderViewModel : EntityViewModelBase<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class MultiCultureOrderViewModel : EntityViewModelBase<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||

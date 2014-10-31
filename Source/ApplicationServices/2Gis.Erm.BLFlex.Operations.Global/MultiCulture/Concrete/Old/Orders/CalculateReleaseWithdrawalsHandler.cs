@@ -24,7 +24,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders
 {
     // TODO {all, 29.05.2014}: при рефакторинге ApplicationService учесть наличие клона MultiCulture - нужно их максимально объединить
-    public sealed class CalculateReleaseWithdrawalsHandler : RequestHandler<CalculateReleaseWithdrawalsRequest, EmptyResponse>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class CalculateReleaseWithdrawalsHandler : RequestHandler<CalculateReleaseWithdrawalsRequest, EmptyResponse>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IFinder _finder;
         private readonly IUnitOfWork _unitOfWork;
