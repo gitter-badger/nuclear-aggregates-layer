@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -21,17 +21,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IAccountRepository _accountRepository;
+        private readonly IAccountReadModel _accountReadModel;
 
         public LimitViewModelCustomizationService(IUserContext userContext,
                                                   ISecurityServiceUserIdentifier userIdentifierService,
                                                   ISecurityServiceFunctionalAccess functionalAccessService,
-                                                  IAccountRepository accountRepository)
+                                                  IAccountReadModel accountReadModel)
         {
             _userContext = userContext;
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
-            _accountRepository = accountRepository;
+            _accountReadModel = accountReadModel;
         }
 
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
             // Кнопка "Пересчитать" в карточке лимита должна быть доступна с момента создания лимита и до тех пор пока за период по которому выставлен лимит отсутствует финальная,
             // успешная сборка по городам назначения заказов входящих в расчёт суммы лимита.
-            if (!_accountRepository.IsLimitRecalculationAvailable(entityViewModel.Id))
+            if (!_accountReadModel.IsLimitRecalculationAvailable(entityViewModel.Id))
             {
                 DisableButtons(toolbar, new[] { "RecalculateLimit" });
             }

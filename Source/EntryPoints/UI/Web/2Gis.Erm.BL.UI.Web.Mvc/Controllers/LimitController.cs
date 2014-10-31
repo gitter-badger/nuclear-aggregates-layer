@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
@@ -27,6 +28,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly IPublicService _publicService;
         private readonly ISecureFinder _secureFinder;
+        private readonly IRecalculateLimitOperationService _recalculateLimitOperationService;
+        private readonly ISetLimitStatusOperationService _setLimitStatusOperationService;
 
         public LimitController(IMsCrmSettings msCrmSettings,
                                IUserContext userContext,
@@ -35,7 +38,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ISecureFinder securefinder,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                               IGetBaseCurrencyService getBaseCurrencyService)
+                               IGetBaseCurrencyService getBaseCurrencyService,
+                               IRecalculateLimitOperationService recalculateLimitOperationService,
+                               ISetLimitStatusOperationService setLimitStatusOperationService)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -45,6 +50,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             _publicService = publicService;
             _secureFinder = securefinder;
+            _recalculateLimitOperationService = recalculateLimitOperationService;
+            _setLimitStatusOperationService = setLimitStatusOperationService;
         }
 
         #region set status
@@ -60,12 +67,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             try
             {
-                _publicService.Handle(new SetLimitStatusRequest
-                {
-                    LimitId = model.Id,
-                    LimitReplicationCodes = model.CrmIds,
-                    Status = model.Status
-                });
+                _setLimitStatusOperationService.SetStatus(model.Id, model.Status, model.CrmIds);
                 model.Message = BLResources.OK;
             }
             catch (Exception ex)
@@ -143,8 +145,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpPost]
         public EmptyResult Recalculate(long id)
         {
-            var request = new RecalculateLimitRequest { LimitId = id };
-            _publicService.Handle(request);
+            _recalculateLimitOperationService.Recalculate(id);
             return new EmptyResult();
         }
 
