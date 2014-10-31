@@ -298,8 +298,6 @@
     <Compile Include="Concrete\Old\LegalPersons\MergeLegalPersons.cs" />
     <Compile Include="Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueRequest.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\RecalculateLimitRequest.cs" />
-    <Compile Include="Concrete\Old\Limits\SetLimitStatusRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\CreateLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ExportLocalMessageRequest.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ProcessLocalMessagesRequest.cs" />
@@ -511,7 +509,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Integration\Import\FlowBilling\" />
+    <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\PricePositions\" />
+    <Folder Include="Generic\Modify\Exceptions\Limits\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

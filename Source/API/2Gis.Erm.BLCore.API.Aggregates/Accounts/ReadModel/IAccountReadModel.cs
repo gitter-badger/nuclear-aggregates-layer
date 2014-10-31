@@ -31,5 +31,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         bool AnyLockDetailsCreated(Guid chargeSessionId);
         AccountIdAndOwnerCodeDto GetAccountIdAndOwnerCodeByOrder(long orderId);
         IEnumerable<AccountDetailInfoToSendNotificationDto> GetAccountDetailsInfoToSendNotification(IEnumerable<long> accountDetailIds);
+        long GetAccountOwnerCode(long accountId);
+        Limit GetLimitById(long id);
+        Limit GetLimitByReplicationCode(Guid replicationCode);
+        LimitDto InitializeLimitForAccount(long accountId);
+        bool IsThereLimitDuplicate(long limitId, long accountId, DateTime periodStartDate, DateTime periodEndDate);
+        bool IsLimitRecalculationAvailable(long limitId);
+        decimal CalculateLimitValueForAccountByPeriod(long accountId, DateTime periodStart, DateTime periodEnd);
     }
 }

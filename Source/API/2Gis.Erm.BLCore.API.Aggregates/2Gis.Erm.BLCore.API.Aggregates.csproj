@@ -263,6 +263,7 @@
     <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.OrderReleaseTotals.cs" />
     <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
