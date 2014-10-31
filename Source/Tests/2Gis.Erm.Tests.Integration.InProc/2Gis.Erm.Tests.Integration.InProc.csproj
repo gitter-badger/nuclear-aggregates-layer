@@ -178,8 +178,8 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\ExportLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LegalPersons\MergeLegalPersonsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\PrintLimitsHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\RecalculateLimitHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Limits\SetLimitStatusHandlerTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Limits\RecalculateLimitOperationServiceTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Limits\SetLimitStatusOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\CreateLocalMessageHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ExportLocalMessageHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\LocalMessages\ProcessLocalMessagesHandlerTest.cs" />
