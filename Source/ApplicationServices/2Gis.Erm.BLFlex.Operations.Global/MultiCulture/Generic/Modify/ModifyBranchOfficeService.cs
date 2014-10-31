@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
         public long Modify(IDomainEntityDto domainEntityDto)
         {
             var entity = _obtainer.ObtainBusinessModelEntity(domainEntityDto);
-            
+
             _validator.Check(entity);
 
             if (entity.IsNew())

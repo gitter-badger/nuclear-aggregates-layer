@@ -445,4 +445,25 @@
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
     <value>Смена реквизитов скрытого юр. лица запрещена</value>
   </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
+  </data>
 </root>

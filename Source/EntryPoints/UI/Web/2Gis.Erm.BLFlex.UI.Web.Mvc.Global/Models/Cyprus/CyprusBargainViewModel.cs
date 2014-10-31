@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
+    // FIXME {all, 24.09.2014}: Не отличается от MultiCultureBargainViewModel
     public sealed class CyprusBargainViewModel : EntityViewModelBase<Bargain>, ICyprusAdapted
     {
         #region Meaningful data

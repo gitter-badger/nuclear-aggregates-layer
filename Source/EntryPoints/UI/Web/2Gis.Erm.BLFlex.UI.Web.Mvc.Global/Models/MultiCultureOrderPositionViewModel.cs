@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureOrderPositionViewModel : EntityViewModelBase<OrderPosition>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class MultiCultureOrderPositionViewModel : EntityViewModelBase<OrderPosition>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings() { Converters = { new Int64ToStringConverter() } };
 

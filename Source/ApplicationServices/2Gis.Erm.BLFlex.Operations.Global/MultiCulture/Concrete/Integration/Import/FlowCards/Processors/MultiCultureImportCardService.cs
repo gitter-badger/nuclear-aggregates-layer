@@ -19,7 +19,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integration.Import.FlowCards.Processors
 {
-    public class MultiCultureImportCardService : IImportCardService, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class MultiCultureImportCardService : IImportCardService, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         private const int PregeneratedIdsAmount = 3000;
         private readonly IClientProxyFactory _clientProxyFactory;

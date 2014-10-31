@@ -7,7 +7,13 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
-    public class MultiCultureTaskViewModelCustomizationService : IGenericViewModelCustomizationService<Task>, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public class MultiCultureTaskViewModelCustomizationService : IGenericViewModelCustomizationService<Task>,
+                                                                 ICyprusAdapted,
+                                                                 ICzechAdapted,
+                                                                 IChileAdapted,
+                                                                 IUkraineAdapted,
+                                                                 IEmiratesAdapted,
+                                                                 IKazakhstanAdapted
     {
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

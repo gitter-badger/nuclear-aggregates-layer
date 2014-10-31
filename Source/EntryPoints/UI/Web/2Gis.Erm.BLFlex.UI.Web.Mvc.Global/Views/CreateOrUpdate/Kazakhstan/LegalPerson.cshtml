@@ -1,0 +1,46 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan.KazakhstanLegalPersonViewModel
+
+@{
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.LegalPerson.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Kazakhstan/Ext.DoubleGis.UI.LegalPerson.Kazakhstan.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.HasProfiles)
+
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalName, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
+        </div>
+        
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalPersonType, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.Bin, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.BinIin, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.Iin, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IdentityCardNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.IdentityCardIssuedOn, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IdentityCardIssuedBy, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 } })
+        </div>
+    </div>
+}

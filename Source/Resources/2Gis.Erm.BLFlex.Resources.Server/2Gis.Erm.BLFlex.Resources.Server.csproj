@@ -65,6 +65,9 @@
     <EmbeddedResource Include="Properties\BLResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\BLResources.kk-KZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\BLResources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
