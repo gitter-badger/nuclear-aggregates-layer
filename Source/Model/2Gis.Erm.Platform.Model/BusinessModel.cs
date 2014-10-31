@@ -2,12 +2,13 @@
 {
     public enum BusinessModel
     {
-        NotSetted = 0,
+        NotSet = 0,
         Russia,
         Cyprus,
         Czech,
         Chile,
         Ukraine,
-        Emirates
+        Emirates,
+        Kazakhstan
     }
 }

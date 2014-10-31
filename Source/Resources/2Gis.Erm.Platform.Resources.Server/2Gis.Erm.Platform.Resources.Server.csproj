@@ -69,6 +69,9 @@
       <LastGenOutput>ResPlatform.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ResPlatform.kk-KZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ResPlatform.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

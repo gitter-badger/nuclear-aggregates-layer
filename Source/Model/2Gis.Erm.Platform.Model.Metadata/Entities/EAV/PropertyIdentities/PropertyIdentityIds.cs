@@ -36,5 +36,13 @@
         public const int EndDistributionDatePropertyId = 32;
         public const int AuthorIdPropertyId = 33;
         public const int DocumentsAmountPropertyId = 34;
+        public const int RnnPropertyId = 35;
+        public const int IdentityCardNumberPropertyId = 36;
+        public const int IdentityCardIssuedByPropertyId = 37;
+        public const int IdentityCardIssuedOnPropertyId = 38;
+        public const int ActualAddressPropertyId = 39;
+        public const int DecreeNumberPropertyId = 40;
+        public const int DecreeDatePropertyId = 41;
+        public const int OtherAuthorityDocumentPropertyId = 42;
 	}
 }

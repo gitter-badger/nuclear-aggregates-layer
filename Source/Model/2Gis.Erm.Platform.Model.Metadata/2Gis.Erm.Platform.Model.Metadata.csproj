@@ -122,12 +122,19 @@
     <Compile Include="Entities\EAV\DynamicEntityPropertyMapper.cs" />
     <Compile Include="Entities\EAV\DynamicEntityMetadataRegistry.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\AccountTypeIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\ActualAddressIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\BankIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\BusinessModelIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\CommercialLicenseEndDateIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\DecreeDateIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\DecreeNumberIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\EndDistributionDateIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\AuthorIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\DocumentsAmountIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\OtherAuthorityDocumentIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IdentityCardIssuedByIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IdentityCardIssuedOnIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IdentityCardNumberIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\PhoneIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\OrganizationUnitIdIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\CommuneIdIdentity.cs" />
@@ -146,6 +153,7 @@
     <Compile Include="Entities\EAV\PropertyIdentities\EntityTypeNameIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\OperationsKindIndentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeRutIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\RnnIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\TaxationTypeIdentity.cs" />
     <Compile Include="Entities\EntityPropertyMetadata.cs" />
     <Compile Include="Entities\ErrorDescription.cs" />
@@ -190,6 +198,7 @@
     <Compile Include="Globalization\EntityAdaptationMapping.cs" />
     <Compile Include="Globalization\GlobalizationSpecsAttribute.cs" />
     <Compile Include="Globalization\IAdapted.cs" />
+    <Compile Include="Globalization\IKazakhstanAdapted.cs" />
     <Compile Include="Globalization\IChileAdapted.cs" />
     <Compile Include="Globalization\IEmiratesAdapted.cs" />
     <Compile Include="Globalization\ICyprusAdapted.cs" />
