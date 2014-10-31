@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -26,6 +27,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                 {
                     return new FindSpecification<Bargain>(bargain => bargain.CustomerLegalPersonId == legalPersonId
                                                                      && bargain.ExecutorBranchOfficeId == branchOfficeOrganizationUnitId);
+                }
+
+                public static FindSpecification<Bargain> ByOrder(long orderId)
+                {
+                    return new FindSpecification<Bargain>(bargain => bargain.Orders.Any(order => order.Id == orderId));
                 }
 
                 public static FindSpecification<Bargain> ClientBargains()
