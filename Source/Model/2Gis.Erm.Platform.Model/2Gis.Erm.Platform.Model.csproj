@@ -961,6 +961,8 @@
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmAddressesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmPromisingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\GetHotClientTaskToReplicateIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Limit\RecalculateLimitIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Limit\SetLimitStatusIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />

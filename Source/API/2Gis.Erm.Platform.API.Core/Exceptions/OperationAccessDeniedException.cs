@@ -14,6 +14,11 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
         {
         }
 
+        public OperationAccessDeniedException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
         public OperationAccessDeniedException(IOperationIdentity operation) :
             base(GenerateMessage(operation))
         {
