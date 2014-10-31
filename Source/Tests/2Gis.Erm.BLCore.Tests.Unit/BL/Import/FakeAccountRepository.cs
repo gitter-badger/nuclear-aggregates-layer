@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
@@ -57,11 +55,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        int IDeleteAggregateRepository<Limit>.Delete(long entityId)
-        {
-            throw new NotImplementedException();
-        }
-
         int IDeleteAggregateRepository<OperationType>.Delete(long entityId)
         {
             throw new NotImplementedException();
@@ -103,11 +96,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
         }
 
         public GetLockDetailDto GetLockDetail(long entityId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Limit FindLimit(long entityId)
         {
             throw new NotImplementedException();
         }
@@ -251,11 +239,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        public int Create(Limit limit)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Update(Account account)
         {
             throw new NotImplementedException();
@@ -296,11 +279,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        public int Update(Limit limit)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Delete(Account account)
         {
             throw new NotImplementedException();
@@ -325,11 +303,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             return items.Count();
         }
 
-        public int Delete(Limit limit)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Delete(LockDetail entity)
         {
             throw new NotImplementedException();
@@ -345,11 +318,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        public int Deactivate(Limit limit)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<OperationType> GetOperationTypes(string syncCode1C)
         {
             throw new NotImplementedException();
@@ -361,36 +329,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
         }
 
         public int ReopenLimit(Limit limit)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RecalculateLimitValue(Limit limit, DateTime periodStart, DateTime periodEnd)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsLimitRecalculationAvailable(long limitId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsLimitExists(long accountId, DateTime periodStartDate, DateTime periodEndDate, long excludeLimitId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public LimitDto InitializeLimitForAccount(long accountId, DateTime periodStartDate, DateTime periodEndDate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Limit GetLimitById(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Limit GetLimitByReplicationCode(Guid replicationCode)
         {
             throw new NotImplementedException();
         }

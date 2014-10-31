@@ -180,8 +180,8 @@
     <Compile Include="Concrete\Old\Journal\Infrastructure\PropertyBag.cs" />
     <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandler.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsHandler.cs" />
-    <Compile Include="Concrete\Old\Limits\RecalculateLimitHandler.cs" />
-    <Compile Include="Concrete\Old\Limits\SetLimitStatusHandler.cs" />
+    <Compile Include="Concrete\Limits\RecalculateLimitOperationService.cs" />
+    <Compile Include="Concrete\Limits\SetLimitStatusOperationService.cs" />
     <Compile Include="Concrete\Old\LocalMessages\CreateLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ExportLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ProcessLocalMessagesHandler.cs" />
@@ -513,7 +513,7 @@
     <Compile Include="Generic\Modify\Old\EditDepartmentHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmAddressHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditLimitHandler.cs" />
+    <Compile Include="Generic\Modify\ModifyLimitService.cs" />
     <Compile Include="Generic\Modify\Old\EditNoteHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditOperationTypeHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditOrderFileHandler.cs" />

@@ -63,11 +63,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                                                              !x.IsDeleted && x.Locks.Count(l => !l.IsDeleted && !l.IsActive) == x.ReleaseCountFact);
                 }
 
-                public static FindSpecification<Order> ByAccount(long accountId)
+                public static FindSpecification<Order> ByAccountExtended(long accountId)
                 {
                     return
                         new FindSpecification<Order>(
                             o => o.BranchOfficeOrganizationUnit.Accounts.Any(a => a.Id == accountId && a.LegalPersonId == o.LegalPersonId));
+                }
+
+                public static FindSpecification<Order> ByAccount(long accountId)
+                {
+                    return new FindSpecification<Order>(o => o.AccountId == accountId);
                 }
 
                 public static FindSpecification<Order> ByPeriod(TimePeriod period)

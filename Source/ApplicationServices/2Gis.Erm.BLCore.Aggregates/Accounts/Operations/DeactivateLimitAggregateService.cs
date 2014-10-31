@@ -1,15 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
+namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 {
     // TODO {y.baranihin, 31.10.2014}: перенести в BL
-    public class DeactivateLimitService : IDeactivateGenericEntityService<Limit>
+    public sealed class DeactivateLimitAggregateService : IDeactivateLimitAggregateService
     {
-        public DeactivateConfirmation Deactivate(long entityId, long ownerCode)
+        public void Deactivate(Limit limit)
         {
             throw new NotSupportedException(BLResources.OperationIsDiabled);
         }

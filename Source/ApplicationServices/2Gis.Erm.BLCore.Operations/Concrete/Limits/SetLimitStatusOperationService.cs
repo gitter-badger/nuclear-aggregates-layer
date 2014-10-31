@@ -2,33 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Security;
-using System.Transactions;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Limits;
-using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.API.Common.Exceptions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
+namespace DoubleGis.Erm.BLCore.Operations.Concrete.Limits
 {
-    public sealed class SetLimitStatusHandler : RequestHandler<SetLimitStatusRequest, Response>
+    // TODO {y.baranihin, 31.10.2014}: перенести в BL
+    public sealed class SetLimitStatusOperationService : ISetLimitStatusOperationService
     {
         private readonly ISecurityServiceFunctionalAccess _securityService;
         private readonly IActionLogger _actionLogger;
-        private readonly IAccountRepository _accountRepository;
         private readonly IAccountReadModel _accountReadModel;
         private readonly IUserContext _userContext;
+        private readonly IUpdateLimitAggregateService _updateLimitAggregateService;
+        private readonly IOperationScopeFactory _operationScopeFactory;
 
         private readonly IDictionary<LimitStatus, LimitStatus[]> _allowedTransitions = new Dictionary<LimitStatus, LimitStatus[]>
             {
@@ -37,77 +38,78 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
                 { LimitStatus.Approved, new[] { LimitStatus.Opened } }
             };
 
-        public SetLimitStatusHandler(
+        public SetLimitStatusOperationService(
             IAccountReadModel accountReadModel,
-            IAccountRepository accountRepository,
             IActionLogger actionLogger,
             IUserContext userContext,
-            ISecurityServiceFunctionalAccess securityService)
+            ISecurityServiceFunctionalAccess securityService,
+            IUpdateLimitAggregateService updateLimitAggregateService,
+            IOperationScopeFactory operationScopeFactory)
         {
             _accountReadModel = accountReadModel;
             _userContext = userContext;
             _securityService = securityService;
-            _accountRepository = accountRepository;
+            _updateLimitAggregateService = updateLimitAggregateService;
+            _operationScopeFactory = operationScopeFactory;
             _actionLogger = actionLogger;
         }
 
-        protected override Response Handle(SetLimitStatusRequest request)
+        public void SetStatus(long limitId, LimitStatus status, params Guid[] limitReplicationCodes)
         {
             // Проверка касается только функциональных разрешений, если не хватает сущностных,
             // тогда уровень доступа к данным создаст исключение, которое будет поймано ниже.
-            if (!HasFunctionalAccess(request.Status))
+            if (!HasFunctionalAccess(status))
             {
-                throw new NotificationException(BLResources.InsufficientRightsWarning);
+                throw new OperationAccessDeniedException(BLResources.InsufficientRightsWarning);
             }
 
             try
             {
-                using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+                using (var scope = _operationScopeFactory.CreateNonCoupled<SetLimitStatusIdentity>())
                 {
-                    var limit = GetLimit(request);
+                    var limit = GetLimit(limitId, limitReplicationCodes);
                     if (limit == null)
                     {
-                        throw new NotificationException(BLResources.EntityNotFound);
+                        throw new EntityNotFoundException(typeof(Limit));
                     }
 
-                    CheckTransition((LimitStatus)limit.Status, request.Status);
+                    CheckTransition((LimitStatus)limit.Status, status);
 
                     string name;
                     if (_accountReadModel.TryGetLimitLockingRelease(limit, out name))
                     {
-                        throw new NotificationException(string.Format(BLResources.LimitEditBlockedByRelease, name));
+                        throw new LimitIsBlockedByReleaseException(string.Format(BLResources.LimitEditBlockedByRelease, name));
                     }
 
                     if (!limit.IsActive)
                     {
-                        throw new NotificationException(BLResources.EntityIsInactive);
+                        throw new InactiveEntityModificationException();
                     }
 
                     var originalLimitObject = CompareObjectsHelper.CreateObjectDeepClone(limit);
 
-                    limit.Status = (short)request.Status;
-                    switch (request.Status)
+                    limit.Status = (short)status;
+                    switch (status)
                     {
                         case LimitStatus.Rejected:
                         case LimitStatus.Approved:
                             limit.InspectorCode = _userContext.Identity.Code;
                             break;
                         case LimitStatus.Opened:
-                            _accountRepository.RecalculateLimitValue(limit, limit.StartPeriodDate, limit.EndPeriodDate);
+                            limit.Amount = _accountReadModel.CalculateLimitValueForAccountByPeriod(limit.AccountId, limit.StartPeriodDate, limit.EndPeriodDate);
                             break;
                     }
 
-                    _accountRepository.Update(limit);
+                    _updateLimitAggregateService.Update(limit, _accountReadModel.GetAccountOwnerCode(limit.AccountId));
                     _actionLogger.LogChanges(originalLimitObject, limit);
-                    transaction.Complete();
+                    scope.Updated(limit)
+                         .Complete();
                 }
             }
             catch (SecurityAccessDeniedException e)
             {
-                throw new NotificationException(BLResources.InsufficientRightsWarning, e);
+                throw new OperationAccessDeniedException(BLResources.InsufficientRightsWarning, e);
             }
-
-            return Response.Empty;
         }
 
         private static string GetStatusLocalizedName(LimitStatus currentStatus)
@@ -116,17 +118,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
             return string.IsNullOrEmpty(statusName) ? string.Empty : BLResources.ResourceManager.GetString(statusName);
         }
 
-        private Limit GetLimit(SetLimitStatusRequest request)
+        private Limit GetLimit(long limitId, Guid[] limitReplicationCodes)
         {
-            var replicationCodes = request.LimitReplicationCodes;
+            var replicationCodes = limitReplicationCodes;
             if (replicationCodes.Length > 1)
             {
                 throw new NotificationException(BLResources.LimitStatusChangeIsNotSupportedAsTheGroupOperation);
             }
 
-            return (request.LimitId > 0)
-                       ? _accountRepository.GetLimitById(request.LimitId)
-                       : _accountRepository.GetLimitByReplicationCode(replicationCodes.FirstOrDefault());
+            return (limitId > 0)
+                       ? _accountReadModel.GetLimitById(limitId)
+                       : _accountReadModel.GetLimitByReplicationCode(replicationCodes.FirstOrDefault());
         }
 
         private void CheckTransition(LimitStatus statusFrom, LimitStatus statusTo)
@@ -134,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
             LimitStatus[] allowedTransitions;
             if (!_allowedTransitions.TryGetValue(statusTo, out allowedTransitions))
             {
-                throw new NotificationException(string.Format(BLResources.NotExistsTransitionForLimitStatusErrorMessage, GetStatusLocalizedName(statusTo)));
+                throw new LimitWorkflowIsViolatedException(string.Format(BLResources.NotExistsTransitionForLimitStatusErrorMessage, GetStatusLocalizedName(statusTo)));
             }
 
             if (allowedTransitions.Contains(statusFrom))
@@ -146,9 +148,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
                                         GetStatusLocalizedName(statusTo),
                                         string.Join(",", allowedTransitions.Select(GetStatusLocalizedName)));
 
-            throw new NotificationException(message);
+            throw new LimitWorkflowIsViolatedException(message);
         }
-        
+
         private bool HasFunctionalAccess(LimitStatus newStatus)
         {
             switch (newStatus)

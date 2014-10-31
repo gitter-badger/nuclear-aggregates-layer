@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -14,57 +14,58 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
+    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public class GetLimitDtoService : GetDomainEntityDtoServiceBase<Limit>
     {
-        private readonly IAccountRepository _accountRepository;
         private readonly ISecureFinder _finder;
+        private readonly IAccountReadModel _accountReadModel;
 
         public GetLimitDtoService(
-            IAccountRepository accountRepository,
             IUserContext userContext,
-            ISecureFinder finder)
+            ISecureFinder finder,
+            IAccountReadModel accountReadModel)
             : base(userContext)
         {
-            _accountRepository = accountRepository;
             _finder = finder;
+            _accountReadModel = accountReadModel;
         }
 
         protected override IDomainEntityDto<Limit> GetDto(long entityId)
         {
             var modelDto = _finder.Find<Limit>(x => x.Id == entityId)
                                   .Select(entity => new LimitDomainEntityDto
+                                  {
+                                      Id = entity.Id,
+                                      AccountRef = new EntityReference { Id = entity.AccountId, Name = null },
+                                      Amount = entity.Amount,
+                                      LegalPersonRef = new EntityReference
                                       {
-                                          Id = entity.Id,
-                                          AccountRef = new EntityReference { Id = entity.AccountId, Name = null },
-                                          Amount = entity.Amount,
-                                          LegalPersonRef = new EntityReference
-                                              {
-                                                  Id = entity.Account.LegalPersonId,
-                                                  Name = entity.Account.LegalPerson.LegalName
-                                              },
-                                          BranchOfficeRef = new EntityReference
-                                              {
-                                                  Id = entity.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
-                                                  Name = entity.Account.BranchOfficeOrganizationUnit.BranchOffice.Name
-                                              },
-                                          Status = (LimitStatus)entity.Status,
-                                          StartPeriodDate = entity.StartPeriodDate,
-                                          InspectorRef = new EntityReference
-                                              {
-                                                  Id = entity.InspectorCode,
-                                                  Name = null
-                                              },
-                                          Comment = entity.Comment,
-                                          CloseDate = entity.CloseDate,
-                                          CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
-                                          CreatedOn = entity.CreatedOn,
-                                          OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
-                                          IsActive = entity.IsActive,
-                                          IsDeleted = entity.IsDeleted,
-                                          ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
-                                          ModifiedOn = entity.ModifiedOn,
-                                          Timestamp = entity.Timestamp
-                                      })
+                                          Id = entity.Account.LegalPersonId,
+                                          Name = entity.Account.LegalPerson.LegalName
+                                      },
+                                      BranchOfficeRef = new EntityReference
+                                      {
+                                          Id = entity.Account.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                          Name = entity.Account.BranchOfficeOrganizationUnit.BranchOffice.Name
+                                      },
+                                      Status = (LimitStatus)entity.Status,
+                                      StartPeriodDate = entity.StartPeriodDate,
+                                      InspectorRef = new EntityReference
+                                      {
+                                          Id = entity.InspectorCode,
+                                          Name = null
+                                      },
+                                      Comment = entity.Comment,
+                                      CloseDate = entity.CloseDate,
+                                      CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
+                                      CreatedOn = entity.CreatedOn,
+                                      OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
+                                      IsActive = entity.IsActive,
+                                      IsDeleted = entity.IsDeleted,
+                                      ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
+                                      ModifiedOn = entity.ModifiedOn,
+                                      Timestamp = entity.Timestamp
+                                  })
                                   .Single();
 
             return modelDto;
@@ -82,21 +83,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     var periodStart = nextMonthDate.GetFirstDateOfMonth();
                     var periodEnd = nextMonthDate.GetEndPeriodOfThisMonth();
 
-                    var limit = _accountRepository.InitializeLimitForAccount(accountId, periodStart, periodEnd);
+                    var limit = _accountReadModel.InitializeLimitForAccount(accountId);
+                    var limitAmount = _accountReadModel.CalculateLimitValueForAccountByPeriod(accountId, periodStart, periodEnd);
+
                     dto = new LimitDomainEntityDto
                     {
                         AccountRef = new EntityReference { Id = accountId },
-                        Amount = limit.Amount,
+                        Amount = limitAmount,
                         LegalPersonRef = new EntityReference
-                            {
-                                Id = limit.LegalPersonId,
-                                Name = limit.LegalPersonName
-                            },
+                        {
+                            Id = limit.LegalPersonId,
+                            Name = limit.LegalPersonName
+                        },
                         BranchOfficeRef = new EntityReference
-                            {
-                                Id = limit.BranchOfficeId,
-                                Name = limit.BranchOfficeName
-                            },
+                        {
+                            Id = limit.BranchOfficeId,
+                            Name = limit.BranchOfficeName
+                        },
                         Status = LimitStatus.Opened,
                         StartPeriodDate = periodStart,
                         InspectorRef = new EntityReference()
