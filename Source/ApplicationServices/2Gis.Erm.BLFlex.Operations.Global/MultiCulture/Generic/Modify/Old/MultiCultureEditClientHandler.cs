@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 {
     public sealed class MultiCultureEditClientHandler : RequestHandler<EditRequest<Client>, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted,
-                                                        IUkraineAdapted, IEmiratesAdapted
+                                                        IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ICreateClientAggregateService _createClientService;

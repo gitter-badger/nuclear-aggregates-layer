@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 {
-    public sealed class UkraineContactViewModel : EntityViewModelBase<Contact>, IUkraineAdapted
+    public sealed class UkraineKazakhstanContactViewModel : EntityViewModelBase<Contact>, IUkraineAdapted, IKazakhstanAdapted
     {
         [StringLengthLocalized(160)]
         public string FullName { get; set; }
