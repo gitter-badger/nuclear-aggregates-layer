@@ -230,24 +230,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             return count;
         }
 
-        public int Activate(Limit limit)
-        {
-            int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity>(EntityName.Limit))
-            {
-                limit.IsActive = true;
-                limit.CloseDate = null;
-                _limitGenericSecureRepository.Update(limit);
-                count = _limitGenericSecureRepository.Save();
-
-                operationScope
-                    .Updated<Limit>(limit.Id)
-                    .Complete();
-            }
-
-            return count;
-        }
-
         public int Delete(Lock entity)
         {
             int count;
@@ -627,12 +609,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
                 return count;
             }
-        }
-
-        int IActivateAggregateRepository<Limit>.Activate(long entityId)
-        {
-            var entity = _secureFinder.Find(Specs.Find.ById<Limit>(entityId)).Single();
-            return Activate(entity);
         }
 
         int IDeleteAggregateRepository<Lock>.Delete(long entityId)

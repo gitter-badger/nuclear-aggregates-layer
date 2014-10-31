@@ -100,16 +100,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Limit> GetReleaseLimitInfo(long organizationUnitId, TimePeriod period)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Limit> GetHungLimits(long organizationUnitId, DateTime limitStart)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool IsActiveLocksExists(long orderId)
         {
             throw new NotImplementedException();
@@ -319,16 +309,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
         }
 
         public IEnumerable<OperationType> GetOperationTypes(string syncCode1C)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CloseLimit(Limit limit)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int ReopenLimit(Limit limit)
         {
             throw new NotImplementedException();
         }

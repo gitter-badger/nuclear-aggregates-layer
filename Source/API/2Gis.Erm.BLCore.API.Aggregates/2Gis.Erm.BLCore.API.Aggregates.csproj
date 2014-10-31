@@ -77,6 +77,7 @@
     <Compile Include="Accounts\Operations\IAccountWithdrawalStartAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountWithdrawFromAccountsAggregateService.cs" />
     <Compile Include="Accounts\Operations\ICreateLimitAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IActivateLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\IDeactivateLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\IDeleteLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\IImportOperationsInfoAggregateService.cs" />
