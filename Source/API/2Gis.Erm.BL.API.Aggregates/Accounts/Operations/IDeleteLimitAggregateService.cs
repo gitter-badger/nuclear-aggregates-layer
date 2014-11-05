@@ -2,9 +2,8 @@
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
+namespace DoubleGis.Erm.BL.API.Aggregates.Accounts.Operations
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public interface IDeleteLimitAggregateService : IAggregateSpecificOperation<Account, DeleteIdentity>
     {
         void Delete(Limit limit);

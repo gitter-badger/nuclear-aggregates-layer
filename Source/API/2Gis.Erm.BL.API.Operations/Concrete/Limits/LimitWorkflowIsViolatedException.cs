@@ -3,9 +3,8 @@ using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 
-namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Limits
+namespace DoubleGis.Erm.BL.API.Operations.Concrete.Limits
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     [Serializable]
     public class LimitWorkflowIsViolatedException : BusinessLogicException
     {

@@ -61,6 +61,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Недостаточно прав для смены периода лимита.
+        /// </summary>
+        public static string AccessToChangePeriodOfLimitIsDenied {
+            get {
+                return ResourceManager.GetString("AccessToChangePeriodOfLimitIsDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Рекламное агентство не может быть указано в качестве дочернего клиента.
         /// </summary>
         public static string AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient {

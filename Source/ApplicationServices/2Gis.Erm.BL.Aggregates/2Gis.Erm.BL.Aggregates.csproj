@@ -52,8 +52,14 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Accounts\Operations\ActivateLimitAggregateService.cs" />
+    <Compile Include="Accounts\Operations\CreateLimitAggregateService.cs" />
+    <Compile Include="Accounts\Operations\DeactivateLimitAggregateService.cs" />
+    <Compile Include="Accounts\Operations\DeleteLimitAggregateService.cs" />
+    <Compile Include="Accounts\Operations\UpdateLimitAggregateService.cs" />
     <Compile Include="DI\BlAggregatesAssembly.cs" />
     <Compile Include="DomainEntityObtainers\DenialReasonObtainer.cs" />
+    <Compile Include="DomainEntityObtainers\LimitObtainer.cs" />
     <Compile Include="SimplifiedModel\CreateBirthdayCongratulationService.cs" />
     <Compile Include="SimplifiedModel\CreateDenialReasonService.cs" />
     <Compile Include="SimplifiedModel\DeactivateDenialReasonService.cs" />
@@ -69,6 +75,14 @@
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>

@@ -1,7 +1,7 @@
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BL.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Exceptions;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -16,9 +16,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
+namespace DoubleGis.Erm.BL.Operations.Generic.Modify
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public class ModifyLimitService : IModifyBusinessModelEntityService<Limit>
     {
         private readonly IAccountReadModel _accountReadModel;
@@ -85,8 +84,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                 if (originalLimitObject != null && PeriodChanged(originalLimitObject, limit) && !FunctionalPrivelegeGranted())
                 {
                     // Смена периода для уже существующего лимита возможна только при налчии спец. разрешения.
-                    // TODO {y.baranihin, 31.10.2014}: Вынести в ресурсы
-                    throw new OperationAccessDeniedException("Недостаточно прав для смены периода лимита");
+                    throw new OperationAccessDeniedException(Resources.Server.Properties.Resources.AccessToChangePeriodOfLimitIsDenied);
                 }
 
                 if (limit.IsNew())

@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
+﻿using DoubleGis.Erm.BL.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -6,9 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
+namespace DoubleGis.Erm.BL.Aggregates.Accounts.Operations
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public sealed class CreateLimitAggregateService : ICreateLimitAggregateService
     {
         private readonly IIdentityProvider _identityProvider;

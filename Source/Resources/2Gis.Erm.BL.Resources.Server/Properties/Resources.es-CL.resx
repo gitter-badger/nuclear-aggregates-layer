@@ -181,4 +181,7 @@
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
     <value>No se puede indicar a la agencia publicitaria como el cliente afiliado</value>
   </data>
+  <data name="AccessToChangePeriodOfLimitIsDenied" xml:space="preserve">
+    <value>Недостаточно прав для смены периода лимита</value>
+  </data>
 </root>

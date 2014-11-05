@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Security;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BL.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Exceptions;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -19,9 +19,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit;
 
-namespace DoubleGis.Erm.BLCore.Operations.Concrete.Limits
+namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public sealed class SetLimitStatusOperationService : ISetLimitStatusOperationService
     {
         private readonly ISecurityServiceFunctionalAccess _securityService;

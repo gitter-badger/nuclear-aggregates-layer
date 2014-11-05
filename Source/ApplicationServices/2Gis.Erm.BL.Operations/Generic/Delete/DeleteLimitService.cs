@@ -1,14 +1,13 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.BL.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
+namespace DoubleGis.Erm.BL.Operations.Generic.Delete
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public class DeleteLimitService : IDeleteGenericEntityService<Limit>
     {
         private readonly IAccountReadModel _accountReadModel;

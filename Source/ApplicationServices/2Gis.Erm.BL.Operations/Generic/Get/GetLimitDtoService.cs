@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -12,9 +13,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
+namespace DoubleGis.Erm.BL.Operations.Generic.Get
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public class GetLimitDtoService : GetDomainEntityDtoServiceBase<Limit>
     {
         private readonly ISecureFinder _finder;

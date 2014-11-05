@@ -7,9 +7,8 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
+namespace DoubleGis.Erm.BL.Aggregates.DomainEntityObtainers
 {
-    // TODO {y.baranihin, 31.10.2014}: перенести в BL
     public sealed class LimitObtainer : IBusinessModelEntityObtainer<Limit>, IAggregateReadModel<Account>
     {
         private readonly IFinder _finder;
