@@ -107,6 +107,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         long? GetBargainIdByOrder(long orderId);
         long GetBargainLegalPersonId(long bargainId);
         OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId);
+        OrderLegalPersonProfileDto GetBargainLegalPersonProfile(long bargainId);
         long? GetOrderLegalPersonProfileId(long orderId);
     }
 }

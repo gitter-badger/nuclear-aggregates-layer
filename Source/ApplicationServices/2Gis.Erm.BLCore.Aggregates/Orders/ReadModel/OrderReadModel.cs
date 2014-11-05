@@ -1441,6 +1441,28 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        };
         }
 
+        public OrderLegalPersonProfileDto GetBargainLegalPersonProfile(long bargainId)
+        {
+            var dto = _secureFinder.Find(Specs.Find.ById<Bargain>(bargainId))
+                                   .Select(x => new
+                                   {
+                                       LegalPersonId = x.CustomerLegalPersonId,
+                                       LegalPersonName = x.LegalPerson.ShortName
+                                   })
+                                   .Single();
+
+            if (dto.LegalPersonId == null)
+            {
+                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
+            }
+
+            return new OrderLegalPersonProfileDto
+            {
+                LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                LegalPersonProfile = new EntityReference()
+            };
+        }
+
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)
         {
             var list = _finder.Find<OrganizationUnit>(unit => organizationUnitIds.Contains(unit.Id))
