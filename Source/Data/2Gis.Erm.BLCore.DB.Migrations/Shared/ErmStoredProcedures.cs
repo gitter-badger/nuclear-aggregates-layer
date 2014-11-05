@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Migration.Sql;
+﻿using System;
+
+using DoubleGis.Erm.Platform.Migration.Sql;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 {
@@ -79,12 +81,15 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName ReplicateEverything =
             new SchemaQualifiedObjectName(ErmSchemas.Shared, "ReplicateEverything");
 
+        [Obsolete("SP удалена")]
         public static readonly SchemaQualifiedObjectName CreateExportSession =
             new SchemaQualifiedObjectName(ErmSchemas.Integration, "CreateExportSession");
 
+        [Obsolete("SP удалена")]
         public static readonly SchemaQualifiedObjectName GetNonExportedOrdersCount =
             new SchemaQualifiedObjectName(ErmSchemas.Integration, "GetNonExportedOrdersCount");
 
+        [Obsolete("SP удалена")]
         public static readonly SchemaQualifiedObjectName ReplicateEntitiesToCrm =
             new SchemaQualifiedObjectName(ErmSchemas.Shared, "ReplicateEntitiesToCrm");
     }
