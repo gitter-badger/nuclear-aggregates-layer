@@ -102,127 +102,132 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public ActionResult PrintOrder(long id)
         {
-            return TryPrintDocument(new PrintOrderWithGuarateeRequest { OrderId = id });
+            var request = new PrintOrderWithGuarateeRequest { OrderId = id };
+            return TryPrintDocument(request);
         }
         
         [HttpGet]
         public ActionResult PrintSingleBill(long id)
         {
-            return TryPrintDocument(new PrintBillRequest { BillId = id });
+            var request = new PrintBillRequest { BillId = id };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintBargainProlongationAgreement(long id, long profileId)
         {
-            return TryPrintDocument(id, profileId, new PrintBargainProlongationAgreementRequest { BargainId = id, LegalPersonProfileId = profileId }, false);
+            var request = new PrintBargainProlongationAgreementRequest { BargainId = id, LegalPersonProfileId = profileId };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
-        public ActionResult PrintReferenceInformation(long id)
+        public ActionResult PrintBargain(long id, long profileId)
         {
-            return TryPrintDocument(new PrintReferenceInformationRequest { OrderId = id });
+            var request = new PrintOrderBargainRequest { BargainId = id, LegalPersonProfileId = profileId };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
-        public ActionResult PrintRegionalOrder(long id)
+        public ActionResult PrintNewSalesModelBargain(long id, long profileId)
         {
-            return TryPrintDocument(new PrintRegionalOrderRequest { OrderId = id });
+            var request = new PrintNewSalesModelBargainRequest { BargainId = id, LegalPersonProfileId = profileId };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
-        public ActionResult PrintBargain(long id)
+        public ActionResult PrintOrderBargain(long id, long profileId)
         {
-            return TryPrintDocument(new PrintOrderBargainRequest { OrderId = id });
+            var request = new PrintOrderBargainRequest { OrderId = id, LegalPersonProfileId = profileId };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
-        public ActionResult PrintNewSalesModelBargain(long id)
+        public ActionResult PrintNewSalesModelOrderBargain(long id, long profileId)
         {
-            return TryPrintDocument(new PrintNewSalesModelBargainRequest { OrderId = id });
+            var request = new PrintNewSalesModelBargainRequest { OrderId = id, LegalPersonProfileId = profileId };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintOrderBills(long id)
         {
-            return TryPrintDocument(new PrintOrderBillsRequest { OrderId = id });
+            var request = new PrintOrderBillsRequest { OrderId = id };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintLetterOfGuarantee(long id)
         {
-            return TryPrintDocument(new PrintLetterOfGuaranteeRequest { OrderId = id, IsChangingAdvMaterial = true });
+            var request = new PrintLetterOfGuaranteeRequest { OrderId = id, IsChangingAdvMaterial = true };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintTerminationNotice(long id)
         {
-            return TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id });
+            var request = new PrintOrderTerminationNoticeRequest { OrderId = id };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintTerminationNoticeWithoutReason(long id)
         {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, WithoutReason = true });
+            var request = new PrintOrderTerminationNoticeRequest { OrderId = id, WithoutReason = true };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintTerminationBargainNotice(long id)
         {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest { OrderId = id, TerminationBargain = true });
+            var request = new PrintOrderTerminationNoticeRequest { OrderId = id, TerminationBargain = true };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintTerminationBargainNoticeWithoutReason(long id)
         {
-            return
-                TryPrintDocument(new PrintOrderTerminationNoticeRequest
-                                     {
-                                         OrderId = id,
-                                         WithoutReason = true,
-                                         TerminationBargain = true
-                                     },
-                                 true);
+            var request = new PrintOrderTerminationNoticeRequest
+                              {
+                                  OrderId = id,
+                                  WithoutReason = true,
+                                  TerminationBargain = true
+                              };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintRegionalTerminationNotice(long id)
         {
-            return
-                TryPrintDocument(new PrintRegionalOrderTerminationNoticeRequest { OrderId = id });
+            var request = new PrintRegionalOrderTerminationNoticeRequest { OrderId = id };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintAdditionalAgreement(long id)
         {
-            return
-                TryPrintDocument(new PrintOrderAdditionalAgreementRequest
-                                     {
-                                         OrderId = id,
-                                         PrintType = PrintAdditionalAgreementTarget.Order
-                                     },
-                                 true);
+            var request = new PrintOrderAdditionalAgreementRequest
+                              {
+                                  OrderId = id,
+                                  PrintType = PrintAdditionalAgreementTarget.Order
+                              };
+            return TryPrintDocument(request);
         }
 
         [HttpGet]
         public ActionResult PrintBargainAdditionalAgreement(long id)
         {
-            return
-                TryPrintDocument(new PrintOrderAdditionalAgreementRequest
-                                     {
-                                         OrderId = id,
-                                         PrintType = PrintAdditionalAgreementTarget.Bargain
-                                     },
-                                 true);
+            var request = new PrintOrderAdditionalAgreementRequest
+                              {
+                                  OrderId = id,
+                                  PrintType = PrintAdditionalAgreementTarget.Bargain
+                              };
+            return TryPrintDocument(request);
         }
         
         private ActionResult TryPrintDocument(Request printRequest)
         {
             try
             {
-                }
-
                 var response = (StreamResponse)_publicService.Handle(printRequest);
                 return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
             }
