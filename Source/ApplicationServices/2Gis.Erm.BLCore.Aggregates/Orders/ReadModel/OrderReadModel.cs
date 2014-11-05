@@ -1420,19 +1420,25 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId)
         {
             var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
-                                   .Select(order => new OrderLegalPersonProfileDto
+                                   .Select(order => new 
                                        {
-                                           LegalPerson = new EntityReference(order.LegalPersonId, order.LegalPerson.ShortName),
-                                           LegalPersonProfile = new EntityReference(order.LegalPersonProfileId, order.LegalPersonProfile.Name),
+                                           LegalPersonId = order.LegalPersonId,
+                                           LegalPersonName = order.LegalPerson.ShortName,
+                                           LegalPersonProfileId = order.LegalPersonProfileId,
+                                           LegalPersonProfileName = order.LegalPersonProfile.Name,
                                        })
                                    .Single();
-            
-            if (!dto.LegalPersonProfile.Id.HasValue)
+
+            if (dto.LegalPersonId == null || dto.LegalPersonProfileId == null)
             {
                 throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
             }
 
-            return dto;
+            return new OrderLegalPersonProfileDto
+                       {
+                           LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                           LegalPersonProfile = new EntityReference(dto.LegalPersonProfileId, dto.LegalPersonProfileName)
+                       };
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)
