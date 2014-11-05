@@ -1429,7 +1429,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                        })
                                    .Single();
 
-            if (dto.LegalPersonId == null || dto.LegalPersonProfileId == null)
+            if (dto.LegalPersonId == null)
             {
                 throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
             }
