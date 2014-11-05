@@ -438,4 +438,25 @@
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
     <value />
   </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value />
+  </data>
 </root>

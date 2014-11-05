@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -64,6 +65,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         public string IBAN { get; set; }
 
         [StringLengthLocalized(11, MinimumLength = 8)]
+        [RegularExpression(@"[a-zA-Z]{6}[^0-1][^O]([a-zA-Z0-9]{3})?", ErrorMessageResourceName = @"SpecifiedSwiftIsInvalid", ErrorMessageResourceType = typeof(Resources.Server.Properties.BLResources))]
         public string SWIFT { get; set; }
 
         [StringLengthLocalized(100, MinimumLength = 0)]

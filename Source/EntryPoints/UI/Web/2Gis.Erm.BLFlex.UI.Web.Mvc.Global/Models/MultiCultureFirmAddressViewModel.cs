@@ -12,7 +12,7 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureFirmAddressViewModel : EntityViewModelBase<FirmAddress>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted
+    public sealed class MultiCultureFirmAddressViewModel : EntityViewModelBase<FirmAddress>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         public LookupField Firm { get; set; }
 

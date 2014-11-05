@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Ukraine
     {
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (UkraineContactViewModel)viewModel;
+            var entityViewModel = (UkraineKazakhstanContactViewModel)viewModel;
             entityViewModel.BusinessModelArea = BusinessModel.Ukraine.ToString();
             entityViewModel.AvailableSalutations = new Dictionary<string, string[]>
                 {
