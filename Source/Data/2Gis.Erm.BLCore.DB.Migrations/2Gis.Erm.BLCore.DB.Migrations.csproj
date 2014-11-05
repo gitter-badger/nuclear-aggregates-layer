@@ -748,6 +748,9 @@
     <Compile Include="2.1\2014.09.22 rev. 24551 - Alter territory replication.cs" />
     <Compile Include="2.1\2014.10.01 rev. 24898 - Alter replicate order and order position.cs" />
     <Compile Include="2.1\2014.10.22 rev. 25477 - Remove RegionalAdvertisingSharing.cs" />
+    <Compile Include="2.1\2014.10.23 rev. 25523 - Add new some new TimeZones.cs" />
+    <Compile Include="2.1\2014.10.23 rev. 25519 - Remove description of TimeZone.cs" />
+    <Compile Include="2.1\2014.10.24 rev. 25530 - Turn on some order validation rules.cs" />
     <Compile Include="2.1\2014.10.19 rev. 25335 - Alter ReplicateFirmAddresses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />

@@ -5183,11 +5183,14 @@ Placement period: {3}.</value>
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>An inactive link between the company branch {0} and legal entity {1) already exists</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
   <data name="EntityIsAlreadyInactive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже скрыта</value>
+  </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value>{0} №{1} от {2}</value>
   </data>
 </root>
