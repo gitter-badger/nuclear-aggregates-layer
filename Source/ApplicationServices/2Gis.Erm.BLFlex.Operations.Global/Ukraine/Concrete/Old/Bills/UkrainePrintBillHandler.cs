@@ -52,10 +52,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
 
                                           bill.Order.BranchOfficeOrganizationUnitId,
                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
-                                          bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                          BranchOfficeId = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                           LegalPersonId = bill.Order.LegalPersonId.Value,
                                           LegalPersonProfileId = bill.Order.LegalPersonProfileId,
-                                          OrderVatRate = bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                           OrderVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                           bill.Order.Bargain,
                                           bill.Order.LegalPerson.LegalPersonTypeEnum
@@ -77,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                 throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
             }
 
-            var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId);
+            var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(billInfo.LegalPersonProfileId.Value);
             var orderVatRate = (billInfo.OrderVatRate.Value == default(decimal)) ? BLResources.NoVatText : billInfo.OrderVatRate.ToString();

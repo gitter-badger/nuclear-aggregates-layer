@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                 throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
             }
 
-            var printData = _finder.Find(Specs.Find.ById<Bill>(request.Id)) // checkme: request.BillId
+            var printData = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                    .Select(bill => new
                                        {
                                            Bill = new
