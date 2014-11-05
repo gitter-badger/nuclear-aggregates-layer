@@ -1,14 +1,10 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -19,17 +15,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListOperationService(
             ISecurityServiceUserIdentifier userIdentifierService,
             IFinder finder,
-            IUserContext userContext, FilterHelper filterHelper)
+            FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
-            _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
@@ -46,22 +40,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     TypeEnum = (BusinessOperation)x.Type,
                     OrganizationUnitId = x.OrganizationUnitId,
                     OrganizationUnitName = x.OrganizationUnit.Name,
-                    StatusEnum = (OperationStatus)x.Status,
                     OwnerCode = x.OwnerCode,
                     Description = x.Description,
                     Owner = null,
-                    Status = null,
-                    Type = null,
+                    Status = ((OperationStatus)x.Status).ToStringLocalizedExpression(),
+                    Type = ((BusinessOperation)x.Type).ToStringLocalizedExpression(),
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.Type = x.TypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    x.Status = x.StatusEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                    x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
+                .QuerySettings(_filterHelper, querySettings);
+        }
 
-                    return x;
-                });
+        protected override void Transform(ListOperationDto dto)
+        {
+            dto.Owner = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

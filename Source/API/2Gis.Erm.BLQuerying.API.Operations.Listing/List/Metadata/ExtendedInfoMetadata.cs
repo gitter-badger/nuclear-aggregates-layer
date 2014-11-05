@@ -6,177 +6,382 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
     {
         private static readonly Dictionary<string, string> ExtendedInfoMap = new Dictionary<string, string>
         {
+            {"DListAccounts", "ActiveAndNotDeleted=true"},
             // Мои лицевые счета с отрицательным балансом
-            {"DListMyAccountsWithNegativeBalance", "ForMe=true" },
+            {"DListMyAccountsWithNegativeBalance", "ActiveAndNotDeleted=true;ForMe=true;NegativeBalance=true" },
             // Все лицевые счета по по филиалу
-            {"DListAccountsAtMyBranch", "MyBranch=true" },
+            {"DListAccountsAtMyBranch", "ActiveAndNotDeleted=true;MyBranch=true" },
             // Лицевые счета моих подчиненных с отрицательным балансом
-            {"DListAccountsWithNegativeBalanceForSubordinates", "ForSubordinates=true" },
+            {"DListAccountsWithNegativeBalanceForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;NegativeBalance=true" },
             // Мои лицевые счета с размещающимися БЗ
-            {"DListMyAccountsWithHostedOrders", "WithHostedOrders=true;ForMe=true" },
+            {"DListMyAccountsWithHostedOrders", "ActiveAndNotDeleted=true;WithHostedOrders=true;ForMe=true" },
             // Лицевые счета моих подчиненных с размещающимися БЗ
-            {"DListAccountsWithHostedOrdersForSubordinates", "WithHostedOrders=true;ForSubordinates=true" },
+            {"DListAccountsWithHostedOrdersForSubordinates", "ActiveAndNotDeleted=true;WithHostedOrders=true;ForSubordinates=true" },
+
+            {"DListAccountDetails", "Deleted=false"},
+            {"DListAccountDetailsWithDeletedOperations", "Deleted=true"},
+
+            {"DListAllActivities", "NotDeleted=true"},
+            // Активные действия
+            {"DListActiveActivities", "ActiveAndNotDeleted=true;InProgress=true"},
+            // Закрытые действия
+            {"DListInactiveActivities", "NotActiveBusinessMeaning=true"},
             // Мои действия
-            {"DListMyActivities", "ForMe=true" },
+            {"DListMyActivities", "ActiveAndNotDeleted=true;ForMe=true" },
             // Действия по моим подчиненным
-            {"DListActivitiesForSubordinates", "ForSubordinates=true" },
+            {"DListActivitiesForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Мои завершенные действия
-            {"DListMyCompletedActivities", "ForMe=true" },
+            {"DListMyCompletedActivities", "ActiveAndNotDeleted=true;Completed=true;ForMe=true" },
             // Завершенные действия по моим подчиненным
-            {"DListCompletedActivitiesForSubordinates", "ForSubordinates=true" },
+            {"DListCompletedActivitiesForSubordinates", "ActiveAndNotDeleted=true;Completed=true;ForSubordinates=true" },
             // Мои запланированные действия
-            {"DListMyActivitiesInProgress", "ForMe=true" },
+            {"DListMyActivitiesInProgress", "ActiveAndNotDeleted=true;InProgress=true;ForMe=true" },
             // Запланированные действия по моим подчиненным
-            {"DListActivitiesInProgressForSubordinates", "ForSubordinates=true" },
+            {"DListActivitiesInProgressForSubordinates", "ActiveAndNotDeleted=true;InProgress=true;ForSubordinates=true" },
             // Мои запланированные действия на сегодня
-            {"DListMyActivitiesInProgressForToday", "ForToday=true;ForMe=true" },
+            {"DListMyActivitiesInProgressForToday", "ActiveAndNotDeleted=true;InProgress=true;ForToday=true;ForMe=true" },
             // Действия по теплым клиентам
-            {"DListActivitiesForWarmClients", "Expired=false" },
+            {"DListActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;Expired=false;WarmClient=true" },
             // Просроченные действия по теплым клиентам
-            {"DListOverdueActivitiesForWarmClients", "Expired=true" },
+            {"DListOverdueActivitiesForWarmClients", "ActiveAndNotDeleted=true;InProgress=true;Expired=true;WarmClient=true" },
+
+            {"DListAdsTemplatesAdsElementTemplate", "NotDeleted=true"},
+
+            {"DListAdvertisementElementDenialReasonForEdit", "ActiveOrChecked=true"},
+
+            {"DListDenialReason", "Active=true"},
+            {"DListInactiveDenialReason", "Active=false"},
+
+            {"DListAdvertisementTemplate", "Deleted=false"},
+            {"DListAdvertisementTemplateDeleted", "Deleted=true"},
+
+            {"DListAdvertisementElementTemplate", "Deleted=false"},
+            {"DListAdvertisementElementTemplateDeleted", "Deleted=true"},
+
+            {"DListActiveAdvertisement", "Deleted=false"},
+            {"DListInactiveAdvertisement", "Deleted=true"},
+
+            {"DListAssociatedPosition", "ActiveAndNotDeleted=true"},
+            {"DListAssociatedPositionInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListAssociatedPositionsGroup", "ActiveAndNotDeleted=true"},
+            {"DListAssociatedPositionsGroupInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListBargains", "ActiveAndNotDeleted=true"},
+            {"DListInactiveBargains", "NotActiveAndNotDeleted=true"},
             // Мои договоры
-            {"DListMyBargains", "ForMe=true" },
+            {"DListMyBargains", "ActiveAndNotDeleted=true;ForMe=true" },
+
+            {"DListBargainFiles", "NotDeleted=true"},
+
+            {"DListActiveBargainTypes", "ActiveAndNotDeleted=true"},
+            {"DListInactiveBargainTypes", "NotActiveAndNotDeleted=true"},
+
+            {"DListBill", "ActiveAndNotDeleted=true"},
+
+            {"DListBranchOfficeActive", "ActiveAndNotDeleted=true"},
+            {"DListBranchOfficeInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListBranchOfficeOrganizationUnit", "ActiveAndNotDeleted=true;ParentsNotDeleted=true"},
+            {"DListBranchOfficeOrganizationUnitInactive", "NotActiveAndNotDeleted=true;ParentsNotDeleted=true"},
+
+            {"DListActiveCategories", "ActiveAndNotDeleted=true"},
+            {"DListInactiveCategories", "NotActiveAndNotDeleted=true"},
+
+            {"DListActiveCategoryFirmAddresses", "ActiveBusinessMeaning=true"},
+            {"DListInactiveCategoryFirmAddresses", "InactiveBusinessMeaning=true"},
+
+            {"DListActiveCategoryGroups", "ActiveAndNotDeleted=true"},
+            {"DListAllCategoryGroups", "NotDeleted=true"},
+
+            {"DListClients", "ActiveAndNotDeleted=true"},
             // Мои клиенты
-            {"DListMyClients", "ForMe=true" },
+            {"DListMyClients", "ActiveAndNotDeleted=true;ForMe=true" },
             // Мои клиенты, созданные сегодня
-            {"DListMyClientsCreatedToday", "ForToday=true;ForMe=true" },
+            {"DListMyClientsCreatedToday", "ActiveAndNotDeleted=true;ForToday=true;ForMe=true" },
             // Клиенты на моей территории
-            {"DListClientsOnMyTerritory", "MyTerritory=true" },
+            {"DListClientsOnMyTerritory", "ActiveAndNotDeleted=true;MyTerritory=true" },
             // Мои клиенты с дебиторской задолженностью
-            {"DListMyClientsWithDebt", "ForMe=true;WithDebt=true" },
+            {"DListMyClientsWithDebt", "ActiveAndNotDeleted=true;ForMe=true;WithDebt=true" },
             // Клиенты в резерве на моей территории
-            {"DListReservedClientsOnMyTerritory", "MyTerritory=true;ForReserve=true" },
+            {"DListReservedClientsOnMyTerritory", "ActiveAndNotDeleted=true;MyTerritory=true;ForReserve=true" },
             // Мои теплые клиенты
-            {"DListMyWarmClients", "ForMe=true" },
+            {"DListMyWarmClients", "ActiveAndNotDeleted=true;ForMe=true;Warm=true" },
             // Клиенты, у которых есть заказы с типом Бартер
-            {"DListClientsWithBarter", "WithBarterOrders=true" },
+            {"DListClientsWithBarter", "ActiveAndNotDeleted=true;WithBarterOrders=true" },
             // Мои клиенты без ЛПР
-            {"DListMyClientsWithoutMakeDecisionContacts", "ForMe=true;NoMakingDecisions=true" },
+            {"DListMyClientsWithoutMakeDecisionContacts", "ActiveAndNotDeleted=true;ForMe=true;NoMakingDecisions=true" },
             // Клиенты по моим подчиненным
-            {"DListClientsForSubordinates", "ForSubordinates=true" },
+            {"DListClientsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Теплые клиенты моих подчиненных
-            {"DListWarmClientsForSubordinates", "ForSubordinates=true" },
+            {"DListWarmClientsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;Warm=true" },
             // Клиенты моих подчиненных, у которых есть заказы с типом Бартер
-            {"DListClientsWithBarterForSubordinates", "ForSubordinates=true;WithBarterOrders=true" },
+            {"DListClientsWithBarterForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;WithBarterOrders=true" },
             // Клиенты моих подчиненных без ЛПР
-            {"DListClientsWithoutMakeDecisionContactsForSubordinates", "ForSubordinates=true;NoMakingDecisions=true" },
+            {"DListClientsWithoutMakeDecisionContactsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;NoMakingDecisions=true" },
             // Региональные клиенты моих подчиненных
-            {"DListRegionalClientsForSubordinates", "ForSubordinates=true;IsRegional=true" },
+            {"DListRegionalClientsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;IsRegional=true" },
             // Клиенты моих подчиненных, у которых несколько открытых сделок
-            {"DListClientsWithSeveralOpenDealsForSubordinates", "ForSubordinates=true;MinDealCount=1" },
+            {"DListClientsWithSeveralOpenDealsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;MinDealCount=1" },
             // Все клиенты по филиалу
-            {"DListClientsAtMyBranch", "MyBranch=true" },
+            {"DListClientsAtMyBranch", "ActiveAndNotDeleted=true;MyBranch=true" },
             // Клиенты моих подчиненных с дебиторской задолженностью
-            {"DListClientsWithDebtForSubordinates", "ForSubordinates=true;WithDebt=true" },
+            {"DListClientsWithDebtForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;WithDebt=true" },
             // Клиенты, с которыми была только одна встреча
-            {"DListClientsWithOnly1Appointment", "With1Appointment=true" },
+            {"DListClientsWithOnly1Appointment", "ActiveAndNotDeleted=true;With1Appointment=true" },
             // Тёплые клиенты
-            {"DListClientsWithWarmClientTask", "WarmClientTask=true;Outdated=false" },
+            {"DListClientsWithWarmClientTask", "ActiveAndNotDeleted=true;WarmClientTask=true;Outdated=false" },
             // Тёплые клиенты с просроченной задачей
-            {"DListClientsWithOutdatedWarmClientTask", "WarmClientTask=true;Outdated=true" },
+            {"DListClientsWithOutdatedWarmClientTask", "ActiveAndNotDeleted=true;WarmClientTask=true;Outdated=true" },
+
+            {"DListActiveContacts", "ActiveAndNotDeleted=true;Fired=false" },
+            {"DListFiredContacts", "ActiveAndNotDeleted=true;Fired=true" },
+
+            // Все доступные для связывания клиенты
+            {"DListClientsAvailableForLinking", "ActiveAndNotDeleted=true" },
+            
+            // Дочерние клиенты
+            {"DListClientLinks", "IsDeleted=false;ClientLinks=true" },
+            // Родительские клиенты
+            {"DListClientLinksMaster", "IsDeleted=false;ClientLinksMaster=true" },
+            // Удалённые связи
+            {"DListClientLinksDeleted", "IsDeleted=true;ClientLinksDeleted=true" },
+
             // Мои контактные лица
-            {"DListMyContacts", "ForMe=true" },
+            {"DListMyContacts", "ActiveAndNotDeleted=true;Fired=false;ForMe=true" },
+
+            {"DListActiveContributionType", "ActiveAndNotDeleted=true"},
+            {"DListInactiveContributionType", "NotActiveAndNotDeleted=true"},
+
+            {"DListCategoryOrganizationUnits", "NotDeletedAndParentsNotDeleted=true"},
+
+            {"DListCountries", "NotDeleted=true"},
+
+            {"DListCurrencies", "ActiveAndNotDeleted=true"},
+            {"DListCurrenciesInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListActiveDeals", "ActiveAndNotDeleted=true"},
+            {"DListInactiveDeals", "NotActiveAndNotDeleted=true"},
             // Мои сделки
-            {"DListMyDeals", "ForMe=true" },
+            {"DListMyDeals", "ActiveAndNotDeleted=true;ForMe=true" },
             // Мои закрытые сделки
-            {"DListMyInactiveDeals", "ForMe=true" },
+            {"DListMyInactiveDeals", "NotActiveAndNotDeleted=true;ForMe=true" },
             // Мои бартерные сделки
-            {"DListMyBarterDeals", "ForMe=true;WithBarterOrders=true" },
+            {"DListMyBarterDeals", "ActiveAndNotDeleted=true;ForMe=true;WithBarterOrders=true" },
             // Все сделки по филиалу
-            {"DListDealsAtBranch", "MyBranch=true" },
+            {"DListDealsAtBranch", "ActiveAndNotDeleted=true;MyBranch=true" },
             // Сделки моих подчиненных
-            {"DListDealsForSubordinates", "ForSubordinates=true" },
+            {"DListDealsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
+
+            {"DListDeniedPosition", "ActiveAndNotDeleted=true"},
+            {"DListDeniedPositionInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListDepartment", "ActiveAndNotDeleted=true"},
+            {"DListInactiveDepartment", "NotActiveAndNotDeleted=true"},
+
+            {"DListActiveFirms", "ActiveBusinessMeaning=true"},
+            {"DListInactiveFirms", "InactiveBusinessMeaning=true"},
             // Мои фирмы
-            {"DListMyFirms", "ForMe=true" },
+            {"DListMyFirms", "ActiveAndNotDeleted=true;ForMe=true" },
             // Фирмы в резерве на моей территории
-            {"DListReservedFirmsOnMyTerritories", "MyTerritory=true;ForReserve=true" },
+            {"DListReservedFirmsOnMyTerritories", "ActiveBusinessMeaning=true;QualifyTimeLastYear=true;MyTerritory=true;ForReserve=true" },
             // Новые фирмы моей территории
-            {"DListNewFirmsOnMyTerritories", "CreatedInCurrentMonth=true;MyTerritory=true" },
+            {"DListNewFirmsOnMyTerritories", "ActiveBusinessMeaning=true;CreatedInCurrentMonth=true;MyTerritory=true" },
             // Все фирмы по филиалу
-            {"DListFirmsAtMyBranch", "MyBranch=true" },
+            {"DListFirmsAtMyBranch", "NotDeleted=true;MyBranch=true" },
             // Все активные фирмы по филиалу
-            {"DListActiveFirmsAtMyBranch", "MyBranch=true" },
+            {"DListActiveFirmsAtMyBranch", "ActiveAndNotDeleted=true;MyBranch=true" },
             // Фирмы моих подчиненных
-            {"DListFirmsForSubordinates", "ForSubordinates=true" },
+            {"DListFirmsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Фирмы с заказами с типом Самореклама
-            {"DListFirmsWithSelfAds", "WithSelfAdsOrders=true" },
+            {"DListFirmsWithSelfAds", "ActiveAndNotDeleted=true;WithSelfAdsOrders=true" },
+            {"DListActiveFirmsToAppend", "ActiveAndNotDeleted=true" },
+
+            {"DListActiveFirmAddresses", "ActiveBusinessMeaning=true"},
+            {"DListInactiveFirmAddresses", "InactiveBusinessMeaning=true"},
+
+            {"DListActiveFirmsForDeal", "Deleted=false"},
+            {"DListInactiveFirmsForDeal", "Deleted=true"},
+
+            {"DListLegalPersons", "ActiveAndNotDeleted=true"},
+            {"DListLegalPersonsInactive", "NotActiveAndNotDeleted=true"},
             // Мои юридические лица
-            {"DListMyLegalPersons", "ForMe=true" },
+            {"DListMyLegalPersons", "ActiveAndNotDeleted=true;ForMe=true" },
             // Мои юридические лица с дебиторской задолженностью
-            {"DListMyLegalPersonsWithDebt", "ForMe=true;WithDebt=true" },
+            {"DListMyLegalPersonsWithDebt", "ActiveAndNotDeleted=true;ForMe=true;WithDebt=true" },
             // Юр.лица, куратором которого я не являюсь, но у которого есть мои заказы
-            {"DListLegalPersonsWithMyOrders", "HasMyOrders=true;ForMe=false" },
+            {"DListLegalPersonsWithMyOrders", "ActiveAndNotDeleted=true;HasMyOrders=true;ForMe=false" },
             // Все юридические лица по филиалу
-            {"DListLegalPersonsAtMyBranch", "MyBranch=true" },
+            {"DListLegalPersonsAtMyBranch", "ActiveAndNotDeleted=true;MyBranch=true" },
             // Юридические лица моих подчиненных
-            {"DListLegalPersonsForSubordinates", "ForSubordinates=true" },
+            {"DListLegalPersonsForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Юридические лица моих подчиненных с дебиторской задолженностью
-            {"DListLegalPersonsWithDebtForSubordinates", "ForSubordinates=true;WithDebt=true" },
+            {"DListLegalPersonsWithDebtForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true;WithDebt=true" },
             // Юридические лица по филиалу с дебиторской задолженностью
-            {"DListLegalPersonsWithDebtAtMyBranch", "MyBranch=true;WithDebt=true" },
+            {"DListLegalPersonsWithDebtAtMyBranch", "ActiveAndNotDeleted=true;MyBranch=true;WithDebt=true" },
+
+            {"DListLegalPersonProfiles", "ActiveAndNotDeleted=true"},
+
+            {"DListActiveLegalPersonsForDeal", "NotDeleted=true"},
+
+            {"DListLimits", "ActiveAndNotDeleted=true"},
+            {"DListLimitsInactive", "NotActiveAndNotDeleted=true"},
             // Мои открытые лимиты
-            {"DListMyOpenedLimits", "useNextMonthForStartPeriodDate=true;ForMe=true" },
+            {"DListMyOpenedLimits", "ActiveAndNotDeleted=true;Opened=true;useNextMonthForStartPeriodDate=true;ForMe=true" },
             // Мои отклоненные лимиты
-            {"DListMyRejectedLimits", "useNextMonthForStartPeriodDate=true;ForMe=true" },
+            {"DListMyRejectedLimits", "ActiveAndNotDeleted=true;Rejected=true;useNextMonthForStartPeriodDate=true;ForMe=true" },
             // Мои одобренные лимиты
-            {"DListMyApprovedLimits", "useNextMonthForStartPeriodDate=true;ForMe=true" },
+            {"DListMyApprovedLimits", "ActiveAndNotDeleted=true;Approved=true;useNextMonthForStartPeriodDate=true;ForMe=true" },
             // Лимиты по моим подчиненным
-            {"DListLimitsForSubordinates", "useNextMonthForStartPeriodDate=true;ForSubordinates=true" },
+            {"DListLimitsForSubordinates", "ActiveAndNotDeleted=true;useNextMonthForStartPeriodDate=true;ForSubordinates=true" },
             // Лимиты, требующие моего одобрения
-            {"DListLimitsForApprove", "useNextMonthForStartPeriodDate=true;MyInspection=true" },
+            {"DListLimitsForApprove", "ActiveAndNotDeleted=true;Opened=true;useNextMonthForStartPeriodDate=true;MyInspection=true" },
             // Одобренные мною лимиты
-            {"DListApprovedByMeLimits", "useNextMonthForStartPeriodDate=true;MyInspection=true" },
+            {"DListApprovedByMeLimits", "ActiveAndNotDeleted=true;Approved=true;useNextMonthForStartPeriodDate=true;MyInspection=true" },
             // Отклоненные мною лимиты
-            {"DListRejectedByMeLimits", "useNextMonthForStartPeriodDate=true;MyInspection=true" },
+            {"DListRejectedByMeLimits", "ActiveAndNotDeleted=true;Rejected=true;useNextMonthForStartPeriodDate=true;MyInspection=true" },
             // Лимиты по филиалу
-            {"DListLimitsAtMyBranch", "MyBranch=true" },
+            {"DListLimitsAtMyBranch", "ActiveAndNotDeleted=true;MyBranch=true" },
+
+            {"DListLocalMessageActive", "ActiveBusinessMeaning=true;ToErm=true"},
+            {"DListLocalMessageProcessed", "Processed=true;ToErm=true"},
+            {"DListLocalMessageFailed", "Failed=true;ToErm=true"},
+            {"DListLocalMessageOutbox", "FromErm=true"},
+
+            {"DListActiveLocks", "Active=true"},
+            {"DListNotActiveLocks", "Active=false"},
+            {"DListActiveLockDetails", "Active=true"},
+            {"DListNotActiveLockDetails", "Active=false"},
+
+            {"DListActiveOrders", "ActiveBusinessMeaning=true"},
+            {"DListInactiveOrders", "ActiveAndNotDeleted=true;Archive=true"},
+            {"DListRejectedOrders", "NotActiveAndNotDeleted=true"},
+            {"DListAllOrders", "NotDeleted=true"},
             // Все мои активные заказы
-            {"DListMyActiveOrders", "ForMe=true" },
+            {"DListMyActiveOrders", "ActiveAndNotDeleted=true;ForMe=true" },
             // Мои заказы на расторжении
-            {"DListMyOrdersOnTermination", "ForMe=true" },
+            {"DListMyOrdersOnTermination", "ActiveAndNotDeleted=true;OnTermination=true;ForMe=true" },
             // Мои заказы в статусе На утверждении
-            {"DListMyOrdersOnApproval", "ForMe=true" },
+            {"DListMyOrdersOnApproval", "ActiveAndNotDeleted=true;OnApproval=true;ForMe=true" },
             // Мои неактивные (заказы закрытые отказом)
-            {"DListMyTerminatedOrders", "ForMe=true" },
+            {"DListMyTerminatedOrders", "NotActiveAndNotDeleted=true;ForMe=true" },
             // Мои заказы, у которых отсутствуют подписанные документы
-            {"DListMyOrdersWithDocumentsDebt", "ForMe=true" },
+            {"DListMyOrdersWithDocumentsDebt", "ActiveAndNotDeleted=true;Absent=true;ForMe=true" },
             // Все заказы моих подчиненных
-            {"DListOrdersForSubordinates", "ForSubordinates=true" },
+            {"DListOrdersForSubordinates", "ActiveAndNotDeleted=true;ForSubordinates=true" },
             // Неактивные (закрытые отказом) заказы моих подчиненных
-            {"DListTerminatedOrdersForSubordinates", "ForSubordinates=true" },
+            {"DListTerminatedOrdersForSubordinates", "NotActiveAndNotDeleted=true;ForSubordinates=true" },
             // Все мои заказы с типом Самореклама
-            {"DListMySelfAdsOrders", "ForMe=true" },
+            {"DListMySelfAdsOrders", "ActiveAndNotDeleted=true;SelfAds=true;ForMe=true" },
             // Все мои заказы с типом Бартер
-            {"DListMyBarterOrders", "ForMe=true" },
+            {"DListMyBarterOrders", "ActiveAndNotDeleted=true;Barter=true;ForMe=true" },
             // Мои новые заказы
-            {"DListMyNewOrders", "ForMe=true" },
+            {"DListMyNewOrders", "ActiveAndNotDeleted=true;AllActiveStatuses=true;New=true;ForMe=true" },
             // Новые заказы моих подчиненных
-            {"DListNewOrdersForSubordinates", "ForSubordinates=true" },
+            {"DListNewOrdersForSubordinates", "ActiveAndNotDeleted=true;AllActiveStatuses=true;New=true;ForSubordinates=true" },
             // Заказы, требующие продления
-            {"DListOrdersToProlongate", "useCurrentMonthForEndDistributionDateFact=true" },
+            {"DListOrdersToProlongate", "ActiveAndNotDeleted=true;Approved=true;useCurrentMonthForEndDistributionDateFact=true" },
             // Заказы моих подчиненных, требующие продления
-            {"DListOrdersToProlongateForSubordinates", "ForSubordinates=true;useCurrentMonthForEndDistributionDateFact=true" },
+            {"DListOrdersToProlongateForSubordinates", "ActiveAndNotDeleted=true;Approved=true;ForSubordinates=true;useCurrentMonthForEndDistributionDateFact=true" },
             // Отклоненные заказы моих подчиненных
-            {"DListRejectedOrdersForSubordinates", "ForSubordinates=true" },
+            {"DListRejectedOrdersForSubordinates", "ActiveAndNotDeleted=true;Rejected=true;ForSubordinates=true" },
             // Мои заказы в ближайший выпуск
-            {"DListMyOrdersToNextEdition", "ForNextEdition=true;ForMe=true" },
+            {"DListMyOrdersToNextEdition", "ActiveAndNotDeleted=true;AllActiveStatuses=true;ForNextEdition=true;ForMe=true" },
             // Заказы моих подчиненных в ближайший выпуск
-            {"DListOrdersToNextEditionForSubordinates", "ForSubordinates=true;ForNextEdition=true" },
+            {"DListOrdersToNextEditionForSubordinates", "ActiveAndNotDeleted=true;AllActiveStatuses=true;ForSubordinates=true;ForNextEdition=true" },
             // Все отклоненные мною БЗ
-            {"DListRejectedByMeOrders", "MyInspection=true" },
+            {"DListRejectedByMeOrders", "ActiveAndNotDeleted=true;Rejected=true;New=true;MyInspection=true" },
             // Заказы, требующие моего одобрения
-            {"DListOrdersOnApprovalForMe", "MyInspection=true" },
+            {"DListOrdersOnApprovalForMe", "ActiveAndNotDeleted=true;OnApproval=true;MyInspection=true" },
             // БЗ, в статусе Одобрено, у которых отсутствуют прикрепленные РМ
-            {"DListApprovedOrdersWithoutAdvertisement", "WithoutAdvertisement=true" },
+            {"DListApprovedOrdersWithoutAdvertisement", "ActiveAndNotDeleted=true;OnApproval=true;WithoutAdvertisement=true" },
             // Заказы в выпуск следующего месяца закрытые отказом
-            {"DListTerminatedOrdersForNextMonthEdition", "ForNextMonthEdition=true" },
+            {"DListTerminatedOrdersForNextMonthEdition", "ActiveAndNotDeleted=true;ForNextMonthEdition=true" },
             // Неподписанные БЗ за текущий выпуск
-            {"DListOrdersWithDocumentsDebtForNextMonth", "ForNextEdition=true" },
+            {"DListOrdersWithDocumentsDebtForNextMonth", "ActiveAndNotDeleted=true;AllActiveStatuses=true;Absent=true;ForNextEdition=true" },
+            // Список технических расторжений
+            {"DListTechnicalTerminatedOrders", "ActiveAndNotDeleted=true;TechnicalTerminated=true"},
+            // Список действительных расторжений
+            {"DListNonTechnicalTerminatedOrders", "ActiveAndNotDeleted=true;NonTechnicalTerminated=true"},
             // Все отклоненные мною заказы, которые сейчас в статусе На оформлении
-            {"DListRejectedByMeOrdersOnRegistration", "RejectedByMe=true;MyInspection=true" },
-            {"DListReservedFirmsLefkosia", "ForReserve=true" },
-            {"DListReservedFirmsLemesos", "ForReserve=true" },
+            {"DListRejectedByMeOrdersOnRegistration", "ActiveAndNotDeleted=true;OnRegistration=true;RejectedByMe=true;MyInspection=true" },
+            {"DListOrdersFast", "NotDeleted=true"},
+
+            {"DListOrderProcessingRequest", "NotDeleted=true"},
+
+            {"DListOrderFiles", "NotDeleted=true"},
+            {"DListOrderPositions", "NotDeleted=true"},
+
+            {"DListOrganizationUnitActive", "ActiveAndNotDeleted=true"}, 
+            {"DListOrganizationUnitInactive", "NotActiveAndNotDeleted=true"}, 
+            {"DListOrganizationUnitActiveMovedToErm", "ActiveAndNotDeleted=true;UseErm=true"}, 
+            {"DListOrganizationUnitActiveMovedToIR", "ActiveAndNotDeleted=true;UseIR=true"}, 
+
+            {"DListOperationsAfterSaleService", "AfterSaleServiceActivitiesCreation=true"},
+
+            {"DListPositions", "ActiveAndNotDeleted=true"},
+            {"DListPositionInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListPositionChildren", "ActiveAndNotDeleted=true"},
+
+            {"DListPositionCategory", "NotDeleted=true"},
+
+            {"DListPrices", "ActiveAndNotDeleted=true"},
+            {"DListPricesInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListPricePositions", "ActiveAndNotDeleted=true"},
+            {"DListPricePositionsInactive", "NotActiveAndNotDeleted=true"},
+
+            {"DListReleaseInfoSuccessed", "Success=true"},
+            {"DListReleaseInfoFailed", "Error=true"},
+            {"DListReleaseInfoInProgress", "InProgress=true"},
+            {"DListReleaseInfoBeta", "Beta=true"},
+            {"DListReleaseInfoFinal", "Beta=false"},
+
+            {"DListPrintFormTemplates", "NotDeleted=true"},
+            {"DListProjects", "Active=true"},
+
+            {"DListTerritoryActive", "Active=true"},
+            {"DListTerritoryInactive", "Active=false"},
+
+            {"DListUser", "ActiveAndNotDeleted=true"},
+            {"DListUserWithRole", "ActiveAndNotDeleted=true"},
+            {"DListInactiveUser", "NotActiveAndNotDeleted=true"},
+
+            {"DListUserTerritory", "TerritoryActiveAndNotDeleted=true"},
+
+            {"DListUserOrganizationUnit", "ParentsActiveAndNotDeleted=true"},
+            {"DListUsersInOrganizationUnit", "ParentsActiveAndNotDeleted=true"},
+
+            {"DListThemeActive", "ActiveAndNotDeleted=true"},
+            {"DListThemeTemplateActive", "ActiveAndNotDeleted=true"},
+            {"DListThemeOrganizationUnit", "ActiveAndNotDeleted=true"},
+            {"DListThemeCategory", "NotDeleted=true"},
+
+            {"AdditionalFirmServices", ""},
+            {"DListAdvertisementElementDenialReason", ""},
+            {"DListAdvertisementElement", ""},
+            {"DListCurrencyRates", ""},
+            {"DListFirmContacts", ""},
+            {"DListLocalMessageAll", ""},
+            {"DListOperations", ""},
+            {"DListOperationTypes", ""},
+            {"DListOrderPositionAdvertisements", ""},
+            {"DListPlatform", ""},
+            {"DListRegionalAdvertisingSharing", ""},
+            {"DListReleaseInfo", ""},
+            {"DListRole", ""},
+            {"DListUserRole", ""},
+            {"DListWithdrawalInfo", ""},
         };
+
+        public static void RegisterExtendedInfo(string filterName, string extendedInfo)
+        {
+            if (!ExtendedInfoMap.ContainsKey(filterName))
+            {
+                ExtendedInfoMap.Add(filterName, extendedInfo);
+            }
+        }
 
         public static bool TryGetExtendedInfo(string filterName, out string extendedInfo)
         {

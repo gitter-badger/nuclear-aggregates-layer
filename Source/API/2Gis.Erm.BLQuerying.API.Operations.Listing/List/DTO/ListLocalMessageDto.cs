@@ -8,8 +8,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
     public sealed class ListLocalMessageDto : IOperationSpecificEntityDto
     {
         public long Id { get; set; }
-        public IntegrationTypeImport IntegrationTypeImport { get; set; }
-        public IntegrationTypeExport IntegrationTypeExport { get; set; }
+        public string IntegrationTypeImport { get; set; }
+        public string IntegrationTypeExport { get; set; }
         public string IntegrationType { get; set; }
         public long? OrganizationUnitId { get; set; }
         public string OrganizationUnitName { get; set; }

@@ -52,11 +52,13 @@
     <Compile Include="DI\BlQueryingApiOperationsListingAssembly.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementDenialReasonsDto.cs" />
     <Compile Include="List\DTO\ListBranchOfficeDto.cs" />
+    <Compile Include="List\DTO\ListLegalPersonDealDto.cs" />
+    <Compile Include="List\DTO\ListFirmDealDto.cs" />
+    <Compile Include="List\DTO\ListClientLinkDto.cs" />
     <Compile Include="List\DTO\ListDenialReasonDto.cs" />
     <Compile Include="List\DTO\ListClientDto.cs" />
     <Compile Include="List\DTO\ListDepartmentDto.cs" />
     <Compile Include="List\DTO\ListFirmDto.cs" />
-    <Compile Include="List\DTO\ListTimeZoneDto.cs" />
     <Compile Include="List\DTO\ListThemeCategoryDto.cs" />
     <Compile Include="List\DTO\ListThemeOrganizationUnitDto.cs" />
     <Compile Include="List\DTO\ListRoleDto.cs" />
@@ -77,7 +79,7 @@
     <Compile Include="List\DTO\ListAdsTemplatesAdsElementTemplateDto.cs" />
     <Compile Include="List\DTO\ListAccountDetailDto.cs" />
     <Compile Include="List\DTO\ListAccountDto.cs" />
-    <Compile Include="List\DTO\ListActivityInstanceDto.cs" />
+    <Compile Include="List\DTO\ListActivityDto.cs" />
     <Compile Include="List\DTO\ListAdditionalFirmServiceDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementDto.cs" />
@@ -121,25 +123,20 @@
     <Compile Include="List\DTO\ListUserTerritoryDto.cs" />
     <Compile Include="List\DTO\ListUserRoleDto.cs" />
     <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
+    <Compile Include="List\Metadata\IExtendedInfoFilterMetadata.cs" />
     <Compile Include="List\Metadata\ExtendedInfoMetadata.cs" />
     <Compile Include="List\Metadata\FilteredFieldsMetadata.cs" />
-    <Compile Include="List\Metadata\DefaultFilterMetadata.cs" />
     <Compile Include="List\Metadata\MethodInfos.cs" />
     <Compile Include="List\Metadata\QuerySettings.cs" />
     <Compile Include="List\Metadata\QuerySettingsExtensions.cs" />
     <Compile Include="List\Metadata\RelationalMetadata.cs" />
     <Compile Include="DI\QueryingZone.cs" />
-    <Compile Include="RemoteCollectionExtensions.cs" />
     <Compile Include="Remote\List\IListApplicationRestService.cs" />
     <Compile Include="Remote\List\IListApplicationService.cs" />
     <Compile Include="Remote\List\ListOperationErrorDescription.cs" />
     <Compile Include="SearchListModelExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
-      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
-      <Name>2Gis.Erm.BLCore.API.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>

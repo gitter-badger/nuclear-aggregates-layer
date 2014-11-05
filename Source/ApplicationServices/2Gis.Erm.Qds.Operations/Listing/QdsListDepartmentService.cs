@@ -8,22 +8,16 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
 {
     public sealed class QdsListDepartmentService : ListEntityDtoServiceBase<Department, DepartmentGridDoc>
     {
-        private readonly FilterHelper<DepartmentGridDoc> _filterHelper;
+        private readonly FilterHelper _filterHelper;
 
-        public QdsListDepartmentService(FilterHelper<DepartmentGridDoc> filterHelper)
+        public QdsListDepartmentService(FilterHelper filterHelper)
         {
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            string excludeId;
-            if (querySettings.TryGetExtendedProperty("excludeId", out excludeId))
-            {
-                _filterHelper.AddFilter(x => x.Not(n => n.Term(t => t.Id, excludeId)));
-            }
-
-            return _filterHelper.Search(querySettings);
+            return _filterHelper.Search<DepartmentGridDoc>(querySettings);
         }
     }
 }

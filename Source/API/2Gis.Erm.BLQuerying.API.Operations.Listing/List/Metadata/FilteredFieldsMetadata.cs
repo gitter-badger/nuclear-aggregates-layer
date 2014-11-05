@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListAccountDetailDto>(
                 x => x.OperationType,
                 x => x.Description)
-            .RegisterFilteredFields<ListActivityInstanceDto>(
+            .RegisterFilteredFields<ListActivityDto>(
                 x => x.Header)
             .RegisterFilteredFields<ListAdditionalFirmServiceDto>(
                 x => x.ServiceCode,
@@ -82,11 +82,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListCategoryOrganizationUnitDto>(
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<ListClientDto>(
-                x => x.Name,
-                x => x.MainAddress,
-                x => x.MainFirmName,
-                x => x.TerritoryName,
-                x => x.MainPhoneNumber)
+                x => x.Name)
+            .RegisterFilteredFields<ListClientLinkDto>(
+                x => x.ChildClientName,
+                x => x.MasterClientName)
             .RegisterFilteredFields<ClientGridDoc>(
                 x => x.Name,
                 x => x.MainAddress,
@@ -129,7 +128,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<FirmGridDoc>(
                 x => x.Name,
-                //x => x.ClientName,
+                x => x.ClientName,
                 x => x.OrganizationUnitName,
                 x => x.OwnerName)
             .RegisterFilteredFields<ListFirmAddressDto>(
@@ -172,7 +171,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListOrderPositionAdvertisementDto>(
                 x => x.Id)
             .RegisterFilteredFields<ListOrderDto>(
-                x => x.OrderNumber,
+                x => x.Number,
                 x => x.FirmName,
                 x => x.SourceOrganizationUnitName,
                 x => x.DestOrganizationUnitName,
@@ -242,9 +241,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<ListThemeCategoryDto>(
                 x => x.CategoryName)
-            .RegisterFilteredFields<ListTimeZoneDto>(
-                x => x.TimeZoneId)
             .RegisterFilteredFields<ListTerritoryDto>(
+                x => x.Name,
+                x => x.OrganizationUnitName)
+            .RegisterFilteredFields<TerritoryGridDoc>(
                 x => x.Name,
                 x => x.OrganizationUnitName)
             .RegisterFilteredFields<ListUserDto>(

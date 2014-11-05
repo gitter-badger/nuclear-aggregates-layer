@@ -48,13 +48,18 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="DI\BlQueryingOperationsListingAssembly.cs" />
+    <Compile Include="List\Infrastructure\ErmEntityFunctions.cs" />
     <Compile Include="List\Infrastructure\QueryableExtension.cs" />
     <Compile Include="List\Infrastructure\FilterHelper.cs" />
+    <Compile Include="List\Infrastructure\DescendantEntityFilter.cs" />
+    <Compile Include="List\Infrastructure\ClientDescendantsFilter.cs" />
     <Compile Include="List\Infrastructure\SubordinatesFilter.cs" />
     <Compile Include="List\Infrastructure\ListEntityDtoServiceBase.cs" />
+    <Compile Include="List\ListClientLinkService.cs" />
     <Compile Include="List\ListAdvertisementElementDenialReasonService.cs" />
+    <Compile Include="List\ListLegalPersonDealService.cs" />
+    <Compile Include="List\ListFirmDealService.cs" />
     <Compile Include="List\ListDenialReasonService.cs" />
-    <Compile Include="List\ListTimeZoneService.cs" />
     <Compile Include="List\ListThemeCategoryService.cs" />
     <Compile Include="List\ListThemeOrganizationUnitService.cs" />
     <Compile Include="List\ListRoleService.cs" />
@@ -75,7 +80,7 @@
     <Compile Include="List\ListAdsTemplatesAdsElementTemplateService.cs" />
     <Compile Include="List\ListAccountDetailService.cs" />
     <Compile Include="List\ListAccountService.cs" />
-    <Compile Include="List\ListActivityInstanceService.cs" />
+    <Compile Include="List\ListActivityService.cs" />
     <Compile Include="List\ListAdditionalFirmServiceService.cs" />
     <Compile Include="List\ListAdvertisementElementService.cs" />
     <Compile Include="List\ListAdvertisementElementTemplateService.cs" />
@@ -170,7 +175,6 @@
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

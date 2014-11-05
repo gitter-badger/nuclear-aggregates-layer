@@ -4,7 +4,6 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -47,15 +46,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsDeleted = x.IsDeleted,
                     IsActive = x.IsActive,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.BeginDistributionDate = new DateTime(x.BeginDistributionDate.Ticks, DateTimeKind.Local);
-                    x.EndDistributionDate = new DateTime(x.EndDistributionDate.Ticks, DateTimeKind.Local);
-                    x.CreatedOn = new DateTime(x.CreatedOn.Ticks, DateTimeKind.Local);
+                .QuerySettings(_filterHelper, querySettings);
+        }
 
-                    return x;
-                });
+        protected override void Transform(ListBillDto dto)
+        {
+            dto.BeginDistributionDate = new DateTime(dto.BeginDistributionDate.Ticks, DateTimeKind.Local);
+            dto.EndDistributionDate = new DateTime(dto.EndDistributionDate.Ticks, DateTimeKind.Local);
+            dto.CreatedOn = new DateTime(dto.CreatedOn.Ticks, DateTimeKind.Local);
         }
     }
 }

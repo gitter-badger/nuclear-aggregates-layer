@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -88,15 +89,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                         from categoryFirmAddress in childCategory1.CategoryFirmAddresses
                                                         select categoryFirmAddress).Any(y => !y.IsDeleted && y.IsActive && y.FirmAddressId == firmAddressId));
 
-            var isActiveFilter = querySettings.CreateForExtendedProperty<Category, bool>(
-                "IsActive", isActive => item => item.IsActive == isActive);
-
-            var minLevelFilter = querySettings.CreateForExtendedProperty<Category, int>(
-                "minLevel", minLevel => x => x.Level > minLevel);
-
-            var levelFilter = querySettings.CreateForExtendedProperty<Category, int>(
-                "Level", level => x => x.Level == level);
-
             var organizationUnitIdFilter = querySettings.CreateForExtendedProperty<Category, long>(
                 "OrganizationUnitId",
                 organizationUnitId => x => x.CategoryOrganizationUnits
@@ -113,30 +105,30 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                                                                                                             y.OrganizationUnitId == organizationUnitId))));
 
             bool forNewSalesModel;
+            IReadOnlyCollection<long> supportedCategoriesForNewSalesModel = new long[0];
             if (querySettings.TryGetExtendedProperty("forNewSalesModel", out forNewSalesModel))
             {
                 long organizationUnitId;
                 if (!querySettings.TryGetExtendedProperty("OrganizationUnitId", out organizationUnitId) ||
-                    !NewSalesModelRestrictions.SupportedOrganizationUnitIds.Contains(organizationUnitId))
+                    !NewSalesModelRestrictions.IsOrganizationUnitSupported(organizationUnitId))
                 {
                     return new RemoteCollection<ListCategoryDto>(new ListCategoryDto[0], 0);
                 }
+
+                supportedCategoriesForNewSalesModel = NewSalesModelRestrictions.GetSupportedCategoryIds(organizationUnitId);
             }
 
             var forNewSalesModelFilter = querySettings.CreateForExtendedProperty<Category, bool>(
                 "forNewSalesModel",
-                nsm => x => !forNewSalesModel || NewSalesModelRestrictions.SupportedCategoryIds.Contains(x.Id));
-            
+                nsm => x => !forNewSalesModel || supportedCategoriesForNewSalesModel.Contains(x.Id));
+
             return query
                 .Where(x => !x.IsDeleted)
                 .Filter(_filterHelper
-                , forNewSalesModelFilter
                 , firmIdFilter
                 , firmAddressIdFilter
-                , isActiveFilter
                 , organizationUnitIdFilter
-                , minLevelFilter
-                , levelFilter)
+                , forNewSalesModelFilter)
                 .Select(x => new ListCategoryDto
                 {
                     Id = x.Id,

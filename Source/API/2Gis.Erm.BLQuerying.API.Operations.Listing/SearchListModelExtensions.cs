@@ -15,7 +15,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
             {
                 SkipCount = searchListModel.Start,
                 TakeCount = searchListModel.Limit,
-                Sort = new List<QuerySettingsSort>(),
                 ParentEntityName = searchListModel.ParentEntityName,
                 ParentEntityId = searchListModel.ParentEntityId,
                 UserInputFilter = searchListModel.FilterInput,
@@ -23,14 +22,11 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
                 SearchListModel = searchListModel,
             };
 
-            if (!string.IsNullOrEmpty(searchListModel.Sort))
+            querySettings.Sort = new[] { searchListModel.Sort }.Where(x => !string.IsNullOrEmpty(x)).Select(x => new QuerySettingsSort
             {
-                querySettings.Sort.Add(new QuerySettingsSort
-                {
-                    PropertyName = searchListModel.Sort,
-                    Direction = GetSortDirection(searchListModel.Dir),
-                });
-            }
+                PropertyName = x,
+                Direction = GetSortDirection(searchListModel.Dir),
+            }).ToArray();
 
             var extendedInfo = searchListModel.ExtendedInfo;
 

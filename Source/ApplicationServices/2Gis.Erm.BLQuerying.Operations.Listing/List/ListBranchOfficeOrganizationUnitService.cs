@@ -39,7 +39,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
                 "userId", 
                 "restrictByFP",
-                ExtendedPropertyUnionType.Or,
                 (userId, restrictByPrivelege) =>
                 {
                     if (restrictByPrivelege)
@@ -64,7 +63,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
                     "sourceOrganizationUnitId", 
                     "restrictByFP",
-                    ExtendedPropertyUnionType.Or,
                     (sourceOrganizationUnitId, restrictByPrivelege) =>
                         {
                             Expression<Func<BranchOfficeOrganizationUnit, bool>> filterExpression =

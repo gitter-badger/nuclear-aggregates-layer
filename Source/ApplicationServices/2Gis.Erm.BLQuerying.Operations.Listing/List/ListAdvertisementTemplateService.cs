@@ -25,16 +25,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<AdvertisementTemplate>();
 
-            var isPublishedFilter = querySettings.CreateForExtendedProperty<AdvertisementTemplate, bool>(
-                "isPublished", isPublished => x => x.IsPublished == isPublished);
-
-            var isUnpublishedFilter = querySettings.CreateForExtendedProperty<AdvertisementTemplate, bool>(
-                "isUnpublished", isUnpublished => x => x.IsPublished == !isUnpublished);
-
             var data = query
-                .Filter(_filterHelper
-                , isPublishedFilter
-                , isUnpublishedFilter)
                 .Select(x => new ListAdvertisementTemplateDto
                 {
                     Id = x.Id,

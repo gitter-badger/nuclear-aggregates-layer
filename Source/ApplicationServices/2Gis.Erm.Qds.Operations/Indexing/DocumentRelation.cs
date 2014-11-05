@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Qds.API.Operations;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Common;
 
@@ -14,27 +15,27 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         where TDocumentPart : class
     {
         private readonly IElasticApi _elasticApi;
-        private readonly IReadOnlyCollection<IDocumentRelationMetadata<TDocument, TDocumentPart>> _metadatas;
+        private readonly IEnumerable<DocumentRelationAccessor<TDocument, TDocumentPart>> _accessors;
 
-        public DocumentRelation(IElasticApi elasticApi, IDocumentRelationMetadataContainer metadataContainer)
+        public DocumentRelation(IElasticApi elasticApi, IEnumerable<IDocumentRelationAccessor> accessors)
         {
             _elasticApi = elasticApi;
-            _metadatas = metadataContainer.GetMetadatas<TDocument, TDocumentPart>().ToArray();
+            _accessors = accessors.Cast<DocumentRelationAccessor<TDocument, TDocumentPart>>();
         }
 
-        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
+        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers)
         {
             var documentPartIds = documentWrappers
                 .OfType<IDocumentWrapper<TDocument>>()
-                .SelectMany(x => _metadatas.Select(y => y.GetDocumentPartId(x.Document)))
+                .SelectMany(x => _accessors.Select(y => y.GetDocumentPartId(x.Document)))
                 .Where(x => !string.IsNullOrEmpty(x));
 
-            return x => (ElasticApi.ErmMultiGetDescriptor)x.GetManyDistinct<TDocumentPart>(documentPartIds)
-                // recomendations
+            return x => (ElasticApi.ErmMultiGetDescriptor)documentPartIds.Aggregate(x, (current, documentPartId) => current.GetDistinct<TDocumentPart>(g => g
+                .Id(documentPartId)))
                 .Preference("_primary");
         }
 
-        public void UpdateDocumentParts(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
+        public void UpdateDocumentParts(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
         {
             var documentPartsMap = hits.OfType<IMultiGetHit<TDocumentPart>>().Where(x => x.Found).ToDictionary(x => x.Id, x => x.Source);
             if (!documentPartsMap.Any())
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
             foreach (var documentWrapper in documentWrappers.OfType<IDocumentWrapper<TDocument>>())
             {
-                foreach (var metadata in _metadatas)
+                foreach (var metadata in _accessors)
                 {
                     var documentPartId = metadata.GetDocumentPartId(documentWrapper.Document);
                     if (string.IsNullOrEmpty(documentPartId))
@@ -61,31 +62,33 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             }
         }
 
-        public IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> documentParts)
+        public IEnumerable<IIndexedDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IIndexedDocumentWrapper> documentParts, IProgress<long> progress = null)
         {
             var documentPartsMap = documentParts.OfType<IDocumentWrapper<TDocumentPart>>().ToDictionary(x => x.Id, x => x.Document);
             if (!documentPartsMap.Any())
             {
-                return Enumerable.Empty<IDocumentWrapper>();
+                return Enumerable.Empty<IIndexedDocumentWrapper>();
             }
 
+            _elasticApi.Refresh<TDocument>();
             var hits = _elasticApi.Scroll<TDocument>(s => s
-                .Filter(f => _metadatas.Aggregate(f, (ff, metadata) => (FilterDescriptor<TDocument>)ff.Terms(metadata.DocumentPartIdString, documentPartsMap.Keys)))
+                .Filter(f => DocumentsForPartFilter(f, documentPartsMap.Keys))
+                .Source(src => src.Include(i => _accessors.Aggregate(i, (ii, metadata) => ii.Add(metadata.GetDocumentPartIdExpression))))
                 .Version()
-                .Source(src => src.Include(i => _metadatas.Aggregate(i, (ii, metadata) => ii.Add(metadata.DocumentPartIdObject)))));
+                .Preference("_primary"), progress);
 
             var documentWrappers = hits.Select(hit =>
             {
-                var documentWrapper = new DocumentWrapper<TDocument>
+                var documentWrapper = new IndexedDocumentWrapper<TDocument>
                 {
                     Id = hit.Id,
-                    Document = hit.Source,
+                    Document = hit.Document,
                     Version = hit.Version,
                 };
 
-                foreach (var metadata in _metadatas)
+                foreach (var metadata in _accessors)
                 {
-                    var documentPartId = metadata.GetDocumentPartId(documentWrapper.Document);
+                    var documentPartId = metadata.GetDocumentPartId(hit.Document);
                     if (string.IsNullOrEmpty(documentPartId))
                     {
                         continue;
@@ -94,7 +97,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     TDocumentPart documentPart;
                     if (documentPartsMap.TryGetValue(documentPartId, out documentPart))
                     {
-                        metadata.InsertDocumentPart(documentWrapper.Document, documentPart);
+                        metadata.InsertDocumentPart(hit.Document, documentPart);
                     }
                 }
 
@@ -102,6 +105,26 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             });
 
             return documentWrappers;
+        }
+
+        private FilterContainer DocumentsForPartFilter(FilterDescriptor<TDocument> filterDescriptor, IEnumerable<string> items)
+        {
+            FilterContainer filterContainer = null;
+
+            switch (_accessors.Count())
+            {
+                case 0:
+                    break;
+                case 1:
+                    filterContainer = filterDescriptor.Terms(_accessors.First().GetDocumentPartIdExpression, items);
+                    break;
+                default:
+                    var filters = _accessors.Select(x => new Func<FilterDescriptor<TDocument>, FilterContainer>(f => f.Terms(x.GetDocumentPartIdExpression, items))).ToArray();
+                    filterContainer = filterDescriptor.Or(filters);
+                    break;
+            }
+
+            return filterContainer;
         }
     }
 }

@@ -60,57 +60,9 @@ namespace DoubleGis.Erm.Qds.Migrations
                     //            .IndexAnalyzer("ru_sorting"))
                     //    )
                     //)
-                    //.String(s => s.Name(n => n.OwnerCode).Index(FieldIndexOption.NotAnalyzed))
-                    //.MultiField(mf => mf
-                    //    .Name(n => n.OwnerName)
-                    //    .Fields(f => f
-                    //        .String(s => s
-                    //            .Name(n => n.OwnerName)
-                    //            .Index(FieldIndexOption.Analyzed)
-                    //            .IndexAnalyzer("ru_searching")
-                    //            .SearchAnalyzer("ru_searching")
-                    //        )
-                    //        .String(s => s
-                    //            .Name(n => n.OwnerName.Suffix("sort"))
-                    //            .Index(FieldIndexOption.Analyzed)
-                    //            .IndexAnalyzer("ru_sorting"))
-                    //    )
-                    //)
-                    //.String(s => s.Name(n => n.TerritoryId).Index(FieldIndexOption.NotAnalyzed))
-                    //.MultiField(mf => mf
-                    //    .Name(n => n.TerritoryName)
-                    //    .Fields(f => f
-                    //        .String(s => s
-                    //            .Name(n => n.TerritoryName)
-                    //            .Index(FieldIndexOption.Analyzed)
-                    //            .IndexAnalyzer("ru_searching")
-                    //            .SearchAnalyzer("ru_searching")
-                    //        )
-                    //        .String(s => s
-                    //            .Name(n => n.TerritoryName.Suffix("sort"))
-                    //            .Index(FieldIndexOption.Analyzed)
-                    //            .IndexAnalyzer("ru_sorting"))
-                    //    )
-                    //)
                     .Number(num => num.Name(n => n.PromisingScore).Type(NumberType.Integer))
                     .Date(d => d.Name(n => n.LastQualifyTime))
                     .Date(d => d.Name(n => n.LastDisqualifyTime))
-                    //.String(s => s.Name(n => n.OrganizationUnitId).Index(FieldIndexOption.NotAnalyzed))
-                    //.MultiField(mf => mf
-                    //    .Name(n => n.OrganizationUnitName)
-                    //    .Fields(f => f
-                    //        .String(s => s
-                    //            .Name(n => n.OrganizationUnitName)
-                    //            .Index(FieldIndexOption.Analyzed)
-                    //            .IndexAnalyzer("ru_searching")
-                    //            .SearchAnalyzer("ru_searching")
-                    //        )
-                    //        .String(s => s
-                    //            .Name(n => n.OrganizationUnitName.Suffix("sort"))
-                    //            .Index(FieldIndexOption.Analyzed)
-                    //            .IndexAnalyzer("ru_sorting"))
-                    //    )
-                    //)
                     .Boolean(b => b.Name(n => n.IsActive))
                     .Boolean(b => b.Name(n => n.IsDeleted))
                     .Boolean(b => b.Name(n => n.ClosedForAscertainment))

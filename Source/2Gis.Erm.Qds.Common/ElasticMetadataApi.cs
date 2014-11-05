@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 
-using DoubleGis.Erm.Qds.API.Operations.Docs.Metadata;
 using DoubleGis.Erm.Qds.Common.Settings;
+
+using Nest;
 
 namespace DoubleGis.Erm.Qds.Common
 {
@@ -9,39 +11,52 @@ namespace DoubleGis.Erm.Qds.Common
     {
         private readonly INestSettings _nestSettings;
 
-        public ElasticMetadataApi(INestSettings nestSettings)
+        public ElasticMetadataApi(INestSettings nestSettings, IEnumerable<Tuple<Type, string>> docTypeToIndexNameMap)
         {
             _nestSettings = nestSettings;
-            RegisterKnownTypes();
+            RegisterKnownTypes(docTypeToIndexNameMap);
         }
 
-        public void RegisterKnownTypes()
+        private FluentDictionary<Type, string> DefaultIndices
         {
-            foreach (var indexNameMapping in IndexMappingMetadata.DocTypeToIndexNameMap)
-            {
-                RegisterType(indexNameMapping.Item1, indexNameMapping.Item2);
-            }
+            get { return _nestSettings.ConnectionSettings.DefaultIndices; }
         }
 
-        public void RegisterType<T>(string docIndexName, string docTypeName = null)
+        private FluentDictionary<Type, string> DefaultTypeNames
         {
-            RegisterType(typeof(T), docIndexName, docTypeName);
-        }
-
-        private void RegisterType(Type documentType, string docIndexName, string docTypeName = null)
-        {
-            var isolatedIndexName = GetIsolatedIndexName(docIndexName);
-            _nestSettings.ConnectionSettings.DefaultIndices.Add(documentType, isolatedIndexName);
-
-            if (docTypeName != null)
-            {
-                _nestSettings.ConnectionSettings.DefaultTypeNames.Add(documentType, docTypeName.ToLowerInvariant());
-            }
+            get { return _nestSettings.ConnectionSettings.DefaultTypeNames; }
         }
 
         public string GetIsolatedIndexName(string indexName)
         {
             return _nestSettings.IndexPrefix + "." + indexName.ToLowerInvariant();
+        }
+
+        public void RegisterType<T>(string docIndexName, string docTypeName)
+        {
+            RegisterType(typeof(T), docIndexName, docTypeName);
+        }
+
+        private void RegisterKnownTypes(IEnumerable<Tuple<Type, string>> docTypeToIndexNameMap)
+        {
+            foreach (var indexNameMapping in docTypeToIndexNameMap)
+            {
+                RegisterType(indexNameMapping.Item1, indexNameMapping.Item2);
+            }
+        }
+        
+        private void RegisterType(Type documentType, string docIndexName, string docTypeName = null)
+        {
+            var isolatedIndexName = GetIsolatedIndexName(docIndexName);
+            if (!DefaultIndices.ContainsKey(documentType))
+            {
+                DefaultIndices.Add(documentType, isolatedIndexName);
+            }
+
+            if (!DefaultTypeNames.ContainsKey(documentType) && docTypeName != null)
+            {
+                DefaultTypeNames.Add(documentType, docTypeName.ToLowerInvariant());
+            }
         }
     }
 }

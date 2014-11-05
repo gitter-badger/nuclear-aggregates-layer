@@ -21,6 +21,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public string ClientName { get; set; }
         public long OwnerCode { get; set; }
         public string LegalPersonLegalAddress { get; set; }
+        public long ExecutorBranchOfficeId { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
     }

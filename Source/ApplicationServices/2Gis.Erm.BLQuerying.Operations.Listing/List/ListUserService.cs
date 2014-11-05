@@ -11,26 +11,22 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListUserService : ListEntityDtoServiceBase<User, ListUserDto>
     {
-        private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListUserService(
-            ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
             IUserContext userContext, FilterHelper filterHelper)
         {
-            _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _finder = finder;
             _userContext = userContext;
@@ -40,14 +36,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<User>();
-
-            var hideReserveUserFilter = querySettings.CreateForExtendedProperty<User, bool>(
-                "hideReserveUser",
-                hideReserveUser =>
-                    {
-                        var reserveUserId = _userIdentifierService.GetReserveUserIdentity().Code;
-                        return x => x.Id != reserveUserId;
-                    });
 
             // hide service users
             Expression<Func<User, bool>> hideServiceUsersFilter = null;
@@ -68,10 +56,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var privilegyFilter = querySettings.CreateForExtendedProperty<User, long>(
                 "privilege", privilegeId => x => x.UserRoles.Select(y => y.Role).SelectMany(y => y.RolePrivileges).Distinct().Any(y => y.Privilege.Operation == privilegeId));
 
-            var excludeIdFilter = querySettings.CreateForExtendedProperty<User, long>(
-                "excludeId",
-                excludeId => x => x.Id != excludeId);
-
             // Означает, что список должен содержать только самого пользователя и его подчинённых
             var subordinatesFilter = querySettings.CreateForExtendedProperty<User, long>("subordinatesOf", userId => x => x.Id == userId);
             if (subordinatesFilter != null)
@@ -81,13 +65,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Filter(_filterHelper
-                , hideReserveUserFilter
-                , hideServiceUsersFilter
                 , roleFilter
                 , userOrgUnitFilter
                 , privilegyFilter
-                , excludeIdFilter
-                , subordinatesFilter)
+                , subordinatesFilter
+                , hideServiceUsersFilter)
                 .Select(x => new ListUserDto
                 {
                     Id = x.Id,
@@ -102,6 +84,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     RoleName = x.UserRoles.Select(role => role.Role.Name).OrderBy(item => item),
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
+                    IsServiceUser = x.IsServiceUser,
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
@@ -7,13 +9,13 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
@@ -28,6 +30,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IFinder _finder;
+        private readonly ISecureFinder _secureFinder;
         private readonly IDebtProcessingSettings _debtProcessingSettings;
 
         public ListClientService(
@@ -35,6 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
+            ISecureFinder secureFinder,
             IUserContext userContext,
             FilterHelper filterHelper,
             IDebtProcessingSettings debtProcessingSettings)
@@ -46,11 +50,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _finder = finder;
+            _secureFinder = secureFinder;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Client>();
+
+            bool availableForLinking;
+            if (querySettings.TryGetExtendedProperty("AvailableForLinking", out availableForLinking))
+            {
+                return GetClientsAvailableForLinking(querySettings);
+            }
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
@@ -98,28 +109,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return x => x.Deals.Count(y => !y.IsDeleted && y.IsActive) > dealCount;
             });
 
-            var reserveFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForReserve", info =>
-            {
-                var reserveId = _userIdentifierService.GetReserveUserIdentity().Code;
-                return x => x.OwnerCode == reserveId;
-            });
-
-            var myFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForMe", info =>
-            {
-                var userId = _userContext.Identity.Code;
-                return x => x.OwnerCode == userId;
-            });
-
-            var todayFilter = querySettings.CreateForExtendedProperty<Client, bool>("ForToday", info =>
-            {
-                var userDateTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTodayUtc = TimeZoneInfo.ConvertTimeToUtc(userDateTimeNow.Date, _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo);
-                var userDateTimeTomorrowUtc = userDateTimeTodayUtc.AddDays(1);
-
-                return x => userDateTimeTodayUtc <= x.CreatedOn && x.CreatedOn < userDateTimeTomorrowUtc;
-            });
-
-            query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter, reserveFilter, myFilter);
+            query = query.Filter(_filterHelper, myTerritoryFilter, myBranchFilter, debtFilter, barterOrdersFilter, noMakingDecisionsFilter, regionalFilter, dealCountFilter);
 
             RemoteCollection<ListClientDto> clients;
             if (TryGetClientsRestrictedByUser(query, querySettings, out clients))
@@ -132,40 +122,44 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return clients;
             }
 
-            var with1AppointmentFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-                "With1Appointment",
-                with1Appointment =>
-                {
-                    if (!with1Appointment)
-                    {
-                        return null;
-                    }
-
-
-                    return x =>
-                           x.ActivityInstances.Count(
-                               y => y.Type == (int)ActivityType.Appointment && !y.IsDeleted && y.IsActive
-                                    && y.ActivityPropertyInstances.Any(z => (z.PropertyId == StatusIdentity.Instance.Id && z.NumericValue == 2))) == 1;
-                });
-
-            var warmClientTaskFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-                "WarmClientTask",
-                warmClientTask => client =>
-                    client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(property => property.PropertyId == TaskTypeIdentity.Instance.Id
-                                                                                                  && property.NumericValue == (int)ActivityTaskType.WarmClient)));
-
-            var outdatedActivityFilter = querySettings.CreateForExtendedProperty<Client, bool>(
-                "Outdated",
-                outdated =>
-                {
-                    if (outdated)
-                    {
-                        return client => client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(
-                            property => property.PropertyId == ScheduledEndIdentity.Instance.Id && property.DateTimeValue < DateTime.Today));
-                    }
-
-                    return null;
-                });
+	        // FIXME {s.pomadin, 30.07.2014}: there is no relation between client and activities anymore
+			Expression<Func<Client, bool>> with1AppointmentFilter = null;
+			Expression<Func<Client, bool>> warmClientTaskFilter = null;
+			Expression<Func<Client, bool>> outdatedActivityFilter = null;
+//            var with1AppointmentFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+//                "With1Appointment",
+//                with1Appointment =>
+//                {
+//                    if (!with1Appointment)
+//                    {
+//                        return null;
+//                    }
+//
+//
+//                    return x =>
+//                           x.ActivityInstances.Count(
+//                               y => y.Type == (int)ActivityType.Appointment && !y.IsDeleted && y.IsActive
+//                                    && y.ActivityPropertyInstances.Any(z => (z.PropertyId == StatusIdentity.Instance.Id && z.NumericValue == 2))) == 1;
+//                });
+//
+//            var warmClientTaskFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+//                "WarmClientTask",
+//                warmClientTask => client =>
+//                    client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(property => property.PropertyId == TaskTypeIdentity.Instance.Id
+//                                                                                                  && property.NumericValue == (int)ActivityTaskType.WarmClient)));
+//
+//            var outdatedActivityFilter = querySettings.CreateForExtendedProperty<Client, bool>(
+//                "Outdated",
+//                outdated =>
+//                {
+//                    if (outdated)
+//                    {
+//                        return client => client.ActivityInstances.Any(activity => activity.ActivityPropertyInstances.Any(
+//                            property => property.PropertyId == ScheduledEndIdentity.Instance.Id && property.DateTimeValue < DateTime.Today));
+//                    }
+//
+//                    return null;
+//                });
 
             var contactFilter = querySettings.CreateForExtendedProperty<Client, long>(
                 "ContactId",
@@ -186,9 +180,86 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     , outdatedActivityFilter
                     , contactFilter
                     , dealFilter
-                    , firmFilter
-                    , todayFilter)
+                    , firmFilter)
                     , querySettings);
+        }
+
+        private IRemoteCollection GetClientsAvailableForLinking(QuerySettings querySettings)
+        {
+            var expr = CreateExpToFilterReserveClientsByPermission();
+            var excludeClients = GetClientsAlreadyLinked(querySettings);
+
+            var clientsQuery = _secureFinder.Find(expr)
+                                            .Where(c => !excludeClients.Contains(c.Id))
+                                            .Where(c => !c.IsAdvertisingAgency);
+
+            return SelectClients(clientsQuery, querySettings);
+        }
+
+        private Expression<Func<Client, bool>> CreateExpToFilterReserveClientsByPermission()
+        {
+            var userCode = _userContext.Identity.Code;
+            var reserveRights = GetMaxAccessForReserve(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.ReserveAccess, userCode));
+            var reserveUserCode = _userIdentifierService.GetReserveUserIdentity().Code;
+
+            switch (reserveRights)
+            {
+                case ReserveAccess.None:
+                    {
+                        return c => c.OwnerCode != reserveUserCode;
+                    }
+
+                case ReserveAccess.Territory:
+                    {
+                        return c => c.OwnerCode != reserveUserCode ||
+                                    c.Territory.UserTerritoriesOrganizationUnits.Any(u => u.UserId == userCode);
+                    }
+
+                case ReserveAccess.OrganizationUnit:
+                    {
+                        return c => c.OwnerCode != reserveUserCode ||
+                                   (c.Territory.UserTerritoriesOrganizationUnits.Any(u => u.UserId == userCode) ||
+                                     c.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(u => u.UserId == userCode));
+                    }
+
+                case ReserveAccess.Full:
+                    {
+                        return c => true;
+                    }
+
+                default:
+                    throw new NotSupportedException(reserveRights.ToString());
+            }
+        }
+
+        private IEnumerable<long> GetClientsAlreadyLinked(QuerySettings querySettings)
+        {
+            bool excludeChildClients;
+            querySettings.TryGetExtendedProperty("ExcludeChildClients", out excludeChildClients);
+
+            if (excludeChildClients && querySettings.ParentEntityId.HasValue)
+            {
+                var currentClient = querySettings.ParentEntityId.Value;
+                var list = _finder.Find<ClientLink>(cl => cl.MasterClientId == currentClient && !cl.IsDeleted).Select(cl => cl.ChildClientId).ToList();
+
+                list.Add(currentClient);
+                return list;
+            }
+
+            return new long[0];
+        }
+
+        private static ReserveAccess GetMaxAccessForReserve(int[] accesses)
+        {
+            if (!accesses.Any())
+            {
+                return ReserveAccess.None;
+            }
+
+            var priorities = new[] { ReserveAccess.None, ReserveAccess.Territory, ReserveAccess.OrganizationUnit, ReserveAccess.Full };
+
+            var maxPriority = accesses.Select(x => Array.IndexOf(priorities, (ReserveAccess)x)).Max();
+            return priorities[maxPriority];
         }
 
         private bool TryGetClientsRestrictedByUser(
@@ -317,12 +388,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 InformationSourceEnum = (InformationSource)x.InformationSource,
                 OwnerName = null,
             })
-            .QuerySettings(_filterHelper, querySettings)
-            .Transform(x =>
-            {
-                x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                return x;
-            });
+            .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListClientDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

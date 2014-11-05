@@ -24,12 +24,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<FirmAddress>();
 
-            var firmFilter = querySettings.CreateForExtendedProperty<FirmAddress, long>(
-                "FirmId", firmId => x => x.FirmId == firmId);
-
             return query
                 .Where(x => !x.Firm.IsDeleted)
-                .Filter(_filterHelper, firmFilter)
                 .Select(x => new ListFirmAddressDto
                 {
                     Id = x.Id,

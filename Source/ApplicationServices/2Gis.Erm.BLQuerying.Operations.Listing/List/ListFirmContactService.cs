@@ -2,12 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -19,18 +15,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     public sealed class ListFirmContactService : ListEntityDtoServiceBase<FirmContact, ListFirmContactDto>
     {
         private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
         private readonly IFirmReadModel _firmReadModel;
 
         public ListFirmContactService(
             IFinder finder,
-            IUserContext userContext,
             FilterHelper filterHelper,
             IFirmReadModel firmReadModel)
         {
             _finder = finder;
-            _userContext = userContext;
             _filterHelper = filterHelper;
             _firmReadModel = firmReadModel;
         }
@@ -51,18 +44,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             .Select(x => new ListFirmContactDto
             {
                 Id = x.Id,
-                ContactTypeEnum = (FirmAddressContactType)x.ContactType,
                 Contact = x.Contact,
                 CardId = x.CardId,
                 FirmAddressId = x.FirmAddressId,
-                ContactType = null,
+                ContactType = ((FirmAddressContactType)x.ContactType).ToStringLocalizedExpression(),
             })
-            .QuerySettings(_filterHelper, querySettings)
-            .Transform(x =>
-            {
-                x.ContactType = x.ContactTypeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                return x;
-            });
+            .QuerySettings(_filterHelper, querySettings);
 
             return data;
         }

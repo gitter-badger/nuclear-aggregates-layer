@@ -1,14 +1,10 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -18,17 +14,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     public sealed class ListOrderProcessingRequestService : ListEntityDtoServiceBase<OrderProcessingRequest, ListOrderProcessingRequestDto>
     {
         private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly FilterHelper _filterHelper;
 
         public ListOrderProcessingRequestService(
             IFinder finder, 
-            IUserContext userContext,
             ISecurityServiceUserIdentifier userIdentifierService, FilterHelper filterHelper)
         {
             _finder = finder;
-            _userContext = userContext;
             _userIdentifierService = userIdentifierService;
             _filterHelper = filterHelper;
         }
@@ -48,7 +41,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     RenewedOrderId = x.RenewedOrderId,
                     RenewedOrderNumber = x.RenewedOrder.Number,
                     OwnerCode = x.OwnerCode,
-                    StateEnum = (OrderProcessingRequestState)x.State,
                     BeginDistributionDate = x.BeginDistributionDate,
                     FirmId = x.FirmId,
                     FirmName = x.Firm.Name,
@@ -60,16 +52,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CreatedOn = x.CreatedOn,
                     IsDeleted = x.IsDeleted,
                     OwnerName = null,
-                    State = null,
+                    State = ((OrderProcessingRequestState)x.State).ToStringLocalizedExpression(),
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    x.State = x.StateEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
+                .QuerySettings(_filterHelper, querySettings);
+        }
 
-                    return x;
-                });
+        protected override void Transform(ListOrderProcessingRequestDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

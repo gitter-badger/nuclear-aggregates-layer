@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,18 +31,18 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.1\lib\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -60,11 +60,15 @@
     <Compile Include="2.0\2014.06.17 rev. 21201 - Add FastSearch button to MSCRM.cs" />
     <Compile Include="2.0\2014.07.01 rev. 13546 - Создание поисковой инфраструктуры.cs" />
     <Compile Include="2.0\2014.07.01 rev. 15468 - Первичная миграция данных.cs" />
+    <Compile Include="2.0\2014.10.10 rev. 25182 - ReplicationQueue mapping.cs" />
     <Compile Include="2.0\2014.07.28 rev. 22693 - Related docs.cs" />
     <Compile Include="2.0\2014.07.23 rev. 22565 - ReplicationQueue mapping.cs" />
     <Compile Include="2.0\2014.07.18 rev. 22447 - OrderGridDoc, FirmGridDoc mappings.cs" />
     <Compile Include="2.0\2014.07.09 rev. 22156 - Remove RecordIdState mapping.cs" />
     <Compile Include="2.0\2014.07.01 rev. 21859 - OrderGridDoc, RecordIdState mappings.cs" />
+    <Compile Include="2.0\2014.09.18 rev. 24393 - LegalPersonGridDoc, BargainGridDoc, OrderGridDoc.cs" />
+    <Compile Include="2.0\2014.09.10 rev. 24160 - Update number of replicas.cs" />
+    <Compile Include="2.0\2014.09.05 rev. 24082 - TerritoryGridDoc, ClientGridDoc mapping.cs" />
     <Compile Include="Base\ElasticSearchMigration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -82,10 +86,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
-      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
-      <Name>2Gis.Erm.Platform.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2EE6DCD3-218D-4EEA-8902-8CF501C7E034}</Project>
       <Name>2Gis.Erm.Platform.Migration.Core</Name>
@@ -112,7 +112,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

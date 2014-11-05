@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,18 +31,22 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll</HintPath>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="FastMember">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.0.1\lib\Nest.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -58,34 +62,47 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="DI\QdsMetadataZonePartAssembly.cs" />
     <Compile Include="DI\QdsOperationsAssembly.cs" />
     <Compile Include="Indexing\DocumentVersionUpdater.cs" />
     <Compile Include="Indexing\DefferedDocumentUpdater.cs" />
     <Compile Include="Indexing\DocumentRelation.cs" />
+    <Compile Include="Indexing\IDocumentRelationFactory.cs" />
+    <Compile Include="Indexing\IDocumentVersionUpdater.cs" />
+    <Compile Include="Indexing\IEntityToDocumentRelationFactory.cs" />
     <Compile Include="Listing\QdsListDepartmentService.cs" />
     <Compile Include="Metadata\DocumentRelationMappings.cs" />
-    <Compile Include="Indexing\DocumentRelationMetadataContainer.cs" />
     <Compile Include="Indexing\DocumentUpdater.cs" />
     <Compile Include="Indexing\DocumentWrapper.cs" />
     <Compile Include="Indexing\EntityToDocumentRelation.cs" />
-    <Compile Include="Metadata\EntityToDocumentRelationMappings.cs" />
-    <Compile Include="Indexing\EntityToDocumentRelationMetadataContainer.cs" />
+    <Compile Include="Metadata\DocumentRelationMetadataSource.cs" />
+    <Compile Include="Indexing\UserToUserAuthorizationDocRelation.cs" />
     <Compile Include="Indexing\IDocumentRelation.cs" />
     <Compile Include="Indexing\IEntityToDocumentRelation.cs" />
     <Compile Include="Indexing\ReplicateToElasticSearchMessageAggregatedProcessingResultHandler.cs" />
     <Compile Include="Indexing\ReplicateToElasticSearchPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Indexing\ReplicationQueueHelper.cs" />
     <Compile Include="Listing\FilterHelper.cs" />
-    <Compile Include="Metadata\QdsDefaultFilterMetadata.cs" />
+    <Compile Include="Metadata\EntityToDocumentProjectionMetadataSource.cs" />
+    <Compile Include="Metadata\FastMemberExtensions.cs" />
+    <Compile Include="Metadata\IExtendedInfoFilterMetadata.cs" />
     <Compile Include="Listing\QdsListFirmService.cs" />
     <Compile Include="Listing\QdsListClientService.cs" />
     <Compile Include="Listing\QdsListOrderService.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Bargains.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Orders.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.LegalPersons.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Territories.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Firms.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Users.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Departments.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.OrganizationUnits.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Countries.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Currencies.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.Clients.cs" />
+    <Compile Include="Metadata\ProjectionSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
-      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
-      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
@@ -97,6 +114,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
@@ -136,7 +157,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

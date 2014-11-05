@@ -1,13 +1,9 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,15 +13,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     public sealed class ListThemeService : ListEntityDtoServiceBase<Theme, ListThemeDto>
     {
         private readonly IFinder _finder;
-        private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListThemeService(
             IFinder finder,
-            IUserContext userContext, FilterHelper filterHelper)
+            FilterHelper filterHelper)
         {
             _finder = finder;
-            _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
@@ -73,19 +67,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 Name = x.Name,
                 BeginDistribution = x.BeginDistribution,
                 EndDistribution = x.EndDistribution,
-                TemplateCodeEnum = (ThemeTemplateCode)x.TemplateCode,
                 Description = x.Description,
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
-                TemplateCode = null,
+                TemplateCode = ((ThemeTemplateCode)x.TemplateCode).ToStringLocalizedExpression(),
             })
             .Distinct()
-            .QuerySettings(_filterHelper, querySettings)
-            .Transform(x =>
-            {
-                x.TemplateCode = x.TemplateCodeEnum.ToStringLocalized(EnumResources.ResourceManager, _userContext.Profile.UserLocaleInfo.UserCultureInfo);
-                return x;
-            });
+            .QuerySettings(_filterHelper, querySettings);
 
             return data;
         }
