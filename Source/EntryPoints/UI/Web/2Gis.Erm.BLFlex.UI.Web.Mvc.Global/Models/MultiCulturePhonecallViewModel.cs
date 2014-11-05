@@ -11,23 +11,29 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCulturePhonecallViewModel : ActivityBaseViewModelAbstract<Phonecall>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class MultiCulturePhonecallViewModel : ActivityBaseViewModelAbstract<Phonecall>, 
+                                                         ICyprusAdapted, 
+                                                         IChileAdapted, 
+                                                         ICzechAdapted, 
+                                                         IUkraineAdapted, 
+                                                         IEmiratesAdapted, 
+                                                         IKazakhstanAdapted
     {
-		public MultiCulturePhonecallViewModel()
-			: base(ActivityType.Phonecall)
-	    {
-	    }
+        public MultiCulturePhonecallViewModel()
+            : base(ActivityType.Phonecall)
+        {
+        }
 
         [RequiredLocalized]
         [Dependency(DependencyType.Required, "Purpose", "this.value != 'NotSet'")]
-		public ActivityPurpose Purpose { get; set; }
+        public ActivityPurpose Purpose { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (PhonecallDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-			Priority = modelDto.Priority;
+            Priority = modelDto.Priority;
             Status = modelDto.Status;
             Purpose = modelDto.Purpose;
             Header = modelDto.Header;
@@ -48,24 +54,25 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             return new PhonecallDomainEntityDto
-            {
-                Id = Id,
-                Priority = Priority,
-                Status = Status,
-                Purpose = Purpose,
-                Header = Header,
-                ScheduledStart = new DateTime(ScheduledStart.Year, ScheduledStart.Month, ScheduledStart.Day).Add(ScheduledStartTime),
-                ScheduledEnd = new DateTime(ScheduledEnd.Year, ScheduledEnd.Month, ScheduledEnd.Day).Add(ScheduledEndTime),
-                ActualEnd = ActualEnd.HasValue ? new DateTime(ActualEnd.Value.Year, ActualEnd.Value.Month, ActualEnd.Value.Day).Add(ActualEndTime.Value) : (DateTime?)null,
-                Description = Description,
-                ClientRef = Client.ToReference(),
-                FirmRef = Firm.ToReference(),
-                ContactRef = Contact.ToReference(),
-                Timestamp = Timestamp,
-                IsActive = IsActive,
-                IsDeleted = IsDeleted,
-                OwnerRef = Owner.ToReference()
-            };
+                       {
+                           Id = Id, 
+                           Priority = Priority, 
+                           Status = Status, 
+                           Purpose = Purpose, 
+                           Header = Header, 
+                           ScheduledStart = new DateTime(ScheduledStart.Year, ScheduledStart.Month, ScheduledStart.Day).Add(ScheduledStartTime), 
+                           ScheduledEnd = new DateTime(ScheduledEnd.Year, ScheduledEnd.Month, ScheduledEnd.Day).Add(ScheduledEndTime), 
+                           ActualEnd =
+                               ActualEnd.HasValue ? new DateTime(ActualEnd.Value.Year, ActualEnd.Value.Month, ActualEnd.Value.Day).Add(ActualEndTime.Value) : (DateTime?)null, 
+                           Description = Description, 
+                           ClientRef = Client.ToReference(), 
+                           FirmRef = Firm.ToReference(), 
+                           ContactRef = Contact.ToReference(), 
+                           Timestamp = Timestamp, 
+                           IsActive = IsActive, 
+                           IsDeleted = IsDeleted, 
+                           OwnerRef = Owner.ToReference()
+                       };
         }
     }
 }

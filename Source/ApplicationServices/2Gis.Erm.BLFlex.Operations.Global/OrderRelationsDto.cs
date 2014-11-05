@@ -4,6 +4,7 @@
     {
         public long? BranchOfficeOrganizationUnitId { get; set; }
         public string OrderNumber { get; set; }
+        public bool IsOrderWithDiscount { get; set; }
         public short CurrencyIsoCode { get; set; }
         public long? LegalPersonId { get; set; }
         public long SourceOrganizationUnitId { get; set; }

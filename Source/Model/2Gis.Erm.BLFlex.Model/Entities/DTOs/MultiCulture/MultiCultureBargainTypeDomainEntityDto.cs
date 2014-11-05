@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture
 {
     [DataContract]
     public class MultiCultureBargainTypeDomainEntityDto : IDomainEntityDto<Platform.Model.Entities.Erm.BargainType>, IChileAdapted, ICyprusAdapted,
-                                                          ICzechAdapted, IUkraineAdapted
+                                                          ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         [DataMember]
         public long Id { get; set; }

@@ -57,6 +57,10 @@
     <Compile Include="Entities\DTOs\Chile\ChileBranchOfficeOrganizationUnitDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesBranchOfficeDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesBargainTypeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Kazakhstan\KazakhstanBranchOfficeDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Kazakhstan\KazakhstanBranchOfficeOrganizationUnitDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Kazakhstan\KazakhstanLegalPersonDomainEntityDto.cs" />
+    <Compile Include="Entities\DTOs\Kazakhstan\KazakhstanLegalPersonProfileDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\MultiCulture\MultiCultureBargainTypeDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\MultiCulture\MultiCultureClientDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Emirates\EmiratesBranchOfficeOrganizationUnitDomainEntityDto.cs" />

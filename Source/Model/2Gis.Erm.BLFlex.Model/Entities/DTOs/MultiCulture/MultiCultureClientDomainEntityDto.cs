@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture
 {
     [DataContract]
-    public class MultiCultureClientDomainEntityDto : IDomainEntityDto<Platform.Model.Entities.Erm.Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class MultiCultureClientDomainEntityDto : IDomainEntityDto<Platform.Model.Entities.Erm.Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         [DataMember]
         public long Id { get; set; }
