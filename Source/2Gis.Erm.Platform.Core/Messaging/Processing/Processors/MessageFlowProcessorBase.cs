@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
         protected abstract TMessageReceiverSettings ResolveReceiverSettings();
 
-        private int Process()
+        private ProcessingResult Process()
         {
             var messageReceiverSettings = ResolveReceiverSettings();
 
@@ -152,7 +152,11 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 if (!flowMessages.Any())
                 {
                     Logger.DebugFormatEx("Further flow {0} processing skipped, because no message received, possible transport is empty", SourceMessageFlow);
-                    return 0;
+                    return new ProcessingResult
+                               {
+                                   ActuallyProcessedMessageCount = 0, 
+                                   RequestedMessageBatchSize = messageReceiverSettings.BatchSize
+                               };
                 }
 
                 Logger.DebugFormatEx("Starting processing message flow. Acquired messages batch size: {0}. Source message flow: {1}", flowMessages.Count, SourceMessageFlow);
@@ -192,7 +196,11 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
 
                 messageReceiver.Complete(topologyProcessingResults.Succeeded, topologyProcessingResults.Failed);
 
-                return flowMessages.Count;
+                return new ProcessingResult
+                               {
+                                   ActuallyProcessedMessageCount = flowMessages.Count, 
+                                   RequestedMessageBatchSize = messageReceiverSettings.BatchSize
+                               };
             }
             catch (Exception ex)
             {
@@ -223,43 +231,60 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
             const int DelayIncrementMs = 1000;
             const int DelayAfterFailure = 45000;
             const int MaxDelayMs = 180000;
+            const decimal SufficientBatchUtilizationMinPercentage = 10M;
 
             int currentDelay = BaseDelayMs;
             while (!_workerCancellationTokenSource.Token.IsCancellationRequested)
             {
-                int? processedCount = null;
+                ProcessingResult processingResult = null;
+
                 try
                 {
-                    processedCount = Process();
+                    processingResult = Process();
                 }
                 catch (Exception ex)
                 {
                     Logger.ErrorFormatEx(ex, "Failed async processing for message flow " + SourceMessageFlow + ". Processing will be continued after some delay");
                 }
 
-                if (!processedCount.HasValue)
+                if (processingResult == null)
                 {
                     currentDelay = DelayAfterFailure;
                     Logger.InfoFormatEx("Processing flow {0}. Restoration delay after previous failure was applied ms: {1}", SourceMessageFlow, currentDelay);
                 }
-                else if (processedCount > 0)
-                {
-                    currentDelay = BaseDelayMs;
-                    Logger.DebugFormatEx("Processing flow {0}. {1} messages was handled during the last cycle. Delay has base value ms: {2}",
-                                         SourceMessageFlow,
-                                         processedCount,
-                                         currentDelay);
-                }
                 else
                 {
-                    currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
-                    Logger.InfoFormatEx("Processing flow {0}. No one message was handled during the last cycle. Delay was incremented and has value ms: {1}",
-                                        SourceMessageFlow,
-                                        currentDelay);
+                    decimal effectiveBatchUtilizationPercentage = processingResult.ActuallyProcessedMessageCount * 100M / processingResult.RequestedMessageBatchSize;
+                    if (effectiveBatchUtilizationPercentage > SufficientBatchUtilizationMinPercentage)
+                    {
+                        currentDelay = BaseDelayMs;
+                        Logger.DebugFormatEx("Processing flow {0}. {1} messages was handled during the last cycle. Message batch utilization: {2:F1}%. Delay has base value ms: {3}",
+                                             SourceMessageFlow,
+                                             processingResult.ActuallyProcessedMessageCount,
+                                             effectiveBatchUtilizationPercentage,
+                                             currentDelay);
+                    }
+                    else
+                    {
+                        currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
+                        Logger.InfoFormatEx(
+                            "Processing flow {0}. Message batch size {1} utilization is {2:F1}% and lower than min sufficient value {3:F1}%. Delay was incremented and has value ms: {4}",
+                            processingResult.RequestedMessageBatchSize,
+                            effectiveBatchUtilizationPercentage,
+                            SufficientBatchUtilizationMinPercentage,
+                            SourceMessageFlow,
+                            currentDelay);
+                    }
                 }
 
                 _asyncWorkerSignal.WaitOne(currentDelay);
             }
+        }
+
+        private sealed class ProcessingResult
+        {
+            public int ActuallyProcessedMessageCount { get; set; }
+            public int RequestedMessageBatchSize { get; set; }
         }
     }
 }
