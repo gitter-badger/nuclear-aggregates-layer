@@ -47,14 +47,25 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
         {
             // checkme: печать без валюты?
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
 
             if (bargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
             }
 
+            if (legalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
+            if (legalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var relations = _readModel.GetBargainRelationsDto(bargainId.Value);
-            var printData = GetPrintData(request, relations, bargainId.Value);
+            var printData = GetPrintData(relations, bargainId.Value, legalPersonProfileId.Value);
 
             if (relations.BranchOfficeOrganizationUnitId == null)
             {
@@ -72,13 +83,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
 
-        private PrintData GetPrintData(PrintOrderBargainRequest request, BargainRelationsDto relations, long bargainId)
+        private PrintData GetPrintData(BargainRelationsDto relations, long bargainId, long legalPersonProfileId)
         {
-            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
-            var profileId = request.LegalPersonProfileId;
-
             var legalPerson = _legalPersonReadModel.GetLegalPerson(relations.LegalPersonId.Value);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(relations.BranchOfficeOrganizationUnitId.Value);
 
             var bargainQuery = _readModel.GetBargainQuery(bargainId);

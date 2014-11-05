@@ -54,10 +54,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         protected override Response Handle(PrintOrderBargainRequest request)
         {
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
 
             if (bargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+            }
+
+            if (legalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
             var bargainData =
@@ -83,8 +89,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(bargainData.BranchOfficeOrganizationUnitId);
             var boouPart = boou.Parts.OfType<ChileBranchOfficeOrganizationUnitPart>().Single();
             var legalPerson = _legalPersonReadModel.GetLegalPerson(bargainData.LegalPersonId);
-            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<ChileLegalPersonProfilePart>().Single();
 
             var bankName = legalPersonProfilePart.BankId.HasValue ? _bankReadModel.GetBank(legalPersonProfilePart.BankId.Value).Name : string.Empty;

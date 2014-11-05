@@ -44,10 +44,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         protected override Response Handle(PrintOrderBargainRequest request)
         {
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
 
             if (bargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+            }
+
+            if (legalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
             var bargainInfo = _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
@@ -62,8 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                                       })
                                      .Single();
 
-            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(bargainInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(bargainInfo.BranchOfficeId);
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargainInfo.BranchOfficeOrganizationUnitId));

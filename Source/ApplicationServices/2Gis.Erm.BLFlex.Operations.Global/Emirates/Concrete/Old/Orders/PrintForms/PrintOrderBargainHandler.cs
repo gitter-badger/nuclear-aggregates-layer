@@ -43,10 +43,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
         protected override Response Handle(PrintOrderBargainRequest request)
         {
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
 
             if (bargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+            }
+
+            if (legalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
             var bargainInfo =
@@ -63,9 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                 throw new EntityNotFoundException(typeof(Bargain), bargainId.Value);
             }
 
-            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
-            var legalPersonProfileId = request.LegalPersonProfileId;
-            var printdata = GetPrintData(bargainId.Value, legalPersonProfileId);
+            var printdata = GetPrintData(bargainId.Value, legalPersonProfileId.Value);
             var streamDictionary = DocumentVariants.Select(variant => PrintDocument(printdata,
                                                                                     bargainInfo.BranchOfficeOrganizationUnitId,
                                                                                     variant.Item2,
