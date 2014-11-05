@@ -49,13 +49,12 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             ICollection<TEntityPropertyInstace> propertyInstances, 
             long? referencedEntityId)
         {
-            var businessModel = typeof(TEntity).IsAdapted() ? typeof(TEntity).AsAdapted().AsBusinessModel() : BusinessModel.NotSetted;
+            var businessModel = typeof(TEntity).IsAdapted() ? typeof(TEntity).AsAdapted().AsBusinessModel() : BusinessModel.NotSet;
             var dynamicEntityInstance = CreateEntityInstance(entity, referencedEntityId);
             _converterToPersistence(entity, dynamicEntityInstance.Id, propertyInstances, businessModel);
 
             SetAuditableProperties(entity, dynamicEntityInstance);
             SetDeactivatableProperties(entity, dynamicEntityInstance);
-            SetDeletableProperties(entity, dynamicEntityInstance);
             SetDeletableProperties(entity, dynamicEntityInstance);
             SetStateTrackingEntityProperties(entity, dynamicEntityInstance);
 

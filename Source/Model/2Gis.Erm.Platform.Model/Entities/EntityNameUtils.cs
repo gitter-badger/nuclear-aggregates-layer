@@ -38,6 +38,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.EmiratesLegalPersonPart,
                 EntityName.EmiratesLegalPersonProfilePart,
                 EntityName.EmiratesFirmAddressPart,
+                EntityName.KazakhstanLegalPersonPart,
+                EntityName.KazakhstanLegalPersonProfilePart
             };
 
         /// <summary>
@@ -47,16 +49,48 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             {
                 EntityName.Bank,
                 EntityName.Commune,
-                EntityName.Appointment,
-                EntityName.Task,
-                EntityName.Phonecall
             };
 
-        public static readonly Type[] Async2MsCrmReplicatedEntities =
+		public static readonly EntityName[] MappingEntities =
+            {
+                EntityName.Appointment,
+                EntityName.Phonecall,
+                EntityName.Task,
+				EntityName.RegardingObjectReference
+            };
+
+        public static readonly Type[] AsyncReplicated2MsCrmEntities =
             {
                 typeof(Firm),
                 typeof(FirmAddress),
                 typeof(Territory)
+            };
+
+        public static readonly Type[] AllReplicated2MsCrmEntities =
+            {
+                typeof(OrganizationUnit),
+                typeof(Currency),
+                typeof(Category),
+                typeof(Territory),
+                typeof(Client),
+                typeof(Firm),
+                typeof(FirmAddress),
+                typeof(Contact),
+                typeof(Position),
+                typeof(BranchOffice),
+                typeof(BranchOfficeOrganizationUnit),
+                typeof(LegalPerson),
+                typeof(Account),
+                typeof(OperationType),
+                typeof(AccountDetail),
+                typeof(Deal),
+                typeof(Limit),
+                typeof(Order),
+                typeof(OrderPosition),
+                typeof(Bargain),
+                typeof(OrderProcessingRequest),
+                typeof(User),
+                typeof(UserTerritory)
             };
 
         /// <summary>
@@ -74,6 +108,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
+                
+				typeof(AppointmentBase),
+				typeof(AppointmentReference),
+				typeof(PhonecallBase),
+				typeof(PhonecallReference),
+				typeof(TaskBase),
+				typeof(TaskReference),
             };
 
         /// <summary>
@@ -113,14 +154,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             };
 
         /// <summary>
-        /// Список сущностей являющихся базовыми классами, т.е. 
-        /// </summary>
-        public static readonly HashSet<Type> BaseEntities = new HashSet<Type>
-            {
-                typeof(ActivityBase)
-            };
-
-        /// <summary>
         /// Разложить composed значение на составляющие, если на вход передано не composed (элементарное) значение EntityName - возвращается оно без изменений
         /// </summary>
         public static EntityName[] GetDecomposed(this EntityName entityName)
@@ -155,6 +188,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool IsDynamic(this EntityName entityName)
         {
             return DynamicEntities.Contains(entityName);
+        }
+
+        public static bool HasMapping(this EntityName entityName)
+        {
+            return MappingEntities.Contains(entityName);
         }
 
         public static bool IsPersistenceOnly(this Type checkingType)
@@ -220,7 +258,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 throw new InvalidOperationException("Specified type " + entityType + " is not domain model entity");
             }
 
-            return Async2MsCrmReplicatedEntities.Contains(entityType);
+            return AsyncReplicated2MsCrmEntities.Contains(entityType);
         }
 
         public static string EntitiesToString(this EntityName[] entityNames)

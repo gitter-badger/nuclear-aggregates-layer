@@ -2,9 +2,9 @@
 using System.Linq;
 using System.ServiceModel;
 
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
+using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.Common.Logging;
 
 namespace DoubleGis.Erm.Platform.WCF.Metadata

@@ -11,7 +11,7 @@
         public const int AfterSaleServiceTypePropertyId = 7;
         public const int DescriptionPropertyId = 8;
         public const int TaskTypePropertyId = 9;
-        public const int DealIdId = 10;
+        public const int DealIdPropertyId = 10;
         public const int ActualEndPropertyId = 11;
         public const int NamePropertyId = 12;
         public const int EntityTypeNamePropertyId = 13;
@@ -36,5 +36,13 @@
         public const int EndDistributionDatePropertyId = 32;
         public const int AuthorIdPropertyId = 33;
         public const int DocumentsAmountPropertyId = 34;
-    }
+        public const int RnnPropertyId = 35;
+        public const int IdentityCardNumberPropertyId = 36;
+        public const int IdentityCardIssuedByPropertyId = 37;
+        public const int IdentityCardIssuedOnPropertyId = 38;
+        public const int ActualAddressPropertyId = 39;
+        public const int DecreeNumberPropertyId = 40;
+        public const int DecreeDatePropertyId = 41;
+        public const int OtherAuthorityDocumentPropertyId = 42;
+	}
 }

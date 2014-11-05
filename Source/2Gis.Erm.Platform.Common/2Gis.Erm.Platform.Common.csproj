@@ -24,22 +24,18 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -79,6 +75,7 @@
     <Compile Include="..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Caching\CachingMode.cs" />
     <Compile Include="Caching\ICacheAdapter.cs" />
     <Compile Include="Caching\MemCacheAdapter.cs" />
     <Compile Include="Caching\NullObjectCacheAdapter.cs" />
@@ -87,6 +84,9 @@
     <Compile Include="Crosscutting\ICrosscuttingServiceConsumer.cs" />
     <Compile Include="Crosscutting\ICrosscuttingService.cs" />
     <Compile Include="Crosscutting\IInvariantSafeCrosscuttingService.cs" />
+    <Compile Include="Identities\IdentityProviderService.cs" />
+    <Compile Include="Identities\IIdentityProviderService.cs" />
+    <Compile Include="Identities\IIdentityProviderSettings.cs" />
     <Compile Include="Logging\ILoggerContextManager.cs" />
     <Compile Include="Logging\LogUtils.cs" />
     <Compile Include="Logging\SystemInfo\AssemblyVersionInfo.cs" />
@@ -126,8 +126,6 @@
     <Compile Include="Utils\Data\ReadOnlyCollectionsUtils.cs" />
     <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\EnumExtensions.cs" />
-    <Compile Include="Ftp\FtpService.cs" />
-    <Compile Include="Ftp\IFtpService.cs" />
     <Compile Include="Utils\ExceptionUtils.cs" />
     <Compile Include="Utils\IncreasingSequenceGenerator.cs" />
     <Compile Include="Utils\KeyEqualityComparer.cs" />
@@ -185,6 +183,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

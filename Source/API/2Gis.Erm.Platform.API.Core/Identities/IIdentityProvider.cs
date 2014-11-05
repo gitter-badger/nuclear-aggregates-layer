@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.API.Core.Identities
 {
@@ -9,5 +11,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Identities
     public interface IIdentityProvider
     {
         void SetFor<TEntity>(params TEntity[] entities) where TEntity : class, IEntityKey;
+        void SetFor<TEntity>(IReadOnlyCollection<TEntity> entities) where TEntity : class, IEntityKey;
     }
 }

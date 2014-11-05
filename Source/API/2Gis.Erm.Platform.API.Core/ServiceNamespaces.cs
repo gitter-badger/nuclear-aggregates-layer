@@ -60,12 +60,6 @@ namespace DoubleGis.Erm.Platform.API.Core
                 public const string DataContract = ServiceContract + "/data";
             }
 
-            public static class PrintRegional
-            {
-                public const string ServiceContract = "http://2gis.ru/erm/api/moneydistribution/printregional/2013/07";
-                public const string DataContract = ServiceContract + "/data";
-            }
-
             public static class AccountingSystem
             {
                 public const string ServiceContract = "http://2gis.ru/erm/api/moneydistribution/accountingsystem/2013/07";
@@ -94,8 +88,6 @@ namespace DoubleGis.Erm.Platform.API.Core
         public static class Releasing
         {
             public const string Release201308 = "http://2gis.ru/erm/api/releasing/release/2013/08";
-            [Obsolete("Exists for Export team backward compatibility. Needs to removal")]
-            public const string BackwardCompatibility201308 = "http://2gis.ru/erm/api/releasing/backwardcompatibility/2014/01";
         }
 
         public static class AdsManagement

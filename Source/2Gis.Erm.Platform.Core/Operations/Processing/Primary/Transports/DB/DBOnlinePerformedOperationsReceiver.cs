@@ -5,6 +5,7 @@ using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.Operations;
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
+using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel.DTOs;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
@@ -15,12 +16,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 {
     [UseCase(Duration = UseCaseDuration.Long)]
     public sealed class DBOnlinePerformedOperationsReceiver<TMessageFlow> :
-        MessageReceiverBase<TMessageFlow, DBPerformedOperationsMessage, IPerformedOperationsReceiverSettings> 
+        MessageReceiverBase<TMessageFlow, DBPerformedOperationsMessage, IPerformedOperationsReceiverSettings>
         where TMessageFlow : class, IMessageFlow, new()
     {
+        // ReSharper disable once StaticFieldInGenericType
+        private static readonly TimeSpan Threshold = TimeSpan.FromDays(1);
+
         private readonly TimeSpan _timeSafetyOffset;
         private readonly IPerformedOperationsProcessingReadModel _performedOperationsProcessingReadModel;
         private readonly IOperationsPrimaryProcessingCompleteAggregateService _operationsPrimaryProcessingCompleteAggregateService;
+        private readonly IOperationsPrimaryProcessingAbandonAggregateService _operationsPrimaryProcessingAbandonAggregateService;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly ICommonLog _logger;
 
@@ -28,6 +33,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
             IPerformedOperationsReceiverSettings messageReceiverSettings,
             IPerformedOperationsProcessingReadModel performedOperationsProcessingReadModel,
             IOperationsPrimaryProcessingCompleteAggregateService operationsPrimaryProcessingCompleteAggregateService,
+            IOperationsPrimaryProcessingAbandonAggregateService operationsPrimaryProcessingAbandonAggregateService,
             IUseCaseTuner useCaseTuner,
             ICommonLog logger)
             : base(messageReceiverSettings)
@@ -35,6 +41,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
             _timeSafetyOffset = TimeSpan.FromHours(messageReceiverSettings.TimeSafetyOffsetHours);
             _performedOperationsProcessingReadModel = performedOperationsProcessingReadModel;
             _operationsPrimaryProcessingCompleteAggregateService = operationsPrimaryProcessingCompleteAggregateService;
+            _operationsPrimaryProcessingAbandonAggregateService = operationsPrimaryProcessingAbandonAggregateService;
             _useCaseTuner = useCaseTuner;
             _logger = logger;
         }
@@ -45,56 +52,52 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                // COMMENT {all, 10.07.2014}: подумать нужна ли вообще эта логика с поиском времени последней обработки, возможно,  стоит просто брать текущее вермя, вычитать смещение и поехали
-                var lastDatesMap = _performedOperationsProcessingReadModel.GetOperationPrimaryProcessedDateMap(new IMessageFlow[] { SourceMessageFlow });
+                var flowsStateMap = _performedOperationsProcessingReadModel.GetPrimaryProcessingFlowsState(new IMessageFlow[] { SourceMessageFlow });
+                PrimaryProcessingFlowStateDto sourceFlowState;
+                if (!flowsStateMap.TryGetValue(SourceMessageFlow.Id, out sourceFlowState))
+                {
+                    _logger.DebugFormatEx("Primary processing flow {0} is empty, flow processing not required", SourceMessageFlow);
+
+                    transaction.Complete();
+                    return new List<DBPerformedOperationsMessage>();
+                }
 
                 DateTime currentTime = DateTime.UtcNow;
-                DateTime lastProcessingDate;
-                if (!lastDatesMap.TryGetValue(SourceMessageFlow.Id, out lastProcessingDate))
+                DateTime oldestOperationBoundaryDate = sourceFlowState.OldestProcessingTargetCreatedDate.Subtract(_timeSafetyOffset);
+                var timeOffset = currentTime.Subtract(oldestOperationBoundaryDate);
+
+                if (timeOffset > Threshold)
                 {
-                    lastProcessingDate = currentTime.Subtract(_timeSafetyOffset);
-                }
-                else
-                {
-                    lastProcessingDate = lastProcessingDate.Subtract(_timeSafetyOffset);
-                    var timeOffset = currentTime.Subtract(lastProcessingDate);
-                    var threshold = TimeSpan.FromDays(1);
-                    if (timeOffset > threshold)
-                    {
-                        _logger.WarnFormatEx(
-                            "Last processing date {0} after time safety offset {1} is older than current date more than threshold value {2}, operation may be performance critical. Processing flow: {3}",
-                            lastProcessingDate,
-                            _timeSafetyOffset,
-                            threshold,
-                            SourceMessageFlow);
-                    }
+                    _logger.WarnFormatEx("Oldest operation boundary date {0} after time safety offset {1} is older than " +
+                                         "current date more than threshold value {2}, operation may be performance critical. " +
+                                         "Processing flow: {3}",
+                                         oldestOperationBoundaryDate,
+                                         _timeSafetyOffset,
+                                         Threshold,
+                                         SourceMessageFlow);
                 }
 
-                var targetOperations = 
-                    _performedOperationsProcessingReadModel
-                        .GetOperationsForPrimaryProcessing(SourceMessageFlow, lastProcessingDate, MessageReceiverSettings.BatchSize)
-                        .ToArray();
-
+                var targetOperations = _performedOperationsProcessingReadModel.GetOperationsForPrimaryProcessing(SourceMessageFlow,
+                                                                                                                 oldestOperationBoundaryDate,
+                                                                                                                 MessageReceiverSettings.BatchSize)
+                                                                              .ToArray();
                 transaction.Complete();
 
-                return targetOperations.Select(x => new DBPerformedOperationsMessage(x)).ToList();
+                return targetOperations;
             }
         }
 
-        protected override void Complete(IEnumerable<DBPerformedOperationsMessage> successfullyProcessedMessages, IEnumerable<DBPerformedOperationsMessage> failedProcessedMessages)
+        protected override void Complete(IEnumerable<DBPerformedOperationsMessage> successfullyProcessedMessages,
+                                         IEnumerable<DBPerformedOperationsMessage> failedProcessedMessages)
         {
             _useCaseTuner.AlterDuration<DBOnlinePerformedOperationsReceiver<TMessageFlow>>();
 
-            // TODO {i.maslennikov, 30.06.2014}: Особого смысла в транзакции здесь нет
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var processedOperationsIds = new List<long>();
-                foreach (var operationsBatch in successfullyProcessedMessages)
-                {
-                    processedOperationsIds.AddRange(operationsBatch.Operations.Select(operation => operation.Id));
-                }
-
-                _operationsPrimaryProcessingCompleteAggregateService.CompleteProcessing(SourceMessageFlow, processedOperationsIds);
+                _operationsPrimaryProcessingCompleteAggregateService.CompleteProcessing(successfullyProcessedMessages
+                                                                                            .Select(x => x.TargetUseCase)
+                                                                                            .ToList());
+                _operationsPrimaryProcessingAbandonAggregateService.Abandon(failedProcessedMessages.Select(x => x.TargetUseCase));
 
                 transaction.Complete();
             }

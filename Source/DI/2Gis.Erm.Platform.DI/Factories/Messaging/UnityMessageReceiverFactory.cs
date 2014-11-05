@@ -6,9 +6,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
@@ -36,7 +35,6 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             var resolversMap = new Dictionary<IMessageFlow, Func<Type, Type>>();
             AddMapping(resolversMap,
                        PerformedOperations,
-                       AllPerformedOperationsFlow.Instance,
                        PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance,
                        PrimaryReplicateHotClientPerformedOperationsFlow.Instance,
                        PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance);
@@ -55,10 +53,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
             var resolvedType = ResolveType(new TMessageFlow());
 
             var scopedContainer = _unityContainer.CreateChildContainer();
-            var messageReceiver = 
-                (IMessageReceiver)scopedContainer.Resolve(
-                                                        resolvedType,
-                                                        new ResolverOverride[] { new DependencyOverride(typeof(TMessageReceiverSettings), receiverSettings) });
+            var messageReceiver = (IMessageReceiver)scopedContainer.Resolve(resolvedType,
+                                                                            new ResolverOverride[] { new DependencyOverride(typeof(TMessageReceiverSettings), receiverSettings) });
             return new UnityMessageReceiverProxy(scopedContainer, messageReceiver);
         }
 

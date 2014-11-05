@@ -4,7 +4,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.HotClient
 {
-    public class PrimaryReplicateHotClientPerformedOperationsFlow : MessageFlowBase<PrimaryReplicateHotClientPerformedOperationsFlow>
+    public class PrimaryReplicateHotClientPerformedOperationsFlow : 
+        MessageFlowBase<PrimaryReplicateHotClientPerformedOperationsFlow>,
+        IPerformedOperationsPrimaryProcessingFlow
     {
         public override Guid Id
         {

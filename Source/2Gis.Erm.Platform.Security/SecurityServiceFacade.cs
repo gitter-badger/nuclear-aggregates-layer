@@ -19,6 +19,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Resources.Server;
 
 namespace DoubleGis.Erm.Platform.Security
 {
@@ -27,37 +28,30 @@ namespace DoubleGis.Erm.Platform.Security
                                                 ISecurityServiceFunctionalAccess,
                                                 ISecurityServiceSharings
     {
-        private static readonly IEnumerable<EntityAccessTypes> AtomicAccessTypes = ((EntityAccessTypes[])typeof(EntityAccessTypes).GetEnumValues()).Where(x => x != EntityAccessTypes.None && x != EntityAccessTypes.All);
+        private const string CacheKeyMask = "security:{0}:{1}:{2}";
 
+        private static readonly IEnumerable<EntityAccessTypes> AtomicAccessTypes =
+            ((EntityAccessTypes[])typeof(EntityAccessTypes).GetEnumValues()).Where(x => x != EntityAccessTypes.None && x != EntityAccessTypes.All);
+
+        // FIXME {all, 31.07.2014}: непонятно как данный routing будет работать c EAV сущностями, т.к. в их случае в query будет фигурировать не domain entity, а внутренние сущности хранилища EAV
         // Для каждой пары в словаре проверка привилегий для первой сущности заменяется  
         // проверкой привилегий для второй сущности.
         // TODO : не проверено мирное сосуществование рутингов и Access sharing'а.
         private static readonly Dictionary<EntityName, EntityName> EntityPrivilegesRoutings = 
             new Dictionary<EntityName, EntityName>
                 {
-                    { EntityName.ActivityInstance, EntityName.ActivityBase },
-                    { EntityName.ActivityPropertyInstance, EntityName.ActivityBase },
-                    { EntityName.Appointment, EntityName.ActivityBase }, 
-                    { EntityName.Phonecall, EntityName.ActivityBase }, 
-                    { EntityName.Task, EntityName.ActivityBase }
+                    { EntityName.Appointment, EntityName.Activity}, 
+                    { EntityName.Phonecall, EntityName.Activity}, 
+                    { EntityName.Task, EntityName.Activity}
                 };
 
         private readonly IFinder _finder;
         private readonly IUserEntityService _userEntityService;
         private readonly ICommonLog _logger;
-
-        private const string CacheKeyMask = "security:{0}:{1}:{2}";
         private readonly ICacheAdapter _cacheAdapter;
-
         private readonly TimeSpan _cacheSlidingSpan = TimeSpan.FromSeconds(60);
 
-        private DateTime CacheAbsoluteSpan
-        {
-            get { return DateTime.Now.Add(_cacheSlidingSpan); }
-        }
-
-        public SecurityServiceFacade(
-            IFinder finder,
+        public SecurityServiceFacade(IFinder finder,
             IUserEntityService userEntityService,
             ICacheAdapter cacheAdapter,
             ICommonLog commonLog)
@@ -66,6 +60,11 @@ namespace DoubleGis.Erm.Platform.Security
             _userEntityService = userEntityService;
             _cacheAdapter = cacheAdapter;
             _logger = commonLog;
+        }
+
+        private DateTime CacheAbsoluteSpan
+        {
+            get { return DateTime.UtcNow.Add(_cacheSlidingSpan); }
         }
 
         #region ISecurityServiceUserIdentifier
@@ -244,7 +243,7 @@ namespace DoubleGis.Erm.Platform.Security
             switch (privilegeDepth)
             {
                 case EntityPrivilegeDepthState.None:
-                    throw new SecurityAccessDeniedException(string.Format("Пользователь id=[{0}] не имеет право {1} на сущность {2}", userCode, EntityAccessTypes.Read, entityName));
+                    throw new SecurityAccessDeniedException(string.Format(ResPlatform.UserIdDoesNotHaveTheRightToOperationOnEntity, userCode, EntityAccessTypes.Read, entityName));
 
                 case EntityPrivilegeDepthState.User:
                     return _finder.Find<SecurityAccelerator>(accelerator => accelerator.UserId == userCode).Select(accelerator => accelerator.UserId);
@@ -303,10 +302,10 @@ namespace DoubleGis.Erm.Platform.Security
             }
 
             var key = string.Format(CacheKeyMask, "IsSecureEntity", entityToCheck, string.Empty);
-            var isSecure = _cacheAdapter.Get(key);
-            if (isSecure != null)
+            var isSecure = _cacheAdapter.Get<bool?>(key);
+            if (isSecure.HasValue)
             {
-                return (bool)isSecure;
+                return isSecure.Value;
         }
 
             var result = _finder.FindAll<Privilege>().Any(x => x.EntityType == (int)entityToCheck);

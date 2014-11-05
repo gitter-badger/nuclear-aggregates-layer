@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             static IFinder Finder;
             static IQueryable<IEntity> Result;
 
-            Establish context = () => Finder = new ConsistentFinderDecorator(new Finder(CreateReadDomainContextProvider()), null, null);
+            Establish context = () => Finder = new ConsistentFinderDecorator(new Finder(CreateReadDomainContextProvider()), null, null, null);
             Because of = () => Result = Finder.Find(CreateSpecification());
             It should_return_restricted_queryable = () => (Result is WrappedQuery).Should().BeTrue();
 

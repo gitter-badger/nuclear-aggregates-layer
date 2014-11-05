@@ -70,6 +70,15 @@ namespace DoubleGis.Erm.Platform.Resources.Server {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доступ на выполнение операции &apos;{0}&apos; запрещен.
+        /// </summary>
+        public static string AccessToOperationIsDenied {
+            get {
+                return ResourceManager.GetString("AccessToOperationIsDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Произошла ошибка при аплоаде файла на FTP=[{0}].
         /// </summary>
         public static string AnErrorOccuredWhileUpdatingFileOnFtp {
@@ -108,6 +117,24 @@ namespace DoubleGis.Erm.Platform.Resources.Server {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string InvalidFieldFormat {
+            get {
+                return ResourceManager.GetString("InvalidFieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string InvalidFieldValue {
+            get {
+                return ResourceManager.GetString("InvalidFieldValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string OnlyDigitsAttributeValidationMessage {
             get {
                 return ResourceManager.GetString("OnlyDigitsAttributeValidationMessage", resourceCulture);
@@ -138,6 +165,15 @@ namespace DoubleGis.Erm.Platform.Resources.Server {
         public static string StringContainsControlCharacters {
             get {
                 return ResourceManager.GetString("StringContainsControlCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UserIdDoesNotHaveTheRightToOperationOnEntity {
+            get {
+                return ResourceManager.GetString("UserIdDoesNotHaveTheRightToOperationOnEntity", resourceCulture);
             }
         }
         

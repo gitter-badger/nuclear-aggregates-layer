@@ -2,7 +2,7 @@
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="108">
+      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="100">
         <edmx:EntityTypeShape EntityType="ErmModel.CurrencyRate" Width="1.5" PointX="3" PointY="80.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.MessageType" Width="1.5" PointX="8.25" PointY="101.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AssociatedPositionsGroup" Width="1.5" PointX="18" PointY="77.125" IsExpanded="true" />
@@ -92,8 +92,6 @@
         <edmx:EntityTypeShape EntityType="ErmModel.CategoryGroup" Width="1.5" PointX="8.25" PointY="66.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Project" Width="1.5" PointX="7.5" PointY="133.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ReleasesWithdrawalsPosition" Width="1.5" PointX="39" PointY="86.25" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.ActivityPropertyInstance" Width="1.5" PointX="25.5" PointY="91.25" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.ActivityInstance" Width="1.5" PointX="23.25" PointY="90.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.CardRelation" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowCardExtensionsCardCommercial" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.ExportFlowFinancialDataLegalEntity" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
@@ -250,10 +248,6 @@
         <edmx:AssociationConnector Association="ErmModel.FK_ReleasesWithdrawalsPositions_Platforms" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_ReleasesWithdrawalsPositions_Positions" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_ReleasesWithdrawalsPositions_ReleasesWithdrawals" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ActivityInstances_Clients" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ActivityInstances_Contacts" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ActivityInstances_Firms" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_ActivityPropertyInstances_ActivityInstances" ManuallyRouted="false" />
         <edmx:EntityTypeShape EntityType="ErmModel.BusinessOperationService" Width="1.5" PointX="0.99956246698254825" PointY="6.0447178660168861" />
         <edmx:EntityTypeShape EntityType="ErmModel.PerformedBusinessOperation" Width="1.5" PointX="1.1643178989944598" PointY="25.584350270025595" />
         <edmx:EntityTypeShape EntityType="ErmModel.SecurityAccelerator" Width="1.5" PointX="17.125" PointY="4" />
@@ -288,6 +282,30 @@
         <edmx:AssociationConnector Association="ErmModel.FK_AdvertisementElementDenialReasons_AdvertisementElements" />
         <edmx:AssociationConnector Association="ErmModel.FK_AdvertisementElementDenialReasons_DenialReasons" />
         <edmx:AssociationConnector Association="ErmModel.FK_AdvertisementElementStatuses_AdvertisementElements" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AppointmentBase" Width="1.5" PointX="20.375" PointY="1.125" />
+        <edmx:EntityTypeShape EntityType="ErmModel.AppointmentReference" Width="1.5" PointX="22.625" PointY="2.625" />
+        <edmx:EntityTypeShape EntityType="ErmModel.PhonecallBase" Width="1.5" PointX="19.375" PointY="10.125" />
+        <edmx:EntityTypeShape EntityType="ErmModel.PhonecallReference" Width="1.5" PointX="21.625" PointY="11.625" />
+        <edmx:EntityTypeShape EntityType="ErmModel.TaskBase" Width="1.5" PointX="16.375" PointY="19" />
+        <edmx:EntityTypeShape EntityType="ErmModel.TaskReference" Width="1.5" PointX="18.625" PointY="20.375" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Appointments" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Phonecalls" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Tasks" />
+        <edmx:EntityTypeShape EntityType="ErmModel.ClientLink" Width="1.5" PointX="18" PointY="98" />
+        <edmx:AssociationConnector Association="ErmModel.FK_ClientLinks_ChildClientId_Clients" />
+        <edmx:AssociationConnector Association="ErmModel.FK_ClientLinks_MasterClientId_Clients" />
+        <edmx:EntityTypeShape EntityType="ErmModel.DenormalizedClientLink" Width="1.5" PointX="18" PointY="102.125" />
+        <edmx:AssociationConnector Association="ErmModel.FK_DenormalizedClientLinks_ChildClientId_Clients" />
+        <edmx:AssociationConnector Association="ErmModel.FK_DenormalizedClientLinks_MasterClientId_Clients" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Deals_Bargains" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Deals_CustomerLegalPersons" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Deals_PayerLegalPersons" />
+        <edmx:EntityTypeShape EntityType="ErmModel.FirmDeal" Width="1.5" PointX="30.25" PointY="72.875" />
+        <edmx:EntityTypeShape EntityType="ErmModel.LegalPersonDeal" Width="1.5" PointX="23.25" PointY="102.25" />
+        <edmx:AssociationConnector Association="ErmModel.FK_FirmDeals_Deals" />
+        <edmx:AssociationConnector Association="ErmModel.FK_LegalPersonDeals_Deals" />
+        <edmx:AssociationConnector Association="ErmModel.FK_FirmDeals_Firms" />
+        <edmx:AssociationConnector Association="ErmModel.FK_LegalPersonDeals_LegalPersons" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

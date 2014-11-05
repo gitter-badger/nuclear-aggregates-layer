@@ -44,6 +44,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int BulkActivateIdentity = 38;
         public const int BulkCreateIdentity = 39;
         public const int BulkDeleteIdentity = 40;
+        public const int BulkUpdateIdentity = 41;
 
         // concrete operations
         public const int PrintOrderIdentity = 1000;
@@ -74,6 +75,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         // EntityName.OrderValidationResult = 232
         public const int ResetValidationGroupIdentity = 23201;
 
+		// EntityName.Activity = 500
+		public const int AssignRegardingObjectIdentity = 50001;
+
         // EntityName.Advertisement = 186
         public const int SelectAdvertisementToWhitelistIdentity = 18601;
 
@@ -89,6 +93,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportTerritoriesIdentity = 14603;
         public const int ImportCardForErmIdentity = 14604;
         public const int ImportCardRelationIdentity = 14605;
+        public const int CreateBlankFirmsIdentity = 14606;
+        public const int ImportFirmsDuringImportCardsForErmIdentity = 14607;
+        public const int ImportCardRelationForErmIdentity = 14608;
 
         // EntityName.FirmAddress = 164
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
@@ -99,6 +106,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Client = 200
         public const int CreateClientByFirmIdentity = 20001;
+        public const int SetMainFirmIdentity = 20002;
+        public const int CalculateClientPromisingIdentity = 20003;
 
         // EntityName.LegalPersonProfile = 219
         public const int SetAsMainLegalPersonProfileIdentity = 21901;
@@ -147,6 +156,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.AccountDetail = 141
         public const int ImportOperationsInfoIdentity = 14101;
+        public const int NotifyAboutAccountDetailModificationIdentity = 14102;
 
         // EntityName.OrderProcessingRequest = 550
         public const int RequestOrderProlongationIdentity = 55001;
@@ -160,6 +170,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.Deal = 199
         public const int GenerateDealNameIdentity = 19901;
+        public const int SetMainLegalPersonForDealIdentity = 19902;
 
         // EntityName.Charge = 226
         public const int ImportChargesInfoIdentity = 22601;
@@ -219,5 +230,12 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.AdvertisementElement = 187
         public const int UpdateAdvertisementElementAndSetAsReadyForVerificationIdentity = 18701;
+
+        // EntityName.BranchOfficeOrganizationUnit = 139
+        public const int SetBranchOfficeOrganizationUnitAsPrimaryIdentity = 13901;
+        public const int SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity = 13902;
+
+        // EntityName.ClientLink = 609
+        public const int UpdateOrganizationStructureDenormalization = 60901;
     }
 }

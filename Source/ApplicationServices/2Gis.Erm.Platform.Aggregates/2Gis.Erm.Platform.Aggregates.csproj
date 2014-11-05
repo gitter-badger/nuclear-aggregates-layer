@@ -55,13 +55,14 @@
     <Compile Include="EAV\DictionaryEntitySpecs.cs" />
     <Compile Include="EAV\DynamicEntityMetadataProvider.cs" />
     <Compile Include="EAV\DynamicEntityPropertiesConverter.cs" />
-    <Compile Include="EAV\ActivityDynamicPropertiesConverter.cs" />
     <Compile Include="EAV\DictionaryEntityPropertiesConverter.cs" />
     <Compile Include="EAV\BusinessEntityPropertiesConverter.cs" />
     <Compile Include="EAV\PartableEntityAccessor.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\OpeationsFinalProcessingBulkCreateAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsFinalProcessingCompleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsPrimaryProcessingAbandonAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsPrimaryProcessingCompleteAggregateService.cs" />
+    <Compile Include="SimplifiedModel\PerformedOperations\Operations\OperationsPrimaryProcessingEnqueAggregateService.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\PerformedOperationsProcessingReadModel.cs" />
   </ItemGroup>
   <ItemGroup>

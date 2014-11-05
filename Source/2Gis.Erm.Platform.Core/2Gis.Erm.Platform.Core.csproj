@@ -25,22 +25,18 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -78,7 +74,6 @@
     <Compile Include="EntityProjection\ProjectSpecification.cs" />
     <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />
-    <Compile Include="Identities\IdentityProviderService.cs" />
     <Compile Include="Identities\IdentityRequestChecker.cs" />
     <Compile Include="Identities\IdentityServiceIdentityProvider.cs" />
     <Compile Include="Identities\NullIdentityRequestChecker.cs" />
@@ -122,6 +117,7 @@
     <Compile Include="Operations\Logging\PersistenceChangesRegistryProvider.cs" />
     <Compile Include="Operations\Logging\TransactedOperationScope.cs" />
     <Compile Include="Operations\Logging\Transports\DB\DirectDBLoggingStrategy.cs" />
+    <Compile Include="Operations\Logging\Transports\DB\DirectDbEnqueUseCaseForProcessingLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\Transports\DB\ITrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
     <Compile Include="Operations\Logging\Transports\DB\TrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\IServiceBusMessageSenderSettings.cs" />
@@ -156,7 +152,6 @@
     <Compile Include="Operations\Processing\Primary\MsCRM\ReplicateToCRMPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Operations\Processing\Primary\HotClient\ReplicateHotClientPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFlowProcessor.cs" />
-    <Compile Include="Operations\Processing\Primary\Transports\DB\DBPerformedOperationsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsMessageAggregatedProcessingResultHandler.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\ServiceBusPerformedOperationsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\DB\DBOnlinePerformedOperationsReceiver.cs" />

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\TFS\Core\F\DPIA\Platform\Source\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Erm.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Ветки\BL\Features\ERM-4488-AdvertisingCampaign\Platform\Source\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\Erm.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

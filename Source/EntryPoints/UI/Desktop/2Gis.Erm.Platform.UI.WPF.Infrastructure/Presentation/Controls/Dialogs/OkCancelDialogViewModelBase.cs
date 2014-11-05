@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Dia
         {
             OkTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.OK));
             CancelTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.Cancel));
-            CloseTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLResources.Close));
+            CloseTitle = titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => BLCore.Resources.Client.Properties.Resources.Close));
         }
 
         public IViewModelIdentity Identity
