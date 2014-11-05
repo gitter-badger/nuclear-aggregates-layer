@@ -5,8 +5,8 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
@@ -119,16 +119,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                 OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
                                             })
                              .ToArray();
-        }
-
-        public IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount)
-        {
-            return _finder.Find(OrderSpecs.Orders.Select.OrderInfosForRelease(),
-                                OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
-                          .OrderBy(o => o.Id)
-                          .Skip(skipCount)
-                          .Take(takeCount)
-                          .ToArray();
         }
 
         public IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId)
@@ -1080,12 +1070,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             if (sourceOrganizationUnitId.HasValue)
             {
                 sourceVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                         Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
+                                                                    Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
                                    .Single();
             }
 
             var destVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                       Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
+                                                                  Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                                  .Single();
 
             if (sourceVat == decimal.Zero)
@@ -1168,10 +1158,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             {
                 var chargeInfo = orderPositionChargeInfo;
                 var appropriateOrderPositionIds = orderPositionsForCharge.Where(x => x.FirmId == chargeInfo.FirmId &&
-                                                                                     x.PositionId == chargeInfo.PositionId &&
-                                                                                     x.CategoryIds.First() == chargeInfo.CategoryId)
-                                                                         .Select(x => x.OrderPositionId)
-                                                                         .ToArray();
+                                                                                   x.PositionId == chargeInfo.PositionId &&
+                                                                                   x.CategoryIds.First() == chargeInfo.CategoryId)
+                                                                       .Select(x => x.OrderPositionId)
+                                                                       .ToArray();
                 if (appropriateOrderPositionIds.Length == 0)
                 {
                     errors.Add(string.Format("Cant't find appropriate order position for charge [{0}].", chargeInfo));
@@ -1255,13 +1245,169 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 _finder.Find(OrderSpecs.Bargains.Find.ByLegalPersons(legalPersonId, branchOfficeOrganizationUnitId) && Specs.Find.ActiveAndNotDeleted<Bargain>()
                              && OrderSpecs.Bargains.Find.NotClosedByCertainDate(orderEndDistributionDate))
                        .Select(x => new OrderSuitableBargainDto
-                           {
+        {
                                Id = x.Id,
                                EndDate = x.BargainEndDate,
                                Number = x.Number,
                                BargainKind = (BargainKind)x.BargainKind
                            })
                        .ToArray();
+        }
+
+        public OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId)
+        {
+            var dto = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
+                             .Select(x => new
+                                              {
+                                                  OrganizationUnit = new { x.Id, x.Name },
+                                                  Currency = new { x.Country.Currency.Id, x.Country.Currency.Name },
+                                                  ProjectExists = x.Projects.Any(),
+                                              })
+                             .Single();
+
+            return new OrderOrganizationUnitDerivedFieldsDto
+                       {
+                           Currency = new EntityReference(dto.Currency.Id, dto.Currency.Name),
+                           OrganizationUnit = dto.ProjectExists ? new EntityReference(dto.OrganizationUnit.Id, dto.OrganizationUnit.Name) : null,
+                       };
+        }
+
+        public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId)
+        {
+            switch (parentEntityName)
+            {
+                case EntityName.Client:
+                    return GetReferenceByClient(parentEntityId);
+                case EntityName.Firm:
+                    return GetReferencesByFirm(parentEntityId);
+                case EntityName.LegalPerson:
+                    return GetReferencesByLegalPerson(parentEntityId);
+                case EntityName.Deal:
+                    return GetReferencesByDeal(parentEntityId);
+                default:
+                    return new OrderParentEntityDerivedFieldsDto();
+            }
+        }
+
+        private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
+        {
+            var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
+                                  .Select(x => new
+                                  {
+                                      Deal = new { x.Id, x.Name },
+                                      Currency = new { x.Currency.Id, x.Currency.Name },
+                                      Client = new { x.Client.Id, x.Client.Name },
+                                      x.OwnerCode,
+
+                                      AnyLinkedFirm = x.FirmDeals.Any(firmDeal => !firmDeal.IsDeleted),
+                                      x.MainFirmId,
+                                      MainFirmName = x.Firm.Name,
+                                  })
+                                  .SingleOrDefault();
+
+            if (dto == null)
+            {
+                throw new EntityNotFoundException(typeof(Deal), dealId);
+            }
+
+            return new OrderParentEntityDerivedFieldsDto
+            {
+                DealCurrency = new EntityReference(dto.Currency.Id, dto.Currency.Name),
+                Deal = new EntityReference(dto.Deal.Id, dto.Deal.Name),
+                Client = new EntityReference(dto.Client.Id, dto.Client.Name),
+                Owner = new EntityReference(dto.OwnerCode),
+                Firm = dto.MainFirmId.HasValue && !dto.AnyLinkedFirm ? new EntityReference(dto.MainFirmId, dto.MainFirmName) : null,
+            };
+        }
+
+        private OrderParentEntityDerivedFieldsDto GetReferencesByLegalPerson(long legalPersonId)
+        {
+            var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
+                              .Select(person => new
+                              {
+                                  Client = new { person.Client.Id, person.Client.Name },
+                                  Firms = person.Client.Firms.Select(firm => new
+                                  {
+                                      firm.Id,
+                                      firm.Name,
+                                      firm.OrganizationUnitId,
+                                      OrganizationUnitName = firm.OrganizationUnit.Name
+                                  }),
+                                  LegalPerson = new { person.Id, person.LegalName },
+                              })
+                              .SingleOrDefault();
+
+            var result = new OrderParentEntityDerivedFieldsDto();
+            if (data != null)
+            {
+                result.Firm = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().Id, data.Firms.Single().Name) : null;
+                result.DestOrganizationUnit = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUnitName) : null;
+                result.Client = data.Client != null ? new EntityReference(data.Client.Id, data.Client.Name) : null;
+                result.LegalPerson = new EntityReference(data.LegalPerson.Id, data.LegalPerson.LegalName);
+            }
+
+            return result;
+        }
+
+        private OrderParentEntityDerivedFieldsDto GetReferencesByFirm(long firmId)
+        {
+            var data = _finder.Find(Specs.Find.ById<Firm>(firmId))
+                              .Select(firm => new
+                              {
+                                  Firm = new { firm.Id, firm.Name, firm.OrganizationUnitId, OrganizationUnitName = firm.OrganizationUnit.Name },
+                                  Client = new { firm.Client.Id, firm.Client.Name },
+                                  LegalPersons = firm.Client.LegalPersons.Select(person => new { person.Id, person.LegalName })
+                              }).SingleOrDefault();
+
+            var result = new OrderParentEntityDerivedFieldsDto();
+            if (data != null)
+            {
+                result.Client = new EntityReference(data.Client.Id, data.Client.Name);
+                result.Firm = new EntityReference(data.Firm.Id, data.Firm.Name);
+                result.LegalPerson = data.LegalPersons.Count() == 1 ? new EntityReference(data.LegalPersons.Single().Id, data.LegalPersons.Single().LegalName) : null;
+                result.DestOrganizationUnit = new EntityReference(data.Firm.OrganizationUnitId, data.Firm.OrganizationUnitName);
+            }
+
+            return result;
+        }
+
+        private OrderParentEntityDerivedFieldsDto GetReferenceByClient(long clientId)
+        {
+            var data = _finder.Find(Specs.Find.ById<Client>(clientId))
+                              .Select(client => new
+                              {
+                                  Client = new { client.Id, client.Name },
+                                  Firms = client.Firms.Select(firm => new
+                                  {
+                                      firm.Id,
+                                      firm.Name,
+                                      firm.OrganizationUnitId,
+                                      OrganizationUNitName = firm.OrganizationUnit.Name
+                                  }),
+                                  LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
+                              })
+                              .SingleOrDefault();
+
+            var result = new OrderParentEntityDerivedFieldsDto();
+            if (data != null)
+            {
+                result.Client = new EntityReference(data.Client.Id, data.Client.Name);
+                result.Firm = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().Id, data.Firms.Single().Name) : null;
+                result.LegalPerson = data.LegalPersons.Count() == 1 ? new EntityReference(data.LegalPersons.Single().Id, data.LegalPersons.Single().LegalName) : null;
+                result.DestOrganizationUnit = data.Firms.Count() == 1 ? new EntityReference(data.Firms.Single().OrganizationUnitId, data.Firms.Single().OrganizationUNitName) : null;
+            }
+
+            return result;
+        }
+
+        public long? GetBargainIdByOrder(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
+        }
+
+        public long GetBargainLegalPersonId(long bargainId)
+        {
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
         }
 
         public OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId)
@@ -1286,13 +1432,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             var list = _finder.Find<OrganizationUnit>(unit => organizationUnitIds.Contains(unit.Id))
                               .Select(x => new
-                              {
-                                  OrgUnitId = x.Id,
-                                  ContributionType = x.BranchOfficeOrganizationUnits
-                                                      .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
-                                                      .Select(boou => boou.BranchOffice.ContributionTypeId)
-                                                      .FirstOrDefault()
-                              })
+                                  {
+                                      OrgUnitId = x.Id,
+                                      ContributionType = x.BranchOfficeOrganizationUnits
+                                                          .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
+                                                          .Select(boou => boou.BranchOffice.ContributionTypeId)
+                                                          .FirstOrDefault()
+                                  })
                               .ToArray();
 
             return list.ToDictionary(x => x.OrgUnitId, x => (ContributionTypeEnum?)x.ContributionType);

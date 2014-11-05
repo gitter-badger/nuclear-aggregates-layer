@@ -1407,4 +1407,76 @@
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Editar</value>
   </data>
+  <data name="NameOfChildClient" xml:space="preserve">
+    <value>Cliente afiliado</value>
+  </data>
+  <data name="NameOfMasterClient" xml:space="preserve">
+    <value>Cliente casa matriz</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
+    <value>Inicio de la campaña publicitaria</value>
+  </data>
+  <data name="AdvertisingCampaignEndDate" xml:space="preserve">
+    <value>Término de la campaña publicitaria</value>
+  </data>
+  <data name="AdvertisingCampaignGoalText" xml:space="preserve">
+    <value>Objetivos</value>
+  </data>
+  <data name="AgencyFee" xml:space="preserve">
+    <value>Comisión de agencia</value>
+  </data>
+  <data name="AttractAudienceToSiteGoal" xml:space="preserve">
+    <value>Atracción del público objetivo al sitio web del cliente</value>
+  </data>
+  <data name="CustomerLegalPerson" xml:space="preserve">
+    <value>Razón social del cliente</value>
+  </data>
+  <data name="IncreaseBrandAwarenessGoal" xml:space="preserve">
+    <value>Aumentar el conocimiento de la marca comercial</value>
+  </data>
+  <data name="IncreasePhoneCallsGoal" xml:space="preserve">
+    <value>Aumentar la cantidad de las llamadas</value>
+  </data>
+  <data name="IncreaseSalesGoal" xml:space="preserve">
+    <value>Aumentar la cantidad de las ventas /órdenes</value>
+  </data>
+  <data name="PayerLegalPerson" xml:space="preserve">
+    <value>Razón social del pagador</value>
+  </data>
+  <data name="PaymentFormat" xml:space="preserve">
+    <value>Forma de pago</value>
+  </data>
+  <data name="DListActiveFirmsForDeal" xml:space="preserve">
+    <value>Empresas activas</value>
+  </data>
+  <data name="DListInactiveFirmsForDeal" xml:space="preserve">
+    <value>Vínculos cancelados</value>
+  </data>
+  <data name="BinIin" xml:space="preserve">
+    <value>БИН/ИИН</value>
+  </data>
+  <data name="Bin" xml:space="preserve">
+    <value>БИН</value>
+  </data>
+  <data name="Iin" xml:space="preserve">
+    <value>ИИН</value>
+  </data>
+  <data name="IdentityCardNumber" xml:space="preserve">
+    <value>Номер удостоверения личности</value>
+  </data>
+  <data name="IdentityCardIssuedOn" xml:space="preserve">
+    <value>Дата выдачи</value>
+  </data>
+  <data name="IdentityCardIssuedBy" xml:space="preserve">
+    <value>Выдано</value>
+  </data>
+  <data name="DecreeNumber" xml:space="preserve">
+    <value>Номер приказа</value>
+  </data>
+  <data name="DecreeDate" xml:space="preserve">
+    <value>Дата приказа</value>
+  </data>
+  <data name="OtherAuthorityDocument" xml:space="preserve">
+    <value>Другое</value>
+  </data>
 </root>

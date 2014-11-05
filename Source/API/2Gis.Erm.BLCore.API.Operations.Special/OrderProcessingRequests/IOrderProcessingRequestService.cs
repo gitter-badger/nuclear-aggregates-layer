@@ -17,10 +17,10 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests
         void SaveMessagesForOrderProcessingRequest(long orderProcessingRequestId, IEnumerable<IMessageWithType> messages);
 
         // TODO {d.ivanov, 29.11.2013}: IReadOnlyModel
-        IEnumerable<OrderProcessingRequest> GetPrologationRequestsToProcess();
+        IEnumerable<OrderProcessingRequest> GetProlongationRequestsToProcess();
 
         // TODO {d.ivanov, 29.11.2013}: IReadOnlyModel
-        OrderProcessingRequest GetPrologationRequestToProcess(long id);
+        OrderProcessingRequest GetProlongationRequestToProcess(long id);
 
         // TODO {d.ivanov, 29.11.2013}: IReadOnlyModel
         OrderProcessingRequestFirmDto GetFirmDto(long firmId);

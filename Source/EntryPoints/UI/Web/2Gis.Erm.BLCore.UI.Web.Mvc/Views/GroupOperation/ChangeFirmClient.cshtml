@@ -1,4 +1,5 @@
-﻿@model Models.GroupOperation.ChangeClientViewModel
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeClientViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -51,9 +52,7 @@
                 {
                     Ext.MessageBox.show({
                         title: '',
-                        // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                        // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                        msg: '@BLResources.NeedToSelectOneOrMoreItems',
+                        msg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems,
                         buttons: window.Ext.MessageBox.OK,
                         width: 300,
                         icon: window.Ext.MessageBox.ERROR
@@ -133,10 +132,10 @@
             {
                 Entities: ids,
                 OperationName: '@Model.OperationName',
-                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
-                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
-                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
-                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
 
             var changeClientProcessor = new Ext.DoubleGis.UI.Firm.ChangeClientProcessor(config);
@@ -159,7 +158,7 @@
             @Model.Message
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client })
+            @Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" })
         </div>
         <div id="pbDiv">
             <div id="pbInner">

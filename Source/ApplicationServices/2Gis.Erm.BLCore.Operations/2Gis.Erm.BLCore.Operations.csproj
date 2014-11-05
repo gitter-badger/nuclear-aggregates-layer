@@ -25,22 +25,18 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -53,6 +49,7 @@
     <Compile Include="..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AccountDetails\NotifyAboutAccountDetailModificationOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementWorkflowViolationStrategy.cs" />
     <Compile Include="Concrete\AdvertisementElements\ChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />
@@ -61,8 +58,11 @@
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviour.cs" />
     <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\Integration\Olap\CalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Deals\SetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
+    <Compile Include="Concrete\Firms\CreateBlankFirmsOperationService.cs" />
     <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\DenialReasonIntegrationProcessorOperationService.cs" />
@@ -87,6 +87,9 @@
     <Compile Include="Concrete\Integration\Export\Exporters\ImportedFirmAddressOperationsExporter.cs" />
     <Compile Include="Concrete\Integration\Export\IntergrationEntityToServiceMap.cs" />
     <Compile Include="Concrete\Integration\Export\Exporters\OperationsExporter.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCardsForERM\Deserializers\DeserializeCardRelationForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\FlowCards\Processors\ImportCardRelationForErmService.cs" />
+    <Compile Include="Concrete\Integration\Import\ImportFirmsDuringImportCardsForErmOperationService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportFirmContactsService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportDepCardsService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportCategoryFirmAddressService.cs" />
@@ -127,7 +130,6 @@
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersHandler.cs" />
     <Compile Include="Concrete\Old\Integration\LocalMessageHelper.cs" />
-    <Compile Include="Concrete\Old\Integration\Olap\CalculateClientPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\AccountDetailsFrom1CHelper.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForBranchHandler.cs" />
@@ -173,14 +175,8 @@
     <Compile Include="Concrete\Integration\Import\FlowStickers\Deserializers\DeserializeHotClientService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowStickers\Processors\ImportHotClientService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportFromServiceBusService.cs" />
-    <Compile Include="Concrete\Old\Journal\Concrete\IJournalMakeRegionalAdsDocsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Concrete\JournalMakeRegionalAdsDocsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\IJournalBusinessOperationsService.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBag.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBagContainer.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\NullJournalBusinessOperationsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationAttribute.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationHandler.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\PropertyBag.cs" />
     <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandler.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsHandler.cs" />
@@ -204,13 +200,9 @@
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\MakeRegionalAdsDocsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedHandler.cs" />
@@ -301,6 +293,8 @@
     <Compile Include="Generic\Activate\ActivatePriceService.cs" />
     <Compile Include="Generic\Activate\ActivateUserService.cs" />
     <Compile Include="Generic\Activate\ActivateBargainOperationService.cs" />
+    <Compile Include="Generic\Append\AppendLegalPersonDealService.cs" />
+    <Compile Include="Generic\Append\AppendFirmDealService.cs" />
     <Compile Include="Generic\Append\AppendThemeCategoryService.cs" />
     <Compile Include="Generic\Append\AppendThemeOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
@@ -344,6 +338,8 @@
     <Compile Include="Generic\Deactivate\DeactivateTerritoryService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateUserService.cs" />
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
+    <Compile Include="Generic\Delete\DeleteLegalPersonDealService.cs" />
+    <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
     <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
     <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementElementTemplateService.cs" />
@@ -416,6 +412,7 @@
     <Compile Include="Generic\Get\GetNoteDtoService.cs" />
     <Compile Include="Generic\Get\GetOperationDtoService.cs" />
     <Compile Include="Generic\Get\GetOperationTypeDtoService.cs" />
+    <Compile Include="Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="Generic\Get\GetOrderFileDtoService.cs" />
     <Compile Include="Generic\Get\GetOrderPositionDtoService.cs" />
     <Compile Include="Generic\Get\GetOrganizationUnitDtoService.cs" />
@@ -436,10 +433,11 @@
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementStatusOperationService.cs" />
-    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
+    <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdditionalFirmServiceObtainer.cs" />
@@ -452,7 +450,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryObtainer.cs" />
@@ -511,7 +508,7 @@
     <Compile Include="Generic\Modify\Old\EditCountryHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCurrencyHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCurrencyRateHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditDealHandler.cs" />
+    <Compile Include="Generic\Modify\ModifyDealService.cs" />
     <Compile Include="Generic\Modify\Old\EditDeniedPositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditDepartmentHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmAddressHandler.cs" />
@@ -547,7 +544,6 @@
     <Compile Include="Generic\Modify\UsingHandler\ModifyProjectUsingHandlerService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifySimplifiedModelEntityUsingHandlerService.cs" />
     <Compile Include="Generic\Old\ValidateOwnerIsNotReserve.cs" />
-    <Compile Include="Generic\OperationSession.cs" />
     <Compile Include="Generic\Qualify\QualifyClientService.cs" />
     <Compile Include="Generic\Qualify\QualifyFirmService.cs" />
     <Compile Include="Generic\Qualify\QualifyGenericEntityService.cs" />
@@ -723,6 +719,9 @@
     <EmbeddedResource Include="Properties\Resources.en.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.kk-KZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -765,7 +764,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
-    <Folder Include="Generic\Modify\SimplifiedModel\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

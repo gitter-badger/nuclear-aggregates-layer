@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.Model.Aggregates;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period);
         IEnumerable<Order> GetOrdersForRelease(long organizationUnitId, TimePeriod period);
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
-        IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
 
@@ -102,6 +101,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         IDictionary<string, DateTime> GetBargainUsage(long bargainId);
         BargainEndAndCloseDatesDto GetBargainEndAndCloseDates(long bargainId);
         IEnumerable<OrderSuitableBargainDto> GetSuitableBargains(long legalPersonId, long branchOfficeOrganizationUnitId, DateTime orderEndDistributionDate);
-        OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId);
+
+        OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId);
+        OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
+        long? GetBargainIdByOrder(long orderId);
+        long GetBargainLegalPersonId(long bargainId);
+        OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId); // checkme: Используется?
     }
 }

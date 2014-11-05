@@ -62,18 +62,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                 var organizationUnitId = request.OrganizationUnitId ?? 0;
 
-                var prevReleaseInfo = _releaseRepository.GetLastRelease(organizationUnitId, request.Period);
+                var lastFinalRelease = _releaseRepository.GetLastFinalRelease(organizationUnitId, request.Period);
 
-                if (prevReleaseInfo != null && !prevReleaseInfo.IsBeta && prevReleaseInfo.Status == SuccessReleaseStatus)
+                if (lastFinalRelease != null && lastFinalRelease.Status == SuccessReleaseStatus)
                 {
-                    var organizationUnit = _finder.Find<OrganizationUnit>(ou => ou.Id == request.OrganizationUnitId)
-                        .Select(ou => new {ou.Name})
-                        .Single();
+                    var organizationUnitName = _finder.Find<OrganizationUnit>(ou => ou.Id == request.OrganizationUnitId)
+                                                      .Select(ou => ou.Name)
+                                                      .Single();
 
                     messages.Add(new OrderValidationMessage
                         {
                             Type = MessageType.Error,
-                            MessageText = string.Format(BLResources.OrdersCheckOrderHasReleaseInfo, request.Period.Start, request.Period.End, organizationUnit.Name),
+                            MessageText = string.Format(BLResources.OrdersCheckOrderHasReleaseInfo, request.Period.Start, request.Period.End, organizationUnitName),
                             OrderId = 0,
                             OrderNumber = string.Empty
                         });

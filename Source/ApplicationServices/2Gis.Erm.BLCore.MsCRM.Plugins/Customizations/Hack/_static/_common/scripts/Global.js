@@ -914,18 +914,17 @@ window.CrmUrlToErmUrlTemplateMapping =
 [
     // production environment
     { CrmUrl: "http://uk-crm01/DoubleGis", ErmUrlTemplate: "//web-app.prod.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.prod.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-crm02/DoubleGis", ErmUrlTemplate: "//web-app.prod.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.prod.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-crm03/DoubleGis", ErmUrlTemplate: "//web-app.prod.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.prod.erm.2gis.ru/" },
 
     // test environments
     { CrmUrl: "http://uk-erm-edu01/DoubleGis", ErmUrlTemplate: "//web-app.edu.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.edu.erm.2gis.ru/" },
+    { CrmUrl: "http://uk-erm-edu02/DoubleGis", ErmUrlTemplate: "//web-app.business.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.business.erm.2gis.ru/" },
     { CrmUrl: "http://uk-crm10/DoubleGis", ErmUrlTemplate: "//web-app.load.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.load.erm.2gis.ru/" },
     { CrmUrl: "http://uk-test-int02/DoubleGis", ErmUrlTemplate: "//web-app.int.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app.int.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-erm-test01/DoubleGis01", ErmUrlTemplate: "//web-app01.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app01.test.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-erm-test02/DoubleGis02", ErmUrlTemplate: "//web-app02.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app02.test.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-erm-test03/DoubleGis03", ErmUrlTemplate: "//web-app03.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app03.test.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-erm-test04/DoubleGis04", ErmUrlTemplate: "//web-app04.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app04.test.erm.2gis.ru/" },
-    { CrmUrl: "http://uk-erm-test05/DoubleGis05", ErmUrlTemplate: "//web-app05.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app05.test.erm.2gis.ru/" },
+    { CrmUrl: "http://uk-crm-test01/DoubleGis01", ErmUrlTemplate: "//web-app01.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app01.test.erm.2gis.ru/" },
+    { CrmUrl: "http://uk-crm-test02/DoubleGis02", ErmUrlTemplate: "//web-app02.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app02.test.erm.2gis.ru/" },
+    { CrmUrl: "http://uk-crm-test03/DoubleGis03", ErmUrlTemplate: "//web-app03.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app03.test.erm.2gis.ru/" },
+    { CrmUrl: "http://uk-crm-test04/DoubleGis04", ErmUrlTemplate: "//web-app04.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app04.test.erm.2gis.ru/" },
+    { CrmUrl: "http://uk-crm-test05/DoubleGis05", ErmUrlTemplate: "//web-app05.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app05.test.erm.2gis.ru/" },
     { CrmUrl: "http://uk-erm-test06/DoubleGis06", ErmUrlTemplate: "//web-app06.test.erm.2gis.ru/Crm/CreateOrUpdate/{0}?crmId={1}", ErmUrl: "//web-app06.test.erm.2gis.ru/" }
 ];
 

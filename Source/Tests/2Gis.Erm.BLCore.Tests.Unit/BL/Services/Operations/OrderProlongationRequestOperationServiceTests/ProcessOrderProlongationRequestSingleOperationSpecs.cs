@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                     expectedResult = new OrderProcessingResult();
 
                     Mock.Get(orderProcessingRequestService)
-                        .Setup(x => x.GetPrologationRequestToProcess(ORDER_PROCESSING_REQUSET_ID))
+                        .Setup(x => x.GetProlongationRequestToProcess(ORDER_PROCESSING_REQUSET_ID))
                         .Returns(orderProcessingRequest);
 
                     Mock.Get(basicOrderProlongationOperation)

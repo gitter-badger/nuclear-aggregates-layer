@@ -85,6 +85,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
                 {
                     return new FindSpecification<LegalPerson>(x => !x.Orders.Any(y => y.IsActive && !y.IsDeleted));
                 }
+
+                public static FindSpecification<LegalPerson> WithActiveAndNotDeletedClient(long clientId)
+                {
+                    return new FindSpecification<LegalPerson>(x => x.Client.IsActive
+                                                                   && !x.Client.IsDeleted
+                                                                   && x.ClientId == clientId);
+                }
             }
         }
     }

@@ -193,7 +193,7 @@
     <value>Série dokladu totožnosti</value>
   </data>
   <data name="PriceCreateDate" xml:space="preserve">
-    <value>Datum vytvoření</value>
+    <value>Datum vystavení</value>
   </data>
   <data name="IsServiceUser" xml:space="preserve">
     <value>Služební</value>
@@ -634,7 +634,7 @@
     <value>Vytvořeno</value>
   </data>
   <data name="CreatedOn" xml:space="preserve">
-    <value>Datum vytvoření</value>
+    <value>Datum vystavení</value>
   </data>
   <data name="ClosedOn" xml:space="preserve">
     <value>Datum ukončení</value>
@@ -937,7 +937,7 @@
     <value>Koeficient přepočtu</value>
   </data>
   <data name="ChiefNameInGenitive" xml:space="preserve">
-    <value>Úplné jméno (druhý pád)</value>
+    <value>Jméno, příjmení (sedmý pád)</value>
   </data>
   <data name="WithPaymentDebt" xml:space="preserve">
     <value>Ve věci platby</value>
@@ -1015,7 +1015,7 @@
     <value>Číslo účtu</value>
   </data>
   <data name="AdditionalPaymentElements" xml:space="preserve">
-    <value>Další platební údaje</value>
+    <value>Další platební údaje (IBAN, SWIFT apod.)</value>
   </data>
   <data name="BankName" xml:space="preserve">
     <value>Název banky</value>
@@ -1201,7 +1201,7 @@
     <value>Výsledek zpracování</value>
   </data>
   <data name="CreateDate" xml:space="preserve">
-    <value>Datum vytvoření</value>
+    <value>Datum vystavení</value>
   </data>
   <data name="CloseLockDate" xml:space="preserve">
     <value>Datum ukončení blokování</value>
@@ -1279,7 +1279,7 @@
     <value>Kód banky</value>
   </data>
   <data name="Registered" xml:space="preserve">
-    <value>Registrovaná</value>
+    <value>Registrovaná (Spisová značka z OR)</value>
   </data>
   <data name="CreateCsvFile" xml:space="preserve">
     <value>Dodatečně odeslat soubor ve formátu csv</value>
@@ -1406,5 +1406,77 @@
   </data>
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Editovat</value>
+  </data>
+  <data name="NameOfChildClient" xml:space="preserve">
+    <value>Zprostředkovaný klient</value>
+  </data>
+  <data name="NameOfMasterClient" xml:space="preserve">
+    <value>Zprostředkovatel</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
+    <value>Začátek reklamní kampaně</value>
+  </data>
+  <data name="AdvertisingCampaignEndDate" xml:space="preserve">
+    <value>Konec reklamní kampaně</value>
+  </data>
+  <data name="AdvertisingCampaignGoalText" xml:space="preserve">
+    <value>Cíle</value>
+  </data>
+  <data name="AgencyFee" xml:space="preserve">
+    <value>Agenturní provize</value>
+  </data>
+  <data name="AttractAudienceToSiteGoal" xml:space="preserve">
+    <value>Přilákání cílové skupiny na web klienta</value>
+  </data>
+  <data name="CustomerLegalPerson" xml:space="preserve">
+    <value>PO zákazníka</value>
+  </data>
+  <data name="IncreaseBrandAwarenessGoal" xml:space="preserve">
+    <value>Zvýšení povědomí o značce</value>
+  </data>
+  <data name="IncreasePhoneCallsGoal" xml:space="preserve">
+    <value>Zvýšení počtu volání</value>
+  </data>
+  <data name="IncreaseSalesGoal" xml:space="preserve">
+    <value>Zvýšení prodejů</value>
+  </data>
+  <data name="PayerLegalPerson" xml:space="preserve">
+    <value>PO plátce</value>
+  </data>
+  <data name="PaymentFormat" xml:space="preserve">
+    <value>Způsob úhrady</value>
+  </data>
+  <data name="DListActiveFirmsForDeal" xml:space="preserve">
+    <value>Aktivní organizace</value>
+  </data>
+  <data name="DListInactiveFirmsForDeal" xml:space="preserve">
+    <value>Odstraněná spojení</value>
+  </data>
+  <data name="BinIin" xml:space="preserve">
+    <value>БИН/ИИН</value>
+  </data>
+  <data name="Bin" xml:space="preserve">
+    <value>БИН</value>
+  </data>
+  <data name="Iin" xml:space="preserve">
+    <value>ИИН</value>
+  </data>
+  <data name="IdentityCardNumber" xml:space="preserve">
+    <value>Номер удостоверения личности</value>
+  </data>
+  <data name="IdentityCardIssuedOn" xml:space="preserve">
+    <value>Дата выдачи</value>
+  </data>
+  <data name="IdentityCardIssuedBy" xml:space="preserve">
+    <value>Выдано</value>
+  </data>
+  <data name="DecreeNumber" xml:space="preserve">
+    <value>Номер приказа</value>
+  </data>
+  <data name="DecreeDate" xml:space="preserve">
+    <value>Дата приказа</value>
+  </data>
+  <data name="OtherAuthorityDocument" xml:space="preserve">
+    <value>Другое</value>
   </data>
 </root>

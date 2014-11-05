@@ -262,6 +262,21 @@
   <data name="_21236_Fill_OperationsEntities_From_Descriptor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.06.17 rev. 21236\Fill_OperationsEntities_From_Descriptor.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="Migration_22706_Alter_Activity_Schema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.30 rev. 22706\Alter Activity Schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Migration_22706_Migrate_Appointments" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.30 rev. 22706\Migrate Appointments.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Migration_22706_Migrate_Phonecalls" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.30 rev. 22706\Migrate Phonecalls.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Migration_22706_Migrate_Tasks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.30 rev. 22706\Migrate Tasks.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Migration_22706_Drop_Old_Activity_Schema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.07.30 rev. 22706\Drop Old Activity Schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="_23002_BusinessDirectory___ReplicateFirmAddresses_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateFirmAddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
@@ -272,7 +287,13 @@
     <value>..\Resources\2014.08.06 rev. 23002\[BusinessDirectory].[ReplicateTerritories].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="ImportFirmFromXml_23021" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\2014.08.06 rev. 23021\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+    <value>..\resources\2014.08.06 rev. 23021\ImportFirmFromXml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="Migration22583_GetFirmTerritories" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.07.23 rev. 22583\getfirmterritories.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="Migration22583_UpdateBuildings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.07.23 rev. 22583\updatebuildings.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="_22571_ReplicateDeal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.07.23 rev. 22571\ReplicateDeal.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
@@ -282,5 +303,197 @@
   </data>
   <data name="ImportFirmFromXml_23425" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.08.19 rev. 23425\importfirmfromxml.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ImportCardsFromXml_23795" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.01 rev. 23795\importcardsfromxml_23795.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateAccountDetail_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateaccountdetail].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateAccount_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateaccount].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateBargain_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatebargain].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateBranchOfficeOrganizationUnit_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatebranchofficeorganizationunit].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateBranchOffice_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatebranchoffice].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateClient_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateclient].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateContacts_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatecontacts].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateContact_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatecontact].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateCurrency_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatecurrency].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateDeal_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatedeal].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateLegalPerson_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatelegalperson].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateLimit_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicatelimit].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOperationType_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateoperationtype].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrderPosition_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateorderposition].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrderProcessingRequest_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateorderprocessingrequest].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrder_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateorder].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrganizationUnit_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateorganizationunit].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicatePosition_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[billing].[replicateposition].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateCategory_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[businessdirectory].[replicatecategory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirmAddress_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[businessdirectory].[replicatefirmaddress].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirm_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[businessdirectory].[replicatefirm].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateTerritory_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[businessdirectory].[replicateterritory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Security___ReplicateUserTerritory_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[security].[replicateuserterritory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Security___ReplicateUser_24233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.11 rev. 24223\[security].[replicateuser].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_dbo___SystemUserErmView_24270" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24270\[dbo].[systemuserermview].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateAccountDetail_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateaccountdetail].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateAccount_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateaccount].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateBargain_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatebargain].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateBranchOfficeOrganizationUnit_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatebranchofficeorganizationunit].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateBranchOffice_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatebranchoffice].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateClient_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateclient].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateContacts_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatecontacts].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateContact_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatecontact].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateCurrency_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatecurrency].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateDeal_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatedeal].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateLegalPerson_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatelegalperson].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateLimit_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicatelimit].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOperationType_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateoperationtype].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrderPosition_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateorderposition].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrderProcessingRequest_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateorderprocessingrequest].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrder_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateorder].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrganizationUnit_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateorganizationunit].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicatePosition_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[billing].[replicateposition].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateCategory_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicatecategory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirmAddress_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicatefirmaddress].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirm_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicatefirm].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateTerritory_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicateterritory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Security___ReplicateUserTerritory_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[security].[replicateuserterritory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Security___ReplicateUser_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[security].[replicateuser].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirmAddresses_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicatefirmaddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirms_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicatefirms].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateTerritories_24271" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.12 rev. 24271\[businessdirectory].[replicateterritories].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Integration___CalculateClientPromising_24362" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.18 rev. 24362\[integration].[calculateclientpromising].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateTerritories_24551" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.22 rev. 24551\[businessdirectory].[replicateterritories].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateTerritory_24551" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.22 rev. 24551\[businessdirectory].[replicateterritory].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="Customizations_24116" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.08 rev. 24116\customizations.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Customizations_23819" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23819\Customizations_23819.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Customizations_23820" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23820\Customizations_23820.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ReplicateOrder_23822" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23822\ReplicateOrder.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ReplicateOrderPosition_23822" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2014.09.01 rev. 23822\ReplicateOrderPosition.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="_Billing___ReplicateOrderPosition_24898" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.01 rev. 24898\[billing].[replicateorderposition].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrder_24898" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.01 rev. 24898\[billing].[replicateorder].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirmAddresses_25335" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.19 rev. 25335\[businessdirectory].[replicatefirmaddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
 </root>

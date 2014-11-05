@@ -23,6 +23,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             return _finder.Find(Specs.Find.ById<User>(id)).Single();
         }
 
+        public UserProfile GetProfileForUser(long userid)
+        {
+            return _finder.Find(UserSpecs.UserProfiles.Find.ForUser(userid)).SingleOrDefault();
+        }
+
+        public IEnumerable<UserRole> GetUserRoles(long userid)
+        {
+            return _finder.Find(UserSpecs.UserRoles.Find.ForUser(userid)).ToArray();
+        }
+
         public User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelegeName)
         {
             // TODO {a.rechkalov, 25.11.2013}: тут можно использовать спецификации
@@ -52,6 +62,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
                                     && UserSpecs.Users.Find.NotService())
                           .FirstOrDefault(user => user.UserRoles.Any(role => role.RoleId == DirectorRoleId)
                                                   && user.UserOrganizationUnits.Any(unit => unit.OrganizationUnitId == organizationUnitId));
+        }
+
+        public long? GetUserOrganizationUnitId(long userId)
+        {
+            var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))
+                .SelectMany(x => x.UserOrganizationUnits)
+                .Select(x => x.OrganizationUnitId)
+                .Take(2)
+                .ToArray();
+
+            if (singleOrganizationUnitIds.Length == 1)
+            {
+                return singleOrganizationUnitIds.Single();
+            }
+
+            return null;
         }
     }
 }

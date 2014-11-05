@@ -4,6 +4,5 @@
     {
         public long TerritoryId { get; set; }
         public long OrganizationUnitId { get; set; }
-        public int OrganizationUnitDgppId { get; set; }
     }
 }

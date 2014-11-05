@@ -17,11 +17,14 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.CardsForE
         public CardAddressDto Address { get; set; }
         public ScheduleDto Schedule { get; set; }
         public PaymentDto Payment { get; set; }
-        public long FirmCode { get; set; }
         public int BranchCode { get; set; }
         public bool IsActive { get; set; }
         public bool ClosedForAscertainment { get; set; }
         public bool IsLinked { get; set; }
         public bool IsDeleted { get; set; }
+
+        public int? SortingPosition { get; set; }
+
+        public FirmForErmDto Firm { get; set; }
     }
 }

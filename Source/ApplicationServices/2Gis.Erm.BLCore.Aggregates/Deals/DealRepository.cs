@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 {
     public class DealRepository : IDealRepository
     {
-        private readonly ISecureFinder _finder;
+        private readonly ISecureFinder _secureFinder;
         private readonly ISecureRepository<Deal> _dealGenericSecureRepository;
         private readonly ISecureRepository<Order> _orderGenericRepository;
         private readonly ISecureRepository<OrderPosition> _orderPositionGenericRepository;
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             IIdentityProvider identityProvider, 
             IOperationScopeFactory operationScopeFactory)
         {
-            _finder = finder;
+            _secureFinder = finder;
             _dealGenericSecureRepository = dealGenericSecureRepository;
             _orderGenericRepository = orderGenericRepository;
             _orderPositionGenericRepository = orderPositionGenericRepository;
@@ -61,23 +62,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             }
         }
 
-        public void Add(Deal deal)
-        {
-            using (var operationScope = _operationScopeFactory.CreateOrUpdateOperationFor(deal))
-            {
-                _identityProvider.SetFor(deal);
-                _dealGenericSecureRepository.Add(deal);
-                _dealGenericSecureRepository.Save();
-                operationScope.Added<Deal>(deal.Id)
-                              .Complete();
-            }
-        }
-
         public int Assign(Deal deal, long ownerCode)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Deal>())
             {
-                var dealWithRelated = _finder.Find(Specs.Find.ById<Deal>(deal.Id))
+                var dealWithRelated = _secureFinder.Find(Specs.Find.ById<Deal>(deal.Id))
                                              .Select(x => new
                                                  {
                                                      Orders = x.Orders.Where(y => !y.IsDeleted && y.WorkflowStepId != (int)OrderState.Archive && y.IsActive),
@@ -120,9 +109,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public bool CheckIfDealHasOpenOrders(long dealId)
         {
-           var releaseInfoQuery = _finder.FindAll<ReleaseInfo>();
+            var releaseInfoQuery = _secureFinder.FindAll<ReleaseInfo>();
 
-           return _finder.Find<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive)
+            return _secureFinder.Find<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive)
                 .Any(o => o.WorkflowStepId != (int)OrderState.Rejected
                           && o.WorkflowStepId != (int)OrderState.Archive
                           && !(o.WorkflowStepId == (int)OrderState.OnTermination &&
@@ -148,25 +137,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             Update(deal);
         }
 
-        public ClientAndFirmForDealInfo GetClientAndFirmForDealInfo(Deal deal)
-        {
-            var clientInfo = _finder.Find(Specs.Find.ById<Client>(deal.ClientId) && Specs.Find.ActiveAndNotDeleted<Client>())
-                                    .Select(x => new
-                                        {
-                                            ClientId = x.Id,
-                                            MainFirm = x.Firms.FirstOrDefault(y => !y.IsDeleted && y.IsActive && y.Id == deal.MainFirmId),
-                                        })
-                                    .SingleOrDefault();
-
-            return clientInfo != null
-                       ? new ClientAndFirmForDealInfo
-                           {
-                               Client = _finder.FindOne(Specs.Find.ById<Client>(clientInfo.ClientId)),
-                               MainFirm = clientInfo.MainFirm
-                           }
-                       : null;
-        }
-
         public void ReopenDeal(Deal deal)
         {
             deal.CloseDate = null;
@@ -179,7 +149,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public int SetOrderApprovedForReleaseStage(long dealId)
         {
-            var deal = _finder.Find(Specs.Find.ById<Deal>(dealId)).Single();
+            var deal = _secureFinder.Find(Specs.Find.ById<Deal>(dealId)).Single();
             if (deal.DealStage == (int)DealStage.Service || deal.DealStage == (int)DealStage.OrderApprovedForRelease)
             {
                 return 0;
@@ -199,7 +169,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         {
             var orderStates = new[] { (int)OrderState.Approved, (int)OrderState.OnTermination, (int)OrderState.Archive };
 
-            var otherOrdersExists = _finder.Find(OrderSpecs.Orders.Find.ForDeal(dealId)
+            var otherOrdersExists = _secureFinder.Find(OrderSpecs.Orders.Find.ForDeal(dealId)
                                                     && Specs.Find.ActiveAndNotDeleted<Order>())
                                            .Any(x => x.Id != orderId && orderStates.Contains(x.WorkflowStepId));
 
@@ -208,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
                 return 0;
             }
 
-            var deal = _finder.Find(Specs.Find.ById<Deal>(dealId)).Single();
+            var deal = _secureFinder.Find(Specs.Find.ById<Deal>(dealId)).Single();
             using (var operationScope = _operationScopeFactory.CreateOrUpdateOperationFor(deal))
             {
                 deal.DealStage = (int)DealStage.OrderFormed;
@@ -221,7 +191,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         int IAssignAggregateRepository<Deal>.Assign(long entityId, long ownerCode)
         {
-            var entity = _finder.Find(Specs.Find.ById<Deal>(entityId)).Single();
+            var entity = _secureFinder.Find(Specs.Find.ById<Deal>(entityId)).Single();
             return Assign(entity, ownerCode);
         }
 
@@ -232,7 +202,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             var domainErrors = new List<string>();
             var result = new ChangeAggregateClientValidationResult(warnings, securityErrors, domainErrors);
 
-            var dealInfo = _finder.Find(Specs.Find.ById<Deal>(entityId))
+            var dealInfo = _secureFinder.Find(Specs.Find.ById<Deal>(entityId))
                 .Select(x => new
                     {
                         x.Id,
@@ -264,8 +234,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         int IChangeAggregateClientRepository<Deal>.ChangeClient(long entityId, long clientId, long currentUserCode, bool bypassValidation)
         {
-            var deal = _finder.FindOne(Specs.Find.ById<Deal>(entityId));
-            var firms = _finder.FindMany(FirmSpecs.Firms.Find.ByClient(clientId)).ToArray();
+            var deal = _secureFinder.FindOne(Specs.Find.ById<Deal>(entityId));
+            var firms = _secureFinder.FindMany(FirmSpecs.Firms.Find.ByClient(clientId)).ToArray();
             if (firms.Length == 1)
             {
                 deal.MainFirmId = firms[0].Id;
@@ -275,7 +245,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
                 deal.MainFirmId = null;
             }
 
-            var client = _finder.FindOne(Specs.Find.ById<Client>(clientId));
+            var client = _secureFinder.FindOne(Specs.Find.ById<Client>(clientId));
             if (client == null)
             {
                 throw new ArgumentException(BLResources.EntityNotFound, "clientId");
@@ -288,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             //    если при этом в коде вышестоящего по controlflow operationsservice не останется ничего кроме вызова разлиных aggregate service - пусть так, возможно, позднее решим избавится от необходимости создавать operationservice и aggregate service, если первый фактически ничего не делает
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
-                var orders = _finder.Find<Order>(x => x.DealId == entityId).ToArray();
+                var orders = _secureFinder.Find<Order>(x => x.DealId == entityId).ToArray();
                 foreach (var order in orders)
                 {
                     order.OwnerCode = client.OwnerCode;
@@ -302,13 +272,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
             deal.ClientId = clientId;
             deal.OwnerCode = client.OwnerCode;
+
+            // Изменения логируются в вызывающем коде
             _dealGenericSecureRepository.Update(deal);
             return _dealGenericSecureRepository.Save();
         }
 
         public DealLegalPersonDto GetDealLegalPerson(long dealId)
         {
-            var dealInfo = _finder.Find<Deal>(deal => deal.Id == dealId && !deal.IsDeleted)
+            var dealInfo = _secureFinder.Find<Deal>(deal => deal.Id == dealId && !deal.IsDeleted)
                 .Select(x => new DealLegalPersonDto
                     {
                         Id = x.Id, 
@@ -320,15 +292,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
                     })
                 .SingleOrDefault();
 
-            var legalPersonInfo = _finder.Find<LegalPerson>(lp => lp.IsActive && !lp.IsDeleted && lp.Client.IsActive && !lp.Client.IsDeleted && lp.ClientId == dealInfo.ClientId)
-                .Select(x => new DealLegalPersonDto.LegalPersonDto { Id = x.Id, Name = x.LegalName })
-                .Take(2)
-                .ToArray();
+            var legalPersonInfo =
+                _secureFinder.Find(DealSpecs.LegalPersonDeals.Find.ByDeal(dealId) && DealSpecs.LegalPersonDeals.Find.Main() && Specs.Find.NotDeleted<LegalPersonDeal>())
+                             .Select(x => new DealLegalPersonDto.LegalPersonDto { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName })
+                             .SingleOrDefault();
 
-            // Если не удаётся установить юрлицо однозначно - считаем, что значения по-умолчанию нет.
-            if (dealInfo != null && legalPersonInfo.Length == 1)
+            if (dealInfo != null && legalPersonInfo != null)
             {
-                dealInfo.LegalPerson = legalPersonInfo.Single();
+                dealInfo.LegalPerson = legalPersonInfo;
             }
 
             return dealInfo;

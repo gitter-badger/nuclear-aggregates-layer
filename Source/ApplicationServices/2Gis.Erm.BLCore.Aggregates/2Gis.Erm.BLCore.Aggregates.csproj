@@ -29,8 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -80,17 +79,33 @@
     <Compile Include="Accounts\Operations\AccountWithdrawFromAccountsAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLocksAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
-    <Compile Include="Activities\ActivityAggregateService.cs" />
+    <Compile Include="Activities\CreatePhonecallAggregateService.cs" />
+    <Compile Include="Activities\CreateAppointmentAggregateService.cs" />
+    <Compile Include="Activities\CreateTaskAggregateService.cs" />
+    <Compile Include="Activities\EntityReferenceRepositoryExtensions.cs" />
+    <Compile Include="Activities\UpdateAppointmentAggregationService.cs" />
+    <Compile Include="Activities\UpdatePhonecallAggregationService.cs" />
+    <Compile Include="Activities\UpdateTaskAggregationService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
     <Compile Include="Advertisements\Operations\CreateAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
     <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
+    <Compile Include="Clients\Operations\DeleteClientLinkAggregateService.cs" />
+    <Compile Include="Clients\Operations\CreateClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\Operations\DetachClientFromFirmAggregateService.cs" />
+    <Compile Include="Clients\Operations\GraphDenormalizationExtensions.cs" />
     <Compile Include="Clients\Operations\UpdateClientAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientReadModel.cs" />
+    <Compile Include="Deals\Operations\CreateDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\DeleteClientLinkAggregateService.cs" />
+    <Compile Include="Deals\Operations\DetachDealFromFirmAggregateService.cs" />
+    <Compile Include="Deals\Operations\UpdateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\CreateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\CreateFirmDealAggregateService.cs" />
     <Compile Include="DI\BlCoreAggregatesAssembly.cs" />
     <Compile Include="BranchOffices\Operations\CreateBranchOfficeAggregateService.cs" />
     <Compile Include="BranchOffices\Operations\DeleteBranchOfficeAggregateService.cs" />
@@ -115,19 +130,23 @@
     <Compile Include="Deals\Operations\DeleteAfterSaleServiceAggregateService.cs" />
     <Compile Include="Deals\ReadModel\DealReadModel.cs" />
     <Compile Include="Firms\FirmRepository.cs" />
-    <Compile Include="Firms\Operations\DeleteFirmContactAggregateService.cs" />
-    <Compile Include="Firms\Operations\UpdateFirmContactAggregateService.cs" />
-    <Compile Include="Firms\Operations\CreateFirmContactAggregateService.cs" />
-    <Compile Include="Firms\Operations\UpdateDepCardAggregateService.cs" />
-    <Compile Include="Firms\Operations\CreateDepCardAggregateService.cs" />
-    <Compile Include="Firms\Operations\DeleteCategoryFirmAddressAggregateService.cs" />
-    <Compile Include="Firms\Operations\UpdateCategoryFirmAddressAggregateService.cs" />
-    <Compile Include="Firms\Operations\CreateCategoryFirmAddressAggregateService.cs" />
-    <Compile Include="Firms\Operations\CreateFirmAggregateService.cs" />
-    <Compile Include="Firms\Operations\UpdateFirmAddressAggregateService.cs" />
-    <Compile Include="Firms\Operations\CreateFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkChangeClientTerritoryAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkChangeFirmTerritoryAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkCreateCardRelationsAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkDeleteFirmContactAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkUpdateCardRelationsAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkUpdateFirmAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkUpdateFirmContactAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkCreateFirmContactAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkUpdateDepCardAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkCreateDepCardAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkDeleteCategoryFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkUpdateCategoryFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkCreateCategoryFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkCreateFirmAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkUpdateFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\BulkCreateFirmAddressAggregateService.cs" />
     <Compile Include="Firms\Operations\ImportBuildingAggregateService.cs" />
-    <Compile Include="Firms\Operations\ImportCardRelationAggregateService.cs" />
     <Compile Include="Firms\Operations\ImportCityPhoneZoneAggregateService.cs" />
     <Compile Include="Firms\Operations\ImportFirmAggregateService.cs" />
     <Compile Include="Firms\Operations\ImportReferenceAggregateService.cs" />
@@ -137,7 +156,8 @@
     <Compile Include="LegalPersons\LegalPersonRepository.cs" />
     <Compile Include="LegalPersons\Operations\CreateLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\CreateLegalPersonProfileAggregateService.cs" />
-    <Compile Include="LegalPersons\Operations\DeactivateLegalPersonProfileAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\DeactivateLegalPersonAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\DeleteLegalPersonProfileAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\DeleteLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\UpdateLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\UpdateLegalPersonProfileAggregateService.cs" />
@@ -199,6 +219,8 @@
     <Compile Include="SimplifiedModel\BargainTypes\ReadModel\BargainTypeReadModel.cs" />
     <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\ContributionTypeReadModel.cs" />
     <Compile Include="Themes\ThemeRepository.cs" />
+    <Compile Include="Users\ActivateUserAggregateService.cs" />
+    <Compile Include="Users\DeactivateUserAggregateService.cs" />
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLockDetailsAggregateService.cs" />

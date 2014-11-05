@@ -96,9 +96,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
         public ReleaseInfo GetLastRelease(long organizationUnitId, TimePeriod period)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() 
-                                && ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) 
-                                && ReleaseSpecs.Releases.Find.ForPeriod(period))
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
+                                ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
+                                ReleaseSpecs.Releases.Find.ForPeriod(period))
+                          .OrderByDescending(x => x.StartDate)
+                          .FirstOrDefault();
+        }
+
+        public ReleaseInfo GetLastFinalRelease(long organizationUnitId, TimePeriod period)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
+                                ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
+                                ReleaseSpecs.Releases.Find.ForPeriod(period) &&
+                                ReleaseSpecs.Releases.Find.Final())
                           .OrderByDescending(x => x.StartDate)
                           .FirstOrDefault();
         }

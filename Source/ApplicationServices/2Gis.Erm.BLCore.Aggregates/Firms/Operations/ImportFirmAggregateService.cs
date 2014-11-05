@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -14,8 +15,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
     public sealed class ImportFirmAggregateService : IImportFirmAggregateService
     {
-        // timeout should be increased due to long sql updates (15:00:00 min = 900 sec)
-        private const int ImportCommandTimeout = 900;
+        // timeout should be increased due to long sql updates
+        private readonly TimeSpan _importCommandTimeout = TimeSpan.FromMinutes(15);
 
         private readonly IFirmPersistenceService _firmPersistenceService;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
                                                                     firmsXml,
                                                                     userId,
                                                                     reserveUserId,
-                                                                    ImportCommandTimeout,
+                                                                    _importCommandTimeout,
                                                                     enableReplication,
                                                                     regionalTerritoryLocaleSpecificWord);
 

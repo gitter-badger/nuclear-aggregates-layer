@@ -9,8 +9,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
     public interface IUserReadModel : IAggregateReadModel<User>
     {
         User GetUser(long id);
+        UserProfile GetProfileForUser(long userid);
+        IEnumerable<UserRole> GetUserRoles(long userid);
         User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelege);
         User GetNotServiceUser(long userId);
         User GetOrganizationUnitDirector(long organizationUnitId);
+        long? GetUserOrganizationUnitId(long userId);
     }
 }

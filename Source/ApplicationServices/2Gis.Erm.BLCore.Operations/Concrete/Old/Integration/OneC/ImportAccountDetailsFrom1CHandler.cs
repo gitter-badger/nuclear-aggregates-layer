@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.AccountDetails;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -26,32 +24,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
     public sealed class ImportAccountDetailsFrom1CHandler : RequestHandler<ImportAccountDetailsFrom1CRequest, ImportResponse>
     {
         private readonly ILocalizationSettings _localizationSettings;
-        private readonly INotificationsSettings _notificationsSettings;
         private readonly ICommonLog _logger;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IAccountRepository _accountRepository;
         private readonly ILegalPersonRepository _legalPersonRepository;
-        private readonly IEmployeeEmailResolver _employeeEmailResolver;
-        private readonly INotificationSender _notificationSender;
+        private readonly INotifyAboutAccountDetailModificationOperationService _notifyAboutAccountDetailModificationOperationService;
 
         public ImportAccountDetailsFrom1CHandler(ILocalizationSettings localizationSettings,
-                                                 INotificationsSettings notificationsSettings,
                                                  ICommonLog logger,
                                                  IBranchOfficeReadModel branchOfficeReadModel,
                                                  IAccountRepository accountRepository,
                                                  ILegalPersonRepository legalPersonRepository,
-                                                 IEmployeeEmailResolver employeeEmailResolver,
-                                                 INotificationSender notificationSender)
+                                                 INotifyAboutAccountDetailModificationOperationService notifyAboutAccountDetailModificationOperationService)
 
         {
             _localizationSettings = localizationSettings;
-            _notificationsSettings = notificationsSettings;
             _logger = logger;
             _branchOfficeReadModel = branchOfficeReadModel;
             _accountRepository = accountRepository;
             _legalPersonRepository = legalPersonRepository;
-            _employeeEmailResolver = employeeEmailResolver;
-            _notificationSender = notificationSender;
+            _notifyAboutAccountDetailModificationOperationService = notifyAboutAccountDetailModificationOperationService;
         }
 
         protected override ImportResponse Handle(ImportAccountDetailsFrom1CRequest request)
@@ -74,18 +66,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 var errors = new List<string>();
                 var parsedRowsCount = 0;
 
-                var newAccountDetailContainers = new List<Tuple<LegalPerson, BranchOfficeOrganizationUnit, Account, AccountDetail>>();
+                var newAccountDetails = new List<AccountDetail>();
 
                 // skipping first row (header)
                 for (var i = 1; i < nonParsedRows.Length; i++)
                 {
-                    Tuple<LegalPerson, BranchOfficeOrganizationUnit, Account, AccountDetail> accountDetailContainer;
-                    if (!TryGetAccountDetailContainer(header, errors, i, nonParsedRows[i], out accountDetailContainer))
+                    AccountDetail newAccountDetail;
+                    if (!TryGetAccountDetailContainer(header, errors, i, nonParsedRows[i], out newAccountDetail))
                     {
                         continue;
                     }
 
-                    newAccountDetailContainers.Add(accountDetailContainer);
+                    newAccountDetails.Add(newAccountDetail);
                     parsedRowsCount++;
                 }
 
@@ -93,16 +85,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                                                                      header.Period.Start,
                                                                                                      header.Period.End);
 
-                var newAccountDetails = newAccountDetailContainers.Select(x => x.Item4).ToArray();
-
                 _accountRepository.Delete(oldAccountDetails);
                 _accountRepository.Create(newAccountDetails);
 
                 var accountIds = oldAccountDetails.Select(x => x.AccountId).Union(newAccountDetails.Select(x => x.AccountId)).ToArray();
                 _accountRepository.UpdateAccountBalance(accountIds);
 
-                NotifyAboutPaymentReceived(newAccountDetailContainers);
-                
+                var newAccountDetailsIds = newAccountDetails.Select(x => x.Id).ToArray();
+                _notifyAboutAccountDetailModificationOperationService.Notify(newAccountDetailsIds.First(), newAccountDetailsIds.Skip(1).ToArray());
+
                 transaction.Complete();
 
                 return new ImportResponse
@@ -119,9 +110,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                                                   ICollection<string> errors,
                                                   int index,
                                                   string nonParsedRow,
-                                                  out Tuple<LegalPerson, BranchOfficeOrganizationUnit, Account, AccountDetail> accountDetailContainer)
+                                                  out AccountDetail newAccountDetail)
         {
-            accountDetailContainer = null;
+            newAccountDetail = null;
             AccountDetailsFrom1CHelper.CsvRow row;
 
             if (!AccountDetailsFrom1CHelper.CsvRow.TryParse(nonParsedRow, _localizationSettings.ApplicationCulture, out row))
@@ -220,7 +211,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                 return false;
             }
 
-            var accountDetail = new AccountDetail
+            newAccountDetail = new AccountDetail
                 {
                     AccountId = account.Id,
                     OperationTypeId = operationType.Id,
@@ -231,44 +222,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
                     IsActive = true
                 };
 
-            accountDetailContainer = Tuple.Create(legalPerson, branchOfficeOrganizationUnit, account, accountDetail);
-
             return true;
-        }
-
-        private void NotifyAboutPaymentReceived(IEnumerable<Tuple<LegalPerson, BranchOfficeOrganizationUnit, Account, AccountDetail>> accountDetailContainers)
-        {
-            if (!_notificationsSettings.EnableNotifications)
-            {
-                _logger.InfoEx("Notifications disabled in config file");
-                return;
-            }
-
-            foreach (var accountDetailContainer in accountDetailContainers)
-            {
-                var legalPerson = accountDetailContainer.Item1;
-                var branchOffice = accountDetailContainer.Item2;
-                var account = accountDetailContainer.Item3;
-                var accountDetail = accountDetailContainer.Item4;
-
-                string accountOwnerEmail;
-                if (_employeeEmailResolver.TryResolveEmail(account.OwnerCode, out accountOwnerEmail) && !string.IsNullOrEmpty(accountOwnerEmail))
-                {
-
-                    _notificationSender.PostMessage(new[] { new NotificationAddress(accountOwnerEmail) },
-                                                    BLResources.PaymentReceivedSubject,
-                                                    string.Format(BLResources.PaymentReceivedBodyTemplate,
-                                                                  account.Id,
-                                                                  legalPerson.LegalName,
-                                                                  branchOffice.ShortLegalName,
-                                                                  accountDetail.Amount,
-                                                                  accountDetail.TransactionDate.ToString(_localizationSettings.ApplicationCulture)));
-                }
-                else
-                {
-                    _logger.ErrorEx("Can't send notification about - payment received. Can't get to_address email. Account id: " + account.Id + ". Owner code: " + account.OwnerCode);
-                }
-            }
         }
     }
 }

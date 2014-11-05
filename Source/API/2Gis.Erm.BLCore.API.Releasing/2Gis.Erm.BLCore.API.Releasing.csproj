@@ -55,7 +55,6 @@
     <Compile Include="Releases\IAttachExternalReleaseProcessingMessagesOperationService.cs" />
     <Compile Include="Releases\IEnsureOrdersForReleaseCompletelyExportedOperationService.cs" />
     <Compile Include="Releases\IFinishReleaseOperationService.cs" />
-    <Compile Include="Releases\IFtpExportIntegrationModeSettings.cs" />
     <Compile Include="Releases\IRevertReleaseOperationService.cs" />
     <Compile Include="Releases\IStartReleaseOperationService.cs" />
     <Compile Include="Releases\IStartSimplifiedReleaseOperationService.cs" />
@@ -66,10 +65,6 @@
     <Compile Include="Releases\ReleaseRevertingResult.cs" />
     <Compile Include="Releases\ReleaseStartingResult.cs" />
     <Compile Include="Remote\Release\IReleaseApplicationService.cs" />
-    <Compile Include="Remote\Release\Obsolete\FinishExport.cs" />
-    <Compile Include="Remote\Release\Obsolete\IErmService.cs" />
-    <Compile Include="Remote\Release\Obsolete\RequestResponse.cs" />
-    <Compile Include="Remote\Release\Obsolete\StartExport.cs" />
     <Compile Include="Remote\Release\ReleasingErrorDescription.cs" />
     <Compile Include="Remote\Release\Settings\APIReleasingServiceSettingsAspect.cs" />
     <Compile Include="Remote\Release\Settings\IAPIReleasingServiceSettings.cs" />

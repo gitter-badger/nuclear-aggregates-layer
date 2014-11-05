@@ -209,6 +209,8 @@
     <Compile Include="Models\WithdrawalInfoViewModel.cs" />
     <Compile Include="Models\WithdrawalRevertDialogViewModel.cs" />
     <Compile Include="Security\WebCookieSignInService.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomizationProvider.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LocalMessageViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\NullViewModelCustomizationService.cs" />
@@ -791,6 +793,10 @@
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
       <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
       <Name>2Gis.Erm.BLCore.API.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj">
+      <Project>{153868E3-4C4C-45FE-86D6-6B4FBD39249C}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>

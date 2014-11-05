@@ -52,6 +52,10 @@
     <Reference Include="Microsoft.SqlServer.SqlEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.SqlEnum.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xrm.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -220,6 +224,14 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\2014.10.15 rev. 25249 - Add Delete entity privelege for LegalPersonProfile.cs" />
+    <Compile Include="2.1\2014.08.26 rev. 23589 - Extend DenormalizedClientLinks table.cs" />
+    <Compile Include="2.1\2014.08.18 rev. 23404 - Create DenormalizedClientLinks table.cs" />
+    <Compile Include="2.1\2014.09.01 rev. 23822 - update order, orderposition replication.cs" />
+    <Compile Include="2.1\2014.09.01 rev. 23820 - Add discount value in MsCRM order position.cs" />
+    <Compile Include="2.1\2014.09.01 rev. 23819 - Add discount value in MsCRM order.cs" />
+    <Compile Include="2.1\2014.09.08 rev. 24116 - MsCRM delete print regional orders button.cs" />
+    <Compile Include="2.1\2014.09.03 rev. 23953 - Sync UserProfile.IsActive with User.IsActive.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23002 - Boost SPs for batch replication.cs" />
     <Compile Include="2.1\2014.05.30 rev. 20842 - Delete FasComment values Smoke And Abortion.cs" />
     <Compile Include="2.1\2014.05.23 rev. 20638 - create ChargeSessionId column in Billing.LockDetails.cs" />
@@ -314,6 +326,9 @@
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6712 - Make ThemeOrganizationUnit deactivable.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.01 rev. 6718 - Alter SiteMap.xml.cs" />
     <Compile Include="0.17 - Gasherbrum\2013.02.04 rev. 6747 - Alter procedure CreateExportSession v3.cs" />
+    <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrderPosition].sql" />
+    <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrder].sql" />
+    <Content Include="Resources\2014.10.19 rev. 25335\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
     <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
       <LogicalName>Migration6766CreateCleanupERM</LogicalName>
       <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
@@ -715,12 +730,27 @@
     <Compile Include="2.1\2014.06.03 rev. 20952 - Alter BOS for flowNomenclatures export.cs" />
     <Compile Include="2.1\2014.07.08 rev. 22080 - Delete infrastructure for hot client replication.cs" />
     <Compile Include="2.1\2014.08.06 rev. 22197 - Add Index to Categories table.cs" />
+    <Compile Include="2.1\2014.07.30 rev. 22706 - Move activities to dynamic storage.cs" />
     <Compile Include="2.1\2014.07.24 rev. 22601 - Add AdvertisementsOnlyWhiteList rule.cs" />
+    <Compile Include="2.1\2014.08.20 rev. 23447 - PrimaryProcessing improvements.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23021 - Alter ImportFirmFromXml.cs" />
     <Compile Include="2.1\2014.07.15 rev. 22338 - Disable RegionalApiAdvertisementsOrderValidationRule.cs" />
     <Compile Include="2.1\2014.07.23 rev. 22571 - Deal profit indicators removed.cs" />
-    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />    
+    <Compile Include="2.1\2014.07.24 rev. 22672 - MsCRM drop deal profits indicators.cs" />
     <Compile Include="2.1\2014.08.19 rev. 23425 - Alter ImportFirmFromXml.cs" />
+    <Compile Include="2.1\2014.07.22 rev. 22529 - Fill column TerritoryId by BuildingCode in FirmAddresses.cs" />
+    <Compile Include="2.1\2014.07.23 rev. 22583 - Alter Shared.GetFirmTerritories and Integration.UpdateBuildings.cs" />
+    <Compile Include="2.1\2014.09.01 rev. 23795 - Alter ImportCardFromXml.cs" />
+    <Compile Include="2.1\2014.09.11 rev. 24223 - Boost for replication.cs" />
+    <Compile Include="2.1\2014.09.12 rev. 24270 - Create view SystemUserErmView.cs" />
+    <Compile Include="2.1\2014.09.12 rev. 24271 - Super boost for replication.cs" />
+    <Compile Include="2.1\2014.09.18 rev. 24362 - Alter CalculateClientPromising.cs" />
+    <Compile Include="2.1\2014.09.22 rev. 24551 - Alter territory replication.cs" />
+    <Compile Include="2.1\2014.10.01 rev. 24898 - Alter replicate order and order position.cs" />
+    <Compile Include="2.1\2014.10.23 rev. 25523 - Add new some new TimeZones.cs" />
+    <Compile Include="2.1\2014.10.23 rev. 25519 - Remove description of TimeZone.cs" />
+    <Compile Include="2.1\2014.10.24 rev. 25530 - Turn on some order validation rules.cs" />
+    <Compile Include="2.1\2014.10.19 rev. 25335 - Alter ReplicateFirmAddresses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -733,12 +763,17 @@
     <Compile Include="1.0\2013.10.14. rev. 12727 - alter ReplicateEnitiesToCrm.cs" />
     <Compile Include="1.0\2013.10.15 rev. 12781 - update AdvertisementElementsStatus.cs" />
     <Compile Include="1.0\2013.10.16 rev. 12809 - revert 12443 and 12528.cs" />
+    <Compile Include="1.2\2013.11.12 rev. 13530 - Add ImportAccountsToServiceBus button to crm grid.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="1.2\2013.11.12 rev. 13530 - Add ImportAccountsToServiceBus button to crm grid.cs" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Drop Old Activity Schema.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Tasks.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Phonecalls.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Migrate Appointments.sql" />
+    <Content Include="Resources\2014.07.30 rev. 22706\Alter Activity Schema.sql" />
     <Compile Include="Shared\CrmDbHelper.cs" />
     <Compile Include="Shared\ErmTableUtilsForOldIntKeys.cs" />
     <Compile Include="Shared\InsertedNotNullableColumnDefinition.cs" />
@@ -773,6 +808,7 @@
     <Compile Include="0.15 - HangzhouBay\2012.11.22 rev. 5260 Add ProcessingTime column into LocalMessages.cs" />
     <Compile Include="0.15 - HangzhouBay\2012.11.30 rev. 5419 alter impotFim and updateBuilding SPs.cs" />
     <Compile Include="0.18\2013.06.14 rev. 9337 - Alter AdvertisementElements.cs" />
+    <Compile Include="2.1\2014.07.24 rev. 22717 - Create ClientLinks table.cs" />
     <None Include="Resources\DoubleGis.Erm.SqlClr.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -1033,6 +1069,71 @@
     <Content Include="Resources\2014.07.23 rev. 22571\ReplicateDeal.sql" />
     <Content Include="Resources\2014.07.24 rev. 22672\Customizations_22672.xml" />
     <Content Include="Resources\2014.08.19 rev. 23425\ImportFirmFromXml.sql" />
+    <Content Include="Resources\2014.07.23 rev. 22583\GetFirmTerritories.sql" />
+    <Content Include="Resources\2014.07.23 rev. 22583\UpdateBuildings.sql" />
+    <Content Include="Resources\2014.09.01 rev. 23795\ImportCardsFromXml_23795.sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateAccountDetail].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateAccount].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateBargain].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateBranchOfficeOrganizationUnit].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateBranchOffice].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateClient].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateContacts].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateContact].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateCurrency].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateDeal].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateLegalPerson].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateLimit].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateOperationType].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateOrderPosition].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateOrderProcessingRequest].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateOrder].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicateOrganizationUnit].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Billing].[ReplicatePosition].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[BusinessDirectory].[ReplicateCategory].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[BusinessDirectory].[ReplicateFirmAddress].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[BusinessDirectory].[ReplicateFirm].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[BusinessDirectory].[ReplicateTerritory].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Security].[ReplicateUserTerritory].sql" />
+    <Content Include="Resources\2014.09.11 rev. 24223\[Security].[ReplicateUser].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24270\[dbo].[SystemUserErmView].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateAccountDetail].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateAccount].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateBargain].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateBranchOfficeOrganizationUnit].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateBranchOffice].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateClient].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateContacts].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateContact].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateCurrency].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateDeal].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateLegalPerson].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateLimit].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateOperationType].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateOrderPosition].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateOrderProcessingRequest].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateOrder].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicateOrganizationUnit].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Billing].[ReplicatePosition].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateCategory].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateFirmAddress].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateFirms].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateFirm].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateTerritories].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[BusinessDirectory].[ReplicateTerritory].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Security].[ReplicateUserTerritory].sql" />
+    <Content Include="Resources\2014.09.12 rev. 24271\[Security].[ReplicateUser].sql" />
+    <Content Include="Resources\2014.09.18 rev. 24362\[Integration].[CalculateClientPromising].sql" />
+    <Content Include="Resources\2014.09.22 rev. 24551\[BusinessDirectory].[ReplicateTerritories].sql" />
+    <Content Include="Resources\2014.09.22 rev. 24551\[BusinessDirectory].[ReplicateTerritory].sql" />
+    <Content Include="Resources\2014.09.08 rev. 24116\customizations.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\2014.09.01 rev. 23822\ReplicateOrderPosition.sql" />
+    <Content Include="Resources\2014.09.01 rev. 23822\ReplicateOrder.sql" />
+    <Content Include="Resources\2014.09.01 rev. 23820\customizations_23820.xml" />
+    <Content Include="Resources\2014.09.01 rev. 23819\customizations_23819.xml" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />

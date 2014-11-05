@@ -280,6 +280,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                         {
                             BargainTypeCode = a.BranchOfficeOrganizationUnit.BranchOffice.BargainTypeId ?? 0, 
                             Code = a.Id, 
+                            LegalEntityBranchCode = a.BranchOfficeOrganizationUnitId,
                             Code1C = a.LegalPesonSyncCode1C, 
                             IsHidden = !a.IsActive, 
                             IsDeleted = a.IsDeleted, 
@@ -518,6 +519,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public long Code { get; set; }
 
             /// <summary>
+            /// Стабильный идентификатор юридического лица отделения организации (r)
+            /// </summary>
+            public long LegalEntityBranchCode { get; set; }
+
+            /// <summary>
             /// Код 1С лицевого счета (r)
             /// </summary>
             public string Code1C { get; set; }
@@ -545,7 +551,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             public XElement ToXElement()
             {
                 return new XElement(TagName, 
-                                    this.ToXAttribute(() => Code, Code), 
+                                    this.ToXAttribute(() => Code, Code),
+                                    this.ToXAttribute(() => LegalEntityBranchCode, LegalEntityBranchCode), 
                                     this.ToXAttribute(() => Code1C, Code1C), 
                                     this.ToXAttribute(() => BargainTypeCode, BargainTypeCode), 
                                     this.ToXAttribute(() => LegalEntityBranchCode1C, LegalEntityBranchCode1C), 

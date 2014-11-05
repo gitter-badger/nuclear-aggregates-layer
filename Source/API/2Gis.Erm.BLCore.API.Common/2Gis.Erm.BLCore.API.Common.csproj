@@ -57,6 +57,8 @@
     <Compile Include="Crosscutting\ProcessingResults\ProcessingResultsMessage.cs" />
     <Compile Include="Crosscutting\ProcessingResults\ProcessingResultsMessageType.cs" />
     <Compile Include="Enums\OrderPositionAdvertisementValidationRule.cs" />
+    <Compile Include="Exceptions\ActiveEntityActivationException.cs" />
+    <Compile Include="Exceptions\InactiveEntityDeactivationException.cs" />
     <Compile Include="Metadata\Old\Dto\CardRelatedItemsGroupStructure.cs" />
     <Compile Include="Metadata\Old\Dto\CardRelatedItemStructure.cs" />
     <Compile Include="Metadata\Old\Dto\CardStructure.cs" />
@@ -73,8 +75,6 @@
     <Compile Include="Enums\PlatformEnum.cs" />
     <Compile Include="Crosscutting\AD\IGetUserInfoFromAdSettings.cs" />
     <Compile Include="Crosscutting\IReplicationCodeConverter.cs" />
-    <Compile Include="Settings\CachingSettingsAspect.cs" />
-    <Compile Include="Settings\ICachingSettings.cs" />
     <Compile Include="Settings\INotificationsSettings.cs" />
     <Compile Include="Settings\NotificationsSettingsAspect.cs" />
   </ItemGroup>
@@ -90,6 +90,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

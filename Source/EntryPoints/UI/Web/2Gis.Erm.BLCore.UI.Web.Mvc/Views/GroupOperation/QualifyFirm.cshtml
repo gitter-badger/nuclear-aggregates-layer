@@ -1,4 +1,5 @@
-﻿@model Models.GroupOperation.QualifyFirmViewModel
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.QualifyFirmViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -33,11 +34,11 @@
                         applyusersettings: function() {
                             this.ApplyUserSettings();
                         },
-                        entityprocessingsuccess: function(entityId) {
-                            this.EntityProcessingSuccess(entityId);
+                        entityprocessingsuccess: function (responseText) {
+                            this.EntityProcessingSuccess(responseText);
                         },
-                        entityprocessingfail: function(entityId) {
-                            this.EntityProcessingFail(entityId);
+                        entityprocessingfail: function (message) {
+                            this.EntityProcessingFail(message);
                         },
                         processingfinished: function() {
                             this.ProcessingFinished();
@@ -109,9 +110,7 @@
                     if (Ext.getDom("ClientCode").value == "") {
                         Ext.MessageBox.show({
                             title: '',
-                            // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                            // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                            msg: '@BLResources.QualifyMustPickClient',
+                            msg: Ext.LocalizedResources.QualifyMustPickClient,
                             buttons: window.Ext.MessageBox.OK,
                             width: 300,
                             icon: window.Ext.MessageBox.ERROR
@@ -125,7 +124,7 @@
                     if (Ext.getDom("UserCode").value == "") {
                         Ext.MessageBox.show({
                             title: '',
-                            msg: '@BLResources.QualifyMustPickUser',
+                            msg: Ext.LocalizedResources.QualifyMustPickUser,
                             buttons: window.Ext.MessageBox.OK,
                             width: 300,
                             icon: window.Ext.MessageBox.ERROR
@@ -152,14 +151,14 @@
                 return { entityId: entityId, userId: this.UserId, clientId: this.ClientId };
             },
             EntityProcessingSuccess: function(responseText) {
-                var entityId = Ext.decode(responseText);
+                var response = Ext.decode(responseText);
                 if (this.IsCreateNewClients) {
-                    this.ClientCardsToOpen.push(entityId); // открываем карточки всех вновь созданных клиентов
+                    this.ClientCardsToOpen.push(response.RelatedEntityId); // открываем карточки всех вновь созданных клиентов
                 } else if (this.ClientCardsToOpen.length == 0) {
-                    this.ClientCardsToOpen.push(entityId); // открываем карточку клиента - к которому привязали фирмы
+                    this.ClientCardsToOpen.push(response.RelatedEntityId); // открываем карточку клиента - к которому привязали фирмы
                 }
             },
-            EntityProcessingFail: function(entityId) {
+            EntityProcessingFail: function (message) {
             },
             ProcessingFinished: function() {
                 if (!this.IsSingleEntityProcessing || this.ClientCardsToOpen.length != 1) {
@@ -176,10 +175,10 @@
             var config = {
                 Entities: ids, // массив id сущностей
                 OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
-                CloseButtonText: '@Html.Resource(() => BLResources.Close)', // локализованная надпись для кнопки закрыть
-                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
-                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
-                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
             var qualifyProcessor = new Ext.DoubleGis.UI.Firm.QualifyProcessor(config);
             if (!qualifyProcessor.CheckProcessingPossibility()) {

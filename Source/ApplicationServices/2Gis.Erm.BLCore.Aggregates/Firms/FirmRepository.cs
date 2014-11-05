@@ -31,8 +31,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 {
     public class FirmRepository : IFirmRepository
     {
-        // timeout should be increased due to long sql updates (15:00:00 min = 900 sec)
-        private const int ImportFirmPrimisingCommandTimeout = 3600;
+        // timeout should be increased due to long sql updates
+        private readonly TimeSpan _importFirmPromisingCommandTimeout = TimeSpan.FromHours(1);
 
         private readonly IRepository<CategoryFirmAddress> _categoryFirmAddressGenericRepository;
         private readonly IRepository<Client> _clientGenericRepository;
@@ -136,8 +136,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                     throw new SecurityException(BLResources.QualifyReserveOperationDenied);
 
                 case ReserveAccess.Territory:
-                    var hasTerritories =
-                        _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode && x.TerritoryId == firm.TerritoryId).Any();
+                    var hasTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode && x.TerritoryId == firm.TerritoryId).Any();
                     if (!hasTerritories)
                     {
                         throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisTerritory);
@@ -145,16 +144,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
                     break;
                 case ReserveAccess.OrganizationUnit:
-                {
-                    var hasFirmOrgUnitOrTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
-                                                                                                          (x.OrganizationUnitId == firm.OrganizationUnitId ||
-                                                                                                           x.TerritoryId == firm.TerritoryId))
-                                                             .Any();
-                    if (!hasFirmOrgUnitOrTerritories)
                     {
-                        throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisOrgUnit);
+                        var hasFirmOrgUnitOrTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
+                                                                                                              (x.OrganizationUnitId == firm.OrganizationUnitId ||
+                                                                                                               x.TerritoryId == firm.TerritoryId))
+                                                                 .Any();
+                        if (!hasFirmOrgUnitOrTerritories)
+                        {
+                            throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisOrgUnit);
+                        }
                     }
-                }
 
                     break;
                 case ReserveAccess.Full:
@@ -166,6 +165,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
             firm.OwnerCode = ownerCode;
             firm.LastQualifyTime = qualifyDate;
+
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(firm);
             return _firmGenericSecureRepository.Save();
         }
@@ -263,6 +264,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         public int SetFirmClient(Firm firm, long clientId)
         {
             firm.ClientId = clientId;
+
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(firm);
             return _firmGenericSecureRepository.Save();
         }
@@ -275,6 +278,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             }
 
             firm.TerritoryId = territoryId;
+
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(firm);
             return _firmGenericSecureRepository.Save();
         }
@@ -380,6 +385,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
             // update firm and client
             // Старый вариант использовал число 4096. Почему не 42? Не знаю.
+            // 42 - недостаточно :P
             const int FirmUpdateBlockSize = 4096;
             var position = 0;
 
@@ -713,7 +719,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             {
                 using (var scope = _scopeFactory.CreateNonCoupled<ImportFirmPromisingIdentity>())
                 {
-                    var updatedFirms = _firmPersistanceService.ImportFirmPromising(organizationUnitDgppId, userId, ImportFirmPrimisingCommandTimeout);
+                    var updatedFirms = _firmPersistanceService.ImportFirmPromising(organizationUnitDgppId, userId, _importFirmPromisingCommandTimeout);
 
                     scope.Updated<Firm>(updatedFirms);
                     scope.Complete();
@@ -740,7 +746,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 scope.Complete();
             }
 
-            return _firmGenericRepository.Save();
+            return _firmGenericSecureRepository.Save();
         }
 
         public long[] GetAdvertisementIds(long firmId)
@@ -1062,6 +1068,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             entity.ClientId = clientId;
             entity.OwnerCode = clientOwnerCode;
 
+            // Изменения логируются в вызывающем коде
             _firmGenericSecureRepository.Update(entity);
             return _firmGenericSecureRepository.Save();
         }
