@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared
 {
     using System;
     using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 1 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+    #line 1 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
     using DoubleGis.Erm.BL.Resources.Server.Properties;
     
     #line default
@@ -46,16 +46,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/ChangeOrderLegalPersonProfile.cshtml")]
-    public partial class ChangeOrderLegalPersonProfile : System.Web.Mvc.WebViewPage<ChangeOrderProfilesViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/SelectLegalPersonProfile.cshtml")]
+    public partial class SelectLegalPersonProfile : System.Web.Mvc.WebViewPage<SelectLegalPersonProfileViewModel>
     {
-        public ChangeOrderLegalPersonProfile()
+        public SelectLegalPersonProfile()
         {
         }
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 4 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -69,7 +69,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 8 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
             Write(Resources.ChangeProfilesOperationTitle);
 
             
@@ -84,7 +84,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 9 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
                   Write(Resources.ChangeProfilesOperationTitle);
 
             
@@ -99,7 +99,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 10 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
                     Write(Resources.ChangeProfilesOperationMessage);
 
             
@@ -115,15 +115,15 @@ DefineSection("PageScript", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 382), Tuple.Create("\"", 472)
-, Tuple.Create(Tuple.Create("", 388), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.ChangeProfiles.js?", 388), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 387), Tuple.Create("\"", 475)
+, Tuple.Create(Tuple.Create("", 393), Tuple.Create("/Scripts/Ext.DoubleGis.UI.SelectOrderProfile.js?", 393), true)
             
-            #line 14 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
-, Tuple.Create(Tuple.Create("", 438), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 14 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+, Tuple.Create(Tuple.Create("", 441), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 438), false)
+, 441), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -139,13 +139,13 @@ DefineSection("PageContent", () => {
 WriteLiteral("\r\n");
 
             
-            #line 19 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 19 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 19 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "DialogForm" } }))
     {
 
@@ -165,7 +165,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 23 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 23 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
            Write(Html.TemplateField(m => m.LegalPerson,
                     FieldFlex.lone,
                     new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true }));
@@ -182,7 +182,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 28 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 28 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
            Write(Html.TemplateField(m => m.LegalPersonProfile, 
                     FieldFlex.lone, 
                     new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" }));
@@ -193,7 +193,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 33 "..\..\Views\Order\ChangeOrderLegalPersonProfile.cshtml"
+            #line 33 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
     }
 
             

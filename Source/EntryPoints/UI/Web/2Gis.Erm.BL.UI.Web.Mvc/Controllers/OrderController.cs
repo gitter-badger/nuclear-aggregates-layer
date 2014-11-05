@@ -280,11 +280,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         #endregion
 
         [HttpGet]
-        public ViewResult ChangeOrderLegalPersonProfile(long orderId)
+        public ViewResult SelectLegalPersonProfile(long orderId)
         {
             var dto = _orderReadModel.GetOrderLegalPersonProfile(orderId);
 
-            var model = new ChangeOrderProfilesViewModel
+            var model = new SelectLegalPersonProfileViewModel
             {
                 LegalPerson = dto.LegalPerson.ToLookupField(),
                 LegalPersonProfile = dto.LegalPersonProfile.ToLookupField(),

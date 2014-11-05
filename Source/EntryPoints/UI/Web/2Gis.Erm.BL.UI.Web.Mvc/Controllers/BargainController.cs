@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
@@ -13,6 +14,10 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -22,6 +27,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICloseClientBargainsOperationService _closeClientBargainsOperationService;
+        private readonly IFinder _finder;
 
         public BargainController(IMsCrmSettings msCrmSettings,
                                  IUserContext userContext,
@@ -30,7 +36,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                  IAPIOperationsServiceSettings operationsServiceSettings,
                                  ICloseClientBargainsOperationService closeClientBargainsOperationService,
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                 IGetBaseCurrencyService getBaseCurrencyService)
+                                 IGetBaseCurrencyService getBaseCurrencyService,
+            IFinder finder)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -40,6 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             _functionalAccessService = functionalAccessService;
             _closeClientBargainsOperationService = closeClientBargainsOperationService;
+            _finder = finder;
         }
 
         [HttpGet]
@@ -51,6 +59,25 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             }
 
             var model = new CloseBargainsViewModel { CloseDate = DateTime.Now };
+            return View(model);
+        }
+
+        [HttpGet]
+        public ViewResult SelectLegalPersonProfile(long bargainId)
+        {
+            var lp = _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+                            .Select(bargain => bargain.CustomerLegalPersonId)
+                            .Single();
+
+            var lpName = _finder.FindOne(Specs.Find.ById<LegalPerson>(lp))
+                                .ShortName;
+
+            var model = new SelectLegalPersonProfileViewModel
+                            {
+                                LegalPerson = new LookupField { Key = lp, Value = lpName },
+                                LegalPersonProfile = new LookupField()
+                            };
+
             return View(model);
         }
 

@@ -163,7 +163,7 @@
     <Compile Include="Models\ChangeOrderStateDefaultViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnApprovalViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnTerminationRejectionModel.cs" />
-    <Compile Include="Models\ChangeOrderProfilesViewModel.cs" />
+    <Compile Include="Models\SelectLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\CheckOrdersReadinessForReleaseDialogViewModel.cs" />
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
@@ -258,10 +258,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\ChangeOrderLegalPersonProfile.generated.cs">
+    <Compile Include="Views\Shared\SelectLegalPersonProfile.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ChangeOrderLegalPersonProfile.cshtml</DependentUpon>
+      <DependentUpon>SelectLegalPersonProfile.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
       <AutoGen>True</AutoGen>
@@ -739,9 +739,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\Order\ChangeOrderLegalPersonProfile.cshtml">
+    <None Include="Views\Shared\SelectLegalPersonProfile.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ChangeOrderLegalPersonProfile.generated.cs</LastGenOutput>
+      <LastGenOutput>SelectLegalPersonProfile.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
       <Generator>RazorGenerator</Generator>
