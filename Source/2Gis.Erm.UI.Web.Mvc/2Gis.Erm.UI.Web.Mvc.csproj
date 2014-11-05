@@ -33,12 +33,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <PublishDatabases>false</PublishDatabases>
     <Prefer32Bit>false</Prefer32Bit>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
@@ -47,11 +45,9 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
     <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
@@ -156,6 +152,7 @@
     <Compile Include="DI\Bootstrapper.Czech.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Global.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Emirates.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Kazakhstan.Mvc.Interception.cs" />
     <Compile Include="DI\Bootstrapper.Ukraine.Mvc.Interception.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DI\WebMvcRoot.cs" />
@@ -684,6 +681,11 @@
     <Content Include="Scripts\Ext.LocalizedResources.ar.js">
       <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
     </Content>
+    <Content Include="Scripts\Ext.LocalizedResources.kk.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.KazakhstanOrder.js" />
+    <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.LegalPerson.Kazakhstan.js" />
     <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
     <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
