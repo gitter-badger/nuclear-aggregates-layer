@@ -1289,6 +1289,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
         }
 
+        public long? GetOrderLegalPersonProfileId(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(order => order.LegalPersonProfileId)
+                          .SingleOrDefault();
+        }
+
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
         {
             var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
