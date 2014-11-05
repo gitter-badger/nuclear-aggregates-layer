@@ -19,7 +19,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integration.Import.FlowCards.Processors
 {
-    public class MultiCultureImportCardService : IImportCardService, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class MultiCultureImportCardService : IImportCardService, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         private const int PregeneratedIdsAmount = 3000;
         private readonly IClientProxyFactory _clientProxyFactory;
@@ -32,12 +32,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integrati
         private readonly IUserContext _userContext;
 
         public MultiCultureImportCardService(IUserContext userContext,
-                                 ISecurityServiceUserIdentifier securityServiceUserIdentifier,
-                                 IIntegrationLocalizationSettings integrationLocalizationSettings,
-                                 IMsCrmSettings msCrmSettings,
-                                 IClientProxyFactory clientProxyFactory,
-                                 IOperationScopeFactory scopeFactory,
-                                 IImportCardAggregateService importCardAggregateService)
+                                             ISecurityServiceUserIdentifier securityServiceUserIdentifier,
+                                             IIntegrationLocalizationSettings integrationLocalizationSettings,
+                                             IMsCrmSettings msCrmSettings,
+                                             IClientProxyFactory clientProxyFactory,
+                                             IOperationScopeFactory scopeFactory,
+                                             IImportCardAggregateService importCardAggregateService)
         {
             _userContext = userContext;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
@@ -58,11 +58,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integrati
             using (var scope = _scopeFactory.CreateNonCoupled<ImportCardIdentity>())
             {
                 var changesContext = _importCardAggregateService.ImportCards(cardServiceBusDtos,
-                                                                      _userContext.Identity.Code,
-                                                                      _securityServiceUserIdentifier.GetReserveUserIdentity().Code,
-                                                                      ids,
-                                                                      _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
-                                                                      _msCrmSettings.EnableReplication);
+                                                                             _userContext.Identity.Code,
+                                                                             _securityServiceUserIdentifier.GetReserveUserIdentity().Code,
+                                                                             ids,
+                                                                             _integrationLocalizationSettings.RegionalTerritoryLocaleSpecificWord,
+                                                                             _msCrmSettings.EnableReplication);
 
                 scope.ApplyChanges<Firm>(changesContext)
                      .ApplyChanges<FirmAddress>(changesContext)

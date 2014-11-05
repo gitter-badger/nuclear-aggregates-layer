@@ -126,14 +126,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
                 .Single();
 
             var parintData = new PrintData
-                {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate) },
-                    { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
-                    { "ElectronicMedia", stuff.ElectronicMedia },
-                    { "Firm.Name", stuff.FirmName },
-                    { "PaymentMethod", ((PaymentMethod)stuff.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) },
-                    { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
-                };
+                                 {
+                                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate) },
+                                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
+                                     { "ElectronicMedia", stuff.ElectronicMedia },
+                                     { "Firm.Name", stuff.FirmName },
+                                     {
+                                         "PaymentMethod",
+                                         stuff.PaymentMethod != 0
+                                             ? ((PaymentMethod)stuff.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
+                                             : string.Empty
+                                     },
+                                     { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
+                                 };
 
             return PrintData.Concat(categories, parintData);
         }

@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBargainViewModel : EntityViewModelBase<Bargain>, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class MultiCultureBargainViewModel : EntityViewModelBase<Bargain>, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         #region Meaningful data
 
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             BargainEndDate = modelDto.BargainEndDate;
             BargainKind = modelDto.BargainKind;
             Timestamp = modelDto.Timestamp;
-            UserCanWorkWithAdvertisingAgencies = modelDto.UserCanWorkWithAdvertisingAgencies;
+            UserCanWorkWithAdvertisingAgencies = false;
             IsLegalPersonChoosingDenied = modelDto.IsLegalPersonChoosingDenied;
             IsBranchOfficeOrganizationUnitChoosingDenied = modelDto.IsBranchOfficeOrganizationUnitChoosingDenied;
             ClientId = modelDto.ClientId;
@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     BargainKind = BargainKind,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp,
-                    UserCanWorkWithAdvertisingAgencies = UserCanWorkWithAdvertisingAgencies,
+                    UserCanWorkWithAdvertisingAgencies = false,
                     IsLegalPersonChoosingDenied = IsLegalPersonChoosingDenied,
                     IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied,
                     ClientId = ClientId

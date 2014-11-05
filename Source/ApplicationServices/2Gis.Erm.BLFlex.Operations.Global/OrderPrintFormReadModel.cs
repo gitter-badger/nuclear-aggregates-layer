@@ -29,7 +29,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
                                   DestOrganizationUnitId = order.DestOrganizationUnitId,
                                   FirmId = order.FirmId,
                                   LegalPersonProfileId = order.LegalPersonProfileId,
-                                  BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId
+                                  BranchOfficeId = order.BranchOfficeOrganizationUnit.BranchOfficeId,
+                                  IsOrderWithDiscount = order.DiscountSum.HasValue && order.DiscountSum.Value > 0
                               })
                           .Single();
         }

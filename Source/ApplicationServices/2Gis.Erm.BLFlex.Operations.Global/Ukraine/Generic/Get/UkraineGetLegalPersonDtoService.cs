@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
@@ -14,8 +15,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get
     {
         public UkraineGetLegalPersonDtoService(IUserContext userContext,
                                                IClientReadModel clientReadModel,
-                                               ILegalPersonReadModel legalPersonReadModel)
-            : base(userContext, clientReadModel, legalPersonReadModel)
+                                               ILegalPersonReadModel legalPersonReadModel,
+                                               IDealReadModel dealReadModel)
+            : base(userContext, clientReadModel, legalPersonReadModel, dealReadModel)
         {
         }
 

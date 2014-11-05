@@ -162,21 +162,21 @@ SWIFT {5}
 </value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
-    <value>Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}», указанные в Прайс-листе на дату размещения рекламы.</value>
+    <value>Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}»*.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Электронное СМИ: «{0}» (версия для ПК и мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ с  № {2} по № {3}.
+    <value>1. Электронное СМИ: «{0}» (версия для ПК и мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.
 2. Интернет-площадка 2gis.ru на основе Справочника организаций «{0}».
-3. Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}», указанные в Прайс-листе на дату размещения рекламы.</value>
+3. Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}»*.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Электронное СМИ: «{0}» (мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ с  № {2} по № {3}.</value>
+    <value>Электронное СМИ: «{0}» (мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Интернет-площадка по адресу 2gis.ru на основе Справочника организаций «{0}».</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Электронное СМИ: «{0}» (версия для ПК). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ с  № {2} по № {3}.</value>
+    <value>Электронное СМИ: «{0}» (версия для ПК). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>8.</value>
@@ -190,12 +190,6 @@ SWIFT {5}
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
     <value>Юридическое лицо указаного в профиле типа '{0}' не может действовать на основании {1}</value>
-  </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>В заказе не указано Юр. лицо исполнителя. Невозможно выбрать печатную форму.</value>
-  </data>
-  <data name="OrderTotalAmountIsZero" xml:space="preserve">
-    <value>Итоговая стоимость заказа нулевая, печать невозможна</value>
   </data>
   <data name="ContributionTypeIsNotSet" xml:space="preserve">
     <value>Не определена форма сотрудничества у отделения организации с id [{0}]</value>
@@ -216,18 +210,16 @@ SWIFT {5}
     <value>Nazev pravnicke osoby:</value>
   </data>
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8.</value>
+    <value></value>
   </data>
   <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7.</value>
+    <value></value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-9.</value>
+    <value>9. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>7. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-8.</value>
+    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>Индивидуальный предприниматель с указанным RUT уже существует</value>
@@ -414,5 +406,81 @@ SWIFT {5}
   </data>
   <data name="VerificationTitle" xml:space="preserve">
     <value>Выверка ЭРМ</value>
+  </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>С данным клиентом работает рекламное агентство:</value>
+  </data>
+  <data name="QuotedValue" xml:space="preserve">
+    <value>«{0}»</value>
+  </data>
+  <data name="AddressWithReferencePoint" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressSingle" xml:space="preserve">
+    <value>адрес привязки: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressMultiple" xml:space="preserve">
+    <value>адреса привязки: {0}</value>
+  </data>
+  <data name="PositionNameFormatCategorySingle" xml:space="preserve">
+    <value>размещается в рубрике: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресу {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressCategoryMultiple" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресам {1}</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultiple" xml:space="preserve">
+    <value>размещается в рубриках: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategorySingle" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресу: {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategoryMultiple" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресам: {1}</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultipleAsterix" xml:space="preserve">
+    <value>размещается в рубриках: {0}</value>
+  </data>
+  <data name="PositionNameFormatThemeMultiple" xml:space="preserve">
+    <value>размещается в разделе темы месяца: {0}</value>
+  </data>
+  <data name="PositionNameFormatCompositeDetalization" xml:space="preserve">
+    <value>в составе которого: </value>
+  </data>
+  <data name="UnsupportedPositionBindingObjectType" xml:space="preserve">
+    <value>Описание для позиции с типом привязки {0} не задано</value>
+  </data>
+  <data name="CannotFindActivity" xml:space="preserve">
+    <value>Действие с ID {0} не найдено.</value>
+    <comment>Действие с ID {0} не найдено.</comment>
+  </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>Создание региональных заказов не поддерживается</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
   </data>
 </root>

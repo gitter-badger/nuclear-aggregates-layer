@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -18,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Resources.Server;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPersons
 {
@@ -52,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPerso
         {
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LegalPersonChangeRequisites, _userContext.Identity.Code))
             {
-                throw new NotificationException(BLResources.AccessDenied);
+                throw new OperationAccessDeniedException(ChangeRequisitesIdentity.Instance);
             }
 
             string ipnFormatError;
@@ -62,6 +64,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPerso
             }
 
             var entity = _legalPersonReadModel.GetLegalPerson(request.LegalPersonId);
+            if (!entity.IsActive)
+            {
+                throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
+            }
+
             var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
 
             // TODO {all, 26.02.2014}: Возможно, стоит кидать ошибку, если к нам пришло что-то кроме ИП и Юр. лица

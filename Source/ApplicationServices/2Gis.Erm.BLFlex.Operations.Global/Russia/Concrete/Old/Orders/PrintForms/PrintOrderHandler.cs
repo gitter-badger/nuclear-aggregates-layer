@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLFlexResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             var templateCode = GetTemplateCode(request, orderInfo);

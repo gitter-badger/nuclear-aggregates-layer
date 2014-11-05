@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
                     SecureFinder = Mock.Of<ISecureFinder>();
 
-                    UkraineGetLegalPersonDtoService = new UkraineGetLegalPersonDtoService(UserContext, ClientReadModel, LegalPersonReadModel);
+                    UkraineGetLegalPersonDtoService = new UkraineGetLegalPersonDtoService(UserContext, ClientReadModel, LegalPersonReadModel, null);
                 };
 
             Because of = () =>

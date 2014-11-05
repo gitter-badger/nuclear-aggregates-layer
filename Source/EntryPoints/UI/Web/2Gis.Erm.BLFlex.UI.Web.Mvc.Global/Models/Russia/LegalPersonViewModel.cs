@@ -102,7 +102,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [StringLengthLocalized(512)]
         public string RegistrationAddress { get; set; }
 
-
         [RequiredLocalized]
         public LookupField Client { get; set; }
 

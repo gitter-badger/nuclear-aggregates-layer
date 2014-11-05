@@ -1,0 +1,114 @@
+﻿
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureDealViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <link rel="stylesheet" type="text/css" href="/Content/time-period.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/input-overlay.css?@SolutionInfo.ProductVersion.Build" />
+    <style type="text/css">
+        .wide-labels div.label-wrapper { width: 180px; }
+    </style>
+
+    <script src="/Scripts/Ext.DoubleGis.UI.Deal.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    @if (Model != null)
+    {
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.ReplicationCode)
+        @Html.HiddenFor(m => m.DealStage)
+
+        @* used to create dynamics crm activities *@
+        @Html.HiddenFor(m => m.ClientReplicationCode)
+        @Html.HiddenFor(m => m.ClientName)
+    }
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
+        </div>
+        @Html.SectionHead("section", BLResources.DealFinancialIndicatorsHead)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true })
+        </div>
+        @Html.SectionHead("detailsForOrders", BLResources.DetailsForOrders)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew })
+        </div>
+    </div>
+    <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.StartReason, FieldFlex.lone, new Dictionary<string, object>{{"disabled", "disabled"}}, EnumResources.ResourceManager)
+        </div>
+        @Html.SectionHead("sectionCloseReason", BLResources.DealCloseInfoHead)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CloseReason, FieldFlex.lone, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CloseReasonOther, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 }, { "disabled", "disabled" } })
+        </div>
+    </div>
+    <div class="Tab" id="AdvertisementCampaignTab" title="@BLResources.AdvertisingCampaign">
+        @Html.SectionHead("advertisingCampaignDetails", BLResources.AdvertisingCampaign)
+        <div class="row-wrapper">
+            <div class="display-wrapper field-wrapper twins">
+                <div class="label-wrapper">
+                    <span>@BLResources.AdvertisingCampaignPeriod:</span>
+                </div>
+                <div class="input-wrapper">
+                    <table class="time-period">
+                        <tr>
+                            <td class="time-period-date">@Html.DateFor(m => m.AdvertisingCampaignBeginDate, new DateTimeSettings { ShiftOffset = false })</td>
+                            <td class="time-period-span">-</td>
+                            <td class="time-period-date">@Html.DateFor(m => m.AdvertisingCampaignEndDate, new DateTimeSettings { ShiftOffset = false })</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PaymentFormat, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            <div class="display-wrapper field-wrapper twins">
+                <div class="label-wrapper">
+                    <span>@MetadataResources.AgencyFee:</span>
+                </div>
+                <div class="input-wrapper input-overlay-parent">
+                    @Html.TextBoxFor(m => m.AgencyFee, new Dictionary<string, object> { { "class", "inputfields" } })
+                    @Html.ValidationMessageFor(m => m.AgencyFee, null, new Dictionary<string, object> { { "class", "error" } })
+                    <div class="input-overlay">%</div>
+                </div>
+            </div>
+        </div>
+        @Html.SectionHead("advertisingCampaignGoals", BLResources.AdvertisingCampaignGoals)
+        <div class="row-wrapper wide-labels">
+            @Html.TemplateField(m => m.IncreaseSalesGoal, FieldFlex.quadruplet)
+            @Html.TemplateField(m => m.AttractAudienceToSiteGoal, FieldFlex.quadruplet)
+            @Html.TemplateField(m => m.IncreasePhoneCallsGoal, FieldFlex.quadruplet)
+            @Html.TemplateField(m => m.IncreaseBrandAwarenessGoal, FieldFlex.quadruplet)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdvertisingCampaignGoalText, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
+        </div>
+    </div>
+}
+
+@RenderBody()

@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureOrderViewModel : EntityViewModelBase<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class MultiCultureOrderViewModel : EntityViewModelBase<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||
@@ -41,8 +41,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         [RequiredLocalized]
         public LookupField Firm { get; set; }
 
-        public LookupField Client { get; set; }
-
         [Dependency(DependencyType.ReadOnly, "SourceOrganizationUnit",
             "(this.value && this.value.toLowerCase()=='true')||(Ext.getDom('Id').value=='0'&&Ext.getCmp('SourceOrganizationUnit').getValue()!=undefined)")]
         [Dependency(DependencyType.ReadOnly, "DestinationOrganizationUnit", "this.value && this.value.toLowerCase()=='true'")]
@@ -65,11 +63,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         public bool HasDestOrganizationUnitPublishedPrice { get; set; }
 
         public bool HasOrderBranchOfficeOrganizationUnitSelection { get; set; }
-        public bool HasOrderCreationExtended { get; set; }
         public bool CanEditOrderType { get; set; }
         public bool HasOrderDocumentsDebtChecking { get; set; }
 
         [RequiredLocalized]
+        [Dependency(DependencyType.ReadOnly, "BranchOfficeOrganizationUnit", "!Ext.getCmp('SourceOrganizationUnit').getValue()")]
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||
                                                              (Ext.getDom('Id').value!==0 && Ext.getCmp('SourceOrganizationUnit').getValue().id==Ext.getCmp('DestinationOrganizationUnit').getValue().id)||
@@ -88,6 +86,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public LookupField LegalPerson { get; set; }
         public LookupField LegalPersonProfile { get; set; }
+
+        public LookupField Deal { get; set; }
+
+        public long? DealCurrencyId { get; set; }
 
         [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
         [DisplayNameLocalized("BeginReleaseDate")]
@@ -138,6 +140,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public long? DgppId { get; set; }
 
+        [Dependency(DependencyType.ReadOnly, "LegalPerson", "!this.value")]
         public long? ClientId { get; set; }
 
         public decimal PayablePrice { get; set; }
@@ -153,6 +156,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public decimal AmountWithdrawn { get; set; }
 
+        [Dependency(DependencyType.ReadOnly, "Bargain", "!Ext.getCmp('LegalPerson').getValue() || !Ext.getCmp('BranchOfficeOrganizationUnit').getValue()")]
         public LookupField Bargain { get; set; }
 
         [CustomClientValidation("validateDiscountSum", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "MustBePositive")]
@@ -225,7 +229,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             OrderNumber = modelDto.OrderNumber;
             RegionalNumber = modelDto.RegionalNumber;
             Firm = LookupField.FromReference(modelDto.FirmRef);
-            Client = LookupField.FromReference(modelDto.ClientRef);
             ClientId = modelDto.ClientRef != null ? modelDto.ClientRef.Id : null;
             DgppId = modelDto.DgppId;
             HasAnyOrderPosition = modelDto.HasAnyOrderPosition;
@@ -234,6 +237,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             DestinationOrganizationUnit = LookupField.FromReference(modelDto.DestOrganizationUnitRef);
             BranchOfficeOrganizationUnit = LookupField.FromReference(modelDto.BranchOfficeOrganizationUnitRef);
             LegalPerson = LookupField.FromReference(modelDto.LegalPersonRef);
+            Deal = LookupField.FromReference(modelDto.DealRef);
+            DealCurrencyId = modelDto.DealCurrencyId;
             LegalPersonProfile = LookupField.FromReference(modelDto.LegalPersonProfileRef);
             Currency = LookupField.FromReference(modelDto.CurrencyRef);
             BeginDistributionDate = modelDto.BeginDistributionDate;
@@ -290,6 +295,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     HasDestOrganizationUnitPublishedPrice = HasDestOrganizationUnitPublishedPrice,
                     BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
                     LegalPersonRef = LegalPerson.ToReference(),
+                    DealRef = Deal.ToReference(),
+                    DealCurrencyId = DealCurrencyId,
                     LegalPersonProfileRef = LegalPersonProfile.ToReference(),
                     CurrencyRef = Currency.ToReference(),
                     BeginDistributionDate = BeginDistributionDate,

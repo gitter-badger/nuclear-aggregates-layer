@@ -146,18 +146,18 @@
     <value>Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Medios de comunicación: &quot;{0}&quot; (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
+    <value>1. Medios de comunicación: "{0}" (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
 2. Plataforma web 2gis.cl.
 3. Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Medios de comunicación: &quot;{0}&quot; (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: "{0}" (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Plataforma web con la dirección 2gis.cl</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Medios de comunicación: &quot;{0}&quot; (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: "{0}" (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>8.</value>
@@ -167,16 +167,10 @@
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Imposible crear la orden de compra para la persona jurídica &apos;{0}&apos; especificada en el perfil</value>
+    <value>Imposible crear la orden de compra para la persona jurídica '{0}' especificada en el perfil</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>La persona jurídica del tipo especificado en el perfil &apos;{0}&apos; no puede actuar en base a {1}</value>
-  </data>
-  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>En el  pedido no está especificada la Personalidad jurídica del ejecutor. Es imposible seleccionar una forma impresa.</value>
-  </data>
-  <data name="OrderTotalAmountIsZero" xml:space="preserve">
-    <value>El importe total de la orden es igual a cero, imposible imprimir</value>
+    <value>La persona jurídica del tipo especificado en el perfil '{0}' no puede actuar en base a {1}</value>
   </data>
   <data name="ContributionTypeIsNotSet" xml:space="preserve">
     <value>No se ha definido la forma de colaboración de la sucursal de la entidad con el id [{0}]</value>
@@ -392,6 +386,82 @@
     <value>Verificación de elemento del material publicitario</value>
   </data>
   <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
-    <value>Операция редактирования коммуны не поддерживается системой</value>
+    <value>Operación de edición de la comuna no está soportada por el sistema</value>
+  </data>
+  <data name="QuotedValue" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AddressWithReferencePoint" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressSingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultipleAsterix" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatThemeMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCompositeDetalization" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UnsupportedPositionBindingObjectType" xml:space="preserve">
+    <value>Descripción para la posición con el tipo de enlace {0} no está indicado</value>
+  </data>
+  <data name="CannotFindActivity" xml:space="preserve">
+    <value>Actividad con ID {0} no fue encontrada..</value>
+    <comment>Действие с ID {0} не найдено.</comment>
+  </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>No se permite crear las ordenes regionales</value>
+  </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>Con este cliente trabaja la agencia de publicidad:</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
   </data>
 </root>

@@ -2,11 +2,13 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -100,7 +102,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
 
         public PrintData GetOrderPositions(IQueryable<Order> orderQuery, IQueryable<OrderPosition> query)
         {
-            return _printOrderHelper.GetOrderPositions(orderQuery, query);
+            return _printOrderHelper.GetOrderPositionsWithDetailedName(orderQuery, query);
         }
 
         public PrintData GetUngrouppedFields(IQueryable<Order> query, BranchOfficeOrganizationUnit branchOfficeOrganizationUnit, LegalPerson legalPerson, LegalPersonProfile legalPersonProfile, TemplateCode templateCode)
@@ -122,6 +124,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                 })
                 .Single();
 
+            var platforms = query.SelectMany(order => order.OrderPositions)
+                                 .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                                 .Select(position => (PlatformEnum)position.PricePosition.Position.Platform.DgppId)
+                                 .Distinct()
+                                 .ToArray();
+
             return new PrintData
                 {
                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(data.BeginDistributionDate) },
@@ -133,6 +141,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                     { "TechnicalTerminationParagraph", GetTechnicalTerminationParagraph(data.Order, data.TerminatedOrder, templateCode) },
                     { "DiscountSum", data.discountSum },
                     { "PriceWithoutDiscount", data.discountSum + data.PayablePlan },
+                    { "UseAsteriskParagraph", platforms.Contains(PlatformEnum.Independent) || platforms.Contains(PlatformEnum.Api) },
                 };
         }
 

@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
@@ -13,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
     public class ListLegalPersonProfileService : ListEntityDtoServiceBase<LegalPersonProfile, ListLegalPersonProfileDto>, IRussiaAdapted, ICyprusAdapted,
-                                                 IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+                                                 IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IFinder _finder;
@@ -46,12 +45,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                     LegalPersonId = x.LegalPersonId,
                     OwnerName = null,
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                            });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListLegalPersonProfileDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -24,59 +25,50 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
     {
         private static readonly IEnumerable<Tuple<string, TemplateCode>> DocumentVariants = new List<Tuple<string, TemplateCode>>
             {
-                Tuple.Create("en", TemplateCode.BargainLegalPerson),
-                Tuple.Create("en-AE", TemplateCode.BargainLegalPersonAlternativeLanguage)
+                Tuple.Create("en", TemplateCode.ClientBargain),
+                Tuple.Create("en-AE", TemplateCode.ClientBargainAlternativeLanguage)
             };
 
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
+        private readonly IOrderReadModel _orderReadModel;
 
-        public PrintOrderBargainHandler(IFinder finder, ISubRequestProcessor requestProcessor)
+        public PrintOrderBargainHandler(IFinder finder, ISubRequestProcessor requestProcessor, IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
+            _orderReadModel = orderReadModel;
         }
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var orderInfo =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                       .Select(order => new
-                           {
-                               CurrencyIsoCode = order.Currency.ISOCode,
-                               order.BranchOfficeOrganizationUnitId,
-                               order.BargainId,
-                               order.LegalPersonProfileId,
-                               BargainNumber = order.Bargain.Number,
+            var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
+
+            if (bargainId == null)
+            {
+                throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+            }
+
+            var bargainInfo =
+                _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
+                       .Select(x => new
+            {
+                               BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
+                               BargainNumber = x.Number,
                            })
                        .SingleOrDefault();
 
-            if (orderInfo == null)
+            if (bargainInfo == null)
             {
-                throw new EntityNotFoundException(typeof(Order), request.OrderId);
+                throw new EntityNotFoundException(typeof(Bargain), bargainId.Value);
             }
 
-            if (orderInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
-
-            if (orderInfo.BargainId == null)
-            {
-                throw new EntityNotLinkedException(typeof(Order), request.OrderId, typeof(Bargain));
-            }
-
-            if (orderInfo.BranchOfficeOrganizationUnitId == null)
-            {
-                throw new EntityNotLinkedException(typeof(Order), request.OrderId, typeof(BranchOfficeOrganizationUnit));
-            }
-
-            var printdata = GetPrintData(request.OrderId, orderInfo.LegalPersonProfileId.Value);
+            var legalPersonProfileId = request.LegalPersonProfileId;
+            var printdata = GetPrintData(bargainId.Value, legalPersonProfileId);
             var streamDictionary = DocumentVariants.Select(variant => PrintDocument(printdata,
-                                                                                    orderInfo.CurrencyIsoCode,
-                                                                                    orderInfo.BranchOfficeOrganizationUnitId.Value,
+                                                                                    bargainInfo.BranchOfficeOrganizationUnitId,
                                                                                     variant.Item2,
-                                                                                    orderInfo.BargainNumber,
+                                                                                    bargainInfo.BargainNumber,
                                                                                     variant.Item1))
                                                    .ToDictionary(response => response.FileName, response => response.Stream)
                                                    .ZipStreamDictionary();
@@ -85,43 +77,43 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
             {
                 Stream = streamDictionary,
                 ContentType = MediaTypeNames.Application.Zip,
-                FileName = string.Format("{0}.zip", orderInfo.BargainNumber)
+                FileName = string.Format("{0}.zip", bargainInfo.BargainNumber)
             };
         }
 
-        private object GetPrintData(long orderId, long legalPersonProfileId)
+        private object GetPrintData(long bargainId, long legalPersonProfileId)
         {
             var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId));
-            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => new
+            var data = _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+                          .Select(x => new
                               {
                                   Bargain = new
                                       {
-                                          order.Bargain.Number,
-                                          order.Bargain.SignedOn,
+                                          x.Number,
+                                          x.SignedOn,
                                       },
 
                                   BranchOfficeOrganizationUnit = new
                                       {
-                                          order.BranchOfficeOrganizationUnit.ShortLegalName,
-                                          order.BranchOfficeOrganizationUnit.PositionInNominative,
-                                          order.BranchOfficeOrganizationUnit.ChiefNameInNominative,
-                                          order.BranchOfficeOrganizationUnit.PostalAddress,
-                                          order.BranchOfficeOrganizationUnit.PhoneNumber,
-                                          order.BranchOfficeOrganizationUnit.PaymentEssentialElements,
+                                          x.BranchOfficeOrganizationUnit.ShortLegalName,
+                                          x.BranchOfficeOrganizationUnit.PositionInNominative,
+                                          x.BranchOfficeOrganizationUnit.ChiefNameInNominative,
+                                          x.BranchOfficeOrganizationUnit.PostalAddress,
+                                          x.BranchOfficeOrganizationUnit.PhoneNumber,
+                                          x.BranchOfficeOrganizationUnit.PaymentEssentialElements,
                                       },
 
                                   BranchOffice = new
                                       {
-                                          order.BranchOfficeOrganizationUnit.BranchOffice.Inn,
-                                          order.BranchOfficeOrganizationUnit.BranchOffice.LegalAddress,
+                                          x.BranchOfficeOrganizationUnit.BranchOffice.Inn,
+                                          x.BranchOfficeOrganizationUnit.BranchOffice.LegalAddress,
                                       },
 
                                   LegalPerson = new
                                       {
-                                          order.LegalPerson.LegalName,
-                                          order.LegalPerson.LegalAddress,
-                                          order.LegalPerson.Inn,
+                                          x.LegalPerson.LegalName,
+                                          x.LegalPerson.LegalAddress,
+                                          x.LegalPerson.Inn,
                                       },
                               })
                           .Single();
@@ -147,11 +139,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
             };
         }
 
-        private StreamResponse PrintDocument(object printData, short currencyIsoCode, long boouId, TemplateCode templateCode, string bargainNumber, string documentSuffix)
+        private StreamResponse PrintDocument(object printData, long boouId, TemplateCode templateCode, string bargainNumber, string documentSuffix)
         {
             var request = new PrintDocumentRequest
                 {
-                    CurrencyIsoCode = currencyIsoCode,
                     BranchOfficeOrganizationUnitId = boouId,
                     TemplateCode = templateCode,
                     FileName = bargainNumber + "." + documentSuffix,

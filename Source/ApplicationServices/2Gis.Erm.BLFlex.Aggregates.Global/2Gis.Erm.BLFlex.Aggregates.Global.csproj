@@ -64,6 +64,8 @@
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\IBankReadModel.cs" />
     <Compile Include="Emirates\Orders\EmiratesOrderReadModel.cs" />
     <Compile Include="Emirates\SimplifiedModel\CreateAcceptanceReportsJournalRecordService.cs" />
+    <Compile Include="Kazakhstan\Crosscutting\KazakhstanBinInnService.cs" />
+    <Compile Include="Kazakhstan\LegalPerson\ReadModel\KazakhstanLegalPersonReadModel.cs" />
     <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
     <Compile Include="MultiCulture\Firms\Operations\MultiCultureImportCardAggregateService.cs" />
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
@@ -108,6 +110,10 @@
       <Project>{53B07CCC-9824-480F-833C-39A2F9A3314B}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
@@ -143,6 +149,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Aggregates.Global\2Gis.Erm.BLFlex.API.Aggregates.Global.csproj">
       <Project>{3DBCA11C-C295-4A54-8E64-60473575EFF8}</Project>

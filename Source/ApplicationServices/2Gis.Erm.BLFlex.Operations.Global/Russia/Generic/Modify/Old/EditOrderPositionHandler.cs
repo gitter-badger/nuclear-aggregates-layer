@@ -5,8 +5,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -82,7 +80,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     x.FirmId,
                     x.WorkflowStepId,
                     x.ReleaseCountFact,
-                    x.DealId,
                     x.EndDistributionDateFact,
                     x.OwnerCode,
                     x.SourceOrganizationUnitId,
@@ -314,11 +311,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             if (entity.Amount != 1)
             {
                 throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithCountNotEqualToOne);
-            }
-
-            if (entity.DiscountSum != 0 || entity.DiscountPercent != 0)
-            {
-                throw new NotificationException(BLResources.AttemptToSaveBudgeteOrderPositionWithNonZeroValueOfDiscount);
             }
 
             if (entity.PricePerUnitWithVat < 0 || entity.PricePerUnitWithVat < 0)

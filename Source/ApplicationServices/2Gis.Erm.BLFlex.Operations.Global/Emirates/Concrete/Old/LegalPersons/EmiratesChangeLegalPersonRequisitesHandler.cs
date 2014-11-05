@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Concrete.Old.LegalPersons;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -17,6 +18,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Resources.Server;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.LegalPersons
 {
@@ -53,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.LegalPers
         {
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LegalPersonChangeRequisites, _userContext.Identity.Code))
             {
-                throw new NotificationException(BLResources.AccessDenied);
+                throw new OperationAccessDeniedException(ChangeRequisitesIdentity.Instance);
             }
 
             string ipnFormatError;
@@ -64,6 +66,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.LegalPers
 
             var entity = _legalPersonReadModel.GetLegalPerson(request.LegalPersonId);
 
+            if (!entity.IsActive)
+            {
+                throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
+            }
+
             if (string.IsNullOrEmpty(request.LegalAddress))
             {
                 throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
@@ -73,8 +80,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.LegalPers
             entity.LegalAddress = request.LegalAddress;
             entity.Inn = request.CommercialLicense;
 
-            // FIXME {y.baranihin, 04.06.2014}: Use entity.Within<EmiratesLegalPersonPart>().SetPropertyValue(x => x.CommercialLicenseBeginDate, request.CommercialLicenseBeginDate) syntax
-            // DONE {d.ivanov, 04.06.2014}: ok
             entity.Within<EmiratesLegalPersonPart>().SetPropertyValue(x => x.CommercialLicenseBeginDate, request.CommercialLicenseBeginDate);
             entity.Within<EmiratesLegalPersonPart>().SetPropertyValue(x => x.CommercialLicenseEndDate, request.CommercialLicenseEndDate);
 

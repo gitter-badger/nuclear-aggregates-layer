@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                                           LegalPersonId = bill.Order.LegalPersonId,
                                           LegalPersonProfileId = bill.Order.LegalPersonProfileId,
                                           bill.Order.BranchOfficeOrganizationUnitId,
-                                          BranchOfficeOrganizationUnitVatRate = bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                          BranchOfficeOrganizationUnitVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
 
                                           Order = new
                                               {
@@ -78,6 +79,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                 throw new NotificationException(BLResources.LegalPersonNotFound);
             }
 
+            if (billInfo.BranchOfficeOrganizationUnitId == null)
+            {
+                throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
+            }
+
             if (billInfo.LegalPersonProfileId == null)
             {
                 throw new LegalPersonProfileMustBeSpecifiedException();
@@ -97,7 +103,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                             billInfo.Order.Number,
                             billInfo.Order.SignupDate,
                             billInfo.Order.PaymentMethod,
-                            billInfo.BranchOfficeOrganizationUnitVatRate,
+                            billInfo.BranchOfficeOrganizationUnitVatRate.Value,
                             billInfo.Order.DiscountPercent
                         },
 

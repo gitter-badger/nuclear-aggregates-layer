@@ -22,20 +22,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
                 return;
             }
 
-            if (entityViewModel.IsDeleted || !entityViewModel.IsActive)
-            {
-                entityViewModel.MessageType = (MessageType)(entityViewModel.IsDeleted
-                                                  ? (int)MessageType.CriticalError
-                                                  : !entityViewModel.IsActive ? (int)MessageType.Warning : (int)MessageType.None);
-
-                entityViewModel.Message = entityViewModel.IsDeleted
-                                    ? BLResources.LegalPersonIsDeletedAlertText
-                                    : !entityViewModel.IsActive ? BLResources.LegalPersonIsInactiveAlertText : string.Empty;
-            }
-
             if (!entityViewModel.HasProfiles)
             {
                 entityViewModel.SetWarning(BLResources.MustMakeLegalPersonProfile);
+            }
+
+            if (entityViewModel.IsDeleted || !entityViewModel.IsActive)
+            {
+                entityViewModel.MessageType = (MessageType)(entityViewModel.IsDeleted
+                                                                ? (int)MessageType.CriticalError
+                                                                : !entityViewModel.IsActive ? (int)MessageType.Warning : (int)MessageType.None);
+
+                entityViewModel.Message = entityViewModel.IsDeleted
+                                              ? BLResources.LegalPersonIsDeletedAlertText
+                                              : !entityViewModel.IsActive ? BLResources.LegalPersonIsInactiveAlertText : string.Empty;
             }
         }
     }
