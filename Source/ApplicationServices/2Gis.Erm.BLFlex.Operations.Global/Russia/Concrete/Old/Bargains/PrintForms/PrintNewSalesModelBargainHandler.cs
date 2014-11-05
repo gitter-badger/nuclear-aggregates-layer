@@ -42,8 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
         {
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
 
-            var relations = _readModel.GetBargainRelationsDto(bargainId.Value); //checkme: request.OrderId
-            var printData = GetPrintData(request, relations, bargainId.Value);
+            var relations = _readModel.GetBargainRelationsDto(bargainId.Value);
 
             if (relations.BranchOfficeOrganizationUnitId == null)
             {
@@ -54,9 +53,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
             {
                 throw new LegalPersonProfileMustBeSpecifiedException();
             }
-            
-            var printData = GetPrintData(request, relations);
 
+            var printData = GetPrintData(request, relations, bargainId.Value);
 
             var printRequest = new PrintDocumentRequest
                 {
@@ -72,9 +70,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
 
         private PrintData GetPrintData(PrintNewSalesModelBargainRequest request, BargainRelationsDto relations, long bargainId)
         {
-            var profileId = request.LegalPersonProfileId.HasValue ? request.LegalPersonProfileId.Value : relations.MainLegalPersonProfileId;
+            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
+            var profileId = request.BargainId.HasValue ? request.LegalPersonProfileId : relations.LegalPersonProfileId.Value;  
             var legalPerson = _legalPersonReadModel.GetLegalPerson(relations.LegalPersonId.Value);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(relations.LegalPersonProfileId.Value); //checkme: идентификатор профиля должен приходить снаружи, не из заказа
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(relations.BranchOfficeOrganizationUnitId.Value);
 
             var bargainQuery = _readModel.GetBargainQuery(bargainId);

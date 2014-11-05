@@ -73,7 +73,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
         }
 
         private PrintData GetPrintData(PrintOrderBargainRequest request, BargainRelationsDto relations, long bargainId)
-            {
+        {
+            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
             var profileId = request.LegalPersonProfileId;
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(relations.LegalPersonId.Value);

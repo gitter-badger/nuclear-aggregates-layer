@@ -36,6 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                                            : OrderSpecs.Bargains.Find.ByOrder(request.OrderId.Value);
             var bargain = _finder.FindOne(bargainSpecification);
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargain.ExecutorBranchOfficeId));
+            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(bargain.CustomerLegalPersonId));
             var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(request.LegalPersonProfileId));
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId));

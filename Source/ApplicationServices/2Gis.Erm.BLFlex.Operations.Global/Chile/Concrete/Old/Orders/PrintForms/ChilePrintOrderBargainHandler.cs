@@ -83,6 +83,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(bargainData.BranchOfficeOrganizationUnitId);
             var boouPart = boou.Parts.OfType<ChileBranchOfficeOrganizationUnitPart>().Single();
             var legalPerson = _legalPersonReadModel.GetLegalPerson(bargainData.LegalPersonId);
+            //checkme: когда печать из договора - профиль идёт снаружи, когда из заказа - профиль заказа. Сейчас relations.LegalPersonProfileId не заполняется.
             var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<ChileLegalPersonProfilePart>().Single();
 
