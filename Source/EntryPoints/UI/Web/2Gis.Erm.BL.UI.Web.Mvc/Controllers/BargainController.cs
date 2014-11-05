@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bargains;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICloseClientBargainsOperationService _closeClientBargainsOperationService;
-        private readonly IFinder _finder;
+        private readonly IOrderReadModel _orderReadModel;
 
         public BargainController(IMsCrmSettings msCrmSettings,
                                  IUserContext userContext,
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                  ICloseClientBargainsOperationService closeClientBargainsOperationService,
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                  IGetBaseCurrencyService getBaseCurrencyService,
-            IFinder finder)
+                                 IOrderReadModel orderReadModel)
             : base(msCrmSettings,
                    userContext,
                    logger,
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             _functionalAccessService = functionalAccessService;
             _closeClientBargainsOperationService = closeClientBargainsOperationService;
-            _finder = finder;
+            _orderReadModel = orderReadModel;
         }
 
         [HttpGet]
@@ -65,17 +66,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public ViewResult SelectLegalPersonProfile(long bargainId)
         {
-            var lp = _finder.Find(Specs.Find.ById<Bargain>(bargainId))
-                            .Select(bargain => bargain.CustomerLegalPersonId)
-                            .Single();
-
-            var lpName = _finder.FindOne(Specs.Find.ById<LegalPerson>(lp))
-                                .ShortName;
+            var dto = _orderReadModel.GetBargainLegalPersonProfile(bargainId);
 
             var model = new SelectLegalPersonProfileViewModel
                             {
-                                LegalPerson = new LookupField { Key = lp, Value = lpName },
-                                LegalPersonProfile = new LookupField()
+                                LegalPerson = dto.LegalPerson.ToLookupField(),
+                                LegalPersonProfile = dto.LegalPersonProfile.ToLookupField()
                             };
 
             return View(model);
