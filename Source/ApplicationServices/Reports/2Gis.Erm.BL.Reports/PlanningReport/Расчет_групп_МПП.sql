@@ -1,11 +1,8 @@
-﻿IF(OBJECT_ID('tempdb..##Users') IS NOT NULL)
-	DROP TABLE ##Users
-
+﻿insert into #Users
 SELECT DISTINCT
 	UserId = mpp.Id
 	, [GmId] = gm.GmId
 	, [IsGM] = CONVERT(BIT, CASE WHEN mpp.Id = gm.GmId THEN 1 ELSE 0 END)
-INTO ##Users
 FROM
 	(
 		SELECT DISTINCT

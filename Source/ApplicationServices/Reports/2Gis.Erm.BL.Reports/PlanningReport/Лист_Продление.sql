@@ -1,12 +1,16 @@
 ﻿--DECLARE
---	@issuedate date = '20120301'
+--	@issuedate date = '20141001'
 --	, @city int = 1
+--	, @IsAdvertisingAgency int = 0
+	
 
 SELECT
 	t.[Куратор]
 	, t.[Фирма]
 	, t.[Город назначения]
 	, t.[№ Бланк-заказа]
+	, t.[Клиент]
+	, t.[Юр. лицо]
 	, t.[К оплате (план)]
 	, t.[К оплате (план) по прайс-листу]
 	, t.[Начало размещения]
@@ -52,6 +56,8 @@ FROM
 			, [Платформа] = p.Name
 			, ROW_NUMBER() OVER (PARTITION BY o.Id ORDER BY b.PaymentDatePlan ASC) rnk
 			, b.PayablePlan
+			, [Клиент] = c.Name
+			, [Юр. лицо] = lp.LegalName
 		FROM
 			Billing.Orders o with(nolock)
 			JOIN Billing.BranchOfficeOrganizationUnits AS boou WITH (NOLOCK) ON boou.Id = o.BranchOfficeOrganizationUnitId

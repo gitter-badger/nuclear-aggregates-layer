@@ -254,18 +254,18 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 sheet.Cells[currentRow, currentColumn = 7].Formula = String.Format("SUMIF('Гарантированные отгрузки'!A:A,B{0},'Гарантированные отгрузки'!H:H)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 8].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!J:J)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 8].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!L:L)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 9].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!K:K)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 9].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!M:M)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 10].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!N:N)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 10].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!P:P)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 11].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!O:O)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 11].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!Q:Q)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
                 sheet.Cells[currentRow, currentColumn = 12].Formula = String.Format("J{0}*$L${1}", currentRow, currentRow - ordinal);
@@ -274,7 +274,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 sheet.Cells[currentRow, currentColumn = 13].Formula = String.Format("K{0}*$M${1}", currentRow, currentRow - ordinal);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
              
-                sheet.Cells[currentRow, currentColumn = 14].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!T:T)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 14].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!V:V)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
                 sheet.Cells[currentRow, currentColumn = 15].Formula = String.Format("COUNTIF('Продление'!A:A,B{0})", currentRow);
@@ -338,7 +338,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 sheet.Cells[currentRow, currentColumn = 38].Formula = String.Format("Y{0}*$AL$2", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 39].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!Q:Q)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 39].Formula = String.Format("SUMIF('Продление'!A:A,B{0},'Продление'!S:S)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
                 sheet.Cells[currentRow, currentColumn = 40].Formula = String.Format("AM{0}*$AN$2", currentRow);
@@ -348,7 +348,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 42].Formula = String.Format("SUMIF('Рассрочки'!A:A,B{0},'Рассрочки'!G:G)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 42].Formula = String.Format("SUMIF('Рассрочки'!A:A,B{0},'Рассрочки'!H:H)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
                 sheet.Cells[currentRow, currentColumn = 43].Formula = String.Format("SUMIF('Поступления по ДЗ'!A:A,B{0},'Поступления по ДЗ'!E:E)", currentRow);
@@ -540,6 +540,9 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             ExcelTable table;
             ExcelRange usedRange;
 
+            // важно, что параметров к запросу нет и он выполняется не внутри sp_executesql
+            Common.ExecuteNonQuery(connection, new ProtectedDictionary(), @"PlanningReport.CreateTemporaryTable.sql");
+
             this.ExecuteNonQuery(connection, @"PlanningReport.Расчет_групп_МПП.sql");
 
             table = FillSheetFromMssql(package.Workbook, "Текущие", @"PlanningReport.Лист_Текущие.sql");
@@ -548,12 +551,12 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             table = FillSheetFromMssql(package.Workbook, "Продление", @"PlanningReport.Лист_Продление.sql");
             usedRange = table.GetDataRange();
 
-            usedRange.Intersect("N:N").Style.Numberformat.Format = "#,##0.00\"р.\"";
-            usedRange.Intersect("O:O").Style.Numberformat.Format = "#,##0.00\"р.\"";
+            usedRange.Intersect("P:P").Style.Numberformat.Format = "#,##0.00\"р.\"";
             usedRange.Intersect("Q:Q").Style.Numberformat.Format = "#,##0.00\"р.\"";
-            usedRange.Intersect("R:R").FormulaR1C1 = "IF(RC[-4]=0,0,RC[-1]/RC[-4])";
-            usedRange.Intersect("S:S").FormulaR1C1 = "IF(RC[-1]=0,0,RC[-1]-RC[-6])";
-            usedRange.Intersect("T:T").FormulaR1C1 = "IF(RC[-6]=0,0,IF(RC[-3]<=RC[-6],RC[-3],RC[-6]))";
+            usedRange.Intersect("S:S").Style.Numberformat.Format = "#,##0.00\"р.\"";
+            usedRange.Intersect("T:T").FormulaR1C1 = "IF(RC[-4]=0,0,RC[-1]/RC[-4])";
+            usedRange.Intersect("U:U").FormulaR1C1 = "IF(RC[-1]=0,0,RC[-1]-RC[-6])";
+            usedRange.Intersect("V:V").FormulaR1C1 = "IF(RC[-6]=0,0,IF(RC[-3]<=RC[-6],RC[-3],RC[-6]))";
 
             table = FillSheetFromMssql(package.Workbook, "Оплаты по ДЗ до 01.12", @"PlanningReport.Лист_Оплаты_по_ДЗ_до_01_12.sql");
             table.WorkSheet.Column(3).Hidden = true;
@@ -569,8 +572,8 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
 
                 rowRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
 
-                var value1 = (decimal?)table.WorkSheet.Cells[i, 4].Value;
-                var value2 = (decimal?)table.WorkSheet.Cells[i, 5].Value;
+                var value1 = (decimal?)table.WorkSheet.Cells[i, 5].Value;
+                var value2 = (decimal?)table.WorkSheet.Cells[i, 6].Value;
 
                 if (value1.HasValue && value2.HasValue)
                 {

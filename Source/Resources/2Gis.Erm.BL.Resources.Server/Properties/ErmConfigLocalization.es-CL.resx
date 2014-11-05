@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Cambiar de supervisor</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Preparar los documentos regionales para publicar</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Cambiar de cliente</value>
   </data>
@@ -637,6 +634,9 @@
     <value>Sucursales de la entidad</value>
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value>Sucursal de la entidad</value>
+  </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
     <value>Sucursal de la entidad</value>
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">
@@ -1338,9 +1338,6 @@
   <data name="EnUserProfile" xml:space="preserve">
     <value>Perfil del usuario</value>
   </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Husos horarios</value>
-  </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Husos horarios</value>
   </data>
@@ -1645,10 +1642,10 @@
     <value>Nuevas órdenes de mis subordinados</value>
   </data>
   <data name="DListOrdersToProlongate" xml:space="preserve">
-    <value>Órdenes que necesitan prórroga</value>
+    <value>Ordenes  que necesitan renovación</value>
   </data>
   <data name="DListOrdersToProlongateForSubordinates" xml:space="preserve">
-    <value>Órdenes de mis subordinados que necesitan prórroga</value>
+    <value>Ordenes de mis subordinados que necesitan renovación</value>
   </data>
   <data name="DListMyOrdersToNextEdition" xml:space="preserve">
     <value>Mis órdenes para el próximo lanzamiento</value>
@@ -1844,6 +1841,30 @@
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Número de documentos</value>
+  </data>
+  <data name="CrdRelClientLinks" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="DListClientLinks" xml:space="preserve">
+    <value>Clientes afiliados</value>
+  </data>
+  <data name="DListClientLinksDeleted" xml:space="preserve">
+    <value>Vínculos cancelados</value>
+  </data>
+  <data name="DListClientLinksMaster" xml:space="preserve">
+    <value>Clientes casa matriz</value>
+  </data>
+  <data name="DListClientsAvailableForLinking" xml:space="preserve">
+    <value>Todos los clientes disponibles para enlazar</value>
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Acuerdo de prolongar el contrato</value>
+  </data>
+  <data name="ControlMakeMain" xml:space="preserve">
+    <value>Establecer como principal</value>
+  </data>
+  <data name="DFieldIsMainLegalPerson" xml:space="preserve">
+    <value>Principal</value>
   </data>
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Сменить профиль</value>

@@ -155,30 +155,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                        : new JsonNetResult(new { currencyInfo.Id, currencyInfo.Name });
         }
 
-        [HttpPost]
-        public JsonNetResult GetBranchOfficeOrganizationUnit(long? organizationUnitid)
-        {
-            if (!organizationUnitid.HasValue)
-            {
-                return new JsonNetResult();
-            }
-
-            var branchOfficeOrganizationUnit = _branchOfficeRepository.GetBranchOfficeOrganizationUnitShortInfo(organizationUnitid.Value);
-            return new JsonNetResult(new { branchOfficeOrganizationUnit.Id, Name = branchOfficeOrganizationUnit.ShortLegalName });
-        }
-
-        [HttpPost]
-        public JsonNetResult GetLegalPerson(long? firmClientId)
-        {
-            if (!firmClientId.HasValue)
-            {
-                return new JsonNetResult();
-            }
-
-            var resp = (GetOrderLegalPersonResponse)_publicService.Handle(new GetOrderLegalPersonRequest { FirmClientId = firmClientId.Value });
-            return new JsonNetResult(new { Id = resp.LegalPersonId, Name = resp.LegalPersonName });
-        }
-
         public JsonNetResult GetHasDestOrganizationUnitPublishedPrice(long? orderId, long? orgUnitId)
         {
             if (!orderId.HasValue || !orgUnitId.HasValue)
@@ -194,19 +170,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                   ou.Prices.Any(price => price.IsPublished && price.IsActive && !price.IsDeleted && price.BeginDate <= beginDistributionDate));
 
             return new JsonNetResult(hasDestOrganizationUnitPublishedPrice);
-        }
-
-        [HttpPost]
-        public JsonNetResult GetDestinationOrganizationUnit(long? firmId)
-        {
-            if (!firmId.HasValue)
-            {
-                return new JsonNetResult();
-            }
-
-            var resp =
-                (GetOrderDestinationOrganizationUnitResponse)_publicService.Handle(new GetOrderDestinationOrganizationUnitRequest { FirmId = firmId.Value });
-            return new JsonNetResult(new { Id = resp.OrganizationUnitId, Name = resp.OrganizationUnitName });
         }
 
         [HttpPost]
@@ -286,7 +249,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _publicService.Handle(new CheckOrderBeginDistributionDateRequest
                 {
                     OrderId = orderId,
-                    BeginDistributionDate = beginDistributionDate,
+                    BeginDistributionDate = beginDistributionDate.Date, // FIXME {all, 29.10.2014}: Костыль на тему часовых посов. Если приходит 2014-01-01T01:00, то это вовсе не значит, что заказ хотят разместить начиная с часу ночи, просто в браузере ФИЗИЧЕСКИ нет возможности выбрать 2014-01-01T00:00
                     SourceOrganizationUnitId = sourceOrganizationUnitId,
                     DestinationOrganizationUnitId = destinationOrganizationUnitId
                 });
@@ -510,7 +473,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
                             Status = (byte)OperationStatus.Success,
-                            Type = (short)OldBusinessOperationType.GetOrdersWithDummyAdvertisements,
+                            Type = (short)BusinessOperation.GetOrdersWithDummyAdvertisements,
                             Description = operationDescription,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };

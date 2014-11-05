@@ -112,6 +112,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
+        public ActionResult PrintBargainProlongationAgreement(long id, long profileId)
+        {
+            return TryPrintDocument(id, profileId, new PrintBargainProlongationAgreementRequest { BargainId = id, LegalPersonProfileId = profileId }, false);
+        }
+
+        [HttpGet]
         public ActionResult PrintReferenceInformation(long id)
         {
             return TryPrintDocument(new PrintReferenceInformationRequest { OrderId = id });
@@ -176,7 +182,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                          OrderId = id,
                                          WithoutReason = true,
                                          TerminationBargain = true
-                                     });
+                                     },
+                                 true);
         }
 
         [HttpGet]
@@ -194,7 +201,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                      {
                                          OrderId = id,
                                          PrintType = PrintAdditionalAgreementTarget.Order
-                                     });
+                                     },
+                                 true);
         }
 
         [HttpGet]
@@ -205,13 +213,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                      {
                                          OrderId = id,
                                          PrintType = PrintAdditionalAgreementTarget.Bargain
-                                     });
+                                     },
+                                 true);
         }
-
+        
         private ActionResult TryPrintDocument(Request printRequest)
         {
             try
             {
+                }
+
                 var response = (StreamResponse)_publicService.Handle(printRequest);
                 return File(response.Stream, response.ContentType, HttpUtility.UrlPathEncode(response.FileName));
             }

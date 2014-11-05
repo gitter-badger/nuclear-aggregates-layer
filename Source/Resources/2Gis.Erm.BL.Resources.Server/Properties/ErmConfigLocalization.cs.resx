@@ -255,9 +255,6 @@
   <data name="ControlAssign" xml:space="preserve">
     <value>Změnit správce</value>
   </data>
-  <data name="ControlMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Vytvořit regionální výtisky</value>
-  </data>
   <data name="ControlChangeClient" xml:space="preserve">
     <value>Změnit klienta</value>
   </data>
@@ -637,6 +634,9 @@
     <value>Oddělení organizace</value>
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
+    <value>Oddělení organizace</value>
+  </data>
+  <data name="DListThemeOrganizationUnit" xml:space="preserve">
     <value>Oddělení organizace</value>
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">
@@ -1338,9 +1338,6 @@
   <data name="EnUserProfile" xml:space="preserve">
     <value>Profil uživatele</value>
   </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Časová pásma</value>
-  </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Časová pásma</value>
   </data>
@@ -1471,7 +1468,7 @@
     <value>Všichni klienti pobočky</value>
   </data>
   <data name="DListClientsForSubordinates" xml:space="preserve">
-    <value>Potenciální klienti mých podřízených</value>
+    <value>Klienti mých podřízených</value>
   </data>
   <data name="DListClientsOnMyTerritory" xml:space="preserve">
     <value>Klienti na mém území</value>
@@ -1555,7 +1552,7 @@
     <value>Firmy v rezervě na mém území</value>
   </data>
   <data name="DListWarmClientsForSubordinates" xml:space="preserve">
-    <value>Možní klienti mých podřízených</value>
+    <value>Potenciální klienti mých podřízených</value>
   </data>
   <data name="DListApprovedByMeLimits" xml:space="preserve">
     <value>Mnou schválené limity</value>
@@ -1669,13 +1666,13 @@
     <value>Plány mých podřízených</value>
   </data>
   <data name="DListActivitiesInProgressForSubordinates" xml:space="preserve">
-    <value>Nadcházející plány mých podřízených</value>
+    <value>Naplánované činnosti mých podřízených</value>
   </data>
   <data name="DListCompletedActivitiesForSubordinates" xml:space="preserve">
     <value>Dokončené plány mých podřízených</value>
   </data>
   <data name="DListMyActivitiesInProgress" xml:space="preserve">
-    <value>Moje nadcházející plány</value>
+    <value>Moje naplánované činnosti</value>
   </data>
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Moje plány na dnešek</value>
@@ -1705,7 +1702,7 @@
     <value>Seznam platných zrušení</value>
   </data>
   <data name="DListOrdersWithDocumentsDebtForNextMonth" xml:space="preserve">
-    <value>Neodsouhlasené objednávky v aktuálním vydání</value>
+    <value>Nepodepsané objednávky v aktuálním vydání</value>
   </data>
   <data name="DListTechnicalTerminatedOrders" xml:space="preserve">
     <value>Seznam technických zrušení</value>
@@ -1844,6 +1841,30 @@
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Počet dokumentů</value>
+  </data>
+  <data name="CrdRelClientLinks" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="DListClientLinks" xml:space="preserve">
+    <value>Zprostředkované klienty</value>
+  </data>
+  <data name="DListClientLinksDeleted" xml:space="preserve">
+    <value>Odstraněná spojení</value>
+  </data>
+  <data name="DListClientLinksMaster" xml:space="preserve">
+    <value>Zprostředkovatelé</value>
+  </data>
+  <data name="DListClientsAvailableForLinking" xml:space="preserve">
+    <value>Všichni klienti, kteří jsou dostupné pro vytvoření spojení</value>
+  </data>
+  <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
+    <value>Dohoda o prodloužení smlouvy</value>
+  </data>
+  <data name="ControlMakeMain" xml:space="preserve">
+    <value>Udělat hlavním</value>
+  </data>
+  <data name="DFieldIsMainLegalPerson" xml:space="preserve">
+    <value>Hlavní</value>
   </data>
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Сменить профиль</value>

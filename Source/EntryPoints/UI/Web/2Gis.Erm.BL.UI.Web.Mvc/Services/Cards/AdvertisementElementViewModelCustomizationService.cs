@@ -34,7 +34,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                 { FasComment.ChildNutrition, () => EnumResources.FasCommentDisplayTextChildNutrition },
                 { FasComment.FinancilaServices, () => EnumResources.FasCommentDisplayTextFinancilaServices },
                 { FasComment.MedsTraditional, () => EnumResources.FasCommentDisplayTextMedsTraditional },
-                { FasComment.Biocides, () => EnumResources.FasCommentDisplayTextBiocides }
+                { FasComment.Biocides, () => EnumResources.FasCommentDisplayTextBiocides },
+
+                { FasComment.UkraineAlcohol, () => EnumResources.FasCommentDisplayTextUkraineAlcohol },
+                { FasComment.UkraineDrugsAndService, () => EnumResources.FasCommentDisplayTextUkraineDrugsAndService },
+                { FasComment.UkraineTobaccoGoods, () => EnumResources.FasCommentDisplayTextUkraineTobaccoGoods },
+
+                { FasComment.ChileAlcohol, () => EnumResources.FasCommentDisplayTextChileAlcohol },
+                { FasComment.ChileDrugsAndService, () => EnumResources.FasCommentDisplayTextChileDrugsAndService },
+                { FasComment.ChileMedicalReceiptDrugs, () => EnumResources.FasCommentDisplayTextChileMedicalReceiptDrugs },
             };
 
         public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)

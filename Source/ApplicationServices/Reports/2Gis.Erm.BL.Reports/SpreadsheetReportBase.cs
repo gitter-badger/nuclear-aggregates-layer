@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Transactions;
 
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
+
+using IsolationLevel = System.Transactions.IsolationLevel;
 
 namespace DoubleGis.Erm.BL.Reports
 {
@@ -144,8 +147,14 @@ namespace DoubleGis.Erm.BL.Reports
 
         private ExcelPackage ExecutePackage()
         {
-            var package = Execute();
-            AddPackageInfo(package);
+            ExcelPackage package;
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {IsolationLevel = IsolationLevel.Serializable}))
+            {
+                package = Execute();
+                AddPackageInfo(package);
+                transaction.Complete();
+            }
+
             return package;
         }
 

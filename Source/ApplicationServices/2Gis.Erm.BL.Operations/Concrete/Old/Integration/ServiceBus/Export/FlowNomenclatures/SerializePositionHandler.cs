@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export.FlowNomenclatures
@@ -30,6 +31,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                 new XAttribute("Code", dto.Id),
                                 new XAttribute("Name", dto.Name),
                                 new XAttribute("PlatformCode", dto.PlatformCode),
+                                new XAttribute("AccountingMethod", dto.AccountingMethod),
                                 new XAttribute("IsHidden", dto.IsHidden),
                                 new XAttribute("IsDeleted", dto.IsDeleted));
         }
@@ -41,6 +43,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                     Id = x.Id,
                     Name = x.Name,
                     PlatformCode = x.Platform.DgppId,
+                    AccountingMethod = (PositionAccountingMethod)x.AccountingMethodEnum,
                     IsHidden = !x.IsActive,
                     IsDeleted = x.IsDeleted
                 });
@@ -53,6 +56,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             public long Id { get; set; }
             public string Name { get; set; }
             public long PlatformCode { get; set; }
+            public PositionAccountingMethod AccountingMethod { get; set; }
             public bool IsHidden { get; set; }
             public bool IsDeleted { get; set; }
         }

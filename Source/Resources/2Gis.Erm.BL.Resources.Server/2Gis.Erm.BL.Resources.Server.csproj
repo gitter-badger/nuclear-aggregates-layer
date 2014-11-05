@@ -75,6 +75,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>ErmConfigLocalization.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\ErmConfigLocalization.kk-KZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\ErmConfigLocalization.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -82,6 +85,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.es-CL.resx" />
+    <EmbeddedResource Include="Properties\Resources.kk-KZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
