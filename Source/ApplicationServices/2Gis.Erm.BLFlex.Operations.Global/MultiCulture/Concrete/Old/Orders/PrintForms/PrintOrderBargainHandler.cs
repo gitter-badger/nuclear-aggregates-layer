@@ -47,18 +47,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
         {
             // checkme: печать без валюты?
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
-            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
 
             if (bargainId == null)
             {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
             }
 
-            if (legalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
-
+            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
             if (legalPersonProfileId == null)
             {
                 throw new LegalPersonProfileMustBeSpecifiedException();
