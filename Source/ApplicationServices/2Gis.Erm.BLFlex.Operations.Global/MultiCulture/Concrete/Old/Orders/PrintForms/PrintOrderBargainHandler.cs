@@ -45,7 +45,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            // checkme: печать без валюты?
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
 
             if (bargainId == null)
