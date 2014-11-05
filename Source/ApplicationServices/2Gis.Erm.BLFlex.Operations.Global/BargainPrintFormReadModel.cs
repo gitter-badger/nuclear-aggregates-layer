@@ -21,11 +21,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
             return _finder.Find(Specs.Find.ById<Bargain>(bargainId))
                           .Select(x => new BargainRelationsDto
                               {
-                                  BargainNumber = order.Bargain.Number,
-                                  CurrencyIsoCode = order.Currency.ISOCode,
-                                  BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
-                                  LegalPersonProfileId = order.LegalPersonProfileId,
-                                  LegalPersonId = order.LegalPersonId
+                                  BargainNumber = x.Number,
+                                  BargainKind = (BargainKind)x.BargainKind,
+                                  BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
+                                  LegalPersonId = x.CustomerLegalPersonId
                               })
                           .Single();
         }

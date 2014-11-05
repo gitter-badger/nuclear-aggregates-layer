@@ -45,10 +45,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
+            // checkme: печать без валюты?
             var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
 
             if (bargainId == null)
-                           {
+            {
                 throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
             }
 
@@ -56,17 +57,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
             var printData = GetPrintData(request, relations, bargainId.Value);
 
             if (relations.BranchOfficeOrganizationUnitId == null)
-                {
+            {
                 throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
             var printRequest = new PrintDocumentRequest
-                        {
-                    BranchOfficeOrganizationUnitId = relations.BranchOfficeOrganizationUnitId,
-                    TemplateCode = relations.BargainKind == BargainKind.Client ? TemplateCode.ClientBargain : TemplateCode.AgentBargain,
-                    FileName = relations.BargainNumber,
-                            PrintData = printData
-                };
+                                   {
+                                       BranchOfficeOrganizationUnitId = relations.BranchOfficeOrganizationUnitId,
+                                       TemplateCode = relations.BargainKind == BargainKind.Client ? TemplateCode.ClientBargain : TemplateCode.AgentBargain,
+                                       FileName = relations.BargainNumber,
+                                       PrintData = printData
+                                   };
 
             return _requestProcessor.HandleSubRequest(printRequest, Context);
         }
