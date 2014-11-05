@@ -7,33 +7,41 @@
             var entityId = {
                 bargainId: Ext.getDom('Id').value
             };
-            var callback = function (profileId) {
+            var profileId = this.ChooseProfile(entityId);
+            if (profileId) {
                 this.PrintWithoutProfileChoosing('PrintBargain', entityId.bargainId, profileId);
-            };
-
-            this.ChooseProfile(entityId, callback);
+            }
         },
 
         PrintNewSalesModelBargain: function () {
             var entityId = {
                 bargainId: Ext.getDom('Id').value
             };
-            var callback = function (profileId) {
+            var profileId = this.ChooseProfile(entityId);
+            if (profileId) {
                 this.PrintWithoutProfileChoosing('PrintNewSalesModelBargain', entityId.bargainId, profileId);
-            };
-
-            this.ChooseProfile(entityId, callback);
+            }
         },
 
         PrintBargainProlongationAgreement: function () {
             var entityId = {
                 bargainId: Ext.getDom('Id').value
             };
-            var callback = function (profileId) {
+            var profileId = this.ChooseProfile(entityId);
+            if (profileId) {
                 this.PrintWithoutProfileChoosing('PrintBargainProlongationAgreement', entityId.bargainId, profileId);
-            };
+            }
+        },
 
-            this.ChooseProfile(entityId, callback);
+        ChooseProfile: function (urlParameters) {
+            var url = Ext.urlAppend('/Bargain/SelectLegalPersonProfile', Ext.urlEncode(urlParameters));
+            var params = "dialogWidth:600px; dialogHeight:300px; status:yes; scroll:no;resizable:no;";
+            var result = window.showModalDialog(url, null, params);
+            if (!result) {
+                return null;
+            }
+
+            return result.legalPersonProfile;
         }
     });
 

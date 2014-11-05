@@ -1,9 +1,12 @@
 ﻿var PrintLogic = {
-    PrintWithoutProfileChoosing: function (methodName, entityId) {
+    PrintWithoutProfileChoosing: function (methodName, entityId, profileId) {
         var urlBase = '/Print/' + methodName + '/' + entityId;
         var urlArguments = {
             _dc: Ext.util.Format.cacheBuster()
         };
+        if (profileId) {
+            urlArguments.profileId = profileId;
+        }
         var url = window.Ext.urlAppend(urlBase, window.Ext.urlEncode(urlArguments));
         this.StartFileDownloadingWithoutPageRefresh(url);
     },

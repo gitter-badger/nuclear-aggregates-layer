@@ -60,7 +60,7 @@ window.InitPage = function () {
     Ext.apply(this,
             {
                 ChangeLegalPersonProfile: function() {
-                    var url = Ext.urlAppend('/Order/ChangeLegalPersonProfile', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
+                    var url = Ext.urlAppend('/Order/SelectLegalPersonProfile', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
                     var params = "dialogWidth:600px; dialogHeight:300px; status:yes; scroll:no;resizable:no;";
                     var result = window.showModalDialog(url, null, params);
                     if (!result) {
@@ -69,8 +69,8 @@ window.InitPage = function () {
                     Card.Mask.show();
                     Ext.Ajax.request({
                         method: 'post',
-                        url: url,
-                        params: { legalPersonProfileId: result.legalPersonProfile },
+                        url: '/Order/ChangeOrderLegalPersonProfile',
+                        params: { orderId: Ext.getDom('Id').value, legalPersonProfileId: result.legalPersonProfile },
                         scope: this,
                         success: function () { this.refresh(); },
                         failure: function (response) { Card.Mask.hide(); this.AddNotification(response.responseText, 'CriticalError', 'ServerError'); }
