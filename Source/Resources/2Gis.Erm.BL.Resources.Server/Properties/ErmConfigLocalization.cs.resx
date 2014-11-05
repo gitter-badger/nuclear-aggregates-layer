@@ -1335,9 +1335,6 @@
   <data name="EnUserProfile" xml:space="preserve">
     <value>Profil uživatele</value>
   </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Časová pásma</value>
-  </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Časová pásma</value>
   </data>

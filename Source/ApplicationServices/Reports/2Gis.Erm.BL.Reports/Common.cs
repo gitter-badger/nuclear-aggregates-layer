@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BL.Reports
             new SqlConnection("Data Source=localhost;Initial Catalog=WH1;Integrated Security=True;");
 
         public static readonly SqlConnection ERM_CONNECTION =
-            new SqlConnection(@"Data Source=uk-sql15\erm;Initial Catalog=Erm;Integrated Security=True");
+            new SqlConnection(@"Data Source=uk-sql20\erm;Initial Catalog=ErmRU;Integrated Security=True");
 
         /// <summary>
         /// Получает текст внедренного ресурса по имени

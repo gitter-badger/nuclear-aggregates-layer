@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
+    // FIXME {all, 23.09.2014}: Зачем?
     public class CategoryOrganizationUnitViewModel : EntityViewModelBase<CategoryOrganizationUnit>
     {
         #region Overrides of EntityViewModelBase<CategoryOrganizationUnit>
