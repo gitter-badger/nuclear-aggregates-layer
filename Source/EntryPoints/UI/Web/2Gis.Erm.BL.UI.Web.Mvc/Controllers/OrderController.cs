@@ -449,7 +449,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
                             Status = (byte)OperationStatus.Success,
-                            Type = (short)OldBusinessOperationType.GetOrdersWithDummyAdvertisements,
+                            Type = (short)BusinessOperation.GetOrdersWithDummyAdvertisements,
                             Description = operationDescription,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
