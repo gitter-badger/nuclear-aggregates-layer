@@ -135,16 +135,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult PrintOrderBargain(long id, long profileId)
+        public ActionResult PrintOrderBargain(long id)
         {
-            var request = new PrintOrderBargainRequest { OrderId = id, LegalPersonProfileId = profileId };
+            var request = new PrintOrderBargainRequest { OrderId = id };
             return TryPrintDocument(request);
         }
 
         [HttpGet]
-        public ActionResult PrintNewSalesModelOrderBargain(long id, long profileId)
+        public ActionResult PrintNewSalesModelOrderBargain(long id)
         {
-            var request = new PrintNewSalesModelBargainRequest { OrderId = id, LegalPersonProfileId = profileId };
+            var request = new PrintNewSalesModelBargainRequest { OrderId = id };
             return TryPrintDocument(request);
         }
 
