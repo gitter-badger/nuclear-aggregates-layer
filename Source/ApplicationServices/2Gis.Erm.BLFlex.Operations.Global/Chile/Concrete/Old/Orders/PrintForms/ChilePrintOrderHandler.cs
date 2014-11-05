@@ -74,9 +74,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
-            var profileId = order.LegalPersonProfileId.Value;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(order.LegalPersonProfileId.Value);
             var profilePart = profile.Parts.OfType<ChileLegalPersonProfilePart>().Single();
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
             var boouPart = boou.Parts.OfType<ChileBranchOfficeOrganizationUnitPart>().Single();

@@ -69,9 +69,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
         private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
-            var profileId = order.LegalPersonProfileId.Value;
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(order.LegalPersonProfileId.Value);
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(order.BranchOfficeOrganizationUnitId.Value);
             var contacts = _firmReadModel.GetFirmContactsByAddresses(order.FirmId);
             var bargain = _orderPrintFormReadModel.GetOrderBargain(request.OrderId);
