@@ -206,7 +206,8 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
             }),
             proxy: new window.Ext.data.HttpProxy({
                 method: "GET",
-                url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.entityModel.EntityName
+                url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.entityModel.EntityName,
+                timeout: 1200000
             }),
             baseParams: new Object({
                 nameLocaleResourceId: this.currentSettings.NameLocaleResourceId,
@@ -295,12 +296,18 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
     },
     saveChanges: function ()
     {
-        if (this.grid.getSelectionModel().selections.items.length)
-        {
+        if (this.grid.getSelectionModel().selections.items.length) {
+
+            // очистка name от разметки
+            var name = this.grid.getSelectionModel().selections.items[0].data[this.currentSettings.MainAttribute];
+            var spanTag = document.createElement("span");
+            spanTag.innerHTML = name;
+            name = spanTag.innerText;
+
             var item =
                     {
                         id: this.grid.getSelectionModel().selections.items[0].data.Id,
-                        name: this.grid.getSelectionModel().selections.items[0].data[this.currentSettings.MainAttribute],
+                        name: name,
                         data: this.grid.getSelectionModel().selections.items[0].data
                     };
             window.returnValue = { items: [item] };

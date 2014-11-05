@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Migration.CRM;
+using DoubleGis.Erm.Platform.Migration.MW;
 using DoubleGis.Erm.Platform.Migration.Runner;
 
 using NDesk.Options;
@@ -23,7 +24,8 @@ namespace DoubleGis.Erm.Migrator
             {
                 "2Gis.Erm.BLCore.DB.Migrations.dll",
                 "2Gis.Erm.BL.DB.Migrations.dll",
-                "2Gis.Erm.Qds.Migrations.dll"
+                "2Gis.Erm.Qds.Migrations.dll",
+                //"2Gis.Erm.MW.Migrations.dll", // COMMENT {s.pomadin, 26.08.2014}: turned off till the final state of activity migrations
             };
 
         public MigrationConsole(params string[] args)
@@ -80,7 +82,7 @@ namespace DoubleGis.Erm.Migrator
 
                 foreach (var pair in connectionStringsAspect.AllConnections)
                 {
-                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value));
+                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value.ConnectionString));
                 }
 
                 Execute(Console.Out, _arguments, calculatedArguments);
@@ -287,7 +289,8 @@ namespace DoubleGis.Erm.Migrator
             return migrationDescriptorsProvider.MigrationDescriptors
                                                .Where(x => !alreadyAppliedMigrations.Contains(x.Version))
                                                .Where(x => typeof(IContextedMigration<ICrmMigrationContext>).IsAssignableFrom(x.Type) ||
-                                                           typeof(IContextedMigration<IMigrationContext>).IsAssignableFrom(x.Type))
+                                                           typeof(IContextedMigration<IMigrationContext>).IsAssignableFrom(x.Type) ||
+														   typeof(IContextedMigration<IActivityMigrationContext>).IsAssignableFrom(x.Type))
                                                .OrderBy(x => x.Version)
                                                .ToArray();
         }

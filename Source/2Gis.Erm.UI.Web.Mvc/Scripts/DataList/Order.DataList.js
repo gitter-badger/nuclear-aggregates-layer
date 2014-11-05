@@ -14,9 +14,6 @@
     CheckOrdersReadinessForRelease: function () {
         this.ShowDialogWindow('/Order/CheckOrdersReadinessForReleaseDialog', 'dialogHeight:310px; dialogWidth:530px; status:yes; scroll:no; resizable:no; ', false);
     },
-    MakeRegionalAdsDocs: function () {
-        this.ShowDialogWindow('/OrderDialogs/MakeRegionalAdsDocs', 'dialogHeight:280px; dialogWidth:530px; status:yes; scroll:no; resizable:no; ', false);
-    },
     CloseWithDenial: function () {
 
         if (!this.EnsureOneSelected()) {

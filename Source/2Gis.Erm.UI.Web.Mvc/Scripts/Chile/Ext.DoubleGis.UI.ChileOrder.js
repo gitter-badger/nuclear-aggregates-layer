@@ -2,11 +2,8 @@
     PrintOrder: function () {
         this.Print('PrintOrder');
     },
-    PrintRegionalOrder: function () {
-        this.Print('PrintRegionalOrder');
-    },
-    PrintBargain: function () {
-        this.Print('PrintBargain');
+    PrintOrderBargain: function () {
+        this.Print('PrintOrderBargain');
     },
     PrintBill: function () {
         this.Print('PrintBill');
@@ -29,11 +26,8 @@
     PrintAdditionalAgreement: function () {
         this.Print('PrintAdditionalAgreement');
     },
-    PrintBargainAdditionalAgreement: function () {
-        this.Print('PrintBargainAdditionalAgreement');
-    },
-    PrintReferenceInformation: function () {
-        this.Print('PrintReferenceInformation');
+    PrintOrderBargainAdditionalAgreement: function () {
+        this.Print('PrintOrderBargainAdditionalAgreement');
     },
     PrintLetterOfGuarantee: function () {
         this.Print('PrintLetterOfGuarantee');
@@ -54,76 +48,6 @@
         }
 
         Ext.get("RegionalNumber").setReadOnly(!Ext.getDom('EditRegionalNumber').checked);
-    },
-
-    setupCultureSpecificEventListeners: function () {
-        Ext.getCmp("Client").on("change", this.onClientChanged, this);
-    },
-
-    // При обновлении клиента (нередактируемое поле, обновление может быть вызвано выбором фирмы) автоматически выбираем юрлицо, если оно единственное.
-    onClientChanged: function () {
-        var clientLookup = Ext.getCmp('Client');
-        var clientId = clientLookup.item ? clientLookup.item.id : null;
-
-        var legalPersonLookup = Ext.getCmp('LegalPerson');
-        if (clientId) {
-            legalPersonLookup.supressMatchesErrors = true;
-            legalPersonLookup.forceGetData({
-                limit: 1
-            });
-        } else {
-            legalPersonLookup.clearValue();
-        }
-    },
-
-    // При выборе фирмы автоматически проставляем клиента (нередактируемое поле) и отделение организации (если не было выбрано ранее)
-    onFirmChanged: function (cmp) {
-        var firmLookup = Ext.getCmp('Firm');
-        var firmId = firmLookup.item ? firmLookup.item.id : null;
-        var oldValue;
-
-        var clientLookup = Ext.getCmp('Client');
-        if (firmId) {
-            clientLookup.supressMatchesErrors = true;
-            clientLookup.forceGetData({
-                extendedInfo: "FirmId={FirmId}"
-            });
-        } else {
-            clientLookup.clearValue();
-        }
-
-        var destinationOrganizationUnitLookup = Ext.getCmp('DestinationOrganizationUnit');
-        if (firmId && !destinationOrganizationUnitLookup.item) {
-            destinationOrganizationUnitLookup.forceGetData({
-                extendedInfo: "FirmId={FirmId}"
-            });
-        }
-    },
-
-    onDestinationOrganizationUnit: function (cmp) {
-        this.refreshReleaseDistributionInfo();
-        if (cmp.getValue()) {
-            this.Request({
-                method: 'POST',
-                url: '/Order/GetHasDestOrganizationUnitPublishedPrice',
-                params: { orderId: this.form.Id.value, orgUnitId: cmp.getValue().id },
-                success: function (xhr) {
-                    var response = Ext.decode(xhr.responseText);
-                    Ext.fly("HasDestOrganizationUnitPublishedPrice").setValue((response && response === true) ? "true" : "false");
-                },
-                failure: function () {
-                    Ext.fly("HasDestOrganizationUnitPublishedPrice").setValue("false");
-                }
-            });
-
-            // Если смена города назначения вызвана пользователем
-            if (this.destinationOrgUnitChangedByFirmChangedEvent != true) {
-                // При смене города назначения обнулить фирму, юр. лицо клиента, договор
-                if (this.oldDestOrgUnitId && (this.oldDestOrgUnitId != cmp.getValue().id)) {
-                    Ext.getCmp('Firm').clearValue();
-                }
-            }
-        }
     },
 
     onLegalPersonChanged: function (cmp) {
