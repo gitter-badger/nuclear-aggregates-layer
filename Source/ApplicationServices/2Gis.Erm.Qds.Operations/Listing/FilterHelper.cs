@@ -150,7 +150,7 @@ namespace DoubleGis.Erm.Qds.Operations.Listing
                 case 1:
                     return _filters[0](filterDescriptor);
                 default:
-                    return filterDescriptor.And(_filters.ToArray());
+                    return filterDescriptor.Bool(b => b.Must(_filters.ToArray()));
             }
         }
 

@@ -7,8 +7,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public interface IEntityToDocumentRelation
     {
-        IEnumerable<IDocumentWrapper> SelectAllDocuments(IProgress<long> progress = null);
-        IEnumerable<IDocumentWrapper> SelectDocuments(IReadOnlyCollection<long> ids);
+        IEnumerable<IIndexedDocumentWrapper> SelectAllDocuments(IProgress<long> progress = null);
+        IEnumerable<IIndexedDocumentWrapper> SelectDocuments(IReadOnlyCollection<long> ids);
     }
 
     public interface IEntityToDocumentRelation<TEntity, TDocument> : IEntityToDocumentRelation

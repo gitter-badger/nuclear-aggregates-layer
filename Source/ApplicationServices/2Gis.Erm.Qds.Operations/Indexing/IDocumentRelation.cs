@@ -10,8 +10,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public interface IDocumentRelation
     {
-        Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IDocumentWrapper> documentWrappers);
-        void UpdateDocumentParts(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits);
+        Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers);
+        void UpdateDocumentParts(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits);
     }
 
     // интерфейс нужен только для регистрации в DI
@@ -21,6 +21,6 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
     public interface IDocumentPartRelation
     {
-        IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> documentParts, IProgress<long> progress = null);
+        IEnumerable<IIndexedDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IIndexedDocumentWrapper> documentParts, IProgress<long> progress = null);
     }
 }

@@ -30,14 +30,14 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
         {
             RegisterExtendedInfoFilter<OrderGridDoc, bool>("NotDeleted", value => x => x.Term(t => t.IsDeleted, false));
 
-            RegisterExtendedInfoFilter<DepartmentGridDoc, bool>("ActiveAndNotDeleted", value => x => x.And(x.Term(t => t.IsActive, true), x.Term(t => t.IsDeleted, false)));
-            RegisterExtendedInfoFilter<DepartmentGridDoc, bool>("NotActiveAndNotDeleted", value => x => x.And(x.Term(t => t.IsActive, false), x.Term(t => t.IsDeleted, false)));
+            RegisterExtendedInfoFilter<DepartmentGridDoc, bool>("ActiveAndNotDeleted", value => x => x.Bool(b => b.Must(f => f.Term(t => t.IsActive, true), f => f.Term(t => t.IsDeleted, false))));
+            RegisterExtendedInfoFilter<DepartmentGridDoc, bool>("NotActiveAndNotDeleted", value => x => x.Bool(b => b.Must(f => f.Term(t => t.IsActive, false), f => f.Term(t => t.IsDeleted, false))));
             RegisterExtendedInfoFilter<DepartmentGridDoc, string>("excludeId", value => x => x.Not(n => n.Term(t => t.Id, value)));
 
             RegisterExtendedInfoFilter<FirmGridDoc, bool>("NotDeleted", value => x => x.Term(t => t.IsDeleted, false));
-            RegisterExtendedInfoFilter<FirmGridDoc, bool>("ActiveAndNotDeleted", value => x => x.And(x.Term(t => t.IsActive, true), x.Term(t => t.IsDeleted, false)));
-            RegisterExtendedInfoFilter<FirmGridDoc, bool>("ActiveBusinessMeaning", value => x => x.And(x.Term(t => t.IsActive, true), x.Term(t => t.IsDeleted, false), x.Term(t => t.ClosedForAscertainment, false)));
-            RegisterExtendedInfoFilter<FirmGridDoc, bool>("InactiveBusinessMeaning", value => x => x.And(x.Term(t => t.IsDeleted, false), x.Or(x.Term(t => t.IsActive, false), x.Term(t => t.ClosedForAscertainment, true))));
+            RegisterExtendedInfoFilter<FirmGridDoc, bool>("ActiveAndNotDeleted", value => x => x.Bool(b => b.Must(f => f.Term(t => t.IsActive, true), f => f.Term(t => t.IsDeleted, false))));
+            RegisterExtendedInfoFilter<FirmGridDoc, bool>("ActiveBusinessMeaning", value => x => x.Bool(b => b.Must(f => f.Term(t => t.IsActive, true), f => f.Term(t => t.IsDeleted, false), f => f.Term(t => t.ClosedForAscertainment, false))));
+            RegisterExtendedInfoFilter<FirmGridDoc, bool>("InactiveBusinessMeaning", value => x => x.Bool(b => b.Must(f => f.Term(t => t.IsDeleted, false)).Should(f => f.Term(t => t.IsActive, false), f => f.Term(t => t.ClosedForAscertainment, true))));
             RegisterExtendedInfoFilter<FirmGridDoc, string>("organizationUnitId", value => x => x.Term(t => t.OrganizationUnitId, value));
             RegisterExtendedInfoFilter<FirmGridDoc, bool>("ForReserve", value =>
             {
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
                 return x => x.Term(y => y.OwnerCode, userId);
             });
 
-            RegisterExtendedInfoFilter<ClientGridDoc, bool>("ActiveAndNotDeleted", value => x => x.And(x.Term(t => t.IsActive, true), x.Term(t => t.IsDeleted, false)));
+            RegisterExtendedInfoFilter<ClientGridDoc, bool>("ActiveAndNotDeleted", value => x => x.Bool(b => b.Must(f => f.Term(t => t.IsActive, true), f => f.Term(t => t.IsDeleted, false))));
             RegisterExtendedInfoFilter<ClientGridDoc, bool>("Warm", value => x => x.Term(t => t.InformationSourceEnum, InformationSource.WarmClient));
             RegisterExtendedInfoFilter<ClientGridDoc, bool>("ForReserve", value =>
             {
