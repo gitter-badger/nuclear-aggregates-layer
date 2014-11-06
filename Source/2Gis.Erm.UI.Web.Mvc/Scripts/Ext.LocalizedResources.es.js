@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:47
+﻿// File updated : 06.11.2014 12:28:07
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -166,6 +166,7 @@ JustifyLeftTitle : 'Alinear texto a la izquierda',
 JustifyRightText : 'Alineación del texto a la derecha.',
 JustifyRightTitle : 'Alinear texto a la derecha.',
 LastPageText : 'Última página',
+LegalPersonIsAlreadyMain : ' Esta razón social ya figura como principal',
 LegalPersonProfileIsAlreadyMain : 'Este perfil ya es el principal',
 LimitStatusApproved : 'Aprobado',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Las operaciones de cambio de estado del límite no se admiten como operaciones de grupo. Cambie el estado de límites uno por uno.',

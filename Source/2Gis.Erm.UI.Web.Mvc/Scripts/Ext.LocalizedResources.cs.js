@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:47
+﻿// File updated : 06.11.2014 12:28:07
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -166,6 +166,7 @@ JustifyLeftTitle : 'Zarovnat text doleva',
 JustifyRightText : 'Zarovnání textu doprava.',
 JustifyRightTitle : 'Zarovnat text doprava.',
 LastPageText : 'Poslední strana',
+LegalPersonIsAlreadyMain : ' Tato PO již je hlavní',
 LegalPersonProfileIsAlreadyMain : 'Tento profil je již nastaven jako hlavní',
 LimitStatusApproved : 'Schválená',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Operace změny stavu limitu nejsou podporovány jako hromadné operace. Provádějte změnu stavu u limitů po jednom.',

@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:47
+﻿// File updated : 06.11.2014 12:28:08
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -74,6 +74,7 @@ CardIsUndefined : 'Для данной сущности не объявлена 
 Category : 'Рубрика',
 CategoryAlreasyExistsInTheList : 'Рубрика "{0}" уже присутствует в списке.',
 CategoryName : 'Название рубрики',
+ChangeNeedToPickClient : 'Необходимо указать Клиента.',
 CheckClientsDebtsFailed : 'Не удалось проверить долги выбранных клиентов. Возможно, у некоторых из выбранных клиентов имеются долги.',
 Checking : 'Проверка',
 CheckInProgressPleaseStandBy : 'Выполняется проверка. Пожалуйста, подождите...',
@@ -148,6 +149,7 @@ InsertOrderedListTitle : 'Нумерация',
 InsertUnorderedListText : 'Начать маркированный список.',
 InsertUnorderedListTitle : 'Маркеры',
 InvalidDateText : '{0} не является правильной датой - дата должна быть указана в формате {1}',
+InvalidDateTimeText : 'Некорректное значение. Используйте формат "ДД-MMM-ГГГГ"',
 InvalidSelectedPositionsCount : 'Должно быть выбрано позиций: {0}',
 IsNecessaryChooseLimitForStatusChange : 'Перед выполнением операции смены статуса необходимо выбрать лимит в списке',
 IsWarmClientWarningFormat : 'Выставлена причина сделки "Теплый клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Теплый клиент"',
@@ -164,6 +166,7 @@ JustifyLeftTitle : 'Выровнять текст по левому краю',
 JustifyRightText : 'Выравнивание текста по правому краю.',
 JustifyRightTitle : 'Выровнять текст по правому краю.',
 LastPageText : 'Последняя страница',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',
