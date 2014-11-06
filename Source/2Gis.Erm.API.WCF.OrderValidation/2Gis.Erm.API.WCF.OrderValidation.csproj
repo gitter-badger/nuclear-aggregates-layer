@@ -126,10 +126,6 @@
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.OrderValidation\2Gis.Erm.BLFlex.OrderValidation.csproj">
-      <Project>{8B36CB6A-5CF9-41A1-B412-8AEE4668B1B1}</Project>
-      <Name>2Gis.Erm.BLFlex.OrderValidation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\BLFlex\Source\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
       <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
       <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
