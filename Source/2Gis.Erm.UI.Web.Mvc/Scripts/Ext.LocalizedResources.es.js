@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:47
+﻿// File updated : 11/5/2014 5:45:07 PM
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -165,12 +165,15 @@ JustifyLeftTitle : 'Alinear texto a la izquierda',
 JustifyRightText : 'Alineación del texto a la derecha.',
 JustifyRightTitle : 'Alinear texto a la derecha.',
 LastPageText : 'Última página',
+LegalPersonIsAlreadyMain : ' Esta razón social ya figura como principal',
 LegalPersonProfileIsAlreadyMain : 'Este perfil ya es el principal',
+LimitIncreasingIsNotRequired : 'Увеличение лимита не требуется',
 LimitStatusApproved : 'Aprobado',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Las operaciones de cambio de estado del límite no se admiten como operaciones de grupo. Cambie el estado de límites uno por uno.',
 LimitStatusError : 'ERROR',
 LimitStatusOpened : 'Abierto',
 LimitStatusRejected : 'Rechazado',
+LimitWillBeIncreased : 'Лимит будет увеличен на сумму {0}',
 LineBreaksLeft : 'Líneas restantes {0}',
 LinkFieldInvalidEmailMessage : 'El valor introducido no es una dirección válida de correo electrónico',
 LinkFieldInvalidWebsiteMessage : 'El valor introducido no es una dirección URL válida',

@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:47
+﻿// File updated : 11/5/2014 5:45:07 PM
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -74,6 +74,7 @@ CardIsUndefined : 'Для данной сущности не объявлена 
 Category : 'Рубрика',
 CategoryAlreasyExistsInTheList : 'Рубрика "{0}" уже присутствует в списке.',
 CategoryName : 'Название рубрики',
+ChangeNeedToPickClient : 'Необходимо указать Клиента.',
 CheckClientsDebtsFailed : 'Не удалось проверить долги выбранных клиентов. Возможно, у некоторых из выбранных клиентов имеются долги.',
 Checking : 'Проверка',
 CheckInProgressPleaseStandBy : 'Выполняется проверка. Пожалуйста, подождите...',
@@ -164,12 +165,15 @@ JustifyLeftTitle : 'Выровнять текст по левому краю',
 JustifyRightText : 'Выравнивание текста по правому краю.',
 JustifyRightTitle : 'Выровнять текст по правому краю.',
 LastPageText : 'Последняя страница',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
+LimitIncreasingIsNotRequired : 'Увеличение лимита не требуется',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',
 LimitStatusError : 'ОШИБКА',
 LimitStatusOpened : 'Открыт',
 LimitStatusRejected : 'Отклонен',
+LimitWillBeIncreased : 'Лимит будет увеличен на сумму {0}',
 LineBreaksLeft : 'Строк осталось {0}',
 LinkFieldInvalidEmailMessage : 'Введенное значение не является корректным e-mail адресом',
 LinkFieldInvalidWebsiteMessage : 'Введенное значение не является корректным url адресом',

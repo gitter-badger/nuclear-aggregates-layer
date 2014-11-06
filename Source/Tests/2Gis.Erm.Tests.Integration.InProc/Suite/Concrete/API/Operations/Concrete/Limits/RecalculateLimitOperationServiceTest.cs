@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Limits;
+﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Limits;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;

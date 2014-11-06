@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:47
+﻿// File updated : 11/5/2014 5:45:07 PM
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -165,12 +165,15 @@ JustifyLeftTitle : 'Zarovnat text doleva',
 JustifyRightText : 'Zarovnání textu doprava.',
 JustifyRightTitle : 'Zarovnat text doprava.',
 LastPageText : 'Poslední strana',
+LegalPersonIsAlreadyMain : ' Tato PO již je hlavní',
 LegalPersonProfileIsAlreadyMain : 'Tento profil je již nastaven jako hlavní',
+LimitIncreasingIsNotRequired : 'Увеличение лимита не требуется',
 LimitStatusApproved : 'Schválená',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Operace změny stavu limitu nejsou podporovány jako hromadné operace. Provádějte změnu stavu u limitů po jednom.',
 LimitStatusError : 'CHYBA',
 LimitStatusOpened : 'Otevřená',
 LimitStatusRejected : 'Zamítnutá',
+LimitWillBeIncreased : 'Лимит будет увеличен на сумму {0}',
 LineBreaksLeft : 'Zbyvajicich radku {0}',
 LinkFieldInvalidEmailMessage : 'Zadaná hodnota není správnou e-mailovou adresou',
 LinkFieldInvalidWebsiteMessage : 'Zadaná hodnota není správnou adresou URL',
