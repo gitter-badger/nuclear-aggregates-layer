@@ -67,15 +67,15 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 206), Tuple.Create("\"", 283)
-, Tuple.Create(Tuple.Create("", 212), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Contact.js?", 212), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 216), Tuple.Create("\"", 293)
+, Tuple.Create(Tuple.Create("", 222), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Contact.js?", 222), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Ukraine\Contact.cshtml"
-, Tuple.Create(Tuple.Create("", 249), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 259), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 249), false)
+, 259), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -151,14 +151,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 676), Tuple.Create("\"", 712)
+WriteAttribute("title", Tuple.Create(" title=\"", 686), Tuple.Create("\"", 722)
             
             #line 23 "..\..\Views\CreateOrUpdate\Ukraine\Contact.cshtml"
-, Tuple.Create(Tuple.Create("", 684), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 694), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 684), false)
+, 694), false)
 );
 
 WriteLiteral(">\r\n        <div");
