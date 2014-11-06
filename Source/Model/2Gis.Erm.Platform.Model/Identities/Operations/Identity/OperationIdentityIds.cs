@@ -149,6 +149,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ReopenLimitIdentity = 19202;
         public const int RecalculateLimitIdentity = 19203;
         public const int SetLimitStatusIdentity = 19204;
+        public const int CalculateLimitIncreasingIdentity = 19205;
+        public const int IncreaseLimitIdentity = 19206;
 
         // EntityName.HotClientRequest = 257
         public const int ImportHotClientIdentity = 25701;
