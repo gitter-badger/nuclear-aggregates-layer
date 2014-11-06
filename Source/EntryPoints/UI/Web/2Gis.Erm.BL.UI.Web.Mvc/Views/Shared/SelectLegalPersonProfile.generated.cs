@@ -64,12 +64,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared
             #line hidden
 WriteLiteral("\r\n\r\n");
 
+WriteLiteral("\r\n");
+
 DefineSection("Title", () => {
 
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 9 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
             Write(Resources.ChangeProfilesOperationTitle);
 
             
@@ -84,7 +86,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 10 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
                   Write(Resources.ChangeProfilesOperationTitle);
 
             
@@ -99,7 +101,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 11 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
                     Write(Resources.ChangeProfilesOperationMessage);
 
             
@@ -115,15 +117,15 @@ DefineSection("PageScript", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 387), Tuple.Create("\"", 475)
-, Tuple.Create(Tuple.Create("", 393), Tuple.Create("/Scripts/Ext.DoubleGis.UI.SelectOrderProfile.js?", 393), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 518), Tuple.Create("\"", 606)
+, Tuple.Create(Tuple.Create("", 524), Tuple.Create("/Scripts/Ext.DoubleGis.UI.SelectOrderProfile.js?", 524), true)
             
-            #line 14 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
-, Tuple.Create(Tuple.Create("", 441), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+            #line 15 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+, Tuple.Create(Tuple.Create("", 572), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
             
             #line default
             #line hidden
-, 441), false)
+, 572), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -139,13 +141,13 @@ DefineSection("PageContent", () => {
 WriteLiteral("\r\n");
 
             
-            #line 19 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 20 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 20 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "DialogForm" } }))
     {
 
@@ -165,7 +167,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 23 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 24 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
            Write(Html.TemplateField(m => m.LegalPerson,
                     FieldFlex.lone,
                     new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true }));
@@ -182,7 +184,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 28 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 29 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
            Write(Html.TemplateField(m => m.LegalPersonProfile, 
                     FieldFlex.lone, 
                     new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" }));
@@ -193,7 +195,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 33 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
+            #line 34 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
     }
 
             
