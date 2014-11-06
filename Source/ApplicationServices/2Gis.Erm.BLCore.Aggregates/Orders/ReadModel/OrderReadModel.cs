@@ -1423,7 +1423,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                    .Select(order => new 
                                        {
                                            LegalPersonId = order.LegalPersonId,
-                                           LegalPersonName = order.LegalPerson.ShortName,
+                                           LegalPersonName = order.LegalPerson.LegalName,
                                            LegalPersonProfileId = order.LegalPersonProfileId,
                                            LegalPersonProfileName = order.LegalPersonProfile.Name,
                                        })
