@@ -1447,7 +1447,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                    .Select(x => new
                                    {
                                        LegalPersonId = x.CustomerLegalPersonId,
-                                       LegalPersonName = x.LegalPerson.ShortName
+                                       LegalPersonName = x.LegalPerson.LegalName
                                    })
                                    .Single();
 
