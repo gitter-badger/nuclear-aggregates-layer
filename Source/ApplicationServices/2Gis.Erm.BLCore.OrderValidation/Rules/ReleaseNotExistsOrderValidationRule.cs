@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // we just need to check whether there exists a release for the speicified period/OrganizationUnit
                 const short SuccessReleaseStatus = (short)ReleaseStatus.Success;
 
-                var lastFinalRelease = _releaseRepository.GetLastFinalRelease(ruleContext.ValidationParams.Mass.OrganizationUnitId, ruleContext.ValidationParams.Mass.Period);
+                var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(ruleContext.ValidationParams.Mass.OrganizationUnitId, ruleContext.ValidationParams.Mass.Period);
                 if (lastFinalRelease != null && lastFinalRelease.Status == SuccessReleaseStatus)
                 {
                     var organizationUnitName = _releaseReadModel.GetOrganizationUnitName(ruleContext.ValidationParams.Mass.OrganizationUnitId);
