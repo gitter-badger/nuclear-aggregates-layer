@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
@@ -13,52 +14,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
 {
     public static class DynamicEntityMetadataRegistry
     {
-        private static readonly Dictionary<Type, IEnumerable<IEntityPropertyIdentity>> ActivityPropertiesMapping =
-            new Dictionary<Type, IEnumerable<IEntityPropertyIdentity>>
-                {
-                    {
-                        typeof(Appointment), new IEntityPropertyIdentity[]
-                            {
-                                HeaderIdentity.Instance,
-                                ScheduledStartIdentity.Instance,
-                                ScheduledEndIdentity.Instance,
-                                PriorityIdentity.Instance,
-                                StatusIdentity.Instance,
-                                PurposeIdentity.Instance,
-                                AfterSaleServiceTypeIdentity.Instance,
-                                DescriptionIdentity.Instance,
-                                ActualEndIdentity.Instance
-                            }
-                    },
-                    {
-                        typeof(Phonecall), new IEntityPropertyIdentity[]
-                            {
-                                HeaderIdentity.Instance,
-                                ScheduledStartIdentity.Instance,
-                                ScheduledEndIdentity.Instance,
-                                PriorityIdentity.Instance,
-                                StatusIdentity.Instance,
-                                PurposeIdentity.Instance,
-                                AfterSaleServiceTypeIdentity.Instance,
-                                DescriptionIdentity.Instance,
-                                ActualEndIdentity.Instance
-                            }
-                    },
-                    {
-                        typeof(Task), new IEntityPropertyIdentity[]
-                            {
-                                HeaderIdentity.Instance,
-                                ScheduledStartIdentity.Instance,
-                                ScheduledEndIdentity.Instance,
-                                PriorityIdentity.Instance,
-                                StatusIdentity.Instance,
-                                DescriptionIdentity.Instance,
-                                TaskTypeIdentity.Instance,
-                                ActualEndIdentity.Instance
-                            }
-                    }
-                };
-
         private static readonly Dictionary<Type, IEnumerable<IEntityPropertyIdentity>> DictionaryEntityPropertiesMapping =
             new Dictionary<Type, IEnumerable<IEntityPropertyIdentity>>
                 {
@@ -119,6 +74,24 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                             }
                     },
                     {
+                        typeof(KazakhstanLegalPersonPart), new IEntityPropertyIdentity[]
+                            {
+                                RnnIdentity.Instance,
+                                IdentityCardNumberIdentity.Instance,
+                                IdentityCardIssuedByIdentity.Instance,
+                                IdentityCardIssuedOnIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(KazakhstanLegalPersonProfilePart), new IEntityPropertyIdentity[]
+                            {
+                                ActualAddressIdentity.Instance,
+                                OtherAuthorityDocumentIdentity.Instance,
+                                DecreeNumberIdentity.Instance,
+                                DecreeDateIdentity.Instance
+                            }
+                    },
+                    {
                         typeof(ChileBranchOfficeOrganizationUnitPart), new IEntityPropertyIdentity[]
                             {
                                 RepresentativeRutIdentity.Instance
@@ -167,8 +140,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
 
         public static IEnumerable<IEntityPropertyIdentity> GetPropertyIdentities<T>() where T : IEntity
         {
-            return GetPropertyIdentities<T>(ActivityPropertiesMapping) ??
-                   GetPropertyIdentities<T>(DictionaryEntityPropertiesMapping) ??
+            return GetPropertyIdentities<T>(DictionaryEntityPropertiesMapping) ??
                    GetPropertyIdentities<T>(BusinessEntityPropertiesMapping);
         }
 

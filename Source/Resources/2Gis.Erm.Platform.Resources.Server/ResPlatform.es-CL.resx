@@ -148,6 +148,15 @@
     <value>El campo {0} puede contener solo números</value>
   </data>
   <data name="UserIdDoesNotHaveTheRightToOperationOnEntity" xml:space="preserve">
-    <value>Пользователь id=[{0}] не имеет право {1} на сущность {2}</value>
+    <value>Usuario  id=[{0}]no tiene permiso {1} sobre la entidad {2}</value>
+  </data>
+  <data name="AccessToOperationIsDenied" xml:space="preserve">
+    <value>Доступ на выполнение операции '{0}' запрещен</value>
+  </data>
+  <data name="InvalidFieldFormat" xml:space="preserve">
+    <value>Значения поля "{0}" имеет неверный формат</value>
+  </data>
+  <data name="InvalidFieldValue" xml:space="preserve">
+    <value>Значение поля "{0}" имеет невалидное значение</value>
   </data>
 </root>

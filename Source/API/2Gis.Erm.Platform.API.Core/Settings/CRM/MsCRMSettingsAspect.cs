@@ -10,8 +10,9 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
     {
         private readonly ConnectionStringsSettingsAspect _connectionStringsSettings;
 
-        private readonly BoolSetting _enableReplication = ConfigFileSetting.Bool.Required("EnableReplication");
-        private readonly StringSetting _crmHost = ConfigFileSetting.String.Optional("CrmHost", "");
+        private readonly StringSetting _crmHost = ConfigFileSetting.String.Optional("CrmHost", string.Empty);
+        private readonly EnumSetting<MsCrmIntegrationMode> _integrationMode = ConfigFileSetting.Enum.Required<MsCrmIntegrationMode>("MsCrmIntegrationMode");
+
         private readonly Lazy<string> _crmOrganizationName;
 
         public MsCRMSettingsAspect(ConnectionStringsSettingsAspect connectionStringsSettings)
@@ -19,26 +20,25 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
             _connectionStringsSettings = connectionStringsSettings;
             _crmOrganizationName = new Lazy<string>(ExtractOrganizationName);
         }
-        
-        public bool EnableReplication 
+
+        public bool EnableReplication
         {
-            get { return _enableReplication.Value; }
+            get { return IntegrationMode != MsCrmIntegrationMode.Disabled; }
+        }
+
+        public MsCrmIntegrationMode IntegrationMode
+        {
+            get { return _integrationMode.Value; }
         }
 
         public string CrmOrganizationName
         {
-            get
-            {
-                return _crmOrganizationName.Value;
-            }
+            get { return _crmOrganizationName.Value; }
         }
 
-        public string CrmRuntimeConnectionString 
+        public string CrmRuntimeConnectionString
         {
-            get
-            {
-                return _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection);
-            }
+            get { return _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection); }
         }
 
         public string CrmHost

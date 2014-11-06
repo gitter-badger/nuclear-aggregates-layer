@@ -40,6 +40,16 @@
         /// <summary>
         /// Отсутствует
         /// </summary>
-        None = 7
+        None = 7,
+        
+        /// <summary>
+        /// Приказ
+        /// </summary>
+        Decree = 8,
+
+        /// <summary>
+        /// Другое
+        /// </summary>
+        Other = 9
     }
 }

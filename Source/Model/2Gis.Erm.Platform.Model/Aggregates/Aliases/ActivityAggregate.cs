@@ -4,12 +4,27 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
     public enum ActivityAggregate
     {
-        ActivityBase = EntityName.ActivityBase,
+        Activity = EntityName.Activity,
         Appointment = EntityName.Appointment,
         PhoneCall = EntityName.Phonecall,
         Task = EntityName.Task,
-
-        ActivityInstance = EntityName.ActivityInstance,
-        ActivityPropertyInstance = EntityName.ActivityPropertyInstance
     }
+
+	public enum AppointmentAggregate
+	{
+		Appointment = EntityName.Appointment,
+		RegardingObjectReference = EntityName.RegardingObjectReference,
+	}
+	
+	public enum PhonecallAggregate
+	{
+		Phonecall = EntityName.Phonecall,
+		RegardingObjectReference = EntityName.RegardingObjectReference,
+	}
+	
+	public enum TaskAggregate
+	{
+		Task = EntityName.Task,
+		RegardingObjectReference = EntityName.RegardingObjectReference,
+	}
 }

@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.Common.Settings
             TSetting buffer;
             var result = new SettingEvaluationResult<TSetting>();
 
-            if (Enum.TryParse(rawSettingValue, out buffer))
+            if (Enum.TryParse(rawSettingValue, out buffer)/* && !buffer.Equals(default(TSetting))*/)
             {
                 result.Value = buffer;
             }

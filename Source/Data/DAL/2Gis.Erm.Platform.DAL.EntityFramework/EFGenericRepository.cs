@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-    public sealed class EFGenericRepository<TEntity> : EFRepository<TEntity>, IRepository<TEntity>, IRepositoryProxy<TEntity>, IDomainEntityEntryAccessor<TEntity>
+    public sealed class EFGenericRepository<TEntity> : EFRepository<TEntity, TEntity>, IRepository<TEntity>, IRepositoryProxy<TEntity>, IDomainEntityEntryAccessor<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly IUserContext _userContext;
-        private readonly IDomainContextSaveStrategy _domainContextSaveStrategy;
         private readonly IPersistenceChangesRegistryProvider _changesRegistryProvider;
 
         public EFGenericRepository(IUserContext userContext,
                                    IModifiableDomainContextProvider modifiableDomainContextProvider,
                                    IDomainContextSaveStrategy domainContextSaveStrategy,
                                    IPersistenceChangesRegistryProvider changesRegistryProvider)
-            : base(modifiableDomainContextProvider)
+            : base(userContext, domainContextSaveStrategy, modifiableDomainContextProvider)
         {
-            _userContext = userContext;
-            _domainContextSaveStrategy = domainContextSaveStrategy;
             _changesRegistryProvider = changesRegistryProvider;
         }
 
@@ -57,15 +50,10 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             repositoryProxy.DeleteRange(entities, this);
         }
 
-        public int Save()
-        {
-            return _domainContextSaveStrategy.IsSaveDeferred ? 0 : DomainContext.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
-        }
-
         void IRepositoryProxy<TEntity>.Add(TEntity entity)
         {
-            CheckArgumentNull(entity, "entity");
-            CheckArgumentIdentifier(entity);
+            ThrowIfEntityIsNull(entity, "entity");
+            ThrowIfEntityHasNoId(entity);
             
             SetEntityAuditableInfo(entity, true);
 
@@ -88,8 +76,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             var entityIds = new List<long>();
             foreach (var entity in castedEntities)
             {
-                CheckArgumentNull(entity, "entity");
-                CheckArgumentIdentifier(entity);
+                ThrowIfEntityIsNull(entity, "entity");
+                ThrowIfEntityHasNoId(entity);
 
                 SetEntityAuditableInfo(entity, true);
 
@@ -108,7 +96,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         void IRepositoryProxy<TEntity>.Update(TEntity entity, IDomainEntityEntryAccessor<TEntity> domainEntityEntryAccessor)
         {
-            CheckArgumentNull(entity, "entity");
+            ThrowIfEntityIsNull(entity, "entity");
 
             EntityPlacementState entityPlacementState;
             var entry = domainEntityEntryAccessor.GetDomainEntityEntry(entity, out entityPlacementState);
@@ -134,7 +122,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         void IRepositoryProxy<TEntity>.Delete(TEntity entity, IDomainEntityEntryAccessor<TEntity> domainEntityEntryAccessor)
         {
-            CheckArgumentNull(entity, "entity");
+            ThrowIfEntityIsNull(entity, "entity");
 
             EntityPlacementState entityPlacementState;
             var entry = domainEntityEntryAccessor.GetDomainEntityEntry(entity, out entityPlacementState);
@@ -156,7 +144,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             else
             {
                 // physically delete from database
-                Set().Remove(entity);
+                Set().Remove((TEntity)entry.Entity);
             }
 
             // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
@@ -194,7 +182,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 }
                 else
                 {
-                    entitiesToDeletePhysically.Add(entity);
+                    entitiesToDeletePhysically.Add((TEntity)entry.Entity);
                 }
 
                 // TODO {all, 29.04.2014}: необходимо регистрировать изменения объектов без Id
@@ -212,98 +200,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         IDbEntityEntry IDomainEntityEntryAccessor<TEntity>.GetDomainEntityEntry(TEntity entity, out EntityPlacementState entityPlacementState)
         {
-            var cachedEntity = DomainContext.Set<TEntity>().Local.SingleOrDefault(x => x.Equals(entity));
-            if (cachedEntity != null)
-            {
-                var entry = DomainContext.Entry(cachedEntity);
-                if (entry.State != EntityState.Unchanged)
-                {
-                    // т.е. объект помечен как измененный => applychanges для него не выполнялся
-                    if (!_domainContextSaveStrategy.IsSaveDeferred)
-                    {
-                        var entityKey = entity as IEntityKey;
-
-                        // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
-                        throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
-                                                                          "with unsaved changes => trying to update not saved entity. " +
-                                                                          "Possible entity repository save method not called before next update. " +
-                                                                          "Save mode is immediately, not deferred",
-                                                                          typeof(TEntity).Name,
-                                                                          entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
+            return EnsureEntityIsAttached(entity, out entityPlacementState);
                     }
 
-                    // сохрание отложенное - пытаемся обновить несохраненную сущность, это не хорошо, но пока разрешено, 
-                    // т.к. возможно отложенный save для EF context ещё просто не вызывался
-                }
-
-                entityPlacementState = EntityPlacementState.CachedInContext;
-
-                return new EFEntityEntry(entry);
-            }
-            else
+        public int Save()
             {
-                var entry = DomainContext.Entry(entity);
-                if (entry.State == EntityState.Detached)
-                {
-                    Set().Attach(entity);
-                }
-
-                entityPlacementState = EntityPlacementState.AttachedToContext;
-                return new EFEntityEntry(entry);
-            }
-        }
-
-        private static void CheckArgumentIdentifier(TEntity entity)
-        {
-            var entityWithId = entity as IEntityKey;
-            if (entityWithId != null && entityWithId.Id == 0)
-            {
-                throw new InvalidOperationException("Saving entity without pregenerated identity is not allowed");
-            }
-        }
-
-        private static void SetEntityDeleteableInfo(TEntity entity)
-        {
-            // deactivate before deleting
-            var deactivatableEntity = entity as IDeactivatableEntity;
-            if (deactivatableEntity != null)
-            {
-                deactivatableEntity.IsActive = false;
-            }
-
-            var deletableEntity = entity as IDeletableEntity;
-            if (deletableEntity == null)
-            {
-                return;
-            }
-
-            // logically delete from database
-            deletableEntity.IsDeleted = true;
-        }
-
-        private void SetEntityAuditableInfo(TEntity entity, bool isEntityCreated)
-        {
-            var auditableEntity = entity as IAuditableEntity;
-            if (auditableEntity == null)
-            {
-                return;
-            }
-
-            var now = DateTime.UtcNow;
-
-            if (isEntityCreated)
-            {
-                auditableEntity.CreatedOn = now;
-                auditableEntity.CreatedBy = _userContext.Identity.Code;
-            }
-
-            auditableEntity.ModifiedOn = now;
-            auditableEntity.ModifiedBy = _userContext.Identity.Code;
-        }
-
-        private DbSet<TEntity> Set()
-        {
-            return DomainContext.Set<TEntity>();
+            return SaveChanges();
         }
     }
 }

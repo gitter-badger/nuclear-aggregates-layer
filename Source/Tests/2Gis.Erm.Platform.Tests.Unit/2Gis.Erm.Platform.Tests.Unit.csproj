@@ -125,6 +125,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Common\Utils\CompareObjectsHelperSpecs.cs" />
     <Compile Include="Core\Infrastructure\StubOperationScope.cs" />
     <Compile Include="Core\Infrastructure\StubOperationScopeFactory.cs" />
     <Compile Include="Core\Operations\Processing\Final\ReplicateToMsCRMHandlerSlicerSpecs.cs" />
@@ -195,6 +196,10 @@
     <ProjectReference Include="..\..\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
       <Project>{e97bc051-bc95-4183-950b-0685dde66d7d}</Project>
       <Name>2Gis.Erm.Platform.AppFabric</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>

@@ -10,46 +10,42 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
     public sealed class EFDomainContext : IModifiableDomainContext, IReadDomainContext
     {
-        private const string StoredProcedurePrefix = "Replicate";
-
-        private readonly HashSet<IEntityKey> _replicableHashSet = new HashSet<IEntityKey>();
+        private readonly HashSet<Tuple<IEntityKey, string>> _replicableHashSet = new HashSet<Tuple<IEntityKey, string>>();
         private readonly IProcessingContext _processingContext;
+        private readonly string _defaultContextName;
         private readonly IDbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
-        private readonly IMsCrmSettings _msCrmSettings;
+        private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
         private readonly ICommonLog _logger;
 
         public EFDomainContext(IProcessingContext processingContext,
                                string defaultContextName,
                                IDbContext dbContext,
                                IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-                               IMsCrmSettings msCrmSettings,
+                               IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider,
                                ICommonLog logger)
         {
-            DefaultContextName = defaultContextName;
-
             _processingContext = processingContext;
+            _defaultContextName = defaultContextName;
             _dbContext = dbContext;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
-            _msCrmSettings = msCrmSettings;
+            _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
             _logger = logger;
 
             EnsureUseCaseDuration();
         }
 
-        public string DefaultContextName { get; private set; }
-
         public bool AnyPendingChanges
         {
-            get 
+            get
             {
                 try
                 {
@@ -62,13 +58,13 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 }
             }
         }
-        
+
         public int SaveChanges(SaveOptions options)
         {
             foreach (var entry in _dbContext.Entries())
             {
                 var entity = entry.Entity;
-                if (entity == null)
+                if (entity == null || entry.State == EntityState.Unchanged)
                 {
                     continue;
                 }
@@ -82,19 +78,12 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                     }
                 }
 
-                if (entry.State != EntityState.Unchanged)
-                {
-                    MarkEntityAsReplicable(entity);
-                }
+                MarkEntityAsReplicable(entity);
             }
 
             EnsureUseCaseDuration();
 
             var savedCount = _dbContext.SaveChanges(options);
-            if (savedCount > 0 && options != SaveOptions.None)
-            {   
-                // сохранили 
-            }
 
             Replicate();
 
@@ -155,36 +144,21 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             // пока конвертация простая - значение enum UseCaseDuration используется как значение command timeout в секундах
             var timeout = (int)(_processingContext.ContainsKey(UseCaseDurationKey.Instance)
-                                                ? _processingContext.GetValue(UseCaseDurationKey.Instance)
-                                                : UseCaseDuration.Normal);
+                                    ? _processingContext.GetValue(UseCaseDurationKey.Instance)
+                                    : UseCaseDuration.Normal);
             var currentValue = _dbContext.CommandTimeout ?? 0;
             _dbContext.CommandTimeout = Math.Max(timeout, currentValue);
         }
 
         private void MarkEntityAsReplicable(object entity)
         {
-            if (!_msCrmSettings.EnableReplication)
+            EntityReplicationInfo replicationInfo;
+            if (!_msCrmReplicationMetadataProvider.TryGetSyncMetadata(entity.GetType(), out replicationInfo))
             {
                 return;
             }
 
-            if (entity.GetType().IsAsync2MsCrmReplicated())
-            {
-                return;
-            }
-            
-            var replicable = entity as IReplicableEntity;
-            if (replicable != null)
-            {
-                _replicableHashSet.Add(replicable);
-                return;
-            }
-
-            var replicableExplicitly = entity as IReplicableExplicitly;
-            if (replicableExplicitly != null)
-            {
-                _replicableHashSet.Add(replicableExplicitly);
-            }
+            _replicableHashSet.Add(Tuple.Create((IEntityKey)entity, string.Format("{0}.{1}", _defaultContextName, replicationInfo.StoredProcedureName)));
         }
 
         private void Replicate()
@@ -194,17 +168,18 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 return;
             }
 
-            var replicableHashSetCopy = new IEntityKey[_replicableHashSet.Count];
+            var replicableHashSetCopy = new Tuple<IEntityKey, string>[_replicableHashSet.Count];
             _replicableHashSet.CopyTo(replicableHashSetCopy);
 
-            var storedProcedurePrefix = DefaultContextName + "." + StoredProcedurePrefix;
-
-            foreach (var entity in replicableHashSetCopy)
+            foreach (var entityReplicationInfo in replicableHashSetCopy)
             {
+                var entity = entityReplicationInfo.Item1;
+                var replicationFunctionName = entityReplicationInfo.Item2;
+
                 try
                 {
-                    _dbContext.ExecuteFunction(storedProcedurePrefix + entity.GetType().Name, new ObjectParameter("Id", entity.Id));
-                    _replicableHashSet.Remove(entity);
+                    _dbContext.ExecuteFunction(replicationFunctionName, new ObjectParameter("Id", entity.Id));
+                    _replicableHashSet.Remove(entityReplicationInfo);
                 }
                 catch (Exception ex)
                 {

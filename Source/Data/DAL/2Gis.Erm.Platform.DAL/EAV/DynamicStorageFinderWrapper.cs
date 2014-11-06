@@ -27,15 +27,15 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         }
 
         public IReadOnlyCollection<TEntity> FindMany<TEntity>(Func<IFindSpecification<TEntity>, IQueryable<TEntity>> queryExecutor, IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 var entities = queryExecutor(findSpecification).ToArray();
-                var specs = _dynamicEntityMetadataProvider.GetSpecifications<BusinessEntityInstance, BusinessEntityPropertyInstance>(typeof(TEntity), entities.Select(e => e.Id));
+				var specs = _dynamicEntityMetadataProvider.GetSpecifications<BusinessEntityInstance, BusinessEntityPropertyInstance>(typeof(TEntity), entities.OfType<IEntityKey>().Select(e => e.Id));
                 var parts = _dynamicStorageFinder.Find(specs).Cast<IEntityPart>().GroupBy(part => part.EntityId).ToDictionary(group => group.Key);
 
-                foreach (var entity in entities)
+                foreach (IEntityKey entity in entities)
                 {
                     IGrouping<long, IEntityPart> entityParts;
                     if (parts.TryGetValue(entity.Id, out entityParts))
