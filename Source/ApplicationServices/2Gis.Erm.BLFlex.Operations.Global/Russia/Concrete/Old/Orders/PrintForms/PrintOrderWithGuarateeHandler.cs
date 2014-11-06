@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.PrintForms
 {
-    public sealed class PrintOrderWithGuarateeHandler : RequestHandler<PrintOrderWithGuarateeRequest, Response>, IRussiaAdapted
+    public sealed class PrintOrderWithGuarateeHandler : RequestHandler<PrintOrderWithGuarateeRequest, Response>, IRussiaAdapted, IKazakhstanAdapted
     {
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly IOrderReadModel _orderReadModel;

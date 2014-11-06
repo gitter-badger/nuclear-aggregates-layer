@@ -2,6 +2,6 @@
 {
     public interface INumberToWordsConverter
     {
-        string Convert(int number);
+        string Convert(long number);
     }
 }

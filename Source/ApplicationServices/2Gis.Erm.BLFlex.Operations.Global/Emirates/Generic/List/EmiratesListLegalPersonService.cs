@@ -3,12 +3,14 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -63,6 +65,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                         return x => x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted;
                     });
 
+            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            {
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
+
+            if (querySettings.ParentEntityName == EntityName.Client && querySettings.ParentEntityId.HasValue)
+            {
+                query = _filterHelper.ForClientAndItsDescendants(query, querySettings.ParentEntityId.Value);
+            }
+
             var debtFilter = querySettings
                 .CreateForExtendedProperty<LegalPerson, bool>("WithDebt",
                                                               info =>
@@ -100,21 +113,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                                                                                y => y.UserId == userId);
                                                                   });
 
-            var myFilter = querySettings
-                .CreateForExtendedProperty<LegalPerson, bool>("ForMe",
-                                                              forMe =>
-                                                                  {
-                                                                      var userId = _userContext.Identity.Code;
-                                                                      if (forMe)
-                                                                      {
-                                                                          return x => x.OwnerCode == userId;
-                                                                      }
-
-                                                                      return x => x.OwnerCode != userId;
-                                                                  });
+            var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
 
             return query
-                .Filter(_filterHelper, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, myFilter)
+                .Filter(_filterHelper, dealFilter, restrictForMergeFilter, debtFilter, hasMyOrdersFilter, myBranchFilter)
                 .Select(x => new EmiratesListLegalPersonDto
                     {
                         Id = x.Id,
@@ -127,12 +129,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted
                     })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                    {
-                        x.OwnerName = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                        return x;
-                    });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(EmiratesListLegalPersonDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }

@@ -6,10 +6,10 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List
 {
-    public sealed class MultiCultureListOrderDto : IOperationSpecificEntityDto, IChileAdapted, ICzechAdapted, ICyprusAdapted, IUkraineAdapted
+    public sealed class MultiCultureListOrderDto : IOperationSpecificEntityDto, IChileAdapted, ICzechAdapted, ICyprusAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         public long Id { get; set; }
-        public string OrderNumber { get; set; }
+        public string Number { get; set; }
         public DateTime CreatedOn { get; set; }
         public long FirmId { get; set; }
         public string FirmName { get; set; }
@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Gen
         public decimal AmountWithdrawn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public decimal PayablePlan { get; set; }
+        public long? InspectorCode { get; set; }
 
         public OrderState WorkflowStepEnum { get; set; }
         public long? AccountId { get; set; }

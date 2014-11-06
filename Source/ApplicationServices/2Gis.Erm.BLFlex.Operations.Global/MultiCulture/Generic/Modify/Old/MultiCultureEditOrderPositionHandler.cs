@@ -5,8 +5,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
@@ -31,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
 {
     // FIXME {all, 10.07.2014}: почти полная copy/paste других adapted версий этого handler, при рефакторинге ApplicationServices - попытаться объеденить обратно + использование finder и т.п.
 
-    public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class MultiCultureEditOrderPositionHandler : RequestHandler<EditOrderPositionRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IFinder _finder;
         private readonly IOrderReadModel _orderReadModel;
@@ -46,12 +44,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
         private readonly IOperationScopeFactory _scopeFactory;
 
         public MultiCultureEditOrderPositionHandler(IFinder finder,
-                                             IOrderReadModel orderReadModel,
+                                                    IOrderReadModel orderReadModel,
                                                     IPositionReadModel positionReadModel,
                                                     IOrganizationUnitReadModel organizationUnitReadModel,
                                                     IPublicService publicService,
-                                             IOrderRepository orderRepository,
-                                             ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
+                                                    IOrderRepository orderRepository,
+                                                    ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
                                                     IOrderValidationInvalidator orderValidationInvalidator,
                                                     IOperationScopeFactory scopeFactory)
         {
@@ -78,7 +76,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                                        x.FirmId,
                                        x.WorkflowStepId,
                                        x.ReleaseCountFact,
-                                       x.DealId,
                                        x.EndDistributionDateFact,
                                        x.OwnerCode,
                                        x.DestOrganizationUnitId,

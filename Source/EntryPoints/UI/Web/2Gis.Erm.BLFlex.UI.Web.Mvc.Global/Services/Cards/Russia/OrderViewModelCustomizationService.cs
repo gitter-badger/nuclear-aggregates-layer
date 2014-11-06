@@ -74,7 +74,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
             entityViewModel.AvailableSteps = GetAvailableSteps(entityViewModel.Id, entityViewModel.IsNew, (OrderState)entityViewModel.WorkflowStepId, entityViewModel.SourceOrganizationUnit.Key);
 
             // Проверить функциональные разрешения
-            entityViewModel.HasOrderCreationExtended = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderCreationExtended);
             entityViewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
             entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
             entityViewModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);

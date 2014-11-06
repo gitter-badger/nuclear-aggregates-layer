@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetClientDtoService : GetDomainEntityDtoServiceBase<Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class GetClientDtoService : GetDomainEntityDtoServiceBase<Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         private readonly ISecureFinder _finder;
 
@@ -59,10 +59,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new MultiCultureClientDomainEntityDto
-                       {
-                           LastQualifyTime = DateTime.UtcNow
-                       };
+            return new MultiCultureClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow.Date };
         }
     }
 }

@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureClientViewModel : EntityViewModelBase<Client>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted
+    public sealed class MultiCultureClientViewModel : EntityViewModelBase<Client>, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         // Наименование
         [StringLengthLocalized(250)]
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         [RequiredLocalized]
         public override LookupField Owner { get; set; }
-        
+
         public override bool IsSecurityRoot
         {
             get

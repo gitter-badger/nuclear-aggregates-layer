@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
+    // FIXME {all, 24.09.2014}: Не отличается от MultiCultureBargainViewModel
     public sealed class CyprusBargainViewModel : EntityViewModelBase<Bargain>, ICyprusAdapted
     {
         #region Meaningful data
@@ -93,7 +94,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             HasDocumentsDebt = modelDto.HasDocumentsDebt;
             DocumentsComment = modelDto.DocumentsComment;
             Timestamp = modelDto.Timestamp;
-            UserCanWorkWithAdvertisingAgencies = modelDto.UserCanWorkWithAdvertisingAgencies;
+            UserCanWorkWithAdvertisingAgencies = false;
             IsLegalPersonChoosingDenied = modelDto.IsLegalPersonChoosingDenied;
             IsBranchOfficeOrganizationUnitChoosingDenied = modelDto.IsBranchOfficeOrganizationUnitChoosingDenied;
             ClientId = modelDto.ClientId;
@@ -127,7 +128,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     DocumentsComment = DocumentsComment,
                     OwnerRef = Owner.ToReference(),
                     Timestamp = Timestamp,
-                    UserCanWorkWithAdvertisingAgencies = UserCanWorkWithAdvertisingAgencies,
+                    UserCanWorkWithAdvertisingAgencies = false,
                     IsLegalPersonChoosingDenied = IsLegalPersonChoosingDenied,
                     IsBranchOfficeOrganizationUnitChoosingDenied = IsBranchOfficeOrganizationUnitChoosingDenied,
                     ClientId = ClientId

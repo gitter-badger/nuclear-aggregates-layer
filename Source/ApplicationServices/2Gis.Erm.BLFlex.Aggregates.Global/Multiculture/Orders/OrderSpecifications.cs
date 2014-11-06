@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                     order => new MultiCultureListOrderDto
                     {
                         Id = order.Id,
-                        OrderNumber = order.Number,
+                        Number = order.Number,
                         CreatedOn = order.CreatedOn,
                         FirmId = order.FirmId,
                         FirmName = order.Firm.Name,
@@ -45,6 +45,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
                         IsActive = order.IsActive,
                         IsDeleted = order.IsDeleted,
                         IsTerminated = order.IsTerminated,
+                        InspectorCode = order.InspectorCode,
                         HasDocumentsDebtEnum = (DocumentsDebt)order.HasDocumentsDebt,
                         OrderTypeEnum = (OrderType)order.OrderType,
                         TerminationReasonEnum = (OrderTerminationReason)order.TerminationReason,
