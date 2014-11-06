@@ -38,5 +38,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
         bool IsThereLimitDuplicate(long limitId, long accountId, DateTime periodStartDate, DateTime periodEndDate);
         bool IsLimitRecalculationAvailable(long limitId);
         decimal CalculateLimitValueForAccountByPeriod(long accountId, DateTime periodStart, DateTime periodEnd);
+        decimal CalculateLimitIncreasingValue(long limitId);
+        long GetLimitOwnerCode(long limitId);
     }
 }

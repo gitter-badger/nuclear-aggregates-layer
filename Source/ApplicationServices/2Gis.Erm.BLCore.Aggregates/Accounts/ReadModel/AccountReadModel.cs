@@ -458,5 +458,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
             return accountBalance > 0 ? 0 : Math.Abs(accountBalance);
         }
+
+        public decimal CalculateLimitIncreasingValue(long limitId)
+        {
+            var limitInfo = _finder.Find(Specs.Find.ById<Limit>(limitId)).Select(x => new { x.AccountId, x.StartPeriodDate, x.EndPeriodDate, x.Amount }).Single();
+            var newLimitAmount = CalculateLimitValueForAccountByPeriod(limitInfo.AccountId, limitInfo.StartPeriodDate, limitInfo.EndPeriodDate);
+            var difference = newLimitAmount - limitInfo.Amount;
+
+            return difference > 0 ? difference : 0;
+        }
+
+        public long GetLimitOwnerCode(long limitId)
+        {
+            return _finder.Find(Specs.Find.ById<Limit>(limitId)).Select(x => x.OwnerCode).Single();
+        }
     }
 }
