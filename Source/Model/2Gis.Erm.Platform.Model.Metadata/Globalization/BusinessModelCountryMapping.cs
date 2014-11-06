@@ -16,7 +16,8 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Globalization
                                                                            { BusinessModel.Czech, new[] { 203 } },
                                                                            { BusinessModel.Chile, new[] { 152 } },
                                                                            { BusinessModel.Ukraine, new[] { 804 } },
-                                                                           { BusinessModel.Emirates, new[] { 784 } }
+                                                                           { BusinessModel.Emirates, new[] { 784 } },
+                                                                           { BusinessModel.Kazakhstan, new[] { 398 } }
                                                                        });
 
         public static IEnumerable<int> GetCountryCodes(BusinessModel businessModel)

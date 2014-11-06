@@ -869,6 +869,8 @@
     <Compile Include="Entities\Enums\WithdrawalStatus.cs" />
     <Compile Include="Entities\Erm\AcceptanceReportsJournalRecord.cs" />
     <Compile Include="Entities\Erm\Bank.cs" />
+    <Compile Include="Entities\Erm\Kazakhstan\KazakhstanLegalPersonPart.cs" />
+    <Compile Include="Entities\Erm\Kazakhstan\KazakhstanLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\ReferenceType.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\Partial\ExportFlowNomenclatures_NomenclatureElementRelation.cs" />
