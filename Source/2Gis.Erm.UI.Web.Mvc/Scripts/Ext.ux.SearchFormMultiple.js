@@ -58,6 +58,7 @@ Ext.ux.SearchFormMultiple = Ext.extend(Ext.Panel, {
                             anchor: '100%,100%',
                             showCreateButton: this.currentSettings.ReadOnly,
                             viewSettings: this.currentSettings,
+                            honourDataListFields: config.honourDataListFields,
                             entityModel: this.entityModel,
                             extendedInfo: this.extendedInfo,
                             cls: 'gridPane'

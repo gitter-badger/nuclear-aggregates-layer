@@ -1,11 +1,8 @@
-﻿using System;
-using System.IdentityModel.Policy;
+﻿using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.Releasing.Config;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
-using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
@@ -15,13 +12,13 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Ftp;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
@@ -71,8 +68,8 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                                     c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
                                                                           settingsContainer.AsSettings<IConnectionStringSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
-                                                                          settingsContainer.AsSettings<IFtpExportIntegrationModeSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           loggerContextManager))
                      .ConfigureServiceClient();
         }
@@ -87,17 +84,18 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             IEnvironmentSettings environmentSettings,
             IConnectionStringSettings connectionStringSettings,
             ICachingSettings cachingSettings, 
-            IFtpExportIntegrationModeSettings ftpExportIntegrationModeSettings,
             IOperationLoggingSettings operationLoggingSettings,
+            IMsCrmSettings msCrmSettings,
             ILoggerContextManager loggerContextManager)
         {
             return container
                 .ConfigureLogging(loggerContextManager)
                 .CreateSecuritySpecific()
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
-                .ConfigureReleasingInfrastructure(ftpExportIntegrationModeSettings)
+                .ConfigureReleasingInfrastructure()
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureIdentityInfrastructure()
                 .ConfigureExportMetadata()
@@ -141,48 +139,18 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                      .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerOperationContext);
         }
 
-        private static IUnityContainer ConfigureReleasingInfrastructure(this IUnityContainer container, IFtpExportIntegrationModeSettings settings)
+        private static IUnityContainer ConfigureReleasingInfrastructure(this IUnityContainer container)
         {
-            switch (settings.ExportIntegrationMode)
-            {
-                case ExportIntegrationMode.ServiceBusAndFtp:
-                {
-                    container.RegisterType<IEnsureOrderExportedStrategyContainer, EnsureOrderExportedStrategyContainer>(
-                        Lifetime.PerResolve, 
-                        new InjectionFactory(
-                            (unityContainer, type, arg3) => 
-                                new EnsureOrderExportedStrategyContainer(
-                                    new[]
-                                        {
-                                            unityContainer.ResolveOne2ManyTypesByType<IEnsureOrderExportedStrategy, FileStorageEnsureOrderExportedStrategy>(),
-                                            unityContainer.ResolveOne2ManyTypesByType<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>()
-                                        })));
-                    break;
-                }
-                case ExportIntegrationMode.Ftp:
-                {
-                    container.RegisterType<IEnsureOrderExportedStrategyContainer, EnsureOrderExportedStrategyContainer>(
-                        Lifetime.PerResolve, 
-                        new InjectionFactory(
-                            (unityContainer, type, arg3) => 
-                                new EnsureOrderExportedStrategyContainer(
-                                    new[]
+            container.RegisterType<IEnsureOrderExportedStrategyContainer, EnsureOrderExportedStrategyContainer>(
+                    Lifetime.PerResolve,
+                    new InjectionFactory((unityContainer, type, arg3) =>
+                            new EnsureOrderExportedStrategyContainer(
+                                new[]
                                         {
                                             unityContainer.ResolveOne2ManyTypesByType<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>()
                                         })));
-                    break;
-                }
-                default:
-                {
-                    throw new NotSupportedException("Not supported export integration mode: " + settings.ExportIntegrationMode);
-                }
-            }
-
+            
             return container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
-                            .RegisterType<IFtpService, FtpService>(Lifetime.Singleton)
-                            .RegisterType<IPublishOrdersForReleaseToFileStorage, PublishOrdersForFinalReleaseToFtp>(Lifetime.Singleton)
-                            .RegisterType<IOrdersWithAdvertisementMaterialsSerializerFactory, OrdersWithAdvertisementMaterialsXmlSerializerFactory>(Lifetime.Singleton)
-                            .RegisterOne2ManyTypesPerTypeUniqueness<IEnsureOrderExportedStrategy, FileStorageEnsureOrderExportedStrategy>(EntryPointSpecificLifetimeManagerFactory())
                             .RegisterOne2ManyTypesPerTypeUniqueness<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>(EntryPointSpecificLifetimeManagerFactory());
         }
 

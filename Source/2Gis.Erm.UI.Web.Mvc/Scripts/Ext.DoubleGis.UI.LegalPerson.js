@@ -38,7 +38,6 @@
     });
 
     Ext.apply(this, {
-
         buildProfilesList: function () {
             if (this.form.Id.value != 0) {
                 var cnt = Ext.getCmp('ContentTab_holder');

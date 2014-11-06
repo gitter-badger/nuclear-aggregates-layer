@@ -100,7 +100,6 @@
     <Compile Include="Suite\Base\StreamResponseAsserter.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Accounts\AccountReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Activities\ActivityReadModelTest.cs" />
-    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Advertisements\AdvertisementReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Deals\DealReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Orders\OrderReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Release\ReleaseReadModelTest.cs" />
@@ -196,7 +195,6 @@
     <Compile Include="Suite\Base\UseModelEntityTestBase.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderAdditionalAgreementHandlerTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderHandlerTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeHandlerTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandlerTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\RequestStateApplicationServiceTest.cs" />

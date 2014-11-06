@@ -3,16 +3,13 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
     Items: {},
     Utils: {},
     //конструктор объекта. В качестве параметра принимает все настройки листа и карточки.
-    constructor: function (model)
-    {
+    constructor: function (model) {
         this.addEvents("beforebuild", "afterbuild", "beforerebuild", "afterrebuild", "beforecreate", "beforeedit", "beforedelete", "beforeappend", "beforerefresh", "afterrefresh");
-        if (model)
-        {
+        if (model) {
             var urlComponents = location.pathname.split('/');
 
             // Removing last slash component
-            if (urlComponents[urlComponents.length - 1] == '')
-            {
+            if (urlComponents[urlComponents.length - 1] == '') {
                 urlComponents.splice(urlComponents.length - 1, 1);
             }
             
@@ -24,16 +21,14 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             // General route looks like this:
             // <URI>/Grid/{action}/{entityTypeName}/{parentEntityType}/{parentEntityId}/{parentEntityState}/{appendedEntityType}
             
-            if (urlComponents.length == 7)
-            {
+            if (urlComponents.length == 7) {
                 // {appendedEntityType} is absent
                 
                 parentEntityState = urlComponents[6] != "null" ? urlComponents[6] : "Active";
                 parentEntityId = urlComponents[5];
                 parentEntityType = urlComponents[4];
             }
-            else if (urlComponents.length == 8)
-            {
+            else if (urlComponents.length == 8) {
                 // {appendedEntityType} is present
 
                 appendedEntityType = urlComponents[7] != "null" ? urlComponents[7] : null;
@@ -41,7 +36,8 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 parentEntityId = urlComponents[5];
                 parentEntityType = urlComponents[4];
             }
-            
+
+            model.DataViews = this.ExcludeHiddenViews(model.DataViews);
             if (parentEntityType && parentEntityId && model.DataViews.length > 0) {
                 var newDataViews = [];
                 for (var i = 0; i < model.DataViews.length; i++) {
@@ -75,27 +71,24 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                             parentState: parentEntityState,
                             modelSettings: model
                         }));
-            if (window.InitPage)
-            {
+            if (window.InitPage) {
                 window.InitPage.createDelegate(this)();
             }
             this.Build();
         }
-        else
-        {
+        else {
             Logger.HandleError("Не удалось получить настройки списка данных.", window.location, 0);
         }
     },
-    init: function (model)
-    {
+    init: function (model) {
         var currentDataView = null;
         if (model.defaultDataView) {
-            currentDataView = model.modelSettings.DataViews.findOne(function(view) {
+            currentDataView = model.modelSettings.DataViews.findOne(function (view) {
                 return view.NameLocaleResourceId === model.defaultDataView;
             });
         }
         else if (model.singleDataView) {
-            currentDataView = model.modelSettings.DataViews.findOne(function(view) {
+            currentDataView = model.modelSettings.DataViews.findOne(function (view) {
                 return view.NameLocaleResourceId === model.singleDataView;
             });
             if (currentDataView)
@@ -113,13 +106,10 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         this.currentSettings = currentDataView || model.modelSettings.DataViews[0];
         this.ContentContainer = null;
 
-        if (model.modelSettings.listeners)
-        {
+        if (model.modelSettings.listeners) {
             var p, l = model.modelSettings.listeners;
-            for (p in l)
-            {
-                if (window.Ext.isFunction(l[p]))
-                {
+            for (p in l) {
+                if (window.Ext.isFunction(l[p])) {
                     this.on(p, l[p], this);
                 }
             }
@@ -127,8 +117,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
 
         this.BuildContentPage();
     },
-    BuildContentPage: function ()
-    {
+    BuildContentPage: function () {
         var northPanel = {
             id: "Toolbar",
             region: "north",
@@ -138,7 +127,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             collapsible: false,
             border: false,
             layout: "anchor",
-            items: [{ id: "FilterBar", height: 35, border: false, header: false, contentEl: "FilterPanel"}]
+            items: [{ id: "FilterBar", height: 35, border: false, header: false, contentEl: "FilterPanel" }]
         };
 
         var centerPanel = {
@@ -161,18 +150,15 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             items: [northPanel, centerPanel]
         });
     },
-    Build: function ()
-    {
-        if (this.fireEvent("beforebuild", this) === false)
-        {
+    Build: function () {
+        if (this.fireEvent("beforebuild", this) === false) {
             return;
         }
         
         var columns = [new Object({ id: "Image", width: 26, menuDisabled: true, renderer: { fn: window.Ext.DoubleGis.Global.Helpers.GridColumnHelper.RenderDefaultIcon, scope: this.currentSettings } })];
         var rdrFields = [];
 
-        window.Ext.each(this.currentSettings.Fields, function (field)
-        {
+        window.Ext.each(this.currentSettings.Fields, function (field) {
             columns.push(new Object({
                 header: field.LocalizedName,
                 width: field.Width,
@@ -202,15 +188,12 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         this.ApplyToolbarHidingSettings();
         
         this.fireEvent("afterbuild", this);
-        if (window.parent && window.parent.Card && window.parent.Card.fireAfterRelatedListReady)
-        {
+        if (window.parent && window.parent.Card && window.parent.Card.fireAfterRelatedListReady) {
             window.parent.Card.fireAfterRelatedListReady(this);
         }
     },
-    Rebuild: function (currentView)
-    {
-        if (this.fireEvent("beforerebuild", this) === false)
-        {
+    Rebuild: function (currentView) {
+        if (this.fireEvent("beforerebuild", this) === false) {
             return;
         }
         
@@ -228,8 +211,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
 
         var rdrFields = [];
 
-        window.Ext.each(this.currentSettings.Fields, function (field)
-        {
+        window.Ext.each(this.currentSettings.Fields, function (field) {
             columns.push(new Object({
                 header: field.LocalizedName,
                 width: field.Width,
@@ -271,7 +253,8 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                         method: 'GET',
                         url: Ext.BasicOperationsServiceRestUrl + "List.svc/Rest/" + this.EntityName
                     }
-                }
+                },
+                timeout : 1200000
             }),
             baseParams: {
                 start: 0,
@@ -285,8 +268,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 pType: this.ParentType
             },
             listeners: {
-                exception: function (proxy, type, action, o, response, args)
-                {
+                exception: function (proxy, type, action, o, response, args) {
                     Ext.MessageBox.show({
                         title: Ext.LocalizedResources.Error,
                         msg: response.responseText || response.statusText,
@@ -306,10 +288,8 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
     },
 
     //отрисовка самого грида
-    BuildGrid: function (columns)
-    {
-        if (this.Items.Grid)
-        {
+    BuildGrid: function (columns) {
+        if (this.Items.Grid) {
             window.Ext.getCmp("DataList").remove(this.Items.Grid, true);
         }
 
@@ -342,31 +322,25 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
 
         window.Ext.getCmp("DataList").add(this.Items.Grid);
 
-        if (this.EntityModel.HasCard)
-        {
+        if (this.EntityModel.HasCard) {
             this.Items.Grid.addListener("RowDblClick", this.Edit, this);
         }
 
     },
-    onCellClick: function (cmp, rowIndex, columnIndex, evt)
-    {
-        if (Ext.get(evt.target).hasClass('x-entity-link'))
-        {
+    onCellClick: function (cmp, rowIndex, columnIndex, evt) {
+        if (Ext.get(evt.target).hasClass('x-entity-link')) {
             var fieldNum = columnIndex - 1/*Смещение на 1 из-за отрисованной колонки с картинкой сущности*/;
             var fieldSet = this.currentSettings.Fields[fieldNum];
             var record = this.Items.Grid.getStore().getAt(rowIndex);
-            if (record && record.data[fieldSet.ReferenceKeyField])
-            {
+            if (record && record.data[fieldSet.ReferenceKeyField]) {
                 this.openReferenceWindow(fieldSet.ReferenceTo, record.data[fieldSet.ReferenceKeyField]);
             }
         }
     },
 
     //Построение верхней панели с кнопками
-    BuildToolbar: function ()
-    {
-        for (var i = 0; i < this.currentSettings.ToolbarItems.length; i++)
-        {
+    BuildToolbar: function () {
+        for (var i = 0; i < this.currentSettings.ToolbarItems.length; i++) {
             this.currentSettings.ToolbarItems[i].Icon = this.currentSettings.ToolbarItems[i].Name == "Create" ? this.currentSettings.Icon : this.currentSettings.ToolbarItems[i].Icon;
         }
         return window.Ext.DoubleGis.Global.Helpers.ToolbarHelper.BuildToolbar(this.currentSettings.ToolbarItems, true, this);
@@ -388,20 +362,17 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         }
     },
     
-    RebuildPage: function ()
-    {
+    RebuildPage: function () {
         window.Ext.each(this.EntityModel.DataViews,
-            function (item)
-            {
-                if (item.NameLocaleResourceId == event.srcElement.value)
-                {
+            function (item) {
+                if (item.NameLocaleResourceId == event.srcElement.value) {
                     this.Rebuild(item);
                 }
             }, this);
     },
 
     //Функции, выполняющие операции по открытию всяческий карточек
-    Append: function ()
+    Append: function (options)
     {
         if (window.Ext.isNullOrDefault(this.AppendedEntity))
         {
@@ -416,17 +387,20 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             return;
         }
 
-        if (this.fireEvent("beforeappend", this) === false)
-        {
+        if (this.fireEvent("beforeappend", this) === false) {
             return;
         }
 
         var url = "/Grid/SearchMultiple/" + this.AppendedEntity + "/" + this.ParentType + "/" + this.ParentId;
+
+        if (options && options.UrlParameters) {
+            url = Ext.urlAppend(url, Ext.urlEncode(options.UrlParameters));
+        }
+
         var result = window.showModalDialog(url, null, 'status:no; resizable:yes; dialogWidth:900px; dialogHeight:500px; resizable: yes; scroll: no; location:yes;');
-        if (result)
-        {
-            for (var i = 0; i < result.items.length; i++)
-            {
+        if (result) {
+            var errors = ''; 
+            for (var i = 0; i < result.items.length; i++) {
                 var response = window.Ext.Ajax.syncRequest(
                     {
                         timeout: 1200000,
@@ -438,27 +412,29 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                     var error = window.Ext.decode(response.conn.responseText);
                     Logger.HandleError(error.Message, window.location, 0);
                     
+                    errors += error.Message + '<br/>';
+                }
+            }
+
+            if (errors) {
                     window.Ext.MessageBox.show({
                         title: Ext.LocalizedResources.OperationFailed,
-                        msg: error.Message,
+                        msg: errors, // fixme {all, 2014-09-30}: Вероятно, массив в качестве строкового параметра не сработает и отобрахится что-то типа [object Object]
                         buttons: window.Ext.MessageBox.OK,
                         icon: window.Ext.MessageBox.ERROR
                     });
                     this.ContentContainer.doLayout();
                 }
-            }
             this.refresh();
         }
     },
 
-    Create: function (settings)
-    {
+    Create: function (settings) {
         var sUrl;
         var queryString = "";
         var params;
 
-        if (!window.Ext.isNullOrDefault(this.AppendedEntity))
-        {
+        if (!window.Ext.isNullOrDefault(this.AppendedEntity)) {
             params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
 
             if (this.ParentType && this.ParentId) {
@@ -471,8 +447,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
 
         var overridenEntityName = settings ? settings.overridenEntityName : null;
 
-        if (!this.EntityModel.HasCard && !overridenEntityName)
-        {
+        if (!this.EntityModel.HasCard && !overridenEntityName) {
             window.Ext.MessageBox.show({
                 title: '',
                 msg: window.Ext.LocalizedResources.CardIsUndefined,
@@ -484,13 +459,11 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             return;
         }
 
-        if (this.fireEvent("beforecreate", this) === false)
-        {
+        if (this.fireEvent("beforecreate", this) === false) {
             return;
         }
 
-        if (this.currentSettings.ReadOnly)
-        {
+        if (this.currentSettings.ReadOnly) {
             window.Ext.MessageBox.show({
                 title: '',
                 msg: window.Ext.LocalizedResources.ItsReadOnlyMode,
@@ -510,17 +483,14 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(overridenEntityName ? overridenEntityName : this.EntityName, queryString);
         window.open(sUrl, "_blank", params);
     },
-    Edit: function (arg)
-    {
-        if (this.currentSettings.DisableEdit || !window.Ext.isNullOrDefault(this.AppendedEntity))
-        {
+    Edit: function (arg) {
+        if (this.currentSettings.DisableEdit || !window.Ext.isNullOrDefault(this.AppendedEntity)) {
             return;
         }
 
         var overridenEntityName = arg ? arg.overridenEntityName : null;
 
-        if (!this.EntityModel.HasCard && !overridenEntityName)
-        {
+        if (!this.EntityModel.HasCard && !overridenEntityName) {
             window.Ext.MessageBox.show({
                 title: '',
                 msg: window.Ext.LocalizedResources.CardIsUndefined,
@@ -532,8 +502,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             return;
         }
 
-        if (this.fireEvent("beforeedit", this) === false)
-        {
+        if (this.fireEvent("beforeedit", this) === false) {
             return;
         }
 
@@ -568,13 +537,11 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         window.open(sUrl, "_blank", params);
     },
 
-    GetSelectedItems: function ()
-    {
+    GetSelectedItems: function () {
         var vals = [];
 
         window.Ext.each(this.Items.Grid.getSelectionModel().selections.items,
-                    function (val)
-                    {
+                    function (val) {
                         vals.push(val.data.Id);
                     });
         return vals;
@@ -596,7 +563,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         return true;
     },
     
-    EnsureOneOrMoreSelected: function() {
+    EnsureOneOrMoreSelected: function () {
         if (this.Items.Grid.getSelectionModel().selections.items.length == 0) {
             window.Ext.MessageBox.show({
                 title: '',
@@ -612,11 +579,9 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         return true;
     },
 
-    Delete: function (cmp, evt, doSpecialConfirmation)
-    {
+    Delete: function (cmp, evt, doSpecialConfirmation) {
 
-        if (this.Items.Grid.getSelectionModel().selections.items.length == 0)
-        {
+        if (this.Items.Grid.getSelectionModel().selections.items.length == 0) {
             window.Ext.MessageBox.show({
                 title: '',
                 msg: Ext.LocalizedResources.MustSelectOneOrMoreObject,
@@ -628,15 +593,13 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
             return;
         }
 
-        if (this.fireEvent("beforedelete", this) === false)
-        {
+        if (this.fireEvent("beforedelete", this) === false) {
             return;
         }
         var vals = [];
 
         window.Ext.each(this.Items.Grid.getSelectionModel().selections.items,
-                    function (val)
-                    {
+                    function (val) {
                         vals.push(val.data.Id);
                     });
 
@@ -647,29 +610,24 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
 
 
         var result = window.showModalDialog("/GroupOperation/Delete/" + this.EntityName, parameters, "dialogWidth:500px; dialogHeight:203px; scroll:no;resizable:no;");
-        if (result == true)
-        {
+        if (result == true) {
             this.refresh();
         }
     },
 
-    DeleteConfirmed: function (cmp, evt)
-    {
+    DeleteConfirmed: function (cmp, evt) {
         this.Delete(cmp, evt, true);
     },
 
-    refresh: function ()
-    {
-        if (this.fireEvent("beforerefresh", this) === false)
-        {
+    refresh: function () {
+        if (this.fireEvent("beforerefresh", this) === false) {
             return;
         }
 
         this.Items.Store.reload();
     },
 
-    openReferenceWindow: function (entityName, id)
-    {
+    openReferenceWindow: function (entityName, id) {
         var params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
         var queryString = this.currentSettings.ReadOnly ? '?readOnly=true' : '';
         var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrl(entityName, id, queryString);
@@ -693,10 +651,8 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         return result;
     },
     
-    Activate: function ()
-    {
-        if (this.Items.Grid.getSelectionModel().selections.items.length == 0)
-        {
+    Activate: function () {
+        if (this.Items.Grid.getSelectionModel().selections.items.length == 0) {
             window.Ext.MessageBox.show({
                 title: '',
                 msg: Ext.LocalizedResources.MustSelectOneOrMoreObject,
@@ -714,15 +670,12 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         };
         var url = "/GroupOperation/Activate/" + this.EntityName;
         var result = window.showModalDialog(url, parameters, "dialogWidth:500px; dialogHeight:203px; scroll:no;resizable:no;");
-        if (result == true)
-        {
+        if (result == true) {
             this.refresh();
         }
     },
-    Deactivate: function ()
-    {
-        if (this.Items.Grid.getSelectionModel().selections.items.length == 0)
-        {
+    Deactivate: function () {
+        if (this.Items.Grid.getSelectionModel().selections.items.length == 0) {
             window.Ext.MessageBox.show({
                 title: '',
                 msg: Ext.LocalizedResources.MustSelectOneOrMoreObject,
@@ -740,21 +693,20 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         };
         var url = "/GroupOperation/Deactivate/" + this.EntityName;
         var result = window.showModalDialog(url, parameters, "dialogWidth:500px; dialogHeight:350px; scroll:no;resizable:no;");
-        if (result == true)
-        {
+        if (result == true) {
             this.refresh();
         }
     },
     
-    ApplyToolbarDisablingSettings: function() {
+    ApplyToolbarDisablingSettings: function () {
         // Подумать еще над производительностью решения с блокированием кнопок, если не выбрана ни одна строка
         var isEmpty = this.Items.Store.data.length == 0;
         var self = this;
 
-        this.Items.Grid.getTopToolbar().items.each(function(item) {
+        this.Items.Grid.getTopToolbar().items.each(function (item) {
             if (item.menu) {
                 var disableMenu = true;
-                item.menu.items.each(function(menuItem) {
+                item.menu.items.each(function (menuItem) {
                     if (menuItem.hidden) return;
                     self.SetDisabled(menuItem, isEmpty);
                     disableMenu = disableMenu && menuItem.disabled;
@@ -771,7 +723,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         });
     },
     
-    ApplyToolbarHidingSettings: function() {
+    ApplyToolbarHidingSettings: function () {
         var toolbarItems = this.currentSettings.ToolbarItems;
         var buttonsToHide = [];
         for (var i = 0; i < toolbarItems.length; i++) {
@@ -794,7 +746,7 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
         tbar.doLayout();
     },
     
-    SetDisabled: function(item, disabled) {
+    SetDisabled: function (item, disabled) {
         if (item.initialConfig.disableOnEmpty) {
             if (!disabled && item.initialConfig.disabledInitially === false) {
                 item.enable();
@@ -804,5 +756,16 @@ Ext.DoubleGis.UI.DataList = Ext.extend(Ext.util.Observable, {
                 item.disable();
             }
         }
+    },
+
+    ExcludeHiddenViews: function (views) {
+        var result = [];
+        Ext.each(views, function (view) {
+            if (!view.IsHidden) {
+                result.push(view);
+            }
+        });
+
+        return result;
     }
 });

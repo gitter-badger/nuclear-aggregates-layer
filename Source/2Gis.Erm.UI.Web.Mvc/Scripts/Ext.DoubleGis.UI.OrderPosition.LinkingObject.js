@@ -189,8 +189,8 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
         var isComposite = window.Ext.getDom('IsComposite').value.toLowerCase();
 
-        var checkboxDisabled = false;
-        var isDummyCheckboxDisabled = false;
+        var checkboxDisabled = this.controller.localData.readOnly;
+        var isDummyCheckboxDisabled = this.controller.localData.readOnly;
 
         if (this.controller.localData.areLinkingObjectParametersLocked) {
             checkboxDisabled = true;
@@ -215,13 +215,10 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
         }
 
         this.checkbox.disabled = checkboxDisabled;
-        if (this.supportsAdvertisement() && this.isDummyCheckBox) {
-            this.isDummyCheckBox.disabled = isDummyCheckboxDisabled;
-        }
 
+        var disableAdvertisementLookup = this.controller.localData.readOnly;
         if (this.supportsAdvertisement() && this.advertisementLookup) {
 
-            var disableAdvertisementLookup = false;
             if (!this.checkbox.checked) {
                 if (this.controller.localData.areLinkingObjectParametersLocked ||
                     this.position.isAdvertisementLimitReached) {
@@ -232,6 +229,10 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                 this.advertisementLookup.disable();
             else
                 this.advertisementLookup.enable();
+        }
+
+        if (this.supportsAdvertisement() && this.isDummyCheckBox) {
+            this.isDummyCheckBox.disabled = disableAdvertisementLookup && isDummyCheckboxDisabled;
         }
     },
 
