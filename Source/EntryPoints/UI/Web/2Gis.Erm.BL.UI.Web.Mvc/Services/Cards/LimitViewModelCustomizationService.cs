@@ -55,18 +55,20 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
             if (entityViewModel.IsNew)
             {
-                DisableButtons(toolbar, new[] { "OpenLimit", "RejectLimit", "ApproveLimit", "RecalculateLimit" });
+                DisableButtons(toolbar, new[] { "OpenLimit", "RejectLimit", "ApproveLimit", "RecalculateLimit", "IncreaseLimit" });
                 return;
             }
 
             switch (entityViewModel.Status)
             {
                 case LimitStatus.Opened:
-                    DisableButtons(toolbar, new[] { "OpenLimit" });
+                    DisableButtons(toolbar, new[] { "OpenLimit", "IncreaseLimit" });
                     break;
                 case LimitStatus.Approved:
+                     DisableButtons(toolbar, new[] { "RejectLimit", "ApproveLimit" });
+                    break;
                 case LimitStatus.Rejected:
-                    DisableButtons(toolbar, new[] { "RejectLimit", "ApproveLimit" });
+                    DisableButtons(toolbar, new[] { "RejectLimit", "ApproveLimit", "IncreaseLimit" });
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("model");

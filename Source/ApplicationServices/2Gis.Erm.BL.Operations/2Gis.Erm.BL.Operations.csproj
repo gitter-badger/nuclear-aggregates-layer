@@ -61,6 +61,8 @@
     <Compile Include="Concrete\Integration\Import\IImportSaleTerritoryService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportBuildingService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportSaleTerritoryService.cs" />
+    <Compile Include="Concrete\Limits\IncreaseLimitOperationService.cs" />
+    <Compile Include="Concrete\Limits\CalculateLimitIncreasingOperationService.cs" />
     <Compile Include="Concrete\Limits\RecalculateLimitOperationService.cs" />
     <Compile Include="Concrete\Limits\SetLimitStatusOperationService.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\ExportFlowDeliveryData\SerializeBirthdayCongratulationHandler.cs" />

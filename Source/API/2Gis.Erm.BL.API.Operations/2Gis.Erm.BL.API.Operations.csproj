@@ -58,8 +58,12 @@
     <Compile Include="Concrete\AdvertisementElements\IDenyAdvertisementElementOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IResetAdvertisementElementToDraftOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\ITransferAdvertisementElementToReadyForValidationOpeationService.cs" />
+    <Compile Include="Concrete\Limits\IIncreaseLimitOperationService.cs" />
+    <Compile Include="Concrete\Limits\ICalculateLimitIncreasingOperationService.cs" />
     <Compile Include="Concrete\Limits\IRecalculateLimitOperationService.cs" />
     <Compile Include="Concrete\Limits\ISetLimitStatusOperationService.cs" />
+    <Compile Include="Concrete\Limits\LimitIncreasingAmountIsOutdatedException.cs" />
+    <Compile Include="Concrete\Limits\LimitIncreasingAmountException.cs" />
     <Compile Include="Concrete\Limits\LimitAmountException.cs" />
     <Compile Include="Concrete\Limits\LimitIsBlockedByReleaseException.cs" />
     <Compile Include="Concrete\Limits\LimitWorkflowIsViolatedException.cs" />

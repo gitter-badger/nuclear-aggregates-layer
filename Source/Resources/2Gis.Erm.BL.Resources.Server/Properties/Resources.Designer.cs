@@ -70,6 +70,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cумма для увелечения лимита неактуальна.
+        /// </summary>
+        public static string AmountToIncreaseLimitIsOutdated {
+            get {
+                return ResourceManager.GetString("AmountToIncreaseLimitIsOutdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Рекламное агентство не может быть указано в качестве дочернего клиента.
         /// </summary>
         public static string AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient {
@@ -93,6 +102,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string InvalidEntityTypesForLinking {
             get {
                 return ResourceManager.GetString("InvalidEntityTypesForLinking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Увеличить можно только одобренный лимит.
+        /// </summary>
+        public static string OnlyApprovedLimitCanBeIncreased {
+            get {
+                return ResourceManager.GetString("OnlyApprovedLimitCanBeIncreased", resourceCulture);
             }
         }
         
@@ -246,6 +264,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string SameIdsForEntitiesToLink {
             get {
                 return ResourceManager.GetString("SameIdsForEntitiesToLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Указана некорректная сумма для увелечения лимита.
+        /// </summary>
+        public static string WrongAmountToIncreaseLimit {
+            get {
+                return ResourceManager.GetString("WrongAmountToIncreaseLimit", resourceCulture);
             }
         }
     }

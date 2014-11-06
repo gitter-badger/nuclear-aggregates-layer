@@ -194,4 +194,13 @@
   <data name="AccessToChangePeriodOfLimitIsDenied" xml:space="preserve">
     <value>Недостаточно прав для смены периода лимита</value>
   </data>
+  <data name="AmountToIncreaseLimitIsOutdated" xml:space="preserve">
+    <value>Cумма для увелечения лимита неактуальна</value>
+  </data>
+  <data name="WrongAmountToIncreaseLimit" xml:space="preserve">
+    <value>Указана некорректная сумма для увелечения лимита</value>
+  </data>
+  <data name="OnlyApprovedLimitCanBeIncreased" xml:space="preserve">
+    <value>Увеличить можно только одобренный лимит</value>
+  </data>
 </root>
