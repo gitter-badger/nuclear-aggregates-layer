@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             throw new NotImplementedException();
         }
 
-        public int Delete(OrganizationUnit unit)
+        public int Delete(OrganizationUnit organizationUnit)
         {
             throw new NotImplementedException();
         }
@@ -282,7 +282,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             throw new NotImplementedException();
         }
 
-        public void AssignUserRelatedEntites(long userId, long newOwnerCode)
+        public void AssignUserRelatedEntities(long userId, long newOwnerCode)
         {
             throw new NotImplementedException();
         }

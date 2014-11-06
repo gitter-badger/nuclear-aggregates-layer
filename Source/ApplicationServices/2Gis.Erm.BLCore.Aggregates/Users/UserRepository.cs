@@ -173,21 +173,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public int Activate(OrganizationUnit organizationUnit)
         {
-            var count = 0;
             using (var scope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, OrganizationUnit>())
             {
                 organizationUnit.IsActive = true;
                 _organizationUnitGenericRepository.Update(organizationUnit);
-                scope.Updated<OrganizationUnit>(organizationUnit.Id);
-                count += _organizationUnitGenericRepository.Save();
+                var cnt = _organizationUnitGenericRepository.Save();
 
-                scope.Complete();
-            }
+                scope.Updated(organizationUnit)
+                     .Complete();
 
-            return count;
+                return cnt;
+        }
         }
 
-        public void AssignUserRelatedEntites(long userId, long newOwnerCode)
+        public void AssignUserRelatedEntities(long userId, long newOwnerCode)
         {
             var clients = _finder.FindMany(Specs.Find.Owned<Client>(userId));
             var firms = _finder.FindMany(Specs.Find.Owned<Firm>(userId));
@@ -372,39 +371,41 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 throw new ArgumentException(BLResources.OrgUnitLinkedWithActiveUsers);
             }
 
-            var count = 0;
             using (var scope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, OrganizationUnit>())
             {
                 organizationUnit.IsActive = false;
                 _organizationUnitGenericRepository.Update(organizationUnit);
-                scope.Updated<OrganizationUnit>(organizationUnit.Id);
-                count += _organizationUnitGenericRepository.Save();
+                var cnt = _organizationUnitGenericRepository.Save();
+
+                scope.Updated(organizationUnit)
+                     .Complete();
+
+                return cnt;
+            }
+
+        }
+
+        public int Deactivate(Territory territory)
+        {
+            var isLinkedWithUsers = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.TerritoryId == territory.Id).Any();
+            if (isLinkedWithUsers)
+            {
+                throw new ArgumentException(BLResources.TerritoryLinkedWithActiveUser);
+            }
+
+            var count = 0;
+
+            using (var scope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, Territory>())
+            {
+                territory.IsActive = false;
+                _territoryGenericRepository.Update(territory);
+                scope.Updated<Territory>(territory.Id);
+                count += _territoryGenericRepository.Save();
 
                 scope.Complete();
             }
 
             return count;
-        }
-
-        public int Deactivate(Territory territory)
-        {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, Territory>())
-            {
-                var isLinkedWithUsers = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.TerritoryId == territory.Id).Any();
-                if (isLinkedWithUsers)
-                {
-                    throw new ArgumentException(BLResources.TerritoryLinkedWithActiveUser);
-                }
-
-                territory.IsActive = false;
-                _territoryGenericRepository.Update(territory);
-                _territoryGenericRepository.Save();
-                
-                scope.Updated<Territory>(territory.Id)
-                     .Complete();
-            }
-
-            return 1;
         }
 
         public int Deactivate(Department department)
@@ -415,7 +416,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 throw new ArgumentException(BLResources.CannotDeactivateOrgUnitWithChildren);
             }
 
-            var userInfos = _finder.Find(Specs.Find.ActiveAndNotDeleted<User>()  && UserSpecs.Users.Find.ByDepartment(department.Id))
+            var userInfos = _finder.Find(Specs.Find.ActiveAndNotDeleted<User>() && UserSpecs.Users.Find.ByDepartment(department.Id))
             .Select(x => new
             {
                 User = x,
@@ -424,14 +425,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             .ToArray();
 
             var count = 0;
-
             // Удалить привязку ролей у пользователей
             using (var scope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, UserRole>())
             {
                 foreach (var userRole in userInfos.SelectMany(x => x.UserRoles))
                 {
                     _userRoleGenericRepository.Delete(userRole);
-                    scope.Deleted<UserRole>(userRole.Id);
+                    scope.Deleted(userRole);
                 }
 
                 count += _userRoleGenericRepository.Save();
@@ -447,7 +447,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
                     user.IsActive = false;
                     _userGenericRepository.Update(user);
-                    scope.Updated<User>(user.Id);
+                    scope.Updated(user);
                 }
 
                 count += _userGenericRepository.Save();
@@ -459,40 +459,37 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             {
                 department.IsActive = false;
                 _departmentGenericRepository.Update(department);
-                scope.Updated<Department>(department.Id);
+                scope.Updated(department);
+
                 count += _departmentGenericRepository.Save();
 
                 scope.Complete();
-            }
 
             return count;
+        }
         }
 
         public int Delete(OrganizationUnit organizationUnit)
         {
-            var count = 0;
             using (var scope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, OrganizationUnit>())
             {
                 _organizationUnitGenericRepository.Delete(organizationUnit);
-                scope.Deleted<OrganizationUnit>(organizationUnit.Id);
-                count += _organizationUnitGenericRepository.Save();
+                var cnt = _organizationUnitGenericRepository.Save();
 
-                scope.Complete();
+                scope.Deleted(organizationUnit)
+                     .Complete();
+
+                return cnt;
             }
             
-            return count;
+
+           
         }
 
         public int Delete(UserOrganizationUnit userOrganizationUnit)
         {
             _userOrganizationUnitGenericRepository.Delete(userOrganizationUnit);
             return _userOrganizationUnitGenericRepository.Save();
-        }
-
-        public int Delete(UserTerritory userTerritory)
-        {
-            _userTerritoryGenericRepository.Delete(userTerritory);
-            return _userTerritoryGenericRepository.Save();
         }
 
         public int DeleteUserRole(long userId, long roleId)
@@ -516,17 +513,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             }
 
             return Delete(userOrganizationUnit);
-        }
-
-        public int DeleteUserTerritory(long userId, long territoryId)
-        {
-            var userTerritory = _finder.Find<UserTerritory>(x => x.UserId == userId && x.TerritoryId == territoryId).SingleOrDefault();
-            if (userTerritory == null)
-            {
-                throw new NotificationException(BLResources.UserTerritoryNotFound);
-            }
-
-            return Delete(userTerritory);
         }
 
         public int Delete(UserRole userRole)
@@ -636,8 +622,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             }
 
             _identityProvider.SetFor(userTerritory);
+
+            using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, UserTerritory>())
+            {
             _userTerritoryGenericRepository.Add(userTerritory);
             _userTerritoryGenericRepository.Save();
+                scope.Added(userTerritory)
+                     .Complete();
+            }
         }
 
         public void CreateOrUpdate(User user)
@@ -868,7 +860,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         int IDeleteAggregateRepository<UserOrganizationUnit>.Delete(long entityId)
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var scope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, UserOrganizationUnit>())
             {
                 var userOrganizationUnit = _finder.Find(Specs.Find.ById<UserOrganizationUnit>(entityId)).Single();
 
@@ -882,14 +874,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 foreach (var userTerritory in userTerritories)
                 {
                     _userTerritoryGenericRepository.Delete(userTerritory);
+                    scope.Deleted(userTerritory);
                 }
 
                 _userTerritoryGenericRepository.Save();
 
                 _userOrganizationUnitGenericRepository.Delete(userOrganizationUnit);
+                scope.Deleted(userOrganizationUnit);
 
                 var result = _userOrganizationUnitGenericRepository.Save();
-                transaction.Complete();
+                
+                scope.Complete();
 
                 return result;
             }
@@ -1034,6 +1029,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                     organizationUnit.SyncCode1C));
             }
 
+
             if (organizationUnit.IsNew())
             {
                 using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, OrganizationUnit>())
@@ -1057,6 +1053,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                     scope.Complete();
                 }
             }
+
         }
 
         private static Guid GetCrmRoleId(CrmDataContext crmDataContext, string crmRoleName, CrmDataContextExtensions.CrmUserInfo crmUserInfo)

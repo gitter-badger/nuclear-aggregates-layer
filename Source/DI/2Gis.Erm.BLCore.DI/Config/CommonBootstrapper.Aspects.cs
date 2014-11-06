@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
@@ -39,6 +40,8 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.EntityFramework;
@@ -46,6 +49,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
+using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
@@ -77,6 +81,11 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             else
             {
                 container.RegisterType<IPendingChangesHandlingStrategy, ForcePendingChangesHandlingStrategy>(Lifetime.Singleton);
+            }
+
+            if (!container.IsRegistered<IMsCrmReplicationMetadataProvider>())
+            {
+                container.RegisterType<IMsCrmReplicationMetadataProvider, NullMsCrmReplicationMetadataProvider>();
             }
 
             return container
@@ -114,11 +123,20 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IFileContentFinder, EFFileRepository>(Lifetime.PerResolve)
 
                         .RegisterType<IDynamicStorageFinder, DynamicStorageFinder>(Lifetime.PerResolve)
+                        .RegisterType<ICompositeEntityDecorator, CompositeEntityDecorator>(Lifetime.PerResolve)
 
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)
 
-                        // TODO {y.baranihin, 25.04.2014}: пропылесосить
+                        // TODO {s.pomadin, 11.08.2014}: перенести регистрацию в DAL
+                        .RegisterType<IRepository<Appointment>, EFMappingRepository<Appointment, AppointmentBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<RegardingObject<Appointment>>, EFMappingRepository<RegardingObject<Appointment>, AppointmentReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Phonecall>, EFMappingRepository<Phonecall, PhonecallBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<RegardingObject<Phonecall>>, EFMappingRepository<RegardingObject<Phonecall>, PhonecallReference>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<Task>, EFMappingRepository<Task, TaskBase>>(Lifetime.PerResolve)
+                        .RegisterType<IRepository<RegardingObject<Task>>, EFMappingRepository<RegardingObject<Task>, TaskReference>>(Lifetime.PerResolve)
+
+                        // FIXME {all, 31.07.2014}: крайне мутная тема с декораторами, в чем их ответственность, почему где-то ConsistentRepositoryDecorator, где-то DynamicStorageRepositoryDecorator - предложение каким-то образом определиться с развитием EAV инфраструктуры
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityPropertyInstance>, EFGenericRepository<BusinessEntityPropertyInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
                         .RegisterTypeWithDependencies<IRepository<BusinessEntityInstance>, EFGenericRepository<BusinessEntityInstance>>(Mapping.DynamicEntitiesRepositoriesScope, Lifetime.PerResolve)
 
@@ -140,8 +158,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterTypeWithDependencies<IRepository<FirmAddress>, ConsistentRepositoryDecorator<FirmAddress>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
 
                         .RegisterTypeWithDependencies<IRepository<Bank>, DynamicStorageRepositoryDecorator<Bank>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
-                        .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>,
-                            DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
+                        .RegisterTypeWithDependencies<IRepository<AcceptanceReportsJournalRecord>, DynamicStorageRepositoryDecorator<AcceptanceReportsJournalRecord>>(Lifetime.PerResolve, Mapping.DynamicEntitiesRepositoriesScope)
                         
                         .RegisterType<IRepository<FileWithContent>, EFFileRepository>(Lifetime.PerResolve);
         }
@@ -268,6 +285,51 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         {
             return container.RegisterType<IResourceGroupManager, ResourceGroupManager>(Lifetime.Singleton,
                                                                                        new InjectionConstructor((object)resourceTypes));
+        }
+
+        public static IUnityContainer ConfigureReplicationMetadata(this IUnityContainer container, IMsCrmSettings msCrmSettings)
+        {
+            Type[] asyncReplicatedTypes;
+            Type[] syncReplicatedTypes;
+            ResolveReplicatedTypes(msCrmSettings.IntegrationMode, out asyncReplicatedTypes, out syncReplicatedTypes);
+
+            return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton,
+                                                                                                               new InjectionConstructor(asyncReplicatedTypes, syncReplicatedTypes));
+        }
+
+        private static void ResolveReplicatedTypes(MsCrmIntegrationMode integrationMode, out Type[] asyncReplicatedTypes, out Type[] syncReplicatedTypes)
+        {
+            switch (integrationMode)
+            {
+                case MsCrmIntegrationMode.Disabled:
+                {
+                    asyncReplicatedTypes = new Type[0];
+                    syncReplicatedTypes = new Type[0];
+                    break;
+                }
+                case MsCrmIntegrationMode.Sync:
+                {
+                    asyncReplicatedTypes = new Type[0];
+                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
+                    break;
+                }
+                case MsCrmIntegrationMode.Mixed:
+                {
+                    asyncReplicatedTypes = EntityNameUtils.AsyncReplicated2MsCrmEntities;
+                    syncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities.Except(EntityNameUtils.AsyncReplicated2MsCrmEntities).ToArray();
+                    break;
+                }
+                case MsCrmIntegrationMode.Async:
+                {
+                    asyncReplicatedTypes = EntityNameUtils.AllReplicated2MsCrmEntities;
+                    syncReplicatedTypes = new Type[0];
+                    break;
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException("integrationMode");
+                }
+            }
         }
     }
 }

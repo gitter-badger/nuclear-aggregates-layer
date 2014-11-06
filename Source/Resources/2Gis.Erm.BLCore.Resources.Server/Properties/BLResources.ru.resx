@@ -255,9 +255,6 @@
   <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value>Вы действительно хотите обработать выбранные сообщения?</value>
   </data>
-  <data name="GroupOperationResultsTitle" xml:space="preserve">
-    <value>Результаты выполнения операции</value>
-  </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value>{0}, тел. {1}, {2}</value>
   </data>
@@ -573,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Сохранять состояние</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Уже существует отделение организации {0} для  юр.лица  {1}</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Изменения объектов привязки заблокированного заказа запрещены.</value>
   </data>
@@ -870,9 +864,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>Данный документ не подходит для этого типа юр. лица</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>Не найдена основная фирма для сделки</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Вернуть клиента в резерв</value>
   </data>
@@ -924,9 +915,6 @@
   <data name="Height" xml:space="preserve">
     <value>Высота</value>
   </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>Юр.лицо {0} имеет архивные или закрытые отказом заказы. Все равно скрыть?</value>
-  </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>Отсутствует конфигурация переходов статусов лимита для статуса '{0}'</value>
   </data>
@@ -958,9 +946,6 @@
     <value>Обработано без ошибок:{0}
 Неблокирующих ошибок:{1}
 Блокирующих ошибок:{2}</value>
-  </data>
-  <data name="AdvertisementElements" xml:space="preserve">
-    <value>Элементы рекламного материала</value>
   </data>
   <data name="ActionsHistory" xml:space="preserve">
     <value>История изменений</value>
@@ -1193,8 +1178,8 @@
   <data name="Skypes" xml:space="preserve">
     <value>Номера Skype</value>
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
-    <value>Поступила оплата на лицевой счет</value>
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
+    <value>Уведомление об изменении баланса лицевого счета клиента</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>Для запуска операции необходимо наличие привилегии "Массовая проверка заказа"</value>
@@ -1440,9 +1425,6 @@
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value>В процессе обработки сообщения(ий) были обнаружены ошибки. См. лог для получения детальной информации. Количество ошибок: {0}</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value>Размещение информации Заказчиком более чем в пяти рубриках оплачивается согласно действующему Прайс-листу соответствующего Электронного СМИ.</value>
-  </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value>Создание договора возможно только через карточку заказа.</value>
   </data>
@@ -1568,12 +1550,6 @@
   <data name="EditCurrency" xml:space="preserve">
     <value>Изменить валюту</value>
   </data>
-  <data name="AssignMustPickUser" xml:space="preserve">
-    <value>Выбран режим "Назначить пользователю", но пользователь не указан.</value>
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>Нельзя дективировать юридическое лицо клиента, данные о котором уже есть в 1С</value>
-  </data>
   <data name="DealClosing" xml:space="preserve">
     <value>Закрытие Сделки</value>
   </data>
@@ -1640,9 +1616,6 @@
   <data name="QualifyOwnerNotReserved" xml:space="preserve">
     <value>Данная фирма не числится в резерве.</value>
   </data>
-  <data name="QualifyMustPickClient" xml:space="preserve">
-    <value>Выбран режим "Указать клиента", но клиент не указан.</value>
-  </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value>Содержимое отсутствует</value>
   </data>
@@ -1681,9 +1654,6 @@
   </data>
   <data name="MergeClientsSameIdError" xml:space="preserve">
     <value>Нельзя выполнять слияние клиента с самим собой.</value>
-  </data>
-  <data name="DeactivateMustPickTerritory" xml:space="preserve">
-    <value>Необходимо указать территорию, на которую будут назначены клиенты и фирмы.</value>
   </data>
   <data name="PayableBudgetFact" xml:space="preserve">
     <value>К оплате (бюджет) факт</value>
@@ -1726,9 +1696,6 @@
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Облегченный запуск сборки невозможен, выполните сборку через клиент Экспорта</value>
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
-    <value>Формирование региональной рекламы {0} за {1}</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>Исходное значение</value>
@@ -2180,9 +2147,6 @@
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;пустой адрес&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>Не найден связанный клиент для сделки</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>Смена состояния лимита в состояние '{0}' возможна только из состояний: '{1}'</value>
   </data>
@@ -2245,9 +2209,6 @@
   </data>
   <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
     <value>Необходимо указать причину расторжения</value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>Закрыть</value>
   </data>
   <data name="ExportLegalPersons" xml:space="preserve">
     <value>Выгрузить данные о юридических лицах клиентов</value>
@@ -2420,9 +2381,6 @@
   <data name="AssignCategory" xml:space="preserve">
     <value>Назначить категорию</value>
   </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>Необходимо указать Клиента.</value>
-  </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>Запуск операции восстановления невозможен, предыдущая сборка не найдена</value>
   </data>
@@ -2440,9 +2398,6 @@
   </data>
   <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Нельзя добавить запрещенную позицию позиции прайс-листа в опубликованном прайс-листе</value>
-  </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
-    <value>Для выполнения данной операции необходимо выбрать одну запись.</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
     <value>Попытка сохранить Позицию заказа с отрицательной Суммой скидки</value>
@@ -2537,12 +2492,14 @@
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>Нельзя дективировать запрещенную позицию из опубликованного прайс-листа</value>
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>Поступила оплата на лицевой счет: {0}.
-Юридическое лицо клиента: {1}.
-Юридическое лицо исполнителя: {2}.
-Поступившая сумма: {3}.
-Операция проведена: {4}.</value>
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
+    <value>Юридическое лицо клиента: {0}.
+Юридическое лицо исполнителя: {1}.
+Лицевой счет: {2}.
+Название операции: {3}.
+Тип операции: {4}.
+Cумма по операции: {5}.
+Операция проведена: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Необходимо закрыть все активные планы с данным объектом</value>
@@ -2859,9 +2816,6 @@
   <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
     <value>Невозможно отредактировать деактивированный прайс-лист</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
-  </data>
   <data name="ConfirmActivationLegend" xml:space="preserve">
     <value>Выбрано {0} записей {1}, чтобы активировать.</value>
   </data>
@@ -2900,9 +2854,6 @@
   </data>
   <data name="Modified" xml:space="preserve">
     <value>Изменено</value>
-  </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value>В городе-источнике не была проведена финальная сборка.</value>
   </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value>Восстанавливать при сбоях</value>
@@ -3045,9 +2996,6 @@
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value>Не найдено заказов, удовлетворяющих заданным условиям</value>
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value>Отзывы: В карточке не публикуется ссылка на отзывы о компании на Flamp.ru</value>
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value>Указана некорректная сумма лимита.</value>
   </data>
@@ -3110,9 +3058,6 @@
   </data>
   <data name="RenderFn" xml:space="preserve">
     <value>Функция форматирования</value>
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
-    <value>Отзывы: В карточке публикуется ссылка на отзывы о компании на Flamp.ru</value>
   </data>
   <data name="Approved" xml:space="preserve">
     <value>Одобрено</value>
@@ -3249,9 +3194,6 @@
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Идентификатор 1С</value>
   </data>
-  <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value>Необходимо указать другую причину закрытия Сделки.</value>
-  </data>
   <data name="AssignClient" xml:space="preserve">
     <value>Назначить Клиента</value>
   </data>
@@ -3338,9 +3280,6 @@
   </data>
   <data name="OperationTypeNotFound" xml:space="preserve">
     <value>Тип операции не найден</value>
-  </data>
-  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
-    <value>Для выполнения данной операции необходимо выбрать одну или несколько записей.</value>
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
     <value>Размер неизвестен</value>
@@ -3663,9 +3602,6 @@
   <data name="CopyPricetReplaceExisting" xml:space="preserve">
     <value>Переписать существующий</value>
   </data>
-  <data name="QualifyMustPickUser" xml:space="preserve">
-    <value>Выбран режим "Назначить другому пользователю", но пользователь не указан.</value>
-  </data>
   <data name="CurrencyRate" xml:space="preserve">
     <value>Курс валюты</value>
   </data>
@@ -3728,9 +3664,6 @@
   </data>
   <data name="Title1CIntegration" xml:space="preserve">
     <value>Интеграция с 1С</value>
-  </data>
-  <data name="SaveError" xml:space="preserve">
-    <value>Ошибка при сохранении</value>
   </data>
   <data name="AccesDeniedForMergingClients" xml:space="preserve">
     <value>Доступ запрещен.{0}Действие: Слияние.{0}Сущность: Клиент{0}</value>
@@ -3842,9 +3775,6 @@
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
     <value>Для выполнения данной операции необходимо выбрать неактивную Сделку</value>
-  </data>
-  <data name="GroupOperationResultsMessage" xml:space="preserve">
-    <value>Успешно обработано:{0}.Не удалось обработать:{1}. </value>
   </data>
   <data name="FirmEdit" xml:space="preserve">
     <value>Редактирование предприятия</value>
@@ -4001,9 +3931,6 @@
   </data>
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value>Проверка достаточности денежных средств на лицевых счетах для размещения заказов</value>
-  </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value>Заказчик осознает, что объем отображаемой на Интернет-площадках и/или в Веб-приложениях информации может быть ограничен их владельцами.  Обязательны к показу сведения о наименовании, адресе, телефоне и относящаяся к ним реклама.</value>
   </data>
   <data name="AmountLocked" xml:space="preserve">
     <value>Заблокировано</value>
@@ -4204,9 +4131,6 @@
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
     <value>Поле версионирования слишком длинное</value>
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
-    <value>Платформа заказа не определена. Необходимо создать позицию заказа.</value>
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
     <value>Неправильно сформирован элемент &lt;greater&gt;</value>
@@ -4631,9 +4555,6 @@
   <data name="MainPageHeader" xml:space="preserve">
     <value>2ГИС</value>
   </data>
-  <data name="DisplayErrorsList" xml:space="preserve">
-    <value>Просмотреть список ошибок...</value>
-  </data>
   <data name="MoDiUnknownError" xml:space="preserve">
     <value>Неизвестная ошибка в сервисе распределения денег</value>
   </data>
@@ -4794,9 +4715,6 @@
   <data name="NotWorkingDay" xml:space="preserve">
     <value>Не работает</value>
   </data>
-  <data name="DisabledFunctionality" xml:space="preserve">
-    <value>Данный функционал временно недоступен</value>
-  </data>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
     <value>Недостаточно прав для смены куратора у заказа № '{0}'</value>
   </data>
@@ -4817,9 +4735,6 @@
   </data>
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Допустимые расширения файлов</value>
-  </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>Восстанавливаемое юр. лицо {0} уже активно</value>
   </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>Невозможно отменить опубликование прайс-листа, позиции которого связаны с активными заказами</value>
@@ -4904,9 +4819,6 @@
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>Рубрика Id = [{0}] не содержит названия</value>
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>Нельзя деактивировать юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
     <value>Не найден заказ для продления</value>
@@ -5186,6 +5098,9 @@
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Дата окончания действия договора не может быть меньше даты подписания</value>
   </data>
+  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>В заказе не указано Юр. лицо исполнителя. Невозможно выбрать печатную форму.</value>
+  </data>
   <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
     <value>Нет прав для перевода ЭРМ в статус {0}</value>
   </data>
@@ -5204,7 +5119,91 @@
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>Нельзя указать неактивную причину отклонения</value>
   </data>
+  <data name="AdvertisingCampaign" xml:space="preserve">
+    <value>Рекламная кампания</value>
+  </data>
+  <data name="DetailsForOrders" xml:space="preserve">
+    <value>Данные для заказов</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
+    <value>Необходимо указать дату начала рекламной кампании</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
+    <value>Необходимо указать дату окончания рекламной кампании</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
+    <value>Дата окончания рекламной кампании не может быть меньше даты начала</value>
+  </data>
+  <data name="AdvertisingCampaignGoals" xml:space="preserve">
+    <value>Цели</value>
+  </data>
+  <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
+    <value>Процент агентского вознаграждения должен быть числом в диапазоне от 0 до 100</value>
+  </data>
+  <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
+    <value>Не указаны идентификаторы сделки или фирмы</value>
+  </data>
+  <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
+    <value>Связь сделки {0} и фирмы {1} уже существует</value>
+  </data>
+  <data name="AdvertisingCampaignPeriod" xml:space="preserve">
+    <value>Период рекламной кампании</value>
+  </data>
+  <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
+    <value>Взятый из резерва клиент '{0}' работает с рекламным агенством '{1}'</value>
+  </data>
+  <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
+    <value>Не указаны идентификаторы сделки или юр. лица</value>
+  </data>
+  <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
+    <value>Связь сделки {0} и юр.лица {1} уже существует</value>
+  </data>
+  <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
+    <value>Нет доступа на создание связи с клиентом '{0}'</value>
+  </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value>Создание агентских договоров запрещено</value>
+  </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
+  </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value>Клиент сделки находится в резерве.</value>
+  </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Идет сборка. Редактирование позиции заказа запрещено.</value>
+  </data>
+  <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
+    <value>Клиент {0} находится в резерве, невозможно создать заказ с его участием</value>
+  </data>
+  <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
+    <value>Фирма {0} находится в резерве, невозможно создать заказ с её участием</value>
+  </data>
+  <data name="FirmCreationIsNotSupported" xml:space="preserve">
+    <value>Создание фирм в ERM не поддерживается.</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>Смена клиента запрещена, поскольку сделка связана с юрлицами: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>Смена клиента запрещена, поскольку сделка связана с фирмами: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>Нельзя удалить основную связь с основным юрлицом, пока есть другие</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует активная связь отделения организации {0} с юридическим лицом {1}</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
+</data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже активна</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже скрыта</value>
+  </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value>{0} №{1} от {2}</value>
   </data>
 </root>

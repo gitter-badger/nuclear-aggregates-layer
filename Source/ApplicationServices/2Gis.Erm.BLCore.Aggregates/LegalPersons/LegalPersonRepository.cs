@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity, LegalPerson>())
             {
-                var profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPerson.Id));
+                var profiles = _finder.FindMany(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(legalPerson.Id) && Specs.Find.NotDeleted<LegalPersonProfile>());
                 foreach (var legalPersonProfile in profiles)
                 {
                     legalPersonProfile.IsActive = true;
@@ -98,6 +98,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
         public int Assign(LegalPerson legalPerson, long ownerCode)
         {
             legalPerson.OwnerCode = ownerCode;
+
+            // Изменения логируются в вызывающем коде
             _legalPersonGenericRepository.Update(legalPerson);
             return _legalPersonGenericRepository.Save();
         }
@@ -107,6 +109,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             legalPerson.Inn = inn;
             legalPerson.Kpp = kpp;
             legalPerson.LegalAddress = legalAddress;
+
+            // Изменения логируются в вызывающем коде
             _legalPersonGenericRepository.Update(legalPerson);
             _legalPersonGenericRepository.Save();
         }
@@ -116,6 +120,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             legalPerson.PassportNumber = passportNumber;
             legalPerson.PassportSeries = passportSeries;
             legalPerson.RegistrationAddress = registrationAddress;
+
+            // Изменения логируются в вызывающем коде
             _legalPersonGenericRepository.Update(legalPerson);
             _legalPersonGenericRepository.Save();
         }
@@ -144,17 +150,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             }
         }
 
-        public void SyncWith1CDeferred(LegalPerson legalPerson)
-        {
-            legalPerson.IsInSyncWith1C = true;
-            _legalPersonGenericRepository.Update(legalPerson);
-        }
-
+        [Obsolete("Используется только в ExportLegalPersonsHandler")]
         public void SyncWith1C(IEnumerable<LegalPerson> legalPersons)
         {
             foreach (var legalPerson in legalPersons)
             {
-                SyncWith1CDeferred(legalPerson);
+                legalPerson.IsInSyncWith1C = true;
+                _legalPersonGenericRepository.Update(legalPerson);
             }
 
             _legalPersonGenericRepository.Save();
@@ -318,23 +320,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             return _finder.FindMany(Specs.Find.ByIds<LegalPerson>(ids));
         }
 
-        public LegalPersonName GetLegalPersonNameByClientId(long clientId)
-        {
-            var legalPersonInfos = _finder.Find(Specs.Find.ById<Client>(clientId) && Specs.Find.ActiveAndNotDeleted<Client>())
-                                          .SelectMany(client => client.LegalPersons)
-                                          .Where(Specs.Find.ActiveAndNotDeleted<LegalPerson>())
-                                          .Select(x => new LegalPersonName { Id = x.Id, Name = x.LegalName })
-                                          .Take(2)
-                                          .ToArray();
-
-            if (legalPersonInfos.Length != 1)
-            {
-                return null;
-            }
-
-            return legalPersonInfos.Single();
-        }
-
         public IEnumerable<LegalPersonFor1CExportDto> GetLegalPersonsForExportTo1C(long organizationUnitId, DateTime startPeriod)
         {
             var data = _finder.Find<LegalPersonProfile>(x => x.IsActive && !x.IsDeleted &&
@@ -438,12 +423,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             return Activate(entity);
         }
 
-        int IDeactivateAggregateRepository<LegalPerson>.Deactivate(long entityId)
-        {
-            var entity = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
-            return Deactivate(entity);
-        }
-
         void ICheckAggregateForDebtsRepository<LegalPerson>.CheckForDebts(long entityId, long currentUserCode, bool bypassValidation)
         {
             if (bypassValidation)
@@ -527,6 +506,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                 legalPerson = _secureFinder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
 
                 legalPerson.ClientId = clientId;
+
+                // Изменения логируются в вызывающем коде
                 _legalPersonGenericRepository.Update(legalPerson);
 
                 var count = _legalPersonGenericRepository.Save();

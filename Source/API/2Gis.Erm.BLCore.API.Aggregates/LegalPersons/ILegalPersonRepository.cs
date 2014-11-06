@@ -11,7 +11,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
     public interface ILegalPersonRepository : IAggregateRootRepository<LegalPerson>, 
                                               IActivateAggregateRepository<LegalPerson>,
                                               IAssignAggregateRepository<LegalPerson>,
-                                              IDeactivateAggregateRepository<LegalPerson>,
                                               ICheckAggregateForDebtsRepository<LegalPerson>,
                                               IChangeAggregateClientRepository<LegalPerson>
     {
@@ -20,8 +19,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
         int AssignWithRelatedEntities(long legalPersonId, long ownerCode, bool isPartialAssign);
         void ChangeLegalRequisites(LegalPerson legalPerson, string inn, string kpp, string legalAddress);
         void ChangeNaturalRequisites(LegalPerson legalPerson, string passportSeries, string passportNumber, string registrationAddress);
-        int Deactivate(LegalPerson legalPerson);
 
+        [Obsolete("Используется только в ExportLegalPersonsHandler")]
         void SyncWith1C(IEnumerable<LegalPerson> legalPersons);
         CheckForDublicatesResultDto CheckIfExistsInnDuplicate(long legalPersonId, string inn);
         CheckForDublicatesResultDto CheckIfExistsInnAndKppDuplicate(long legalPersonId, string inn, string kpp);
@@ -44,7 +43,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons
         IEnumerable<LegalPerson> FindBusinessmenByInn(string inn);
         IEnumerable<LegalPerson> FindNaturalPersonsByPassport(string passportSeries, string passportNumber);
         IEnumerable<LegalPerson> FindLegalPersons(string syncCodeWith1C, long branchOfficeOrganizationUnitId);
-        LegalPersonName GetLegalPersonNameByClientId(long clientId);
         IEnumerable<LegalPersonFor1CExportDto> GetLegalPersonsForExportTo1C(long organizationUnitId, DateTime startPeriod);
     }
 }

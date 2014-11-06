@@ -51,19 +51,12 @@
     </Compile>
     <Compile Include="AccountingSystem.svc.cs" />
     <Compile Include="MoneyDistributionSettingsAspect.cs" />
-    <Compile Include="PrintRegional.svc.cs" />
     <Compile Include="Reports.svc.cs" />
     <Compile Include="Util\BouInfo.cs" />
     <Compile Include="Util\MoDiSpecifications.cs" />
     <Compile Include="WithdrawalInfo.svc.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\Templates\Региональный бланк заказа без НДС.dotx">
-      <Link>Templates\Региональный бланк заказа без НДС.dotx</Link>
-    </Content>
-    <Content Include="..\..\..\..\Templates\Региональный бланк заказа с НДС.dotx">
-      <Link>Templates\Региональный бланк заказа с НДС.dotx</Link>
-    </Content>
     <Content Include="..\..\..\..\Templates\Отчет по выручке.dotx">
       <Link>Templates\Отчет по выручке.dotx</Link>
     </Content>

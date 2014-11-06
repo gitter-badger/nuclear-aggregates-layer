@@ -62,7 +62,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Concrete\AdvertisementElements\AdvertisementElementValidationAccessDeniedException.cs" />
+    <Compile Include="Concrete\AccountDetails\INotifyAboutAccountDetailModificationOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotVerifiableAdvertisementElementStatusChangingException.cs" />
     <Compile Include="Concrete\AdvertisementElements\AdvertisementElementValidationWorkflowIsViolatedException.cs" />
     <Compile Include="Concrete\AdvertisementElements\IAdvertisementElementStatusChangingStrategy.cs" />
@@ -72,6 +72,9 @@
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\IUpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
+    <Compile Include="Concrete\Integration\Olap\ICalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\IDetermineOrderBargainOperationService.cs" />
     <Compile Include="Concrete\Orders\Bargains\ICloseClientBargainsOperationService.cs" />
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
@@ -168,7 +171,6 @@
     <Compile Include="Concrete\Old\Deals\Settings\WarmClientProcessingSettingsAspect.cs" />
     <Compile Include="Concrete\Old\OrderPositions\NewSalesModelNotEnabledForCategoryOrOrganizationUnitException.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintNewSalesModelBargainRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderRequest.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IAdvertisementValidationRule.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\IValidateOrderPositionAdvertisementsService.cs" />
     <Compile Include="Concrete\OrderPositionAdvertisementValidation\OrderPositionAdvertisementValidationError.cs" />
@@ -208,13 +210,14 @@
     <Compile Include="Concrete\Withdrawals\WithdrawalProcessingResult.cs" />
     <Compile Include="Crosscutting\IPaymentsDistributor.cs" />
     <Compile Include="DI\OperationsZone.cs" />
+    <Compile Include="Generic\ChangeClient\ChangeClientOfLinkedDealException.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
+    <Compile Include="Generic\Deactivate\LegalPersonWithOrdersDeactivationException.cs" />
     <Compile Include="Generic\File\DownloadFileParams.cs" />
     <Compile Include="Generic\File\IValidateFileSettings.cs" />
     <Compile Include="Generic\File\UploadFileParams.cs" />
     <Compile Include="Generic\File\UploadFileResult.cs" />
     <Compile Include="Generic\File\ValidateFileSettingsAspect.cs" />
-
     <Compile Include="Generic\List\RemoteCollection.cs" />
     <Compile Include="Generic\List\EntityDtoListResult.cs" />
     <Compile Include="Generic\List\IListEntityService.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="Generic\Modify\Exceptions\Bargains\LegalPersonOrganizationUnitCodeIsUndefinedException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Deal\DealClientIsInReserveException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
@@ -272,7 +276,6 @@
     <Compile Include="Concrete\Old\Integration\ImportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ImportResponse.cs" />
     <Compile Include="Concrete\Old\Integration\MessageProcessingResponse.cs" />
-    <Compile Include="Concrete\Old\Integration\Olap\CalculateClientPromisingRequest.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForBranchRequest.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForFranchiseesRequest.cs" />
@@ -324,12 +327,9 @@
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountRequest.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditOrderRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonRequest.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementRequest.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementResponse.cs" />
     <Compile Include="Concrete\Old\Orders\OrderShortInfo.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\MakeRegionalAdsDocsRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintAdditionalAgreementTarget.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintDocumentRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeRequest.cs" />
@@ -340,7 +340,6 @@
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeRequest.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationRequest.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeRequest.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidRequest.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedRequest.cs" />

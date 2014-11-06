@@ -1,4 +1,5 @@
-﻿@model Models.GroupOperation.ChangeClientViewModel
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeClientViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -45,9 +46,7 @@
                 if (this.ClientId === -1) {
                     Ext.MessageBox.show({
                         title: '',
-                        // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                        // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                        msg: '@BLResources.NeedToSelectOneOrMoreItems',
+                        msg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems,
                         buttons: window.Ext.MessageBox.OK,
                         width: 300,
                         icon: window.Ext.MessageBox.ERROR
@@ -58,7 +57,7 @@
                 if (!this.Config || !this.Config.Entities || this.Config.Entities.length == 0) {
                     Ext.MessageBox.show({
                         title: '',
-                        msg: 'Необходимо указать клиента',
+                        msg: Ext.LocalizedResources.ChangeNeedToPickClient,
                         buttons: window.Ext.MessageBox.OK,
                         width: 300,
                         icon: window.Ext.MessageBox.ERROR
@@ -84,10 +83,10 @@
             {
                 Entities: ids,
                 OperationName: '@Model.OperationName',
-                CloseButtonText: '@BLResources.Close', // локализованная надпись для кнопки закрыть
-                NeedToSelectOneOrMoreItemsMsg: '@BLResources.NeedToSelectOneOrMoreItems', // локализованная надпись о том что нужно выбрать один или несколько элементов
-                ResultMessageTitle: '@BLResources.GroupOperationResultsTitle', // локализованная надпись - заголовок для результатов операции
-                ResultMessageTemplate: '@BLResources.GroupOperationResultsMessage' // локализованная надпись - шаблон строки для результатов операции
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
 
             var changeClientProcessor = new Ext.DoubleGis.UI.Deal.ChangeClientProcessor(config);
@@ -97,7 +96,7 @@
             changeClientProcessor.Process();
         });
 
-    </script>
+</script>
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
     <table cellspacing="5" cellpadding="5" width="100%" height="100%">
@@ -112,13 +111,13 @@
                 </td>
             </tr>
             <tr>
-                <td>Клиент:</td>
+                <td>@Html.LabelFor(m => m.Client)</td>
                 <td>
                     <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
                         <tbody>
                             <tr>
                                 <td>
-                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client})
+                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" })
                                 </td>
                             </tr>
                         </tbody>

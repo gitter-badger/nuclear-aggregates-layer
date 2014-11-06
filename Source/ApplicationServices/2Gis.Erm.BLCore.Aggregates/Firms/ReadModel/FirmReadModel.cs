@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -21,11 +22,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
+        private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
 
-        public FirmReadModel(IFinder finder, ISecureFinder secureFinder)
+        public FirmReadModel(IFinder finder, ISecureFinder secureFinder, ISecurityServiceUserIdentifier securityServiceUserIdentifier)
         {
             _finder = finder;
             _secureFinder = secureFinder;
+            _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
 
         public long GetOrderFirmId(long orderId)
@@ -249,7 +252,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                      .Select(x => new
                                      {
                                          BranchCode = x.DgppId.Value,
-                                         Territory = x.Territories.FirstOrDefault(t => t.IsActive && t.Name.Contains(regionalTerritoryPhrase))
+                                         Territory = x.Territories.OrderByDescending(t => t.Id).FirstOrDefault(t => t.IsActive && t.Name.Contains(regionalTerritoryPhrase))
                                      })
                                      .Where(x => x.Territory != null)
                                      .ToDictionary(x => x.BranchCode,
@@ -338,6 +341,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds)
         {
             return _finder.Find(Specs.Find.ByIds<CardRelation>(cardRelationIds)).ToDictionary(x => x.Id);
+        }
+
+        public bool IsFirmInReserve(long firmId)
+        {
+            var firmOwner = _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(firm => firm.OwnerCode).Single();
+            return firmOwner == _securityServiceUserIdentifier.GetReserveUserIdentity().Code;
         }
 
         private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)

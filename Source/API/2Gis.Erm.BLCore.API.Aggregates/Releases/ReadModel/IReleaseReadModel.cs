@@ -15,6 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel
         long GetOrganizationUnitId(int organizationUnitDgppId);
         string GetOrganizationUnitName(long organizationUnitId);
         ReleaseInfo GetLastRelease(long organizationUnitId, TimePeriod period);
+        ReleaseInfo GetLastFinalRelease(long organizationUnitId, TimePeriod period);
         bool HasFinalReleaseInProgress(long organizationUnitId, TimePeriod period);
         bool HasFinalReleaseAfterDate(long organizationUnitId, DateTime periodStartDate);
         bool HasSuccededFinalReleaseFromDate(long organizationUnitId, DateTime periodStartDate);

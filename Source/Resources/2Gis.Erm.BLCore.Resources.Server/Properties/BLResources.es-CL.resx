@@ -255,9 +255,6 @@
   <data name="ProcessMessagesConfirm" xml:space="preserve">
     <value>¿Desea realmente procesar los mensajes seleccionados?</value>
   </data>
-  <data name="GroupOperationResultsTitle" xml:space="preserve">
-    <value>Resultados de ejecución de la operación</value>
-  </data>
   <data name="ExportLegalPersonDelivaryFormattedInfo" xml:space="preserve">
     <value>{0}, tel. {1}, {2}</value>
   </data>
@@ -573,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Guardar estado</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Ya existe la sucursal de la entidad {0} para la persona jurídica {1}</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Prohibido cambiar el enlace con los objetos de una orden bloqueada.</value>
   </data>
@@ -870,9 +864,6 @@
   <data name="ThisDocumentIsNotAllowedForThatTypeOfLegalPerson" xml:space="preserve">
     <value>Este documento no es adecuado para este tipo de persona jurídica</value>
   </data>
-  <data name="EditDealMainFirmNotFound" xml:space="preserve">
-    <value>No se ha encontrado la empresa principal para la transacción</value>
-  </data>
   <data name="DisqualifyClient" xml:space="preserve">
     <value>Devolver el cliente a la reserva</value>
   </data>
@@ -924,9 +915,6 @@
   <data name="Height" xml:space="preserve">
     <value>Altura</value>
   </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>La persona jurídica {0} tiene órdenes archivadas o cerradas por ser rechazadas. ¿Ocultar de todas formas?</value>
-  </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>Falta configurar el traspaso de estados de límite para el estado '{0}'</value>
   </data>
@@ -958,9 +946,6 @@
     <value>Procesado sin errores:{0}
 Errores no críticos:{1}
 Errores de bloqueo:{2}</value>
-  </data>
-  <data name="AdvertisementElements" xml:space="preserve">
-    <value>Elementos del material publicitario</value>
   </data>
   <data name="ActionsHistory" xml:space="preserve">
     <value>Historial de cambios</value>
@@ -1193,8 +1178,8 @@ Errores de bloqueo:{2}</value>
   <data name="Skypes" xml:space="preserve">
     <value>Números de Skype</value>
   </data>
-  <data name="PaymentReceivedSubject" xml:space="preserve">
-    <value>Se ha efectuado el pago en la cuenta personal</value>
+  <data name="AccountOperationLetterSubject" xml:space="preserve">
+    <value>Aviso sobre el cambio del saldo de la cuenta personal del cliente</value>
   </data>
   <data name="AccessDeniedPrereleaseOrderValidationExecution" xml:space="preserve">
     <value>Para ejecutar esta operación es necesario tener el privilegio Verificación masiva de órdenes</value>
@@ -1440,9 +1425,6 @@ Errores de bloqueo:{2}</value>
   <data name="ProcessedWithErrors" xml:space="preserve">
     <value>Durante el procesamiento de mensaje(s) se han encontrado errores. Vea archivo de registro para obtener más información. Número de errores: {0}</value>
   </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphGeneral" xml:space="preserve">
-    <value>La publicación de la información del Cliente en más de cinco categorías se paga según la Lista de precios de los medios de comunicación electrónicos correspondientes.</value>
-  </data>
   <data name="BargainCanBeCreatedFromOrderOnly" xml:space="preserve">
     <value>Crear un contrato sólo es posible desde la ficha de la orden.</value>
   </data>
@@ -1568,12 +1550,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="EditCurrency" xml:space="preserve">
     <value>Cambiar de moneda</value>
   </data>
-  <data name="AssignMustPickUser" xml:space="preserve">
-    <value>Se ha seleccionado el modo de Designar al usuario, pero no se especifica el usuario.</value>
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>No se puede desactivar la persona jurídica del cliente con los datos existentes en el el sofnware contable</value>
-  </data>
   <data name="DealClosing" xml:space="preserve">
     <value>Cerrar Transacción</value>
   </data>
@@ -1640,9 +1616,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="QualifyOwnerNotReserved" xml:space="preserve">
     <value>Esta empresa no figura en la reserva.</value>
   </data>
-  <data name="QualifyMustPickClient" xml:space="preserve">
-    <value>Se ha seleccionado el modo de Indicar cliente, pero el cliente no ha sido especificado.</value>
-  </data>
   <data name="ContentIsEmpty" xml:space="preserve">
     <value>No hay contenido</value>
   </data>
@@ -1681,9 +1654,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="MergeClientsSameIdError" xml:space="preserve">
     <value>No se puede realizar una fusión del cliente consigo mismo.</value>
-  </data>
-  <data name="DeactivateMustPickTerritory" xml:space="preserve">
-    <value>Hace falta especificar el territorio al que se designarán clientes y empresas.</value>
   </data>
   <data name="PayableBudgetFact" xml:space="preserve">
     <value>A pagar (presupuesto) real</value>
@@ -1726,9 +1696,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="CannotInstantStartRelease_UseExportClient" xml:space="preserve">
     <value>Imposible la ejecución rápida de la compilación, ejecute la compilación a través del cliente de Exportación</value>
-  </data>
-  <data name="RegionalAdsDocsDescriptionTemplate" xml:space="preserve">
-    <value>Formación de la publicidad regional {0} de {1}</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>Valor inicial</value>
@@ -2180,9 +2147,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="ViewOrderPositionHandler_EmptyAddress" xml:space="preserve">
     <value>&lt;i&gt;&lt;dirección en blanco&gt;&lt;/i&gt;</value>
   </data>
-  <data name="EditDealClientNotFound" xml:space="preserve">
-    <value>No se ha encontrado un cliente enlazado para la transacción</value>
-  </data>
   <data name="SetLimitStatusWrongTransitionErrorMessage" xml:space="preserve">
     <value>El cambio de estado de límite a estado '{0}' es posible sólo en base de estados: '{1}'</value>
   </data>
@@ -2245,9 +2209,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="OrderDeleteTerminationCommentRequired" xml:space="preserve">
     <value>Se requiere especificar el motivo de anulación</value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>Cerrar</value>
   </data>
   <data name="ExportLegalPersons" xml:space="preserve">
     <value>Descargar los datos de las personas jurídicas del cliente</value>
@@ -2420,9 +2381,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="AssignCategory" xml:space="preserve">
     <value>Designar categoría</value>
   </data>
-  <data name="ChangeNeedToPickClient" xml:space="preserve">
-    <value>Se requiere indicar el Cliente.</value>
-  </data>
   <data name="CannotRevertReleaseBecausePreviousReleaseNotFound" xml:space="preserve">
     <value>La ejecución de la operación de restauración no es posible, la compilación anterior no se ha encontrado</value>
   </data>
@@ -2440,9 +2398,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="CantAddDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>No se puede agregar una posición bloqueada de la lista de precios en la lista de precios publicada</value>
-  </data>
-  <data name="NeedToSelectOneItem" xml:space="preserve">
-    <value>Para ejecutar esta operación, se debe seleccionar un registro.</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithNegativeDiscount" xml:space="preserve">
     <value>Ha intentado guardar la Posición de la orden con un Importe negativo de descuento</value>
@@ -2537,12 +2492,14 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
     <value>No se puede desactivar la posición bloqueada de una lista de precios publicada</value>
   </data>
-  <data name="PaymentReceivedBodyTemplate" xml:space="preserve">
-    <value>El pago se ha ingresado en la cuenta personal: {0}.
-Persona jurídica del cliente: {1}.
-Persona jurídica del ejecutor: {2}.
-Pago recibido: {3}.
-Operación realizada: {4}.</value>
+  <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
+    <value>Razón social del cliente: {0}.
+Razón social del ejecutor: {1}.
+Cuenta personal: {2}.
+Nombre de la operación: {3}.
+Tipo  de la operación: {4}.
+Monto total de la operación: {5}.
+Operación realizada con éxito: {6}.</value>
   </data>
   <data name="NeedToCloseAllActivities" xml:space="preserve">
     <value>Se requiere cerrar todos los planes activos con este objeto</value>
@@ -2859,9 +2816,6 @@ Operación realizada: {4}.</value>
   <data name="CantEditPriceWhenDeactivated" xml:space="preserve">
     <value>Imposible editar la lista de precios desactivada</value>
   </data>
-  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>El proceso de creación del servicio postventa está en marcha. Es un proceso largo, puede seguir su ejecución en el historial de operaciones.</value>
-  </data>
   <data name="ConfirmActivationLegend" xml:space="preserve">
     <value>Se han seleccionado {0} registros {1} para activar.</value>
   </data>
@@ -2900,9 +2854,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="Modified" xml:space="preserve">
     <value>Modificado</value>
-  </data>
-  <data name="NoFinalReleaseForSourceOrgUnit" xml:space="preserve">
-    <value>En la ciudad de origen no se ha realizado la compilación final.</value>
   </data>
   <data name="RequestsRecovery" xml:space="preserve">
     <value>Recuperar en caso de problemas</value>
@@ -3045,9 +2996,6 @@ Operación realizada: {4}.</value>
   <data name="CannotFindAppropriateOrders" xml:space="preserve">
     <value>No se ha encontrado ninguna orden que cumpla las condiciones establecidas</value>
   </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampNotPublished" xml:space="preserve">
-    <value>Reseñas: En la ficha no se publica el enlace con las reseñas acerca de la empresa en Flamp.ru</value>
-  </data>
   <data name="WrongLimitAmount" xml:space="preserve">
     <value>Se ha especificado un importe incorrecto del límite.</value>
   </data>
@@ -3110,9 +3058,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="RenderFn" xml:space="preserve">
     <value>Función de formateo</value>
-  </data>
-  <data name="PrintOrderHandler_ShowFlampLinkModeFlampPublished" xml:space="preserve">
-    <value>Reseñas: En la ficha se publica el enlace con las reseñas acerca de la empresa en Flamp.ru</value>
   </data>
   <data name="Approved" xml:space="preserve">
     <value>Aprobado</value>
@@ -3249,9 +3194,6 @@ Operación realizada: {4}.</value>
   <data name="AccountingSystemId" xml:space="preserve">
     <value>Identificador 1C</value>
   </data>
-  <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value>Se requiere indicar otro motivo del cierre de la Transacción.</value>
-  </data>
   <data name="AssignClient" xml:space="preserve">
     <value>Designar Cliente</value>
   </data>
@@ -3338,9 +3280,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="OperationTypeNotFound" xml:space="preserve">
     <value>El tipo de operación no se ha encontrado</value>
-  </data>
-  <data name="NeedToSelectOneOrMoreItems" xml:space="preserve">
-    <value>Para ejecutar esta operación, se debe seleccionar uno o dos registros.</value>
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
     <value>Tamaño desconocido</value>
@@ -3663,9 +3602,6 @@ Operación realizada: {4}.</value>
   <data name="CopyPricetReplaceExisting" xml:space="preserve">
     <value>Volver a escribir el existente</value>
   </data>
-  <data name="QualifyMustPickUser" xml:space="preserve">
-    <value>Se ha seleccionado el modo de Designar a otro usuario, pero no se ha especificado el usuario.</value>
-  </data>
   <data name="CurrencyRate" xml:space="preserve">
     <value>Tipo de cambio</value>
   </data>
@@ -3728,9 +3664,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="Title1CIntegration" xml:space="preserve">
     <value>Integración con 1C</value>
-  </data>
-  <data name="SaveError" xml:space="preserve">
-    <value>Error al guardar</value>
   </data>
   <data name="AccesDeniedForMergingClients" xml:space="preserve">
     <value>Acceso prohibido. {0}Acción: Fusión. {0}Esencia: Cliente {0}</value>
@@ -3842,9 +3775,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
     <value>Para ejecutar esta operación, se debe seleccionar una Transacción inactiva</value>
-  </data>
-  <data name="GroupOperationResultsMessage" xml:space="preserve">
-    <value>Procesado con éxito:{0}. No se ha podido procesar:{1}. </value>
   </data>
   <data name="FirmEdit" xml:space="preserve">
     <value>Editar empresa</value>
@@ -4001,9 +3931,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="MassiveOrderValidationRuleAccountBalanceIsSufficient" xml:space="preserve">
     <value>Verificación de fondos suficientes en las cuentas personales para la publicación de las órdenes</value>
-  </data>
-  <data name="PrintReferenceInformationHandler_FinalParagraphApi" xml:space="preserve">
-    <value>El contratante reconoce que el volumen de la información reflejada en las plataformas Web y/o en las aplicaciones Web puede ser restringido por sus propietarios.  Es obligatorio mostrar la información como la denominación, dirección, teléfono y la publicidad relacionada con esta información.</value>
   </data>
   <data name="AmountLocked" xml:space="preserve">
     <value>Bloqueado</value>
@@ -4204,9 +4131,6 @@ Operación realizada: {4}.</value>
   </data>
   <data name="TooLongTimestamp" xml:space="preserve">
     <value>El campo de control de versiones es demasiado largo</value>
-  </data>
-  <data name="OrderPlatformIsNotDefined" xml:space="preserve">
-    <value>No se ha especificado la plataforma de la orden. Es necesario crear la posición de la orden.</value>
   </data>
   <data name="InvalidGreaterOrEqualThanXml" xml:space="preserve">
     <value>El elemento &lt;greater&gt; no se ha generado de forma correcta</value>
@@ -4631,9 +4555,6 @@ Operación realizada: {4}.</value>
   <data name="MainPageHeader" xml:space="preserve">
     <value>2GIS</value>
   </data>
-  <data name="DisplayErrorsList" xml:space="preserve">
-    <value>Visualizar la lista de errores...</value>
-  </data>
   <data name="MoDiUnknownError" xml:space="preserve">
     <value>Se ha producido un error desconocido en el servicio de distribución de fondos</value>
   </data>
@@ -4794,9 +4715,6 @@ Contacto: {1}</value>
   <data name="NotWorkingDay" xml:space="preserve">
     <value>No trabaja</value>
   </data>
-  <data name="DisabledFunctionality" xml:space="preserve">
-    <value>Esta funcionalidad no está disponible temporalmente</value>
-  </data>
   <data name="AssignOrderAccessDenied" xml:space="preserve">
     <value>No tiene permisos para cambiar de supervisor de la orden № '{0}'</value>
   </data>
@@ -4817,9 +4735,6 @@ Contacto: {1}</value>
   </data>
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Extensiones permitidas de archivos</value>
-  </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>La persona jurídica a restablecer {0} ya está activa      </value>
   </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>No se puede cancelar la publicación de la lista de precios cuyas posiciones están enlazadas con órdenes activas</value>
@@ -4891,7 +4806,7 @@ Contacto: {1}</value>
     <value>Si no se corrige este material publicitario, las siguientes órdenes no llegarán a publicarse: {0}.</value>
   </data>
   <data name="OrderProlongation" xml:space="preserve">
-    <value>Prórroga</value>
+    <value>Renovación</value>
   </data>
   <data name="NewOrder" xml:space="preserve">
     <value>Nueva orden</value>
@@ -4905,11 +4820,8 @@ Contacto: {1}</value>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>La categoría Id = [{0}] no contiene nombre</value>
   </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>No se puede desactivar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
-  </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
-    <value>No se ha encontrado la orden a prorrogar</value>
+    <value>No se ha encontrado la orden a renovar</value>
   </data>
   <data name="PlatformMustBeSpecified" xml:space="preserve">
     <value>Se debe especificar una plataforma en la orden</value>
@@ -4993,7 +4905,7 @@ Contacto: {1}</value>
     <value>Hace falta solicitud para crear una orden. La solicitud procesada es del tipo: {0}</value>
   </data>
   <data name="OrderProlongationRequestTypeMismatch" xml:space="preserve">
-    <value>Hace falta solicitud para prorrogar una orden. La solicitud procesada es del tipo: {0}</value>
+    <value>Hace falta solicitud para renovar una orden. La solicitud procesda es del tipo: {0}</value>
   </data>
   <data name="OrderProlongationRequestInformationBaseOrderOwnerFound" xml:space="preserve">
     <value>El supervisor de la orden principal "{0}" se ha designado como supervisor de la orden</value>
@@ -5017,13 +4929,13 @@ Contacto: {1}</value>
     <value>En el Área personal, desde su cuenta del cliente, se ha formalizado una solicitud de una orden nueva</value>
   </data>
   <data name="OrderProcessingRequestProlongationResultEmailSubject" xml:space="preserve">
-    <value>En el Área personal, desde su cuenta del cliente, se ha creado una solicitud de prórroga</value>
+    <value>En el Área personal, desde su cuenta del cliente se ha creado una solicitud de renovación</value>
   </data>
   <data name="OrderProcessingRequestCreationResultEmailHeader" xml:space="preserve">
     <value>En el Área personal, se ha formalizado una solicitud para crear una orden nueva:</value>
   </data>
   <data name="OrderProcessingRequestProlongationResultEmailHeaderTemplate" xml:space="preserve">
-    <value>En el Área personal, se ha formalizado una solicitud para prorrogar la orden {0}</value>
+    <value>En el Área personal, se ha formalizado una solicitud para renovar la orden: {0}</value>
   </data>
   <data name="OrderProcessingRequestResultEmailDataTemplate" xml:space="preserve">
     <value>Empresa: {0}.
@@ -5097,7 +5009,7 @@ Periodo de la publicación: {3}.</value>
     <value>No tiene permisos suficientes para devolver al cliente [{0}] a la reserva</value>
   </data>
   <data name="CantCreateProlongationRequestInvalidOrderState" xml:space="preserve">
-    <value>No se puede crear una solicitud para la prórroga de la orden en el estado [{0}]</value>
+    <value>No se puede crear una solicitud para la renovación de la orden en el estado: [{0}]</value>
   </data>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Cerrar por ser rechazado</value>
@@ -5186,6 +5098,9 @@ Periodo de la publicación: {3}.</value>
   <data name="BargainEndDateCannotBeLessThanSignedOnDate" xml:space="preserve">
     <value>Fecha de la finalización de vigencia del acuerdo no puede ser anterior a la fecha de su firma</value>
   </data>
+  <data name="OrderHasNoBranchOfficeOrganizationUnit" xml:space="preserve">
+    <value>En el  pedido no está especificada la Personalidad jurídica del ejecutor. Es imposible seleccionar una forma impresa.</value>
+  </data>
   <data name="AdvertisementElementStatusChangingAccessDenied" xml:space="preserve">
     <value>No tiene permisos para cambiar elemento del material publicitario al estado {0}</value>
   </data>
@@ -5204,7 +5119,91 @@ Periodo de la publicación: {3}.</value>
   <data name="YouCannotSpecifyInactiveDenialReason" xml:space="preserve">
     <value>No se puede indicar el motivo de rechazo no activo</value>
   </data>
+  <data name="AdvertisingCampaign" xml:space="preserve">
+    <value>Campaña Publicitaria</value>
+  </data>
+  <data name="DetailsForOrders" xml:space="preserve">
+    <value>Datos para la orden</value>
+  </data>
+  <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
+    <value>Hay que indicar la fecha de inicio de la campaña publicitaria</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
+    <value>Hay que indicar la fecha de término de la campaña publicitaria</value>
+  </data>
+  <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
+    <value>Fecha del término de la campaña publicitaria no puede ser anterior a su inicio</value>
+  </data>
+  <data name="AdvertisingCampaignGoals" xml:space="preserve">
+    <value>Objetivos</value>
+  </data>
+  <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
+    <value>El porcentaje de la comisión de la agencia debe ser entre 0 y 100</value>
+  </data>
+  <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
+    <value>No están indicadas las identificaciones del acuerdo o empresa</value>
+  </data>
+  <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
+    <value>Vínculo del acuerdo {0} y de la empresa {1} ya existe</value>
+  </data>
+  <data name="AdvertisingCampaignPeriod" xml:space="preserve">
+    <value>Período de la campaña publicitaria</value>
+  </data>
+  <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
+    <value>Cliente tomado de la reserva '{0}' trabaja con la agencia publicitaria '{1}'</value>
+  </data>
+  <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
+    <value>No están indicadas las identificaciones del acuerdo o razón social</value>
+  </data>
+  <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
+    <value>Vínculo del acuerdo {0} y de la razón social {1} ya existe</value>
+  </data>
+  <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
+    <value>No hay acceso para crear el vínculo con el cliente '{0}'</value>
+  </data>
+  <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
+    <value>No está permitido crear los contratos de agente</value>
+  </data>
   <data name="BillFileNameTemplate" xml:space="preserve">
     <value>{0}-bills.zip</value>
+  </data>
+  <data name="DealClientIsInReserve" xml:space="preserve">
+    <value>Cliente de la orden está en reserva.</value>
+  </data>
+  <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Estamos en el proceso de compilación. Edición de posición de la orden no está permitida.</value>
+  </data>
+  <data name="CanNotCreateOrderWithReservedClient" xml:space="preserve">
+    <value>Cliente {0} se encuentra en reserva, imposible crear una orden</value>
+  </data>
+  <data name="CanNotCreateOrderWithReservedFirm" xml:space="preserve">
+    <value>Empresa {0} se encuentra en reserva, imposible crear una orden</value>
+  </data>
+  <data name="FirmCreationIsNotSupported" xml:space="preserve">
+    <value>No se permite crear las empresas en ERM.</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>No se permite cambiar de cliente porque el acuerdo está vinculado con las razones sociales: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>No se permite cambiar de cliente porque el acuerdo está vinculado con las empresas: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>No se permite borrar el vínculo principal con la razón social principal mientras existen los demás</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Actualmente ya existe un vínculo activo de la sucursal de la empresa {0} con la razón social {1}</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Actualmente ya existe un vínculo inactivo de la sucursal de la empresa {0} con la razón social {1}</value>
+  </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже активна</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Сущность {0} ({1}) уже скрыта</value>
+  </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value>{0} №{1} от {2}</value>
   </data>
 </root>

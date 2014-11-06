@@ -23,7 +23,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public CurrencyService(IFinder finder, IRepository<Platform.Model.Entities.Erm.Currency> currencyRepository, IRepository<CurrencyRate> currencyRateGenericRepository, IIdentityProvider identityProvider, IOperationScopeFactory scopeFactory)
+        public CurrencyService(IFinder finder,
+                               IRepository<Platform.Model.Entities.Erm.Currency> currencyRepository,
+                               IRepository<CurrencyRate> currencyRateGenericRepository,
+                               IIdentityProvider identityProvider,
+                               IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
             _currencyGenericRepository = currencyRepository;
@@ -36,11 +40,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Platform.Model.Entities.Erm.Currency>())
             {
-                _currencyGenericRepository.Delete(currency);
-                scope.Deleted<Platform.Model.Entities.Erm.Currency>(currency.Id);
-                _currencyGenericRepository.Save();
-                scope.Complete();
-            }
+            _currencyGenericRepository.Delete(currency);
+            _currencyGenericRepository.Save();
+
+                scope.Deleted(currency)
+                     .Complete();
+        }
         }
 
         public CurrencyWithRelationsDto GetCurrencyWithRelations(long entityId)
@@ -71,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
             {
                 using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, Platform.Model.Entities.Erm.Currency>())
                 {
-                    _currencyGenericRepository.Add(currency);
+                _currencyGenericRepository.Add(currency);
                     scope.Added<Platform.Model.Entities.Erm.Currency>(currency.Id);
                     _currencyGenericRepository.Save();
 
@@ -82,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
             {
                 using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Platform.Model.Entities.Erm.Currency>())
                 {
-                    _currencyGenericRepository.Update(currency);
+                _currencyGenericRepository.Update(currency);
                     scope.Updated<Platform.Model.Entities.Erm.Currency>(currency.Id);
                     _currencyGenericRepository.Save();
 
