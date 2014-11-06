@@ -1,29 +1,15 @@
 ﻿--DECLARE
---	@IssueDate date = '20140901'
---	, @City int = 6
+--	@IssueDate date = '20140701'
+--	, @City int = 115
 --	, @IsAdvertisingAgency int = 0
 
-IF OBJECT_ID('tempdb..#Result') IS NOT NULL DROP TABLE #Result
-CREATE TABLE #Result ([Куратор]  NVARCHAR(512)
-	, [Юр.лицо заказчика]  NVARCHAR(512)
-	, [Юр.лицо исполнителя]  NVARCHAR(512)
-	, [Планируемый объем оплат] DECIMAL(19,2)
-	, [Прогнозируемый объем оплат (кроме ДЗ до 01.12)]  DECIMAL(19,2)
-	, [Баланс клиента на начало прогнозируемого периода]  DECIMAL(19,2)
-	, [Корректировка РГ] NVARCHAR(512)
-	, [Примечание] NVARCHAR(512))
-
-INSERT INTO #Result
 SELECT
 	[Куратор] = u.DisplayName
 	, [Юр.лицо заказчика] = lp.LegalName
 	, [Юр.лицо исполнителя] = bou.ShortLegalName
+	, [Клиент] = c.Name
 	, [Планируемый объем оплат] = bills.PayPlan
-	, [Прогнозируемый объем оплат (кроме ДЗ до 01.12)] = CASE WHEN ((ISNULL(payments.Balance2, 0) -ISNULL(locks.Amount, 0)) + ISNULL(locks.Amount, 0) + ISNULL(payments.Balance3, 0) - ISNULL(bills.PayPast, 0)) > 0 THEN (ISNULL(bills.PayPlan, 0) - ABS(((ISNULL(payments.Balance2, 0) -ISNULL(locks.Amount, 0)) + ISNULL(locks.Amount, 0) + ISNULL(payments.Balance3, 0) - ISNULL(bills.PayPast, 0))))
-			 WHEN ((ISNULL(payments.Balance2, 0) -ISNULL(locks.Amount, 0)) + ISNULL(locks.Amount, 0) + ISNULL(payments.Balance3, 0) - ISNULL(bills.PayPast, 0)) = 0 THEN ISNULL(bills.PayPlan, 0)
-			 WHEN ((ISNULL(payments.Balance2, 0) -ISNULL(locks.Amount, 0)) + ISNULL(locks.Amount, 0) + ISNULL(payments.Balance3, 0) - ISNULL(bills.PayPast, 0)) < 0 THEN (ISNULL(bills.PayPlan, 0) + ABS(((ISNULL(payments.Balance2, 0) -ISNULL(locks.Amount, 0)) + ISNULL(locks.Amount, 0) + ISNULL(payments.Balance3, 0) - ISNULL(bills.PayPast, 0))))
-	         END 
-			--CASE WHEN bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) < 0 THEN 0 ELSE bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) END		
+	, [Прогнозируемый объем оплат (кроме ДЗ до 01.12)] = CASE WHEN bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) < 0 THEN 0 ELSE bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast - ISNULL(locks2.Amount, 0)) END		
 	, [Баланс клиента на начало прогнозируемого периода] = ISNULL(payments.Balance2, 0) - ISNULL(locks.Amount, 0)
 	, [Корректировка РГ] = NULL
 	, [Примечание] = NULL
@@ -46,7 +32,7 @@ JOIN (	SELECT t.AccountId
 					AND o.WorkflowStepId NOT IN (1,2)
 					AND o.IsDeleted = 0
 					AND o.IsActive = 1
-					--AND (o.EndDistributionDateFact > @IssueDate OR (o.WorkflowStepId IN (4,5,6) AND convert(date,o.EndDistributionDateFact)= DATEADD(d,-1,@IssueDate) ))
+					AND o.EndDistributionDateFact > @IssueDate
 					AND o.PayablePlan > 0
 					and o.BeginDistributionDate < dateadd(m,1,@IssueDate) -- отсекаем будующие заказы
 				GROUP BY o.Id, o.AccountId) t
@@ -54,7 +40,6 @@ JOIN (	SELECT t.AccountId
 LEFT JOIN(	SELECT ad.AccountId
 					, [Balance] = SUM(CASE WHEN ad.TransactionDate < @IssueDate THEN ABS(ad.Amount)*(2*ot.IsPlus-1) ELSE 0 END) - SUM(CASE WHEN ad.TransactionDate between @IssueDate and dateadd(dd, 7 ,  @IssueDate) AND ot.Id = 7 THEN ad.Amount ELSE 0 END)--баланс, считаемый как сумма операций до начала прогнозируемого месяца
 					, [Balance2] = SUM( CASE WHEN ot.Id = 7 AND l.PeriodStartDate <= @IssueDate THEN ABS(ad.Amount)*(2*ot.IsPlus-1) WHEN ot.Id <> 7 AND ad.TransactionDate < @IssueDate THEN ABS(ad.Amount)*(2*ot.IsPlus-1) ELSE 0 END) --баланс, считаемый как сумма операций до начала прогнозируемого месяца плюс списания за прогнозируемый месяц
-					, [Balance3] = SUM (CASE WHEN ot.Id = 7 THEN ad.Amount ELSE 0 END)
 			FROM Billing.Accounts a with(nolock)
 			JOIN Billing.AccountDetails ad with(nolock) ON ad.AccountId = a.Id AND ad.IsDeleted = 0
 			JOIN Billing.OperationTypes ot with(nolock) ON ot.Id = ad.OperationTypeId
@@ -68,6 +53,13 @@ LEFT JOIN(	SELECT l.AccountId
 				AND l.IsDeleted = 0
 				AND l.IsActive = 1
 		GROUP BY l.AccountId) locks ON a.Id = locks.AccountId
+LEFT JOIN(	SELECT l.AccountId
+					, [Amount] = SUM(l.PlannedAmount)
+			FROM Billing.Locks l with(nolock)
+			join Billing.Orders o with(nolock) ON o.Id = l.OrderId  AND o.WorkflowStepId NOT IN (1,2) AND o.IsDeleted = 0 AND o.IsActive = 1 AND o.EndDistributionDateFact < @IssueDate
+			WHERE l.IsDeleted = 0
+				AND l.IsActive = 1
+		GROUP BY l.AccountId) locks2 ON a.Id = locks2.AccountId
 LEFT JOIN(	SELECT l.AccountId
 					, [Amount] = SUM(ad.Amount)
 			FROM Billing.Locks l with(nolock)
@@ -83,11 +75,4 @@ JOIN Security.Users u with(nolock) ON u.Id = a.OwnerCode
 JOIN Billing.BranchOfficeOrganizationUnits bou with(nolock) ON a.BranchOfficeOrganizationUnitId = bou.Id
 WHERE bou.OrganizationUnitId = @City AND a.IsDeleted = 0 AND ( bills.PayPlan > 0 OR bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) > 0 )
 	AND ((@IsAdvertisingAgency = 1 AND c.IsAdvertisingAgency = 1) OR @IsAdvertisingAgency = 0)
-		
---ORDER BY u.DisplayName, lp.LegalName
-
-DELETE FROM #Result WHERE [Планируемый объем оплат] = 0 AND  [Прогнозируемый объем оплат (кроме ДЗ до 01.12)] = 0
-
-DELETE FROM #Result WHERE  [Прогнозируемый объем оплат (кроме ДЗ до 01.12)] < 0
-
-SELECT * FROM #Result ORDER BY [Куратор], [Юр.лицо заказчика]
+ORDER BY u.DisplayName, lp.LegalName
