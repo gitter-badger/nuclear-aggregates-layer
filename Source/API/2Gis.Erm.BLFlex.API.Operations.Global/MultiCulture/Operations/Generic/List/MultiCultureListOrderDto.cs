@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List
 {
-    public sealed class MultiCultureListOrderDto : IOperationSpecificEntityDto, IChileAdapted, ICzechAdapted, ICyprusAdapted, IUkraineAdapted
+    public sealed class MultiCultureListOrderDto : IOperationSpecificEntityDto, IChileAdapted, ICzechAdapted, ICyprusAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         public long Id { get; set; }
         public string Number { get; set; }

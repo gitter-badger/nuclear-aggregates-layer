@@ -3,8 +3,8 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Concrete.Old.LegalPersons;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
 {
@@ -31,12 +32,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
         private readonly ICheckInnService _checkRutService;
 
         public ChileChangeLegalPersonRequisitesHandler(ISubRequestProcessor subRequestProcessor,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IUserContext userContext,
-            IOperationScopeFactory scopeFactory, 
-            ILegalPersonReadModel legalPersonReadModel, 
+                                                       ISecurityServiceFunctionalAccess functionalAccessService,
+                                                       IUserContext userContext,
+                                                       IOperationScopeFactory scopeFactory,
+                                                       ILegalPersonReadModel legalPersonReadModel,
                                                        IUpdateAggregateRepository<LegalPerson> updateRepository,
-            ICheckInnService checkRutService)
+                                                       ICheckInnService checkRutService)
         {
             _subRequestProcessor = subRequestProcessor;
             _functionalAccessService = functionalAccessService;
@@ -51,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
         {
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LegalPersonChangeRequisites, _userContext.Identity.Code))
             {
-                throw new NotificationException(BLResources.AccessDenied);
+                throw new OperationAccessDeniedException(ChangeRequisitesIdentity.Instance);
             }
 
             string rutFormatError;
@@ -61,6 +62,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
             }
 
             var entity = _legalPersonReadModel.GetLegalPerson(request.LegalPersonId);
+
+            if (!entity.IsActive)
+            {
+                throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
+            }
+
             var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
 
             // TODO {all, 26.02.2014}: Возможно, стоит кидать ошибку, если к нам пришло что-то кроме ИП и Юр. лица

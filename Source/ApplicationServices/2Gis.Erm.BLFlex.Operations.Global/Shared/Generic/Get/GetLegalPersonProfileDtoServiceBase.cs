@@ -50,12 +50,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 
             var dto = ProjectDto(legalPersonProfile);
 
+            SetSpecificPropertyValuesForNewDto(dto);
+
             return dto;
         }
 
         protected abstract IProjectSpecification<LegalPersonProfile, TDto> GetProjectSpecification();
 
         protected virtual void SetSpecificPropertyValues(TDto dto)
+        {
+            // do nothing
+        }
+
+        protected virtual void SetSpecificPropertyValuesForNewDto(TDto dto)
         {
             // do nothing
         }

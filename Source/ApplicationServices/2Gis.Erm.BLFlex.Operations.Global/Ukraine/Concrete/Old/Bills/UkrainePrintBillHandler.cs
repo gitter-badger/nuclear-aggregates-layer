@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
                                           bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                           LegalPersonId = bill.Order.LegalPersonId.Value,
-                                          OrderVatRate = bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                          OrderVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                           bill.Order.Bargain,
                                           bill.Order.LegalPerson.LegalPersonTypeEnum
                                       })
@@ -63,10 +64,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                 throw new NotificationException(BLResources.SpecifiedBillNotFound);
             }
 
+            if (billInfo.BranchOfficeOrganizationUnitId == null)
+            {
+                throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
+            }
+
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(request.LegalPersonProfileId.Value);
-            var orderVatRate = (billInfo.OrderVatRate == default(decimal)) ? BLResources.NoVatText : billInfo.OrderVatRate.ToString();
+            var orderVatRate = (billInfo.OrderVatRate.Value == default(decimal)) ? BLResources.NoVatText : billInfo.OrderVatRate.ToString();
             var branchOfficeOrganizationUnit = billInfo.BranchOfficeOrganizationUnitId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value))
                 : null;

@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetFirmAddressDtoService : GetDomainEntityDtoServiceBase<FirmAddress>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted
+    public class GetFirmAddressDtoService : GetDomainEntityDtoServiceBase<FirmAddress>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         private readonly ISecureFinder _finder;
         private readonly IUserContext _userContext;
