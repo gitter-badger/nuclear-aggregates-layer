@@ -11,6 +11,7 @@
             Id = id;
             TextValue = textValue;
             NestedDocs = nestedDocs;
+            ;
         }
 
         public string Id { get; set; }

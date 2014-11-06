@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
@@ -51,12 +50,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Owner = null,
                     OperationType = (x.IsBeta ? ReleaseInfoOperationType.Beta : ReleaseInfoOperationType.Release).ToStringLocalizedExpression(),
                 })
-                .QuerySettings(_filterHelper, querySettings)
-                .Transform(x =>
-                {
-                    x.Owner = _userIdentifierService.GetUserInfo(x.OwnerCode).DisplayName;
-                    return x;
-                });
+                .QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListReleaseInfoDto dto)
+        {
+            dto.Owner = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
 
         // localization-only enum может не содержать None значения

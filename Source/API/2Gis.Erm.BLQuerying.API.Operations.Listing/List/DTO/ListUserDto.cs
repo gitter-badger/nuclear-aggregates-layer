@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO
         public long? ParentId { get; set; }
         public string ParentName { get; set; }
         public IOrderedEnumerable<string> RoleName { get; set; }
+        public bool IsServiceUser { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
     }

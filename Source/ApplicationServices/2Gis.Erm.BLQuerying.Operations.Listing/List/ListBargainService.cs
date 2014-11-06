@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -10,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -59,6 +62,44 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             x => x.CustomerLegalPersonId == legalPersonId;
                     });
 
+            var restrictByDealFilter = querySettings.CreateForExtendedProperty<Bargain, long>(
+                "dealId",
+                dealId =>
+                    {
+                        if (dealId == 0)
+                        {
+                            return x => false;
+                        }
+
+                        var filterInfo = _finder.Find(Specs.Find.ById<Deal>(dealId))
+                            .Select(deal => new
+                                {
+                                    deal.ClientId,
+                                    LegalPersonIds = deal.LegalPersonDeals.Where(link => !link.IsDeleted && link.LegalPerson.IsActive && !link.LegalPerson.IsDeleted)
+                                                         .Select(link => link.LegalPersonId)
+                                })
+                            .Single();
+
+                        IEnumerable<long> legalPersons;
+                        if (filterInfo.LegalPersonIds.Any())
+                        {
+                            legalPersons = filterInfo.LegalPersonIds;
+                        }
+                        else
+                        {
+                            var childClients = _finder.Find<DenormalizedClientLink>(link => link.MasterClientId == filterInfo.ClientId)
+                                                      .Select(link => link.ChildClientId)
+                                                      .ToList();
+                            childClients.Add(filterInfo.ClientId);
+
+                            legalPersons = _finder.Find<LegalPerson>(person => childClients.Contains(person.ClientId.Value))
+                                                  .Select(person => person.Id)
+                                                  .ToArray();
+                        }
+
+                        return x => legalPersons.Contains(x.CustomerLegalPersonId);
+                    });
+
             var restrictByBranchOfficeOrganizationUnitFilter = querySettings.CreateForExtendedProperty<Bargain, long>(
                 "branchOfficeOrganizationUnitId",
                 branchOfficeOrganizationUnitId =>
@@ -78,7 +119,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             return query
                 .Where(x => !x.IsDeleted)
-                .Filter(_filterHelper, myFilter, restrictByLegalPersonFilter, restrictByBranchOfficeOrganizationUnitFilter, agentBargainsFilter)
+                .Filter(_filterHelper, myFilter, restrictByLegalPersonFilter, restrictByDealFilter, restrictByBranchOfficeOrganizationUnitFilter, agentBargainsFilter)
                 .Select(x => new ListBargainDto
                 {
                     Id = x.Id,
@@ -95,6 +136,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     ClientName = x.LegalPerson.Client.Name,
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
+                    ExecutorBranchOfficeId = x.ExecutorBranchOfficeId,
+                    BargainKindEnum = (BargainKind)x.BargainKind,
                     BargainKind = ((BargainKind)x.BargainKind).ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);

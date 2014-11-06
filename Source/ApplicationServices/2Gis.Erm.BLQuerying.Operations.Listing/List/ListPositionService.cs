@@ -24,16 +24,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Position>();
 
-            var supportedByExportFilter = querySettings.CreateForExtendedProperty<Position, bool>(
-                "isSupportedByExport",
-                isSupportedByExport => x => x.PositionCategory.IsSupportedByExport == isSupportedByExport);
-
-            var compositeFilter = querySettings.CreateForExtendedProperty<Position, bool>(
-                "composite",
-                composite => x => x.IsComposite == composite);
-
             return query
-                    .Filter(_filterHelper, supportedByExportFilter, compositeFilter)
                     .Select(x => new ListPositionDto
                     {
                         Id = x.Id,
@@ -43,6 +34,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         CategoryName = x.PositionCategory.Name,
                         ExportCode = x.ExportCode,
                         RestrictChildPositionPlatforms = x.RestrictChildPositionPlatforms,
+                        IsSupportedByExport = x.PositionCategory.IsSupportedByExport,
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted,
                     })

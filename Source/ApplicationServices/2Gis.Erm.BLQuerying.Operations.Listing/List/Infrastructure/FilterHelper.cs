@@ -8,72 +8,75 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 {
     public sealed class FilterHelper
     {
         private readonly SubordinatesFilter _subordinatesFilter;
+        private readonly ClientDescendantsFilter _clientDescendantsFilter;
         private readonly EnumLocalizationVisitor _enumLocalizationVisitor;
+        private readonly IExtendedInfoFilterMetadata _extendedInfoFilterMetadata;
 
-        public FilterHelper(SubordinatesFilter subordinatesFilter, EnumLocalizationVisitor enumLocalizationVisitor)
+        public FilterHelper(SubordinatesFilter subordinatesFilter,
+                            ClientDescendantsFilter clientDescendantsFilter,
+                            EnumLocalizationVisitor enumLocalizationVisitor,
+                            IExtendedInfoFilterMetadata extendedInfoFilterMetadata)
         {
             _subordinatesFilter = subordinatesFilter;
             _enumLocalizationVisitor = enumLocalizationVisitor;
+            _extendedInfoFilterMetadata = extendedInfoFilterMetadata;
+            _clientDescendantsFilter = clientDescendantsFilter;
         }
 
         public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> query, params Expression<Func<TEntity, bool>>[] expressions)
         {
-            foreach (var expression in expressions.Where(x => x != null))
-            {
-                query = query.Where(expression);
+            return expressions.Where(x => x != null).Aggregate(query, (x, y) => x.Where(y));
             }
-
-            return query;
-        }
 
         public IQueryable<TEntity> ForSubordinates<TEntity>(IQueryable<TEntity> queryable)
         {
             return _subordinatesFilter.Apply(queryable);
         }
 
-        public RemoteCollection<TDocument> QuerySettings<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
+        public IQueryable<TEntity> ForClientAndItsDescendants<TEntity>(IQueryable<TEntity> queryable, long clientId)
         {
-            var query1 = DefaultFilter(query, querySettings);
-            var query2 = RelativeFilter(query1, querySettings);
-            var query3 = FieldFilter(query2, querySettings);
-
-            return SortedPaged(query3, querySettings);
+            return _clientDescendantsFilter.Apply(queryable, clientId);
         }
 
-        private static IQueryable<TDocument> DefaultFilter<TDocument>(IQueryable<TDocument> queryable, QuerySettings querySettings)
+        public RemoteCollection<TDocument> QuerySettings<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
-            Expression expression;
-            if (!DefaultFilterMetadata.TryGetFilter<TDocument>(querySettings.FilterName, out expression))
-            {
-                throw new ArgumentException(string.Format("Для типа {0} не определен фильтр по умолчанию", typeof(TDocument).Name));
-            }
+            var extendedInfoFilters = _extendedInfoFilterMetadata.GetExtendedInfoFilters<TDocument>(querySettings.ExtendedInfoMap);
+            query = extendedInfoFilters.Aggregate(query, (x, y) => x.Where(y));
 
-            var whereMethod = MethodInfos.Queryable.WhereMethodInfo.MakeGenericMethod(typeof(TDocument));
-            var whereExpression = Expression.Call(whereMethod, queryable.Expression, expression);
+            query = RelativeFilter(query, querySettings);
+            query = FieldFilter(query, querySettings);
 
-            return queryable.Provider.CreateQuery<TDocument>(whereExpression);
+            return SortedPaged(query, querySettings);
         }
 
         private static IQueryable<TDocument> RelativeFilter<TDocument>(IQueryable<TDocument> query, QuerySettings querySettings)
         {
             bool filterToParent;
-            if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent))
+            if (!querySettings.TryGetExtendedProperty("filterToParent", out filterToParent) || querySettings.ParentEntityId == null || !filterToParent)
             {
+                return query;
+            }
+
+            // никогда не ограничиваем по null и 0 (можно убрать после того как зарефакторим js)
+            if (querySettings.ParentEntityId == null || querySettings.ParentEntityId.Value == 0)
+        {
                 return query;
             }
 
             LambdaExpression lambdaExpression;
             if (!RelationalMetadata.TryGetFilterExpressionFromRelationalMap<TDocument>(querySettings.ParentEntityName, out lambdaExpression))
             {
-                throw new ArgumentException(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})", querySettings.ParentEntityName, typeof(TDocument).Name));
+                throw new ArgumentException(string.Format("Relational metadata should be added (Entity={0}, RelatedItem={1})",
+                                                          querySettings.ParentEntityName,
+                                                          typeof(TDocument).Name));
             }
 
             var castExpression = (UnaryExpression)lambdaExpression.Body;
@@ -258,14 +261,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
                 switch (x.Direction)
                 {
                     case SortDirection.Ascending:
-                        methodInfo = (index == 0) ?
-                            MethodInfos.Queryable.OrderByMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType) :
-                            MethodInfos.Queryable.ThenByMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType);
+                            methodInfo = (index == 0)
+                                             ? MethodInfos.Queryable.OrderByMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType)
+                                             : MethodInfos.Queryable.ThenByMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType);
                         break;
                     case SortDirection.Descending:
-                        methodInfo = (index == 0) ?
-                            MethodInfos.Queryable.OrderByDescendingMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType) :
-                            MethodInfos.Queryable.ThenByDescendingMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType);
+                            methodInfo = (index == 0)
+                                             ? MethodInfos.Queryable.OrderByDescendingMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType)
+                                             : MethodInfos.Queryable.ThenByDescendingMethodInfo.MakeGenericMethod(documentType, x.PropertyInfo.PropertyType);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

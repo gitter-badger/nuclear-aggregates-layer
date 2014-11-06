@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Common;
 
 using Nest;
@@ -11,24 +12,27 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
     public sealed class DocumentVersionUpdater<TDocument> : IDocumentVersionUpdater<TDocument>
         where TDocument : class
     {
-        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers)
+        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers)
         {
-            var ids = documentWrappers.OfType<IDocumentWrapper<TDocument>>().Select(x => x.Id);
+            var castedDocumentWrappers = documentWrappers.OfType<IDocumentWrapper<TDocument>>();
 
-            return x => (ElasticApi.ErmMultiGetDescriptor)x.GetManyDistinct<TDocument>(ids).SourceEnabled(false).Preference("_primary");
+            return x => castedDocumentWrappers.Aggregate(x, (current, documentWrapper) => (ElasticApi.ErmMultiGetDescriptor)current.GetDistinct<TDocument>(g => g
+                .Source(s => s.Exclude("*"))
+                .Id(documentWrapper.Id))
+                .Preference("_primary"));
         }
 
-        public void UpdateDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
+        public void UpdateDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits)
         {
-            var versionsMap = hits.OfType<IMultiGetHit<TDocument>>().Where(x => x.Found).ToDictionary(x => x.Id, x => x.Version);
+            var versionsMap = hits.OfType<IMultiGetHit<TDocument>>().Where(x => x.Found).ToDictionary(x => x.Id, x => long.Parse(x.Version));
             if (!versionsMap.Any())
             {
                 return;
             }
 
-            foreach (var documentWrapper in documentWrappers.OfType<DocumentWrapper<TDocument>>())
+            foreach (var documentWrapper in documentWrappers.OfType<IndexedDocumentWrapper<TDocument>>())
             {
-                string version;
+                long version;
                 if (!versionsMap.TryGetValue(documentWrapper.Id, out version))
                 {
                     continue;

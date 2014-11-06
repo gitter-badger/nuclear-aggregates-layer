@@ -24,20 +24,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         {
             var query = _finder.FindAll<Advertisement>();
 
-            var firmIdFilter = querySettings.CreateForExtendedProperty<Advertisement, long>(
-                "FirmId", firmId => x => x.FirmId == firmId);
-
-            var advertisementTemplateIdFilter = querySettings.CreateForExtendedProperty<Advertisement, long>(
-                "AdvertisementTemplateId", advertisementTemplateId => x => x.AdvertisementTemplateId == advertisementTemplateId);
-
-            var isAllowedToWhiteListFilter = querySettings.CreateForExtendedProperty<Advertisement, bool>(
-                "isAllowedToWhiteList", isAllowedToWhiteList => x => x.AdvertisementTemplate.IsAllowedToWhiteList == isAllowedToWhiteList);
-
             var data = query
-                .Filter(_filterHelper
-                , firmIdFilter
-                , advertisementTemplateIdFilter
-                , isAllowedToWhiteListFilter)
                 .Select(x => new ListAdvertisementDto
                 {
                     CreatedOn = x.CreatedOn,
@@ -46,6 +33,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     AdvertisementTemplateId = x.AdvertisementTemplateId,
                     AdvertisementTemplateName = x.AdvertisementTemplate.Name,
                     IsSelectedToWhiteList = x.IsSelectedToWhiteList,
+                    IsAllowedToWhiteList = x.AdvertisementTemplate.IsAllowedToWhiteList,
                     FirmId = x.FirmId,
                     IsDeleted = x.IsDeleted,
                 })

@@ -2,16 +2,8 @@
 using System.Globalization;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
-    public enum ExtendedPropertyUnionType
-    {
-        And,
-        Or
-    }
-
     public static class QuerySettingsExtensions
     {
         public static bool TryGetExtendedProperty<TParam>(this QuerySettings querySettings, string name, out TParam value)
@@ -30,10 +22,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             return true;
         }
 
-        public static Expression<Func<TEntity, bool>> CreateForExtendedProperty<TEntity, TParam>(
+        public static Expression<Func<T, bool>> CreateForExtendedProperty<T, TParam>(
             this QuerySettings querySettings,
             string parameterName,
-            Func<TParam, Expression<Func<TEntity, bool>>> action)
+            Func<TParam, Expression<Func<T, bool>>> action)
             where TParam : IConvertible
         {
             TParam param;
@@ -47,12 +39,11 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
         }
 
         // TODO: refactor usage
-        public static Expression<Func<TEntity, bool>> CreateForExtendedProperty<TEntity, TParam1, TParam2>(
+        public static Expression<Func<T, bool>> CreateForExtendedProperty<T, TParam1, TParam2>(
             this QuerySettings querySettings,
             string parameterName1, 
             string parameterName2,
-            ExtendedPropertyUnionType extendedPropertyUnionType,
-            Func<TParam1, TParam2, Expression<Func<TEntity, bool>>> action)
+            Func<TParam1, TParam2, Expression<Func<T, bool>>> action)
             where TParam1 : IConvertible
             where TParam2 : IConvertible
         {
@@ -62,38 +53,10 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             TParam2 param2;
             var hasParam2 = querySettings.TryGetExtendedProperty(parameterName2, out param2);
 
-            switch (extendedPropertyUnionType)
+            // OR
+            if (hasParam1 || hasParam2)
             {
-                case ExtendedPropertyUnionType.And:
-                    if (hasParam1 && hasParam2)
-                    {
-                        return action(param1, param2);
-                    }
-
-                    break;
-                case ExtendedPropertyUnionType.Or:
-                    if (hasParam1 || hasParam2)
-                    {
-                        return action(param1, param2);
-                    }
-
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("extendedPropertyUnionType");
-            }
-
-            return null;
-        }
-
-        // TODO: refactor usage
-        public static Expression<Func<TEntity, bool>> CreateByParentEntity<TEntity>(
-            this QuerySettings querySettings,
-            EntityName parentEntityName,
-            Func<Expression<Func<TEntity, bool>>> action)
-        {
-            if (querySettings.ParentEntityName == parentEntityName && querySettings.ParentEntityId != null)
-            {
-                return action();
+                return action(param1, param2);
             }
 
             return null;

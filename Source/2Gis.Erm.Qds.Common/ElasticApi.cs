@@ -5,11 +5,11 @@ using System.Linq;
 using DoubleGis.Erm.Qds.Common.Settings;
 using Elasticsearch.Net;
 using Nest;
+
 using Newtonsoft.Json.Linq;
 
 namespace DoubleGis.Erm.Qds.Common
 {
-    // COMMENT {m.pashuk, 23.04.2014}: Идея с названиями: NestElasticApi : IStorageElasticApi, IConfigElasticApi
     public sealed class ElasticApi : IElasticApi, IElasticManagementApi
     {
         private readonly IElasticClient _elasticClient;
@@ -23,20 +23,10 @@ namespace DoubleGis.Erm.Qds.Common
             _metadataApi = metadataApi;
         }
 
-        // TODO {m.pashuk, 05.08.2014}: message https://github.com/elasticsearch/elasticsearch-net/issues/504
         public bool TypeExists<T>() where T : class
         {
-            var documentType = typeof(T);
-
-            string isolatedIndexName;
-            if (!_nestSettings.ConnectionSettings.DefaultIndices.TryGetValue(documentType, out isolatedIndexName))
-            {
-                throw new ArgumentException("Cannot find index name for type " + documentType.Name);
-            }
-
-            var documentTypeName = documentType.Name.ToLowerInvariant();
-            var response = _elasticClient.Raw.IndicesExistsType<VoidResponse>(isolatedIndexName, documentTypeName);
-            return response.Success;
+            var response = _elasticClient.TypeExists(x => x.Index<T>().Type<T>());
+            return response.Exists;
         }
 
         public void Bulk(IReadOnlyCollection<Func<ErmBulkDescriptor, ErmBulkDescriptor>> funcs)
@@ -79,14 +69,63 @@ namespace DoubleGis.Erm.Qds.Common
             return response;
         }
 
-        public void Delete<T>(string id) where T : class
+        public IDocumentWrapper<T> Create<T>(T @object, string id = null) where T : class
         {
-            _elasticClient.Delete<T>(x => x.Id(id));
+            var response = _elasticClient.Index(@object, x =>
+            {
+                if (id != null)
+                {
+                    x = x.Id(id);
+                }
+                return x.OpType(OpType.Create);
+            });
+
+            return new DocumentWrapper<T>
+            {
+                Id  = response.Id,
+                Document = @object,
+                Version = long.Parse(response.Version),
+            };
         }
 
-        public void Index<T>(T @object, Func<IndexDescriptor<T>, IndexDescriptor<T>> indexSelector = null) where T : class
+        public IDocumentWrapper<T> Update<T>(IDocumentWrapper<T> documentWrapper) where T : class
         {
-            _elasticClient.Index(@object, indexSelector);
+            var response = _elasticClient.Update<T, T>(x =>
+            {
+                if (documentWrapper.Version != null)
+                {
+                    x = x.Version(documentWrapper.Version.Value);
+                }
+
+                return x.Id(documentWrapper.Id).Doc(documentWrapper.Document);
+            });
+
+            return new DocumentWrapper<T>
+            {
+                Id = response.Id,
+                Document = documentWrapper.Document,
+                Version = long.Parse(response.Version),
+            };
+        }
+
+        public IDocumentWrapper<T> Delete<T>(IDocumentWrapper<T> documentWrapper) where T : class
+        {
+            var response = _elasticClient.Delete<T>(x =>
+            {
+                if (documentWrapper.Version != null)
+                {
+                    x = x.Version(documentWrapper.Version.Value);
+                }
+
+                return x.Id(documentWrapper.Id);
+            });
+
+            return new DocumentWrapper<T>
+            {
+                Id = response.Id,
+                Document = documentWrapper.Document,
+                Version = long.Parse(response.Version),
+            };
         }
 
         public T Get<T>(string id) where T : class
@@ -115,11 +154,6 @@ namespace DoubleGis.Erm.Qds.Common
         public void Refresh<T>() where T : class
         {
             _elasticClient.Refresh(x => x.Index<T>());
-        }
-
-        public void Refresh(Type[] indexTypes)
-        {
-            _elasticClient.Refresh(x => x.Indices(indexTypes));
         }
 
         public void DeleteIndex<T>() where T : class
@@ -164,16 +198,15 @@ namespace DoubleGis.Erm.Qds.Common
 
         public void UpdateIndexSettings(Type indexType, Func<UpdateSettingsDescriptor, UpdateSettingsDescriptor> updateSettingsSelector, bool optimize = false)
         {
-            var type = indexType;
-            _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(type));
-
             if (optimize)
             {
-                _elasticClient.Optimize(x => x.Indices(new[] { indexType }).MaxNumSegments(5));
+                _elasticClient.Optimize(x => x.Indices(indexType));
             }
+
+            _elasticClient.UpdateSettings(x => updateSettingsSelector(x).Index(indexType));
         }
 
-        public IEnumerable<IHit<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector) where T : class
+        public IEnumerable<IDocumentWrapper<T>> Scroll<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searchSelector, IProgress<long> progress = null) where T : class
         {
             const string FirstScrollTimeout = "1s";
 
@@ -182,7 +215,7 @@ namespace DoubleGis.Erm.Qds.Common
                 .Scroll(FirstScrollTimeout)
                 .Size(_nestSettings.BatchSize));
 
-            return new DelegateEnumerable<IHit<T>>(() => new ScrollEnumerator<T>(searchFunc, _elasticClient, _nestSettings.BatchTimeout));
+            return new DelegateEnumerable<IDocumentWrapper<T>>(() => new ScrollEnumerator<T>(_elasticClient, searchFunc, _nestSettings.BatchTimeout, progress));
         }
 
         private sealed class DelegateEnumerable<THit> : IEnumerable<THit>
@@ -205,24 +238,39 @@ namespace DoubleGis.Erm.Qds.Common
             }
         }
 
-        private sealed class ScrollEnumerator<TDocument> : IEnumerator<IHit<TDocument>>
+        private sealed class ScrollEnumerator<TDocument> : IEnumerator<IDocumentWrapper<TDocument>>
             where TDocument : class
         {
-            private readonly Func<ISearchResponse<TDocument>> _searchFunc;
             private readonly IElasticClient _elasticClient;
+            private readonly Func<ISearchResponse<TDocument>> _searchFunc;
             private readonly string _scrollTimeout;
+            private readonly IProgress<long> _progress;
 
             private string _scrollId;
             private IEnumerator<IHit<TDocument>> _internalEnumerator;
 
-            public ScrollEnumerator(Func<ISearchResponse<TDocument>> searchFunc, IElasticClient elasticClient, string scrollTimeout)
+            public ScrollEnumerator(IElasticClient elasticClient, Func<ISearchResponse<TDocument>> searchFunc, string scrollTimeout, IProgress<long> progress = null)
             {
-                _searchFunc = searchFunc;
                 _elasticClient = elasticClient;
+                _searchFunc = searchFunc;
                 _scrollTimeout = scrollTimeout;
+                _progress = progress;
             }
 
-            public IHit<TDocument> Current { get { return _internalEnumerator.Current; } }
+            public IDocumentWrapper<TDocument> Current
+            {
+                get
+                {
+                    var current = _internalEnumerator.Current;
+                    return new DocumentWrapper<TDocument>
+                    {
+                        Id = current.Id,
+                        Document = current.Source,
+                        Version = current.Version == null ? (long?)null : long.Parse(current.Version),
+                    };
+                }
+            }
+
             object IEnumerator.Current { get { return Current; } }
 
             public bool MoveNext()
@@ -230,6 +278,12 @@ namespace DoubleGis.Erm.Qds.Common
                 if (_scrollId == null)
                 {
                     var searchResponse = _searchFunc();
+
+                    if (_progress != null)
+                    {
+                        _progress.Report(searchResponse.Total);
+                    }
+
                     if (searchResponse.Total <= 0)
                     {
                         return false;
@@ -294,35 +348,20 @@ namespace DoubleGis.Erm.Qds.Common
 
                 return this;
             }
-
-            public ErmBulkDescriptor Create2<T>(Func<BulkCreateDescriptor<T>, BulkCreateDescriptor<T>> bulkCreateSelector) where T : class
-            {
-                return (ErmBulkDescriptor)Create(bulkCreateSelector);
-            }
         }
 
         public sealed class ErmMultiGetDescriptor : MultiGetDescriptor
         {
-            // TODO {m.pashuk, 05.08.2014}: message https://github.com/elasticsearch/elasticsearch-net/issues/849
-            public ErmMultiGetDescriptor SourceEnabled(bool enabled = true)
+            public ErmMultiGetDescriptor GetDistinct<T>(Func<MultiGetOperationDescriptor<T>, MultiGetOperationDescriptor<T>> getSelector) where T : class
             {
-                Request.RequestParameters.AddQueryString("_source", enabled);
-                return this;
-            }
+                var descriptor = (IMultiGetOperation)getSelector(new MultiGetOperationDescriptor<T>());
 
-            public ErmMultiGetDescriptor GetManyDistinct<T>(IEnumerable<string> ids) where T : class
-            {
                 var documentType = typeof(T);
                 var operations = ((IMultiGetRequest)this).GetOperations;
-
-                foreach (var id in ids)
+                var idExists = operations.Any(x => string.Equals(x.Id, descriptor.Id, StringComparison.OrdinalIgnoreCase) && x.ClrType == documentType);
+                if (!idExists)
                 {
-                    var idRef = id;
-                    var idExists = operations.Any(x => string.Equals(x.Id, idRef, StringComparison.OrdinalIgnoreCase) && x.ClrType == documentType);
-                    if (!idExists)
-                    {
-                        operations.Add(new MultiGetOperationDescriptor<T>().Id(id));
-                    }
+                    operations.Add(descriptor);
                 }
 
                 return this;

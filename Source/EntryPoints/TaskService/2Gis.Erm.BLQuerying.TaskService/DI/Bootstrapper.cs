@@ -1,6 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 
@@ -12,27 +13,16 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.DI
     {
         public static IUnityContainer ConfigureQdsIndexing(this IUnityContainer container, Func<LifetimeManager> lifetime)
         {
-            container
-                .RegisterType<IEntityToDocumentRelationMetadataContainer, EntityToDocumentRelationMetadataContainer>(Lifetime.Singleton)
-                .RegisterType<IDocumentRelationMetadataContainer, DocumentRelationMetadataContainer>(Lifetime.Singleton)
+            return container
+                .RegisterType(typeof(IEntityToDocumentRelation<,>), typeof(EntityToDocumentRelation<,>), lifetime())
+                .RegisterType(typeof(IEntityToDocumentRelation<User, UserAuthorizationDoc>), typeof(UserToUserAuthorizationDocRelation), lifetime())
+                .RegisterType(typeof(IDocumentRelation<,>), typeof(DocumentRelation<,>), lifetime())
                 .RegisterType<IEntityToDocumentRelationFactory, UnityEntityToDocumentRelationFactory>(lifetime())
                 .RegisterType<IDocumentRelationFactory, UnityDocumentRelationFactory>(lifetime())
                 .RegisterType<IDefferedDocumentUpdater, DefferedDocumentUpdater>(lifetime())
+                .RegisterType<ReplicationQueueHelper>(lifetime())
                 .RegisterType<IDocumentUpdater, DocumentUpdater>(lifetime())
                 .RegisterType(typeof(IDocumentVersionUpdater<>), typeof(DocumentVersionUpdater<>), lifetime());
-                
-            container.MassProcess(lifetime);
-
-            return container;
-        }
-
-        private static void MassProcess(this IUnityContainer container, Func<LifetimeManager> lifetime)
-        {
-            var entityToDocumentRelationMetadataMassProcessor = container.Resolve<EntityToDocumentRelationMetadataMassProcessor>();
-            entityToDocumentRelationMetadataMassProcessor.MassProcess(lifetime);
-
-            var documentRelationMetadataMassProcessor = container.Resolve<DocumentRelationMetadataMassProcessor>();
-            documentRelationMetadataMassProcessor.MassProcess(lifetime);
         }
     }
 }

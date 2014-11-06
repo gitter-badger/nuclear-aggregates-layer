@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,11 +31,25 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\NEST.1.2.0\lib\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -46,7 +60,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Docs\AccountDoc.cs" />
+    <Compile Include="DocumentRelationAccessor.cs" />
     <Compile Include="Docs\ClientGridDoc.cs" />
     <Compile Include="Docs\BargainGridDoc.cs" />
     <Compile Include="Docs\LegalPersonGridDoc.cs" />
@@ -56,31 +70,62 @@
     <Compile Include="Docs\DocumentAuthorization.cs" />
     <Compile Include="Docs\FirmGridDoc.cs" />
     <Compile Include="Docs\IAuthorizationDoc.cs" />
-    <Compile Include="Docs\LegalPersonDoc.cs" />
     <Compile Include="Docs\Metadata\IndexMappingMetadata.cs" />
     <Compile Include="Docs\MigrationDoc.cs" />
     <Compile Include="Docs\OperationPermission.cs" />
     <Compile Include="Docs\OrderGridDoc.cs" />
     <Compile Include="Docs\ReplicationQueue.cs" />
-    <Compile Include="Docs\TerritoryDoc.cs" />
+    <Compile Include="Docs\TerritoryGridDoc.cs" />
     <Compile Include="Docs\UserAuthorizationDoc.cs" />
     <Compile Include="Docs\DepartmentGridDoc.cs" />
     <Compile Include="Docs\UserGridDoc.cs" />
     <Compile Include="Indexing\IDefferedDocumentUpdater.cs" />
-    <Compile Include="Indexing\IDocumentRelationMetadata.cs" />
     <Compile Include="Indexing\IDocumentUpdater.cs" />
-    <Compile Include="Indexing\IEntityToDocumentRelationMetadata.cs" />
+    <Compile Include="Indexing\IDocumentWrapper.cs" />
+    <Compile Include="Indexing\Metadata\DocumentRelationMetadata.cs" />
+    <Compile Include="Indexing\Metadata\DocumentRelationMetadataBuilder.cs" />
+    <Compile Include="Indexing\Metadata\DocumentRelationsIdentity.cs" />
+    <Compile Include="Indexing\Metadata\Features\DocumentPartFeature.cs" />
+    <Compile Include="Replication\Metadata\Features\EntityRelationFeature.cs" />
+    <Compile Include="Indexing\Metadata\Features\IDocumentPartFeature.cs" />
+    <Compile Include="Replication\Metadata\Features\IEntityRelationFeature.cs" />
+    <Compile Include="MetadataProviderExtensions.cs" />
+    <Compile Include="Replication\Metadata\EntityToDocumentProjectionsIdentity.cs" />
+    <Compile Include="Replication\Metadata\EntityToDocumentProjectionMetadataBuilder.cs" />
+    <Compile Include="Replication\Metadata\EntityToDocumentProjectionMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\2Gis.Erm.Qds.Common\2Gis.Erm.Qds.Common.csproj">
+      <Project>{7d920b28-ca75-4f54-8605-aa1e57388326}</Project>
+      <Name>2Gis.Erm.Qds.Common</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

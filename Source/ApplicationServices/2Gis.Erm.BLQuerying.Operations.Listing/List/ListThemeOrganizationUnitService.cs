@@ -31,8 +31,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         Id = x.Id,
                         OrganizationUnitId = x.OrganizationUnitId,
                         OrganizationUnitName = x.OrganizationUnit.Name,
-                        IsDeleted = x.IsDeleted,
                         ThemeId = x.ThemeId,
+                        IsActive = x.IsActive,
+                        IsDeleted = x.IsDeleted,
                     })
                 .QuerySettings(_filterHelper, querySettings);
         }

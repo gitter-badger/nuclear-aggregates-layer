@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Qds.API.Operations.Indexing;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using DoubleGis.Erm.Qds.API.Operations;
+using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 
 using Microsoft.Practices.Unity;
@@ -12,37 +14,44 @@ namespace DoubleGis.Erm.BLQuerying.TaskService.DI
     public sealed class UnityEntityToDocumentRelationFactory : IEntityToDocumentRelationFactory
     {
         private readonly IUnityContainer _unityContainer;
-        private readonly IEntityToDocumentRelationMetadataContainer _metadataContainer;
+        private readonly IReadOnlyDictionary<Type, IEnumerable<IEntityRelationFeature>> _documentRelationMetadatas;
 
-        public UnityEntityToDocumentRelationFactory(IUnityContainer unityContainer, IEntityToDocumentRelationMetadataContainer metadataContainer)
+        public UnityEntityToDocumentRelationFactory(IUnityContainer unityContainer, IMetadataProvider metadataProvider)
         {
             _unityContainer = unityContainer;
-            _metadataContainer = metadataContainer;
+            _documentRelationMetadatas = metadataProvider.GetEntityToDocumentProjectionMetadatas();
         }
 
         public IReadOnlyCollection<IEntityToDocumentRelation> GetEntityToDocumentRelationsForEntityType(Type entityType)
         {
-            var metadatas = _metadataContainer.GetMetadatasForEntityType(entityType);
-            var relations = CreateEntityToDocumentRelations(metadatas);
-            return relations;
+            var applicableMetadatas = from metadata in _documentRelationMetadatas
+                                      from entityRelationFeature in metadata.Value
+                                      where entityRelationFeature.EntityType == entityType
+                                      select metadata;
+
+            return applicableMetadatas.Select(x => CreateEntityToDocumentRelations(x.Key, x.Value))
+                                      .SelectMany(x => x)
+                                      .ToArray();
         }
 
         public IReadOnlyCollection<IEntityToDocumentRelation> GetEntityToDocumentRelationsForDocumentType(Type documentType)
         {
-            var metadatas = _metadataContainer.GetMetadatasForDocumentType(documentType);
-            var relations = CreateEntityToDocumentRelations(metadatas);
-            return relations;
+            IEnumerable<IEntityRelationFeature> entityRelationFeatures;
+            return _documentRelationMetadatas.TryGetValue(documentType, out entityRelationFeatures)
+                       ? CreateEntityToDocumentRelations(documentType, entityRelationFeatures)
+                       : new IEntityToDocumentRelation[0];
         }
 
-        private IReadOnlyCollection<IEntityToDocumentRelation> CreateEntityToDocumentRelations(IEnumerable<IEntityToDocumentRelationMetadata> metadatas)
+        private IReadOnlyCollection<IEntityToDocumentRelation> CreateEntityToDocumentRelations(Type documentType, IEnumerable<IEntityRelationFeature> entityRelationFeatures)
         {
-            var relations = metadatas.Select(metadata =>
-            {
-                var resolveType = typeof(IEntityToDocumentRelation<,>).MakeGenericType(metadata.EntityType, metadata.DocumentType);
-                return (IEntityToDocumentRelation)_unityContainer.Resolve(resolveType);
-            });
-
-            return relations.ToArray();
+            return entityRelationFeatures
+                .Select(feature =>
+                            {
+                                var relationType = typeof(IEntityToDocumentRelation<,>).MakeGenericType(feature.EntityType, documentType);
+                                var featureType = typeof(EntityRelationFeature<,>).MakeGenericType(documentType, feature.EntityType);
+                                return (IEntityToDocumentRelation)_unityContainer.Resolve(relationType, new DependencyOverride(featureType, feature));
+                            })
+                .ToArray();
         }
     }
 }
