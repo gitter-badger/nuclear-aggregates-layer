@@ -70,6 +70,24 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите профиль юридического лица клиента.
+        /// </summary>
+        public static string ChangeProfilesOperationMessage {
+            get {
+                return ResourceManager.GetString("ChangeProfilesOperationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите профиль.
+        /// </summary>
+        public static string ChangeProfilesOperationTitle {
+            get {
+                return ResourceManager.GetString("ChangeProfilesOperationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Связь уже существует.
         /// </summary>
         public static string ClientLinkAlreadyExists {
@@ -84,24 +102,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string InvalidEntityTypesForLinking {
             get {
                 return ResourceManager.GetString("InvalidEntityTypesForLinking", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Выберите новые профили для заказа.
-        /// </summary>
-        public static string ChangeProfilesOperationMessage {
-            get {
-                return ResourceManager.GetString("ChangeProfilesOperationMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Смена профилей.
-        /// </summary>
-        public static string ChangeProfilesOperationTitle {
-            get {
-                return ResourceManager.GetString("ChangeProfilesOperationTitle", resourceCulture);
             }
         }
         

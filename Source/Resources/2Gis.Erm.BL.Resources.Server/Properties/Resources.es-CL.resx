@@ -182,9 +182,9 @@
     <value>No se puede indicar a la agencia publicitaria como el cliente afiliado</value>
   </data>
   <data name="ChangeProfilesOperationMessage" xml:space="preserve">
-    <value>Выберите новые профили для заказа</value>
+    <value>Выберите профиль юридического лица клиента</value>
   </data>
   <data name="ChangeProfilesOperationTitle" xml:space="preserve">
-    <value>Смена профилей</value>
+    <value>Выберите профиль</value>
   </data>
 </root>
