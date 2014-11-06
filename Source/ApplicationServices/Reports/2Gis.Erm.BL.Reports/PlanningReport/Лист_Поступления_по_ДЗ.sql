@@ -19,6 +19,7 @@ SELECT
 				END
 	, [Корректировка РГ] = NULL
 	, [Примечание] = NULL
+	, [Последнее размещение] = ord.EndDistributionDateFact
 FROM
 	(
 		SELECT
@@ -113,6 +114,14 @@ FROM
 		u.Id = a.OwnerCode
 	JOIN Billing.BranchOfficeOrganizationUnits bou with(nolock) ON
 		a.BranchOfficeOrganizationUnitId = bou.Id
+	LEFT JOIN (
+	
+			SELECT o.LegalPersonId, o.BranchOfficeOrganizationUnitId, MAX(o.EndDistributionDateFact) AS EndDistributionDateFact
+			FROM Billing.Orders AS o 
+			WHERE o.IsActive = 1 AND o.IsDeleted = 0 AND o.WorkflowStepId IN (4,5,6) AND CONVERT(date,o.EndDistributionDateFact)< @IssueDate
+			GROUP BY o.LegalPersonId, o.BranchOfficeOrganizationUnitId
+) AS ord ON bou.Id = ord.BranchOfficeOrganizationUnitId AND lp.Id = ord.LegalPersonId
+
 WHERE
 	bou.OrganizationUnitId = @City	AND ((@IsAdvertisingAgency = 1 AND c.IsAdvertisingAgency = 1) OR @IsAdvertisingAgency = 0)
 	AND CASE

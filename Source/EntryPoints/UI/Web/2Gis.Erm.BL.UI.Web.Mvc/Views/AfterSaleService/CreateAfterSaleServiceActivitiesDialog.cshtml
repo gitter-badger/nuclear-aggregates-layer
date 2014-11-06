@@ -47,9 +47,7 @@
                     Ext.getDom("OK").disabled = "disabled";
                     Ext.getDom("Cancel").disabled = "disabled";
 
-                    // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                    // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                    Ext.getDom("Notifications").innerHTML = '@BLResources.AfterSalesServiceOperationStartedMessage';
+                    Ext.getDom("Notifications").innerHTML = Ext.LocalizedResources.AfterSalesServiceOperationStartedMessage;
                     Ext.get("Notifications").addClass("Notifications");
                     Ext.getDom("Notifications").style.display = "block";
                     EntityForm.submit();

@@ -176,4 +176,19 @@
   <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
     <value>Внимание! Профиль был изменен. Указанный профиль будет прикреплен к заказу.</value>
   </data>
+  <data name="ParentOrChildIdsNotSpecified" xml:space="preserve">
+    <value>Не указаны идентификаторы родительского или дочернего клиента</value>
+  </data>
+  <data name="InvalidEntityTypesForLinking" xml:space="preserve">
+    <value>Неверно заданы типы сущностей для добавления связи между клиентами</value>
+  </data>
+  <data name="SameIdsForEntitiesToLink" xml:space="preserve">
+    <value>Идентификаторы связываемых сущностей равны.</value>
+  </data>
+  <data name="ClientLinkAlreadyExists" xml:space="preserve">
+    <value>Связь уже существует</value>
+  </data>
+  <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
+    <value>Рекламное агентство не может быть указано в качестве дочернего клиента</value>
+  </data>
 </root>

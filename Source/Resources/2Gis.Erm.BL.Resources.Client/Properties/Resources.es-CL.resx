@@ -213,9 +213,6 @@
   <data name="ClickHereToAddNote" xml:space="preserve">
     <value>Haga clic aquí para agregar notas...</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Cerrar</value>
-  </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>No se han guardado las modificaciones realizadas. Para seguir en esta pagina y guardar las modificaciones, pulse el boton Cancelar.</value>
   </data>
@@ -952,10 +949,22 @@
     <value>¿Desea realmente deshacer la publicación de la plantilla de material publicitario?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Не удалось установить тематику по умолчанию</value>
+    <value>No fue posible establecer la selección temática por defecto</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Ошибка выполнения операции</value>
+    <value>Error al cumplir la operación</value>
+  </data>
+  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
+    <value>El proceso de creación del servicio postventa está en marcha. Es un proceso largo, puede seguir su ejecución en el historial de operaciones.</value>
+  </data>
+  <data name="DisabledFunctionality" xml:space="preserve">
+    <value>Esta funcionalidad no está disponible temporalmente</value>
+  </data>
+  <data name="DealMustPickOtherReason" xml:space="preserve">
+    <value>Se requiere indicar otro motivo del cierre de la Transacción.</value>
+  </data>
+  <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
+    <value> Esta razón social ya figura como principal</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value>Некорректное значение. Используйте формат 'ДД-ММ-ГГГГ'</value>

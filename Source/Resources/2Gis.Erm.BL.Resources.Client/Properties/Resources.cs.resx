@@ -213,9 +213,6 @@
   <data name="ClickHereToAddNote" xml:space="preserve">
     <value>Poznámku přidáte kliknutím zde...</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Zavřít</value>
-  </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Provedené změny nebyly uloženy. Abyste zůstali na této stránce a mohli změny uložit, stiskněte tlačítko „Zrušit“.</value>
   </data>
@@ -952,10 +949,22 @@
     <value>Skutečně si přejete zrušit zveřejnění šablony reklamního materiálu?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Не удалось установить тематику по умолчанию</value>
+    <value>Nepodařilo se stanovit téma dle výchozího nastavení</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Ошибка выполнения операции</value>
+    <value>Chyba při uskutečnění operace</value>
+  </data>
+  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
+    <value>Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.</value>
+  </data>
+  <data name="DisabledFunctionality" xml:space="preserve">
+    <value>Tato funkce je dočasně nedostupná</value>
+  </data>
+  <data name="DealMustPickOtherReason" xml:space="preserve">
+    <value>Je třeba uvést jiný důvod ukončení obchodní transakce.</value>
+  </data>
+  <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
+    <value> Tato PO již je hlavní</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value>Некорректное значение. Используйте формат 'ДД. MM. ГГГГ'</value>

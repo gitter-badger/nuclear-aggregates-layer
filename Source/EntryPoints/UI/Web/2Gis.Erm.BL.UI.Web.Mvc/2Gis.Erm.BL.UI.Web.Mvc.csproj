@@ -135,7 +135,6 @@
     <Compile Include="Controllers\LimitController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\OrderDialogsController.cs" />
     <Compile Include="Controllers\OrderFileController.cs" />
     <Compile Include="Controllers\OrderPositionController.cs" />
     <Compile Include="Controllers\OrderProcessingRequestController.cs" />
@@ -161,7 +160,6 @@
     <Compile Include="Models\CategoryGroupViewModel.cs" />
     <Compile Include="Models\CategoryOrganizationUnitViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
-    <Compile Include="Models\ChangeDealClientViewModel.cs" />
     <Compile Include="Models\ChangeOrderDealViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateDefaultViewModel.cs" />
     <Compile Include="Models\ChangeOrderStateOnApprovalViewModel.cs" />
@@ -186,7 +184,6 @@
     <Compile Include="Models\AdvertisementElementModels\PlainTextViewModel.cs" />
     <Compile Include="Models\DeactivateUserViewModel.cs" />
     <Compile Include="Models\DealCreateReasonViewModel.cs" />
-    <Compile Include="Models\DealViewModel.cs" />
     <Compile Include="Models\DeleteAllBillsViewModel.cs" />
     <Compile Include="Models\DeniedPositionViewModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
@@ -196,7 +193,6 @@
     <Compile Include="Models\LimitViewModel.cs" />
     <Compile Include="Models\LockDetailViewModel.cs" />
     <Compile Include="Models\LockViewModel.cs" />
-    <Compile Include="Models\MakeRegionalAdsDocsViewModel.cs" />
     <Compile Include="Models\NoteViewModel.cs" />
     <Compile Include="Models\OperationTypeViewModel.cs" />
     <Compile Include="Models\OrderFileViewModel.cs" />
@@ -233,7 +229,6 @@
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\CategoryViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\DealViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\DeniedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\FirmContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
@@ -435,11 +430,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CurrencyRate.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Deal.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Deal.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\DeniedPosition.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -555,11 +545,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ThemeTemplate.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Deal\ChangeDealClient.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ChangeDealClient.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Deal\Close.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -584,11 +569,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SetStatus.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderDialogs\MakeRegionalAdsDocs.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MakeRegionalAdsDocs.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Order\ChangeOrderDeal.generated.cs">
       <AutoGen>True</AutoGen>
@@ -902,10 +882,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>CurrencyRate.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Deal.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Deal.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\DeniedPosition.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DeniedPosition.generated.cs</LastGenOutput>
@@ -998,10 +974,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ThemeTemplate.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\Deal\ChangeDealClient.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ChangeDealClient.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\Deal\Close.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Close.generated.cs</LastGenOutput>
@@ -1021,10 +993,6 @@
     <None Include="Views\Limit\SetStatus.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SetStatus.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\OrderDialogs\MakeRegionalAdsDocs.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>MakeRegionalAdsDocs.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Order\ChangeOrderDeal.cshtml">
       <Generator>RazorGenerator</Generator>

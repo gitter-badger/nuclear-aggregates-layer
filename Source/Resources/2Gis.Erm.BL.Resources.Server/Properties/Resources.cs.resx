@@ -166,4 +166,19 @@
   <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
     <value>Pozor! Profil byl změněn. Uvedený profil bude přiložen k objednávce.</value>
   </data>
+  <data name="ParentOrChildIdsNotSpecified" xml:space="preserve">
+    <value>Nejsou zadány identifikátory pro zprostředkovatele a zprostředkovaného</value>
+  </data>
+  <data name="InvalidEntityTypesForLinking" xml:space="preserve">
+    <value>Nejsou správně zadány typy entit pro přidání spojení mezu klienty</value>
+  </data>
+  <data name="SameIdsForEntitiesToLink" xml:space="preserve">
+    <value>Identifikátory spojovaných entit jsou stejné.</value>
+  </data>
+  <data name="ClientLinkAlreadyExists" xml:space="preserve">
+    <value>Spojení již existuje</value>
+  </data>
+  <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
+    <value>Reklamní agentura nemůže být zadána jako zprostředkovaný klient</value>
+  </data>
 </root>

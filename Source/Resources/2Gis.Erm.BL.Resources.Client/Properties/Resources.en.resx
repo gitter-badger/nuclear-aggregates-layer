@@ -213,9 +213,6 @@
   <data name="ClickHereToAddNote" xml:space="preserve">
     <value>Click here to add notes...</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
     <value>Changes are not saved. To remain on the page and save changes, click "Cancel".</value>
   </data>
@@ -655,7 +652,7 @@
     <value>The current contract is out-of-date, to place an order under a contract, a new contract has to be created</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Reason for opportunity is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type</value>
+    <value>Reason for the deal is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
     <value>Approval is required!</value>
@@ -952,10 +949,22 @@
     <value>Are you sure you want to cancel advertising material template publishing?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Не удалось установить тематику по умолчанию</value>
+    <value>Failed to set the default topic</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Ошибка выполнения операции</value>
+    <value>Operation failed</value>
+  </data>
+  <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
+    <value>Process of after-sake service generation has been started. This is a long-term process, its progress can be tracked in the operations logbook.</value>
+  </data>
+  <data name="DisabledFunctionality" xml:space="preserve">
+    <value>This functionality is temporarily unavailable</value>
+  </data>
+  <data name="DealMustPickOtherReason" xml:space="preserve">
+    <value>Please specify another reason for deal closure</value>
+  </data>
+  <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
+    <value> This legal entity is already specified as the main one</value>
   </data>
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value>Некорректное значение. Используйте формат 'ДД/ММ/ГГГГ'</value>
