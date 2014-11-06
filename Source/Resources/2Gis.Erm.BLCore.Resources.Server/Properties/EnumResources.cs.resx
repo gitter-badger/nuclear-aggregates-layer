@@ -1203,19 +1203,19 @@
   <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
     <value>PPS4</value>
   </data>
-  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+  <data name="BusinessOperationQualify" xml:space="preserve">
     <value>Vzít z rezervy</value>
   </data>
-  <data name="BusinessOperationTypeDisqualify" xml:space="preserve">
+  <data name="BusinessOperationDisqualify" xml:space="preserve">
     <value>Vrátit do rezervy</value>
   </data>
-  <data name="BusinessOperationTypeChangeTerritory" xml:space="preserve">
+  <data name="BusinessOperationChangeTerritory" xml:space="preserve">
     <value>Změna území</value>
   </data>
-  <data name="BusinessOperationTypeChangeClient" xml:space="preserve">
+  <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Změna klienta</value>
   </data>
-  <data name="BusinessOperationTypeAfterSaleServiceActivitiesCreation" xml:space="preserve">
+  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
     <value>Vytvoření PPS</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
@@ -1230,13 +1230,13 @@
   <data name="OperationStatusSuccess" xml:space="preserve">
     <value>Dokončeno</value>
   </data>
-  <data name="BusinessOperationTypeCheckOrdersReadinessForRelease" xml:space="preserve">
+  <data name="BusinessOperationCheckOrdersReadinessForRelease" xml:space="preserve">
     <value>Kontrola objednávek</value>
   </data>
-  <data name="BusinessOperationTypeExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
+  <data name="BusinessOperationExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
     <value>Odesílání odpisů do 1C</value>
   </data>
-  <data name="BusinessOperationTypeMakeRegionalAdsDocs" xml:space="preserve">
+  <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Vytvoření regionální reklamy</value>
   </data>
   <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
@@ -1587,7 +1587,7 @@
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="BusinessOperationTypeNone" xml:space="preserve">
+  <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
@@ -1656,7 +1656,7 @@
   <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
     <value>Úprava zástupného materiálu RM</value>
   </data>
-  <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
+  <data name="BusinessOperationGetOrdersWithDummyAdvertisements" xml:space="preserve">
     <value>Hledání objednávek se zástupnými materiály RM</value>
   </data>
   <data name="FasCommentSupplements" xml:space="preserve">
@@ -1985,21 +1985,30 @@
     <value>Dohoda o prodloužení smlouvy</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
-    <value>Отсрочка</value>
+    <value>Odklad</value>
   </data>
   <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
-    <value>Рассрочка</value>
+    <value>Splátky</value>
   </data>
   <data name="PaymentFormatPostpay" xml:space="preserve">
-    <value>Постоплата</value>
+    <value>Zaplacení po zveřejnění reklamy ve 2GIS</value>
   </data>
   <data name="PaymentFormatPrepayment" xml:space="preserve">
-    <value>Предоплата</value>
+    <value>Zálohová platba</value>
   </data>
   <data name="EntityNameFirmDeal" xml:space="preserve">
-    <value>Связь фирмы со сделкой</value>
+    <value>Spojení organizace s obchodem</value>
   </data>
   <data name="EntityNameLegalPersonDeal" xml:space="preserve">
-    <value>Связь юр. лица со сделкой</value>
+    <value>Spojení PO s obchodem</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
+    <value>Деактивация/активация юр. лица клиента</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
+    <value>Приказа</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
+    <value>Другое</value>
   </data>
 </root>

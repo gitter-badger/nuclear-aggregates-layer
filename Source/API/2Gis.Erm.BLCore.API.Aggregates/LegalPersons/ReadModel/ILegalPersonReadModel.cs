@@ -20,5 +20,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
         IEnumerable<long> GetLegalPersonProfileIds(long value);
         long? GetMainLegalPersonProfileId(long legalPersonId);
         int? GetLegalPersonOrganizationDgppid(long legalPersonId);
+        bool DoesLegalPersonHaveActiveNotArchivedAndNotRejectedOrders(long legalPersonId);
     }
 }

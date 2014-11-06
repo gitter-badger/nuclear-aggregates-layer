@@ -134,7 +134,7 @@
         <xs:documentation>Номер заказа</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="SignedOnDate" type="xs:dateTime" use="required">
+    <xs:attribute name="SignupDate" type="xs:dateTime" use="required">
       <xs:annotation>
         <xs:documentation>Дата подписания</xs:documentation>
       </xs:annotation>

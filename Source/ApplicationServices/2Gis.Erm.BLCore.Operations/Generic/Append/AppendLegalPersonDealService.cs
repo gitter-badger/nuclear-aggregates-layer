@@ -34,11 +34,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
             var dealId = appendParams.ParentId.Value;
             var legalPersonId = appendParams.AppendedId.Value;
 
-            var existingLinkInfo = _dealReadModel.GetRelatedDealAndFirmNames(dealId, legalPersonId);
+            var existingLinkInfo = _dealReadModel.GetRelatedDealAndLegalPersonNames(dealId, legalPersonId);
             if (existingLinkInfo != null)
             {
                 throw new EntityIsNotUniqueException(typeof(LegalPersonDeal),
-                                                     string.Format(BLResources.LegalPersonDealLinkAlreadyExists, existingLinkInfo.DealName, existingLinkInfo.FirmName));
+                                                     string.Format(BLResources.LegalPersonDealLinkAlreadyExists, existingLinkInfo.DealName, existingLinkInfo.LegalPersonName));
             }
 
             using (var scope = _scopeFactory.CreateSpecificFor<AppendIdentity, Deal, LegalPerson>())

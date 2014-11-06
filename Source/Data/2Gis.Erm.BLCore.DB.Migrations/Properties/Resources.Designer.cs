@@ -1819,6 +1819,37 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirmAddresses]
+        ///	@Ids [Shared].[Int64IdsTableType] readonly
+        ///AS
+        ///	
+        ///	SET NOCOUNT ON;
+        ///	
+        ///	IF Not Exists (SELECT * FROM @Ids)
+        ///		RETURN 0;
+        ///		
+        ///	SET XACT_ABORT ON;
+        ///
+        ///	BEGIN TRY
+        ///	
+        ///	BEGIN TRAN
+        ///
+        ///	CREATE TABLE #ReferenceInfo (
+        ///	 CrmId UNIQUEIDENTIFIER NULL,
+        ///	 CreatedByUserId UNIQUEIDENTIFIER NULL, 
+        ///	 CreatedByUserDomainName NVARCHAR(250) NULL, 
+        ///	 ModifiedByUserId UNIQUEIDENTIFIER NULL,
+        ///	 Modifi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _BusinessDirectory___ReplicateFirmAddresses_25335 {
+            get {
+                return ResourceManager.GetString("_BusinessDirectory___ReplicateFirmAddresses_25335", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///ALTER PROCEDURE [BusinessDirectory].[ReplicateFirms]
         ///	@Ids [Shared].[Int64IdsTableType] ReadOnly
         ///AS

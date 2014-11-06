@@ -30,42 +30,42 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 var response = 
                     (CheckOrderReleasePeriodResponse)_subRequestProcessor.HandleSubRequest(
                         new CheckOrderReleasePeriodRequest
-                                {
+                            {
                                     OrderId = ruleContext.ValidationParams.Single.OrderId,
-                                    InProgressOnly = false,
-                                },
-                            null);
+                                InProgressOnly = false,
+                            },
+                        null);
                     if (!response.Success)
                     {
                         if (ruleContext.ValidationParams.Single.CurrentOrderState != OrderState.Approved)
                         {
                             return new[] { response.Message };                         
-                        }
                     }
+                }                
             }
             else
             {
                 // we just need to check whether there exists a release for the speicified period/OrganizationUnit
                 const short SuccessReleaseStatus = (short)ReleaseStatus.Success;
 
-                var previousReleaseInfo = _releaseReadModel.GetLastRelease(ruleContext.ValidationParams.Mass.OrganizationUnitId, ruleContext.ValidationParams.Mass.Period);
-                if (previousReleaseInfo != null && !previousReleaseInfo.IsBeta && previousReleaseInfo.Status == SuccessReleaseStatus)
+                var lastFinalRelease = _releaseRepository.GetLastFinalRelease(ruleContext.ValidationParams.Mass.OrganizationUnitId, ruleContext.ValidationParams.Mass.Period);
+                if (lastFinalRelease != null && lastFinalRelease.Status == SuccessReleaseStatus)
                 {
                     var organizationUnitName = _releaseReadModel.GetOrganizationUnitName(ruleContext.ValidationParams.Mass.OrganizationUnitId);
                     return new[]
-                               {
-                                   new OrderValidationMessage
-                                       {
-                                           Type = MessageType.Error,
+                    {
+                        new OrderValidationMessage
+                        {
+                            Type = MessageType.Error,
                                            MessageText =
                                                string.Format(BLResources.OrdersCheckOrderHasReleaseInfo,
                                                              ruleContext.ValidationParams.Mass.Period.Start,
                                                              ruleContext.ValidationParams.Mass.Period.End,
                                                              organizationUnitName),
-                                           OrderId = 0,
-                                           OrderNumber = string.Empty
-                                       }
-                               };
+                            OrderId = 0,
+                            OrderNumber = string.Empty
+                        }
+                    };
                 }
             }
 
