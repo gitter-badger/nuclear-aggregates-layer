@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:47
+﻿// File updated : 06.11.2014 12:25:32
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -74,6 +74,7 @@ CardIsUndefined : 'Для данной сущности не объявлена 
 Category : 'Рубрика',
 CategoryAlreasyExistsInTheList : 'Рубрика "{0}" уже присутствует в списке.',
 CategoryName : 'Название рубрики',
+ChangeNeedToPickClient : 'Необходимо указать Клиента.',
 CheckClientsDebtsFailed : 'Не удалось проверить долги выбранных клиентов. Возможно, у некоторых из выбранных клиентов имеются долги.',
 Checking : 'Проверка',
 CheckInProgressPleaseStandBy : 'Выполняется проверка. Пожалуйста, подождите...',
@@ -164,6 +165,7 @@ JustifyLeftTitle : 'Выровнять текст по левому краю',
 JustifyRightText : 'Выравнивание текста по правому краю.',
 JustifyRightTitle : 'Выровнять текст по правому краю.',
 LastPageText : 'Последняя страница',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',

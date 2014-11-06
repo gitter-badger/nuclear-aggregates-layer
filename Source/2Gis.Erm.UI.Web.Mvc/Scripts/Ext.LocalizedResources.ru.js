@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 22.09.2014 17:04:46
+// File updated : 06.11.2014 12:25:31
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -167,6 +167,7 @@ JustifyLeftTitle : 'Выровнять текст по левому краю',
 JustifyRightText : 'Выравнивание текста по правому краю.',
 JustifyRightTitle : 'Выровнять текст по правому краю.',
 LastPageText : 'Последняя страница',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',

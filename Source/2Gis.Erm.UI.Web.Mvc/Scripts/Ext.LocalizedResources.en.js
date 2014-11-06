@@ -1,4 +1,4 @@
-﻿// File updated : 22.09.2014 17:04:46
+﻿// File updated : 06.11.2014 12:25:31
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -99,7 +99,7 @@ DatePickerPrevText : 'Previous month (Control+Left)',
 DatePickerToday : 'Today',
 DatePickerTodayTip : '{0} (Space)',
 DeactivateMustPickTerritory : 'Specify the territory to which clients and companies will be assigned.',
-DealMustPickOtherReason : 'Please specify another reason of the opportunity closure',
+DealMustPickOtherReason : 'Please specify another reason for deal closure',
 December : 'December',
 DecreaseFontSizeText : 'Decrease font size.',
 DecreaseFontSizeTitle : 'Decrease size',
@@ -151,7 +151,7 @@ InsertUnorderedListTitle : 'Bullets',
 InvalidDateText : '{0} is an incorrect date. The date format should be {1}',
 InvalidSelectedPositionsCount : 'Required number of selected items: {0}',
 IsNecessaryChooseLimitForStatusChange : 'Before changing status, select a limit in the list',
-IsWarmClientWarningFormat : 'Reason for opportunity is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type',
+IsWarmClientWarningFormat : 'Reason for the deal is "Warm Lead", since there is a "{0}" task for this client, closed {1}, that has the "Warm Lead" type',
 ItalicText : 'Make selected text italic.',
 ItalicTitle : 'Italic(Ctrl+I)',
 ItsReadOnlyMode : 'This list is viewed in "read-only" mode. Unable to create entity.',
@@ -165,6 +165,7 @@ JustifyLeftTitle : 'Align text left.',
 JustifyRightText : 'Right text alignment.',
 JustifyRightTitle : 'Align text right.',
 LastPageText : 'The last page',
+LegalPersonIsAlreadyMain : ' This legal entity is already specified as the main one',
 LegalPersonProfileIsAlreadyMain : 'This profile is already the main one',
 LimitStatusApproved : 'Approved',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Change status operation cannot be performed for a group. Please change limit status one by one.',
