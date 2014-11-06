@@ -166,67 +166,60 @@ WriteLiteral("></script>\r\n\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n\r\n    Ext.DoubleGis.ValidatorRegistry.validators[\"validatePeriod\"] = function " +
-"(rule)\r\n    {\r\n        return function (value, context)\r\n        {\r\n            " +
-"var getValue = function (id) { return Ext.getCmp(id) ? Ext.getCmp(id).getValue()" +
-" : Ext.getDom(id).value; };\r\n\r\n            var startDate = new Date(getValue(rul" +
-"e.ValidationParameters.startDateField));\r\n            var endDate = new Date(get" +
-"Value(rule.ValidationParameters.endDateField));\r\n\r\n            var expectedStart" +
-"Date = new Date(startDate.getFullYear(), startDate.getMonth(), 1, 0, 0, 0, 0);\r\n" +
-"\r\n            var tmpDate = new Date((new Date(expectedStartDate.getFullYear(), " +
-"expectedStartDate.getMonth() + 1, 1)) - 1);\r\n            var expectedEndDate = n" +
-"ew Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0" +
-");\r\n\r\n            if (startDate.getTime() != expectedStartDate.getTime())\r\n     " +
-"           return false;\r\n\r\n            if (endDate.getTime() != expectedEndDate" +
-".getTime())\r\n                return false;\r\n\r\n            return true;\r\n        " +
-"};\r\n    };\r\n\r\n    Ext.DoubleGis.ValidatorRegistry.validators[\"checkPeriod\"] = fu" +
-"nction (rule)\r\n    {\r\n        return function (value, context)\r\n        {\r\n     " +
-"       var startDate = new Date(Ext.getCmp(rule.ValidationParameters.startDateFi" +
-"eld) ? Ext.getCmp(rule.ValidationParameters.startDateField).getValue() : Ext.get" +
-"Dom(rule.ValidationParameters.startDateField).value);\r\n            var endDate =" +
-" new Date(Ext.getCmp(rule.ValidationParameters.endDateField) ? Ext.getCmp(rule.V" +
-"alidationParameters.endDateField).getValue() : Ext.getDom(rule.ValidationParamet" +
-"ers.endDateField).value);\r\n            return (startDate.getTime() < endDate.get" +
-"Time());\r\n        };\r\n    };\r\n\r\n    Ext.DoubleGis.ValidatorRegistry.validators[\"" +
-"checkDate\"] = function (rule)\r\n    {\r\n        return function (value, context)\r\n" +
-"        {\r\n            var date = new Date(Ext.getCmp(rule.ValidationParameters." +
-"dateField) ? Ext.getCmp(rule.ValidationParameters.dateField).getValue() : Ext.ge" +
-"tDom(rule.ValidationParameters.dateField).value);\r\n            var expectedDate " +
-"= new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0); //first day\r\n   " +
-"         if (rule.ValidationParameters.isFirstDay == false)\r\n            {\r\n    " +
-"            var tmpDate = new Date((new Date(date.getFullYear(), date.getMonth()" +
-" + 1, 1)) - 1);\r\n                expectedDate = new Date(tmpDate.getFullYear(), " +
-"tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0);\r\n            }\r\n            " +
-"return (date.getTime() == expectedDate.getTime());\r\n        };\r\n    };\r\n\r\n    Ex" +
-"t.onReady(function ()\r\n    {\r\n        if (Ext.getDom(\'ErrorsLink\'))\r\n        {\r\n" +
-"            Ext.getDom(\'ErrorsLink\').onclick = function ()\r\n            {\r\n     " +
-"           Ext.getDom(\'ErrorsForm\').submit();\r\n            };\r\n        }\r\n\r\n    " +
-"    //Show error messages\r\n        if (Ext.getDom(\"Notifications\").innerHTML.tri" +
-"m() != \"\")\r\n        {\r\n            Ext.get(\"Notifications\").addClass(\"Notificati" +
-"ons\");\r\n        }\r\n        else\r\n        {\r\n            Ext.get(\"Notifications\")" +
-".removeClass(\"Notifications\");\r\n        }\r\n\r\n        Ext.get(\"Cancel\").on(\"click" +
-"\", function ()\r\n        {\r\n            window.close();\r\n        });\r\n\r\n        E" +
-"xt.get(\"OK\").on(\"click\", function ()\r\n        {\r\n            if (Ext.DoubleGis.F" +
-"ormValidator.validate(EntityForm))\r\n            {\r\n                Ext.getDom(\"S" +
-"tartPeriodDate\").value = new Date(Ext.getCmp(\"StartPeriodDate\").getValue()).form" +
-"at(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern);\r\n           " +
-"     Ext.getDom(\"OK\").disabled = true;\r\n                EntityForm.submit();\r\n  " +
-"              Ext.getDom(\"StartPeriodDate\").value = Date.parseDate(Ext.getDom(\"S" +
-"tartPeriodDate\").value, Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimeP" +
-"attern).format(Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern);\r\n       " +
-"     }\r\n        });\r\n\r\n        // Временно отключаем галку \"Включая подчинённых\"" +
-", ERM-925\r\n        var tt = new Ext.ToolTip({\r\n            target: \'IncludeOwner" +
-"Descendants-wrapper\',\r\n            html: Ext.LocalizedResources.DisabledFunction" +
-"ality\r\n        });\r\n    });\r\n\r\n    </script>\r\n    \r\n");
+WriteLiteral(@">
+    Ext.onReady(function ()
+    {
+        if (Ext.getDom('ErrorsLink'))
+        {
+            Ext.getDom('ErrorsLink').onclick = function ()
+            {
+                Ext.getDom('ErrorsForm').submit();
+            };
+        }
+
+        //Show error messages
+        if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
+        {
+            Ext.get(""Notifications"").addClass(""Notifications"");
+        }
+        else
+        {
+            Ext.get(""Notifications"").removeClass(""Notifications"");
+        }
+
+        Ext.get(""Cancel"").on(""click"", function ()
+        {
+            window.close();
+        });
+
+        Ext.get(""OK"").on(""click"", function ()
+        {
+            if (Ext.DoubleGis.FormValidator.validate(EntityForm))
+            {
+                Ext.getDom(""OK"").disabled = true;
+                EntityForm.submit();
+            }
+        });
+
+        // Временно отключаем галку ""Включая подчинённых"", ERM-925
+        var tt = new Ext.ToolTip({
+            target: 'IncludeOwnerDescendants-wrapper',
+            html: Ext.LocalizedResources.DisabledFunctionality
+        });
+    });
+
+    </script>
+    
+");
 
             
-            #line 116 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 64 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 116 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 64 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
      if(Model.HasErrors == true)
     {
 
@@ -242,13 +235,13 @@ WriteLiteral(" id=\"DivErrors\"");
 WriteLiteral(">\r\n");
 
             
-            #line 119 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 67 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 119 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 67 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
          using(Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, {"id", "ErrorsForm"} }))
         {
 
@@ -261,20 +254,20 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"operationId\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 5345), Tuple.Create("\"", 5374)
+WriteAttribute("value", Tuple.Create(" value=\"", 2380), Tuple.Create("\"", 2409)
             
-            #line 121 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
-, Tuple.Create(Tuple.Create("", 5353), Tuple.Create<System.Object, System.Int32>(Model.ErrorLogFileId
+            #line 69 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+, Tuple.Create(Tuple.Create("", 2388), Tuple.Create<System.Object, System.Int32>(Model.ErrorLogFileId
             
             #line default
             #line hidden
-, 5353), false)
+, 2388), false)
 );
 
 WriteLiteral(" />\r\n");
 
             
-            #line 122 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 70 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
         }
 
             
@@ -283,7 +276,7 @@ WriteLiteral(" />\r\n");
 WriteLiteral("    </div>\r\n");
 
             
-            #line 124 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 72 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
     }
 
             
@@ -292,13 +285,13 @@ WriteLiteral("    </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 126 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 74 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 126 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 74 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
         
@@ -306,14 +299,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 128 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 76 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
    Write(Html.Hidden("now", DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)));
 
             
             #line default
             #line hidden
             
-            #line 128 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 76 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
                                                                                    
 
             
@@ -336,7 +329,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 131 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 79 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
        Write(Model.Message);
 
             
@@ -345,13 +338,13 @@ WriteLiteral("            ");
 WriteLiteral("\r\n");
 
             
-            #line 132 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 80 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 132 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 80 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
              if (Model.HasErrors == true)
             {
 
@@ -367,7 +360,7 @@ WriteLiteral(" id=\"ErrorsLink\"");
 WriteLiteral("> Просмотреть ошибки...</a>\r\n");
 
             
-            #line 135 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 83 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
             }
 
             
@@ -382,8 +375,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 138 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
-       Write(Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber }));
+            #line 86 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+       Write(Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month }));
 
             
             #line default
@@ -397,7 +390,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 141 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 89 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
        Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit }));
 
             
@@ -412,7 +405,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 144 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 92 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
        Write(Html.TemplateField(m => m.Owner, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User}));
 
             
@@ -427,7 +420,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 147 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 95 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
        Write(Html.TemplateField(m => m.IncludeOwnerDescendants, FieldFlex.lone, new Dictionary<string, object> {{"disabled", "disabled"}}));
 
             
@@ -442,7 +435,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 150 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 98 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
        Write(Html.TemplateField(m => m.CheckAccountBalance, FieldFlex.lone));
 
             
@@ -451,7 +444,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 153 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
+            #line 101 "..\..\Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml"
     }
 
             
