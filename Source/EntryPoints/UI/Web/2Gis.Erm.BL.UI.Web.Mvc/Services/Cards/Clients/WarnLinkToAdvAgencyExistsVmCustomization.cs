@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients
 {
     public class WarnLinkToAdvAgencyExistsVmCustomization : IViewModelCustomization
     {

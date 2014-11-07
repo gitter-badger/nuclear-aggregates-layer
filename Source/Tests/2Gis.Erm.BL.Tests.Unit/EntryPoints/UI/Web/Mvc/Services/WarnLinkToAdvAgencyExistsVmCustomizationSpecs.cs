@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;

@@ -168,6 +168,7 @@
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
+    <Compile Include="Models\Contracts\ILegalPersonViewModel.cs" />
     <Compile Include="Models\ContributionTypeViewModel.cs" />
     <Compile Include="Models\CopyNewPriceViewModel.cs" />
     <Compile Include="Models\CopyPricePositionModel.cs" />
@@ -224,6 +225,8 @@
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
     <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LegalPersons\LegalPersonIsInactiveCustomization.cs" />
+    <Compile Include="Services\Cards\LegalPersons\LegalPersonDoesntHaveAnyProfilesCustomization.cs" />
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
@@ -241,7 +244,7 @@
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsMetadaSource.cs" />
-    <Compile Include="Services\Cards\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
+    <Compile Include="Services\Cards\Clients\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
     <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />
     <Compile Include="Services\Grid\OrderGridViewService.cs" />

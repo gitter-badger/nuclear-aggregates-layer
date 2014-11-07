@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -31,6 +33,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<Client>()
                                                      .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<LegalPerson>()
+                                                     .UseWithOrder<LegalPersonDoesntHaveAnyProfilesCustomization>(1)
+                                                     .UseWithOrder<LegalPersonIsInactiveCustomization>(2),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
