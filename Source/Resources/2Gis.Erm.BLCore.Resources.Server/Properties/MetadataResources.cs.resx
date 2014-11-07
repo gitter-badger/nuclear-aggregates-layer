@@ -1453,30 +1453,30 @@
     <value>Odstraněná spojení</value>
   </data>
   <data name="BinIin" xml:space="preserve">
-    <value>БИН/ИИН</value>
+    <value>DIČ</value>
   </data>
   <data name="Bin" xml:space="preserve">
-    <value>БИН</value>
+    <value>DIČ</value>
   </data>
   <data name="Iin" xml:space="preserve">
-    <value>ИИН</value>
+    <value>DIČ</value>
   </data>
   <data name="IdentityCardNumber" xml:space="preserve">
-    <value>Номер удостоверения личности</value>
+    <value>Číslo OP</value>
   </data>
   <data name="IdentityCardIssuedOn" xml:space="preserve">
-    <value>Дата выдачи</value>
+    <value>Datum vydání</value>
   </data>
   <data name="IdentityCardIssuedBy" xml:space="preserve">
-    <value>Выдано</value>
+    <value>Vydáno</value>
   </data>
   <data name="DecreeNumber" xml:space="preserve">
-    <value>Номер приказа</value>
+    <value>Číslo nařízení</value>
   </data>
   <data name="DecreeDate" xml:space="preserve">
-    <value>Дата приказа</value>
+    <value>Datum nařízení</value>
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
-    <value>Другое</value>
+    <value>Jiné</value>
   </data>
 </root>

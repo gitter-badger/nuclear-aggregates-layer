@@ -171,63 +171,6 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return true;
         }
 
-        private static bool CanStartReleasing(bool isBeta, ReleaseInfo previousRelease, out bool usingPreviouslyNotFinishedReleasing, out long? previuosReleaseId, out string report)
-        {
-            report = string.Empty;
-            usingPreviouslyNotFinishedReleasing = false;
-            previuosReleaseId = null;
-
-            if (previousRelease == null)
-            {
-                return true;
-            }
-
-            previuosReleaseId = previousRelease.Id;
-            var previousReleasePeriod = new TimePeriod(previousRelease.PeriodStartDate, previousRelease.PeriodEndDate);
-            var previousReleaseStatus = (ReleaseStatus)previousRelease.Status;
-            switch (previousReleaseStatus)
-            {
-                case ReleaseStatus.Success:
-                {
-                    if (previousRelease.IsBeta)
-                    {
-                        return true;
-                    }
-
-                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
-                                           "Can't start new release without reverting previous final and successful release",
-                                           previousRelease.Id,
-                                           previousRelease.OrganizationUnitId,
-                                           previousReleasePeriod);
-
-                    return false;
-                }
-                case ReleaseStatus.Error:
-                case ReleaseStatus.Reverted:
-                {
-                    return true;
-                }
-                case ReleaseStatus.InProgressWaitingExternalProcessing:
-                {
-                    if (isBeta == previousRelease.IsBeta)
-                    {
-                        usingPreviouslyNotFinishedReleasing = true;
-                    }
-                    
-                    return true;
-                }
-            }
-
-            report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
-                                   "so new releasing can't be started",
-                                   previousRelease.Id,
-                                   previousRelease.OrganizationUnitId,
-                                   previousReleasePeriod,
-                                   previousReleaseStatus);
-
-            return false;
-        }
-
         private static ReleaseProcessingMessage[] AddNewBlockingMessage(ReleaseProcessingMessage[] processingMessages, string newMessage)
         {
             var extendedMessages = new ReleaseProcessingMessage[processingMessages.Length + 1];
@@ -299,8 +242,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
 
                 bool usingPreviouslyNotFinishedReleasing;
-                var previousRelease = _releaseReadModel.GetLastRelease(organizationUnitId, period);
-                if (!CanStartReleasing(isBeta, previousRelease, out usingPreviouslyNotFinishedReleasing, out previuosReleaseId, out report))
+                if (!CanStartReleasing(organizationUnitId, period, isBeta, out usingPreviouslyNotFinishedReleasing, out previuosReleaseId, out report))
                 {
                     report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta = {2}. " +
                                            "Can ignore blocking errors: {3}. Error description: {4}",
@@ -332,22 +274,97 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 {
                     var msg = string.Format("Using previously started release with id {0} for organization unit with id {1} by period {2} is beta = {3}, " +
                                             "that was not finished properly. Probably errors was detected on the external releasing side (Export and etc)",
-                                            previousRelease.Id,
+                                            previuosReleaseId,
                                             organizationUnitId,
                                             period,
                                             isBeta);
 
                     _logger.InfoEx(msg);
 
-                    _releaseChangeStatusAggregateService.InProgressInternalProcessingStarted(previousRelease, msg);
-
-                    acquiredRelease = previousRelease;
+                    // ReSharper disable once PossibleInvalidOperationException
+                    acquiredRelease = _releaseReadModel.GetReleaseInfo(previuosReleaseId.Value);
+                    _releaseChangeStatusAggregateService.InProgressInternalProcessingStarted(acquiredRelease, msg);
                 }
 
                 scope.Complete();
             }
 
             return true;
+        }
+
+        private bool CanStartReleasing(long organizationUnitId,
+                                       TimePeriod period,
+                                       bool isBeta,
+                                       out bool usingPreviouslyNotFinishedReleasing,
+                                       out long? previuosReleaseId,
+                                       out string report)
+        {
+            usingPreviouslyNotFinishedReleasing = false;
+            report = string.Empty;
+
+            var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
+            if (lastFinalRelease != null)
+            {
+                previuosReleaseId = lastFinalRelease.Id;
+                report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
+                                       "Can't start new release without reverting previous final and successful release",
+                                       previuosReleaseId,
+                                       organizationUnitId,
+                                       period);
+                return false;
+            }
+
+            var lastRelease = _releaseReadModel.GetLastRelease(organizationUnitId, period);
+            if (lastRelease == null)
+            {
+                previuosReleaseId = null;
+                return true;
+            }
+
+            previuosReleaseId = lastRelease.Id;
+            var previousReleaseStatus = (ReleaseStatus)lastRelease.Status;
+            switch (previousReleaseStatus)
+            {
+                case ReleaseStatus.Success:
+                {
+                    if (!lastRelease.IsBeta)
+                    {
+                        var exceptionMessage = string.Format("Target release acquiring failure: status mismatch. Last final release cannot be found, " +
+                                                             "but last acquired release with id {0} for organization unit with id {1} by period {2} is final and success status",
+                                                             previuosReleaseId,
+                                                             organizationUnitId,
+                                                             period);
+                        throw new InvalidOperationException(exceptionMessage);
+                    }
+
+                    return true;
+                }
+                case ReleaseStatus.Error:
+                case ReleaseStatus.Reverted:
+                {
+                    return true;
+                }
+                case ReleaseStatus.InProgressWaitingExternalProcessing:
+                {
+                    if (isBeta == lastRelease.IsBeta)
+                    {
+                        usingPreviouslyNotFinishedReleasing = true;
+                    }
+
+                    return true;
+                }
+                default:
+                {
+                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
+                                           "so new releasing can't be started",
+                                           previuosReleaseId,
+                                           organizationUnitId,
+                                           period,
+                                           previousReleaseStatus);
+
+                    return false;
+                }
+            }
         }
 
         private ReleaseStartingResult ExecuteInternalErmReleaseProcessing(ReleaseInfo acquiredRelease, int organizationUnitDgppId, bool canIgnoreBlockingErrors)
