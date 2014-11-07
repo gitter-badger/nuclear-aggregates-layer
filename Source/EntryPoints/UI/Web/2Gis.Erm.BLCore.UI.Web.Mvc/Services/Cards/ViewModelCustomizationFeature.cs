@@ -6,16 +6,18 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
     public sealed class ViewModelCustomizationFeature<TCustomization> : IViewModelCustomizationFeature, IUniqueMetadataFeature where TCustomization : IViewModelCustomization
     {
-        private readonly Type _customizationType;
-
-        public ViewModelCustomizationFeature()
+        public ViewModelCustomizationFeature() : this(0)
         {
-            _customizationType = typeof(TCustomization);
         }
 
-        public Type CustomizationType
+        public ViewModelCustomizationFeature(int order)
         {
-            get { return _customizationType; }
+            CustomizationType = typeof(TCustomization);
+            Order = order;
         }
+
+        public Type CustomizationType { get; private set; }
+
+        public int Order { get; private set; }
     }
 }

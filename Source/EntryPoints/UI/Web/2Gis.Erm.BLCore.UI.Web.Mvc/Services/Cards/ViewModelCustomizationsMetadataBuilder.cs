@@ -21,6 +21,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
             return this;
         }
 
+        public ViewModelCustomizationsMetadataBuilder UseWithOrder<TCustomization>(int order) where TCustomization : IViewModelCustomization
+        {
+            AddFeatures(new ViewModelCustomizationFeature<TCustomization>(order));
+            return this;
+        }
+
         protected override ViewModelCustomizationsMetada Create()
         {
             return new ViewModelCustomizationsMetada(_entityType, Features);
