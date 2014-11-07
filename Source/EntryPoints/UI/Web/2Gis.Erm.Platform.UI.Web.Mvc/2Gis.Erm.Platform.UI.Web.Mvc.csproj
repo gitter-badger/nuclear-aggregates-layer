@@ -129,7 +129,6 @@
     </Compile>
     <Compile Include="ViewModels\ValidationMessage.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.Server.cs" />
     <Compile Include="ViewModels\ViewModelTypesRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
