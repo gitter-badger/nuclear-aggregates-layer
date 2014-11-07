@@ -216,15 +216,6 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ClientHasParentLinkToAdvAgency {
-            get {
-                return ResourceManager.GetString("ClientHasParentLinkToAdvAgency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string ContributionTypeIsNotSet {
             get {
                 return ResourceManager.GetString("ContributionTypeIsNotSet", resourceCulture);

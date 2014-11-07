@@ -133,7 +133,6 @@
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardServiceSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\Russia\EditIsAdvertisingAgencyViewModelCustomizationSpecs.cs" />
-    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\WarnLinkToAdvAgencyExistsVmCustomizationSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.Common.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonProfileViewModelSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonViewModelSpecs.cs" />

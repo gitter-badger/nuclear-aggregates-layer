@@ -172,6 +172,7 @@
     <Compile Include="Services\Cards\Kazakhstan\KazakhstanLegalPersonViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Kazakhstan\KazakhstanContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\ViewModelCustomizationsMetadaSource.cs" />
     <Compile Include="Services\Enumeration\Emirates\EmiratesFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
@@ -233,7 +234,6 @@
     <Compile Include="DI\ViewModelCustomizationsMassProcessor.cs" />
     <Compile Include="Services\Cards\Russia\EditIsAdvertisingAgencyViewModelCustomization.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationProvider.cs" />
-    <Compile Include="Services\Cards\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Kazakhstan\Account.generated.cs">
       <DependentUpon>Account.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -419,7 +419,6 @@
     <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCulturePhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureTaskViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\RussiaClientCustomizationsListViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
     <Compile Include="Services\Cards\Russia\AppointmentViewModelCustomizationService.cs" />
@@ -499,7 +498,6 @@
     <Compile Include="Models\Czech\CzechLegalPersonViewModel.cs" />
     <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
-    <Compile Include="Services\Cards\MultiCultureClientCustomizationsListViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonViewModelCustomizationService.cs" />
