@@ -181,4 +181,7 @@
   <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
     <value>An advertising agency cannot be specified as a subclient</value>
   </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>The following advertising agency works with this client:</value>
+  </data>
 </root>

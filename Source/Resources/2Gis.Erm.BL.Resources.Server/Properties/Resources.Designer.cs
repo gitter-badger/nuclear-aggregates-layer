@@ -70,6 +70,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ClientHasParentLinkToAdvAgency {
+            get {
+                return ResourceManager.GetString("ClientHasParentLinkToAdvAgency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Связь уже существует.
         /// </summary>
         public static string ClientLinkAlreadyExists {

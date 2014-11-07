@@ -240,6 +240,8 @@
     <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
     <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />
     <Compile Include="Services\Grid\OrderGridViewService.cs" />

@@ -184,4 +184,7 @@
   <data name="AccessToChangePeriodOfLimitIsDenied" xml:space="preserve">
     <value>Недостаточно прав для смены периода лимита</value>
   </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>С данным клиентом работает рекламное агентство:</value>
+  </data>
 </root>
