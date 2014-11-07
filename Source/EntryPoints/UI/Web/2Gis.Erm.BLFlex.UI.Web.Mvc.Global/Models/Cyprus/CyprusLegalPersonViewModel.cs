@@ -1,3 +1,4 @@
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -11,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
-    public sealed class CyprusLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ICyprusAdapted
+    public sealed class CyprusLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalPersonViewModel, ICyprusAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

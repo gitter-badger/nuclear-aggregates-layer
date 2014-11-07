@@ -27,7 +27,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                 return Enumerable.Empty<Type>();
             }
 
-            return customizationsMetadata.Features.OfType<IViewModelCustomizationFeature>().Select(x => x.CustomizationType).ToArray();
+            return customizationsMetadata.Features
+                                         .Cast<IViewModelCustomizationFeature>()
+                                         .OrderBy(x => x.Order)
+                                         .Select(x => x.CustomizationType)
+                                         .ToArray();
         }
     }
 }
