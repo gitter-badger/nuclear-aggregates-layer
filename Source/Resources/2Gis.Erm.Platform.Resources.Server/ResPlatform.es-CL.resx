@@ -151,10 +151,10 @@
     <value>Usuario  id=[{0}]no tiene permiso {1} sobre la entidad {2}</value>
   </data>
   <data name="AccessToOperationIsDenied" xml:space="preserve">
-    <value>Доступ на выполнение операции '{0}' запрещен</value>
+    <value>Acceso a la operación '{0}' fue denegado</value>
   </data>
   <data name="InvalidFieldFormat" xml:space="preserve">
-    <value>Значения поля "{0}" имеет неверный формат</value>
+    <value>El valor del campo "{0}" tiene el formato inválido</value>
   </data>
   <data name="InvalidFieldValue" xml:space="preserve">
     <value>Значение поля "{0}" имеет невалидное значение</value>
