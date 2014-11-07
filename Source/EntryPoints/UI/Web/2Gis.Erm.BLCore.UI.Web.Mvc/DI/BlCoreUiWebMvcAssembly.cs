@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Simplified;
 using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
@@ -16,7 +17,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
                                                  IContainsType<IUIService>,
                                                  IContainsType<ISimplifiedModelConsumer>,
                                                  IContainsType<IEntityUIService>,
-                                                 IContainsType<IViewModel>
+                                                 IContainsType<IViewModel>,
+                                                 IContainsType<IMetadataSource>
     {
     }
 }
