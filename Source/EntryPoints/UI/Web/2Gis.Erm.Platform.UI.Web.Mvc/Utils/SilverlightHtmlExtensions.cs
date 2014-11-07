@@ -5,8 +5,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-using DoubleGis.Erm.Platform.Common;
-
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 {
     public static class SilverlightHtmlExtensions
@@ -25,8 +23,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
         private static string GetAbsoluteVersionedSilverlightUrl(string xapFileName)
         {
-            // у Microsoft Build и Revision поменяны местами, у нас в Build на самом деле лежит Revision
-            return VirtualPathUtility.ToAbsolute(string.Concat("~/", SilverlightControlsDefaultRelativePath, "/", xapFileName, "?", SolutionInfo.ProductVersion.Build));
+            return VirtualPathUtility.ToAbsolute(string.Concat("~/", SilverlightControlsDefaultRelativePath, "/", xapFileName, "?", ThisAssembly.Build));
         }
         
         private static void AddParam<T>(
