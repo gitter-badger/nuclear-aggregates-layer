@@ -1,5 +1,6 @@
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -49,6 +50,11 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 .Returns(branchOffice);
 
             return finder;
+        }
+
+        public static IPrintValidationOperationService Validator()
+        {
+            return Mock.Of<IPrintValidationOperationService>();
         }
     }
 }

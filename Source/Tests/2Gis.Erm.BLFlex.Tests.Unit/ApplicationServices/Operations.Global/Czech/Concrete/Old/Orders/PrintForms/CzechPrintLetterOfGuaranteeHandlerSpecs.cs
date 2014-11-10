@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         class TestableCzechPrintLetterOfGuaranteeHandler : CzechPrintLetterOfGuaranteeHandler
         {
             public TestableCzechPrintLetterOfGuaranteeHandler() 
-                : base(null, Create.FinderForPrintForms())
+                : base(null, Create.FinderForPrintForms(), Create.Validator())
             {
             }
 
