@@ -6,8 +6,8 @@
 
 @section CardScripts
 {
-    <script src="/Scripts/Ext.DoubleGis.UI.LegalPerson.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Emirates/Ext.DoubleGis.UI.LegalPerson.Emirates.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.LegalPerson.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Emirates/Ext.DoubleGis.UI.LegalPerson.Emirates.js?@ThisAssembly.Build" type="text/javascript"></script>
     
     <style type="text/css">
         div.label-wrapper {
@@ -26,7 +26,7 @@
             @Html.TemplateField(m => m.LegalName, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew })
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.CommercialLicense, FieldFlex.twins)

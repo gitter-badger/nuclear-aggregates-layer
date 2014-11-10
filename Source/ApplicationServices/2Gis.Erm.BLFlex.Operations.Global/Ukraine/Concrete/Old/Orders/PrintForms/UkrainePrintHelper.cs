@@ -73,22 +73,24 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         public static PrintData LegalPersonProfileFields(LegalPersonProfile profile)
         {
             return new PrintData
-                {
-                    { "ChiefNameInGenitive", profile.ChiefNameInGenitive },
-                    { "ChiefNameInNominative", profile.ChiefNameInNominative },
-                    { "PositionInGenitive", profile.PositionInGenitive },
-                    { "PositionInNominative", profile.PositionInNominative },
-                    { "EmailForAccountingDocuments", profile.EmailForAccountingDocuments },
-                    { "Phone", profile.Phone },
-                    { "BankName", profile.BankName },
-                    { "AccountNumber", profile.AccountNumber },
-                    {
-                        "PaymentMethod",
-                        ((PaymentMethod)profile.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
-                    },
-                    { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
-                    { "Mfo", profile.Within<UkraineLegalPersonProfilePart>().GetPropertyValue(part => part.Mfo) },
-                };
+                       {
+                           { "ChiefNameInGenitive", profile.ChiefNameInGenitive },
+                           { "ChiefNameInNominative", profile.ChiefNameInNominative },
+                           { "PositionInGenitive", profile.PositionInGenitive },
+                           { "PositionInNominative", profile.PositionInNominative },
+                           { "EmailForAccountingDocuments", profile.EmailForAccountingDocuments },
+                           { "Phone", profile.Phone },
+                           { "BankName", profile.BankName },
+                           { "AccountNumber", profile.AccountNumber },
+                           {
+                               "PaymentMethod",
+                               profile.PaymentMethod != 0
+                                   ? ((PaymentMethod)profile.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
+                                   : string.Empty
+                           },
+                           { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
+                           { "Mfo", profile.Within<UkraineLegalPersonProfilePart>().GetPropertyValue(part => part.Mfo) },
+                       };
         }
 
         public string GetOperatesOnTheBasisInGenitive(LegalPersonProfile profile)

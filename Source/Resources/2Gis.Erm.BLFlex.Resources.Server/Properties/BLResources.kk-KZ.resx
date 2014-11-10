@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
+    <value>{0}
+Паспорт: серия {1} № {2},
+Выдан: {3}
+Прописка: {4}</value>
+  </data>
+  <data name="PrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
+    <value>{0}
+ИНН: {1}
+Юридический адрес: {2}
+Платежные реквизиты: {3}</value>
+  </data>
+  <data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
+    <value>{0}
+ИНН: {1} КПП: {2}
+Юридический адрес: {3}
+Платежные реквизиты: {4}</value>
+  </data>
+  <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
+    <value>{0}
+Паспорт № {2},
+Выдан: {3}
+Место жительства: {4}</value>
+  </data>
+  <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
+    <value>{0}
+T.I.C.: {1}    V.A.T. Reg. No {2}
+Юридический адрес: {3}
+IBAN {4}
+SWIFT {5}
+Номер счета {6}
+Название банка {7}
+{8}</value>
+  </data>
+  <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
+    <value>{0}, именуемое в дальнейшем «Исполнитель», в лице {1} {2}, действующего на основании {3}, с одной стороны, и {4}, именуемое в дальнейшем «Заказчик», в лице {5} {6}, действующего на основании {7}, с другой стороны, подписали настоящий Бланк заказа о нижеследующем:</value>
+  </data>
+  <data name="PrintOrderHandler_BeginContractParagraph1" xml:space="preserve">
+    <value>{0}, именуемое в дальнейшем «Исполнитель», в лице {1} {2}, действующего на основании {3}, с одной стороны, и гражданин(ка) {4}, именуемый(ая) в дальнейшем «Заказчик»{5}, с другой стороны, подписали настоящий Бланк заказа о нижеследующем:</value>
+  </data>
+  <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
+    <value>Общая скидка: {0} - {1} ({2}).
+</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
+    <value>Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}»*.</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
+    <value>1. Электронное СМИ: «{0}» (версия для ПК и мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.
+2. Интернет-площадка 2gis.ru на основе Справочника организаций «{0}».
+3. Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}»*.</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
+    <value>Электронное СМИ: «{0}» (мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
+    <value>Интернет-площадка по адресу 2gis.ru на основе Справочника организаций «{0}».</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
+    <value>Электронное СМИ: «{0}» (версия для ПК). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
+    <value>8.</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
+    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
+8.</value>
+  </data>
+  <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
+    <value>Невозможно создать бланк заказа для указаного в профиле типа юридеского лица '{0}'</value>
+  </data>
+  <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
+    <value>Юридическое лицо указаного в профиле типа '{0}' не может действовать на основании {1}</value>
+  </data>
+  <data name="ContributionTypeIsNotSet" xml:space="preserve">
+    <value>Не определена форма сотрудничества у отделения организации с id [{0}]</value>
+  </data>
+  <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value>na zaklade {0} ze dne {1}</value>
+  </data>
+  <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value>zastoupena</value>
+  </data>
+  <data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value>zastoupena</value>
+  </data>
+  <data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
+    <value>Jmeno a prijmeni:</value>
+  </data>
+  <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
+    <value>Nazev pravnicke osoby:</value>
+  </data>
+  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+    <value>9. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
+    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
+  </data>
+  <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Индивидуальный предприниматель с указанным RUT уже существует</value>
+  </data>
+  <data name="ChileActiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанными RUT уже существует</value>
+  </data>
+  <data name="ChileDeletedBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Существует удаленный Индивидуальный предприниматель с указанным RUT</value>
+  </data>
+  <data name="ChileDeletedLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанными RUT</value>
+  </data>
+  <data name="ChileInactiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Существует скрытый Индивидуальный предприниматель с указанным RUT</value>
+  </data>
+  <data name="ChileInactiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанными RUT</value>
+  </data>
+  <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
+    <value>Должно использоваться чилийское расширение сущности LegalPersonProfile</value>
+  </data>
+  <data name="InvalidChileRutFormat" xml:space="preserve">
+    <value>Неправильный формат RUT. Допустимый формат: 12.345.678-K</value>
+  </data>
+  <data name="InvalidChileRutChecksum" xml:space="preserve">
+    <value>Значение RUT {0} не прошло проверку контрольной суммы</value>
+  </data>
+  <data name="DublicateBillNumbers" xml:space="preserve">
+    <value>Введены повторяющиеся номера счетов: {0}</value>
+  </data>
+  <data name="WrongBillNumbers" xml:space="preserve">
+    <value>Следующие номера не соответсвуют формату: {0}</value>
+  </data>
+  <data name="ExistingBillNumbers" xml:space="preserve">
+    <value>Счета со следующими номерами уже созданы: {0}</value>
+  </data>
+  <data name="CannotDeleteUsedBank" xml:space="preserve">
+    <value>Банк используется. Перед удалением избавьтесь от ссылок на него.</value>
+  </data>
+  <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
+    <value>Операция создания коммуны не поддерживается системой</value>
+  </data>
+  <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
+    <value>Операция редактирования коммуны не поддерживается системой</value>
+  </data>
+  <data name="UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Индивидуальный предприниматель с указанным ИПН уже существует</value>
+  </data>
+  <data name="UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанным ИПН уже существует</value>
+  </data>
+  <data name="UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует удаленный Индивидуальный предприниматель с указанным ИПН</value>
+  </data>
+  <data name="UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанным ИПН</value>
+  </data>
+  <data name="UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует скрытый Индивидуальный предприниматель с указанным ИПН</value>
+  </data>
+  <data name="UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанным ИПН</value>
+  </data>
+  <data name="UkraineInvalidIpn" xml:space="preserve">
+    <value>ИПН должен быть длиной {0} символов</value>
+  </data>
+  <data name="UkraineInvalidEgrpou" xml:space="preserve">
+    <value>ЕГРПОУ должен быть длиной {0} символов</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
+    <value>místem podnikání</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
+    <value>se sídlem</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value>, na zaklade {0} ze dne {1}</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value>zastoupena</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value>zastoupena</value>
+  </data>
+  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанным T.I.C. уже существует</value>
+  </data>
+  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанным T.I.C.</value>
+  </data>
+  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанным T.I.C.</value>
+  </data>
+  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>Индивидуальный предприниматель с указанным T.I.C. уже существует</value>
+  </data>
+  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
+    <value>Существует удаленный Индивидуальный предприниматель с указанным T.I.C.</value>
+  </data>
+  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>Существует скрытый Индивидуальный предприниматель с указанным T.I.C.</value>
+  </data>
+  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Индивидуальный предприниматель с указанным DIC или IC уже существует</value>
+  </data>
+  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанными DIC или IC уже существует</value>
+  </data>
+  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Существует удаленный Индивидуальный предприниматель с указанным DIC или IC</value>
+  </data>
+  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанными DIC или IC</value>
+  </data>
+  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Существует скрытый Индивидуальный предприниматель с указанным DIC или IC</value>
+  </data>
+  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанными DIC или IC</value>
+  </data>
+  <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value>{0}, Контекстная рубрика – {1}</value>
+  </data>
+  <data name="UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным ЕГРПОУ</value>
+  </data>
+  <data name="UkraineActivateLegalPersonErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>Данное юр. лицо восстановить нельзя, т.к. существует юр. лицо с таким же ЕГРПОУ</value>
+  </data>
+  <data name="UkraineEnteredIpnIsNotCorrect" xml:space="preserve">
+    <value>Введенный ИПН не соответствует формату</value>
+  </data>
+  <data name="UkraineEnteredEgrpouIsNotCorrect" xml:space="preserve">
+    <value>Введенный ЕГРПОУ не соответствует формату</value>
+  </data>
+  <data name="UkraineActivateBusinessmanErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>Данного ИП восстановить нельзя, т.к. существует ИП с таким же ЕГРПОУ</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным ЕГРПОУ</value>
+  </data>
+  <data name="UkraineBusinessmanWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>Существует индивидуальный предприниматель с указанным ЕГРПОУ</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным ИПН</value>
+  </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Юр. лицо клиента с указанным номером коммерческой лицензии уже существует</value>
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Существует удаленное юр. лицо клиента с указанным номером коммерческой лицензии</value>
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value>Введен неверный номер коммерчиской лицензии</value>
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>Существует скрытое юр. лицо клиента с указанным номером коммерческой лицензии</value>
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value>Указано некорректное значение ИИК</value>
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value>Указано некорректное значение БИК</value>
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value>Существует юр. лицо с указанным номером лицензии</value>
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value>В данной бизнес-модели отсутствует НДС. Необходимо выбрать тип договора без НДС.</value>
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value>Формирование Acceptance Report</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value>Нельзя распечатать Acceptance Report для заказа с номером {0}, т.к. для него не определен профиль юр. лица </value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
+    <value>Нельзя распечатать Acceptance Report, т.к. для следующих заказов не определен профиль юр. лица: {0}</value>
+  </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value>По указанным параметрам заказов не найдено</value>
+  </data>
+  <data name="VerificationTitle" xml:space="preserve">
+    <value>Выверка ЭРМ</value>
+  </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>С данным клиентом работает рекламное агентство:</value>
+  </data>
+  <data name="QuotedValue" xml:space="preserve">
+    <value>«{0}»</value>
+  </data>
+  <data name="AddressWithReferencePoint" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressSingle" xml:space="preserve">
+    <value>адрес привязки: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressMultiple" xml:space="preserve">
+    <value>адреса привязки: {0}</value>
+  </data>
+  <data name="PositionNameFormatCategorySingle" xml:space="preserve">
+    <value>размещается в рубрике: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресу {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressCategoryMultiple" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресам {1}</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultiple" xml:space="preserve">
+    <value>размещается в рубриках: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategorySingle" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресу: {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategoryMultiple" xml:space="preserve">
+    <value>размещается в рубрике: {0} в привязке к адресам: {1}</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultipleAsterix" xml:space="preserve">
+    <value>размещается в рубриках: {0}</value>
+  </data>
+  <data name="PositionNameFormatThemeMultiple" xml:space="preserve">
+    <value>размещается в разделе темы месяца: {0}</value>
+  </data>
+  <data name="PositionNameFormatCompositeDetalization" xml:space="preserve">
+    <value>в составе которого: </value>
+  </data>
+  <data name="UnsupportedPositionBindingObjectType" xml:space="preserve">
+    <value>Описание для позиции с типом привязки {0} не задано</value>
+  </data>
+  <data name="CannotFindActivity" xml:space="preserve">
+    <value>Действие с ID {0} не найдено.</value>
+    <comment>Действие с ID {0} не найдено.</comment>
+  </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>Создание региональных заказов не поддерживается</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
+  </data>
+</root>

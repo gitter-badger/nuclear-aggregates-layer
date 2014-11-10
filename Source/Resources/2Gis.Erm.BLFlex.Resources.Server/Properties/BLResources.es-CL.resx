@@ -146,18 +146,18 @@
     <value>Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Medios de comunicación: &quot;{0}&quot; (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
+    <value>1. Medios de comunicación: "{0}" (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
 2. Plataforma web 2gis.cl.
 3. Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Medios de comunicación: &quot;{0}&quot; (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: "{0}" (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
     <value>Plataforma web con la dirección 2gis.cl</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Medios de comunicación: &quot;{0}&quot; (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+    <value>Medios de comunicación: "{0}" (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>8.</value>
@@ -167,10 +167,10 @@
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Imposible crear la orden de compra para la persona jurídica &apos;{0}&apos; especificada en el perfil</value>
+    <value>Imposible crear la orden de compra para la persona jurídica '{0}' especificada en el perfil</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>La persona jurídica del tipo especificado en el perfil &apos;{0}&apos; no puede actuar en base a {1}</value>
+    <value>La persona jurídica del tipo especificado en el perfil '{0}' no puede actuar en base a {1}</value>
   </data>
   <data name="ContributionTypeIsNotSet" xml:space="preserve">
     <value>No se ha definido la forma de colaboración de la sucursal de la entidad con el id [{0}]</value>
@@ -438,6 +438,30 @@
     <value>No se permite crear las ordenes regionales</value>
   </data>
   <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
-    <value>С данным клиентом работает рекламное агентство:</value>
+    <value>Con este cliente trabaja la agencia de publicidad:</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
   </data>
 </root>

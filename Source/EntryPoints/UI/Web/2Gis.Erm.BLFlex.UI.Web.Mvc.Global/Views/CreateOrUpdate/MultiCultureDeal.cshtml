@@ -7,13 +7,13 @@
 
 @section CardScripts
 {
-    <link rel="stylesheet" type="text/css" href="/Content/time-period.css?@SolutionInfo.ProductVersion.Build" />
-    <link rel="stylesheet" type="text/css" href="/Content/input-overlay.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/time-period.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/input-overlay.css?@ThisAssembly.Build" />
     <style type="text/css">
         .wide-labels div.label-wrapper { width: 180px; }
     </style>
 
-    <script src="/Scripts/Ext.DoubleGis.UI.Deal.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.Deal.js?@ThisAssembly.Build" type="text/javascript"></script>
 }
 
 @section CardBody
@@ -44,7 +44,7 @@
         </div>
         @Html.SectionHead("detailsForOrders", BLResources.DetailsForOrders)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ExtendedInfo = "dealId={Id}" })
+            @Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew })
         </div>
     </div>
     <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">

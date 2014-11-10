@@ -1,8 +1,9 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Russia.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -10,12 +11,11 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPersons
 {
@@ -27,16 +27,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
         private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly ICheckInnService _checkInnService;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IFinder _finder;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public ChangeLegalPersonRequisitesHandler(
-            ISubRequestProcessor subRequestProcessor, 
+            ISubRequestProcessor subRequestProcessor,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             ILegalPersonRepository legalPersonRepository,
             ICheckInnService checkInnService,
             IOperationScopeFactory scopeFactory,
-            IFinder finder)
+            ILegalPersonReadModel legalPersonReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
             _functionalAccessService = functionalAccessService;
@@ -44,17 +44,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
             _legalPersonRepository = legalPersonRepository;
             _checkInnService = checkInnService;
             _scopeFactory = scopeFactory;
-            _finder = finder;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         protected override EmptyResponse Handle(ChangeLegalPersonRequisitesRequest request)
         {
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LegalPersonChangeRequisites, _userContext.Identity.Code))
             {
-                throw new NotificationException(BLResources.AccessDenied);
+                throw new OperationAccessDeniedException(ChangeRequisitesIdentity.Instance);
             }
 
-            var entity = _finder.FindOne(Specs.Find.ById<LegalPerson>(request.LegalPersonId));
+            var entity = _legalPersonReadModel.GetLegalPerson(request.LegalPersonId);
+
+            if (!entity.IsActive)
+            {
+                throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
+            }
+
             entity.LegalName = request.LegalName;
             entity.ShortName = request.ShortName;
             using (var operationScope = _scopeFactory.CreateNonCoupled<ChangeRequisitesIdentity>())

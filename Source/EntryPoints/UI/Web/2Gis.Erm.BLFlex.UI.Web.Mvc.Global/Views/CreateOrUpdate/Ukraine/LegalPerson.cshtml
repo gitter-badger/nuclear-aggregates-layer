@@ -6,8 +6,8 @@
 
 @section CardScripts
 {
-    <script src="/Scripts/Ext.DoubleGis.UI.LegalPerson.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Ukraine/Ext.DoubleGis.UI.LegalPerson.Ukraine.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.LegalPerson.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ukraine/Ext.DoubleGis.UI.LegalPerson.Ukraine.js?@ThisAssembly.Build" type="text/javascript"></script>
 
     <style type="text/css">
         div.label-wrapper {
@@ -30,7 +30,7 @@
             @Html.TemplateField(m => m.TaxationType, FieldFlex.twins, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew })
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Ipn, FieldFlex.twins)

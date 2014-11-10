@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integration.Import.FlowCards.Deserializers
 {
-    public sealed class MultiCultureDeserializeCardService : IDeserializeServiceBusObjectService<CardServiceBusDto>, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public sealed class MultiCultureDeserializeCardService : IDeserializeServiceBusObjectService<CardServiceBusDto>, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         public IServiceBusDto Deserialize(XElement xml)
         {

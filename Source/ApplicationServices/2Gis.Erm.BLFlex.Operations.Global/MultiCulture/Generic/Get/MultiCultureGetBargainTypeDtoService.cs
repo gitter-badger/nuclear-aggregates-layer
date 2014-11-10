@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
     public class MultiCultureGetBargainTypeDtoService : GetDomainEntityDtoServiceBase<BargainType>, IChileAdapted, ICyprusAdapted, ICzechAdapted,
-                                                        IUkraineAdapted
+                                                        IUkraineAdapted, IKazakhstanAdapted
     {
         private readonly ISecureFinder _finder;
         private readonly IAPIIdentityServiceSettings _identityServiceSettings;

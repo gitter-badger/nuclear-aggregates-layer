@@ -26,7 +26,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         public string LegalPersonType { get; set; }
 
         [RequiredLocalized]
-        [Dependency(DependencyType.ReadOnly, "Client", "Ext.getDom('Id').value != '0'")]
         public LookupField Client { get; set; }
 
         [OnlyDigitsLocalized]

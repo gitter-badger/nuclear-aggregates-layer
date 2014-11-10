@@ -66,6 +66,7 @@
     <Compile Include="Config\Bootstrapper.Chile.cs" />
     <Compile Include="Config\Bootstrapper.Global.cs" />
     <Compile Include="Config\Bootstrapper.Emirates.cs" />
+    <Compile Include="Config\Bootstrapper.Kazakhstan.cs" />
     <Compile Include="Config\Bootstrapper.Ukraine.cs" />
     <Compile Include="Config\Bootstrapper.Russia.cs" />
     <Compile Include="Config\Bootstrapper.Czech.cs" />
