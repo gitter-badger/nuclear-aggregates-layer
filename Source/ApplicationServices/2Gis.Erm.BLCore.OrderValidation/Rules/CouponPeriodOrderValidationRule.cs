@@ -24,6 +24,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         {
             const int PeriodLengthInDays = 4;
 
+            var periodStart = ruleContext.ValidationParams.IsMassValidation 
+                                ? ruleContext.ValidationParams.Mass.Period.Start 
+                                : ruleContext.ValidationParams.Single.Period.Start;
+
+            var periodEnd = ruleContext.ValidationParams.IsMassValidation
+                                ? ruleContext.ValidationParams.Mass.Period.Start
+                                : ruleContext.ValidationParams.Single.Period.Start;
+
             var badAdvertisemements =
                 _finder.Find(ruleContext.OrdersFilterPredicate)
                        .SelectMany(order => order.OrderPositions)
@@ -38,9 +46,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                                           x.EndDate != null &&
                                                                           (DbFunctions.DiffDays(x.BeginDate, x.EndDate) < PeriodLengthInDays ||
                                                                            (ruleContext.ValidationParams.IsMassValidation &&
-                                                                            DbFunctions.DiffDays(ruleContext.ValidationParams.Mass.Period.Start, x.EndDate) < PeriodLengthInDays) ||
+                                                                            DbFunctions.DiffDays(periodStart, x.EndDate) < PeriodLengthInDays) ||
                                                                            (ruleContext.ValidationParams.IsMassValidation &&
-                                                                            DbFunctions.DiffDays(x.BeginDate, ruleContext.ValidationParams.Mass.Period.End) < PeriodLengthInDays)))
+                                                                            DbFunctions.DiffDays(x.BeginDate, periodEnd) < PeriodLengthInDays)))
                                                               .Select(advertisement => new
                                                                   {
                                                                       OrderPositionId = orderPosition.Id,
