@@ -1,12 +1,10 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -22,13 +20,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         private readonly IOrderPrintFormReadModel _orderPrintFormReadModel;
         private readonly IOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
         private readonly ILocalizationSettings _localizationSettings;
+        private readonly IPrintValidationOperationService _validationService;
 
         public PrintOrderHandler(ISubRequestProcessor requestProcessor,
                                  ILegalPersonReadModel legalPersonReadModel,
                                  IBranchOfficeReadModel branchOfficeReadModel,
                                  IOrderPrintFormReadModel orderPrintFormReadModel,
                                  IOrderPrintFormDataExtractor orderPrintFormDataExtractor,
-                                 ILocalizationSettings localizationSettings)
+                                 ILocalizationSettings localizationSettings,
+                                 IPrintValidationOperationService validationService)
         {
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
@@ -36,21 +36,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
             _orderPrintFormReadModel = orderPrintFormReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
             _localizationSettings = localizationSettings;
+            _validationService = validationService;
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
         {
+            _validationService.ValidateOrder(request.OrderId);
             var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
-
-            if (orderInfo.BranchOfficeOrganizationUnitId == null)
-            {
-                throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
-            }
-
-            if (orderInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
 
             var printDocumentRequest = new PrintDocumentRequest
                                            {

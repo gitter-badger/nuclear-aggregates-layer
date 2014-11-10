@@ -1,9 +1,9 @@
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic;
@@ -22,13 +22,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         private readonly IOrderPrintFormReadModel _orderPrintFormReadModel;
         private readonly IUkraineOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
         private readonly IFirmReadModel _firmReadModel;
+        private readonly IPrintValidationOperationService _validationService;
 
         public UkrainePrintOrderHandler(ISubRequestProcessor requestProcessor,
                                         ILegalPersonReadModel legalPersonReadModel,
                                         IBranchOfficeReadModel branchOfficeReadModel,
                                         IOrderPrintFormReadModel orderPrintFormReadModel,
                                         IUkraineOrderPrintFormDataExtractor orderPrintFormDataExtractor,
-                                        IFirmReadModel firmReadModel)
+                                        IFirmReadModel firmReadModel,
+                                        IPrintValidationOperationService validationService)
         {
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
@@ -36,16 +38,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             _orderPrintFormReadModel = orderPrintFormReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
             _firmReadModel = firmReadModel;
+            _validationService = validationService;
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
         {
-            var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
+            _validationService.ValidateOrder(request.OrderId);
 
-            if (orderInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
+            var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {

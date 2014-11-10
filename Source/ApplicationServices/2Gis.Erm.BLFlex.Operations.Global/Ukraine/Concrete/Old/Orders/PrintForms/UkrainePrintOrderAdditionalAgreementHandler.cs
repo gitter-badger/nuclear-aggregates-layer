@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -26,22 +26,27 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModelReadModel;
         private readonly UkrainePrintHelper _ukrainePrintHelper;
+        private readonly IPrintValidationOperationService _validationService;
 
         public UkrainePrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor,
                                                            IFinder finder,
                                                            ILegalPersonReadModel legalPersonReadModel,
                                                            IBranchOfficeReadModel branchOfficeReadModelReadModel,
-                                                           IFormatterFactory formatterFactory)
+                                                           IFormatterFactory formatterFactory,
+                                                           IPrintValidationOperationService validationService)
         {
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModelReadModel = branchOfficeReadModelReadModel;
+            _validationService = validationService;
             _requestProcessor = requestProcessor;
             _ukrainePrintHelper = new UkrainePrintHelper(formatterFactory);
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
+            _validationService.ValidateOrder(request.OrderId);
+
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
@@ -79,11 +84,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                order.LegalPersonProfileId,
                            })
                        .Single();
-
-            if (orderInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
 
             var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);

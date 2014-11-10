@@ -1,9 +1,9 @@
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
@@ -28,24 +28,28 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         private readonly IBranchOfficeReadModel _branchOfficeReadModelReadModel;
         private readonly IOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
         private readonly ILocalizationSettings _localizationSettings;
+        private readonly IPrintValidationOperationService _validationService;
 
         public KazakhstanPrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor,
                                                               IFinder finder,
                                                               ILegalPersonReadModel legalPersonReadModel,
                                                               IBranchOfficeReadModel branchOfficeReadModelReadModel,
                                                               IOrderPrintFormDataExtractor orderPrintFormDataExtractor,
-                                                              ILocalizationSettings localizationSettings)
+                                                              ILocalizationSettings localizationSettings,
+                                                              IPrintValidationOperationService validationService)
         {
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModelReadModel = branchOfficeReadModelReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
             _localizationSettings = localizationSettings;
+            _validationService = validationService;
             _requestProcessor = requestProcessor;
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
+            _validationService.ValidateOrder(request.OrderId);
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
@@ -83,11 +87,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                                order.LegalPersonProfileId,
                            })
                        .Single();
-
-            if (orderInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
 
             var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);

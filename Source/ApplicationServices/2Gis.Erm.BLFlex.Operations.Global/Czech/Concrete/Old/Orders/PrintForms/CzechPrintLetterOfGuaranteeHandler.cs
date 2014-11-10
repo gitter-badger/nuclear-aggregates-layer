@@ -1,12 +1,11 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -24,15 +23,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
     {
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
+        private readonly IPrintValidationOperationService _validationService;
 
-        public CzechPrintLetterOfGuaranteeHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public CzechPrintLetterOfGuaranteeHandler(ISubRequestProcessor requestProcessor, IFinder finder, IPrintValidationOperationService validationService)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
+            _validationService = validationService;
         }
 
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
         {
+            _validationService.ValidateOrder(request.OrderId);
             var orderInfo =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new
@@ -64,11 +66,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                       order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                   })
                               .Single();
-
-            if (data.ProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
 
             var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));

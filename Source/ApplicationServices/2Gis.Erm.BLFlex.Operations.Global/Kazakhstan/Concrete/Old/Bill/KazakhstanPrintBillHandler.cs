@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
@@ -8,8 +9,6 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic;
-using DoubleGis.Erm.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DAL;
@@ -26,22 +25,26 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
+        private readonly IPrintValidationOperationService _validationService;
 
         public KazakhstanPrintBillHandler(ISubRequestProcessor requestProcessor,
                                           IFinder finder,
                                           ILegalPersonReadModel legalPersonReadModel,
                                           IBranchOfficeReadModel branchOfficeReadModel,
-                                          IOrderPrintFormDataExtractor orderPrintFormDataExtractor)
+                                          IOrderPrintFormDataExtractor orderPrintFormDataExtractor,
+                                          IPrintValidationOperationService validationService)
         {
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
+            _validationService = validationService;
             _requestProcessor = requestProcessor;
         }
 
         protected override Response Handle(PrintBillRequest request)
         {
+            _validationService.ValidateBill(request.BillId);
             var billInfo = _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Bill>(request.BillId))
                                   .Select(bill => new
                                       {
@@ -58,16 +61,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
                                           bill.Order.LegalPerson.LegalPersonTypeEnum
                                       })
                                   .SingleOrDefault();
-
-            if (billInfo == null)
-            {
-                throw new NotificationException(BLResources.SpecifiedBillNotFound);
-            }
-
-            if (billInfo.BranchOfficeOrganizationUnitId == null)
-            {
-                throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
-            }
 
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId);

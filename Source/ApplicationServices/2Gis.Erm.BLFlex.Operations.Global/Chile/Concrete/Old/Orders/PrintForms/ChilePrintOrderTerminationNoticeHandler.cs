@@ -1,8 +1,8 @@
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -20,18 +20,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
+        private readonly IPrintValidationOperationService _validationService;
 
         public ChilePrintOrderTerminationNoticeHandler(ILegalPersonReadModel legalPersonReadModel,
                                                        ISubRequestProcessor requestProcessor,
-                                                       IFinder finder)
+                                                       IFinder finder,
+                                                       IPrintValidationOperationService validationService)
         {
             _legalPersonReadModel = legalPersonReadModel;
             _requestProcessor = requestProcessor;
             _finder = finder;
+            _validationService = validationService;
         }
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
+            _validationService.ValidateBill(request.OrderId);
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
@@ -43,8 +47,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                                        })
                                    .Single();
 
-
-
             if (!orderInfo.IsTerminated)
             {
                 throw new NotificationException(BLResources.OrderShouldBeTerminated);
@@ -53,11 +55,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             if (orderInfo.OrderState != OrderState.OnTermination && orderInfo.OrderState != OrderState.Archive)
             {
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
-            }
-
-            if (orderInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
             }
 
             var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -23,16 +23,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
         private readonly ISubRequestProcessor _requestProcessor;
+        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IUserContext userContext, IFinder finder)
+        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IUserContext userContext, IFinder finder, IPrintValidationOperationService validationService)
         {
             _finder = finder;
+            _validationService = validationService;
             _userContext = userContext;
             _requestProcessor = requestProcessor;
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
+            _validationService.ValidateOrder(request.OrderId);
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
@@ -45,11 +48,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                                            order.LegalPersonProfileId,
                                        })
                                    .Single();
-
-            if (orderInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
 
             if (!orderInfo.IsTerminated)
             {

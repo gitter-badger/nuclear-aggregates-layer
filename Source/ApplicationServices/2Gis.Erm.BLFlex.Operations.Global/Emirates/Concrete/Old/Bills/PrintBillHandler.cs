@@ -1,12 +1,9 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -21,15 +18,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
     {
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
+        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintBillHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        public PrintBillHandler(ISubRequestProcessor requestProcessor, IFinder finder, IPrintValidationOperationService validationService)
         {
             _finder = finder;
+            _validationService = validationService;
             _requestProcessor = requestProcessor;
         }
 
         protected override Response Handle(PrintBillRequest request)
         {
+            _validationService.ValidateOrder(request.BillId);
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
                                       {
@@ -40,21 +40,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                                           bill.Order.LegalPersonProfileId,
                                       })
                                   .SingleOrDefault();
-
-            if (billInfo == null)
-            {
-                throw new EntityNotFoundException(typeof(Bill), request.BillId);
-            }
-
-            if (billInfo.LegalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
-
-            if (billInfo.BranchOfficeOrganizationUnitId == null)
-            {
-                throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
-            }
 
             var printRequest = new PrintDocumentRequest()
                 {
