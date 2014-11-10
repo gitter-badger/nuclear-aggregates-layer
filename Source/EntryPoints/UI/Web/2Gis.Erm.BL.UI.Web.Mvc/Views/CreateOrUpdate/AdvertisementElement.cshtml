@@ -37,16 +37,16 @@
     
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
-        <script src="/Scripts/TinyMCE/tiny_mce_src.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/TinyMCE/tiny_mce_src.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.js?@ThisAssembly.Build" type="text/javascript"></script>
     }
     else
     {
-        <script src="/Scripts/TinyMCE/tiny_mce.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.min.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/TinyMCE/tiny_mce.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.min.js?@ThisAssembly.Build" type="text/javascript"></script>
     }
     
-    <script src="/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?@ThisAssembly.Build" type="text/javascript"></script>
 }
 
 @section CardBody
