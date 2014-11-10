@@ -169,9 +169,17 @@
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
     <Compile Include="Models\Kazakhstan\KazakhstanChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\MultiCultureDealViewModel.cs" />
+    <Compile Include="Services\Cards\Chile\ChileViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Czech\CzechViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Kazakhstan\KazakhstanViewModelCustomizationsMetadaSource.cs" />
     <Compile Include="Services\Cards\Kazakhstan\KazakhstanContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\ViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\MultiCulturePrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\Orders\PrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Ukraine\ChileViewModelCustomizationsMetadaSource.cs" />
     <Compile Include="Services\Enumeration\Emirates\EmiratesFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
@@ -231,7 +239,7 @@
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanPaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
     <Compile Include="DI\ViewModelCustomizationsMassProcessor.cs" />
-    <Compile Include="Services\Cards\Russia\EditIsAdvertisingAgencyViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\Clients\EditIsAdvertisingAgencyViewModelCustomization.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationProvider.cs" />
     <Compile Include="Views\CreateOrUpdate\Kazakhstan\Account.generated.cs">
       <DependentUpon>Account.cshtml</DependentUpon>
@@ -413,7 +421,6 @@
     <Compile Include="Services\Cards\Chile\ChileContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Chile\ChileLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureAppointmentViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCulturePhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureTaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
@@ -421,7 +428,6 @@
     <Compile Include="Services\Cards\Russia\AppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\FirmViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\LegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\OrderViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\PhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\TaskViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonProfileViewModelCustomizationService.cs" />

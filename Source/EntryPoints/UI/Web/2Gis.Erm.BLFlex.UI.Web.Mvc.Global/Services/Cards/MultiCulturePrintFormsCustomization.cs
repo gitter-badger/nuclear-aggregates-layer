@@ -1,0 +1,31 @@
+﻿using System.Web.Mvc;
+
+using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
+{
+    public class MultiCulturePrintFormsCustomization : IViewModelCustomization, ICzechAdapted, ICyprusAdapted, IChileAdapted,
+                                                       IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
+    {
+        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        {
+            var entityViewModel = (IOrderViewModel)viewModel;
+
+            var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated ||
+                                                        !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination ||
+                                                          entityViewModel.WorkflowStepId == (int)OrderState.Archive);
+            if (isActionDisabledBasedOnWorkflowStepId)
+            {
+                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction", false);
+                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction", false);
+                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeWithoutReasonAction", false);
+                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction", false);
+            }
+        }
+    }
+}

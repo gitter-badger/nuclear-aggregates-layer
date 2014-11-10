@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Clients;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -10,11 +12,11 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
 {
-    public class ViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IRussiaAdapted
+    public class RussiaViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IRussiaAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
-        public ViewModelCustomizationsMetadaSource()
+        public RussiaViewModelCustomizationsMetadaSource()
         {
             _metadata = InitializeMetadataContainer();
         }
@@ -32,6 +34,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                         ViewModelCustomizationsMetada.Config
                                                      .For<Client>()
                                                      .Use<EditIsAdvertisingAgencyViewModelCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Order>()
+                                                     .Use<PrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
