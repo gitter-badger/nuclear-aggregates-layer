@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -203,6 +204,17 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                         ModifiedOn = x.ModifiedOn,
                         Timestamp = x.Timestamp
                     });
+                }
+
+                public static ISelectSpecification<Order, OrderPrintValidationDto> OrderPrintValidationDto()
+                {
+                    return new SelectSpecification<Order, OrderPrintValidationDto>(
+                        x => new OrderPrintValidationDto
+                                 {
+                                     LegalPersonId = x.LegalPersonId,
+                                     LegalPersonProfileId = x.LegalPersonProfileId,
+                                     BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
+                                 });
                 }
             }
         }

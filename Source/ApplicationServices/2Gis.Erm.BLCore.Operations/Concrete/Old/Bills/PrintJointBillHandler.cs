@@ -13,9 +13,11 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Core.Exceptions;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 {
+    // FIXME {a.rechkalov, 10.11.2014}: move, IPrintValidationOperationService
     public sealed class PrintJointBillHandler : RequestHandler<PrintJointBillRequest, Response>
     {
         private readonly IFinder _finder;
@@ -53,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
 
             if (commonInfo.ProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(string.Format(BLResources.OrderFieldNotSpecified, MetadataResources.LegalPerson));
             }
 
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId));

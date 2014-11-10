@@ -5206,7 +5206,7 @@ Cумма по операции: {5}.
   <data name="TitlePrinting" xml:space="preserve">
     <value>Печать</value>
   </data>
-  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
-    <value>Должен быть указан профиль юридического лица</value>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
   </data>
 </root>
