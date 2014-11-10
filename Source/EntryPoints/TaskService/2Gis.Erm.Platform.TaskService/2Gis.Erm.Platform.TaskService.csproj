@@ -61,6 +61,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -73,15 +74,21 @@
     <Compile Include="DI\TaskServiceJobsMassProcessor.cs" />
     <Compile Include="Jobs\TaskServiceJobBase.cs" />
     <Compile Include="Jobs\ITaskServiceJob.cs" />
+    <Compile Include="Schedulers\QuartzConfigFileScanInterval.cs" />
     <Compile Include="Schedulers\ISchedulerManager.cs" />
     <Compile Include="Schedulers\JobFactory.cs" />
     <Compile Include="Schedulers\SchedulerManager.cs" />
-    <Compile Include="Settings\ITaskServiceProcesingSettings.cs" />
+    <Compile Include="Settings\ITaskServiceProcessingSettings.cs" />
+    <Compile Include="Settings\JobStoreType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>

@@ -5,6 +5,7 @@ using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
@@ -26,6 +27,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ChileLegalPersonPart, typeof(ChileLegalPersonPart) },
                 { EntityName.UkraineLegalPersonPart, typeof(UkraineLegalPersonPart) },
                 { EntityName.EmiratesLegalPersonPart, typeof(EmiratesLegalPersonPart) },
+                { EntityName.KazakhstanLegalPersonPart, typeof(KazakhstanLegalPersonPart) },
+                { EntityName.KazakhstanLegalPersonProfilePart, typeof(KazakhstanLegalPersonProfilePart) },
                 { EntityName.OperationType, typeof(OperationType) },
                 { EntityName.Order, typeof(Order) },
                 { EntityName.OrderPosition, typeof(OrderPosition) },

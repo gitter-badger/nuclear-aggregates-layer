@@ -150,4 +150,13 @@
   <data name="UserIdDoesNotHaveTheRightToOperationOnEntity" xml:space="preserve">
     <value>Uživatel id=[{0}] nemá právo {1} na entitu {2}</value>
   </data>
+  <data name="AccessToOperationIsDenied" xml:space="preserve">
+    <value>Je odepřen přístup k uskutečnění operace '{0}'</value>
+  </data>
+  <data name="InvalidFieldFormat" xml:space="preserve">
+    <value>Hodnota pole "{0}" nemá správný formát</value>
+  </data>
+  <data name="InvalidFieldValue" xml:space="preserve">
+    <value>Hodnota pole "{0}" neobsahuje platnou hodnotu</value>
+  </data>
 </root>

@@ -2,8 +2,10 @@
 
 namespace DoubleGis.Erm.Platform.TaskService.Settings
 {
-    public interface ITaskServiceProcesingSettings : ISettings
+    public interface ITaskServiceProcessingSettings : ISettings
     {
         int MaxWorkingThreads { get; }
+        JobStoreType JobStoreType { get; }
+        string SchedulerName { get; }
     }
 }
