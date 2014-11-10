@@ -612,15 +612,6 @@ namespace DoubleGis.Erm.BLFlex.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OrderFieldNotSpecified {
-            get {
-                return ResourceManager.GetString("OrderFieldNotSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string OrderPositionNameWithContextCategory {
             get {
                 return ResourceManager.GetString("OrderPositionNameWithContextCategory", resourceCulture);

@@ -456,7 +456,4 @@
   <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderFieldNotSpecified" xml:space="preserve">
-    <value />
-  </data>
 </root>
