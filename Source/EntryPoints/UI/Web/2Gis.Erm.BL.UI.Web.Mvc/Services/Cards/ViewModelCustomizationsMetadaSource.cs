@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -38,6 +39,17 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .For<LegalPerson>()
                                                      .UseWithOrder<LegalPersonDoesntHaveAnyProfilesCustomization>(1)
                                                      .UseWithOrder<LegalPersonIsInactiveCustomization>(2),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Order>()
+                                                     .Use<OrderValidationCustomization>()
+                                                     .Use<InspectorNameCustomization>()
+                                                     .Use<PrivilegesCustomization>()
+                                                     .Use<WorkflowStepsCustomization>()
+                                                     .Use<LockByReleaseCustomization>()
+                                                     .Use<LockByWorkflowCustomization>()
+                                                     .Use<SignupDateCustomization>()
+                                                     .UseWithOrder<InactiveOrderCustomization>(1)
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

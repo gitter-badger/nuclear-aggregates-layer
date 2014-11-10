@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
@@ -32,7 +31,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Services
                 SetupReadModelToReturnClients("Some client");
             };
 
-            Because of = () => Target.Customize(ClientViewModel);
+            Because of = () => Target.Customize(ClientViewModel, null);
 
             It should_not_change_message_type = () => ClientViewModel.MessageType.Should().Be(ExpectedMessageType);
             It should_not_change_message = () => ClientViewModel.Message.Should().Be(ExpectedMessage);
@@ -46,7 +45,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Services
                     ClientViewModel.MessageType = ExpectedMessageType;
                 };
 
-            Because of = () => Target.Customize(ClientViewModel);
+            Because of = () => Target.Customize(ClientViewModel, null);
 
             It should_not_change_message_type = () => ClientViewModel.MessageType.Should().Be(ExpectedMessageType);
             It should_not_change_message = () => ClientViewModel.Message.Should().Be(ExpectedMessage);
@@ -62,7 +61,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Services
                     SetupReadModelToReturnClients(ExpectedNameOne, ExpectedNameTwo);
                 };
 
-            Because of = () => Target.Customize(ClientViewModel);
+            Because of = () => Target.Customize(ClientViewModel, null);
 
             It should_set_warning_message_type = () => ClientViewModel.MessageType.Should().Be(MessageType.Warning);
             It should_contain_client_one_and_two_names = () => ClientViewModel.Message.Should()

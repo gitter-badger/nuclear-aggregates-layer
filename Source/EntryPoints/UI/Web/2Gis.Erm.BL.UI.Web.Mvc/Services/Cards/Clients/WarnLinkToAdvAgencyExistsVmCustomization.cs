@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients
             _clientReadModel = clientReadModel;
         }
 
-        public void Customize(IEntityViewModelBase viewModel)
+        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             if (viewModel.MessageType == MessageType.CriticalError)
             {
