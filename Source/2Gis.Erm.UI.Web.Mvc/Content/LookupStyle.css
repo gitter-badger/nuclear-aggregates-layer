@@ -70,7 +70,7 @@ text-decoration: underline;
 }
 SPAN.x-lookup-item-invalid
 {
-color: red!important;
+color: gray!important;
 }
 IMG.x-lookup-item
 {

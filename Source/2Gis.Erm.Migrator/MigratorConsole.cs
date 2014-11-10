@@ -53,8 +53,6 @@ namespace DoubleGis.Erm.Migrator
                     return;
                 }
 
-                // FIXME {all, 29.10.2013}: нужно реализовать поддержку подгрузки миграций из нескольких сборок, т.к. компоненты ERM теперь разрабатываются независимо, то и каких-то общих миграций быть не может  
-                // DONE {all, 14.01.2014}: реализована
                 if (_arguments.TargetAssemblies == null)
                 {
                     var currentPathUri = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
@@ -82,7 +80,7 @@ namespace DoubleGis.Erm.Migrator
 
                 foreach (var pair in connectionStringsAspect.AllConnections)
                 {
-                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value));
+                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value.ConnectionString));
                 }
 
                 Execute(Console.Out, _arguments, calculatedArguments);
