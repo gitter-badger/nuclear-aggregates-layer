@@ -5,10 +5,10 @@ namespace DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata.Features
 {
     public class DocumentPartFeature<TDocument, TDocumentPart> : IDocumentPartFeature
     {
-        private readonly Expression<Func<TDocument, string>> _documentPartIdExpression;
+        private readonly Expression<Func<TDocument, object>> _documentPartIdExpression;
         private readonly Action<TDocument, TDocumentPart> _insertDocumentPartFunc;
 
-        public DocumentPartFeature(Expression<Func<TDocument, string>> documentPartIdExpression,
+        public DocumentPartFeature(Expression<Func<TDocument, object>> documentPartIdExpression,
                                    Action<TDocument, TDocumentPart> insertDocumentPartFunc)
         {
             _documentPartIdExpression = documentPartIdExpression;
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata.Features
             get { return typeof(TDocumentPart); }
         }
 
-        public Expression<Func<TDocument, string>> DocumentPartIdExpression
+        public Expression<Func<TDocument, object>> DocumentPartIdExpression
         {
             get { return _documentPartIdExpression; }
         }

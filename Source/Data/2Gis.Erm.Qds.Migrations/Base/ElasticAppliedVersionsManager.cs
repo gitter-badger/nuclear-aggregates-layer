@@ -1,4 +1,7 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
@@ -10,6 +13,7 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
     {
         private readonly IElasticApi _elasticApi;
         private readonly IElasticManagementApi _elasticManagementApi;
+        private IReadOnlyCollection<IDocumentWrapper<MigrationDoc>> _migrationDocs;
 
         public ElasticAppliedVersionsManager(IElasticApi elasticApi, IElasticManagementApi elasticManagementApi)
         {
@@ -29,17 +33,18 @@ namespace DoubleGis.Erm.Qds.Migrations.Base
             }
 
             _elasticApi.Refresh<MigrationDoc>();
-            var hits = _elasticApi.Scroll<MigrationDoc>(x => x.MatchAll());
-            foreach (var hit in hits)
+            _migrationDocs = _elasticApi.Scroll<MigrationDoc>(x => x.MatchAll().Version()).ToList();
+            foreach (var migrationDoc in _migrationDocs)
             {
-                var migrationId = long.Parse(hit.Id, CultureInfo.InvariantCulture);
+                var migrationId = long.Parse(migrationDoc.Id, CultureInfo.InvariantCulture);
                 AppliedVersionsInfo.AddAppliedMigration(migrationId);
             }         
         }
 
         public void DeleteVersion(long version)
         {
-            _elasticApi.Delete<MigrationDoc>(version.ToString());
+            var migrationDoc = _migrationDocs.Single(x => string.Equals(x.Id, version.ToString(), StringComparison.OrdinalIgnoreCase));
+            _elasticApi.Delete(migrationDoc);
         }
 
         public void SaveVersionInfo(long version)

@@ -10,8 +10,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
     public interface IDocumentVersionUpdater
     {
-        Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers);
-        void UpdateDocumentVersions(IReadOnlyCollection<IDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits);
+        Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers);
+        void UpdateDocumentVersions(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers, IReadOnlyCollection<IMultiGetHit<object>> hits);
     }
 
     // интерфейс нужен только для регистрации в DI
