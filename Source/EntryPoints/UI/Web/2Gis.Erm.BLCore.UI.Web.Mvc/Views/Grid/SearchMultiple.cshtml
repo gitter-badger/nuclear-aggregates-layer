@@ -4,27 +4,27 @@
 <head>
     <title>@BLResources.RecordsSearch</title>
     <meta id="meta_IsDebug" name="meta_IsDebug" content="@HttpContext.Current.IsDebuggingEnabled" />
-    <meta id="meta_Revision" name="meta_Revision" content="@SolutionInfo.ProductVersion.Build" />
+    <meta id="meta_Revision" name="meta_Revision" content="@ThisAssembly.Build" />
     
-    <link rel="stylesheet" type="text/css" href="/Content/ext-all.css?@SolutionInfo.ProductVersion.Build" />
-    <link rel="stylesheet" type="text/css" href="/Content/CRM4.css?@SolutionInfo.ProductVersion.Build" />
-    <link rel="stylesheet" type="text/css" href="/Content/MainPage.css?@SolutionInfo.ProductVersion.Build" />
-    <link rel="stylesheet" type="text/css" href="/Content/ext-mask.css?@SolutionInfo.ProductVersion.Build" />
-    <link rel="stylesheet" type="text/css" href="/Content/LookupStyle.css?@SolutionInfo.ProductVersion.Build" />
-    <link rel="stylesheet" type="text/css" href="/Content/DataList.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/ext-all.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/CRM4.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/MainPage.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/ext-mask.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/LookupStyle.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/DataList.css?@ThisAssembly.Build" />
 
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
-        <script src="/Scripts/ext-base-debug.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-        <script src="/Scripts/ext-all-debug-w-comments.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-base-debug.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all-debug-w-comments.js?@ThisAssembly.Build" type="text/javascript"></script>
     }
     else
     {
-        <script src="/Scripts/ext-base.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-        <script src="/Scripts/ext-all.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-base.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all.js?@ThisAssembly.Build" type="text/javascript"></script>
     }
 
-    <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@ThisAssembly.Build" type="text/javascript"></script>
 
     <script type="text/javascript">
         Ext.USER_ID = @ViewData.GetUserIdentityInfo().Code;
@@ -36,17 +36,17 @@
         Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
     </script>
     
-    <script src="/Scripts/DoubleGis.GlobalVariables.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Common.ErrorHandler.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Ext.ux.FitToParent.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Ext.ux.SearchControl.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Ext.ux.TabularButton.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Ext.ux.MultiSelectionList.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/Ext.ux.SearchFormMultiple.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.GlobalVariables.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Common.ErrorHandler.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.FitToParent.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.SearchControl.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.TabularButton.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.MultiSelectionList.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.SearchFormMultiple.js?@ThisAssembly.Build" type="text/javascript"></script>
     
     @foreach (var script in Model.DataViews.First().Scripts)
     {
-        <script src="/Scripts/@script.FileName?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+        <script src="/Scripts/@script.FileName?@ThisAssembly.Build" type="text/javascript"></script>
     }
     <script type="text/javascript">
 

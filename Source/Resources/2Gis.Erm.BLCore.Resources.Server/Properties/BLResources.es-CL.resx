@@ -570,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Guardar estado</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Ya existe la sucursal de la entidad {0} para la persona jurídica {1}</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Prohibido cambiar el enlace con los objetos de una orden bloqueada.</value>
   </data>
@@ -917,9 +914,6 @@
   </data>
   <data name="Height" xml:space="preserve">
     <value>Altura</value>
-  </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>La persona jurídica {0} tiene órdenes archivadas o cerradas por ser rechazadas. ¿Ocultar de todas formas?</value>
   </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>Falta configurar el traspaso de estados de límite para el estado '{0}'</value>
@@ -1555,9 +1549,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   </data>
   <data name="EditCurrency" xml:space="preserve">
     <value>Cambiar de moneda</value>
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>No se puede desactivar la persona jurídica del cliente con los datos existentes en el el sofnware contable</value>
   </data>
   <data name="DealClosing" xml:space="preserve">
     <value>Cerrar Transacción</value>
@@ -4745,9 +4736,6 @@ Contacto: {1}</value>
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Extensiones permitidas de archivos</value>
   </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>La persona jurídica a restablecer {0} ya está activa      </value>
-  </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>No se puede cancelar la publicación de la lista de precios cuyas posiciones están enlazadas con órdenes activas</value>
   </data>
@@ -4831,9 +4819,6 @@ Contacto: {1}</value>
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>La categoría Id = [{0}] no contiene nombre</value>
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>No se puede desactivar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
     <value>No se ha encontrado la orden a renovar</value>
@@ -5135,46 +5120,46 @@ Periodo de la publicación: {3}.</value>
     <value>No se puede indicar el motivo de rechazo no activo</value>
   </data>
   <data name="AdvertisingCampaign" xml:space="preserve">
-    <value>Рекламная кампания</value>
+    <value>Campaña Publicitaria</value>
   </data>
   <data name="DetailsForOrders" xml:space="preserve">
-    <value>Данные для заказов</value>
+    <value>Datos para la orden</value>
   </data>
   <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
-    <value>Необходимо указать дату начала рекламной кампании</value>
+    <value>Hay que indicar la fecha de inicio de la campaña publicitaria</value>
   </data>
   <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
-    <value>Необходимо указать дату окончания рекламной кампании</value>
+    <value>Hay que indicar la fecha de término de la campaña publicitaria</value>
   </data>
   <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
-    <value>Дата окончания рекламной кампании не может быть меньше даты начала</value>
+    <value>Fecha del término de la campaña publicitaria no puede ser anterior a su inicio</value>
   </data>
   <data name="AdvertisingCampaignGoals" xml:space="preserve">
-    <value>Цели</value>
+    <value>Objetivos</value>
   </data>
   <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
-    <value>Процент агентского вознаграждения должен быть числом в диапазоне от 0 до 100</value>
+    <value>El porcentaje de la comisión de la agencia debe ser entre 0 y 100</value>
   </data>
   <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
-    <value>Не указаны идентификаторы сделки или фирмы</value>
+    <value>No están indicadas las identificaciones del acuerdo o empresa</value>
   </data>
   <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
-    <value>Связь сделки {0} и фирмы {1} уже существует</value>
+    <value>Vínculo del acuerdo {0} y de la empresa {1} ya existe</value>
   </data>
   <data name="AdvertisingCampaignPeriod" xml:space="preserve">
-    <value>Период рекламной кампании</value>
+    <value>Período de la campaña publicitaria</value>
   </data>
   <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
-    <value />
+    <value>Cliente tomado de la reserva '{0}' trabaja con la agencia publicitaria '{1}'</value>
   </data>
   <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
-    <value>Не указаны идентификаторы сделки или юр. лица</value>
+    <value>No están indicadas las identificaciones del acuerdo o razón social</value>
   </data>
   <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
-    <value>Связь сделки {0} и юр.лица {1} уже существует</value>
+    <value>Vínculo del acuerdo {0} y de la razón social {1} ya existe</value>
   </data>
   <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
-    <value>Нет доступа на создание связи с клиентом '{0}'</value>
+    <value>No hay acceso para crear el vínculo con el cliente '{0}'</value>
   </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
     <value>No está permitido crear los contratos de agente</value>
@@ -5196,5 +5181,29 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value>No se permite crear las empresas en ERM.</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>No se permite cambiar de cliente porque el acuerdo está vinculado con las razones sociales: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>No se permite cambiar de cliente porque el acuerdo está vinculado con las empresas: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>No se permite borrar el vínculo principal con la razón social principal mientras existen los demás</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Actualmente ya existe un vínculo activo de la sucursal de la empresa {0} con la razón social {1}</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Actualmente ya existe un vínculo inactivo de la sucursal de la empresa {0} con la razón social {1}</value>
+  </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Entidad {0} ({1}) ya está activada</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Entidad {0} ({1}) ya está oculta</value>
+  </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value>{0} №{1} del {2}</value>
   </data>
 </root>

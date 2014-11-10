@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         PrimaryPositionCategoryIds = new[] { 23L, 2L },
 
                 SecondaryPositionCategoryId = 3,
-                        AdditionalPositionCategoryName = "Дополнительный макет для баннера",
+                        AdditionalPositionCategoryName = BLResources.AddiotionalLayoutForBanner,
             }
         };
 

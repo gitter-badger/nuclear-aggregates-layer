@@ -25,22 +25,18 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -204,8 +200,6 @@
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
@@ -344,6 +338,7 @@
     <Compile Include="Generic\Deactivate\DeactivateTerritoryService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateUserService.cs" />
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
+    <Compile Include="Generic\Delete\DeleteLegalPersonDealService.cs" />
     <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
     <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
     <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
@@ -455,7 +450,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryObtainer.cs" />
@@ -550,7 +544,6 @@
     <Compile Include="Generic\Modify\UsingHandler\ModifyProjectUsingHandlerService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifySimplifiedModelEntityUsingHandlerService.cs" />
     <Compile Include="Generic\Old\ValidateOwnerIsNotReserve.cs" />
-    <Compile Include="Generic\OperationSession.cs" />
     <Compile Include="Generic\Qualify\QualifyClientService.cs" />
     <Compile Include="Generic\Qualify\QualifyFirmService.cs" />
     <Compile Include="Generic\Qualify\QualifyGenericEntityService.cs" />
@@ -725,6 +718,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.kk-KZ.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">

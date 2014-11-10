@@ -388,7 +388,7 @@
     <value>The item cannot be edited in a deactivated price-list</value>
   </data>
   <data name="OrderHasLinkedDeal" xml:space="preserve">
-    <value>Cannot change owner of the order {0}. The order contains linked opportunity</value>
+    <value>Cannot change owner of the order {0}. The order contains a linked deal</value>
   </data>
   <data name="AssignAssignToMeLegend" xml:space="preserve">
     <value>Assign the selected objects "{0}" to oneself.</value>
@@ -469,7 +469,7 @@
     <value>Cannot start recovery operation, please wait until the previous building finishes</value>
   </data>
   <data name="AccessDeniedChangeOrderDeal" xml:space="preserve">
-    <value>No permit. Cannot change opportunity for the order.</value>
+    <value>No permit. Cannot change deal for the order.</value>
   </data>
   <data name="LockStatus" xml:space="preserve">
     <value>Locked stated</value>
@@ -559,7 +559,7 @@
     <value>Remainder</value>
   </data>
   <data name="PickReasonForNewDeal" xml:space="preserve">
-    <value>Specify the reason for Opportunity.</value>
+    <value>Specify the reason for Deal.</value>
   </data>
   <data name="PeriodEndDateMustBeGreaterThenBeginDate" xml:space="preserve">
     <value>End date of the period must be later than start date of the period</value>
@@ -569,9 +569,6 @@
   </data>
   <data name="IsStateful" xml:space="preserve">
     <value>Save status</value>
-  </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>The company division '{0}' already exists for the legal entity {1}</value>
   </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Reference objects of a locked order cannot be changed.</value>
@@ -613,7 +610,7 @@
     <value>Verification results</value>
   </data>
   <data name="MustPickCloseReason" xml:space="preserve">
-    <value>Please specify the reason for the opportunity closure</value>
+    <value>Please specify the reason for deal closure</value>
   </data>
   <data name="CantEditGroupWhenPriceIsDeactivated" xml:space="preserve">
     <value>A group cannot be edited in a deactivated price-list</value>
@@ -742,7 +739,7 @@
     <value>The contract will be deleted upon the order closure. Recovery of the objects will not be possible! Continue?</value>
   </data>
   <data name="DealCodeInvalid" xml:space="preserve">
-    <value>Opportunity code is not identified: {0}</value>
+    <value>Deal code is not identified: {0}</value>
   </data>
   <data name="TitleReleasesCount" xml:space="preserve">
     <value>Number of issues</value>
@@ -917,9 +914,6 @@
   </data>
   <data name="Height" xml:space="preserve">
     <value>Height</value>
-  </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>The legal entity {0} has orders that are archived or closed as rejected. Still hide?</value>
   </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>No configuration of limit status transfer for the status '{0}'</value>
@@ -1200,7 +1194,7 @@ Locking errors:{2}</value>
     <value>Click here to add notes...</value>
   </data>
   <data name="AccessDeniedCreateOrderFromList" xml:space="preserve">
-    <value>No permit. An order can be created only from the opportunity form</value>
+    <value>No permit. An order can be created only from the deal form</value>
   </data>
   <data name="ADPValidation_AppendTemplate" xml:space="preserve">
     <value>&lt;OrderPosition:Item No.{0}:{1}&gt; of Order &lt;Order:{2}:{3}&gt;</value>
@@ -1251,7 +1245,7 @@ Locking errors:{2}</value>
     <value>In &lt;OrderPosition:Item No.{0}:{1}&gt; the company has the attribute "Hidden forever" and cannot be selected.</value>
   </data>
   <data name="DealNotSpecifiedDuringOrderCreation" xml:space="preserve">
-    <value>Opportunity is not specified for creation of the order from the opportunity.</value>
+    <value>Deal is not specified for creation of the order from the deal.</value>
   </data>
   <data name="WrongOrderId" xml:space="preserve">
     <value>Incorrect code of the order</value>
@@ -1329,7 +1323,7 @@ Locking errors:{2}</value>
     <value>This territory is already linked to a user</value>
   </data>
   <data name="CloseDealNeedToCloseAllOrders" xml:space="preserve">
-    <value>An opportunity with active orders cannot be closed</value>
+    <value>A deal with active orders cannot be closed</value>
   </data>
   <data name="ErrorCantDeletePositionInPublishedPrice" xml:space="preserve">
     <value>Item cannot be deleted from a published price-list</value>
@@ -1470,7 +1464,7 @@ Locking errors:{2}</value>
     <value>The groups of main items have objects linked to inactive items</value>
   </data>
   <data name="ChangeDeal" xml:space="preserve">
-    <value>Change Opportunity</value>
+    <value>Change Deal</value>
   </data>
   <data name="ContactContent" xml:space="preserve">
     <value>Content of the contact</value>
@@ -1555,11 +1549,8 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="EditCurrency" xml:space="preserve">
     <value>Change currency</value>
   </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>You cannot deactivate client's legal entity whose data is already present in 1C</value>
-  </data>
   <data name="DealClosing" xml:space="preserve">
-    <value>Closure of opportunity</value>
+    <value>Deal closure</value>
   </data>
   <data name="PrintWithLegalPersonProfile" xml:space="preserve">
     <value>Use the data of the following person for printing</value>
@@ -2558,7 +2549,7 @@ The operation has been executed: {6}.</value>
     <value>Incorrect period. Start date must be equal to the first date of month and end date should be equal to the last date of month.</value>
   </data>
   <data name="DisqualifyNeedToCloseAllOpportunities" xml:space="preserve">
-    <value>Close all active opportunity with this object</value>
+    <value>Close all active deals with this object</value>
   </data>
   <data name="MergeLegalPersonsLegend" xml:space="preserve">
     <value>Select main record.</value>
@@ -2663,7 +2654,7 @@ The operation has been executed: {6}.</value>
     <value>Cannot delete inactive limit</value>
   </data>
   <data name="DealFinancialIndicatorsHead" xml:space="preserve">
-    <value>Financial performance of the opportunity</value>
+    <value>Financial performance of the deal</value>
   </data>
   <data name="AssignAssignMessage" xml:space="preserve">
     <value>Assign {0}</value>
@@ -2762,7 +2753,7 @@ The operation has been executed: {6}.</value>
     <value>Confirm the action '{0}' for {1} object(s) '{2}'</value>
   </data>
   <data name="DealMustBeActive" xml:space="preserve">
-    <value>Select active Opportunity to perform this operation</value>
+    <value>Select an active Deal to perform this operation</value>
   </data>
   <data name="CannotUpdatePositionOfOrderNotOnRegistration" xml:space="preserve">
     <value>It is prohibited to change the order item that is not in "Preparation" status</value>
@@ -2918,7 +2909,7 @@ The operation has been executed: {6}.</value>
     <value>Legal entity of the contractor is not specified in the order. Impossible to select a printed form.</value>
   </data>
   <data name="OrderHasAssignedIncorrectCurrency" xml:space="preserve">
-    <value>Select a source city corresponding to the currency of the opportunity</value>
+    <value>Select a source city corresponding to the currency of the deal</value>
   </data>
   <data name="CantEditDeactivatedAssociatedPositionsGroup" xml:space="preserve">
     <value>Cannot edit a deactivated group of main items</value>
@@ -2963,7 +2954,7 @@ The operation has been executed: {6}.</value>
     <value>The following number of territories will be disabled: {0}</value>
   </data>
   <data name="DealCloseInfoHead" xml:space="preserve">
-    <value>Information about opportunity closure</value>
+    <value>Information about deal closure</value>
   </data>
   <data name="ReferenceWithIdNotFound" xml:space="preserve">
     <value>Import. The directory with code '{0}' is not found</value>
@@ -3191,7 +3182,7 @@ The operation has been executed: {6}.</value>
     <value>Exchange of regional advertisements</value>
   </data>
   <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
-    <value>Number of opportunities processed: {0}, number of calls created: {1}</value>
+    <value>Number of deals processed: {0}, number of calls created: {1}</value>
   </data>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Results of the order check</value>
@@ -3278,7 +3269,7 @@ The operation has been executed: {6}.</value>
     <value>Do you really want to change limit status to</value>
   </data>
   <data name="CouldNotFindDeal" xml:space="preserve">
-    <value>Cannot find Opportunity with code {0}</value>
+    <value>Cannot find Deal with code {0}</value>
   </data>
   <data name="CouldNotFindFirm" xml:space="preserve">
     <value>Cannot find the specified company.</value>
@@ -3533,7 +3524,7 @@ The operation has been executed: {6}.</value>
     <value>The legal entity with replication ID {0} is not found </value>
   </data>
   <data name="CreateOrder_WrongCurrency" xml:space="preserve">
-    <value>It is necessary to select a source city corresponding to the currency of the opportunity</value>
+    <value>It is necessary to select a source city corresponding to the currency of the deal</value>
   </data>
   <data name="C1SCode" xml:space="preserve">
     <value>1C identifier</value>
@@ -3602,7 +3593,7 @@ The operation has been executed: {6}.</value>
     <value>A contract with expiry date earlier than the date of order signature is specified in the profile {0} of the client's legal entity.</value>
   </data>
   <data name="ChangeDealLegend" xml:space="preserve">
-    <value>Specify Opportunity to be linked to the selected objects</value>
+    <value>Specify a Deal to be linked to the selected objects</value>
   </data>
   <data name="LocalMessageController_DgppToErm_Categories" xml:space="preserve">
     <value>Headings from Dgpp</value>
@@ -3731,7 +3722,7 @@ The operation has been executed: {6}.</value>
     <value>The company {0} is hidden till clarification</value>
   </data>
   <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
-    <value>Plans of after-sale service have been generated. Number of opportunities processed: {0}, number of calls created: {1}</value>
+    <value>Plans of after-sale service have been generated. Number of deals processed: {0}, number of calls created: {1}</value>
   </data>
   <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
     <value>The reason for cancellation is not specified in Comment field</value>
@@ -3773,16 +3764,16 @@ The operation has been executed: {6}.</value>
     <value>The template with such type has been already added</value>
   </data>
   <data name="MainFirmForDealNotFound" xml:space="preserve">
-    <value>Main company of the opportunity is not found. Company code: [{0}]</value>
+    <value>Main company of the deal is not found. Company code: [{0}]</value>
   </data>
   <data name="CreateNewDeal" xml:space="preserve">
-    <value>Creation of a new opportunity.</value>
+    <value>Creation of a new deal.</value>
   </data>
   <data name="ProcessOrder_LastRelease" xml:space="preserve">
     <value>It was the last issue</value>
   </data>
   <data name="DealMustBeNonActive" xml:space="preserve">
-    <value>Select non-active Opportunity in order to perform this operation</value>
+    <value>Select a non-active Deal to perform this operation</value>
   </data>
   <data name="FirmEdit" xml:space="preserve">
     <value>Editing of the enterprise</value>
@@ -3791,7 +3782,7 @@ The operation has been executed: {6}.</value>
     <value>T.I.C. should consist of 10 or 12 numbers</value>
   </data>
   <data name="PickCloseDealReason" xml:space="preserve">
-    <value>Please specify the main reason for the opportunity closure</value>
+    <value>Please specify the main reason for deal closure</value>
   </data>
   <data name="CategoryEdit" xml:space="preserve">
     <value>Editing of the category</value>
@@ -3860,7 +3851,7 @@ The operation has been executed: {6}.</value>
     <value>Domain account of the user is not recognized. WindowsIdentity is not found within the request context.</value>
   </data>
   <data name="DealForOrderNotFound" xml:space="preserve">
-    <value>Opportunity copy is not found. Code: {0}</value>
+    <value>Deal copy is not found. Code: {0}</value>
   </data>
   <data name="CorrespondentAccount" xml:space="preserve">
     <value>Corr. account</value>
@@ -4744,9 +4735,6 @@ Contact: {1}</value>
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Permitted file extensions</value>
   </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>The restored legal entity {0} is already active</value>
-  </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>Publication of a price list whose items are linked with active orders cannot be canceled</value>
   </data>
@@ -4830,9 +4818,6 @@ Contact: {1}</value>
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>Category Id = [{0}] does not contain a name</value>
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>A customer's legal entity that has linked personal accounts cannot be deactivated</value>
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
     <value>No order is found for extension</value>
@@ -4981,10 +4966,10 @@ Placement period: {3}.</value>
     <value>Item {0} should be present in build in quantity from {1} up to {2}. The actual number of items for the month is {3} – {4}</value>
   </data>
   <data name="OrderProlongationRequestInformationDealExistingReused" xml:space="preserve">
-    <value>The existing transaction "{0}" is used</value>
+    <value>The existing deal "{0}" is used</value>
   </data>
   <data name="OrderProlongationRequestInformationDealNewCreated" xml:space="preserve">
-    <value>A new transaction "{0}" is created</value>
+    <value>A new deal "{0}" is created</value>
   </data>
   <data name="AddressesNotBelongToFirm" xml:space="preserve">
     <value>The following addresses: {0} are not linked to the company {1}</value>
@@ -5134,46 +5119,46 @@ Placement period: {3}.</value>
     <value>Cannot specify an inactive rejection reason</value>
   </data>
   <data name="AdvertisingCampaign" xml:space="preserve">
-    <value>Рекламная кампания</value>
+    <value>Advertising campaign</value>
   </data>
   <data name="DetailsForOrders" xml:space="preserve">
-    <value>Данные для заказов</value>
+    <value>Data for orders</value>
   </data>
   <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
-    <value>Необходимо указать дату начала рекламной кампании</value>
+    <value>Please specify the start date of the advertising campaign</value>
   </data>
   <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
-    <value>Необходимо указать дату окончания рекламной кампании</value>
+    <value>Please specify the end date of the advertising campaign</value>
   </data>
   <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
-    <value>Дата окончания рекламной кампании не может быть меньше даты начала</value>
+    <value>End date of the advertising campaign cannot be earlier than the start date</value>
   </data>
   <data name="AdvertisingCampaignGoals" xml:space="preserve">
-    <value>Цели</value>
+    <value>Objectives</value>
   </data>
   <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
-    <value>Процент агентского вознаграждения должен быть числом в диапазоне от 0 до 100</value>
+    <value>The agent fee rate should be within the 0–100 range</value>
   </data>
   <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
-    <value>Не указаны идентификаторы сделки или фирмы</value>
+    <value>Deal ID or company ID is not specified</value>
   </data>
   <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
-    <value>Связь сделки {0} и фирмы {1} уже существует</value>
+    <value>A link between the deal {0} and the company {1} already exists</value>
   </data>
   <data name="AdvertisingCampaignPeriod" xml:space="preserve">
-    <value>Период рекламной кампании</value>
+    <value>Advertising campaign period</value>
   </data>
   <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
-    <value />
+    <value>The agent '{0}' taken from the reserve works with the advertising agency '{1}'</value>
   </data>
   <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
-    <value>Не указаны идентификаторы сделки или юр. лица</value>
+    <value>Deal ID or legal entity ID is not specified</value>
   </data>
   <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
-    <value>Связь сделки {0} и юр.лица {1} уже существует</value>
+    <value>A link between the deal {0} and the legal entity {1} already exists</value>
   </data>
   <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
-    <value>Нет доступа на создание связи с клиентом '{0}'</value>
+    <value>No access to create a link to the client '{0}'</value>
   </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
     <value>Agency contracts are not allowed</value>
@@ -5182,7 +5167,7 @@ Placement period: {3}.</value>
     <value>{0}-bills.zip</value>
   </data>
   <data name="DealClientIsInReserve" xml:space="preserve">
-    <value>The opportunity client is in the reserve.</value>
+    <value>The deal client is in the reserve.</value>
   </data>
   <data name="CannotEditOrderPositionSinceReleaseIsInProgress" xml:space="preserve">
     <value>Building. Order item editing is not allowed.</value>
@@ -5195,5 +5180,29 @@ Placement period: {3}.</value>
   </data>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value>ERM does not support company creation.</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>Cannot change client. The deal is linked to the following legal entities: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>Cannot change client. The deal is linked to the following companies: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>Cannot delete an active link with the main legal entity while there are others</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>An active link between the company branch {0} and legal entity {1) already exists</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>An inactive link between the company branch {0} and legal entity {1) already exists</value>
+  </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Entity {0} ({1}) is already active</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Entity {0} ({1}) is already hidden</value>
+  </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value>{0} No.{1} as of {2}</value>
   </data>
 </root>

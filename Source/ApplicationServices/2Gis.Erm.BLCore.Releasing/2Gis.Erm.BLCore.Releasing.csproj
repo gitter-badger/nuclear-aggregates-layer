@@ -56,22 +56,13 @@
     </Compile>
     <Compile Include="DI\BlCoreReleasingAssembly.cs" />
     <Compile Include="Release\AttachExternalReleaseProcessingMessagesOperationService.cs" />
-    <Compile Include="Release\Configuration\ExportIntegrationConfiguration.cs" />
-    <Compile Include="Release\Configuration\ExportIntegrationSettingsSection.cs" />
     <Compile Include="Release\EnsureOrderExportedStrategyContainer.cs" />
     <Compile Include="Release\EnsureOrdersForReleaseCompletelyExportedOperationService.cs" />
-    <Compile Include="Release\FileStorageEnsureOrderExportedStrategy.cs" />
     <Compile Include="Release\FinishReleaseOperationService.cs" />
     <Compile Include="Release\IEnsureOrderExportedStrategy.cs" />
     <Compile Include="Release\IEnsureOrderExportedStrategyContainer.cs" />
-    <Compile Include="Release\IOrdersWithAdvertisementMaterialsSerializer.cs" />
-    <Compile Include="Release\IOrdersWithAdvertisementMaterialsSerializerFactory.cs" />
-    <Compile Include="Release\IPublishOrdersForReleaseToFileStorage.cs" />
     <Compile Include="Release\Old\DownloadReleaseInfoResultsHandler.cs" />
     <Compile Include="Release\Old\PrepareValidationReportHandler.cs" />
-    <Compile Include="Release\OrdersWithAdvertisementMaterialsXmlSerializer.cs" />
-    <Compile Include="Release\OrdersWithAdvertisementMaterialsXmlSerializerFactory.cs" />
-    <Compile Include="Release\PublishOrdersForFinalReleaseToFtp.cs" />
     <Compile Include="Release\ReleaseInfoDto.cs" />
     <Compile Include="Release\RevertReleaseOperationService.cs" />
     <Compile Include="Release\ServiceBusEnsureOrderExportedStrategy.cs" />

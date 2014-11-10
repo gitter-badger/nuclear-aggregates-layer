@@ -1453,4 +1453,31 @@
   <data name="DListInactiveFirmsForDeal" xml:space="preserve">
     <value>Удаленные связи</value>
   </data>
+  <data name="BinIin" xml:space="preserve">
+    <value>БИН/ИИН</value>
+  </data>
+  <data name="Bin" xml:space="preserve">
+    <value>БИН</value>
+  </data>
+  <data name="Iin" xml:space="preserve">
+    <value>ИИН</value>
+  </data>
+  <data name="IdentityCardNumber" xml:space="preserve">
+    <value>Номер удостоверения личности</value>
+  </data>
+  <data name="IdentityCardIssuedOn" xml:space="preserve">
+    <value>Дата выдачи</value>
+  </data>
+  <data name="IdentityCardIssuedBy" xml:space="preserve">
+    <value>Выдано</value>
+  </data>
+  <data name="DecreeNumber" xml:space="preserve">
+    <value>Номер приказа</value>
+  </data>
+  <data name="DecreeDate" xml:space="preserve">
+    <value>Дата приказа</value>
+  </data>
+  <data name="OtherAuthorityDocument" xml:space="preserve">
+    <value>Другое</value>
+  </data>
 </root>

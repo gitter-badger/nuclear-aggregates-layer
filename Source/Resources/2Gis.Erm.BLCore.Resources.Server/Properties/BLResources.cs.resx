@@ -570,9 +570,6 @@
   <data name="IsStateful" xml:space="preserve">
     <value>Ukládat stav</value>
   </data>
-  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
-    <value>Oddělení organizace {0} již u pr. osoby {1} existuje</value>
-  </data>
   <data name="ChangingAdvertisementLinksIsDeniedWhileOrderIsLocked" xml:space="preserve">
     <value>Je zakázáno měnit vázané objekty blokované objednávky.</value>
   </data>
@@ -917,9 +914,6 @@
   </data>
   <data name="Height" xml:space="preserve">
     <value>Výška</value>
-  </data>
-  <data name="DeactivateLegalPersonConfirmation" xml:space="preserve">
-    <value>Pr. osoba {0} má vedeny archivní objednávky nebo objednávky uzavřené jako zamítnuté. Přesto skrýt?</value>
   </data>
   <data name="NotExistsTransitionForLimitStatusErrorMessage" xml:space="preserve">
     <value>Pro stav '{0}' nejsou nakonfigurovány změny stavu limitu</value>
@@ -1555,9 +1549,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="EditCurrency" xml:space="preserve">
     <value>Změnit měnu</value>
-  </data>
-  <data name="CantDeactivateLegalPersonThatHasBeenIntegratedWithAccountingSystem" xml:space="preserve">
-    <value>Není možné deaktivovat právnickou osobu klienta, jejíž udaje jsou již zavedeny do 1C</value>
   </data>
   <data name="DealClosing" xml:space="preserve">
     <value>Ukončení obchodní transakce</value>
@@ -4744,9 +4735,6 @@ Kontakt: {1}</value>
   <data name="AllowedFileExtensions" xml:space="preserve">
     <value>Přípustné přípony souborů</value>
   </data>
-  <data name="LegalPersonToRestoreIsAlreadyActive" xml:space="preserve">
-    <value>Obnovovaná pr. osoba {0} je již aktivní</value>
-  </data>
   <data name="CannotUnpublishLinkedPrice" xml:space="preserve">
     <value>Není možné zrušit zveřejněné ceníky, jejichž položky jsou spojeny s aktivními objednávkami</value>
   </data>
@@ -4830,9 +4818,6 @@ Kontakt: {1}</value>
   </data>
   <data name="RubricDoesntContainNameTemplate" xml:space="preserve">
     <value>Rubrika Id = [{0}] neobsahuje název</value>
-  </data>
-  <data name="CannotDeactivateLegalPersonWithLinkedAccounts" xml:space="preserve">
-    <value>Nelze deaktivovat právnickou osobu zákazníka se spojenými osobními účty</value>
   </data>
   <data name="OrderForProlongationNotFound" xml:space="preserve">
     <value>Nenalezena žádná objednávka k prolongaci</value>
@@ -5134,46 +5119,46 @@ Doba zveřejnění: {3}.</value>
     <value>Nelze zadat neaktivní příčinu odmítnutí</value>
   </data>
   <data name="ClientFromReserveHasParentAdAgency" xml:space="preserve">
-    <value>Взятый из резерва клиента '{0}' работает с рекламным агенством '{1}'.</value>
+    <value>Klient převzaty z rezervy '{0}' spolupracuje s reklamní agenturou '{1}'</value>
   </data>
   <data name="AdvertisingCampaign" xml:space="preserve">
-    <value>Рекламная кампания</value>
+    <value>Reklamní kampaň</value>
   </data>
   <data name="DetailsForOrders" xml:space="preserve">
-    <value>Данные для заказов</value>
+    <value>Údaje pro objednávky</value>
   </data>
   <data name="AdvertisingCampaignBeginDateMustBeSpecified" xml:space="preserve">
-    <value>Необходимо указать дату начала рекламной кампании</value>
+    <value>Je třeba zadat datum začátku reklamní kampaně</value>
   </data>
   <data name="AdvertisingCampaignEndDateMustBeSpecified" xml:space="preserve">
-    <value>Необходимо указать дату окончания рекламной кампании</value>
+    <value>Je třeba zadat datum ukončení reklamní kampaně</value>
   </data>
   <data name="AdvertisingCampaignEndDateMustNotBeLessThanBeginDate" xml:space="preserve">
-    <value>Дата окончания рекламной кампании не может быть меньше даты начала</value>
+    <value>Datum ukončení reklamní kampaně nemůže být před jejím začátkem</value>
   </data>
   <data name="AdvertisingCampaignGoals" xml:space="preserve">
-    <value>Цели</value>
+    <value>Cíle</value>
   </data>
   <data name="AgencyFeePercentMustBeBetweenZeroAndOneHundred" xml:space="preserve">
-    <value>Процент агентского вознаграждения должен быть числом в диапазоне от 0 до 100</value>
+    <value>Procento agenturní provize musí být v rozmezí od 0 do 100</value>
   </data>
   <data name="DealIdOrFirmIdIsNotSpecified" xml:space="preserve">
-    <value>Не указаны идентификаторы сделки или фирмы</value>
+    <value>Nejsou zadány identifikátory obchodu nebo společnosti</value>
   </data>
   <data name="FirmDealRelationAlreadyExists" xml:space="preserve">
-    <value>Связь сделки {0} и фирмы {1} уже существует</value>
+    <value>Spojení obchodu {0} a organizace {1} již existuje</value>
   </data>
   <data name="AdvertisingCampaignPeriod" xml:space="preserve">
-    <value>Период рекламной кампании</value>
+    <value>Období reklamní kampaně</value>
   </data>
   <data name="DealIdOrLegalPersonIdIsNotSpecified" xml:space="preserve">
-    <value>Не указаны идентификаторы сделки или юр. лица</value>
+    <value>Nejsou zadány identifikátory obchodu nebo PO</value>
   </data>
   <data name="LegalPersonDealLinkAlreadyExists" xml:space="preserve">
-    <value>Связь сделки {0} и юр.лица {1} уже существует</value>
+    <value>Spojení obchodu {0} a PO {1} již existuje</value>
   </data>
   <data name="AccessDeniedToMakeClientLink" xml:space="preserve">
-    <value>Нет доступа на создание связи с клиентом '{0}'</value>
+    <value>Nemáte přístup k vytvoření spojení s klientem '{0}'</value>
   </data>
   <data name="ItIsNotAllowedToCreateAgentBargains" xml:space="preserve">
     <value>Vytvoření mandátních smluv je zakázáno</value>
@@ -5195,5 +5180,29 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="FirmCreationIsNotSupported" xml:space="preserve">
     <value>ERM nepodporuje vytváření společností.</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedLegalPersons" xml:space="preserve">
+    <value>Změna klientu je zakázána, protože obchod je spojen s následujícími PO: {0}</value>
+  </data>
+  <data name="CannotChangeDealClientWithLinkedFirms" xml:space="preserve">
+    <value>Změna klientu je zakázána, protože obchod je spojen s následujícími společnostmi: {0}</value>
+  </data>
+  <data name="CannotDeleteMainLegalPersonDeal" xml:space="preserve">
+    <value>Nelze odstranit hlavní spojení s hlavní PO dokud jsou jiné</value>
+  </data>
+  <data name="OrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Aktivní spojení oddělení organizace {0} s PO {1} již existuje</value>
+  </data>
+  <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
+    <value>Neaktivní spojení oddělení organizace {0} s PO {1} již existuje</value>
+  </data>
+  <data name="EntityIsAlreadyActive" xml:space="preserve">
+    <value>Entita {0} ({1}) již je aktivní</value>
+  </data>
+  <data name="EntityIsAlreadyInactive" xml:space="preserve">
+    <value>Entita {0} ({1}) již byla skryta</value>
+  </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value>{0} č.{1} od {2}</value>
   </data>
 </root>
