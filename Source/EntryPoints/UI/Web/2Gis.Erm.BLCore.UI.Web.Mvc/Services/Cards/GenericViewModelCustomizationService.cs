@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
         {
             foreach (var customization in _customizations)
             {
-                customization.Customize(viewModel);
+                customization.Customize(viewModel, modelState);
             }
         }
     }
