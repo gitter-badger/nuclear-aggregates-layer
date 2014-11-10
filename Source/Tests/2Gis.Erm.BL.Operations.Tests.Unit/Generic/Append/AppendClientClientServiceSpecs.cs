@@ -7,7 +7,9 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -139,11 +141,25 @@ namespace DoubleGis.Erm.BL.Operations.Tests.Unit.Generic.Append
 
                     Repository = new Mock<ICreateClientLinkAggregateService>();
                     ReadModel = new Mock<IClientReadModel>();
+                    ReadModel.Setup(mock => mock.GetClient(Moq.It.IsAny<long>())).Returns<long>(id => new Client { Id = id });
+
+                    var userContext = new Mock<IUserContext>();
+                    userContext.Setup(mock => mock.Identity).Returns(new NullUserIdentity());
+
+                    var securityService = new Mock<ISecurityServiceEntityAccess>();
+                    securityService.Setup(mock => mock.HasEntityAccess(Moq.It.IsAny<EntityAccessTypes>(),
+                                                                       Moq.It.IsAny<EntityName>(),
+                                                                       Moq.It.IsAny<long>(),
+                                                                       Moq.It.IsAny<long?>(),
+                                                                       Moq.It.IsAny<long>(),
+                                                                       Moq.It.IsAny<long?>()))
+                                   .Returns(() => true);
+
                     Target = new AppendClientClientService(Repository.Object,
                                                            ReadModel.Object,
                                                            scopeFactory.Object,
-                                                           Mock.Of<ISecurityServiceEntityAccess>(),
-                                                           Mock.Of<IUserContext>());
+                                                           securityService.Object,
+                                                           userContext.Object);
                 };
 
             protected static Mock<IOperationScope> Scope { get; private set; }

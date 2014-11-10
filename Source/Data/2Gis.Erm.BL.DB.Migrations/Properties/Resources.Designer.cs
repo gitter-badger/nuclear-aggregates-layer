@@ -80,6 +80,25 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  StoredProcedure [Billing].[ReplicateDeal]    Script Date: 01.09.2014 10:28:28 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///-- changes
+        ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
+        ///--   23.07.2014, i.maslennikov: drop deal profit indicators 
+        ///--   12.08.2014, y.baranikhin: добавилась репликация полей по рекламной кампании
+        ///--   11.09.2014, a.tukaev: выпиливаем like при поиске пользователя по account
+        ///--   02.10.2014, a.rechkalov: выполнил слияние двух предыдущих измен [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BusinessDirectory_ReplicateDeal_25168 {
+            get {
+                return ResourceManager.GetString("BusinessDirectory_ReplicateDeal_25168", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///    &lt;Entity&gt;
@@ -176,6 +195,28 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         internal static string customizations_23921 {
             get {
                 return ResourceManager.GetString("customizations_23921", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///  &lt;/Entities&gt;
+        ///  &lt;Roles&gt;
+        ///  &lt;/Roles&gt;
+        ///  &lt;Workflows&gt;
+        ///  &lt;/Workflows&gt;
+        ///  &lt;IsvConfig&gt;
+        ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
+        ///      &lt;Root&gt;
+        ///        &lt;ToolBar&gt;
+        ///          &lt;Button Icon=&quot;/_imgs/AdvFind/new.GIF&quot; JavaScript=&quot;openStdWin(&apos;https://web-app03.test.erm.2gis.ru/Grid/View/Order?singleDataView=DListOrdersFast&apos;, &apos;FastSearch&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
+        ///            &lt;Titles&gt;
+        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string customizations_24070 {
+            get {
+                return ResourceManager.GetString("customizations_24070", resourceCulture);
             }
         }
         

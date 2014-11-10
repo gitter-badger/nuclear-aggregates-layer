@@ -117,68 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RutFormatError" xml:space="preserve">
-    <value>The field {0} must be in the format xx.xxx.xxx-x</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BirthdayLetter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BirthdayLetter.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="SalutationToMaleRussia" xml:space="preserve">
-    <value>Dear</value>
+  <data name="flowDeliveryData_LetterSendRequest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flowDeliveryData.LetterSendRequest.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SalutationToFemaleRussia" xml:space="preserve">
-    <value>Dear</value>
+  <data name="flowNomenclatures_NomenclatureElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flownomenclatures.nomenclatureelement.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SalutationCyprus" xml:space="preserve">
-    <value>Dear</value>
+  <data name="flowNomenclatures_NomenclatureElementRelation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flownomenclatures.nomenclatureelementrelation.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SalutationToMaleCzech" xml:space="preserve">
-    <value>Vážený</value>
+  <data name="flowOrders_DenialReason" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flowOrders.DenialReason.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SalutationToFemaleCzech" xml:space="preserve">
-    <value>Vážená</value>
+  <data name="flowPriceLists_PriceList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flowPriceLists.PriceList.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SalutationToFemaleCzech2" xml:space="preserve">
-    <value>Vážená paní</value>
-  </data>
-  <data name="SalutationToMaleCzech2" xml:space="preserve">
-    <value>Vážený pane</value>
-  </data>
-  <data name="SalutationToMaleChile" xml:space="preserve">
-    <value>Estimado</value>
-  </data>
-  <data name="SalutationToFemaleChile" xml:space="preserve">
-    <value>Estimada</value>
-  </data>
-  <data name="SalutationToFemaleUkraine" xml:space="preserve">
-    <value>Dear Ms.</value>
-    <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleUkraine" xml:space="preserve">
-    <value>Dear Mr.</value>
-    <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleEmirates" xml:space="preserve">
-    <value>Ms.</value>
-    <comment>Приветствие специфично для бизнес-модели Объединённых Арабских Эмиратов. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleEmirates" xml:space="preserve">
-    <value>Mr.</value>
-    <comment>Приветствие специфично для бизнес-модели Объединённых Арабских Эмиратов. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
-    <value>Attention! The profile has been changed. The specified profile will be attached to the order.</value>
-  </data>
-  <data name="ParentOrChildIdsNotSpecified" xml:space="preserve">
-    <value>The IDs of the subclient or parent client are not specified</value>
-  </data>
-  <data name="InvalidEntityTypesForLinking" xml:space="preserve">
-    <value>Cannot add a link between the clients due to incorrect entity types</value>
-  </data>
-  <data name="SameIdsForEntitiesToLink" xml:space="preserve">
-    <value>The IDs of the entities being linked are equal.</value>
-  </data>
-  <data name="ClientLinkAlreadyExists" xml:space="preserve">
-    <value>The link already exists</value>
-  </data>
-  <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
-    <value>An advertising agency cannot be specified as a subclient</value>
+  <data name="flowPriceLists_PriceListPosition" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flowPriceLists.PriceListPosition.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

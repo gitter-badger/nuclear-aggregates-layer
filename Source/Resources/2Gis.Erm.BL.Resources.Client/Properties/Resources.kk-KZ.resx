@@ -118,852 +118,852 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcquireOrderExtensionFailed" xml:space="preserve">
-    <value>Nebylo možné získat počítané hodnoty.</value>
+    <value>Не удалось получить вычисляемые значения.</value>
   </data>
   <data name="ActionsHistory" xml:space="preserve">
-    <value>Historie změn</value>
+    <value>История изменений</value>
   </data>
   <data name="ActionsHistoryTabGroupRenderer" xml:space="preserve">
-    <value>Akce: {0}, Hotovo: {1} Dne: {2}</value>
+    <value>Действие: {0}, Выполнено: {1} Дата: {2}</value>
   </data>
   <data name="ActionsHistoryTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "změna": values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"změny":"změn"]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "изменение" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"изменения":"изменений"]})</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Aktivní</value>
+    <value>Активна</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Adresa</value>
+    <value>Адрес</value>
   </data>
   <data name="AdvertisementElements" xml:space="preserve">
-    <value>Prvky reklamního materiálu</value>
+    <value>Элементы рекламного материала</value>
   </data>
   <data name="Advertisements" xml:space="preserve">
-    <value>Reklamní materiály</value>
+    <value>Рекламные материалы</value>
   </data>
   <data name="Alert" xml:space="preserve">
-    <value>Pozor!</value>
+    <value>Внимание!</value>
   </data>
   <data name="AllExistingBillsWillBeDeleted" xml:space="preserve">
-    <value>Všechny stávající faktury budou odstraněny. Pokračovat?</value>
+    <value>Все существующие счета на оплату будут удалены. Продолжить?</value>
   </data>
   <data name="AllFieldsMustBeSetForPayment" xml:space="preserve">
-    <value>K úhradě musí být vyplněna všechna pole</value>
+    <value>Все поля должны быть заполнены для платежа</value>
   </data>
   <data name="April" xml:space="preserve">
-    <value>Duben</value>
+    <value>Апрель</value>
   </data>
   <data name="AreYouSureWantToDeleteBargain" xml:space="preserve">
-    <value>Odstranit smlouvu?</value>
+    <value>Удалить договор?</value>
   </data>
   <data name="AtLeastOneLinkingObjectMustBeSelected" xml:space="preserve">
-    <value>Musí být vybrán alespoň jeden vázaný objekt</value>
+    <value>Должен быть выбран хотя бы один объект привязки</value>
   </data>
   <data name="AtLeastOneLinkingObjectMustBeSelectedForTheFollowingSubpositions" xml:space="preserve">
-    <value>Musí být vybrán alespoň jeden vázaný objekt v následujících podpoložkách: </value>
+    <value>Должен быть выбран хотя бы один объект привязки в следующих подпозициях: </value>
   </data>
   <data name="August" xml:space="preserve">
-    <value>Srpen</value>
+    <value>Август</value>
   </data>
   <data name="AvailableRecords" xml:space="preserve">
-    <value>Dostupné záznamy</value>
+    <value>Доступные записи</value>
   </data>
   <data name="BackColorText" xml:space="preserve">
-    <value>Změna barvy pozadí pro vybraný text nebo odstavec.</value>
+    <value>Изменение цвета фона для выделенного текста или абзаца.</value>
   </data>
   <data name="BackColorTitle" xml:space="preserve">
-    <value>Vyplnění</value>
+    <value>Заливка</value>
   </data>
   <data name="BeginDistributionDate" xml:space="preserve">
-    <value>Začátek zveřejnění</value>
+    <value>Начало размещения</value>
   </data>
   <data name="BoldText" xml:space="preserve">
-    <value>Použití tučného písma na vybraný text.</value>
+    <value>Применение полужирного начертания к выделенному тексту.</value>
   </data>
   <data name="BoldTitle" xml:space="preserve">
-    <value>Tučné (Ctrl+B)</value>
+    <value>Полужирный (Ctrl+B)</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Zrušit</value>
+    <value>Отмена</value>
   </data>
   <data name="CardIsDirtyAlert" xml:space="preserve">
-    <value>Tuto akci není možné provést, pokud existují neuložené změny. Před tím, než budete pokračovat, uložte prosím změny nebo aktualizujte kartu.</value>
+    <value>Данное действие невозможно выполнить при наличии несохранённых изменений. Пожалуйста, сохраните изменения или обновите карточку, прежде чем продолжить.</value>
   </data>
   <data name="CardIsNewAlert" xml:space="preserve">
-    <value>Tuto akci bude možné provést až po uložení záznamu. Než budete pokračovat, uložte prosím záznam.</value>
+    <value>Данное действие невозможно выполнить, пока запись не сохранена. Пожалуйста, сохраните запись, прежде чем продолжить.</value>
   </data>
   <data name="CardIsReadOnly" xml:space="preserve">
-    <value>Tato karta je otevřena v režimu „pouze pro čtení“.</value>
+    <value>Данная карточка открыта в режиме "только для чтения".</value>
   </data>
   <data name="CardIsUndefined" xml:space="preserve">
-    <value>Pro tuto entitu není deklarována karta pro úpravu.</value>
+    <value>Для данной сущности не объявлена карточка редактирования.</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Rubrika</value>
+    <value>Рубрика</value>
   </data>
   <data name="CategoryAlreasyExistsInTheList" xml:space="preserve">
-    <value>Seznam již obsahuje rubriku '{0}'.</value>
+    <value>Рубрика '{0}' уже присутствует в списке.</value>
   </data>
   <data name="CheckInProgressPleaseStandBy" xml:space="preserve">
-    <value>Probíhá kontrola. Počkejte, prosím...</value>
+    <value>Выполняется проверка. Пожалуйста, подождите...</value>
   </data>
   <data name="CheckProducedTheFollowingErrors" xml:space="preserve">
-    <value>Během kontroly byly zjištěny následující chyby:</value>
+    <value>В ходе проверки были обнаружены следующие ошибки:</value>
   </data>
   <data name="ClickHereToAddNote" xml:space="preserve">
-    <value>Poznámku přidáte kliknutím zde...</value>
+    <value>Щелкните здесь для добавления примечания...</value>
   </data>
   <data name="CloseCardConfirmation" xml:space="preserve">
-    <value>Provedené změny nebyly uloženy. Abyste zůstali na této stránce a mohli změny uložit, stiskněte tlačítko „Zrušit“.</value>
+    <value>Внесенные изменения не сохранены. Чтобы остаться на этой странице и сохранить изменения, нажмите кнопку "Отмена".</value>
   </data>
   <data name="ContentIsEmpty" xml:space="preserve">
-    <value>Chybí obsah</value>
+    <value>Содержимое отсутствует</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Pokračovat</value>
+    <value>Продолжить</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Vytvořit</value>
+    <value>Создать</value>
   </data>
   <data name="CreateLinkText" xml:space="preserve">
-    <value>Vytvoření odkazu z vybraného textu.</value>
+    <value>Создание ссылки из выделенного текста.</value>
   </data>
   <data name="CreateLinkTitle" xml:space="preserve">
-    <value>Vložit hypertextový odkaz</value>
+    <value>Вставить гиперссылку</value>
   </data>
   <data name="CreateText" xml:space="preserve">
-    <value>Vytvořit</value>
+    <value>Создать</value>
   </data>
   <data name="DatePickerMaxText" xml:space="preserve">
-    <value>Toto datum nemůže být pozdější než maximální datum</value>
+    <value>Эта дата позже максимальной даты</value>
   </data>
   <data name="DatePickerMinText" xml:space="preserve">
-    <value>Toto datum nemůže být dřívější než minimální datum</value>
+    <value>Эта дата раньше минимальной даты</value>
   </data>
   <data name="DatePickerMonthYearText" xml:space="preserve">
-    <value>Výběr měsíce (tlačítkem Control+šipkou nahoru/dolů vyberte rok)</value>
+    <value>Выбор месяца (Control+Вверх/Вниз для выбора года)</value>
   </data>
   <data name="DatePickerNextText" xml:space="preserve">
-    <value>Následující měsíc (tlačítko Control+šipka doprava)</value>
+    <value>Следующий месяц (Control+Вправо)</value>
   </data>
   <data name="DatePickerPrevText" xml:space="preserve">
-    <value>Předchozí měsíc (tlačítko Control+šipka doleva)</value>
+    <value>Предыдущий месяц (Control+Влево)</value>
   </data>
   <data name="DatePickerToday" xml:space="preserve">
-    <value>Dnes</value>
+    <value>Сегодня</value>
   </data>
   <data name="DatePickerTodayTip" xml:space="preserve">
-    <value>{0} (mezera)</value>
+    <value>{0} (Пробел)</value>
   </data>
   <data name="December" xml:space="preserve">
-    <value>Prosinec</value>
+    <value>Декабрь</value>
   </data>
   <data name="DecreaseFontSizeText" xml:space="preserve">
-    <value>Zmenšit velikost písma.</value>
+    <value>Уменьшение размера шрифта.</value>
   </data>
   <data name="DecreaseFontSizeTitle" xml:space="preserve">
-    <value>Zmenšit velikost</value>
+    <value>Уменьшить размер</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Odstraněna</value>
+    <value>Удалена</value>
   </data>
   <data name="DeleteText" xml:space="preserve">
-    <value>Odstranit</value>
+    <value>Удалить</value>
   </data>
   <data name="DeleteValue" xml:space="preserve">
-    <value>Odstranit hodnotu</value>
+    <value>Удалить значение</value>
   </data>
   <data name="DisabledDatesText" xml:space="preserve">
-    <value>Toto datum není možné vybrat</value>
+    <value>Данная дата недоступна для выбора</value>
   </data>
   <data name="DisabledDaysText" xml:space="preserve">
-    <value>Toto datum není možné vybrat</value>
+    <value>Данная дата недоступна для выбора</value>
   </data>
   <data name="DisplayMsg" xml:space="preserve">
-    <value>Jsou zobrazeny záznamy od {0} do {1}, celkem {2}</value>
+    <value>Отображаются записи с {0} по {1}, всего {2}</value>
   </data>
   <data name="EmptyMsg" xml:space="preserve">
-    <value>K zobrazení nejsou žádné údaje</value>
+    <value>Нет данных для отображения</value>
   </data>
   <data name="EndDistributionDate" xml:space="preserve">
-    <value>Konec zveřejnění</value>
+    <value>Окончание размещения</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Chyba</value>
+    <value>Ошибка</value>
   </data>
   <data name="ErrorDuringOperation" xml:space="preserve">
-    <value>Během provádění operace došlo k chybě</value>
+    <value>Во время выполнения операции произошла ошибка</value>
   </data>
   <data name="ErrorRetrievingDataFromServer" xml:space="preserve">
-    <value>Chyba při přijímání dat ze serveru</value>
+    <value>Ошибка при получении данных с сервера</value>
   </data>
   <data name="February" xml:space="preserve">
-    <value>Únor</value>
+    <value>Февраль</value>
   </data>
   <data name="FieldInvalidText" xml:space="preserve">
-    <value>Byla zadána nesprávná hodnota</value>
+    <value>Указано неверное значение</value>
   </data>
   <data name="FileUploadCompleteText" xml:space="preserve">
-    <value>Stahování bylo dokončeno</value>
+    <value>Загрузка завершена</value>
   </data>
   <data name="FileUploadText" xml:space="preserve">
-    <value>Vyčkejte prosím, soubor se nahrává na server...</value>
+    <value>Пожалуйста, подождите, идет загрузка файла на сервер...</value>
   </data>
   <data name="FindMoreRecords" xml:space="preserve">
-    <value>Vyhledávání dalších záznamů</value>
+    <value>Поиск дополнительных записей</value>
   </data>
   <data name="ForeColorText" xml:space="preserve">
-    <value>Změna barvy textu.</value>
+    <value>Измение цвета текста.</value>
   </data>
   <data name="Friday" xml:space="preserve">
-    <value>Pátek</value>
+    <value>Пятница</value>
   </data>
   <data name="GetDataError" xml:space="preserve">
-    <value>Chyba přijmu dat ze serveru.</value>
+    <value>Ошибка получения данных с сервера.</value>
   </data>
   <data name="GridDDText" xml:space="preserve">
-    <value>{0} vybraných řádků</value>
+    <value>{0} выбранных строк</value>
   </data>
   <data name="IncreaseFontSizeText" xml:space="preserve">
-    <value>Zvětšení velikosti textu.</value>
+    <value>Увеличение размера шрифта.</value>
   </data>
   <data name="IncreaseFontSizeTitle" xml:space="preserve">
-    <value>Zvětšit velikost</value>
+    <value>Увеличить размер</value>
   </data>
   <data name="IndicatorText" xml:space="preserve">
-    <value>Probíhá načítání…</value>
+    <value>Идет загрузка...</value>
   </data>
   <data name="Information" xml:space="preserve">
-    <value>Informace</value>
+    <value>Сведения</value>
   </data>
   <data name="InsertOrderedListText" xml:space="preserve">
-    <value>Začít číslovaný seznam.</value>
+    <value>Начать нумерованный список.</value>
   </data>
   <data name="InsertOrderedListTitle" xml:space="preserve">
-    <value>Číslování</value>
+    <value>Нумерация</value>
   </data>
   <data name="InsertUnorderedListText" xml:space="preserve">
-    <value>Začít seznam s odrážkami.</value>
+    <value>Начать маркированный список.</value>
   </data>
   <data name="InsertUnorderedListTitle" xml:space="preserve">
-    <value>Odrážky</value>
+    <value>Маркеры</value>
   </data>
   <data name="InvalidDateText" xml:space="preserve">
-    <value>{0} není správně uvedené datum - datum musí být uvedeno ve formátu {1}</value>
+    <value>{0} не является правильной датой - дата должна быть указана в формате {1}</value>
   </data>
   <data name="IsNecessaryChooseLimitForStatusChange" xml:space="preserve">
-    <value>Před provedením změny stavu je třeba vybrat ze seznamu limit</value>
+    <value>Перед выполнением операции смены статуса необходимо выбрать лимит в списке</value>
   </data>
   <data name="ItalicText" xml:space="preserve">
-    <value>Použití kurzívy na vybraný text.</value>
+    <value>Применение курсивного начертания к выделенному тексту.</value>
   </data>
   <data name="ItalicTitle" xml:space="preserve">
-    <value>Kurzíva (Ctrl+I)</value>
+    <value>Курсив(Ctrl+I)</value>
   </data>
   <data name="ItsReadOnlyMode" xml:space="preserve">
-    <value>Tento seznam je zobrazen v režimu „Pouze pro čtení“. Není možné vytvořit entitu.</value>
+    <value>Данный список просматривается в режиме "Только для чтения". Создание сущности невозможно.</value>
   </data>
   <data name="January" xml:space="preserve">
-    <value>Leden</value>
+    <value>Январь</value>
   </data>
   <data name="July" xml:space="preserve">
-    <value>Červenec</value>
+    <value>Июль</value>
   </data>
   <data name="June" xml:space="preserve">
-    <value>Červen</value>
+    <value>Июнь</value>
   </data>
   <data name="JustifyCenterText" xml:space="preserve">
-    <value>Zarovnání textu na střed.</value>
+    <value>Выравнивание текста по центру.</value>
   </data>
   <data name="JustifyCenterTitle" xml:space="preserve">
-    <value>Na střed</value>
+    <value>По центру</value>
   </data>
   <data name="JustifyLeftText" xml:space="preserve">
-    <value>Zarovnání textu doleva.</value>
+    <value>Выравнивание текста по левому краю.</value>
   </data>
   <data name="JustifyLeftTitle" xml:space="preserve">
-    <value>Zarovnat text doleva</value>
+    <value>Выровнять текст по левому краю</value>
   </data>
   <data name="JustifyRightText" xml:space="preserve">
-    <value>Zarovnání textu doprava.</value>
+    <value>Выравнивание текста по правому краю.</value>
   </data>
   <data name="JustifyRightTitle" xml:space="preserve">
-    <value>Zarovnat text doprava.</value>
+    <value>Выровнять текст по правому краю.</value>
   </data>
   <data name="LimitStatusChangeIsNotSupportedAsTheGroupOperation" xml:space="preserve">
-    <value>Operace změny stavu limitu nejsou podporovány jako hromadné operace. Provádějte změnu stavu u limitů po jednom.</value>
+    <value>Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.</value>
   </data>
   <data name="LinkFieldInvalidEmailMessage" xml:space="preserve">
-    <value>Zadaná hodnota není správnou e-mailovou adresou</value>
+    <value>Введенное значение не является корректным e-mail адресом</value>
   </data>
   <data name="LinkFieldInvalidWebsiteMessage" xml:space="preserve">
-    <value>Zadaná hodnota není správnou adresou URL</value>
+    <value>Введенное значение не является корректным url адресом</value>
   </data>
   <data name="LinkingObject" xml:space="preserve">
-    <value>Vázaný objekt</value>
+    <value>Объект привязки</value>
   </data>
   <data name="LinkingParameters" xml:space="preserve">
-    <value>Nastavení vazby</value>
+    <value>Параметры привязки</value>
   </data>
   <data name="ListDoesNotSupportAppend" xml:space="preserve">
-    <value>Tento seznam nepodporuje operaci přidání.</value>
+    <value>Данный список не поддерживает операцию добавления.</value>
   </data>
   <data name="ListSeparator" xml:space="preserve">
     <value>, </value>
   </data>
   <data name="LoadAdvertisementResults" xml:space="preserve">
-    <value>Reklamní materiály</value>
+    <value>Рекламные материалы</value>
   </data>
   <data name="LoadMask" xml:space="preserve">
-    <value>Nahrávání...</value>
+    <value>Загрузка...</value>
   </data>
   <data name="LookupEmptyValue" xml:space="preserve">
-    <value>&lt;prázdná hodnota&gt;</value>
+    <value>&lt;пустое значение&gt;</value>
   </data>
   <data name="March" xml:space="preserve">
-    <value>Březen</value>
+    <value>Март</value>
   </data>
   <data name="MatchesNotFound" xml:space="preserve">
-    <value>Nebyly nalezeny žádné shody</value>
+    <value>Совпадений не найдено</value>
   </data>
   <data name="MaxDateText" xml:space="preserve">
-    <value>Datum v tomto poli nesmí překročit {0}</value>
+    <value>Дата в этом поле должна быть не больше {0}</value>
   </data>
   <data name="May" xml:space="preserve">
-    <value>Květen</value>
+    <value>Май</value>
   </data>
   <data name="MergeClientsAlert" xml:space="preserve">
-    <value>Po dokončení operace sloučení zůstane v systému hlavní klient, podřízený bude skrytý. Operaci nebude možné zrušit. Pokračovat?</value>
+    <value>После завершения операции слияния в системе останется основной Клиент, подчиненный будет скрыт. Операцию нельзя будет отменить. Продолжить?</value>
   </data>
   <data name="MinDateText" xml:space="preserve">
-    <value>Datum v tomto poli musí být po {0}</value>
+    <value>Дата в этом поле должна быть позже {0}</value>
   </data>
   <data name="Modified" xml:space="preserve">
-    <value>Změněno</value>
+    <value>Изменено</value>
   </data>
   <data name="ModifiedValue" xml:space="preserve">
-    <value>Stanovená hodnota</value>
+    <value>Установленное значение</value>
   </data>
   <data name="Monday" xml:space="preserve">
-    <value>Pondělí</value>
+    <value>Понедельник</value>
   </data>
   <data name="MonthlyLowerBoundText" xml:space="preserve">
-    <value>Hodnota musí odpovídat prvnímu dni v měsíci</value>
+    <value>Значение должно быть первым числом месяца</value>
   </data>
   <data name="MonthlyUpperBoundText" xml:space="preserve">
-    <value>Hodnota musí odpovídat poslednímu dni v měsíci</value>
+    <value>Значение должно быть последним числом месяца</value>
   </data>
   <data name="MultipleMatchesFound" xml:space="preserve">
-    <value>Bylo nalezeno několik shod</value>
+    <value>Найдено несколько совпадений</value>
   </data>
   <data name="MultiSelectionListFromListEmptyText" xml:space="preserve">
-    <value>Do pole „Vyhledat záznamy“ zadejte celý název záznamu nebo jeho část a stiskněte ikonu „Vyhledat záznamy“.</value>
+    <value>Введите все или часть имени записи в поле "Поиск записей" и нажмите значок "Поиск записей".</value>
   </data>
   <data name="MultiSelectionListSearchInstructions" xml:space="preserve">
-    <value>Zadejte hledané údaje do pole „Hledat“ a stiskněte ikonku „Najít“. Poté vyberte v seznamu „Dostupné záznamy“ požadované záznamy a přesuňte je do seznamu „Vybrané záznamy“.</value>
+    <value>Введите искомые данные в поле "Искать" и нажмите кнопку "Найти". Затем в списке "Доступные записи" выберите требуемые записи и переместите их в список "Выбранные записи".</value>
   </data>
   <data name="MultiSelectionListToListEmptyText" xml:space="preserve">
-    <value>Nebyl vybrán žádný záznam.</value>
+    <value>Не выбрано ни одной записи.</value>
   </data>
   <data name="MultiSelectionListTooManyRecordsAlert" xml:space="preserve">
-    <value>Nalezeno záznamů: více než 100. Pokud seznam neobsahuje požadovaný záznam, zkuste zadat jiné údaje pro vyhledávání.</value>
+    <value>Найдено записей: более 100. Если требуемая запись отсутствует в списке, попробуйте ввести другие данные для поиска.</value>
   </data>
   <data name="MustSelectOneOrMoreObject" xml:space="preserve">
-    <value>Pro provedení této operace je třeba předem vybrat jeden nebo více záznamů</value>
+    <value>Для выполнения этой операции необходимо предварительно выбрать одну или несколько записей</value>
   </data>
   <data name="MustSelectOnlyOneObject" xml:space="preserve">
-    <value>Pro provedení této operace je třeba vybrat pouze jeden jediný záznam</value>
+    <value>Для выполнения этой операции необходимо выбрать одну  и только одну запись</value>
   </data>
   <data name="NeedToSelectOneItem" xml:space="preserve">
-    <value>Pro provedení této operace je třeba vybrat jeden záznam.</value>
+    <value>Для выполнения данной операции необходимо выбрать одну запись.</value>
   </data>
   <data name="NeedToSelectOneOrTwoItems" xml:space="preserve">
-    <value>Pro provedení této operace je třeba vybrat jeden nebo dva záznamy</value>
+    <value>Для выполнения данной операции необходимо выбрать одну или две записи</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Ne</value>
+    <value>Нет</value>
   </data>
   <data name="NoteCreated" xml:space="preserve">
-    <value>Poznámka vytvořena</value>
+    <value>Примечание создано</value>
   </data>
   <data name="Notes" xml:space="preserve">
-    <value>Poznámky</value>
+    <value>Примечания</value>
   </data>
   <data name="November" xml:space="preserve">
-    <value>Listopad</value>
+    <value>Ноябрь</value>
   </data>
   <data name="October" xml:space="preserve">
-    <value>Říjen</value>
+    <value>Октябрь</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OpenText" xml:space="preserve">
-    <value>Otevřít</value>
+    <value>Открыть</value>
   </data>
   <data name="OrderCheck" xml:space="preserve">
-    <value>Kontrola objednávky</value>
+    <value>Проверка заказа</value>
   </data>
   <data name="OrderCheckFailed" xml:space="preserve">
-    <value>Nepodařilo se zkontrolovat objednávku</value>
+    <value>Не удалось проверить заказ</value>
   </data>
   <data name="OrderCheckProducedTheFollowingWarnings" xml:space="preserve">
-    <value>Objednávka je správná, během kontroly se však vyskytla následující upozornění:</value>
+    <value>Заказ корректен, однако в ходе проверки были обнаружены следующие предупреждения:</value>
   </data>
   <data name="OrderCheckResults" xml:space="preserve">
-    <value>Výsledky kontroly objednávky</value>
+    <value>Результаты проверки заказа</value>
   </data>
   <data name="OrderIsNotRelatedToAccount" xml:space="preserve">
-    <value>Objednávka není propojena s žádným osobním účtem</value>
+    <value>Заказ не связан ни с одним лицевым счётом</value>
   </data>
   <data name="OrderState" xml:space="preserve">
-    <value>Stav objednávky</value>
+    <value>Статус заказа</value>
   </data>
   <data name="OrderValidationFailed" xml:space="preserve">
-    <value>Nebylo možné provést kontrolu</value>
+    <value>Не удалось выполнить проверку</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
-    <value>Výchozí hodnota</value>
+    <value>Исходное значение</value>
   </data>
   <data name="PayablePlan" xml:space="preserve">
-    <value>K úhradě (plán.)</value>
+    <value>К оплате (план)</value>
   </data>
   <data name="Payment" xml:space="preserve">
-    <value>Vyúčtování</value>
+    <value>Платеж</value>
   </data>
   <data name="PaymentDatePlan" xml:space="preserve">
-    <value>Splatnost do</value>
+    <value>Дата оплаты, до</value>
   </data>
   <data name="Payments" xml:space="preserve">
-    <value>Vyúčtování</value>
+    <value>Платежи</value>
   </data>
   <data name="PriceForOrganizationUnitNotExists" xml:space="preserve">
-    <value>V systému momentálně chybí zveřejněný ceník pro město {0}</value>
+    <value>В системе на данный момент отсутствует опубликованный прайс-лист для города {0}</value>
   </data>
   <data name="PrintText" xml:space="preserve">
-    <value>Tisk</value>
+    <value>Печать</value>
   </data>
   <data name="ProcessMessagesConfirm" xml:space="preserve">
-    <value>Skutečně si přejete zpracovat vybrané zprávy?</value>
+    <value>Вы действительно хотите обработать выбранные сообщения?</value>
   </data>
   <data name="Properties" xml:space="preserve">
-    <value>Vlastnosti</value>
+    <value>Свойства</value>
   </data>
   <data name="PropertyName" xml:space="preserve">
-    <value>Měněné pole</value>
+    <value>Изменяемое поле</value>
   </data>
   <data name="RefreshText" xml:space="preserve">
-    <value>Aktualizovat seznam</value>
+    <value>Обновить список</value>
   </data>
   <data name="ReleaseCountPlanRangeMessage" xml:space="preserve">
-    <value>Plánovaný počet vydání musí být v rozsahu [1-12]</value>
+    <value>Планируемое число выпусков должно быть в диапазоне [1-12]</value>
   </data>
   <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Do pole „{0}“ je třeba zadat hodnotu</value>
+    <value>Необходимо указать значение для поля "{0}"</value>
   </data>
   <data name="Saturday" xml:space="preserve">
-    <value>Sobota</value>
+    <value>Суббота</value>
   </data>
   <data name="SearchInstructions" xml:space="preserve">
-    <value>Do pole „Hledat“ zadejte údaje, které potřebujete vyhledat, poté stiskněte ikonku „Najít“. Následně vyberte požadovaný záznam a stiskněte tlačítko OK.</value>
+    <value>Введите в поле "Искать" данные, которые требуется найти, и нажмите кнопку "Найти". Затем выберите требуемую запись, и нажмите кнопку OK.</value>
   </data>
   <data name="SelectedRecords" xml:space="preserve">
-    <value>Vybrané záznamy</value>
+    <value>Выбранные записи</value>
   </data>
   <data name="SelectObjectsToProcess" xml:space="preserve">
-    <value>Vyberte zprávy pro zpracování</value>
+    <value>Выберите сообщения для обработки</value>
   </data>
   <data name="SelectOneOrMoreRecords" xml:space="preserve">
-    <value>Je třeba vybrat alespoň jeden záznam pro odstranění.</value>
+    <value>Необходимо выбрать по крайней мере одну запись для удаления.</value>
   </data>
   <data name="SelectToWhiteList" xml:space="preserve">
-    <value>Vybrat</value>
+    <value>Выбрать</value>
   </data>
   <data name="SelectToWhiteListMatherial" xml:space="preserve">
-    <value>Výběr RM do Bílého seznamu</value>
+    <value>Выбор РМ белый список</value>
   </data>
   <data name="SelectToWhiteListMatherialFailed" xml:space="preserve">
-    <value>Při výběru RM do Bílého seznamu se vyskytla chyba. Zkuste opakovat operaci</value>
+    <value>При выборе РМ в белый список произошла ошибка. Попробуйте повторить операцию</value>
   </data>
   <data name="September" xml:space="preserve">
-    <value>Září</value>
+    <value>Сентябрь</value>
   </data>
   <data name="SourceEditText" xml:space="preserve">
-    <value>Přepnout na zdrojový kód.</value>
+    <value>Переключиться на исходный код.</value>
   </data>
   <data name="SourceEditTitle" xml:space="preserve">
-    <value>Zdrojový kód</value>
+    <value>Исходный код</value>
   </data>
   <data name="StartSearch" xml:space="preserve">
-    <value>Spustit vyhledávání</value>
+    <value>Начать поиск</value>
   </data>
   <data name="StatusLabel" xml:space="preserve">
-    <value>&lt;b&gt;Stav: &lt;/b&gt;</value>
+    <value>&lt;b&gt;Статус: &lt;/b&gt;</value>
   </data>
   <data name="SumRemainingMustBeNull" xml:space="preserve">
-    <value>Zůstatek objednávky se nerovná nule. Zůstatek je třeba rozdělit mezi faktury</value>
+    <value>Остаток суммы заказа не равен нулю. Необходимо распределить остаток по счетам</value>
   </data>
   <data name="Sunday" xml:space="preserve">
-    <value>Neděle</value>
+    <value>Воскресенье</value>
   </data>
   <data name="TabPanelItemCloseText" xml:space="preserve">
-    <value>Zavřít záložku</value>
+    <value>Закрыть вкладку</value>
   </data>
   <data name="TheAdvertisement" xml:space="preserve">
-    <value>Reklamní materiál</value>
+    <value>Рекламный материал</value>
   </data>
   <data name="Thursday" xml:space="preserve">
-    <value>Čtvrtek</value>
+    <value>Четверг</value>
   </data>
   <data name="TimeFormat" xml:space="preserve">
     <value>H:i:s</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Nadpis</value>
+    <value>Заголовок</value>
   </data>
   <data name="Total" xml:space="preserve">
-    <value>Celkem k zaplacení</value>
+    <value>Итого к оплате</value>
   </data>
   <data name="Tuesday" xml:space="preserve">
-    <value>Úterý</value>
+    <value>Вторник</value>
   </data>
   <data name="UnderlineText" xml:space="preserve">
-    <value>Podtrhávání vybraného textu.</value>
+    <value>Подчёркивание выделенного текста.</value>
   </data>
   <data name="UnderlineTitle" xml:space="preserve">
-    <value>Podtržený (Ctrl+U)</value>
+    <value>Подчёркнутый (Ctrl+U)</value>
   </data>
   <data name="UnknownFileSize" xml:space="preserve">
-    <value>Neznámá velikost</value>
+    <value>Размер неизвестен</value>
   </data>
   <data name="UploadFileQuestion" xml:space="preserve">
-    <value>Skutečně si přejete stáhnout soubor „{0}“ na server?</value>
+    <value>Вы действительно хотите загрузить файл "{0}" на сервер?</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
-    <value>Středa</value>
+    <value>Среда</value>
   </data>
   <data name="WorkInProgressPleaseStandBy" xml:space="preserve">
-    <value>Probíhá zpracování. Vyčkejte, prosím...</value>
+    <value>Работа выполняется. Пожалуйста, подождите...</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Ano</value>
+    <value>Да</value>
   </data>
   <data name="CloseBargains_CurrentBargainIsObsolete" xml:space="preserve">
-    <value>Stávající smlouva je neaktuální. Za účelem zveřejnění objednávky v rámci smlouvy je třeba vytvořit novou smlouvu</value>
+    <value>Текущий договор устарел, для размещения заказа в рамках договора необходимо создать новый договор</value>
   </data>
   <data name="IsWarmClientWarningFormat" xml:space="preserve">
-    <value>Vzhledem k tomu, že tento klient má úlohu „{0}“ uzavřenou {1} s typem „Potenciální klient“, byl vydán důvod obchodní transakce „Potenciální klient“</value>
+    <value>Выставлена причина сделки "Теплый клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Теплый клиент"</value>
   </data>
   <data name="BillCreationApprovalNeeded" xml:space="preserve">
-    <value>Je vyžadován souhlas!</value>
+    <value>Требуется согласование!</value>
   </data>
   <data name="BillMassCreateConfirmMessage" xml:space="preserve">
-    <value>Pozor! Pro vybranou skupinu objednávek budou vytvořeny faktury. Pokračovat?</value>
+    <value>Внимание! Будут созданы счета на оплату для выбранной группы заказов. Продолжить?</value>
   </data>
   <data name="RelatedOrdersDestination" xml:space="preserve">
-    <value>Cílové město</value>
+    <value>Город назначения</value>
   </data>
   <data name="RelatedOrdersIsSelected" xml:space="preserve">
-    <value>Vybrat</value>
+    <value>Выбрать</value>
   </data>
   <data name="RelatedOrdersNoOrders" xml:space="preserve">
-    <value>Neexistují objednávky, které by byly vhodné pro hromadné vystavení faktur</value>
+    <value>Нет заказов, подходящих для массового создания счетов на оплату</value>
   </data>
   <data name="RelatedOrdersNumber" xml:space="preserve">
-    <value>Číslo</value>
+    <value>Номер</value>
   </data>
   <data name="RelatedOrdersSource" xml:space="preserve">
-    <value>Výchozí město</value>
+    <value>Город источник</value>
   </data>
   <data name="BillMassCreateOrderHasZeroPayablePlan" xml:space="preserve">
-    <value>Není možné hromadně vystavit faktury se splátkami, jestliže pracujete s objednávkou, na které je částka k zaplacení rovna nule. V seznamu pro hromadné vystavení faktur nesmí být vybrané tyto objednávky.</value>
+    <value>Невозможно массовое создание счетов на оплату, с использованием рассрочки, используя заказ с нулевой суммой к оплате. Не должно быть выбранных заказов в списке для массового создания счетов на оплату.</value>
   </data>
   <data name="ValueCantBeEmpty" xml:space="preserve">
-    <value>Hodnota nemůže být prázdná</value>
+    <value>Значение не может быть пустым</value>
   </data>
   <data name="MergeLegalPersonsAlert" xml:space="preserve">
-    <value>Pozor! Po dokončení operace sloučení zůstane v systému pouze hlavní pr. osoba klienta, vedlejší pr. osoba klienta bude skrytá. Operaci nebude možné zrušit!</value>
+    <value>Внимание! После завершения операции слияния в системе останется только основное Юр. лицо клиента, не основное Юр. лицо клиента будет скрыто. Операцию нельзя будет отменить!</value>
   </data>
   <data name="MergeLegalPersonsSucceded" xml:space="preserve">
-    <value>Operace sloučení proběhla úspěšně</value>
+    <value>Операция слияния проведена успешно</value>
   </data>
   <data name="SomeOfTheClientsHaveDebtsAlert" xml:space="preserve">
-    <value>Pozor! Pokoušíte se vzít z rezervy klienta s pohledávkami!</value>
+    <value>Внимание! Вы пытаетесь взять из резерва Клиента с дебиторской задолженностью!</value>
   </data>
   <data name="CheckClientsDebtsFailed" xml:space="preserve">
-    <value>Nebylo možné zkontrolovat zůstatky vybraných klientů. Pravděpodobně někteří z vybraných klientů mají pohledávky.</value>
+    <value>Не удалось проверить долги выбранных клиентов. Возможно, у некоторых из выбранных клиентов имеются долги.</value>
   </data>
   <data name="InvalidSelectedPositionsCount" xml:space="preserve">
-    <value>Musí být vybrán následující počet položek: {0}</value>
+    <value>Должно быть выбрано позиций: {0}</value>
   </data>
   <data name="CanNotSelectHiddenPosition" xml:space="preserve">
-    <value>Je třeba vyměnit vázané objekty, které byly skryté, za aktuálně dostupné</value>
+    <value>Нужно заменить объекты привязки, которые были скрыты, на доступные на текущий момент</value>
   </data>
   <data name="HiddenItem" xml:space="preserve">
-    <value>(skrýt, dokud nebude vyjasněno)</value>
+    <value>(скрыт до выяснения)</value>
   </data>
   <data name="DeletedItem" xml:space="preserve">
-    <value>(skrýt navždy)</value>
+    <value>(скрыт навсегда)</value>
   </data>
   <data name="ListDoesNotSupportExcluding" xml:space="preserve">
-    <value>Tento seznam nepodporuje operaci vyloučení z pododdílu.</value>
+    <value>Данный список не поддерживает операцию исключения из подразделения.</value>
   </data>
   <data name="OrderRepairFailed" xml:space="preserve">
-    <value>Nebylo možné upravit položky objednávky</value>
+    <value>Не удалось исправить позиции заказа</value>
   </data>
   <data name="RepairOutdatedOrderPositions" xml:space="preserve">
-    <value>Aktualizovat objednávku dle aktuálního ceníku</value>
+    <value>Обновить заказ по актуальному прайс-листу</value>
   </data>
   <data name="RepairInProgressPleaseStandBy" xml:space="preserve">
-    <value>Probíhá oprava. Počkejte, prosím...</value>
+    <value>Выполняется исправление. Пожалуйста, подождите...</value>
   </data>
   <data name="DiscountResetWarning" xml:space="preserve">
-    <value>Ze všech položek objednávky budou odstraněny informace o slevách! Pokračovat?</value>
+    <value>По всем позициям заказа будет удалена информация о скидках! Продолжаем?</value>
   </data>
   <data name="OrderUpgradeProducedTheFollowingWarnings" xml:space="preserve">
-    <value>Po aktualizaci objednávky došlo k následujícím změnám:</value>
+    <value>Обновление заказа привело к следующим изменениям:</value>
   </data>
   <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
-    <value>Tento profil je již nastaven jako hlavní</value>
+    <value>Данный профиль уже является основным</value>
   </data>
   <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
-    <value>Pro účely vytvoření výtisků je nezbytné uvést pr. osobu objednatele</value>
+    <value>Для формирования ПФ необходимо указать юр. лицо заказчика</value>
   </data>
   <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
-    <value>Pro účely vytvoření výtisků je nezbytné uložit objednávku</value>
+    <value>Для формирования ПФ необходимо сохранить заказ</value>
   </data>
   <data name="GridViewColumns" xml:space="preserve">
-    <value>Sloupce</value>
+    <value>Столбцы</value>
   </data>
   <data name="GridViewSortAscText" xml:space="preserve">
-    <value>Třídit vzestupně</value>
+    <value>Сортировать по возрастанию</value>
   </data>
   <data name="GridViewSortDescText" xml:space="preserve">
-    <value>Třídit sestupně</value>
+    <value>Сортировать по убыванию</value>
   </data>
   <data name="Reports" xml:space="preserve">
-    <value>Výkazy</value>
+    <value>Отчёты</value>
   </data>
   <data name="OrderIsCorrect" xml:space="preserve">
-    <value>Objednávka je správná</value>
+    <value>Заказ корректен</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Hledat:</value>
+    <value>Искать:</value>
   </data>
   <data name="AdditionalServicesDoNotDisplay" xml:space="preserve">
-    <value>Nezobrazovat</value>
+    <value>Не отображать</value>
   </data>
   <data name="AdditionalServicesDisplay" xml:space="preserve">
-    <value>Zobrazovat</value>
+    <value>Отображать</value>
   </data>
   <data name="AdditionalServicesDefault" xml:space="preserve">
-    <value>Nezadáno</value>
+    <value>Не задано</value>
   </data>
   <data name="AdditionalServicesDependsOnAddress" xml:space="preserve">
-    <value>Závisí na adrese</value>
+    <value>Зависит от адреса</value>
   </data>
   <data name="AdditionalServicesValueNotFound" xml:space="preserve">
-    <value>Chybná hodnota!</value>
+    <value>Недопустимое значение!</value>
   </data>
   <data name="AdditionalServicesService" xml:space="preserve">
-    <value>Služba</value>
+    <value>Услуга</value>
   </data>
   <data name="AdditionalServicesDisplayService" xml:space="preserve">
-    <value>Zobrazovat službu</value>
+    <value>Отображать услугу</value>
   </data>
   <data name="FileNameNotSpecified" xml:space="preserve">
-    <value>není uveden název souboru</value>
+    <value>имя файла не указано</value>
   </data>
   <data name="ActivityDaysAndHoursFormat" xml:space="preserve">
-    <value>Dnů: {0}, hodin: {1}</value>
+    <value>Дней: {0}, часов: {1}</value>
   </data>
   <data name="ActivityDaysFormat" xml:space="preserve">
-    <value>Dnů: {0}</value>
+    <value>Дней: {0}</value>
   </data>
   <data name="CopyCurrentOrder" xml:space="preserve">
-    <value>Zkopírovat stávající objednávku</value>
+    <value>Скопировать текущий заказ</value>
   </data>
   <data name="CopyOrderWithTermination" xml:space="preserve">
-    <value>Vytvořit objednávku místo zrušené objednávky</value>
+    <value>Создать заказ вместо расторгнутого</value>
   </data>
   <data name="OrderCopying" xml:space="preserve">
-    <value>Kopírování objednávky</value>
+    <value>Копирование заказа</value>
   </data>
   <data name="OrderCopyingInProgress" xml:space="preserve">
-    <value>Objednávka se kopíruje. Počkejte, prosím...</value>
+    <value>Идёт копирование заказа. Пожалуйста, подождите...</value>
   </data>
   <data name="OrderCopyingFailure" xml:space="preserve">
-    <value>Nebylo možné zkopírovat objednávku</value>
+    <value>Не удалось скопировать заказ</value>
   </data>
   <data name="OrderCopyingCompleted" xml:space="preserve">
-    <value>Kopírování dokončeno</value>
+    <value>Копирование завершено</value>
   </data>
   <data name="OrderCopyingSuccess" xml:space="preserve">
-    <value>Objednávka byla zkopírována. Číslo nové objednávky - {entity}</value>
+    <value>Заказ скопирован. Номер нового заказа - {entity}</value>
   </data>
   <data name="LimitStatusOpened" xml:space="preserve">
-    <value>Otevřená</value>
+    <value>Открыт</value>
   </data>
   <data name="LimitStatusApproved" xml:space="preserve">
-    <value>Schválená</value>
+    <value>Одобрен</value>
   </data>
   <data name="LimitStatusRejected" xml:space="preserve">
-    <value>Zamítnutá</value>
+    <value>Отклонен</value>
   </data>
   <data name="LimitStatusError" xml:space="preserve">
-    <value>CHYBA</value>
+    <value>ОШИБКА</value>
   </data>
   <data name="AddCategory" xml:space="preserve">
-    <value>Přidat rubriku</value>
+    <value>Добавить рубрику</value>
   </data>
   <data name="BargainCreationIsInProgress" xml:space="preserve">
-    <value>Smlouva se generuje. Počkejte, prosím...</value>
+    <value>Идёт создание договора. Пожалуйста, подождите...</value>
   </data>
   <data name="BargainCreation" xml:space="preserve">
-    <value>Generování smlouvy</value>
+    <value>Создание договора</value>
   </data>
   <data name="BargainIsCreated" xml:space="preserve">
-    <value>Smlouva {entity} byla vytvořena</value>
+    <value>Создан договор {entity}</value>
   </data>
   <data name="ApplicationError" xml:space="preserve">
-    <value>Chyba programu</value>
+    <value>Ошибка программы</value>
   </data>
   <data name="Checking" xml:space="preserve">
-    <value>Kontrola</value>
+    <value>Проверка</value>
   </data>
   <data name="PleaseWaitWhileCheckingClientDebts" xml:space="preserve">
-    <value>Vyčkejte prosím. Právě probíhá kontrola stávajících pohledávek vybraných klientů.</value>
+    <value>Пожалуйста, подождите - идет проверка на наличие задолженности у выбранных клиентов</value>
   </data>
   <data name="CategoryName" xml:space="preserve">
-    <value>Název rubriky</value>
+    <value>Название рубрики</value>
   </data>
   <data name="DummyValue" xml:space="preserve">
-    <value>Zástupný materiál</value>
+    <value>Заглушка</value>
   </data>
   <data name="DummyValueWillBeApplied" xml:space="preserve">
-    <value>Místo reklamního materiálu bude použit zástupný materiál.</value>
+    <value>Вместо рекламного материала будет применена заглушка.</value>
   </data>
   <data name="AddressIsNotLocatedOnTheMap" xml:space="preserve">
-    <value>Adresa nemá vazbu na mapu</value>
+    <value>Адрес не привязан к карте</value>
   </data>
   <data name="InputValidationInvalidUrl" xml:space="preserve">
-    <value>Hodnota pole „{0}“ neni spravnou URL adresou</value>
+    <value>Значение поля "{0}" не является корректным url-адресом</value>
   </data>
   <data name="TextEditorOverflow" xml:space="preserve">
-    <value>Pocet symbolu presahuje povoleny pocet {0} symbolu o {1}.</value>
+    <value>Количество символов превышает допустимые {0} символов на {1}.</value>
   </data>
   <data name="SymbolsLeft" xml:space="preserve">
-    <value>Zbyvajici symboly: {0}</value>
+    <value>Символов осталось: {0}</value>
   </data>
   <data name="AdsCheckTooLongWord" xml:space="preserve">
-    <value>Ve slove '{0}' byl prekrocen maximalni pocet symbolu: {1} z moznych {2}.</value>
+    <value>В слове '{0}' превышено максимально допустимое количество символов: {1} из {2} возможных.</value>
   </data>
   <data name="TextEditorLineBreaksOverflow" xml:space="preserve">
-    <value>Pocet radku presahuje povoleny pocet {0} o {1}.</value>
+    <value>Количество строк превышает допустимые {0} на {1}.</value>
   </data>
   <data name="LineBreaksLeft" xml:space="preserve">
-    <value>Zbyvajicich radku {0}</value>
+    <value>Строк осталось {0}</value>
   </data>
   <data name="AdvertisementElementTextContainsHtmlTags" xml:space="preserve">
-    <value>Text obsahuje potenciálně nebezpečné prvky (HTML tagy), text nelze uložit.</value>
+    <value>Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.</value>
   </data>
   <data name="AdvertisementElementTextContainsControlCharacters" xml:space="preserve">
-    <value>Text obsahuje řídicí znaky, přejete si je před uložením odstranit?</value>
+    <value>Текст содержит управляющие символы, удалить их перед сохранением?</value>
   </data>
   <data name="AdvertisementElementWasNotSaved" xml:space="preserve">
-    <value>Element reklamního materiálu nebyl uložen.</value>
+    <value>Элемент РМ не был сохранён.</value>
   </data>
   <data name="OrderCreation" xml:space="preserve">
-    <value>Vytvoření objednávky</value>
+    <value>Создание заказа</value>
   </data>
   <data name="OrderCreationIsInProgress" xml:space="preserve">
-    <value>Probíhá vytvoření objednávky. Počkejte, prosím...</value>
+    <value>Идёт создание заказа. Пожалуйста, подождите...</value>
   </data>
   <data name="OrderIsCreated" xml:space="preserve">
-    <value>Objednávka {entity} byla vytvořena</value>
+    <value>Создан заказ {entity}</value>
   </data>
   <data name="OrderProcessingRequestCancelled" xml:space="preserve">
-    <value>Požadavek je zrušen</value>
+    <value>Заявка отменена</value>
   </data>
   <data name="MessageText" xml:space="preserve">
-    <value>Text zprávy</value>
+    <value>Текст сообщения</value>
   </data>
   <data name="MessageType" xml:space="preserve">
-    <value>Typ zprávy</value>
+    <value>Тип сообщения</value>
   </data>
   <data name="OrderRequestMessagesTabGroupRenderer" xml:space="preserve">
-    <value>Provedeno: {0}    Dne: {1}</value>
+    <value>Выполнено: {0}    Дата: {1}</value>
   </data>
   <data name="OrderRequestMessagesTabGroupTemplate" xml:space="preserve">
-    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "zpráva" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"zprávy":"zpráv"]})</value>
+    <value>{group} ({[values.rs.length]} {[values.rs.length%10 == 1 ? "сообщение" : values.rs.length%10&gt;0 &amp;&amp; values.rs.length%10&lt;5?"сообщения":"сообщений"]})</value>
   </data>
   <data name="OrderRequestMessagesTabTitle" xml:space="preserve">
-    <value>Zprávy pro pažadavek</value>
+    <value>Сообщения по заявке</value>
   </data>
   <data name="Task" xml:space="preserve">
-    <value>Úkol</value>
+    <value>Задача</value>
   </data>
   <data name="SetLimitStatusDialogConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete změnit stav limitu na</value>
+    <value>Вы действительно хотите изменить статус лимита на</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Cislo faktury</value>
+    <value>Номер</value>
   </data>
   <data name="IncomingMessages" xml:space="preserve">
-    <value>Příchozí zprávy</value>
+    <value>Входящие сообщения</value>
   </data>
   <data name="OutgoingMessages" xml:space="preserve">
-    <value>Odchozí zprávy</value>
+    <value>Исходящие сообщения</value>
   </data>
   <data name="SelectMessageToSave" xml:space="preserve">
-    <value>Vyberte zprávy pro uložení</value>
+    <value>Выберите сообщения для сохранения</value>
   </data>
   <data name="AdvertisingElementAccept" xml:space="preserve">
-    <value>Schválit</value>
+    <value>Одобрить</value>
   </data>
   <data name="AdvertisingElementValidate" xml:space="preserve">
-    <value>Ověření</value>
+    <value>Выверка</value>
   </data>
   <data name="ActionIsNotAvailableSinceThereIsAnError" xml:space="preserve">
-    <value>Operace není přípustná, protože ne všechny elementy jsou validní</value>
+    <value>Действие недоступно, т.к. не все элементы являются валидными</value>
   </data>
   <data name="PriceIsAlreadyPublished" xml:space="preserve">
-    <value>Ceník je již zveřejněn</value>
+    <value>Прайс-лист уже опубликован</value>
   </data>
   <data name="CantUnpublishPriceWhenUnpublished" xml:space="preserve">
-    <value>Není možné zrušit zveřejnění nezveřejněného ceníku</value>
+    <value>Нельзя отменить опубликование не опубликованного прайс-листа</value>
   </data>
   <data name="AdvertisementTemplatePublishConfirmationLabel" xml:space="preserve">
-    <value>Zveřejnit prvek šablony reklamního materiálu</value>
+    <value>Опубликовать шаблон рекламного материала</value>
   </data>
   <data name="AdvertisementTemplatePublishConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zveřejnit šablonu reklamního materiálu?</value>
+    <value>Вы действительно хотите опубликовать шаблон ракламного материала?</value>
   </data>
   <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
-    <value>Opravdu chcete publikovat šablonu reklamního materiálu?&lt;br/&gt;V kartě byly uskutečněny změny, které budou ztraceny při publikací.&lt;br/&gt;Pokud chcete změny uložit, stiskněte „Ne“ a uložte kartu.</value>
+    <value>Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите "нет" и сохраните карточку.</value>
   </data>
   <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
-    <value>Zrušit zveřejnění šablony reklamního materiálu</value>
+    <value>Отменить публикацию шаблона рекламного материала</value>
   </data>
   <data name="UnpublishAdvertisementTemplateConfirmation" xml:space="preserve">
-    <value>Skutečně si přejete zrušit zveřejnění šablony reklamního materiálu?</value>
+    <value>Вы действительно хотите отменить публикацию шаблона рекламного материала?</value>
   </data>
   <data name="CannotSetDefaultTheme" xml:space="preserve">
-    <value>Nepodařilo se stanovit téma dle výchozího nastavení</value>
+    <value>Не удалось установить тематику по умолчанию</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
-    <value>Chyba při uskutečnění operace</value>
+    <value>Ошибка выполнения операции</value>
   </data>
   <data name="AfterSalesServiceOperationStartedMessage" xml:space="preserve">
-    <value>Spuštěno vytvoření PPS. Tato akce nějakou dobu potrvá, její průběh můžete sledovat v protokolu operací.</value>
+    <value>Процесс создания ППС запущен. Это длительный процесс, отслеживать ход его выполнения можно в журнале операций.</value>
   </data>
   <data name="DisabledFunctionality" xml:space="preserve">
-    <value>Tato funkce je dočasně nedostupná</value>
+    <value>Данный функционал временно недоступен</value>
   </data>
   <data name="DealMustPickOtherReason" xml:space="preserve">
-    <value>Je třeba uvést jiný důvod ukončení obchodní transakce.</value>
+    <value>Необходимо указать другую причину закрытия Сделки.</value>
   </data>
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
-    <value> Tato PO již je hlavní</value>
+    <value> Данное юр. лицо уже является основным</value>
   </data>
 </root>
