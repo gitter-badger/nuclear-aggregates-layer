@@ -1,3 +1,6 @@
+using System;
+
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -16,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.PrintForms
 {
+    // FIXME {a.rechkalov, 10.11.2014}: IPrintValidationOperationService
     public sealed class PrintOrderBargainHandler : RequestHandler<PrintOrderBargainRequest, Response>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted
     {
         private readonly IBargainPrintFormReadModel _readModel;
@@ -25,6 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IOrderReadModel _orderReadModel;
         private readonly MultiCulturePrintHelper _printHelper;
+        private readonly IPrintValidationOperationService _validationService;
 
         public PrintOrderBargainHandler(IBargainPrintFormReadModel readModel,
                                         IBranchOfficeReadModel branchOfficeReadModel,
@@ -32,12 +37,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                                         IBargainPrintFormDataExtractor dataExtractor,
                                         ISubRequestProcessor requestProcessor,
                                         IFormatterFactory formatterFactory,
-                                        IOrderReadModel orderReadModel)
+                                        IOrderReadModel orderReadModel,
+                                        IPrintValidationOperationService validationService)
         {
             _readModel = readModel;
             _dataExtractor = dataExtractor;
             _requestProcessor = requestProcessor;
             _orderReadModel = orderReadModel;
+            _validationService = validationService;
             _branchOfficeReadModel = branchOfficeReadModel;
             _legalPersonReadModel = legalPersonReadModel;
             _printHelper = new MultiCulturePrintHelper(formatterFactory);
@@ -45,21 +52,27 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
-
-            if (bargainId == null)
+            long bargainId;
+            long legalPersonProfileId;
+            if (request.BargainId.HasValue && request.LegalPersonProfileId.HasValue)
             {
-                throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+                bargainId = request.BargainId.Value;
+                legalPersonProfileId = request.LegalPersonProfileId.Value;
+            }
+            else if (request.OrderId.HasValue)
+            {
+                _validationService.ValidateOrderForBargain(request.OrderId.Value);
+                bargainId = _orderReadModel.GetOrderBargainId(request.OrderId.Value);
+                legalPersonProfileId = _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
+            }
+            else
+            {
+                // ReSharper disable once LocalizableElement
+                throw new ArgumentException("Запрос дожен содержать BargainId & LegalPersonProfileId или OrderId", "request");
             }
 
-            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
-            if (legalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
-
-            var relations = _readModel.GetBargainRelationsDto(bargainId.Value);
-            var printData = GetPrintData(relations, bargainId.Value, legalPersonProfileId.Value);
+            var relations = _readModel.GetBargainRelationsDto(bargainId);
+            var printData = GetPrintData(relations, bargainId, legalPersonProfileId);
 
             if (relations.BranchOfficeOrganizationUnitId == null)
             {

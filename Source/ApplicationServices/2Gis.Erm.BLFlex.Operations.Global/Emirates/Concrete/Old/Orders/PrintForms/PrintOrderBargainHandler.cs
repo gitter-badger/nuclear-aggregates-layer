@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Compression;
@@ -32,31 +31,39 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintOrderBargainHandler(IFinder finder, ISubRequestProcessor requestProcessor, IOrderReadModel orderReadModel)
+        public PrintOrderBargainHandler(IFinder finder, ISubRequestProcessor requestProcessor, IOrderReadModel orderReadModel, IPrintValidationOperationService validationService)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
             _orderReadModel = orderReadModel;
+            _validationService = validationService;
         }
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
-            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
-
-            if (bargainId == null)
+            long bargainId;
+            long legalPersonProfileId;
+            if (request.BargainId.HasValue && request.LegalPersonProfileId.HasValue)
             {
-                throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+                bargainId = request.BargainId.Value;
+                legalPersonProfileId = request.LegalPersonProfileId.Value;
             }
-
-            if (legalPersonProfileId == null)
+            else if (request.OrderId.HasValue)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                _validationService.ValidateOrderForBargain(request.OrderId.Value);
+                bargainId = _orderReadModel.GetOrderBargainId(request.OrderId.Value);
+                legalPersonProfileId = _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
+            }
+            else
+            {
+                // ReSharper disable once LocalizableElement
+                throw new ArgumentException("Запрос дожен содержать BargainId & LegalPersonProfileId или OrderId", "request");
             }
 
             var bargainInfo =
-                _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
+                _finder.Find(Specs.Find.ById<Bargain>(bargainId))
                        .Select(x => new
             {
                                BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
@@ -66,10 +73,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
             if (bargainInfo == null)
             {
-                throw new EntityNotFoundException(typeof(Bargain), bargainId.Value);
+                throw new EntityNotFoundException(typeof(Bargain), bargainId);
             }
 
-            var printdata = GetPrintData(bargainId.Value, legalPersonProfileId.Value);
+            var printdata = GetPrintData(bargainId, legalPersonProfileId);
             var streamDictionary = DocumentVariants.Select(variant => PrintDocument(printdata,
                                                                                     bargainInfo.BranchOfficeOrganizationUnitId,
                                                                                     variant.Item2,

@@ -1,4 +1,4 @@
-using System.Linq;
+using System;
 
 using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -22,31 +22,47 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILocalizationSettings _localizationSettings;
         private readonly IPrintValidationOperationService _validationService;
+        private readonly IOrderReadModel _orderReadModel;
 
         public KazakhstanPrintOrderBargainHandler(
             IFinder finder,
             ISubRequestProcessor requestProcessor,
             ILocalizationSettings localizationSettings,
-            IPrintValidationOperationService validationService)
+            IPrintValidationOperationService validationService, 
+            IOrderReadModel orderReadModel)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
             _localizationSettings = localizationSettings;
             _validationService = validationService;
+            _orderReadModel = orderReadModel;
         }
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var legalPersonProfileId = request.LegalPersonProfileId 
-                ?? _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)).Select(order => order.LegalPersonProfileId).SingleOrDefault();
+            long bargainId;
+            long legalPersonProfileId;
+            if (request.BargainId.HasValue && request.LegalPersonProfileId.HasValue)
+            {
+                bargainId = request.BargainId.Value;
+                legalPersonProfileId = request.LegalPersonProfileId.Value;
+            }
+            else if (request.OrderId.HasValue)
+            {
+                _validationService.ValidateOrderForBargain(request.OrderId.Value);
+                bargainId = _orderReadModel.GetOrderBargainId(request.OrderId.Value);
+                legalPersonProfileId = _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
+            }
+            else
+            {
+                // ReSharper disable once LocalizableElement
+                throw new ArgumentException("Запрос дожен содержать BargainId & LegalPersonProfileId или OrderId", "request");
+            }
 
-            var bargainSpecification = request.BargainId.HasValue
-                                           ? Specs.Find.ById<Bargain>(request.BargainId.Value)
-                                           : OrderSpecs.Bargains.Find.ByOrder(request.OrderId.Value);
-            var bargain = _finder.FindOne(bargainSpecification);
+            var bargain = _finder.FindOne(Specs.Find.ById<Bargain>(bargainId));
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargain.ExecutorBranchOfficeId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(bargain.CustomerLegalPersonId));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId.Value));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId));
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId));
             var organizationUnit = _finder.FindOne(Specs.Find.ById<OrganizationUnit>(branchOfficeOrganizationUnit.OrganizationUnitId));
 

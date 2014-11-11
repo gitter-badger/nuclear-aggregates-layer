@@ -2,16 +2,14 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;
-using DoubleGis.Erm.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -33,6 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly IFormatter _shortDateFormatter;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPrintValidationOperationService _validationService;
 
         public ChilePrintOrderBargainHandler(IFinder finder,
                                              IBankReadModel bankReadModel,
@@ -40,7 +39,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                                              ILegalPersonReadModel legalPersonReadModel,
                                              IBranchOfficeReadModel branchOfficeReadModel,
                                              IFormatterFactory formatterFactory,
-                                             IOrderReadModel orderReadModel)
+                                             IOrderReadModel orderReadModel,
+                                             IPrintValidationOperationService validationService)
         {
             _finder = finder;
             _bankReadModel = bankReadModel;
@@ -48,48 +48,49 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
             _orderReadModel = orderReadModel;
+            _validationService = validationService;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
-            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
-
-            if (bargainId == null)
+            long bargainId;
+            long legalPersonProfileId;
+            if (request.BargainId.HasValue && request.LegalPersonProfileId.HasValue)
             {
-                throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+                bargainId = request.BargainId.Value;
+                legalPersonProfileId = request.LegalPersonProfileId.Value;
+            }
+            else if (request.OrderId.HasValue)
+            {
+                _validationService.ValidateOrderForBargain(request.OrderId.Value);
+                bargainId = _orderReadModel.GetOrderBargainId(request.OrderId.Value);
+                legalPersonProfileId = _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
+            }
+            else
+            {
+                // ReSharper disable once LocalizableElement
+                throw new ArgumentException("Запрос дожен содержать BargainId & LegalPersonProfileId или OrderId", "request");
             }
 
-            if (legalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
+            var bargainData = _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+                                     .Select(x => new
+                                                      {
+                                                          LegalPersonId = x.CustomerLegalPersonId,
+                                                          BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
 
-            var bargainData =
-                _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
-                       .Select(x => new
-            {
-                               LegalPersonId = x.CustomerLegalPersonId,
-                               BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
+                                                          BargainSignedOn = x.SignedOn,
+                                                          BargainNumber = x.Number,
+                                                          BranchOfficeName = x.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                                                          BranchOfficeLegalAddress = x.BranchOfficeOrganizationUnit.BranchOffice.LegalAddress,
+                                                          BranchOfficeInn = x.BranchOfficeOrganizationUnit.BranchOffice.Inn,
+                                                      })
+                                     .Single();
 
-                               BargainSignedOn = x.SignedOn,
-                               BargainNumber = x.Number,
-                               BranchOfficeName = x.BranchOfficeOrganizationUnit.BranchOffice.Name,
-                               BranchOfficeLegalAddress = x.BranchOfficeOrganizationUnit.BranchOffice.LegalAddress,
-                               BranchOfficeInn = x.BranchOfficeOrganizationUnit.BranchOffice.Inn,
-                           })
-                       .Single();
-
-            if (bargainData == null)
-            {
-                throw new EntityNotFoundException(typeof(Bargain), bargainId.Value);
-            }
-            
             var boou = _branchOfficeReadModel.GetBranchOfficeOrganizationUnit(bargainData.BranchOfficeOrganizationUnitId);
             var boouPart = boou.Parts.OfType<ChileBranchOfficeOrganizationUnitPart>().Single();
             var legalPerson = _legalPersonReadModel.GetLegalPerson(bargainData.LegalPersonId);
-            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
+            var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId);
             var legalPersonProfilePart = legalPersonProfile.Parts.OfType<ChileLegalPersonProfilePart>().Single();
 
             var bankName = legalPersonProfilePart.BankId.HasValue ? _bankReadModel.GetBank(legalPersonProfilePart.BankId.Value).Name : string.Empty;

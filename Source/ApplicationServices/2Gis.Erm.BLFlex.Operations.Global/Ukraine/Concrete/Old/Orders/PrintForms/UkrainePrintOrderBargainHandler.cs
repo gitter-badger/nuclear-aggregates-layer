@@ -1,12 +1,12 @@
+using System;
 using System.Linq;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DAL;
@@ -25,38 +25,47 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly UkrainePrintHelper _ukrainePrintHelper;
         private readonly IOrderReadModel _orderReadModel;
+        private readonly IPrintValidationOperationService _validationService;
 
         public UkrainePrintOrderBargainHandler(IFinder finder,
                                                ISubRequestProcessor requestProcessor,
                                                ILegalPersonReadModel legalPersonReadModel,
                                                IBranchOfficeReadModel branchOfficeReadModel,
                                                IFormatterFactory formatterFactory,
-                                               IOrderReadModel orderReadModel)
+                                               IOrderReadModel orderReadModel,
+                                               IPrintValidationOperationService validationService)
         {
             _finder = finder;
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
             _orderReadModel = orderReadModel;
+            _validationService = validationService;
             _ukrainePrintHelper = new UkrainePrintHelper(formatterFactory);
         }
 
         protected override Response Handle(PrintOrderBargainRequest request)
         {
-            var bargainId = request.BargainId ?? _orderReadModel.GetBargainIdByOrder(request.OrderId.Value);
-            var legalPersonProfileId = request.LegalPersonProfileId ?? _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
-
-            if (bargainId == null)
+            long bargainId;
+            long legalPersonProfileId;
+            if (request.BargainId.HasValue && request.LegalPersonProfileId.HasValue)
             {
-                throw new EntityNotLinkedException(typeof(Order), request.OrderId.Value, typeof(Bargain));
+                bargainId = request.BargainId.Value;
+                legalPersonProfileId = request.LegalPersonProfileId.Value;
+            }
+            else if (request.OrderId.HasValue)
+            {
+                _validationService.ValidateOrderForBargain(request.OrderId.Value);
+                bargainId = _orderReadModel.GetOrderBargainId(request.OrderId.Value);
+                legalPersonProfileId = _orderReadModel.GetOrderLegalPersonProfileId(request.OrderId.Value);
+            }
+            else
+            {
+                // ReSharper disable once LocalizableElement
+                throw new ArgumentException("Запрос дожен содержать BargainId & LegalPersonProfileId или OrderId", "request");
             }
 
-            if (legalPersonProfileId == null)
-            {
-                throw new LegalPersonProfileMustBeSpecifiedException();
-            }
-
-            var bargainInfo = _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
+            var bargainInfo = _finder.Find(Specs.Find.ById<Bargain>(bargainId))
                                      .Select(x => new
                                                       {
                                                           Bargain = x,
@@ -68,7 +77,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                                       })
                                      .Single();
 
-            var profile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
+            var profile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(bargainInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(bargainInfo.BranchOfficeId);
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargainInfo.BranchOfficeOrganizationUnitId));
