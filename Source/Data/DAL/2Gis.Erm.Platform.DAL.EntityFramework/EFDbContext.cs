@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-    public class EFDbContext : IDbContext
+    public sealed class EFDbContext : IDbContext
     {
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed. Suppression is OK here.")]
         private readonly DbContext _dbContext;

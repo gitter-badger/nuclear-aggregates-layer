@@ -28,7 +28,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             var sqlConnection = new SqlConnection(connectionString);
 
             var dbModel = GetDbModel(domainContextMetadata, sqlConnection);
-
+           
+            // TODO {a.tukaev, 11.11.2014}: возможно стоит использовать непосредственно DbContext через один из его конструкторов, вместо прослойки в виде ObjectContext
             return dbModel.CreateObjectContext<ObjectContext>(sqlConnection);
         }
 

@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-    public class DomainContextMetadataProvider : IDomainContextMetadataProvider
+    public sealed class DomainContextMetadataProvider : IDomainContextMetadataProvider
     {
         private readonly IEntityContainerNameResolver _entityContainerNameResolver;
         private readonly IConnectionStringNameResolver _connectionStringNameResolver;

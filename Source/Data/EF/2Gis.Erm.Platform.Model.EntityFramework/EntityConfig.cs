@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework
     public abstract class EntityConfig<TEntity, TEntityContainer> : EntityTypeConfiguration<TEntity>,
                                                                     IEfDbModelConfiguration
         where TEntity : class, IEntity
-        where TEntityContainer : IEntityContainer, new()
+        where TEntityContainer : class, IEntityContainer, new()
     {
         private static readonly Lazy<TEntityContainer> LazyContainer = new Lazy<TEntityContainer>(() => new TEntityContainer());
 

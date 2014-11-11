@@ -53,6 +53,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public short ReleaseCountFact { get; set; }
         public long? LegalPersonId { get; set; }
         public long? BranchOfficeOrganizationUnitId { get; set; }
+        // TODO {a.tukaev, 10.11.2014}: может избавиться от суффикса Id
         public OrderState WorkflowStepId { get; set; }
         public OrderDiscountReason DiscountReasonEnum { get; set; }
         public string DiscountComment { get; set; }

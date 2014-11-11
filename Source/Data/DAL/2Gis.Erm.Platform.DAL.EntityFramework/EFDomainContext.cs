@@ -5,7 +5,6 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
@@ -59,7 +58,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        public int SaveChanges(SaveOptions options)
+        int IModifiableDomainContext.SaveChanges(SaveOptions options)
         {
             foreach (var entry in _dbContext.Entries())
             {
@@ -101,7 +100,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
         }
 
-        public void AcceptAllChanges()
+        void IModifiableDomainContext.AcceptAllChanges()
         {
             _dbContext.AcceptAllChanges();
         }

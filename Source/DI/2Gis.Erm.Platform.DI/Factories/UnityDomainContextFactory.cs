@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
+﻿using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;

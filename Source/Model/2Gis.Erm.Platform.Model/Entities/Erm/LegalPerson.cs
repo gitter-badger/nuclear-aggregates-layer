@@ -37,6 +37,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long? ClientId { get; set; }
         public string LegalName { get; set; }
         public string ShortName { get; set; }
+        // TODO {a.tukaev, 10.11.2014}: опять же стоит избавиться от суффикса Enum
         public LegalPersonType LegalPersonTypeEnum { get; set; }
         public string LegalAddress { get; set; }
         public string Inn { get; set; }
