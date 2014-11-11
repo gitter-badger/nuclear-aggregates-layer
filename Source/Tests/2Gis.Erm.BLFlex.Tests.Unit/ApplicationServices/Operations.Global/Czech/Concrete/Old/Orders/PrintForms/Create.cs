@@ -1,6 +1,6 @@
 using System.Linq;
 
-using DoubleGis.Erm.BL.API.Operations.Concrete.Order;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
