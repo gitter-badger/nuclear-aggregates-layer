@@ -65,16 +65,19 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                 operationScope.Updated(currentStatus);
 
                 var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { currentStatus.Id });
-                _registerOrderStateChangesOperationService.Changed(orderIds.Select(x =>
-                                                                                   new OrderChangesDescriptor
-                                                                                       {
-                                                                                           OrderId = x,
-                                                                                           ChangedAspects =
-                                                                                               new[]
-                                                                                                   {
-                                                                                                       OrderValidationRuleGroup.AdvertisementMaterialsValidation
-                                                                                                   }
-                                                                                       }));
+                if (orderIds.Count > 0)
+                {
+                    _registerOrderStateChangesOperationService.Changed(orderIds.Select(x =>
+                                                                                       new OrderChangesDescriptor
+                                                                                           {
+                                                                                               OrderId = x,
+                                                                                               ChangedAspects =
+                                                                                                   new[]
+                                                                                                       {
+                                                                                                           OrderValidationRuleGroup.AdvertisementMaterialsValidation
+                                                                                                       }
+                                                                                           }));
+                }
 
                 operationScope.Complete();
                 return count;

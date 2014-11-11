@@ -108,16 +108,19 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                 }
 
                 var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { currentStatus.Id });
-                _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
-                                                                                            {
-                                                                                                OrderId = x,
-                                                                                                ChangedAspects =
-                                                                                                    new[]
-                                                                                                        {
-                                                                                                            OrderValidationRuleGroup
-                                                                                                                .AdvertisementMaterialsValidation
-                                                                                                        }
-                                                                                            }));
+                if (orderIds.Count > 0)
+                {
+                    _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
+                                                                                                {
+                                                                                                    OrderId = x,
+                                                                                                    ChangedAspects =
+                                                                                                        new[]
+                                                                                                            {
+                                                                                                                OrderValidationRuleGroup
+                                                                                                                    .AdvertisementMaterialsValidation
+                                                                                                            }
+                                                                                                }));
+                }
 
                 _notifyAboutAdvertisementElementValidationStatusChangedOperationService.Notify(currentStatus.Id);
 
