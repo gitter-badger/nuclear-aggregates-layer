@@ -62,19 +62,19 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
                                                           .Parameter(x => x.ModifiedOn, "ModifiedOn"))
                                             .Update(u => u.HasName("DepartmentUpdate", "Security")
                                                           .Parameter(x => x.Id, "i_DepartmentID")
-                                                          .Parameter(x => x.Id, "@i_Name")
-                                                          .Parameter(x => x.Id, "@i_ParentId")
-                                                          .Parameter(x => x.Id, "@i_IsActive")
-                                                          .Parameter(x => x.Id, "@i_timestamp")
-                                                          .Parameter(x => x.Id, "@ModifiedBy")
-                                                          .Parameter(x => x.Id, "@ModifiedOn")
+                                                          .Parameter(x => x.Name, "@i_Name")
+                                                          .Parameter(x => x.ParentId, "@i_ParentId")
+                                                          .Parameter(x => x.IsActive, "@i_IsActive")
+                                                          .Parameter(x => x.Timestamp, "@i_timestamp")
+                                                          .Parameter(x => x.ModifiedBy, "@ModifiedBy")
+                                                          .Parameter(x => x.ModifiedOn, "@ModifiedOn")
 
                                                              // ignored
-                                                          .Parameter(x => x.Id, "@LeftBorder")
-                                                          .Parameter(x => x.Id, "@RightBorder")
-                                                          .Parameter(x => x.Id, "@IsDeleted")
-                                                          .Parameter(x => x.Id, "@CreatedBy")
-                                                          .Parameter(x => x.Id, "@CreatedOn")
+                                                          .Parameter(x => x.LeftBorder, "@LeftBorder")
+                                                          .Parameter(x => x.RightBorder, "@RightBorder")
+                                                          .Parameter(x => x.IsDeleted, "@IsDeleted")
+                                                          .Parameter(x => x.CreatedBy, "@CreatedBy")
+                                                          .Parameter(x => x.CreatedOn, "@CreatedOn")
                                                           .RowsAffectedParameter("RowsAffected")));
         }
     }
