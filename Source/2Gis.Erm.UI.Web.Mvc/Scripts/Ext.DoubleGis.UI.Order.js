@@ -189,6 +189,7 @@ window.InitPage = function () {
                 },
                 Print: function (methodName) {
                     var entityId = Ext.getDom('Id').value;
+                    var legalPersonId = Ext.getDom("LegalPersonId").value;
 
                     if (this.isDirty) {
                         Ext.Msg.show({
@@ -198,6 +199,15 @@ window.InitPage = function () {
                             icon: Ext.MessageBox.ERROR
                         });
                         return;
+                    }
+
+                    if (legalPersonId == '') {
+                        Ext.Msg.show({
+                            title: Ext.LocalizedResources.Error,
+                            msg: Ext.LocalizedResources.YouHaveToChooseLegalPersonToPrintOrder,
+                            buttons: Ext.Msg.OK,
+                            icon: Ext.MessageBox.ERROR
+                        });
                     }
 
                     if (entityId == '' || entityId == 0) {
