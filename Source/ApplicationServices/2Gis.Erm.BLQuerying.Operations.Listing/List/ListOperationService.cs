@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -43,8 +42,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     OwnerCode = x.OwnerCode,
                     Description = x.Description,
                     Owner = null,
-                    Status = (x.Status).ToStringLocalizedExpression(),
-                    Type = (x.Type).ToStringLocalizedExpression(),
+                    Status = x.Status.ToStringLocalizedExpression(),
+                    Type = x.Type.ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

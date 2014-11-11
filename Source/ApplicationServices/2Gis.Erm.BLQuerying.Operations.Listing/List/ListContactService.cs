@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 IsActive = x.IsActive,
                 IsDeleted = x.IsDeleted,
                 IsFired = x.IsFired,
-                AccountRole = (x.AccountRole).ToStringLocalizedExpression(),
+                AccountRole = x.AccountRole.ToStringLocalizedExpression(),
                 Owner = null,
             })
             .QuerySettings(_filterHelper, querySettings);

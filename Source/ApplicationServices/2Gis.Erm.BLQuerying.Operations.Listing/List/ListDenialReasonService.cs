@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         Name = x.Name,
                         CreatedOn = x.CreatedOn,
                         IsActive = x.IsActive,
-                        Type = (x.Type).ToStringLocalizedExpression(),
+                        Type = x.Type.ToStringLocalizedExpression(),
                     })
                 .QuerySettings(_filterHelper, querySettings);
         }

@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsDeleted = x.IsDeleted,
                     ExecutorBranchOfficeId = x.ExecutorBranchOfficeId,
                     BargainKindEnum = x.BargainKind,
-                    BargainKind = (x.BargainKind).ToStringLocalizedExpression(),
+                    BargainKind = x.BargainKind.ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

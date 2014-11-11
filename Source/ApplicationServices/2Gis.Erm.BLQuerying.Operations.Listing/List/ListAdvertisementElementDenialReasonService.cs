@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -53,7 +52,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         Comment = x.Comment,
                         Checked = true,
                         IsActive = x.DenialReason.IsActive,
-                        DenialReasonType = (x.DenialReason.Type).ToStringLocalizedExpression(),
+                        DenialReasonType = x.DenialReason.Type.ToStringLocalizedExpression(),
                     })
                 .QuerySettings(_filterHelper, querySettings);
 

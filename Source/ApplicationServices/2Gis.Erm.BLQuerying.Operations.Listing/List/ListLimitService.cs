@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
@@ -8,7 +7,6 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -71,7 +69,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsDeleted = x.IsDeleted,
                     LegalPersonId = x.Account.LegalPersonId,
                     OwnerName = null,
-                    Status = (x.Status).ToStringLocalizedExpression(),
+                    Status = x.Status.ToStringLocalizedExpression(),
                     InspectorName = null,
                 })
                 .QuerySettings(_filterHelper, querySettings);

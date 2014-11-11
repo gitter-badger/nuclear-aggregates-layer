@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     SenderSystemEnum = (IntegrationSystem)x.MessageType.SenderSystem,
                     ReceiverSystemEnum = (IntegrationSystem)x.MessageType.ReceiverSystem,
                     IntegrationType = null,
-                    Status = (x.Status).ToStringLocalizedExpression(),
+                    Status = x.Status.ToStringLocalizedExpression(),
                     ReceiverSystem = ((IntegrationSystem)x.MessageType.ReceiverSystem).ToStringLocalizedExpression(),
                     SenderSystem = ((IntegrationSystem)x.MessageType.SenderSystem).ToStringLocalizedExpression(),
                 })

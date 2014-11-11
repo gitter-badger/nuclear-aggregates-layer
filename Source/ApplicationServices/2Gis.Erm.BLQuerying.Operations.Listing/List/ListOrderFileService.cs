@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     FileName = x.File.FileName,
                     OrderId = x.OrderId,
                     IsDeleted = x.IsDeleted,
-                    FileKind = (x.FileKind).ToStringLocalizedExpression(),
+                    FileKind = x.FileKind.ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

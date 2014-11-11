@@ -18,8 +18,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly FilterHelper _filterHelper;
 
         public ListOrderProcessingRequestService(
-            IFinder finder, 
-            ISecurityServiceUserIdentifier userIdentifierService, FilterHelper filterHelper)
+            IFinder finder,
+            ISecurityServiceUserIdentifier userIdentifierService,
+            FilterHelper filterHelper)
         {
             _finder = finder;
             _userIdentifierService = userIdentifierService;
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CreatedOn = x.CreatedOn,
                     IsDeleted = x.IsDeleted,
                     OwnerName = null,
-                    State = (x.State).ToStringLocalizedExpression(),
+                    State = x.State.ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }
