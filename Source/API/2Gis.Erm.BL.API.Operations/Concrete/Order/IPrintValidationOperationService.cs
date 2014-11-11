@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.BL.API.Operations.Concrete.Order
     public interface IPrintValidationOperationService : IOperation<PrintValidationIdentity>
     {
         void ValidateOrder(long orderId);
+        void ValidateOrderForBargain(long orderId);
         void ValidateBill(long billId);
     }
 }

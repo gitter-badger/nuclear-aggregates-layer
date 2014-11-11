@@ -28,13 +28,19 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Order
             Validate(Specs.Find.ById<Platform.Model.Entities.Erm.Order>(orderId), OrderSpecs.Orders.Select.OrderPrintValidationDto());
         }
 
+        public void ValidateOrderForBargain(long orderId)
+        {
+            Validate(Specs.Find.ById<Platform.Model.Entities.Erm.Order>(orderId), OrderSpecs.Orders.Select.OrderForBargainPrintValidationDto());
+        }
+
         public void ValidateBill(long billId)
         {
             Validate(Specs.Find.ById<Platform.Model.Entities.Erm.Bill>(billId), OrderSpecs.Bills.Select.OrderPrintValidationDto());
         }
 
-        public void Validate<T>(IFindSpecification<T> filter, ISelectSpecification<T, OrderPrintValidationDto> projection) 
+        public void Validate<T, TDto>(IFindSpecification<T> filter, ISelectSpecification<T, TDto> projection) 
             where T : class, IEntity
+            where TDto : OrderPrintValidationDto
         {
             var dtos = _finder.Find(projection, filter).Take(2).ToArray();
 
@@ -64,6 +70,12 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Order
             if (dto.BranchOfficeOrganizationUnitId == null)
             {
                 throw new RequiredFieldIsEmptyException(string.Format(BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
+            }
+
+            var bargainDto = dto as OrderForBargainPrintValidationDto;
+            if (bargainDto != null && bargainDto.BargainId == null)
+            {
+                throw new RequiredFieldIsEmptyException(string.Format(BLResources.OrderFieldNotSpecified, MetadataResources.Bargain));
             }
         }
     }
