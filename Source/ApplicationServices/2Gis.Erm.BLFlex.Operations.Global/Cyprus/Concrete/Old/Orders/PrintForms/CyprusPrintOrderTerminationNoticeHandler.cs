@@ -21,19 +21,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
         private readonly IFinder _finder;
         private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IPrintValidationOperationService _validationService;
 
-        public CyprusPrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder, IPrintValidationOperationService validationService)
+        public CyprusPrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
-            _validationService = validationService;
             _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
@@ -66,6 +63,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                       BranchOfficeId = (long?)order.BranchOfficeOrganizationUnit.BranchOfficeId
                                   })
                               .Single();
+
+            if (data.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             var branchOffice = data.BranchOfficeId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId.Value))

@@ -25,27 +25,33 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         private readonly IBranchOfficeReadModel _branchOfficeReadModel; 
         private readonly IOrderPrintFormReadModel _orderPrintFormReadModel;
         private readonly IOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
-        private readonly IPrintValidationOperationService _validationService;
 
         public PrintOrderHandler(ISubRequestProcessor requestProcessor,
                                  ILegalPersonReadModel legalPersonReadModel,
                                  IBranchOfficeReadModel branchOfficeReadModel,
                                  IOrderPrintFormReadModel orderPrintFormReadModel,
-                                 IOrderPrintFormDataExtractor orderPrintFormDataExtractor,
-                                 IPrintValidationOperationService validationService)
+                                 IOrderPrintFormDataExtractor orderPrintFormDataExtractor)
         {
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
             _orderPrintFormReadModel = orderPrintFormReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
-            _validationService = validationService;
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
             var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
+            if (orderInfo.BranchOfficeOrganizationUnitId == null)
+            {
+                throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
+            }
 
             var templateCode = GetTemplateCode(request, orderInfo);
             var printDocumentRequest = new PrintDocumentRequest

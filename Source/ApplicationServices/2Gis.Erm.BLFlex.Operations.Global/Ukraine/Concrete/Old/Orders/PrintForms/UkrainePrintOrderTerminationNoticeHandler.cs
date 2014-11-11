@@ -22,23 +22,18 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
-        private readonly IPrintValidationOperationService _validationService;
 
         public UkrainePrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor,
                                                          IFinder finder,
-                                                         ILegalPersonReadModel legalPersonReadModel,
-                                                         IPrintValidationOperationService validationService)
+                                                         ILegalPersonReadModel legalPersonReadModel)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
-            _validationService = validationService;
         }
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
-
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
@@ -66,6 +61,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                            x.LegalPersonProfileId,
                                        })
                                    .Single();
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             if (!orderInfo.IsTerminated)
             {

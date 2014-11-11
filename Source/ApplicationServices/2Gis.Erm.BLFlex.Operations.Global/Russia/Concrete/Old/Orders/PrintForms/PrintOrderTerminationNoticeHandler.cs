@@ -21,20 +21,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         private readonly IFinder _finder;
         private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder, IPrintValidationOperationService validationService)
+        public PrintOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
-            _validationService = validationService;
             _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
-
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                                  {
@@ -67,6 +63,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                         order.BranchOfficeOrganizationUnit.BranchOfficeId
                     })
                 .Single();
+
+            if (data.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))

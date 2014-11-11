@@ -23,19 +23,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IUserContext userContext, IFinder finder, IPrintValidationOperationService validationService)
+        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IUserContext userContext, IFinder finder)
         {
             _finder = finder;
-            _validationService = validationService;
             _userContext = userContext;
             _requestProcessor = requestProcessor;
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
@@ -48,6 +45,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                                            order.LegalPersonProfileId,
                                        })
                                    .Single();
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             if (!orderInfo.IsTerminated)
             {

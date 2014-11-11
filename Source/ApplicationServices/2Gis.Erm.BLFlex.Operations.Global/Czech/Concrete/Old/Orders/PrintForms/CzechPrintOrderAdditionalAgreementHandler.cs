@@ -26,18 +26,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
     {
         private readonly IFinder _finder;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IPrintValidationOperationService _validationService;
 
-        public CzechPrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFinder finder, IPrintValidationOperationService validationService)
+        public CzechPrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFinder finder)
         {
             _finder = finder;
-            _validationService = validationService;
             _requestProcessor = requestProcessor;
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new
@@ -48,6 +45,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                             order.LegalPersonProfileId,
                         })
                     .Single();
+
+            if (orderInfoValidation.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             if (!orderInfoValidation.IsTerminated)
             {

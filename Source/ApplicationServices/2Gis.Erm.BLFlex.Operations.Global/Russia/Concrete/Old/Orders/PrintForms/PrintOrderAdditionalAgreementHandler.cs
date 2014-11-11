@@ -23,12 +23,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         private readonly IFormatter _longDateFormatter;
         private readonly IFormatter _shortDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder, IPrintValidationOperationService validationService)
+        public PrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _finder = finder;
-            _validationService = validationService;
             _requestProcessor = requestProcessor;
             _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
@@ -36,7 +34,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
             var orderInfo =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                        .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
@@ -71,6 +68,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                         order.BranchOfficeOrganizationUnitId,
                     })
                 .Single();
+
+            if (data.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
                 ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))

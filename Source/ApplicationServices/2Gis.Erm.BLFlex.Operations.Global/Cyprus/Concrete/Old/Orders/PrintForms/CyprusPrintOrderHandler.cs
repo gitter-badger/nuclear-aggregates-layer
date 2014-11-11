@@ -5,7 +5,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -20,15 +22,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
         private readonly IOrderPrintFormReadModel _orderPrintFormReadModel;
         private readonly IOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
         private readonly IFirmReadModel _firmReadModel;
-        private readonly IPrintValidationOperationService _validationService;
 
         public CyprusPrintOrderHandler(ISubRequestProcessor requestProcessor,
                                        ILegalPersonReadModel legalPersonReadModel,
                                        IBranchOfficeReadModel branchOfficeReadModel,
                                        IOrderPrintFormReadModel orderPrintFormReadModel,
                                        IOrderPrintFormDataExtractor orderPrintFormDataExtractor,
-                                       IFirmReadModel firmReadModel,
-                                       IPrintValidationOperationService validationService)
+                                       IFirmReadModel firmReadModel)
         {
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
@@ -36,13 +36,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             _orderPrintFormReadModel = orderPrintFormReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
             _firmReadModel = firmReadModel;
-            _validationService = validationService;
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
             var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
+            if (orderInfo.BranchOfficeOrganizationUnitId == null)
+            {
+                throw new NotificationException(BLResources.OrderHasNoBranchOfficeOrganizationUnit);
+            }
 
             var printDocumentRequest = new PrintDocumentRequest
                 {

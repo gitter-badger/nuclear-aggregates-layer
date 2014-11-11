@@ -22,15 +22,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         private readonly IOrderPrintFormReadModel _orderPrintFormReadModel;
         private readonly IUkraineOrderPrintFormDataExtractor _orderPrintFormDataExtractor;
         private readonly IFirmReadModel _firmReadModel;
-        private readonly IPrintValidationOperationService _validationService;
 
         public UkrainePrintOrderHandler(ISubRequestProcessor requestProcessor,
                                         ILegalPersonReadModel legalPersonReadModel,
                                         IBranchOfficeReadModel branchOfficeReadModel,
                                         IOrderPrintFormReadModel orderPrintFormReadModel,
                                         IUkraineOrderPrintFormDataExtractor orderPrintFormDataExtractor,
-                                        IFirmReadModel firmReadModel,
-                                        IPrintValidationOperationService validationService)
+                                        IFirmReadModel firmReadModel)
         {
             _requestProcessor = requestProcessor;
             _legalPersonReadModel = legalPersonReadModel;
@@ -38,14 +36,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             _orderPrintFormReadModel = orderPrintFormReadModel;
             _orderPrintFormDataExtractor = orderPrintFormDataExtractor;
             _firmReadModel = firmReadModel;
-            _validationService = validationService;
         }
 
         protected override StreamResponse Handle(PrintOrderRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
-
             var orderInfo = _orderPrintFormReadModel.GetOrderRelationsDto(request.OrderId);
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {

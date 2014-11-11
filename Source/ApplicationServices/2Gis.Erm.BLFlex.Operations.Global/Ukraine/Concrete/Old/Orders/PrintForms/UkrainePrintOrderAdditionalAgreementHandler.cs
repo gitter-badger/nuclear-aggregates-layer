@@ -26,27 +26,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModelReadModel;
         private readonly UkrainePrintHelper _ukrainePrintHelper;
-        private readonly IPrintValidationOperationService _validationService;
 
         public UkrainePrintOrderAdditionalAgreementHandler(ISubRequestProcessor requestProcessor,
                                                            IFinder finder,
                                                            ILegalPersonReadModel legalPersonReadModel,
                                                            IBranchOfficeReadModel branchOfficeReadModelReadModel,
-                                                           IFormatterFactory formatterFactory,
-                                                           IPrintValidationOperationService validationService)
+                                                           IFormatterFactory formatterFactory)
         {
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModelReadModel = branchOfficeReadModelReadModel;
-            _validationService = validationService;
             _requestProcessor = requestProcessor;
             _ukrainePrintHelper = new UkrainePrintHelper(formatterFactory);
         }
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
-
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
@@ -84,6 +79,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                order.LegalPersonProfileId,
                            })
                        .Single();
+
+            if (orderInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);

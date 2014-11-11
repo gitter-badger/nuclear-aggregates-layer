@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
@@ -27,27 +28,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
         private readonly UkrainePrintHelper _ukrainePrintHelper;
-        private readonly IPrintValidationOperationService _validationService;
 
         public UkrainePrintBillHandler(ISubRequestProcessor requestProcessor,
                                        IFinder finder,
                                        ILegalPersonReadModel legalPersonReadModel,
                                        IBranchOfficeReadModel branchOfficeReadModel,
-                                       IFormatterFactory formatterFactory,
-                                       IPrintValidationOperationService validationService)
+                                       IFormatterFactory formatterFactory)
         {
             _finder = finder;
             _legalPersonReadModel = legalPersonReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
-            _validationService = validationService;
             _requestProcessor = requestProcessor;
             _ukrainePrintHelper = new UkrainePrintHelper(formatterFactory);
         }
 
         protected override Response Handle(PrintBillRequest request)
         {
-            _validationService.ValidateBill(request.BillId);
-            
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
                                       {
@@ -68,6 +64,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
             if (billInfo == null)
             {
                 throw new NotificationException(BLResources.SpecifiedBillNotFound);
+            }
+
+            if (billInfo.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
+            if (billInfo.BranchOfficeOrganizationUnitId == null)
+            {
+                throw new RequiredFieldIsEmptyException(string.Format(Resources.Server.Properties.BLResources.OrderFieldNotSpecified, MetadataResources.BranchOfficeOrganizationUnit));
             }
 
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(billInfo.BranchOfficeId.Value);

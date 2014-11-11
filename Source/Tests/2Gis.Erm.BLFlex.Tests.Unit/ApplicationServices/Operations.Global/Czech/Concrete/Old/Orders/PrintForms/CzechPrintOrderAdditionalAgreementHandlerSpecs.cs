@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         class TestableCzechPrintOrderAdditionalAgreementHandler : CzechPrintOrderAdditionalAgreementHandler
         {
             public TestableCzechPrintOrderAdditionalAgreementHandler()
-                : base(null, Create.FinderForPrintForms(), Create.Validator())
+                : base(null, Create.FinderForPrintForms())
             {
             }
 

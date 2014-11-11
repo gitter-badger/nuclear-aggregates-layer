@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -25,25 +26,36 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IFormatter _shortDateFormatter;
-        private readonly IPrintValidationOperationService _validationService;
 
         public ChilePrintLetterOfGuaranteeHandler(ILegalPersonReadModel legalPersonReadModel,
                                                   IFormatterFactory formatterFactory,
                                                   ISubRequestProcessor requestProcessor,
-                                                  IFinder finder,
-                                                  IPrintValidationOperationService validationService)
+                                                  IFinder finder)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
-            _validationService = validationService;
             _legalPersonReadModel = legalPersonReadModel;
             _shortDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.ShortDate, 0);
         }
 
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
         {
-            _validationService.ValidateOrder(request.OrderId);
             var order = _finder.Find(Specs.Find.ById<Order>(request.OrderId)).Single();
+
+            if (order == null)
+            {
+                throw new NotificationException(BLResources.OrderNotFound);
+            }
+
+            if (!order.LegalPersonId.HasValue)
+            {
+                throw new NotificationException(BLResources.LegalPersonNotFound);
+            }
+
+            if (order.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
             var legalPersonProfile = _legalPersonReadModel.GetLegalPersonProfile(order.LegalPersonProfileId.Value);
