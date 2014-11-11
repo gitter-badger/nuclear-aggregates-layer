@@ -47,20 +47,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             }
 
             var proposedOrderState = order.WorkflowStepId;
-
-            #region Logging
             var previousOrderState = order.WorkflowStepId;
             _logger.InfoFormatEx("Логика смены состояния заказа. Переход из [{0}] в [{1}].", previousOrderState, proposedOrderState);
-            #endregion
 
             var orderStateBehaviour = new OrderStateBehaviourFactory(ResumeContext).GetOrderStateBehaviour(originalOrderState.Value, order);
             orderStateBehaviour.ChangeStateTo(proposedOrderState);
             OrderRepository.SetOrderState(order, proposedOrderState);
             OperationScope.Updated<Order>(order.Id);
 
-            #region Logging
             _logger.DebugEx("Логика смены состояния заказа - завершено");
-            #endregion
         }
 
         protected override void ValidateOrderStateInternal(Order order, long currentUserCode)

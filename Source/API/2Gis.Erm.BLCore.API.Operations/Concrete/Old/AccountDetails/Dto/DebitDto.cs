@@ -87,6 +87,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
                     this.ToXAttribute(() => AccountCode, AccountCode),
                     this.ToXAttribute(() => LegalEntityBranchCode1C, LegalEntityBranchCode1C),
                     this.ToXAttribute(() => ProfileCode, ProfileCode),
+                    // FIXME {a.tukaev, 10.11.2014}: сериализованное значение будет типа int, как указано в схеме?
                     this.ToXAttribute(() => OrderType, OrderType),
                     this.ToXAttribute(() => OrderNumber, OrderNumber),
                     this.ToXAttribute(() => SignedOnDate, SignedOnDate),

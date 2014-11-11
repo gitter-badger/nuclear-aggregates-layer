@@ -31,28 +31,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _useCaseTuner = useCaseTuner;
         }
 
-        // Выборка заказов происходит в 2 этапа. Этот метод вернет предикат для заказов, город ИСТОЧНИК которых равен городу, выбранному в форме
-        // Далее при валидации накладывается еще один фильтр для заказов, по которым для города НАЗНАЧЕНИЯ не было финальной сборки за период, либо 
-        //                                                                               город НАЗНАЧЕНИЯ не переведен на ERM
-        // Итого для этой проверки получаем такой фильтр: 
-        // Заказы, для которых город ИСТОЧНИК равен городу, выбранному в форме 
-        // И ( [по городу НАЗНАЧЕНИЯ не было финальной сборки за период] ИЛИ [город НАЗНАЧЕНИЯ не переведен на ERM] )
-        private Expression<Func<Order, bool>> GetOrdersOverridedPredicate(ValidateOrdersRequest request, OrderValidationPredicate p)
-        {
-            var finalReleaseInfos =
-                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(new TimePeriod(request.Period.Start, request.Period.End), ReleaseStatus.Success));
-
-            var overridenPredicate = new OrderValidationPredicate(
-                p.GeneralPart,
-                o => (o.DestOrganizationUnitId == request.OrganizationUnitId
-                        && !finalReleaseInfos.Any(x => x.OrganizationUnitId == o.SourceOrganizationUnitId))
-                    || (o.SourceOrganizationUnitId == request.OrganizationUnitId
-                        && (!finalReleaseInfos.Any(x => x.OrganizationUnitId == o.DestOrganizationUnitId)
-                            || o.DestOrganizationUnit.ErmLaunchDate == null)),
-                p.ValidationGroupPart);
-            return overridenPredicate.GetCombinedPredicate();
-        }
-
         protected override void Validate(ValidateOrdersRequest request, OrderValidationPredicate originalPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
         {
             if (request.Type != ValidationType.PreReleaseFinal && request.Type != ValidationType.ManualReportWithAccountsCheck)
@@ -62,7 +40,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             var overridedPredicate = GetOrdersOverridedPredicate(request, originalPredicate);
 
-            const LimitStatus ApprovedLimitStatus = LimitStatus.Approved;
             var epsilon = (decimal)Math.Pow(10, -request.SignificantDigitsNumber);
 
             _useCaseTuner.AlterDuration<BalanceOrderValidationRule>();
@@ -78,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         // Сумма одобренных лимитов лицевого счета за период.
                         LimitsSum = x.Key.Limits.Where(l => l.IsActive
                                                 && !l.IsDeleted
-                                                && l.Status == ApprovedLimitStatus
+                                                && l.Status == LimitStatus.Approved
                                                 && l.StartPeriodDate == request.Period.Start
                                                 && l.EndPeriodDate == request.Period.End)
                                     .Sum(a => (decimal?)a.Amount) ?? 0M,
@@ -142,6 +119,28 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     }
                 }
             }
+        }
+
+        // Выборка заказов происходит в 2 этапа. Этот метод вернет предикат для заказов, город ИСТОЧНИК которых равен городу, выбранному в форме
+        // Далее при валидации накладывается еще один фильтр для заказов, по которым для города НАЗНАЧЕНИЯ не было финальной сборки за период, либо 
+        //                                                                               город НАЗНАЧЕНИЯ не переведен на ERM
+        // Итого для этой проверки получаем такой фильтр: 
+        // Заказы, для которых город ИСТОЧНИК равен городу, выбранному в форме 
+        // И ( [по городу НАЗНАЧЕНИЯ не было финальной сборки за период] ИЛИ [город НАЗНАЧЕНИЯ не переведен на ERM] )
+        private Expression<Func<Order, bool>> GetOrdersOverridedPredicate(ValidateOrdersRequest request, OrderValidationPredicate p)
+        {
+            var finalReleaseInfos =
+                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(new TimePeriod(request.Period.Start, request.Period.End), ReleaseStatus.Success));
+
+            var overridenPredicate = new OrderValidationPredicate(
+                p.GeneralPart,
+                o => (o.DestOrganizationUnitId == request.OrganizationUnitId
+                        && !finalReleaseInfos.Any(x => x.OrganizationUnitId == o.SourceOrganizationUnitId))
+                    || (o.SourceOrganizationUnitId == request.OrganizationUnitId
+                        && (!finalReleaseInfos.Any(x => x.OrganizationUnitId == o.DestOrganizationUnitId)
+                            || o.DestOrganizationUnit.ErmLaunchDate == null)),
+                p.ValidationGroupPart);
+            return overridenPredicate.GetCombinedPredicate();
         }
     }
 }
