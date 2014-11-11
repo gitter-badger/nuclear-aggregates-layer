@@ -182,6 +182,7 @@
     <Compile Include="Concrete\Orders\Copy\DiscountType.cs" />
     <Compile Include="Concrete\Orders\Copy\ICopyOrderOperationService.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
+    <Compile Include="Concrete\Orders\IPrintValidationOperationService.cs" />
     <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
