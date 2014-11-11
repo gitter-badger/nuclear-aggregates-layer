@@ -726,6 +726,9 @@
   <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
     <value>This profile is already the main one</value>
   </data>
+  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+    <value>Legal entity of the customer must be specified to create a PF</value>
+  </data>
   <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value>Save order to create a PF</value>
   </data>

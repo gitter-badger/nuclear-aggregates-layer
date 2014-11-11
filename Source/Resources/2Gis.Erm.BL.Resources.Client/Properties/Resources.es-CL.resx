@@ -726,6 +726,9 @@
   <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
     <value>Este perfil ya es el principal</value>
   </data>
+  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+    <value>Para la preparación de los documentos para publicar es necesario especificar la Persona jurídica del contratante</value>
+  </data>
   <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value>Para la preparación de documentos para publicar es necesario guardar la orden</value>
   </data>

@@ -726,6 +726,9 @@
   <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
     <value>Tento profil je již nastaven jako hlavní</value>
   </data>
+  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+    <value>Pro účely vytvoření výtisků je nezbytné uvést pr. osobu objednatele</value>
+  </data>
   <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value>Pro účely vytvoření výtisků je nezbytné uložit objednávku</value>
   </data>

@@ -726,6 +726,9 @@
   <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
     <value>Данный профиль уже является основным</value>
   </data>
+  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+    <value>Для формирования ПФ необходимо указать юр. лицо заказчика</value>
+  </data>
   <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value>Для формирования ПФ необходимо сохранить заказ</value>
   </data>

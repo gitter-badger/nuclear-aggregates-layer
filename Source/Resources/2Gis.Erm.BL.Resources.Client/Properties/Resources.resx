@@ -726,6 +726,9 @@
   <data name="LegalPersonProfileIsAlreadyMain" xml:space="preserve">
     <value />
   </data>
+  <data name="YouHaveToChooseLegalPersonToPrintOrder" xml:space="preserve">
+    <value />
+  </data>
   <data name="YouHaveToSaveOrderToPrint" xml:space="preserve">
     <value />
   </data>
