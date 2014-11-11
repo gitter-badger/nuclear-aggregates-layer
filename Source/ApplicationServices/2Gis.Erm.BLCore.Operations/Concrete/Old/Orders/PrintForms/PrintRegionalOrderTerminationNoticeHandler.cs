@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
@@ -19,22 +18,25 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
 {
-    // FIXME {a.rechkalov, 10.11.2014}: move, IPrintValidationOperationService
     public sealed class PrintRegionalOrderTerminationNoticeHandler : RequestHandler<PrintRegionalOrderTerminationNoticeRequest, Response>
     {
         private readonly ISecurityServiceFunctionalAccess _securityServiceFunctionalAccess;
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
+        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintRegionalOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor,
-            ISecurityServiceFunctionalAccess securityServiceFunctionalAccess, 
+        public PrintRegionalOrderTerminationNoticeHandler(
+            ISubRequestProcessor requestProcessor,
+            ISecurityServiceFunctionalAccess securityServiceFunctionalAccess,
             IFinder finder,
-            IUserContext userContext)
+            IUserContext userContext,
+            IPrintValidationOperationService validationService)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
             _userContext = userContext;
+            _validationService = validationService;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
         }
 
@@ -46,10 +48,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                 throw new NotificationException(BLResources.AccessDenied);                
             }
 
+            _validationService.ValidateOrder(request.OrderId);
+
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                              {
-                        WorkflowStep = (OrderState)order.WorkflowStepId,
+                                 WorkflowStep = (OrderState)order.WorkflowStepId,
                                  order.SourceOrganizationUnitId,
                                  order.DestOrganizationUnitId,
                                  order.IsTerminated
@@ -92,11 +96,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                                         CurrencyISOCode = order.Currency.ISOCode,
                                     })
                 .Single();
-
-            if (data.LegalPersonProfileId == null)
-            {
-                throw new RequiredFieldIsEmptyException(string.Format(BLResources.OrderFieldNotSpecified, MetadataResources.LegalPerson));
-            }
 
             var sourceBranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.SourceBranchOfficeId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));

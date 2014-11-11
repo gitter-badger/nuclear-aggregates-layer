@@ -16,7 +16,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
 {
-    // FIXME {a.rechkalov, 10.11.2014}: move, IPrintValidationOperationService
     public sealed class PrintOrderJointBillsHandler : RequestHandler<PrintOrderJointBillRequest, StreamResponse>
     {
         private readonly IFinder _finder;
