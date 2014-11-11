@@ -58,7 +58,6 @@
     <Compile Include="Concrete\AdvertisementElements\IDenyAdvertisementElementOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IResetAdvertisementElementToDraftOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\ITransferAdvertisementElementToReadyForValidationOpeationService.cs" />
-    <Compile Include="Concrete\Order\IPrintValidationOperationService.cs" />
     <Compile Include="Concrete\Simplified\BirthdayCongratulationIsNotUniqueException.cs" />
     <Compile Include="Concrete\Simplified\IRequestBirthdayCongratulationOperationService.cs" />
     <Compile Include="Concrete\Simplified\ThereAreNoContactsToCongratulateException.cs" />
