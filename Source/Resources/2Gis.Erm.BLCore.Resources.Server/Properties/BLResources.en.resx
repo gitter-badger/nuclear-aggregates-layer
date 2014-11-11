@@ -5211,7 +5211,7 @@ Placement period: {3}.</value>
   <data name="TitlePrinting" xml:space="preserve">
     <value>Печать</value>
   </data>
-  <data name="OrderFieldNotSpecified" xml:space="preserve">
-    <value>В заказе не заполнено поле "{0}"</value>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Должен быть указан профиль юридического лица</value>
   </data>
 </root>

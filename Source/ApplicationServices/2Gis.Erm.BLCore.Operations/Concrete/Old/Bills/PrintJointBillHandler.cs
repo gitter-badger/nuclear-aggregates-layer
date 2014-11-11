@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DAL;
@@ -20,20 +21,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
         private readonly IFinder _finder;
         private readonly IFormatter _longDateFormatter;
         private readonly ISubRequestProcessor _requestProcessor;
-        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintJointBillHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder, IPrintValidationOperationService validationService)
+        public PrintJointBillHandler(ISubRequestProcessor requestProcessor, IFormatterFactory formatterFactory, IFinder finder)
         {
             _finder = finder;
-            _validationService = validationService;
             _requestProcessor = requestProcessor;
             _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
         protected override Response Handle(PrintJointBillRequest request)
         {
-            _validationService.ValidateBill(request.BillId);
-
             var commonInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                     .Select(x => new
                                         {
@@ -50,6 +47,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                                             ProfileId = x.Order.LegalPersonProfileId
                                         })
                                     .FirstOrDefault();
+
+            if (commonInfo == null || commonInfo.BranchOfficeOrganizationUnitId == null)
+                throw new NotificationException(BLResources.CannotChoosePrintformBecauseBranchOfficeOrganizationUnitIsNotSpecified);
+
+            if (commonInfo.ProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId));
             var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(commonInfo.ProfileId.Value));

@@ -24,19 +24,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
         private readonly ISubRequestProcessor _requestProcessor;
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
-        private readonly IPrintValidationOperationService _validationService;
 
-        public PrintRegionalOrderTerminationNoticeHandler(
-            ISubRequestProcessor requestProcessor,
-            ISecurityServiceFunctionalAccess securityServiceFunctionalAccess,
+        public PrintRegionalOrderTerminationNoticeHandler(ISubRequestProcessor requestProcessor,
+            ISecurityServiceFunctionalAccess securityServiceFunctionalAccess, 
             IFinder finder,
-            IUserContext userContext,
-            IPrintValidationOperationService validationService)
+            IUserContext userContext)
         {
             _requestProcessor = requestProcessor;
             _finder = finder;
             _userContext = userContext;
-            _validationService = validationService;
             _securityServiceFunctionalAccess = securityServiceFunctionalAccess;
         }
 
@@ -48,12 +44,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                 throw new NotificationException(BLResources.AccessDenied);                
             }
 
-            _validationService.ValidateOrder(request.OrderId);
-
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                              {
-                                 WorkflowStep = (OrderState)order.WorkflowStepId,
+                        WorkflowStep = (OrderState)order.WorkflowStepId,
                                  order.SourceOrganizationUnitId,
                                  order.DestOrganizationUnitId,
                                  order.IsTerminated
@@ -96,6 +90,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                                         CurrencyISOCode = order.Currency.ISOCode,
                                     })
                 .Single();
+
+            if (data.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
 
             var sourceBranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.SourceBranchOfficeId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));

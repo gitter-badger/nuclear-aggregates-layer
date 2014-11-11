@@ -1272,20 +1272,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        };
         }
 
-        public long GetOrderLegalPersonProfileId(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => order.LegalPersonProfile.Id)
-                          .Single();
-        }
-
-        public long GetOrderBargainId(long orderId)
-        {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(x => x.Bargain.Id)
-                          .Single();
-        }
-
         public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId)
         {
             switch (parentEntityName)
@@ -1301,6 +1287,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 default:
                     return new OrderParentEntityDerivedFieldsDto();
             }
+        }
+
+        public long? GetOrderLegalPersonProfileId(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(order => order.LegalPersonProfileId)
+                          .SingleOrDefault();
         }
 
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
@@ -1412,6 +1405,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
 
             return result;
+        }
+
+        public long? GetBargainIdByOrder(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
+        }
+
+        public long GetBargainLegalPersonId(long bargainId)
+        {
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
         }
 
         public OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId)

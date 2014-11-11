@@ -5215,7 +5215,4 @@ Cумма по операции: {5}.
   <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
     <value>Должен быть указан профиль юридического лица</value>
   </data>
-  <data name="OrderFieldNotSpecified" xml:space="preserve">
-    <value>В заказе не заполнено поле "{0}"</value>
-  </data>
 </root>

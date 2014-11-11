@@ -5193,7 +5193,7 @@
   <data name="TitlePrinting" xml:space="preserve">
     <value />
   </data>
-  <data name="OrderFieldNotSpecified" xml:space="preserve">
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
     <value />
   </data>
 </root>
