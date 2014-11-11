@@ -216,6 +216,19 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                                      BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
                                  });
                 }
+
+                public static ISelectSpecification<Order, OrderForBargainPrintValidationDto> OrderForBargainPrintValidationDto()
+                {
+                    return new SelectSpecification<Order, OrderForBargainPrintValidationDto>(
+                        x => new OrderForBargainPrintValidationDto
+                                 {
+                                     LegalPersonId = x.LegalPersonId,
+                                     LegalPersonProfileId = x.LegalPersonProfileId,
+                                     BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
+                                     BargainId = x.BargainId,
+                                 });
+                }
+                
             }
         }
     }

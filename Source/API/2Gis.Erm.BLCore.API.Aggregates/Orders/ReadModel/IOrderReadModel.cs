@@ -104,10 +104,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
 
         OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId);
         OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId);
-        long? GetBargainIdByOrder(long orderId);
-        long GetBargainLegalPersonId(long bargainId);
         OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId);
         OrderLegalPersonProfileDto GetBargainLegalPersonProfile(long bargainId);
-        long? GetOrderLegalPersonProfileId(long orderId);
+
+        long GetOrderBargainId(long orderId);
+        long GetOrderLegalPersonProfileId(long orderId);
     }
 }
