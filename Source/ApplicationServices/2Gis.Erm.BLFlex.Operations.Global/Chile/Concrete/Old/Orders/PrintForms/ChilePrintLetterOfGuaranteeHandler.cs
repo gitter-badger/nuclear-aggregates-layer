@@ -104,7 +104,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
         private static string LocalizeOperatesOnTheBasisInGenitive(OperatesOnTheBasisType? operatesOnTheBasisInGenitive)
         {
             return (operatesOnTheBasisInGenitive.HasValue
-                        ? (OperatesOnTheBasisType)operatesOnTheBasisInGenitive.Value
+                        ? operatesOnTheBasisInGenitive.Value
                         : OperatesOnTheBasisType.Undefined)
                 .ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture);
         }

@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Bills
                                            BillNumberDigits = GetBillDigitsOnly(x.Bill.BillNumber),
                                            OrderVatRate = (x.Order.VatRate == default(decimal)) ? (decimal?)null : x.Order.VatRate,
                                            x.Order,
-                                           PaymentMethod = (x.Order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
+                                           PaymentMethod = x.Order.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
                                            RelatedBargainInfo = (x.Bargain != null)
                                                ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                : null,

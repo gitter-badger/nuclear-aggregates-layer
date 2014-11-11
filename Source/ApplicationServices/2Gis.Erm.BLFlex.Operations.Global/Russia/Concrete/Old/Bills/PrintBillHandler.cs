@@ -45,7 +45,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                   .SingleOrDefault();
 
             if (billInfo == null)
+            {
                 throw new NotificationException(BLResources.SpecifiedBillNotFound);
+            }
 
             var printData = _finder.Find(Specs.Find.ById<Bill>(request.Id))
                                    .Select(bill => new
@@ -88,7 +90,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                 ? (decimal?)null 
                                                 : x.Order.VatRate,
                                            x.Order,
-                                           PaymentMethod = (x.Order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
+                                           PaymentMethod = x.Order.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
                                            RelatedBargainInfo = (x.Bargain != null)
                                                 ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                 : null,

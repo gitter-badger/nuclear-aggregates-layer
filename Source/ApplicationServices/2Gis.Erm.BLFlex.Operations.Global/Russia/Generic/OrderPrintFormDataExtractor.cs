@@ -196,7 +196,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                             case OperatesOnTheBasisType.Warranty:
                                 operatesOnTheBasisInGenitive = string.Format(
                                     BLCoreResources.OperatesOnBasisOfWarantyTemplateForNaturalPerson,
-                                    (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                    profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                     profile.WarrantyNumber,
                                     _shortDateFormatter.Format(profile.WarrantyBeginDate));
                                 break;
@@ -224,38 +224,38 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                             {
                                 case OperatesOnTheBasisType.Undefined:
                                     operatesOnTheBasisInGenitive =
-                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture);
+                                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture);
                                     break;
                                 case OperatesOnTheBasisType.Charter:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfCharterTemplate,
-                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                                     break;
                                 case OperatesOnTheBasisType.Certificate:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfCertificateTemplate,
-                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.CertificateNumber,
                                         _shortDateFormatter.Format(profile.CertificateDate));
                                     break;
                                 case OperatesOnTheBasisType.Warranty:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfWarantyTemplate,
-                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.WarrantyNumber,
                                         _shortDateFormatter.Format(profile.WarrantyBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.Bargain:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfBargainTemplate,
-                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                         profile.BargainNumber,
                                         _shortDateFormatter.Format(profile.BargainBeginDate));
                                     break;
                                 case OperatesOnTheBasisType.FoundingBargain:
                                     operatesOnTheBasisInGenitive = string.Format(
                                         BLCoreResources.OperatesOnBasisOfFoundingBargainTemplate,
-                                        (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                                        profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                                     break;
                                 default:
                                     throw new BusinessLogicDataException(legalPerson.LegalPersonTypeEnum, profile.OperatesOnTheBasisInGenitive.Value);

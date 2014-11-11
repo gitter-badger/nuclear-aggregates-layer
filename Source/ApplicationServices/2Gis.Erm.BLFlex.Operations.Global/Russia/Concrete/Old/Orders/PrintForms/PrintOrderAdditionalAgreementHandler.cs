@@ -139,12 +139,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                     case OperatesOnTheBasisType.Charter:
                         operatesOnTheBasisInGenitive = string.Format(
                             BLResources.OperatesOnBasisOfCharterTemplate,
-                            (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                            profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                         break;
                     case OperatesOnTheBasisType.Certificate:
                         operatesOnTheBasisInGenitive = string.Format(
                             BLResources.OperatesOnBasisOfCertificateTemplate,
-                            (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                            profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                             profile.CertificateNumber,
                             _shortDateFormatter.Format(profile.CertificateDate));
                         break;
@@ -154,21 +154,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                  legalPersonType == LegalPersonType.NaturalPerson
                                      ? BLResources.OperatesOnBasisOfWarantyTemplateForNaturalPerson
                                      : BLResources.OperatesOnBasisOfWarantyTemplate,
-                                 (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                                 profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                                  profile.WarrantyNumber,
                                  _shortDateFormatter.Format(profile.WarrantyBeginDate));
                         break;
                     case OperatesOnTheBasisType.Bargain:
                         operatesOnTheBasisInGenitive = string.Format(
                             BLResources.OperatesOnBasisOfBargainTemplate,
-                            (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                            profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                             profile.BargainNumber,
                             _shortDateFormatter.Format(profile.BargainBeginDate));
                         break;
                     case OperatesOnTheBasisType.FoundingBargain:
                         operatesOnTheBasisInGenitive = string.Format(
                             BLResources.OperatesOnBasisOfFoundingBargainTemplate,
-                            (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
+                            profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

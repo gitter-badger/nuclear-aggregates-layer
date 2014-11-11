@@ -2,7 +2,6 @@
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
@@ -44,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
                         IsActive = x.IsActive,
                         IsDeleted = x.IsDeleted,
                         IsTerminated = x.IsTerminated,
-                        HasDocumentsDebtEnum = (DocumentsDebt)x.HasDocumentsDebt,
+                        HasDocumentsDebtEnum = x.HasDocumentsDebt,
                         OrderTypeEnum = x.OrderType,
                         TerminationReasonEnum = x.TerminationReason,
                         OwnerName = null,

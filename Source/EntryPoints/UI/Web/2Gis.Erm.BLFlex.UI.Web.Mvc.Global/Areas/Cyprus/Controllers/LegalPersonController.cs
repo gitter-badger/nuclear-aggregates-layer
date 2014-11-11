@@ -72,8 +72,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
             .Select(legalPerson => new CyprusChangeLegalPersonRequisitesViewModel
             {
                 Id = legalPerson.Id,
-                Inn = (legalPerson.LegalPersonTypeEnum) == LegalPersonType.LegalPerson ? legalPerson.Inn : null,
-                BusinessmanInn = (legalPerson.LegalPersonTypeEnum) == LegalPersonType.Businessman ? legalPerson.Inn : null,
+                Inn = legalPerson.LegalPersonTypeEnum == LegalPersonType.LegalPerson ? legalPerson.Inn : null,
+                BusinessmanInn = legalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman ? legalPerson.Inn : null,
                 VAT = legalPerson.VAT,
                 CardNumber = legalPerson.CardNumber,
                 LegalAddress = legalPerson.LegalAddress,

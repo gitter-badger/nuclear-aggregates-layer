@@ -142,7 +142,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
         private static string LocalizePaymentMethod(PaymentMethod? paymentMethod)
         {
             return (paymentMethod.HasValue
-                        ? (PaymentMethod)paymentMethod.Value
+                        ? paymentMethod.Value
                         : PaymentMethod.Undefined)
                 .ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture);
         }

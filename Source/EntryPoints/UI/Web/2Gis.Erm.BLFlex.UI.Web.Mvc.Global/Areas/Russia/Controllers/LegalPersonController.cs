@@ -144,10 +144,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                 {
                     throw new NotificationException("Не выбрана дополнительная запись");
                 }
+
                 if (!model.MainLegalPersonId.HasValue)
                 {
                     throw new NotificationException("Не выбрана главная запись");
                 }
+
                 _publicService.Handle(new MergeLegalPersonsRequest
                 {
                     AppendedLegalPersonId = model.AppendedLegalPersonId.Value,
@@ -159,6 +161,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             {
                 model.SetCriticalError(ex.Message);
             }
+
             return View(model);
         }
 
@@ -203,8 +206,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             .Select(x => new ChangeLegalPersonRequisitesViewModel
             {
                 Id = x.Id,
-                Inn = (x.LegalPersonTypeEnum) == LegalPersonType.LegalPerson ? x.Inn : null,
-                BusinessmanInn = (x.LegalPersonTypeEnum) == LegalPersonType.Businessman ? x.Inn : null,
+                Inn = x.LegalPersonTypeEnum == LegalPersonType.LegalPerson ? x.Inn : null,
+                BusinessmanInn = x.LegalPersonTypeEnum == LegalPersonType.Businessman ? x.Inn : null,
                 Kpp = x.Kpp,
                 LegalAddress = x.LegalAddress,
                 LegalName = x.LegalName,
@@ -230,6 +233,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             {
                 return View(model);
             }
+
             try
             {
                 _publicService.Handle(new ChangeLegalPersonRequisitesRequest
@@ -245,6 +249,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                                       RegistrationAddress = model.RegistrationAddress,
                     ShortName = model.ShortName,
                                   });
+
                 model.Message = BLResources.OK;
             }
             catch (NotificationException ex)
@@ -255,6 +260,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             {
                 ModelUtils.OnException(this, Logger, model, ex);
             }
+
             return View(model);
         }
 

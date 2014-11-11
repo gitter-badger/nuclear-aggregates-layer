@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                     }
 
                     // ƒгпп»д элемента номенклатуры "пакет "ƒополнительный"" нужен дл€ костыл€-исключени€ на 2+2 мес€ца (до »юл€)
-                    const int additionalPackageDgppId = 11572;
+                    const int AdditionalPackageDgppId = 11572;
 
                     return x => x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
                                     .Select(z => new
@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                                                      OpaIsEmpty = z.OrderPositionAdvertisements.All(p => p.PositionId != w.Id)
                                                                   &&
                                                                   z.PricePosition.Position.ChildPositions.All(
-                                                                      m => m.MasterPosition.DgppId != additionalPackageDgppId),
+                                                                      m => m.MasterPosition.DgppId != AdditionalPackageDgppId),
 
                                                      AdvertisementIsRequired = z.OrderPositionAdvertisements.Where(p => p.PositionId == z.Id)
                                                               .Any(p => p.AdvertisementId == null),
@@ -109,8 +109,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
                         return null;
                     }
 
-                    var onApprovalState = (OrderState.OnApproval).ToString();
-                    var rejectedState = (OrderState.Rejected).ToString();
+                    var onApprovalState = OrderState.OnApproval.ToString();
+                    var rejectedState = OrderState.Rejected.ToString();
 
                     var loqQuery = _finder.Find<ActionsHistoryDetail>(
                         x =>

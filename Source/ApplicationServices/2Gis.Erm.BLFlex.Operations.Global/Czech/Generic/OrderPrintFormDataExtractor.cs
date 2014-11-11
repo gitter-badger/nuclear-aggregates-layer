@@ -200,7 +200,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic
             return string.Format(
                 CultureInfo.CurrentCulture,
                 BLFlexResources.CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate,
-                (profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                 profile.WarrantyBeginDate.Value.ToShortDateString()); // FIXME {a.rechkalov, 12.03.2014}: неправильное форматирование даты
         }
 
