@@ -313,6 +313,5 @@ ValueCantBeEmpty : 'The value cannot be empty',
 Wednesday : 'Wednesday',
 WorkInProgressPleaseStandBy : 'The job is being performed. Please wait...',
 Yes : 'Yes',
-YouHaveToChooseLegalPersonToPrintOrder : 'Legal entity of the customer must be specified to create a PF',
 YouHaveToSaveOrderToPrint : 'Save order to create a PF'
 }

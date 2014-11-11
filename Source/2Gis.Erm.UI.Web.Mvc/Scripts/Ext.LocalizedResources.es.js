@@ -313,6 +313,5 @@ ValueCantBeEmpty : 'El valor no puede estar vacío',
 Wednesday : 'Miércoles',
 WorkInProgressPleaseStandBy : 'Realizando tarea. Por favor, espere...',
 Yes : 'Sí',
-YouHaveToChooseLegalPersonToPrintOrder : 'Para la preparación de los documentos para publicar es necesario especificar la Persona jurídica del contratante',
 YouHaveToSaveOrderToPrint : 'Para la preparación de documentos para publicar es necesario guardar la orden'
 }

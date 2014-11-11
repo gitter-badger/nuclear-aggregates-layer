@@ -313,6 +313,5 @@ ValueCantBeEmpty : 'Значение не может быть пустым',
 Wednesday : 'Среда',
 WorkInProgressPleaseStandBy : 'Работа выполняется. Пожалуйста, подождите...',
 Yes : 'Да',
-YouHaveToChooseLegalPersonToPrintOrder : 'Для формирования ПФ необходимо указать юр. лицо заказчика',
 YouHaveToSaveOrderToPrint : 'Для формирования ПФ необходимо сохранить заказ'
 }

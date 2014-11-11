@@ -313,6 +313,5 @@ ValueCantBeEmpty : 'Hodnota nemůže být prázdná',
 Wednesday : 'Středa',
 WorkInProgressPleaseStandBy : 'Probíhá zpracování. Vyčkejte, prosím...',
 Yes : 'Ano',
-YouHaveToChooseLegalPersonToPrintOrder : 'Pro účely vytvoření výtisků je nezbytné uvést pr. osobu objednatele',
 YouHaveToSaveOrderToPrint : 'Pro účely vytvoření výtisků je nezbytné uložit objednávku'
 }
