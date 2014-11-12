@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             return _domainContextSaveStrategy.IsSaveDeferred
                        ? 0
-                       : DomainContext.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+                       : ((IModifiableDomainContext)DomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
         }
 
         protected DbSet<TPersistentEntity> Set()
