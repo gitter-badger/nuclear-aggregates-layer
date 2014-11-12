@@ -95,7 +95,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
             return container
                         .RegisterType<IEfDbModelFactory, EfDbModelFactory>(Lifetime.Singleton)
-                        .RegisterType<IEFObjectContextFactory, EFObjectContextFactory>(Lifetime.Singleton)
                         .RegisterType<IDomainContextMetadataProvider, DomainContextMetadataProvider>(Lifetime.Singleton)
                         .RegisterType<IReadDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
