@@ -104,7 +104,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                                                                               .AvailableFor(ValidationType.PreReleaseBeta)
                                                                               .AvailableFor(ValidationType.PreReleaseFinal)
                                                                               .AvailableFor(ValidationType.ManualReport)
-                                                                              .AvailableFor(ValidationType.ManualReportWithAccountsCheck));
+                                                                              .AvailableFor(ValidationType.ManualReportWithAccountsCheck),
+                                                   OrderValidationRuleMetadata.Config.Rule<ThemePositionCountValidationRule>(44)
+                                                                              .Common);
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
         private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =
