@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
+﻿using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
@@ -12,16 +13,18 @@ namespace DoubleGis.Erm.Platform.DI.Factories
     {
         private readonly IUnityContainer _unityContainer;
 
-        public UnityDomainContextFactory(IEFObjectContextFactory connectionFactory,
-                                         IDomainContextMetadataProvider domainContextMetadataProvider,
+        public UnityDomainContextFactory(IDomainContextMetadataProvider domainContextMetadataProvider,
+                                         IConnectionStringSettings connectionStringSettings,
+                                         IEfDbModelFactory efDbModelFactory,
                                          IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
                                          IProducedQueryLogAccessor producedQueryLogAccessor,
                                          ICommonLog logger,
                                          IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider,
                                          IUnityContainer unityContainer)
             : base(
-                connectionFactory,
                 domainContextMetadataProvider,
+                connectionStringSettings,
+                efDbModelFactory,
                 pendingChangesHandlingStrategy,
                 producedQueryLogAccessor,
                 logger,
@@ -32,10 +35,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
 
         protected override IProcessingContext ProcessingContext
         {
-            get
-            {
-                return _unityContainer.Resolve<IProcessingContext>();
-            }
+            get { return _unityContainer.Resolve<IProcessingContext>(); }
         }
     }
 }

@@ -1,13 +1,14 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
     public class EfDbModelFactory : IEfDbModelFactory
     {
+        private readonly object _syncRoot = new object();
+        private readonly IDictionary<string, DbCompiledModel> _dbModelCache = new Dictionary<string, DbCompiledModel>();
         private readonly IEfDbModelConfigurationsProvider _efDbModelConfigurationsProvider;
 
         public EfDbModelFactory(IEfDbModelConfigurationsProvider efDbModelConfigurationsProvider)
@@ -16,6 +17,23 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         }
 
         public DbCompiledModel Create(string entityContainerName, DbConnection connection)
+        {
+            DbCompiledModel dbModel;
+            lock (_syncRoot)
+            {
+                if (_dbModelCache.TryGetValue(entityContainerName, out dbModel))
+                {
+                    return dbModel;
+                }
+
+                dbModel = CreateInternal(entityContainerName, connection);
+                _dbModelCache.Add(entityContainerName, dbModel);
+            }
+
+            return dbModel;
+        }
+
+        private DbCompiledModel CreateInternal(string entityContainerName, DbConnection connection)
         {
             var builder = new DbModelBuilder();
 

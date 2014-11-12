@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
     public sealed class EFDbContext : IDbContext
     {
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed. Suppression is OK here.")]
         private readonly DbContext _dbContext;
         private bool _isDisposed;
 
-        public EFDbContext(ObjectContext objectContext, IProducedQueryLogAccessor producedQueryLogAccessor)
+        public EFDbContext(DbConnection connection, DbCompiledModel model, IProducedQueryLogAccessor producedQueryLogAccessor)
         {
-            _dbContext = new DbContext(objectContext, true);
+            _dbContext = new DbContext(connection, model, false);
             _dbContext.Configuration.ValidateOnSaveEnabled = true;
             _dbContext.Configuration.UseDatabaseNullSemantics = true;
             _dbContext.Configuration.LazyLoadingEnabled = false;
@@ -27,8 +26,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public int? CommandTimeout
         {
-            get { return ((IObjectContextAdapter)_dbContext).ObjectContext.CommandTimeout; }
-            set { ((IObjectContextAdapter)_dbContext).ObjectContext.CommandTimeout = value; }
+            get { return _dbContext.Database.CommandTimeout; }
+            set { _dbContext.Database.CommandTimeout = value; }
         }
 
         public IQueryable Set(Type entityType)

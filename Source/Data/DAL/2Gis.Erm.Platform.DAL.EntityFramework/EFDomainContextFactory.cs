@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
+﻿using System.Data.SqlClient;
+
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
@@ -7,22 +10,24 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
     public abstract class EFDomainContextFactory : IReadDomainContextFactory, IModifiableDomainContextFactory
     {
         private readonly IDomainContextMetadataProvider _domainContextMetadataProvider;
-        private readonly IEFObjectContextFactory _connectionFactory;
+        private readonly IConnectionStringSettings _connectionStringSettings;
+        private readonly IEfDbModelFactory _efDbModelFactory;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         private readonly IProducedQueryLogAccessor _producedQueryLogAccessor;
         private readonly ICommonLog _logger;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
-        protected EFDomainContextFactory(
-            IEFObjectContextFactory connectionFactory,
-            IDomainContextMetadataProvider domainContextMetadataProvider,
-            IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            IProducedQueryLogAccessor producedQueryLogAccessor,
-            ICommonLog logger,
-            IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
+        protected EFDomainContextFactory(IDomainContextMetadataProvider domainContextMetadataProvider,
+                                         IConnectionStringSettings connectionStringSettings,
+                                         IEfDbModelFactory efDbModelFactory,
+                                         IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
+                                         IProducedQueryLogAccessor producedQueryLogAccessor,
+                                         ICommonLog logger,
+                                         IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
-            _connectionFactory = connectionFactory;
             _domainContextMetadataProvider = domainContextMetadataProvider;
+            _connectionStringSettings = connectionStringSettings;
+            _efDbModelFactory = efDbModelFactory;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
             _producedQueryLogAccessor = producedQueryLogAccessor;
             _logger = logger;
@@ -47,8 +52,10 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         private EFDomainContext CreateDomainContext(DomainContextMetadata domainContextMetadata)
         {
-            var objectContext = _connectionFactory.CreateObjectContext(domainContextMetadata);
-            var dbContext = new EFDbContext(objectContext, _producedQueryLogAccessor);
+            var connectionString = _connectionStringSettings.GetConnectionString(domainContextMetadata.ConnectionStringName);
+            var connection = new SqlConnection(connectionString);
+            var model = _efDbModelFactory.Create(domainContextMetadata.EntityContainerName, connection);
+            var dbContext = new EFDbContext(connection, model, _producedQueryLogAccessor);
 
             return new EFDomainContext(ProcessingContext,
                                        domainContextMetadata.EntityContainerName,
