@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework
     {
         private static readonly Lazy<TEntityContainer> LazyContainer = new Lazy<TEntityContainer>(() => new TEntityContainer());
 
-        void IEfDbModelConfiguration.ApplyConfiguration(DbModelBuilder builder)
+        void IEfDbModelConfiguration.Apply(DbModelBuilder builder)
         {
             builder.Configurations.Add(this);
         }

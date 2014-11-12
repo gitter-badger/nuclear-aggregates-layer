@@ -13,6 +13,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework.DI
     {
         private readonly IUnityContainer _container;
         private readonly List<IEfDbModelConfiguration> _configurations = new List<IEfDbModelConfiguration>();
+        private readonly List<IEfDbModelConvention> _conventions = new List<IEfDbModelConvention>();
+        private static readonly Type EfDbModelConfigurationMarker = typeof(IEfDbModelConfiguration);
+        private static readonly Type EfDbModelConventionMarker = typeof(IEfDbModelConvention);
 
         public EfDbModelMassProcessor(IUnityContainer container)
         {
@@ -21,7 +24,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework.DI
 
         public Type[] GetAssignableTypes()
         {
-            return new[] { typeof(IEfDbModelConfiguration) };
+            return new[] { EfDbModelConfigurationMarker, EfDbModelConventionMarker };
         }
 
         public void ProcessTypes(IEnumerable<Type> types, bool firstRun)
@@ -33,8 +36,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework.DI
 
             foreach (var type in types.Where(ShouldBeProcessed))
             {
-                var configuration = (IEfDbModelConfiguration)Activator.CreateInstance(type);
-                _configurations.Add(configuration);
+                if (EfDbModelConfigurationMarker.IsAssignableFrom(type))
+                {
+                    _configurations.Add((IEfDbModelConfiguration)Activator.CreateInstance(type));
+                }
+                else if (EfDbModelConventionMarker.IsAssignableFrom(type))
+                {
+                    _conventions.Add((IEfDbModelConvention)Activator.CreateInstance(type));
+                }
             }
         }
 
@@ -45,11 +54,10 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework.DI
                 return;
             }
 
-            // FIXME {a.tukaev, 27.10.2014}: Validate
-
             var entityTypeToContainerNameMap = _configurations.ToDictionary(x => x.EntityType, x => x.ContainerName);
             var containerNameToConfigurationsMap = _configurations.GroupBy(x => x.ContainerName).ToDictionary(x => x.Key, x => x.AsEnumerable());
-            var provider = new EfDbModelConfigurationsProvider(entityTypeToContainerNameMap, containerNameToConfigurationsMap);
+            var containerNameToConventionsMap = _conventions.GroupBy(x => x.ContainerName).ToDictionary(x => x.Key, x => x.AsEnumerable());
+            var provider = new EfDbModelConfigurationsProvider(entityTypeToContainerNameMap, containerNameToConfigurationsMap, containerNameToConventionsMap);
 
             _container.RegisterInstance<IEfDbModelConfigurationsProvider>(provider)
                       .RegisterInstance<IEntityContainerNameResolver>(provider);

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework
 {
-    public interface IEfDbModelConfiguration
+    public interface IEfDbModelConvention
     {
         string ContainerName { get; }
-        Type EntityType { get; }
         void Apply(DbModelBuilder builder);
     }
 }
