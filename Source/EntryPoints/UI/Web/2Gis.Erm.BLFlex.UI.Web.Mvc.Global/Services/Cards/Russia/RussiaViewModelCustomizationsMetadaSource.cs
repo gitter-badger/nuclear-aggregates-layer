@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Clients;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.LegalPersonProfiles;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -38,6 +39,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                         ViewModelCustomizationsMetada.Config
                                                      .For<Order>()
                                                      .Use<PrintFormsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<LegalPersonProfile>()
+                                                     .Use<LegalPersonProfileDisableDocumentsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

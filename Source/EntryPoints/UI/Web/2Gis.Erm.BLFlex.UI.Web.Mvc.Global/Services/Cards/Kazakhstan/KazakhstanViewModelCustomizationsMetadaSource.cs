@@ -32,6 +32,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Kazakhstan
                         ViewModelCustomizationsMetada.Config
                                                      .For<Order>()
                                                      .Use<MultiCulturePrintFormsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<LegalPersonProfile>()
+                                                     .Use<KazakhstanLegalPersonProfileDisableDocumentsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

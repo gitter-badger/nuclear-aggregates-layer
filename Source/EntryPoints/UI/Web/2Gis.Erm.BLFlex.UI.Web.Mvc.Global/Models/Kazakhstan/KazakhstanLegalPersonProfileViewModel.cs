@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan;
@@ -15,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
 {
-    public sealed class KazakhstanLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, IKazakhstanAdapted
+    public sealed class KazakhstanLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ILegalPersonProfileViewModel, IKazakhstanAdapted
     {
         [Dependency(DependencyType.NotRequiredDisableHide, "PositionInGenitive", "this.value=='NaturalPerson'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "PositionInNominative", "this.value=='NaturalPerson'")]

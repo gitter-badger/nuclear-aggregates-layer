@@ -32,6 +32,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
                         ViewModelCustomizationsMetada.Config
                                                      .For<Order>()
                                                      .Use<ChilePrintFormsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<LegalPersonProfile>()
+                                                     .Use<ChileLegalPersonProfileDisableDocumentsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
