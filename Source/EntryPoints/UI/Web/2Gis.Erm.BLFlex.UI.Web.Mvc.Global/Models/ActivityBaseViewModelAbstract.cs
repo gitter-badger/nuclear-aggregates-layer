@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         Task = 3,
     }
 
-    public abstract class ActivityBaseViewModelAbstract<T> : EntityViewModelBase<T>
+    public abstract class ActivityBaseViewModelAbstract<T> : EntityViewModelBase<T>, IActivityViewModel
 		where T : IEntityKey
     {
 	    protected ActivityBaseViewModelAbstract(ActivityType type)
