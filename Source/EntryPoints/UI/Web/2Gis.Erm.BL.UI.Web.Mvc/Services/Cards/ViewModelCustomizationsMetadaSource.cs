@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
@@ -100,6 +101,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .For<AdvertisementTemplate>()
                                                      .Use<ManageAdvertisementTemplatePublicationButtonsCustomization>()
                                                      .Use<PublishedAdvertisementTemplateCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Advertisement>()
+                                                     .Use<AdvertisementAccessCustomization>()
+                                                     .Use<DummyAdvertisementCustomization>()
+                                                     .Use<SelectedToWhiteListAdvertisementCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
