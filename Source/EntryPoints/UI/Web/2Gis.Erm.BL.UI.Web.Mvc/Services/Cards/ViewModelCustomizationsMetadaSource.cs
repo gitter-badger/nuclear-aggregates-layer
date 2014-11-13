@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
@@ -49,7 +50,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<LockByReleaseCustomization>()
                                                      .Use<LockByWorkflowCustomization>()
                                                      .Use<SignupDateCustomization>()
-                                                     .UseWithOrder<InactiveOrderCustomization>(1)
+                                                     .UseWithOrder<InactiveOrderCustomization>(1),
+
+                         ViewModelCustomizationsMetada.Config
+                                                     .For<Deal>()
+                                                     .Use<DisableReopenDealButtonCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

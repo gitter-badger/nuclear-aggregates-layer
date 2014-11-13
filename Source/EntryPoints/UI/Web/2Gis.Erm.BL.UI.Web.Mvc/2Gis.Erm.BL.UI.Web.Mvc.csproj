@@ -226,6 +226,7 @@
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
     <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersons\LegalPersonIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersons\LegalPersonDoesntHaveAnyProfilesCustomization.cs" />
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
