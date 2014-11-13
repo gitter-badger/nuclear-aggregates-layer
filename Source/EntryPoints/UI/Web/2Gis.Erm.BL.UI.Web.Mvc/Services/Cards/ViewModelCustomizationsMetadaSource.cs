@@ -6,7 +6,6 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Categories;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
@@ -14,6 +13,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -111,6 +111,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
                         ViewModelCustomizationsMetada.Config
                                                      .For<Category>()
+                                                     .Use<SetReadonlyCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<FirmContact>()
                                                      .Use<SetReadonlyCustomization>(),
                     };
 
