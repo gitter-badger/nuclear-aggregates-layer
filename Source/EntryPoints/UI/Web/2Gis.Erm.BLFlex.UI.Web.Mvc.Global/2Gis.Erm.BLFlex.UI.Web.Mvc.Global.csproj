@@ -424,7 +424,6 @@
     <Compile Include="Services\Cards\MultiCultureAppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCulturePhonecallViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureTaskViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
     <Compile Include="Services\Cards\Russia\AppointmentViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\LegalPersonProfileViewModelCustomizationService.cs" />
@@ -501,8 +500,6 @@
     <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Cyprus\CyprusAccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureAccountViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Czech\CzechLegalPersonProfileViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\MultiCulture\MultiCultureFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
