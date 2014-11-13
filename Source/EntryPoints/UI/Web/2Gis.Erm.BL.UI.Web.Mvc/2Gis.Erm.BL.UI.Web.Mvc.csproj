@@ -168,6 +168,7 @@
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
+    <Compile Include="Models\Contracts\IFirmViewModel.cs" />
     <Compile Include="Models\Contracts\ILegalPersonViewModel.cs" />
     <Compile Include="Models\Contracts\IOrderViewModel.cs" />
     <Compile Include="Models\ContributionTypeViewModel.cs" />
@@ -227,6 +228,8 @@
     <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />
+    <Compile Include="Services\Cards\Firms\ChangeTerritoryPrivilegeCustomization.cs" />
+    <Compile Include="Services\Cards\Firms\FirmIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersons\LegalPersonIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersons\LegalPersonDoesntHaveAnyProfilesCustomization.cs" />
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />

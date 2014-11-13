@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
@@ -55,6 +56,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                          ViewModelCustomizationsMetada.Config
                                                      .For<Deal>()
                                                      .Use<DisableReopenDealButtonCustomization>(),
+
+                         ViewModelCustomizationsMetada.Config
+                                                     .For<Firm>()
+                                                     .Use<ChangeTerritoryPrivilegeCustomization>()
+                                                     .Use<FirmIsInactiveCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
