@@ -245,7 +245,7 @@
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CategoryViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Categories\SetReadonlyCustomization.cs" />
     <Compile Include="Services\Cards\DeniedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\FirmContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />

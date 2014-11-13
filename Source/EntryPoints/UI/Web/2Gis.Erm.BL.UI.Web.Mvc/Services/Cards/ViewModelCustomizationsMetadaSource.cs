@@ -6,6 +6,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Categories;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
@@ -107,6 +108,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<AdvertisementAccessCustomization>()
                                                      .Use<DummyAdvertisementCustomization>()
                                                      .Use<SelectedToWhiteListAdvertisementCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Category>()
+                                                     .Use<SetReadonlyCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
