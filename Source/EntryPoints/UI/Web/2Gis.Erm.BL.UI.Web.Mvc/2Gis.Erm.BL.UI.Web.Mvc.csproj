@@ -231,7 +231,8 @@
     <Compile Include="Services\Cards\Accounts\AccountIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\Activities\DisableActivityButtonsCustomization.cs" />
     <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AdvertisementTemplates\ManageAdvertisementTemplatePublicationButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\AdvertisementTemplates\PublishedAdvertisementTemplateCustomization.cs" />
     <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />
     <Compile Include="Services\Cards\Firms\ChangeTerritoryPrivilegeCustomization.cs" />
     <Compile Include="Services\Cards\Firms\FirmIsInactiveCustomization.cs" />

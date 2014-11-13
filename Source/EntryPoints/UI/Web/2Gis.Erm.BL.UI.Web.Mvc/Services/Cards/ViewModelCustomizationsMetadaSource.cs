@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
@@ -94,6 +95,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<Task>()
                                                      .Use<DisableActivityButtonsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<AdvertisementTemplate>()
+                                                     .Use<ManageAdvertisementTemplatePublicationButtonsCustomization>()
+                                                     .Use<PublishedAdvertisementTemplateCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
