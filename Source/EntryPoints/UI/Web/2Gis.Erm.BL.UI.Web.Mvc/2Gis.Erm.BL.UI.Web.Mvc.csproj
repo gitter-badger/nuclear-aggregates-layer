@@ -170,6 +170,7 @@
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
     <Compile Include="Models\Contracts\IFirmViewModel.cs" />
     <Compile Include="Models\Contracts\ILegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Contracts\IActivityViewModel.cs" />
     <Compile Include="Models\Contracts\IOrderPositionViewModel.cs" />
     <Compile Include="Models\Contracts\ILegalPersonViewModel.cs" />
     <Compile Include="Models\Contracts\IOrderViewModel.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
     <Compile Include="Services\Cards\Accounts\AccountIsInactiveCustomization.cs" />
+    <Compile Include="Services\Cards\Activities\DisableActivityButtonsCustomization.cs" />
     <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
@@ -11,6 +12,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -80,6 +82,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<LegalPersonProfile>()
                                                      .Use<MainLegalPersonProfileCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Appointment>()
+                                                     .Use<DisableActivityButtonsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Phonecall>()
+                                                     .Use<DisableActivityButtonsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Task>()
+                                                     .Use<DisableActivityButtonsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
