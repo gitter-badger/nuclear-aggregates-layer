@@ -10,11 +10,11 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public class LockByReleaseCustomization : IViewModelCustomization
+    public class LockOrderByReleaseCustomization : IViewModelCustomization
     {
         private readonly IReleaseReadModel _releaseReadModel;
 
-        public LockByReleaseCustomization(IReleaseReadModel releaseReadModel)
+        public LockOrderByReleaseCustomization(IReleaseReadModel releaseReadModel)
         {
             _releaseReadModel = releaseReadModel;
         }

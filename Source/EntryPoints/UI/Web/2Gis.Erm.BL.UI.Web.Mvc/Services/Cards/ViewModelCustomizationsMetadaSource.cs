@@ -6,6 +6,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -48,19 +49,27 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<InspectorNameCustomization>()
                                                      .Use<PrivilegesCustomization>()
                                                      .Use<WorkflowStepsCustomization>()
-                                                     .Use<LockByReleaseCustomization>()
+                                                     .Use<LockOrderByReleaseCustomization>()
                                                      .Use<LockByWorkflowCustomization>()
                                                      .Use<SignupDateCustomization>()
                                                      .UseWithOrder<InactiveOrderCustomization>(1),
 
-                         ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetada.Config
                                                      .For<Deal>()
                                                      .Use<DisableReopenDealButtonCustomization>(),
 
-                         ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetada.Config
                                                      .For<Firm>()
                                                      .Use<ChangeTerritoryPrivilegeCustomization>()
                                                      .Use<FirmIsInactiveCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<OrderPosition>()
+                                                     .Use<MoneySignificantDigitsNumberCustomization>()
+                                                     .Use<HideChangeBindingObjectsButtonCustomization>()
+                                                     .Use<InitOrderPositionDiscountCustomization>()
+                                                     .UseWithOrder<OrderPositionRateCustomization>(1)
+                                                     .UseWithOrder<LockOrderPositionByReleaseCustomization>(2)
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

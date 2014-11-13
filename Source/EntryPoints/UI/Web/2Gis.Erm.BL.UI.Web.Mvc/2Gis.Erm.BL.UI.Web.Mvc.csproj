@@ -169,6 +169,7 @@
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
     <Compile Include="Models\Contracts\IFirmViewModel.cs" />
+    <Compile Include="Models\Contracts\IOrderPositionViewModel.cs" />
     <Compile Include="Models\Contracts\ILegalPersonViewModel.cs" />
     <Compile Include="Models\Contracts\IOrderViewModel.cs" />
     <Compile Include="Models\ContributionTypeViewModel.cs" />
@@ -242,13 +243,18 @@
     <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\OrderPositions\InitOrderPositionDiscountCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\MoneySignificantDigitsNumberCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\HideChangeBindingObjectsButtonCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\OrderPositionRateCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\LockOrderPositionByReleaseCustomization.cs" />
     <Compile Include="Services\Cards\OrderProcessingRequestViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Orders\LockByWorkflowCustomization.cs" />
     <Compile Include="Services\Cards\Orders\SignupDateCustomization.cs" />
     <Compile Include="Services\Cards\Orders\InactiveOrderCustomization.cs" />
     <Compile Include="Services\Cards\Orders\InspectorNameCustomization.cs" />
     <Compile Include="Services\Cards\Orders\PrivilegesCustomization.cs" />
-    <Compile Include="Services\Cards\Orders\LockByReleaseCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\LockOrderByReleaseCustomization.cs" />
     <Compile Include="Services\Cards\Orders\WorkflowStepsCustomization.cs" />
     <Compile Include="Services\Cards\Orders\OrderValidationCustomization.cs" />
     <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
