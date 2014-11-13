@@ -247,6 +247,9 @@
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
+    <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
+    <Compile Include="Services\Cards\Prices\ManagePricePublicationButtonsCustomization.cs" />
     <Compile Include="Services\Cards\Shared\SetReadonlyCustomization.cs" />
     <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
@@ -267,7 +270,6 @@
     <Compile Include="Services\Cards\Orders\OrderValidationCustomization.cs" />
     <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PricePositionViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsMetadaSource.cs" />
