@@ -27,6 +27,27 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
                 .HasMaxLength(8)
                 .IsRowVersion();
 
+
+            Property(t => t.ScheduledStart)
+                .HasColumnType("datetime2")
+                .HasPrecision(7);
+
+            Property(t => t.ScheduledEnd)
+                .HasColumnType("datetime2")
+                .HasPrecision(7);
+
+            Property(t => t.ActualEnd)
+                .HasColumnType("datetime2")
+                .HasPrecision(7);
+
+            Property(t => t.CreatedOn)
+                .HasColumnType("datetime2")
+                .HasPrecision(7);
+
+            Property(t => t.ModifiedOn)
+                .HasColumnType("datetime2")
+                .HasPrecision(7);
+
             // Table & Column Mappings
             ToTable("AppointmentBase", "Activity");
             Property(t => t.Id).HasColumnName("Id");

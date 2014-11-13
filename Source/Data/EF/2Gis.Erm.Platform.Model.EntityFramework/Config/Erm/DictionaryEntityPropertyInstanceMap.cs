@@ -18,6 +18,9 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.PropertyId)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(t => t.NumericValue)
+                .HasPrecision(23, 4);
+
             // Table & Column Mappings
             ToTable("DictionaryEntityPropertyInstances", "DynamicStorage");
             Property(t => t.EntityInstanceId).HasColumnName("EntityInstanceId");
