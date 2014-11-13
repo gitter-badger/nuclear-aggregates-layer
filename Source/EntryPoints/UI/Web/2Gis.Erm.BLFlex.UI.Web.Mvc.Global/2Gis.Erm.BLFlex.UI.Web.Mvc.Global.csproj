@@ -415,7 +415,6 @@
     <Compile Include="Models\Ukraine\UkraineKazakhstanContactViewModel.cs" />
     <Compile Include="Models\Ukraine\UkraineLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Ukraine\UkraineLegalPersonViewModel.cs" />
-    <Compile Include="Services\Cards\MultiCultureOrderPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Ukraine\UkraineContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Russia\RussiaContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusContactViewModelCustomizationService.cs" />
