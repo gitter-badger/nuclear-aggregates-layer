@@ -14,6 +14,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.PricePositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
@@ -129,6 +130,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<ManagePricePublicationButtonsCustomization>()
                                                      .Use<PublishedPriceCustomization>()
                                                      .Use<InactivePriceCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<PricePosition>()
+                                                     .Use<InactivePricePositionCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
