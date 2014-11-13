@@ -72,7 +72,6 @@
     <Compile Include="Factories\Messaging\UnityMessageProcessingStrategyFactory.cs" />
     <Compile Include="Factories\Messaging\UnityMessageTransformerFactory.cs" />
     <Compile Include="Factories\Messaging\UnityMessageValidatorFactory.cs" />
-    <Compile Include="Factories\UnityDomainContextFactory.cs" />
     <Compile Include="Factories\Messaging\UnityMessageReceiverFactory.cs" />
     <Compile Include="Factories\UnityTransactedOperationScopeFactory.cs" />
     <Compile Include="Factories\UnityUnitOfWork.cs" />

@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
     {
         const string DefaultContextName = "Erm";
 
-        static EFDomainContext _domainContext;
+        static IModifiableDomainContext _domainContext;
 
         static IMsCrmReplicationMetadataProvider _enabledReplicationMetadataProvider = new MsCrmReplicationMetadataProvider(EntityNameUtils.AsyncReplicated2MsCrmEntities,
                                                                                                                             EntityNameUtils.AllReplicated2MsCrmEntities

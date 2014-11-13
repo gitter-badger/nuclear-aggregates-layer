@@ -13,9 +13,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly DbContext _dbContext;
         private bool _isDisposed;
 
-        public EFDbContext(DbConnection connection, DbCompiledModel model, IProducedQueryLogAccessor producedQueryLogAccessor)
+        public EFDbContext(DbConnection connection, DbCompiledModel model, IProducedQueryLogAccessor producedQueryLogAccessor, bool contextOwnsConnection)
         {
-            _dbContext = new DbContext(connection, model, false);
+            _dbContext = new DbContext(connection, model, contextOwnsConnection);
             _dbContext.Configuration.ValidateOnSaveEnabled = true;
             _dbContext.Configuration.UseDatabaseNullSemantics = true;
             _dbContext.Configuration.LazyLoadingEnabled = false;
