@@ -87,10 +87,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            Type[] explicitlyTypesSpecified =// null;
-             { typeof(PerformedOperationsProcessingReadModelTest)/*,  typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  */};
-            Type[] explicitlyExcludedTypes = null;
-            //{ typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+            Type[] explicitlyTypesSpecified = null;
+            //{ typeof(PerformedOperationsProcessingReadModelTest)/*,  typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  */};
+            Type[] explicitlyExcludedTypes = //null;
+            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
 
 
             var massProcessors = new IMassProcessor[]
