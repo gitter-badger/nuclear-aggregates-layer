@@ -288,6 +288,10 @@ Ext.FieldType =
         Period: 'Period'
     };
 
+Ext.CurrencyFormat = {
+    Positive: {KZT:'n $'},
+    Negative: {KZT:'-n $'}
+};
 
 //Небольшое расширение модели Ext
 var extendExt = function () {
@@ -476,7 +480,14 @@ var extendExt = function () {
 
                 var fnum = this.getNumberLiteral(v, formatInfo, roundNumber);
 
-                return neg ? formatInfo.CurrencyNegativePattern.replace('-', formatInfo.NegativeSign).replace('n', fnum).replace('$', formatInfo.CurrencySymbol) : formatInfo.CurrencyPositivePattern.replace('n', fnum).replace('$', formatInfo.CurrencySymbol);
+                // COMMENT {all, 13.11.2014}: Костыль, связанный с тем, что есть потребность трёхбуквенные коды располагать не так, как указано в системных настройках культуры.
+                var format = neg
+                    ? (Ext.CurrencyFormat.Negative[formatInfo.CurrencySymbol] || formatInfo.CurrencyNegativePattern)
+                    : (Ext.CurrencyFormat.Positive[formatInfo.CurrencySymbol] || formatInfo.CurrencyPositivePattern);
+
+                return format.replace('-', formatInfo.NegativeSign)
+                             .replace('n', fnum)
+                             .replace('$', formatInfo.CurrencySymbol);
             },
 
             exNumberRenderer: function (formatInfo) {
