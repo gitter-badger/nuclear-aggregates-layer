@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
@@ -69,7 +70,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<HideChangeBindingObjectsButtonCustomization>()
                                                      .Use<InitOrderPositionDiscountCustomization>()
                                                      .UseWithOrder<OrderPositionRateCustomization>(1)
-                                                     .UseWithOrder<LockOrderPositionByReleaseCustomization>(2)
+                                                     .UseWithOrder<LockOrderPositionByReleaseCustomization>(2),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Account>()
+                                                     .Use<AccountIsInactiveCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
