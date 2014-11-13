@@ -237,6 +237,8 @@
     <Compile Include="Services\Cards\AdvertisementTemplates\ManageAdvertisementTemplatePublicationButtonsCustomization.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplates\PublishedAdvertisementTemplateCustomization.cs" />
     <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />
+    <Compile Include="Services\Cards\DeniedPositions\InactiveDeniedPositionsCustomization.cs" />
+    <Compile Include="Services\Cards\DeniedPositions\DeniedPositionsPriceIsPublishedCustomization.cs" />
     <Compile Include="Services\Cards\Firms\ChangeTerritoryPrivilegeCustomization.cs" />
     <Compile Include="Services\Cards\Firms\FirmIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersonProfiles\MainLegalPersonProfileCustomization.cs" />
@@ -246,7 +248,6 @@
     <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Shared\SetReadonlyCustomization.cs" />
-    <Compile Include="Services\Cards\DeniedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
