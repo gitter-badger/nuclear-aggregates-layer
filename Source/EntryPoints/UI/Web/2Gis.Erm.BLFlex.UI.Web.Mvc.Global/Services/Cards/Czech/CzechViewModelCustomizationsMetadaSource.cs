@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Czech
                     {
                         ViewModelCustomizationsMetada.Config
                                                      .For<Order>()
-                                                     .Use<MultiCulturePrintFormsCustomization>(),
+                                                     .Use<CzechPrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

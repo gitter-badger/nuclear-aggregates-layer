@@ -7,29 +7,25 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Czech
 {
-    public class PrintFormsCustomization : IViewModelCustomization, IRussiaAdapted
+    public class CzechPrintFormsCustomization : IViewModelCustomization, ICzechAdapted
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var entityViewModel = (IOrderViewModel)viewModel;
 
-            var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated || !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination || entityViewModel.WorkflowStepId == (int)OrderState.Archive);
-            
+            var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated ||
+                                                        !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination ||
+                                                          entityViewModel.WorkflowStepId == (int)OrderState.Archive);
+
             // TODO {y.baranihin, 13.11.2014}: сделать конфигурирование кнопок на отключение
             if (isActionDisabledBasedOnWorkflowStepId)
             {
                 entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
                 entityViewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction");
-            }
-
-            var isReqionalOrder = entityViewModel.SourceOrganizationUnit.Key !=
-                                  entityViewModel.DestinationOrganizationUnit.Key;
-
-            if (isActionDisabledBasedOnWorkflowStepId || !isReqionalOrder)
-            {
-                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintRegTerminationNoticeAction");
+                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeWithoutReasonAction");
+                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction");
             }
         }
     }

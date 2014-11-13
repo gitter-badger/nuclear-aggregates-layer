@@ -170,9 +170,12 @@
     <Compile Include="Models\Kazakhstan\KazakhstanChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\MultiCultureDealViewModel.cs" />
     <Compile Include="Services\Cards\Chile\ChileViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Chile\ChilePrintFormsCustomization.cs" />
     <Compile Include="Services\Cards\Cyprus\CyprusViewModelCustomizationsMetadaSource.cs" />
     <Compile Include="Services\Cards\Czech\CzechViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Czech\CzechPrintFormsCustomization.cs" />
     <Compile Include="Services\Cards\Emirates\EmiratesViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesPrintFormsCustomization.cs" />
     <Compile Include="Services\Cards\Kazakhstan\KazakhstanViewModelCustomizationsMetadaSource.cs" />
     <Compile Include="Services\Cards\Kazakhstan\KazakhstanContactViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />

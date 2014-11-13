@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Emirates
                     {
                         ViewModelCustomizationsMetada.Config
                                                      .For<Order>()
-                                                     .Use<MultiCulturePrintFormsCustomization>(),
+                                                     .Use<EmiratesPrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

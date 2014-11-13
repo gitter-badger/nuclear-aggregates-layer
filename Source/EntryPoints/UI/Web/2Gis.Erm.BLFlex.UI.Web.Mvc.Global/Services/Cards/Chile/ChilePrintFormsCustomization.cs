@@ -7,10 +7,9 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
 {
-    public class MultiCulturePrintFormsCustomization : IViewModelCustomization, ICyprusAdapted,
-                                                       IUkraineAdapted, IKazakhstanAdapted
+    public class ChilePrintFormsCustomization : IViewModelCustomization, IChileAdapted
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
@@ -24,6 +23,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             if (isActionDisabledBasedOnWorkflowStepId)
             {
                 entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
+                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction");
             }
         }
     }
