@@ -6,6 +6,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
@@ -75,6 +76,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<Account>()
                                                      .Use<AccountIsInactiveCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<LegalPersonProfile>()
+                                                     .Use<MainLegalPersonProfileCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
