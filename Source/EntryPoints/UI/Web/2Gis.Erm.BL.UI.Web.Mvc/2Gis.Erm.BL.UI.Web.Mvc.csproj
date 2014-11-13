@@ -236,6 +236,9 @@
     <Compile Include="Services\Cards\Advertisements\SelectedToWhiteListAdvertisementCustomization.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplates\ManageAdvertisementTemplatePublicationButtonsCustomization.cs" />
     <Compile Include="Services\Cards\AdvertisementTemplates\PublishedAdvertisementTemplateCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionsGroups\AssociatedPositionGroupIsDeletedCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionsGroups\AssociatedPositionGroupsPriceIsDeletedCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionsGroups\AssociatedPositionGroupsPriceIsPublishedCustomization.cs" />
     <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />
     <Compile Include="Services\Cards\DeniedPositions\InactiveDeniedPositionsCustomization.cs" />
     <Compile Include="Services\Cards\DeniedPositions\DeniedPositionsPriceIsPublishedCustomization.cs" />
@@ -245,7 +248,6 @@
     <Compile Include="Services\Cards\LegalPersons\LegalPersonIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersons\LegalPersonDoesntHaveAnyProfilesCustomization.cs" />
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
