@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
@@ -88,10 +87,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
 
-            Type[] explicitlyTypesSpecified = null;
-            // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
-            Type[] explicitlyExcludedTypes = //null;
-            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+            Type[] explicitlyTypesSpecified =// null;
+             { typeof(PerformedOperationsProcessingReadModelTest)/*,  typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  */};
+            Type[] explicitlyExcludedTypes = null;
+            //{ typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
 
 
             var massProcessors = new IMassProcessor[]
