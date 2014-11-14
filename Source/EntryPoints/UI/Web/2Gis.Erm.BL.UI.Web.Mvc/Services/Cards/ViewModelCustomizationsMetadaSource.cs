@@ -15,6 +15,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderFiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.PricePositions;
@@ -83,6 +84,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<InitOrderPositionDiscountCustomization>()
                                                      .UseWithOrder<OrderPositionRateCustomization>(1)
                                                      .UseWithOrder<LockOrderPositionByReleaseCustomization>(2),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<OrderFile>()
+                                                     .Use<OrderFileAccessCustomization>(),
 
                         ViewModelCustomizationsMetada.Config
                                                      .For<Account>()

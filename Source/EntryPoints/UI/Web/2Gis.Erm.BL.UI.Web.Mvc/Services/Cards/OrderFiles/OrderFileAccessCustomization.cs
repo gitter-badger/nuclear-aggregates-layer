@@ -3,13 +3,12 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderFiles
 {
-    public class OrderFileViewModelCustomizationService : IGenericViewModelCustomizationService<OrderFile>
+    public class OrderFileAccessCustomization : IViewModelCustomization
     {
-        public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var orderFileModel = (OrderFileViewModel)viewModel;
 

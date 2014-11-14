@@ -251,7 +251,7 @@
     <Compile Include="Services\Cards\LegalPersons\LegalPersonDoesntHaveAnyProfilesCustomization.cs" />
     <Compile Include="Services\Cards\Locks\NewLockCustomization.cs" />
     <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
-    <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\OrderFiles\OrderFileAccessCustomization.cs" />
     <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\ManagePricePublicationButtonsCustomization.cs" />
