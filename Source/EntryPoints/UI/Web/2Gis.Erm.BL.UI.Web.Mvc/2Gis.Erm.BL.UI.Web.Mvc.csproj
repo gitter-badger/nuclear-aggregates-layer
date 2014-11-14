@@ -247,6 +247,8 @@
     <Compile Include="Services\Cards\LegalPersonProfiles\MainLegalPersonProfileCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersons\LegalPersonIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\LegalPersons\LegalPersonDoesntHaveAnyProfilesCustomization.cs" />
+    <Compile Include="Services\Cards\Locks\NewLockCustomization.cs" />
+    <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
     <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
@@ -255,7 +257,6 @@
     <Compile Include="Services\Cards\Shared\SetReadonlyCustomization.cs" />
     <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderPositions\InitOrderPositionDiscountCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\MoneySignificantDigitsNumberCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\HideChangeBindingObjectsButtonCustomization.cs" />

@@ -13,6 +13,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.PricePositions;
@@ -140,7 +141,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .For<AssociatedPositionsGroup>()
                                                      .UseWithOrder<AssociatedPositionGroupIsDeletedCustomization>(1)
                                                      .UseWithOrder<AssociatedPositionGroupsPriceIsDeletedCustomization>(2)
-                                                     .UseWithOrder<AssociatedPositionGroupsPriceIsPublishedCustomization>(3)
+                                                     .UseWithOrder<AssociatedPositionGroupsPriceIsPublishedCustomization>(3),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Lock>()
+                                                     .Use<SetReadonlyCustomization>()
+                                                     .Use<NewLockCustomization>()
+                                                     .Use<LocalizeLockStatusCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
