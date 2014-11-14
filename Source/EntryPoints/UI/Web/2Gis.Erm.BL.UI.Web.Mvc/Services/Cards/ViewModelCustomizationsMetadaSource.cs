@@ -14,6 +14,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderFiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
@@ -159,6 +160,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<SetReadonlyCustomization>()
                                                      .Use<NewLockCustomization>()
                                                      .Use<LocalizeLockStatusCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Limit>()
+                                                     .Use<CheckIfLimitRecalculationAvailableCustomization>()
+                                                     .Use<CheckLimitPrivilegeCustomization>()
+                                                     .Use<LockLimitByWorkflowCustomization>()
+                                                     .Use<ManageLimitWorkflowButtonsCustomization>()
+                                                     .Use<SetLimitInspectorNameCustomization>()
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
