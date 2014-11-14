@@ -66,23 +66,23 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n\r\n        // saving of for additionalFirmAddressServices control\r\n        wind" +
 "ow.InitPage = function ()\r\n        {\r\n            this.on(\'beforepost\', function" +
 " ()\r\n            {\r\n                this.genericSave(this.submitMode);\r\n        " +
-"        return false;\r\n            });\r\n        \r\n            Ext.apply(this,\r\n " +
-"               {\r\n                    genericSave: function (submitMode)\r\n      " +
-"              {\r\n                        var card = this;\r\n                     " +
-"   var onSuccess = function ()\r\n                        {\r\n                     " +
-"       card.refresh();\r\n                        };\r\n\r\n                        va" +
-"r onFailure = function ()\r\n                        {\r\n                          " +
-"  // TODO {all, 18.12.2013}: alert можно заменить на ext\'овый messagebox\r\n      " +
-"                      alert(Ext.LocalizedResources.SaveError);\r\n                " +
-"            card.Items.Toolbar.enable();\r\n                        };\r\n\r\n        " +
-"                var additionalFirmAddressServicesIFrame = Ext.getDom(\'Additional" +
-"FirmAddressServices_frame\');\r\n                        if (additionalFirmAddressS" +
-"ervicesIFrame)\r\n                        {\r\n                            var conte" +
-"ntWindow = additionalFirmAddressServicesIFrame.contentWindow;\r\n                 " +
-"           contentWindow.Ext.DoubleGis.UI.AdditionalFirmServicesControlInstance." +
-"Save(onSuccess, onFailure);\r\n                        }\r\n                        " +
-"else\r\n                            onSuccess();\r\n                    }\r\n         " +
-"       });\r\n        }\r\n    </script>\r\n");
+"        return false;\r\n            });\r\n\r\n            Ext.apply(this,\r\n         " +
+"       {\r\n                    genericSave: function (submitMode)\r\n              " +
+"      {\r\n                        var card = this;\r\n                        var o" +
+"nSuccess = function ()\r\n                        {\r\n                            c" +
+"ard.refresh();\r\n                        };\r\n\r\n                        var onFail" +
+"ure = function ()\r\n                        {\r\n                            // TOD" +
+"O {all, 18.12.2013}: alert можно заменить на ext\'овый messagebox\r\n              " +
+"              alert(Ext.LocalizedResources.SaveError);\r\n                        " +
+"    card.Items.Toolbar.enable();\r\n                        };\r\n\r\n                " +
+"        var additionalFirmAddressServicesIFrame = Ext.getDom(\'AdditionalFirmAddr" +
+"essServices_frame\');\r\n                        if (additionalFirmAddressServicesI" +
+"Frame)\r\n                        {\r\n                            var contentWindow" +
+" = additionalFirmAddressServicesIFrame.contentWindow;\r\n                         " +
+"   contentWindow.Ext.DoubleGis.UI.AdditionalFirmServicesControlInstance.Save(onS" +
+"uccess, onFailure);\r\n                        }\r\n                        else\r\n  " +
+"                          onSuccess();\r\n                    }\r\n                }" +
+");\r\n        }\r\n    </script>\r\n");
 
 });
 
@@ -107,14 +107,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"Div1\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1859), Tuple.Create("\"", 1895)
+WriteAttribute("title", Tuple.Create(" title=\"", 1851), Tuple.Create("\"", 1887)
             
             #line 54 "..\..\Views\CreateOrUpdate\Emirates\FirmAddress.cshtml"
-, Tuple.Create(Tuple.Create("", 1867), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1859), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1867), false)
+, 1859), false)
 );
 
 WriteLiteral(">\r\n        <div");
