@@ -303,7 +303,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             report = string.Empty;
 
             var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
-            if (lastFinalRelease != null)
+            if (lastFinalRelease != null && lastFinalRelease.Status == (int)ReleaseStatus.Success)
             {
                 previuosReleaseId = lastFinalRelease.Id;
                 report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
