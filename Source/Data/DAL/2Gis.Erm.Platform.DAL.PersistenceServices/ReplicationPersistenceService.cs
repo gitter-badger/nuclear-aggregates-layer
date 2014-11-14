@@ -72,9 +72,9 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 {
                     _databaseCaller.ExecuteProcedure(procedureName, timeout, new Tuple<string, object>("Id", id));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    _logger.ErrorFormatEx(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
+                    _logger.DebugFormatEx("Can't replicate entity with id {0} using procedure {1}", id, procedureName);
                     failed.Add(id);
                 }
             }
@@ -90,9 +90,9 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             {
                 _databaseCaller.ExecuteProcedure(procedureName, timeout, new Tuple<string, object>("Ids", ids.ToIdsContainer()));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.ErrorFormatEx(ex, "Can't replicate entities batch using procedure {0}", procedureName);
+                _logger.DebugFormatEx("Can't replicate entities batch using procedure {0}", procedureName);
                 notReplicated = new List<long>(ids);
             }
         }
