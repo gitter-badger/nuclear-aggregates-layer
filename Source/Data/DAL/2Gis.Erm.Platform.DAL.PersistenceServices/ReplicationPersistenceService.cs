@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 }
                 catch (Exception)
                 {
-                    _logger.DebugFormatEx("Can't replicate entity with id {0} using procedure {1}", id, procedureName);
+                    _logger.ErrorFormatEx("Can't replicate entity with id {0} using procedure {1}", id, procedureName);
                     failed.Add(id);
                 }
             }
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
             catch (Exception)
             {
-                _logger.DebugFormatEx("Can't replicate entities batch using procedure {0}", procedureName);
+                _logger.ErrorFormatEx("Can't replicate entities batch using procedure {0}", procedureName);
                 notReplicated = new List<long>(ids);
             }
         }
