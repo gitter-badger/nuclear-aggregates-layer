@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionsGroups
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups
 {
     public class AssociatedPositionGroupsPriceIsDeletedCustomization : IViewModelCustomization
     {

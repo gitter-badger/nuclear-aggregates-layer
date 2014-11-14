@@ -6,7 +6,8 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionsGroups;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions;
@@ -136,6 +137,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<PricePosition>()
                                                      .Use<InactivePricePositionCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<AssociatedPosition>()
+                                                     .Use<AssociatedPositionsPriceIsDeletedCustomization>()
+                                                     .Use<AssociatedPositionsPriceIsPublishedCustomization>(),
 
                         ViewModelCustomizationsMetada.Config
                                                      .For<AssociatedPositionsGroup>()

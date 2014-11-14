@@ -5,13 +5,13 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionsGroups
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositions
 {
-    public class AssociatedPositionGroupsPriceIsPublishedCustomization : IViewModelCustomization
+    public class AssociatedPositionsPriceIsPublishedCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (AssociatedPositionsGroupViewModel)viewModel;
+            var entityViewModel = (AssociatedPositionViewModel)viewModel;
             if (!entityViewModel.PriceIsPublished)
             {
                 return;
@@ -19,8 +19,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionsGroups
 
             entityViewModel.ViewConfig.ReadOnly = true;
             entityViewModel.SetInfo(entityViewModel.IsNew
-                                        ? BLResources.CantAddNewGroupWhenPriceIsPublished
-                                        : BLResources.CantEditGroupWhenPriceIsPublished);
+                                        ? BLResources.CantAddAssociatedPositionToGroupWhenPriceIsPublished
+                                        : BLResources.CantEditAssociatedPositionInGroupWhenPriceIsPublished);
         }
     }
 }
