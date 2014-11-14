@@ -1,4 +1,4 @@
-﻿// File updated : 06.11.2014 12:28:07
+﻿// File updated : 11.11.2014 15:44:37
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -120,6 +120,7 @@ EndDistributionDate : 'Finalización de la publicación',
 Error : 'Error',
 ErrorDetectedWhenChangingUseCaseState : 'Se ha producido un error al intentar modificar el estado de la sesión',
 ErrorDuringOperation : 'Se ha producido un error durante la realización de la operación',
+ErrorOnServiceAccess : 'Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.',
 ErrorRetrievingDataFromServer : 'Error al recibir los datos del servidor',
 February : 'Febrero',
 FieldInvalidText : 'Se ha indicado un valor incorrecto',
