@@ -19,6 +19,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderFiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.PricePositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
@@ -172,7 +173,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
                         ViewModelCustomizationsMetada.Config
                                                      .For<Territory>()
-                                                     .Use<ActiveTerritoryCustomization>()
+                                                     .Use<ActiveTerritoryCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Position>()
+                                                     .Use<CheckIfPositionTemplateIsReadOnlyCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

@@ -276,7 +276,7 @@
     <Compile Include="Services\Cards\Orders\LockOrderByReleaseCustomization.cs" />
     <Compile Include="Services\Cards\Orders\WorkflowStepsCustomization.cs" />
     <Compile Include="Services\Cards\Orders\OrderValidationCustomization.cs" />
-    <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Positions\CheckIfPositionTemplateIsReadOnlyCustomization.cs" />
     <Compile Include="Services\Cards\PricePositions\InactivePricePositionCustomization.cs" />
     <Compile Include="Services\Cards\Territories\ActiveTerritoryCustomization.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />

@@ -4,20 +4,19 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions
 {
-    public class PositionViewModelCustomizationService : IGenericViewModelCustomizationService<Position>
+    public class CheckIfPositionTemplateIsReadOnlyCustomization : IViewModelCustomization
     {
         private readonly IPositionRepository _positionRepository;
 
-        public PositionViewModelCustomizationService(IPositionRepository positionRepository)
+        public CheckIfPositionTemplateIsReadOnlyCustomization(IPositionRepository positionRepository)
         {
             _positionRepository = positionRepository;
         }
 
-        public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var entityViewModel = (PositionViewModel)viewModel;
 
