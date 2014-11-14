@@ -254,6 +254,8 @@
     <Compile Include="Services\Cards\Limits\ManageLimitWorkflowButtonsCustomization.cs" />
     <Compile Include="Services\Cards\Limits\SetLimitInspectorNameCustomization.cs" />
     <Compile Include="Services\Cards\Limits\LockLimitByWorkflowCustomization.cs" />
+    <Compile Include="Services\Cards\LockDetails\NewLockDetailCustomization.cs" />
+    <Compile Include="Services\Cards\LockDetails\LocalizeLockDetailsPriceCustomization.cs" />
     <Compile Include="Services\Cards\Locks\NewLockCustomization.cs" />
     <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
     <Compile Include="Services\Cards\OrderFiles\OrderFileAccessCustomization.cs" />
@@ -261,7 +263,6 @@
     <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\ManagePricePublicationButtonsCustomization.cs" />
     <Compile Include="Services\Cards\Shared\SetReadonlyCustomization.cs" />
-    <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\OrderPositions\InitOrderPositionDiscountCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\MoneySignificantDigitsNumberCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\HideChangeBindingObjectsButtonCustomization.cs" />
