@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
 
             var num = Math.Max(_nextRequestedCount, missingCount);
 
-            _logger.InfoFormatEx("Requesting {0} identifiers from identity service. Number of concurrently executing threads is {1}.", num, _threadsCount);
+            _logger.DebugFormatEx("Requesting {0} identifiers from identity service. Number of concurrently executing threads is {1}.", num, _threadsCount);
 
             long[] ids;
             try
