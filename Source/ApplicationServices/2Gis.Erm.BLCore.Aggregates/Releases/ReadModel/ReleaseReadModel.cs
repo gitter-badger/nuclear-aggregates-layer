@@ -126,26 +126,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             IQueryable<OrganizationUnit> organizationUnitQuery;
             if (organizationUnitId == UkOrganizationUnitId)
             {
-                organizationUnitQuery = _finder.FindAll<OrganizationUnit>().Select(x => new
-                {
-                    OrganizationUnit = x,
-                    ContributionType = x.BranchOfficeOrganizationUnits.Where(y => y.IsActive && !y.IsDeleted && y.IsPrimaryForRegionalSales)
-                                        .Select(y => y.BranchOffice)
-                                        .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
-                                        .FirstOrDefault(),
-                })
-                .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
-                .Select(x => x.OrganizationUnit);
+                organizationUnitQuery = _finder.FindAll<OrganizationUnit>()
+                                               .Select(x => new
+                                                                {
+                                                                    OrganizationUnit = x,
+                                                                    ContributionType = x.BranchOfficeOrganizationUnits
+                                                                                        .Where(y => y.IsActive && !y.IsDeleted &&
+                                                                                                    y.IsPrimaryForRegionalSales)
+                                                                                        .Select(y => y.BranchOffice)
+                                                                                        .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
+                                                                                        .FirstOrDefault(),
+                                                                })
+                                               .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
+                                               .Select(x => x.OrganizationUnit);
             }
             else
             {
                 organizationUnitQuery = _finder.Find<OrganizationUnit>(x => x.Id == organizationUnitId);
             }
 
-            var hasSuccessedRelease = organizationUnitQuery
-                .SelectMany(x => x.ReleaseInfos)
-                .Any(x => x.IsActive && !x.IsDeleted && !x.IsBeta && x.PeriodStartDate >= periodStartDate && x.Status == (int)ReleaseStatus.Success);
-
+            var hasSuccessedRelease = organizationUnitQuery.SelectMany(x => x.ReleaseInfos)
+                                                           .Any(x => x.IsActive && !x.IsDeleted &&
+                                                                     !x.IsBeta &&
+                                                                     x.PeriodStartDate >= periodStartDate &&
+                                                                     x.Status == (int)ReleaseStatus.Success);
             return hasSuccessedRelease;
         }
 
