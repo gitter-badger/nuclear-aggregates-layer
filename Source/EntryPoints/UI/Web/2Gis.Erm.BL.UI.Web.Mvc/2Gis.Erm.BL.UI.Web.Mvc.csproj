@@ -278,7 +278,7 @@
     <Compile Include="Services\Cards\Orders\OrderValidationCustomization.cs" />
     <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\PricePositions\InactivePricePositionCustomization.cs" />
-    <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Territories\ActiveTerritoryCustomization.cs" />
     <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsMetadaSource.cs" />
     <Compile Include="Services\Cards\Clients\WarnLinkToAdvAgencyExistsVmCustomization.cs" />

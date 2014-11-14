@@ -22,6 +22,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.PricePositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Territories;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -167,7 +168,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<CheckLimitPrivilegeCustomization>()
                                                      .Use<LockLimitByWorkflowCustomization>()
                                                      .Use<ManageLimitWorkflowButtonsCustomization>()
-                                                     .Use<SetLimitInspectorNameCustomization>()
+                                                     .Use<SetLimitInspectorNameCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Territory>()
+                                                     .Use<ActiveTerritoryCustomization>()
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
