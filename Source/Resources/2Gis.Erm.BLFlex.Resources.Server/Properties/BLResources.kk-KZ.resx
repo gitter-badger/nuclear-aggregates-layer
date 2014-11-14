@@ -162,21 +162,20 @@ SWIFT {5}
 </value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
-    <value>Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}»*.</value>
+    <value>Интернет-площадки и Веб-приложения на основе Справочника организаций {0}.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
-    <value>1. Электронное СМИ: «{0}» (версия для ПК и мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.
-2. Интернет-площадка 2gis.ru на основе Справочника организаций «{0}».
-3. Интернет-площадки и Веб-приложения на основе Справочника организаций «{0}»*.</value>
+    <value>1. Электронный справочник: {0} (версия для ПК и мобильные версии). Срок выхода с {4} г. по {5} г. 
+Интернет-площадка 2gis.kz на основе Справочника {0}.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
-    <value>Электронное СМИ: «{0}» (мобильные версии). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.</value>
+    <value>Электронный справочник: {0} (мобильные версии). Срок выхода с {4} г. по {5} г.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
-    <value>Интернет-площадка по адресу 2gis.ru на основе Справочника организаций «{0}».</value>
+    <value>Интернет-площадка 2gis.kz на основе Справочника {0}.</value>
   </data>
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
-    <value>Электронное СМИ: «{0}» (версия для ПК). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.</value>
+    <value>Электронный справочник: {0} (версия для ПК). Срок выхода с {4} г. по {5} г.</value>
   </data>
   <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
     <value>8.</value>

@@ -905,7 +905,7 @@
 					<RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=1&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
-					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=1&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
+					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=1&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
           <RelatedItem Name="Links" NameLocaleResourceId="CrdRelClientLinks" Icon="en_ico_16_Links.gif" RequestUrl="/Grid/View/ClientLink" AppendableEntity="Client" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>
 				</RelatedItemsArea>
 			</RelatedItems>
@@ -1052,7 +1052,7 @@
 			<RelatedItems>
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Contact.gif" />
-					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=2&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
+					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=2&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=2&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 				</RelatedItemsArea>
 			</RelatedItems>
@@ -1261,7 +1261,7 @@
 				<RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
 					<RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Deal.gif" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=3&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
+					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=3&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=3&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
           <RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" RequestUrl="/Grid/View/FirmDeal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Firm" ExtendedInfo="filterToParent=true" />
 				</RelatedItemsArea>
@@ -1395,7 +1395,7 @@
 					<RelatedItem Name="FirmAdvertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
 					<RelatedItem Name="ActivityHistory" NameLocaleResourceId="CrdRelActivityHistory" Icon="en_ico_16_history.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=10013&amp;security=852023&amp;tabSet=areaActivityHistory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
-					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=10013&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
+					<RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="userdefined/areas.aspx?oId={ReplicationCode}&amp;oType=10013&amp;security=852023&amp;tabSet=areaActivities" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" IsCrmView="true" />
 				</RelatedItemsArea>
 			</RelatedItems>
 		</Card>

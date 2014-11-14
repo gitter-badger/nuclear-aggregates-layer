@@ -5,8 +5,8 @@
 
 @section CardScripts
 {
-    <script src="/Scripts/Ext.DoubleGis.UI.Client.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/MultiCulture/Ext.DoubleGis.UI.Client.MultiCulture.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.Client.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/MultiCulture/Ext.DoubleGis.UI.Client.MultiCulture.js?@ThisAssembly.Build" type="text/javascript"></script>
 }
 
 @section CardBody
@@ -37,11 +37,11 @@
         @Html.SectionHead("SectionHead2", BLResources.AdditionalTabTitle)
         <div class="row-wrapper">
             @Html.TemplateField(m => m.InformationSource, FieldFlex.twins, null, EnumResources.ResourceManager)
-            @Html.TemplateField(m => m.LastQualifyTime, FieldFlex.twins, new CalendarSettings { ReadOnly = true })
+            @Html.TemplateField(m => m.LastQualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" })
-            @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new CalendarSettings { ReadOnly = true })
+            @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
         </div>
     </div>
     <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
