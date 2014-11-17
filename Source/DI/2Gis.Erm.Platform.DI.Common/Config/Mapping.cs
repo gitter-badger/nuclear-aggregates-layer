@@ -16,5 +16,6 @@
         public const string UnsecureOperationRepositoriesScope = "UnsecureOperationRepositoriesScope";
         public const string SecureOperationRepositoriesScope = "SecureOperationRepositoriesScope";
         public const string DynamicEntitiesRepositoriesScope = "DynamicEntitiesRepositoriesScope";
+        public const string OrderValidationRulesScope = "OrderValidationRulesScope";
     }
 }

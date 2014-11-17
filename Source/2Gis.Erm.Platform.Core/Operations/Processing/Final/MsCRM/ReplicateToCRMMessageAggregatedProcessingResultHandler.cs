@@ -22,8 +22,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
         public ReplicateToCRMMessageAggregatedProcessingResultHandler(
             IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
             IReplicationPersistenceService replicationPersistenceService,
-            ICommonLog logger,
-            IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
+                                                                      ICommonLog logger,
+                                                                      IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _asyncMsCRMReplicationSettings = asyncMsCRMReplicationSettings;
             _logger = logger;
@@ -37,17 +37,17 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             var replicationTargets = new Dictionary<Type, List<Tuple<Guid, long>>>();
 
             foreach (var processingResultBucket in processingResultBuckets)
-            {
+        {
                 foreach (var processingResults in processingResultBucket.Value)
-                {
+            {
                     if (!Equals(processingResults.TargetFlow, FinalReplicate2MsCRMPerformedOperationsFlow.Instance))
-                    {
-                        continue;
-                    }
+                {
+                    continue;
+                }
 
                     var concreteProcessingResult = processingResults as ReplicateToCRMFinalProcessingResultsMessage;
-                    if (concreteProcessingResult == null)
-                    {
+                if (concreteProcessingResult == null)
+                {
                         var messageProcessingResult = MessageProcessingStage.Handle
                                                                             .EmptyResult()
                                                                             .WithReport(string.Format("Unexpected processing result type {0} was achieved instead of {1}",
@@ -58,17 +58,17 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
                         handlingResults.Add(processingResultBucket.Key, messageProcessingResult);
 
                         continue;
-                    }
+                }
 
                     List<Tuple<Guid, long>> replicationTargetsContainer;
-                    if (!replicationTargets.TryGetValue(concreteProcessingResult.EntityType, out replicationTargetsContainer))
-                    {
+                if (!replicationTargets.TryGetValue(concreteProcessingResult.EntityType, out replicationTargetsContainer))
+                {
                         replicationTargetsContainer = new List<Tuple<Guid, long>>();
-                        replicationTargets.Add(concreteProcessingResult.EntityType, replicationTargetsContainer);
-                    }
+                    replicationTargets.Add(concreteProcessingResult.EntityType, replicationTargetsContainer);
+                }
 
                     replicationTargetsContainer.AddRange(concreteProcessingResult.Ids.Select(id => new Tuple<Guid, long>(processingResultBucket.Key, id)));
-                }
+            }
             }
 
             foreach (var replicationType in _msCrmReplicationMetadataProvider.GetAsyncReplicationTypeSequence())
@@ -77,18 +77,18 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
                 if (!replicationTargets.TryGetValue(replicationType, out replicationBucket))
                 {
                     continue;
-                }
+            }
 
                 var replicationBucketSlicer = new Slicer<Tuple<Guid, long>>(SlicerSettings.Default, replicationBucket);
 
                 IReadOnlyCollection<Tuple<Guid, long>> slicedReplicationBucket;
                 while (replicationBucketSlicer.TryGetRange(out slicedReplicationBucket))
-                {
+            {
                     IReadOnlyCollection<long> replicationFailed;
                     if (TryReplicate(replicationType, slicedReplicationBucket, out replicationFailed))
-                    {
+                {
                         foreach (var replicated in slicedReplicationBucket)
-                        {
+                    {
                             handlingResults.Add(replicated.Item1, MessageProcessingStage.Handle.EmptyResult().AsSucceeded());
                         }
 
@@ -105,17 +105,17 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 
                         replicationBucketSlicer.Shift();
                     }
+                    }
                 }
-            }
 
             return handlingResults;
-        }
+            }
 
         private bool TryReplicate(Type replicationType, IReadOnlyCollection<Tuple<Guid, long>> replicationTargets, out IReadOnlyCollection<long> replicationFailed)
         {
             replicationFailed = null;
             var replicationEntities = replicationTargets.Select(x => x.Item2).Distinct().ToArray();
-
+            
             try
             {
                 _replicationPersistenceService.ReplicateToMsCrm(replicationType,
