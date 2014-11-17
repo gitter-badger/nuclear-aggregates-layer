@@ -174,6 +174,7 @@
     <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\Emirates\EmiratesFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanOrderFileKindEnumCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
       <DependentUpon>Deal.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
