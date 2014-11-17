@@ -26,6 +26,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.PricePositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Territories;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -191,6 +192,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<AdvertisementElementFasCommentCustomization>()
                                                      .Use<CheckIfAdvertisementElementReadOnly>()
                                                      .Use<ManageAdvertisementElementWorkflowButtonsCustomizations>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Theme>()
+                                                     .Use<ManageDefaultThemeButtonsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
