@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                     new IntegrationServicesMassProcessor(container,
                                                          EntryPointSpecificLifetimeManagerFactory,
                                                          settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
