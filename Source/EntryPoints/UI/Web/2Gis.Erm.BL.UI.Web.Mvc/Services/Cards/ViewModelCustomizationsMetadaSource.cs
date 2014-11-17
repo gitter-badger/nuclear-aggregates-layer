@@ -10,6 +10,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Contacts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Deals;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms;
@@ -219,6 +220,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<User>()
                                                      .Use<EntityIsInactiveCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Contact>()
+                                                     .Use<BusinessModelAreaCustomization>()
+                                                     .Use<ContactSalutationsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

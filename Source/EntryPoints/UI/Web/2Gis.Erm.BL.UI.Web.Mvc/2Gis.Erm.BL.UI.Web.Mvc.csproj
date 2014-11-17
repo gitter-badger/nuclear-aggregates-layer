@@ -169,6 +169,7 @@
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
     <Compile Include="Models\AdvertisementElementModels\FasCommentViewModelHelper.cs" />
+    <Compile Include="Models\Contracts\IContactViewModel.cs" />
     <Compile Include="Models\Contracts\IFirmViewModel.cs" />
     <Compile Include="Models\Contracts\ILegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Contracts\IActivityViewModel.cs" />
@@ -244,6 +245,8 @@
     <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupsPriceIsPublishedCustomization.cs" />
     <Compile Include="Services\Cards\AssociatedPositions\AssociatedPositionsPriceIsPublishedCustomization.cs" />
     <Compile Include="Services\Cards\AssociatedPositions\AssociatedPositionsPriceIsDeletedCustomization.cs" />
+    <Compile Include="Services\Cards\Contacts\BusinessModelAreaCustomization.cs" />
+    <Compile Include="Services\Cards\Contacts\ContactSalutationsCustomization.cs" />
     <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />
     <Compile Include="Services\Cards\DeniedPositions\InactiveDeniedPositionsCustomization.cs" />
     <Compile Include="Services\Cards\DeniedPositions\DeniedPositionsPriceIsPublishedCustomization.cs" />
@@ -766,6 +769,10 @@
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
       <Project>{a46e837a-d855-4d0b-b7e7-9f1f4c23fc32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BL.API.Aggregates\2Gis.Erm.BL.API.Aggregates.csproj">
+      <Project>{EE2770E5-5EC2-4D4A-84EE-81301E6C81DF}</Project>
+      <Name>2Gis.Erm.BL.API.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{b268f8cb-8aef-4402-8cf5-a8e6ac5eec0b}</Project>
