@@ -20,6 +20,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LockDetails;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderFiles;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderProcessingRequests;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.PricePositions;
@@ -196,6 +197,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<Theme>()
                                                      .Use<ManageDefaultThemeButtonsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<OrderProcessingRequest>()
+                                                     .Use<CheckIfUserCanCreateOrderForRequestCustomization>()
+                                                     .Use<ManageRequestStateButtonsCustomization>()
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

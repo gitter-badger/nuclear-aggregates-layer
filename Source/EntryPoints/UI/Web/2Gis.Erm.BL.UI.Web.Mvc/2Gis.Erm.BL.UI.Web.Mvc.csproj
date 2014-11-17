@@ -262,6 +262,8 @@
     <Compile Include="Services\Cards\Locks\NewLockCustomization.cs" />
     <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
     <Compile Include="Services\Cards\OrderFiles\OrderFileAccessCustomization.cs" />
+    <Compile Include="Services\Cards\OrderProcessingRequests\CheckIfUserCanCreateOrderForRequestCustomization.cs" />
+    <Compile Include="Services\Cards\OrderProcessingRequests\ManageRequestStateButtonsCustomization.cs" />
     <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\ManagePricePublicationButtonsCustomization.cs" />
@@ -271,7 +273,6 @@
     <Compile Include="Services\Cards\OrderPositions\HideChangeBindingObjectsButtonCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\OrderPositionRateCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\LockOrderPositionByReleaseCustomization.cs" />
-    <Compile Include="Services\Cards\OrderProcessingRequestViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\Orders\LockByWorkflowCustomization.cs" />
     <Compile Include="Services\Cards\Orders\SignupDateCustomization.cs" />
     <Compile Include="Services\Cards\Orders\InactiveOrderCustomization.cs" />

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
@@ -9,23 +8,21 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderProcessingRequests
 {
-    public class OrderProcessingRequestViewModelCustomizationService : IGenericViewModelCustomizationService<OrderProcessingRequest>
+    public class CheckIfUserCanCreateOrderForRequestCustomization : IViewModelCustomization
     {
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly IUserContext _userContext;
-
-        public OrderProcessingRequestViewModelCustomizationService(ISecurityServiceEntityAccess securityServiceEntityAccess, IUserContext userContext)
+         
+        public CheckIfUserCanCreateOrderForRequestCustomization(ISecurityServiceEntityAccess securityServiceEntityAccess, IUserContext userContext)
         {
             _securityServiceEntityAccess = securityServiceEntityAccess;
             _userContext = userContext;
         }
 
-        public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var entityViewModel = (OrderProcessingRequestViewModel)viewModel;
 
@@ -47,18 +44,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
             if (!entityViewModel.CanCreateOrder)
             {
-                entityViewModel.ViewConfig.DisableCardToolbarItem("CreateOrder");
-            }
-
-            var deadEndStates = new[]
-                {
-                    OrderProcessingRequestState.Completed,
-                    OrderProcessingRequestState.Cancelled
-                };
-
-            if (deadEndStates.Contains(entityViewModel.State))
-            {
-                entityViewModel.ViewConfig.DisableCardToolbarItem("CancelOrderProcessingRequest");
                 entityViewModel.ViewConfig.DisableCardToolbarItem("CreateOrder");
             }
         }
