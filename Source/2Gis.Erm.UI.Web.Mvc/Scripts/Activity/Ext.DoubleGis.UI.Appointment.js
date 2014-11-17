@@ -10,8 +10,5 @@ Ext.DoubleGis.UI.Appointment = Ext.extend(Ext.DoubleGis.UI.ActivityBase, {
         Ext.DoubleGis.UI.Appointment.superclass.Build.call(this);
 
         Ext.get("Purpose").on("change", this.autocompleteHeader, this);
-
-        this.createTimeCombo("ScheduledStartTime");
-        this.createTimeCombo("ScheduledEndTime");
     }
 });

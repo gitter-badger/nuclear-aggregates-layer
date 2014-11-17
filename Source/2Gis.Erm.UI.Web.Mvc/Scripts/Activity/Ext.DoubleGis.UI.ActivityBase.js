@@ -8,18 +8,6 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             return this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix;
         }
     },
-    createTimeCombo: function (id) {
-        var timeFormat = Ext.CultureInfo.DateTimeFormatInfo.PhpShortTimePattern;
-        return new Ext.ux.TimeComboBox({
-            id: id,
-            applyTo: id,
-            allowBlank: false,
-            format: timeFormat,
-            minValue: "08:00",
-            maxValue: "20:00",
-            fieldClass: "inputfields"
-        });
-    },
     getComboboxText: function (name) {
         var element = Ext.get(name);
         if (element) {

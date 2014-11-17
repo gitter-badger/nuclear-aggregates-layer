@@ -10,7 +10,5 @@ Ext.DoubleGis.UI.Phonecall = Ext.extend(Ext.DoubleGis.UI.ActivityBase, {
         Ext.DoubleGis.UI.Phonecall.superclass.Build.call(this);
 
         Ext.get("Purpose").on("change", this.autocompleteHeader, this);
-
-        this.createTimeCombo("ScheduledStartTime");
     }
 });

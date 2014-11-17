@@ -175,6 +175,7 @@
     <Content Include="Content\ext-mask.css" />
     <Content Include="Content\ext-ux-MSOfficeAccordion.css" />
     <Content Include="Content\ext-ux-ribbon.css" />
+    <Content Include="Content\ext-ux-calendar2.css" />
     <Content Include="Content\ext-ux-treegrid.css" />
     <Content Include="Content\Ext.ux.DetailedProgressWindow.css" />
     <Content Include="Content\Global.css" />
@@ -695,6 +696,8 @@
     </Content>
     <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.KazakhstanOrder.js" />
     <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.LegalPerson.Kazakhstan.js" />
+    <Content Include="Scripts\Ext.ux.Calendar2.js" />
+    <Content Include="Scripts\Ext.ux.MonthPicker.js" />
     <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
     <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
     <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
@@ -711,6 +714,7 @@
     <Content Include="Scripts\Ext.DoubleGis.UI.OrderProcessingRequest.js" />
     <Compile Include="DI\Bootstrapper.Russia.Mvc.Interception.cs" />
     <Content Include="Scripts\Ext.DoubleGis.Print.js" />
+    <Content Include="Scripts\Ext.ux.MonthMenu.js" />
     <None Include="Scripts\JsResourcesGeneration.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>JsResourcesGeneration.log</LastGenOutput>
