@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
     public sealed class ViewModelCustomizationsMetadataBuilder : MetadataElementBuilder<ViewModelCustomizationsMetadataBuilder, ViewModelCustomizationsMetada>
     {
         private Type _entityType;
+        private int _currentOrder;
 
         public ViewModelCustomizationsMetadataBuilder For<TEntity>() where TEntity : IEntity
         {
@@ -21,9 +22,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
             return this;
         }
 
-        public ViewModelCustomizationsMetadataBuilder UseWithOrder<TCustomization>(int order) where TCustomization : IViewModelCustomization
+        public ViewModelCustomizationsMetadataBuilder UseOrdered<TCustomization>() where TCustomization : IViewModelCustomization
         {
-            AddFeatures(new ViewModelCustomizationFeature<TCustomization>(order));
+            _currentOrder++;
+            AddFeatures(new ViewModelCustomizationFeature<TCustomization>(_currentOrder));
             return this;
         }
 

@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
 {
     // ReSharper disable InconsistentNaming
     public class UnityUIServicesManager : IUIServicesManager
-    // ReSharper restore InconsistentNaming
+        // ReSharper restore InconsistentNaming
     {
         private readonly IUnityContainer _container;
         private readonly IViewModelCustomizationProvider _viewModelCustomizationProvider;
@@ -36,18 +36,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
             var customizationsTypes = _viewModelCustomizationProvider.GetCustomizations(entityName);
             var customizations = customizationsTypes.Select(type => (IViewModelCustomization)_container.Resolve(type)).ToArray();
 
-            object viewModelCustomizationService;
-            if (customizations.Any())
-            {
-                viewModelCustomizationService = _container.Resolve(viewModelCustomizationServiceType,
-                                                                   new DependencyOverride<IEnumerable<IViewModelCustomization>>(customizations));
-            }
-            else
-            {
-                viewModelCustomizationService = _container.Resolve(viewModelCustomizationServiceType);
-            }
+            var viewModelCustomizationService = (IViewModelCustomizationService)_container.Resolve(viewModelCustomizationServiceType,
+                                                                                                   new DependencyOverride<IEnumerable<IViewModelCustomization>>(customizations));
 
-            return (IViewModelCustomizationService)viewModelCustomizationService;
+            return viewModelCustomizationService;
         }
     }
 }
