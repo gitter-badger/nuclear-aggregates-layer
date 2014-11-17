@@ -267,6 +267,7 @@
     <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
     <Compile Include="Services\Cards\Prices\ManagePricePublicationButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\Shared\EntityIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\Shared\SetReadonlyCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\InitOrderPositionDiscountCustomization.cs" />
     <Compile Include="Services\Cards\OrderPositions\MoneySignificantDigitsNumberCustomization.cs" />

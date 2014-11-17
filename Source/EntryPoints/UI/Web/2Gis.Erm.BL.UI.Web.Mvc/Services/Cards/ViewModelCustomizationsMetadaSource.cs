@@ -31,6 +31,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 
@@ -214,6 +215,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<WithdrawalInfo>()
                                                      .Use<SetReadonlyCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<User>()
+                                                     .Use<EntityIsInactiveCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
