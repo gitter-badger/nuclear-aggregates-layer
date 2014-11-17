@@ -1008,15 +1008,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CrdRelActions {
-            get {
-                return ResourceManager.GetString("CrdRelActions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string CrdRelActivityHistory {
             get {
                 return ResourceManager.GetString("CrdRelActivityHistory", resourceCulture);
