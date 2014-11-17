@@ -118,1749 +118,1746 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NavAreaBilling" xml:space="preserve">
-    <value>Evidenční systém</value>
+    <value>Учетная система</value>
   </data>
   <data name="NavAreaHistory" xml:space="preserve">
-    <value>Historie/plány</value>
+    <value>История/планы</value>
   </data>
   <data name="NavAreaCalendar" xml:space="preserve">
-    <value>Kalendář</value>
+    <value>Календарь</value>
   </data>
   <data name="NavAreaWorkspace" xml:space="preserve">
-    <value>Pracovní oblast</value>
+    <value>Рабочая область</value>
   </data>
   <data name="NavAreaSales" xml:space="preserve">
-    <value>Prodeje</value>
+    <value>Продажи</value>
   </data>
   <data name="NavAreaFinances" xml:space="preserve">
-    <value>Finance</value>
+    <value>Финансы</value>
   </data>
   <data name="NavAreaBusinessDirectory" xml:space="preserve">
-    <value>Databáze podniků</value>
+    <value>База предприятий</value>
   </data>
   <data name="NavGroupSecurity" xml:space="preserve">
-    <value>Bezpečnost</value>
+    <value>Безопасность</value>
   </data>
   <data name="NavAreaSettings" xml:space="preserve">
-    <value>Nastavení</value>
+    <value>Настройки</value>
   </data>
   <data name="NavGroupAccounts" xml:space="preserve">
-    <value>Osobní účty</value>
+    <value>Лицевые счета</value>
   </data>
   <data name="NavGroupDepartments" xml:space="preserve">
-    <value>Pododdíly</value>
+    <value>Подразделения</value>
   </data>
   <data name="NavGroupFirm" xml:space="preserve">
-    <value>Firmy</value>
+    <value>Фирмы</value>
   </data>
   <data name="NavGroupLegalPersons" xml:space="preserve">
-    <value>Právnické osoby</value>
+    <value>Юридические лица</value>
   </data>
   <data name="NavGroupOrders" xml:space="preserve">
-    <value>Objednávky</value>
+    <value>Заказы</value>
   </data>
   <data name="NavGroupChileDirectory" xml:space="preserve">
-    <value>Adresare Cili</value>
+    <value>Справочники Чили</value>
   </data>
   <data name="NavGroupServices" xml:space="preserve">
-    <value>Servis</value>
+    <value>Сервис</value>
   </data>
   <data name="NavGroupReports" xml:space="preserve">
-    <value>Výkazy</value>
+    <value>Отчёты</value>
   </data>
   <data name="NavGroupUsers" xml:space="preserve">
-    <value>Uživatelé</value>
+    <value>Пользователи</value>
   </data>
   <data name="NavGroupRoles" xml:space="preserve">
-    <value>Role</value>
+    <value>Роли</value>
   </data>
   <data name="NavGroupBanks" xml:space="preserve">
-    <value>Banky</value>
+    <value>Банки</value>
   </data>
   <data name="NavGroupCommunes" xml:space="preserve">
-    <value>Komuny</value>
+    <value>Коммуны</value>
   </data>
   <data name="CrdRelAccountDetails" xml:space="preserve">
-    <value>Operace</value>
+    <value>Операции</value>
   </data>
   <data name="CrdRelAccounts" xml:space="preserve">
-    <value>Osobní účty</value>
+    <value>Лицевые счета</value>
   </data>
   <data name="CrdRelLimits" xml:space="preserve">
-    <value>Limity</value>
+    <value>Лимиты</value>
   </data>
   <data name="CrdRelBOOU" xml:space="preserve">
-    <value>Pr. osoby oddělení organizace</value>
+    <value>Юр. лица отделений организации</value>
   </data>
   <data name="CrdRelCountry" xml:space="preserve">
-    <value>Země</value>
+    <value>Страны</value>
   </data>
   <data name="CrdRelCurrency" xml:space="preserve">
-    <value>Měna</value>
+    <value>Валюта</value>
   </data>
   <data name="CrdRelCurrencyRate" xml:space="preserve">
-    <value>Směnné kurzy</value>
+    <value>Курсы валют</value>
   </data>
   <data name="CrdRelLockDetails" xml:space="preserve">
-    <value>Protokol použití</value>
+    <value>Журнал использования</value>
   </data>
   <data name="CrdRelLocks" xml:space="preserve">
-    <value>Blokace</value>
+    <value>Блокировки</value>
   </data>
   <data name="CrdRelOUBO" xml:space="preserve">
-    <value>Pr. osoby oddělení organizace</value>
+    <value>Юр. лица отделений организации</value>
   </data>
   <data name="CrdRelPricePosition" xml:space="preserve">
-    <value>Ceníkové položky</value>
+    <value>Позиции прайса</value>
   </data>
   <data name="ControlClose" xml:space="preserve">
-    <value>Zavřít</value>
+    <value>Закрыть</value>
   </data>
   <data name="ControlCreate" xml:space="preserve">
-    <value>Vytvořit</value>
+    <value>Создать</value>
   </data>
   <data name="ControlDelete" xml:space="preserve">
-    <value>Odstranit</value>
+    <value>Удалить</value>
   </data>
   <data name="ControlEdit" xml:space="preserve">
-    <value>Upravit</value>
+    <value>Редактировать</value>
   </data>
   <data name="ControlRefresh" xml:space="preserve">
-    <value>Aktualizovat</value>
+    <value>Обновить</value>
   </data>
   <data name="ControlSave" xml:space="preserve">
-    <value>Uložit</value>
+    <value>Сохранить</value>
   </data>
   <data name="ControlSaveAndClose" xml:space="preserve">
-    <value>Uložit a zavřít</value>
+    <value>Сохранить и закрыть</value>
   </data>
   <data name="ControlSplitter" xml:space="preserve">
-    <value>Oddělovač</value>
+    <value>Разделитель</value>
   </data>
   <data name="ControlSetDefaultTheme" xml:space="preserve">
-    <value>Nastavit jako výchozí</value>
+    <value>Установить по умолчанию</value>
   </data>
   <data name="ControlUnSetDefaultTheme" xml:space="preserve">
-    <value>Odstranit výchozí hodnotu</value>
+    <value>Снять значение по умолчанию</value>
   </data>
   <data name="ControlManageCategories" xml:space="preserve">
-    <value>Správa rubrik</value>
+    <value>Управление рубриками</value>
   </data>
   <data name="ControlViewCategoryGroups" xml:space="preserve">
-    <value>Zadat koeficienty</value>
+    <value>Задать коэффициенты</value>
   </data>
   <data name="ControlCheckOrdersReadinessForRelease" xml:space="preserve">
-    <value>Zkontrolovat objednávky k tvorbě sestavy</value>
+    <value>Проверить заказы к сборке</value>
   </data>
   <data name="ControlAssign" xml:space="preserve">
-    <value>Změnit správce</value>
+    <value>Сменить куратора</value>
   </data>
   <data name="ControlChangeClient" xml:space="preserve">
-    <value>Změnit klienta</value>
+    <value>Сменить клиента</value>
   </data>
   <data name="ControlCancel" xml:space="preserve">
-    <value>Zrušit</value>
+    <value>Отменить</value>
   </data>
   <data name="ControlComplete" xml:space="preserve">
-    <value>Ukončit</value>
+    <value>Завершить</value>
   </data>
   <data name="ControlRevert" xml:space="preserve">
-    <value>Obnovit</value>
+    <value>Восстановить</value>
   </data>
   <data name="ControlCreateTask" xml:space="preserve">
-    <value>Vytvořit úlohu</value>
+    <value>Создать Задачу</value>
   </data>
   <data name="ControlCreatePhonecall" xml:space="preserve">
-    <value>Vytvořit hovor</value>
+    <value>Создать Звонок</value>
   </data>
   <data name="ControlCreateAppointment" xml:space="preserve">
-    <value>Vytvořit setkání</value>
+    <value>Создать Встречу</value>
   </data>
   <data name="EnNavigationArea" xml:space="preserve">
-    <value>Části</value>
+    <value>Разделы</value>
   </data>
   <data name="EnAccountDetails" xml:space="preserve">
-    <value>Historie operací</value>
+    <value>Детализация счета</value>
   </data>
   <data name="EnAccounts" xml:space="preserve">
-    <value>Osobní účet</value>
+    <value>Лицевой счет</value>
   </data>
   <data name="EnMLimits" xml:space="preserve">
-    <value>Limity</value>
+    <value>Лимиты</value>
   </data>
   <data name="EnBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>Pr. osoba organizace - oddělení organizace</value>
+    <value>Юр. лицо организации - Отделения организации</value>
   </data>
   <data name="EnBranchOffices" xml:space="preserve">
-    <value>Pr. osoba organizace</value>
+    <value>Юр. лицо организации</value>
   </data>
   <data name="EnCountries" xml:space="preserve">
-    <value>Země</value>
+    <value>Страна</value>
   </data>
   <data name="EnCurrencies" xml:space="preserve">
-    <value>Měna</value>
+    <value>Валюта</value>
   </data>
   <data name="EnCurrencyRates" xml:space="preserve">
-    <value>Směnný kurz</value>
+    <value>Курс валюты</value>
   </data>
   <data name="EnDepartment" xml:space="preserve">
-    <value>Pododdíl</value>
+    <value>Подразделение</value>
   </data>
   <data name="EnFirms" xml:space="preserve">
-    <value>Firma</value>
+    <value>Фирма</value>
   </data>
   <data name="EnLegalPersons" xml:space="preserve">
-    <value>Pr. osoba</value>
+    <value>Юр. лицо</value>
   </data>
   <data name="EnMLegalPersons" xml:space="preserve">
-    <value>Pr. osoby</value>
+    <value>Юр. лица</value>
   </data>
   <data name="EnLockDetails" xml:space="preserve">
-    <value>Protokol blokování</value>
+    <value>Журнал блокировок</value>
   </data>
   <data name="EnLocks" xml:space="preserve">
-    <value>Blokování</value>
+    <value>Блокировка</value>
   </data>
   <data name="EnOperationTypes" xml:space="preserve">
-    <value>Typ operace</value>
+    <value>Тип операции</value>
   </data>
   <data name="EnOrderPositions" xml:space="preserve">
-    <value>Položka objednávky</value>
+    <value>Позиция заказа</value>
   </data>
   <data name="EnMOrderPositions" xml:space="preserve">
-    <value>Položky objednávky</value>
+    <value>Позиции заказа</value>
   </data>
   <data name="EnOrders" xml:space="preserve">
-    <value>Objednávka</value>
+    <value>Заказ</value>
   </data>
   <data name="EnMOrders" xml:space="preserve">
-    <value>Objednávky</value>
+    <value>Заказы</value>
   </data>
   <data name="EnOrganizationUnitBranchOffices" xml:space="preserve">
-    <value>Oddělení organizace - pr. osoba</value>
+    <value>Отделение организации - юр. лицо</value>
   </data>
   <data name="EnMOrganizationUnitBranchOffices" xml:space="preserve">
-    <value>Oddělení organizace - pr. osoby organizace  </value>
+    <value>Отделение организации - юр. лица организации  </value>
   </data>
   <data name="EnOrganizationUnits" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделение организации</value>
   </data>
   <data name="EnMOrganizationUnits" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделения организации</value>
   </data>
   <data name="EnPositions" xml:space="preserve">
-    <value>Položka</value>
+    <value>Позиция</value>
   </data>
   <data name="EnMPositions" xml:space="preserve">
-    <value>Položky</value>
+    <value>Позиции</value>
   </data>
   <data name="EnPricePositions" xml:space="preserve">
-    <value>Ceníkové položky</value>
+    <value>Позиции прайс-листа</value>
   </data>
   <data name="EnMPricePositions" xml:space="preserve">
-    <value>Ceníkové položky</value>
+    <value>Позиции прайс-листа</value>
   </data>
   <data name="EnPrices" xml:space="preserve">
-    <value>Ceník</value>
+    <value>Прайс-лист</value>
   </data>
   <data name="EnMPrices" xml:space="preserve">
-    <value>Ceníky</value>
+    <value>Прайс-листы</value>
   </data>
   <data name="EnUser" xml:space="preserve">
-    <value>Uživatel</value>
+    <value>Пользователь</value>
   </data>
   <data name="EnMUser" xml:space="preserve">
-    <value>Uživatelé</value>
+    <value>Пользователи</value>
   </data>
   <data name="EnRole" xml:space="preserve">
-    <value>Role</value>
+    <value>Роль</value>
   </data>
   <data name="EnMRole" xml:space="preserve">
-    <value>Role</value>
+    <value>Роли</value>
   </data>
   <data name="EnOperation" xml:space="preserve">
-    <value>Operace</value>
+    <value>Операция</value>
   </data>
   <data name="EnActivity" xml:space="preserve">
     <value>Activities</value>
   </data>
   <data name="EnAppointment" xml:space="preserve">
-    <value>Setkání</value>
+    <value>Встреча</value>
   </data>
   <data name="EnPhonecall" xml:space="preserve">
-    <value>Hovor</value>
+    <value>Звонок</value>
   </data>
   <data name="EnTask" xml:space="preserve">
-    <value>Úkol</value>
+    <value>Задача</value>
   </data>
   <data name="DListAccountDetails" xml:space="preserve">
-    <value>Historie operací</value>
+    <value>Детализация счета</value>
   </data>
   <data name="DListAccounts" xml:space="preserve">
-    <value>Osobní účet</value>
+    <value>Лицевой счет</value>
   </data>
   <data name="DListLimits" xml:space="preserve">
-    <value>Aktivní limity</value>
+    <value>Активные Лимиты</value>
   </data>
   <data name="DListBranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>Pr. osoby oddělení organizace</value>
+    <value>Юр. лица отделений организации</value>
   </data>
   <data name="DListCountries" xml:space="preserve">
-    <value>Země</value>
+    <value>Страны</value>
   </data>
   <data name="DListCurrencies" xml:space="preserve">
-    <value>Měny</value>
+    <value>Валюты</value>
   </data>
   <data name="DListCurrencyRates" xml:space="preserve">
-    <value>Směnné kurzy</value>
+    <value>Курсы валют</value>
   </data>
   <data name="DListDepartment" xml:space="preserve">
-    <value>Aktivní pododdíly</value>
+    <value>Активные подразделения</value>
   </data>
   <data name="DListActiveFirms" xml:space="preserve">
-    <value>Aktivní firmy</value>
+    <value>Активные фирмы</value>
   </data>
   <data name="DListLegalPersons" xml:space="preserve">
-    <value>Všechny Právnické osoby</value>
+    <value>Юр. лица клиента</value>
   </data>
   <data name="DListActiveLockDetails" xml:space="preserve">
-    <value>Aktivní užívání</value>
+    <value>Активные использования</value>
   </data>
   <data name="DListNotActiveLockDetails" xml:space="preserve">
-    <value>Neaktivní užívání</value>
+    <value>Неактивные использования</value>
   </data>
   <data name="DListActiveLocks" xml:space="preserve">
-    <value>Aktivní blokace</value>
+    <value>Активные блокировки</value>
   </data>
   <data name="DListNotActiveLocks" xml:space="preserve">
-    <value>Použité blokace</value>
+    <value>Использованные блокировки</value>
   </data>
   <data name="DListOperationTypes" xml:space="preserve">
-    <value>Typy operací</value>
+    <value>Типы операций</value>
   </data>
   <data name="DListOrderPositions" xml:space="preserve">
-    <value>Reklamní položky</value>
+    <value>Рекламные позиции</value>
   </data>
   <data name="DListOrders" xml:space="preserve">
-    <value>Objednávky</value>
+    <value>Заказы</value>
   </data>
   <data name="DListPositions" xml:space="preserve">
-    <value>Položky</value>
+    <value>Позиции</value>
   </data>
   <data name="DListPricePositions" xml:space="preserve">
-    <value>Položky v ceníku</value>
+    <value>Позиции в прайс-листе</value>
   </data>
   <data name="DListPrices" xml:space="preserve">
-    <value>Ceník</value>
+    <value>Прайс-лист</value>
   </data>
   <data name="DListUserAccount" xml:space="preserve">
-    <value>Uživatelé</value>
+    <value>Пользователи</value>
   </data>
   <data name="DListLocalMessageActive" xml:space="preserve">
-    <value>Nezpracované</value>
+    <value>Необработанные</value>
   </data>
   <data name="DListLocalMessageProcessed" xml:space="preserve">
-    <value>Zpracované</value>
+    <value>Обработанные</value>
   </data>
   <data name="DListLocalMessageFailed" xml:space="preserve">
-    <value>S chybami</value>
+    <value>C ошибками</value>
   </data>
   <data name="DListLocalMessageOutbox" xml:space="preserve">
-    <value>Odchozí</value>
+    <value>Исходящие</value>
   </data>
   <data name="DListOperations" xml:space="preserve">
-    <value>Všechny operace</value>
+    <value>Все операции</value>
   </data>
   <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Operace vytváření PPS</value>
+    <value>Операции формирования ППС</value>
   </data>
   <data name="DListThemeCategory" xml:space="preserve">
-    <value>Rubriky</value>
+    <value>Рубрики</value>
   </data>
   <data name="DFieldBranchOfficeOrganizationUnitName" xml:space="preserve">
-    <value>Pr. osoba oddělení organizace</value>
+    <value>Юр.лицо отделения организации</value>
   </data>
   <data name="DFieldEndTime" xml:space="preserve">
-    <value>Doba vypnutí</value>
+    <value>Время выключения</value>
   </data>
   <data name="DFieldFirmId" xml:space="preserve">
-    <value>Identifikátor firmy</value>
+    <value>Идентификатор фирмы</value>
   </data>
   <data name="DFieldId" xml:space="preserve">
-    <value>Identifikátor</value>
+    <value>Идентификатор</value>
   </data>
   <data name="DFieldErmLaunched" xml:space="preserve">
-    <value>Převeden do ERM</value>
+    <value>Переведён на ERM</value>
   </data>
   <data name="DFieldIsoCode" xml:space="preserve">
-    <value>ISO kód</value>
+    <value>ISO Код</value>
   </data>
   <data name="DFieldName" xml:space="preserve">
-    <value>Jméno</value>
+    <value>Имя</value>
   </data>
   <data name="DFieldOrder" xml:space="preserve">
-    <value>Způsob</value>
+    <value>Порядок</value>
   </data>
   <data name="DFieldOrderId" xml:space="preserve">
-    <value>Identifikátor objednávky</value>
+    <value>Индентификатор заказа</value>
   </data>
   <data name="DFieldParentId" xml:space="preserve">
-    <value>Hlavní kód</value>
+    <value>Код родителя</value>
   </data>
   <data name="DFieldPositionId" xml:space="preserve">
-    <value>Kód položky</value>
+    <value>Код позиции</value>
   </data>
   <data name="DFieldPriceId" xml:space="preserve">
-    <value>Kód ceníku</value>
+    <value>Код прайс-листа</value>
   </data>
   <data name="DFieldBranchOfficeId" xml:space="preserve">
-    <value>Kód pr. osoby organizace</value>
+    <value>Код Юр.Лица Организации</value>
   </data>
   <data name="CrdRelInformation" xml:space="preserve">
-    <value>Informace</value>
+    <value>Сведения</value>
   </data>
   <data name="CrdRelInformationHeader" xml:space="preserve">
-    <value>Informace</value>
+    <value>Сведения</value>
   </data>
   <data name="CrdRelThemeOrganizationUnit" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделения организации</value>
   </data>
   <data name="CrdRelThemeCategory" xml:space="preserve">
-    <value>Rubriky</value>
+    <value>Рубрики</value>
   </data>
   <data name="DFieldUniqueId" xml:space="preserve">
-    <value>Jedinečný identifikátor</value>
+    <value>Уникальный идентификатор</value>
   </data>
   <data name="EnCategories" xml:space="preserve">
-    <value>Rubrika</value>
+    <value>Рубрика</value>
   </data>
   <data name="EnCategoryGroups" xml:space="preserve">
-    <value>Skupiny rubrik</value>
+    <value>Группы рубрик</value>
   </data>
   <data name="CrdRelCategory" xml:space="preserve">
-    <value>Podřízené rubriky</value>
+    <value>Дочерние рубрики</value>
   </data>
   <data name="CrdRelCategoryOU" xml:space="preserve">
-    <value>Města</value>
+    <value>Города</value>
   </data>
   <data name="DListCategoryOrganizationUnits" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделения организации</value>
   </data>
   <data name="DFieldCategoryGroupName" xml:space="preserve">
-    <value>Název kategorie</value>
+    <value>Наименование категории</value>
   </data>
   <data name="DFieldIsHidden" xml:space="preserve">
-    <value>Skryta do vyjasnění</value>
+    <value>Скрыто до выяснения</value>
   </data>
   <data name="EnFirmAddresses" xml:space="preserve">
-    <value>Adresy firem</value>
+    <value>Адреса фирм</value>
   </data>
   <data name="CrdRelFirmAddresses" xml:space="preserve">
-    <value>Adresy</value>
+    <value>Адреса</value>
   </data>
   <data name="DFieldContactType" xml:space="preserve">
-    <value>Typ kontaktu</value>
+    <value>Тип контакта</value>
   </data>
   <data name="DFieldOperation" xml:space="preserve">
-    <value>Operace</value>
+    <value>Операция</value>
   </data>
   <data name="DListFirmAddresses" xml:space="preserve">
-    <value>Adresy firem</value>
+    <value>Адреса фирм</value>
   </data>
   <data name="DListFirmContacts" xml:space="preserve">
-    <value>Kontakty firem</value>
+    <value>Контакты фирм</value>
   </data>
   <data name="CrdRelFirmContacts" xml:space="preserve">
-    <value>Kontaktní údaje</value>
+    <value>Контактные данные</value>
   </data>
   <data name="EnFirmContacts" xml:space="preserve">
-    <value>Kontakty firem</value>
+    <value>Контакты фирм</value>
   </data>
   <data name="CrdRelCategoryFirmAddresses" xml:space="preserve">
-    <value>Adresy</value>
+    <value>Адреса</value>
   </data>
   <data name="CrdRelFirmAddressCategories" xml:space="preserve">
-    <value>Rubriky</value>
+    <value>Рубрики</value>
   </data>
   <data name="DListFirmAddressCategories" xml:space="preserve">
-    <value>Adresa firmy - rubriky</value>
+    <value>Адреса фирмы - рубрики</value>
   </data>
   <data name="DListCategoryFirmAddresses" xml:space="preserve">
-    <value>Rubriky - adresy firem</value>
+    <value>Рубрики - адреса фирм</value>
   </data>
   <data name="DFieldLockDate" xml:space="preserve">
-    <value>Datum blokování</value>
+    <value>Дата блокировки</value>
   </data>
   <data name="ControlShare" xml:space="preserve">
-    <value>Sdílení</value>
+    <value>Общий доступ</value>
   </data>
   <data name="DListUserRole" xml:space="preserve">
-    <value>Role uživatele</value>
+    <value>Роли пользователя</value>
   </data>
   <data name="CrdRelUserRole" xml:space="preserve">
-    <value>Role</value>
+    <value>Роли</value>
   </data>
   <data name="EnUserRole" xml:space="preserve">
-    <value>Role uživatele</value>
+    <value>Роль пользователя</value>
   </data>
   <data name="DListRolePrivilege" xml:space="preserve">
-    <value>Oprávnění role</value>
+    <value>Привилегия роли</value>
   </data>
   <data name="DListThemeActive" xml:space="preserve">
-    <value>Výběry podle témat</value>
+    <value>Тематические подборки</value>
   </data>
   <data name="DListThemeTemplateActive" xml:space="preserve">
-    <value>Šablony výběrů podle témat</value>
+    <value>Шаблоны тематических подборок</value>
   </data>
   <data name="EnRolePrivilege" xml:space="preserve">
-    <value>Oprávnění role</value>
+    <value>Привилегия роли</value>
   </data>
   <data name="DFieldEntityType" xml:space="preserve">
-    <value>Typ entity</value>
+    <value>Тип сущности</value>
   </data>
   <data name="DFieldReplicationCode" xml:space="preserve">
-    <value>Kód replikace</value>
+    <value>Код репликации</value>
   </data>
   <data name="DListUserTerritory" xml:space="preserve">
-    <value>Území</value>
+    <value>Территория</value>
   </data>
   <data name="EnUserTerritory" xml:space="preserve">
-    <value>Území</value>
+    <value>Территория</value>
   </data>
   <data name="CrdRelUserTerritory" xml:space="preserve">
-    <value>Území</value>
+    <value>Территории</value>
   </data>
   <data name="CrdRelUserOrganizationUnit" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделения организации</value>
   </data>
   <data name="DListUserOrganizationUnit" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделение организации</value>
   </data>
   <data name="DListThemeOrganizationUnit" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделение организации</value>
   </data>
   <data name="EnUserOrganizationUnit" xml:space="preserve">
-    <value>Oddělení organizace</value>
+    <value>Отделение организации</value>
   </data>
   <data name="ControlSaveAndOpen" xml:space="preserve">
-    <value>Uložit a vytvořit</value>
+    <value>Сохранить и создать</value>
   </data>
   <data name="CrdRelRoleEntityPrivilege" xml:space="preserve">
-    <value>Entitní oprávnění</value>
+    <value>Сущностные привилегии</value>
   </data>
   <data name="CrdRelRoleFunctionalPrivilege" xml:space="preserve">
-    <value>Funkční oprávnění</value>
+    <value>Функциональные привилегии</value>
   </data>
   <data name="DFieldFirstEmitDate" xml:space="preserve">
-    <value>Datum prvního vydání</value>
+    <value>Дата первого выпуска</value>
   </data>
   <data name="CrdRelAssociatedPositionsGroup" xml:space="preserve">
-    <value>Skupiny hlavních položek</value>
+    <value>Группы основных позиций</value>
   </data>
   <data name="DListAssociatedPositionsGroup" xml:space="preserve">
-    <value>Skupiny hlavních položek</value>
+    <value>Группы основных позиций</value>
   </data>
   <data name="EnAssociatedPositionsGroup" xml:space="preserve">
-    <value>Skupina hlavních položek</value>
+    <value>Группа основных позиций</value>
   </data>
   <data name="CrdRelAssociatedPosition" xml:space="preserve">
-    <value>Hlavní položky</value>
+    <value>Основные позиции</value>
   </data>
   <data name="DListAssociatedPosition" xml:space="preserve">
-    <value>Hlavní položky</value>
+    <value>Основные позиции</value>
   </data>
   <data name="EnAssociatedPosition" xml:space="preserve">
-    <value>Hlavní položka</value>
+    <value>Основная позиция</value>
   </data>
   <data name="CrdRelDeniedPosition" xml:space="preserve">
-    <value>Zakázané položky</value>
+    <value>Запрещенные позиции</value>
   </data>
   <data name="EnDeniedPosition" xml:space="preserve">
-    <value>Zakázaná položka</value>
+    <value>Запрещенная позиция</value>
   </data>
   <data name="EnMDeniedPosition" xml:space="preserve">
-    <value>Zakázané položky</value>
+    <value>Запрещенные позиции</value>
   </data>
   <data name="DFieldVatRate" xml:space="preserve">
-    <value>DPH</value>
+    <value>НДС</value>
   </data>
   <data name="EnBargainType" xml:space="preserve">
-    <value>Typ smlouvy</value>
+    <value>Тип договора</value>
   </data>
   <data name="DListActiveBargainTypes" xml:space="preserve">
-    <value>Typy smluv</value>
+    <value>Типы договоров</value>
   </data>
   <data name="EnBargainTypes" xml:space="preserve">
-    <value>Typy smluv</value>
+    <value>Типы договоров</value>
   </data>
   <data name="DListDeniedPosition" xml:space="preserve">
-    <value>Zakázané položky</value>
+    <value>Запрещенные позиции</value>
   </data>
   <data name="EnContributionTypes" xml:space="preserve">
-    <value>Formy spolupráce</value>
+    <value>Формы сотрудничества</value>
   </data>
   <data name="DListActiveContributionType" xml:space="preserve">
-    <value>Formy spolupráce</value>
+    <value>Формы сотрудничества</value>
   </data>
   <data name="DListPlatform" xml:space="preserve">
-    <value>Platforma</value>
+    <value>Платформа</value>
   </data>
   <data name="DListPositionCategory" xml:space="preserve">
-    <value>Kategorie nomenklaturního prvku</value>
+    <value>Категория номенклатурного элемента</value>
   </data>
   <data name="EnMPlatform" xml:space="preserve">
-    <value>Platformy</value>
+    <value>Платформы</value>
   </data>
   <data name="EnMPositionCategory" xml:space="preserve">
-    <value>Kategorie nomenklaturního prvku</value>
+    <value>Категории номенклатурного элемента</value>
   </data>
   <data name="EnPlatform" xml:space="preserve">
-    <value>Platforma</value>
+    <value>Платформа</value>
   </data>
   <data name="EnPositionCategory" xml:space="preserve">
-    <value>Kategorie nomenklaturního prvku</value>
+    <value>Категория номенклатурного элемента</value>
   </data>
   <data name="DListOrganizationUnitActive" xml:space="preserve">
-    <value>Aktivní oddělení organizace</value>
+    <value>Активные отделения организации</value>
   </data>
   <data name="DListBranchOfficeActive" xml:space="preserve">
-    <value>Aktivní pr. osoby organizace</value>
+    <value>Активные юр. лица организации</value>
   </data>
   <data name="DListBranchOfficeInactive" xml:space="preserve">
-    <value>Neaktivní pr. osoby organizace</value>
+    <value>Неактивные юр. лица организации</value>
   </data>
   <data name="DFieldIsComposite" xml:space="preserve">
-    <value>Komplexní</value>
+    <value>Сложный</value>
   </data>
   <data name="DFieldPositionCategoryName" xml:space="preserve">
-    <value>Kategorie položky</value>
+    <value>Категория позиции</value>
   </data>
   <data name="DListPositionChildren" xml:space="preserve">
-    <value>Prvky</value>
+    <value>Элементы</value>
   </data>
   <data name="EnPositionChildren" xml:space="preserve">
-    <value>Prvek</value>
+    <value>Элемент</value>
   </data>
   <data name="CrdRelChildrenPositions" xml:space="preserve">
-    <value>Prvky</value>
+    <value>Элементы</value>
   </data>
   <data name="DFieldMasterId" xml:space="preserve">
-    <value>Základní</value>
+    <value>Основная</value>
   </data>
   <data name="DListAdvertisementTemplate" xml:space="preserve">
-    <value>Šablona reklamního materiálu</value>
+    <value>Шаблон рекламного материала</value>
   </data>
   <data name="DListAdvertisementElementTemplate" xml:space="preserve">
-    <value>Prvek šablony reklamního materiálu</value>
+    <value>Элемент шаблона рекламного материала</value>
   </data>
   <data name="EnAdvertisementTemplate" xml:space="preserve">
-    <value>Šablona reklamního materiálu</value>
+    <value>Шаблон рекламного материала</value>
   </data>
   <data name="EnAdvertisementElementTemplate" xml:space="preserve">
-    <value>Prvek šablony reklamního materiálu</value>
+    <value>Элемент шаблона рекламного материала</value>
   </data>
   <data name="EnMAdvertisementTemplate" xml:space="preserve">
-    <value>Šablony reklamního materiálu</value>
+    <value>Шаблоны рекламного материала</value>
   </data>
   <data name="EnTheme" xml:space="preserve">
-    <value>Výběr podle tématu</value>
+    <value>Тематическая подборка</value>
   </data>
   <data name="EnThemeTemplate" xml:space="preserve">
-    <value>Šablona výběru podle témat</value>
+    <value>Шаблон тематической подборки</value>
   </data>
   <data name="DListPricesInactive" xml:space="preserve">
-    <value>Neaktivní ceníky</value>
+    <value>Неактивные прайс-листы</value>
   </data>
   <data name="ControlActivate" xml:space="preserve">
-    <value>Obnovit</value>
+    <value>Восстановить</value>
   </data>
   <data name="ControlDeactivate" xml:space="preserve">
-    <value>Skrýt</value>
+    <value>Скрыть</value>
   </data>
   <data name="DFieldAdvertisementId" xml:space="preserve">
-    <value>Reklamní materiál</value>
+    <value>Рекламный материал</value>
   </data>
   <data name="DFieldFirmAddressId" xml:space="preserve">
-    <value>Vázaný objekt</value>
+    <value>Объект привязки</value>
   </data>
   <data name="DFieldPositionType" xml:space="preserve">
-    <value>Typ položky</value>
+    <value>Тип позиции</value>
   </data>
   <data name="DListInactiveRoles" xml:space="preserve">
-    <value>Neaktivní role</value>
+    <value>Неактивные роли</value>
   </data>
   <data name="DListRole" xml:space="preserve">
-    <value>Role</value>
+    <value>Роли</value>
   </data>
   <data name="DListInactiveDepartment" xml:space="preserve">
-    <value>Neaktivní pododdíly</value>
+    <value>Неактивные подразделения</value>
   </data>
   <data name="DListInactiveUser" xml:space="preserve">
-    <value>Neaktivní uživatelé</value>
+    <value>Неактивные пользователи</value>
   </data>
   <data name="DListUser" xml:space="preserve">
-    <value>Aktivní uživatelé</value>
+    <value>Активные пользователи</value>
   </data>
   <data name="DListActiveAdvertisement" xml:space="preserve">
-    <value>Aktivní reklamní materiály</value>
+    <value>Активные рекламные материалы</value>
   </data>
   <data name="DListAdvertisementElement" xml:space="preserve">
-    <value>Prvky reklamního materiálu</value>
+    <value>Элементы рекламного материала</value>
   </data>
   <data name="DListInactiveAdvertisement" xml:space="preserve">
-    <value>Odstraněné reklamní materiály</value>
+    <value>Удаленные рекламные материалы</value>
   </data>
   <data name="EnAdvertisement" xml:space="preserve">
-    <value>Reklamní materiál</value>
+    <value>Рекламный материал</value>
   </data>
   <data name="EnAdvertisementElement" xml:space="preserve">
-    <value>Prvek reklamního materiálu</value>
+    <value>Элемент рекламного материала</value>
   </data>
   <data name="CrdRelBills" xml:space="preserve">
-    <value>Faktury</value>
+    <value>Счета на оплату</value>
   </data>
   <data name="DListBill" xml:space="preserve">
-    <value>Faktury</value>
+    <value>Счета на оплату</value>
   </data>
   <data name="EnBill" xml:space="preserve">
-    <value>Faktura</value>
+    <value>Счет на оплату</value>
   </data>
   <data name="DListOrganizationUnitInactive" xml:space="preserve">
-    <value>Neaktivní oddělení organizace</value>
+    <value>Неактивные отделения организации</value>
   </data>
   <data name="DFieldAdvertisementElementTemplateName" xml:space="preserve">
-    <value>Prvek šablon reklamního materiálu</value>
+    <value>Элемент шаблон рекламного материала</value>
   </data>
   <data name="DFieldAdvertisementElementRequired" xml:space="preserve">
-    <value>Povinně vyplnit</value>
+    <value>Обязателен к заполнению</value>
   </data>
   <data name="DListOrderPositionNomenclatures" xml:space="preserve">
-    <value>Položky objednávky pro seznam položek</value>
+    <value>Позиции заказа для справочника позиций</value>
   </data>
   <data name="DListLegalPersonsInactive" xml:space="preserve">
-    <value>Skryté Právnické osoby</value>
+    <value>Скрытые юр. лица клиента</value>
   </data>
   <data name="EnLegalPerson" xml:space="preserve">
-    <value>Pr. osoba klienta</value>
+    <value>Юр. лицо клиента</value>
   </data>
   <data name="EnLocalMessage" xml:space="preserve">
-    <value>Zpráva místní fronty</value>
+    <value>Сообщение локальной очереди</value>
   </data>
   <data name="EnMessageType" xml:space="preserve">
-    <value>Typ zprávy místní fronty</value>
+    <value>Тип сообщения локальной очереди</value>
   </data>
   <data name="EnClient" xml:space="preserve">
-    <value>Klient</value>
+    <value>Клиент</value>
   </data>
   <data name="EnMClients" xml:space="preserve">
-    <value>Klienti</value>
+    <value>Клиенты</value>
   </data>
   <data name="DListPositionInactive" xml:space="preserve">
-    <value>Neaktivní položky</value>
+    <value>Позиции неактивные</value>
   </data>
   <data name="CrdRelFirmAdvertisements" xml:space="preserve">
-    <value>Reklamní materiály</value>
+    <value>Рекламные материалы</value>
   </data>
   <data name="EnTerritory" xml:space="preserve">
-    <value>Prodejní území</value>
+    <value>Территория продаж</value>
   </data>
   <data name="DListTerritory" xml:space="preserve">
-    <value>Území</value>
+    <value>Территории</value>
   </data>
   <data name="DListTerritoryActive" xml:space="preserve">
-    <value>Aktivní území</value>
+    <value>Активные территории</value>
   </data>
   <data name="DListTerritoryInactive" xml:space="preserve">
-    <value>Neaktivní území</value>
+    <value>Неактивные территории</value>
   </data>
   <data name="DFieldAmountWithdrawn" xml:space="preserve">
-    <value>Odpis</value>
+    <value>Списание</value>
   </data>
   <data name="DFieldModifiedOn" xml:space="preserve">
-    <value>Datum poslední změny</value>
+    <value>Дата последнего изменения</value>
   </data>
   <data name="DFieldNumber" xml:space="preserve">
-    <value>Číslo</value>
+    <value>Номер</value>
   </data>
   <data name="DFieldWorkflowStep" xml:space="preserve">
-    <value>Stav</value>
+    <value>Статус</value>
   </data>
   <data name="DListBranchOfficeOrganizationUnitInactive" xml:space="preserve">
-    <value>Neaktivní pr. osoby oddělení organizace</value>
+    <value>Неактивные юр. лица отделений организации</value>
   </data>
   <data name="DListCurrenciesInactive" xml:space="preserve">
-    <value>Neaktivní měny</value>
+    <value>Неактивные валюты</value>
   </data>
   <data name="DListPricePositionsInactive" xml:space="preserve">
-    <value>Neaktivní ceníkové položky</value>
+    <value>Неактивные позиции прайса</value>
   </data>
   <data name="DListAssociatedPositionInactive" xml:space="preserve">
-    <value>Neaktivní hlavní položky</value>
+    <value>Неактивные основные позиции</value>
   </data>
   <data name="DListAssociatedPositionsGroupInactive" xml:space="preserve">
-    <value>Neaktivní skupiny hlavních položek</value>
+    <value>Неактивные группы основных позиций</value>
   </data>
   <data name="DListDeniedPositionInactive" xml:space="preserve">
-    <value>Neaktivní zakázané položky</value>
+    <value>Неактивные запрещенные позиции</value>
   </data>
   <data name="CrdRelPrintFormTemplates" xml:space="preserve">
-    <value>Šablony výtisků</value>
+    <value>Шаблоны печатных форм</value>
   </data>
   <data name="DListPrintFormTemplates" xml:space="preserve">
-    <value>Šablony výtisků</value>
+    <value>Шаблоны печатных форм</value>
   </data>
   <data name="EnPrintFormTemplate" xml:space="preserve">
-    <value>Šablona výtisku</value>
+    <value>Шаблон печатной формы</value>
   </data>
   <data name="DListActiveOperationTypes" xml:space="preserve">
-    <value>Aktivní typy operací</value>
+    <value>Активные типы операций</value>
   </data>
   <data name="DListInactiveOperationTypes" xml:space="preserve">
-    <value>Neaktivní typy operací</value>
+    <value>Неактивные типы операций</value>
   </data>
   <data name="DListActiveBargains" xml:space="preserve">
-    <value>Aktivní smlouvy</value>
+    <value>Активные договоры</value>
   </data>
   <data name="DListInactiveBargains" xml:space="preserve">
-    <value>Neaktivní smlouvy</value>
+    <value>Неактивные договоры</value>
   </data>
   <data name="EnMBargains" xml:space="preserve">
-    <value>Smlouvy</value>
+    <value>Договоры</value>
   </data>
   <data name="ControlActions" xml:space="preserve">
-    <value>Akce</value>
+    <value>Действия</value>
   </data>
   <data name="CrdRelOrders" xml:space="preserve">
-    <value>Objednávky</value>
+    <value>Заказы</value>
   </data>
   <data name="DFieldAmountCharged" xml:space="preserve">
-    <value>Přirážka</value>
+    <value>Начисление</value>
   </data>
   <data name="ControlChangeDealClient" xml:space="preserve">
-    <value>Změnit klienta u obchodní transakce</value>
+    <value>Сменить клиента у сделки</value>
   </data>
   <data name="ControlChangeBindingObjects" xml:space="preserve">
-    <value>Změnit vázané objekty</value>
+    <value>Изменить объекты привязки</value>
   </data>
   <data name="ControlCloseDeal" xml:space="preserve">
-    <value>Ukončit obchodní transakci</value>
+    <value>Закрыть Сделку</value>
   </data>
   <data name="ControlReopenDeal" xml:space="preserve">
-    <value>Opakovaně otevřít obchodní transakci</value>
+    <value>Повторно открыть Сделку</value>
   </data>
   <data name="ControlPrintActions" xml:space="preserve">
-    <value>Tisk</value>
+    <value>Печать</value>
   </data>
   <data name="ControlPrintBargainAction" xml:space="preserve">
-    <value>Smlouva</value>
+    <value>Договор</value>
   </data>
   <data name="ControlPrintOrderAction" xml:space="preserve">
-    <value>Objednávka</value>
+    <value>Заказ</value>
   </data>
   <data name="ControlPrintActionsAdditional" xml:space="preserve">
-    <value>Další</value>
+    <value>Дополнительные</value>
   </data>
   <data name="ControlChangeClientOwner" xml:space="preserve">
-    <value>Změnit správce</value>
+    <value>Сменить куратора</value>
   </data>
   <data name="ControlChangeTerritory" xml:space="preserve">
-    <value>Změnit území</value>
+    <value>Сменить территорию</value>
   </data>
   <data name="ControlQualify" xml:space="preserve">
-    <value>Vzít z rezervy</value>
+    <value>Взять из резерва</value>
   </data>
   <data name="ControlDisqualify" xml:space="preserve">
-    <value>Vrátit do rezervy</value>
+    <value>Вернуть в резерв</value>
   </data>
   <data name="DFieldOrganizationName" xml:space="preserve">
-    <value>Název organizace</value>
+    <value>Название организации</value>
   </data>
   <data name="CrdRelDeals" xml:space="preserve">
-    <value>Obchodní transakce</value>
+    <value>Сделки</value>
   </data>
   <data name="DFieldTitleV2" xml:space="preserve">
-    <value>Název</value>
+    <value>Наименование</value>
   </data>
   <data name="ControlApproveLimit" xml:space="preserve">
-    <value>Schválit</value>
+    <value>Одобрить</value>
   </data>
   <data name="ControlOpenLimit" xml:space="preserve">
-    <value>Zrušit</value>
+    <value>Отозвать</value>
   </data>
   <data name="ControlRecalculateLimit" xml:space="preserve">
-    <value>Přepočítat</value>
+    <value>Пересчитать</value>
   </data>
   <data name="ControlRejectLimit" xml:space="preserve">
-    <value>Zamítnout</value>
+    <value>Отклонить</value>
   </data>
   <data name="CrdRelFirms" xml:space="preserve">
-    <value>Firmy</value>
+    <value>Фирмы</value>
   </data>
   <data name="CrdRelLegalPersons" xml:space="preserve">
-    <value>Právnické osoby</value>
+    <value>Юридические лица</value>
   </data>
   <data name="DListLimitsInactive" xml:space="preserve">
-    <value>Použité limity</value>
+    <value>Использованные Лимиты</value>
   </data>
   <data name="EnLimit" xml:space="preserve">
-    <value>Limit</value>
+    <value>Лимит</value>
   </data>
   <data name="DListActiveDeals" xml:space="preserve">
-    <value>Aktivní obchodní transakce</value>
+    <value>Активные сделки</value>
   </data>
   <data name="DListBargains" xml:space="preserve">
-    <value>Smlouvy</value>
+    <value>Договоры</value>
   </data>
   <data name="ControlRemoveBargain" xml:space="preserve">
-    <value>Odstranit smlouvu</value>
+    <value>Удалить договор</value>
   </data>
   <data name="DListAdvertisementTemplateDeleted" xml:space="preserve">
-    <value>Odstraněné šablony RM</value>
+    <value>Удаленные шаблоны РМ</value>
   </data>
   <data name="DFieldRestrictionType" xml:space="preserve">
-    <value>Typ omezení</value>
+    <value>Тип ограничения</value>
   </data>
   <data name="DListAdvertisementElementTemplateDeleted" xml:space="preserve">
-    <value>Odstraněné prvky šablon RM</value>
+    <value>Удаленные элементы шаблонов РМ</value>
   </data>
   <data name="ControlChangeDeal" xml:space="preserve">
-    <value>Změnit obchodní transakci</value>
+    <value>Сменить сделку</value>
   </data>
   <data name="ControlAppend" xml:space="preserve">
-    <value>Přidat</value>
+    <value>Добавить</value>
   </data>
   <data name="CrdRelBargains" xml:space="preserve">
-    <value>Smlouvy</value>
+    <value>Договоры</value>
   </data>
   <data name="CrdRelErmActions" xml:space="preserve">
-    <value>Historie/plány</value>
+    <value>История/планы</value>
   </data>
   <data name="EnCategoryOrganizationUnit" xml:space="preserve">
-    <value>Rubrika oddělení organizace</value>
+    <value>Рубрика отделения организации</value>
   </data>
   <data name="EnDeal" xml:space="preserve">
-    <value>Obchodní transakce</value>
+    <value>Сделка</value>
   </data>
   <data name="EnFirmContact" xml:space="preserve">
-    <value>Firemní kontakt</value>
+    <value>Контакт фирмы</value>
   </data>
   <data name="EnFirmAddress" xml:space="preserve">
-    <value>Adresa firmy</value>
+    <value>Адрес фирмы</value>
   </data>
   <data name="CrdRelActivityHistory" xml:space="preserve">
-    <value>Protokol</value>
+    <value>Журнал</value>
   </data>
   <data name="DListAdsTemplatesAdsElementTemplate" xml:space="preserve">
-    <value>Aktivní prvky šablony RM</value>
+    <value>Активные элементы шаблона РМ</value>
   </data>
   <data name="ControlChangeOwner" xml:space="preserve">
-    <value>Změnit správce</value>
+    <value>Сменить куратора</value>
   </data>
   <data name="ControlChangeLegalPersonClient" xml:space="preserve">
-    <value>Změnit klienta</value>
+    <value>Сменить клиента</value>
   </data>
   <data name="ControlCheckOrder" xml:space="preserve">
-    <value>Zkontrolovat objednávku</value>
+    <value>Проверить заказ</value>
   </data>
   <data name="ControlPrintBillAction" xml:space="preserve">
-    <value>Faktura</value>
+    <value>Счёт на оплату</value>
   </data>
   <data name="ControlPrintBillsAction" xml:space="preserve">
-    <value>Faktury</value>
+    <value>Счета на оплату</value>
   </data>
   <data name="ControlSwitchToAccount" xml:space="preserve">
-    <value>Přejít k osobnímu účtu</value>
+    <value>Перейти к лиц. счёту</value>
   </data>
   <data name="EnMDeal" xml:space="preserve">
-    <value>Obchodní transakce</value>
+    <value>Сделки</value>
   </data>
   <data name="CrdRelOrderFiles" xml:space="preserve">
-    <value>Soubory k objednávce</value>
+    <value>Файлы к заказу</value>
   </data>
   <data name="DListOrderFiles" xml:space="preserve">
-    <value>Soubory k objednávce</value>
+    <value>Файлы к заказу</value>
   </data>
   <data name="EnOrderFile" xml:space="preserve">
-    <value>Soubor k objednávce</value>
+    <value>Файл к заказу</value>
   </data>
   <data name="CrdRelBargainFiles" xml:space="preserve">
-    <value>Soubory ke smlouvě</value>
+    <value>Файлы к договору</value>
   </data>
   <data name="DListBargainFiles" xml:space="preserve">
-    <value>Soubory ke smlouvě</value>
+    <value>Файлы к договору</value>
   </data>
   <data name="EnBargainFile" xml:space="preserve">
-    <value>Soubor ke smlouvě</value>
+    <value>Файл к договору</value>
   </data>
   <data name="DListReleaseInfo" xml:space="preserve">
-    <value>Sestavení</value>
+    <value>Сборки</value>
   </data>
   <data name="EnReleaseInfo" xml:space="preserve">
-    <value>Sestavení</value>
+    <value>Сборка</value>
   </data>
   <data name="DFieldReleaseStartDate" xml:space="preserve">
-    <value>Datum spuštění</value>
+    <value>Дата запуска</value>
   </data>
   <data name="ControlChangeFirmClient" xml:space="preserve">
-    <value>Změnit klienta</value>
+    <value>Сменить клиента</value>
   </data>
   <data name="EnContact" xml:space="preserve">
-    <value>Kontakt</value>
+    <value>Контакт</value>
   </data>
   <data name="EnMContact" xml:space="preserve">
-    <value>Kontakty</value>
+    <value>Контакты</value>
   </data>
   <data name="DListContacts" xml:space="preserve">
-    <value>Kontakty</value>
+    <value>Контакты</value>
   </data>
   <data name="NavGroupErmAdministration" xml:space="preserve">
-    <value>Správa</value>
+    <value>Администрирование</value>
   </data>
   <data name="NavGroupSecurityAdministration" xml:space="preserve">
-    <value>Bezpečnost</value>
+    <value>Безопасность</value>
   </data>
   <data name="NavGroupCatalogueManagement" xml:space="preserve">
-    <value>Správa katalogu</value>
+    <value>Управление каталогом</value>
   </data>
   <data name="NavGroupMessageQueueManagement" xml:space="preserve">
-    <value>Řízení fronty zpráv</value>
+    <value>Управление очередью сообщений</value>
   </data>
   <data name="ControlAssignWhiteListedAd" xml:space="preserve">
-    <value>Přiřadit RM k bílému seznamu</value>
+    <value>Назначить РМ в белый список</value>
   </data>
   <data name="DFieldFullName" xml:space="preserve">
-    <value>Celé jméno</value>
+    <value>Полное имя</value>
   </data>
   <data name="CrdRelContacts" xml:space="preserve">
-    <value>Kontakty</value>
+    <value>Контакты</value>
   </data>
   <data name="EnNote" xml:space="preserve">
-    <value>Poznámka</value>
+    <value>Примечание</value>
   </data>
   <data name="EnNotes" xml:space="preserve">
-    <value>Poznámky</value>
+    <value>Примечания</value>
   </data>
   <data name="DListLocalMessageAll" xml:space="preserve">
-    <value>Všechny zprávy</value>
+    <value>Все сообщения</value>
   </data>
   <data name="ControlPrintTermNoticeAction" xml:space="preserve">
-    <value>Oznámení o zrušení objednávky s uvedením důvodu</value>
+    <value>Уведомление о расторжении</value>
   </data>
   <data name="ControlPrintRegTermNoticeAction" xml:space="preserve">
-    <value>Oznámení o reg. zrušení</value>
+    <value>Уведомление о рег. расторжении</value>
   </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
-    <value>Dohoda o zrušení objednávky</value>
+    <value>Дополнительное соглашение</value>
   </data>
   <data name="DListDeal" xml:space="preserve">
-    <value>Obchodní transakce</value>
+    <value>Сделки</value>
   </data>
   <data name="DListInactiveDeals" xml:space="preserve">
-    <value>Ukončené obchodní transakce</value>
+    <value>Закрытые сделки</value>
   </data>
   <data name="DListClients" xml:space="preserve">
-    <value>Klienti</value>
+    <value>Клиенты</value>
   </data>
   <data name="DListMyClients" xml:space="preserve">
-    <value>Moji klienti</value>
+    <value>Мои клиенты</value>
   </data>
   <data name="ControlChangeLPRequisites" xml:space="preserve">
-    <value>Změnit údaje</value>
+    <value>Сменить реквизиты</value>
   </data>
   <data name="ControlExecRelease" xml:space="preserve">
-    <value>Sestavení</value>
+    <value>Сборка</value>
   </data>
   <data name="ControlRevertRelease" xml:space="preserve">
-    <value>Zrušit sestavení</value>
+    <value>Отмена сборки</value>
   </data>
   <data name="ControlCloseBargains" xml:space="preserve">
-    <value>Zavřít smlouvy</value>
+    <value>Закрыть договора</value>
   </data>
   <data name="ControlExport" xml:space="preserve">
-    <value>Odeslat</value>
+    <value>Выгрузить</value>
   </data>
   <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Odeslání odpisů</value>
+    <value>Выгрузка списаний</value>
   </data>
   <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Odesílání odpisů do sběrnice</value>
+    <value>Выгрузка списаний в шину</value>
   </data>
   <data name="ControlImportFromFile" xml:space="preserve">
-    <value>Nahrát</value>
+    <value>Загрузить</value>
   </data>
   <data name="ControlProcessMessage" xml:space="preserve">
-    <value>Odeslat ke zpracování</value>
+    <value>Послать на обработку</value>
   </data>
   <data name="ControlSaveAs" xml:space="preserve">
-    <value>Uložit jako</value>
+    <value>Сохранить как</value>
   </data>
   <data name="ControlDeleteAll" xml:space="preserve">
-    <value>Odstranit vše</value>
+    <value>Удалить все</value>
   </data>
   <data name="ControlCopyPrice" xml:space="preserve">
-    <value>Kopírovat</value>
+    <value>Копировать</value>
   </data>
   <data name="ControlCopyPricePosition" xml:space="preserve">
-    <value>Kopírovat</value>
+    <value>Копировать</value>
   </data>
   <data name="ControlPublishPrice" xml:space="preserve">
-    <value>Zveřejnit</value>
+    <value>Опубликовать</value>
   </data>
   <data name="ControlUnpublishPrice" xml:space="preserve">
-    <value>Zrušit zveřejnění</value>
+    <value>Отменить опубликование</value>
   </data>
   <data name="DFieldAccount" xml:space="preserve">
-    <value>Název domény</value>
+    <value>Доменное имя</value>
   </data>
   <data name="DFieldDisplayName" xml:space="preserve">
-    <value>Zobrazené jméno</value>
+    <value>Отображаемое имя</value>
   </data>
   <data name="DFieldShortName" xml:space="preserve">
-    <value>Zkrácený název</value>
+    <value>Краткое название</value>
   </data>
   <data name="CrdRelCategories" xml:space="preserve">
-    <value>Rubriky</value>
+    <value>Рубрики</value>
   </data>
   <data name="ControlDownloadResults" xml:space="preserve">
-    <value>Zpráva o chybách</value>
+    <value>Отчёт об ошибках</value>
   </data>
   <data name="DListActiveCategories" xml:space="preserve">
-    <value>Aktivní rubriky</value>
+    <value>Активные рубрики</value>
   </data>
   <data name="DListActiveCategoryGroups" xml:space="preserve">
-    <value>Aktivní skupiny rubrik</value>
+    <value>Активные группы рубрик</value>
   </data>
   <data name="DListAllCategoryGroups" xml:space="preserve">
-    <value>Všechny skupiny rubrik</value>
+    <value>Все группы рубрик</value>
   </data>
   <data name="DListActiveCategoryFirmAddresses" xml:space="preserve">
-    <value>Aktivní rubriky</value>
+    <value>Активные рубрики</value>
   </data>
   <data name="DListActiveContacts" xml:space="preserve">
-    <value>Aktivní kontakty</value>
+    <value>Активные контакты</value>
   </data>
   <data name="DListActiveFirmAddresses" xml:space="preserve">
-    <value>Aktivní adresy</value>
+    <value>Активные адреса</value>
   </data>
   <data name="DListActiveOrders" xml:space="preserve">
-    <value>Aktivní objednávky</value>
+    <value>Активные заказы</value>
   </data>
   <data name="DListAllOrders" xml:space="preserve">
-    <value>Všechny objednávky</value>
+    <value>Все заказы</value>
   </data>
   <data name="DListInactiveCategories" xml:space="preserve">
-    <value>Skryté rubriky</value>
+    <value>Скрытые рубрики</value>
   </data>
   <data name="DListInactiveCategoryFirmAddresses" xml:space="preserve">
-    <value>Skryté rubriky</value>
+    <value>Скрытые рубрики</value>
   </data>
   <data name="DListInactiveContacts" xml:space="preserve">
-    <value>Skryté kontakty</value>
+    <value>Скрытые контакты</value>
   </data>
   <data name="DListInactiveFirmAddresses" xml:space="preserve">
-    <value>Skryté adresy</value>
+    <value>Скрытые адреса</value>
   </data>
   <data name="DListInactiveFirms" xml:space="preserve">
-    <value>Skryté firmy</value>
+    <value>Скрытые фирмы</value>
   </data>
   <data name="DListInactiveOrders" xml:space="preserve">
-    <value>Objednávky v archivu</value>
+    <value>Заказы в Архиве</value>
   </data>
   <data name="DListInactiveBargainTypes" xml:space="preserve">
-    <value>Neaktivní typy smluv</value>
+    <value>Неактивные типы договоров</value>
   </data>
   <data name="DListInactiveContributionType" xml:space="preserve">
-    <value>Skryté formy spolupráce</value>
+    <value>Скрытые формы сотрудничества</value>
   </data>
   <data name="ControlSetAsPrimary" xml:space="preserve">
-    <value>Nastavit jako hlavní</value>
+    <value>Сделать основным</value>
   </data>
   <data name="ControlSetAsPrimaryForRegSales" xml:space="preserve">
-    <value>Nastavit jako hlavní pro prodej regionální reklamy</value>
+    <value>Сделать основным по продаже региональной рекламы</value>
   </data>
   <data name="DFieldCustomerLegalPersonLegalName" xml:space="preserve">
-    <value>Pr. osoba objednatele</value>
+    <value>Юр.лицо заказчика</value>
   </data>
   <data name="ControlCloseWithDenial" xml:space="preserve">
-    <value>Uzavřít jako zamítnuto</value>
+    <value>Закрыть отказом</value>
   </data>
   <data name="DFieldPriceName" xml:space="preserve">
-    <value>Ceník</value>
+    <value>Прайс</value>
   </data>
   <data name="DListRejectedOrders" xml:space="preserve">
-    <value>Objednávky uzavřené jako zamítnuté</value>
+    <value>Заказы, закрытые отказом</value>
   </data>
   <data name="ControlCopyOrder" xml:space="preserve">
-    <value>Vytvořit kopii objednávky...</value>
+    <value>Создать копию заказа...</value>
   </data>
   <data name="ControlMerge" xml:space="preserve">
-    <value>Sloučit</value>
+    <value>Слияние</value>
   </data>
   <data name="ControlExecWithdrawing" xml:space="preserve">
-    <value>Odpis</value>
+    <value>Списание</value>
   </data>
   <data name="ControlRevertWithdrawing" xml:space="preserve">
-    <value>Zrušit odpisy </value>
+    <value>Отмена списания </value>
   </data>
   <data name="EnWithdrawalInfo" xml:space="preserve">
-    <value>Operace odepsání</value>
+    <value>Операция списания</value>
   </data>
   <data name="DListWithdrawalInfo" xml:space="preserve">
-    <value>Operace odepsání</value>
+    <value>Операция списания</value>
   </data>
   <data name="ControlPrintRegionalOrderAction" xml:space="preserve">
-    <value>Regionální objednávka</value>
+    <value>Региональный заказ</value>
   </data>
   <data name="ControlAddFirmAddress" xml:space="preserve">
-    <value>Přidat adresu</value>
+    <value>Добавить адрес</value>
   </data>
   <data name="DFieldOrderNumbers" xml:space="preserve">
-    <value>Objednávky</value>
+    <value>Заказы</value>
   </data>
   <data name="DFieldSourceBranchOfficeOrgUnitName" xml:space="preserve">
-    <value>Pr. osoba objednatele</value>
+    <value>Юр. лицо заказчика</value>
   </data>
   <data name="DFieldTotalAmount" xml:space="preserve">
-    <value>Hodnota všech objednávek</value>
-  </data>
-  <data name="DListRegionalAdvertisingSharing" xml:space="preserve">
-    <value>Výměna regionální reklamy</value>
+    <value>Сумма по всем заказам</value>
   </data>
   <data name="DListAllUsers" xml:space="preserve">
-    <value>Všichni uživatelé</value>
+    <value>Все пользователи</value>
   </data>
   <data name="EnMUserProfile" xml:space="preserve">
-    <value>Profily uživatelů</value>
+    <value>Профили пользователей</value>
   </data>
   <data name="EnUserProfile" xml:space="preserve">
-    <value>Profil uživatele</value>
+    <value>Профиль пользователя</value>
   </data>
   <data name="EnMTimeZone" xml:space="preserve">
-    <value>Časová pásma</value>
+    <value>Часовые пояса</value>
   </data>
   <data name="EnTimeZone" xml:space="preserve">
-    <value>Časové pásmo</value>
+    <value>Часовой пояс</value>
   </data>
   <data name="ControlPrepareJointBillsAction" xml:space="preserve">
-    <value>Jednotná faktura</value>
+    <value>Единый счёт</value>
   </data>
   <data name="EnAdsTemplatesAdsElementTemplate" xml:space="preserve">
-    <value>Vazba prvku šablony RM k šabloně RM</value>
+    <value>Привязка элемента шаблона РМ к шаблону РМ</value>
   </data>
   <data name="DListOrganizationUnitActiveMovedToErm" xml:space="preserve">
-    <value>Aktivní oddělení organizace převedené na ERM</value>
+    <value>Активные отделения организаций, переведенные на ERM</value>
   </data>
   <data name="DListOrganizationUnitActiveMovedToIR" xml:space="preserve">
-    <value>Aktivní oddělení organizace převedené na IR</value>
+    <value>Активные отделения организаций, переведенные на IR</value>
   </data>
   <data name="ControlPreviewAdvertisement" xml:space="preserve">
-    <value>Náhled </value>
+    <value>Предпросмотр </value>
   </data>
   <data name="DListFiredContacts" xml:space="preserve">
-    <value>Kontakty s výpovědí</value>
+    <value>Уволенные контакты</value>
   </data>
   <data name="DListUserWithRole" xml:space="preserve">
-    <value>Uživatele s rolemi</value>
+    <value>Пользователи с ролями</value>
   </data>
   <data name="ExcludeFromOrganizationUnit" xml:space="preserve">
-    <value>Vyloučit z pododdílu</value>
+    <value>Исключить из подразделения</value>
   </data>
   <data name="DListAccountDetailsWithDeletedOperations" xml:space="preserve">
-    <value>Historie operací (včetně odstraněných operací)</value>
+    <value>История операций (включая удаленные операции)</value>
   </data>
   <data name="ControlPrintReferenceAction" xml:space="preserve">
-    <value>Referenční informace</value>
+    <value>Справочная информация</value>
   </data>
   <data name="DFieldSelectedToWhiteList" xml:space="preserve">
-    <value>Vybrán do Bílého seznamu</value>
+    <value>Выбран в белый список</value>
   </data>
   <data name="EnLegalPersonProfile" xml:space="preserve">
-    <value>Profil pr. osoby klienta</value>
+    <value>Профиль юр. лица клиента</value>
   </data>
   <data name="DListLegalPersonProfiles" xml:space="preserve">
-    <value>Profily pr. osoby</value>
+    <value>Профили юр. лица</value>
   </data>
   <data name="DFieldIsMainProfile" xml:space="preserve">
-    <value>Hlavní profil</value>
+    <value>Основной профиль</value>
   </data>
   <data name="ControlMakeProfileMain" xml:space="preserve">
-    <value>Nastavit profil jako hlavní</value>
+    <value>Сделать профиль основным</value>
   </data>
   <data name="DStartTime" xml:space="preserve">
-    <value>Datum spuštění</value>
+    <value>Дата запуска</value>
   </data>
   <data name="EnMOperation" xml:space="preserve">
-    <value>Operace</value>
+    <value>Операции</value>
   </data>
   <data name="AdditionalFirmServices" xml:space="preserve">
-    <value>Doplň. služby</value>
+    <value>Доп. услуги</value>
   </data>
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
-    <value>Čestné prohlášení Objednavatele (změna RM)</value>
+    <value>Гарантийное письмо (изменение РМ)</value>
   </data>
   <data name="ControlDetachFirm" xml:space="preserve">
-    <value>Zrušit propojení s klientem</value>
+    <value>Отвязать от клиента</value>
   </data>
   <data name="DFileName" xml:space="preserve">
-    <value>Název souboru</value>
+    <value>Имя файла</value>
   </data>
   <data name="DFieldActivityType" xml:space="preserve">
-    <value>Typ</value>
+    <value>Тип</value>
   </data>
   <data name="DFieldScheduledEnd" xml:space="preserve">
-    <value>Datum dokončení</value>
+    <value>Дата завершения</value>
   </data>
   <data name="DFieldActualEnd" xml:space="preserve">
-    <value>Skut. datum dokončení</value>
+    <value>Факт. дата завершения</value>
   </data>
   <data name="DListAllActivities" xml:space="preserve">
-    <value>Všechny plány</value>
+    <value>Все планы</value>
   </data>
   <data name="DListMyActivities" xml:space="preserve">
-    <value>Moje plány</value>
+    <value>Мои планы</value>
   </data>
   <data name="DListReleaseInfoBeta" xml:space="preserve">
-    <value>Technická sestavení</value>
+    <value>Технические сборки</value>
   </data>
   <data name="DListReleaseInfoFailed" xml:space="preserve">
-    <value>Neúspěšná sestavení</value>
+    <value>Неуспешные сборки</value>
   </data>
   <data name="DListReleaseInfoFinal" xml:space="preserve">
-    <value>Konečná sestavení</value>
+    <value>Финальные сборки</value>
   </data>
   <data name="DListReleaseInfoInProgress" xml:space="preserve">
-    <value>Probíhající sestavení</value>
+    <value>Выполняющиеся сборки</value>
   </data>
   <data name="DListReleaseInfoSuccessed" xml:space="preserve">
-    <value>Úspěšná sestavení</value>
+    <value>Успешные сборки</value>
   </data>
   <data name="DFieldCategoryIsPrimary" xml:space="preserve">
-    <value>Základní</value>
+    <value>Основная</value>
   </data>
   <data name="DCategoryGroup" xml:space="preserve">
-    <value>Skupina</value>
+    <value>Группа</value>
   </data>
   <data name="DListUsersInOrganizationUnit" xml:space="preserve">
-    <value>Uživatelé v oddělení organizace</value>
+    <value>Пользователи в отделении организации</value>
   </data>
   <data name="EnProjects" xml:space="preserve">
-    <value>Projekt</value>
+    <value>Проект</value>
   </data>
   <data name="DListProjects" xml:space="preserve">
-    <value>Projekty</value>
+    <value>Проекты</value>
   </data>
   <data name="EnMProjects" xml:space="preserve">
-    <value>Projekty</value>
+    <value>Проекты</value>
   </data>
   <data name="DListAccountsAtMyBranch" xml:space="preserve">
-    <value>Všechny osobní účty pobočky</value>
+    <value>Все лицевые счета по филиалу</value>
   </data>
   <data name="DListAccountsWithNegativeBalanceForSubordinates" xml:space="preserve">
-    <value>Osobní účty mých podřízených se záporným zůstatkem</value>
+    <value>Лицевые счета моих подчиненных с отрицательным балансом</value>
   </data>
   <data name="DListActiveFirmsAtMyBranch" xml:space="preserve">
-    <value>Všechny aktivní firmy pobočky</value>
+    <value>Все активные фирмы по филиалу</value>
   </data>
   <data name="DListClientsAtMyBranch" xml:space="preserve">
-    <value>Všichni klienti pobočky</value>
+    <value>Все клиенты по филиалу</value>
   </data>
   <data name="DListClientsForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených</value>
+    <value>Клиенты по моим подчиненным</value>
   </data>
   <data name="DListClientsOnMyTerritory" xml:space="preserve">
-    <value>Klienti na mém území</value>
+    <value>Клиенты на моей территории</value>
   </data>
   <data name="DListClientsWithBarter" xml:space="preserve">
-    <value>Klienti, u kterých jsou vedeny objednávky typu „Barter“</value>
+    <value>Клиенты, у которых есть заказы с типом "Бартер"</value>
   </data>
   <data name="DListClientsWithBarterForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených, u kterých jsou vedeny objednávky typu „Barter“</value>
+    <value>Клиенты моих подчиненных, у которых есть заказы с типом "Бартер"</value>
   </data>
   <data name="DListClientsWithDebtForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených, kteří mají pohledávky</value>
+    <value>Клиенты моих подчиненных с дебиторской задолженностью</value>
   </data>
   <data name="DListClientsWithoutMakeDecisionContactsForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených bez Rozhodující osoby</value>
+    <value>Клиенты моих подчиненных без ЛПР</value>
   </data>
   <data name="DListClientsWithSeveralOpenDealsForSubordinates" xml:space="preserve">
-    <value>Klienti mých podřízených, kteří mají několik otevřených obchodních transakcí</value>
+    <value>Клиенты моих подчиненных, у которых несколько открытых сделок</value>
   </data>
   <data name="DListDealsAtBranch" xml:space="preserve">
-    <value>Všechny obchodní transakce pobočky</value>
+    <value>Все сделки по филиалу</value>
   </data>
   <data name="DListDealsForSubordinates" xml:space="preserve">
-    <value>Obchodní transakce mých podřízených</value>
+    <value>Сделки моих подчиненных</value>
   </data>
   <data name="DListFirmsAtMyBranch" xml:space="preserve">
-    <value>Všechny firmy pobočky</value>
+    <value>Все фирмы по филиалу</value>
   </data>
   <data name="DListFirmsForSubordinates" xml:space="preserve">
-    <value>Firmy mých podřízených</value>
+    <value>Фирмы моих подчиненных</value>
   </data>
   <data name="DListFirmsWithSelfAds" xml:space="preserve">
-    <value>Firmy s objednávkami typu „Sebepropagace“</value>
+    <value>Фирмы с заказами с типом "Самореклама"</value>
   </data>
   <data name="DListMyAccountsWithNegativeBalance" xml:space="preserve">
-    <value>Moje osobní účty se záporným zůstatkem</value>
+    <value>Мои лицевые счета с отрицательным балансом</value>
   </data>
   <data name="DListMyBargains" xml:space="preserve">
-    <value>Moje smlouvy</value>
+    <value>Мои договоры</value>
   </data>
   <data name="DListMyBarterDeals" xml:space="preserve">
-    <value>Mé barterové obchody</value>
+    <value>Мои бартерные сделки</value>
   </data>
   <data name="DListMyClientsCreatedToday" xml:space="preserve">
-    <value>Moji dnes vytvoření klienti</value>
+    <value>Мои клиенты, созданные сегодня</value>
   </data>
   <data name="DListMyClientsWithDebt" xml:space="preserve">
-    <value>Moji klienti, kteří mají pohledávky</value>
+    <value>Мои клиенты с дебиторской задолженностью</value>
   </data>
   <data name="DListMyClientsWithoutDeals" xml:space="preserve">
-    <value>Moji klienti bez obchodních transakcí</value>
+    <value>Мои клиенты, у которых нет сделки</value>
   </data>
   <data name="DListMyClientsWithoutMakeDecisionContacts" xml:space="preserve">
-    <value>Moji klienti bez Rozhodující osoby</value>
+    <value>Мои клиенты без ЛПР</value>
   </data>
   <data name="DListMyContacts" xml:space="preserve">
-    <value>Moje kontaktní osoby</value>
+    <value>Мои контактные лица</value>
   </data>
   <data name="DListMyDeals" xml:space="preserve">
-    <value>Mé obchodní transakce</value>
+    <value>Мои сделки</value>
   </data>
   <data name="DListMyFirms" xml:space="preserve">
-    <value>Moje firmy</value>
+    <value>Мои фирмы</value>
   </data>
   <data name="DListMyInactiveDeals" xml:space="preserve">
-    <value>Moje dokončené obchodní transakce</value>
+    <value>Мои закрытые сделки</value>
   </data>
   <data name="DListMyRegionalClients" xml:space="preserve">
-    <value>Moji regionální klienti</value>
+    <value>Мои региональные клиенты</value>
   </data>
   <data name="DListMyWarmClients" xml:space="preserve">
-    <value>Moji potenciální klienti</value>
+    <value>Мои теплые клиенты</value>
   </data>
   <data name="DListRegionalClientsForSubordinates" xml:space="preserve">
-    <value>Regionální klienti mých podřízených</value>
+    <value>Региональные клиенты моих подчиненных</value>
   </data>
   <data name="DListReservedClientsOnMyTerritory" xml:space="preserve">
-    <value>Klienti v rezervě na mém území</value>
+    <value>Клиенты в резерве на моей территории</value>
   </data>
   <data name="DListReservedFirmsOnMyTerritories" xml:space="preserve">
-    <value>Firmy v rezervě na mém území</value>
+    <value>Фирмы в резерве на моей территории</value>
   </data>
   <data name="DListWarmClientsForSubordinates" xml:space="preserve">
-    <value>Potenciální klienti mých podřízených</value>
+    <value>Теплые клиенты моих подчиненных</value>
   </data>
   <data name="DListApprovedByMeLimits" xml:space="preserve">
-    <value>Mnou schválené limity</value>
+    <value>Одобренные мною лимиты</value>
   </data>
   <data name="DListLegalPersonsAtMyBranch" xml:space="preserve">
-    <value>Všechny právnické osoby pobočky</value>
+    <value>Все юридические лица по филиалу</value>
   </data>
   <data name="DListLegalPersonsForSubordinates" xml:space="preserve">
-    <value>Právnické osoby mých podřízených</value>
+    <value>Юридические лица моих подчиненных</value>
   </data>
   <data name="DListLegalPersonsWithDebtAtMyBranch" xml:space="preserve">
-    <value>Právnické osoby pobočky, které mají pohledávky</value>
+    <value>Юридические лица по филиалу с дебиторской задолженностью</value>
   </data>
   <data name="DListLegalPersonsWithDebtForSubordinates" xml:space="preserve">
-    <value>Právnické osoby mých podřízených, které mají pohledávky</value>
+    <value>Юридические лица моих подчиненных с дебиторской задолженностью</value>
   </data>
   <data name="DListLegalPersonsWithMyOrders" xml:space="preserve">
-    <value>Pr. osoby, které mají vedeny moje objednávky, ale nejsem jejich správcem</value>
+    <value>Юр.лица, куратором которого я не являюсь, но у которого есть мои заказы</value>
   </data>
   <data name="DListLegalPersonsWithRegionalOrders" xml:space="preserve">
-    <value>Právnické osoby s regionálními objednávkami</value>
+    <value>Юридические лица, с региональными заказами</value>
   </data>
   <data name="DListLimitsAtMyBranch" xml:space="preserve">
-    <value>Limity pobočky</value>
+    <value>Лимиты по филиалу</value>
   </data>
   <data name="DListLimitsForApprove" xml:space="preserve">
-    <value>Limity, které vyžadují moje schválení</value>
+    <value>Лимиты, требующие моего одобрения</value>
   </data>
   <data name="DListLimitsForSubordinates" xml:space="preserve">
-    <value>Limity mých podřízených</value>
+    <value>Лимиты по моим подчиненным</value>
   </data>
   <data name="DListMyActiveOrders" xml:space="preserve">
-    <value>Všechny moje aktivní objednávky</value>
+    <value>Все мои активные заказы</value>
   </data>
   <data name="DListMyApprovedLimits" xml:space="preserve">
-    <value>Moje schválené limity</value>
+    <value>Мои одобренные лимиты</value>
   </data>
   <data name="DListMyLegalPersons" xml:space="preserve">
-    <value>Moje právnické osoby</value>
+    <value>Мои юридические лица</value>
   </data>
   <data name="DListMyLegalPersonsWithDebt" xml:space="preserve">
-    <value>Moje právnické osoby, které mají pohledávky</value>
+    <value>Мои юридические лица с дебиторской задолженностью</value>
   </data>
   <data name="DListMyOpenedLimits" xml:space="preserve">
-    <value>Moje otevřené limity</value>
+    <value>Мои открытые лимиты</value>
   </data>
   <data name="DListMyOrdersOnApproval" xml:space="preserve">
-    <value>Moje objednávky ve stavu „Schvaluje se“</value>
+    <value>Мои заказы в статусе "На утверждении"</value>
   </data>
   <data name="DListMyOrdersOnTermination" xml:space="preserve">
-    <value>Moje objednávky ve stavu „Ruší se“</value>
+    <value>Мои заказы в статусе "На расторжении"</value>
   </data>
   <data name="DListMyOrdersWithDocumentsDebt" xml:space="preserve">
-    <value>Moje objednávky, u kterých chybí podepsané dokumenty</value>
+    <value>Мои заказы, у которых отсутствуют подписанные документы</value>
   </data>
   <data name="DListMyRegionalOrders" xml:space="preserve">
-    <value>Moje regionální objednávky</value>
+    <value>Мои региональные заказы</value>
   </data>
   <data name="DListMyRejectedLimits" xml:space="preserve">
-    <value>Moje zamítnuté limity</value>
+    <value>Мои отклоненные лимиты</value>
   </data>
   <data name="DListMyTerminatedOrders" xml:space="preserve">
-    <value>Moje objednávky uzavřené jako zamítnuté</value>
+    <value>Мои неактивные (заказы закрытые отказом)</value>
   </data>
   <data name="DListOrdersForSubordinates" xml:space="preserve">
-    <value>Všechny objednávky mých podřízených</value>
+    <value>Все заказы моих подчиненных</value>
   </data>
   <data name="DListRejectedByMeLimits" xml:space="preserve">
-    <value>Mnou zamítnuté limity</value>
+    <value>Отклоненные мною лимиты</value>
   </data>
   <data name="DListRejectedOrdersForSubordinates" xml:space="preserve">
-    <value>Zamítnuté objednávky mých podřízených</value>
+    <value>Отклоненные заказы моих подчиненных</value>
   </data>
   <data name="DListTerminatedOrdersForSubordinates" xml:space="preserve">
-    <value>Objednávky mých podřízených uzavřené jako zamítnuté</value>
+    <value>Неактивные (закрытые отказом) заказы моих подчиненных</value>
   </data>
   <data name="DListMyBarterOrders" xml:space="preserve">
-    <value>Všechny moje objednávky typu „Barter“</value>
+    <value>Все мои заказы с типом Бартер</value>
   </data>
   <data name="DListMySelfAdsOrders" xml:space="preserve">
-    <value>Všechny moje objednávky typu „Sebepropagace“</value>
+    <value>Все мои заказы с типом Самореклама</value>
   </data>
   <data name="DListMyNewOrders" xml:space="preserve">
-    <value>Moje nové objednávky</value>
+    <value>Мои новые заказы</value>
   </data>
   <data name="DListNewOrdersForSubordinates" xml:space="preserve">
-    <value>Nové objednávky mých podřízených</value>
+    <value>Новые заказы моих подчиненных</value>
   </data>
   <data name="DListOrdersToProlongate" xml:space="preserve">
-    <value>Objednávky, které vyžadují prolongaci</value>
+    <value>Заказы, требующие продления</value>
   </data>
   <data name="DListOrdersToProlongateForSubordinates" xml:space="preserve">
-    <value>Objednávky mých podřízených, které vyžadují prolongaci</value>
+    <value>Заказы моих подчиненных, требующие продления</value>
   </data>
   <data name="DListMyOrdersToNextEdition" xml:space="preserve">
-    <value>Moje objednávky pro nejbližší termín vydání</value>
+    <value>Мои заказы в ближайший выпуск</value>
   </data>
   <data name="DListOrdersOnApprovalForMe" xml:space="preserve">
-    <value>Objednávky, které vyžadují moje schválení</value>
+    <value>Заказы, требующие моего одобрения</value>
   </data>
   <data name="DListOrdersToNextEditionForSubordinates" xml:space="preserve">
-    <value>Objednávky mých podřízených pro nejbližší termín vydání</value>
+    <value>Заказы моих подчиненных в ближайший выпуск</value>
   </data>
   <data name="DListRejectedByMeOrders" xml:space="preserve">
-    <value>Všechny mnou zamítnuté objednávky</value>
+    <value>Все отклоненные мною заказы</value>
   </data>
   <data name="DListNewFirmsOnMyTerritories" xml:space="preserve">
-    <value>Nové firmy na mém území</value>
+    <value>Новые фирмы моей территории</value>
   </data>
   <data name="DListActivitiesForSubordinates" xml:space="preserve">
-    <value>Plány mých podřízených</value>
+    <value>Планы по моим подчиненным</value>
   </data>
   <data name="DListActivitiesInProgressForSubordinates" xml:space="preserve">
-    <value>Naplánované činnosti mých podřízených</value>
+    <value>Запланированные планы по моим подчиненным</value>
   </data>
   <data name="DListCompletedActivitiesForSubordinates" xml:space="preserve">
-    <value>Dokončené plány mých podřízených</value>
+    <value>Завершенные планы по моим подчиненным</value>
   </data>
   <data name="DListMyActivitiesInProgress" xml:space="preserve">
-    <value>Moje naplánované činnosti</value>
+    <value>Мои запланированные планы</value>
   </data>
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
-    <value>Moje plány na dnešek</value>
+    <value>Мои запланированные планы на сегодня</value>
   </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
-    <value>Moje dokončené plány</value>
+    <value>Мои завершенные планы</value>
   </data>
   <data name="DListActiveActivities" xml:space="preserve">
-    <value>Otevřené plány</value>
+    <value>Открытые планы</value>
   </data>
   <data name="DListInactiveActivities" xml:space="preserve">
-    <value>Dokončené plány</value>
+    <value>Завершенные планы</value>
   </data>
   <data name="DListClientsWithOnly1Appointment" xml:space="preserve">
-    <value>Klienti, se kterými proběhla pouze jedna schůzka</value>
+    <value>Клиенты, с которыми была только одна встреча</value>
   </data>
   <data name="DListAccountsWithHostedOrdersForSubordinates" xml:space="preserve">
-    <value>Osobní účty mých podřízených se zveřejňovanými objednávkami</value>
+    <value>Лицевые счета моих подчиненных с размещающимися заказами</value>
   </data>
   <data name="DListMyAccountsWithHostedOrders" xml:space="preserve">
-    <value>Moje osobní účty se zveřejňovanými objednávkami</value>
+    <value>Мои лицевые счета с размещающимися заказами</value>
   </data>
   <data name="DListApprovedOrdersWithoutAdvertisement" xml:space="preserve">
-    <value>Objednávky ve stavu „Schváleno“, u kterých chybí přiložené RM</value>
+    <value>Заказы в статусе "Одобрено", у которых отсутствуют прикрепленные РМ</value>
   </data>
   <data name="DListNonTechnicalTerminatedOrders" xml:space="preserve">
-    <value>Seznam platných zrušení</value>
+    <value>Список действительных расторжений</value>
   </data>
   <data name="DListOrdersWithDocumentsDebtForNextMonth" xml:space="preserve">
-    <value>Nepodepsané objednávky v aktuálním vydání</value>
+    <value>Неподписанные БЗ за текущий выпуск</value>
   </data>
   <data name="DListTechnicalTerminatedOrders" xml:space="preserve">
-    <value>Seznam technických zrušení</value>
+    <value>Список технических расторжений</value>
   </data>
   <data name="DListTerminatedOrdersForNextMonthEdition" xml:space="preserve">
-    <value>Objednávky ukončené jako zamítnuté, které měly být vydány následující měsíc</value>
+    <value>Заказы в выпуск следующего месяца закрытые отказом</value>
   </data>
   <data name="DListRejectedByMeOrdersOnRegistration" xml:space="preserve">
-    <value>Mnou zamítnuté objednávky, které jsou nyní ve stavu „Vyřizuje se“</value>
+    <value>Отклоненные мною заказы, которые сейчас в статусе "На оформлении"</value>
   </data>
   <data name="DListOrdersFast" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value>Быстрый поиск заказов</value>
   </data>
   <data name="DListActivitiesForWarmClients" xml:space="preserve">
-    <value>Úkoly zpracování potenciálních klientů</value>
+    <value>Задачи по теплым клиентам</value>
   </data>
   <data name="DListOverdueActivitiesForWarmClients" xml:space="preserve">
-    <value>Promeškané úkoly zpracování potenciálních klientů</value>
+    <value>Просроченные задачи по теплым клиентам</value>
   </data>
   <data name="DListClientsWithWarmClientTask" xml:space="preserve">
-    <value>Klienti, kteří jsou přiřazeni k úkolu typu “Potenciální klient“</value>
+    <value>Клиенты, для которых есть задачи типа "Тёплый клиент"</value>
   </data>
   <data name="DListClientsWithOutdatedWarmClientTask" xml:space="preserve">
-    <value>Klienti, kteří jsou přiřazeni k promeškanému úkolu typu „Potenciální klient“</value>
+    <value>Клиенты, для которых есть просроченные задачи типа "Тёплый клиент"</value>
   </data>
   <data name="ControlPublishAdvertisementTemplate" xml:space="preserve">
-    <value>Zveřejnit</value>
+    <value>Опубликовать</value>
   </data>
   <data name="ControlUnpublishAdvertisementTemplate" xml:space="preserve">
-    <value>Zrušit zveřejnění</value>
+    <value>Отменить опубликование</value>
   </data>
   <data name="DListOrdersWithDummyValues" xml:space="preserve">
-    <value>Objednávky se zástupnými symboly</value>
+    <value>Заказы с заглушками</value>
   </data>
   <data name="DFieldOrderType" xml:space="preserve">
-    <value>Typ objednávky</value>
+    <value>Тип заказа</value>
   </data>
   <data name="DFieldCurator" xml:space="preserve">
-    <value>Správce</value>
+    <value>Куратор</value>
   </data>
   <data name="DFieldInspector" xml:space="preserve">
-    <value>Kontrolor</value>
+    <value>Проверяющий</value>
   </data>
   <data name="ControlPrintTermNoticeWithoutReasonAction" xml:space="preserve">
-    <value>Oznámení o zrušení objednávky bez uvedení důvodu</value>
+    <value>Уведомление о расторжении заказа без указания причины</value>
   </data>
   <data name="DFieldIsPublished" xml:space="preserve">
-    <value>Zveřejněno</value>
+    <value>Опубликовано</value>
   </data>
   <data name="ControlPrintTermBargainNoticeAction" xml:space="preserve">
-    <value>Oznámení o zrušení smlouvy s uvedením důvodu</value>
+    <value>Уведомление о расторжении договора с указанием причины</value>
   </data>
   <data name="ControlPrintTermBargainNoticeWithoutReasonAction" xml:space="preserve">
-    <value>Oznámení o zrušení smlouvy bez uvedení důvodu</value>
+    <value>Уведомление о расторжении договора без указания причины</value>
   </data>
   <data name="ControlPrintBargainAdditAgreementAction" xml:space="preserve">
-    <value>Dohoda o zrušení smlouvy</value>
+    <value>Соглашение о расторжении договора</value>
   </data>
   <data name="ControlPrintSwornStatementAction" xml:space="preserve">
-    <value>Čestné prohlášení Objednavatele</value>
+    <value>Заявление заказчика под присягой</value>
   </data>
   <data name="NavOrderProcessingRequest" xml:space="preserve">
-    <value>Požadavky z OP</value>
+    <value>Заявки от ЛК</value>
   </data>
   <data name="ControlCreateOrder" xml:space="preserve">
-    <value>Vytvořit objednávku</value>
+    <value>Создать заказ</value>
   </data>
   <data name="ControlCancelOrderProcessingRequest" xml:space="preserve">
-    <value>Zrušit požadavek</value>
+    <value>Отменить заявку</value>
   </data>
   <data name="EnOrderProcessingRequest" xml:space="preserve">
-    <value>Požadavek z OP</value>
+    <value>Заявка от ЛК</value>
   </data>
   <data name="DFieldOrderProcessingRequestBaseOrderNumber" xml:space="preserve">
-    <value>Prodlužovaná objednávka</value>
+    <value>Продляемый заказ</value>
   </data>
   <data name="DFieldOrderProcessingRequestRenewedOrderNumber" xml:space="preserve">
-    <value>Vytvořená objednávka</value>
+    <value>Созданный заказ</value>
   </data>
   <data name="DFieldOrderProcessingRequestState" xml:space="preserve">
-    <value>Stav</value>
+    <value>Статус</value>
   </data>
   <data name="DFieldOrderProcessingRequestTitle" xml:space="preserve">
-    <value>Téma</value>
+    <value>Тема</value>
   </data>
   <data name="DListOrderProcessingRequest" xml:space="preserve">
-    <value>Všechny požadavky</value>
+    <value>Все заявки</value>
   </data>
   <data name="CrdRelOrderProcessingRequests" xml:space="preserve">
-    <value>Požadavek z OP</value>
+    <value>Заявка от ЛК</value>
   </data>
   <data name="ControlPrintTerminationBargainNoticeAction" xml:space="preserve">
-    <value>Oznámení o zrušení smlouvy</value>
+    <value>Уведомление о расторжении договора</value>
   </data>
   <data name="DListReservedFirmsLefkosia" xml:space="preserve">
-    <value>Firmy v rezervě v Nikosii</value>
+    <value>Фирмы в резерве по городу Никосия</value>
   </data>
   <data name="DListReservedFirmsLemesos" xml:space="preserve">
-    <value>Firmy v rezervě v Limassolu</value>
+    <value>Фирмы в резерве по городу Лимассол</value>
   </data>
   <data name="DListBanks" xml:space="preserve">
-    <value>Banky</value>
+    <value>Банки</value>
   </data>
   <data name="DListCommunes" xml:space="preserve">
-    <value>Komuny</value>
+    <value>Коммуны</value>
   </data>
   <data name="DFieldEndPeriodDate" xml:space="preserve">
-    <value>Datum ukončení období</value>
+    <value>Дата окончания периода</value>
   </data>
   <data name="DFieldStartPeriodDate" xml:space="preserve">
-    <value>Datum začátku období</value>
+    <value>Дата начала периода</value>
   </data>
   <data name="DFieldEgrpou" xml:space="preserve">
-    <value>Jednotný státní rejstřík podniků a organizací Ukrajiny</value>
+    <value>ЕГРПОУ</value>
   </data>
   <data name="DFieldIpn" xml:space="preserve">
-    <value>DIČ</value>
+    <value>ИПН</value>
   </data>
   <data name="ControlPrintNewSalesModelBargainAction" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value>Договор (новая модель продаж)</value>
   </data>
   <data name="DListAcceptanceReport" xml:space="preserve">
-    <value>Protokol o provedených pracích</value>
+    <value>Акты выполненных работ</value>
   </data>
   <data name="NavGroupAcceptanceReportsJournal" xml:space="preserve">
-    <value>Deník Acceptance Report</value>
+    <value>Журнал Acceptance Report</value>
   </data>
   <data name="OrderPayableFact" xml:space="preserve">
-    <value>Hodnota objednávky</value>
+    <value>Сумма заказа</value>
   </data>
   <data name="AcceptanceReportsJournal" xml:space="preserve">
-    <value>Deník Acceptance Report</value>
+    <value>Журнал Acceptance Report</value>
   </data>
   <data name="AuthorName" xml:space="preserve">
-    <value>Odpovědná osoba</value>
+    <value>Ответственный</value>
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
-    <value>Počet dokumentů</value>
+    <value>Количество документов</value>
   </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
-    <value>Links</value>
+    <value>Связи</value>
   </data>
   <data name="DListClientLinks" xml:space="preserve">
-    <value>Zprostředkované klienty</value>
+    <value>Дочерние клиенты</value>
   </data>
   <data name="DListClientLinksDeleted" xml:space="preserve">
-    <value>Odstraněná spojení</value>
+    <value>Удалённые связи</value>
   </data>
   <data name="DListClientLinksMaster" xml:space="preserve">
-    <value>Zprostředkovatelé</value>
+    <value>Родительские клиенты</value>
   </data>
   <data name="DListClientsAvailableForLinking" xml:space="preserve">
-    <value>Všichni klienti, kteří jsou dostupné pro vytvoření spojení</value>
+    <value>Все доступные для связывания клиенты</value>
   </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
-    <value>Dohoda o prodloužení smlouvy</value>
+    <value>Соглашение о продлении договора</value>
   </data>
   <data name="ControlMakeMain" xml:space="preserve">
-    <value>Udělat hlavním</value>
+    <value>Сделать основным</value>
   </data>
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
-    <value>Hlavní</value>
+    <value>Основное</value>
   </data>
 </root>
