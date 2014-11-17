@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
@@ -17,7 +16,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLQuerying.DI.Config;
@@ -46,7 +44,6 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
-using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -111,8 +108,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
-                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                          settingsContainer.AsSettings<IIntegrationSettings>()))
+                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                    settingsContainer.AsSettings<IIntegrationSettings>()))
                             .ConfigureServiceClient();
 
             container.ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>())
@@ -180,12 +177,7 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                                                                                        MappingScope)
 
                 // services
-                // FIXME {all, 27.12.2013}: проверить действительно ли нужен PrintFormService в TaskeService или это copy/paste, на первый взгляд вся печать инициируется непосредственно пользователем 
-                .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
-                .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(Lifetime.PerScope, MappingScope)
-                            .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(
-                                Lifetime.PerScope,
-                                MappingScope)
+                .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(Lifetime.PerScope,  MappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, Lifetime.PerScope)
 
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
