@@ -213,16 +213,12 @@
     <Compile Include="Services\Cards\IViewModelCustomizationFeature.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationProvider.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LocalMessageViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\GenericViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\ReleaseInfoViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\UserViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationFeature.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsIdentity.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsMetada.cs" />
-    <Compile Include="Services\Cards\ViewModelCustomizationsMetadaSource.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsMetadataBuilder.cs" />
-    <Compile Include="Services\Cards\WithdrawalInfoViewModelCustomizationService.cs" />
     <Compile Include="Services\Enumeration\EnumCustomizationBase.cs" />
     <Compile Include="Services\Grid\GenericEntityGridViewService.cs" />
     <Compile Include="Services\Grid\IGenericEntityGridViewService.cs" />
