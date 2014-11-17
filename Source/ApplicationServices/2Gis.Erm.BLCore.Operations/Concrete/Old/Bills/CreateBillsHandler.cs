@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                 return Response.Empty;
             }
 
-            var orderInfo = _orderReadModel.GetOrder(request.OrderId);
+            var orderInfo = _orderReadModel.GetOrderSecure(request.OrderId);
 
             // do not insert calculations in LINQ, this cannot keep high precision
             var orderVatRatio = (orderInfo.PayablePlan != 0m) ? orderInfo.VatPlan / (orderInfo.PayablePlan - orderInfo.VatPlan) : 0m;

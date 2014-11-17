@@ -57,12 +57,27 @@
     <Compile Include="CheckOrdersReadinessForReleaseResponse.cs" />
     <Compile Include="DI\OrderValidationZone.cs" />
     <Compile Include="IOrderValidationRule.cs" />
+    <Compile Include="IValidaionRuleDescriptor.cs" />
+    <Compile Include="IValidationResultsBrowser.cs" />
+    <Compile Include="MassOrdersValidationParams.cs" />
+    <Compile Include="IOrderValidationRuleFactory.cs" />
+    <Compile Include="IOrderValidationRuleProvider.cs" />
+    <Compile Include="Metadata\Features\AvailableForValidationTypeFeature.cs" />
+    <Compile Include="Metadata\Features\CommonRuleFeature.cs" />
+    <Compile Include="Metadata\Features\DisabledForBusinessModelFeature.cs" />
+    <Compile Include="Metadata\Features\EnableCachingForValidationTypeFeature.cs" />
+    <Compile Include="Metadata\Features\NonManualRuleFeature.cs" />
+    <Compile Include="Metadata\Features\SingleOrderValidationRuleFeature.cs" />
+    <Compile Include="Metadata\Features\UseCachingFeature.cs" />
+    <Compile Include="Metadata\MetadataOrderValidationIdentity.cs" />
+    <Compile Include="Metadata\OrderValidationRuleGroupMetadata.cs" />
+    <Compile Include="Metadata\OrderValidationRuleGroupMetadataBuilder.cs" />
+    <Compile Include="Metadata\OrderValidationRuleMetadata.cs" />
+    <Compile Include="Metadata\OrderValidationRuleMetadataBuilder.cs" />
     <Compile Include="Remote\IOrderValidationApplicationRestService.cs" />
     <Compile Include="Remote\IOrderValidationApplicationService.cs" />
-    <Compile Include="IOrderValidationOnStateChangeService.cs" />
     <Compile Include="IOrderValidationPredicateFactory.cs" />
-    <Compile Include="IOrderValidationInvalidator.cs" />
-    <Compile Include="IOrderValidationService.cs" />
+    <Compile Include="IValidateOrdersOperationService.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="OrderValidationAdditionalInfo.cs" />
     <Compile Include="OrderValidationMessage.cs" />
@@ -70,11 +85,15 @@
     <Compile Include="OrderValidationRuleGroups.cs" />
     <Compile Include="Remote\Settings\APIOrderValidationServiceSettingsAspect.cs" />
     <Compile Include="Remote\Settings\IAPIOrderValidationServiceSettings.cs" />
-    <Compile Include="ValidateOrdersRequest.cs" />
-    <Compile Include="ValidateOrdersResponse.cs" />
-    <Compile Include="ValidateOrdersResult.cs" />
+    <Compile Include="Settings\IOrderValidationCachingSettings.cs" />
+    <Compile Include="Settings\OrderValidationCachingSettingsAspect.cs" />
+    <Compile Include="SingleOrderValidationParams.cs" />
+    <Compile Include="ValidationParams.cs" />
+    <Compile Include="ValidationResult.cs" />
+    <Compile Include="ValidationResultsContainer.cs" />
     <Compile Include="ValidationType.cs" />
     <Compile Include="ValidationUtils.cs" />
+    <Compile Include="ValidatorDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -84,6 +103,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
