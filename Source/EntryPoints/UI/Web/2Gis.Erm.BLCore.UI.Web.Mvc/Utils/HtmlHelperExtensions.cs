@@ -426,6 +426,28 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static MvcHtmlString TemplateField<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, DateTime>> field, FieldFlex wrapperCls, CalendarSettings settings)
+        {
+            var fieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(field));
+            var itemBuilder = new StringBuilder();
+            htmlHelper.RenderTemplateHead(field, itemBuilder, wrapperCls, fieldName);
+            itemBuilder.Append(htmlHelper.EditorFor(field, "DateTimeViewModel", new { CalendarSettings = settings }).ToHtmlString());
+            htmlHelper.RenderTemplateBottom(field, itemBuilder);
+            return new MvcHtmlString(itemBuilder.ToString());
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static MvcHtmlString TemplateField<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, DateTime?>> field, FieldFlex wrapperCls, CalendarSettings settings)
+        {
+            var fieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(field));
+            var itemBuilder = new StringBuilder();
+            htmlHelper.RenderTemplateHead(field, itemBuilder, wrapperCls, fieldName);
+            itemBuilder.Append(htmlHelper.EditorFor(field, "DateTimeViewModel", new { CalendarSettings = settings }).ToHtmlString());
+            htmlHelper.RenderTemplateBottom(field, itemBuilder);
+            return new MvcHtmlString(itemBuilder.ToString());
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
         public static MvcHtmlString TemplateField<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, LookupField>> field, FieldFlex wrapperCls, LookupSettings settings)
         {
             var fieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(ExpressionHelper.GetExpressionText(field));

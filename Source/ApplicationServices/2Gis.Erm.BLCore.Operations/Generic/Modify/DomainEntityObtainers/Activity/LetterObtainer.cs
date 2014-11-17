@@ -23,16 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (LetterDomainEntityDto)domainEntityDto;
 
-            // FIXME {s.pomadin, 27.10.2014}: См изменения в AppointmentObtainer
             var letter = dto.IsNew() 
-                ? new Letter
-                    {
-                        CreatedBy = dto.CreatedByRef.GetId(),
-                        CreatedOn = dto.CreatedOn,
-                        ModifiedBy = dto.ModifiedByRef.GetId(),
-                        ModifiedOn = dto.ModifiedOn,
-                        Timestamp = dto.Timestamp,
-                    } 
+                ? new Letter { IsActive = true } 
                 : _finder.FindOne(Specs.Find.ById<Letter>(dto.Id));
 
             letter.Header = dto.Header;

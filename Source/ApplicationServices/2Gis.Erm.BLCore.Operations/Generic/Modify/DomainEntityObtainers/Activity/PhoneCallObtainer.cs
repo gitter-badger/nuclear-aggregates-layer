@@ -23,16 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PhonecallDomainEntityDto)domainEntityDto;
 
-            // FIXME {s.pomadin, 27.10.2014}: См изменения в AppointmentObtainer
             var phoneCall = dto.IsNew() 
-                ? new Phonecall
-                    {
-                        CreatedBy = dto.CreatedByRef.GetId(),
-                        CreatedOn = dto.CreatedOn,
-                        ModifiedBy = dto.ModifiedByRef.GetId(),
-                        ModifiedOn = dto.ModifiedOn,
-                        Timestamp = dto.Timestamp,
-                    } 
+                ? new Phonecall { IsActive = true } 
                 : _finder.FindOne(Specs.Find.ById<Phonecall>(dto.Id));
 
             phoneCall.Header = dto.Header;

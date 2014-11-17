@@ -23,16 +23,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (TaskDomainEntityDto)domainEntityDto;
 
-            // FIXME {s.pomadin, 27.10.2014}: См изменения в AppointmentObtainer
             var task = dto.IsNew()
-                ? new Task
-                    {
-                        CreatedBy = dto.CreatedByRef.GetId(),
-                        CreatedOn = dto.CreatedOn,
-                        ModifiedBy = dto.ModifiedByRef.GetId(),
-                        ModifiedOn = dto.ModifiedOn,
-                        Timestamp = dto.Timestamp,
-                    }
+                ? new Task { IsActive = true }
                 : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
 
             task.Header = dto.Header;

@@ -27,8 +27,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
                 throw new ArgumentNullException("repository");
             }
 
-            var oldRefs = (oldReferences ?? Enumerable.Empty<TEntityReference>()).ToArray();
-            var newRefs = (newReferences ?? Enumerable.Empty<TEntityReference>()).ToArray();
+            var oldRefs = (oldReferences ?? Enumerable.Empty<TEntityReference>()).Where(x => x != null).ToArray();
+            var newRefs = (newReferences ?? Enumerable.Empty<TEntityReference>()).Where(x => x != null).ToArray();
             var removingLinks = oldRefs.Except(newRefs, EqualityComparer<TEntityReference>.Default).ToArray();
             var addingLinks = newRefs.Except(oldRefs, EqualityComparer<TEntityReference>.Default).ToArray();
 

@@ -13,7 +13,6 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -58,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Id = letter.Id,
                     Header = letter.Header,
                     Description = letter.Description,
-                    ScheduledOn = letter.ScheduledOn,
+                    ScheduledOn = letter.ScheduledOn.Date,
                     Priority = letter.Priority,
                     Status = letter.Status,
                     RegardingObjects = AdaptReferences(regardingObjects),
@@ -81,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var userInfo = UserContext.Identity as IUserInfo ?? UserInfo.Empty;
             var dto = new LetterDomainEntityDto
                 {
-                    ScheduledOn = DateTime.Now,
+                    ScheduledOn = DateTime.Now.Date,
                     Priority = ActivityPriority.Average,
                     Status = ActivityStatus.InProgress,
                     SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User }
