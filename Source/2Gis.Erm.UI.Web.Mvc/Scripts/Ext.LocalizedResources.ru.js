@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 02.09.2014 15:35:05
+// File updated : 11.11.2014 15:44:37
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -122,6 +122,7 @@ EndDistributionDate : 'Окончание размещения',
 Error : 'Ошибка',
 ErrorDetectedWhenChangingUseCaseState : 'Обнаружена ошибка при попытке изменить состояние сеанса',
 ErrorDuringOperation : 'Во время выполнения операции произошла ошибка',
+ErrorOnServiceAccess : 'Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.',
 ErrorRetrievingDataFromServer : 'Ошибка при получении данных с сервера',
 February : 'Февраль',
 FieldInvalidText : 'Указано неверное значение',
@@ -167,6 +168,7 @@ JustifyLeftTitle : 'Выровнять текст по левому краю',
 JustifyRightText : 'Выравнивание текста по правому краю.',
 JustifyRightTitle : 'Выровнять текст по правому краю.',
 LastPageText : 'Последняя страница',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',
