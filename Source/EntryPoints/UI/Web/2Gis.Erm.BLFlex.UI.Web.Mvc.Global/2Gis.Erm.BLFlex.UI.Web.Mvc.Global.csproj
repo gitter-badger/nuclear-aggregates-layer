@@ -195,23 +195,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Appointment.generated.cs">
-      <DependentUpon>Appointment.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\CreateOrUpdate\Kazakhstan\Deal.generated.cs">
       <DependentUpon>Deal.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Phonecall.generated.cs">
-      <DependentUpon>Phonecall.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Task.generated.cs">
-      <DependentUpon>Task.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -1054,21 +1039,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Deal.generated.cs</LastGenOutput>
     </None>
-    <None Include="Views\CreateOrUpdate\Kazakhstan\Appointment.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
-    </None>
     <None Include="Views\CreateOrUpdate\Kazakhstan\Deal.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Deal.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Kazakhstan\Phonecall.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\CreateOrUpdate\Kazakhstan\Task.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Task.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\CreateOrUpdate\MultiCultureDeal.cshtml">
       <Generator>RazorGenerator</Generator>
