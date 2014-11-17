@@ -201,7 +201,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<OrderProcessingRequest>()
                                                      .Use<CheckIfUserCanCreateOrderForRequestCustomization>()
-                                                     .Use<ManageRequestStateButtonsCustomization>()
+                                                     .Use<ManageRequestStateButtonsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<LocalMessage>()
+                                                     .Use<SetReadonlyCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<ReleaseInfo>()
+                                                     .Use<SetReadonlyCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<WithdrawalInfo>()
+                                                     .Use<SetReadonlyCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
