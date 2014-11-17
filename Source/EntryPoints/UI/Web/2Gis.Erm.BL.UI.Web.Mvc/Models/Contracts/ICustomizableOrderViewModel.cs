@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
 {
-    public interface IOrderViewModel : IEntityViewModelBase
+    public interface ICustomizableOrderViewModel : IEntityViewModelBase
     {
         Uri OrderValidationServiceUrl { get; set; }
         int WorkflowStepId { get; set; }
@@ -25,14 +24,5 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
         DateTime BeginDistributionDate { get; set; }
         DateTime EndDistributionDateFact { get; set; }
         bool IsTerminated { get; set; }
-    }
-
-    public static class OrderViewModelExtensions
-    {
-        public static void LockToolbar(this IOrderViewModel orderViewModel)
-        {
-            Array.ForEach(orderViewModel.ViewConfig.CardSettings.CardToolbar.ToArray(), item => item.Disabled = true);
-            orderViewModel.IsWorkflowLocked = true;
-        }
     }
 }

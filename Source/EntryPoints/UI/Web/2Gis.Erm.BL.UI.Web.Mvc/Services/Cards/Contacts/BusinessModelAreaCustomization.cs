@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Contacts
 
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (IContactViewModel)viewModel;
+            var entityViewModel = (ICustomizableContactViewModel)viewModel;
             entityViewModel.BusinessModelArea = _businessModelSettings.BusinessModel.ToString();
         }
     }

@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
 {
-    public interface IActivityViewModel : IEntityViewModelBase
+    public interface ICustomizableActivityViewModel : IEntityViewModelBase
     {
         ActivityStatus Status { get; set; }
     }

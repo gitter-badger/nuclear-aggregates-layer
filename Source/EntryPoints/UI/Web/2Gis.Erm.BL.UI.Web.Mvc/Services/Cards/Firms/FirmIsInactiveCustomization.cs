@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (IFirmViewModel)viewModel;
+            var entityViewModel = (ICustomizableFirmViewModel)viewModel;
 
             if (entityViewModel.IsDeleted)
             {

@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (IOrderPositionViewModel)viewModel;
+            var entityViewModel = (ICustomizableOrderPositionViewModel)viewModel;
 
             entityViewModel.MoneySignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber;
         }

@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ILegalPersonProfileViewModel)viewModel;
+            var entityViewModel = (ICustomizableLegalPersonProfileViewModel)viewModel;
 
             if (entityViewModel.IsMainProfile)
             {

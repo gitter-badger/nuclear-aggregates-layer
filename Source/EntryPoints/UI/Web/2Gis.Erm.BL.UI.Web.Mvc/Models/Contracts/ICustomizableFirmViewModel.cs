@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
 {
-    public interface IFirmViewModel : IEntityViewModelBase
+    public interface ICustomizableFirmViewModel : IEntityViewModelBase
     {
         bool ClosedForAscertainment { get; set; }
     }

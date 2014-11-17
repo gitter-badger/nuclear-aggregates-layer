@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
 {
-    public interface IOrderPositionViewModel : IEntityViewModelBase
+    public interface ICustomizableOrderPositionViewModel : IEntityViewModelBase
     {
         long OrderId { get; set; }
         bool IsBlockedByRelease { get; set; }

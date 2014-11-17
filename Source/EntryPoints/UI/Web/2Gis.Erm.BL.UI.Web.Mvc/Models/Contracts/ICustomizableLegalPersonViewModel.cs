@@ -2,7 +2,7 @@
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts
 {
-    public interface ILegalPersonViewModel : IEntityViewModelBase
+    public interface ICustomizableLegalPersonViewModel : IEntityViewModelBase
     {
         bool HasProfiles { get; set; }
     }

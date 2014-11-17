@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (IOrderViewModel)viewModel;
+            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
 
             if (entityViewModel.DestinationOrganizationUnit == null || entityViewModel.DestinationOrganizationUnit.Key == null)
             {

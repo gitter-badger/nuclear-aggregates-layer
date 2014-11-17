@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (IActivityViewModel)viewModel;
+            var entityViewModel = (ICustomizableActivityViewModel)viewModel;
             string[] buttonsToDisable;
 
             switch (entityViewModel.Status)
