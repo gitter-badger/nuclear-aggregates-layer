@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Firms.Operations
 {
     public class MultiCultureImportCardAggregateService : IImportCardAggregateService, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted,
-                                                          IUkraineAdapted
+                                                          IUkraineAdapted, IKazakhstanAdapted
     {
         // timeout should be increased due to long sql updates
         private readonly TimeSpan _importCommandTimeout = TimeSpan.FromMinutes(15);

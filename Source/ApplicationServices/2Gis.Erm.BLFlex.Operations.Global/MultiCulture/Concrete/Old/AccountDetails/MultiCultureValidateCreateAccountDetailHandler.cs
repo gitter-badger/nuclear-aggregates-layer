@@ -7,8 +7,12 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.AccountDetails
 {
     public sealed class MultiCultureValidateCreateAccountDetailHandler : RequestHandler<ValidateCreateAccountDetailRequest, ValidateCreateAccountDetailResponse>,
-                                                                         ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted,
-                                                                         IEmiratesAdapted
+                                                                         ICyprusAdapted,
+                                                                         IChileAdapted,
+                                                                         ICzechAdapted,
+                                                                         IUkraineAdapted,
+                                                                         IEmiratesAdapted,
+                                                                         IKazakhstanAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IAccountRepository _accountRepository;

@@ -1,7 +1,7 @@
 ﻿<NavigationSettings>
   <Items Name="NavAreaBilling" Icon="Billing.gif">
     <Items Name="NavAreaWorkspace">
-      <Items Name="NavAreaHistory" Icon="en_ico_16_Default.gif" RequestUrl="/Grid/View/Activity?defaultDataView=DListMyActivities" />
+      <Items Name="NavAreaHistory" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity?defaultDataView=DListMyActivities" />
       <Items Name="NavGroupReports" Icon="en_ico_16_Report.gif" RequestUrl="/Report/Complex" />
     </Items>
     <Items Name="NavAreaBusinessDirectory" Icon="BusinessDirectory.gif">

@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         public string IBAN { get; set; }
 
         [StringLengthLocalized(11, MinimumLength = 8)]
-        [RegularExpression(@"[^\d]{4}AE[^0-1][^O].{0,3}", ErrorMessageResourceName = @"SpecifiedSwiftIsInvalid", ErrorMessageResourceType = typeof(Resources.Server.Properties.BLResources))]
+        [RegularExpression(@"[a-zA-Z]{6}[^0-1][^O]([a-zA-Z0-9]{3})?", ErrorMessageResourceName = @"SpecifiedSwiftIsInvalid", ErrorMessageResourceType = typeof(Resources.Server.Properties.BLResources))]
         public string SWIFT { get; set; }
 
         [StringLengthLocalized(100, MinimumLength = 0)]
