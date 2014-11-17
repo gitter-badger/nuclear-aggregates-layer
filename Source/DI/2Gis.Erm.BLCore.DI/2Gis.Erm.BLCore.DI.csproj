@@ -68,12 +68,13 @@
     <Compile Include="Config\CommonBootstrapper.Workflow.cs" />
     <Compile Include="Config\MassProcessing\IntegrationServicesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\CheckApplicationServicesConventionsMassProcessor.cs" />
-    <Compile Include="Config\MassProcessing\OrderValidationRuleProcessor.cs" />
-    <Compile Include="Config\MassProcessing\RequestHandlersProcessor.cs" />
-    <Compile Include="Infrastructure\Integration\UnityDeserializeServiceBusDtoServiceFactory.cs" />
-    <Compile Include="Infrastructure\Integration\UnityImportServiceBusDtoServiceFactory.cs" />
-    <Compile Include="Infrastructure\RequestHandling\UnityHandlerFactory.cs" />
-    <Compile Include="Infrastructure\Operations\UnityOperationServicesManager.cs" />
+    <Compile Include="Config\MassProcessing\OrderValidationRuleMassProcessor.cs" />
+    <Compile Include="Config\MassProcessing\RequestHandlersMassProcessor.cs" />
+    <Compile Include="Factories\Integration\UnityDeserializeServiceBusDtoServiceFactory.cs" />
+    <Compile Include="Factories\Integration\UnityImportServiceBusDtoServiceFactory.cs" />
+    <Compile Include="Factories\OrderValidation\UnityOrderValidationRuleFactory.cs" />
+    <Compile Include="Factories\RequestHandling\UnityHandlerFactory.cs" />
+    <Compile Include="Factories\Operations\UnityOperationServicesManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">

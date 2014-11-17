@@ -9,8 +9,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel
     public interface IAdvertisementReadModel : IAggregateReadModel<Advertisement>
     {
         AdvertisementElementModifyDto GetAdvertisementInfoForElement(long advertisementElementId);
-        long[] GetDependedOrderIds(IEnumerable<long> advertisementIds);
-        long[] GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds);
+        IReadOnlyCollection<long> GetDependedOrderIds(IEnumerable<long> advertisementIds);
+        IReadOnlyCollection<long> GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds);
         AdvertisementMailNotificationDto GetMailNotificationDto(long advertisementElementId);
         AdvertisementElementStatus GetAdvertisementElementStatus(long advertisementElementId);
         IEnumerable<AdvertisementElementCreationDto> GetElementsToCreate(long advertisementTemplateId);
