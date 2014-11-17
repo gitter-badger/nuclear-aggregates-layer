@@ -1452,4 +1452,31 @@
   <data name="DListInactiveFirmsForDeal" xml:space="preserve">
     <value>Deleted links</value>
   </data>
+  <data name="BinIin" xml:space="preserve">
+    <value>BIN/IIN</value>
+  </data>
+  <data name="Bin" xml:space="preserve">
+    <value>BIN</value>
+  </data>
+  <data name="Iin" xml:space="preserve">
+    <value>IIN</value>
+  </data>
+  <data name="IdentityCardNumber" xml:space="preserve">
+    <value>Personal ID No.</value>
+  </data>
+  <data name="IdentityCardIssuedOn" xml:space="preserve">
+    <value>Issue date</value>
+  </data>
+  <data name="IdentityCardIssuedBy" xml:space="preserve">
+    <value>Issued by</value>
+  </data>
+  <data name="DecreeNumber" xml:space="preserve">
+    <value>Order No.</value>
+  </data>
+  <data name="DecreeDate" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="OtherAuthorityDocument" xml:space="preserve">
+    <value>Other</value>
+  </data>
 </root>

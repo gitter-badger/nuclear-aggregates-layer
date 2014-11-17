@@ -406,7 +406,7 @@
     <value>День отчета</value>
   </data>
   <data name="BillDate" xml:space="preserve">
-    <value>Дата счета (От)</value>
+    <value>Дата (От)</value>
   </data>
   <data name="OrderNumber" xml:space="preserve">
     <value>Номер заказа</value>
@@ -943,7 +943,7 @@
     <value>По оплате</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Номер счета</value>
+    <value>Номер</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Заказ</value>
@@ -1021,13 +1021,13 @@
     <value>Название банка</value>
   </data>
   <data name="IBAN" xml:space="preserve">
-    <value>IBAN</value>
+    <value>ИИК</value>
   </data>
   <data name="PaymentMethod" xml:space="preserve">
     <value>Способ оплаты</value>
   </data>
   <data name="SWIFT" xml:space="preserve">
-    <value>SWIFT (BIC Code)</value>
+    <value>БИК</value>
   </data>
   <data name="VAT" xml:space="preserve">
     <value>V.A.T. Reg. No</value>
@@ -1280,7 +1280,6 @@
   </data>
   <data name="Registered" xml:space="preserve">
     <value>Зарегистрировано</value>
-    <comment>поле профиля юр. лица</comment>
   </data>
   <data name="CreateCsvFile" xml:space="preserve">
     <value>Выгрузить дополнительно файл в формате csv</value>
@@ -1355,7 +1354,7 @@
     <value>МФО</value>
   </data>
   <data name="OrderPosition" xml:space="preserve">
-    <value />
+    <value>Позиция заказа</value>
   </data>
   <data name="CommercialLicense" xml:space="preserve">
     <value>Лицензия</value>
@@ -1393,6 +1392,12 @@
   <data name="DListInactiveDenialReason" xml:space="preserve">
     <value>Скрытые причины отклонения РМ</value>
   </data>
+  <data name="NameOfChildClient" xml:space="preserve">
+    <value>Дочерний клиент</value>
+  </data>
+  <data name="NameOfMasterClient" xml:space="preserve">
+    <value>Родительский клиент</value>
+  </data>
   <data name="BargainKind" xml:space="preserve">
     <value>Форма договора</value>
   </data>
@@ -1407,12 +1412,6 @@
   </data>
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Редактировать</value>
-  </data>
-  <data name="NameOfChildClient" xml:space="preserve">
-    <value>Дочерний клиент</value>
-  </data>
-  <data name="NameOfMasterClient" xml:space="preserve">
-    <value>Родительский клиент</value>
   </data>
   <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
     <value>Начало рекламной кампании</value>
