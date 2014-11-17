@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
 {
-    public class CyprusLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization, ICyprusAdapted
+    public sealed class CyprusLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization, ICyprusAdapted
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

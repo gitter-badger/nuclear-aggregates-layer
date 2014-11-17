@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
 {
-    public class CyprusViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, ICyprusAdapted
+    public sealed class CyprusViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, ICyprusAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
@@ -30,12 +30,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
                 new ViewModelCustomizationsMetada[]
                     {
                         ViewModelCustomizationsMetada.Config
-                                                     .For<Order>()
-                                                     .Use<MultiCulturePrintFormsCustomization>(),
-
-                        ViewModelCustomizationsMetada.Config
                                                      .For<LegalPersonProfile>()
                                                      .Use<CyprusLegalPersonProfileDisableDocumentsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Order>()
+                                                     .Use<MultiCulturePrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

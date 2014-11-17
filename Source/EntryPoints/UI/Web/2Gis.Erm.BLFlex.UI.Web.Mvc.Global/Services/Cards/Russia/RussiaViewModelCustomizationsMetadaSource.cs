@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
 {
-    public class RussiaViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IRussiaAdapted
+    public sealed class RussiaViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IRussiaAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
@@ -37,12 +37,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                                                      .Use<EditIsAdvertisingAgencyViewModelCustomization>(),
 
                         ViewModelCustomizationsMetada.Config
-                                                     .For<Order>()
-                                                     .Use<PrintFormsCustomization>(),
-
-                        ViewModelCustomizationsMetada.Config
                                                      .For<LegalPersonProfile>()
                                                      .Use<LegalPersonProfileDisableDocumentsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Order>()
+                                                     .Use<PrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

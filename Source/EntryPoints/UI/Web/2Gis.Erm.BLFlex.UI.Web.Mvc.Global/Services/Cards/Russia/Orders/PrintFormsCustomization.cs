@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders
 {
-    public class PrintFormsCustomization : IViewModelCustomization, IRussiaAdapted
+    public sealed class PrintFormsCustomization : IViewModelCustomization, IRussiaAdapted
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
@@ -17,7 +17,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders
 
             var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated || !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination || entityViewModel.WorkflowStepId == (int)OrderState.Archive);
             
-            // TODO {y.baranihin, 13.11.2014}: сделать конфигурирование кнопок на отключение
             if (isActionDisabledBasedOnWorkflowStepId)
             {
                 entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");

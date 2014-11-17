@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Ukraine
 {
-    public class UkraineLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization, IUkraineAdapted
+    public sealed class UkraineLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization, IUkraineAdapted
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

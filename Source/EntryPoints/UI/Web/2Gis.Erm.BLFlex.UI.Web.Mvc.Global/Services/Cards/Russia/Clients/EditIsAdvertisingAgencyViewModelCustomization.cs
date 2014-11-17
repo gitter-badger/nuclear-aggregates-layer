@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Clients
 {
-    public class EditIsAdvertisingAgencyViewModelCustomization : IViewModelCustomization, IRussiaAdapted
+    public sealed class EditIsAdvertisingAgencyViewModelCustomization : IViewModelCustomization, IRussiaAdapted
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;

@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Emirates
 {
-    public class EmiratesViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IEmiratesAdapted
+    public sealed class EmiratesViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IEmiratesAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 

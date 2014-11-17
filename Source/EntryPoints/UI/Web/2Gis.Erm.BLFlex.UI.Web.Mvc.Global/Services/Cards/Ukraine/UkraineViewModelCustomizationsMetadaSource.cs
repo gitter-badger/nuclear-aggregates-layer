@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Ukraine
 {
-    public class UkraineViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IUkraineAdapted
+    public sealed class UkraineViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IUkraineAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
@@ -30,12 +30,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Ukraine
                 new ViewModelCustomizationsMetada[]
                     {
                         ViewModelCustomizationsMetada.Config
-                                                     .For<Order>()
-                                                     .Use<MultiCulturePrintFormsCustomization>(),
-
-                        ViewModelCustomizationsMetada.Config
                                                      .For<LegalPersonProfile>()
                                                      .Use<UkraineLegalPersonProfileDisableDocumentsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Order>()
+                                                     .Use<MultiCulturePrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

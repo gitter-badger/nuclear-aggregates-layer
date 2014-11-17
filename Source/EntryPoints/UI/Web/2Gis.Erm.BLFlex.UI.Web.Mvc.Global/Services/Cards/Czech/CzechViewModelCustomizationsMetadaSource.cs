@@ -30,12 +30,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Czech
                 new ViewModelCustomizationsMetada[]
                     {
                         ViewModelCustomizationsMetada.Config
-                                                     .For<Order>()
-                                                     .Use<CzechPrintFormsCustomization>(),
-
-                        ViewModelCustomizationsMetada.Config
                                                      .For<LegalPersonProfile>()
                                                      .Use<CzechLegalPersonProfileDisableDocumentsCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<Order>()
+                                                     .Use<CzechPrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
