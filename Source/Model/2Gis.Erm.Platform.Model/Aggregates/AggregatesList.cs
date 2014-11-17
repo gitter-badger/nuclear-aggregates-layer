@@ -34,7 +34,6 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
                 /* скорее агрегат, чем нет*/DealAggregate.Deal.ToDescriptor(),
                 /*не агрегат*/BargainAggregate.Bargain.ToDescriptor(),
                 OrderAggregate.Order.ToDescriptor(),
-                /*не агрегат?*/OrderValidationResultAggregate.OrderValidationResult.ToDescriptor(),
                 PositionAggregate.Position.ToDescriptor(),
                 PriceAggregate.Price.ToDescriptor(),
                 /*не агрегат?*/ReleaseAggregate.ReleaseInfo.ToDescriptor(),
