@@ -541,58 +541,58 @@
     <value>Временный отказ. Не сезон.</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
-    <value>Доп. соглашение для ИП</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
-    <value>Счёт на оплату для ИП</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeTerminationNoticeBusinessman" xml:space="preserve">
-    <value>Уведомление о расторжении для ИП</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
-    <value>Доп. соглашение для юр. лица</value>
+    <value>Доп. соглашение</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
-    <value>Счёт на оплату для юр. лица</value>
+    <value>Счёт на оплату</value>
   </data>
   <data name="TemplateCodeOrderDesktopWithVat" xml:space="preserve">
-    <value>Бланк заказа (ПК, с НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeOrderDesktopWithoutVat" xml:space="preserve">
-    <value>Бланк заказа (ПК, без НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeOrderMobileWithVat" xml:space="preserve">
-    <value>Бланк заказа (Mobile, с НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeOrderMobileWithoutVat" xml:space="preserve">
-    <value>Бланк заказа (Mobile, без НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeOrderApiWithVat" xml:space="preserve">
-    <value>Бланк заказа (API, с НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeOrderApiWithoutVat" xml:space="preserve">
-    <value>Бланк заказа (API, без НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeOrderOnlineWithVat" xml:space="preserve">
-    <value>Бланк заказа (Online, с НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeOrderOnlineWithoutVat" xml:space="preserve">
-    <value>Бланк заказа (Online, без НДС)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeTerminationNoticeLegalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении для юр. лица</value>
+    <value>Уведомление о расторжении</value>
   </data>
   <data name="TemplateCodeLimitRequest" xml:space="preserve">
-    <value>Заявка на лимиты</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
-    <value>Доп. соглашение для физ. лица</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
-    <value>Счёт на оплату для физ. лица</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeTerminationNoticeNaturalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении для физ. лица</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="OrderTypeSocialAds" xml:space="preserve">
     <value>Социальная реклама</value>
@@ -619,6 +619,15 @@
     <value>Расторжение</value>
   </data>
   <data name="OrderFileKindOtherDocumentScan" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="CyprusOrderFileKindOrderScan" xml:space="preserve">
+    <value>Бланк заказа</value>
+  </data>
+  <data name="CyprusOrderFileKindTerminationScan" xml:space="preserve">
+    <value>Расторжение</value>
+  </data>
+  <data name="CyprusOrderFileKindOtherDocumentScan" xml:space="preserve">
     <value>Другое</value>
   </data>
   <data name="MarketTypeFmcg" xml:space="preserve">
@@ -793,19 +802,19 @@
     <value>Другое</value>
   </data>
   <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Единый счёт на оплату для ИП</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для юр. лица</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для физ. лица</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
-    <value>Региональное уведомление о расторжении (Филиал-Филиал)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeRegionalTerminationNoticeNotBranch2Branch" xml:space="preserve">
-    <value>Региональное уведомление о расторжении (отличное от Филиал-Филиал)</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Договор</value>
@@ -826,7 +835,7 @@
     <value>Входящая региональная реклама</value>
   </data>
   <data name="TemplateCodeReferenceInformation" xml:space="preserve">
-    <value>Справочная информация</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="OrderTerminationReasonRejectionTechnical" xml:space="preserve">
     <value>Техническое расторжение. Смена позиций</value>
@@ -836,9 +845,6 @@
   </data>
   <data name="EntityNameOrder" xml:space="preserve">
     <value>Заказ</value>
-  </data>
-  <data name="EntityNameOrderProcessingRequest" xml:space="preserve">
-    <value>Заявка на создание заказа</value>
   </data>
   <data name="EntityNameOrderPosition" xml:space="preserve">
     <value>Позиция заказа</value>
@@ -1143,15 +1149,6 @@
   <data name="FunctionalPrivilegeNameFranchiseesWithdrawalExport" xml:space="preserve">
     <value>Выгрузка списаний</value>
   </data>
-  <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
-    <value>Обработка горячих клиентов</value>
-  </data>
-  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
-  </data>
-  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
-    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
-  </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Отсутствует</value>
   </data>
@@ -1194,7 +1191,19 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Территория</value>
   </data>
-  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
+    <value>ППС1</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
+    <value>ППС2</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
+    <value>ППС3</value>
+  </data>
+  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
+    <value>ППС4</value>
+  </data>
+  <data name="BusinessOperationQualify" xml:space="preserve">
     <value>Взятие из резерва</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1335,26 +1344,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Предупреждение</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС со скидкой</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС со скидкой</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС без скидки</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС без скидки</value>
-  </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Звонок</value>
   </data>
   <data name="ActivityTypeAppointment" xml:space="preserve">
     <value>Встреча</value>
-  </data>
-  <data name="ActivityTypeLetter" xml:space="preserve">
-    <value>Письмо</value>
   </data>
   <data name="ActivityTypeTask" xml:space="preserve">
     <value>Задача</value>
@@ -1449,9 +1443,6 @@
   <data name="PlatformsExtendedOnline" xml:space="preserve">
     <value>Online</value>
   </data>
-  <data name="PaymentMethodUndefined" xml:space="preserve">
-    <value />
-  </data>
   <data name="PaymentMethodBankChequePayment" xml:space="preserve">
     <value>Чек</value>
   </data>
@@ -1463,12 +1454,6 @@
   </data>
   <data name="PaymentMethodBankCard" xml:space="preserve">
     <value>Банковская карта</value>
-  </data>
-  <data name="PaymentMethodDebitCard" xml:space="preserve">
-    <value>Дебетовая карта</value>
-  </data>
-  <data name="PaymentMethodCreditCard" xml:space="preserve">
-    <value>Кредитная карта</value>
   </data>
   <data name="TaskTypeNotSet" xml:space="preserve">
     <value>Не задано</value>
@@ -1626,10 +1611,10 @@
   <data name="ESalesPointTypePairFranchFilial" xml:space="preserve">
     <value>Исходящая реклама из франчайзи в филиал</value>
   </data>
-  <data name="AdvertisementElementStatusValid" xml:space="preserve">
+  <data name="AdvertisementElementStatusValueValid" xml:space="preserve">
     <value>Одобрено</value>
   </data>
-  <data name="AdvertisementElementStatusInvalid" xml:space="preserve">
+  <data name="AdvertisementElementStatusValueInvalid" xml:space="preserve">
     <value>Выверено с ошибками</value>
   </data>
   <data name="AdvertisementElementStatusValueDraft" xml:space="preserve">
@@ -1656,6 +1641,42 @@
   <data name="FasCommentDisplayTextSupplements" xml:space="preserve">
     <value>Не является лекарственным средством.</value>
   </data>
+  <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
+    <value>Выгрузка в шину списаний по лицевым счетам</value>
+  </data>
+  <data name="OrderFileKindWarrantyScan" xml:space="preserve">
+    <value>Доверенность</value>
+  </data>
+  <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
+    <value>Заявление заказчика под присягой</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeNone" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeWithoutReasonBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeWithoutReasonLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBargainAdditionalAgreementBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="ReleaseStatusSuccess" xml:space="preserve">
     <value>Success</value>
   </data>
@@ -1674,47 +1695,17 @@
   <data name="ReleaseStatusInProgressWaitingExternalProcessing" xml:space="preserve">
     <value>InProgress Waiting External Processing</value>
   </data>
-  <data name="WithdrawalStatusReverting" xml:space="preserve">
-    <value>Reverting</value>
+  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
+    <value>Бланк заказа без НДС со скидкой</value>
   </data>
-  <data name="WithdrawalStatusWithdrawing" xml:space="preserve">
-    <value>Withdrawing</value>
+  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="OrderFileKindWarrantyScan" xml:space="preserve">
-    <value>Доверенность</value>
+  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
+    <value>Бланк заказа без НДС без скидки</value>
   </data>
-  <data name="OrderFileKindSwornStatementScan" xml:space="preserve">
-    <value>Заявление заказчика под присягой</value>
-  </data>
-  <data name="OperatesOnTheBasisTypeNone" xml:space="preserve">
-    <value>Отсутствует</value>
-  </data>
-  <data name="TemplateCodeTerminationNoticeWithoutReasonBusinessman" xml:space="preserve">
-    <value>Уведомление о расторжении заказа без указания причины для ИП</value>
-  </data>
-  <data name="TemplateCodeTerminationNoticeWithoutReasonLegalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении заказа без указания причины для юр. лица</value>
-  </data>
-  <data name="TemplateCodeTerminationNoticeBargainBusinessman" xml:space="preserve">
-    <value>Уведомление о расторжении договора с указанием причины для ИП</value>
-  </data>
-  <data name="TemplateCodeTerminationNoticeBargainLegalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении договора с указанием причины для юр. лица</value>
-  </data>
-  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonBusinessman" xml:space="preserve">
-    <value>Уведомление о расторжении договора без указания причины для ИП</value>
-  </data>
-  <data name="TemplateCodeTerminationNoticeBargainWithoutReasonLegalPerson" xml:space="preserve">
-    <value>Уведомление о расторжении договора без указания причины для юр. лица</value>
-  </data>
-  <data name="TemplateCodeBargainAdditionalAgreementBusinessman" xml:space="preserve">
-    <value>Соглашение о расторжении договора для ИП</value>
-  </data>
-  <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
-    <value>Соглашение о расторжении договора для юр. лица</value>
-  </data>
-  <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка в шину списаний по лицевым счетам</value>
+  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="OrderProcessingRequestStateCancelled" xml:space="preserve">
     <value>Отменено</value>
@@ -1730,6 +1721,21 @@
   </data>
   <data name="OrderProcessingRequestStateUndefined" xml:space="preserve">
     <value>Не определено</value>
+  </data>
+  <data name="WithdrawalStatusReverting" xml:space="preserve">
+    <value>Reverting</value>
+  </data>
+  <data name="WithdrawalStatusWithdrawing" xml:space="preserve">
+    <value>Withdrawing</value>
+  </data>
+  <data name="EntityNameOrderProcessingRequest" xml:space="preserve">
+    <value>Заявка на создание заказа</value>
+  </data>
+  <data name="FunctionalPrivilegeNameHotClientProcessing" xml:space="preserve">
+    <value>Обработка горячих клиентов</value>
+  </data>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingFranchisee" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (франчайзи)</value>
   </data>
   <data name="FunctionalPrivilegeNameAdvertisementAgencyManagement" xml:space="preserve">
     <value>Управление рекламными агентствами</value>
@@ -1764,14 +1770,8 @@
   <data name="EntityNameActivityInstance" xml:space="preserve">
     <value>Действие</value>
   </data>
-  <data name="CyprusOrderFileKindOrderScan" xml:space="preserve">
-    <value>Бланк заказа</value>
-  </data>
-  <data name="CyprusOrderFileKindTerminationScan" xml:space="preserve">
-    <value>Расторжение</value>
-  </data>
-  <data name="CyprusOrderFileKindOtherDocumentScan" xml:space="preserve">
-    <value>Другое</value>
+  <data name="PaymentMethodUnderfined" xml:space="preserve">
+    <value />
   </data>
   <data name="PricePositionRateTypeNone" xml:space="preserve">
     <value>Не применять</value>
@@ -1790,6 +1790,15 @@
   </data>
   <data name="AccountTypeSavingsAccount" xml:space="preserve">
     <value>Упрощенный счёт</value>
+  </data>
+  <data name="PaymentMethodUndefined" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="PaymentMethodDebitCard" xml:space="preserve">
+    <value>Дебетовая карта</value>
+  </data>
+  <data name="PaymentMethodCreditCard" xml:space="preserve">
+    <value>Кредитная карта</value>
   </data>
   <data name="FasCommentAlcoholAdvertising" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -1854,18 +1863,17 @@
   <data name="TaxationTypeWithVat" xml:space="preserve">
     <value>с НДС</value>
   </data>
-  <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
-    <value>Договор (новая модель продаж)</value>
+  <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
+    <value>Обработка горячих клиентов 5-й категории (филиал)</value>
   </data>
-  <data name="PaymentMethodUnderfined" xml:space="preserve">
-    <value />
+  <data name="TemplateCodeBargainNewSalesModel" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeAcceptanceReport" xml:space="preserve">
-    <value>AcceptanceReport</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeBargainLegalPersonAlternativeLanguage" xml:space="preserve">
-    <value>Договор для юр. лица (дополнительный язык)</value>
-    <comment>Арабский-английский для договора в Эмиратах</comment>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="EntityNameDenialReason" xml:space="preserve">
     <value>Причины отклонения РМ</value>
@@ -1915,18 +1923,6 @@
   <data name="BargainKindClient" xml:space="preserve">
     <value>Клиентский</value>
   </data>
-  <data name="TemplateCodeClientBargain" xml:space="preserve">
-    <value>Клиентский договор</value>
-  </data>
-  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
-    <value>Клиентский договор (дополнительный язык)</value>
-  </data>
-  <data name="TemplateCodeAgentBargain" xml:space="preserve">
-    <value>Агентский договор</value>
-  </data>
-  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
-  </data>
   <data name="EntityNameActivityBase" xml:space="preserve">
     <value>Действие</value>
   </data>
@@ -1958,13 +1954,13 @@
     <value>Продажа лекарств, которые требуют рецепта</value>
   </data>
   <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value>Самолечение может быть вредным для вашего здоровья.</value>
   </data>
   <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value>Чрезмерное потребление алкоголя вредно для вашего здоровья.</value>
   </data>
   <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
+    <value>Курение может вызывать заболевание на рак.</value>
   </data>
   <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
@@ -1974,6 +1970,18 @@
   </data>
   <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Клиентский договор</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Соглашение о продлении договора</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Отсрочка</value>

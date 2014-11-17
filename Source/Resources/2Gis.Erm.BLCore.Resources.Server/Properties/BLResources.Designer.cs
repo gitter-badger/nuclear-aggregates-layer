@@ -9528,6 +9528,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string OperatesOnBasisOfDecreeTemplate {
+            get {
+                return ResourceManager.GetString("OperatesOnBasisOfDecreeTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string OperatesOnBasisOfFoundingBargainTemplate {
             get {
                 return ResourceManager.GetString("OperatesOnBasisOfFoundingBargainTemplate", resourceCulture);

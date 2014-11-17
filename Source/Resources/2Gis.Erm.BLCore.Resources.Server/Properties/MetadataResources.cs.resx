@@ -1460,4 +1460,31 @@
   <data name="DListInactiveFirmsForDeal" xml:space="preserve">
     <value>Odstraněná spojení</value>
   </data>
+  <data name="BinIin" xml:space="preserve">
+    <value>DIČ</value>
+  </data>
+  <data name="Bin" xml:space="preserve">
+    <value>DIČ</value>
+  </data>
+  <data name="Iin" xml:space="preserve">
+    <value>DIČ</value>
+  </data>
+  <data name="IdentityCardNumber" xml:space="preserve">
+    <value>Číslo OP</value>
+  </data>
+  <data name="IdentityCardIssuedOn" xml:space="preserve">
+    <value>Datum vydání</value>
+  </data>
+  <data name="IdentityCardIssuedBy" xml:space="preserve">
+    <value>Vydáno</value>
+  </data>
+  <data name="DecreeNumber" xml:space="preserve">
+    <value>Číslo nařízení</value>
+  </data>
+  <data name="DecreeDate" xml:space="preserve">
+    <value>Datum nařízení</value>
+  </data>
+  <data name="OtherAuthorityDocument" xml:space="preserve">
+    <value>Jiné</value>
+  </data>
 </root>

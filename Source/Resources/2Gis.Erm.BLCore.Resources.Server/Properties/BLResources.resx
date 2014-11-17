@@ -5157,4 +5157,7 @@
   <data name="EntityIsAlreadyInactive" xml:space="preserve">
     <value />
   </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value />
+  </data>
 </root>

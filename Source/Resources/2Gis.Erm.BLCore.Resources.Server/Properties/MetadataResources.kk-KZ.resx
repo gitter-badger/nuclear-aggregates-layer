@@ -118,1132 +118,1138 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DocumentsDeliveryAddress" xml:space="preserve">
-    <value>Dirección de entrega de documentos</value>
+    <value>Адрес доставки документов</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
-    <value>Teléfono</value>
+    <value>Телефон</value>
   </data>
   <data name="ReasonForOrderBeingClosed" xml:space="preserve">
-    <value>Motivo de anulación de la orden</value>
+    <value>Причина закрытия заказа</value>
   </data>
   <data name="TargetPrice" xml:space="preserve">
-    <value>Lista de precios</value>
+    <value>Прайс-лист</value>
   </data>
   <data name="EstimatedProfit" xml:space="preserve">
-    <value>Beneficio esperado</value>
+    <value>Ожидаемый доход</value>
   </data>
   <data name="RHasOrdersDebt" xml:space="preserve">
-    <value>Deudas según la orden</value>
+    <value>Задолженности по заказу</value>
   </data>
   <data name="FileNameLengthRestriction" xml:space="preserve">
-    <value>Longitud máxima del nombre del archivo</value>
+    <value>Макс. длина названия файла</value>
   </data>
   <data name="ContributionType" xml:space="preserve">
-    <value>Forma de colaboración</value>
+    <value>Форма сотрудничества</value>
   </data>
   <data name="MasterPosition" xml:space="preserve">
-    <value>Posición origen</value>
+    <value>Родительская позиция</value>
   </data>
   <data name="Bargain" xml:space="preserve">
-    <value>Contrato</value>
+    <value>Договор</value>
   </data>
   <data name="DiscountComment" xml:space="preserve">
-    <value>Comentario al descuento</value>
+    <value>Комментарий по скидке</value>
   </data>
   <data name="CheckAccountBalance" xml:space="preserve">
-    <value>Verificar el balance de cuentas personales</value>
+    <value>Проверить баланс лицевых счетов</value>
   </data>
   <data name="WithDocDebtBargain" xml:space="preserve">
-    <value>Según el contrato</value>
+    <value>По договору</value>
   </data>
   <data name="ShowInactiveClients" xml:space="preserve">
-    <value>Clientes inactivos</value>
+    <value>Клиенты без активности</value>
   </data>
   <data name="BeginReleaseNumber" xml:space="preserve">
-    <value>Lanzamiento número (inicio de la publicación)</value>
+    <value>Выпуск № (начало размещения)</value>
   </data>
   <data name="BaseCurrency" xml:space="preserve">
-    <value>Principal moneda</value>
+    <value>Базовая валюта</value>
   </data>
   <data name="InSyncWith1C" xml:space="preserve">
-    <value>Sincronización con 1C</value>
+    <value>Синхронизация с 1С</value>
   </data>
   <data name="HasDocumentsDebt" xml:space="preserve">
-    <value>Disponibilidad de documentos</value>
+    <value>Наличие документов</value>
   </data>
   <data name="TextLineBreaksCountRestriction" xml:space="preserve">
-    <value>Cantidad máxima de líneas</value>
+    <value>Макс. количество строк</value>
   </data>
   <data name="FileExtensionRestriction" xml:space="preserve">
-    <value>Extensiones permitidas de archivos</value>
+    <value>Допустимые расширения файлов</value>
   </data>
   <data name="CloseReasonOther" xml:space="preserve">
-    <value>Otro motivo de cancelación</value>
+    <value>Другая причина закрытия</value>
   </data>
   <data name="FileSizeRestriction" xml:space="preserve">
-    <value>Tamaño máximo del archivo</value>
+    <value>Макс. размер файла</value>
   </data>
   <data name="PublishEndDate" xml:space="preserve">
-    <value>Fecha de finalización de la publicación</value>
+    <value>Дата окончания размещения</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Importe</value>
+    <value>Сумма</value>
   </data>
   <data name="PassportSeries" xml:space="preserve">
-    <value>Serie de pasaporte</value>
+    <value>Серия паспорта</value>
   </data>
   <data name="PriceCreateDate" xml:space="preserve">
-    <value>Fecha de creación</value>
+    <value>Дата создания</value>
   </data>
   <data name="IsServiceUser" xml:space="preserve">
-    <value>De servicio</value>
+    <value>Служебный</value>
   </data>
   <data name="RegionalNumber" xml:space="preserve">
-    <value>Número regional de la orden</value>
+    <value>Региональный номер заказа</value>
   </data>
   <data name="DgppId" xml:space="preserve">
-    <value>Código DGPP</value>
+    <value>Код ДГПП</value>
   </data>
   <data name="OrderType" xml:space="preserve">
-    <value>Tipo de la orden</value>
+    <value>Тип заказа</value>
   </data>
   <data name="ForCurrency" xml:space="preserve">
-    <value>Para la moneda</value>
+    <value>Для валюты</value>
   </data>
   <data name="BeginDistributionDate" xml:space="preserve">
-    <value>Inicio de la publicación</value>
+    <value>Начало размещения</value>
   </data>
   <data name="MiddleName" xml:space="preserve">
-    <value>Patronímico</value>
+    <value>Отчество</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Apellido</value>
+    <value>Фамилия</value>
   </data>
   <data name="PeriodStart" xml:space="preserve">
-    <value>Periodo desde</value>
+    <value>Период с</value>
   </data>
   <data name="PriceList" xml:space="preserve">
-    <value>Lista de precios</value>
+    <value>Прайс-лист</value>
   </data>
   <data name="IssueDate" xml:space="preserve">
-    <value>Fecha de informe</value>
+    <value>Отчетная дата</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Имя</value>
   </data>
   <data name="Client" xml:space="preserve">
-    <value>Cliente</value>
+    <value>Клиент</value>
   </data>
   <data name="PaymentMethods" xml:space="preserve">
-    <value>Formas de pago</value>
+    <value>Способы оплаты</value>
   </data>
   <data name="Reviews" xml:space="preserve">
-    <value>Reseñas</value>
+    <value>Отзывы</value>
   </data>
   <data name="BargainEndDate" xml:space="preserve">
-    <value>Fecha de finalización del contrato</value>
+    <value>Дата окончания действия договора</value>
   </data>
   <data name="CompositePosition" xml:space="preserve">
-    <value>Compleja</value>
+    <value>Сложная</value>
   </data>
   <data name="IsDeleted" xml:space="preserve">
-    <value>Eliminada</value>
+    <value>Удалена</value>
   </data>
   <data name="CountryName" xml:space="preserve">
-    <value>País</value>
+    <value>Страна</value>
   </data>
   <data name="ParentUser" xml:space="preserve">
-    <value>Gestor</value>
+    <value>Руководитель</value>
   </data>
   <data name="Territory" xml:space="preserve">
-    <value>Territorio</value>
+    <value>Территория</value>
   </data>
   <data name="OwnerCode" xml:space="preserve">
-    <value>Propietario</value>
+    <value>Владелец</value>
   </data>
   <data name="LockId" xml:space="preserve">
-    <value>Código de bloqueo</value>
+    <value>Код блокировки</value>
   </data>
   <data name="IsAdvertisementRequired" xml:space="preserve">
-    <value>Material publicitario es obligatorio</value>
+    <value>РМ обязателен</value>
   </data>
   <data name="MinPlacementPeriod" xml:space="preserve">
-    <value>Periodo mínimo de publicación</value>
+    <value>Минимальный период размещения</value>
   </data>
   <data name="TextLengthRestriction" xml:space="preserve">
-    <value>Cantidad máxima de caracteres</value>
+    <value>Макс. количество символов</value>
   </data>
   <data name="ShowClientsWithFrustratedPlans" xml:space="preserve">
-    <value>Clientes con planes obsoletos</value>
+    <value>Клиенты с просроченными планами</value>
   </data>
   <data name="CurrencyIsoCode" xml:space="preserve">
-    <value>Código ISO de la moneda</value>
+    <value>ISO Код валюты</value>
   </data>
   <data name="WithDocDebtOrder" xml:space="preserve">
-    <value>Según la orden de compra</value>
+    <value>По бланку заказа</value>
   </data>
   <data name="StableId" xml:space="preserve">
-    <value>Identificador estable</value>
+    <value>Стабильный идентификатор</value>
   </data>
   <data name="AssociatedPositionsGroupName" xml:space="preserve">
-    <value>Grupo de posiciones principales</value>
+    <value>Группа основных позиций</value>
   </data>
   <data name="PositionCategory" xml:space="preserve">
-    <value>Categoría</value>
+    <value>Категория</value>
   </data>
   <data name="RCurrentUser" xml:space="preserve">
-    <value>Usuario actual</value>
+    <value>Текущий пользователь</value>
   </data>
   <data name="ChildPosition" xml:space="preserve">
-    <value>Subposición</value>
+    <value>Дочерняя позиция</value>
   </data>
   <data name="WarrantyEndDate" xml:space="preserve">
-    <value>Fecha de finalización del poder</value>
+    <value>Дата окончания действия доверенности</value>
   </data>
   <data name="CloseBargainsViewModel_CloseDate" xml:space="preserve">
-    <value>Fecha de cancelación de contratos</value>
+    <value>Дата закрытия договоров</value>
   </data>
   <data name="DepartmentName" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Название</value>
   </data>
   <data name="ContactType" xml:space="preserve">
-    <value>Tipo</value>
+    <value>Тип</value>
   </data>
   <data name="RHasPaymentsDebt" xml:space="preserve">
-    <value>Deudas de pagos</value>
+    <value>Задолженности по оплате</value>
   </data>
   <data name="CalculationMethod" xml:space="preserve">
-    <value>Método de cálculo</value>
+    <value>Способ вычисления</value>
   </data>
   <data name="BranchOfficeName" xml:space="preserve">
-    <value>Persona jurídica de la entidad</value>
+    <value>Юр. лицо организации</value>
   </data>
   <data name="DealName" xml:space="preserve">
-    <value>Nombre de transacción</value>
+    <value>Название сделки</value>
   </data>
   <data name="ConsiderOnApproval" xml:space="preserve">
-    <value>En trámite de confirmación</value>
+    <value>На утверждении</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Estado</value>
+    <value>Состояние</value>
   </data>
   <data name="UserAccount" xml:space="preserve">
-    <value>Login</value>
+    <value>Логин</value>
   </data>
   <data name="SignedOn" xml:space="preserve">
-    <value>Fecha de firma</value>
+    <value>Дата подписания</value>
   </data>
   <data name="AdditionalEmail" xml:space="preserve">
-    <value>Correo electrónico adicional</value>
+    <value>Дополнительный Email</value>
   </data>
   <data name="PlanReleaseCount" xml:space="preserve">
-    <value>plan</value>
+    <value>план</value>
   </data>
   <data name="PositionInGenitive" xml:space="preserve">
-    <value>Del cargo</value>
+    <value>Должность (род. падеж)</value>
   </data>
   <data name="FirmContact" xml:space="preserve">
-    <value>Contacto</value>
+    <value>Контакт</value>
   </data>
   <data name="ModifiedBy" xml:space="preserve">
-    <value>Modificado</value>
+    <value>Изменено</value>
   </data>
   <data name="ModifiedOn" xml:space="preserve">
-    <value>Fecha de modificación</value>
+    <value>Дата изменения</value>
   </data>
   <data name="PayableFact" xml:space="preserve">
-    <value>A pagar (real)</value>
+    <value>К оплате (факт)</value>
   </data>
   <data name="PayablePlan" xml:space="preserve">
-    <value>A pagar (planificado)</value>
+    <value>К оплате (план)</value>
   </data>
   <data name="Position" xml:space="preserve">
-    <value>Nombre de la posicion publicitaria</value>
+    <value>Название рекламной позиции</value>
   </data>
   <data name="PositionViewModel_Name" xml:space="preserve">
-    <value>Nombre de la posición publicitaria</value>
+    <value>Название рекламной позиции</value>
   </data>
   <data name="IsTerminated" xml:space="preserve">
-    <value>Anulado</value>
+    <value>Расторгнут</value>
   </data>
   <data name="PublishBeginDate" xml:space="preserve">
-    <value>Fecha de inicio de la publicación</value>
+    <value>Дата начала размещения</value>
   </data>
   <data name="EndFactReleaseDate" xml:space="preserve">
-    <value>Finalización (real)</value>
+    <value>Окончание (факт)</value>
   </data>
   <data name="AdvertisementTemplateName" xml:space="preserve">
-    <value>Plantilla de material publicitario</value>
+    <value>Шаблон РМ</value>
   </data>
   <data name="Comment" xml:space="preserve">
-    <value>Comentario</value>
+    <value>Комментарий</value>
   </data>
   <data name="PricePublishDate" xml:space="preserve">
-    <value>Fecha de publicación</value>
+    <value>Дата публикации</value>
   </data>
   <data name="PaymentEssentialElements" xml:space="preserve">
-    <value>Datos bancarios</value>
+    <value>Платёжные реквизиты</value>
   </data>
   <data name="StartTime" xml:space="preserve">
-    <value>Hora de publicación</value>
+    <value>Время запуска</value>
   </data>
   <data name="RegistrationCertificate" xml:space="preserve">
-    <value>Certificado de registro</value>
+    <value>Свидетельство о регистрации</value>
   </data>
   <data name="Inspector" xml:space="preserve">
-    <value>Verificador</value>
+    <value>Проверяющий</value>
   </data>
   <data name="ShipmentPlan" xml:space="preserve">
-    <value>A descargar (planificado)</value>
+    <value>К отгрузке (план)</value>
   </data>
   <data name="IsPrimaryForRegionalSales" xml:space="preserve">
-    <value>Lo principal en ventas de la publicidad regional</value>
+    <value>Основное по продаже региональной рекламы</value>
   </data>
   <data name="OperatesOnTheBasisInGenitive" xml:space="preserve">
-    <value>Actúa en la base de</value>
+    <value>Действует на основании (род.падеж)</value>
   </data>
   <data name="ReportDate" xml:space="preserve">
-    <value>Día de presentación del informe</value>
+    <value>День отчета</value>
   </data>
   <data name="BillDate" xml:space="preserve">
-    <value>Fecha de la factura (De)</value>
+    <value>Дата (От)</value>
   </data>
   <data name="OrderNumber" xml:space="preserve">
-    <value>Número de la orden</value>
+    <value>Номер заказа</value>
   </data>
   <data name="DestinationOrganizationUnit" xml:space="preserve">
-    <value>Ciudad de destino</value>
+    <value>Город назначения</value>
   </data>
   <data name="PromisingScore" xml:space="preserve">
-    <value>Evaluación de la perspectiva</value>
+    <value>Оценка перспективности</value>
   </data>
   <data name="LegalPersonId" xml:space="preserve">
-    <value>Código de la persona jurídica del cliente</value>
+    <value>Код юр. лица клиента</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
-    <value>Obligatorio</value>
+    <value>Обязательное</value>
   </data>
   <data name="CertificateNumber" xml:space="preserve">
-    <value>Número de certificado</value>
+    <value>Номер свидетельства</value>
   </data>
   <data name="LegalAddress" xml:space="preserve">
-    <value>Domicilio comercial</value>
+    <value>Юридический адрес</value>
   </data>
   <data name="PositionInNominative" xml:space="preserve">
-    <value>Cargo (Caso Nominativo)</value>
+    <value>Должность (им. падеж)</value>
   </data>
   <data name="SignupDate" xml:space="preserve">
-    <value>Fecha de firma</value>
+    <value>Дата подписания</value>
   </data>
   <data name="PostAddress" xml:space="preserve">
-    <value>Casilla del correo</value>
+    <value>Почтовый адрес</value>
   </data>
   <data name="UsnNotificationText" xml:space="preserve">
-    <value>Notificación de aplicación del régimen simplificado de tributación</value>
+    <value>Уведомление о применении УСН</value>
   </data>
   <data name="AccountId" xml:space="preserve">
-    <value>Número de cuenta personal</value>
+    <value>Номер лицевого счёта</value>
   </data>
   <data name="FoundingBargainDate" xml:space="preserve">
-    <value>Fecha de expedición del contrato constitutivo</value>
+    <value>Дата выдачи учредительного договора</value>
   </data>
   <data name="MainFirm" xml:space="preserve">
-    <value>Empresa principal</value>
+    <value>Основная фирма</value>
   </data>
   <data name="ConsiderOnRegistration" xml:space="preserve">
-    <value>En trámite de formalización</value>
+    <value>На оформлении</value>
   </data>
   <data name="LegalPerson" xml:space="preserve">
-    <value>Persona jurídica del contratante</value>
+    <value>Юр. лицо заказчика</value>
   </data>
   <data name="InCityBranchesAmount" xml:space="preserve">
-    <value>Sucursales en la ciudad</value>
+    <value>Филиалы в городе</value>
   </data>
   <data name="ProductType" xml:space="preserve">
-    <value>Mercancía / servicio</value>
+    <value>Товар/услуга</value>
   </data>
   <data name="RHasTerminationDebt" xml:space="preserve">
-    <value>Deudas de anulación</value>
+    <value>Задолженности по расторжению</value>
   </data>
   <data name="ObjectBindingType" xml:space="preserve">
-    <value>Registro del enlace con el objeto</value>
+    <value>Учет объекта привязки</value>
   </data>
   <data name="EndDate" xml:space="preserve">
-    <value>Fecha de finalización</value>
+    <value>Дата окончания</value>
   </data>
   <data name="OrganizationUnitId" xml:space="preserve">
-    <value>Código de sucursal de la entidad</value>
+    <value>Код отделения организации</value>
   </data>
   <data name="OperationDescription" xml:space="preserve">
-    <value>Comentario</value>
+    <value>Комментарий</value>
   </data>
   <data name="PassportIssuedBy" xml:space="preserve">
-    <value>Expedido</value>
+    <value>Выдан</value>
   </data>
   <data name="BargainNumber" xml:space="preserve">
-    <value>Número del contrato</value>
+    <value>Номер договора</value>
   </data>
   <data name="ActualProfit" xml:space="preserve">
-    <value>Beneficio real</value>
+    <value>Фактический доход</value>
   </data>
   <data name="ElectronicMedia" xml:space="preserve">
-    <value>Medios electrónicos de comunicación</value>
+    <value>Электронное СМИ</value>
   </data>
   <data name="OrganizationUnit" xml:space="preserve">
-    <value>Sucursal de la entidad</value>
+    <value>Отделение организации</value>
   </data>
   <data name="BeginReleaseDate" xml:space="preserve">
-    <value>Inicio de la publicación</value>
+    <value>Начало размещения</value>
   </data>
   <data name="ConsiderOrderStatuses" xml:space="preserve">
-    <value>Considerar los estados de las órdenes</value>
+    <value>Учитывать статусы заказов</value>
   </data>
   <data name="DestOrganizationUnit" xml:space="preserve">
-    <value>Ciudad de destino</value>
+    <value>Город назначения</value>
   </data>
   <data name="AmountToWithdraw" xml:space="preserve">
-    <value>A la amortización actual</value>
+    <value>К текущему списанию</value>
   </data>
   <data name="IsAllowedToWhiteList" xml:space="preserve">
-    <value>Material publicitario puede ser seleccionado para la lista blanca</value>
+    <value>РМ может быть выбран в белый список</value>
   </data>
   <data name="ShortLegalName" xml:space="preserve">
-    <value>Nombre abreviado de la razón social</value>
+    <value>Краткое юридическое название</value>
   </data>
   <data name="Inn" xml:space="preserve">
-    <value>RUT</value>
+    <value>ИНН</value>
   </data>
   <data name="Tic" xml:space="preserve">
     <value>T.I.C.</value>
   </data>
   <data name="Kpp" xml:space="preserve">
-    <value>Razón social</value>
+    <value>КПП</value>
   </data>
   <data name="Month" xml:space="preserve">
-    <value>Mes</value>
+    <value>Месяц</value>
   </data>
   <data name="ActualAddress" xml:space="preserve">
-    <value>Dirección real</value>
+    <value>Фактический адрес</value>
   </data>
   <data name="Owner" xml:space="preserve">
-    <value>Supervisor</value>
+    <value>Куратор</value>
   </data>
   <data name="PricePerUnitWithVat" xml:space="preserve">
-    <value>Precio por unidad, con IVA</value>
+    <value>Цена за единицу, с НДС</value>
   </data>
   <data name="FirmBudgetType" xml:space="preserve">
-    <value>Presupuesto</value>
+    <value>Бюджет</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Título</value>
+    <value>Заголовок</value>
   </data>
   <data name="RUser" xml:space="preserve">
-    <value>Usuario</value>
+    <value>Пользователь</value>
   </data>
   <data name="Geolocation" xml:space="preserve">
-    <value>Ubicación geográfica</value>
+    <value>Георасположение</value>
   </data>
   <data name="CurrencySymbol" xml:space="preserve">
-    <value>Denominación</value>
+    <value>Обозначение</value>
   </data>
   <data name="PeriodEnd" xml:space="preserve">
-    <value>Periodo hasta</value>
+    <value>Период по</value>
   </data>
   <data name="RecipientName" xml:space="preserve">
-    <value>Destinatario</value>
+    <value>Получатель</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Dirección</value>
+    <value>Адрес</value>
   </data>
   <data name="EndFactReleaseNumber" xml:space="preserve">
-    <value>Último lanzamiento (real)</value>
+    <value>Последний выпуск (факт)</value>
   </data>
   <data name="FormattedText" xml:space="preserve">
-    <value>Texto formateado</value>
+    <value>Форматированый текст</value>
   </data>
   <data name="Account" xml:space="preserve">
-    <value>Cuenta personal</value>
+    <value>Лицевой счет</value>
   </data>
   <data name="Quantity" xml:space="preserve">
-    <value>Cantidad</value>
+    <value>Количество</value>
   </data>
   <data name="IncludeOwnerDescendants" xml:space="preserve">
-    <value>Incluidos los subordinados</value>
+    <value>Включая подчинённых</value>
   </data>
   <data name="BranchOfficeOrganizationUnitName" xml:space="preserve">
-    <value>Persona jurídica del ejecutor</value>
+    <value>Юр. лицо исполнителя</value>
   </data>
   <data name="OperationStatus" xml:space="preserve">
-    <value>Estado del cumplimento de la operación</value>
+    <value>Статус выполнения операции</value>
   </data>
   <data name="AccountingMethod" xml:space="preserve">
-    <value>Método de registro</value>
+    <value>Способ учета</value>
   </data>
   <data name="RReportType" xml:space="preserve">
-    <value>Tipo de informe</value>
+    <value>Тип отчета</value>
   </data>
   <data name="Currency" xml:space="preserve">
-    <value>Moneda</value>
+    <value>Валюта</value>
   </data>
   <data name="DocumentsDeliveryMethod" xml:space="preserve">
-    <value>Método de entrega de documentos</value>
+    <value>Споcоб доставки документов</value>
   </data>
   <data name="IsBaseCurrency" xml:space="preserve">
-    <value>Principal</value>
+    <value>Базовая</value>
   </data>
   <data name="RegistrationAddress" xml:space="preserve">
-    <value>Registro del lugar de residencia</value>
+    <value>Прописка</value>
   </data>
   <data name="OperationTypeKind" xml:space="preserve">
-    <value>Tipo de operación</value>
+    <value>Вид операции</value>
   </data>
   <data name="EndPlanReleaseNumber" xml:space="preserve">
-    <value>Lanzamiento número (finalización de publicación)</value>
+    <value>Выпуск № (окончание размещения)</value>
   </data>
   <data name="PlanningMonth" xml:space="preserve">
-    <value>Mes a planificar</value>
+    <value>Планируемый месяц</value>
   </data>
   <data name="BargainLegalPerson" xml:space="preserve">
-    <value>Persona jurídica del cliente</value>
+    <value>Юридическое лицо клиента</value>
   </data>
   <data name="StaffAmount" xml:space="preserve">
-    <value>Número de empleados</value>
+    <value>Численность персонала</value>
   </data>
   <data name="PostalAddress" xml:space="preserve">
-    <value>Casilla del correo</value>
+    <value>Почтовый адрес</value>
   </data>
   <data name="VatRate" xml:space="preserve">
-    <value>Tipo de IVA</value>
+    <value>Ставка НДС</value>
   </data>
   <data name="IsCurrent" xml:space="preserve">
-    <value>Actual</value>
+    <value>Текущий</value>
   </data>
   <data name="CountryIsoCode" xml:space="preserve">
-    <value>Código ISO del país</value>
+    <value>ISO Код страны</value>
   </data>
   <data name="CloseDate" xml:space="preserve">
-    <value>Fecha de cancelación de la transacción</value>
+    <value>Дата закрытия сделки</value>
   </data>
   <data name="StartReason" xml:space="preserve">
-    <value>Motivo de inicio de la transacción</value>
+    <value>Причина начала сделки</value>
   </data>
   <data name="FirstEmitDate" xml:space="preserve">
-    <value>Fecha de primer lanzamiento</value>
+    <value>Дата первого выпуска</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
-    <value>Creado</value>
+    <value>Создано</value>
   </data>
   <data name="CreatedOn" xml:space="preserve">
-    <value>Fecha de creación</value>
+    <value>Дата создания</value>
   </data>
   <data name="ClosedOn" xml:space="preserve">
-    <value>Fecha de cancelación</value>
+    <value>Дата закрытия</value>
   </data>
   <data name="TemplateCode" xml:space="preserve">
-    <value>Tipo de plantilla</value>
+    <value>Тип шаблона</value>
   </data>
   <data name="IsPrimary" xml:space="preserve">
-    <value>Lo principal</value>
+    <value>Основное</value>
   </data>
   <data name="RestrictionType" xml:space="preserve">
-    <value>Tipo de limitaciones</value>
+    <value>Тип ограничений</value>
   </data>
   <data name="EmailForAccountingDocuments" xml:space="preserve">
-    <value>Correo electrónico para la documentación contable</value>
+    <value>Email для бухгалтерских документов</value>
   </data>
   <data name="WorkflowStepId" xml:space="preserve">
-    <value>Estado de la orden</value>
+    <value>Статус заказа</value>
   </data>
   <data name="ReportMonth" xml:space="preserve">
-    <value>Mes de presentación de informes</value>
+    <value>Отчетный месяц</value>
   </data>
   <data name="OrderId" xml:space="preserve">
-    <value>Identificador de la Orden</value>
+    <value>Идентификатор Заказа</value>
   </data>
   <data name="CertificateDate" xml:space="preserve">
-    <value>Fecha de expedición del certificado</value>
+    <value>Дата выдачи свидетельства</value>
   </data>
   <data name="EndPlanReleaseDate" xml:space="preserve">
-    <value>Finalización de la publicación</value>
+    <value>Окончание размещения</value>
   </data>
   <data name="LegalName" xml:space="preserve">
-    <value>Razón social</value>
+    <value>Юридическое название</value>
   </data>
   <data name="DocumentsComment" xml:space="preserve">
-    <value>Comentarios a los documentos</value>
+    <value>Комментарий по документам</value>
   </data>
   <data name="ClientName" xml:space="preserve">
-    <value>Cliente</value>
+    <value>Клиент</value>
   </data>
   <data name="CloseReason" xml:space="preserve">
-    <value>Motivo de la cancelación de la transacción</value>
+    <value>Причина закрытия сделки</value>
   </data>
   <data name="RHasBargainDebt" xml:space="preserve">
-    <value>Deudas según el contrato</value>
+    <value>Задолженности по договору</value>
   </data>
   <data name="PlacementPeriod" xml:space="preserve">
-    <value>Periodo de publicación</value>
+    <value>Период размещения</value>
   </data>
   <data name="BeginDate" xml:space="preserve">
-    <value>Fecha de inicio</value>
+    <value>Дата начала</value>
   </data>
   <data name="ParentDepartment" xml:space="preserve">
-    <value>Casa matriz </value>
+    <value>Головное подразделение</value>
   </data>
   <data name="AccountsReportType" xml:space="preserve">
-    <value>Tipo de informe</value>
+    <value>Тип отчета</value>
   </data>
   <data name="Platform" xml:space="preserve">
-    <value>Plataforma</value>
+    <value>Платформа</value>
   </data>
   <data name="ExportLegalPersonsTo1CPeriodStart" xml:space="preserve">
-    <value>En el periodo, desde</value>
+    <value>За период, с</value>
   </data>
   <data name="LegalPersonType" xml:space="preserve">
-    <value>Tipo de persona jurídica</value>
+    <value>Тип юридического лица</value>
   </data>
   <data name="IsHidden" xml:space="preserve">
-    <value>Oculto hasta validar</value>
+    <value>Скрыт до выяснения</value>
   </data>
   <data name="PayablePrice" xml:space="preserve">
-    <value>A pagar (lista de precios)</value>
+    <value>К оплате (прайс)</value>
   </data>
   <data name="SourceOrganizationUnit" xml:space="preserve">
-    <value>Ciudad de origen</value>
+    <value>Город источник</value>
   </data>
   <data name="LockDetailCreateDate" xml:space="preserve">
-    <value>Fecha de la utilización</value>
+    <value>Дата использования</value>
   </data>
   <data name="Advertisements" xml:space="preserve">
-    <value>Materiales publicitarios</value>
+    <value>Рекламные материалы</value>
   </data>
   <data name="PaymentDatePlan" xml:space="preserve">
-    <value>Fecha de pago (planificada)</value>
+    <value>Дата оплаты (план)</value>
   </data>
   <data name="IsActive" xml:space="preserve">
-    <value>Activa</value>
+    <value>Активна</value>
   </data>
   <data name="MarketType" xml:space="preserve">
-    <value>Mercado</value>
+    <value>Рынок</value>
   </data>
   <data name="OrganizationUnitName" xml:space="preserve">
-    <value>Sucursal de la entidad</value>
+    <value>Отделение организации</value>
   </data>
   <data name="ImageDimensionRestriction" xml:space="preserve">
-    <value>Tamaño de imagen (píxeles)</value>
+    <value>Размеры рисунка (пиксели)</value>
   </data>
   <data name="ChiefNameInNominative" xml:space="preserve">
-    <value>Nombre, apellido</value>
+    <value>И.О.Фамилия руководителя (им.падеж)</value>
   </data>
   <data name="PricePerUnit" xml:space="preserve">
-    <value>Precio por unidad</value>
+    <value>Цена за единицу</value>
   </data>
   <data name="WorkingTime" xml:space="preserve">
-    <value>Horario de trabajo</value>
+    <value>Время работы</value>
   </data>
   <data name="FileKind" xml:space="preserve">
-    <value>Tipo de archivo</value>
+    <value>Вид файла</value>
   </data>
   <data name="FileName" xml:space="preserve">
-    <value>Nombre de archivo</value>
+    <value>Название файла</value>
   </data>
   <data name="WarrantyNumber" xml:space="preserve">
-    <value>Número de poder notarial</value>
+    <value>Номер доверенности</value>
   </data>
   <data name="PriceIsPublished" xml:space="preserve">
-    <value>¿Está publicado?</value>
+    <value>Опубликован?</value>
   </data>
   <data name="Department" xml:space="preserve">
-    <value>Sucursal</value>
+    <value>Подразделение</value>
   </data>
   <data name="FinishTime" xml:space="preserve">
-    <value>Fecha de finalización</value>
+    <value>Дата окончания</value>
   </data>
   <data name="CancellationComment" xml:space="preserve">
-    <value>Comentario a la anulación</value>
+    <value>Комментарий к расторжению</value>
   </data>
   <data name="PaymentsAmount" xml:space="preserve">
-    <value>Número de pagos</value>
+    <value>Количество платежей</value>
   </data>
   <data name="ExportCode" xml:space="preserve">
-    <value>Código de exportación</value>
+    <value>Код экспорта</value>
   </data>
   <data name="WarrantyBeginDate" xml:space="preserve">
-    <value>Fecha de expedición del poder notarial</value>
+    <value>Дата выдачи доверенности</value>
   </data>
   <data name="OutCityBranchesAmount" xml:space="preserve">
-    <value>Sucursales en otras ciudades</value>
+    <value>Филиалы в других городах</value>
   </data>
   <data name="FactReleaseCount" xml:space="preserve">
-    <value>real</value>
+    <value>факт</value>
   </data>
   <data name="DiscountReason" xml:space="preserve">
-    <value>Motivo de descuento</value>
+    <value>Причина скидки</value>
   </data>
   <data name="FasComment" xml:space="preserve">
-    <value>Advertencia</value>
+    <value>Комментарий ФАС</value>
   </data>
   <data name="PaymentReportType" xml:space="preserve">
-    <value>Tipo de descarga</value>
+    <value>Тип выгрузки</value>
   </data>
   <data name="IncludeReserve" xml:space="preserve">
-    <value>Mostrar la reserva</value>
+    <value>Выводить резерв</value>
   </data>
   <data name="SyncCode1C" xml:space="preserve">
-    <value>Código 1C</value>
+    <value>Код 1С</value>
   </data>
   <data name="BargainBeginDate" xml:space="preserve">
-    <value>Fecha de expedición del contrato</value>
+    <value>Дата выдачи договора</value>
   </data>
   <data name="IsAdvertisementLink" xml:space="preserve">
-    <value>Enlace publicitario</value>
+    <value>Рекламная ссылка</value>
   </data>
   <data name="AdvertisementTemplate" xml:space="preserve">
-    <value>Plantilla de material publicitario</value>
+    <value>Шаблон рекламного материала</value>
   </data>
   <data name="CategoryLevel" xml:space="preserve">
-    <value>Nivel de categoría</value>
+    <value>Уровень рубрики</value>
   </data>
   <data name="DiscountPercent" xml:space="preserve">
-    <value>Descuento (%):</value>
+    <value>Скидка (%):</value>
   </data>
   <data name="ParentCategoryName" xml:space="preserve">
-    <value>Categoría principal</value>
+    <value>Головная рубрика</value>
   </data>
   <data name="DealStage" xml:space="preserve">
-    <value>Etapa de transacción</value>
+    <value>Этап сделки</value>
   </data>
   <data name="TerminationReason" xml:space="preserve">
-    <value>Motivo de la anulación anticipada</value>
+    <value>Причина досрочного расторжения</value>
   </data>
   <data name="AmountWithdrawn" xml:space="preserve">
-    <value>Amortizado</value>
+    <value>Списано</value>
   </data>
   <data name="PersonResponsibleForDocuments" xml:space="preserve">
-    <value>Persona responsable de los documentos</value>
+    <value>Лицо, ответственное за документы</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Descripción</value>
+    <value>Описание</value>
   </data>
   <data name="AdvertisementElementTemplateName" xml:space="preserve">
-    <value>Elemento de plantilla de material publicitario</value>
+    <value>Элемент шаблона РМ</value>
   </data>
   <data name="MaxSymbolsInWord" xml:space="preserve">
-    <value>Número máximo de caracteres en la palabra</value>
+    <value>Макс. количество символов в слове</value>
   </data>
   <data name="TimeZoneId" xml:space="preserve">
-    <value>Zona horaria (www.askgeo.com)</value>
+    <value>Часовая зона (www.askgeo.com)</value>
   </data>
   <data name="ContactPhone" xml:space="preserve">
-    <value>Teléfono de contacto</value>
+    <value>Контактный телефон</value>
   </data>
   <data name="Annotation" xml:space="preserve">
-    <value>Observación</value>
+    <value>Примечание</value>
   </data>
   <data name="EntityName" xml:space="preserve">
-    <value>Nombre de la esencia</value>
+    <value>Название сущности</value>
   </data>
   <data name="PassportNumber" xml:space="preserve">
-    <value>Número de pasaporte</value>
+    <value>Номер паспорта</value>
   </data>
   <data name="BargainType" xml:space="preserve">
-    <value>Tipo de contrato</value>
+    <value>Тип договора</value>
   </data>
   <data name="FileId" xml:space="preserve">
-    <value>Archivo cargado</value>
+    <value>Загруженный файл</value>
   </data>
   <data name="BudgetType" xml:space="preserve">
-    <value>Clasificación de la orden</value>
+    <value>Классификация заказа</value>
   </data>
   <data name="LegalPersonProfile" xml:space="preserve">
-    <value>Perfil de persona jurídica del cliente</value>
+    <value>Профиль юр. лица клиента</value>
   </data>
   <data name="ShortName" xml:space="preserve">
-    <value>Nombre corto</value>
+    <value>Короткое название</value>
   </data>
   <data name="OperationTypeDescription" xml:space="preserve">
-    <value>Descripción</value>
+    <value>Описание</value>
   </data>
   <data name="WithDocDebtTermination" xml:space="preserve">
-    <value>Según la anulación</value>
+    <value>По расторжению</value>
   </data>
   <data name="ReplicationCode" xml:space="preserve">
-    <value>Código</value>
+    <value>Код</value>
   </data>
   <data name="EndDistributionDate" xml:space="preserve">
-    <value>Finalización de la publicación</value>
+    <value>Окончание размещения</value>
   </data>
   <data name="IsHiddenFemale" xml:space="preserve">
-    <value>Oculta hasta validar</value>
+    <value>Скрыта до выяснения</value>
   </data>
   <data name="PaymentMonth" xml:space="preserve">
-    <value>Mes de pago</value>
+    <value>Расчетный месяц</value>
   </data>
   <data name="PricePosition" xml:space="preserve">
-    <value>Posición de la lista de precios</value>
+    <value>Позиция прайса</value>
   </data>
   <data name="UsingOtherMedia" xml:space="preserve">
-    <value>Canal de publicación</value>
+    <value>Канал размещения</value>
   </data>
   <data name="DiscountSum" xml:space="preserve">
-    <value>Descuento:</value>
+    <value>Скидка:</value>
   </data>
   <data name="AssignToMe" xml:space="preserve">
-    <value>Designar a uno mismo</value>
+    <value>Назначить себе</value>
   </data>
   <data name="CategoryName" xml:space="preserve">
-    <value>Nombre de categoría</value>
+    <value>Название рубрики</value>
   </data>
   <data name="CategoryGroupName" xml:space="preserve">
-    <value>Nombre de grupo</value>
+    <value>Наименование группы</value>
   </data>
   <data name="CategoryGroupRate" xml:space="preserve">
-    <value>Valor del coeficiente de multiplicación</value>
+    <value>Значение коэффициента домножения</value>
   </data>
   <data name="BindingObjectType" xml:space="preserve">
-    <value>Enlace con el objeto</value>
+    <value>Объект привязки</value>
   </data>
   <data name="ShowLimits" xml:space="preserve">
-    <value>Calcular límites</value>
+    <value>Выводить лимиты</value>
   </data>
   <data name="IncludeReserveClients" xml:space="preserve">
-    <value>Considerar la reserva</value>
+    <value>Учитывать резерв</value>
   </data>
   <data name="OperationType" xml:space="preserve">
-    <value>Tipo de operación</value>
+    <value>Тип операции</value>
   </data>
   <data name="Firm" xml:space="preserve">
-    <value>Empresa</value>
+    <value>Фирма</value>
   </data>
   <data name="Deal" xml:space="preserve">
-    <value>Transacción</value>
+    <value>Сделка</value>
   </data>
   <data name="Code" xml:space="preserve">
-    <value>Código</value>
+    <value>Код</value>
   </data>
   <data name="Cost" xml:space="preserve">
-    <value>Precio</value>
+    <value>Стоимость</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Название</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Название</value>
   </data>
   <data name="Text" xml:space="preserve">
-    <value>Texto</value>
+    <value>Текст</value>
   </data>
   <data name="Rate" xml:space="preserve">
-    <value>Coeficiente de recálculo</value>
+    <value>Коэффициент пересчета</value>
   </data>
   <data name="ChiefNameInGenitive" xml:space="preserve">
-    <value>Nombre, apellido (genitivo)</value>
+    <value>ФИО руководителя (род.падеж)</value>
   </data>
   <data name="WithPaymentDebt" xml:space="preserve">
-    <value>Según el pago</value>
+    <value>По оплате</value>
   </data>
   <data name="BillNumber" xml:space="preserve">
-    <value>Número de la factura</value>
+    <value>Номер</value>
   </data>
   <data name="Order" xml:space="preserve">
-    <value>Orden</value>
+    <value>Заказ</value>
   </data>
   <data name="MaxAdvertisementAmount" xml:space="preserve">
-    <value>Cantidad máxima para el lanzamiento</value>
+    <value>Максимальное кол-во в выпуск</value>
   </data>
   <data name="MinAdvertisementAmount" xml:space="preserve">
-    <value>Cantidad mínima para el lanzamiento</value>
+    <value>Минимальное кол-во в выпуск</value>
   </data>
   <data name="IsPositionControlledByAmount" xml:space="preserve">
-    <value>Se controla por la cantidad</value>
+    <value>Управляется количеством</value>
   </data>
   <data name="IsSupportedByExport" xml:space="preserve">
-    <value>Se soporta por la exportación</value>
+    <value>Поддерживается экспортом</value>
   </data>
   <data name="IsControledByAmount" xml:space="preserve">
-    <value>Se controla por la cantidad</value>
+    <value>Контролируется количеством</value>
   </data>
   <data name="Reason" xml:space="preserve">
-    <value>Motivo</value>
+    <value>Причина</value>
   </data>
   <data name="MailSendingType" xml:space="preserve">
-    <value>Tipo de distribución</value>
+    <value>Тип рассылки</value>
   </data>
   <data name="RateType" xml:space="preserve">
-    <value>Aplicar coeficiente</value>
+    <value>Применять коэффициент</value>
   </data>
   <data name="NameLat" xml:space="preserve">
-    <value>Nombre en letras latinas</value>
+    <value>Название латиницей</value>
   </data>
   <data name="DefaultLanguage" xml:space="preserve">
-    <value>Idioma predeterminado</value>
+    <value>Язык по умолчанию</value>
   </data>
   <data name="BranchOfficeOrganizationUnit" xml:space="preserve">
-    <value>Persona jurídica del ejecutor</value>
+    <value>Юридическое лицо исполнителя</value>
   </data>
   <data name="IncludeRegionalAdvertisement" xml:space="preserve">
-    <value>Activar publicidad regional</value>
+    <value>Включать региональную рекламу</value>
   </data>
   <data name="RestrictChildPositionPlatforms" xml:space="preserve">
-    <value>La plataforma de las subposiciones es igual a la plataforma de origen</value>
+    <value>Платформа дочерних позиций равна платформе родительской</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Correo electrónico</value>
+    <value>Email</value>
+  </data>
+  <data name="ActivityBaseViewModelAbstract_Type" xml:space="preserve">
+    <value>Тип</value>
   </data>
   <data name="Priority" xml:space="preserve">
-    <value>Prioridad</value>
+    <value>Приоритет</value>
+  </data>
+  <data name="ActivityBaseViewModelAbstract_Status" xml:space="preserve">
+    <value>Состояние</value>
   </data>
   <data name="Purpose" xml:space="preserve">
-    <value>Objetivo</value>
+    <value>Цель</value>
   </data>
   <data name="AfterSaleServiceType" xml:space="preserve">
-    <value>Tipo del servicio postventa</value>
+    <value>Тип ППС</value>
   </data>
   <data name="TaskType" xml:space="preserve">
-    <value>Tipo de tarea</value>
+    <value>Тип задачи</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Vigencia</value>
+    <value>Продолжительность</value>
   </data>
   <data name="AccountNumber" xml:space="preserve">
-    <value>Número de cuenta</value>
+    <value>Номер счета</value>
   </data>
   <data name="AdditionalPaymentElements" xml:space="preserve">
-    <value>Datos bancarios adicionales</value>
+    <value>Дополнительные платежные реквизиты</value>
   </data>
   <data name="BankName" xml:space="preserve">
-    <value>Nombre de banco</value>
+    <value>Название банка</value>
   </data>
   <data name="IBAN" xml:space="preserve">
-    <value>IBAN</value>
+    <value>ИИК</value>
   </data>
   <data name="PaymentMethod" xml:space="preserve">
-    <value>Forma de pago</value>
+    <value>Способ оплаты</value>
   </data>
   <data name="SWIFT" xml:space="preserve">
-    <value>SWIFT (Código BIC)</value>
+    <value>БИК</value>
   </data>
   <data name="VAT" xml:space="preserve">
     <value>V.A.T. Reg. No</value>
   </data>
   <data name="CardNumber" xml:space="preserve">
-    <value>Número identificador de la tarjeta</value>
+    <value>Идентификационный номер карты</value>
   </data>
   <data name="ResidencyAddress" xml:space="preserve">
-    <value>Dirección de residencia</value>
+    <value>Адрес места жительства</value>
   </data>
   <data name="ActualEnd" xml:space="preserve">
-    <value>Finalización real</value>
+    <value>Фактическое окончание</value>
   </data>
   <data name="RegistrationCertificateDate" xml:space="preserve">
-    <value>Fecha de expedición del certificado de registro</value>
+    <value>Дата выдачи свидетельства о регистрации</value>
   </data>
   <data name="RegistrationCertificateNumber" xml:space="preserve">
-    <value>Número del certificado de registro</value>
+    <value>Номер свидетельства о регистрации</value>
   </data>
   <data name="Contact" xml:space="preserve">
-    <value>Contacto</value>
+    <value>Контакт</value>
   </data>
   <data name="ScheduledEnd" xml:space="preserve">
-    <value>Fecha de finalización</value>
+    <value>Дата окончания</value>
   </data>
   <data name="ScheduledStart" xml:space="preserve">
-    <value>Fecha de inicio</value>
+    <value>Дата начала</value>
   </data>
   <data name="StartPeriodDate" xml:space="preserve">
-    <value>Mes</value>
+    <value>Месяц</value>
   </data>
   <data name="InformationSource" xml:space="preserve">
-    <value>Fuente</value>
+    <value>Источник</value>
   </data>
   <data name="LastDisqualifyTime" xml:space="preserve">
-    <value>Devuelto a la reserva</value>
+    <value>Возвращен в резерв</value>
   </data>
   <data name="LastQualifyTime" xml:space="preserve">
-    <value>Tomado de la reserva</value>
+    <value>Взят из резерва</value>
   </data>
   <data name="AdditionalPhoneNumber" xml:space="preserve">
-    <value>Teléfono adicional</value>
+    <value>Дополнительный телефон</value>
   </data>
   <data name="AdditionalPhoneNumber1" xml:space="preserve">
-    <value>Teléfono adicional 1</value>
+    <value>Дополнительный телефон 1</value>
   </data>
   <data name="AdditionalPhoneNumber2" xml:space="preserve">
-    <value>Teléfono adicional 2</value>
+    <value>Дополнительный телефон 2</value>
   </data>
   <data name="Fax" xml:space="preserve">
-    <value>Fax</value>
+    <value>Факс</value>
   </data>
   <data name="Website" xml:space="preserve">
-    <value>Sitio Web</value>
+    <value>Веб-сайт</value>
   </data>
   <data name="WebsiteOrBlog" xml:space="preserve">
-    <value>Sitio Web (blog)</value>
+    <value>Веб-сайт (блог)</value>
   </data>
   <data name="MainPhoneNumber" xml:space="preserve">
-    <value>Número de teléfono principal</value>
+    <value>Основной телефон</value>
   </data>
   <data name="MainAddress" xml:space="preserve">
-    <value>Dirección principal</value>
+    <value>Основной адрес</value>
   </data>
   <data name="NameOfClient" xml:space="preserve">
-    <value>Nombre del cliente</value>
+    <value>Название клиента</value>
   </data>
   <data name="NeedsValidation" xml:space="preserve">
-    <value>Necesita verificación</value>
+    <value>Требует выверки</value>
   </data>
   <data name="DummyAdvertisement" xml:space="preserve">
-    <value>Material publicitario predeterminado</value>
+    <value>Рекламный материал по умолчанию</value>
   </data>
   <data name="FirmName" xml:space="preserve">
-    <value>Nombre de empresa</value>
+    <value>Название фирмы</value>
   </data>
   <data name="Salutation" xml:space="preserve">
-    <value>Saludo</value>
+    <value>Приветствие</value>
   </data>
   <data name="IsManaged" xml:space="preserve">
-    <value>Gestionada</value>
+    <value>Управляемая</value>
   </data>
   <data name="ServiceCode" xml:space="preserve">
-    <value>Servicio adicional</value>
+    <value>Доп. услуга</value>
   </data>
   <data name="TransactionDate" xml:space="preserve">
-    <value>Fecha de celebración</value>
+    <value>Дата проведения</value>
   </data>
   <data name="PeriodStartDate" xml:space="preserve">
-    <value>Fecha de inicio del periodo</value>
+    <value>Дата начала периода</value>
   </data>
   <data name="PeriodEndDate" xml:space="preserve">
-    <value>Fecha de finalización del periodo</value>
+    <value>Дата окончания периода</value>
   </data>
   <data name="Period" xml:space="preserve">
-    <value>Periodo de validez</value>
+    <value>Период действия</value>
   </data>
   <data name="LimitCloseDate" xml:space="preserve">
-    <value>Fecha de cancelación del límite</value>
+    <value>Дата закрытия лимита</value>
   </data>
   <data name="MobilePhoneNumber" xml:space="preserve">
-    <value>Número de teléfono móvil</value>
+    <value>Мобильный телефон</value>
   </data>
   <data name="HomePhoneNumber" xml:space="preserve">
-    <value>Número de teléfono fijo</value>
+    <value>Домашний телефон</value>
   </data>
   <data name="WorkAddress" xml:space="preserve">
-    <value>Dirección de trabajo</value>
+    <value>Рабочий адрес</value>
   </data>
   <data name="HomeAddress" xml:space="preserve">
-    <value>Dirección de casa</value>
+    <value>Домашний адрес</value>
   </data>
   <data name="IsFired" xml:space="preserve">
-    <value>Renunció</value>
+    <value>Уволился</value>
   </data>
   <data name="BirthDate" xml:space="preserve">
-    <value>Fecha de nacimiento</value>
+    <value>Дата рождения</value>
   </data>
   <data name="FamilyStatus" xml:space="preserve">
-    <value>Estado civil</value>
+    <value>Семейное положение</value>
   </data>
   <data name="Gender" xml:space="preserve">
-    <value>Sexo</value>
+    <value>Пол</value>
   </data>
   <data name="JobTitle" xml:space="preserve">
-    <value>Cargo</value>
+    <value>Должность</value>
   </data>
   <data name="Im" xml:space="preserve">
     <value>IM (ICQ, GTalk, Skype...)</value>
   </data>
   <data name="WorkEmail" xml:space="preserve">
-    <value>Correo electrónico de trabajo</value>
+    <value>Рабочий e-mail</value>
   </data>
   <data name="HomeEmail" xml:space="preserve">
-    <value>Correo electrónico personal</value>
+    <value>Домашний e-mail</value>
   </data>
   <data name="AccountRole" xml:space="preserve">
-    <value>Rol</value>
+    <value>Роль</value>
   </data>
   <data name="ContactDepartmentName" xml:space="preserve">
-    <value>Sucursal</value>
+    <value>Подразделение (отдел)</value>
   </data>
   <data name="WorkPhoneNumber" xml:space="preserve">
-    <value>Número de teléfono de trabajo</value>
+    <value>Рабочий телефон</value>
   </data>
   <data name="AccountDetailBalance" xml:space="preserve">
-    <value>Balance de la cuenta personal</value>
+    <value>Баланс лицевого счета</value>
   </data>
   <data name="LockDetailBalance" xml:space="preserve">
-    <value>Balance de cuenta personal (considerando bloqueos)</value>
+    <value>Баланс лицевого счета (с учетом блокировок)</value>
   </data>
   <data name="LegalPesonSyncCode1C" xml:space="preserve">
-    <value>Clave de una persona jurídica para el software contable</value>
+    <value>Ключ юр.лица для 1С</value>
   </data>
   <data name="IntegrationType" xml:space="preserve">
-    <value>Tipo de mensaje</value>
+    <value>Тип сообщения</value>
   </data>
   <data name="MessageErrors" xml:space="preserve">
-    <value>Errores</value>
+    <value>Ошибки</value>
   </data>
   <data name="ProcessDate" xml:space="preserve">
-    <value>Fecha de procesamiento</value>
+    <value>Дата обработки</value>
   </data>
   <data name="SenderSystem" xml:space="preserve">
-    <value>Sistema remitente</value>
+    <value>Система-отправитель</value>
   </data>
   <data name="ReceiverSystem" xml:space="preserve">
-    <value>Sistema destinatario</value>
+    <value>Система-получатель</value>
   </data>
   <data name="ProcessResult" xml:space="preserve">
-    <value>Resultado de procesamiento</value>
+    <value>Результат обработки</value>
   </data>
   <data name="CreateDate" xml:space="preserve">
-    <value>Fecha de creación</value>
+    <value>Дата создания</value>
   </data>
   <data name="CloseLockDate" xml:space="preserve">
-    <value>Fecha de cancelación de bloqueo</value>
+    <value>Дата закрытия блокировки</value>
   </data>
   <data name="LockPlannedAmount" xml:space="preserve">
-    <value>Importe de bloqueo (planificado)</value>
+    <value>Сумма блокировки (планируемая)</value>
   </data>
   <data name="LockBalance" xml:space="preserve">
-    <value>Importe usado (actual)</value>
+    <value>Использованная сумма (текущая)</value>
   </data>
   <data name="LockClosedBalance" xml:space="preserve">
-    <value>Importe usado (real)</value>
+    <value>Использованная сумма (фактическая)</value>
   </data>
   <data name="OperationOnAccount" xml:space="preserve">
-    <value>Operación en la cuenta personal</value>
+    <value>Операция на лицевом счете</value>
   </data>
   <data name="ErmLaunchDate" xml:space="preserve">
-    <value>Fecha de traspaso a ERM</value>
+    <value>Дата перехода на ERM</value>
   </data>
   <data name="InfoRussiaLaunchDate" xml:space="preserve">
-    <value>Fecha de traspaso a IR</value>
+    <value>Дата перехода на IR</value>
   </data>
   <data name="IsBeta" xml:space="preserve">
-    <value>Técnica</value>
+    <value>Техническая</value>
   </data>
   <data name="IsSkyScraper" xml:space="preserve">
-    <value>Rascacielos</value>
+    <value>Небоскрёб</value>
   </data>
   <data name="Archive" xml:space="preserve">
-    <value>Archivo</value>
+    <value>Архив</value>
   </data>
   <data name="Id" xml:space="preserve">
-    <value>Identificador de ERM</value>
+    <value>Идентификатор ERM</value>
   </data>
   <data name="ThemeTemplate" xml:space="preserve">
-    <value>Plantilla</value>
+    <value>Шаблон</value>
   </data>
   <data name="ThemeIsDefault" xml:space="preserve">
-    <value>Instalada de forma predeterminada</value>
+    <value>Установлена по умолчанию</value>
   </data>
   <data name="ThemeViewModel_FileId" xml:space="preserve">
-    <value>Banner</value>
+    <value>Баннер</value>
   </data>
   <data name="FullNameInGenitive" xml:space="preserve">
-    <value>De nombre completo</value>
+    <value>Полное имя (род. падеж)</value>
   </data>
   <data name="FullNameInNominative" xml:space="preserve">
-    <value>Nombre completo (Caso Nominativo)</value>
+    <value>Полное имя (им. падеж)</value>
   </data>
   <data name="Dic" xml:space="preserve">
     <value>DIČ</value>
@@ -1252,7 +1258,7 @@
     <value>IČ</value>
   </data>
   <data name="BankAddress" xml:space="preserve">
-    <value>Dirección del banco</value>
+    <value>Адрес банка</value>
   </data>
   <data name="IsPngSupported" xml:space="preserve">
     <value>PNG</value>
@@ -1267,224 +1273,210 @@
     <value>CHM</value>
   </data>
   <data name="PositionDenied" xml:space="preserve">
-    <value>Posición bloqueada</value>
+    <value>Запрещенная позиция</value>
   </data>
   <data name="BankCode" xml:space="preserve">
-    <value>Código de banco</value>
+    <value>Код банка</value>
   </data>
   <data name="Registered" xml:space="preserve">
-    <value>Registrado</value>
+    <value>Зарегистрировано</value>
   </data>
   <data name="CreateCsvFile" xml:space="preserve">
-    <value>Descargar aparte el archivo en el formato csv</value>
+    <value>Выгрузить дополнительно файл в формате csv</value>
   </data>
   <data name="OrderProcessingRequest" xml:space="preserve">
-    <value>Petición de la oficina personal del anunciante</value>
+    <value>Заявка из ЛК</value>
   </data>
   <data name="DueDate" xml:space="preserve">
-    <value>Plazo</value>
+    <value>Срок</value>
   </data>
   <data name="OrderProcessingRequestBaseOrder" xml:space="preserve">
-    <value>Orden a prorrogar</value>
+    <value>Продляемый заказ</value>
   </data>
   <data name="OrderProcessingRequestRenewedOrder" xml:space="preserve">
-    <value>Orden creada</value>
+    <value>Созданный заказ</value>
   </data>
   <data name="OrderProcessingRequestState" xml:space="preserve">
-    <value>Estado de petición</value>
+    <value>Статус заявки</value>
   </data>
   <data name="OrderProcessingRequestTitle" xml:space="preserve">
-    <value>Tema</value>
+    <value>Тема</value>
   </data>
   <data name="ReleaseCountPlan" xml:space="preserve">
-    <value>Número de lanzamientos para publicar</value>
+    <value>Количество выпусков размещения</value>
   </data>
   <data name="IsAdvertisingAgency" xml:space="preserve">
-    <value>Es una agencia de publicidad</value>
+    <value>Является рекламным агентством</value>
   </data>
   <data name="RepresentativeName" xml:space="preserve">
-    <value>Representante</value>
+    <value>Представитель</value>
   </data>
   <data name="RepresentativePosition" xml:space="preserve">
-    <value>Cargo del representante</value>
+    <value>Должность представителя</value>
   </data>
   <data name="ActivityType" xml:space="preserve">
-    <value>Actividad</value>
+    <value>Вид деятельности</value>
   </data>
   <data name="Commune" xml:space="preserve">
-    <value>Comuna</value>
+    <value>Коммуна</value>
   </data>
   <data name="RepresentativeDocumentIssuedOn" xml:space="preserve">
-    <value>Fecha de expedición</value>
+    <value>Дата выдачи</value>
   </data>
   <data name="RepresentativeDocumentIssuedBy" xml:space="preserve">
-    <value>Organismo de expedición</value>
+    <value>Кем выдано</value>
   </data>
   <data name="BankAccountType" xml:space="preserve">
-    <value>Tipo de cuenta</value>
+    <value>Тип счета</value>
   </data>
   <data name="Bank" xml:space="preserve">
-    <value>Nombre de banco</value>
+    <value>Название банка</value>
   </data>
   <data name="RepresentativeRut" xml:space="preserve">
-    <value>RUT del representante</value>
+    <value>RUT представителя</value>
   </data>
   <data name="Rut" xml:space="preserve">
     <value>RUT</value>
   </data>
   <data name="OperationsKind" xml:space="preserve">
-    <value>Actividad</value>
+    <value>Вид деятельности</value>
   </data>
   <data name="Egrpou" xml:space="preserve">
-    <value>Registro Estatal Único de Empresas y Organizaciones de Ucrania</value>
+    <value>ЕГРПОУ</value>
   </data>
   <data name="Ipn" xml:space="preserve">
-    <value>Número de Identificación Fiscal</value>
+    <value>ИПН</value>
   </data>
   <data name="TaxationType" xml:space="preserve">
-    <value>Tipo de imposición fiscal</value>
+    <value>Тип налогообложения</value>
   </data>
   <data name="Mfo" xml:space="preserve">
-    <value>Código de Transacciones entre Sucursales</value>
+    <value>МФО</value>
   </data>
   <data name="OrderPosition" xml:space="preserve">
-    <value>Posición de la orden</value>
+    <value>Позиция заказа</value>
   </data>
   <data name="CommercialLicense" xml:space="preserve">
-    <value>Licencia</value>
+    <value>Лицензия</value>
   </data>
   <data name="CommercialLicenseBeginDate" xml:space="preserve">
-    <value>Fecha de comienzo de validez de la licencia</value>
+    <value>Дата начала действия лицензии</value>
   </data>
   <data name="CommercialLicenseEndDate" xml:space="preserve">
-    <value>Fecha de vencimiento de la licencia</value>
+    <value>Дата окончания действия лицензии</value>
   </data>
   <data name="PoBox" xml:space="preserve">
     <value>P.O.Box</value>
   </data>
   <data name="ControlGenerateAcceptanceReports" xml:space="preserve">
-    <value>Generar Acceptance Report</value>
+    <value>Сформировать Acceptance Report</value>
   </data>
   <data name="DenialReasonDescription" xml:space="preserve">
-    <value>Descripción breve</value>
+    <value>Краткое описание</value>
   </data>
   <data name="DenialReasonName" xml:space="preserve">
-    <value>Título del punto de reglamento</value>
+    <value>Заголовок пункта правил</value>
   </data>
   <data name="DenialReasonProofLink" xml:space="preserve">
-    <value>Enlace al párrafo de reglamento</value>
+    <value>Ссылка на параграф правил</value>
   </data>
   <data name="DenialReasonType" xml:space="preserve">
-    <value>Tipo del motivo de rechazo</value>
+    <value>Тип причины отклонения</value>
   </data>
   <data name="DListDenialReason" xml:space="preserve">
-    <value>Motivos de rechazo de los Materiales Publicitarios</value>
+    <value>Причины отклонения РМ</value>
   </data>
   <data name="EnDenialReason" xml:space="preserve">
-    <value>Motivo de rechazo de los Materiales Publicitarios</value>
+    <value>Причина отклонения РМ</value>
   </data>
   <data name="DListInactiveDenialReason" xml:space="preserve">
-    <value>Motivos de rechazo ocultos de los Materiales Publicitarios</value>
-  </data>
-  <data name="BargainKind" xml:space="preserve">
-    <value>Forma de acuerdo</value>
-  </data>
-  <data name="IsNewSalesModel" xml:space="preserve">
-    <value>Modelo de ventas nuevo</value>
-  </data>
-  <data name="BargainTypeVAT" xml:space="preserve">
-    <value>IVA</value>
-  </data>
-  <data name="ControlSaveAndVerify" xml:space="preserve">
-    <value>Guardar y publicar</value>
-  </data>
-  <data name="ControlResetToDraft" xml:space="preserve">
-    <value>Editar</value>
-  </data>
-  <data name="Attendee" xml:space="preserve">
-    <value>Участник</value>
-  </data>
-  <data name="Location" xml:space="preserve">
-    <value>Место встречи</value>
-  </data>
-  <data name="Recipient" xml:space="preserve">
-    <value>Получатель</value>
-    <comment>Кому направлено действие, например, письмо.</comment>
-  </data>
-  <data name="Sender" xml:space="preserve">
-    <value>Отправитель</value>
-    <comment>От кого направлено действие, например, письмо.</comment>
+    <value>Скрытые причины отклонения РМ</value>
   </data>
   <data name="NameOfChildClient" xml:space="preserve">
-    <value>Cliente afiliado</value>
+    <value>Дочерний клиент</value>
   </data>
   <data name="NameOfMasterClient" xml:space="preserve">
-    <value>Cliente casa matriz</value>
+    <value>Родительский клиент</value>
+  </data>
+  <data name="BargainKind" xml:space="preserve">
+    <value>Форма договора</value>
+  </data>
+  <data name="IsNewSalesModel" xml:space="preserve">
+    <value>Новая модель продаж</value>
+  </data>
+  <data name="BargainTypeVAT" xml:space="preserve">
+    <value>НДС</value>
+  </data>
+  <data name="ControlSaveAndVerify" xml:space="preserve">
+    <value>Сохранить и опубликовать</value>
+  </data>
+  <data name="ControlResetToDraft" xml:space="preserve">
+    <value>Редактировать</value>
   </data>
   <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
-    <value>Inicio de la campaña publicitaria</value>
+    <value>Начало рекламной кампании</value>
   </data>
   <data name="AdvertisingCampaignEndDate" xml:space="preserve">
-    <value>Término de la campaña publicitaria</value>
+    <value>Окончание рекламной кампании</value>
   </data>
   <data name="AdvertisingCampaignGoalText" xml:space="preserve">
-    <value>Objetivos</value>
+    <value>Цели</value>
   </data>
   <data name="AgencyFee" xml:space="preserve">
-    <value>Comisión de agencia</value>
+    <value>Агентское вознаграждение</value>
   </data>
   <data name="AttractAudienceToSiteGoal" xml:space="preserve">
-    <value>Atracción del público objetivo al sitio web del cliente</value>
+    <value>Привлечение ЦА на сайт клиента</value>
   </data>
   <data name="CustomerLegalPerson" xml:space="preserve">
-    <value>Razón social del cliente</value>
+    <value>Юр. лицо заказчика</value>
   </data>
   <data name="IncreaseBrandAwarenessGoal" xml:space="preserve">
-    <value>Aumentar el conocimiento de la marca comercial</value>
+    <value>Увеличение узнаваемости ТМ</value>
   </data>
   <data name="IncreasePhoneCallsGoal" xml:space="preserve">
-    <value>Aumentar la cantidad de las llamadas</value>
+    <value>Увеличение количества звонков</value>
   </data>
   <data name="IncreaseSalesGoal" xml:space="preserve">
-    <value>Aumentar la cantidad de las ventas /órdenes</value>
+    <value>Увеличение продаж/заявок</value>
   </data>
   <data name="PayerLegalPerson" xml:space="preserve">
-    <value>Razón social del pagador</value>
+    <value>Юр. лицо плательщика</value>
   </data>
   <data name="PaymentFormat" xml:space="preserve">
-    <value>Forma de pago</value>
+    <value>Формат оплаты</value>
   </data>
   <data name="DListActiveFirmsForDeal" xml:space="preserve">
-    <value>Empresas activas</value>
+    <value>Активные фирмы</value>
   </data>
   <data name="DListInactiveFirmsForDeal" xml:space="preserve">
-    <value>Vínculos cancelados</value>
+    <value>Удаленные связи</value>
   </data>
   <data name="BinIin" xml:space="preserve">
-    <value>RUT</value>
+    <value>БИН/ИИН</value>
   </data>
   <data name="Bin" xml:space="preserve">
-    <value>RUT</value>
+    <value>БИН</value>
   </data>
   <data name="Iin" xml:space="preserve">
-    <value>RUT</value>
+    <value>ИИН</value>
   </data>
   <data name="IdentityCardNumber" xml:space="preserve">
-    <value>Cédula de Identidad</value>
+    <value>Номер удостоверения личности</value>
   </data>
   <data name="IdentityCardIssuedOn" xml:space="preserve">
-    <value>Fecha de emisión</value>
+    <value>Дата выдачи</value>
   </data>
   <data name="IdentityCardIssuedBy" xml:space="preserve">
-    <value>Emitido</value>
+    <value>Выдано</value>
   </data>
   <data name="DecreeNumber" xml:space="preserve">
-    <value>Número del decreto</value>
+    <value>Номер приказа</value>
   </data>
   <data name="DecreeDate" xml:space="preserve">
-    <value>Fecha del decreto</value>
+    <value>Дата приказа</value>
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
-    <value>Otro</value>
+    <value>Другое</value>
   </data>
 </root>

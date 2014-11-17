@@ -5168,11 +5168,14 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Neaktivní spojení oddělení organizace {0} s PO {1} již existuje</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
-    <value>Сущность {0} ({1}) уже активна</value>
+    <value>Entita {0} ({1}) již je aktivní</value>
   </data>
   <data name="EntityIsAlreadyInactive" xml:space="preserve">
-    <value>Сущность {0} ({1}) уже скрыта</value>
+    <value>Entita {0} ({1}) již byla skryta</value>
+  </data>
+  <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
+    <value>{0} č.{1} od {2}</value>
   </data>
 </root>
