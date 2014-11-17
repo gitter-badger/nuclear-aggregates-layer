@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -17,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// Проверка на наличие позиции заказа с позицией прайс листа привязанной к категории позиции "Объявление в рубрике(Объявление под списком выдачи)" 
     /// более чем 2-х в одной и той же рубрике, [CategoryId] у которых совпадают.
     /// </summary>
-    public sealed class AdvertisementForCategoryAmountOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class AdvertisementForCategoryAmountOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private const int AdForRubricPositionCategoryId = 38;
         private const int AdsPerCategory = 2;
@@ -29,35 +28,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var currentFilter = filterPredicate;
-
-            if (request == null)
-            {
-                throw new ArgumentNullException("request");
-            }
-
+            var currentFilter = ruleContext.OrdersFilterPredicate;
+            
             long organizationUnitId;
-            if (!IsCheckMassive)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentNullException("OrderId");
-                }
-
                 long? firmId;
-                
-                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, request.OrderId.Value, out organizationUnitId, out firmId);
+                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
             else
             {
-                if (request.OrganizationUnitId == null)
-                {
-                    throw new ArgumentNullException("OrganizationUnitId");
-                }
-
-                organizationUnitId = request.OrganizationUnitId.Value;
+                organizationUnitId = ruleContext.ValidationParams.Mass.OrganizationUnitId;
             }
 
             var categories =
@@ -86,9 +69,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                        .ToList();
 
             // Для единичной проверки исключим продажи, которые не касаются проверяемого заказа
-            if (!IsCheckMassive)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                categories.RemoveAll(x => x.All(y => y.OrderId != request.OrderId));
+                categories.RemoveAll(x => x.All(y => y.OrderId != ruleContext.ValidationParams.Single.OrderId));
             }
 
             var advertisementDistributioins = new Dictionary<CategoryCompositeKey, int>();
@@ -97,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             {
                 for (var i = sale.BeginDistributionDate; i <= sale.EndDistributionDateFact; i = i.AddMonths(1))
                 {
-                    if (IsCheckMassive && request.Period.Start != i)
+                    if (ruleContext.ValidationParams.IsMassValidation && ruleContext.ValidationParams.Mass.Period.Start != i)
                     {
                         continue;
                     }
@@ -119,21 +102,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             // Исключаем те рубрики, по которым не было избытка продаж в определенных месяцах
             categories.RemoveAll(x => overSales.All(y => y.CategoryId != x.Key));
 
-            foreach (var category in categories)
-            {
-                var categoryDescription = GenerateDescription(EntityName.Category, category.First().Name, category.Key);
-
-                messages.Add(
-                             new OrderValidationMessage
-                                 {
-                                     Type = IsCheckMassive ? MessageType.Error : MessageType.Warning,
-                                     MessageText =
-                                         string.Format(BLResources.TooManyAdvertisementForCategory,
-                                                       categoryDescription,
-                                                       advertisementDistributioins.Where(x => x.Key.CategoryId == category.Key).Max(x => x.Value),
-                                                       AdsPerCategory)
-                                 });
-            }
+            return categories.Select(x => new OrderValidationMessage
+                                              {
+                                                  Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning,
+                                                  MessageText =
+                                                      string.Format(BLResources.TooManyAdvertisementForCategory,
+                                                                    GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Category, x.First().Name, x.Key),
+                                                                    advertisementDistributioins.Where(ad => ad.Key.CategoryId == x.Key).Max(ad => ad.Value),
+                                                                    AdsPerCategory)
+                                              });
         }
 
         private struct CategoryCompositeKey

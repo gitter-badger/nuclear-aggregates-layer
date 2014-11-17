@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -12,23 +13,47 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {
-    public abstract class OrderValidationRuleBase : IOrderValidationRule
+    public abstract class OrderValidationRuleBase<TValidationRuleContext> : IOrderValidationRule
+        where TValidationRuleContext : class, IValidationRuleContext
     {
-        protected bool IsCheckMassive { get; private set; }
+        private readonly IReadOnlyDictionary<Type, RuleContextFactory> _ruleContextFactories;
 
-        IReadOnlyList<OrderValidationMessage> IOrderValidationRule.Validate(OrderValidationPredicate filterPredicate, IEnumerable<long> invalidOrderIds, ValidateOrdersRequest request)
+        protected OrderValidationRuleBase()
         {
-            IsCheckMassive = request.Type.IsMassive();
-            var orderValidationMessages = new List<OrderValidationMessage>();
-            Validate(request, filterPredicate, invalidOrderIds, orderValidationMessages);
-            return orderValidationMessages;
+            _ruleContextFactories = new Dictionary<Type, RuleContextFactory>
+                                        {
+                                            { typeof(OrdinaryValidationRuleContext), OrdinaryContextFactory },
+                                            { typeof(HybridParamsValidationRuleContext), HybridContextFactory },
+                                            { typeof(MassOverridibleValidationRuleContext), MassContextFactory },
+                                            { typeof(BrowsableResultsValidationRuleContext), BrowsableContextFactory },
+                                            { typeof(SingleValidationRuleContext), SingleContextFactory },
+                                        };
         }
 
-        protected abstract void Validate(ValidateOrdersRequest request, OrderValidationPredicate filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages);
+        protected delegate IValidationRuleContext RuleContextFactory(ValidationParams validationParams,
+                                                                     OrderValidationPredicate combinedPredicate,
+                                                                     IValidationResultsBrowser validationResultsBrowser);
 
-        protected string GenerateDescription(EntityName entityName, string description, long entityId)
+        IEnumerable<OrderValidationMessage> IOrderValidationRule.Validate(
+            ValidationParams validationParams, 
+            OrderValidationPredicate combinedPredicate,
+            IValidationResultsBrowser validationResultsBrowser)
         {
-            return IsCheckMassive ? description : string.Format("<{0}:{1}:{2}>", entityName, description, entityId);
+            var ruleContextType = typeof(TValidationRuleContext);
+            RuleContextFactory ruleContextFactory;
+            if (!_ruleContextFactories.TryGetValue(ruleContextType, out ruleContextFactory))
+            {
+                throw new NotSupportedException("Specified rule context type " + ruleContextType + "is not supported");
+            }
+
+            return Validate((TValidationRuleContext)ruleContextFactory(validationParams, combinedPredicate, validationResultsBrowser));
+        }
+
+        protected abstract IEnumerable<OrderValidationMessage> Validate(TValidationRuleContext ruleContext);
+
+        protected string GenerateDescription(bool isMassValidation, EntityName entityName, string description, long entityId)
+        {
+            return isMassValidation ? description : string.Format("<{0}:{1}:{2}>", entityName, description, entityId);
         }
 
         protected Expression<Func<Order, bool>> GetFilterPredicateToGetLinkedOrders(IFinder finder, long orderId, out long organizationUnitId, out long? firmId)
@@ -39,12 +64,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             }
 
             var orderInfo = finder.Find(Specs.Find.ById<Order>(orderId))
-                                   .Select(item => new
-                                                       {
-                                                           item.BeginReleaseNumber,
-                                                           item.DestOrganizationUnitId,
-                                                           EndReleaseNumber = item.EndReleaseNumberFact,
-                                                           item.FirmId
+                                  .Select(item => new 
+                                      {
+                                            item.BeginReleaseNumber,
+                                            item.DestOrganizationUnitId,
+                                            EndReleaseNumber = item.EndReleaseNumberFact,
+                                            item.FirmId
                                       })
                                   .Single();
 
@@ -61,6 +86,46 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                              (order.EndReleaseNumberFact >= orderInfo.BeginReleaseNumber && order.EndReleaseNumberFact <= orderInfo.EndReleaseNumber) ||
                              (orderInfo.BeginReleaseNumber >= order.BeginReleaseNumber && orderInfo.BeginReleaseNumber <= order.EndReleaseNumberFact) ||
                              (orderInfo.EndReleaseNumber >= order.BeginReleaseNumber && orderInfo.EndReleaseNumber <= order.EndReleaseNumberFact));
+        }
+
+        private static OrdinaryValidationRuleContext OrdinaryContextFactory(
+            ValidationParams validationParams,
+            OrderValidationPredicate combinedPredicate,
+            IValidationResultsBrowser validationResultsBrowser)
+        {
+            return new OrdinaryValidationRuleContext(validationParams is MassOrdersValidationParams, combinedPredicate.GetCombinedPredicate());
+        }
+
+        private static HybridParamsValidationRuleContext HybridContextFactory(
+            ValidationParams validationParams,
+            OrderValidationPredicate combinedPredicate,
+            IValidationResultsBrowser validationResultsBrowser)
+        {
+            return new HybridParamsValidationRuleContext(new HybridValidationParams(validationParams), combinedPredicate.GetCombinedPredicate());
+        }
+
+        private static MassOverridibleValidationRuleContext MassContextFactory(
+            ValidationParams validationParams,
+            OrderValidationPredicate combinedPredicate,
+            IValidationResultsBrowser validationResultsBrowser)
+        {
+            return new MassOverridibleValidationRuleContext((MassOrdersValidationParams)validationParams, combinedPredicate);
+        }
+
+        private static BrowsableResultsValidationRuleContext BrowsableContextFactory(
+            ValidationParams validationParams,
+            OrderValidationPredicate combinedPredicate,
+            IValidationResultsBrowser validationResultsBrowser)
+        {
+            return new BrowsableResultsValidationRuleContext(new HybridValidationParams(validationParams), combinedPredicate.GetCombinedPredicate(), validationResultsBrowser);
+        }
+
+        private static SingleValidationRuleContext SingleContextFactory(
+            ValidationParams validationParams,
+            OrderValidationPredicate combinedPredicate,
+            IValidationResultsBrowser validationResultsBrowser)
+        {
+            return new SingleValidationRuleContext((SingleOrderValidationParams)validationParams);
         }
     }
 }

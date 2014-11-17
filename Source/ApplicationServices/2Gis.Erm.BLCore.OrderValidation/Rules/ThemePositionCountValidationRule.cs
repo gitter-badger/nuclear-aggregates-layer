@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
@@ -16,7 +17,7 @@ using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class ThemePositionCountValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class ThemePositionCountValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private const int MaxPositionsPerTheme = 10;
         private readonly IFinder _finder;
@@ -26,15 +27,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             var query = GetThemeFromOrderSelectQuery();
-            var filter = IsCheckMassive
-                             ? GetMassiveCheckFiler(request.OrganizationUnitId, request.Period)
-                             : GetSingleOrderCheckFilter(request.OrderId);
-            var oversaleQuery = IsCheckMassive
+            var filter = ruleContext.ValidationParams.IsMassValidation
+                             ? GetMassiveCheckFilter(ruleContext.ValidationParams.Mass.OrganizationUnitId, ruleContext.ValidationParams.Mass.Period)
+                             : GetSingleOrderCheckFilter(ruleContext.ValidationParams.Single.OrderId);
+            var oversaleQuery = ruleContext.ValidationParams.IsMassValidation
                                     ? GetMassiveOversaleQuery()
-                                    : GetSingleOversaleQuery(request.OrderId);
+                                    : GetSingleOversaleQuery(ruleContext.ValidationParams.Single.OrderId);
 
             var themeUsages = _finder.Find(filter)
                                     .SelectMany(query)
@@ -48,27 +49,29 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             var oversales = themeUsages.Where(oversaleQuery).ToArray();
 
-            var orderNumber = !IsCheckMassive && request.OrderId.HasValue
-                                  ? _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)).Select(order => order.Number).Single()
+            var orderNumber = !ruleContext.ValidationParams.IsMassValidation
+                                  ? _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).Select(order => order.Number).Single()
                                   : null;
 
             // Получаем пачкой названия тем, по которым произошло превышение продаж
             var themeIds = oversales.Select(sale => sale.ThemeId).ToArray();
             var themeNames = _finder.Find<Theme>(theme => themeIds.Contains(theme.Id)).ToDictionary(theme => theme.Id, theme => theme.Name);
 
-            foreach (var oversale in oversales)
-            {
-                var themeLabel = GenerateDescription(EntityName.Theme, themeNames[oversale.ThemeId], oversale.ThemeId);
-                var message = new OrderValidationMessage
-                    {
-                        Type = MessageType.Error,
-                        OrderId = request.OrderId.HasValue ? request.OrderId.Value : 0,
-                        OrderNumber = orderNumber,
-                        MessageText = string.Format(BLResources.ThemeSalesExceedsLimit, themeLabel, oversale.SaleCount, MaxPositionsPerTheme)
-                    };
 
-                messages.Add(message);
-            }
+            return oversales.Select(x => new OrderValidationMessage
+                                             {
+                                                 Type = MessageType.Error,
+                                                 OrderId = !ruleContext.ValidationParams.IsMassValidation ? ruleContext.ValidationParams.Single.OrderId : 0,
+                                                 OrderNumber = orderNumber,
+                                                 MessageText =
+                                                     string.Format(BLResources.ThemeSalesExceedsLimit,
+                                                                   GenerateDescription(ruleContext.ValidationParams.IsMassValidation,
+                                                                                       EntityName.Theme,
+                                                                                       themeNames[x.ThemeId],
+                                                                                       x.ThemeId),
+                                                                   x.SaleCount,
+                                                                   MaxPositionsPerTheme)
+                                             });
         }
 
         private static Expression<Func<Order, IEnumerable<long>>> GetThemeFromOrderSelectQuery()
@@ -81,18 +84,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 .Select(advertisement => advertisement.ThemeId.Value);
         }
 
-        private static Expression<Func<Order, bool>> GetMassiveCheckFiler(long? organizationUnitId, TimePeriod validationPeriod)
+        private static Expression<Func<Order, bool>> GetMassiveCheckFilter(long organizationUnitId, TimePeriod validationPeriod)
         {
-            if (!organizationUnitId.HasValue)
-            {
-                throw new ArgumentNullException("organizationUnitId");
-            }
-
-            if (validationPeriod == null)
-            {
-                throw new ArgumentNullException("validationPeriod");
-            }
-
             var allowedOrderStates = new[]
                 {
                     (int)OrderState.OnTermination, 
@@ -108,14 +101,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 validationPeriod.Start <= order.EndDistributionDateFact;
         }
 
-        private Expression<Func<Order, bool>> GetSingleOrderCheckFilter(long? orderId)
+        private Expression<Func<Order, bool>> GetSingleOrderCheckFilter(long orderId)
         {
-            if (!orderId.HasValue)
-            {
-                throw new ArgumentNullException("orderId");
-            }
-
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId.Value))
+            var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
                 .Select(order => new
                 {
                     OrganizationUnitId = order.DestOrganizationUnitId,
@@ -144,16 +132,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             return sale => sale.SaleCount > MaxPositionsPerTheme;
         }
 
-        private Func<ThemeSale, bool> GetSingleOversaleQuery(long? orderId)
+        private Func<ThemeSale, bool> GetSingleOversaleQuery(long orderId)
         {
-            if (!orderId.HasValue)
-            {
-                throw new ArgumentNullException("orderId");
-            }
-
-            var themes = _finder.Find(Specs.Find.ById<Order>(orderId.Value))
-                               .SelectMany(GetThemeFromOrderSelectQuery())
-                               .ToArray();
+            var themes = _finder.Find(Specs.Find.ById<Order>(orderId))
+                                .SelectMany(GetThemeFromOrderSelectQuery())
+                                .ToArray();
 
             return sale => themes.Contains(sale.ThemeId) && sale.SaleCount > MaxPositionsPerTheme;
         }
