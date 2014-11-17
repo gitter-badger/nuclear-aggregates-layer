@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices
 {
-    public class PublishedPriceCustomization : IViewModelCustomization
+    public sealed class PublishedPriceCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

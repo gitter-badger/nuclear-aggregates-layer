@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
 {
-    public class DummyAdvertisementCustomization : IViewModelCustomization
+    public sealed class DummyAdvertisementCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

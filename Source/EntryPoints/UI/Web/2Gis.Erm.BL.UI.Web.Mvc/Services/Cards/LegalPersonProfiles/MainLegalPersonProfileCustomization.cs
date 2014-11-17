@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles
 {
-    public class MainLegalPersonProfileCustomization : IViewModelCustomization
+    public sealed class MainLegalPersonProfileCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 {
-    public class SetReadonlyCustomization : IViewModelCustomization
+    public sealed class SetReadonlyCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

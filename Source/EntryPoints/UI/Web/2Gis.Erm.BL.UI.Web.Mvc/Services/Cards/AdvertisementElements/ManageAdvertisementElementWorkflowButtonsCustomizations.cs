@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementElements
 {
-    public class ManageAdvertisementElementWorkflowButtonsCustomizations : IViewModelCustomization
+    public sealed class ManageAdvertisementElementWorkflowButtonsCustomizations : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public class HideChangeBindingObjectsButtonCustomization : IViewModelCustomization
+    public sealed class HideChangeBindingObjectsButtonCustomization : IViewModelCustomization
     {
         private readonly IPublicService _publicService;
 

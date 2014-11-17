@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderProcessingRequests
 {
-    public class ManageRequestStateButtonsCustomization : IViewModelCustomization
+    public sealed class ManageRequestStateButtonsCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

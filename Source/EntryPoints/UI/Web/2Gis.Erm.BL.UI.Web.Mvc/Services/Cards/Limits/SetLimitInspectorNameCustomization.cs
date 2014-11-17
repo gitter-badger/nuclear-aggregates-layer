@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Security;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
 {
-    public class SetLimitInspectorNameCustomization : IViewModelCustomization
+    public sealed class SetLimitInspectorNameCustomization : IViewModelCustomization
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 

@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Contacts
 {
-    public class ContactSalutationsCustomization : IViewModelCustomization
+    public sealed class ContactSalutationsCustomization : IViewModelCustomization
     {
         private readonly IContactSalutationsProvider _contactSalutationsPtovider;
 

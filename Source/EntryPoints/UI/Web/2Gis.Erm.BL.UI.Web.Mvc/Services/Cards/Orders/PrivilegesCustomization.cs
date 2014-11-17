@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public class PrivilegesCustomization : IViewModelCustomization
+    public sealed class PrivilegesCustomization : IViewModelCustomization
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;

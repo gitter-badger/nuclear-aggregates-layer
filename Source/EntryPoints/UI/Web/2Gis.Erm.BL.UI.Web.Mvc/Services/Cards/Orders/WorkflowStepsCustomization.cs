@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public class WorkflowStepsCustomization : IViewModelCustomization
+    public sealed class WorkflowStepsCustomization : IViewModelCustomization
     {
         private readonly IPublicService _publicService;
 

@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderProcessingRequests
 {
-    public class CheckIfUserCanCreateOrderForRequestCustomization : IViewModelCustomization
+    public sealed class CheckIfUserCanCreateOrderForRequestCustomization : IViewModelCustomization
     {
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly IUserContext _userContext;

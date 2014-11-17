@@ -9,7 +9,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes
 {
-    public class ManageDefaultThemeButtonsCustomization : IViewModelCustomization
+    public sealed class ManageDefaultThemeButtonsCustomization : IViewModelCustomization
     {
         private readonly IThemeRepository _themeRepository;
 

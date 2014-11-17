@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities
 {
-    public class DisableActivityButtonsCustomization : IViewModelCustomization
+    public sealed class DisableActivityButtonsCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

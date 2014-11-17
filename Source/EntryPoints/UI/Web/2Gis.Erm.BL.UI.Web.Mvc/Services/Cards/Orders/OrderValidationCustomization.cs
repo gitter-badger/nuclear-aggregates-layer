@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public class OrderValidationCustomization : IViewModelCustomization
+    public sealed class OrderValidationCustomization : IViewModelCustomization
     {
         private readonly IAPIOrderValidationServiceSettings _orderValidationServiceSettings;
 

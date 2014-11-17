@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
 {
-    public class CheckLimitPrivilegeCustomization : IViewModelCustomization
+    public sealed class CheckLimitPrivilegeCustomization : IViewModelCustomization
     {
         private readonly IUserContext _userContext;
 

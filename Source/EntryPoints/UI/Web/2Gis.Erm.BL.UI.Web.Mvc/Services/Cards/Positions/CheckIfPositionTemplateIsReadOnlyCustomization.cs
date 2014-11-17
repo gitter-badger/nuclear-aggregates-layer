@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions
 {
-    public class CheckIfPositionTemplateIsReadOnlyCustomization : IViewModelCustomization
+    public sealed class CheckIfPositionTemplateIsReadOnlyCustomization : IViewModelCustomization
     {
         private readonly IPositionRepository _positionRepository;
 

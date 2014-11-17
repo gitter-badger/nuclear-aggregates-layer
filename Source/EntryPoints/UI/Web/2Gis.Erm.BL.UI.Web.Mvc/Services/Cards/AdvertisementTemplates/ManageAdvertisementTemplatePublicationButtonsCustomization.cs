@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates
 {
-    public class ManageAdvertisementTemplatePublicationButtonsCustomization : IViewModelCustomization
+    public sealed class ManageAdvertisementTemplatePublicationButtonsCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

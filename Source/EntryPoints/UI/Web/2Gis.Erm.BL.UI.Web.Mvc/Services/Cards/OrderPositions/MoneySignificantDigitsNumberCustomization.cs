@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public class MoneySignificantDigitsNumberCustomization : IViewModelCustomization
+    public sealed class MoneySignificantDigitsNumberCustomization : IViewModelCustomization
     {
         private readonly IBusinessModelSettings _businessModelSettings;
 

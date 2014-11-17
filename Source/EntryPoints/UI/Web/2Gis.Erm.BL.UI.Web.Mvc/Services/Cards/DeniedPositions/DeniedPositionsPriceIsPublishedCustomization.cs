@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions
 {
-    public class DeniedPositionsPriceIsPublishedCustomization : IViewModelCustomization
+    public sealed class DeniedPositionsPriceIsPublishedCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

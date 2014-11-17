@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Security;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public class InspectorNameCustomization : IViewModelCustomization
+    public sealed class InspectorNameCustomization : IViewModelCustomization
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 

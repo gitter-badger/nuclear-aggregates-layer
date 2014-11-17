@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Contacts
 {
-    public class BusinessModelAreaCustomization : IViewModelCustomization
+    public sealed class BusinessModelAreaCustomization : IViewModelCustomization
     {
         private readonly IBusinessModelSettings _businessModelSettings;
 

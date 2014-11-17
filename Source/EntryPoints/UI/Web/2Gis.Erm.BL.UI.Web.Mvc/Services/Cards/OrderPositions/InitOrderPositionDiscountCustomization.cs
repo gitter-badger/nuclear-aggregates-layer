@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public class InitOrderPositionDiscountCustomization : IViewModelCustomization
+    public sealed class InitOrderPositionDiscountCustomization : IViewModelCustomization
     {
         private readonly IPublicService _publicService;
 

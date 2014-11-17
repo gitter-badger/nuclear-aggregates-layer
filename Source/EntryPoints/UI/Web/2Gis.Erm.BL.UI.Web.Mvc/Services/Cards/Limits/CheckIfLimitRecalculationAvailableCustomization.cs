@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
 {
-    public class CheckIfLimitRecalculationAvailableCustomization : IViewModelCustomization
+    public sealed class CheckIfLimitRecalculationAvailableCustomization : IViewModelCustomization
     {
         private readonly IAccountRepository _accountRepository;
 

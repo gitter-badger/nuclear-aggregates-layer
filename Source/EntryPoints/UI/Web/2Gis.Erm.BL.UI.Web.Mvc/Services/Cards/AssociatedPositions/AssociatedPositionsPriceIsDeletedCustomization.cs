@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositions
 {
-    public class AssociatedPositionsPriceIsDeletedCustomization : IViewModelCustomization
+    public sealed class AssociatedPositionsPriceIsDeletedCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

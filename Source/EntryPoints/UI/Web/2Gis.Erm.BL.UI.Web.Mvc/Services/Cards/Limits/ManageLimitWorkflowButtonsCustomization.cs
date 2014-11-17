@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
 {
-    public class ManageLimitWorkflowButtonsCustomization : IViewModelCustomization
+    public sealed class ManageLimitWorkflowButtonsCustomization : IViewModelCustomization
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
