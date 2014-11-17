@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
 {
     public class ModifyBranchOfficeOrganizationUnitService : IModifyBusinessModelEntityService<BranchOfficeOrganizationUnit>, IRussiaAdapted, ICyprusAdapted,
-                                                             ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted
+                                                             ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IBusinessModelEntityObtainer<BranchOfficeOrganizationUnit> _obtainer;
         private readonly ICreateAggregateRepository<BranchOfficeOrganizationUnit> _createRepository;
