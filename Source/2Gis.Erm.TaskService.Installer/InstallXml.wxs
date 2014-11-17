@@ -15,10 +15,10 @@
     <?define EnvironmentName = "Dev" ?>
     <?define UpgradeCode = "91F6EBD1-8ADA-4FFF-BB5E-D506C35D04DC" ?>
     <?define ServiceStartType = "auto" ?>
-    <?define ServiceName = "$(var.EnvironmentName)_$(var.SemanticVersion)" ?>
   <?endif ?>
 
   <!-- calculated properties -->
+  <?define ServiceName = "$(var.EnvironmentName)_$(var.SemanticVersion)" ?>
   <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.SemanticVersion))" ?>
 
   <!-- detect platform -->
