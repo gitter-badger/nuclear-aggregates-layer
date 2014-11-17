@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         public string Description { get; set; }
 
-        [RequiredLocalized]
+        [Calendar, RequiredLocalized]
         public DateTime ScheduledStart { get; set; }
 
         public LookupField Client { get; set; }
@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Id = modelDto.Id;
             Title = modelDto.Header;
             Description = modelDto.Description;
-            ScheduledStart = modelDto.ScheduledOn;
+            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset();
             Priority = modelDto.Priority;
             Status = modelDto.Status;
 

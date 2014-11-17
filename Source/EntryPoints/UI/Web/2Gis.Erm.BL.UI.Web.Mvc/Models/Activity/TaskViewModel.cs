@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         public string Description { get; set; }
 
-        [RequiredLocalized]
+        [Calendar, RequiredLocalized]
         public DateTime ScheduledStart { get; set; }
 
         public LookupField Client { get; set; }
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Priority = modelDto.Priority;
             Title = modelDto.Header;
             Description = modelDto.Description;
-            ScheduledStart = modelDto.ScheduledOn;
+            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset().Date;
 
             var regardingObjects = (modelDto.RegardingObjects ?? Enumerable.Empty<EntityReference>()).ToList();
             Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Client));

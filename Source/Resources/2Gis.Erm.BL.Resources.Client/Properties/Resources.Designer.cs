@@ -1233,6 +1233,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string InvalidDateTimeText {
+            get {
+                return ResourceManager.GetString("InvalidDateTimeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string InvalidSelectedPositionsCount {
             get {
                 return ResourceManager.GetString("InvalidSelectedPositionsCount", resourceCulture);

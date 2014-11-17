@@ -39,56 +39,13 @@
         @Html.SectionHead("planHeader", BLResources.TitlePlan)
         @Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager))
         @Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone))
-        <div class="row-wrapper">
-            <div class="display-wrapper field-wrapper twins">
-                <div class="label-wrapper">
-                    <span>
-                        @Html.LabelFor(m => m.ScheduledStart):
-                    </span>
-                </div>
-                <div class="input-wrapper">
-                    <table cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 120px">
-                                    @Html.DateFor(m => m.ScheduledStart, new DateTimeSettings { ShiftOffset = false })
-                                    @Html.ValidationMessageFor(m => m.ScheduledStart, null, new Dictionary<string, object> { { "class", "error" } })
-                                </td>
-                                <td style="width: 5px"></td>
-                                <td style="width: 60px">
-                                    @Html.TextBoxFor(m => m.ScheduledStartTime)
-                                </td>
-                                <td style="width: auto"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="display-wrapper field-wrapper twins">
-                <div class="label-wrapper">
-                    <span>
-                        @Html.LabelFor(m => m.ScheduledEnd):
-                    </span>
-                </div>
-                <div class="input-wrapper">
-                    <table cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 120px">
-                                    @Html.DateFor(m => m.ScheduledEnd, new DateTimeSettings { ShiftOffset = false })
-                                    @Html.ValidationMessageFor(m => m.ScheduledEnd, null, new Dictionary<string, object> { { "class", "error" } })
-                                </td>
-                                <td style="width: 5px"></td>
-                                <td style="width: 60px">
-                                    @Html.TextBoxFor(m => m.ScheduledEndTime)
-                                </td>
-                                <td style="width: auto"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+
+        @Html.SectionRow(
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, 
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+            @Html.TemplateField(m => m.ScheduledEnd, FieldFlex.twins, 
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() })
+            )
         @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }))
         @Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone))
 

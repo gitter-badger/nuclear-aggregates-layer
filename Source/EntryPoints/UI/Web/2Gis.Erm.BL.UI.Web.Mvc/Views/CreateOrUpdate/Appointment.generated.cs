@@ -256,178 +256,28 @@ WriteLiteral("        ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n        <div");
-
-WriteLiteral(" class=\"row-wrapper\"");
-
-WriteLiteral(">\r\n            <div");
-
-WriteLiteral(" class=\"display-wrapper field-wrapper twins\"");
-
-WriteLiteral(">\r\n                <div");
-
-WriteLiteral(" class=\"label-wrapper\"");
-
-WriteLiteral(">\r\n                    <span>\r\n");
-
-WriteLiteral("                        ");
-
-            
-            #line 46 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                   Write(Html.LabelFor(m => m.ScheduledStart));
-
-            
-            #line default
-            #line hidden
-WriteLiteral(":\r\n                    </span>\r\n                </div>\r\n                <div");
-
-WriteLiteral(" class=\"input-wrapper\"");
-
-WriteLiteral(">\r\n                    <table");
-
-WriteLiteral(" cellpadding=\"0\"");
-
-WriteLiteral(" cellspacing=\"0\"");
-
-WriteLiteral(">\r\n                        <tbody>\r\n                            <tr>\r\n           " +
-"                     <td");
-
-WriteLiteral(" style=\"width: 120px\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 54 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                               Write(Html.DateFor(m => m.ScheduledStart, new DateTimeSettings { ShiftOffset = false }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 55 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                               Write(Html.ValidationMessageFor(m => m.ScheduledStart, null, new Dictionary<string, object> { { "class", "error" } }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                </td>\r\n                                <td");
-
-WriteLiteral(" style=\"width: 5px\"");
-
-WriteLiteral("></td>\r\n                                <td");
-
-WriteLiteral(" style=\"width: 60px\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 59 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledStartTime));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                </td>\r\n                                <td");
-
-WriteLiteral(" style=\"width: auto\"");
-
-WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
-"                </table>\r\n                </div>\r\n            </div>\r\n          " +
-"  <div");
-
-WriteLiteral(" class=\"display-wrapper field-wrapper twins\"");
-
-WriteLiteral(">\r\n                <div");
-
-WriteLiteral(" class=\"label-wrapper\"");
-
-WriteLiteral(">\r\n                    <span>\r\n");
-
-WriteLiteral("                        ");
-
-            
-            #line 70 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                   Write(Html.LabelFor(m => m.ScheduledEnd));
-
-            
-            #line default
-            #line hidden
-WriteLiteral(":\r\n                    </span>\r\n                </div>\r\n                <div");
-
-WriteLiteral(" class=\"input-wrapper\"");
-
-WriteLiteral(">\r\n                    <table");
-
-WriteLiteral(" cellpadding=\"0\"");
-
-WriteLiteral(" cellspacing=\"0\"");
-
-WriteLiteral(">\r\n                        <tbody>\r\n                            <tr>\r\n           " +
-"                     <td");
-
-WriteLiteral(" style=\"width: 120px\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 78 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                               Write(Html.DateFor(m => m.ScheduledEnd, new DateTimeSettings { ShiftOffset = false }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 79 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                               Write(Html.ValidationMessageFor(m => m.ScheduledEnd, null, new Dictionary<string, object> { { "class", "error" } }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                </td>\r\n                                <td");
-
-WriteLiteral(" style=\"width: 5px\"");
-
-WriteLiteral("></td>\r\n                                <td");
-
-WriteLiteral(" style=\"width: 60px\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 83 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
-                               Write(Html.TextBoxFor(m => m.ScheduledEndTime));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                </td>\r\n                                <td");
-
-WriteLiteral(" style=\"width: auto\"");
-
-WriteLiteral("></td>\r\n                            </tr>\r\n                        </tbody>\r\n    " +
-"                </table>\r\n                </div>\r\n            </div>\r\n        </" +
-"div>\r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 92 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 43 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+   Write(Html.SectionRow(
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, 
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+            @Html.TemplateField(m => m.ScheduledEnd, FieldFlex.twins, 
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() })
+            ));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 49 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" })));
 
             
@@ -438,7 +288,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 93 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 50 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone)));
 
             
@@ -449,7 +299,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 95 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -460,7 +310,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 96 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
+            #line 53 "..\..\Views\CreateOrUpdate\Appointment.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             

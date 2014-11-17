@@ -252,7 +252,7 @@ WriteLiteral("        ");
             
             #line 41 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }),
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager)));
 
             

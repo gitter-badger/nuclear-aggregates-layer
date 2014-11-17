@@ -51,9 +51,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         public string Description { get; set; }
 
-        [RequiredLocalized]
+        [Calendar, RequiredLocalized]
         public DateTime ScheduledStart { get; set; }
-        public TimeSpan ScheduledStartTime { get; set; }
 
         public LookupField Client { get; set; }
         public LookupField Deal { get; set; }
@@ -67,8 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Id = modelDto.Id;
             Title = modelDto.Header;
             Description = modelDto.Description;
-            ScheduledStart = modelDto.ScheduledOn.Date;
-            ScheduledStartTime = modelDto.ScheduledOn.TimeOfDay;
+            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset();
             Priority = modelDto.Priority;
             Purpose = modelDto.Purpose;
             Status = modelDto.Status;
@@ -104,7 +102,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Id = Id,
                     Header = Title,
                     Description = Description,
-                    ScheduledOn = ScheduledStart.Date.Add(ScheduledStartTime),
+                    ScheduledOn = ScheduledStart,
                     Priority = Priority,
                     Purpose = Purpose,
                     Status = Status,

@@ -41,13 +41,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         public string Description { get; set; }
 
-        [RequiredLocalized]
+        [Calendar, RequiredLocalized]
         public DateTime ScheduledStart { get; set; }
-        public TimeSpan ScheduledStartTime { get; set; }
 
-        [RequiredLocalized]
+        [Calendar, RequiredLocalized]
         public DateTime ScheduledEnd { get; set; }
-        public TimeSpan ScheduledEndTime { get; set; }
 
         public LookupField Client { get; set; }
         public LookupField Deal { get; set; }
@@ -63,10 +61,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Id = modelDto.Id;
             Title = modelDto.Header;
             Description = modelDto.Description;
-            ScheduledStart = modelDto.ScheduledStart.Date;
-            ScheduledStartTime = modelDto.ScheduledStart.TimeOfDay;
-            ScheduledEnd = modelDto.ScheduledEnd.Date;
-            ScheduledEndTime = modelDto.ScheduledEnd.TimeOfDay;
+            ScheduledStart = modelDto.ScheduledStart.UpdateKindIfUnset();
+            ScheduledEnd = modelDto.ScheduledEnd.UpdateKindIfUnset();
             Purpose = modelDto.Purpose;
             Status = modelDto.Status;
             Location = modelDto.Location;
@@ -106,8 +102,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Id = Id,
                     Header = Title,
                     Description = Description,
-                    ScheduledStart = ScheduledStart.Date.Add(ScheduledStartTime),
-                    ScheduledEnd = ScheduledEnd.Date.Add(ScheduledEndTime),
+                    ScheduledStart = ScheduledStart,
+                    ScheduledEnd = ScheduledEnd,
                     Purpose = Purpose,
                     Status = Status,
                     Location = Location,

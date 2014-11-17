@@ -963,4 +963,7 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Tato PO již je hlavní</value>
   </data>
+  <data name="InvalidDateTimeText" xml:space="preserve">
+    <value>Некорректное значение. Используйте формат 'ДД. MM. ГГГГ'</value>
+  </data>
 </root>

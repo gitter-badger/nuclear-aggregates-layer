@@ -40,7 +40,7 @@
         @Html.SectionRow(@Html.TemplateField(m => m.TaskType, FieldFlex.lone, null, EnumResources.ResourceManager))
         @Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone))
         @Html.SectionRow(
-            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }),
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager))
 
         @Html.SectionHead("resultHeader", BLResources.TitleResult)
