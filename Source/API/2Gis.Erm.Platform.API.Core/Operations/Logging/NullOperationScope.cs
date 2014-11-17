@@ -1,17 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
-namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Infrastructure
+namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
 {
-    public class StubOperationScope : IOperationScope
+    public sealed class NullOperationScope : IOperationScope
     {
-        public StubOperationScope(Guid scopeId, bool isRootScope, StrictOperationIdentity strictOperationIdentity)
+        public NullOperationScope(bool isRootScope, StrictOperationIdentity strictOperationIdentity)
         {
-            Id = scopeId;
+            Id = Guid.NewGuid();
             IsRoot = isRootScope;
             OperationIdentity = strictOperationIdentity;
         }
@@ -21,7 +20,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Infrastructure
         public bool Completed { get; private set; }
         public bool IsDisposed { get; private set; }
         public StrictOperationIdentity OperationIdentity { get; private set; }
-        
+
         public IOperationScope Added<TEntity>(long changedEntity, params long[] changedEntities) where TEntity : class, IEntity
         {
             return this;
