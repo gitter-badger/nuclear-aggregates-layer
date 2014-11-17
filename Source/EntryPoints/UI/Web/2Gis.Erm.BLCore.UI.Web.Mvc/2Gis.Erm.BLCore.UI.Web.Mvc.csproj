@@ -214,7 +214,6 @@
     <Compile Include="Services\Cards\IViewModelCustomizationProvider.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\GenericViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\UserViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationFeature.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsIdentity.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsMetada.cs" />
