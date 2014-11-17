@@ -168,6 +168,7 @@
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FasCommentViewModelHelper.cs" />
     <Compile Include="Models\Contracts\IFirmViewModel.cs" />
     <Compile Include="Models\Contracts\ILegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Contracts\IActivityViewModel.cs" />
@@ -230,7 +231,9 @@
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
     <Compile Include="Services\Cards\Accounts\AccountIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\Activities\DisableActivityButtonsCustomization.cs" />
-    <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AdvertisementElements\ManageAdvertisementElementWorkflowButtonsCustomizations.cs" />
+    <Compile Include="Services\Cards\AdvertisementElements\CheckIfAdvertisementElementReadOnly.cs" />
+    <Compile Include="Services\Cards\AdvertisementElements\AdvertisementElementFasCommentCustomization.cs" />
     <Compile Include="Services\Cards\Advertisements\DummyAdvertisementCustomization.cs" />
     <Compile Include="Services\Cards\Advertisements\AdvertisementAccessCustomization.cs" />
     <Compile Include="Services\Cards\Advertisements\SelectedToWhiteListAdvertisementCustomization.cs" />

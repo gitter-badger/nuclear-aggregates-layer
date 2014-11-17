@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 
-using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 
 using Newtonsoft.Json;
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.AdvertisementElementModels
 {
-    public class AdvertisementElementViewModelCustomizationService : IGenericViewModelCustomizationService<AdvertisementElement>
+    public static class FasCommentViewModelHelper
     {
         private static readonly Dictionary<FasComment, Func<string>> FasCommentToDisplayTextMapping = new Dictionary<FasComment, Func<string>>
             {
@@ -45,37 +39,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                 { FasComment.ChileMedicalReceiptDrugs, () => EnumResources.FasCommentDisplayTextChileMedicalReceiptDrugs },
             };
 
-        public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
-        {
-            var advertisementElementModel = (AdvertisementElementViewModel)viewModel;
-            advertisementElementModel.ViewConfig.ReadOnly |=
-                advertisementElementModel.DisableEdit ||
-                advertisementElementModel.CanUserChangeStatus ||
-                (advertisementElementModel.NeedsValidation && advertisementElementModel.Status != AdvertisementElementStatusValue.Draft);
-            
-            if (advertisementElementModel.FasComment != null)
-            {
-                advertisementElementModel.FasComment.FasCommentDisplayTextItemsJson = GetDisplayTextItemsJson();
-            }
-
-            if (advertisementElementModel.CanUserChangeStatus || advertisementElementModel.DisableEdit)
-            {
-                advertisementElementModel.ViewConfig.DisableCardToolbarItem("ResetToDraft");
-            }
-
-            advertisementElementModel.ViewConfig.DisableCardToolbarItem(advertisementElementModel.Status == AdvertisementElementStatusValue.Draft
-                                                                            ? "ResetToDraft"
-                                                                            : "SaveAndVerify");
-
-            var itemsToDelete = advertisementElementModel.NeedsValidation ? new[] { "Save", "SaveAndClose" } : new[] { "ResetToDraft", "SaveAndVerify" };
-
-            advertisementElementModel.ViewConfig.CardSettings.CardToolbar =
-                advertisementElementModel.ViewConfig.CardSettings.CardToolbar.Where(x => !itemsToDelete.Contains(x.Name)).ToArray();
-        }
-
         public static string GetDisplayTextItemsJson()
         {
             return JsonConvert.SerializeObject(FasCommentToDisplayTextMapping.ToDictionary(x => EnumUIUtils.GetEnumName(x.Key, true), x => x.Value()));
         }
     }
 }
+

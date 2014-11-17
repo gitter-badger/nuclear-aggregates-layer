@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementElements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups;
@@ -184,6 +185,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                         ViewModelCustomizationsMetada.Config
                                                      .For<Position>()
                                                      .Use<CheckIfPositionTemplateIsReadOnlyCustomization>(),
+
+                        ViewModelCustomizationsMetada.Config
+                                                     .For<AdvertisementElement>()
+                                                     .Use<AdvertisementElementFasCommentCustomization>()
+                                                     .Use<CheckIfAdvertisementElementReadOnly>()
+                                                     .Use<ManageAdvertisementElementWorkflowButtonsCustomizations>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
