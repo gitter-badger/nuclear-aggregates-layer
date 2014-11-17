@@ -62,11 +62,11 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 164), Tuple.Create("\"", 236)
+WriteAttribute("src", Tuple.Create(" src=\"", 164), Tuple.Create("\"", 221)
 , Tuple.Create(Tuple.Create("", 170), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 170), true)
             
             #line 9 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 202), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 202), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
@@ -77,45 +77,45 @@ WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 283), Tuple.Create("\"", 387)
-, Tuple.Create(Tuple.Create("", 289), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 289), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 268), Tuple.Create("\"", 357)
+, Tuple.Create(Tuple.Create("", 274), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 274), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-  , Tuple.Create(Tuple.Create("", 353), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+  , Tuple.Create(Tuple.Create("", 338), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 353), false)
+, 338), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 434), Tuple.Create("\"", 525)
-, Tuple.Create(Tuple.Create("", 440), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 440), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 404), Tuple.Create("\"", 480)
+, Tuple.Create(Tuple.Create("", 410), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 410), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 491), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 461), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 491), false)
+, 461), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 572), Tuple.Create("\"", 660)
-, Tuple.Create(Tuple.Create("", 578), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Phonecall.js?", 578), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 527), Tuple.Create("\"", 600)
+, Tuple.Create(Tuple.Create("", 533), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Phonecall.js?", 533), true)
             
             #line 12 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 626), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 581), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 626), false)
+, 581), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -156,14 +156,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1078), Tuple.Create("\"", 1114)
+WriteAttribute("title", Tuple.Create(" title=\"", 1018), Tuple.Create("\"", 1054)
             
             #line 28 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 1086), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1026), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1086), false)
+, 1026), false)
 );
 
 WriteLiteral(">\r\n");

@@ -62,11 +62,11 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 159), Tuple.Create("\"", 231)
+WriteAttribute("src", Tuple.Create(" src=\"", 159), Tuple.Create("\"", 216)
 , Tuple.Create(Tuple.Create("", 165), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 165), true)
             
             #line 9 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 197), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 197), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
@@ -77,45 +77,45 @@ WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 278), Tuple.Create("\"", 382)
-, Tuple.Create(Tuple.Create("", 284), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 284), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 263), Tuple.Create("\"", 352)
+, Tuple.Create(Tuple.Create("", 269), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 269), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Task.cshtml"
-  , Tuple.Create(Tuple.Create("", 348), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+  , Tuple.Create(Tuple.Create("", 333), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 348), false)
+, 333), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 429), Tuple.Create("\"", 520)
-, Tuple.Create(Tuple.Create("", 435), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 435), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 399), Tuple.Create("\"", 475)
+, Tuple.Create(Tuple.Create("", 405), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 405), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 486), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 456), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 486), false)
+, 456), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 567), Tuple.Create("\"", 650)
-, Tuple.Create(Tuple.Create("", 573), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Task.js?", 573), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 522), Tuple.Create("\"", 590)
+, Tuple.Create(Tuple.Create("", 528), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Task.js?", 528), true)
             
             #line 12 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 616), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 571), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 616), false)
+, 571), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -156,14 +156,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1072), Tuple.Create("\"", 1108)
+WriteAttribute("title", Tuple.Create(" title=\"", 1012), Tuple.Create("\"", 1048)
             
             #line 29 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 1080), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1020), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1080), false)
+, 1020), false)
 );
 
 WriteLiteral(">\r\n");
