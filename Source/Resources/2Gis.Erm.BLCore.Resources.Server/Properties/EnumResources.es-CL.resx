@@ -1215,19 +1215,19 @@
   <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
     <value>Servicio postventa 4</value>
   </data>
-  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+  <data name="BusinessOperationQualify" xml:space="preserve">
     <value>Tomar de la reserva</value>
   </data>
-  <data name="BusinessOperationTypeDisqualify" xml:space="preserve">
+  <data name="BusinessOperationDisqualify" xml:space="preserve">
     <value>Devolver a la reserva</value>
   </data>
-  <data name="BusinessOperationTypeChangeTerritory" xml:space="preserve">
+  <data name="BusinessOperationChangeTerritory" xml:space="preserve">
     <value>Cambiar de territorio</value>
   </data>
-  <data name="BusinessOperationTypeChangeClient" xml:space="preserve">
+  <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Cambiar de cliente</value>
   </data>
-  <data name="BusinessOperationTypeAfterSaleServiceActivitiesCreation" xml:space="preserve">
+  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
     <value>Formación del servicio postventa</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
@@ -1242,13 +1242,13 @@
   <data name="OperationStatusSuccess" xml:space="preserve">
     <value>Finalizado</value>
   </data>
-  <data name="BusinessOperationTypeCheckOrdersReadinessForRelease" xml:space="preserve">
+  <data name="BusinessOperationCheckOrdersReadinessForRelease" xml:space="preserve">
     <value>Verificación de órdenes</value>
   </data>
-  <data name="BusinessOperationTypeExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
+  <data name="BusinessOperationExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
     <value>Descargar las amortizaciones a 1C</value>
   </data>
-  <data name="BusinessOperationTypeMakeRegionalAdsDocs" xml:space="preserve">
+  <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Formar la publicidad regional</value>
   </data>
   <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
@@ -1599,7 +1599,7 @@
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="BusinessOperationTypeNone" xml:space="preserve">
+  <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
@@ -1665,7 +1665,7 @@
   <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
     <value>Editar stub de material publicitario</value>
   </data>
-  <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
+  <data name="BusinessOperationGetOrdersWithDummyAdvertisements" xml:space="preserve">
     <value>Búsqueda de órdenes con stubs de material publicitario</value>
   </data>
   <data name="FasCommentSupplements" xml:space="preserve">
@@ -2015,6 +2015,12 @@
     <value>Vínculo de la razón social con el acuerdo</value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
-    <value>Деактивация/активация юр. лица клиента</value>
+    <value>Desactivación/activación de la razón social del cliente</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
+    <value>del Decreto</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
+    <value>Otro</value>
   </data>
 </root>

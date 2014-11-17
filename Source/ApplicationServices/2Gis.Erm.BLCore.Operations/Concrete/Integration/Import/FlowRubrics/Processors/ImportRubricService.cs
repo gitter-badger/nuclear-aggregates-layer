@@ -31,7 +31,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowRubric
             var categoryIdToLevelMap = _categoryService.GetCategoryLevels(deletedDtos.Select(x => x.Id)); 
             foreach (var dto in deletedDtos)
             {
-                dto.Level = categoryIdToLevelMap[dto.Id];
+                int level;
+                if (categoryIdToLevelMap.TryGetValue(dto.Id, out level))
+                {
+                    dto.Level = level;
+                }
             }
 
             using (var scope = _scopeFactory.CreateNonCoupled<ImportRubricIdentity>())

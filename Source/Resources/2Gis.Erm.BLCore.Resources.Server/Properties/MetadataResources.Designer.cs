@@ -565,11 +565,29 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to БИН.
+        /// </summary>
+        public static string Bin {
+            get {
+                return ResourceManager.GetString("Bin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Объект привязки.
         /// </summary>
         public static string BindingObjectType {
             get {
                 return ResourceManager.GetString("BindingObjectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to БИН/ИИН.
+        /// </summary>
+        public static string BinIin {
+            get {
+                return ResourceManager.GetString("BinIin", resourceCulture);
             }
         }
         
@@ -1092,6 +1110,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DealStage {
             get {
                 return ResourceManager.GetString("DealStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата приказа.
+        /// </summary>
+        public static string DecreeDate {
+            get {
+                return ResourceManager.GetString("DecreeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер приказа.
+        /// </summary>
+        public static string DecreeNumber {
+            get {
+                return ResourceManager.GetString("DecreeNumber", resourceCulture);
             }
         }
         
@@ -1758,6 +1794,42 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выдано.
+        /// </summary>
+        public static string IdentityCardIssuedBy {
+            get {
+                return ResourceManager.GetString("IdentityCardIssuedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата выдачи.
+        /// </summary>
+        public static string IdentityCardIssuedOn {
+            get {
+                return ResourceManager.GetString("IdentityCardIssuedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер удостоверения личности.
+        /// </summary>
+        public static string IdentityCardNumber {
+            get {
+                return ResourceManager.GetString("IdentityCardNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ИИН.
+        /// </summary>
+        public static string Iin {
+            get {
+                return ResourceManager.GetString("Iin", resourceCulture);
             }
         }
         
@@ -2739,6 +2811,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OrganizationUnitName {
             get {
                 return ResourceManager.GetString("OrganizationUnitName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Другое.
+        /// </summary>
+        public static string OtherAuthorityDocument {
+            get {
+                return ResourceManager.GetString("OtherAuthorityDocument", resourceCulture);
             }
         }
         
