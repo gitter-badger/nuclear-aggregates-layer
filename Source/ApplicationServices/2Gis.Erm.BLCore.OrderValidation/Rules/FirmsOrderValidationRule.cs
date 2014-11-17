@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -16,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// <summary>
     /// Проверка фирм на актуальность
     /// </summary>
-    public sealed class FirmsOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class FirmsOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -25,9 +23,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var orders = _finder.Find(filterPredicate)
+            var orders = _finder.Find(ruleContext.OrdersFilterPredicate)
                 .Where(order => order.Firm.ClosedForAscertainment || !order.Firm.IsActive || order.Firm.IsDeleted)
                 .GroupBy(order => order.FirmId)
                 .Select(group => group.FirstOrDefault())
@@ -42,6 +40,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                          OrderNumber = order.Number
                                      })
                 .ToArray();
+
+            var results = new List<OrderValidationMessage>();
 
             foreach (var order in orders)
             {
@@ -59,8 +59,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     template = BLResources.OrderFirmHiddenForAscertainmentTemplate;
                 }
 
-                var firmDescription = GenerateDescription(EntityName.Firm, order.FirmName, order.FirmId);
-                messages.Add(new OrderValidationMessage
+                var firmDescription = GenerateDescription(ruleContext.IsMassValidation, EntityName.Firm, order.FirmName, order.FirmId);
+                results.Add(new OrderValidationMessage
                                {
                                    Type = MessageType.Error,
                                    OrderId = order.OrderId,
@@ -68,6 +68,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                    MessageText = string.Format(template, firmDescription)
                                });
             }
+
+            return results;
         }
     }
 }

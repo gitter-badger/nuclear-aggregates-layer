@@ -2003,12 +2003,12 @@
     <value>Spojení PO s obchodem</value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
-    <value>Деактивация/активация юр. лица клиента</value>
+    <value>Deaktivace/aktivace PO klienta</value>
   </data>
   <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
-    <value>Приказа</value>
+    <value>Nařízení</value>
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
-    <value>Другое</value>
+    <value>Jiné</value>
   </data>
 </root>

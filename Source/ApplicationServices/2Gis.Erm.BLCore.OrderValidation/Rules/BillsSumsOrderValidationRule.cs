@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -15,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// <summary>
     /// Проверка заказа на наличие сформированных счетов на оплату
     /// </summary>
-    public sealed class BillsSumsOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class BillsSumsOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -24,9 +25,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var orderDetails = _finder.Find(filterPredicate)
+            var orderDetails = _finder.Find(ruleContext.OrdersFilterPredicate)
                 .Select(order => new
                                      {
                                          OrderId = order.Id,
@@ -48,11 +49,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 .Where(order => !order.OrderCheckCanBeSkipped)
                 .ToArray();
 
+            var results = new List<OrderValidationMessage>();
+
             foreach (var orderDetail in orderDetails)
             {
                 if (orderDetail.BillsSum == null || orderDetail.BillsSum != orderDetail.OrderSum)
                 {
-                    var message = new OrderValidationMessage
+                    results.Add(new OrderValidationMessage
                                       {
                                           Type = MessageType.Error,
                                           OrderId = orderDetail.OrderId,
@@ -60,15 +63,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                           MessageText = orderDetail.BillsSum == null
                                                             ? BLResources.OrdersCheckNeedToCreateBills
                                                             : BLResources.OrderApproval_BillsSumDoesntMatchWhenProcessingOrderOnApproval
-                                      };
-
-                    messages.Add(message);
+                                      });
                 }
 
                 if ((orderDetail.BillBeginDistributionDate.HasValue && orderDetail.BeginDistributionDate != orderDetail.BillBeginDistributionDate)
                     || (orderDetail.BillEndDistributionDate.HasValue && orderDetail.EndDistributionDatePlan != orderDetail.BillEndDistributionDate))
                 {
-                    messages.Add(new OrderValidationMessage
+                    results.Add(new OrderValidationMessage
                                    {
                                        Type = MessageType.Error,
                                        OrderId = orderDetail.OrderId,
@@ -77,6 +78,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                    });
                 }
             }
+
+            return results;
         }
     }
 }
