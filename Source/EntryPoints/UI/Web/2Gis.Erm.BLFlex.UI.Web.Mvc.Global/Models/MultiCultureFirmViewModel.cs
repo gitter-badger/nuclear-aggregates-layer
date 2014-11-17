@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureFirmViewModel : EntityViewModelBase<Firm>, IFirmViewModel, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted,
+    public sealed class MultiCultureFirmViewModel : EntityViewModelBase<Firm>, ICustomizableFirmViewModel, ICyprusAdapted, IChileAdapted, ICzechAdapted, IUkraineAdapted,
                                                     IEmiratesAdapted, IKazakhstanAdapted
     {
         [DisplayNameLocalized("FirmName")]

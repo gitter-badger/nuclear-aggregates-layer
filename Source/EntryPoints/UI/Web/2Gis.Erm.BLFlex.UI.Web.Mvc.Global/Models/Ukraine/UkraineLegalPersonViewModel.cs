@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 {
-    public sealed class UkraineLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalPersonViewModel, ILegalPersonEgrpouHolder, IUkraineAdapted
+    public sealed class UkraineLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ICustomizableLegalPersonViewModel, ILegalPersonEgrpouHolder, IUkraineAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

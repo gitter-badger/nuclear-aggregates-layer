@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalPersonViewModel, IEmiratesAdapted
+    public sealed class EmiratesLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ICustomizableLegalPersonViewModel, IEmiratesAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

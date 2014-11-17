@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (IOrderViewModel)viewModel;
+            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
 
             var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated ||
                                                         !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination ||

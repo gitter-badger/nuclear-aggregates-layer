@@ -17,7 +17,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class OrderViewModel : EntityViewModelBase<Order>, IOrderViewModel, IRussiaAdapted
+    public sealed class OrderViewModel : EntityViewModelBase<Order>, ICustomizableOrderViewModel, IRussiaAdapted
     {
         [Dependency(DependencyType.Hidden, "RegionalNumber", @"Ext.getDom('Id').value==0 ||
                                                              (!Ext.getCmp('SourceOrganizationUnit').getValue() || !Ext.getCmp('DestinationOrganizationUnit').getValue()) ||

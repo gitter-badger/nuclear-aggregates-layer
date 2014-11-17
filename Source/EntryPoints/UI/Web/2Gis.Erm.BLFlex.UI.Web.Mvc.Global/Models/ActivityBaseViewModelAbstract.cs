@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         Task = 3,
     }
 
-    public abstract class ActivityBaseViewModelAbstract<T> : EntityViewModelBase<T>, IActivityViewModel
+    public abstract class ActivityBaseViewModelAbstract<T> : EntityViewModelBase<T>, ICustomizableActivityViewModel
 		where T : IEntityKey
     {
 	    protected ActivityBaseViewModelAbstract(ActivityType type)

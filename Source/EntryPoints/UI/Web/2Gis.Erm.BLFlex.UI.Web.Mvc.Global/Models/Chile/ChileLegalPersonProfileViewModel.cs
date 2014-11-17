@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ILegalPersonProfileViewModel, IChileAdapted
+    public sealed class ChileLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ICustomizableLegalPersonProfileViewModel, IChileAdapted
     {
         private const string BankFieldsAreRequired =
             "this.value=='CreditCard' || this.value=='DebitCard' || this.value=='BankChequePayment' || this.value=='BankTransaction'";

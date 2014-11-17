@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
 {
-    public sealed class KazakhstanLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ILegalPersonProfileViewModel, IKazakhstanAdapted
+    public sealed class KazakhstanLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ICustomizableLegalPersonProfileViewModel, IKazakhstanAdapted
     {
         [Dependency(DependencyType.NotRequiredDisableHide, "PositionInGenitive", "this.value=='NaturalPerson'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "PositionInNominative", "this.value=='NaturalPerson'")]

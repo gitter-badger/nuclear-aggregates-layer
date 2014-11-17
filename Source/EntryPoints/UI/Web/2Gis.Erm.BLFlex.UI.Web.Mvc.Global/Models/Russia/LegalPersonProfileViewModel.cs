@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class LegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ILegalPersonProfileViewModel, IRussiaAdapted
+    public sealed class LegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ICustomizableLegalPersonProfileViewModel, IRussiaAdapted
     {
         [SanitizedString]
         [RequiredLocalized]

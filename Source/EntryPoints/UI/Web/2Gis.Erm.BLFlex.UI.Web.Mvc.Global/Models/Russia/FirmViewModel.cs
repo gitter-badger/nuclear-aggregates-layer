@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class FirmViewModel : EntityViewModelBase<Firm>, IFirmViewModel, IRussiaAdapted
+    public sealed class FirmViewModel : EntityViewModelBase<Firm>, ICustomizableFirmViewModel, IRussiaAdapted
     {
         public Guid ReplicationCode { get; set; }
 
