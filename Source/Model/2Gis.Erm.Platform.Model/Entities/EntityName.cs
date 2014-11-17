@@ -18,6 +18,7 @@
         ChileLegalPersonPart = 601,
         UkraineLegalPersonPart = 602,
         EmiratesLegalPersonPart = 604,
+        KazakhstanLegalPersonPart = 613,
 
         Order = 151,
         OrderPosition = 150,
@@ -91,6 +92,7 @@
         ChileLegalPersonProfilePart = 258,
         UkraineLegalPersonProfilePart = 263,
         EmiratesLegalPersonProfilePart = 606,
+        KazakhstanLegalPersonProfilePart = 614,
         AdditionalFirmService = 220,
         Theme = 221,
         ThemeTemplate = 222,
@@ -170,7 +172,7 @@
         FileWithContent = 400,
 
 		Activity = 500,
-        Appointment = 501,
+		Appointment = 501,
         AppointmentRegardingObject = 510,
         AppointmentAttendee = 511,
         Phonecall = 502,

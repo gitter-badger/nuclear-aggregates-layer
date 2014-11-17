@@ -39,6 +39,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.EmiratesLegalPersonPart,
                 EntityName.EmiratesLegalPersonProfilePart,
                 EntityName.EmiratesFirmAddressPart,
+                EntityName.KazakhstanLegalPersonPart,
+                EntityName.KazakhstanLegalPersonProfilePart
             };
 
         /// <summary>

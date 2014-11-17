@@ -117,46 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccessDeniedUserActionEntityTemplate" xml:space="preserve">
-    <value>Access denied.{0}User:{1}.{0}Action:{2}.{0}Entity:{3}{0}</value>
+  <data name="SearchRecords" xml:space="preserve">
+    <value>Поиск в записях</value>
   </data>
-  <data name="AnErrorOccuredWhileUpdatingFileOnFtp" xml:space="preserve">
-    <value>Error occurred during file uploading to FTP=[{0}]</value>
+  <data name="BeforePageText" xml:space="preserve">
+    <value>Страница</value>
   </data>
-  <data name="PrintFormFieldNotFilled" xml:space="preserve">
-    <value>[NOT FILLED IN]</value>
+  <data name="AfterPageText" xml:space="preserve">
+    <value>из {0}</value>
   </data>
-  <data name="StringContainsControlCharacters" xml:space="preserve">
-    <value>The sting contains control symbols</value>
+  <data name="FirstPageText" xml:space="preserve">
+    <value>Первая страница</value>
   </data>
-  <data name="ValueNotFound" xml:space="preserve">
-    <value>Value is not found.</value>
+  <data name="LastPageText" xml:space="preserve">
+    <value>Последняя страница</value>
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Specify value in the field "{0}"</value>
+  <data name="NextPageText" xml:space="preserve">
+    <value>Следующая страница</value>
   </data>
-  <data name="InappropriateValueForField" xml:space="preserve">
-    <value>Incorrect value in the field {0}</value>
+  <data name="PrevPageText" xml:space="preserve">
+    <value>Предыдущая страница</value>
   </data>
-  <data name="InputValidationInvalidEmail" xml:space="preserve">
-    <value>Value in the field "{0}" is not a correct email-address</value>
+  <data name="MessageNotProcessedCorrectly" xml:space="preserve">
+    <value>Сообщение {0} не удалось корректно обработать</value>
   </data>
-  <data name="GeneralMessage" xml:space="preserve">
-    <value>{0}</value>
+  <data name="ErrorDetectedWhenChangingUseCaseState" xml:space="preserve">
+    <value>Обнаружена ошибка при попытке изменить состояние сеанса</value>
   </data>
-  <data name="OnlyDigitsAttributeValidationMessage" xml:space="preserve">
-    <value>The field {0} can contain only numbers</value>
+  <data name="ListingCantGetResultForEntityList" xml:space="preserve">
+    <value>Не удалось получить представление списка сущностей типа "{0}"</value>
   </data>
-  <data name="UserIdDoesNotHaveTheRightToOperationOnEntity" xml:space="preserve">
-    <value>The user id=[{0}] has no right {1} to entity {2}</value>
+  <data name="NotificationsContextualTitle" xml:space="preserve">
+    <value>Контекстные</value>
   </data>
-  <data name="AccessToOperationIsDenied" xml:space="preserve">
-    <value>Access for performing operation '{0}' denied</value>
+  <data name="NotificationsDescriptionTitle" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="InvalidFieldFormat" xml:space="preserve">
-    <value>The value of the "{0}" field is not in a correct format</value>
-  </data>
-  <data name="InvalidFieldValue" xml:space="preserve">
-    <value>The value of the "{0}" field is invalid</value>
+  <data name="NotificationsSystemTitle" xml:space="preserve">
+    <value>Системные</value>
   </data>
 </root>

@@ -97,7 +97,8 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
                 var parent = sdtBlock.Parent;
 
                 var dataPath = tag.Split(',').Last();
-                var blockMustExist = (bool)printData.GetData(dataPath);
+                var flagValue = printData.GetData(dataPath);
+                var blockMustExist = flagValue != null && (bool)flagValue;
                 if (!blockMustExist)
                 {
                     parent.RemoveChild(sdtBlock);

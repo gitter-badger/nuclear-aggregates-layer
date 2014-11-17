@@ -144,7 +144,6 @@
     <Compile Include="PrintFormEngine\OpenXmlExtensions.cs" />
     <Compile Include="PrintFormEngine\PrintFormService.cs" />
     <Compile Include="Utils\DateTimeExtensions.cs" />
-    <Compile Include="SolutionInfo.cs" />
     <Compile Include="Compression\StreamExtensions.cs" />
     <Compile Include="Utils\LambdaExtensions.cs" />
     <Compile Include="Utils\PropertyChangeDescriptor.cs" />
