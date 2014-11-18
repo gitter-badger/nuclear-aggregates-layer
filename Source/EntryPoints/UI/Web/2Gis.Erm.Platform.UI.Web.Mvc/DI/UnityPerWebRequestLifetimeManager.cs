@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
 {
-    public class UnityPerWebRequestLifetimeManager : LifetimeManager
+    public sealed class UnityPerWebRequestLifetimeManager : LifetimeManager
     {
         private static HttpContextBase Context
         {

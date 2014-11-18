@@ -18,6 +18,7 @@
         ChileLegalPersonPart = 601,
         UkraineLegalPersonPart = 602,
         EmiratesLegalPersonPart = 604,
+        KazakhstanLegalPersonPart = 613,
 
         Order = 151,
         OrderPosition = 150,
@@ -91,6 +92,7 @@
         ChileLegalPersonProfilePart = 258,
         UkraineLegalPersonProfilePart = 263,
         EmiratesLegalPersonProfilePart = 606,
+        KazakhstanLegalPersonProfilePart = 614,
         AdditionalFirmService = 220,
         Theme = 221,
         ThemeTemplate = 222,
@@ -103,7 +105,9 @@
         ActionsHistory = 230, 
         ActionsHistoryDetail = 242, 
         AfterSaleServiceActivity = 231,
+        
         OrderValidationResult = 232,
+        OrderValidationCacheEntry = 271,
         CityPhoneZone = 233,
         Reference = 234,
         ReferenceItem = 235,
@@ -169,11 +173,11 @@
         // Ambivalent
         FileWithContent = 400,
 
-		Activity = 500,
-		Appointment = 501,
+        Activity = 500,
+        Appointment = 501,
         Phonecall = 502,
         Task = 503,
-		RegardingObjectReference = 510,
+        RegardingObjectReference = 510,
 
         // заявка на создание или продление заказа от Личного кабинета
         OrderProcessingRequest = 550,

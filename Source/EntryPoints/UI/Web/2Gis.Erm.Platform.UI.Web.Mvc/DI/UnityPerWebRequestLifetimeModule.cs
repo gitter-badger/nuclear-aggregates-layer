@@ -6,10 +6,10 @@ using DoubleGis.Erm.Platform.DAL;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
 {
-    public class UnityPerWebRequestLifetimeModule : IHttpModule
+    public sealed class UnityPerWebRequestLifetimeModule : IHttpModule
     {
-        private static readonly object Key = new object();
         private static readonly object SynchObject = new object();
+        private static readonly object Key = new object();
 
         private static HttpContextBase Context
         {
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
             {
                 if (instances != null && instances.Count > 0)
                 {
-                    object value = null;
+                    object value;
                     return instances.TryGetValue(lifetimeManagerInstance, out value) ? value : null;
                 }
             }
@@ -47,7 +47,6 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
         internal static void SetValue(HttpContextBase httpContext, UnityPerWebRequestLifetimeManager lifetimeManagerInstance, object newValue)
         {
             var instances = GetInstances(httpContext);
-
             if (instances != null)
             {
                 if (!instances.TryAdd(lifetimeManagerInstance, newValue))
@@ -127,9 +126,9 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
                             if (Context.Response.StatusCode != 500)
                             {
                                 httpContext.AddError(ex);
-                            }
                         }
                     }
+                }
                 }
 
                 instances.Clear();

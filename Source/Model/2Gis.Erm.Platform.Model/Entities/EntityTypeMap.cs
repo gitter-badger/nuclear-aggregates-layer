@@ -5,6 +5,7 @@ using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
@@ -26,6 +27,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ChileLegalPersonPart, typeof(ChileLegalPersonPart) },
                 { EntityName.UkraineLegalPersonPart, typeof(UkraineLegalPersonPart) },
                 { EntityName.EmiratesLegalPersonPart, typeof(EmiratesLegalPersonPart) },
+                { EntityName.KazakhstanLegalPersonPart, typeof(KazakhstanLegalPersonPart) },
+                { EntityName.KazakhstanLegalPersonProfilePart, typeof(KazakhstanLegalPersonProfilePart) },
                 { EntityName.OperationType, typeof(OperationType) },
                 { EntityName.Order, typeof(Order) },
                 { EntityName.OrderPosition, typeof(OrderPosition) },
@@ -105,7 +108,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.ActionsHistory, typeof(ActionsHistory) },
                 { EntityName.ActionsHistoryDetail, typeof(ActionsHistoryDetail) },
                 { EntityName.AfterSaleServiceActivity, typeof(AfterSaleServiceActivity) },
-                { EntityName.OrderValidationResult, typeof(OrderValidationResult) },
                 { EntityName.CityPhoneZone, typeof(CityPhoneZone) },
                 { EntityName.Reference, typeof(Reference) },
                 { EntityName.ReferenceItem, typeof(ReferenceItem) },
@@ -170,13 +172,16 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Commune, typeof(Commune) },
                 { EntityName.AcceptanceReportsJournalRecord, typeof(AcceptanceReportsJournalRecord) },
                 { EntityName.DenialReason, typeof(DenialReason) },
-
                 { EntityName.BirthdayCongratulation, typeof(BirthdayCongratulation) },
+                { EntityName.OrderValidationResult, typeof(OrderValidationResult) },
+                { EntityName.OrderValidationCacheEntry, typeof(OrderValidationCacheEntry) },
+
                 // Dynamic Storage
                 { EntityName.DictionaryEntityInstance, typeof(DictionaryEntityInstance) },
                 { EntityName.DictionaryEntityPropertyInstance, typeof(DictionaryEntityPropertyInstance) },
                 { EntityName.BusinessEntityInstance, typeof(BusinessEntityInstance) },
                 { EntityName.BusinessEntityPropertyInstance, typeof(BusinessEntityPropertyInstance) },
+               
             };
 
         private static readonly Dictionary<Type, EntityName> ReverseTypeMap = TypeMap.ToDictionary(x => x.Value, x => x.Key);

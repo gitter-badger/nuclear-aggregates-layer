@@ -23,12 +23,14 @@ namespace DoubleGis.Erm.Platform.Security
 
         IUserIdentity ISecurityServiceAuthentication.AuthenticateUser(string userAccount)
         {
-            if (String.IsNullOrWhiteSpace(userAccount))
+            if (string.IsNullOrWhiteSpace(userAccount))
+            {
                 throw new SecurityAccessDeniedException("Ошибка при аутентификации: Получен пустой аккаунт");
+            }
 
             try
             {
-                _logger.InfoFormatEx("Получаю учетную запись пользователя по аккаунту: [{0}]", userAccount);
+                _logger.DebugFormatEx("Получаю учетную запись пользователя по аккаунту: [{0}]", userAccount);
                 var userInfo = _finder.Find<User>(x => !x.IsDeleted && x.IsActive && x.Account == userAccount)
                     .Select(x => new
                     {
@@ -37,10 +39,12 @@ namespace DoubleGis.Erm.Platform.Security
                         x.DisplayName
                     }).SingleOrDefault();
             
-                _logger.InfoFormatEx("Получил учетную запись пользователя по аккаунту: [{0}]. Полученная учетная запись: [{1}].", userAccount, (userInfo == null) ? "null" : userInfo.DisplayName);
+                _logger.DebugFormatEx("Получил учетную запись пользователя по аккаунту: [{0}]. Полученная учетная запись: [{1}].", userAccount, (userInfo == null) ? "null" : userInfo.DisplayName);
 
                 if (userInfo == null)
+                {
                     throw new UnauthorizedAccessException("Неаутентифицированный пользователь: " + userAccount);
+                }
 
                 return new ErmUserIdentity(new UserInfo(userInfo.Id, userInfo.Account, userInfo.DisplayName));
             }

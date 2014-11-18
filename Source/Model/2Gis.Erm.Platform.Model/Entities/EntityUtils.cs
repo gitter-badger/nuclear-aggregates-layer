@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities
@@ -56,25 +57,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 
         public static bool SameVersionAs(this IStateTrackingEntity entity1, IStateTrackingEntity entity2)
         {
-            if (entity1.Timestamp == null || entity2.Timestamp == null)
-            {
-                return false;
-            }
-
-            if (entity1.Timestamp.Length != entity2.Timestamp.Length)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < entity1.Timestamp.Length; i++)
-            {
-                if (entity1.Timestamp[i] != entity2.Timestamp[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return entity1.Timestamp != null && entity1.Timestamp.SameAs(entity2.Timestamp);
         }
 
         public static bool IsPartable(this IEntityKey entity)

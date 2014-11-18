@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
@@ -70,6 +71,24 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
                         typeof(UkraineLegalPersonProfilePart), new IEntityPropertyIdentity[]
                             {
                                 MfoIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(KazakhstanLegalPersonPart), new IEntityPropertyIdentity[]
+                            {
+                                RnnIdentity.Instance,
+                                IdentityCardNumberIdentity.Instance,
+                                IdentityCardIssuedByIdentity.Instance,
+                                IdentityCardIssuedOnIdentity.Instance
+                            }
+                    },
+                    {
+                        typeof(KazakhstanLegalPersonProfilePart), new IEntityPropertyIdentity[]
+                            {
+                                ActualAddressIdentity.Instance,
+                                OtherAuthorityDocumentIdentity.Instance,
+                                DecreeNumberIdentity.Instance,
+                                DecreeDateIdentity.Instance
                             }
                     },
                     {

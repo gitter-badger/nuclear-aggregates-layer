@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
+    <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
     <Compile Include="Exceptions\OperationAccessDeniedException.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Operations\Logging\IVerifierContext.cs" />
     <Compile Include="Operations\Logging\LoggingSession.cs" />
     <Compile Include="Operations\Logging\LoggingTargets.cs" />
+    <Compile Include="Operations\Logging\NullOperationScope.cs" />
     <Compile Include="Operations\Logging\NullOperationConsistencyVerifier.cs" />
     <Compile Include="Operations\Logging\OperationLoggingSettingsAspect.cs" />
     <Compile Include="Operations\Logging\OperationScopeNode.cs" />
