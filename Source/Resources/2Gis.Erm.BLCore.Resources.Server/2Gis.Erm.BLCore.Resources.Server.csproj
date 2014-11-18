@@ -72,6 +72,9 @@
     <EmbeddedResource Include="Properties\BLResources.es-CL.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\BLResources.kk-KZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\EnumResources.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -79,6 +82,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\EnumResources.es-CL.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\EnumResources.kk-KZ.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\MetadataResources.cs.resx">
@@ -94,6 +100,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\MetadataResources.es-CL.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\MetadataResources.kk-KZ.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\MetadataResources.ru.resx">

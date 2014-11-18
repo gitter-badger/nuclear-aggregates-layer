@@ -6,34 +6,32 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
 {
+    // TODO {i.maslennikov, 20.10.2014}: Зачем в этом сервисе явное логирование ошибок? Есть же специальный обработчик исключений на уровне WCF, может быть его научить логировать семантически?
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class OrderValidationApplicationService : IOrderValidationApplicationService, IOrderValidationApplicationRestService
     {
-        private readonly IBusinessModelSettings _businessModelSettings;
-        private readonly IOrderValidationService _orderValidationService;
-        private readonly IOrderValidationPredicateFactory _orderValidationPredicateFactory;
+        private readonly IValidateOrdersOperationService _validateOrdersOperationService;
+        private readonly ICommonLog _logger;
 
-        public OrderValidationApplicationService(IBusinessModelSettings businessModelSettings,
-                                                 IUserContext userContext,
-                                                 IOrderValidationService orderValidationService,
-                                                 IOrderValidationPredicateFactory orderValidationPredicateFactory,
-                                                 IResourceGroupManager resourceGroupManager)
+        public OrderValidationApplicationService(IUserContext userContext,
+                                                 IValidateOrdersOperationService validateOrdersOperationService,
+                                                 IResourceGroupManager resourceGroupManager,
+                                                 ICommonLog logger)
         {
-            _businessModelSettings = businessModelSettings;
-            _orderValidationService = orderValidationService;
-            _orderValidationPredicateFactory = orderValidationPredicateFactory;
+            _validateOrdersOperationService = validateOrdersOperationService;
+            _logger = logger;
 
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
-        public ValidateOrdersResult ValidateSingleOrder(string specifiedOrderId)
+        ValidationResult IOrderValidationApplicationRestService.ValidateSingleOrder(string specifiedOrderId)
         {
             long orderId;
             if (!long.TryParse(specifiedOrderId, out orderId))
@@ -41,10 +39,18 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                 throw new WebFaultException<ArgumentException>(new ArgumentException("Order Id cannot be parsed"), HttpStatusCode.BadRequest);
             }
 
-            return ValidateSingleOrder(orderId);
+            try
+            {
+                return _validateOrdersOperationService.Validate(orderId);
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorFormatEx(ex, "Validate single order {0} failed. ERM WCF Rest OrderValidation", orderId);
+                throw;
+            }
         }
 
-        public ValidateOrdersResult ValidateSingleOrder(string specifiedOrderId, string specifiedNewOrderState)
+        ValidationResult IOrderValidationApplicationRestService.ValidateSingleOrder(string specifiedOrderId, string specifiedNewOrderState)
         {
             long orderId;
             if (!long.TryParse(specifiedOrderId, out orderId))
@@ -52,58 +58,62 @@ namespace DoubleGis.Erm.BLCore.WCF.OrderValidation
                 throw new WebFaultException<ArgumentException>(new ArgumentException("Order Id cannot be parsed"), HttpStatusCode.BadRequest);
             }
 
-            int newOrderState;
-            if (!int.TryParse(specifiedNewOrderState, out newOrderState))
+            int rawNewOrderState;
+            if (!int.TryParse(specifiedNewOrderState, out rawNewOrderState))
             {
                 throw new WebFaultException<ArgumentException>(new ArgumentException("Order State cannot be parsed"), HttpStatusCode.BadRequest);
             }
 
-            if (!Enum.IsDefined(typeof(OrderState), newOrderState))
+            if (!Enum.IsDefined(typeof(OrderState), rawNewOrderState))
             {
-                throw new WebFaultException<ArgumentException>(new ArgumentException(string.Format("Unrecognized Order State: {0}", newOrderState)), HttpStatusCode.BadRequest);
+                throw new WebFaultException<ArgumentException>(new ArgumentException(string.Format("Unrecognized Order State: {0}", rawNewOrderState)), HttpStatusCode.BadRequest);
             }
 
-            return ValidateSingleOrder(orderId, (OrderState)newOrderState);
+            var newOrderState = (OrderState)rawNewOrderState;
+
+            try
+            {
+                return _validateOrdersOperationService.Validate(orderId, newOrderState);
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorFormatEx(ex, "Validate single order {0} with new state {1} failed. ERM WCF Rest OrderValidation", orderId, newOrderState);
+                throw;
+            }
         }
 
-        public ValidateOrdersResult ValidateSingleOrder(long orderId)
+        ValidationResult IOrderValidationApplicationService.ValidateSingleOrder(long orderId)
         {
-            return ValidateSingleOrder(orderId, null);
+            try
+            {
+                return _validateOrdersOperationService.Validate(orderId);
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorFormatEx(ex, "Validate single order {0} failed. ERM WCF Soap OrderValidation", orderId);
+                throw;
+            }
         }
 
-        public ValidateOrdersResult ValidateOrders(ValidationType validationType, long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants)
+        ValidationResult IOrderValidationApplicationService.ValidateOrders(ValidationType validationType, long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants)
         {
-            var orderValidationPredicate = _orderValidationPredicateFactory.CreatePredicate(organizationUnitId, period, ownerCode, includeOwnerDescendants);
-            var validateOrdersRequest = new ValidateOrdersRequest
-                {
-                    Type = validationType,
-                    OrganizationUnitId = organizationUnitId,
-                    Period = period,
-                    OwnerId = ownerCode,
-                    IncludeOwnerDescendants = includeOwnerDescendants,
-                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
-                };
-            return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
-        }
+            try
+            {
+                return _validateOrdersOperationService.Validate(validationType, organizationUnitId, period, ownerCode, includeOwnerDescendants);
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorFormatEx(
+                    ex, 
+                    "Mass orders validation failed. Validation type: {0}. Organization unit: {1}. {2}. Owner code: {3}. Include owner descendants: {4}. ERM WCF Soap OrderValidation",
+                    validationType,
+                    organizationUnitId,
+                    period,
+                    ownerCode.HasValue ? ownerCode.Value.ToString() : "not specified",
+                    includeOwnerDescendants);
 
-        private ValidateOrdersResult ValidateSingleOrder(long orderId, OrderState? newOrderState)
-        {
-            OrderState currentOrderState;
-            TimePeriod period;
-            var orderValidationPredicate = _orderValidationPredicateFactory.CreatePredicate(orderId, out currentOrderState, out period);
-            var validateOrdersRequest = new ValidateOrdersRequest
-                {
-                    Type = newOrderState == null || currentOrderState == OrderState.OnRegistration
-                               ? ValidationType.SingleOrderOnRegistration
-                               : ValidationType.SingleOrderOnStateChanging,
-                    OrderId = orderId,
-                    CurrentOrderState = currentOrderState,
-                    NewOrderState = newOrderState == null ? OrderState.NotSet : newOrderState.Value,
-                    Period = period,
-                    SignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber
-                };
-
-            return _orderValidationService.ValidateOrders(orderValidationPredicate, validateOrdersRequest);
+                throw;
+            }
         }
     }
 }

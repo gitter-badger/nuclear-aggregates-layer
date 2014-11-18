@@ -1452,4 +1452,31 @@
   <data name="DListInactiveFirmsForDeal" xml:space="preserve">
     <value>Vínculos cancelados</value>
   </data>
+  <data name="BinIin" xml:space="preserve">
+    <value>RUT</value>
+  </data>
+  <data name="Bin" xml:space="preserve">
+    <value>RUT</value>
+  </data>
+  <data name="Iin" xml:space="preserve">
+    <value>RUT</value>
+  </data>
+  <data name="IdentityCardNumber" xml:space="preserve">
+    <value>Cédula de Identidad</value>
+  </data>
+  <data name="IdentityCardIssuedOn" xml:space="preserve">
+    <value>Fecha de emisión</value>
+  </data>
+  <data name="IdentityCardIssuedBy" xml:space="preserve">
+    <value>Emitido</value>
+  </data>
+  <data name="DecreeNumber" xml:space="preserve">
+    <value>Número del decreto</value>
+  </data>
+  <data name="DecreeDate" xml:space="preserve">
+    <value>Fecha del decreto</value>
+  </data>
+  <data name="OtherAuthorityDocument" xml:space="preserve">
+    <value>Otro</value>
+  </data>
 </root>
