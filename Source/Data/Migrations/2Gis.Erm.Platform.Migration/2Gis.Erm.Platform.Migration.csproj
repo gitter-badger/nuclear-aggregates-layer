@@ -51,13 +51,16 @@
       <HintPath>..\..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdktypeproxy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\MW\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\MW\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Smo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\MW\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.Smo.dll</HintPath>
     </Reference>
     <Reference Include="microsoft.xrm.client">
       <HintPath>..\..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
@@ -89,6 +92,8 @@
     <Compile Include="Base\MigrationKnownException.cs" />
     <Compile Include="CRM\CrmMigrationContext.cs" />
     <Compile Include="CRM\ICrmMigrationContext.cs" />
+    <Compile Include="MW\ActivityMigrationContext.cs" />
+    <Compile Include="MW\IActivityMigrationContext.cs" />
     <Compile Include="Runner\IMigrationContextProvider.cs" />
     <Compile Include="Sql\ExpressionsExtension.cs" />
     <Compile Include="Sql\InsertDataExpression.cs" />
@@ -106,6 +111,10 @@
     <Compile Include="Runner\MigrationRunner.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2ee6dcd3-218d-4eea-8902-8cf501c7e034}</Project>
       <Name>2Gis.Erm.Platform.Migration.Core</Name>

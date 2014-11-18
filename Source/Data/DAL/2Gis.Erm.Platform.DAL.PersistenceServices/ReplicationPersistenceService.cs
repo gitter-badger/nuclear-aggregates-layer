@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
         }
 
-        public void ReplicateToMsCrm(Type entityType, IReadOnlyCollection<long> ids, int timeout, out IReadOnlyCollection<long> notReplicated)
+        public void ReplicateToMsCrm(Type entityType, IReadOnlyCollection<long> ids, TimeSpan timeout, out IReadOnlyCollection<long> notReplicated)
         {
             if (!_msCrmSettings.EnableReplication)
             {
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
         }
 
-        private void ReplicateSingle(string procedureName, int timeout, IReadOnlyCollection<long> ids, out IReadOnlyCollection<long> notReplicated)
+        private void ReplicateSingle(string procedureName, TimeSpan timeout, IReadOnlyCollection<long> ids, out IReadOnlyCollection<long> notReplicated)
         {
             var failed = new List<long>();
 
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             notReplicated = failed;
         }
 
-        private void ReplicateBatch(string procedureName, int timeout, IReadOnlyCollection<long> ids, out IReadOnlyCollection<long> notReplicated)
+        private void ReplicateBatch(string procedureName, TimeSpan timeout, IReadOnlyCollection<long> ids, out IReadOnlyCollection<long> notReplicated)
         {
             notReplicated = null;
 

@@ -9,6 +9,5 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         IEnumerable<IEntity> Find<TEntityInstance, TPropertyInstance>(SpecsBundle<TEntityInstance, TPropertyInstance> specs)
             where TEntityInstance : class, IDynamicEntityInstance
             where TPropertyInstance : class, IDynamicEntityPropertyInstance;
-
     }
 }

@@ -8,9 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
-using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 {
@@ -21,7 +19,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
         private readonly ICommonLog _logger;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
-        public ReplicateToCRMMessageAggregatedProcessingResultHandler(IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
+        public ReplicateToCRMMessageAggregatedProcessingResultHandler(
+            IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
             IReplicationPersistenceService replicationPersistenceService,
                                                                       ICommonLog logger,
                                                                       IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
@@ -121,7 +120,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             {
                 _replicationPersistenceService.ReplicateToMsCrm(replicationType,
                                                                 replicationEntities,
-                                                                _asyncMsCRMReplicationSettings.ReplicationTimeoutSec,
+                                                                TimeSpan.FromSeconds(_asyncMsCRMReplicationSettings.ReplicationTimeoutSec),
                                                                 out replicationFailed);
 
                 return replicationFailed == null || !replicationFailed.Any();

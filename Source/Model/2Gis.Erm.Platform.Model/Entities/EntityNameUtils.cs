@@ -38,6 +38,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.EmiratesLegalPersonPart,
                 EntityName.EmiratesLegalPersonProfilePart,
                 EntityName.EmiratesFirmAddressPart,
+                EntityName.KazakhstanLegalPersonPart,
+                EntityName.KazakhstanLegalPersonProfilePart
             };
 
         /// <summary>
@@ -47,9 +49,14 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             {
                 EntityName.Bank,
                 EntityName.Commune,
+            };
+
+		public static readonly EntityName[] MappingEntities =
+            {
                 EntityName.Appointment,
+                EntityName.Phonecall,
                 EntityName.Task,
-                EntityName.Phonecall
+				EntityName.RegardingObjectReference
             };
 
         public static readonly Type[] AsyncReplicated2MsCrmEntities =
@@ -96,11 +103,16 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(Privilege),
                 typeof(TerritoryDto),
                 typeof(OrdersRegionalAdvertisingSharing),
-                typeof(OrderValidationRuleGroup),
-                typeof(OrderValidationRuleGroupDetail),
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
+                
+				typeof(AppointmentBase),
+				typeof(AppointmentReference),
+				typeof(PhonecallBase),
+				typeof(PhonecallReference),
+				typeof(TaskBase),
+				typeof(TaskReference),
             };
 
         /// <summary>
@@ -120,8 +132,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(ContributionType),
                 typeof(Currency),
                 typeof(OperationType),
-                typeof(OrderValidationRuleGroupDetail),
-                typeof(OrderValidationRuleGroup),
                 typeof(OrganizationUnit),
                 typeof(Erm.Platform),
                 typeof(PositionCategory),
@@ -137,14 +147,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(Theme),
                 typeof(UserProfile),
                 typeof(Project)
-            };
-
-        /// <summary>
-        /// Список сущностей являющихся базовыми классами, т.е. 
-        /// </summary>
-        public static readonly HashSet<Type> BaseEntities = new HashSet<Type>
-            {
-                typeof(ActivityBase)
             };
 
         /// <summary>
@@ -182,6 +184,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool IsDynamic(this EntityName entityName)
         {
             return DynamicEntities.Contains(entityName);
+        }
+
+        public static bool HasMapping(this EntityName entityName)
+        {
+            return MappingEntities.Contains(entityName);
         }
 
         public static bool IsPersistenceOnly(this Type checkingType)

@@ -15,6 +15,12 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         Order = EntityName.Order, //
         OrderPosition = EntityName.OrderPosition, //
         Contact = EntityName.Contact, 
-        ActivityInstance = EntityName.ActivityInstance, //
+        ClientLink = EntityName.ClientLink, //
+        DenormalizedClientLink = EntityName.DenormalizedClientLink,
+
+        // FIXME {s.pomadin, 24.09.2014}: remove after merge with AM branch
+        Appointment = EntityName.Appointment,
+        Phonecall = EntityName.Phonecall,
+        Task = EntityName.Task,
     }
 }

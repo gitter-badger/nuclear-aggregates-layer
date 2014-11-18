@@ -955,7 +955,6 @@
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" />
           <Property Type="String" Name="TimeZoneId" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Description" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Type="Int64" Name="CreatedBy" Nullable="false" />
           <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="2" />
           <Property Type="Int64" Name="ModifiedBy" />
@@ -1262,7 +1261,6 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TimeZoneId" ColumnName="TimeZoneId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

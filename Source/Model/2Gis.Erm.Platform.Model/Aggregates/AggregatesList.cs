@@ -17,7 +17,12 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
         public static readonly IDictionary<EntityName, AggregateDescriptor> Aggregates = 
             new[]
             {
-                ActivityAggregate.ActivityBase.ToDescriptor(),
+                // COMMENT {s.pomadin, 31.07.2014}: опять же нужно определиться какое место в domain model знаимают действия, один это агрегат или несколько и т.п., т.к. ответы на эти вопросы влияют на то как функционал действий будет разложен по системе
+                ActivityAggregate.Activity.ToDescriptor(),
+                AppointmentAggregate.Appointment.ToDescriptor(),
+                PhonecallAggregate.Phonecall.ToDescriptor(),
+                TaskAggregate.Task.ToDescriptor(),
+
                 AccountAggregate.Account.ToDescriptor(), 
                 AdvertisementAggregate.Advertisement.ToDescriptor(),
                 BranchOfficeAggregate.BranchOffice.ToDescriptor(),
@@ -29,7 +34,6 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
                 /* скорее агрегат, чем нет*/DealAggregate.Deal.ToDescriptor(),
                 /*не агрегат*/BargainAggregate.Bargain.ToDescriptor(),
                 OrderAggregate.Order.ToDescriptor(),
-                /*не агрегат?*/OrderValidationResultAggregate.OrderValidationResult.ToDescriptor(),
                 PositionAggregate.Position.ToDescriptor(),
                 PriceAggregate.Price.ToDescriptor(),
                 /*не агрегат?*/ReleaseAggregate.ReleaseInfo.ToDescriptor(),

@@ -1,13 +1,12 @@
-﻿using System;
-
-using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+﻿using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Infrastructure
 {
-    public class StubOperationScopeFactory : IOperationScopeFactory
+    public sealed class StubOperationScopeFactory : IOperationScopeFactory
     {
         public IOperationScope CreateSpecificFor<TOperationIdentity>(params EntityName[] operationEntities)
             where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, IEntitySpecificOperationIdentity, new()
@@ -71,9 +70,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Infrastructure
             return CreateStubOperationScope(identity.NonCoupled(), parentScope);
         }
 
-        private static StubOperationScope CreateStubOperationScope(StrictOperationIdentity operationIdentity, IOperationScope parentScope)
+        private static NullOperationScope CreateStubOperationScope(StrictOperationIdentity operationIdentity, IOperationScope parentScope)
         {
-            return new StubOperationScope(Guid.NewGuid(), parentScope != null, operationIdentity);
+            return new NullOperationScope(parentScope != null, operationIdentity);
         }
     }
 }

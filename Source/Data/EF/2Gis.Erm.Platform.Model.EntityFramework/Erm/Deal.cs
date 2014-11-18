@@ -30,6 +30,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         {
             this.Orders = new HashSet<Order>();
             this.AfterSaleServiceActivities = new HashSet<AfterSaleServiceActivity>();
+            this.FirmDeals = new HashSet<FirmDeal>();
+            this.LegalPersonDeals = new HashSet<LegalPersonDeal>();
         }
         public long Id { get; set; }
         public System.Guid ReplicationCode { get; set; }
@@ -64,12 +66,22 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }
         public int DealStage { get; set; }
+        public Nullable<long> BargainId { get; set; }
+        public Nullable<System.DateTime> AdvertisingCampaignBeginDate { get; set; }
+        public Nullable<System.DateTime> AdvertisingCampaignEndDate { get; set; }
+        public string AdvertisingCampaignGoalText { get; set; }
+        public Nullable<int> AdvertisingCampaignGoals { get; set; }
+        public Nullable<int> PaymentFormat { get; set; }
+        public Nullable<decimal> AgencyFee { get; set; }
     
         public Currency Currency { get; set; }
         public ICollection<Order> Orders { get; set; }
         public Client Client { get; set; }
         public Firm Firm { get; set; }
         public ICollection<AfterSaleServiceActivity> AfterSaleServiceActivities { get; set; }
+        public Bargain Bargain { get; set; }
+        public ICollection<FirmDeal> FirmDeals { get; set; }
+        public ICollection<LegalPersonDeal> LegalPersonDeals { get; set; }
     
     	public override bool Equals(object obj)
         {
