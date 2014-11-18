@@ -8,13 +8,13 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Ukraine
 {
-    public sealed class CyprusViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, ICyprusAdapted
+    public sealed class UkraineViewModelCustomizationsMetadataSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IUkraineAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
-        public CyprusViewModelCustomizationsMetadaSource()
+        public UkraineViewModelCustomizationsMetadataSource()
         {
             _metadata = InitializeMetadataContainer();
         }
@@ -26,14 +26,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
 
         private static IReadOnlyDictionary<Uri, IMetadataElement> InitializeMetadataContainer()
         {
-            IReadOnlyCollection<ViewModelCustomizationsMetada> metadataContainer =
-                new ViewModelCustomizationsMetada[]
+            IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
+                new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<LegalPersonProfile>()
-                                                     .Use<CyprusLegalPersonProfileDisableDocumentsCustomization>(),
+                                                     .Use<UkraineLegalPersonProfileDisableDocumentsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Order>()
                                                      .Use<MultiCulturePrintFormsCustomization>(),
                     };

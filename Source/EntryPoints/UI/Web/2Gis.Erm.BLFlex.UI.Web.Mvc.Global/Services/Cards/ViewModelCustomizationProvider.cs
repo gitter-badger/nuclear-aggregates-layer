@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 
         public IEnumerable<Type> GetCustomizations(EntityName entityName)
         {
-            ViewModelCustomizationsMetada customizationsMetadata;
+            ViewModelCustomizationsMetadata customizationsMetadata;
 
             if (!_metadataProvider.TryGetMetadata(IdBuilder.For<ViewModelCustomizationsIdentity>(entityName.ToString()), out customizationsMetadata))
             {

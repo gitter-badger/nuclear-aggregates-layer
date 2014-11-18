@@ -8,13 +8,13 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Emirates
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Czech
 {
-    public sealed class EmiratesViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IEmiratesAdapted
+    public class CzechViewModelCustomizationsMetadataSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, ICzechAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
-        public EmiratesViewModelCustomizationsMetadaSource()
+        public CzechViewModelCustomizationsMetadataSource()
         {
             _metadata = InitializeMetadataContainer();
         }
@@ -26,12 +26,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Emirates
 
         private static IReadOnlyDictionary<Uri, IMetadataElement> InitializeMetadataContainer()
         {
-            IReadOnlyCollection<ViewModelCustomizationsMetada> metadataContainer =
-                new ViewModelCustomizationsMetada[]
+            IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
+                new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
+                                                     .For<LegalPersonProfile>()
+                                                     .Use<CzechLegalPersonProfileDisableDocumentsCustomization>(),
+
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Order>()
-                                                     .Use<EmiratesPrintFormsCustomization>(),
+                                                     .Use<CzechPrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

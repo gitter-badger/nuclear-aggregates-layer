@@ -13,11 +13,11 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
 {
-    public sealed class RussiaViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IRussiaAdapted
+    public sealed class RussiaViewModelCustomizationsMetadataSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IRussiaAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
-        public RussiaViewModelCustomizationsMetadaSource()
+        public RussiaViewModelCustomizationsMetadataSource()
         {
             _metadata = InitializeMetadataContainer();
         }
@@ -29,18 +29,18 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
 
         private static IReadOnlyDictionary<Uri, IMetadataElement> InitializeMetadataContainer()
         {
-            IReadOnlyCollection<ViewModelCustomizationsMetada> metadataContainer =
-                new ViewModelCustomizationsMetada[]
+            IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
+                new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Client>()
                                                      .Use<EditIsAdvertisingAgencyViewModelCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<LegalPersonProfile>()
                                                      .Use<LegalPersonProfileDisableDocumentsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Order>()
                                                      .Use<PrintFormsCustomization>(),
                     };

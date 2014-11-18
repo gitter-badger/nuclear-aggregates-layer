@@ -8,13 +8,13 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Kazakhstan
+namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
 {
-    public sealed class KazakhstanViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IKazakhstanAdapted
+    public class ChileViewModelCustomizationsMetadataSource : MetadataSourceBase<ViewModelCustomizationsIdentity>, IChileAdapted
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
-        public KazakhstanViewModelCustomizationsMetadaSource()
+        public ChileViewModelCustomizationsMetadataSource()
         {
             _metadata = InitializeMetadataContainer();
         }
@@ -26,16 +26,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Kazakhstan
 
         private static IReadOnlyDictionary<Uri, IMetadataElement> InitializeMetadataContainer()
         {
-            IReadOnlyCollection<ViewModelCustomizationsMetada> metadataContainer =
-                new ViewModelCustomizationsMetada[]
+            IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
+                new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetada.Config
-                                                     .For<LegalPersonProfile>()
-                                                     .Use<KazakhstanLegalPersonProfileDisableDocumentsCustomization>(),
-
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Order>()
-                                                     .Use<MultiCulturePrintFormsCustomization>(),
+                                                     .Use<ChilePrintFormsCustomization>(),
+
+                        ViewModelCustomizationsMetadata.Config
+                                                     .For<LegalPersonProfile>()
+                                                     .Use<ChileLegalPersonProfileDisableDocumentsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);
