@@ -11,10 +11,10 @@
 
 @section PageContent
 {
-    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@ThisAssembly.Build" />
     
-    <script src="/Scripts/Ext.Ajax.syncRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@ThisAssembly.Build" type="text/javascript"></script>
 
     <script type="text/javascript">
         Ext.namespace('Ext.DoubleGis.UI.Deal');
@@ -57,7 +57,7 @@
                 if (!this.Config || !this.Config.Entities || this.Config.Entities.length == 0) {
                     Ext.MessageBox.show({
                         title: '',
-                        msg: 'Необходимо указать клиента',
+                        msg: Ext.LocalizedResources.ChangeNeedToPickClient,
                         buttons: window.Ext.MessageBox.OK,
                         width: 300,
                         icon: window.Ext.MessageBox.ERROR
@@ -111,13 +111,13 @@
                 </td>
             </tr>
             <tr>
-                <td>Клиент:</td>
+                <td>@Html.LabelFor(m => m.Client)</td>
                 <td>
                     <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
                         <tbody>
                             <tr>
                                 <td>
-                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client})
+                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" })
                                 </td>
                             </tr>
                         </tbody>

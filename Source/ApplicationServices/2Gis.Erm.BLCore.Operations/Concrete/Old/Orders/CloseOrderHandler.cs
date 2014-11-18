@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
 
         protected override EmptyResponse Handle(CloseOrderRequest request)
         {
-            var order = _orderReadModel.GetOrder(request.OrderId);
+            var order = _orderReadModel.GetOrderSecure(request.OrderId);
             if (order == null)
             {
                 throw new NotificationException(BLResources.EntityNotFound);
@@ -63,7 +63,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             
             using (var operationScope = _scopeFactory.CreateNonCoupled<CloseWithDenialIdentity>())
             {
-                var orderPositions = _orderReadModel.GetPositions(request.OrderId);
                 _orderRepository.CloseOrder(order, request.Reason);
 
                 _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = order }, Context);

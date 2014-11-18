@@ -29,8 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -80,19 +79,33 @@
     <Compile Include="Accounts\Operations\AccountWithdrawFromAccountsAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLocksAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
-    <Compile Include="Activities\ActivityAggregateService.cs" />
+    <Compile Include="Activities\CreatePhonecallAggregateService.cs" />
+    <Compile Include="Activities\CreateAppointmentAggregateService.cs" />
+    <Compile Include="Activities\CreateTaskAggregateService.cs" />
+    <Compile Include="Activities\EntityReferenceRepositoryExtensions.cs" />
+    <Compile Include="Activities\UpdateAppointmentAggregationService.cs" />
+    <Compile Include="Activities\UpdatePhonecallAggregationService.cs" />
+    <Compile Include="Activities\UpdateTaskAggregationService.cs" />
     <Compile Include="Activities\ReadModel\ActivityReadModel.cs" />
     <Compile Include="Advertisements\Operations\CreateAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
     <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
+    <Compile Include="Clients\Operations\DeleteClientLinkAggregateService.cs" />
+    <Compile Include="Clients\Operations\CreateClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\BindCrmTaskToHotClientRequestAggregateService.cs" />
     <Compile Include="Clients\Operations\DetachClientFromFirmAggregateService.cs" />
+    <Compile Include="Clients\Operations\GraphDenormalizationExtensions.cs" />
     <Compile Include="Clients\Operations\UpdateClientAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientReadModel.cs" />
+    <Compile Include="Deals\Operations\CreateDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\DeleteClientLinkAggregateService.cs" />
     <Compile Include="Deals\Operations\DetachDealFromFirmAggregateService.cs" />
+    <Compile Include="Deals\Operations\UpdateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\CreateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\CreateFirmDealAggregateService.cs" />
     <Compile Include="DI\BlCoreAggregatesAssembly.cs" />
     <Compile Include="BranchOffices\Operations\CreateBranchOfficeAggregateService.cs" />
     <Compile Include="BranchOffices\Operations\DeleteBranchOfficeAggregateService.cs" />
@@ -143,7 +156,8 @@
     <Compile Include="LegalPersons\LegalPersonRepository.cs" />
     <Compile Include="LegalPersons\Operations\CreateLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\CreateLegalPersonProfileAggregateService.cs" />
-    <Compile Include="LegalPersons\Operations\DeactivateLegalPersonProfileAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\DeactivateLegalPersonAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\DeleteLegalPersonProfileAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\DeleteLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\UpdateLegalPersonAggregateService.cs" />
     <Compile Include="LegalPersons\Operations\UpdateLegalPersonProfileAggregateService.cs" />
@@ -161,7 +175,8 @@
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
-    <Compile Include="Orders\Operations\Validation\OrderValidationRepository.cs" />
+    <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
+    <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\OrderReadModel.cs" />
     <Compile Include="OrganizationUnits\ReadModel\OrganizationUnitReadModel.cs" />
@@ -230,6 +245,10 @@
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
+      <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>
+      <Name>2Gis.Erm.Platform.DAL.PersistenceServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
@@ -282,7 +301,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Orders\Operations\Validation\" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

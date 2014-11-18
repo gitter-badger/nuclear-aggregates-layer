@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             out previousReleaseId,
                                             out report))
                 {
-                    _logger.ErrorFormatEx("Releasing. Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
+                    _logger.ErrorFormatEx("Releasing. Can't acquire release for organization unit with stable (DGPP) id {0} by period {1} is beta = {2}. " +
                                           "Can ignore blocking errors: {3}. Error: {4}",
                                           organizationUnitDgppId,
                                           period,
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             catch (Exception ex)
             {
                 var msg = string.Format("Releasing aborted. Unexpected exception was caught. " +
-                                        "Release details: for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
+                                        "Release details: for organization unit with stable (DGPP) id {0} by period {1} is beta = {2}. " +
                                         "Can ignore blocking errors: {3}",
                                         organizationUnitDgppId,
                                         period,
@@ -139,21 +139,46 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
         }
 
-        private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
+        private static bool IsValidReleaseStartArgs(TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors, out string report)
         {
-            // Проверяем, что pessimistic lock успешно захвачена,
-            // для этого нужно убедиться, что после того как 
-            // создали новую запись о сборке, или переоткрыли старую, 
-            // из конкурирующей транзакции не захватили ту же пессимистичную блокировку (запись о сборке по тому же городу, за тот же период, в частном случае ту же запись о сборке)
-            // т.к. есть режим подхвата сборки InProgressWaitingExternalProcessing, то доп. нужно проверить версию записи о сборке
-            var lockedRelease =
-                    _releaseReadModel.GetLastRelease(
-                                            acquiredRelease.OrganizationUnitId,
-                                            new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
-            return lockedRelease != null
-                    && lockedRelease.Id == acquiredRelease.Id
-                    && (ReleaseStatus)lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted
-                    && acquiredRelease.SameVersionAs(lockedRelease);
+            report = null;
+
+            if (period.Start.Day != 1)
+            {
+                report = "Period have to start at first day of month";
+                return false;
+            }
+
+            if (period.Start != period.End.GetFirstDateOfMonth())
+            {
+                report = "Period start and period end days must be in the same month";
+                return false;
+            }
+
+            var daysInMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
+            if (!(period.End.Day == daysInMonth && period.End.Hour == 23 && period.End.Minute == 59 && period.End.Second == 59))
+            {
+                report = "Period end have to be " + daysInMonth + " day of month with time value 23:59:59";
+                return false;
+            }
+
+            if (!isBeta && canIgnoreBlockingErrors)
+            {
+                report = "Final release can't use ignore blocking errors mode";
+                return false;
+            }
+
+            return true;
+        }
+
+        private static ReleaseProcessingMessage[] AddNewBlockingMessage(ReleaseProcessingMessage[] processingMessages, string newMessage)
+        {
+            var extendedMessages = new ReleaseProcessingMessage[processingMessages.Length + 1];
+            extendedMessages[0] = new ReleaseProcessingMessage { IsBlocking = true, Message = newMessage };
+
+            processingMessages.CopyTo(extendedMessages, 1);
+
+            return extendedMessages;
         }
 
         private bool TryAcquireTargetRelease(int organizationUnitDgppId,
@@ -169,7 +194,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             using (var scope = _scopeFactory.CreateNonCoupled<StartReleaseIdentity>())
             {
-                _logger.InfoFormatEx("Starting releasing for organization unit with stable (DGPP) id {0} by period {1} is beta {2}. " +
+                _logger.InfoFormatEx("Starting releasing for organization unit with stable (DGPP) id {0} by period {1} is beta = {2}. " +
                                      "Can ignore blocking errors: {3}",
                                      organizationUnitDgppId,
                                      period,
@@ -180,7 +205,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 if (organizationUnitId == 0)
                 {
                     report = string.Format("Can't continue release. Organization unit with stable (DGPP) id {0} not found. " +
-                                           "Release detail: {1} is beta {2}. Can ignore blocking errors: {3}",
+                                           "Release detail: {1} is beta = {2}. Can ignore blocking errors: {3}",
                                            organizationUnitDgppId,
                                            period,
                                            isBeta,
@@ -193,7 +218,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 if (countryCode == 0)
                 {
                     report = string.Format("Can't continue release. Country code for organization unit with id {0} not found. " +
-                                           "Release detail: {1} is beta {2}. Can ignore blocking errors: {3}",
+                                           "Release detail: {1} is beta = {2}. Can ignore blocking errors: {3}",
                                            organizationUnitId,
                                            period,
                                            isBeta,
@@ -204,7 +229,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 if (!IsValidReleaseStartArgs(period, isBeta, canIgnoreBlockingErrors, out report))
                 {
-                    report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta {2}. " +
+                    report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta = {2}. " +
                                            "Can ignore blocking errors: {3}. Error description: {4}",
                                            organizationUnitId,
                                            period,
@@ -217,10 +242,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
 
                 bool usingPreviouslyNotFinishedReleasing;
-                var previousRelease = _releaseReadModel.GetLastRelease(organizationUnitId, period);
-                if (!CanStartReleasing(previousRelease, out usingPreviouslyNotFinishedReleasing, out previuosReleaseId, out report))
+                if (!CanStartReleasing(organizationUnitId, period, isBeta, out usingPreviouslyNotFinishedReleasing, out previuosReleaseId, out report))
                 {
-                    report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta {2}. " +
+                    report = string.Format("Can't start releasing for organization unit with id {0} by period {1} is beta = {2}. " +
                                            "Can ignore blocking errors: {3}. Error description: {4}",
                                            organizationUnitId,
                                            period,
@@ -234,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 if (!usingPreviouslyNotFinishedReleasing)
                 {
-                    _logger.InfoFormatEx("Starting release for for organization unit with id {0} by period {1} is beta {2}. Can ignore blocking errors: {3}",
+                    _logger.InfoFormatEx("Starting release for for organization unit with id {0} by period {1} is beta = {2}. Can ignore blocking errors: {3}",
                                          organizationUnitId,
                                          period,
                                          isBeta,
@@ -248,23 +272,99 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
                 else
                 {
-                    var msg = string.Format("Using previously started release with id {0} for organization unit with id {1} by period {2}, " +
+                    var msg = string.Format("Using previously started release with id {0} for organization unit with id {1} by period {2} is beta = {3}, " +
                                             "that was not finished properly. Probably errors was detected on the external releasing side (Export and etc)",
-                                            previousRelease.Id,
+                                            previuosReleaseId,
                                             organizationUnitId,
-                                            period);
+                                            period,
+                                            isBeta);
 
                     _logger.InfoEx(msg);
 
-                    _releaseChangeStatusAggregateService.InProgressInternalProcessingStarted(previousRelease, msg);
-
-                    acquiredRelease = previousRelease;
+                    // ReSharper disable once PossibleInvalidOperationException
+                    acquiredRelease = _releaseReadModel.GetReleaseInfo(previuosReleaseId.Value);
+                    _releaseChangeStatusAggregateService.InProgressInternalProcessingStarted(acquiredRelease, msg);
                 }
 
                 scope.Complete();
             }
 
             return true;
+        }
+
+        private bool CanStartReleasing(long organizationUnitId,
+                                       TimePeriod period,
+                                       bool isBeta,
+                                       out bool usingPreviouslyNotFinishedReleasing,
+                                       out long? previuosReleaseId,
+                                       out string report)
+        {
+            usingPreviouslyNotFinishedReleasing = false;
+            report = string.Empty;
+
+            var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
+            if (lastFinalRelease != null && lastFinalRelease.Status == (int)ReleaseStatus.Success)
+            {
+                previuosReleaseId = lastFinalRelease.Id;
+                report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
+                                       "Can't start new release without reverting previous final and successful release",
+                                       previuosReleaseId,
+                                       organizationUnitId,
+                                       period);
+                return false;
+            }
+
+            var lastRelease = _releaseReadModel.GetLastRelease(organizationUnitId, period);
+            if (lastRelease == null)
+            {
+                previuosReleaseId = null;
+                return true;
+            }
+
+            previuosReleaseId = lastRelease.Id;
+            var previousReleaseStatus = (ReleaseStatus)lastRelease.Status;
+            switch (previousReleaseStatus)
+            {
+                case ReleaseStatus.Success:
+                {
+                    if (!lastRelease.IsBeta)
+                    {
+                        var exceptionMessage = string.Format("Target release acquiring failure: status mismatch. Last final release cannot be found, " +
+                                                             "but last acquired release with id {0} for organization unit with id {1} by period {2} is final and success status",
+                                                             previuosReleaseId,
+                                                             organizationUnitId,
+                                                             period);
+                        throw new InvalidOperationException(exceptionMessage);
+                    }
+
+                    return true;
+                }
+                case ReleaseStatus.Error:
+                case ReleaseStatus.Reverted:
+                {
+                    return true;
+                }
+                case ReleaseStatus.InProgressWaitingExternalProcessing:
+                {
+                    if (isBeta == lastRelease.IsBeta)
+                    {
+                        usingPreviouslyNotFinishedReleasing = true;
+                    }
+
+                    return true;
+                }
+                default:
+                {
+                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
+                                           "so new releasing can't be started",
+                                           previuosReleaseId,
+                                           organizationUnitId,
+                                           period,
+                                           previousReleaseStatus);
+
+                    return false;
+                }
+            }
         }
 
         private ReleaseStartingResult ExecuteInternalErmReleaseProcessing(ReleaseInfo acquiredRelease, int organizationUnitDgppId, bool canIgnoreBlockingErrors)
@@ -276,7 +376,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     ProcessingMessages = new ReleaseProcessingMessage[0]
                 };
 
-            var releasingPeriod = new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate);
+            // Forcing period to be set in UTC
+            var releasingPeriod = new TimePeriod(new DateTime(acquiredRelease.PeriodStartDate.Ticks, DateTimeKind.Utc),
+                                                 new DateTime(acquiredRelease.PeriodEndDate.Ticks, DateTimeKind.Utc));
             
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
@@ -347,7 +449,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 releasingResult.Succeed = true;
                 _releaseChangeStatusAggregateService.InProgressWaitingExternalProcessing(acquiredRelease);
 
-                _logger.InfoFormatEx("Release with id {0} successfully started for organization unit with id {1} by period {2} is beta {3}. " +
+                _logger.InfoFormatEx("Release with id {0} successfully started for organization unit with id {1} by period {2} is beta = {3}. " +
                                      "Waiting for external release processing",
                                      acquiredRelease.Id,
                                      acquiredRelease.OrganizationUnitId,
@@ -360,103 +462,20 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return releasingResult;
         }
 
-        private static bool IsValidReleaseStartArgs(TimePeriod period, bool isBeta, bool canIgnoreBlockingErrors, out string report)
+        private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
         {
-            report = null;
-
-            if (period.Start.Day != 1)
-            {
-                report = "Period have to start at first day of month";
-                return false;
-            }
-
-            if (period.Start != period.End.GetFirstDateOfMonth())
-            {
-                report = "Period start and period end days must be in the same month";
-                return false;
-            }
-
-            var daysInMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
-            if (!(period.End.Day == daysInMonth && period.End.Hour == 23 && period.End.Minute == 59 && period.End.Second == 59))
-            {
-                report = "Period end have to be " + daysInMonth + " day of month with time value 23:59:59";
-                return false;
-            }
-
-            if (!isBeta && canIgnoreBlockingErrors)
-            {
-                report = "Final release can't use ignore blocking errors mode";
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool CanStartReleasing(
-            ReleaseInfo previousRelease, 
-            out bool usingPreviouslyNotFinishedReleasing, 
-            out long? previuosReleaseId, 
-            out string report)
-        {
-            report = string.Empty;
-            usingPreviouslyNotFinishedReleasing = false;
-            previuosReleaseId = null;
-
-            if (previousRelease == null)
-            {
-                return true;
-            }
-
-            previuosReleaseId = previousRelease.Id;
-            var previousReleasePeriod = new TimePeriod(previousRelease.PeriodStartDate, previousRelease.PeriodEndDate);
-            var previousReleaseStatus = (ReleaseStatus)previousRelease.Status;
-            switch (previousReleaseStatus)
-            {
-                case ReleaseStatus.Success:
-                {
-                    if (previousRelease.IsBeta)
-                    {
-                        return true;
-                    }
-
-                    report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
-                                           "Can't start new release without reverting previous final and successful release",
-                                           previousRelease.Id,
-                                           previousRelease.OrganizationUnitId,
-                                           previousReleasePeriod);
-
-                    return false;
-                }
-                case ReleaseStatus.Error:
-                case ReleaseStatus.Reverted:
-                {
-                    return true;
-                }
-                case ReleaseStatus.InProgressWaitingExternalProcessing:
-                {
-                    usingPreviouslyNotFinishedReleasing = true;
-                    return true;
-                }
-            }
-
-            report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
-                                   "so new releasing can't be started",
-                                   previousRelease.Id,
-                                   previousRelease.OrganizationUnitId,
-                                   previousReleasePeriod,
-                                   previousReleaseStatus);
-
-            return false;
-        }
-
-        private static ReleaseProcessingMessage[] AddNewBlockingMessage(ReleaseProcessingMessage[] processingMessages, string newMessage)
-        {
-            var extendedMessages = new ReleaseProcessingMessage[processingMessages.Length + 1];
-            extendedMessages[0] = new ReleaseProcessingMessage { IsBlocking = true, Message = newMessage };
-
-            processingMessages.CopyTo(extendedMessages, 1);
-
-            return extendedMessages;
+            // Проверяем, что pessimistic lock успешно захвачена,
+            // для этого нужно убедиться, что после того как 
+            // создали новую запись о сборке, или переоткрыли старую, 
+            // из конкурирующей транзакции не захватили ту же пессимистичную блокировку (запись о сборке по тому же городу, за тот же период, в частном случае ту же запись о сборке)
+            // т.к. есть режим подхвата сборки InProgressWaitingExternalProcessing, то доп. нужно проверить версию записи о сборке
+            var lockedRelease = _releaseReadModel.GetLastRelease(acquiredRelease.OrganizationUnitId,
+                                                                 new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+            return lockedRelease != null &&
+                   lockedRelease.Id == acquiredRelease.Id &&
+                   lockedRelease.IsBeta == acquiredRelease.IsBeta &&
+                   (ReleaseStatus)lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
+                   acquiredRelease.SameVersionAs(lockedRelease);
         }
     }
 }

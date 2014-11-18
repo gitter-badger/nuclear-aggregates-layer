@@ -25,22 +25,18 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -53,6 +49,7 @@
     <Compile Include="..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="Concrete\AccountDetails\NotifyAboutAccountDetailModificationOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementWorkflowViolationStrategy.cs" />
     <Compile Include="Concrete\AdvertisementElements\ChangeAdvertisementElementStatusOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\NotifyAboutAdvertisementElementFileChangedOperationService.cs" />
@@ -61,6 +58,8 @@
     <Compile Include="Concrete\AdvertisementElements\Workflow\AdvertisementElementStatusBehaviour.cs" />
     <Compile Include="Concrete\AdvertisementElements\UpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\AfterSaleService\UpdateAfterSaleServiceOperationService.cs" />
+    <Compile Include="Concrete\Integration\Olap\CalculateClientPromisingOperationService.cs" />
+    <Compile Include="Concrete\Deals\SetMainLegalPersonForDealOperationService.cs" />
     <Compile Include="Concrete\HotClients\GetHotClientTaskToReplicateOperationService.cs" />
     <Compile Include="Concrete\Deals\ReplicateDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\CreateBlankFirmsOperationService.cs" />
@@ -131,7 +130,6 @@
     <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersHandler.cs" />
     <Compile Include="Concrete\Old\Integration\LocalMessageHelper.cs" />
-    <Compile Include="Concrete\Old\Integration\Olap\CalculateClientPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\AccountDetailsFrom1CHelper.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportAccountDetailsTo1CForBranchHandler.cs" />
@@ -177,14 +175,8 @@
     <Compile Include="Concrete\Integration\Import\FlowStickers\Deserializers\DeserializeHotClientService.cs" />
     <Compile Include="Concrete\Integration\Import\FlowStickers\Processors\ImportHotClientService.cs" />
     <Compile Include="Concrete\Integration\Import\ImportFromServiceBusService.cs" />
-    <Compile Include="Concrete\Old\Journal\Concrete\IJournalMakeRegionalAdsDocsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Concrete\JournalMakeRegionalAdsDocsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\IJournalBusinessOperationsService.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBag.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\IPropertyBagContainer.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\NullJournalBusinessOperationsService.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationAttribute.cs" />
-    <Compile Include="Concrete\Old\Journal\Infrastructure\PolicyInjection\JournalBusinessOperationHandler.cs" />
     <Compile Include="Concrete\Old\Journal\Infrastructure\PropertyBag.cs" />
     <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandler.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsHandler.cs" />
@@ -208,13 +200,9 @@
     <Compile Include="Concrete\Old\Orders\Discounts\RecalculateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderDiscountHandler.cs" />
     <Compile Include="Concrete\Old\Orders\Discounts\UpdateOrderFinancialPerformanceHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderDestinationOrganizationUnitHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\GetOrderLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\MakeRegionalAdsDocsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintReferenceInformationHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />
@@ -252,6 +240,7 @@
     <Compile Include="Concrete\Orders\Processing\Workflow\Concrete\OrderStateBehaviourRejected.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviour.cs" />
     <Compile Include="Concrete\Orders\Processing\Workflow\OrderStateBehaviourFactory.cs" />
+    <Compile Include="Concrete\Orders\RegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
@@ -305,6 +294,8 @@
     <Compile Include="Generic\Activate\ActivatePriceService.cs" />
     <Compile Include="Generic\Activate\ActivateUserService.cs" />
     <Compile Include="Generic\Activate\ActivateBargainOperationService.cs" />
+    <Compile Include="Generic\Append\AppendLegalPersonDealService.cs" />
+    <Compile Include="Generic\Append\AppendFirmDealService.cs" />
     <Compile Include="Generic\Append\AppendThemeCategoryService.cs" />
     <Compile Include="Generic\Append\AppendThemeOrganizationUnitService.cs" />
     <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
@@ -348,6 +339,8 @@
     <Compile Include="Generic\Deactivate\DeactivateTerritoryService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateUserService.cs" />
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
+    <Compile Include="Generic\Delete\DeleteLegalPersonDealService.cs" />
+    <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
     <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
     <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementElementTemplateService.cs" />
@@ -420,6 +413,7 @@
     <Compile Include="Generic\Get\GetNoteDtoService.cs" />
     <Compile Include="Generic\Get\GetOperationDtoService.cs" />
     <Compile Include="Generic\Get\GetOperationTypeDtoService.cs" />
+    <Compile Include="Generic\Get\GetOrderDtoService.cs" />
     <Compile Include="Generic\Get\GetOrderFileDtoService.cs" />
     <Compile Include="Generic\Get\GetOrderPositionDtoService.cs" />
     <Compile Include="Generic\Get\GetOrganizationUnitDtoService.cs" />
@@ -440,10 +434,11 @@
     <Compile Include="Generic\Get\GetUserProfileDtoService.cs" />
     <Compile Include="Generic\Get\GetWithdrawalInfoDtoService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAdvertisementElementStatusOperationService.cs" />
-    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
+    <Compile Include="Generic\Modify\Custom\ActivityExtensions.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyAppointmentService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyPhonecallService.cs" />
     <Compile Include="Generic\Modify\Custom\ModifyTaskService.cs" />
+    <Compile Include="Generic\Modify\Custom\ModifyWithdrawalInfoOperationService.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdditionalFirmServiceObtainer.cs" />
@@ -456,7 +451,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryObtainer.cs" />
@@ -515,7 +509,7 @@
     <Compile Include="Generic\Modify\Old\EditCountryHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCurrencyHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditCurrencyRateHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditDealHandler.cs" />
+    <Compile Include="Generic\Modify\ModifyDealService.cs" />
     <Compile Include="Generic\Modify\Old\EditDeniedPositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditDepartmentHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmAddressHandler.cs" />
@@ -551,7 +545,6 @@
     <Compile Include="Generic\Modify\UsingHandler\ModifyProjectUsingHandlerService.cs" />
     <Compile Include="Generic\Modify\UsingHandler\ModifySimplifiedModelEntityUsingHandlerService.cs" />
     <Compile Include="Generic\Old\ValidateOwnerIsNotReserve.cs" />
-    <Compile Include="Generic\OperationSession.cs" />
     <Compile Include="Generic\Qualify\QualifyClientService.cs" />
     <Compile Include="Generic\Qualify\QualifyFirmService.cs" />
     <Compile Include="Generic\Qualify\QualifyGenericEntityService.cs" />
@@ -587,22 +580,23 @@
     <Reference Include="microsoft.crm.sdktypeproxy">
       <HintPath>..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdktypeproxy.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="microsoft.xrm.client">
       <HintPath>..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
@@ -727,6 +721,9 @@
     <EmbeddedResource Include="Properties\Resources.en.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.kk-KZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -765,11 +762,12 @@
     <None Include="Concrete\Integration\Schemas\flowOrders.ThemeBranch.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
-    <Folder Include="Generic\Modify\SimplifiedModel\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -63,5 +63,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
                           .FirstOrDefault(user => user.UserRoles.Any(role => role.RoleId == DirectorRoleId)
                                                   && user.UserOrganizationUnits.Any(unit => unit.OrganizationUnitId == organizationUnitId));
         }
+
+        public long? GetUserOrganizationUnitId(long userId)
+        {
+            var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))
+                .SelectMany(x => x.UserOrganizationUnits)
+                .Select(x => x.OrganizationUnitId)
+                .Take(2)
+                .ToArray();
+
+            if (singleOrganizationUnitIds.Length == 1)
+            {
+                return singleOrganizationUnitIds.Single();
+            }
+
+            return null;
+        }
     }
 }

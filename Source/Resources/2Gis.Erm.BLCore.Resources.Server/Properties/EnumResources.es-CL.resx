@@ -549,9 +549,6 @@
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
     <value>Acuerdo adicional para EIRL</value>
   </data>
-  <data name="TemplateCodeBargainBusinessman" xml:space="preserve">
-    <value>Contrato para EIRL</value>
-  </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
     <value>Factura para empresas individuales</value>
   </data>
@@ -560,9 +557,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Acuerdo adicional para una persona jurídica</value>
-  </data>
-  <data name="TemplateCodeBargainLegalPerson" xml:space="preserve">
-    <value>Contrato para una persona jurídica</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
     <value>Factura para una persona jurídica</value>
@@ -599,9 +593,6 @@
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
     <value>Acuerdo adicional para una persona natural</value>
-  </data>
-  <data name="TemplateCodeBargainNaturalPerson" xml:space="preserve">
-    <value>Contrato para una persona natural</value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
     <value>Factura para una persona natural</value>
@@ -1224,19 +1215,19 @@
   <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
     <value>Servicio postventa 4</value>
   </data>
-  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+  <data name="BusinessOperationQualify" xml:space="preserve">
     <value>Tomar de la reserva</value>
   </data>
-  <data name="BusinessOperationTypeDisqualify" xml:space="preserve">
+  <data name="BusinessOperationDisqualify" xml:space="preserve">
     <value>Devolver a la reserva</value>
   </data>
-  <data name="BusinessOperationTypeChangeTerritory" xml:space="preserve">
+  <data name="BusinessOperationChangeTerritory" xml:space="preserve">
     <value>Cambiar de territorio</value>
   </data>
-  <data name="BusinessOperationTypeChangeClient" xml:space="preserve">
+  <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Cambiar de cliente</value>
   </data>
-  <data name="BusinessOperationTypeAfterSaleServiceActivitiesCreation" xml:space="preserve">
+  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
     <value>Formación del servicio postventa</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
@@ -1251,13 +1242,13 @@
   <data name="OperationStatusSuccess" xml:space="preserve">
     <value>Finalizado</value>
   </data>
-  <data name="BusinessOperationTypeCheckOrdersReadinessForRelease" xml:space="preserve">
+  <data name="BusinessOperationCheckOrdersReadinessForRelease" xml:space="preserve">
     <value>Verificación de órdenes</value>
   </data>
-  <data name="BusinessOperationTypeExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
+  <data name="BusinessOperationExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
     <value>Descargar las amortizaciones a 1C</value>
   </data>
-  <data name="BusinessOperationTypeMakeRegionalAdsDocs" xml:space="preserve">
+  <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Formar la publicidad regional</value>
   </data>
   <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
@@ -1428,16 +1419,16 @@
   <data name="ActivityStatusCompleted" xml:space="preserve">
     <value>Completado</value>
   </data>
-  <data name="ActivityStatusCancelled" xml:space="preserve">
+  <data name="ActivityStatusCanceled" xml:space="preserve">
     <value>Cancelado</value>
   </data>
-  <data name="ActivityTaskTypeWarmClient" xml:space="preserve">
+  <data name="TaskTypeWarmClient" xml:space="preserve">
     <value>Cliente interesado</value>
   </data>
-  <data name="ActivityTaskTypeBossTask" xml:space="preserve">
+  <data name="TaskTypeBossTask" xml:space="preserve">
     <value>Encargo</value>
   </data>
-  <data name="ActivityTaskTypeOther" xml:space="preserve">
+  <data name="TaskTypeOther" xml:space="preserve">
     <value>Lo demás</value>
   </data>
   <data name="EntityNameProject" xml:space="preserve">
@@ -1497,7 +1488,7 @@
   <data name="PaymentMethodCreditCard" xml:space="preserve">
     <value>Tarjeta de crédito</value>
   </data>
-  <data name="ActivityTaskTypeNotSet" xml:space="preserve">
+  <data name="TaskTypeNotSet" xml:space="preserve">
     <value>Ninguno</value>
   </data>
   <data name="ActivityPriorityNotSet" xml:space="preserve">
@@ -1608,7 +1599,7 @@
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="BusinessOperationTypeNone" xml:space="preserve">
+  <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
@@ -1674,7 +1665,7 @@
   <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
     <value>Editar stub de material publicitario</value>
   </data>
-  <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
+  <data name="BusinessOperationGetOrdersWithDummyAdvertisements" xml:space="preserve">
     <value>Búsqueda de órdenes con stubs de material publicitario</value>
   </data>
   <data name="FasCommentSupplements" xml:space="preserve">
@@ -1956,5 +1947,80 @@
   </data>
   <data name="EntityNameBank" xml:space="preserve">
     <value>Banco</value>
+  </data>
+  <data name="TemplateCodeClientBargain" xml:space="preserve">
+    <value>Contrato de cliente</value>
+  </data>
+  <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
+    <value>Contrato de cliente (idioma adicional)</value>
+  </data>
+  <data name="TemplateCodeAgentBargain" xml:space="preserve">
+    <value>Contrato de agente</value>
+  </data>
+  <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
+    <value>Acuerdo de prolongar el contrato</value>
+  </data>
+  <data name="FasCommentUkraineDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentUkraineTobaccoGoods" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentChileAlcohol" xml:space="preserve">
+    <value>Publicidad de Bebidas Alcohólicas</value>
+  </data>
+  <data name="FasCommentChileDrugsAndService" xml:space="preserve">
+    <value>Publicidad de medicamentos, equipos médicos, productos médicos</value>
+  </data>
+  <data name="FasCommentChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>Publicidad de medicamentos que se venden bajo la receta médica</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineDrugsAndService" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineAlcohol" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextUkraineTobaccoGoods" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="FasCommentDisplayTextChileAlcohol" xml:space="preserve">
+    <value>Beber en exceso daña su salud y puede dañar a terceros. El consumo de alcohol disminuye su capacidad para conducir.</value>
+  </data>
+  <data name="FasCommentDisplayTextChileDrugsAndService" xml:space="preserve">
+    <value>No se automedique. Consulte antes con un médico.</value>
+  </data>
+  <data name="FasCommentDisplayTextChileMedicalReceiptDrugs" xml:space="preserve">
+    <value>La información contenida en esta sección corresponde a productos farmacéuticos autorizados para venta bajo receta médica. Conforme a la actual legislación, su promoción está dirigida sólo a profesionales médicos y químicos farmacéuticos. Parus S.p.A. no se hace responsable por la indebida interpretación y consecuencias del mal uso de la información aquí contenida.</value>
+  </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Prórroga</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Pago a plazos</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Pago posterior</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Pago por adelantado</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Vínculo de la empresa con el acuerdo</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Vínculo de la razón social con el acuerdo</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
+    <value>Desactivación/activación de la razón social del cliente</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
+    <value>del Decreto</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
+    <value>Otro</value>
   </data>
 </root>

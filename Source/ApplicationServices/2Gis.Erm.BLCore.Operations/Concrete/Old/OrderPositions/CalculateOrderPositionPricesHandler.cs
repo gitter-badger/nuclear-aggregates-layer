@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.OrderPositions
 
         protected override CalculateOrderPositionPricesResponse Handle(CalculateOrderPositionPricesRequest request)
         {
-            var order = _orderReadModel.GetOrder(request.OrderId);
+            var order = _orderReadModel.GetOrderSecure(request.OrderId);
 
             var priceCalculations = _orderReadModel.CalculatePricePerUnit(request.OrderId, request.CategoryRate, request.Cost);
 

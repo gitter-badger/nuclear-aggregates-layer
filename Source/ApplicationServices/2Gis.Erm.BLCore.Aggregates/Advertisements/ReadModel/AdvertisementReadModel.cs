@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -20,40 +18,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
         public AdvertisementReadModel(IFinder finder)
         {
             _finder = finder;
-        }
-
-        [Obsolete]
-        // FIXME {all, 30.01.2014}: поддержка legacy рекламных материлов в "старом формате" (из ДГПП), подробнее см. тип OldFormatAdvertisementMaterialDetector
-        public void Convert(OrderPositionInfo orderPositionInfo)
-        {
-            const int PriorityExportCode = 1;
-            const int BannerExportCode = 8;
-
-            if (orderPositionInfo.ProductType != PriorityExportCode && orderPositionInfo.ProductType != BannerExportCode)
-            {
-                return;
-            }
-
-            foreach (var advertisingMaterialInfo in orderPositionInfo.AdvertisingMaterials)
-            {
-                if (advertisingMaterialInfo.StableRubrIds.Any())
-                {
-                    continue;
-                }
-
-                var categoryDgppIds = (from orderPosition in _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionInfo.Id))
-                                       from firmAddress in orderPosition.Order.Firm.FirmAddresses
-                                       from categoryFirmAddress in firmAddress.CategoryFirmAddresses
-                                       where categoryFirmAddress.IsActive
-                                             && !categoryFirmAddress.IsDeleted
-                                             && firmAddress.IsActive
-                                             && !firmAddress.IsDeleted
-                                       select categoryFirmAddress.Category.Id)
-                    .Distinct()
-                    .ToArray();
-
-                advertisingMaterialInfo.StableRubrIds = categoryDgppIds;
-            }
         }
 
         public AdvertisementElementModifyDto GetAdvertisementInfoForElement(long advertisementElementId)
@@ -148,9 +112,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                           .Single();
         }
 
-        public long[] GetDependedOrderIds(IEnumerable<long> advertisementIds)
+        public IReadOnlyCollection<long> GetDependedOrderIds(IEnumerable<long> advertisementIds)
         {
-            var orderIds = _finder.Find<Advertisement>(x => advertisementIds.Contains(x.Id))
+            return _finder.Find<Advertisement>(x => advertisementIds.Contains(x.Id))
                                   .SelectMany(x => x.OrderPositionAdvertisements)
                                   .Select(x => x.OrderPosition)
                                   .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
@@ -159,13 +123,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                                   .Select(x => x.Id)
                                   .Distinct()
                                   .ToArray();
-
-            return orderIds;
         }
 
-        public long[] GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds)
+        public IReadOnlyCollection<long> GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds)
         {
-            var orderIds = _finder.Find(Specs.Find.ByIds<AdvertisementElement>(advertisementElementIds))
+            return _finder.Find(Specs.Find.ByIds<AdvertisementElement>(advertisementElementIds))
                                   .SelectMany(x => x.Advertisement.OrderPositionAdvertisements)
                                   .Select(x => x.OrderPosition)
                                   .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
@@ -174,8 +136,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                                   .Select(x => x.Id)
                                   .Distinct()
                                   .ToArray();
-
-            return orderIds;
         }
     }
 }
