@@ -290,7 +290,7 @@
     <Compile Include="Services\Cards\PricePositions\InactivePricePositionCustomization.cs" />
     <Compile Include="Services\Cards\Territories\ActiveTerritoryCustomization.cs" />
     <Compile Include="Services\Cards\Themes\ManageDefaultThemeButtonsCustomization.cs" />
-    <Compile Include="Services\Cards\ViewModelCustomizationsMetadaSource.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationsMetadataSource.cs" />
     <Compile Include="Services\Cards\Clients\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
     <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />

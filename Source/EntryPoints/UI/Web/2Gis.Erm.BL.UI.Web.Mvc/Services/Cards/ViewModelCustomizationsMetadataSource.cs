@@ -38,11 +38,11 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 {
-    public sealed class ViewModelCustomizationsMetadaSource : MetadataSourceBase<ViewModelCustomizationsIdentity>
+    public sealed class ViewModelCustomizationsMetadataSource : MetadataSourceBase<ViewModelCustomizationsIdentity>
     {
         private readonly IReadOnlyDictionary<Uri, IMetadataElement> _metadata;
 
-        public ViewModelCustomizationsMetadaSource()
+        public ViewModelCustomizationsMetadataSource()
         {
             _metadata = InitializeMetadataContainer();
         }
@@ -54,86 +54,86 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 
         private static IReadOnlyDictionary<Uri, IMetadataElement> InitializeMetadataContainer()
         {
-            IReadOnlyCollection<ViewModelCustomizationsMetada> metadataContainer =
-                new ViewModelCustomizationsMetada[]
+            IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
+                new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Account>()
                                                      .Use<AccountIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Advertisement>()
                                                      .Use<AdvertisementAccessCustomization>()
                                                      .Use<DummyAdvertisementCustomization>()
                                                      .Use<SelectedToWhiteListAdvertisementCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<AdvertisementElement>()
                                                      .Use<AdvertisementElementFasCommentCustomization>()
                                                      .Use<CheckIfAdvertisementElementReadOnly>()
                                                      .Use<ManageAdvertisementElementWorkflowButtonsCustomizations>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<AdvertisementTemplate>()
                                                      .Use<ManageAdvertisementTemplatePublicationButtonsCustomization>()
                                                      .Use<PublishedAdvertisementTemplateCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Appointment>()
                                                      .Use<DisableActivityButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<AssociatedPosition>()
                                                      .Use<AssociatedPositionsPriceIsDeletedCustomization>()
                                                      .Use<AssociatedPositionsPriceIsPublishedCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<AssociatedPositionsGroup>()
                                                      .UseOrdered<AssociatedPositionGroupIsDeletedCustomization>()
                                                      .UseOrdered<AssociatedPositionGroupsPriceIsDeletedCustomization>()
                                                      .UseOrdered<AssociatedPositionGroupsPriceIsPublishedCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Category>()
                                                      .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Client>()
                                                      .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Contact>()
                                                      .Use<BusinessModelAreaCustomization>()
                                                      .Use<ContactSalutationsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Deal>()
                                                      .Use<DisableReopenDealButtonCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<DeniedPosition>()
                                                      .UseOrdered<DeniedPositionsPriceIsPublishedCustomization>()
                                                      .UseOrdered<InactiveDeniedPositionsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Firm>()
                                                      .Use<ChangeTerritoryPrivilegeCustomization>()
                                                      .Use<FirmIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<FirmContact>()
                                                      .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<LegalPerson>()
                                                      .UseOrdered<LegalPersonDoesntHaveAnyProfilesCustomization>()
                                                      .UseOrdered<LegalPersonIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<LegalPersonProfile>()
                                                      .Use<MainLegalPersonProfileCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Limit>()
                                                      .Use<CheckIfLimitRecalculationAvailableCustomization>()
                                                      .Use<CheckLimitPrivilegeCustomization>()
@@ -141,22 +141,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<ManageLimitWorkflowButtonsCustomization>()
                                                      .Use<SetLimitInspectorNameCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<LocalMessage>()
                                                      .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Lock>()
                                                      .Use<SetReadonlyCustomization>()
                                                      .Use<NewLockCustomization>()
                                                      .Use<LocalizeLockStatusCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<LockDetail>()
                                                      .Use<LocalizeLockDetailsPriceCustomization>()
                                                      .Use<NewLockDetailCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Order>()
                                                      .Use<OrderValidationCustomization>()
                                                      .Use<InspectorNameCustomization>()
@@ -167,11 +167,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .Use<SignupDateCustomization>()
                                                      .UseOrdered<InactiveOrderCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<OrderFile>()
                                                      .Use<OrderFileAccessCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<OrderPosition>()
                                                      .Use<MoneySignificantDigitsNumberCustomization>()
                                                      .Use<HideChangeBindingObjectsButtonCustomization>()
@@ -179,50 +179,50 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                      .UseOrdered<OrderPositionRateCustomization>()
                                                      .UseOrdered<LockOrderPositionByReleaseCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<OrderProcessingRequest>()
                                                      .Use<CheckIfUserCanCreateOrderForRequestCustomization>()
                                                      .Use<ManageRequestStateButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Phonecall>()
                                                      .Use<DisableActivityButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Position>()
                                                      .Use<CheckIfPositionTemplateIsReadOnlyCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Price>()
                                                      .Use<ManagePricePublicationButtonsCustomization>()
                                                      .Use<PublishedPriceCustomization>()
                                                      .Use<InactivePriceCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<PricePosition>()
                                                      .Use<InactivePricePositionCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<ReleaseInfo>()
                                                      .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Task>()
                                                      .Use<DisableActivityButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Territory>()
                                                      .Use<ActiveTerritoryCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<Theme>()
                                                      .Use<ManageDefaultThemeButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<User>()
                                                      .Use<EntityIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetada.Config
+                        ViewModelCustomizationsMetadata.Config
                                                      .For<WithdrawalInfo>()
                                                      .Use<SetReadonlyCustomization>(),
                     };
