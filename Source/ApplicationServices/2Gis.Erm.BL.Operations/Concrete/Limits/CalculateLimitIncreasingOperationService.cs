@@ -39,6 +39,9 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
             var hasFunctionalPrivelege = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LimitManagement, _userContext.Identity.Code);
             var hasEntityAccess = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update, EntityName.Limit, _userContext.Identity.Code, limitId, limitOwnerCode, null);
 
+            // COMMENT {y.baranihin, 18.11.2014}: Нужно ли тут быть настолько строгим?
+            // Расчёт - это операция чтения, её могут выполнять многие.
+            // Я думаю, допустим случай, когда мнеджер перед тем как подавать заявку захочет посмотреть сумму сам. Надо уточнить.
             if (!hasFunctionalPrivelege || !hasEntityAccess)
             {
                 throw new OperationAccessDeniedException(CalculateLimitIncreasingIdentity.Instance);

@@ -64,6 +64,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
                 throw new OperationAccessDeniedException(IncreaseLimitIdentity.Instance);
             }
 
+            // COMMENT {y.baranihin, 18.11.2014}: IncreaseLimitIdentity?
             using (var scope = _operationScopeFactory.CreateNonCoupled<CalculateLimitIncreasingIdentity>())
             {
                 var calculatedAmountToIncrease = _accountReadModel.CalculateLimitIncreasingValue(limitId);

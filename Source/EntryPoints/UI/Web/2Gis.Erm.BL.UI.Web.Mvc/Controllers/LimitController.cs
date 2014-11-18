@@ -158,6 +158,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new EmptyResult();
         }
 
+        // COMMENT {y.baranihin, 18.11.2014}: Лучше - HttpGet. И, наверно, стоит назвать IncreaseLimit.
         [HttpPost]
         public JsonNetResult CalculateLimitIncreasing(long limitId)
         {
