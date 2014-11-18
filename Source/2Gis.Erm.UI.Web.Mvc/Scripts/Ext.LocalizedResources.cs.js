@@ -1,4 +1,4 @@
-﻿// File updated : 16.09.2014 12:46:15
+﻿// File updated : 11.11.2014 15:44:37
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -74,6 +74,7 @@ CardIsUndefined : 'Pro tuto entitu není deklarována karta pro úpravu.',
 Category : 'Rubrika',
 CategoryAlreasyExistsInTheList : 'Seznam již obsahuje rubriku "{0}".',
 CategoryName : 'Název rubriky',
+ChangeNeedToPickClient : 'Je třeba uvést klienta.',
 CheckClientsDebtsFailed : 'Nebylo možné zkontrolovat zůstatky vybraných klientů. Pravděpodobně někteří z vybraných klientů mají pohledávky.',
 Checking : 'Kontrola',
 CheckInProgressPleaseStandBy : 'Probíhá kontrola. Počkejte, prosím...',
@@ -119,6 +120,7 @@ EndDistributionDate : 'Konec zveřejnění',
 Error : 'Chyba',
 ErrorDetectedWhenChangingUseCaseState : 'Během pokusu o změnu stavu relace došlo k chybě',
 ErrorDuringOperation : 'Během provádění operace došlo k chybě',
+ErrorOnServiceAccess : 'Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.',
 ErrorRetrievingDataFromServer : 'Chyba při přijímání dat ze serveru',
 February : 'Únor',
 FieldInvalidText : 'Byla zadána nesprávná hodnota',
@@ -164,6 +166,7 @@ JustifyLeftTitle : 'Zarovnat text doleva',
 JustifyRightText : 'Zarovnání textu doprava.',
 JustifyRightTitle : 'Zarovnat text doprava.',
 LastPageText : 'Poslední strana',
+LegalPersonIsAlreadyMain : ' Tato PO již je hlavní',
 LegalPersonProfileIsAlreadyMain : 'Tento profil je již nastaven jako hlavní',
 LimitStatusApproved : 'Schválená',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Operace změny stavu limitu nejsou podporovány jako hromadné operace. Provádějte změnu stavu u limitů po jednom.',

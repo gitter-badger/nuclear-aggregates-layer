@@ -3,14 +3,11 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
@@ -19,12 +16,10 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.BLQuerying.TaskService.DI;
-using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
@@ -49,10 +44,8 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
-using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
-using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
@@ -65,8 +58,6 @@ using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories.Messaging;
-using DoubleGis.Erm.Platform.Model.Entities.EAV;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
@@ -97,7 +88,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                     new IntegrationServicesMassProcessor(container,
                                                          EntryPointSpecificLifetimeManagerFactory,
                                                          settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
@@ -117,8 +108,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
-                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                          settingsContainer.AsSettings<IIntegrationSettings>()))
+                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                    settingsContainer.AsSettings<IIntegrationSettings>()))
                             .ConfigureServiceClient();
 
             container.ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>())
@@ -186,12 +177,7 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                                                                                        MappingScope)
 
                 // services
-                // FIXME {all, 27.12.2013}: проверить действительно ли нужен PrintFormService в TaskeService или это copy/paste, на первый взгляд вся печать инициируется непосредственно пользователем 
-                .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
-                .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(Lifetime.PerScope, MappingScope)
-                            .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(
-                                Lifetime.PerScope,
-                                MappingScope)
+                .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(Lifetime.PerScope,  MappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, Lifetime.PerScope)
 
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
@@ -308,12 +294,7 @@ namespace DoubleGis.Erm.TaskService.DI
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
             {
-            return container
-                .RegisterType<IDynamicEntityPropertiesConverter<Task, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Phonecall, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Appointment, ActivityInstance, ActivityPropertyInstance>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                
-                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+            return container;
         }
     }
 }

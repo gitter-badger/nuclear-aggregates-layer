@@ -220,14 +220,11 @@ window.InitPage = function () {
                 PrintOrder: function () {
                     this.Print('PrintOrder');
                 },
-                PrintRegionalOrder: function () {
-                    this.Print('PrintRegionalOrder');
+                PrintOrderBargain: function () {
+                    this.Print('PrintOrderBargain');
                 },
-                PrintBargain: function () {
-                    this.Print('PrintBargain');
-                },
-                PrintNewSalesModelBargain: function () {
-                    this.Print('PrintNewSalesModelBargain');
+                PrintNewSalesModelOrderBargain: function () {
+                    this.Print('PrintNewSalesModelOrderBargain');
                 },
                 PrintOrderBills: function () {
                     this.Print('PrintOrderBills');
@@ -240,9 +237,6 @@ window.InitPage = function () {
                 },
                 PrintAdditionalAgreement: function () {
                     this.Print('PrintAdditionalAgreement');
-                },
-                PrintReferenceInformation: function () {
-                    this.Print('PrintReferenceInformation');
                 },
                 PrintLetterOfGuarantee: function () {
                     this.Print('PrintLetterOfGuarantee');
@@ -529,7 +523,7 @@ window.InitPage = function () {
                             Ext.get("EndReleaseNumberPlan").setValue(orderInfo.EndReleaseNumberPlan);
                             Ext.get("EndReleaseNumberFact").setValue(orderInfo.EndReleaseNumberFact);
 
-                            Ext.getCmp("BeginDistributionDate").setRawValue(new Date(orderInfo.BeginDistributionDate));
+                            Ext.getCmp("BeginDistributionDate").setValue(orderInfo.BeginDistributionDate, true);
                             Ext.getCmp("EndDistributionDatePlan").setRawValue(new Date(orderInfo.EndDistributionDatePlan));
                             Ext.getCmp("EndDistributionDateFact").setRawValue(new Date(orderInfo.EndDistributionDateFact));
                         }
@@ -641,16 +635,9 @@ window.InitPage = function () {
             Ext.getCmp("Firm").on("change", this.onFirmChanged, this);
             Ext.getCmp('SourceOrganizationUnit').on("change", this.onSourceOrganizationUnitChanged, this);
             Ext.getCmp('LegalPerson').on("change", this.onLegalPersonChanged, this);
-            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.clearBargain();
-                this.tryDetermineBargain();
-            }, this);
+            Ext.getCmp('BranchOfficeOrganizationUnit').on("change", function () { this.clearBargain(); this.tryDetermineBargain(); }, this);
             Ext.getCmp("BeginDistributionDate").on("change", function () { this.refreshReleaseDistributionInfo(); }, this);
             Ext.getCmp("LegalPerson").on("change", function () { this.resetLegalPersonProfile(); }, this);
-
-            // Если для текущей бизнес-модели должны быть заданы дополнительные обработчики событий, задаём их
-            if (this.setupCultureSpecificEventListeners) {
-                this.setupCultureSpecificEventListeners();
-            }
 
             // Обновление фирмы/юр.лица клиента/договора
             Ext.getCmp('DestinationOrganizationUnit').on("beforechange", function (cmp) {
@@ -732,6 +719,22 @@ window.InitPage = function () {
             }
         },
 
+        fillAutocalculatedValues: function() {
+            var clientIdControl = Ext.get('ClientId');
+            var firmLookup = Ext.getCmp('Firm');
+            var isNew = Ext.get("IsNew").getValue().toLowerCase() == 'true';
+            if (clientIdControl.getValue() && !firmLookup.getValue()) {
+                firmLookup.forceGetData();
+            } else if (clientIdControl.getValue() && firmLookup.getValue() && isNew) {
+                this.onFirmChanged(firmLookup);
+            }
+
+            var sourceOrganizationUnit = Ext.getCmp('SourceOrganizationUnit');
+            if (!sourceOrganizationUnit.getValue()) {
+                sourceOrganizationUnit.forceGetData();
+            }
+        },
+
         refreshDiscountRelatedAvailability: function () {
             // Блокируем поля "причина скидки", "комментарий по скидке", если скидка не задана
             var discountReason = Ext.get('DiscountReason');
@@ -753,26 +756,13 @@ window.InitPage = function () {
 
         // Обновление Отделения организации юр лица исполнителя/Валюты
         onSourceOrganizationUnitChanged: function (cmp) {
-
-            Ext.getCmp('BranchOfficeOrganizationUnit').clearValue();
+            var branchOfficeOrganizationUnitLookup = Ext.getCmp('BranchOfficeOrganizationUnit');
+            branchOfficeOrganizationUnitLookup.clearValue();
             Ext.getCmp('Currency').clearValue();
 
             if (cmp.getValue()) {
                 var sourceOrgUnitId = cmp.getValue().id;
-                this.Request({
-                    method: 'POST',
-                    url: '/Order/GetBranchOfficeOrganizationUnit',
-                    params: { organizationUnitid: sourceOrgUnitId },
-                    success: function (xhr) {
-                        var branchOfficeOrganizationUnitInfo = Ext.decode(xhr.responseText);
-                        if (branchOfficeOrganizationUnitInfo) {
-                            Ext.getCmp('BranchOfficeOrganizationUnit').setValue({ id: branchOfficeOrganizationUnitInfo.Id, name: branchOfficeOrganizationUnitInfo.Name });
-                        }
-                    },
-                    failure: function (xhr) {
-                        alert(xhr.responseText);
-                    }
-                });
+                branchOfficeOrganizationUnitLookup.forceGetData({ extendedInfo: 'Primary=true' }); // В диалоге отображаем все, автоматом посдавить можем только основное.
 
                 this.Request({
                     method: 'POST',
@@ -788,6 +778,74 @@ window.InitPage = function () {
                         alert(xhr.responseText);
                     }
                 });
+            }
+        },
+
+        onDestinationOrganizationUnit: function (cmp) {
+            this.refreshReleaseDistributionInfo();
+            if (cmp.getValue()) {
+                this.Request({
+                    method: 'POST',
+                    url: '/Order/GetHasDestOrganizationUnitPublishedPrice',
+                    params: { orderId: this.form.Id.value, orgUnitId: cmp.getValue().id },
+                    success: function (xhr) {
+                        var response = Ext.decode(xhr.responseText);
+                        Ext.fly("HasDestOrganizationUnitPublishedPrice").setValue((response && response === true) ? "true" : "false");
+                    },
+                    failure: function () {
+                        Ext.fly("HasDestOrganizationUnitPublishedPrice").setValue("false");
+                    }
+                });
+
+                // Если смена города назначения вызвана пользователем
+                if (this.destinationOrgUnitChangedByFirmChangedEvent != true) {
+                    // При смене города назначения обнулить фирму, юр. лицо клиента, договор
+                    if (this.oldDestOrgUnitId != cmp.getValue().id) {
+                        Ext.getCmp('Firm').clearValue();
+                    }
+
+                    // Если не из сделки, то очищаю поля
+                    if (!this.form.DealId.value) {
+                        Ext.getCmp('Bargain').clearValue();
+                        Ext.getCmp('LegalPerson').clearValue();
+                    }
+                }
+            }
+        },
+
+        isClientFixed: function () {
+            // Когда заказ создаётся из грида заказов или из фирмы - возможна смена клиента.
+            // В противном случае, клиент определяет возможный выбор фирм и юрлиц, но сам не меняется.
+            var parentType = Ext.get('ViewConfig_PType').getValue();
+            return parentType && parentType != "None" && parentType != 'Firm';
+        },
+
+        // Определение Юр.лица клиента/Города назначения в зависимости от фирмы
+        onFirmChanged: function (firmElement) {
+            var legalPersonLookup = Ext.getCmp('LegalPerson');
+            var destinationOrganizationUnitLookup = Ext.getCmp('DestinationOrganizationUnit');
+            var clientElement = Ext.get('ClientId');
+
+            var firmClientId = firmElement.item && firmElement.item.data && firmElement.item.data.ClientId
+                ? firmElement.item.data.ClientId
+                : clientElement.getValue();
+            if (firmElement.item && firmClientId) {
+
+                // Если при, то смена фирмы не аффектит на юр. лицо. Смена юр лица только при смене клиента фирмы
+                if (!this.isClientFixed() && clientElement.getValue() != firmClientId || !legalPersonLookup.getValue()) {
+                    clientElement.setValue(firmClientId);
+                    legalPersonLookup.forceGetData();
+                }
+
+                // Если отделение организации указано, фирмы и так будут находиться в рамках него и смена значения не нужна
+                if (!destinationOrganizationUnitLookup.getValue()) {
+                    destinationOrganizationUnitLookup.forceGetData({ extendedInfo: 'FirmId=' + firmElement.item.id }, true);
+                }
+            } else {
+                if (!this.isClientFixed()) {
+                    clientElement.setValue('');
+                    legalPersonLookup.clearValue();
+                }
             }
         },
 
@@ -810,6 +868,7 @@ window.InitPage = function () {
 
 
     this.on("afterbuild", this.initEventListeners, this);
+    this.on("afterbuild", this.fillAutocalculatedValues, this);
 
     this.on("afterrelatedlistready", function (card, details) {
         var dataListName = details.dataList.currentSettings.Name;

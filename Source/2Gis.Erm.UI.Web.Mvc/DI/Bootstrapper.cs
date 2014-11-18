@@ -12,7 +12,6 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
@@ -21,14 +20,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Concrete;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Infrastructure;
-using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
@@ -43,17 +39,19 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
-using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Security;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -115,9 +113,10 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new UIServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
+                    new ViewModelCustomizationsMassProcessor(container),
                     new EnumAdaptationMassProcessor(container),
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new ControllersProcessor(container)
                 };
 
@@ -183,7 +182,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 };
 
             interception = interception
-                            .SetInterceptorFor<MakeRegionalAdsDocsHandler>(Mapping.Erm, new VirtualMethodInterceptor())
                 .SetInterceptorForOperations<LogOperationServiceCallHandler>(config, () => Lifetime.PerResolve, resolvedParametersCreator);
 
             return interception.Container;
@@ -279,9 +277,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
 
-                .RegisterTypeWithDependencies<IJournalMakeRegionalAdsDocsService, JournalMakeRegionalAdsDocsService>(Mapping.SimplifiedModelConsumerScope, CustomLifetime.PerRequest)
-
-                .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IChangeAdvertisementElementStatusStrategiesFactory, UnityChangeAdvertisementElementStatusStrategiesFactory>(CustomLifetime.PerRequest, mappingScope)
 
@@ -297,16 +292,16 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(CustomLifetime.PerRequest, mappingScope)
 
-                .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, mappingScope)
+                .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, Mapping.ConstructorInjectionReadModelsScope)
 
                 // notification sender
                 .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>()
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
 
-                .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
+                .RegisterTypeWithDependencies<IViewModelCustomizationProvider, ViewModelCustomizationProvider>(CustomLifetime.PerRequest, mappingScope)
 
-            return container;
+                .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
@@ -347,12 +342,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
-            return container
-                .RegisterType<IActivityPropertiesConverter<Task>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Phonecall>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Appointment>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                
-                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+            return container;
         }
 
         private static IUnityContainer ConfigureMvcMetadataProvider(this IUnityContainer container)
@@ -360,7 +350,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return container.RegisterType<IUserContextProvider, UnityUserContextProvider>(Lifetime.Singleton)
                 .RegisterType<ModelMetadataProvider, LocalizedMetaDataProvider>(Lifetime.Singleton,
                                                          new InjectionConstructor(
-                                                             typeof(IUserContextProvider), new[] {MetadataResources.ResourceManager}));
+                                                             typeof(IUserContextProvider), new[] { MetadataResources.ResourceManager }));
         }
     }
 }

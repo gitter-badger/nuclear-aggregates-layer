@@ -11,14 +11,15 @@
     <?include $(var.VariablesIncludeFileName) ?>
   <?else ?>
     <?define ProductVersion = "0.0.0" ?>
+    <?define SemanticVersion = "0.0.0" ?>
     <?define EnvironmentName = "Dev" ?>
     <?define UpgradeCode = "91F6EBD1-8ADA-4FFF-BB5E-D506C35D04DC" ?>
     <?define ServiceStartType = "auto" ?>
-    <?define ServiceName = "$(var.EnvironmentName)_$(var.ProductVersion)" ?>
   <?endif ?>
 
   <!-- calculated properties -->
-  <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.ProductVersion))" ?>
+  <?define ServiceName = "$(var.EnvironmentName)_$(var.SemanticVersion)" ?>
+  <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.SemanticVersion))" ?>
 
   <!-- detect platform -->
   <?if $(var.Platform) = x64 ?>
@@ -57,104 +58,115 @@
 
     <!-- third party components -->
     <ComponentGroup Id="ThirdParty" Directory="INSTALLFOLDER">
-      <ComponentGroupRef Id="NugetThirdParty" />
       <ComponentGroupRef Id="BinaryThirdParty" />
+      <ComponentGroupRef Id="NugetThirdParty" />
+    </ComponentGroup>
+
+    <ComponentGroup Id="BinaryThirdParty" Directory="INSTALLFOLDER">
+      <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.Sdk.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Client.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Core.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Common.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Data.Common.dll" />
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="NugetThirdParty" Directory="INSTALLFOLDER">
       <?define PackagesDir = "$(var.ProjectDir)..\packages" ?>
       <Component>
-        <File Source="$(var.PackagesDir)\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
+        <File Source="!(bindpath.PackagesDir)\SevenZipSharp.0.64\lib\SevenZipSharp.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
+        <File Source="!(bindpath.PackagesDir)\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Quartz.2.2.3\lib\net40\Quartz.dll" />
+        <File Source="!(bindpath.PackagesDir)\Quartz.2.2.3\lib\net40\Quartz.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Common.Logging.2.2.0\lib\net40\Common.Logging.dll" />
+        <File Source="!(bindpath.PackagesDir)\Common.Logging.2.2.0\lib\net40\Common.Logging.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Common.Logging.Core.2.2.0\lib\net40\Common.Logging.Core.dll" />
+        <File Source="!(bindpath.PackagesDir)\Common.Logging.Core.2.2.0\lib\net40\Common.Logging.Core.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Common.Logging.Log4Net1211.2.2.0\lib\net40\Common.Logging.Log4Net1211.dll" />
+        <File Source="!(bindpath.PackagesDir)\Common.Logging.Log4Net1211.2.2.0\lib\net40\Common.Logging.Log4Net1211.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\log4net.2.0.3\lib\net40-full\log4net.dll" />
+        <File Source="!(bindpath.PackagesDir)\log4net.2.0.3\lib\net40-full\log4net.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
+        <File Source="!(bindpath.PackagesDir)\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
+        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\NEST.1.0.1\lib\Nest.dll" />
+        <File Source="!(bindpath.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Elasticsearch.Net.1.0.1\lib\Elasticsearch.Net.dll" />
+        <File Source="!(bindpath.PackagesDir)\NEST.1.2.0\lib\Nest.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.0.1\lib\Elasticsearch.Net.Connection.Thrift.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.1.2.0\lib\Elasticsearch.Net.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.Thrift.1.2.0\lib\Elasticsearch.Net.Connection.Thrift.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
+        <File Source="!(bindpath.PackagesDir)\Elasticsearch.Net.Connection.HttpClient.1.2.0\lib\net45\Elasticsearch.Net.Connection.HttpClient.dll" />
       </Component>
       <Component>
-        <File Source="$(var.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
-      </Component>
-    </ComponentGroup>
-    <ComponentGroup Id="BinaryThirdParty" Directory="INSTALLFOLDER">
-      <?define LibsDir = "$(var.ProjectDir)..\Libs" ?>
-      <Component>
-        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Xrm.Client.dll" />
+        <File Source="!(bindpath.PackagesDir)\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll" />
       </Component>
       <Component>
-        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.Sdk.dll" />
+        <File Source="!(bindpath.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.dll" />
       </Component>
       <Component>
-        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.dll" />
+        <File Source="!(bindpath.PackagesDir)\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll" />
       </Component>
       <Component>
-        <File Source="$(var.LibsDir)\Microsoft Dynamics CRM SDK 4.0.13\Microsoft.Crm.SdkTypeProxy.XmlSerializers.dll" />
+        <File Source="!(bindpath.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll" />
       </Component>
       <Component>
-        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Client.dll" />
+        <File Source="!(bindpath.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Caching.dll" />
       </Component>
       <Component>
-        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.ApplicationServer.Caching.Core.dll" />
+        <File Source="!(bindpath.PackagesDir)\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll" />
       </Component>
-      <Component>
-        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Common.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Data.Common.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll" />
-      </Component>
-      <Component>
-        <File Source="$(var.PackagesDir)\\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Caching.dll" />
-      </Component>
-    </ComponentGroup>
 
+    </ComponentGroup>
+    
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">
 
     <!-- NT service -->

@@ -23,7 +23,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
@@ -40,13 +39,13 @@ using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
-using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
-using DoubleGis.Erm.BLQuerying.DI;
 using DoubleGis.Erm.BLQuerying.DI.Config;
+using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing;
+using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -112,7 +111,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                         Mapping.Erm,
                         new Func<Type, EntitySet, IEnumerable<Type>, Type>[] { BLQueryingConflictResolver.ListServices },
                         new Func<Type, IEnumerable<Type>, Type>[0]),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory)
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -133,7 +132,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .ConfigureServiceClient();
 
             // HACK дико извиняюсь, но пока метаданные для листинга регистрируются только так, скоро поправим
-            BLFlex.DI.Config.Bootstrapper.ConfigureGlobalListing(settingsContainer.AsSettings<IGlobalizationSettings>());
+            container.ConfigureGlobalListing(settingsContainer.AsSettings<IGlobalizationSettings>());
 
             return container;
         }
@@ -209,14 +208,14 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
         }
 
         private static IUnityContainer ConfigureUnity(this IUnityContainer container,
-                                                      IEnvironmentSettings environmentSettings,
-                                                      IConnectionStringSettings connectionStringSettings,
-                                                      IGlobalizationSettings globalizationSettings,
-                                                      IMsCrmSettings msCrmSettings,
-                                                      ICachingSettings cachingSettings,
-                                                      IOperationLoggingSettings operationLoggingSettings,
-                                                      INestSettings nestSettings,
-                                                      ILoggerContextManager loggerContextManager)
+            IEnvironmentSettings environmentSettings,
+            IConnectionStringSettings connectionStringSettings,
+            IGlobalizationSettings globalizationSettings,
+            IMsCrmSettings msCrmSettings,
+            ICachingSettings cachingSettings,
+            IOperationLoggingSettings operationLoggingSettings,
+            INestSettings nestSettings,
+            ILoggerContextManager loggerContextManager)
         {
             return container
                 .ConfigureLogging(loggerContextManager)
@@ -244,7 +243,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IServiceBehavior, ErmServiceBehavior>(Lifetime.Singleton)
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .ConfigureMetadata()
-                .ConfigureElasticApi(nestSettings);
+                .ConfigureElasticApi(nestSettings)
+                .ConfigureQdsListing();
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -290,7 +290,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
                      .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerOperationContext, MappingScope)
 
-                     .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IChangeAdvertisementElementStatusStrategiesFactory, UnityChangeAdvertisementElementStatusStrategiesFactory>(CustomLifetime.PerOperationContext, MappingScope)
                      // notification sender
@@ -302,15 +301,10 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
             return container
-                .RegisterType<IActivityPropertiesConverter<Task>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Phonecall>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Appointment>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
+				.RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
                     DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
-                    BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
-
-                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+                    BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)

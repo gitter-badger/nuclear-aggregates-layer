@@ -8,7 +8,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
-using DoubleGis.Erm.BLCore.API.Common.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
@@ -71,6 +70,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Config;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.MassProcessing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
@@ -89,9 +89,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
+               // { typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
             // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
-            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
 
 
             var massProcessors = new IMassProcessor[]
@@ -117,7 +118,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                 MultipleImplementationResolvers.NonCoupled.ServerSidePreferable, 
                                 MultipleImplementationResolvers.NonCoupled.UseFirst
                             }),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                     new IntegrationServicesMassProcessor(container,
                                                          EntryPointSpecificLifetimeManagerFactory,
                                                          settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
@@ -223,9 +224,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterType<IReportsSqlConnectionWrapper, FakeReportsSqlConnectionWrapper>(Lifetime.Singleton)
 
                      .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
-                     .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
+
+                     .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
 
                      // notification sender
                      .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
@@ -289,19 +291,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
         {
             return container
-                .RegisterType<IActivityPropertiesConverter<Task>, ActivityPropertiesConverter<Task>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Phonecall>, ActivityPropertiesConverter<Phonecall>>(Lifetime.Singleton)
-                .RegisterType<IActivityPropertiesConverter<Appointment>, ActivityPropertiesConverter<Appointment>>(Lifetime.Singleton)
-                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
+				.RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>,
                     DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
                     BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
                     BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
                 .RegisterType<IDynamicEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
-                    BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
-
-                .RegisterType<IActivityDynamicPropertiesConverter, ActivityDynamicPropertiesConverter>(Lifetime.Singleton);
+                    BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton);
         }
 
         private static IUnityContainer ConfigureServiceBusInfrstructure(this IUnityContainer container)

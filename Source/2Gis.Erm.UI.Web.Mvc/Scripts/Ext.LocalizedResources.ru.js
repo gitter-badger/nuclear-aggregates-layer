@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 16.09.2014 12:46:14
+// File updated : 11.11.2014 15:44:37
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -76,6 +76,7 @@ CardIsUndefined : 'Для данной сущности не объявлена 
 Category : 'Рубрика',
 CategoryAlreasyExistsInTheList : 'Рубрика "{0}" уже присутствует в списке.',
 CategoryName : 'Название рубрики',
+ChangeNeedToPickClient : 'Необходимо указать Клиента.',
 CheckClientsDebtsFailed : 'Не удалось проверить долги выбранных клиентов. Возможно, у некоторых из выбранных клиентов имеются долги.',
 Checking : 'Проверка',
 CheckInProgressPleaseStandBy : 'Выполняется проверка. Пожалуйста, подождите...',
@@ -121,6 +122,7 @@ EndDistributionDate : 'Окончание размещения',
 Error : 'Ошибка',
 ErrorDetectedWhenChangingUseCaseState : 'Обнаружена ошибка при попытке изменить состояние сеанса',
 ErrorDuringOperation : 'Во время выполнения операции произошла ошибка',
+ErrorOnServiceAccess : 'Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.',
 ErrorRetrievingDataFromServer : 'Ошибка при получении данных с сервера',
 February : 'Февраль',
 FieldInvalidText : 'Указано неверное значение',
@@ -166,6 +168,7 @@ JustifyLeftTitle : 'Выровнять текст по левому краю',
 JustifyRightText : 'Выравнивание текста по правому краю.',
 JustifyRightTitle : 'Выровнять текст по правому краю.',
 LastPageText : 'Последняя страница',
+LegalPersonIsAlreadyMain : ' Данное юр. лицо уже является основным',
 LegalPersonProfileIsAlreadyMain : 'Данный профиль уже является основным',
 LimitStatusApproved : 'Одобрен',
 LimitStatusChangeIsNotSupportedAsTheGroupOperation : 'Операции смены статуса лимита не поддерживаются как групповые операции. Пожалуйста изменяйте статус у лимитов по одному.',
