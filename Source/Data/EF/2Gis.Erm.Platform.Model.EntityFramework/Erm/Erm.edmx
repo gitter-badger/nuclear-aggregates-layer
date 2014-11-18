@@ -11,14 +11,6 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
@@ -30,6 +22,14 @@
           <Property Name="Location" Type="nvarchar" MaxLength="256" />
           <Property Name="Purpose" Type="int" Nullable="false" />
           <Property Name="AfterSaleType" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="AppointmentReferences">
           <Key>
@@ -49,14 +49,6 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
@@ -68,6 +60,14 @@
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="200" />
           <Property Name="Purpose" Type="int" Nullable="false" />
           <Property Name="AfterSaleType" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="PhonecallReferences">
           <Key>
@@ -87,14 +87,6 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="256" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
@@ -103,6 +95,14 @@
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="TaskType" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskReferences">
           <Key>
@@ -1122,23 +1122,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="OrderId" Type="bigint" Nullable="false" />
           <Property Name="OrderValidationGroupId" Type="bigint" Nullable="false" />
-          <Property Name="OrderValidationType" Type="int" Nullable="false" />
           <Property Name="IsValid" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OrderValidationRuleGroupDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="OrderValidationGroupId" Type="bigint" Nullable="false" />
-          <Property Name="RuleCode" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OrderValidationRuleGroups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="Code" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OrganizationUnits">
           <Key>
@@ -2113,6 +2097,18 @@
           <Property Name="ModifiedOn" Type="datetime2" Precision="2" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="OrderValidationCacheEntries">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ValidatorId" />
+            <PropertyRef Name="ValidVersion" />
+            <PropertyRef Name="OperationId" />
+          </Key>
+          <Property Name="OrderId" Type="bigint" Nullable="false" />
+          <Property Name="ValidatorId" Type="int" Nullable="false" />
+          <Property Name="ValidVersion" Type="binary" MaxLength="8" Nullable="false" />
+          <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="PerformedBusinessOperations">
           <Key>
             <PropertyRef Name="Id" />
@@ -2120,12 +2116,12 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Operation" Type="int" Nullable="false" />
+          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
           <Property Name="Descriptor" Type="int" Nullable="false" />
           <Property Name="Context" Type="xml" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="2" Nullable="false" />
           <Property Name="Parent" Type="bigint" />
           <Property Name="UseCaseId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OperationEntities" Type="nvarchar" MaxLength="1024" />
         </EntityType>
         <EntityType Name="PerformedOperationFinalProcessings">
           <Key>
@@ -3649,18 +3645,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-          <End Role="OrderValidationRuleGroups" Type="Self.OrderValidationRuleGroups" Multiplicity="1" />
-          <End Role="OrderValidationRuleGroupDetails" Type="Self.OrderValidationRuleGroupDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderValidationRuleGroups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderValidationRuleGroupDetails">
-              <PropertyRef Name="OrderValidationGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrganizationUnits_Countries">
           <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
           <End Role="OrganizationUnits" Type="Self.OrganizationUnits" Multiplicity="*" />
@@ -4174,8 +4158,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="OrderReleaseTotals" EntityType="Self.OrderReleaseTotals" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrderValidationResults" EntityType="Self.OrderValidationResults" Schema="Billing" store:Type="Tables" />
-          <EntitySet Name="OrderValidationRuleGroupDetails" EntityType="Self.OrderValidationRuleGroupDetails" Schema="Billing" store:Type="Tables" />
-          <EntitySet Name="OrderValidationRuleGroups" EntityType="Self.OrderValidationRuleGroups" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="OrganizationUnits" EntityType="Self.OrganizationUnits" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="Platforms" EntityType="Self.Platforms" Schema="Billing" store:Type="Tables" />
           <EntitySet Name="PositionCategories" EntityType="Self.PositionCategories" Schema="Billing" store:Type="Tables" />
@@ -4247,6 +4229,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySet Name="NotificationEmailsTo" EntityType="Self.NotificationEmailsTo" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="NotificationProcessings" EntityType="Self.NotificationProcessings" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="Operations" EntityType="Self.Operations" Schema="Shared" store:Type="Tables" />
+          <EntitySet Name="OrderValidationCacheEntries" EntityType="Self.OrderValidationCacheEntries" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="PerformedBusinessOperations" EntityType="Self.PerformedBusinessOperations" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="PerformedOperationFinalProcessings" EntityType="Self.PerformedOperationFinalProcessings" Schema="Shared" store:Type="Tables" />
           <EntitySet Name="PerformedOperationPrimaryProcessings" EntityType="Self.PerformedOperationPrimaryProcessings" Schema="Shared" store:Type="Tables" />
@@ -4760,10 +4743,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_OrderValidationResults_Orders" Association="Self.FK_OrderValidationResults_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderValidationResults" EntitySet="OrderValidationResults" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" Association="Self.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-            <End Role="OrderValidationRuleGroups" EntitySet="OrderValidationRuleGroups" />
-            <End Role="OrderValidationRuleGroupDetails" EntitySet="OrderValidationRuleGroupDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_OrganizationUnits_Countries" Association="Self.FK_OrganizationUnits_Countries">
             <End Role="Countries" EntitySet="Countries" />
@@ -5443,12 +5422,6 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <End Role="NotificationProcessings" EntitySet="NotificationProcessings" />
         </AssociationSet>
         <EntitySet Name="CityPhoneZone" EntityType="ErmModel.CityPhoneZone" />
-        <EntitySet Name="OrderValidationRuleGroupDetails" EntityType="ErmModel.OrderValidationRuleGroupDetail" />
-        <EntitySet Name="OrderValidationRuleGroups" EntityType="ErmModel.OrderValidationRuleGroup" />
-        <AssociationSet Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" Association="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-          <End Role="OrderValidationRuleGroup" EntitySet="OrderValidationRuleGroups" />
-          <End Role="OrderValidationRuleGroupDetail" EntitySet="OrderValidationRuleGroupDetails" />
-        </AssociationSet>
         <EntitySet Name="OrderValidationResults" EntityType="ErmModel.OrderValidationResult" />
         <AssociationSet Name="FK_OrderValidationResults_Orders" Association="ErmModel.FK_OrderValidationResults_Orders">
           <End Role="Order" EntitySet="Orders" />
@@ -5749,6 +5722,11 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_LegalPersonDeals_LegalPersons" Association="ErmModel.FK_LegalPersonDeals_LegalPersons">
             <End Role="LegalPerson" EntitySet="LegalPersons" />
             <End Role="LegalPersonDeal" EntitySet="LegalPersonDeals" />
+          </AssociationSet>
+          <EntitySet Name="OrderValidationCacheEntries" EntityType="ErmModel.OrderValidationCacheEntry" />
+          <AssociationSet Name="OrderOrderValidationCacheEntry" Association="ErmModel.OrderOrderValidationCacheEntry">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderValidationCacheEntry" EntitySet="OrderValidationCacheEntries" />
           </AssociationSet>
       </EntityContainer>
       <EntityType Name="CurrencyRate">
@@ -7606,6 +7584,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Int32" Name="PaymentMethod" Nullable="false" />
           <NavigationProperty Name="BaseOrderProcessingRequests" Relationship="ErmModel.FK_OrderProcessingRequests_BaseOrders" FromRole="Order" ToRole="OrderProcessingRequest" />
           <NavigationProperty Name="RenewedOrderProcessingRequests" Relationship="ErmModel.FK_OrderProcessingRequests_RenewedOrders" FromRole="Order" ToRole="OrderProcessingRequest" />
+          <NavigationProperty Name="OrderValidationCacheEntries" Relationship="ErmModel.OrderOrderValidationCacheEntry" FromRole="Order" ToRole="OrderValidationCacheEntry" />
       </EntityType>
       <Association Name="FK_Orders_Bargains">
         <End Type="ErmModel.Bargain" Role="Bargain" Multiplicity="0..1" />
@@ -8612,45 +8591,14 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <Property Type="Boolean" Name="IsDefault" />
         <Property Type="Boolean" Name="IsDeleted" />
       </EntityType>
-      <EntityType Name="OrderValidationRuleGroupDetail">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="Int64" Name="OrderValidationGroupId" Nullable="false" />
-        <Property Type="Int32" Name="RuleCode" Nullable="false" />
-        <NavigationProperty Name="OrderValidationRuleGroup" Relationship="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" FromRole="OrderValidationRuleGroupDetail" ToRole="OrderValidationRuleGroup" />
-      </EntityType>
-      <EntityType Name="OrderValidationRuleGroup">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
-        <Property Type="Int32" Name="Code" Nullable="false" />
-        <NavigationProperty Name="OrderValidationRuleGroupDetails" Relationship="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" FromRole="OrderValidationRuleGroup" ToRole="OrderValidationRuleGroupDetail" />
-      </EntityType>
-      <Association Name="FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups">
-        <End Type="ErmModel.OrderValidationRuleGroup" Role="OrderValidationRuleGroup" Multiplicity="1" />
-        <End Type="ErmModel.OrderValidationRuleGroupDetail" Role="OrderValidationRuleGroupDetail" Multiplicity="*" />
-        <ReferentialConstraint>
-          <Principal Role="OrderValidationRuleGroup">
-            <PropertyRef Name="Id" />
-          </Principal>
-          <Dependent Role="OrderValidationRuleGroupDetail">
-            <PropertyRef Name="OrderValidationGroupId" />
-          </Dependent>
-        </ReferentialConstraint>
-      </Association>
       <EntityType Name="OrderValidationResult">
         <Key>
-          <PropertyRef Name="Id" />
+            <PropertyRef Name="Id" />
         </Key>
-        <Property Type="Int64" Name="Id" Nullable="false" />
         <Property Type="Int64" Name="OrderId" Nullable="false" />
-        <Property Type="Int64" Name="OrderValidationGroupId" Nullable="false" />
-        <Property Type="Int32" Name="OrderValidationType" Nullable="false" />
-        <Property Type="Boolean" Name="IsValid" Nullable="false" />
-        <NavigationProperty Name="Order" Relationship="ErmModel.FK_OrderValidationResults_Orders" FromRole="OrderValidationResult" ToRole="Order" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="OrderValidationGroupId" Type="Int64" Nullable="false" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
       </EntityType>
       <Association Name="FK_OrderValidationResults_Orders">
         <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
@@ -10221,6 +10169,30 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OrderValidationCacheEntry">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ValidatorId" />
+            <PropertyRef Name="ValidVersion" />
+            <PropertyRef Name="OperationId" />
+          </Key>
+          <Property Name="OrderId" Type="Int64" Nullable="false" />
+          <Property Name="ValidatorId" Type="Int32" Nullable="false" />
+          <Property Name="ValidVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" />
+          <Property Name="OperationId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="OrderOrderValidationCacheEntry">
+          <End Type="ErmModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="ErmModel.OrderValidationCacheEntry" Role="OrderValidationCacheEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderValidationCacheEntry">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
     </Schema>
   </edmx:ConceptualModels>
   <!-- C-S mapping content -->
@@ -11662,31 +11634,13 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </MappingFragment>
           </EntityTypeMapping>
         </EntitySetMapping>
-        <EntitySetMapping Name="OrderValidationRuleGroupDetails">
-          <EntityTypeMapping TypeName="ErmModel.OrderValidationRuleGroupDetail">
-            <MappingFragment StoreEntitySet="OrderValidationRuleGroupDetails">
-              <ScalarProperty Name="RuleCode" ColumnName="RuleCode" />
-              <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
-        <EntitySetMapping Name="OrderValidationRuleGroups">
-          <EntityTypeMapping TypeName="ErmModel.OrderValidationRuleGroup">
-            <MappingFragment StoreEntitySet="OrderValidationRuleGroups">
-              <ScalarProperty Name="Code" ColumnName="Code" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </MappingFragment>
-          </EntityTypeMapping>
-        </EntitySetMapping>
         <EntitySetMapping Name="OrderValidationResults">
           <EntityTypeMapping TypeName="ErmModel.OrderValidationResult">
             <MappingFragment StoreEntitySet="OrderValidationResults">
-              <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-              <ScalarProperty Name="OrderValidationType" ColumnName="OrderValidationType" />
-              <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
-              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-              <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
             </MappingFragment>
           </EntityTypeMapping>
         </EntitySetMapping>
@@ -12534,6 +12488,16 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
                 <ScalarProperty Name="DealId" ColumnName="DealId" />
                 <ScalarProperty Name="LegalPersonId" ColumnName="LegalPersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderValidationCacheEntries">
+            <EntityTypeMapping TypeName="ErmModel.OrderValidationCacheEntry">
+              <MappingFragment StoreEntitySet="OrderValidationCacheEntries">
+                <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+                <ScalarProperty Name="ValidVersion" ColumnName="ValidVersion" />
+                <ScalarProperty Name="ValidatorId" ColumnName="ValidatorId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

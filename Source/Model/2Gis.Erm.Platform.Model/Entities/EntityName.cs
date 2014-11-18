@@ -108,7 +108,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         ActionsHistory = 230, 
         ActionsHistoryDetail = 242, 
         AfterSaleServiceActivity = 231,
+        
         OrderValidationResult = 232,
+        OrderValidationCacheEntry = 271,
         CityPhoneZone = 233,
         Reference = 234,
         ReferenceItem = 235,
