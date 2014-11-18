@@ -65,7 +65,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 try
                 {
-                    var result = _closeClientBargainsOperationService.CloseClientBargains(model.CloseDate.Value);
+                    var result = _closeClientBargainsOperationService.CloseClientBargains(model.CloseDate.Value.Date);
 
                     if (result.NonClosedBargainsNumbers != null && result.NonClosedBargainsNumbers.Length > 0)
                     {

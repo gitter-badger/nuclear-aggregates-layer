@@ -39,7 +39,7 @@
     {
         @Html.Hidden("HasOpCompleted", Model.HasCompleted ? "1" : "")
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute })
+            @Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative })
         </div>
         <table cellspacing="5" width="100%" height="100%">
             <colgroup>

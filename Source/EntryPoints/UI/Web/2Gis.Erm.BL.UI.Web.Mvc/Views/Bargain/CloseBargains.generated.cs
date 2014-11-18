@@ -177,7 +177,7 @@ WriteLiteral("            ");
 
             
             #line 42 "..\..\Views\Bargain\CloseBargains.cshtml"
-       Write(Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute }));
+       Write(Html.TemplateField(m => m.CloseDate, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative }));
 
             
             #line default
