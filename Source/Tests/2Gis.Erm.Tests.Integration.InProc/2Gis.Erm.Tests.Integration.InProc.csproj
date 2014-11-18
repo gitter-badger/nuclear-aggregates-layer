@@ -53,17 +53,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,7 +102,6 @@
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Activities\ActivityReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Deals\DealReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Orders\OrderReadModelTest.cs" />
-    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Orders\Validation\OnlyWhiteListReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Release\ReleaseReadModelTest.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.SparseElementFeatues.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.SparseElement.cs" />
@@ -202,6 +201,7 @@
     <Compile Include="Suite\Concrete\Common\FinderEntityProvider.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
+    <Compile Include="Suite\Concrete\OrderValidation\AdvertisementsOnlyWhiteListOrderValidationRuleTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />

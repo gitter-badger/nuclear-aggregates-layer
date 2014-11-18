@@ -71,6 +71,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Config;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.MassProcessing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
@@ -89,9 +90,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
+               // { typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
             // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
-            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest) };
+            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
 
 
             var massProcessors = new IMassProcessor[]
@@ -117,7 +119,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                 MultipleImplementationResolvers.NonCoupled.ServerSidePreferable, 
                                 MultipleImplementationResolvers.NonCoupled.UseFirst
                             }),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                     new IntegrationServicesMassProcessor(container,
                                                          EntryPointSpecificLifetimeManagerFactory,
                                                          settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
@@ -223,9 +225,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                      .RegisterType<IReportsSqlConnectionWrapper, FakeReportsSqlConnectionWrapper>(Lifetime.Singleton)
 
                      .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
-                     .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
                      .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
+
+                     .RegisterTypeWithDependencies<IOrderValidationPredicateFactory, OrderValidationPredicateFactory>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)
 
                      // notification sender
                      .RegisterTypeWithDependencies<IOrderProcessingRequestNotificationFormatter, OrderProcessingRequestNotificationFormatter>(EntryPointSpecificLifetimeManagerFactory(), MappingScope)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.API.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.OrderValidation.Settings;
 using DoubleGis.Erm.BLCore.OrderValidation.Settings.Xml;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -23,6 +24,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.Settings
             Aspects
                .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
                .Use(new OrderValidationSettingsAspect(AssociatedDeniedPositionsDescriptionsAccessor.GetPricePositionDescriptions()))
+               .Use<OrderValidationCachingSettingsAspect>()
                .Use<CachingSettingsAspect>()
                .Use<OperationLoggingSettingsAspect>()
                .IfRequiredUseOperationLogging2ServiceBus()

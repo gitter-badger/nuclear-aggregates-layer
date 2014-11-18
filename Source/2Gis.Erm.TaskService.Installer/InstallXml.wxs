@@ -11,14 +11,15 @@
     <?include $(var.VariablesIncludeFileName) ?>
   <?else ?>
     <?define ProductVersion = "0.0.0" ?>
+    <?define SemanticVersion = "0.0.0" ?>
     <?define EnvironmentName = "Dev" ?>
     <?define UpgradeCode = "91F6EBD1-8ADA-4FFF-BB5E-D506C35D04DC" ?>
     <?define ServiceStartType = "auto" ?>
-    <?define ServiceName = "$(var.EnvironmentName)_$(var.ProductVersion)" ?>
   <?endif ?>
 
   <!-- calculated properties -->
-  <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.ProductVersion))" ?>
+  <?define ServiceName = "$(var.EnvironmentName)_$(var.SemanticVersion)" ?>
+  <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.SemanticVersion))" ?>
 
   <!-- detect platform -->
   <?if $(var.Platform) = x64 ?>
@@ -119,16 +120,19 @@
         <File Source="!(bindpath.PackagesDir)\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll" />
       </Component>
       <Component>
         <File Source="!(bindpath.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
