@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
-    public sealed class ViewModelCustomizationsMetadataBuilder : MetadataElementBuilder<ViewModelCustomizationsMetadataBuilder, ViewModelCustomizationsMetada>
+    public sealed class ViewModelCustomizationsMetadataBuilder : MetadataElementBuilder<ViewModelCustomizationsMetadataBuilder, ViewModelCustomizationsMetadata>
     {
         private Type _entityType;
         private int _currentOrder;
@@ -29,9 +29,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
             return this;
         }
 
-        protected override ViewModelCustomizationsMetada Create()
+        protected override ViewModelCustomizationsMetadata Create()
         {
-            return new ViewModelCustomizationsMetada(_entityType, Features);
+            return new ViewModelCustomizationsMetadata(_entityType, Features);
         }
     }
 }

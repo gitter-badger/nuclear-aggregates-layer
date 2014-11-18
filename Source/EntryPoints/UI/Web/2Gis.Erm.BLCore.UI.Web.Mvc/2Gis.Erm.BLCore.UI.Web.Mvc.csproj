@@ -216,7 +216,7 @@
     <Compile Include="Services\Cards\GenericViewModelCustomizationService.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationFeature.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsIdentity.cs" />
-    <Compile Include="Services\Cards\ViewModelCustomizationsMetada.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationsMetadata.cs" />
     <Compile Include="Services\Cards\ViewModelCustomizationsMetadataBuilder.cs" />
     <Compile Include="Services\Enumeration\EnumCustomizationBase.cs" />
     <Compile Include="Services\Grid\GenericEntityGridViewService.cs" />

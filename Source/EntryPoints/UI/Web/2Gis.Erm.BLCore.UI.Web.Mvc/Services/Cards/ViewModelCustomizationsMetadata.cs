@@ -8,12 +8,12 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities.Concrete;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
-    public sealed class ViewModelCustomizationsMetada : MetadataElement<ViewModelCustomizationsMetada, ViewModelCustomizationsMetadataBuilder>
+    public sealed class ViewModelCustomizationsMetadata : MetadataElement<ViewModelCustomizationsMetadata, ViewModelCustomizationsMetadataBuilder>
     {
         private readonly Type _entityType;
         private readonly IMetadataElementIdentity _identity;
 
-        public ViewModelCustomizationsMetada(Type entityType, IEnumerable<IMetadataFeature> features)
+        public ViewModelCustomizationsMetadata(Type entityType, IEnumerable<IMetadataFeature> features)
             : base(features)
         {
             _entityType = entityType;
