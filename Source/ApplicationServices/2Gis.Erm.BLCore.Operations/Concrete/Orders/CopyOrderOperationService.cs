@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         public CopyOrderResult CopyOrder(long orderId, bool isTechnicalTermination)
         {
             var orderIndex = _orderRepository.GenerateNextOrderUniqueNumber();
-            var orderToCopy = _orderReadModel.GetOrder(orderId);
+            var orderToCopy = _orderReadModel.GetOrderSecure(orderId);
             var beginDistributionDate = DateTime.UtcNow.GetNextMonthFirstDate();
             return CopyOrder(orderToCopy, orderIndex, isTechnicalTermination, beginDistributionDate, orderToCopy.ReleaseCountPlan, DiscountType.Default, orderToCopy.DealId);
         }
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         public CopyOrderResult CopyOrder(long orderId, DateTime beginDistibutionDate, short releaseCountPlan, DiscountType discountType, long newOrderDealId)
         {
             var orderIndex = _orderRepository.GenerateNextOrderUniqueNumber();
-            var orderToCopy = _orderReadModel.GetOrder(orderId);
+            var orderToCopy = _orderReadModel.GetOrderSecure(orderId);
             return CopyOrder(orderToCopy, orderIndex, false, beginDistibutionDate, releaseCountPlan, discountType, newOrderDealId);
         }
 

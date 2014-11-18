@@ -2015,12 +2015,12 @@
     <value>Vínculo de la razón social con el acuerdo</value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
-    <value>Деактивация/активация юр. лица клиента</value>
+    <value>Desactivación/activación de la razón social del cliente</value>
   </data>
   <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
-    <value>Приказа</value>
+    <value>del Decreto</value>
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
-    <value>Другое</value>
+    <value>Otro</value>
   </data>
 </root>

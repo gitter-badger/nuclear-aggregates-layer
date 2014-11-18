@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 long actualPriceId;
                 _orderReadModel.TryGetActualPriceIdForOrder(orderId, out actualPriceId);
                 ActualizeOrderPositions(currentOrderPositions, actualPriceId, resultMessages, saveDiscounts);
-                var order = _orderReadModel.GetOrder(orderId);
+                var order = _orderReadModel.GetOrderSecure(orderId);
                 _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
                     {
                         Order = order,

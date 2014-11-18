@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -20,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// Проверка информационная. Отображается на всех этапах проверок заказа кроме финальной сборки.
     /// </summary>
     [UseCase(Duration = UseCaseDuration.Long)]
-    public sealed class CategoriesForFirmAmountOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class CategoriesForFirmAmountOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -29,39 +27,22 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             const int MaxCategoriesAlowedForFirm = 20;
-            var currentFilter = filterPredicate;
+            var currentFilter = ruleContext.OrdersFilterPredicate;
             long? firmId = null;
 
-            if (request == null)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                throw new ArgumentNullException("request");
-            }
-
-            if (!IsCheckMassive)
-            {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentNullException("OrderId");
-                }
-
                 long organizationUnitId;
-                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, request.OrderId.Value, out organizationUnitId, out firmId);
-            }
-            else
-            {
-                if (request.OrganizationUnitId == null)
-                {
-                    throw new ArgumentNullException("OrganizationUnitId");
-                }
+                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
             var categoriesForFirms =
                 _finder.Find(currentFilter)
                       .SelectMany(x => x.OrderPositions)
-                      .Where(x => x.IsActive && !x.IsDeleted && (IsCheckMassive || (firmId.HasValue && x.Order.FirmId == firmId.Value)))
+                      .Where(x => x.IsActive && !x.IsDeleted && (ruleContext.ValidationParams.IsMassValidation || (firmId.HasValue && x.Order.FirmId == firmId.Value)))
                       .SelectMany(x => x.OrderPositionAdvertisements)
                       .Where(
                           x =>
@@ -79,24 +60,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                           })
                       .ToArray();
 
-            categoriesForFirms = categoriesForFirms.Where(x => x.Categories.Select(y => y.CategoryId).Distinct().Count() > MaxCategoriesAlowedForFirm).ToArray();
-
-            foreach (var categoriesForFirm in categoriesForFirms)
-            {
-                var firmDescription = GenerateDescription(EntityName.Firm, categoriesForFirm.FirmName, categoriesForFirm.FirmId);
-
-                messages.Add(
-                    new OrderValidationMessage
-                        {
-                            Type = MessageType.Warning,
-                            MessageText =
-                                string.Format(
-                                    BLResources.TooManyCategorieForFirm,
-                                    firmDescription,
-                                    categoriesForFirm.Categories.Select(y => y.CategoryId).Distinct().Count(),
-                                    MaxCategoriesAlowedForFirm)
-                        });
-            }
+            return categoriesForFirms
+                        .Where(x => x.Categories.Select(y => y.CategoryId).Distinct().Count() > MaxCategoriesAlowedForFirm)
+                        .Select(x => 
+                            new OrderValidationMessage
+                            {
+                                Type = MessageType.Warning,
+                                MessageText =
+                                    string.Format(
+                                        BLResources.TooManyCategorieForFirm,
+                                        GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Firm, x.FirmName, x.FirmId),
+                                        x.Categories.Select(y => y.CategoryId).Distinct().Count(),
+                                        MaxCategoriesAlowedForFirm)
+                            });
         }
     }
 }
