@@ -349,6 +349,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             return firmOwner == _securityServiceUserIdentifier.GetReserveUserIdentity().Code;
         }
 
+        public long GetFirmOwnerCodeUnsecure(long firmId)
+        {
+            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OwnerCode).Single();
+        }
+
         private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)
         {
             return _finder

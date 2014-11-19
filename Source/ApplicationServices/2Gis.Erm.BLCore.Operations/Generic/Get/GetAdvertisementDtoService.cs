@@ -1,11 +1,9 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -15,21 +13,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetAdvertisementDtoService : GetDomainEntityDtoServiceBase<Advertisement>
     {
-        private readonly IUserContext _userContext;
-        private readonly IFinder _unsecureFinder;
         private readonly ISecureFinder _secureFinder;
-        private readonly ISecurityServiceEntityAccessInternal _securityServiceEntityAccess;
+        private readonly IFirmReadModel _firmReadModel;
 
         public GetAdvertisementDtoService(IUserContext userContext,
-                                          ISecureFinder secureFinder,
-                                          IFinder unsecureFinder,
-                                          ISecurityServiceEntityAccessInternal securityServiceEntityAccess)
+                                          ISecureFinder secureFinder,                                          
+                                          IFirmReadModel firmReadModel)
             : base(userContext)
         {
-            _userContext = userContext;
             _secureFinder = secureFinder;
-            _unsecureFinder = unsecureFinder;
-            _securityServiceEntityAccess = securityServiceEntityAccess;
+            _firmReadModel = firmReadModel;
         }
 
         protected override IDomainEntityDto<Advertisement> GetDto(long entityId)
@@ -62,43 +55,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                  })
                              .Single();
 
-            if (dto.FirmRef.Id.HasValue)
-            {
-                var firmInfo = GetFirm(dto.FirmRef.Id.Value);
-
-                dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                   EntityName.Firm,
-                                                                                                   UserContext.Identity.Code,
-                                                                                                   firmInfo.Id,
-                                                                                                   firmInfo.OwnerCode,
-                                                                                                   firmInfo.OwnerCode);
-            }
-
             return dto;
         }
 
         protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            var dto = new AdvertisementDomainEntityDto();
-            dto.UserDoesntHaveRightsToEditFirm = false;
+            var dto = new AdvertisementDomainEntityDto();            
 
             switch (parentEntityName)
             {
                 case EntityName.Firm:
                 {
-                    var firmInfo = GetFirm(parentEntityId.Value);
+                    var firmName = _firmReadModel.GetFirmName(parentEntityId.Value);
                     dto.FirmRef = new EntityReference
                         {
                             Id = parentEntityId.Value,
-                            Name = firmInfo.Name
+                            Name = firmName
                         };
-
-                    dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                   EntityName.Firm,
-                                                                                                   UserContext.Identity.Code,
-                                                                                                   firmInfo.Id,
-                                                                                                   firmInfo.OwnerCode,
-                                                                                                   firmInfo.OwnerCode);
 
                     break;
                 }
@@ -109,19 +82,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     if (!string.IsNullOrEmpty(extendedInfo) &&
                         long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
                     {
-                        var firmInfo = GetFirm(firmId);
+                        var firmName = _firmReadModel.GetFirmName(firmId);
                         dto.FirmRef = new EntityReference
                             {
                                 Id = firmId,
-                                Name = firmInfo.Name
+                                Name = firmName
                             };
-
-                        dto.UserDoesntHaveRightsToEditFirm = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                   EntityName.Firm,
-                                                                                                   UserContext.Identity.Code,
-                                                                                                   firmInfo.Id,
-                                                                                                   firmInfo.OwnerCode,
-                                                                                                   firmInfo.OwnerCode);
                     }
 
                     long advertisementTemplateId;
@@ -172,27 +138,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 dto.IsReadOnlyTemplate = true;
             }
-        }
-
-        private FirmInfo GetFirm(long firmId)
-        {
-            // В данном случае необходимо использовать небезопасную версию файндера
-            return _unsecureFinder
-                .Find(Specs.Find.ById<Firm>(firmId))
-                .Select(x => new FirmInfo
-                    {
-                        Id = x.Id,
-                        OwnerCode = x.OwnerCode,
-                        Name = x.Name
-                    })
-                .Single();
-        }
-
-        private class FirmInfo
-        {
-            public long Id { get; set; }
-            public long OwnerCode { get; set; }
-            public string Name { get; set; }
         }
     }
 }
