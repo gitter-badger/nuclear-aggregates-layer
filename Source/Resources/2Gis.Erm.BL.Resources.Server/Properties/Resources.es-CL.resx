@@ -166,4 +166,19 @@
   <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
     <value>¡Atención! El perfil ha sido modificado. El perfil indicado será adjuntado a la orden.</value>
   </data>
+  <data name="ParentOrChildIdsNotSpecified" xml:space="preserve">
+    <value>No están indicadas las identificaciones del cliente casa matriz o afiliado</value>
+  </data>
+  <data name="InvalidEntityTypesForLinking" xml:space="preserve">
+    <value>Están indicados incorrectamente los tipos de las entidades para agregar los vínculos entre los clientes</value>
+  </data>
+  <data name="SameIdsForEntitiesToLink" xml:space="preserve">
+    <value>Identificaciones de las entidades vinculadas son iguales</value>
+  </data>
+  <data name="ClientLinkAlreadyExists" xml:space="preserve">
+    <value>Vínculo ya existe</value>
+  </data>
+  <data name="AnAdvertisingAgencyCannotBeSpecifiedAsAChildClient" xml:space="preserve">
+    <value>No se puede indicar a la agencia publicitaria como el cliente afiliado</value>
+  </data>
 </root>

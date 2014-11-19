@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
         {
             if (parentEntityName == EntityName.Order && parentEntityId.HasValue)
             {
-                var order = _orderReadModel.GetOrder(parentEntityId.Value);
+                var order = _orderReadModel.GetOrderSecure(parentEntityId.Value);
                 var hasUserRightsToEditOrder = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
                                                                                     EntityName.Order,
                                                                                     _userContext.Identity.Code,

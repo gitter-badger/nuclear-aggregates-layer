@@ -963,4 +963,7 @@
   <data name="DealMustPickOtherReason" xml:space="preserve">
     <value>Se requiere indicar otro motivo del cierre de la Transacción.</value>
   </data>
+  <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
+    <value> Esta razón social ya figura como principal</value>
+  </data>
 </root>

@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.EntryPoints.UI.Web.Mvc.Controllers.Helpers
         {
             var mock = Mock.Of<IOrderReadModel>();
             Mock.Get(mock)
-                .Setup(model => model.GetOrder(Moq.It.IsAny<long>()))
+                .Setup(model => model.GetOrderSecure(Moq.It.IsAny<long>()))
                 .Returns(order);
             return mock;
         }

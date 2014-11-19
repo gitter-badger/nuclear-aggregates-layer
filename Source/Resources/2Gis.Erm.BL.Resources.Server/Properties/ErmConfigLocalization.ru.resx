@@ -1032,9 +1032,6 @@
   <data name="CrdRelBargains" xml:space="preserve">
     <value>Договоры</value>
   </data>
-  <data name="CrdRelActions" xml:space="preserve">
-    <value>Действия</value>
-  </data>
   <data name="CrdRelErmActions" xml:space="preserve">
     <value>Действия</value>
   </data>
@@ -1337,9 +1334,6 @@
   </data>
   <data name="EnUserProfile" xml:space="preserve">
     <value>Профиль пользователя</value>
-  </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Часовые пояса</value>
   </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Часовые пояса</value>
@@ -1845,7 +1839,28 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Количество документов</value>
   </data>
+  <data name="CrdRelClientLinks" xml:space="preserve">
+    <value>Связи</value>
+  </data>
+  <data name="DListClientLinks" xml:space="preserve">
+    <value>Дочерние клиенты</value>
+  </data>
+  <data name="DListClientLinksDeleted" xml:space="preserve">
+    <value>Удалённые связи</value>
+  </data>
+  <data name="DListClientLinksMaster" xml:space="preserve">
+    <value>Родительские клиенты</value>
+  </data>
+  <data name="DListClientsAvailableForLinking" xml:space="preserve">
+    <value>Все доступные для связывания клиенты</value>
+  </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="ControlMakeMain" xml:space="preserve">
+    <value>Сделать основным</value>
+  </data>
+  <data name="DFieldIsMainLegalPerson" xml:space="preserve">
+    <value>Основное</value>
   </data>
 </root>

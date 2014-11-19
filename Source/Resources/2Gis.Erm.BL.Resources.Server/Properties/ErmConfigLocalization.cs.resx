@@ -1032,9 +1032,6 @@
   <data name="CrdRelBargains" xml:space="preserve">
     <value>Smlouvy</value>
   </data>
-  <data name="CrdRelActions" xml:space="preserve">
-    <value>Historie/plány</value>
-  </data>
   <data name="CrdRelErmActions" xml:space="preserve">
     <value>Historie/plány</value>
   </data>
@@ -1337,9 +1334,6 @@
   </data>
   <data name="EnUserProfile" xml:space="preserve">
     <value>Profil uživatele</value>
-  </data>
-  <data name="DListTimeZones" xml:space="preserve">
-    <value>Časová pásma</value>
   </data>
   <data name="EnMTimeZone" xml:space="preserve">
     <value>Časová pásma</value>
@@ -1845,7 +1839,28 @@
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Počet dokumentů</value>
   </data>
+  <data name="CrdRelClientLinks" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="DListClientLinks" xml:space="preserve">
+    <value>Zprostředkované klienty</value>
+  </data>
+  <data name="DListClientLinksDeleted" xml:space="preserve">
+    <value>Odstraněná spojení</value>
+  </data>
+  <data name="DListClientLinksMaster" xml:space="preserve">
+    <value>Zprostředkovatelé</value>
+  </data>
+  <data name="DListClientsAvailableForLinking" xml:space="preserve">
+    <value>Všichni klienti, kteří jsou dostupné pro vytvoření spojení</value>
+  </data>
   <data name="ControlPrintBargainProlongationAgreementAction" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Dohoda o prodloužení smlouvy</value>
+  </data>
+  <data name="ControlMakeMain" xml:space="preserve">
+    <value>Udělat hlavním</value>
+  </data>
+  <data name="DFieldIsMainLegalPerson" xml:space="preserve">
+    <value>Hlavní</value>
   </data>
 </root>

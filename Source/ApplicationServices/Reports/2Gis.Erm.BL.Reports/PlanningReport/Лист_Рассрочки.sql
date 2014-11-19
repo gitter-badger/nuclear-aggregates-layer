@@ -7,8 +7,9 @@ SELECT
 	[Куратор] = u.DisplayName
 	, [Юр.лицо заказчика] = lp.LegalName
 	, [Юр.лицо исполнителя] = bou.ShortLegalName
+	, [Клиент] = c.Name
 	, [Планируемый объем оплат] = bills.PayPlan
-	, [Прогнозируемый объем оплат (кроме ДЗ до 01.12)] = CASE WHEN bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) < 0 THEN 0 ELSE bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) END		
+	, [Прогнозируемый объем оплат (кроме ДЗ до 01.12)] = CASE WHEN bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast) < 0 THEN 0 ELSE bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast - ISNULL(locks2.Amount, 0)) END		
 	, [Баланс клиента на начало прогнозируемого периода] = ISNULL(payments.Balance2, 0) - ISNULL(locks.Amount, 0)
 	, [Корректировка РГ] = NULL
 	, [Примечание] = NULL
@@ -31,7 +32,7 @@ JOIN (	SELECT t.AccountId
 					AND o.WorkflowStepId NOT IN (1,2)
 					AND o.IsDeleted = 0
 					AND o.IsActive = 1
-					AND (o.EndDistributionDateFact > @IssueDate OR (o.WorkflowStepId IN (4,5,6) AND convert(date,o.EndDistributionDateFact)= DATEADD(d,-1,@IssueDate) ))
+					AND o.EndDistributionDateFact > @IssueDate
 					AND o.PayablePlan > 0
 					and o.BeginDistributionDate < dateadd(m,1,@IssueDate) -- отсекаем будующие заказы
 				GROUP BY o.Id, o.AccountId) t
@@ -52,6 +53,13 @@ LEFT JOIN(	SELECT l.AccountId
 				AND l.IsDeleted = 0
 				AND l.IsActive = 1
 		GROUP BY l.AccountId) locks ON a.Id = locks.AccountId
+LEFT JOIN(	SELECT l.AccountId
+					, [Amount] = SUM(l.PlannedAmount)
+			FROM Billing.Locks l with(nolock)
+			join Billing.Orders o with(nolock) ON o.Id = l.OrderId  AND o.WorkflowStepId NOT IN (1,2) AND o.IsDeleted = 0 AND o.IsActive = 1 AND o.EndDistributionDateFact < @IssueDate
+			WHERE l.IsDeleted = 0
+				AND l.IsActive = 1
+		GROUP BY l.AccountId) locks2 ON a.Id = locks2.AccountId
 LEFT JOIN(	SELECT l.AccountId
 					, [Amount] = SUM(ad.Amount)
 			FROM Billing.Locks l with(nolock)
