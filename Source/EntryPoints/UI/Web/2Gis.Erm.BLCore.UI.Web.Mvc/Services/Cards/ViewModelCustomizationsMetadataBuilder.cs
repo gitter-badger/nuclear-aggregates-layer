@@ -1,31 +1,36 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
-    public sealed class ViewModelCustomizationsMetadataBuilder : MetadataElementBuilder<ViewModelCustomizationsMetadataBuilder, ViewModelCustomizationsMetadata>
+    public sealed class ViewModelCustomizationsMetadataBuilder<TViewModel> : MetadataElementBuilder<ViewModelCustomizationsMetadataBuilder<TViewModel>, ViewModelCustomizationsMetadata>
+        where TViewModel : IEntityViewModelBase
     {
-        private Type _entityType;
+        private readonly Type _entityType;
         private int _currentOrder;
 
-        public ViewModelCustomizationsMetadataBuilder For<TEntity>() where TEntity : IEntity
+        public ViewModelCustomizationsMetadataBuilder(Type entityType)
         {
-            _entityType = typeof(TEntity);
+            _entityType = entityType;
+        }
+
+        public ViewModelCustomizationsMetadataBuilder()
+        {
+            throw new NotSupportedException();
+        }
+
+        public ViewModelCustomizationsMetadataBuilder<TViewModel> Use<TCustomization>() where TCustomization : IViewModelCustomization<TViewModel>
+        {
+            AddFeatures(new ViewModelCustomizationFeature<TCustomization, TViewModel>());
             return this;
         }
 
-        public ViewModelCustomizationsMetadataBuilder Use<TCustomization>() where TCustomization : IViewModelCustomization
-        {
-            AddFeatures(new ViewModelCustomizationFeature<TCustomization>());
-            return this;
-        }
-
-        public ViewModelCustomizationsMetadataBuilder UseOrdered<TCustomization>() where TCustomization : IViewModelCustomization
+        public ViewModelCustomizationsMetadataBuilder<TViewModel> UseOrdered<TCustomization>() where TCustomization : IViewModelCustomization<TViewModel>
         {
             _currentOrder++;
-            AddFeatures(new ViewModelCustomizationFeature<TCustomization>(_currentOrder));
+            AddFeatures(new ViewModelCustomizationFeature<TCustomization, TViewModel>(_currentOrder));
             return this;
         }
 

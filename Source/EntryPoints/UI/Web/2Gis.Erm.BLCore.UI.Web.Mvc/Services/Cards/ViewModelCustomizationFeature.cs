@@ -1,10 +1,13 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
-    public sealed class ViewModelCustomizationFeature<TCustomization> : IViewModelCustomizationFeature, IUniqueMetadataFeature where TCustomization : IViewModelCustomization
+    public sealed class ViewModelCustomizationFeature<TCustomization, TViewModel> : IViewModelCustomizationFeature, IUniqueMetadataFeature 
+        where TViewModel: IEntityViewModelBase
+        where TCustomization : IViewModelCustomization<TViewModel>
     {
         public ViewModelCustomizationFeature() : this(0)
         {

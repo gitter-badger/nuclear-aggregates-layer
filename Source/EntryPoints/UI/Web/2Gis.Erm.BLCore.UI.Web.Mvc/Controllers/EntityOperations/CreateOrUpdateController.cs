@@ -299,7 +299,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
         private void CustomizeModelAfterMetadataReady(TModel model)
         {
-            var viewModelCustomizationService = _uiServicesManager.GetModelCustomizationService(typeof(TEntity).AsEntityName());
+            var viewModelCustomizationService = _uiServicesManager.GetModelCustomizationService<TModel, TEntity>();
             viewModelCustomizationService.CustomizeViewModel(model, ModelState);
         }
 

@@ -6,6 +6,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
     public interface IViewModelCustomization
     {
-        void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState);
+    }
+
+    public interface IViewModelCustomization<in TModel> : IViewModelCustomization
+        where TModel : IEntityViewModelBase
+    {
+        void Customize(TModel viewModel, ModelStateDictionary modelState);
     }
 }
