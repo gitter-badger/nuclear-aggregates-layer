@@ -3,25 +3,22 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public sealed class OrderPositionRateCustomization : IViewModelCustomization
+    public sealed class OrderPositionRateCustomization : IViewModelCustomization<ICustomizableOrderPositionViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderPositionViewModel)viewModel;
-
-            if (entityViewModel.IsNew)
+            if (viewModel.IsNew)
             {
                 return;
             }
 
-            if (entityViewModel.IsRated && entityViewModel.CategoryRate != 1 && string.IsNullOrEmpty(entityViewModel.Message))
+            if (viewModel.IsRated && viewModel.CategoryRate != 1 && string.IsNullOrEmpty(viewModel.Message))
             {
                 // приведение к double используется, чтобы отбросить информацию о формате, хранящуюся в decimal и не выводить незначащие нули справа
-                entityViewModel.SetInfo(string.Format(BLResources.CategoryGroupInfoMessage, (double)entityViewModel.CategoryRate));
+                viewModel.SetInfo(string.Format(BLResources.CategoryGroupInfoMessage, (double)viewModel.CategoryRate));
             }
         }
     }

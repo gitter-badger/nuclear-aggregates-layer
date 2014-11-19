@@ -3,28 +3,25 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementTemplates
 {
-    public sealed class PublishedAdvertisementTemplateCustomization : IViewModelCustomization
+    public sealed class PublishedAdvertisementTemplateCustomization : IViewModelCustomization<AdvertisementTemplateViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(AdvertisementTemplateViewModel viewModel, ModelStateDictionary modelState)
         {
-            var advertisementTemplateModel = (AdvertisementTemplateViewModel)viewModel;
-
-            if (!advertisementTemplateModel.IsPublished)
+            if (!viewModel.IsPublished)
             {
                 return;
             }
 
-            if (advertisementTemplateModel.MessageType != MessageType.None)
+            if (viewModel.MessageType != MessageType.None)
             {
-                advertisementTemplateModel.SetInfo(BLResources.CanNotChangePublishedAdvertisementTemplate);
+                viewModel.SetInfo(BLResources.CanNotChangePublishedAdvertisementTemplate);
             }
 
-            advertisementTemplateModel.ViewConfig.ReadOnly = true;
+            viewModel.ViewConfig.ReadOnly = true;
         }
     }
 }

@@ -4,30 +4,27 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementElements
 {
-    public sealed class ManageAdvertisementElementWorkflowButtonsCustomizations : IViewModelCustomization
+    public sealed class ManageAdvertisementElementWorkflowButtonsCustomizations : IViewModelCustomization<AdvertisementElementViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(AdvertisementElementViewModel viewModel, ModelStateDictionary modelState)
         {
-            var advertisementElementModel = (AdvertisementElementViewModel)viewModel;
-
-            if (advertisementElementModel.CanUserChangeStatus || advertisementElementModel.DisableEdit)
+            if (viewModel.CanUserChangeStatus || viewModel.DisableEdit)
             {
-                advertisementElementModel.ViewConfig.DisableCardToolbarItem("ResetToDraft");
+                viewModel.ViewConfig.DisableCardToolbarItem("ResetToDraft");
             }
 
-            advertisementElementModel.ViewConfig.DisableCardToolbarItem(advertisementElementModel.Status == AdvertisementElementStatusValue.Draft
-                                                                            ? "ResetToDraft"
-                                                                            : "SaveAndVerify");
+            viewModel.ViewConfig.DisableCardToolbarItem(viewModel.Status == AdvertisementElementStatusValue.Draft
+                                                            ? "ResetToDraft"
+                                                            : "SaveAndVerify");
 
-            var itemsToDelete = advertisementElementModel.NeedsValidation ? new[] { "Save", "SaveAndClose" } : new[] { "ResetToDraft", "SaveAndVerify" };
+            var itemsToDelete = viewModel.NeedsValidation ? new[] { "Save", "SaveAndClose" } : new[] { "ResetToDraft", "SaveAndVerify" };
 
-            advertisementElementModel.ViewConfig.CardSettings.CardToolbar =
-                advertisementElementModel.ViewConfig.CardSettings.CardToolbar.Where(x => !itemsToDelete.Contains(x.Name)).ToArray();
+            viewModel.ViewConfig.CardSettings.CardToolbar =
+                viewModel.ViewConfig.CardSettings.CardToolbar.Where(x => !itemsToDelete.Contains(x.Name)).ToArray();
         }
     }
 }

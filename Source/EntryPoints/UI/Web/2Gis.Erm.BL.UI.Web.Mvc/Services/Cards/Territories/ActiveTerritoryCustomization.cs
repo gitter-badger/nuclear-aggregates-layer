@@ -3,18 +3,16 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Territories
 {
-    public sealed class ActiveTerritoryCustomization : IViewModelCustomization
+    public sealed class ActiveTerritoryCustomization : IViewModelCustomization<TerritoryViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(TerritoryViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (TerritoryViewModel)viewModel;
-            if (entityViewModel.IsActive)
+            if (viewModel.IsActive)
             {
-                entityViewModel.ViewConfig.CardSettings.CardToolbar = entityViewModel.ViewConfig.CardSettings.CardToolbar
+                viewModel.ViewConfig.CardSettings.CardToolbar = viewModel.ViewConfig.CardSettings.CardToolbar
                                                                                      .Where(x => x.Name != "Activate")
                                                                                      .ToArray();
             }

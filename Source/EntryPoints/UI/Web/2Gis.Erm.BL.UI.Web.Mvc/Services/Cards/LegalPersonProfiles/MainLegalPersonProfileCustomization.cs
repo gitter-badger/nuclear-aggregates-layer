@@ -3,19 +3,16 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersonProfiles
 {
-    public sealed class MainLegalPersonProfileCustomization : IViewModelCustomization
+    public sealed class MainLegalPersonProfileCustomization : IViewModelCustomization<ICustomizableLegalPersonProfileViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableLegalPersonProfileViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableLegalPersonProfileViewModel)viewModel;
-
-            if (entityViewModel.IsMainProfile)
+            if (viewModel.IsMainProfile)
             {
-                entityViewModel.SetInfo(BLResources.LegalPersonProfileIsMain);
+                viewModel.SetInfo(BLResources.LegalPersonProfileIsMain);
             }
         }
     }

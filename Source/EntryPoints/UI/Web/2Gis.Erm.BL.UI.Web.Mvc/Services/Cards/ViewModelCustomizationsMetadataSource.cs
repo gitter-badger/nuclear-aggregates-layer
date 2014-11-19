@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementElements;
@@ -30,6 +32,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Territories;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -57,174 +60,140 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
             IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
                 new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Account>()
-                                                     .Use<AccountIsInactiveCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Account, IEntityViewModelBase>()
+                                                       .Use<AccountIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Advertisement>()
-                                                     .Use<AdvertisementAccessCustomization>()
-                                                     .Use<DummyAdvertisementCustomization>()
-                                                     .Use<SelectedToWhiteListAdvertisementCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Advertisement, AdvertisementViewModel>()
+                                                       .Use<AdvertisementAccessCustomization>()
+                                                       .Use<DummyAdvertisementCustomization>()
+                                                       .Use<SelectedToWhiteListAdvertisementCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<AdvertisementElement>()
-                                                     .Use<AdvertisementElementFasCommentCustomization>()
-                                                     .Use<CheckIfAdvertisementElementReadOnly>()
-                                                     .Use<ManageAdvertisementElementWorkflowButtonsCustomizations>(),
+                        ViewModelCustomizationsMetadata.For<AdvertisementElement, AdvertisementElementViewModel>()
+                                                       .Use<AdvertisementElementFasCommentCustomization>()
+                                                       .Use<CheckIfAdvertisementElementReadOnly>()
+                                                       .Use<ManageAdvertisementElementWorkflowButtonsCustomizations>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<AdvertisementTemplate>()
-                                                     .Use<ManageAdvertisementTemplatePublicationButtonsCustomization>()
-                                                     .Use<PublishedAdvertisementTemplateCustomization>(),
+                        ViewModelCustomizationsMetadata.For<AdvertisementTemplate, AdvertisementTemplateViewModel>()
+                                                       .Use<ManageAdvertisementTemplatePublicationButtonsCustomization>()
+                                                       .Use<PublishedAdvertisementTemplateCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Appointment>()
-                                                     .Use<DisableActivityButtonsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Appointment, ICustomizableActivityViewModel>()
+                                                       .Use<DisableActivityButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<AssociatedPosition>()
-                                                     .Use<AssociatedPositionsPriceIsDeletedCustomization>()
-                                                     .Use<AssociatedPositionsPriceIsPublishedCustomization>(),
+                        ViewModelCustomizationsMetadata.For<AssociatedPosition, AssociatedPositionViewModel>()
+                                                       .Use<AssociatedPositionsPriceIsDeletedCustomization>()
+                                                       .Use<AssociatedPositionsPriceIsPublishedCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<AssociatedPositionsGroup>()
-                                                     .UseOrdered<AssociatedPositionGroupIsDeletedCustomization>()
-                                                     .UseOrdered<AssociatedPositionGroupsPriceIsDeletedCustomization>()
-                                                     .UseOrdered<AssociatedPositionGroupsPriceIsPublishedCustomization>(),
+                        ViewModelCustomizationsMetadata.For<AssociatedPositionsGroup, AssociatedPositionsGroupViewModel>()
+                                                       .UseOrdered<AssociatedPositionGroupIsDeletedCustomization>()
+                                                       .UseOrdered<AssociatedPositionGroupsPriceIsDeletedCustomization>()
+                                                       .UseOrdered<AssociatedPositionGroupsPriceIsPublishedCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Category>()
-                                                     .Use<SetReadonlyCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Category, IEntityViewModelBase>()
+                                                       .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Client>()
-                                                     .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Client, IEntityViewModelBase>()
+                                                       .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Contact>()
-                                                     .Use<BusinessModelAreaCustomization>()
-                                                     .Use<ContactSalutationsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Contact, ICustomizableContactViewModel>()
+                                                       .Use<BusinessModelAreaCustomization>()
+                                                       .Use<ContactSalutationsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Deal>()
-                                                     .Use<DisableReopenDealButtonCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Deal, IEntityViewModelBase>()
+                                                       .Use<DisableReopenDealButtonCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<DeniedPosition>()
-                                                     .UseOrdered<DeniedPositionsPriceIsPublishedCustomization>()
-                                                     .UseOrdered<InactiveDeniedPositionsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<DeniedPosition, DeniedPositionViewModel>()
+                                                       .UseOrdered<DeniedPositionsPriceIsPublishedCustomization>()
+                                                       .UseOrdered<InactiveDeniedPositionsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Firm>()
-                                                     .Use<ChangeTerritoryPrivilegeCustomization>()
-                                                     .Use<FirmIsInactiveCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Firm, ICustomizableFirmViewModel>()
+                                                       .Use<ChangeTerritoryPrivilegeCustomization>()
+                                                       .Use<FirmIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<FirmContact>()
-                                                     .Use<SetReadonlyCustomization>(),
+                        ViewModelCustomizationsMetadata.For<FirmContact, IEntityViewModelBase>()
+                                                       .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<LegalPerson>()
-                                                     .UseOrdered<LegalPersonDoesntHaveAnyProfilesCustomization>()
-                                                     .UseOrdered<LegalPersonIsInactiveCustomization>(),
+                        ViewModelCustomizationsMetadata.For<LegalPerson, ICustomizableLegalPersonViewModel>()
+                                                       .UseOrdered<LegalPersonDoesntHaveAnyProfilesCustomization>()
+                                                       .UseOrdered<LegalPersonIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<LegalPersonProfile>()
-                                                     .Use<MainLegalPersonProfileCustomization>(),
+                        ViewModelCustomizationsMetadata.For<LegalPersonProfile, ICustomizableLegalPersonProfileViewModel>()
+                                                       .Use<MainLegalPersonProfileCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Limit>()
-                                                     .Use<CheckIfLimitRecalculationAvailableCustomization>()
-                                                     .Use<CheckLimitPrivilegeCustomization>()
-                                                     .Use<LockLimitByWorkflowCustomization>()
-                                                     .Use<ManageLimitWorkflowButtonsCustomization>()
-                                                     .Use<SetLimitInspectorNameCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Limit, LimitViewModel>()
+                                                       .Use<CheckIfLimitRecalculationAvailableCustomization>()
+                                                       .Use<CheckLimitPrivilegeCustomization>()
+                                                       .Use<LockLimitByWorkflowCustomization>()
+                                                       .Use<ManageLimitWorkflowButtonsCustomization>()
+                                                       .Use<SetLimitInspectorNameCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<LocalMessage>()
-                                                     .Use<SetReadonlyCustomization>(),
+                        ViewModelCustomizationsMetadata.For<LocalMessage, IEntityViewModelBase>()
+                                                       .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Lock>()
-                                                     .Use<SetReadonlyCustomization>()
-                                                     .Use<NewLockCustomization>()
-                                                     .Use<LocalizeLockStatusCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Lock, LockViewModel>()
+                                                       .Use<SetReadonlyCustomization>()
+                                                       .Use<NewLockCustomization>()
+                                                       .Use<LocalizeLockStatusCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<LockDetail>()
-                                                     .Use<LocalizeLockDetailsPriceCustomization>()
-                                                     .Use<NewLockDetailCustomization>(),
+                        ViewModelCustomizationsMetadata.For<LockDetail, LockDetailViewModel>()
+                                                       .Use<LocalizeLockDetailsPriceCustomization>()
+                                                       .Use<NewLockDetailCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Order>()
-                                                     .Use<OrderValidationCustomization>()
-                                                     .Use<InspectorNameCustomization>()
-                                                     .Use<PrivilegesCustomization>()
-                                                     .Use<WorkflowStepsCustomization>()
-                                                     .Use<LockOrderByReleaseCustomization>()
-                                                     .Use<LockByWorkflowCustomization>()
-                                                     .Use<SignupDateCustomization>()
-                                                     .UseOrdered<InactiveOrderCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                                                       .Use<OrderValidationCustomization>()
+                                                       .Use<InspectorNameCustomization>()
+                                                       .Use<PrivilegesCustomization>()
+                                                       .Use<WorkflowStepsCustomization>()
+                                                       .Use<LockOrderByReleaseCustomization>()
+                                                       .Use<LockByWorkflowCustomization>()
+                                                       .Use<SignupDateCustomization>()
+                                                       .UseOrdered<InactiveOrderCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<OrderFile>()
-                                                     .Use<OrderFileAccessCustomization>(),
+                        ViewModelCustomizationsMetadata.For<OrderFile, OrderFileViewModel>()
+                                                       .Use<OrderFileAccessCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<OrderPosition>()
-                                                     .Use<MoneySignificantDigitsNumberCustomization>()
-                                                     .Use<HideChangeBindingObjectsButtonCustomization>()
-                                                     .Use<InitOrderPositionDiscountCustomization>()
-                                                     .UseOrdered<OrderPositionRateCustomization>()
-                                                     .UseOrdered<LockOrderPositionByReleaseCustomization>(),
+                        ViewModelCustomizationsMetadata.For<OrderPosition, ICustomizableOrderPositionViewModel>()
+                                                       .Use<MoneySignificantDigitsNumberCustomization>()
+                                                       .Use<HideChangeBindingObjectsButtonCustomization>()
+                                                       .Use<InitOrderPositionDiscountCustomization>()
+                                                       .UseOrdered<OrderPositionRateCustomization>()
+                                                       .UseOrdered<LockOrderPositionByReleaseCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<OrderProcessingRequest>()
-                                                     .Use<CheckIfUserCanCreateOrderForRequestCustomization>()
-                                                     .Use<ManageRequestStateButtonsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<OrderProcessingRequest, OrderProcessingRequestViewModel>()
+                                                       .Use<CheckIfUserCanCreateOrderForRequestCustomization>()
+                                                       .Use<ManageRequestStateButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Phonecall>()
-                                                     .Use<DisableActivityButtonsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Phonecall, ICustomizableActivityViewModel>()
+                                                       .Use<DisableActivityButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Position>()
-                                                     .Use<CheckIfPositionTemplateIsReadOnlyCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Position, PositionViewModel>()
+                                                       .Use<CheckIfPositionTemplateIsReadOnlyCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Price>()
-                                                     .Use<ManagePricePublicationButtonsCustomization>()
-                                                     .Use<PublishedPriceCustomization>()
-                                                     .Use<InactivePriceCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Price, PriceViewModel>()
+                                                       .Use<ManagePricePublicationButtonsCustomization>()
+                                                       .Use<PublishedPriceCustomization>()
+                                                       .Use<InactivePriceCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<PricePosition>()
-                                                     .Use<InactivePricePositionCustomization>(),
+                        ViewModelCustomizationsMetadata.For<PricePosition, IEntityViewModelBase>()
+                                                       .Use<InactivePricePositionCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<ReleaseInfo>()
-                                                     .Use<SetReadonlyCustomization>(),
+                        ViewModelCustomizationsMetadata.For<ReleaseInfo, IEntityViewModelBase>()
+                                                       .Use<SetReadonlyCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Task>()
-                                                     .Use<DisableActivityButtonsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Task, ICustomizableActivityViewModel>()
+                                                       .Use<DisableActivityButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Territory>()
-                                                     .Use<ActiveTerritoryCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Territory, TerritoryViewModel>()
+                                                       .Use<ActiveTerritoryCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Theme>()
-                                                     .Use<ManageDefaultThemeButtonsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Theme, ThemeViewModel>()
+                                                       .Use<ManageDefaultThemeButtonsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<User>()
-                                                     .Use<EntityIsInactiveCustomization>(),
+                        ViewModelCustomizationsMetadata.For<User, IEntityViewModelBase>()
+                                                       .Use<EntityIsInactiveCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<WithdrawalInfo>()
-                                                     .Use<SetReadonlyCustomization>(),
+                        ViewModelCustomizationsMetadata.For<WithdrawalInfo, IEntityViewModelBase>()
+                                                       .Use<SetReadonlyCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

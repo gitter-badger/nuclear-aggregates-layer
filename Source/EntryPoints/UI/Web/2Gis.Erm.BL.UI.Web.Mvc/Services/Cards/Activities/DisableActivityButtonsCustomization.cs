@@ -4,19 +4,17 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities
 {
-    public sealed class DisableActivityButtonsCustomization : IViewModelCustomization
+    public sealed class DisableActivityButtonsCustomization : IViewModelCustomization<ICustomizableActivityViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableActivityViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableActivityViewModel)viewModel;
             string[] buttonsToDisable;
 
-            switch (entityViewModel.Status)
+            switch (viewModel.Status)
             {
                 case ActivityStatus.InProgress:
                     buttonsToDisable = new[] { "Revert" };
@@ -24,7 +22,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities
                 case ActivityStatus.Canceled:
                 case ActivityStatus.Completed:
                     buttonsToDisable = new[] { "Complete", "Cancel" };
-                    entityViewModel.ViewConfig.ReadOnly = true;
+                    viewModel.ViewConfig.ReadOnly = true;
                     break;
                 default:
                     buttonsToDisable = new string[0];
@@ -36,7 +34,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Activities
                 buttonsToDisable = new[] { "Complete", "Cancel", "Revert" };
             }
 
-            var buttons = entityViewModel.ViewConfig.CardSettings.CardToolbar
+            var buttons = viewModel.ViewConfig.CardSettings.CardToolbar
                                          .Where(x => buttonsToDisable.Contains(x.Name)).ToArray();
 
             Array.ForEach(buttons, item => item.Disabled = true);

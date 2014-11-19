@@ -2,17 +2,14 @@
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderFiles
 {
-    public sealed class OrderFileAccessCustomization : IViewModelCustomization
+    public sealed class OrderFileAccessCustomization : IViewModelCustomization<OrderFileViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(OrderFileViewModel viewModel, ModelStateDictionary modelState)
         {
-            var orderFileModel = (OrderFileViewModel)viewModel;
-
-            orderFileModel.ViewConfig.ReadOnly |= orderFileModel.UserDoesntHaveRightsToEditOrder;
+            viewModel.ViewConfig.ReadOnly |= viewModel.UserDoesntHaveRightsToEditOrder;
         }
     }
 }

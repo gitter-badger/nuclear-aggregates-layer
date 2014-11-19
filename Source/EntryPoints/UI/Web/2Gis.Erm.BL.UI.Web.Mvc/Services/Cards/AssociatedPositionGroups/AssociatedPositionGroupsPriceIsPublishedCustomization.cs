@@ -3,24 +3,23 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups
 {
-    public sealed class AssociatedPositionGroupsPriceIsPublishedCustomization : IViewModelCustomization
+    public sealed class AssociatedPositionGroupsPriceIsPublishedCustomization : IViewModelCustomization<AssociatedPositionsGroupViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(AssociatedPositionsGroupViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (AssociatedPositionsGroupViewModel)viewModel;
-            if (!entityViewModel.PriceIsPublished)
+
+            if (!viewModel.PriceIsPublished)
             {
                 return;
             }
 
-            entityViewModel.ViewConfig.ReadOnly = true;
-            entityViewModel.SetInfo(entityViewModel.IsNew
-                                        ? BLResources.CantAddNewGroupWhenPriceIsPublished
-                                        : BLResources.CantEditGroupWhenPriceIsPublished);
+            viewModel.ViewConfig.ReadOnly = true;
+            viewModel.SetInfo(viewModel.IsNew
+                                  ? BLResources.CantAddNewGroupWhenPriceIsPublished
+                                  : BLResources.CantEditGroupWhenPriceIsPublished);
         }
     }
 }

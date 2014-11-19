@@ -5,12 +5,11 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class OrderValidationCustomization : IViewModelCustomization
+    public sealed class OrderValidationCustomization : IViewModelCustomization<ICustomizableOrderViewModel>
     {
         private readonly IAPIOrderValidationServiceSettings _orderValidationServiceSettings;
 
@@ -26,21 +25,19 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             _orderValidationServiceSettings = orderValidationServiceSettings;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
+            viewModel.OrderValidationServiceUrl = _orderValidationServiceSettings.RestUrl;
 
-            entityViewModel.OrderValidationServiceUrl = _orderValidationServiceSettings.RestUrl;
-
-            var disableOrderValidation = !_stepsWithAvailableValidation.Contains((OrderState)entityViewModel.WorkflowStepId);
+            var disableOrderValidation = !_stepsWithAvailableValidation.Contains((OrderState)viewModel.WorkflowStepId);
 
             if (disableOrderValidation)
             {
-                entityViewModel.ViewConfig.DisableCardToolbarItem("CheckOrder");
+                viewModel.ViewConfig.DisableCardToolbarItem("CheckOrder");
             }
             else
             {
-                entityViewModel.ViewConfig.EnableCardToolbarItem("CheckOrder");
+                viewModel.ViewConfig.EnableCardToolbarItem("CheckOrder");
             }
         }
     }

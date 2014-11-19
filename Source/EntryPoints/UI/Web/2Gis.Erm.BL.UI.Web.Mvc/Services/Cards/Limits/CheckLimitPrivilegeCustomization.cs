@@ -2,14 +2,13 @@
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
 {
-    public sealed class CheckLimitPrivilegeCustomization : IViewModelCustomization
+    public sealed class CheckLimitPrivilegeCustomization : IViewModelCustomization<LimitViewModel>
     {
         private readonly IUserContext _userContext;
 
@@ -21,12 +20,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
             _functionalAccessService = functionalAccessService;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(LimitViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (LimitViewModel)viewModel;
-
-            entityViewModel.HasEditPeriodPrivelege = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LimitPeriodChanging,
-                                                                                                            _userContext.Identity.Code);
+            viewModel.HasEditPeriodPrivelege = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LimitPeriodChanging,
+                                                                                                      _userContext.Identity.Code);
         }
     }
 }

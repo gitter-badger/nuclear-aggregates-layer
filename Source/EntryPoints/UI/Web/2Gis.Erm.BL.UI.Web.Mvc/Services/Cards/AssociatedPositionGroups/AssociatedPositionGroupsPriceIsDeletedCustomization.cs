@@ -3,22 +3,20 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups
 {
-    public sealed class AssociatedPositionGroupsPriceIsDeletedCustomization : IViewModelCustomization
+    public sealed class AssociatedPositionGroupsPriceIsDeletedCustomization : IViewModelCustomization<AssociatedPositionsGroupViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(AssociatedPositionsGroupViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (AssociatedPositionsGroupViewModel)viewModel;
-            if (!entityViewModel.PriceIsDeleted)
+            if (!viewModel.PriceIsDeleted)
             {
                 return;
             }
 
-            entityViewModel.ViewConfig.ReadOnly = true;
-            entityViewModel.SetInfo(BLResources.CantEditGroupWhenPriceIsDeactivated);
+            viewModel.ViewConfig.ReadOnly = true;
+            viewModel.SetInfo(BLResources.CantEditGroupWhenPriceIsDeactivated);
         }
     }
 }

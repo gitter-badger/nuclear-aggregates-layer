@@ -3,11 +3,10 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions
 {
-    public sealed class CheckIfPositionTemplateIsReadOnlyCustomization : IViewModelCustomization
+    public sealed class CheckIfPositionTemplateIsReadOnlyCustomization : IViewModelCustomization<PositionViewModel>
     {
         private readonly IPositionRepository _positionRepository;
 
@@ -16,13 +15,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions
             _positionRepository = positionRepository;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(PositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (PositionViewModel)viewModel;
-
-            if (entityViewModel.Id != 0)
+            if (viewModel.Id != 0)
             {
-                entityViewModel.IsReadonlyTemplate = _positionRepository.IsReadOnlyAdvertisementTemplate(entityViewModel.Id);
+                viewModel.IsReadonlyTemplate = _positionRepository.IsReadOnlyAdvertisementTemplate(viewModel.Id);
             }
         }
     }

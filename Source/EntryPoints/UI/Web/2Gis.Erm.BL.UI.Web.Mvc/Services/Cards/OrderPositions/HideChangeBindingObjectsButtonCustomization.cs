@@ -5,12 +5,11 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public sealed class HideChangeBindingObjectsButtonCustomization : IViewModelCustomization
+    public sealed class HideChangeBindingObjectsButtonCustomization : IViewModelCustomization<ICustomizableOrderPositionViewModel>
     {
         private readonly IPublicService _publicService;
 
@@ -19,23 +18,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
             _publicService = publicService;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderPositionViewModel)viewModel;
-
             var checkResponse = (CheckIsBindingObjectChangeAllowedResponse)
                                 _publicService.Handle(new CheckIsBindingObjectChangeAllowedRequest
-                                {
-                                    SkipAdvertisementCountCheck = true,
-                                    OrderPositionId = entityViewModel.Id,
-                                });
+                                                          {
+                                                              SkipAdvertisementCountCheck = true,
+                                                              OrderPositionId = viewModel.Id,
+                                                          });
 
             if (!checkResponse.IsChangeAllowed)
             {
-                entityViewModel.ViewConfig.CardSettings.CardToolbar = entityViewModel.ViewConfig.CardSettings.CardToolbar
-                                                                                     .Where(x =>
-                                                                                            !string.Equals(x.Name, "ChangeBindingObjects", StringComparison.Ordinal))
-                                                                                     .ToArray();
+                viewModel.ViewConfig.CardSettings.CardToolbar = viewModel.ViewConfig.CardSettings.CardToolbar
+                                                                         .Where(x =>
+                                                                                !string.Equals(x.Name, "ChangeBindingObjects", StringComparison.Ordinal))
+                                                                         .ToArray();
             }
         }
     }

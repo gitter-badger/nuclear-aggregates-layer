@@ -6,7 +6,6 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -16,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class WorkflowStepsCustomization : IViewModelCustomization
+    public sealed class WorkflowStepsCustomization : IViewModelCustomization<ICustomizableOrderViewModel>
     {
         private readonly IPublicService _publicService;
 
@@ -25,23 +24,21 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             _publicService = publicService;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
-
             modelState.SetModelValue("WorkflowStepId",
-                                     new ValueProviderResult(entityViewModel.PreviousWorkflowStepId,
-                                                             entityViewModel.PreviousWorkflowStepId.ToString(CultureInfo.InvariantCulture),
+                                     new ValueProviderResult(viewModel.PreviousWorkflowStepId,
+                                                             viewModel.PreviousWorkflowStepId.ToString(CultureInfo.InvariantCulture),
                                                              null));
 
-            entityViewModel.AvailableSteps = GetAvailableSteps(entityViewModel.Id,
-                                                               entityViewModel.IsNew,
-                                                               (OrderState)entityViewModel.WorkflowStepId,
-                                                               entityViewModel.SourceOrganizationUnit.Key);
+            viewModel.AvailableSteps = GetAvailableSteps(viewModel.Id,
+                                                               viewModel.IsNew,
+                                                               (OrderState)viewModel.WorkflowStepId,
+                                                               viewModel.SourceOrganizationUnit.Key);
 
-            if (entityViewModel.WorkflowStepId == (int)OrderState.Approved || entityViewModel.WorkflowStepId == (int)OrderState.OnTermination)
+            if (viewModel.WorkflowStepId == (int)OrderState.Approved || viewModel.WorkflowStepId == (int)OrderState.OnTermination)
             {
-                if (!entityViewModel.DestinationOrganizationUnit.Key.HasValue)
+                if (!viewModel.DestinationOrganizationUnit.Key.HasValue)
                 {
                     throw new NotificationException("Destination organization unit should be specified");
                 }

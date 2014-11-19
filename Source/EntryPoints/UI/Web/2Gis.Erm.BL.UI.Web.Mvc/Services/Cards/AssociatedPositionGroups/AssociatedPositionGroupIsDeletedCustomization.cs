@@ -3,22 +3,20 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups
 {
-    public sealed class AssociatedPositionGroupIsDeletedCustomization : IViewModelCustomization
+    public sealed class AssociatedPositionGroupIsDeletedCustomization : IViewModelCustomization<AssociatedPositionsGroupViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
-        {
-            var entityViewModel = (AssociatedPositionsGroupViewModel)viewModel;
-            if (!entityViewModel.IsDeleted)
+        public void Customize(AssociatedPositionsGroupViewModel viewModel, ModelStateDictionary modelState)
+        {            
+            if (!viewModel.IsDeleted)
             {
                 return;
             }
 
-            entityViewModel.ViewConfig.ReadOnly = true;
-            entityViewModel.SetInfo(BLResources.CantEditDeactivatedAssociatedPositionsGroup);
+            viewModel.ViewConfig.ReadOnly = true;
+            viewModel.SetInfo(BLResources.CantEditDeactivatedAssociatedPositionsGroup);
         }
     }
 }

@@ -3,20 +3,17 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Prices
 {
-    public sealed class ManagePricePublicationButtonsCustomization : IViewModelCustomization
+    public sealed class ManagePricePublicationButtonsCustomization : IViewModelCustomization<PriceViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(PriceViewModel viewModel, ModelStateDictionary modelState)
         {
-            var priceViewModel = (PriceViewModel)viewModel;
+            var publishButton = viewModel.ViewConfig.FindCardToolbarItem("PublishPrice");
+            var unpublishButton = viewModel.ViewConfig.FindCardToolbarItem("UnpublishPrice");
 
-            var publishButton = priceViewModel.ViewConfig.FindCardToolbarItem("PublishPrice");
-            var unpublishButton = priceViewModel.ViewConfig.FindCardToolbarItem("UnpublishPrice");
-
-            if (priceViewModel.IsPublished)
+            if (viewModel.IsPublished)
             {
                 publishButton.Disabled = true;
             }

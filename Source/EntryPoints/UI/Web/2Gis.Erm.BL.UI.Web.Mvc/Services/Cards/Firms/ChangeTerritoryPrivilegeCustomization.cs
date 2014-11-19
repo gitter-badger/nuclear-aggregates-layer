@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Firms
 {
-    public sealed class ChangeTerritoryPrivilegeCustomization : IViewModelCustomization
+    public sealed class ChangeTerritoryPrivilegeCustomization : IViewModelCustomization<IEntityViewModelBase>
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;

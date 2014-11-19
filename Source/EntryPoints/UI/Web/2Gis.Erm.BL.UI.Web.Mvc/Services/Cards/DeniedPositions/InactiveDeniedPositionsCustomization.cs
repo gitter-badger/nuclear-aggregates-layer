@@ -3,22 +3,20 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.DeniedPositions
 {
-    public sealed class InactiveDeniedPositionsCustomization : IViewModelCustomization
+    public sealed class InactiveDeniedPositionsCustomization : IViewModelCustomization<DeniedPositionViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(DeniedPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (DeniedPositionViewModel)viewModel;
-            if (!entityViewModel.IsDeleted)
+            if (!viewModel.IsDeleted)
             {
                 return;
             }
 
-            entityViewModel.SetInfo(BLResources.CantEditDeactivatedDeniedPosition);
-            entityViewModel.ViewConfig.ReadOnly = true;
+            viewModel.SetInfo(BLResources.CantEditDeactivatedDeniedPosition);
+            viewModel.ViewConfig.ReadOnly = true;
         }
     }
 }

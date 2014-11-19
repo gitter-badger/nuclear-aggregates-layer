@@ -2,12 +2,11 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class InspectorNameCustomization : IViewModelCustomization
+    public sealed class InspectorNameCustomization : IViewModelCustomization<ICustomizableOrderViewModel>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 
@@ -16,11 +15,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             _userIdentifierService = userIdentifierService;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
-
-            entityViewModel.Inspector.Value = _userIdentifierService.GetUserInfo(entityViewModel.Inspector.Key).DisplayName;
+            viewModel.Inspector.Value = _userIdentifierService.GetUserInfo(viewModel.Inspector.Key).DisplayName;
         }
     }
 }

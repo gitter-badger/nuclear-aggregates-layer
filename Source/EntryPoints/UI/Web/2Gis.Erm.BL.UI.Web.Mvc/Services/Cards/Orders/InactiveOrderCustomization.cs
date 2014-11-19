@@ -3,26 +3,23 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class InactiveOrderCustomization : IViewModelCustomization
+    public sealed class InactiveOrderCustomization : IViewModelCustomization<ICustomizableOrderViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
-
-            if (entityViewModel.IsNew)
+            if (viewModel.IsNew)
             {
                 return;
             }
 
-            if (!entityViewModel.IsActive)
+            if (!viewModel.IsActive)
             {
-                entityViewModel.LockToolbar();
-                entityViewModel.SetWarning(BLResources.WarningOrderIsRejected);
-                entityViewModel.ViewConfig.ReadOnly = true;
+                viewModel.LockToolbar();
+                viewModel.SetWarning(BLResources.WarningOrderIsRejected);
+                viewModel.ViewConfig.ReadOnly = true;
             }
         }
     }

@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks
 {
-    public sealed class NewLockCustomization : IViewModelCustomization
+    public sealed class NewLockCustomization : IViewModelCustomization<IEntityViewModelBase>
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {

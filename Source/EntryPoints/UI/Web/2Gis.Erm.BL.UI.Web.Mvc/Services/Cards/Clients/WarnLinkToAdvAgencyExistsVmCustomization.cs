@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Clients
 {
-    public sealed class WarnLinkToAdvAgencyExistsVmCustomization : IViewModelCustomization
+    public sealed class WarnLinkToAdvAgencyExistsVmCustomization : IViewModelCustomization<IEntityViewModelBase>
     {
         private readonly IClientReadModel _clientReadModel;
 

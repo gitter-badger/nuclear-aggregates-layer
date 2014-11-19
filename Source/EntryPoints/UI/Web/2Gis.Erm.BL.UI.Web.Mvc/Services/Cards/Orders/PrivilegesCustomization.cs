@@ -4,14 +4,13 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
-    public sealed class PrivilegesCustomization : IViewModelCustomization
+    public sealed class PrivilegesCustomization : IViewModelCustomization<ICustomizableOrderViewModel>
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -22,29 +21,27 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             _userContext = userContext;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
-
             var currentUserCode = _userContext.Identity.Code;
             Func<FunctionalPrivilegeName, bool> functionalPrivilegeValidator =
                 privilegeName => _functionalAccessService.HasFunctionalPrivilegeGranted(privilegeName, currentUserCode);
 
-            entityViewModel.CurrenctUserCode = currentUserCode;
+            viewModel.CurrenctUserCode = currentUserCode;
 
-            entityViewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
-            entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection =
+            viewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
+            viewModel.HasOrderBranchOfficeOrganizationUnitSelection =
                 functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
-            entityViewModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);
-            entityViewModel.HasOrderDocumentsDebtChecking =
-                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(entityViewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
+            viewModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);
+            viewModel.HasOrderDocumentsDebtChecking =
+                _functionalAccessService.HasOrderChangeDocumentsDebtAccess(viewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
 
             // Если есть права и нет сборки в настоящий момент 
-            entityViewModel.HasOrderDocumentsDebtChecking &= !entityViewModel.IsWorkflowLocked;
+            viewModel.HasOrderDocumentsDebtChecking &= !viewModel.IsWorkflowLocked;
 
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderChangeDealExtended, currentUserCode))
             {
-                entityViewModel.ViewConfig.DisableCardToolbarItem("ChangeDeal", false);
+                viewModel.ViewConfig.DisableCardToolbarItem("ChangeDeal", false);
             }
         }
     }

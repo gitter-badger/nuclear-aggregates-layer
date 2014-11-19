@@ -3,18 +3,16 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
 {
-    public sealed class SelectedToWhiteListAdvertisementCustomization : IViewModelCustomization
+    public sealed class SelectedToWhiteListAdvertisementCustomization : IViewModelCustomization<AdvertisementViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(AdvertisementViewModel viewModel, ModelStateDictionary modelState)
         {
-            var advertisementModel = (AdvertisementViewModel)viewModel;
-            if (advertisementModel.IsSelectedToWhiteList)
+            if (viewModel.IsSelectedToWhiteList)
             {
-                advertisementModel.SetInfo(BLResources.AdvertisementIsSelectedToWhiteList);
+                viewModel.SetInfo(BLResources.AdvertisementIsSelectedToWhiteList);
             }
         }
     }

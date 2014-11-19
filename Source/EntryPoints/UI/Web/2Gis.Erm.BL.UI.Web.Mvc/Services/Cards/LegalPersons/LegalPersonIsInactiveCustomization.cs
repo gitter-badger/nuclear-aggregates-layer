@@ -3,23 +3,20 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.LegalPersons
 {
-    public sealed class LegalPersonIsInactiveCustomization : IViewModelCustomization
+    public sealed class LegalPersonIsInactiveCustomization : IViewModelCustomization<ICustomizableLegalPersonViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableLegalPersonViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableLegalPersonViewModel)viewModel;
-
-            if (entityViewModel.IsDeleted)
+            if (viewModel.IsDeleted)
             {
-                entityViewModel.SetCriticalError(BLResources.LegalPersonIsDeletedAlertText);
+                viewModel.SetCriticalError(BLResources.LegalPersonIsDeletedAlertText);
             }
-            else if (!entityViewModel.IsActive)
+            else if (!viewModel.IsActive)
             {
-                entityViewModel.SetWarning(BLResources.LegalPersonIsInactiveAlertText);
+                viewModel.SetWarning(BLResources.LegalPersonIsInactiveAlertText);
             }
         }
     }

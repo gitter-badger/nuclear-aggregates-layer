@@ -2,12 +2,11 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
 {
-    public sealed class MoneySignificantDigitsNumberCustomization : IViewModelCustomization
+    public sealed class MoneySignificantDigitsNumberCustomization : IViewModelCustomization<ICustomizableOrderPositionViewModel>
     {
         private readonly IBusinessModelSettings _businessModelSettings;
 
@@ -16,11 +15,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions
             _businessModelSettings = businessModelSettings;
         }
 
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderPositionViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderPositionViewModel)viewModel;
-
-            entityViewModel.MoneySignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber;
+            viewModel.MoneySignificantDigitsNumber = _businessModelSettings.SignificantDigitsNumber;
         }
     }
 }

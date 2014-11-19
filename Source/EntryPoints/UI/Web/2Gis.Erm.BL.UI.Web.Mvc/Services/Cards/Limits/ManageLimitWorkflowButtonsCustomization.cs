@@ -6,26 +6,23 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Limits
 {
-    public sealed class ManageLimitWorkflowButtonsCustomization : IViewModelCustomization
+    public sealed class ManageLimitWorkflowButtonsCustomization : IViewModelCustomization<LimitViewModel>
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(LimitViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (LimitViewModel)viewModel;
+            var toolbar = viewModel.ViewConfig.CardSettings.CardToolbar.ToArray();
 
-            var toolbar = entityViewModel.ViewConfig.CardSettings.CardToolbar.ToArray();
-
-            if (entityViewModel.IsNew)
+            if (viewModel.IsNew)
             {
                 DisableButtons(toolbar, new[] { "OpenLimit", "RejectLimit", "ApproveLimit", "RecalculateLimit" });
                 return;
             }
 
-            switch (entityViewModel.Status)
+            switch (viewModel.Status)
             {
                 case LimitStatus.Opened:
                     DisableButtons(toolbar, new[] { "OpenLimit" });

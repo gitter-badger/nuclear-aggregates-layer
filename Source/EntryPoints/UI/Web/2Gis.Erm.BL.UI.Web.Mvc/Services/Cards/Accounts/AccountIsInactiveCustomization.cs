@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Accounts
 {
-    public sealed class AccountIsInactiveCustomization : IViewModelCustomization
+    public sealed class AccountIsInactiveCustomization : IViewModelCustomization<IEntityViewModelBase>
     {
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
