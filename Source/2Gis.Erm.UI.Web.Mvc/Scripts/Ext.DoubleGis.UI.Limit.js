@@ -32,8 +32,8 @@
 
             Ext.Ajax.request({
                 timeout: 1200000,
-                method: 'POST',
-                url: '/Limit/CalculateLimitIncreasing',
+                method: 'GET',
+                url: '/Limit/IncreaseLimit',
                 params: { limitId: limitId },
                 limitId: limitId,
                 scope: this,
