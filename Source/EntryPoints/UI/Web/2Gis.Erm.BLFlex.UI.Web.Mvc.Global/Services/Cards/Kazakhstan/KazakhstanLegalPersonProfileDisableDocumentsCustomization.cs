@@ -2,20 +2,17 @@ using System;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Kazakhstan
 {
-    public sealed class KazakhstanLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization, IKazakhstanAdapted
+    public sealed class KazakhstanLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization<KazakhstanLegalPersonProfileViewModel>, IKazakhstanAdapted
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(KazakhstanLegalPersonProfileViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (KazakhstanLegalPersonProfileViewModel)viewModel;
-
-            entityViewModel.DisabledDocuments = GetDisabledDocuments(entityViewModel.LegalPersonType);
+            viewModel.DisabledDocuments = GetDisabledDocuments(viewModel.LegalPersonType);
         }
 
         private static string[] GetDisabledDocuments(LegalPersonType legalPersonType)

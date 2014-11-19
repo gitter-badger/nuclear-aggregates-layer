@@ -1852,7 +1852,6 @@
     <Folder Include="Areas\Czech\EnumCustomization\" />
     <Folder Include="Areas\Kazakhstan\Models\" />
     <Folder Include="Areas\Russia\Views\AdvertisementElementStatus\" />
-    <Folder Include="Services\Cards\Contact\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

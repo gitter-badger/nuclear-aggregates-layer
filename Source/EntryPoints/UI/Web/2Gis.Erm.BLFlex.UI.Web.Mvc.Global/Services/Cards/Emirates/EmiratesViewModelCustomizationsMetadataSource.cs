@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
@@ -29,9 +30,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Emirates
             IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
                 new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Order>()
-                                                     .Use<EmiratesPrintFormsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                                                       .Use<EmiratesPrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

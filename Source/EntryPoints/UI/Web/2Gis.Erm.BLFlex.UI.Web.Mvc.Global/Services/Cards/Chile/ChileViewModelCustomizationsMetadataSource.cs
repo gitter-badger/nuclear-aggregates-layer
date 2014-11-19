@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -29,13 +31,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Chile
             IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
                 new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Order>()
-                                                     .Use<ChilePrintFormsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                                                       .Use<ChilePrintFormsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<LegalPersonProfile>()
-                                                     .Use<ChileLegalPersonProfileDisableDocumentsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<LegalPersonProfile, ChileLegalPersonProfileViewModel>()
+                                                       .Use<ChileLegalPersonProfileDisableDocumentsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
@@ -29,13 +31,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Czech
             IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
                 new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<LegalPersonProfile>()
-                                                     .Use<CzechLegalPersonProfileDisableDocumentsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<LegalPersonProfile, CzechLegalPersonProfileViewModel>()
+                                                       .Use<CzechLegalPersonProfileDisableDocumentsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Order>()
-                                                     .Use<CzechPrintFormsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                                                       .Use<CzechPrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

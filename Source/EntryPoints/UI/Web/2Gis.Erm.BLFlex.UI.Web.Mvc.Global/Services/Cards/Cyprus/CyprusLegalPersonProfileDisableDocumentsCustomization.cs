@@ -2,24 +2,21 @@
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
 {
-    public sealed class CyprusLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization, ICyprusAdapted
+    public sealed class CyprusLegalPersonProfileDisableDocumentsCustomization : IViewModelCustomization<CyprusLegalPersonProfileViewModel>, ICyprusAdapted
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(CyprusLegalPersonProfileViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (CyprusLegalPersonProfileViewModel)viewModel;
-
-            switch (entityViewModel.LegalPersonType)
+            switch (viewModel.LegalPersonType)
             {
                 case LegalPersonType.LegalPerson:
                     {
-                        entityViewModel.DisabledDocuments = new[]
+                        viewModel.DisabledDocuments = new[]
                             {
                                 OperatesOnTheBasisType.Undefined.ToString(),
                                 OperatesOnTheBasisType.Certificate.ToString()
@@ -29,7 +26,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
 
                 case LegalPersonType.Businessman:
                     {
-                        entityViewModel.DisabledDocuments = new[]
+                        viewModel.DisabledDocuments = new[]
                             {
                                 OperatesOnTheBasisType.Undefined.ToString(),
                                 OperatesOnTheBasisType.Charter.ToString(),
@@ -41,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Cyprus
 
                 case LegalPersonType.NaturalPerson:
                     {
-                        entityViewModel.DisabledDocuments = new[]
+                        viewModel.DisabledDocuments = new[]
                             {
                                 OperatesOnTheBasisType.Certificate.ToString(),
                                 OperatesOnTheBasisType.Charter.ToString(),

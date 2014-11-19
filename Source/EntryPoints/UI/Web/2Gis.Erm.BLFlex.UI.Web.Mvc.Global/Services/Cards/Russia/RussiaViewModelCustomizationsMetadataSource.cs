@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Clients;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.LegalPersonProfiles;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders;
@@ -32,17 +34,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
             IReadOnlyCollection<ViewModelCustomizationsMetadata> metadataContainer =
                 new ViewModelCustomizationsMetadata[]
                     {
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Client>()
-                                                     .Use<EditIsAdvertisingAgencyViewModelCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Client, ClientViewModel>()
+                                                       .Use<EditIsAdvertisingAgencyViewModelCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<LegalPersonProfile>()
-                                                     .Use<LegalPersonProfileDisableDocumentsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<LegalPersonProfile, LegalPersonProfileViewModel>()
+                                                       .Use<LegalPersonProfileDisableDocumentsCustomization>(),
 
-                        ViewModelCustomizationsMetadata.Config
-                                                     .For<Order>()
-                                                     .Use<PrintFormsCustomization>(),
+                        ViewModelCustomizationsMetadata.For<Order, ICustomizableOrderViewModel>()
+                                                       .Use<PrintFormsCustomization>(),
                     };
 
             return metadataContainer.ToDictionary(x => x.Identity.Id, x => (IMetadataElement)x);

@@ -3,28 +3,25 @@
 using DoubleGis.Erm.BL.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Czech
 {
-    public sealed class CzechPrintFormsCustomization : IViewModelCustomization, ICzechAdapted
+    public sealed class CzechPrintFormsCustomization : IViewModelCustomization<ICustomizableOrderViewModel>, ICzechAdapted
     {
-        public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        public void Customize(ICustomizableOrderViewModel viewModel, ModelStateDictionary modelState)
         {
-            var entityViewModel = (ICustomizableOrderViewModel)viewModel;
-
-            var isActionDisabledBasedOnWorkflowStepId = !entityViewModel.IsTerminated ||
-                                                        !(entityViewModel.WorkflowStepId == (int)OrderState.OnTermination ||
-                                                          entityViewModel.WorkflowStepId == (int)OrderState.Archive);
+            var isActionDisabledBasedOnWorkflowStepId = !viewModel.IsTerminated ||
+                                                        !(viewModel.WorkflowStepId == (int)OrderState.OnTermination ||
+                                                          viewModel.WorkflowStepId == (int)OrderState.Archive);
 
             if (isActionDisabledBasedOnWorkflowStepId)
             {
-                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
-                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction");
-                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeWithoutReasonAction");
-                entityViewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction");
+                viewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
+                viewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction");
+                viewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeWithoutReasonAction");
+                viewModel.ViewConfig.DisableCardToolbarItem("PrintBargainAdditionalAgreementAction");
             }
         }
     }
