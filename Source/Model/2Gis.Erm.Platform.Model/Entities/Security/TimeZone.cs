@@ -18,7 +18,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
 
         public long Id { get; set; }
         public string TimeZoneId { get; set; }
-        public string Description { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }

@@ -10,28 +10,25 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     [DataContract]
     public class TimeZoneDomainEntityDto : IDomainEntityDto<TimeZone>
     {
-        [DataMember]
+    	[DataMember]
         public long Id { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference TimeZoneRef { get; set; }
 
-        [DataMember]
-        public string Description { get; set; }
-
-        [DataMember]
+    	[DataMember]
         public EntityReference CreatedByRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public DateTime CreatedOn { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference ModifiedByRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public DateTime? ModifiedOn { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public byte[] Timestamp { get; set; }
     }
 }

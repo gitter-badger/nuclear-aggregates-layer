@@ -189,6 +189,8 @@
     <Compile Include="Entities\Enums\OrderProcessingRequestState.cs" />
     <Compile Include="Entities\Enums\OrderProcessingRequestType.cs" />
     <Compile Include="Entities\Enums\BargainKind.cs" />
+    <Compile Include="Entities\Enums\AdvertisingCampaignGoals.cs" />
+    <Compile Include="Entities\Enums\PaymentFormat.cs" />
     <Compile Include="Entities\Enums\PricePositionRateType.cs" />
     <Compile Include="Entities\Enums\RequestMessageType.cs" />
     <Compile Include="Entities\Enums\TaxationType.cs" />
@@ -233,6 +235,7 @@
     <Compile Include="Entities\Erm\ChargesHistory.cs" />
     <Compile Include="Entities\Erm\CityPhoneZone.cs" />
     <Compile Include="Entities\Erm\Client.cs" />
+    <Compile Include="Entities\Erm\ClientLink.cs" />
     <Compile Include="Entities\Erm\Contact.cs" />
     <Compile Include="Entities\Erm\ContributionType.cs" />
     <Compile Include="Entities\Erm\Country.cs" />
@@ -241,6 +244,7 @@
     <Compile Include="Entities\Erm\Deal.cs" />
     <Compile Include="Entities\Erm\DenialReason.cs" />
     <Compile Include="Entities\Erm\DeniedPosition.cs" />
+    <Compile Include="Entities\Erm\DenormalizedClientLink.cs" />
     <Compile Include="Entities\Erm\DepCard.cs" />
     <Compile Include="Entities\Erm\DictionaryEntityInstance.cs" />
     <Compile Include="Entities\Erm\DictionaryEntityPropertyInstance.cs" />
@@ -267,8 +271,12 @@
     <Compile Include="Entities\Erm\FirmAddress.cs" />
     <Compile Include="Entities\Erm\FirmAddressService.cs" />
     <Compile Include="Entities\Erm\FirmContact.cs" />
+    <Compile Include="Entities\Erm\FirmDeal.cs" />
     <Compile Include="Entities\Erm\HotClientRequest.cs" />
     <Compile Include="Entities\Erm\ImportedFirmAddress.cs" />
+    <Compile Include="Entities\Erm\LegalPersonDeal.cs" />
+    <Compile Include="Entities\Erm\Parts\Kazakhstan\KazakhstanLegalPersonPart.cs" />
+    <Compile Include="Entities\Erm\Parts\Kazakhstan\KazakhstanLegalPersonProfilePart.cs" />
     <Compile Include="Entities\Erm\LegalPerson.cs" />
     <Compile Include="Entities\Erm\LegalPersonProfile.cs" />
     <Compile Include="Entities\Erm\Limit.cs" />
@@ -293,6 +301,7 @@
     <Compile Include="Entities\Erm\OrderProcessingRequestMessage.cs" />
     <Compile Include="Entities\Erm\OrderReleaseTotal.cs" />
     <Compile Include="Entities\Erm\OrdersRegionalAdvertisingSharing.cs" />
+    <Compile Include="Entities\Erm\OrderValidationCacheEntry.cs" />
     <Compile Include="Entities\Erm\OrderValidationResult.cs" />
     <Compile Include="Entities\Erm\OrderValidationRuleGroup.cs" />
     <Compile Include="Entities\Erm\OrderValidationRuleGroupDetail.cs" />
@@ -387,9 +396,11 @@
     <Compile Include="Identities\Operations\Identity\Specific\Building\ImportBuildingIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Category\ImportRubricIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\CalculateClientPromisingIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\ClientLink\UpdateOrganizationStructureDenormalizationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\CreateClientByFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Client\SetMainFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Contact\RequestBirthdayCongratulationsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Deal\SetMainLegalPersonForDealIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\CreateBlankFirmsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\GetFirmInfoIdentity.cs" />
@@ -420,7 +431,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderCreationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderProlongationIdentity .cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\SelectOrderProcessingOwnerIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ResetOrderValidationResultsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\RegisterOrderStateChangesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
@@ -544,7 +555,6 @@
     <Compile Include="Aggregates\Aliases\LegalPersonAggregate.cs" />
     <Compile Include="Aggregates\Aliases\LocalMessageAggregate.cs" />
     <Compile Include="Aggregates\Aliases\OrderAggregate.cs" />
-    <Compile Include="Aggregates\Aliases\OrderValidationResultAggregate.cs" />
     <Compile Include="Aggregates\Aliases\PositionAggregate.cs" />
     <Compile Include="Aggregates\Aliases\PriceAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ReleaseAggregate.cs" />
@@ -662,7 +672,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -38,6 +38,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 EntityName.EmiratesLegalPersonPart,
                 EntityName.EmiratesLegalPersonProfilePart,
                 EntityName.EmiratesFirmAddressPart,
+                EntityName.KazakhstanLegalPersonPart,
+                EntityName.KazakhstanLegalPersonProfilePart
             };
 
         /// <summary>
@@ -101,8 +103,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(Privilege),
                 typeof(TerritoryDto),
                 typeof(OrdersRegionalAdvertisingSharing),
-                typeof(OrderValidationRuleGroup),
-                typeof(OrderValidationRuleGroupDetail),
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
@@ -132,8 +132,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(ContributionType),
                 typeof(Currency),
                 typeof(OperationType),
-                typeof(OrderValidationRuleGroupDetail),
-                typeof(OrderValidationRuleGroup),
                 typeof(OrganizationUnit),
                 typeof(Erm.Platform),
                 typeof(PositionCategory),

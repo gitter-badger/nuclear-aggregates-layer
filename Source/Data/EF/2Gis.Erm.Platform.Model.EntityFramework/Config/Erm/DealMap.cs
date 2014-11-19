@@ -25,6 +25,9 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Comment)
                 .HasMaxLength(512);
 
+            Property(t => t.AdvertisingCampaignGoalText)
+                .HasMaxLength(512);
+
             Property(t => t.Timestamp)
                 .IsRequired()
                 .IsFixedLength()
@@ -38,12 +41,19 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Name).HasColumnName("Name");
             Property(t => t.MainFirmId).HasColumnName("MainFirmId");
             Property(t => t.ClientId).HasColumnName("ClientId");
+            Property(t => t.BargainId).HasColumnName("BargainId");
             Property(t => t.CurrencyId).HasColumnName("CurrencyId");
             Property(t => t.StartReason).HasColumnName("StartReason");
             Property(t => t.CloseReason).HasColumnName("CloseReason");
             Property(t => t.CloseReasonOther).HasColumnName("CloseReasonOther");
             Property(t => t.CloseDate).HasColumnName("CloseDate");
             Property(t => t.Comment).HasColumnName("Comment");
+            Property(t => t.AdvertisingCampaignBeginDate).HasColumnName("AdvertisingCampaignBeginDate");
+            Property(t => t.AdvertisingCampaignEndDate).HasColumnName("AdvertisingCampaignEndDate");
+            Property(t => t.AdvertisingCampaignGoalText).HasColumnName("AdvertisingCampaignGoalText");
+            Property(t => t.AdvertisingCampaignGoals).HasColumnName("AdvertisingCampaignGoals");
+            Property(t => t.PaymentFormat).HasColumnName("PaymentFormat");
+            Property(t => t.AgencyFee).HasColumnName("AgencyFee");
             Property(t => t.DealStage).HasColumnName("DealStage");
             Property(t => t.IsDeleted).HasColumnName("IsDeleted");
             Property(t => t.IsActive).HasColumnName("IsActive");
@@ -55,6 +65,9 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Timestamp).HasColumnName("Timestamp");
 
             // Relationships
+            HasOptional(t => t.Bargain)
+                .WithMany(t => t.Deals)
+                .HasForeignKey(d => d.BargainId);
             HasRequired(t => t.Client)
                 .WithMany(t => t.Deals)
                 .HasForeignKey(d => d.ClientId);

@@ -25,22 +25,18 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -50,8 +46,13 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\Erm\ClientLinkMap.cs" />
     <Compile Include="Config\Erm\Conventions\DateTimePropertiesConvention.cs" />
     <Compile Include="Config\Erm\Conventions\DecimalPropertiesConvention.cs" />
+    <Compile Include="Config\Erm\DenormalizedClientLinkMap.cs" />
+    <Compile Include="Config\Erm\FirmDealMap.cs" />
+    <Compile Include="Config\Erm\LegalPersonDealMap.cs" />
+    <Compile Include="Config\Erm\OrderValidationCacheEntryMap.cs" />
     <Compile Include="DI\PlatformModelEntityFrameworkAssembly.cs" />
     <Compile Include="EntityConfig.cs" />
     <Compile Include="EntityConvention.cs" />

@@ -19,9 +19,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
                 .IsRequired()
                 .HasMaxLength(1024);
 
-            Property(t => t.Description)
-                .HasMaxLength(1024);
-
             Property(t => t.Timestamp)
                 .IsRequired()
                 .IsFixedLength()
@@ -32,7 +29,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
             ToTable("TimeZones", "Shared");
             Property(t => t.Id).HasColumnName("Id");
             Property(t => t.TimeZoneId).HasColumnName("TimeZoneId");
-            Property(t => t.Description).HasColumnName("Description");
             Property(t => t.CreatedBy).HasColumnName("CreatedBy");
             Property(t => t.CreatedOn).HasColumnName("CreatedOn");
             Property(t => t.ModifiedBy).HasColumnName("ModifiedBy");

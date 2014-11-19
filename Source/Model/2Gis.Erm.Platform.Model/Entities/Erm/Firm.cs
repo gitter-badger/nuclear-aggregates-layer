@@ -8,18 +8,18 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed class Firm :
-        IEntity,
-        IEntityKey,
-        ICuratedEntity,
-        IAuditableEntity,
-        IDeletableEntity,
-        IDeactivatableEntity,
-        IReplicableEntity,
+        IEntity, 
+        IEntityKey, 
+        ICuratedEntity, 
+        IAuditableEntity, 
+        IDeletableEntity, 
+        IDeactivatableEntity, 
+        IReplicableEntity, 
         IStateTrackingEntity
     {
         private long _ownerCode;
         private long? _oldOwnerCode;
-
+    
         public Firm()
         {
             Advertisements = new HashSet<Advertisement>();
@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             Orders = new HashSet<Order>();
             FirmAddresses = new HashSet<FirmAddress>();
             OrderProcessingRequests = new HashSet<OrderProcessingRequest>();
+            FirmDeals = new HashSet<FirmDeal>();
         }
 
         public long Id { get; set; }
@@ -48,21 +49,21 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 
-        public long OwnerCode
-        {
+        public long OwnerCode 
+    	{
             get { return _ownerCode; }
-
-            set
-            {
-                _oldOwnerCode = _ownerCode;
-                _ownerCode = value;
-            }
+    				 
+    		set
+    		{
+    			_oldOwnerCode = _ownerCode;
+    			_ownerCode = value;
+    		} 
         }
 
         long? ICuratedEntity.OldOwnerCode
         {
             get { return _oldOwnerCode; }
-        }
+    	}
 
         public long CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public InCityBranchesAmount InCityBranchesAmount { get; set; }
         public OutCityBranchesAmount OutCityBranchesAmount { get; set; }
         public StaffAmount StaffAmount { get; set; }
-
+    
         public ICollection<Advertisement> Advertisements { get; set; }
         public ICollection<Client> Clients { get; set; }
         public Client Client { get; set; }
@@ -84,36 +85,37 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<FirmAddress> FirmAddresses { get; set; }
         public Territory Territory { get; set; }
         public ICollection<OrderProcessingRequest> OrderProcessingRequests { get; set; }
-
-        public override bool Equals(object obj)
+        public ICollection<FirmDeal> FirmDeals { get; set; }
+    
+    	public override bool Equals(object obj)
         {
             if (obj == null)
             {
                 return false;
             }
-
+    
             if (GetType() != obj.GetType())
             {
                 return false;
             }
-
+    
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
-
-            var entityKey = obj as IEntityKey;
-            if (entityKey != null)
-            {
-                return Id == entityKey.Id;
-            }
-
-            return false;
+    
+    		var entityKey = obj as IEntityKey;
+    		if (entityKey != null)
+    		{
+    			return Id == entityKey.Id;
+    		}
+    		
+    		return false;
         }
-
+    
         public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+    	{
+    		return Id.GetHashCode();
+    	}
     }
 }

@@ -1,0 +1,20 @@
+using System;
+
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+namespace DoubleGis.Erm.Platform.Model.Entities.Erm
+{
+    public sealed class OrderValidationCacheEntry :
+        IEntity
+    {
+        public long OrderId { get; set; }
+        public int ValidatorId { get; set; }
+        public byte[] ValidVersion { get; set; }
+        public Guid OperationId { get; set; }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+}

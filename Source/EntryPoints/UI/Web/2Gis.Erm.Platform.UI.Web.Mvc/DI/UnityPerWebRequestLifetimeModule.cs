@@ -6,13 +6,10 @@ using DoubleGis.Erm.Platform.DAL;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
 {
-    public class UnityPerWebRequestLifetimeModule : IHttpModule
+    public sealed class UnityPerWebRequestLifetimeModule : IHttpModule
     {
+        private static readonly object SynchObject = new object();
         private static readonly object Key = new object();
-
-        public UnityPerWebRequestLifetimeModule()
-        {
-        }
 
         private HttpContextBase Context
         {
@@ -39,8 +36,8 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
             {
                 if (instances != null && instances.Count > 0)
                 {
-                    Object value = null;
-                    return instances.TryGetValue(lifetimeManagerInstance, out value)?value:null;
+                    object value;
+                    return instances.TryGetValue(lifetimeManagerInstance, out value) ? value : null;
                 }
             }
 
@@ -50,12 +47,11 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
         internal static void SetValue(HttpContextBase httpContext, UnityPerWebRequestLifetimeManager lifetimeManagerInstance, object newValue)
         {
             var instances = GetInstances(httpContext);
-
             if (instances != null)
             {
                 if (!instances.TryAdd(lifetimeManagerInstance, newValue))
                 {
-                    Object oldValue = null;
+                    object oldValue;
                     if (instances.TryGetValue(lifetimeManagerInstance, out oldValue) && !ReferenceEquals(newValue, oldValue))
                     {
                         var disposable = oldValue as IDisposable;
@@ -76,8 +72,6 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
                 }
             }
         }
-
-        private static readonly object SynchObject = new object();
 
         private static ConcurrentDictionary<UnityPerWebRequestLifetimeManager, object> GetInstances(HttpContextBase httpContext)
         {
@@ -129,8 +123,10 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
                         {
                             // Если код и так сообщает об ошибке, то незачем накидывать сверху. 
                             // В противном случае сервер сообщит об ожидающих изменениях, а не о сути проблемы.
-                            if(Context.Response.StatusCode != 500)
+                            if (Context.Response.StatusCode != 500)
+                            {
                                 httpContext.AddError(ex);
+                            }
                         }
                     }
                 }

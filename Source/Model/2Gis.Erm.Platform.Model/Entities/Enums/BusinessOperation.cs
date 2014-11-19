@@ -25,7 +25,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         CheckOrdersReadinessForRelease = 152,
         
         [Obsolete]
-        MakeRegionalAdsDocs = 153
+        MakeRegionalAdsDocs = 153,
+
+        GetOrdersWithDummyAdvertisements = 160,
     }
 
     [Obsolete("Слит в BusinessOperation. Пока оставлен как хранилище старых значений элементов enum, если придется менять значения, чтобы реализовать конвертацию. См табл. Shared.Operations")]

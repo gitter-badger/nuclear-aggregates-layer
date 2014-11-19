@@ -9,18 +9,18 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed class LegalPerson : IEntity,
-                                      IEntityKey,
-                                      ICuratedEntity,
-                                      IAuditableEntity,
-                                      IDeletableEntity,
-                                      IDeactivatableEntity,
-                                      IReplicableEntity,
+        IEntityKey, 
+        ICuratedEntity, 
+        IAuditableEntity, 
+        IDeletableEntity, 
+        IDeactivatableEntity, 
+        IReplicableEntity, 
                                       IStateTrackingEntity,
                                       IPartable
     {
         private long _ownerCode;
         private long? _oldOwnerCode;
-
+    
         public LegalPerson()
         {
             Accounts = new HashSet<Account>();
@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             LegalPersonProfiles = new HashSet<LegalPersonProfile>();
             Orders = new HashSet<Order>();
             OrderProcessingRequests = new HashSet<OrderProcessingRequest>();
+            LegalPersonDeals = new HashSet<LegalPersonDeal>();
         }
 
         public long Id { get; set; }
@@ -50,21 +51,21 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 
-        public long OwnerCode
-        {
+        public long OwnerCode 
+    	{
             get { return _ownerCode; }
-
-            set
-            {
-                _oldOwnerCode = _ownerCode;
-                _ownerCode = value;
-            }
+    				 
+    		set
+    		{
+    			_oldOwnerCode = _ownerCode;
+    			_ownerCode = value;
+    		} 
         }
 
         long? ICuratedEntity.OldOwnerCode
         {
             get { return _oldOwnerCode; }
-        }
+    	}
 
         public long CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
@@ -74,44 +75,45 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public string VAT { get; set; }
         public string CardNumber { get; set; }
         public string Ic { get; set; }
-
+    
         public ICollection<Account> Accounts { get; set; }
         public ICollection<Bargain> Bargains { get; set; }
         public Client Client { get; set; }
         public ICollection<LegalPersonProfile> LegalPersonProfiles { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<OrderProcessingRequest> OrderProcessingRequests { get; set; }
-
-        public override bool Equals(object obj)
+        public ICollection<LegalPersonDeal> LegalPersonDeals { get; set; }
+    
+    	public override bool Equals(object obj)
         {
             if (obj == null)
             {
                 return false;
             }
-
+    
             if (GetType() != obj.GetType())
             {
                 return false;
             }
-
+    
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
-
-            var entityKey = obj as IEntityKey;
-            if (entityKey != null)
-            {
-                return Id == entityKey.Id;
-            }
-
-            return false;
+    
+    		var entityKey = obj as IEntityKey;
+    		if (entityKey != null)
+    		{
+    			return Id == entityKey.Id;
+    		}
+    		
+    		return false;
         }
-
+    
         public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+    	{
+    		return Id.GetHashCode();
+    	}
 
         #region Parts
 

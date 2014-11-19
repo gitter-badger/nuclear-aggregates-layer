@@ -22,8 +22,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 
         public Bargain()
         {
-            BargainFiles = new HashSet<BargainFile>();
-            Orders = new HashSet<Order>();
+            this.BargainFiles = new HashSet<BargainFile>();
+            this.Orders = new HashSet<Order>();
+            this.Deals = new HashSet<Deal>();
         }
 
         public long Id { get; set; }
@@ -70,6 +71,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public BargainType BargainType { get; set; }
         public BranchOfficeOrganizationUnit BranchOfficeOrganizationUnit { get; set; }
         public LegalPerson LegalPerson { get; set; }
+        public ICollection<Deal> Deals { get; set; }
 
         public override bool Equals(object obj)
         {

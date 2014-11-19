@@ -13,6 +13,7 @@
         ErmRabbitMq,
         ErmValidation,
         ErmSearch,
-        ErmPerformedOperationsServiceBus
+        ErmPerformedOperationsServiceBus,
+        QuartzJobStore
     }
 }

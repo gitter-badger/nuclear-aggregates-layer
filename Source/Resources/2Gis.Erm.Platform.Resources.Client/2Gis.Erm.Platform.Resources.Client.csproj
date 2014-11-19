@@ -67,6 +67,7 @@
       <LastGenOutput>ResPlatformUI.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ResPlatformUI.kk-KZ.resx" />
     <EmbeddedResource Include="ResPlatformUI.ru.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

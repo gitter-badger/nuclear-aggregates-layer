@@ -20,13 +20,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Id).HasColumnName("Id");
             Property(t => t.OrderId).HasColumnName("OrderId");
             Property(t => t.OrderValidationGroupId).HasColumnName("OrderValidationGroupId");
-            Property(t => t.OrderValidationType).HasColumnName("OrderValidationType");
             Property(t => t.IsValid).HasColumnName("IsValid");
-
-            // Relationships
-            HasRequired(t => t.Order)
-                .WithMany(t => t.OrderValidationResults)
-                .HasForeignKey(d => d.OrderId);
         }
     }
 }

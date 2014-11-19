@@ -10,65 +10,79 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
     [DataContract]
     public class DealDomainEntityDto : IDomainEntityDto<Deal>
     {
-        [DataMember]
+    	[DataMember]
         public long Id { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public Guid ReplicationCode { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public string Name { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference MainFirmRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference ClientRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference CurrencyRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public ReasonForNewDeal StartReason { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public CloseDealReason CloseReason { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public string CloseReasonOther { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public DateTime? CloseDate { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public string Comment { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public bool IsDeleted { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public bool IsActive { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference OwnerRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference CreatedByRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public EntityReference ModifiedByRef { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public DateTime CreatedOn { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public DateTime? ModifiedOn { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public byte[] Timestamp { get; set; }
 
-        [DataMember]
+    	[DataMember]
         public DealStage DealStage { get; set; }
+    	[DataMember]
+        public EntityReference BargainRef { get; set; }
+    	[DataMember]
+        public Nullable<System.DateTime> AdvertisingCampaignBeginDate { get; set; }
+    	[DataMember]
+        public Nullable<System.DateTime> AdvertisingCampaignEndDate { get; set; }
+    	[DataMember]
+        public string AdvertisingCampaignGoalText { get; set; }
+    	[DataMember]
+        public Nullable<AdvertisingCampaignGoals> AdvertisingCampaignGoals { get; set; }
+    	[DataMember]
+        public Nullable<PaymentFormat> PaymentFormat { get; set; }
+    	[DataMember]
+        public Nullable<decimal> AgencyFee { get; set; }
 
         [DataMember]
         public Guid ClientReplicationCode { get; set; }

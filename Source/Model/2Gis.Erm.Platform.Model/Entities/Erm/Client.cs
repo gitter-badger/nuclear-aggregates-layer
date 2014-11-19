@@ -27,6 +27,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             Deals = new HashSet<Deal>();
             Firms = new HashSet<Firm>();
             LegalPersons = new HashSet<LegalPerson>();
+            ChildClientLinks = new HashSet<ClientLink>();
+            DenormalizedLinksForClientAsChild = new HashSet<DenormalizedClientLink>();
+            DenormalizedLinksForClientAsMaster = new HashSet<DenormalizedClientLink>();
         }
 
         public long Id { get; set; }
@@ -79,6 +82,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Firm Firm { get; set; }
         public ICollection<Firm> Firms { get; set; }
         public ICollection<LegalPerson> LegalPersons { get; set; }
+        public ICollection<ClientLink> ChildClientLinks { get; set; }
+        public ICollection<DenormalizedClientLink> DenormalizedLinksForClientAsChild { get; set; }
+        public ICollection<DenormalizedClientLink> DenormalizedLinksForClientAsMaster { get; set; }
 
         public override bool Equals(object obj)
         {
