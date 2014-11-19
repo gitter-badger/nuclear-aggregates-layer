@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -16,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// <summary>
     /// Проверка на наличие сканов бланка заказа и договора
     /// </summary>
-    public sealed class OrdersAndBargainsScansExistOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class OrdersAndBargainsScansExistOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -25,9 +23,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var orders = _finder.Find(filterPredicate)
+            var orders = _finder.Find(ruleContext.OrdersFilterPredicate)
                 .Select(order => new
                                      {
                                          OrderId = order.Id,
@@ -39,11 +37,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 .Where(order => !order.HasOrderScan || (order.HasBargain && !order.HasBargainScan))
                 .ToArray();
 
+            var results = new List<OrderValidationMessage>();
+
             foreach (var order in orders)
             {
                 if (!order.HasOrderScan)
                 {
-                    messages.Add(
+                    results.Add(
                         new OrderValidationMessage
                             {
                                 Type = MessageType.Warning,
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                 if (order.HasBargain && !order.HasBargainScan)
                 {
-                    messages.Add(new OrderValidationMessage
+                    results.Add(new OrderValidationMessage
                                    {
                                        Type = MessageType.Warning, 
                                        OrderId = order.OrderId,
@@ -64,6 +64,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                    });
                 }
             }
+
+            return results;
         }
     }
 }

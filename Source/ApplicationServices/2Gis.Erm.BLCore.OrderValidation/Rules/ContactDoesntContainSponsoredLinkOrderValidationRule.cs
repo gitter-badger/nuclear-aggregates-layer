@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -17,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// <summary>
     /// Проверяем, если есть продажа позиции прайс-листа с категорией "Рекламная ссылка", то данные, которые занесены в качестве РМ (URL) не должен совпадать с URL указанным контактными данными (Фирма.Адрес.Контактные данные (Тип: Web-сайт)).
     /// </summary>
-    public sealed class ContactDoesntContainSponsoredLinkOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class ContactDoesntContainSponsoredLinkOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -26,10 +24,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
             var badAdvertisemements =
-                _finder.Find(filterPredicate)
+                _finder.Find(ruleContext.OrdersFilterPredicate)
                        .SelectMany(order => order.OrderPositions)
                        .Where(orderPosition => orderPosition.IsActive && !orderPosition.IsDeleted)
                        .SelectMany(
@@ -57,29 +55,20 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                         .Where(x => x.WebContacts.Any(y => x.AdvertisementLink.Contains(y.Contact))))
                        .ToArray();
 
-            foreach (var advertisemement in badAdvertisemements)
-            {
-                var firmDescription = GenerateDescription(EntityName.Firm, advertisemement.FirmName, advertisemement.FirmId);
-                var orderDescription = GenerateDescription(EntityName.Order, advertisemement.OrderNumber, advertisemement.OrderId);
-                var positionDescription = GenerateDescription(EntityName.OrderPosition, 
-                                                              advertisemement.OrderPositionName, 
-                                                              advertisemement.OrderPositionId);
-
-                messages.Add(
-                    new OrderValidationMessage
-                        {
-                            Type = MessageType.Warning,
-                            OrderId = advertisemement.OrderId,
-                            OrderNumber = advertisemement.OrderNumber,
-                            MessageText =
-                                string.Format(
-                                    BLResources.FirmContactContainsSponsoredLinkError,
-                                    firmDescription,
-                                    advertisemement.AdvertisementLink,
-                                    positionDescription,
-                                    orderDescription)
-                        });
-            }
+            return badAdvertisemements.Select(a => 
+                                                new OrderValidationMessage
+                                                {
+                                                    Type = MessageType.Warning,
+                                                    OrderId = a.OrderId,
+                                                    OrderNumber = a.OrderNumber,
+                                                    MessageText =
+                                                        string.Format(
+                                                                        BLResources.FirmContactContainsSponsoredLinkError,
+                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityName.Firm, a.FirmName, a.FirmId),
+                                                                        a.AdvertisementLink,
+                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityName.OrderPosition, a.OrderPositionName, a.OrderPositionId),
+                                                                        GenerateDescription(ruleContext.IsMassValidation, EntityName.Order, a.OrderNumber, a.OrderId))
+                                                });
         }
     }
 }

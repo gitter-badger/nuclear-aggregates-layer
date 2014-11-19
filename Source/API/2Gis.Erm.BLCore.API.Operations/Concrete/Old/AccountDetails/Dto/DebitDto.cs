@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
         /// Дата подписания (r)
         /// </summary>
         [DataMember]
-        public DateTime SignedOnDate { get; set; }
+        public DateTime SignupDate { get; set; }
 
         /// <summary>
         /// Сумма заказа (r)
@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
                     this.ToXAttribute(() => ProfileCode, ProfileCode),
                     this.ToXAttribute(() => OrderType, OrderType),
                     this.ToXAttribute(() => OrderNumber, OrderNumber),
-                    this.ToXAttribute(() => SignedOnDate, SignedOnDate),
+                    this.ToXAttribute(() => SignupDate, SignupDate),
                     this.ToXAttribute(() => Amount, Amount),
                     this.ToXAttribute(() => MediaInfo, MediaInfo),
                     !string.IsNullOrEmpty(ClientOrderNumber) ? this.ToXAttribute(() => ClientOrderNumber, ClientOrderNumber) : null

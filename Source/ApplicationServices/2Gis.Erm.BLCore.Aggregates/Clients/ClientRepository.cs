@@ -145,22 +145,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                      .Complete();
 
                 return cnt;
-            }
+        }
         }
 
         public int Assign(Client client, long ownerCode)
         {
             using (var scope = _scopeFactory.CreateSpecificFor<AssignIdentity, Client>())
             {
-                client.OwnerCode = ownerCode;
-                _clientGenericSecureRepository.Update(client);
+            client.OwnerCode = ownerCode;
+            _clientGenericSecureRepository.Update(client);
                 var cnt = _clientGenericSecureRepository.Save();
 
                 scope.Updated(client)
                      .Complete();
 
                 return cnt;
-            }
+        }
         }
 
         public int AssignWithRelatedEntities(long clientId, long ownerCode, bool isPartialAssign)
@@ -322,12 +322,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     throw new ArgumentException(BLResources.QualifyClientMustInReserve);
                 }
 
-                var reserveRights =
-                    GetMaxAccessForReserve(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.ReserveAccess, currentUserCode));
+                var reserveRights = GetMaxAccessForReserve(_functionalAccessService.GetFunctionalPrivilege(FunctionalPrivilegeName.ReserveAccess, currentUserCode));
                 switch (reserveRights)
                 {
                     case ReserveAccess.None:
                         throw new ArgumentException(BLResources.QualifyReserveOperationDenied);
+
                     case ReserveAccess.Territory:
                     {
                         var withinTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
@@ -552,8 +552,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, Client>())
             {
-                client.IsActive = false;
-                _clientGenericSecureRepository.Update(client);
+            client.IsActive = false;
+            _clientGenericSecureRepository.Update(client);
                 _clientGenericSecureRepository.Save();
                 scope.Updated(client)
                      .Complete();
@@ -584,7 +584,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         public void CalculatePromising(long modifiedBy)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<CalculateClientPromisingIdentity>())
-            {
+        {
                 var changedEntities = _clientPersistenceService.CalculateClientPromising(modifiedBy, TimeSpan.FromHours(1));
 
                 scope.ApplyChanges<Client>(changedEntities)
@@ -829,7 +829,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             foreach (var phonecall in LookupPhonecallsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
                 Assign(phonecall, newOwnerCode);
-            }
+        }
             foreach (var task in LookupTasksRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
                 Assign(task, newOwnerCode);

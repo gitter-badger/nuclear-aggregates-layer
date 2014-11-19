@@ -9,7 +9,6 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Deal;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Deals
 {
-    // 2+ \BL\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\Operations\Concrete\Deals\GenerateDealNameService.cs
     public class GenerateDealNameService : IGenerateDealNameService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;

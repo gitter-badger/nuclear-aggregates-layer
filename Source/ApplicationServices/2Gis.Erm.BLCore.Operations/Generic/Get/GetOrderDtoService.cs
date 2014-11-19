@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
@@ -41,6 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBusinessModelSettings _businessModelSettings;
+        private readonly IClientReadModel _clientReadModel;
 
         public GetOrderDtoService(IUserContext userContext,
                                   ISecureFinder finder,
@@ -52,7 +54,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                                   IUserReadModel userReadModel,
                                   IAccountReadModel accountReadModel,
                                   ILegalPersonReadModel legalPersonReadModel,
-                                  IBusinessModelSettings businessModelSettings)
+                                  IBusinessModelSettings businessModelSettings,
+                                  IClientReadModel clientReadModel)
             : base(userContext)
         {
             _finder = finder;
@@ -64,6 +67,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             _accountReadModel = accountReadModel;
             _legalPersonReadModel = legalPersonReadModel;
             _businessModelSettings = businessModelSettings;
+            _clientReadModel = clientReadModel;
             _entityAccessService = entityAccessService;
         }
 
@@ -118,6 +122,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
             FillAutocalculatedFields(resultDto);
 
+            if (resultDto.ClientRef != null && resultDto.ClientRef.Id.HasValue && _clientReadModel.IsClientInReserve(resultDto.ClientRef.Id.Value))
+            {
+                throw new BusinessLogicException(string.Format(BLResources.CanNotCreateOrderWithReservedClient, resultDto.ClientRef.Name));
+            }
+
+            if (resultDto.FirmRef != null && resultDto.FirmRef.Id.HasValue && _firmReadModel.IsFirmInReserve(resultDto.FirmRef.Id.Value))
+            {
+                throw new BusinessLogicException(string.Format(BLResources.CanNotCreateOrderWithReservedFirm, resultDto.FirmRef.Name));
+            }
+
             return resultDto;
         }
 
@@ -153,7 +167,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
                 resultDto.CurrencyRef = refs.Currency;
                 resultDto.SourceOrganizationUnitRef = refs.OrganizationUnit;
-                resultDto.DestOrganizationUnitRef = refs.OrganizationUnit;
             }
         }
 

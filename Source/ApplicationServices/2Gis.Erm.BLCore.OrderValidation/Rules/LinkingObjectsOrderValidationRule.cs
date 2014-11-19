@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -15,7 +16,7 @@ using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class LinkingObjectsOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class LinkingObjectsOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -24,14 +25,16 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            CheckForAddressFails(filterPredicate, messages);
-            CheckForCategoryFails(filterPredicate, messages);
-            CheckForAddressCategoryFails(filterPredicate, messages);
+            var results = new List<OrderValidationMessage>();
+            CheckForAddressFails(ruleContext.IsMassValidation, ruleContext.OrdersFilterPredicate, results);
+            CheckForCategoryFails(ruleContext.IsMassValidation, ruleContext.OrdersFilterPredicate, results);
+            CheckForAddressCategoryFails(ruleContext.IsMassValidation, ruleContext.OrdersFilterPredicate, results);
+            return results;
         }
 
-        private void CheckForAddressFails(Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages)
+        private void CheckForAddressFails(bool isMassValidation, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> results)
         {
             var orderInfos = _finder.Find(filterPredicate)
                 .Select(order => new
@@ -67,12 +70,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // address fails
                 foreach (var addressFail in orderInfo.AddressFails)
                 {
-                    var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, addressFail.PositionName, addressFail.OrderPositionId);
-                    var addressDescription = GenerateDescription(EntityName.FirmAddress, addressFail.AddressName, addressFail.AddressId);
+                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityName.OrderPosition, addressFail.PositionName, addressFail.OrderPositionId);
+                    var addressDescription = GenerateDescription(isMassValidation, EntityName.FirmAddress, addressFail.AddressName, addressFail.AddressId);
 
                     if (addressFail.AddressDeleted)
                     {
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.OrderId,
@@ -83,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     if (addressFail.AddressHidden)
                     {
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.OrderId,
@@ -94,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     if (addressFail.AddressNotActive)
                     {
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.OrderId,
@@ -105,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     if (addressFail.AddressNotBelongsToFirm)
                     {
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.OrderId,
@@ -117,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
         }
 
-        private void CheckForCategoryFails(Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages)
+        private void CheckForCategoryFails(bool isMassValidation, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> results)
         {
             var categoryFails = _finder.Find(filterPredicate)
                 .Select(x => new
@@ -156,12 +159,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // category fails
                 foreach (var categoryFail in orderInfo.CategoryFails)
                 {
-                    var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, categoryFail.PositionName, categoryFail.OrderPositionId);
-                    var categoryDescription = GenerateDescription(EntityName.Category, categoryFail.CategoryName, categoryFail.CategoryId);
+                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityName.OrderPosition, categoryFail.PositionName, categoryFail.OrderPositionId);
+                    var categoryDescription = GenerateDescription(isMassValidation, EntityName.Category, categoryFail.CategoryName, categoryFail.CategoryId);
 
                     if (categoryFail.CategoryNotActive)
                     {
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.OrderId,
@@ -180,10 +183,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         }
                         else
                         {
-                            messageType = IsCheckMassive ? MessageType.Error : MessageType.Warning;
+                            messageType = isMassValidation ? MessageType.Error : MessageType.Warning;
                         }
 
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                             {
                                 Type = messageType,
                                 OrderId = orderInfo.OrderId,
@@ -195,7 +198,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
         }
 
-        private void CheckForAddressCategoryFails(Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> messages)
+        private void CheckForAddressCategoryFails(bool isMassValidation, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> results)
         {
             var orderInfos = _finder.Find(filterPredicate)
                 .Select(order => new
@@ -232,18 +235,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // address and category fails
                 foreach (var addressesAndCategoryFail in orderInfo.AddressesAndCategoryFails)
                 {
-                    var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, addressesAndCategoryFail.PositionName, addressesAndCategoryFail.OrderPositionId);
-                    var addressDescription = GenerateDescription(EntityName.FirmAddress, addressesAndCategoryFail.AddressName, addressesAndCategoryFail.AddressId);
-                    var categoryDescription = GenerateDescription(EntityName.Category, addressesAndCategoryFail.CategoryName, addressesAndCategoryFail.CategoryId);
+                    var orderPositionDescription = GenerateDescription(isMassValidation, EntityName.OrderPosition, addressesAndCategoryFail.PositionName, addressesAndCategoryFail.OrderPositionId);
+                    var addressDescription = GenerateDescription(isMassValidation, EntityName.FirmAddress, addressesAndCategoryFail.AddressName, addressesAndCategoryFail.AddressId);
+                    var categoryDescription = GenerateDescription(isMassValidation, EntityName.Category, addressesAndCategoryFail.CategoryName, addressesAndCategoryFail.CategoryId);
 
                     if (addressesAndCategoryFail.CategoryNotBelongsToAddress)
                     {
-                        messages.Add(new OrderValidationMessage
+                        results.Add(new OrderValidationMessage
                             {
-                                Type = IsCheckMassive ? MessageType.Error : MessageType.Warning,
+                                Type = isMassValidation ? MessageType.Error : MessageType.Warning,
                                 OrderId = orderInfo.OrderId,
                                 OrderNumber = orderInfo.OrderNumber,
-                                MessageText = string.Format(CultureInfo.CurrentCulture, BLResources.OrderPositionCategoryNotBelongsToAddress, orderPositionDescription, categoryDescription, addressDescription),
+                                MessageText = string.Format(BLResources.OrderPositionCategoryNotBelongsToAddress, orderPositionDescription, categoryDescription, addressDescription),
                             });
                     }
                 }

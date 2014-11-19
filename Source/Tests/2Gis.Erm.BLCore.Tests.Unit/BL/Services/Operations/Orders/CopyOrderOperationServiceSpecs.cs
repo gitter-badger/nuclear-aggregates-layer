@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
 
                 OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = OrderState.OnTermination };
 
-                Mock.Get(orderReadModel).Setup(x => x.GetOrder(ORDER_TO_COPY_ID)).Returns(OrderToCopy);
+                Mock.Get(orderReadModel).Setup(x => x.GetOrderSecure(ORDER_TO_COPY_ID)).Returns(OrderToCopy);
 
                 Mock.Get(orderReadModel).Setup(x => x.GetOrderPositionsWithAdvertisements(ORDER_TO_COPY_ID)).Returns(orderPositions);
 

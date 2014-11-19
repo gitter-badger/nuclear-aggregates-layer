@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO.ForRelease;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
@@ -41,6 +41,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             _secureFinder = secureFinder;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
+        }
+
+        public IReadOnlyDictionary<long, byte[]> GetOrdersCurrentVersions(Expression<Func<Order, bool>> ordersPredicate)
+        {
+            return _finder.FindAll<Order>().Where(ordersPredicate).ToDictionary(x => x.Id, x => x.Timestamp);
+        }
+
+        public IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Order>(orderIds))
+                          .Select(o => new
+                                            {
+                                                OrderId = o.Id,
+                                                RelatedOrderIds = o.Firm.Orders.Where(x => x.Id != o.Id).Select(x => x.Id)
+                                            })
+                          .ToDictionary(x => x.OrderId, x => x.RelatedOrderIds);
         }
 
         public IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period)
@@ -118,16 +134,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                 OwnerName = users.Select(u => u.DisplayName).FirstOrDefault() ?? string.Empty,
                                             })
                              .ToArray();
-        }
-
-        public IEnumerable<OrderInfo> GetOrderInfosForRelease(long organizationUnitId, TimePeriod period, int skipCount, int takeCount)
-        {
-            return _finder.Find(OrderSpecs.Orders.Select.OrderInfosForRelease(),
-                                                  OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
-                          .OrderBy(o => o.Id)
-                          .Skip(skipCount)
-                          .Take(takeCount)
-                          .ToArray();
         }
 
         public IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId)
@@ -408,7 +414,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return priceId != 0;
         }
 
-        public Order GetOrder(long orderId)
+        public Order GetOrderSecure(long orderId)
         {
             return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Single();
         }
@@ -1307,7 +1313,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                       Currency = new { x.Currency.Id, x.Currency.Name },
                                       Client = new { x.Client.Id, x.Client.Name },
                                       x.OwnerCode,
+
+                                      AnyLinkedFirm = x.FirmDeals.Any(firmDeal => !firmDeal.IsDeleted),
                                       x.MainFirmId,
+                                      MainFirmName = x.Firm.Name,
                                   })
                                   .SingleOrDefault();
 
@@ -1316,50 +1325,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 throw new EntityNotFoundException(typeof(Deal), dealId);
             }
 
-            var legalPersonInfo = _finder.Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>() & LegalPersonSpecs.LegalPersons.Find.WithActiveAndNotDeletedClient(dto.Client.Id))
-                .Select(x => new { x.Id, x.LegalName })
-                .Take(2)
-                .ToArray();
-
-            // Если не удаётся установить юрлицо однозначно - считаем, что значения по-умолчанию нет.
-            var singleLegalPerson = (EntityReference)null;
-            if (legalPersonInfo.Length == 1)
-            {
-                var single = legalPersonInfo.Single();
-                singleLegalPerson = new EntityReference(single.Id, single.LegalName);
-            }
-
-            var destOrganizationUnit = (EntityReference)null;
-            var firm = (EntityReference)null;
-            if (dto.MainFirmId.HasValue)
-            {
-                var firmDto = _finder.Find(Specs.Find.ById<Firm>(dto.MainFirmId.Value) & Specs.Find.ActiveAndNotDeleted<Firm>())
-                                  .Select(f => new
-                                  {
-                                      Firm = new { f.Id, f.Name },
-                                      OrganizationUnit = new { f.OrganizationUnit.Id, f.OrganizationUnit.Name }
-                                  })
-                                  .SingleOrDefault();
-
-                if (firmDto == null)
-                {
-                    throw new EntityNotFoundException(typeof(Firm), dto.MainFirmId.Value);
-                }
-
-                // [MSCRM-2207] При создании заказа из сделки в поле "Город назначения " необходимо указывать отделение организации к которому привязана фирма (Фирма -> Отделение организации).
-                firm = new EntityReference(firmDto.Firm.Id, firmDto.Firm.Name);
-                destOrganizationUnit = new EntityReference(firmDto.OrganizationUnit.Id, firmDto.OrganizationUnit.Name);
-            }
-
             return new OrderParentEntityDerivedFieldsDto
             {
                 DealCurrency = new EntityReference(dto.Currency.Id, dto.Currency.Name),
                 Deal = new EntityReference(dto.Deal.Id, dto.Deal.Name),
                 Client = new EntityReference(dto.Client.Id, dto.Client.Name),
                 Owner = new EntityReference(dto.OwnerCode),
-                DestOrganizationUnit = destOrganizationUnit,
-                Firm = firm,
-                LegalPerson = singleLegalPerson
+                Firm = dto.MainFirmId.HasValue && !dto.AnyLinkedFirm ? new EntityReference(dto.MainFirmId, dto.MainFirmName) : null,
             };
         }
 

@@ -1203,19 +1203,19 @@
   <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
     <value>ППС4</value>
   </data>
-  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+  <data name="BusinessOperationQualify" xml:space="preserve">
     <value>Взятие из резерва</value>
   </data>
-  <data name="BusinessOperationTypeDisqualify" xml:space="preserve">
+  <data name="BusinessOperationDisqualify" xml:space="preserve">
     <value>Возвращение в резерв</value>
   </data>
-  <data name="BusinessOperationTypeChangeTerritory" xml:space="preserve">
+  <data name="BusinessOperationChangeTerritory" xml:space="preserve">
     <value>Смена территории</value>
   </data>
-  <data name="BusinessOperationTypeChangeClient" xml:space="preserve">
+  <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Смена клиента</value>
   </data>
-  <data name="BusinessOperationTypeAfterSaleServiceActivitiesCreation" xml:space="preserve">
+  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
     <value>Формирование ППС</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
@@ -1230,13 +1230,13 @@
   <data name="OperationStatusSuccess" xml:space="preserve">
     <value>Завершено</value>
   </data>
-  <data name="BusinessOperationTypeCheckOrdersReadinessForRelease" xml:space="preserve">
+  <data name="BusinessOperationCheckOrdersReadinessForRelease" xml:space="preserve">
     <value>Проверка заказов</value>
   </data>
-  <data name="BusinessOperationTypeExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
+  <data name="BusinessOperationExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
     <value>Выгрузка списаний в 1С</value>
   </data>
-  <data name="BusinessOperationTypeMakeRegionalAdsDocs" xml:space="preserve">
+  <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Формирование региональной рекламы</value>
   </data>
   <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
@@ -1566,7 +1566,7 @@
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="BusinessOperationTypeNone" xml:space="preserve">
+  <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
@@ -1632,7 +1632,7 @@
   <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
     <value>Редактирование заглушки РМ</value>
   </data>
-  <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
+  <data name="BusinessOperationGetOrdersWithDummyAdvertisements" xml:space="preserve">
     <value>Поиск заказов с заглушками РМ</value>
   </data>
   <data name="FasCommentSupplements" xml:space="preserve">
@@ -1983,5 +1983,32 @@
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Отсрочка</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Рассрочка</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Постоплата</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Предоплата</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>Связь фирмы со сделкой</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>Связь юр. лица со сделкой</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
+    <value>Деактивация/активация юр. лица клиента</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
+    <value>Приказа</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
+    <value>Другое</value>
   </data>
 </root>

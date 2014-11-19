@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                             out acquiredReleaseDescriptor,
                                             out report))
                 {
-                    var msg = string.Format("Reverting release failed. "+
+                    var msg = string.Format("Reverting release failed. " +
                                             "Can't acquire release for organization unit with id {0} by period {1}. Details: {2}",
                                             organizationUnitId,
                                             period,
@@ -133,20 +133,71 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
         }
 
-        private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
+        private static bool CanBeReverted(ReleaseInfo lastFinalRelease, out string report)
         {
-            var lockedRelease = 
-                    _releaseReadModel.GetLastRelease(
-                                            acquiredRelease.OrganizationUnitId, 
-                                            new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
-            return  lockedRelease != null
-                    && lockedRelease.Id == acquiredRelease.Id
-                    && lockedRelease.Status == ReleaseStatus.Reverting 
-                    && acquiredRelease.SameVersionAs(lockedRelease);
+            report = null;
+
+            if (lastFinalRelease == null)
+            {
+                report = BLResources.CannotRevertReleaseBecausePreviousReleaseNotFound;
+                return false;
+            }
+
+            bool canBeReverted = false;
+            switch ((ReleaseStatus)lastFinalRelease.Status)
+            {
+                case ReleaseStatus.InProgressInternalProcessingStarted:
+                {
+                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseIsRunning;
+                    break;
+                }
+                case ReleaseStatus.InProgressWaitingExternalProcessing:
+                {
+                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseIsRunning;
+                    break;
+                }
+                case ReleaseStatus.Reverting:
+                {
+                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseIsRunning;
+                    break;
+                }
+                case ReleaseStatus.Success:
+                {
+                    if (lastFinalRelease.IsBeta)
+                    {
+                        report = BLResources.CannotRevertReleaseBecausePreviousReleaseWasTechnical;
+                        break;
+                    }
+
+                    canBeReverted = true;
+                    break;
+                }
+                case ReleaseStatus.Error:
+                {
+                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseEndedWithErrors;
+                    break;
+                }
+                case ReleaseStatus.Reverted:
+                {
+                    report = BLResources.AttemptToRepeatRevertReleaseOperation;
+                    break;
+                }
+            }
+
+            return canBeReverted;
         }
 
-        private bool TryAcquireTargetRelease(
-            long organizationUnitId,
+        private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
+        {
+            var lockedRelease = _releaseReadModel.GetLastFinalRelease(acquiredRelease.OrganizationUnitId,
+                                            new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+            return lockedRelease != null &&
+                   lockedRelease.Id == acquiredRelease.Id &&
+                   lockedRelease.Status == ReleaseStatus.Reverting &&
+                   acquiredRelease.SameVersionAs(lockedRelease);
+        }
+
+        private bool TryAcquireTargetRelease(long organizationUnitId,
             TimePeriod period,
             string comment,
             out ReleaseInfo acquiredRelease,
@@ -164,14 +215,14 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var release = _releaseReadModel.GetLastRelease(organizationUnitId, period);
-                if (!CanBeReverted(release, out report))
+                var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
+                if (!CanBeReverted(lastFinalRelease, out report))
                 {
                     _logger.ErrorEx(report);
                     return false;
                 }
 
-                acquiredReleaseDescriptor.OrganizationUnitName = _releaseReadModel.GetOrganizationUnitName(release.OrganizationUnitId);
+                acquiredReleaseDescriptor.OrganizationUnitName = _releaseReadModel.GetOrganizationUnitName(lastFinalRelease.OrganizationUnitId);
                 if (_accountReadModel.HasInactiveLocksForDestinationOrganizationUnit(organizationUnitId, period))
                 {
                     report = string.Format(BLResources.InactiveLocksExistsForPeriodAndOrganizatonUnit,
@@ -182,14 +233,13 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     return false;
                 }
 
-                _changeReleaseStatusAggregateService.Reverting(release, comment);
-                acquiredRelease = release;
+                _changeReleaseStatusAggregateService.Reverting(lastFinalRelease, comment);
+                acquiredRelease = lastFinalRelease;
 
                 transaction.Complete();
             }
 
-            _logger.InfoFormatEx(
-                    "Reverting release process for organization unit {0} and period {1} is granted. Acquired release entry id {2}",
+            _logger.InfoFormatEx("Reverting release process for organization unit {0} and period {1} is granted. Acquired release entry id {2}",
                     organizationUnitId,
                     period,
                     acquiredRelease.Id);
@@ -219,60 +269,6 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
 
             return ReleaseRevertingResult.Succeeded;
-        }
-
-        private static bool CanBeReverted(ReleaseInfo release, out string report)
-        {
-            report = null;
-
-            if (release == null)
-            {
-                report = BLResources.CannotRevertReleaseBecausePreviousReleaseNotFound;
-                return false;
-            }
-
-            bool canBeReverted = false;
-            switch (release.Status)
-            {
-                case ReleaseStatus.InProgressInternalProcessingStarted:
-                {
-                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseIsRunning;
-                    break;
-                }
-                case ReleaseStatus.InProgressWaitingExternalProcessing:
-                {
-                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseIsRunning;
-                    break;
-                }
-                case ReleaseStatus.Reverting:
-                {
-                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseIsRunning;
-                    break;
-                }
-                case ReleaseStatus.Success:
-                {
-                    if (release.IsBeta)
-                    {
-                        report = BLResources.CannotRevertReleaseBecausePreviousReleaseWasTechnical;
-                        break;
-                    }
-
-                    canBeReverted = true;
-                    break;
-                }
-                case ReleaseStatus.Error:
-                {
-                    report = BLResources.CannotRevertReleaseBecausePreviousReleaseEndedWithErrors;
-                    break;
-                }
-                case ReleaseStatus.Reverted:
-                {
-                    report = BLResources.AttemptToRepeatRevertReleaseOperation;
-                    break;
-                }
-            }
-
-            return canBeReverted;
         }
 
         private class AcquiredReleaseDescriptor

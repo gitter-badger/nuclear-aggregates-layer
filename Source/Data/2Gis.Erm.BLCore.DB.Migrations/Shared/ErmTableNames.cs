@@ -41,6 +41,14 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName Clients = new SchemaQualifiedObjectName(ErmSchemas.Billing, "Clients");
 
+        public static readonly SchemaQualifiedObjectName DenormalizedClientLinks = new SchemaQualifiedObjectName(ErmSchemas.Billing, "DenormalizedClientLinks");
+
+        public static readonly SchemaQualifiedObjectName ClientLinks = new SchemaQualifiedObjectName(ErmSchemas.Billing, "ClientLinks");
+
+        public static readonly SchemaQualifiedObjectName FirmDeals = new SchemaQualifiedObjectName(ErmSchemas.Billing, "FirmDeals");
+
+        public static readonly SchemaQualifiedObjectName LegalPersonDeals = new SchemaQualifiedObjectName(ErmSchemas.Billing, "LegalPersonDeals");
+
         public static readonly SchemaQualifiedObjectName Deals = new SchemaQualifiedObjectName(ErmSchemas.Billing, "Deals");
 
         public static readonly SchemaQualifiedObjectName Limits = new SchemaQualifiedObjectName(ErmSchemas.Billing, "Limits");
@@ -344,5 +352,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName AdvertisementElementStatus = new SchemaQualifiedObjectName(ErmSchemas.Billing, "AdvertisementElementStatuses");
         public static readonly SchemaQualifiedObjectName AdvertisementElementDenialReason = new SchemaQualifiedObjectName(ErmSchemas.Billing, "AdvertisementElementDenialReasons");
+        public static readonly SchemaQualifiedObjectName OrderValidationCacheEntries = new SchemaQualifiedObjectName(ErmSchemas.Shared, "OrderValidationCacheEntries");
     }
 }

@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class ThemePeriodOverlapsOrderPeriodValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class ThemePeriodOverlapsOrderPeriodValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -22,9 +20,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var invalidOrders = _finder.Find(filterPredicate)
+            var invalidOrders = _finder.Find(ruleContext.OrdersFilterPredicate)
                 .Select(order => new
                     {
                         Order = order,
@@ -37,23 +35,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 .Where(info => info.InvalidThemes.Any())
                 .ToArray();
 
-            foreach (var invalid in invalidOrders)
-            {
-                var orderLabel = GenerateDescription(EntityName.Order, invalid.Order.Number, invalid.Order.Id);
-                foreach (var theme in invalid.InvalidThemes)
-                {
-                    var themeLabel = GenerateDescription(EntityName.Theme, theme.Name, theme.Id);
-                    var message = new OrderValidationMessage
-                    {
-                        OrderNumber = invalid.Order.Number,
-                        OrderId = invalid.Order.Id,
-                        Type = MessageType.Error,
-                        MessageText = string.Format(BLResources.ThemePeriodDoesNotOverlapOrderPeriod, orderLabel, themeLabel),
-                    };
-
-                    messages.Add(message);
-                }
-            }
+            return from invalidOrder in invalidOrders
+                   from theme in invalidOrder.InvalidThemes
+                   select new OrderValidationMessage
+                              {
+                                  OrderNumber = invalidOrder.Order.Number,
+                                  OrderId = invalidOrder.Order.Id,
+                                  Type = MessageType.Error,
+                                  MessageText =
+                                      string.Format(BLResources.ThemePeriodDoesNotOverlapOrderPeriod,
+                                                    GenerateDescription(ruleContext.IsMassValidation, EntityName.Order, invalidOrder.Order.Number, invalidOrder.Order.Id),
+                                                    GenerateDescription(ruleContext.IsMassValidation, EntityName.Theme, theme.Name, theme.Id)),
+                              };
         }
     }
 }

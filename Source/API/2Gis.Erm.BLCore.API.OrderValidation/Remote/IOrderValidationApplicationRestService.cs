@@ -10,10 +10,10 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Remote
     {
         [OperationContract(Name = "ValidateSingleOrderRest")]
         [WebGet(UriTemplate = "Single/{orderId}", ResponseFormat = WebMessageFormat.Json)]
-        ValidateOrdersResult ValidateSingleOrder(string orderId); 
+        ValidationResult ValidateSingleOrder(string orderId); 
 
         [OperationContract(Name = "ValidateSingleOrderStateTransferRest")]
         [WebGet(UriTemplate = "Single/{orderId}/{newOrderState}", ResponseFormat = WebMessageFormat.Json)]
-        ValidateOrdersResult ValidateSingleOrder(string orderId, string newOrderState); 
+        ValidationResult ValidateSingleOrder(string orderId, string newOrderState); 
     }
 }

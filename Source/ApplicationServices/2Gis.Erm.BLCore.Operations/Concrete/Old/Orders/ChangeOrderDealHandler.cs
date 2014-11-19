@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                     return Response.Empty;
                 }
 
-                var order = _orderReadModel.GetOrder(request.OrderId);
+                var order = _orderReadModel.GetOrderSecure(request.OrderId);
                 var oldDealId = order.DealId;
                 if (oldDealId == null || (oldDealId != newDealInfo.Id))
                 {

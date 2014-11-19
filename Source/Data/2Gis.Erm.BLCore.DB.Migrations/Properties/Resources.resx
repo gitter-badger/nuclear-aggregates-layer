@@ -493,4 +493,13 @@
   <data name="_Security___DepartmentUpdate_25550" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.27 rev. 25550\[security].[departmentupdate].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="_Billing___ReplicateOrderPosition_24898" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.01 rev. 24898\[billing].[replicateorderposition].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_Billing___ReplicateOrder_24898" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.01 rev. 24898\[billing].[replicateorder].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="_BusinessDirectory___ReplicateFirmAddresses_25335" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.10.19 rev. 25335\[businessdirectory].[replicatefirmaddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>

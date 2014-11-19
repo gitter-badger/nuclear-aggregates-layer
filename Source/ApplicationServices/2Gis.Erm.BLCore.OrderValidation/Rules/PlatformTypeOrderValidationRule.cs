@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class PlatformTypeOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class PlatformTypeOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -21,9 +19,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var ordersWithErrors = _finder.Find(filterPredicate)
+            var ordersWithErrors = _finder.Find(ruleContext.OrdersFilterPredicate)
                                           .Select(x => new
                                               {
                                                   x.Id,
@@ -42,19 +40,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                           .Where(y => y.OrderPositionsAdvertisements.Any())
                                           .ToArray();
 
-            foreach (var order in ordersWithErrors)
-            {
-                foreach (var orderPositionAdvertisement in order.OrderPositionsAdvertisements)
-                {
-                    messages.Add(new OrderValidationMessage
-                        {
-                            Type = MessageType.Error,
-                            OrderId = order.Id,
-                            OrderNumber = order.Number,
-                            MessageText = string.Format(BLResources.RegisteredPositionIsNotSupportedByExport, orderPositionAdvertisement.Name)
-                        });
-                }
-            }
+            return from order in ordersWithErrors
+                   from orderPositionAdvertisement in order.OrderPositionsAdvertisements
+                   select new OrderValidationMessage
+                              {
+                                  Type = MessageType.Error,
+                                  OrderId = order.Id,
+                                  OrderNumber = order.Number,
+                                  MessageText = string.Format(BLResources.RegisteredPositionIsNotSupportedByExport, orderPositionAdvertisement.Name)
+                              };
         }
     }
 }

@@ -11,10 +11,10 @@
 
 @section PageContent
 {
-    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@SolutionInfo.ProductVersion.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@ThisAssembly.Build" />
 
-    <script src="/Scripts/Ext.Ajax.syncRequest.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
-    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@SolutionInfo.ProductVersion.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@ThisAssembly.Build" type="text/javascript"></script>
 
     <script type="text/javascript">
         Ext.namespace('Ext.DoubleGis.UI.Firm');
@@ -34,11 +34,11 @@
                         applyusersettings: function() {
                             this.ApplyUserSettings();
                         },
-                        entityprocessingsuccess: function(entityId) {
-                            this.EntityProcessingSuccess(entityId);
+                        entityprocessingsuccess: function (responseText) {
+                            this.EntityProcessingSuccess(responseText);
                         },
-                        entityprocessingfail: function(entityId) {
-                            this.EntityProcessingFail(entityId);
+                        entityprocessingfail: function (message) {
+                            this.EntityProcessingFail(message);
                         },
                         processingfinished: function() {
                             this.ProcessingFinished();
@@ -151,14 +151,14 @@
                 return { entityId: entityId, userId: this.UserId, clientId: this.ClientId };
             },
             EntityProcessingSuccess: function(responseText) {
-                var entityId = Ext.decode(responseText);
+                var response = Ext.decode(responseText);
                 if (this.IsCreateNewClients) {
-                    this.ClientCardsToOpen.push(entityId); // открываем карточки всех вновь созданных клиентов
+                    this.ClientCardsToOpen.push(response.RelatedEntityId); // открываем карточки всех вновь созданных клиентов
                 } else if (this.ClientCardsToOpen.length == 0) {
-                    this.ClientCardsToOpen.push(entityId); // открываем карточку клиента - к которому привязали фирмы
+                    this.ClientCardsToOpen.push(response.RelatedEntityId); // открываем карточку клиента - к которому привязали фирмы
                 }
             },
-            EntityProcessingFail: function(entityId) {
+            EntityProcessingFail: function (message) {
             },
             ProcessingFinished: function() {
                 if (!this.IsSingleEntityProcessing || this.ClientCardsToOpen.length != 1) {

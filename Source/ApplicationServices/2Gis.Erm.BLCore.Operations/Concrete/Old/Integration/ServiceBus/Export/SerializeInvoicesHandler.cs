@@ -75,14 +75,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                                                     .Select(p => new SubInvoiceItemDto
                                                         {
                                                             NomenclatureElementCode = p.Id,
+                                                            LinkObjectType = (PositionBindingObjectType)p.BindingObjectTypeEnum,
                                                             LinkObjects = z.OrderPosition.OrderPositionAdvertisements
                                                                            .Where(q => q.PositionId == p.Id)
                                                                            .Select(q => new LinkObjectDto
                                                                                {
-                                                                                   CategoryLinked = q.CategoryId.HasValue,
+                                                                                   IsLinkedWithExportableLinkingObject = q.CategoryId.HasValue || q.FirmAddressId.HasValue,
                                                                                    RubricCode = q.Category.Id,
-                                                                                   RubricName = q.Category.Name,
-                                                                                   LinkObjectType = q.Position.BindingObjectTypeEnum
+                                                                                   CardCode = q.FirmAddressId
                                                                                })
                                                         })
                              })
@@ -193,9 +193,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             foreach (var subInvoiceItem in invoiceItemDto.SubInvoiceItems.Where(x => x.LinkObjects.Any()))
             {
                 var subInvoiceItemElement = new XElement("SubInvoiceItem",
-                                                         new XAttribute("NomenclatureElementCode", subInvoiceItem.NomenclatureElementCode));
+                                                         new XAttribute("NomenclatureElementCode", subInvoiceItem.NomenclatureElementCode),
+                                                         new XAttribute("LinkObjectType", subInvoiceItem.LinkObjectType));
                 
-                foreach (var linkObject in subInvoiceItem.LinkObjects.Where(lo => lo.CategoryLinked))
+                foreach (var linkObject in subInvoiceItem.LinkObjects.Where(lo => lo.IsLinkedWithExportableLinkingObject))
                 {
                     subInvoiceItemElement.Add(GetLinkObjectElement(linkObject));
                 }
@@ -209,20 +210,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         private static XElement GetLinkObjectElement(LinkObjectDto linkObject)
         {
             var objectLinkElement = new XElement("LinkObject");
-            if (linkObject.LinkObjectType.HasValue)
-            {
-                objectLinkElement.Add(new XAttribute("LinkObjectType", linkObject.LinkObjectType.Value));
-            }
 
             if (linkObject.RubricCode.HasValue)
             {
                 objectLinkElement.Add(new XAttribute("RubricCode", linkObject.RubricCode.Value));
             }
 
-            if (!string.IsNullOrEmpty(linkObject.RubricName))
+            if (linkObject.CardCode.HasValue)
             {
-                objectLinkElement.Add(new XAttribute("RubricName", linkObject.RubricName));
+                objectLinkElement.Add(new XAttribute("CardCode", linkObject.CardCode.Value));
             }
+
 
             return objectLinkElement;
         }
@@ -266,15 +264,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         public sealed class SubInvoiceItemDto
         {
             public long NomenclatureElementCode { get; set; }
+            public PositionBindingObjectType LinkObjectType { get; set; }
             public IEnumerable<LinkObjectDto> LinkObjects { get; set; }
         }
 
         public sealed class LinkObjectDto
         {
-            public bool CategoryLinked { get; set; }
-            public PositionBindingObjectType? LinkObjectType { get; set; }
+            public bool IsLinkedWithExportableLinkingObject { get; set; }
             public long? RubricCode { get; set; }
-            public string RubricName { get; set; }
+            public long? CardCode { get; set; }
         }
 
         #endregion

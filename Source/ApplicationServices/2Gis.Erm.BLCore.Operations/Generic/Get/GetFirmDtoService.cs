@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -61,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Firm> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new FirmDomainEntityDto();
+            throw new NotificationException(BLResources.FirmCreationIsNotSupported);
         }
     }
 }

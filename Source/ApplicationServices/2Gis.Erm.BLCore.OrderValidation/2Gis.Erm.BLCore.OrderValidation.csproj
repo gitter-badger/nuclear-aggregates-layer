@@ -18,6 +18,11 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>4e25ce76</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!-- hint для  DevUtils ETW IMBA, оключающий автоматическую регистрацию performance counters -->
+    <IMBASkipInstallManifest>true</IMBASkipInstallManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +42,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevUtils.ETWIMBA">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\DevUtils.ETWIMBA.2.0.0\lib\net45\DevUtils.ETWIMBA.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -62,25 +70,45 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="ADPCheckMode.cs" />
-    <Compile Include="ADPValidationInitializationHelper.cs" />
-    <Compile Include="ADPValidationQueryProvider.cs" />
-    <Compile Include="ADPValidationResultBuilder.cs" />
-    <Compile Include="ADPValidator.cs" />
+    <Compile Include="HybridValidationParams.cs" />
+    <Compile Include="Performance\Counters\Counters.Provider.cs" />
+    <Compile Include="Performance\Counters\Counters.Rule.cs" />
+    <Compile Include="Performance\Counters\Counters.RuleGroup.cs" />
+    <Compile Include="Performance\Counters\Counters.Session.cs" />
+    <Compile Include="Performance\Sessions\DiagnosticStorage\IOrderValidationDiagnosticStorage.cs" />
+    <Compile Include="Performance\Sessions\Feedback\IOrderValidationOperationFeedback.cs" />
+    <Compile Include="Performance\Sessions\Feedback\OrderValidationOperationFeedback.cs" />
+    <Compile Include="Performance\Sessions\DiagnosticStorage\PerformanceCounterOrderValidationDiagnosticStorage.Dispose.cs" />
+    <Compile Include="Performance\Sessions\DiagnosticStorage\PerformanceCounterOrderValidationDiagnosticStorage.cs" />
+    <Compile Include="Performance\Sessions\Feedback\RuleGroupIndicators.cs" />
+    <Compile Include="Performance\Sessions\Feedback\RuleIndicators.cs" />
+    <Compile Include="Performance\Sessions\Feedback\OperationIndicators.cs" />
+    <Compile Include="Rules\Contexts\BrowsableResultsValidationRuleContext.cs" />
+    <Compile Include="Rules\Contexts\HybridParamsValidationRuleContext.cs" />
+    <Compile Include="Rules\Contexts\IValidationRuleContext.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\ADPCheckMode.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\ADPValidationInitializationHelper.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\ADPValidationQueryProvider.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\ADPValidationResultBuilder.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\ADPValidator.cs" />
     <Compile Include="DI\BlCoreOrderValidationAssembly.cs" />
+    <Compile Include="OrderValidationRuleProvider.cs" />
     <Compile Include="Rules\AdvertisementsOnlyWhiteListOrderValidationRule.cs" />
+    <Compile Include="Rules\Contexts\MassOverridibleValidationRuleContext.cs" />
+    <Compile Include="Rules\Contexts\OrdinaryValidationRuleContext.cs" />
+    <Compile Include="Rules\Contexts\SingleValidationRuleContext.cs" />
+    <Compile Include="Rules\Metadata\OrderValidationMetadataValidator.cs" />
+    <Compile Include="Rules\Metadata\OrderValidationRuleMetadataSource.cs" />
     <Compile Include="Settings\Xml\AssociatedDeniedPositionsDescriptionsAccessor.cs" />
     <Compile Include="Settings\PricePositionDescription.cs" />
-    <Compile Include="IPriceConfigurationService.cs" />
-    <Compile Include="OrderPositionStateStorage.cs" />
-    <Compile Include="OrderStateStorage.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\IPriceConfigurationService.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\OrderPositionStateStorage.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\OrderStateStorage.cs" />
     <Compile Include="OrderValidationPredicateFactory.cs" />
-    <Compile Include="OrderValidationService.cs" />
-    <Compile Include="PositionType.cs" />
-    <Compile Include="PriceConfigurationService.cs" />
-    <Compile Include="PriceConfigurationStorage.cs" />
-    <Compile Include="AssociatedAndDeniedPositions\CheckOrdersAssociatedAndDeniedPositionsHandler.cs" />
-    <Compile Include="AssociatedAndDeniedPositions\CheckOrdersAssociatedAndDeniedPositionsRequest.cs" />
+    <Compile Include="ValidateOrdersOperationService.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\PositionType.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\PriceConfigurationService.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\PriceConfigurationStorage.cs" />
     <Compile Include="CheckOrderBeginDistributionDateHandler.cs" />
     <Compile Include="CheckOrderReleasePeriodHandler.cs" />
     <Compile Include="CheckOrdersReadinessForReleaseHandler.cs" />
@@ -90,15 +118,12 @@
     <Compile Include="Settings\OrderValidationSettingsAspect.cs" />
     <Compile Include="Settings\Xml\OrderValidationSettingsConfigurationSection.cs" />
     <Compile Include="OrderValidationRuleBase.cs" />
-    <Compile Include="OrderValidationRuleCommonPredicate.cs" />
     <Compile Include="Rules\AccountExistsOrderValidationRule.cs" />
     <Compile Include="Rules\AdditionalAdvertisementsOrderValidationRule.cs" />
-    <Compile Include="Rules\AdvantageousPurchasesFirmsHasBannerOrCommentValidationRule.cs" />
     <Compile Include="Rules\AdvertisementAmountOrderValidationRule.cs" />
     <Compile Include="Rules\AdvertisementForCategoryAmountOrderValidationRule.cs" />
-    <Compile Include="Rules\AdvertisementTextFormattingOrderValidationRule.cs" />
     <Compile Include="Rules\AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule.cs" />
-    <Compile Include="Rules\AssociatedAndDeniedPricePositionsOrderValidationRule.cs" />
+    <Compile Include="Rules\AssociatedAndDenied\AssociatedAndDeniedPricePositionsOrderValidationRule.cs" />
     <Compile Include="Rules\BalanceOrderValidationRule.cs" />
     <Compile Include="Rules\BargainEndDateOrderValidationRule.cs" />
     <Compile Include="Rules\BargainOutOfDateOrderValidationRule.cs" />
@@ -126,7 +151,6 @@
     <Compile Include="Rules\PlatformTypeOrderValidationRule.cs" />
     <Compile Include="Rules\ReleaseNotExistsOrderValidationRule.cs" />
     <Compile Include="Rules\RequiredFieldsNotEmptyOrderValidationRule.cs" />
-    <Compile Include="Rules\SameAdvertisementOrderValidationRule.cs" />
     <Compile Include="Rules\SelfAdvertisementOrderValidationRule.cs" />
     <Compile Include="Rules\ThemeCategoriesValidationRule.cs" />
     <Compile Include="Rules\ThemePeriodOverlapsOrderPeriodValidationRule.cs" />
@@ -150,6 +174,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
@@ -187,7 +215,15 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\CompositionRoots\Source\packages\DevUtils.ETWIMBA.2.0.0\build\net45\DevUtils.ETWIMBA.targets" Condition="Exists('..\..\..\..\CompositionRoots\Source\packages\DevUtils.ETWIMBA.2.0.0\build\net45\DevUtils.ETWIMBA.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\CompositionRoots\Source\packages\DevUtils.ETWIMBA.2.0.0\build\net45\DevUtils.ETWIMBA.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\CompositionRoots\Source\packages\DevUtils.ETWIMBA.2.0.0\build\net45\DevUtils.ETWIMBA.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

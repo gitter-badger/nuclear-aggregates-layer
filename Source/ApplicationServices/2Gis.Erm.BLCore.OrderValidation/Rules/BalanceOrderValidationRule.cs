@@ -5,8 +5,10 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -20,30 +22,27 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// Проверка достаточности денежных средств на лицевом счете для размещения заказа
     /// </summary>
     [UseCase(Duration = UseCaseDuration.Long)]
-    public sealed class BalanceOrderValidationRule : OrderValidationRuleBase
+    public sealed class BalanceOrderValidationRule : OrderValidationRuleBase<MassOverridibleValidationRuleContext>
     {
+        private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IFinder _finder;
         private readonly IUseCaseTuner _useCaseTuner;
 
-        public BalanceOrderValidationRule(IFinder finder, IUseCaseTuner useCaseTuner)
+        public BalanceOrderValidationRule(IBusinessModelSettings businessModelSettings, IFinder finder, IUseCaseTuner useCaseTuner)
         {
+            _businessModelSettings = businessModelSettings;
             _finder = finder;
             _useCaseTuner = useCaseTuner;
         }
 
-        protected override void Validate(ValidateOrdersRequest request, OrderValidationPredicate originalPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(MassOverridibleValidationRuleContext ruleContext)
         {
-            if (request.Type != ValidationType.PreReleaseFinal && request.Type != ValidationType.ManualReportWithAccountsCheck)
-            {   // No need to run this rule when peroforming manual check/technical release
-                return;
-            }
+            var overridedPredicate = GetOrdersOverridedPredicate(ruleContext.ValidationParams, ruleContext.CombinedPredicate);
 
-            var overridedPredicate = GetOrdersOverridedPredicate(request, originalPredicate);
-
-            var epsilon = (decimal)Math.Pow(10, -request.SignificantDigitsNumber);
+            var epsilon = (decimal)Math.Pow(10, -_businessModelSettings.SignificantDigitsNumber);
 
             _useCaseTuner.AlterDuration<BalanceOrderValidationRule>();
-            var ordersPredicate = new OrderValidationPredicate(originalPredicate.GeneralPart, null, null).GetCombinedPredicate();
+            var ordersPredicate = new OrderValidationPredicate(ruleContext.CombinedPredicate.GeneralPart, null, null).GetCombinedPredicate();
             var ordersForRelease = _finder.Find(ordersPredicate);
             var accountsWithInsufficientBalance = _finder.Find(overridedPredicate)
                 .GroupBy(order => order.Account) // все лицевые счета для заказов участвующих в сборке
@@ -55,15 +54,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         // Сумма одобренных лимитов лицевого счета за период.
                         LimitsSum = x.Key.Limits.Where(l => l.IsActive
                                                 && !l.IsDeleted
-                                                && l.Status == LimitStatus.Approved
-                                                && l.StartPeriodDate == request.Period.Start
-                                                && l.EndPeriodDate == request.Period.End)
+                                            && l.Status == LimitStatus.Approved
+                                            && l.StartPeriodDate == ruleContext.ValidationParams.Period.Start
+                                            && l.EndPeriodDate == ruleContext.ValidationParams.Period.End)
                                     .Sum(a => (decimal?)a.Amount) ?? 0M,
 
                         // Сумма активных блокировок лицевого счета
                         LocksSum = x.Key.Locks
                                         .Where(l => l.IsActive && !l.IsDeleted 
-                                            && ((l.PeriodEndDate < request.Period.Start) || (l.PeriodStartDate > request.Period.End)))
+                                        && ((l.PeriodEndDate < ruleContext.ValidationParams.Period.Start) || (l.PeriodStartDate > ruleContext.ValidationParams.Period.End)))
                                         .Sum(l => (decimal?)l.PlannedAmount) ?? 0M,
                     })
                 .GroupJoin( // докидываем для каждого лицевого счета все заказы по искомому лицевому счету, для любых отделений организации назначения заказа
@@ -78,8 +77,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                                 // Сумма к текущему списанию по заказам.
                                 OrdersAmountToWithdrawSum = accountOrders.Sum(order => order.OrderReleaseTotals
-                                                                               .Where(a => a.ReleaseBeginDate == request.Period.Start
-                                                                                        && a.ReleaseEndDate == request.Period.End)
+                                                                               .Where(a => a.ReleaseBeginDate == ruleContext.ValidationParams.Period.Start
+                                                                                        && a.ReleaseEndDate == ruleContext.ValidationParams.Period.End)
                                                                                .Sum(a => (decimal?)a.AmountToWithdraw) ?? 0M),
                                 OrderInfos = accountOrders.Select(o => new { o.Id, o.Number, o.SourceOrganizationUnitId, o.DestOrganizationUnitId })
                             })
@@ -94,32 +93,24 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         })
                 .ToArray();
 
-            if (accountsWithInsufficientBalance.Any())
-            {
-                foreach (var accountInfo in accountsWithInsufficientBalance)
-                {
-                    foreach (var orderInfo in accountInfo.OrderInfos)
-                    {
-                        if (orderInfo.SourceOrganizationUnitId != request.OrganizationUnitId && orderInfo.DestOrganizationUnitId != request.OrganizationUnitId)
-                        {   // в файл с ошибками не включаем записи о заказах, у которых город сборки не совпадает ни с городом назначеня, ни с городом источником заказа
+            return from accountInfo in accountsWithInsufficientBalance
+                   from orderInfo in accountInfo.OrderInfos
+                   // в файл с ошибками не включаем записи о заказах, у которых город сборки не совпадает ни с городом назначеня, ни с городом источником заказа
                             // чтобы не перегружать излишей информацией запускальщика проверки
-                            continue;
-                        }
-
-                        messages.Add(new OrderValidationMessage
+                   where orderInfo.SourceOrganizationUnitId == ruleContext.ValidationParams.OrganizationUnitId
+                         || orderInfo.DestOrganizationUnitId == ruleContext.ValidationParams.OrganizationUnitId
+                   select new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
-                                MessageText = string.Format(BLResources.OrdersCheckOrderInsufficientFunds,
+                                  MessageText =
+                                      string.Format(BLResources.OrdersCheckOrderInsufficientFunds,
                                                             accountInfo.OrdersAmountToWithdrawSum,
                                                             accountInfo.AccountResultNetBalanceWithoutLimits,
                                                             accountInfo.AccountRequiredLimitAmount),
                                 OrderId = orderInfo.Id,
                                 OrderNumber = orderInfo.Number
-                            });
-                    }
-                }
+                              };
             }
-        }
 
         // Выборка заказов происходит в 2 этапа. Этот метод вернет предикат для заказов, город ИСТОЧНИК которых равен городу, выбранному в форме
         // Далее при валидации накладывается еще один фильтр для заказов, по которым для города НАЗНАЧЕНИЯ не было финальной сборки за период, либо 
@@ -127,19 +118,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         // Итого для этой проверки получаем такой фильтр: 
         // Заказы, для которых город ИСТОЧНИК равен городу, выбранному в форме 
         // И ( [по городу НАЗНАЧЕНИЯ не было финальной сборки за период] ИЛИ [город НАЗНАЧЕНИЯ не переведен на ERM] )
-        private Expression<Func<Order, bool>> GetOrdersOverridedPredicate(ValidateOrdersRequest request, OrderValidationPredicate p)
+        private Expression<Func<Order, bool>> GetOrdersOverridedPredicate(MassOrdersValidationParams validationParams, OrderValidationPredicate predicate)
         {
             var finalReleaseInfos =
-                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(new TimePeriod(request.Period.Start, request.Period.End), ReleaseStatus.Success));
+                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(new TimePeriod(validationParams.Period.Start, validationParams.Period.End), ReleaseStatus.Success));
 
             var overridenPredicate = new OrderValidationPredicate(
-                p.GeneralPart,
-                o => (o.DestOrganizationUnitId == request.OrganizationUnitId
+                predicate.GeneralPart,
+                o => (o.DestOrganizationUnitId == validationParams.OrganizationUnitId
                         && !finalReleaseInfos.Any(x => x.OrganizationUnitId == o.SourceOrganizationUnitId))
-                    || (o.SourceOrganizationUnitId == request.OrganizationUnitId
+                    || (o.SourceOrganizationUnitId == validationParams.OrganizationUnitId
                         && (!finalReleaseInfos.Any(x => x.OrganizationUnitId == o.DestOrganizationUnitId)
                             || o.DestOrganizationUnit.ErmLaunchDate == null)),
-                p.ValidationGroupPart);
+                predicate.ValidationGroupPart);
             return overridenPredicate.GetCombinedPredicate();
         }
     }

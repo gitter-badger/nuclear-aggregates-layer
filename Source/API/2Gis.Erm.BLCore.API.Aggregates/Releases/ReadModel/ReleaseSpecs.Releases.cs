@@ -24,6 +24,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel
                     return new FindSpecification<ReleaseInfo>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
                 }
 
+                public static FindSpecification<ReleaseInfo> Final()
+                {
+                    return new FindSpecification<ReleaseInfo>(x => !x.IsBeta);
+                }
+
                 public static FindSpecification<ReleaseInfo> FinalForPeriodWithStatuses(TimePeriod period, params ReleaseStatus[] statuses)
                 {
                     return new FindSpecification<ReleaseInfo>(x => x.IsActive

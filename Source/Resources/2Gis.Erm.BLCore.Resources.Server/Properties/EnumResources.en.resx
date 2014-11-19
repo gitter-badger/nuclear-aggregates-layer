@@ -688,7 +688,7 @@
     <value>101-300</value>
   </data>
   <data name="StaffAmountFromThreeHundredToFiveHundred" xml:space="preserve">
-    <value>301 - 500</value>
+    <value>301-500</value>
   </data>
   <data name="StaffAmountFromTwentyToFifty" xml:space="preserve">
     <value>21-50</value>
@@ -847,7 +847,7 @@
     <value>Order file</value>
   </data>
   <data name="EntityNameDeal" xml:space="preserve">
-    <value>Opportunity</value>
+    <value>Deal</value>
   </data>
   <data name="EntityNameBranchOfficeOrganizationUnit" xml:space="preserve">
     <value>Legal entity of a company division</value>
@@ -1081,7 +1081,7 @@
     <value>Extended selection of legal entities for a company</value>
   </data>
   <data name="FunctionalPrivilegeNameOrderChangeDealExtended" xml:space="preserve">
-    <value>Referencing orders to another opportunity</value>
+    <value>Linking the order to another deal</value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonChangeClient" xml:space="preserve">
     <value>Changing client for a legal entity </value>
@@ -1203,19 +1203,19 @@
   <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
     <value>After-sale service4</value>
   </data>
-  <data name="BusinessOperationTypeQualify" xml:space="preserve">
+  <data name="BusinessOperationQualify" xml:space="preserve">
     <value>Taking from the reserve</value>
   </data>
-  <data name="BusinessOperationTypeDisqualify" xml:space="preserve">
+  <data name="BusinessOperationDisqualify" xml:space="preserve">
     <value>Returning to the reserve</value>
   </data>
-  <data name="BusinessOperationTypeChangeTerritory" xml:space="preserve">
+  <data name="BusinessOperationChangeTerritory" xml:space="preserve">
     <value>Changing territory</value>
   </data>
-  <data name="BusinessOperationTypeChangeClient" xml:space="preserve">
+  <data name="BusinessOperationChangeClient" xml:space="preserve">
     <value>Changing client</value>
   </data>
-  <data name="BusinessOperationTypeAfterSaleServiceActivitiesCreation" xml:space="preserve">
+  <data name="BusinessOperationAfterSaleServiceActivitiesCreation" xml:space="preserve">
     <value>Formation of after-sale service</value>
   </data>
   <data name="OperationStatusError" xml:space="preserve">
@@ -1230,13 +1230,13 @@
   <data name="OperationStatusSuccess" xml:space="preserve">
     <value>Completed</value>
   </data>
-  <data name="BusinessOperationTypeCheckOrdersReadinessForRelease" xml:space="preserve">
+  <data name="BusinessOperationCheckOrdersReadinessForRelease" xml:space="preserve">
     <value>Checking orders</value>
   </data>
-  <data name="BusinessOperationTypeExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
+  <data name="BusinessOperationExportAccountDetailsTo1CForFranchisees" xml:space="preserve">
     <value>Unloading writing-offs to 1C</value>
   </data>
-  <data name="BusinessOperationTypeMakeRegionalAdsDocs" xml:space="preserve">
+  <data name="BusinessOperationMakeRegionalAdsDocs" xml:space="preserve">
     <value>Formation of regional advertisement</value>
   </data>
   <data name="FunctionalPrivilegeNameCreateAfterSalesServiceActivities" xml:space="preserve">
@@ -1381,7 +1381,7 @@
     <value>Presentations</value>
   </data>
   <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
-    <value>Presentation of advertising opportunity</value>
+    <value>Presentation of advertising deal</value>
   </data>
   <data name="ActivityPurposeOfferApproval" xml:space="preserve">
     <value>Approval and sending of CO</value>
@@ -1587,7 +1587,7 @@
   <data name="AfterSaleServiceTypeNone" xml:space="preserve">
     <value />
   </data>
-  <data name="BusinessOperationTypeNone" xml:space="preserve">
+  <data name="BusinessOperationNone" xml:space="preserve">
     <value />
   </data>
   <data name="FunctionalPrivilegeNamePublishAdvertisementTemplate" xml:space="preserve">
@@ -1653,7 +1653,7 @@
   <data name="FunctionalPrivilegeNameEditDummyAdvertisement" xml:space="preserve">
     <value>Edit an AM parked page</value>
   </data>
-  <data name="BusinessOperationTypeGetOrdersWithDummyAdvertisements" xml:space="preserve">
+  <data name="BusinessOperationGetOrdersWithDummyAdvertisements" xml:space="preserve">
     <value>Searching for orders with AM parked pages</value>
   </data>
   <data name="FasCommentSupplements" xml:space="preserve">
@@ -1928,7 +1928,7 @@
     <value>Action</value>
   </data>
   <data name="EntityNameAdvertisementElementDenialReason" xml:space="preserve">
-    <value>СConnection of AME to rejection reasons</value>
+    <value>Connection of AME to rejection reasons</value>
   </data>
   <data name="EntityNameAdvertisementElementStatus" xml:space="preserve">
     <value>AME status</value>
@@ -1973,15 +1973,42 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="TemplateCodeClientBargain" xml:space="preserve">
-    <value>Клиентский договор</value>
+    <value>Client Contract</value>
   </data>
   <data name="TemplateCodeClientBargainAlternativeLanguage" xml:space="preserve">
-    <value>Клиентский договор (дополнительный язык)</value>
+    <value>Client Contract (in another language)</value>
   </data>
   <data name="TemplateCodeAgentBargain" xml:space="preserve">
-    <value>Агентский договор</value>
+    <value>Agency Contract</value>
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
-    <value>Соглашение о продлении договора</value>
+    <value>Contract Extension Agreement</value>
+  </data>
+  <data name="PaymentFormatDeferredPayment" xml:space="preserve">
+    <value>Postponement</value>
+  </data>
+  <data name="PaymentFormatPaymentByInstalments" xml:space="preserve">
+    <value>Installment</value>
+  </data>
+  <data name="PaymentFormatPostpay" xml:space="preserve">
+    <value>Post-payment</value>
+  </data>
+  <data name="PaymentFormatPrepayment" xml:space="preserve">
+    <value>Pre-payment</value>
+  </data>
+  <data name="EntityNameFirmDeal" xml:space="preserve">
+    <value>A link between the company and the deal</value>
+  </data>
+  <data name="EntityNameLegalPersonDeal" xml:space="preserve">
+    <value>A link between the legal entity and the deal</value>
+  </data>
+  <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
+    <value>Deactivation/activation of the customer's legal entity</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
+    <value>Other</value>
   </data>
 </root>

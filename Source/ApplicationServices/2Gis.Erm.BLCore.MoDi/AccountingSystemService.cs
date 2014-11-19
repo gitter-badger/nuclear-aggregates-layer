@@ -556,7 +556,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                     // Выгрука в формате csv не использует поле RegionalNumber
                     OrderNumber = CreateOrderNumber(legalPerson.OrganizationUnitSyncCode1C, branchOffice.OrganizationUnitSyncCode1C, startDate),
                     ProfileCode = accountInfo.ProfileCode,
-                    SignedOnDate = orderInfo.SignupDate,
+                    SignupDate = orderInfo.SignupDate,
                     LegalEntityBranchCode1C = branchOffice.SyncCode1C,
                     PlatformDistributions = new[]
                             {

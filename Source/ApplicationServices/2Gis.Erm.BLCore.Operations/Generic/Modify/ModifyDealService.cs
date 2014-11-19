@@ -61,6 +61,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                 throw new NotificationException(BLResources.PickReasonForNewDeal);
             }
 
+            if (deal.AgencyFee.HasValue && (deal.AgencyFee < 0M || deal.AgencyFee > 100M))
+            {
+                throw new AgencyFeeFormatException(BLResources.AgencyFeePercentMustBeBetweenZeroAndOneHundred);
+            }
+
+            if (deal.AdvertisingCampaignBeginDate.HasValue && !deal.AdvertisingCampaignEndDate.HasValue)
+            {
+                throw new AdvertisingCampaignPeriodException(BLResources.AdvertisingCampaignEndDateMustBeSpecified);
+            }
+
+            if (deal.AdvertisingCampaignEndDate.HasValue && !deal.AdvertisingCampaignBeginDate.HasValue)
+            {
+                throw new AdvertisingCampaignPeriodException(BLResources.AdvertisingCampaignBeginDateMustBeSpecified);
+            }
+
+            if (deal.AdvertisingCampaignEndDate.HasValue && deal.AdvertisingCampaignBeginDate.HasValue &&
+                deal.AdvertisingCampaignEndDate.Value < deal.AdvertisingCampaignBeginDate.Value)
+            {
+                throw new AdvertisingCampaignPeriodException(BLResources.AdvertisingCampaignEndDateMustNotBeLessThanBeginDate);
+            }
+
             var client = _clientReadModel.GetClient(deal.ClientId);
 
             if (client.OwnerCode == _securityServiceUserIdentifier.GetReserveUserIdentity().Code)
