@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
+using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
@@ -39,6 +40,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                           .UseAnchor<BlOperationsAssembly>()
                                           .UseAnchor<BlFlexOperationsGlobalAssembly>()
                                       .RequireZone<PlatformZone>()
+                                          .UseAnchor<PlatformDalPersistenceServicesAssembly>()
                                           .UseAnchor<BlCoreDalPersistenceServicesAssembly>()
                                           .UseAnchor<PlatformModelAssembly>()
                                           .UseAnchor<PlatformCoreAssembly>()

@@ -23,7 +23,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
@@ -40,12 +39,10 @@ using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
-using DoubleGis.Erm.BLCore.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.WCF.Operations;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
-using DoubleGis.Erm.BLQuerying.DI;
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI;
@@ -115,7 +112,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                         Mapping.Erm,
                         new Func<Type, EntitySet, IEnumerable<Type>, Type>[] { BLQueryingConflictResolver.ListServices },
                         new Func<Type, IEnumerable<Type>, Type>[0]),
-                    new RequestHandlersProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
                     new EfDbModelMassProcessor(container)
                 };
 
@@ -295,7 +292,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 
                      .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerOperationContext, MappingScope)
 
-                     .RegisterTypeWithDependencies<IOrderValidationInvalidator, OrderValidationService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerOperationContext, MappingScope)
                      .RegisterTypeWithDependencies<IChangeAdvertisementElementStatusStrategiesFactory, UnityChangeAdvertisementElementStatusStrategiesFactory>(CustomLifetime.PerOperationContext, MappingScope)
                      // notification sender

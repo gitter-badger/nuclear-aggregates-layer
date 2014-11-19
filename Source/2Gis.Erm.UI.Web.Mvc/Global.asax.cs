@@ -127,6 +127,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
+            if (Request.RawUrl.StartsWith("/__browserLink", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
             LoggerContextPrepareForRequestProcessing();
             Logger.DebugFormatEx("Старт обработки запроса [{0}], queryString=[{1}]", Request.Path, Request.QueryString);
 

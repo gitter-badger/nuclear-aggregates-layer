@@ -23,6 +23,7 @@
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <CompilerAdditionalOptions>
     </CompilerAdditionalOptions>
+    <LinkerAdditionalOptions>-b PackagesDir=..\packages -b LibsDir=..\Libs</LinkerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
@@ -584,6 +585,15 @@
     <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
       <Name>2Gis.Erm.Platform.Resources.Server</Name>
       <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>
+      </DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Extensions\2Gis.Erm.Platform.WCF.Extensions.csproj">
+      <Name>2Gis.Erm.Platform.WCF.Extensions</Name>
+      <Project>{f09e7148-2f47-4bca-bf3c-410cda8018a4}</Project>
       <Private>True</Private>
       <DoNotHarvest>
       </DoNotHarvest>
