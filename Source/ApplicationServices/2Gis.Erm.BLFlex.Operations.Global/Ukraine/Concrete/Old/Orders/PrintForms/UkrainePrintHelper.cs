@@ -82,7 +82,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                     { "Phone", profile.Phone },
                     { "BankName", profile.BankName },
                     { "AccountNumber", profile.AccountNumber },
-                    { "PaymentMethod", profile.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) },
+                           {
+                               "PaymentMethod",
+                               profile.PaymentMethod != PaymentMethod.Undefined
+                                   ? profile.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
+                                   : string.Empty
+                           },
                     { "AdditionalPaymentElements", profile.AdditionalPaymentElements },
                     { "Mfo", profile.Within<UkraineLegalPersonProfilePart>().GetPropertyValue(part => part.Mfo) },
                 };

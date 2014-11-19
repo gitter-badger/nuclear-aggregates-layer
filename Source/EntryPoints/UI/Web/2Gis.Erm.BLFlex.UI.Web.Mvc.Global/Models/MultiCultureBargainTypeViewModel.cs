@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public sealed class MultiCultureBargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         [RequiredLocalized]
         public string Name { get; set; }

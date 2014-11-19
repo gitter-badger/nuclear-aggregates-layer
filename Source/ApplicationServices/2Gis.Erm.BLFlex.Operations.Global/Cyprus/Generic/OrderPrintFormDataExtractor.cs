@@ -131,7 +131,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
                     { "ElectronicMedia", stuff.ElectronicMedia },
                     { "Firm.Name", stuff.FirmName },
-                    { "PaymentMethod", (stuff.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture) },
+                                     {
+                                         "PaymentMethod",
+                                         stuff.PaymentMethod != PaymentMethod.Undefined
+                                             ? stuff.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
+                                             : string.Empty
+                                     },
                     { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
                 };
 

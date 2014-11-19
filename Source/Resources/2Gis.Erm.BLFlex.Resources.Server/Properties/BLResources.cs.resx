@@ -166,10 +166,10 @@
 8.</value>
   </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
-    <value>Není možné vytvořit objednávku pro typ právnické osoby &apos;{0}&apos; uvedený v profilu</value>
+    <value>Není možné vytvořit objednávku pro typ právnické osoby '{0}' uvedený v profilu</value>
   </data>
   <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
-    <value>Právnická osoba typu &apos;{0}&apos; uvedená v profilu nemůže jednat na základě {1}</value>
+    <value>Právnická osoba typu '{0}' uvedená v profilu nemůže jednat na základě {1}</value>
   </data>
   <data name="ContributionTypeIsNotSet" xml:space="preserve">
     <value>Oddělení organizace s ID [{0}] nemá určenou formu spolupráce</value>
@@ -402,6 +402,9 @@
   <data name="PositionNameFormatCategorySingle" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>С данным клиентом работает рекламное агентство:</value>
+  </data>
   <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
@@ -427,13 +430,40 @@
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="UnsupportedPositionBindingObjectType" xml:space="preserve">
-    <value>Описание для позиции с типом привязки {0} не задано</value>
+    <value>Popis pro pozici s typem spojení {0} není zadán</value>
   </data>
   <data name="CannotFindActivity" xml:space="preserve">
-    <value>Действие с ID {0} не найдено.</value>
+    <value>Operace s ID {0} nebyla nalezena.</value>
     <comment>Действие с ID {0} не найдено.</comment>
   </data>
   <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
-    <value>Создание региональных заказов не поддерживается</value>
+    <value>Vytváření regionálních objednávek není podporováno</value>
+  </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>S tímto klientem spolupracuje následující reklamní agentura:</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
   </data>
 </root>

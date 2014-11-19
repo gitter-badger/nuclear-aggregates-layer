@@ -1,5 +1,6 @@
 ﻿using System;
 
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -15,7 +16,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
     // TODO {y.baranihin, 18.09.2014}: Все I*Adapted собрались тут? Тогда можно, как в тетрисе, строчку стирать.
     // COMMENT {a.rechkalov, 19.09.2014}: При текущей реализации IAdapted на ViewModel - IAdapted View'хи. В данном случае вьюхи различны.
-    public sealed class MultiCultureDealViewModel : EntityViewModelBase<Deal>, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
+    public sealed class MultiCultureDealViewModel : EntityViewModelBase<Deal>, IRussiaAdapted, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         [Dependency(DependencyType.Required, "Name", "this.value != 0")]
         public override long Id { get; set; }
@@ -48,12 +49,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         // Куратор
         [RequiredLocalized]
         public override LookupField Owner { get; set; }
+
         public override bool IsSecurityRoot
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         // Клиент
@@ -68,6 +67,30 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         // Фирма
         public LookupField MainFirm { get; set; }
+
+        public bool IncreaseSalesGoal { get; set; }
+
+        public bool AttractAudienceToSiteGoal { get; set; }
+
+        public bool IncreasePhoneCallsGoal { get; set; }
+
+        public bool IncreaseBrandAwarenessGoal { get; set; }
+
+        [StringLengthLocalized(512)]
+        public string AdvertisingCampaignGoalText { get; set; }
+
+        public LookupField Bargain { get; set; }
+
+        public DateTime? AdvertisingCampaignBeginDate { get; set; }
+        
+        public DateTime? AdvertisingCampaignEndDate { get; set; }
+
+        public PaymentFormat? PaymentFormat { get; set; }
+
+        [CustomClientValidation("validateAgencyFeePercent",
+                                ErrorMessageResourceType = typeof(BLResources),
+                                ErrorMessageResourceName = "AgencyFeePercentMustBeBetweenZeroAndOneHundred")]
+        public decimal? AgencyFee { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
@@ -90,6 +113,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
             MainFirm = LookupField.FromReference(modelDto.MainFirmRef);
             Client = LookupField.FromReference(modelDto.ClientRef);
             Currency = LookupField.FromReference(modelDto.CurrencyRef);
+
+            IncreaseSalesGoal = modelDto.AdvertisingCampaignGoals.HasValue &&
+                                modelDto.AdvertisingCampaignGoals.Value.HasFlag(AdvertisingCampaignGoals.IncreaseSales);
+            AttractAudienceToSiteGoal = modelDto.AdvertisingCampaignGoals.HasValue &&
+                                        modelDto.AdvertisingCampaignGoals.Value.HasFlag(AdvertisingCampaignGoals.AttractAudienceToSite);
+            IncreasePhoneCallsGoal = modelDto.AdvertisingCampaignGoals.HasValue &&
+                                     modelDto.AdvertisingCampaignGoals.Value.HasFlag(AdvertisingCampaignGoals.IncreasePhoneCalls);
+            IncreaseBrandAwarenessGoal = modelDto.AdvertisingCampaignGoals.HasValue &&
+                                         modelDto.AdvertisingCampaignGoals.Value.HasFlag(AdvertisingCampaignGoals.IncreaseBrandAwareness);
+            AdvertisingCampaignGoalText = modelDto.AdvertisingCampaignGoalText;
+            Bargain = LookupField.FromReference(modelDto.BargainRef);
+            AdvertisingCampaignBeginDate = modelDto.AdvertisingCampaignBeginDate;
+            AdvertisingCampaignEndDate = modelDto.AdvertisingCampaignEndDate;
+            PaymentFormat = modelDto.PaymentFormat;
+            AgencyFee = modelDto.AgencyFee;
+
             Timestamp = modelDto.Timestamp;
         }
 
@@ -112,12 +151,51 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     MainFirmRef = MainFirm.ToReference(),
                     CurrencyRef = Currency.ToReference(),
                     OwnerRef = Owner.ToReference(),
-                    Timestamp = Timestamp
+                    Timestamp = Timestamp,
+                    AdvertisingCampaignGoalText = AdvertisingCampaignGoalText,
+                    BargainRef = Bargain.ToReference(),
+                    AdvertisingCampaignBeginDate = AdvertisingCampaignBeginDate,
+                    AdvertisingCampaignEndDate = AdvertisingCampaignEndDate,
+                    PaymentFormat = PaymentFormat,
+                    AgencyFee = AgencyFee,
                 };
+
+            if (Bargain.Key != null)
+            {
+                dto.BargainRef = Bargain.ToReference();
+            }
 
             if (Client.Key != null)
             {
                 dto.ClientRef = Client.ToReference();
+            }
+
+            if (IncreaseSalesGoal)
+            {
+                dto.AdvertisingCampaignGoals = dto.AdvertisingCampaignGoals.HasValue
+                                                   ? dto.AdvertisingCampaignGoals | AdvertisingCampaignGoals.IncreaseSales
+                                                   : AdvertisingCampaignGoals.IncreaseSales;
+            }
+
+            if (AttractAudienceToSiteGoal)
+            {
+                dto.AdvertisingCampaignGoals = dto.AdvertisingCampaignGoals.HasValue
+                                                   ? dto.AdvertisingCampaignGoals | AdvertisingCampaignGoals.AttractAudienceToSite
+                                                   : AdvertisingCampaignGoals.AttractAudienceToSite;
+            }
+
+            if (IncreasePhoneCallsGoal)
+            {
+                dto.AdvertisingCampaignGoals = dto.AdvertisingCampaignGoals.HasValue
+                                                   ? dto.AdvertisingCampaignGoals | AdvertisingCampaignGoals.IncreasePhoneCalls
+                                                   : AdvertisingCampaignGoals.IncreasePhoneCalls;
+            }
+
+            if (IncreaseBrandAwarenessGoal)
+            {
+                dto.AdvertisingCampaignGoals = dto.AdvertisingCampaignGoals.HasValue
+                                                   ? dto.AdvertisingCampaignGoals | AdvertisingCampaignGoals.IncreaseBrandAwareness
+                                                   : AdvertisingCampaignGoals.IncreaseBrandAwareness;
             }
 
             return dto;

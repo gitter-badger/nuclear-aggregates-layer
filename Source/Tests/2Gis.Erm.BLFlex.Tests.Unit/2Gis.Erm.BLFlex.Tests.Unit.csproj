@@ -53,9 +53,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Machine.Specifications-Signed.0.8.2\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -107,6 +114,7 @@
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Chile\Generic\Get\ChileGetLegalPersonProfileDtoServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Generic\Modify\ModifyBranchOfficeOrganizationUnitServiceSpecs.cs" />
+    <Compile Include="BL\Print\MultiCulture\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\KopekInRussianPluralizerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\HryvniaInRussianPluralizerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\Formatter\RoublesInRussianPluralizerSpecs.cs" />
@@ -129,9 +137,10 @@
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Concrete\RegionalNumberNotSupportedServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Concrete\EvaluateOrderNumberServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\NewSalesModelBargainDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardServiceSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\Russia\EditIsAdvertisingAgencyViewModelCustomizationSpecs.cs" />
+    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\WarnLinkToAdvAgencyExistsVmCustomizationSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.Common.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonProfileViewModelSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonViewModelSpecs.cs" />
@@ -157,7 +166,6 @@
     <Compile Include="ApplicationServices\Operations.Global\Shared\CyprusFormatterSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\CzechFormatterSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Shared\RussianFormatterSpecs.cs" />
-    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\Russia\ClientViewModelCustomizationServiceSpecs.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,6 +255,10 @@
     <ProjectReference Include="..\..\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
       <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
       <Name>2Gis.Erm.BLFlex.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{CB20D7AE-1EAA-4A35-A667-C9BF86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

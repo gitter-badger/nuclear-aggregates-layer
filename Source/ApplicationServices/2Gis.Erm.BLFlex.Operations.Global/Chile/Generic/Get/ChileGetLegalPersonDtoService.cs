@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
@@ -18,8 +19,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
         public ChileGetLegalPersonDtoService(IClientReadModel clientReadModel,
             ILegalPersonReadModel legalPersonReadModel,
             IChileLegalPersonReadModel chileLegalPersonReadModel,
-            IUserContext userContext)
-            : base(userContext, clientReadModel, legalPersonReadModel)
+            IUserContext userContext,
+            IDealReadModel dealReadModel)
+            : base(userContext, clientReadModel, legalPersonReadModel, dealReadModel)
         {
             _chileLegalPersonReadModel = chileLegalPersonReadModel;
         }

@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
+    // FIXME {all, 24.09.2014}: Не отличается от MultiCultureAccountViewModel
     public sealed class CyprusAccountViewModel : EntityViewModelBase<Account>, ICyprusAdapted
     {
         // Юридическое лицо отделения организации

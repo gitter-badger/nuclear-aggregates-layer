@@ -96,7 +96,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
 
         private static string SelectThemeQuoted(this IEnumerable<Advertisement> values)
         {
-            return string.Join(BindingObjectSeparator, values.Select(ThemeQuoted));
+            return string.Join(BindingObjectSeparator, values.Select(ThemeQuoted).Distinct());
         }
         
         private static string ThemeQuoted(Advertisement value)
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
 
         private static string SelectAddressQuoted(this IEnumerable<Advertisement> values)
         {
-            return string.Join(BindingObjectSeparator, values.Select(AddressQuoted));
+            return string.Join(BindingObjectSeparator, values.Select(AddressQuoted).Distinct());
         }
 
         private static string AddressQuoted(Advertisement value)
@@ -118,7 +118,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
 
         private static string SelectCategoryQuoted(this IEnumerable<Advertisement> values)
         {
-            return string.Join(BindingObjectSeparator, values.Select(CategoryQuoted));
+            return string.Join(BindingObjectSeparator, values.Select(CategoryQuoted).Distinct());
         }
         
         private static string CategoryQuoted(Advertisement value)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
-    public class GetClientDtoService : GetDomainEntityDtoServiceBase<Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class GetClientDtoService : GetDomainEntityDtoServiceBase<Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         private readonly ISecureFinder _finder;
 
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new MultiCultureClientDomainEntityDto();
+            return new MultiCultureClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow.Date };
         }
     }
 }

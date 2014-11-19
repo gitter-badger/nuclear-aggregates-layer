@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     ChileLegalPersonReadModel = Mock.Of<IChileLegalPersonReadModel>();
                     UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
 
-                    ChileGetLegalPersonDtoService = new ChileGetLegalPersonDtoService(ClientReadModel, LegalPersonReadModel, ChileLegalPersonReadModel, UserContext);
+                    ChileGetLegalPersonDtoService = new ChileGetLegalPersonDtoService(ClientReadModel, LegalPersonReadModel, ChileLegalPersonReadModel, UserContext, null);
                 };
 
             Because of = () =>

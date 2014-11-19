@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.DomainEntityObtainers
 {
-    public class ClientObtainer : IBusinessModelEntityObtainer<Client>, IAggregateReadModel<Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted
+    public class ClientObtainer : IBusinessModelEntityObtainer<Client>, IAggregateReadModel<Client>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         private readonly IFinder _finder;
 

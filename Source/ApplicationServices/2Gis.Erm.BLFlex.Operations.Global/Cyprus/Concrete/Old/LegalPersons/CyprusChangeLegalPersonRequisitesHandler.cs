@@ -1,20 +1,20 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Concrete.Old.LegalPersons;
+using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPersons
 {
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
         private readonly IUserContext _userContext;
         private readonly IUpdateAggregateRepository<LegalPerson> _legalPersonUpdateRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IFinder _finder;
+        private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         public CyprusChangeLegalPersonRequisitesHandler(
             ISubRequestProcessor subRequestProcessor,
@@ -33,24 +33,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.LegalPerson
             IUserContext userContext,
             IUpdateAggregateRepository<LegalPerson> legalPersonRepository,
             IOperationScopeFactory scopeFactory,
-            IFinder finder)
+            ILegalPersonReadModel legalPersonReadModel)
         {
             _subRequestProcessor = subRequestProcessor;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
             _legalPersonUpdateRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;
-            _finder = finder;
+            _legalPersonReadModel = legalPersonReadModel;
         }
 
         protected override EmptyResponse Handle(CyprusChangeLegalPersonRequisitesRequest request)
         {
             if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LegalPersonChangeRequisites, _userContext.Identity.Code))
             {
-                throw new NotificationException(BLResources.AccessDenied);
+                throw new OperationAccessDeniedException(ChangeRequisitesIdentity.Instance);
             }
 
-            var entity = _finder.FindOne(Specs.Find.ById<LegalPerson>(request.LegalPersonId));
+            var entity = _legalPersonReadModel.GetLegalPerson(request.LegalPersonId);
+
+            if (!entity.IsActive)
+            {
+                throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
+            }
+
             var legalPersonType = entity.LegalPersonTypeEnum;
 
             // три стратегии замены реквизитов для трех разных типов юрлиц

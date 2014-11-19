@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
+using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LegalPersons;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -26,23 +26,23 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly ILegalPersonRepository _legalPersonRepository;
         private readonly IUpdateAggregateRepository<LegalPersonProfile> _updateProfileRepository; 
         private readonly IOrderRepository _orderRepository;
         private readonly IAccountRepository _accountRepository;        
         private readonly IRussiaLegalPersonReadModel _legalPersonReadModel;
         private readonly IUpdateAggregateRepository<Bargain> _updateBargainAggregateService;
+        private readonly IDeleteLegalPersonAggregateService _deleteLegalPersonAggregateService;
 
         public MergeLegalPersonsHandler(
             ISecurityServiceFunctionalAccess functionalAccessService,
-            ILegalPersonRepository legalPersonRepository,
             IOrderRepository orderRepository,
             IAccountRepository accountRepository,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
             IUpdateAggregateRepository<LegalPersonProfile> updateProfileRepository,
             IRussiaLegalPersonReadModel legalPersonReadModel,
-            IUpdateAggregateRepository<Bargain> updateBargainAggregateService)
+            IUpdateAggregateRepository<Bargain> updateBargainAggregateService,
+            IDeleteLegalPersonAggregateService deleteLegalPersonAggregateService)
         {
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
             _updateProfileRepository = updateProfileRepository;
             _legalPersonReadModel = legalPersonReadModel;
             _updateBargainAggregateService = updateBargainAggregateService;
-            _legalPersonRepository = legalPersonRepository;
+            _deleteLegalPersonAggregateService = deleteLegalPersonAggregateService;
             _orderRepository = orderRepository;
             _accountRepository = accountRepository;
         }
@@ -229,7 +229,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
                     _updateProfileRepository.Update(profile);
                 }
 
-                _legalPersonRepository.Deactivate(appendedLegalPerson.LegalPerson);
+                _deleteLegalPersonAggregateService.Delete(appendedLegalPerson.LegalPerson, Enumerable.Empty<LegalPersonProfile>());
 
                 operationScope.Updated<LegalPersonProfile>(appendedLegalPerson.Profiles.Select(x => x.Id))
                               .Updated<LegalPerson>(appendedLegalPerson.LegalPerson.Id);

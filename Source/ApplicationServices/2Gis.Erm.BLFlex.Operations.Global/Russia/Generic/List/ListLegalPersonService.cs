@@ -2,12 +2,15 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -25,7 +28,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
         public ListLegalPersonService(
             ISecurityServiceUserIdentifier userIdentifierService, 
             IFinder finder,
-            FilterHelper filterHelper, IUserContext userContext, IDebtProcessingSettings debtProcessingSettings)
+            FilterHelper filterHelper,
+            IUserContext userContext,
+            IDebtProcessingSettings debtProcessingSettings)
         {
             _userIdentifierService = userIdentifierService;
             _finder = finder;
@@ -42,6 +47,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
             {
                 query = _filterHelper.ForSubordinates(query);
+            }
+
+            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            {
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                query = _filterHelper.ForClientAndItsDescendants(query, clientId);
+            }
+
+            if (querySettings.ParentEntityName == EntityName.Client && querySettings.ParentEntityId.HasValue)
+            {
+                query = _filterHelper.ForClientAndItsDescendants(query, querySettings.ParentEntityId.Value);
             }
 
             var debtFilter = querySettings.CreateForExtendedProperty<LegalPerson, bool>("WithDebt", info =>
@@ -108,8 +124,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         return x => x.Id != restrictForMergeId && x.IsActive && !x.IsDeleted;
                     });
 
+            var dealFilter = querySettings.CreateForExtendedProperty<LegalPerson, long>("dealId", dealId => LegalPersonListSpecs.Filter.ByDeal(dealId, _finder));
+
             return query
-                .Filter(_filterHelper, debtFilter, hasMyOrdersFilter, myBranchFilter, restrictForMergeFilter)
+                .Filter(_filterHelper, dealFilter, debtFilter, hasMyOrdersFilter, myBranchFilter, restrictForMergeFilter)
                 .Select(x => new ListLegalPersonDto
                 {
                     Id = x.Id,

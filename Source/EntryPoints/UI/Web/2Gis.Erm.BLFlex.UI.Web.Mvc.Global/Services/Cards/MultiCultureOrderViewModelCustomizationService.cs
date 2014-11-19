@@ -19,7 +19,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -31,13 +30,12 @@ using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
 {
     public class MultiCultureOrderViewModelCustomizationService : IGenericViewModelCustomizationService<Order>, ICzechAdapted, ICyprusAdapted, IChileAdapted,
-                                                                  IUkraineAdapted, IEmiratesAdapted
+                                                                  IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly IUserContext _userContext;
         private readonly IAPIOrderValidationServiceSettings _orderValidationServiceSettings;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ISecureFinder _secureFinder;
         private readonly IReleaseReadModel _releaseReadModel;
         private readonly IPublicService _publicService;
 
@@ -45,7 +43,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                                                               IAPIOrderValidationServiceSettings orderValidationServiceSettings,
                                                               ISecurityServiceFunctionalAccess functionalAccessService,
                                                               ISecurityServiceUserIdentifier userIdentifierService,
-                                                              ISecureFinder secureFinder,
                                                               IReleaseReadModel releaseReadModel,
                                                               IPublicService publicService)
         {
@@ -53,7 +50,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
             _orderValidationServiceSettings = orderValidationServiceSettings;
             _functionalAccessService = functionalAccessService;
             _userIdentifierService = userIdentifierService;
-            _secureFinder = secureFinder;
             _releaseReadModel = releaseReadModel;
             _publicService = publicService;
         }

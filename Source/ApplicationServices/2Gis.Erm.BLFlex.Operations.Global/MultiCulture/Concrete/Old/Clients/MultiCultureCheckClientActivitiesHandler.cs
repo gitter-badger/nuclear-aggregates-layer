@@ -9,8 +9,13 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Clients
 {
-    public class MultiCultureCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>, IChileAdapted, ICyprusAdapted,
-                                                            ICzechAdapted, IUkraineAdapted, IEmiratesAdapted
+    public class MultiCultureCheckClientActivitiesHandler : RequestHandler<CheckClientActivitiesRequest, EmptyResponse>,
+                                                            IChileAdapted,
+                                                            ICyprusAdapted,
+                                                            ICzechAdapted,
+                                                            IUkraineAdapted,
+                                                            IEmiratesAdapted,
+                                                            IKazakhstanAdapted
     {
         private readonly IActivityReadModel _activityReadModel;
 

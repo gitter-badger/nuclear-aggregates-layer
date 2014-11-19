@@ -17,7 +17,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Clients
                                                                          ICyprusAdapted,
                                                                          IChileAdapted,
                                                                          ICzechAdapted,
-                                                                         IUkraineAdapted
+                                                                         IUkraineAdapted,
+                                                                         IKazakhstanAdapted
     {
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ICreateClientAggregateService _createClientAggregateService;

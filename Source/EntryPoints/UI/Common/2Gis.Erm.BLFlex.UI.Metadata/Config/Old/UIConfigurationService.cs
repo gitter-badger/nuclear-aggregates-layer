@@ -207,6 +207,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                         DefaultSortDirection = basedOnDataView.DefaultSortDirection,
                         DisableEdit = basedOnDataView.DisableEdit,
                         HideInCardRelatedGrid = basedOnDataView.HideInCardRelatedGrid,
+                        IsHidden = basedOnDataView.IsHidden,
 
                         Fields = basedOnDataView.Fields.Select(y => new DataListColumnStructure
                         {
@@ -388,6 +389,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             {
                 dataView.HideInCardRelatedGrid = hideInCardRelatedGrid.Value;
             }
+
+            var isHidden = dataListEl.Attribute("IsHidden");
+            if (isHidden != null)
+            {
+                dataView.IsHidden = (bool)isHidden;
+            }
         }
 
         private static IEnumerable<DataListColumnStructure> ParseDataListFields(XContainer dataListEl)
@@ -561,6 +568,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                     DefaultSortDirection = x.DefaultSortDirection,
                     DisableEdit = x.DisableEdit,
                     HideInCardRelatedGrid = x.HideInCardRelatedGrid,
+                    IsHidden = x.IsHidden,
 
                     Fields = x.Fields.Select(y => new DataListColumnStructure
                     {

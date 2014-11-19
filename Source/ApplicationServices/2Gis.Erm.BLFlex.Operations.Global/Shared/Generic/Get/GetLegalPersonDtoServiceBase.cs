@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
@@ -30,13 +32,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
         where TDto : IDomainEntityDto<LegalPerson>
     {
         private readonly IClientReadModel _clientReadModel;
+        private readonly IDealReadModel _dealReadModel;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
 
-        protected GetLegalPersonDtoServiceBase(IUserContext userContext, IClientReadModel clientReadModel, ILegalPersonReadModel legalPersonReadModel)
+        protected GetLegalPersonDtoServiceBase(
+            IUserContext userContext, 
+            IClientReadModel clientReadModel, 
+            ILegalPersonReadModel legalPersonReadModel, 
+            IDealReadModel dealReadModel)
             : base(userContext)
         {
             _clientReadModel = clientReadModel;
             _legalPersonReadModel = legalPersonReadModel;
+            _dealReadModel = dealReadModel;
         }
 
         protected override IDomainEntityDto<LegalPerson> GetDto(long entityId)
@@ -56,7 +64,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
             var legalPerson = new LegalPerson();
 
             long clientId;
-            if (GetDtoServiceHelper.TryGetClientId(parentEntityId, parentEntityName, extendedInfo, out clientId))
+            if (TryGetClientId(parentEntityId, parentEntityName, extendedInfo, out clientId))
             {
                 legalPerson.ClientId = clientId;
             }
@@ -82,6 +90,30 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
             }
 
             return dto;
+        }
+
+        private bool TryGetClientId(long? parentEntityId, EntityName parentEntityName, string extendedInfo, out long clientId)
+        {
+            if (parentEntityName == EntityName.Client && parentEntityId > 0)
+            {
+                clientId = parentEntityId.Value;
+                return true;
+            }
+
+            if (parentEntityName == EntityName.Deal && parentEntityId > 0)
+            {
+                var deal = _dealReadModel.GetDeal(parentEntityId.Value);
+                clientId = deal.ClientId;
+                return true;
+            }
+
+            if (!string.IsNullOrEmpty(extendedInfo))
+            {
+                return long.TryParse(Regex.Match(extendedInfo, @"ClientId=(\d+)").Groups[1].Value, out clientId);
+            }
+
+            clientId = 0;
+            return false;
         }
     }
 }
