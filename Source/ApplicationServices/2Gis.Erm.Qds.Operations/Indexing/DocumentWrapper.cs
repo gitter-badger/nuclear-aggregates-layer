@@ -5,14 +5,11 @@ using DoubleGis.Erm.Qds.Common;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {
-    public sealed class DocumentWrapper<TDocument> : IDocumentWrapper<TDocument>
+    public sealed class IndexedDocumentWrapper<TDocument> : DocumentWrapper<TDocument>, IIndexedDocumentWrapper
         where TDocument : class
     {
         private static readonly Type DocumentTypePrivate = typeof(TDocument);
         
-        public string Id { get; set; }
-        public string Version { get; set; }
-        public TDocument Document { get; set; }
         public Type DocumentType
         {
             get { return DocumentTypePrivate; }
@@ -22,7 +19,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         {
             get
             {
-                if (string.IsNullOrEmpty(Version))
+                if (Version == null)
                 {
                     return bulkDescriptor => (ElasticApi.ErmBulkDescriptor)bulkDescriptor
                         .Create<TDocument>(bulkIndexDescriptor => bulkIndexDescriptor
@@ -34,7 +31,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     .UpdateWithMerge<TDocument>(bulkUpdateDescriptor => bulkUpdateDescriptor
                         .Id(Id)
                         .Doc(Document)
-                        .Version(Version));
+                        .Version(Version.Value.ToString()));
             }
         }
     }

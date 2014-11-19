@@ -36,14 +36,13 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, DocumentWrapper<BargainGridDoc>> Project(CultureInfo cultureInfo)
+            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>> Project(CultureInfo cultureInfo)
             {
-                return new ProjectSpecification<ObjectAccessor, DocumentWrapper<BargainGridDoc>>(
-                    x =>
-                        {
-                            var accessor = x.BasedOn<Bargain>();
-                            var bargainKind = accessor.Get(c => c.BargainKind);
-                            return new DocumentWrapper<BargainGridDoc>
+                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>>(x =>
+                {
+                    var accessor = x.BasedOn<Bargain>();
+                    var bargainKind = accessor.Get(c => c.BargainKind);
+                    return new IndexedDocumentWrapper<BargainGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),
                                            Document = new BargainGridDoc

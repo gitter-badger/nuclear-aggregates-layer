@@ -5,16 +5,18 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-    public sealed class ListTimeZoneService : ListEntityDtoServiceBase<TimeZone, ListTimeZoneDto>
+    public sealed class ListLegalPersonDealService : ListEntityDtoServiceBase<LegalPersonDeal, ListLegalPersonDealDto>
     {
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
-        public ListTimeZoneService(IFinder finder, FilterHelper filterHelper)
+        public ListLegalPersonDealService(
+            IFinder finder,
+            FilterHelper filterHelper)
         {
             _finder = finder;
             _filterHelper = filterHelper;
@@ -22,14 +24,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<TimeZone>();
+            var query = _finder.FindAll<LegalPersonDeal>();
 
             return query
-                .Select(x => new ListTimeZoneDto
+                .Filter(_filterHelper)
+                .Select(x => new ListLegalPersonDealDto
                     {
                         Id = x.Id,
-                        TimeZoneId = x.TimeZoneId,
-                        Description = x.Description,
+                        LegalPersonId = x.LegalPersonId,
+                        DealId = x.DealId,
+                        LegalName = x.LegalPerson.LegalName,
+                        IsDeleted = x.IsDeleted,
+                        IsMain = x.IsMain
                     })
                 .QuerySettings(_filterHelper, querySettings);
         }

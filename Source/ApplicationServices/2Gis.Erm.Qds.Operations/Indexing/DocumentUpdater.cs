@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.ElasticSearch;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
@@ -13,7 +14,6 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         private readonly IElasticApi _elasticApi;
         private readonly IEntityToDocumentRelationFactory _entityToDocumentRelationFactory;
         private readonly IDocumentRelationFactory _documentRelationFactory;
-        private bool _interrupted;
 
         public DocumentUpdater(IElasticApi elasticApi, IEntityToDocumentRelationFactory entityToDocumentRelationFactory, IDocumentRelationFactory documentRelationFactory)
         {
@@ -24,60 +24,65 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public void IndexDocuments(IReadOnlyCollection<EntityLink> entityLinks)
         {
+            if (!entityLinks.Any())
+            {
+                return;
+            }
+
             var documentWrappers = GetDocumentWrappers(entityLinks);
-            IndexDocuments(documentWrappers);
+            IndexDocuments(documentWrappers, new CancellationToken());
         }
 
-        public void IndexAllDocuments(Type documentType)
+        public void IndexAllDocuments(Type documentType, CancellationToken cancellationToken, IProgress<long> countProgress = null, IProgress<long> totalCountProgress = null)
         {
-            var documentWrappers = GetDocumentWrappers(documentType);
-            IndexDocuments(documentWrappers);
+            var documentWrappers = GetDocumentWrappers(documentType, totalCountProgress);
+            IndexDocuments(documentWrappers, cancellationToken, countProgress, totalCountProgress);
         }
 
-        public void Interrupt()
+        private void IndexDocuments(IEnumerable<IIndexedDocumentWrapper> documentWrappers, CancellationToken cancellationToken, IProgress<long> countProgress = null, IProgress<long> totalCountProgress = null)
         {
-            _interrupted = true;
-        }
-
-        private void IndexDocuments(IEnumerable<IDocumentWrapper> documentWrappers)
-        {
-            var documentsForParts = Enumerable.Empty<IDocumentWrapper>();
-
-            var batches = _elasticApi.CreateBatches(documentWrappers);
-            foreach (var batch in batches)
+            var relatedDocumentsForBatches = _elasticApi.CreateBatches(documentWrappers).Select(batch =>
             {
                 var documentTypesForBatch = new HashSet<Type>(batch.Select(x => x.DocumentType));
-
-                var relatedDocumentsForBatch = SelectDocumentsForPart(batch, documentTypesForBatch);
-                documentsForParts = documentsForParts.Concat(relatedDocumentsForBatch);
-
                 UpdateDocumentPartsAndVersions(batch, documentTypesForBatch);
-                _elasticApi.Bulk(batch.Select(x => x.IndexFunc).ToArray());
-                if (_interrupted)
-                {
-                    return;
-                }
-            }
 
-            batches = _elasticApi.CreateBatches(documentsForParts);
-            foreach (var batch in batches)
-            {
+                cancellationToken.ThrowIfCancellationRequested();
                 _elasticApi.Bulk(batch.Select(x => x.IndexFunc).ToArray());
-                if (_interrupted)
+                if (countProgress != null)
                 {
-                    return;
+                    countProgress.Report(batch.Count);
+                }
+
+                var relatedDocumentsForBatch = SelectDocumentsForPart(documentTypesForBatch, batch, totalCountProgress);
+                return relatedDocumentsForBatch;
+            });
+
+            foreach (var relatedDocumentsForBatch in relatedDocumentsForBatches)
+            {
+                foreach (var relatedDocuments in relatedDocumentsForBatch)
+                {
+                    var batches = _elasticApi.CreateBatches(relatedDocuments);
+                    foreach (var batch in batches)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        _elasticApi.Bulk(batch.Select(x => x.IndexFunc).ToArray());
+                        if (countProgress != null)
+                        {
+                            countProgress.Report(batch.Count);
+                        }
+                    }
                 }
             }
         }
 
-        private IEnumerable<IDocumentWrapper> SelectDocumentsForPart(IReadOnlyCollection<IDocumentWrapper> batch, IEnumerable<Type> documentTypes)
+        private IEnumerable<IEnumerable<IIndexedDocumentWrapper>> SelectDocumentsForPart(IEnumerable<Type> documentTypes, IReadOnlyCollection<IIndexedDocumentWrapper> batch, IProgress<long> progress)
         {
             var documentPartRelations = _documentRelationFactory.CreateDocumentPartRelations(documentTypes);
-            var relatedDocumentsForBatch = documentPartRelations.SelectMany(x => x.SelectDocumentsForPart(batch));
+            var relatedDocumentsForBatch = documentPartRelations.Select(x => x.SelectDocumentsForPart(batch, progress));
             return relatedDocumentsForBatch;
         }
 
-        private void UpdateDocumentPartsAndVersions(IReadOnlyCollection<IDocumentWrapper> batch, ICollection<Type> documentTypes)
+        private void UpdateDocumentPartsAndVersions(IReadOnlyCollection<IIndexedDocumentWrapper> batch, ICollection<Type> documentTypes)
         {
             var documentRelations = _documentRelationFactory.CreateDocumentRelations(documentTypes);
             var documentVersionUpdaters = _documentRelationFactory.GetDocumentVersionUpdaters(documentTypes);
@@ -104,7 +109,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             }
         }
 
-        private IEnumerable<IDocumentWrapper> GetDocumentWrappers(IEnumerable<EntityLink> entityLinks)
+        private IEnumerable<IIndexedDocumentWrapper> GetDocumentWrappers(IEnumerable<EntityLink> entityLinks)
         {
             var documentWrappers = entityLinks.SelectMany(entityLink =>
             {
@@ -115,10 +120,10 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             return documentWrappers;
         }
 
-        private IEnumerable<IDocumentWrapper> GetDocumentWrappers(Type documentType)
+        private IEnumerable<IIndexedDocumentWrapper> GetDocumentWrappers(Type documentType, IProgress<long> progress)
         {
             var entityToDocumentRelations = _entityToDocumentRelationFactory.GetEntityToDocumentRelationsForDocumentType(documentType);
-            var documentWrappers = entityToDocumentRelations.SelectMany(x => x.SelectAllDocuments());
+            var documentWrappers = entityToDocumentRelations.SelectMany(x => x.SelectAllDocuments(progress));
             return documentWrappers;
         }
     }

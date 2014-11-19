@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
 
         It documents_empty = () => Documents.Should().BeEmpty();
 
-        private static IEnumerable<IHit<ElasticApiTestDoc>> Documents { get; set; }
+        private static IEnumerable<IDocumentWrapper<ElasticApiTestDoc>> Documents { get; set; }
     }
 
     public class When_scroll_on_not_empty_data : ElasticApiContext
@@ -73,7 +73,7 @@ namespace DoubleGis.Erm.Elastic.Nest.Qds.Tests.Unit
         It returns_sample_data = () => Documents.Should().BeEquivalentTo(SampleData);
 
         private static IEnumerable<IHit<ElasticApiTestDoc>> SampleData { get; set; }
-        private static IEnumerable<IHit<ElasticApiTestDoc>> Documents { get; set; }
+        private static IEnumerable<IDocumentWrapper<ElasticApiTestDoc>> Documents { get; set; }
     }
 
     [Subject(typeof(ElasticApi))]

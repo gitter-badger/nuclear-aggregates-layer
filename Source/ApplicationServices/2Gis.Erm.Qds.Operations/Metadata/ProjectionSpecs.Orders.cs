@@ -55,14 +55,14 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, DocumentWrapper<OrderGridDoc>> Project(CultureInfo cultureInfo)
+            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<OrderGridDoc>> Project(CultureInfo cultureInfo)
             {
-                return new ProjectSpecification<ObjectAccessor, DocumentWrapper<OrderGridDoc>>(
+                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<OrderGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Order>();
                             var orderState = accessor.Get(c => c.WorkflowStepId);
-                            return new DocumentWrapper<OrderGridDoc>
+                            return new IndexedDocumentWrapper<OrderGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),
                                            Document = new OrderGridDoc
