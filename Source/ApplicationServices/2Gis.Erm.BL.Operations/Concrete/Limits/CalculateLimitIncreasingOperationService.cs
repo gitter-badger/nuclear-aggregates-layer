@@ -42,6 +42,8 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
             // COMMENT {y.baranihin, 18.11.2014}: Нужно ли тут быть настолько строгим?
             // Расчёт - это операция чтения, её могут выполнять многие.
             // Я думаю, допустим случай, когда мнеджер перед тем как подавать заявку захочет посмотреть сумму сам. Надо уточнить.
+            // COMMENT {a.rechkalov, 19.11.2014}: Уточнил у Олега. Не предполагается, что менеджер сам будет нажимать на эту кнопку. Разделять операцию на 2 части явно тоже не планируется. 
+            // Информация о недостающих средствах у менеджера итак есть, например через ошибку сборки.
             if (!hasFunctionalPrivelege || !hasEntityAccess)
             {
                 throw new OperationAccessDeniedException(CalculateLimitIncreasingIdentity.Instance);
