@@ -56,6 +56,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                           Timestamp = entity.Timestamp
                                       })
                                   .Single();
+            modelDto.LastDisqualifyTime = modelDto.LastDisqualifyTime.HasValue ? DateTime.SpecifyKind(modelDto.LastDisqualifyTime.Value, DateTimeKind.Utc) : (DateTime?)null;
+            modelDto.LastQualifyTime = DateTime.SpecifyKind(modelDto.LastQualifyTime, DateTimeKind.Utc);
 
             return modelDto;
         }
