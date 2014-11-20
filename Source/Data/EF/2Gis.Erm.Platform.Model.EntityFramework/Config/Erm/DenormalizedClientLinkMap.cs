@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
 
             // Relationships
             HasRequired(t => t.ChildClient)
-                .WithMany(t => t.DenormalizedLinksForClientAsMaster)
+                .WithMany(t => t.DenormalizedLinksForClientAsChild)
                 .HasForeignKey(d => d.ChildClientId);
             HasRequired(t => t.MasterClient)
                 .WithMany(t => t.DenormalizedLinksForClientAsMaster)

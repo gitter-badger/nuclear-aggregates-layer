@@ -155,8 +155,6 @@
     <Compile Include="Config\Erm\OrderReleaseTotalMap.cs" />
     <Compile Include="Config\Erm\OrdersRegionalAdvertisingSharingMap.cs" />
     <Compile Include="Config\Erm\OrderValidationResultMap.cs" />
-    <Compile Include="Config\Erm\OrderValidationRuleGroupDetailMap.cs" />
-    <Compile Include="Config\Erm\OrderValidationRuleGroupMap.cs" />
     <Compile Include="Config\Erm\OrganizationUnitMap.cs" />
     <Compile Include="Config\Erm\PerformedBusinessOperationMap.cs" />
     <Compile Include="Config\Erm\PerformedOperationFinalProcessingMap.cs" />

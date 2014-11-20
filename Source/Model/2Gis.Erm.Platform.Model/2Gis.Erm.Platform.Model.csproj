@@ -303,8 +303,6 @@
     <Compile Include="Entities\Erm\OrdersRegionalAdvertisingSharing.cs" />
     <Compile Include="Entities\Erm\OrderValidationCacheEntry.cs" />
     <Compile Include="Entities\Erm\OrderValidationResult.cs" />
-    <Compile Include="Entities\Erm\OrderValidationRuleGroup.cs" />
-    <Compile Include="Entities\Erm\OrderValidationRuleGroupDetail.cs" />
     <Compile Include="Entities\Erm\OrganizationUnit.cs" />
     <Compile Include="Entities\Erm\PerformedBusinessOperation.cs" />
     <Compile Include="Entities\Erm\PerformedOperationFinalProcessing.cs" />
