@@ -69,6 +69,44 @@
 	<s:Int64 x:Key="/Default/Housekeeping/TreeModelBrowserPanelPersistance/PreviewSplitterHorizontalPosition/=SearchUsagesDescriptor/@EntryIndexedValue">271</s:Int64>
 	<s:String x:Key="/Default/Housekeeping/VsSavedAutocompletionValue/OverrideIntellisense/=CSharp/@EntryIndexedValue">NotOverridden</s:String>
 	<s:String x:Key="/Default/Housekeeping/VsSavedAutocompletionValue/OverrideParameterInfo/=CSharp/@EntryIndexedValue">NotOverridden</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Description/@EntryValue">Create new migration snippet</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=AUTHOR/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=AUTHOR/Expression/@EntryValue">list("y.baranihin,d.ivanov,i.maslennikov,m.pashuk,a.rechkalov,a.tukaev,s.pomadin")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=AUTHOR/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=DESCRIPTION/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=DESCRIPTION/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=ID/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=ID/Expression/@EntryValue">getCurrentTime("yyyyMMddhhmm")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=ID/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=ID/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Field/=NAMESPACE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/Type/@EntryValue">Everywhere</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Shortcut/@EntryValue">nmg</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DF4F49A84DB375478267FD8AB8C79BC4/Text/@EntryValue">using DoubleGis.Erm.Platform.Migration.Base;&#xD;
+using DoubleGis.Erm.Platform.Migration.Core;&#xD;
+&#xD;
+namespace $NAMESPACE$&#xD;
+{&#xD;
+    [Migration($ID$, "$DESCRIPTION$", "$AUTHOR$")]&#xD;
+    public class Migration$ID$ : TransactedMigration&#xD;
+    {&#xD;
+        protected override void ApplyOverride(IMigrationContext context)&#xD;
+        {&#xD;
+			$END$&#xD;
+        }&#xD;
+    }&#xD;
+}</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=4479AFE3EA280944BCAFBDCDF91C45A6/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=4479AFE3EA280944BCAFBDCDF91C45A6/Color/@EntryValue">255, 192, 128</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=4479AFE3EA280944BCAFBDCDF91C45A6/MatchComments/@EntryValue">True</s:Boolean>
