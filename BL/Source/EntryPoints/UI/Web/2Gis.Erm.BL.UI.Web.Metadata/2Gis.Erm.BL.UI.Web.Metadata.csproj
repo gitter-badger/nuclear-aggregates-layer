@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</ProjectGuid>
+    <ProjectGuid>{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoubleGis.Erm.BL.UI.Metadata</RootNamespace>
-    <AssemblyName>2Gis.Erm.BL.UI.Metadata</AssemblyName>
+    <RootNamespace>DoubleGis.Erm.BL.UI.Web.Metadata</RootNamespace>
+    <AssemblyName>2Gis.Erm.BL.UI.Web.Metadata</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
@@ -52,24 +52,15 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Cards\CardMetadataSource.cs" />
-    <Compile Include="Cards\Settings\CardStructures.Account.cs" />
-    <Compile Include="Cards\Settings\CardStructures.cs" />
-    <Compile Include="Cards\Settings\CardStructures.LegalPerson.cs" />
-    <Compile Include="Cards\Settings\CardStructures.Order.cs" />
-    <Compile Include="Cards\Settings\CardStructures.OrderPosition.cs" />
+    <Compile Include="Cards\UiElementMetadataBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
-      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
-      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
       <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
       <Name>2Gis.Erm.Platform.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
-      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
