@@ -180,8 +180,6 @@
     <Compile Include="Concrete\Old\Journal\Infrastructure\PropertyBag.cs" />
     <Compile Include="Concrete\Old\LegalPersonProfiles\MakeLegalPersonProfileMainHandler.cs" />
     <Compile Include="Concrete\Old\Limits\PrintLimitsHandler.cs" />
-    <Compile Include="Concrete\Old\Limits\RecalculateLimitHandler.cs" />
-    <Compile Include="Concrete\Old\Limits\SetLimitStatusHandler.cs" />
     <Compile Include="Concrete\Old\LocalMessages\CreateLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ExportLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\LocalMessages\ProcessLocalMessagesHandler.cs" />
@@ -287,7 +285,6 @@
     <Compile Include="Generic\Activate\ActivateDeniedPositionService.cs" />
     <Compile Include="Generic\Activate\ActivateDepartmentService.cs" />
     <Compile Include="Generic\Activate\ActivateGenericEntityService.cs" />
-    <Compile Include="Generic\Activate\ActivateLimitService.cs" />
     <Compile Include="Generic\Activate\ActivateOrganizationUnitService.cs" />
     <Compile Include="Generic\Activate\ActivatePositionService.cs" />
     <Compile Include="Generic\Activate\ActivatePricePositionService.cs" />
@@ -331,7 +328,6 @@
     <Compile Include="Generic\Deactivate\DeactivateDepartmentService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateGenericEntityService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateLegalPersonService.cs" />
-    <Compile Include="Generic\Deactivate\DeactivateLimitService.cs" />
     <Compile Include="Generic\Deactivate\DeactivateOrganizationUnitService.cs" />
     <Compile Include="Generic\Deactivate\DeactivatePositionService.cs" />
     <Compile Include="Generic\Deactivate\DeactivatePricePositionService.cs" />
@@ -350,7 +346,6 @@
     <Compile Include="Generic\Delete\DeleteCategoryGroupService.cs" />
     <Compile Include="Generic\Delete\DeleteCurrencyService.cs" />
     <Compile Include="Generic\Delete\DeleteGenericEntityService.cs" />
-    <Compile Include="Generic\Delete\DeleteLimitService.cs" />
     <Compile Include="Generic\Delete\DeleteLockDetailService.cs" />
     <Compile Include="Generic\Delete\DeleteOperationTypeService.cs" />
     <Compile Include="Generic\Delete\DeleteOrderPositionService.cs" />
@@ -406,7 +401,6 @@
     <Compile Include="Generic\Get\GetFirmContactDtoService.cs" />
     <Compile Include="Generic\Get\GetFirmDtoService.cs" />
     <Compile Include="Generic\Get\GetGenericDomainEntityDtoService.cs" />
-    <Compile Include="Generic\Get\GetLimitDtoService.cs" />
     <Compile Include="Generic\Get\GetLocalMessageDtoService.cs" />
     <Compile Include="Generic\Get\GetLockDetailDtoService.cs" />
     <Compile Include="Generic\Get\GetLockDtoService.cs" />
@@ -466,7 +460,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\FirmObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\LegalPersonObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\LimitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\LockDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\NoteObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\OperationObtainer.cs" />
@@ -514,7 +507,6 @@
     <Compile Include="Generic\Modify\Old\EditDepartmentHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmAddressHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditFirmHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditLimitHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditNoteHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditOperationTypeHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditOrderFileHandler.cs" />
@@ -767,6 +759,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Concrete\Limits\" />
     <Folder Include="Concrete\Old\Integration\ServiceBus\Import\" />
   </ItemGroup>
   <ItemGroup />

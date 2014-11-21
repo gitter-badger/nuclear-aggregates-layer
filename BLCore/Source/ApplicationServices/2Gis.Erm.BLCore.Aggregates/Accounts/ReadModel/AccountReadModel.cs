@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
             var checkingOrders = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()
                                               && OrderSpecs.Orders.Find.ByPeriod(checkingPeriod)
                                               && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved, OrderState.OnTermination, OrderState.Archive)
-                                              && OrderSpecs.Orders.Find.ByAccount(limit.AccountId));
+                                              && OrderSpecs.Orders.Find.ByAccountExtended(limit.AccountId));
 
             var blockingReleases = 
                     checkingOrders
@@ -341,6 +341,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                           .ToArray();
         }
 
+        public long GetAccountOwnerCode(long accountId)
+        {
+            return _finder.Find(Specs.Find.ById<Account>(accountId)).Select(x => x.OwnerCode).Single();
+        }
+
         public AccountIdAndOwnerCodeDto GetAccountIdAndOwnerCodeByOrder(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
@@ -372,6 +377,100 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                           .Where(x => x.LockDetails.Any())
                           .Select(x => new LockDto { Lock = x.Lock, Details = x.LockDetails })
                           .ToArray();
+        }
+
+        public Limit GetLimitById(long id)
+        {
+            return _finder.FindOne(Specs.Find.ById<Limit>(id));
+        }
+
+        public Limit GetLimitByReplicationCode(Guid replicationCode)
+        {
+            return _finder.FindOne(Specs.Find.ByReplicationCode<Limit>(replicationCode));
+        }
+
+        public LimitDto InitializeLimitForAccount(long accountId)
+        {
+            return _finder.Find(Specs.Find.ById<Account>(accountId))
+                          .Select(x => new LimitDto
+                          {
+                              LegalPersonId = x.LegalPerson.Id,
+                              LegalPersonName = x.LegalPerson.LegalName,
+                              BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
+                              BranchOfficeId = x.BranchOfficeOrganizationUnit.BranchOffice.Id,
+                              BranchOfficeName = x.BranchOfficeOrganizationUnit.BranchOffice.Name,
+                              LegalPersonOwnerId = x.LegalPerson.OwnerCode,
+                          })
+                          .Single();
+        }
+
+        public bool IsThereLimitDuplicate(long limitId, long accountId, DateTime periodStartDate, DateTime periodEndDate)
+        {
+            return _finder.Find(Specs.Find.ById<Account>(accountId))
+                          .SelectMany(account => account.Limits)
+                          .Where(limit => !limit.IsDeleted)
+                          .Any(limit => limit.StartPeriodDate == periodStartDate && limit.EndPeriodDate == periodEndDate && limit.Id != limitId);
+        }
+
+        public bool IsLimitRecalculationAvailable(long limitId)
+        {
+            var limit = _finder.FindOne(Specs.Find.ById<Limit>(limitId));
+
+            // заказы, по которым считается лимит плюс заказы в состоянии "на расторжении"
+            var orderOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()
+                                                      && OrderSpecs.Orders.Find.ByAccount(limit.AccountId)
+                                                      && OrderSpecs.Orders.Find.ByPeriod(new TimePeriod(limit.StartPeriodDate, limit.EndPeriodDate))
+                                                      && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved, OrderState.OnTermination))
+                                                .Select(order => order.DestOrganizationUnitId)
+                                                .Distinct()
+                                                .ToArray();
+
+            var releaseOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>()
+                                                        && ReleaseSpecs.Releases.Find.Final()
+                                                        && ReleaseSpecs.Releases.Find.Succeeded()
+                                                        && ReleaseSpecs.Releases.Find.ForPeriod(new TimePeriod(limit.StartPeriodDate, limit.EndPeriodDate)))
+                                                  .Select(info => info.OrganizationUnitId)
+                                                  .Distinct()
+                                                  .ToArray();
+
+            var existsOrderWithoutFinalRelease = orderOrganizationUnits.Except(releaseOrganizationUnits).Any();
+
+            // если заказов нет вообще (а не только заказов, по которым не проведена сборка), то пересчёт лимита возможен
+            return !orderOrganizationUnits.Any() || existsOrderWithoutFinalRelease;
+        }
+
+        public decimal CalculateLimitValueForAccountByPeriod(long accountId, DateTime periodStart, DateTime periodEnd)
+        {
+            var lockSum = _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>()
+                                       && AccountSpecs.Locks.Find.ByAccount(accountId)
+                                       && AccountSpecs.Locks.Find.ForPreviousPeriods(periodStart, periodEnd))
+                                 .Sum(@lock => (decimal?)@lock.PlannedAmount) ?? 0;
+
+            var orderReleaseSum = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()
+                                               && OrderSpecs.Orders.Find.ByAccount(accountId)
+                                               && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved))
+                                         .SelectMany(order => order.OrderReleaseTotals)
+                                         .Where(OrderSpecs.OrderReleaseTotals.Find.ByPeriod(periodStart, periodEnd))
+                                         .Sum(total => (decimal?)total.AmountToWithdraw) ?? 0;
+
+            var accountBalanceRaw = _finder.Find(Specs.Find.ById<Account>(accountId)).Select(x => x.Balance).Single();
+            var accountBalance = accountBalanceRaw - (lockSum + orderReleaseSum);
+
+            return accountBalance > 0 ? 0 : Math.Abs(accountBalance);
+        }
+
+        public decimal CalculateLimitIncreasingValue(long limitId)
+        {
+            var limitInfo = _finder.Find(Specs.Find.ById<Limit>(limitId)).Select(x => new { x.AccountId, x.StartPeriodDate, x.EndPeriodDate, x.Amount }).Single();
+            var newLimitAmount = CalculateLimitValueForAccountByPeriod(limitInfo.AccountId, limitInfo.StartPeriodDate, limitInfo.EndPeriodDate);
+            var difference = newLimitAmount - limitInfo.Amount;
+
+            return difference > 0 ? difference : 0;
+        }
+
+        public long GetLimitOwnerCode(long limitId)
+        {
+            return _finder.Find(Specs.Find.ById<Limit>(limitId)).Select(x => x.OwnerCode).Single();
         }
     }
 }
