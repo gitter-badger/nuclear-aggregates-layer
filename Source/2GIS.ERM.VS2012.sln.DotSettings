@@ -107,6 +107,45 @@ namespace $NAMESPACE$&#xD;
         }&#xD;
     }&#xD;
 }</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Categories/=Imported_002021_002E11_002E2014/@EntryIndexedValue">Imported 21.11.2014</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/CustomProperties/=FileName/@EntryIndexedValue">rev. - </s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Description/@EntryValue">New migration</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=AUTHOR/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=AUTHOR/Expression/@EntryValue">list("y.baranihin,d.ivanov,i.maslennikov,m.pashuk,a.rechkalov,a.tukaev,s.pomadin")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=AUTHOR/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=DESCRIPTION/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=DESCRIPTION/Expression/@EntryValue">getFileNameWithoutExtension()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=DESCRIPTION/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=ID/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=ID/Expression/@EntryValue">getCurrentTime("yyyyMMddHHmm")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=ID/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=ID/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Field/=NAMESPACE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/Type/@EntryValue">Everywhere</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F9DA762CCC9EF2448FC4C61011C5A27F/Text/@EntryValue">using DoubleGis.Erm.Platform.Migration.Base;&#xD;
+using DoubleGis.Erm.Platform.Migration.Core;&#xD;
+&#xD;
+namespace $NAMESPACE$&#xD;
+{&#xD;
+    [Migration($ID$, "$DESCRIPTION$", "$AUTHOR$")]&#xD;
+    public class Migration$ID$ : TransactedMigration&#xD;
+    {&#xD;
+        protected override void ApplyOverride(IMigrationContext context)&#xD;
+        {&#xD;
+			$END$&#xD;
+        }&#xD;
+    }&#xD;
+}</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=4479AFE3EA280944BCAFBDCDF91C45A6/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=4479AFE3EA280944BCAFBDCDF91C45A6/Color/@EntryValue">255, 192, 128</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/Todo/TodoPatterns/=4479AFE3EA280944BCAFBDCDF91C45A6/MatchComments/@EntryValue">True</s:Boolean>
@@ -141,7 +180,7 @@ namespace $NAMESPACE$&#xD;
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=cr/Expression/@EntryValue">list("FIXME,TODO,DONE,COMMENT")</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=cr/Order/@EntryValue">0</s:Int64>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/Expression/@EntryValue">list("y.baranihin,d.ivanov,i.maslennikov,m.pashuk,a.rechkalov,a.tukaev,f.zaharov,s.pomadin,all")</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/Expression/@EntryValue">list("y.baranihin,d.ivanov,i.maslennikov,m.pashuk,a.rechkalov,a.tukaev,s.pomadin,all")</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=account/Order/@EntryValue">1</s:Int64>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=message/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF0A18294AECA64DBFD6ECCAB9000F4E/Field/=message/Order/@EntryValue">2</s:Int64>
