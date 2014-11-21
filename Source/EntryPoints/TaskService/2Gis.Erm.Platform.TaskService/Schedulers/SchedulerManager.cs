@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.Common;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Settings;
 
@@ -42,7 +41,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Schedulers
             _connectionStringSettings = connectionStringSettings;
             _jobFactory = jobFactory;
 
-            _logger.InfoFormatEx("Версия сервиса: {0} ", SolutionInfo.FileVersion);
+            _logger.InfoFormatEx("Версия сервиса: {0} ", ThisAssembly.SemanticVersion);
         }
 
         public void Start()

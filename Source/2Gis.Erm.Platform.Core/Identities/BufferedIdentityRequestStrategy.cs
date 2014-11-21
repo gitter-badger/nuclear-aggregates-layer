@@ -54,25 +54,23 @@ namespace DoubleGis.Erm.Platform.Core.Identities
             return ids;
         }
 
-        private void EnsureCount(int min)
+        private void EnsureCount(int requestedCount)
         {
-            var bufferedCount = _idBuffer.Count;
-
-            if (bufferedCount >= min)
+            var availableCount = _idBuffer.Count;
+            if (availableCount >= requestedCount)
             {
                 return;
             }
 
-            var missingCount = min - bufferedCount;
+            var missingCount = requestedCount - availableCount;
+            int coercedCount = Math.Min(Math.Max(_nextRequestedCount, missingCount), MaxRequestedCount);
 
-            var num = Math.Max(_nextRequestedCount, missingCount);
-
-            _logger.InfoFormatEx("Requesting {0} identifiers from identity service. Number of concurrently executing threads is {1}.", num, _threadsCount);
+            _logger.DebugFormatEx("Requested identifiers coerced count: {0}. Concurrently requesting threads count: {1}.", requestedCount, _threadsCount);
 
             long[] ids;
             try
             {
-                ids = _clientProxyFactory.GetClientProxy<IIdentityProviderApplicationService, WSHttpBinding>().Execute(x => x.GetIdentities(num));
+                ids = _clientProxyFactory.GetClientProxy<IIdentityProviderApplicationService, WSHttpBinding>().Execute(x => x.GetIdentities(coercedCount));
             }
             catch (Exception ex)
             {
