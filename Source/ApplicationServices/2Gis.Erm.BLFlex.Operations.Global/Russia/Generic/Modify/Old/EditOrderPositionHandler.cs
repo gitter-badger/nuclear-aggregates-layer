@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
@@ -24,8 +25,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
-
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 {
     // FIXME {all, 10.07.2014}: почти полная copy/paste других adapted версий этого handler, при рефакторинге ApplicationServices - попытаться объеденить обратно + использование finder и т.п.
@@ -40,8 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
         private readonly IOrderRepository _orderRepository;
         private readonly ICalculateCategoryRateOperationService _calculateCategoryRateOperationService;
         private readonly ICalculateOrderPositionCostService _calculateOrderPositionCostService;
-
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly IOperationScopeFactory _scopeFactory;
 
         public EditOrderPositionHandler(
@@ -53,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             IOrderRepository orderRepository,
             ICalculateCategoryRateOperationService calculateCategoryRateOperationService,
             ICalculateOrderPositionCostService calculateOrderPositionCostService,
-            IOrderValidationInvalidator orderValidationInvalidator,
+            IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
@@ -64,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
             _orderRepository = orderRepository;
             _calculateCategoryRateOperationService = calculateCategoryRateOperationService;
             _calculateOrderPositionCostService = calculateOrderPositionCostService;
-            _orderValidationInvalidator = orderValidationInvalidator;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
         }
 
@@ -247,7 +245,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                         _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                     }
 
-                    var order = _orderReadModel.GetOrder(orderPosition.OrderId);
+                    var order = _orderReadModel.GetOrderSecure(orderPosition.OrderId);
 
                     _orderReadModel.UpdateOrderPlatform(order);
 
@@ -321,7 +319,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
         private void SetAdsValidationRuleGroupAsInvalid(long orderId)
         {
-            _orderValidationInvalidator.Invalidate(new[] { orderId }, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+            _registerOrderStateChangesOperationService.Changed(new[]
+                                                                   {
+                                                                       new OrderChangesDescriptor
+                                                                           {
+                                                                               OrderId = orderId,
+                                                                               ChangedAspects = new[]
+                                                                                                    {
+                                                                                                        OrderValidationRuleGroup.AdvertisementMaterialsValidation,
+                                                                                                    }
+                                                                           }
+                                                                   });
         }
     }
 }
