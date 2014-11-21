@@ -29,6 +29,7 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Validators;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
@@ -46,20 +47,27 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
+using DoubleGis.Erm.Platform.Core.Messaging.Flows;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports.FinalProcessing;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
+using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories.Messaging;
+using DoubleGis.Erm.Platform.DI.Factories.PerformedOperationsAnalysis;
+using DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.DI;
+using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Consumer;
+using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Producer;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Qds.Common.Settings;
@@ -108,8 +116,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IGlobalizationSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
-                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                    settingsContainer.AsSettings<IIntegrationSettings>()))
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
+                                                                          settingsContainer.AsSettings<IIntegrationSettings>()))
                             .ConfigureServiceClient();
 
             container.ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>())
@@ -172,7 +180,6 @@ namespace DoubleGis.Erm.TaskService.DI
                 // FIXME {d.ivanov, 28.08.2013}: IPublicService зарегистрирован в общем scope, чтобы работать с ним из SimplifiedModelConsumer-ов, см IOperationsExportService<,>
                 //                               Нужно вынести логику из наследников SerializeObjectsHandler в соответствующие OperationsExporter-ы
                 .RegisterTypeWithDependencies<IPublicService, PublicService>(Lifetime.PerScope, MappingScope)
-                
                             .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(Lifetime.PerScope,
                                                                                                                                        MappingScope)
 
@@ -183,8 +190,11 @@ namespace DoubleGis.Erm.TaskService.DI
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(Mapping.Erm, Lifetime.PerScope)
 
-                .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
+                // OperationScopeDisposableFactoryAccessor - необходимо для LOAD тестирования PerformedOperations инфраструктуры
+                .RegisterType<IOperationScopeDisposableFactoryAccessor, UnityOperationScopeDisposableFactoryAccessor<UnityOperationScopeFactoryProxy>>(Lifetime.PerScope)
+                .RegisterType<IPerformedOperationsConsumerFactory, UnityPerformedOperationsConsumerFactory>(Lifetime.Singleton)
 
+                .ConfigureNotificationsSender(msCrmSettings, MappingScope, EntryPointSpecificLifetimeManagerFactory);
         }
 
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)
@@ -212,6 +222,7 @@ namespace DoubleGis.Erm.TaskService.DI
             // primary
             container.RegisterTypeWithDependencies(typeof(DBOnlinePerformedOperationsReceiver<>), Lifetime.PerScope, null)
                      .RegisterTypeWithDependencies(typeof(PerformedOperationsMessageAggregatedProcessingResultHandler), Lifetime.PerResolve, null)
+                     .RegisterTypeWithDependencies(typeof(BinaryEntireBrokeredMessage2TrackedUseCaseTransformer<>), Lifetime.Singleton, null)
                      .RegisterTypeWithDependencies(typeof(ReplicateHotClientPerformedOperationsFinalProcessingStrategy), Lifetime.PerResolve, null);
             
             // final
@@ -268,13 +279,18 @@ namespace DoubleGis.Erm.TaskService.DI
                     },
                 };
 
-            return container.RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
+            return container.RegisterType(typeof(IServiceBusMessageReceiver<>), typeof(ServiceBusMessageReceiver<>), Lifetime.Singleton)
+                            .RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton)
+                            .RegisterType<IMessageFlowProcessorFactory, UnityMessageFlowProcessorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageReceiverFactory, UnityMessageReceiverFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageValidatorFactory, UnityMessageValidatorFactory>(Lifetime.PerScope)
                             .RegisterType<IMessageTransformerFactory, UnityMessageTransformerFactory>(Lifetime.PerScope)
-                            .RegisterType<IMessageProcessingStrategyFactory, UnityMessageProcessingStrategyFactory>(Lifetime.PerScope, new InjectionConstructor(new ResolvedParameter<IUnityContainer>(), messageProcessingStrategyResolversMap))
-                            .RegisterType<IMessageAggregatedProcessingResultsHandlerFactory, UnityMessageAggregatedProcessingResultsHandlerFactory>(Lifetime.PerScope, new InjectionConstructor(new ResolvedParameter<IUnityContainer>(), messageAggregatedProcessingResultHandlerResolversMap))
-
+                            .RegisterType<IMessageProcessingStrategyFactory, UnityMessageProcessingStrategyFactory>(
+                                Lifetime.PerScope,
+                                new InjectionConstructor(new ResolvedParameter<IUnityContainer>(), messageProcessingStrategyResolversMap))
+                            .RegisterType<IMessageAggregatedProcessingResultsHandlerFactory, UnityMessageAggregatedProcessingResultsHandlerFactory>(
+                                Lifetime.PerScope,
+                                new InjectionConstructor(new ResolvedParameter<IUnityContainer>(), messageAggregatedProcessingResultHandlerResolversMap))
                             .RegisterType<IOperationContextParser, OperationContextParser>(Lifetime.Singleton)
                             .RegisterType<IOperationResolver, OperationResolver>(Lifetime.Singleton);
         }
