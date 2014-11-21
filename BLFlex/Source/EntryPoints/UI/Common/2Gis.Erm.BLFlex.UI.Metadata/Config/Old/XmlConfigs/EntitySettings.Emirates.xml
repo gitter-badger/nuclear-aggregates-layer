@@ -2494,27 +2494,6 @@
       </DataList>
     </DataLists>
   </Entity>
-  <Entity Name="RegionalAdvertisingSharing">
-    <DataLists>
-      <DataList NameLocaleResourceId="DListRegionalAdvertisingSharing" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
-        <Fields>
-          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" FieldType="Int" ExtTypeName="String" />
-          <Field Name="CreatedOn" Width="120" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="BeginDistributionDate" NameLocaleResourceId="BeginReleaseDate" Width="120" FieldType="DateTime" ExtTypeName="Date" />
-          <Field Name="SourceOrganizationUnitId" NameLocaleResourceId="DFieldSourceOrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="SourceOrganizationUnitName" NameLocaleResourceId="SourceOrganizationUnit" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="SourceOrganizationUnitId" />
-          <Field Name="DestOrganizationUnitId" NameLocaleResourceId="DFieldDestOrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="DestOrganizationUnitName" NameLocaleResourceId="DestinationOrganizationUnit" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="DestOrganizationUnitId" />
-          <Field Name="SourceBranchOfficeOrgUnitId" NameLocaleResourceId="DFieldSourceBranchOfficeOrgUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="SourceBranchOfficeOrgUnitName" NameLocaleResourceId="DFieldSourceBranchOfficeOrgUnitName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOfficeOrganizationUnit" ReferenceFieldName="SourceBranchOfficeOrgUnitId" />
-          <Field Name="DestBranchOfficeOrgUnitId" NameLocaleResourceId="DFieldDestBranchOfficeOrgUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="DestBranchOfficeOrgUnitName" NameLocaleResourceId="BranchOfficeOrganizationUnitName" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="BranchOfficeOrganizationUnit" ReferenceFieldName="DestBranchOfficeOrgUnitId" />
-          <Field Name="OrderNumbers" NameLocaleResourceId="DFieldOrderNumbers" Width="250" FieldType="String" ExtTypeName="String" Sortable="false"/>
-          <Field Name="TotalAmount" NameLocaleResourceId="DFieldTotalAmount" Width="100" FieldType="Money" ExtTypeName="Float" />
-        </Fields>
-      </DataList>
-    </DataLists>
-  </Entity>
   <Entity Name="ReleaseInfo">
     <Card EntityNameLocaleResourceId="EnReleaseInfo" EntityMainAttribute="Id" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
       <ToolbarItems>
