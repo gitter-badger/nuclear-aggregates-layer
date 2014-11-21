@@ -1,0 +1,43 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:DoubleGis.Erm.BLCore.UI.Web.Silverlight.Infrastructure.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../Styles/CommonStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="TextBlockPropertyValueRegion" TargetType="Border">
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="BorderBrush" Value="#FFc5c5c5" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+    <Style x:Key="TextBlockPropertyValue" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style TargetType="controls:NamedReadonlyTextProperty" BasedOn="{StaticResource NamedPropertyRegion}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NamedReadonlyTextProperty">
+                    <Grid Background="{TemplateBinding Background}" 
+                          Margin="{TemplateBinding Margin}" 
+                          VerticalAlignment="Stretch" 
+                          HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource DefaultNameregionWidthForNamedProperty}"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Text="{TemplateBinding PropertyName}" Style="{StaticResource TextBlockPropertyName}" />
+                        <Border Grid.Column="1" Style="{StaticResource TextBlockPropertyValueRegion}">
+                            <TextBlock Text="{TemplateBinding PropertyValue}" Style="{StaticResource TextBlockPropertyValue}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

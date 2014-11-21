@@ -1,0 +1,15 @@
+<CardForERM Code="704215723199568" SortingPosition="1" Type="POS" BranchCode="1" ClosedForAscertainment="False" IsLinked="True" IsActive="True" IsDeleted="False">
+  <Address Text="AutoTest Address 11.04.2014 10:53:45" TerritoryCode="13652438313598977" />
+  <Contacts>
+    <Phone Value="(383) 211-11-11" SortingPosition="1" />
+    <Email Value="autotest@mail.com" SortingPosition="2" />
+  </Contacts>
+  <Payment Text="1. Наличный расчет " />
+  <Rubrics>
+    <Rubric Code="181" IsPrimary="True" SortingPosition="1" />
+    <Rubric Code="182" IsPrimary="False" SortingPosition="2" />
+  </Rubrics>
+  <Schedule Text="Понедельник: 09:00 - 20:00; Вторник: 09:00 - 20:00; Среда: 09:00 - 20:00; Четверг: 09:00 - 20:00; Пятница: 09:00 - 20:00; Суббота: 10:00 - 18:00; Воскресенье: 10:00 - 18:00; " />
+  <Firm Code="704224312768857" Name="1234" BranchCode="1" ClosedForAscertainment="True" IsActive="True">
+  </Firm>
+</CardForERM>

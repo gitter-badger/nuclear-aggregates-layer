@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B0425CB3-C6A3-4C79-BBC3-07BF53826A21}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.API.GeoMaster</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\DoubleGis.Erm.Platform.API.GeoMaster.GetAddressesStringResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\DoubleGis.Erm.Platform.API.GeoMaster.GetAllPhoneZonesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\DoubleGis.Erm.Platform.API.GeoMaster.GetCapabilitiesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\DoubleGis.Erm.WCF.GeoMasterApi.Contracts.AddressDesc.datasource" />
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\DoubleGis.Erm.WCF.GeoMasterApi.Contracts.Capabilities.datasource" />
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\DoubleGis.Erm.WCF.GeoMasterApi.Contracts.PhoneZone.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\Map2Gis11.wsdl" />
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\Map2Gis33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\Map2Gis34.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\Map2Gis35.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\MasterSystemApi1.wsdl" />
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DoubleGis.Erm.Platform.API.GeoMaster\Map2Gis11.disco" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

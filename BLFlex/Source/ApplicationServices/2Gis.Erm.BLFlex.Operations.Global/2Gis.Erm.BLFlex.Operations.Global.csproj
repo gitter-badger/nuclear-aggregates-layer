@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLFlex.Operations.Global</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLFlex.Operations.Global</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="microsoft.crm.sdk">
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.crm.sdktypeproxy">
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdktypeproxy.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.xrm.client">
+      <HintPath>..\..\..\..\Platform\Source\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="BargainRelationsDto.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetBranchOfficeDtoService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="Chile\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
+    <Compile Include="Chile\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileLegalPersonObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileLegalPersonProfileObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBranchOfficeObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
+    <Compile Include="Chile\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
+    <Compile Include="Cyprus\Generic\Get\CyprusGetBranchOfficeDtoService.cs" />
+    <Compile Include="Cyprus\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
+    <Compile Include="Cyprus\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusBranchOfficeObtainer.cs" />
+    <Compile Include="Cyprus\Generic\Modify\DomainEntityObtainers\CyprusBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Czech\Generic\Get\CzechGetBranchOfficeDtoService.cs" />
+    <Compile Include="Czech\Generic\Get\CzechGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
+    <Compile Include="Czech\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeObtainer.cs" />
+    <Compile Include="Czech\Generic\Modify\DomainEntityObtainers\CzechBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Cyprus\Generic\List\CyprusListLegalPersonService.cs" />
+    <Compile Include="DI\BlFlexOperationsGlobalAssembly.cs" />
+    <Compile Include="Chile\Concrete\Old\Bills\ChilePrintBillHandler.cs" />
+    <Compile Include="Chile\Generic\Modify\ModifyBankService.cs" />
+    <Compile Include="Emirates\Concrete\Clients\EmiratesCreateClientByFirmOperationService.cs" />
+    <Compile Include="Emirates\Concrete\Old\AcceptanceReport\PrintForms\EmiratesPrintAcceptanceReportHandler.cs" />
+    <Compile Include="Emirates\Concrete\Old\AcceptanceReport\PrintForms\EmiratesPrintAcceptanceReportsHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Emirates\Concrete\Old\Bills\PrintBillHandler.cs" />
+    <Compile Include="Emirates\Concrete\Old\Orders\PrintForms\PrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Emirates\Concrete\Old\Orders\PrintForms\PrintOrderBargainHandler.cs" />
+    <Compile Include="Emirates\Concrete\Old\Orders\PrintForms\PrintOrderHandler.cs" />
+    <Compile Include="Emirates\Generic\Get\EmiratesGetBranchOfficeDtoService.cs" />
+    <Compile Include="Emirates\Generic\Get\EmiratesGetBargainTypeDtoService.cs" />
+    <Compile Include="Emirates\Generic\Modify\BargainTypeFlexSpecs.cs" />
+    <Compile Include="Emirates\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnit.cs" />
+    <Compile Include="Emirates\Generic\Modify\ClientFlexSpecs.Client.cs" />
+    <Compile Include="Emirates\Generic\Modify\DomainEntityObtainers\EmiratesBargainTypeObtainer.cs" />
+    <Compile Include="Emirates\Generic\Modify\FirmFlexSpecs.FirmAddresses.cs" />
+    <Compile Include="Emirates\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
+    <Compile Include="Emirates\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\Bill\KazakhstanPrintBillHandler.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\LegalPersons\KazakhstanChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\Orders\PrintForms\KazakhstanPrintBargainProlongationAgreementHandler.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\Orders\PrintForms\KazakhstanPrintOrderBargainHandler.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\Orders\PrintForms\PrintOrderHandler.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\Orders\PrintForms\PrintHelper.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\Orders\PrintForms\KazakhstanPrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Kazakhstan\Concrete\Old\Orders\PrintForms\KazakhstanPrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Kazakhstan\Generic\Get\KazakhstanGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="Kazakhstan\Generic\Get\KazakhstanGetLegalPersonDtoService.cs" />
+    <Compile Include="Kazakhstan\Generic\Get\KazakhstanGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Kazakhstan\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Kazakhstan\Generic\Get\KazakhstanGetBranchOfficeDtoService.cs" />
+    <Compile Include="Kazakhstan\Generic\List\KazakhstanListBranchOfficeService.cs" />
+    <Compile Include="Kazakhstan\Generic\List\KazakhstanListLegalPersonService.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\DomainEntityObtainers\KazakhstanBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\DomainEntityObtainers\KazakhstanLegalPersonObtainer.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\DomainEntityObtainers\KazakhstanLegalPersonProfileObtainer.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
+    <Compile Include="Kazakhstan\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\DomainEntityObtainers\KazakhstanBranchOfficeObtainer.cs" />
+    <Compile Include="MultiCulture\Concrete\Clients\MultiCultureCreateClientByFirmOperationService.cs" />
+    <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Deserializers\MultiCultureDeserializeCardService.cs" />
+    <Compile Include="MultiCulture\Concrete\Integration\Import\FlowCards\Processors\MultiCultureImportCardService.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\LegalPersons\KazakhstanValidatePaymentRequisitesIsUnique.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\MultiCulturePrintHelper.cs" />
+    <Compile Include="MultiCulture\Generic\Activate\ActivateBranchOfficeService.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Clients\MultiCultureCheckClientActivitiesHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\LegalPersons\ChileChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\LegalPersons\ChileValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderBargainHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderHandler.cs" />
+    <Compile Include="BargainPrintFormReadModel.cs" />
+    <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintHelper.cs" />
+    <Compile Include="IBargainPrintFormReadModel.cs" />
+    <Compile Include="MultiCulture\Concrete\AbstractEvaluateOrderNumberService.cs" />
+    <Compile Include="MultiCulture\Concrete\EvaluateOrderNumberWithoutRegionalService.cs" />
+    <Compile Include="MultiCulture\Concrete\EvaluateOrderNumberService.cs" />
+    <Compile Include="Chile\Generic\Modify\ChileBranchOfficeValidator.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderBargainHandler.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintLetterOfGuaranteeHandler.cs" />
+    <Compile Include="Chile\Concrete\Old\Orders\PrintForms\ChilePrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Chile\Generic\Activate\ChileActivateLegalPersonService.cs" />
+    <Compile Include="Chile\Generic\Delete\DeleteBankService.cs" />
+    <Compile Include="Cyprus\Generic\Get\CyprusGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetBankDtoService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetCommuneDtoService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Chile\Generic\Get\ChileGetLegalPersonDtoService.cs" />
+    <Compile Include="Chile\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Cyprus\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Cyprus\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="Czech\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Czech\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonOperationService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetClientDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetFirmAddressDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\MultiCultureGetBargainTypeDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\BargainTypeFlexSpecs.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\ClientObtainer.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetLegalPersonProfileDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\MultiCultureBargainTypeObtainer.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
+    <Compile Include="Kazakhstan\Generic\Modify\ModifyLegalPersonService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\Old\MultiCultureEditOrderPositionHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
+    <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />
+    <Compile Include="Russia\Generic\Get\GetAdvertisementElementStatusDtoService.cs" />
+    <Compile Include="Russia\Generic\Get\RussiaGetBargainTypeDtoService.cs" />
+    <Compile Include="Russia\Generic\Get\RussiaGetBranchOfficeDtoService.cs" />
+    <Compile Include="Russia\Generic\Get\RussiaGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\IBargainPrintFormDataExtractor.cs" />
+    <Compile Include="Russia\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
+    <Compile Include="Russia\Generic\Modify\BargainTypeFlexSpecs.cs" />
+    <Compile Include="Russia\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\AdvertisementElementStatusObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBargainTypeObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\RussiaBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Russia\Generic\Get\GetClientDtoService.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\ClientObtainer.cs" />
+    <Compile Include="Shared\Consistency\EmiratesLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\KazakhstanLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\PositionDetailedName.cs" />
+    <Compile Include="Shared\EmiratesFormatterFactory.cs" />
+    <Compile Include="Shared\Formatter\DirhamFormatter.cs" />
+    <Compile Include="Shared\Formatter\KazakhstanLongDateFormatter.cs" />
+    <Compile Include="Shared\Formatter\EmiratesDateFormatter.cs" />
+    <Compile Include="Shared\Formatter\TengeFormatter.cs" />
+    <Compile Include="Shared\Formatter\FilsPluralizer.cs" />
+    <Compile Include="Shared\Formatter\HryvniaFormatter.cs" />
+    <Compile Include="Shared\Formatter\TiynInRussianPluralizer.cs" />
+    <Compile Include="Shared\Formatter\KopekInRussianPluralizer.cs" />
+    <Compile Include="Shared\Formatter\IWordPluralizer.cs" />
+    <Compile Include="Shared\Formatter\INumberToWordsConverter.cs" />
+    <Compile Include="Shared\Formatter\EnglishNumberToWordsConverter.cs" />
+    <Compile Include="Shared\Formatter\DirhamInEnglishPluralizer.cs" />
+    <Compile Include="Shared\Formatter\TengeInRussianPluralizer.cs" />
+    <Compile Include="Shared\Formatter\RussianWordPluralizer.cs" />
+    <Compile Include="Shared\Formatter\HryvniaInRussianPluralizer.cs" />
+    <Compile Include="Shared\Formatter\RoublesInRussianPluralizer.cs" />
+    <Compile Include="Shared\Formatter\RussianNumberToWordsConverter.cs" />
+    <Compile Include="Shared\Generic\Get\GetBranchOfficeDtoServiceBase.cs" />
+    <Compile Include="Shared\Generic\Get\GetBranchOfficeOrganizationUnitDtoServiceBase.cs" />
+    <Compile Include="Shared\Generic\Get\GetLegalPersonDtoServiceBase.cs" />
+    <Compile Include="Shared\Generic\Get\GetLegalPersonProfileDtoServiceBase.cs" />
+    <Compile Include="Shared\PositionSimpleName.cs" />
+    <Compile Include="Shared\Specs\LegalPersonListSpecs.cs" />
+    <Compile Include="Shared\KazakhstanFormatterFactory.cs" />
+    <Compile Include="Shared\UkraineFormatterFactory.cs" />
+    <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardService.cs" />
+    <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\FirmWorkTimeFormatter.cs" />
+    <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\PaymentMethodFormatter.cs" />
+    <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\PhoneNumbersFormatter.cs" />
+    <Compile Include="Emirates\Concrete\Integration\Import\FlowCards\Processors\EmiratesImportCardService.cs" />
+    <Compile Include="Emirates\Concrete\Old\LegalPersons\EmiratesChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Emirates\Concrete\Old\LegalPersons\EmiratesValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Emirates\Generic\Activate\ActivateBranchOfficeService.cs" />
+    <Compile Include="Emirates\Generic\Activate\EmiratesActivateLegalPersonService.cs" />
+    <Compile Include="Emirates\Generic\Get\EmiratesGetFirmAddressDtoService.cs" />
+    <Compile Include="Emirates\Generic\Get\EmiratesGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="Emirates\Generic\Get\EmiratesGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Emirates\Generic\Get\EmiratesGetClientDtoService.cs" />
+    <Compile Include="Emirates\Generic\Get\EmiratesGetLegalPersonDtoService.cs" />
+    <Compile Include="Ukraine\Concrete\Old\Bills\UkrainePrintBillHandler.cs" />
+    <Compile Include="Ukraine\Concrete\Old\Orders\PrintForms\UkrainePrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Ukraine\Concrete\Old\Orders\PrintForms\UkrainePrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Ukraine\Concrete\Old\Orders\PrintForms\UkrainePrintOrderBargainHandler.cs" />
+    <Compile Include="Ukraine\Concrete\Old\Orders\PrintForms\UkrainePrintHelper.cs" />
+    <Compile Include="Ukraine\Concrete\Old\Orders\PrintForms\UkrainePrintLetterOfGuaranteeHandler.cs" />
+    <Compile Include="Ukraine\Concrete\Old\Orders\PrintForms\UkrainePrintOrderHandler.cs" />
+    <Compile Include="Ukraine\Generic\IUkraineOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Ukraine\Generic\Modify\BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.cs" />
+    <Compile Include="Ukraine\Generic\Modify\BranchOfficeFlexSpecs.BranchOffices.cs" />
+    <Compile Include="Ukraine\Generic\Modify\DomainEntityObtainers\UkraineBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Ukraine\Generic\Modify\DomainEntityObtainers\UkraineLegalPersonObtainer.cs" />
+    <Compile Include="Ukraine\Generic\Modify\DomainEntityObtainers\UkraineLegalPersonProfileObtainer.cs" />
+    <Compile Include="Ukraine\Generic\Modify\LegalPersonFlexSpecs.LegalPersonProfiles.cs" />
+    <Compile Include="Ukraine\Generic\Modify\LegalPersonFlexSpecs.LegalPersons.cs" />
+    <Compile Include="Ukraine\Generic\Modify\UkraineBranchOfficeValidator.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\ModifyBranchOfficeOrganizationUnitService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\NullBranchOfficeValidator.cs" />
+    <Compile Include="Ukraine\Concrete\Old\LegalPersons\UkraineChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Ukraine\Generic\Activate\UkraineActivateLegalPersonService.cs" />
+    <Compile Include="IOrderPrintFormReadModel.cs" />
+    <Compile Include="Chile\Generic\List\ChileListLegalPersonService.cs" />
+    <Compile Include="Chile\Generic\List\ListBankService.cs" />
+    <Compile Include="Chile\Generic\List\ListCommuneService.cs" />
+    <Compile Include="Chile\Generic\Modify\ChileBranchOfficeOrganizationUnitValidator.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBankObtainer.cs" />
+    <Compile Include="Chile\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="OrderRelationsDto.cs" />
+    <Compile Include="OrderPrintFormReadModel.cs" />
+    <Compile Include="MultiCulture\Concrete\ModifyLegalPersonProfileService.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\Number\OrderNumberGenerationStrategies.cs" />
+    <Compile Include="MultiCulture\Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
+    <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonProfileService.cs" />
+    <Compile Include="MultiCulture\Generic\List\MultiCultureListBranchOfficeService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\ModifyBranchOfficeService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\NullBranchOfficeOrganizationUnitValidator.cs" />
+    <Compile Include="Shared\Consistency\UkraineLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\CommonFormatterFactory.cs" />
+    <Compile Include="Shared\CzechFormatterFactory.cs" />
+    <Compile Include="Russia\Generic\IOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Russia\Generic\OrderPrintFormDataExtractor.cs" />
+    <Compile Include="Shared\ChileFormatterFactory.cs" />
+    <Compile Include="Shared\Consistency\ChileLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\ConsistencyRule.cs" />
+    <Compile Include="Shared\Consistency\ConsistencyRuleCollection.cs" />
+    <Compile Include="Shared\Consistency\CyprusLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\CzechLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\IConsistencyRule.cs" />
+    <Compile Include="Shared\Consistency\ILegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Shared\Consistency\InnConsistencyRule.cs" />
+    <Compile Include="Shared\Consistency\RussiaLegalPersonProfileConsistencyRuleContainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Shared\Formatter\CurrencyFormatter.cs" />
+    <Compile Include="Shared\Formatter\KorunaFormatter.cs" />
+    <Compile Include="Shared\Formatter\FirstLetterCapitalizer.cs" />
+    <Compile Include="Shared\Formatter\EuroFormatter.cs" />
+    <Compile Include="Shared\Formatter\PesoFormatter.cs" />
+    <Compile Include="Shared\Formatter\RoublesFormatter.cs" />
+    <Compile Include="Shared\CyprusFormatterFactory.cs" />
+    <Compile Include="Shared\RussiaFormatterFactory.cs" />
+    <Compile Include="Shared\FormatterFactoryBase.cs" />
+    <Compile Include="Chile\Generic\Modify\ModifyLegalPersonService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\Old\MultiCultureEditClientHandler.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\BillObtainer.cs" />
+    <Compile Include="Chile\Generic\Modify\DomainEntityObtainers\ChileBillObtainer.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\AccountDetails\MultiCultureValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\Bills\CyprusPrintBillHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Cyprus\Generic\Modify\Old\CyprusEditLegalPersonHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\LegalPersons\CyprusValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderHandler.cs" />
+    <Compile Include="Cyprus\Concrete\Old\Orders\PrintForms\CyprusPrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Cyprus\Generic\Activate\CyprusActivateLegalPersonService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetAppointmentDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetPhonecallDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetTaskDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\AppointmentObtainer.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
+    <Compile Include="MultiCulture\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
+    <Compile Include="Czech\Concrete\Old\Bills\CzechPrintBillHandler.cs" />
+    <Compile Include="MultiCulture\Concrete\Old\Orders\CalculateReleaseWithdrawalsHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\LegalPersons\CzechChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Czech\Generic\Modify\Old\CzechEditLegalPersonHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\LegalPersons\CzechValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintLetterOfGuaranteeHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderHandler.cs" />
+    <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Czech\Generic\Activate\CzechActivateLegalPersonService.cs" />
+    <Compile Include="Czech\Generic\List\CzechListLegalPersonProfileService.cs" />
+    <Compile Include="Czech\Generic\List\CzechListLegalPersonService.cs" />
+    <Compile Include="MultiCulture\Generic\List\MultiCultureListOrderService.cs" />
+    <Compile Include="Russia\Concrete\Old\AccountDetails\ValidateCreateAccountDetailHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bills\PrintBillHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Clients\CheckClientActivitiesHandler.cs" />
+    <Compile Include="Russia\Generic\Modify\Old\EditClientHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\LegalPersons\ChangeLegalPersonRequisitesHandler.cs" />
+    <Compile Include="Russia\Generic\Modify\Old\EditLegalPersonHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\LegalPersons\MergeLegalPersonsHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\LegalPersons\ValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintLetterOfGuaranteeHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderAdditionalAgreementHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderTerminationNoticeHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
+    <Compile Include="Russia\Generic\Activate\ActivateLegalPersonService.cs" />
+    <Compile Include="Russia\Generic\Get\GetAppointmentDtoService.cs" />
+    <Compile Include="MultiCulture\Generic\Get\GetLegalPersonDtoService.cs" />
+    <Compile Include="Russia\Generic\Get\GetPhonecallDtoService.cs" />
+    <Compile Include="Russia\Generic\Get\GetTaskDtoService.cs" />
+    <Compile Include="Russia\Generic\List\ListLegalPersonProfileService.cs" />
+    <Compile Include="Russia\Generic\List\ListLegalPersonService.cs" />
+    <Compile Include="Russia\Generic\List\ListOrderService.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\AppointmentObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\PhoneCallObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\DomainEntityObtainers\TaskObtainer.cs" />
+    <Compile Include="Russia\Generic\Modify\Old\EditOrderPositionHandler.cs" />
+    <Compile Include="Ukraine\Concrete\Old\LegalPersons\UkraineValidatePaymentRequisitesIsUniqueHandler.cs" />
+    <Compile Include="Ukraine\Generic\Get\UkraineGetBranchOfficeOrganizationUnitDtoService.cs" />
+    <Compile Include="Ukraine\Generic\Get\UkraineGetBranchOfficeDtoService.cs" />
+    <Compile Include="Ukraine\Generic\Get\UkraineGetLegalPersonProfileDtoService.cs" />
+    <Compile Include="Ukraine\Generic\Get\UkraineGetLegalPersonDtoService.cs" />
+    <Compile Include="Ukraine\Generic\List\UkraineListBranchOfficeService.cs" />
+    <Compile Include="Ukraine\Generic\List\UkraineListLegalPersonService.cs" />
+    <Compile Include="Ukraine\Generic\Modify\DomainEntityObtainers\UkraineBranchOfficeObtainer.cs" />
+    <Compile Include="Ukraine\Generic\Modify\ModifyLegalPersonService.cs" />
+    <Compile Include="Shared\PrintOrderHelper.cs" />
+    <Compile Include="Shared\Formatter\MoneyToWordsFormatter.cs" />
+    <Compile Include="Shared\Formatter\StringFormatter.cs" />
+    <Compile Include="Ukraine\Generic\UkraineOrderPrintFormDataExtractor.cs" />
+    <Compile Include="Emirates\Generic\List\EmiratesListAcceptanceReportsJournalService.cs" />
+    <Compile Include="Emirates\Generic\List\EmiratesListBranchOfficeService.cs" />
+    <Compile Include="Emirates\Generic\List\EmiratesListLegalPersonService.cs" />
+    <Compile Include="Emirates\Generic\Modify\DomainEntityObtainers\EmiratesBranchOfficeOrganizationUnitObtainer.cs" />
+    <Compile Include="Emirates\Generic\Modify\DomainEntityObtainers\EmiratesBranchOfficeObtainer.cs" />
+    <Compile Include="Emirates\Generic\Modify\DomainEntityObtainers\EmiratesLegalPersonProfileObtainer.cs" />
+    <Compile Include="Emirates\Generic\Modify\DomainEntityObtainers\EmiratesLegalPersonObtainer.cs" />
+    <Compile Include="Emirates\Generic\Modify\DomainEntityObtainers\EmiratesClientObtainer.cs" />
+    <Compile Include="Emirates\Generic\Modify\EmiratesBranchOfficeValidator.cs" />
+    <Compile Include="Emirates\Generic\Modify\EmiratesModifyLegalPersonService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
+      <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
+      <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
+      <Name>2Gis.Erm.BLCore.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\API\2Gis.Erm.BLQuerying.API.Operations.Listing\2Gis.Erm.BLQuerying.API.Operations.Listing.csproj">
+      <Project>{CBA45CBD-C200-4F16-86E9-301D76AE6021}</Project>
+      <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Aggregates.Global\2Gis.Erm.BLFlex.API.Aggregates.Global.csproj">
+      <Project>{3DBCA11C-C295-4A54-8E64-60473575EFF8}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Aggregates.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{a012ac28-ebeb-4d9a-963a-7ceb72f54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
+      <Project>{47edc4ec-654b-4219-9099-3394db6c65db}</Project>
+      <Name>2Gis.Erm.BLFlex.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Emirates\Concrete\Old\AccepttanceReport\PrintForms\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

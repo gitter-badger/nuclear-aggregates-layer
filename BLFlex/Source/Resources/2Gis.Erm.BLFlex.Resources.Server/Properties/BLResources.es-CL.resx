@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
+    <value>{0}, en lo sucesivo Ejecutor, representado por {1} {2}, actuando en base de {3}, por un lado, y {4}, en lo sucesivo Contratante representado por {5} {6}, actuando en base de {7}, por otro lado, han firmado la presente Orden de compra sobre lo siguiente:</value>
+  </data>
+  <data name="PrintOrderHandler_BeginContractParagraph1" xml:space="preserve">
+    <value>{0}, en lo sucesivo Ejecutor, representado por {1} {2}, actuando en base de {3}, por un lado, y señor(a) {4}, en lo sucesivo Contratante {5}, por otro lado, han firmado la Orden de compra sobre lo siguiente:</value>
+  </data>
+  <data name="PrintOrderHandler_DiscountInfo" xml:space="preserve">
+    <value>Descuento total: {0} - {1} ({2}).
+</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphApi" xml:space="preserve">
+    <value>Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphIndependent" xml:space="preserve">
+    <value>1. Medios de comunicación: "{0}" (versión para PC y versión para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}.
+2. Plataforma web 2gis.cl.
+3. Plataformas y aplicaciones Web especificadas en la lista de precios a la fecha de publicación del anuncio.</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphMobile" xml:space="preserve">
+    <value>Medios de comunicación: "{0}" (versiones para teléfono móvil). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphOnline" xml:space="preserve">
+    <value>Plataforma web con la dirección 2gis.cl</value>
+  </data>
+  <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
+    <value>Medios de comunicación: "{0}" (versión para PC). Certificado de registro {1}. Lanzamientos en los medios de comunicación desde № {2} hasta № {3}. Plazo de publicación: del {4} al {5}</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
+    <value>8.</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
+    <value>Presente Orden de compra entra en vigor desde el {0}. La orden de compra №{1} del {2} expira el {3}.
+8.</value>
+  </data>
+  <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
+    <value>Imposible crear la orden de compra para la persona jurídica '{0}' especificada en el perfil</value>
+  </data>
+  <data name="CannotPrintOrderForLegalPersonMainDocument" xml:space="preserve">
+    <value>La persona jurídica del tipo especificado en el perfil '{0}' no puede actuar en base a {1}</value>
+  </data>
+  <data name="ContributionTypeIsNotSet" xml:space="preserve">
+    <value>No se ha definido la forma de colaboración de la sucursal de la entidad con el id [{0}]</value>
+  </data>
+  <data name="CzechPrintOrderHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintOrderHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintOrderHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintOrderHandler_ClientLegalNamePrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Una EIRL con el RUT especificado ya existe</value>
+  </data>
+  <data name="ChileActiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>La persona juridica del cliente con el/los RUT especificados ya existe  </value>
+  </data>
+  <data name="ChileDeletedBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Existe una EIRL eliminada con el RUT especificado</value>
+  </data>
+  <data name="ChileDeletedLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Existe una persona juridica del cliente eliminada con  el/los RUT especificados</value>
+  </data>
+  <data name="ChileInactiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Existe una EIRL oculta con el RUT especificado</value>
+  </data>
+  <data name="ChileInactiveLegalPersonWithSpecifiedRutAlreadyExist" xml:space="preserve">
+    <value>Existe una persona juridica del cliente oculta con  el/los RUT especificados</value>
+  </data>
+  <data name="ChilePartableExtensionMustBeApplied" xml:space="preserve">
+    <value>Se debe utilizar la extensión de esencia LegalPersonProfile de Chile</value>
+  </data>
+  <data name="InvalidChileRutFormat" xml:space="preserve">
+    <value>Formato no válido de RUT. Formato permitido: 12.345.678-K</value>
+  </data>
+  <data name="InvalidChileRutChecksum" xml:space="preserve">
+    <value>La verificación fallida de la suma de control del valor de RUT {0}</value>
+  </data>
+  <data name="DublicateBillNumbers" xml:space="preserve">
+    <value>Se han duplicado los numeros de factura: {0}</value>
+  </data>
+  <data name="WrongBillNumbers" xml:space="preserve">
+    <value>Los siguientes numeros no corresponden al formato: {0}</value>
+  </data>
+  <data name="ExistingBillNumbers" xml:space="preserve">
+    <value>Ya se han creado las siguientes facturas: {0}</value>
+  </data>
+  <data name="CannotDeleteUsedBank" xml:space="preserve">
+    <value>El banco se está utilizando. Quítele todos los enlaces antes de eliminarlo.</value>
+  </data>
+  <data name="ChileCreationCommuneNotSupported" xml:space="preserve">
+    <value>La operación de creación de la comuna no es compatible con el sistema</value>
+  </data>
+  <data name="UkraineActiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineActiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineDeletedBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineDeletedLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInactiveBusinessmanWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInactiveLegalPersonWithSpecifiedIpnAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInvalidIpn" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineInvalidEgrpou" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_LegalAddressPrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixBusinessman" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechPrintLetterOfGuaranteeHandler_PersonPrefixLegalPerson" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusActiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusDeletedLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusInactiveLegalPersonWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusActiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusDeletedBusinessManWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CyprusInactiveBusinessmanWithSpecifiedTicExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechActiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechActiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechDeletedBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechDeletedLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechInactiveBusinessmanWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="CzechInactiveLegalPersonWithSpecifiedDicAndIcAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="OrderPositionNameWithContextCategory" xml:space="preserve">
+    <value>{0}, Categoría contextual – {1}</value>
+  </data>
+  <data name="UkraineLegalPersonWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineActivateLegalPersonErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineEnteredIpnIsNotCorrect" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineEnteredEgrpouIsNotCorrect" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineActivateBusinessmanErrorDueToEgrpouDuplicate" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineBusinessmanWithSpecifiedEgrpouAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UkraineBranchOfficeWithSpecifiedIpnAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesActiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesDeletedLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesEnteredCommercialLicenseIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesInactiveLegalPersonWithSpecifiedCommercialLicenseAlreadyExist" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="SpecifiedIbanIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="SpecifiedSwiftIsInvalid" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesBranchOfficeWithSpecifiedCommercialLicenseAlreadyExists" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesYouHaveToSpecifyBargainTypeWithoutVat" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesGenerateAcceptanceReport" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForOrder" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="EmiratesCannotPrintAcceptanceReportSinceProfileIsNotSpecifiedForSomeOrders" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="NoOrdersFound" xml:space="preserve">
+    <value>No se han encontrado órdenes según parámetros indicados</value>
+  </data>
+  <data name="VerificationTitle" xml:space="preserve">
+    <value>Verificación de elemento del material publicitario</value>
+  </data>
+  <data name="ChileCommuneModificationNotSupported" xml:space="preserve">
+    <value>Operación de edición de la comuna no está soportada por el sistema</value>
+  </data>
+  <data name="QuotedValue" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AddressWithReferencePoint" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressSingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategorySingle" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelCategoryMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCategoryMultipleAsterix" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatThemeMultiple" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionNameFormatCompositeDetalization" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="UnsupportedPositionBindingObjectType" xml:space="preserve">
+    <value>Descripción para la posición con el tipo de enlace {0} no está indicado</value>
+  </data>
+  <data name="CannotFindActivity" xml:space="preserve">
+    <value>Actividad con ID {0} no fue encontrada..</value>
+    <comment>Действие с ID {0} не найдено.</comment>
+  </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>No se permite crear las ordenes regionales</value>
+  </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>Con este cliente trabaja la agencia de publicidad:</value>
+  </data>
+  <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
+    <value>Смена реквизитов скрытого юр. лица запрещена</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует скрытое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIinExists" xml:space="preserve">
+    <value>Уже существует удалённое юр. лицо клиента с указанным БИН/ИИН</value>
+  </data>
+  <data name="ActiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+    <value>Уже существует юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="InactiveLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует скрытое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="DeletedLegalPersonWithSpecifiedIdentityCardNumberExists" xml:space="preserve">
+      <value>Уже существует удалённое юр. лицо с указанным номером удостоверения личности</value>
+  </data>
+  <data name="OrderFieldNotSpecified" xml:space="preserve">
+    <value>В заказе не заполнено поле "{0}"</value>
+  </data>
+</root>

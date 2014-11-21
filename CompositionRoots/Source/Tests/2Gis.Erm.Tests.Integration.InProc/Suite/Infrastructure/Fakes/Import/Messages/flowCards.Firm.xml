@@ -1,0 +1,8 @@
+﻿<Firm Code="70000001000138047" Name="ООО Ромашка, аптека" PromotionalName="Партнер ООО Ромашка, аптека" BranchCode="18" IsHidden="false">
+  <Card Code="70000001000138126"/>
+  <Card Code="12671656761760046"/>
+  <Fields>
+    <BoolField Code="FlampLink" Value="false" Comment="" IsHidden="false"/>
+    <BoolField Code="PromotionalFlampLink" Value="false" Comment="" IsHidden="false"/>
+  </Fields>
+</Firm>

@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0545D6B0-D443-443D-8939-C42EE20DD418}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.API.Aggregates</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.API.Aggregates</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Accounts\DTO\AccountDTOs.cs" />
+    <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
+    <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />
+    <Compile Include="Accounts\DTO\ActivateLockDto.cs" />
+    <Compile Include="Accounts\DTO\DeactivateLockDto.cs" />
+    <Compile Include="Accounts\DTO\LockDto.cs" />
+    <Compile Include="Accounts\DTO\AccountDetailInfoToSendNotificationDto.cs" />
+    <Compile Include="Accounts\DTO\RevertWithdrawalDto.cs" />
+    <Compile Include="Accounts\DTO\RevertWithdrawFromAccountsDto.cs" />
+    <Compile Include="Accounts\DTO\WithdrawalDto.cs" />
+    <Compile Include="Accounts\DTO\WithdrawFromAccountsDto.cs" />
+    <Compile Include="Accounts\IAccountRepository.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkActivateLocksAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkCloseLimitsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkCreateLocksAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkDeactivateUsedLockAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkDeleteLocksAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkReopenLimitsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountRevertWithdrawFromAccountsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountWithdrawalChangeStatusAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountWithdrawalStartAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountWithdrawFromAccountsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IImportOperationsInfoAggregateService.cs" />
+    <Compile Include="Accounts\ReadModel\AccountSpecs.Accounts.cs" />
+    <Compile Include="Accounts\ReadModel\AccountSpecs.Limits.cs" />
+    <Compile Include="Accounts\ReadModel\AccountSpecs.Locks.cs" />
+    <Compile Include="Accounts\ReadModel\AccountSpecs.OperationTypes.cs" />
+    <Compile Include="Accounts\ReadModel\AccountSpecs.Withdrawals.cs" />
+    <Compile Include="Accounts\ReadModel\IAccountReadModel.cs" />
+    <Compile Include="Activities\IUpdateAppointmentAggregateService.cs" />
+    <Compile Include="Activities\IUpdatePhonecallAggregateService.cs" />
+    <Compile Include="Activities\IUpdateRegardingObjectAggregateService.cs" />
+    <Compile Include="Activities\IUpdateTaskAggregateService.cs" />
+    <Compile Include="Activities\ReadModel\IActivityReadModel.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementBagItem.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementElementCreationDto.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementElementModifyDto.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementElementValidationState.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementMailNotificationDto.cs" />
+    <Compile Include="Advertisements\DTO\AdvertisementTemplateIdNameDto.cs" />
+    <Compile Include="Advertisements\EditingNotDraftAdvertisementElementException.cs" />
+    <Compile Include="Advertisements\IAdvertisementRepository.cs" />
+    <Compile Include="Advertisements\Operations\IAdvertisementUpdateElementAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\IAdvertisementUploadElementFileAggregateService.cs" />
+    <Compile Include="Advertisements\Operations\IBulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
+    <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElementDenialReason.cs" />
+    <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElementStatus.cs" />
+    <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElement.cs" />
+    <Compile Include="Advertisements\ReadModel\IAdvertisementReadModel.cs" />
+    <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationShortInformationDto.cs" />
+    <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationUnitNamesDto.cs" />
+    <Compile Include="BranchOffices\DTO\PrimaryBranchOfficeOrganizationUnits.cs" />
+    <Compile Include="BranchOffices\IBranchOfficeRepository.cs" />
+    <Compile Include="BranchOffices\ReadModel\BranchOfficeSpecs.BranchOffice.cs" />
+    <Compile Include="BranchOffices\ReadModel\IBranchOfficeReadModel.cs" />
+    <Compile Include="Charges\Dto\ChargeInfoDto.cs" />
+    <Compile Include="Charges\Dto\OrderInfoDto.cs" />
+    <Compile Include="Charges\Dto\OrderPositionInfoDto.cs" />
+    <Compile Include="Charges\Dto\OrderPositionWithChargeInfoDto.cs" />
+    <Compile Include="Clients\DTO\ClientReplicationDto.cs" />
+    <Compile Include="Clients\DTO\MasterClientDto.cs" />
+    <Compile Include="Clients\IClientRepository.cs" />
+    <Compile Include="Clients\Operations\ClientLinksDenormalizationException.cs" />
+    <Compile Include="Clients\Operations\IDeleteClientLinkAggregateService.cs" />
+    <Compile Include="Clients\Operations\ICreateClientLinkAggregateService.cs" />
+    <Compile Include="Clients\Operations\ICreateClientAggregateService.cs" />
+    <Compile Include="Clients\Operations\ICreateHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\Operations\IBindCrmTaskToHotClientRequestAggregateService.cs" />
+    <Compile Include="Clients\ReadModel\ClientSpecs.DenormalizedClientLinks.cs" />
+    <Compile Include="Clients\Operations\IDetachClientFromFirmAggregateService.cs" />
+    <Compile Include="Clients\ReadModel\ClientSpecs.Contacts.cs" />
+    <Compile Include="Clients\ReadModel\ClientSpecs.Clients.cs" />
+    <Compile Include="Clients\ReadModel\IClientReadModel.cs" />
+    <Compile Include="CommonService\MessageHelper.cs" />
+    <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
+    <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
+    <Compile Include="Common\Crosscutting\ICheckOperationPeriodService.cs" />
+    <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
+    <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
+    <Compile Include="Common\Generics\IActivateAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IAssignAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IChangeAggregateClientRepository.cs" />
+    <Compile Include="Common\Generics\IChangeAggregateTerritoryRepository.cs" />
+    <Compile Include="Common\Generics\ICheckAggregateForDebtsRepository.cs" />
+    <Compile Include="Common\Generics\ICreateAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IDeactivateAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IDeleteAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IDisqualifyAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IDownloadFileAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IQualifyAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IUpdateAggregateRepository.cs" />
+    <Compile Include="Common\Generics\IUploadFileAggregateRepository.cs" />
+    <Compile Include="Common\Specs\Dictionary\CategorySpecifications.cs" />
+    <Compile Include="Common\Specs\Dictionary\NewSalesModelRestrictions.cs" />
+    <Compile Include="Common\Specs\Dictionary\OrganizationUnitSpecs.cs" />
+    <Compile Include="Common\Specs\Dictionary\TerritoryDtoSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\AdditionalFirmServiceSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\CountrySpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\CurrencySpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\NoteSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\OperationSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\OrderProcessingRequestMessageSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\OrderProcessingRequestSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\PlatformSpecifications.cs" />
+    <Compile Include="Common\Specs\Simplified\PrintFormTemplateSpecifications.cs" />
+    <Compile Include="Deals\DTO\DealActualizeDuringWithdrawalDto.cs" />
+    <Compile Include="Deals\DTO\DealAndLegalPersonNamesDto.cs" />
+    <Compile Include="Deals\DTO\DealAndFirmNamesDto.cs" />
+    <Compile Include="Deals\DTO\DealChangeStageDto.cs" />
+    <Compile Include="Deals\DTO\DealLegalPersonDto.cs" />
+    <Compile Include="Deals\DTO\DealWithNonRejectedOrderInfos.cs" />
+    <Compile Include="Deals\IDealRepository.cs" />
+    <Compile Include="Deals\Operations\ICreateDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\AgencyFeeFormatException.cs" />
+    <Compile Include="Deals\Operations\AdvertisingCampaignPeriodException.cs" />
+    <Compile Include="Deals\Operations\ICreateFirmDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\IDeleteLegalPersonDealService.cs" />
+    <Compile Include="Deals\Operations\IUpdateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\ICreateLegalPersonDealAggregateService.cs" />
+    <Compile Include="Deals\Operations\IDealChangeStageAggregateService.cs" />
+    <Compile Include="Deals\Operations\IDealCreateAfterSaleServiceAggregateService.cs" />
+    <Compile Include="Deals\Operations\IDeleteAfterSaleServiceAggregateService.cs" />
+    <Compile Include="Deals\Operations\IDetachDealFromFirmAggregateService.cs" />
+    <Compile Include="Deals\ReadModel\DealSpecs.LegalPersonDeals.cs" />
+    <Compile Include="Deals\ReadModel\DealSpecs.FirmDeals.cs" />
+    <Compile Include="Deals\ReadModel\DealSpecs.Deals.cs" />
+    <Compile Include="Deals\ReadModel\IDealReadModel.cs" />
+    <Compile Include="Deals\ReleaseNumberUtils.cs" />
+    <Compile Include="Firms\DTO\ExportFirmsDTOs.cs" />
+    <Compile Include="Firms\DTO\FirmInfo\CategoryDto.cs" />
+    <Compile Include="Firms\DTO\FirmInfo\FirmAddressWithCategoriesDto.cs" />
+    <Compile Include="Firms\DTO\FirmInfo\FirmWithAddressesAndProjectDto.cs" />
+    <Compile Include="Firms\DTO\FirmInfo\ProjectDto.cs" />
+    <Compile Include="Firms\DTO\ImportFirmsDTOs.cs" />
+    <Compile Include="Firms\DTO\ImportTerritoriesDTOs.cs" />
+    <Compile Include="Firms\DTO\RegionalTerritoryDto.cs" />
+    <Compile Include="Firms\IFirmRepository.cs" />
+    <Compile Include="Firms\DTO\ChangeClientTerritoryDto.cs" />
+    <Compile Include="Firms\DTO\ChangeFirmTerritoryDto.cs" />
+    <Compile Include="Firms\Operations\IBulkChangeClientTerritoryAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkChangeFirmTerritoryAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkCreateCardRelationsAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkCreateCategoryFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkCreateDepCardAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkCreateFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkCreateFirmAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkCreateFirmContactAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkDeleteCategoryFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkDeleteFirmContactAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkUpdateCardRelationsAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkUpdateCategoryFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkUpdateDepCardAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkUpdateFirmAddressAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkUpdateFirmAggregateService.cs" />
+    <Compile Include="Firms\Operations\IBulkUpdateFirmContactAggregateService.cs" />
+    <Compile Include="Firms\Operations\IImportBuildingAggregateService.cs" />
+    <Compile Include="Firms\Operations\IImportCityPhoneZoneAggregateService.cs" />
+    <Compile Include="Firms\Operations\IImportFirmAggregateService.cs" />
+    <Compile Include="Firms\Operations\IImportReferenceAggregateService.cs" />
+    <Compile Include="Firms\Operations\IImportReferenceItemAggregateService.cs" />
+    <Compile Include="Firms\Operations\IImportSaleTerritoryAggregateService.cs" />
+    <Compile Include="Firms\ReadModel\FirmSpecs.cs" />
+    <Compile Include="Firms\ReadModel\FirmSpecs.FirmContacts.cs" />
+    <Compile Include="Firms\ReadModel\FirmSpecs.CategoryFirmAddresses.cs" />
+    <Compile Include="Firms\ReadModel\FirmSpecs.Addresses.cs" />
+    <Compile Include="Firms\ReadModel\FirmSpecs.Firms.cs" />
+    <Compile Include="Firms\ReadModel\IFirmReadModel.cs" />
+    <Compile Include="LegalPersons\DTO\CheckForDublicatesResultDto.cs" />
+    <Compile Include="LegalPersons\DTO\LegalPersonDTOs.cs" />
+    <Compile Include="LegalPersons\Operations\IDeleteLegalPersonProfileAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\IDeleteLegalPersonAggregateService.cs" />
+    <Compile Include="LegalPersons\Operations\IDeactivateLegalPersonAggregateService.cs" />
+    <Compile Include="LegalPersons\ILegalPersonRepository.cs" />
+    <Compile Include="LegalPersons\ReadModel\ILegalPersonReadModel.cs" />
+    <Compile Include="LegalPersons\ReadModel\LegalPersonSpecs.LegalPersons.cs" />
+    <Compile Include="LegalPersons\ReadModel\LegalPersonSpecs.Profiles.cs" />
+    <Compile Include="LocalMessages\DTO\LocalMessageDto.cs" />
+    <Compile Include="LocalMessages\ILocalMessageRepository.cs" />
+    <Compile Include="Orders\DTO\BargainEndAndCloseDatesDto.cs" />
+    <Compile Include="Orders\DTO\OrderOrganizationUnitDerivedFieldsDto.cs" />
+    <Compile Include="Orders\DTO\OrderDTOs.cs" />
+    <Compile Include="Orders\DTO\OrderParentEntityDerivedFieldsDto.cs" />
+    <Compile Include="Orders\DTO\OrderSuitableBargainDto.cs" />
+    <Compile Include="Orders\DTO\OrderLinkingObjectsDto.cs" />
+    <Compile Include="Orders\DTO\OrderNumberDto.cs" />
+    <Compile Include="Orders\DTO\OrderNumberStates.cs" />
+    <Compile Include="Orders\DTO\OrderPositionChargeInfo.cs" />
+    <Compile Include="Orders\DTO\OrderPositionPriceDto.cs" />
+    <Compile Include="Orders\DTO\OrderWithDummyAdvertisementDto.cs" />
+    <Compile Include="Orders\IBargainRepository.cs" />
+    <Compile Include="Orders\IOrderRepository.cs" />
+    <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IEvaluateBargainNumberService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillNumberService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IEvaluateOrderNumberService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IValidateBillsService.cs" />
+    <Compile Include="Orders\Operations\IOrderActualizeOrdersAmoutDuringWithdrawalAggregateService.cs" />
+    <Compile Include="Orders\Operations\IOrderChangeStateOrders2ArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\Validation\IAttachValidResultToCacheAggregateService.cs" />
+    <Compile Include="Orders\Operations\Validation\IInvalidateCachedValidationResultAggregateService.cs" />
+    <Compile Include="Orders\ReadModel\IGetPositionsByOrderService.cs" />
+    <Compile Include="Orders\ReadModel\IOrderReadModel.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.Bargains.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositionAdvertisements.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.OrderPositions.cs" />
+    <Compile Include="Orders\ReadModel\OrderSpecs.Orders.cs" />
+    <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
+    <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
+    <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
+    <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
+    <Compile Include="Prices\Dto\CategoryWithPositionsDto.cs" />
+    <Compile Include="Prices\Dto\PriceDto.cs" />
+    <Compile Include="Prices\Dto\PricePositionDetailedInfo.cs" />
+    <Compile Include="Prices\Dto\PricePositionDto.cs" />
+    <Compile Include="Prices\Dto\PriceValidationDto.cs" />
+    <Compile Include="Prices\IPositionRepository.cs" />
+    <Compile Include="Prices\IPriceRepository.cs" />
+    <Compile Include="Prices\Operations\IActivatePriceAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkActivateDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkActivatePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkCreateAssociatedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkCreateAssociatedPositionsGroupsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkCreateDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkDeactivateDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkDeactivatePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkDeleteDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IBulkDeletePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\ICreatePriceAggregateService.cs" />
+    <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
+    <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
+    <Compile Include="Prices\Operations\IDeletePriceAggregateService.cs" />
+    <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
+    <Compile Include="ProcessAccountsWithDebtsException.cs" />
+    <Compile Include="Releases\DTO\ValidationReportLine.cs" />
+    <Compile Include="Releases\Operations\IReleaseAttachProcessingMessagesAggregateService.cs" />
+    <Compile Include="Releases\Operations\IReleaseChangeStatusAggregateService.cs" />
+    <Compile Include="Releases\Operations\IReleaseStartAggregateService.cs" />
+    <Compile Include="Releases\ReadModel\IReleaseReadModel.cs" />
+    <Compile Include="Releases\ReadModel\ReleaseSpecs.Releases.cs" />
+    <Compile Include="Roles\Dto\EntityPrivilegeInfo.cs" />
+    <Compile Include="Roles\Dto\FunctionalPrivilegeInfo.cs" />
+    <Compile Include="Roles\Dto\PrivilegeDto.cs" />
+    <Compile Include="Roles\Dto\PrivilegeName.cs" />
+    <Compile Include="Roles\IRoleRepository.cs" />
+    <Compile Include="Roles\RoleSpecifications.cs" />
+    <Compile Include="Settings\IDebtProcessingSettings.cs" />
+    <Compile Include="SimplifiedModel\DTO\DictionaryEntityInstanceDto.cs" />
+    <Compile Include="SimplifiedModel\BargainTypes\ReadModel\IBargainTypeReadModel.cs" />
+    <Compile Include="SimplifiedModel\ContributionTypes\ReadModel\IContributionTypeReadModel.cs" />
+    <Compile Include="SimplifiedModel\ReadModel\IBirthdayCongratulationReadModel.cs" />
+    <Compile Include="Themes\DTO\ThemeTemplateUsageDto.cs" />
+    <Compile Include="Themes\DTO\ThemeUsageDto.cs" />
+    <Compile Include="Themes\IThemeRepository.cs" />
+    <Compile Include="Themes\ThemeSpecifications.cs" />
+    <Compile Include="Users\Dto\OrdanizationUnitDto.cs" />
+    <Compile Include="Users\Dto\OrganizationUnitWithUsersDto.cs" />
+    <Compile Include="Users\Dto\UserProfileDto.cs" />
+    <Compile Include="Users\IActivateUserAggregateService.cs" />
+    <Compile Include="Users\IDeactivateUserAggregateService.cs" />
+    <Compile Include="Users\IUserRepository.cs" />
+    <Compile Include="Users\ReadModel\IUserReadModel.cs" />
+    <Compile Include="Users\ReadModel\UserSpecs.Departments.cs" />
+    <Compile Include="Users\ReadModel\UserSpecs.UserProfiles.cs" />
+    <Compile Include="Users\ReadModel\UserSpecs.UserRoles.cs" />
+    <Compile Include="Users\ReadModel\UserSpecs.Users.cs" />
+    <Compile Include="Charges\Dto\ChargeDto.cs" />
+    <Compile Include="Charges\Dto\ChargesHistoryDto.cs" />
+    <Compile Include="Withdrawals\IWithdrawalInfoRepository.cs" />
+    <Compile Include="Charges\Dto\CreateLockDetailDto.cs" />
+    <Compile Include="Charges\Operations\IChargeBulkCreateAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkCreateLockDetailsAggregateService.cs" />
+    <Compile Include="Charges\Operations\IChargeBulkDeleteAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAccountBulkDeleteLockDetailsAggregateService.cs" />
+    <Compile Include="Charges\Operations\IChargeCreateHistoryAggregateService.cs" />
+    <Compile Include="Charges\ReadModel\IChargeReadModel.cs" />
+    <Compile Include="Accounts\DTO\WithdrawalInfoDto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
+      <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="Positions\DTO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clients\ReadModel\ClientSpecs.ClientLinks.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

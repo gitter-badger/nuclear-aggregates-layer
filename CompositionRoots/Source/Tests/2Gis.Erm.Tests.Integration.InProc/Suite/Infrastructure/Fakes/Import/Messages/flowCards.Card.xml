@@ -1,0 +1,62 @@
+﻿<Card Code="70000001000138126" FirmCode="70000001000128047" Type="POS" Name="Уралпромтехцентр, ООО, научно-производственное предприятие" PromotionalName="Уралпромтехцентр, ООО, научно-производственное предприятие" BranchCode="15" IsLocal="true" IsHidden="false" IsArchived="false" CreationBy="28a0b40d-217f-11e2-82c6-003048f96e90" CreationDate="2012-07-05T09:35:22.54" CheckedDate="2012-10-09T07:45:57.52" CheckingBy="28a0b40d-217f-11e2-82c6-003048f96e90" >
+  <Address UnrecognizedPart="69г" CityCode="1267230100684825" StreetCode="1267449144021285" Text="Челябинск, Блюхера, 69г" ReferencePoint="15 офис; 2 этаж" PromotionalReferencePoint="3 этаж, 5 кабинет, синяя дверь слева"/>
+  <Contacts>
+    <Phone ZoneCode="48" CanReceiveFax="false" Value="2623663" AdditionalValue="34" FormatCode="15000" Description="Телефон боса" PromotionalDescription="Телефон начальника траспортного цеха" IsPromotional="false" IsCommonContact="false" ContactPerson="Иван Сидорович Петров" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <Fax ZoneCode="48" Value="2624854" AdditionalValue="5" FormatCode="15000" Description="Главный факс" PromotionalDescription="Корреспонденцию сюда" IsPromotional="false" IsCommonContact="true" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <Web Value="www.garik.com" Alias="Заказать столик" Description="Бронирование столиков" PromotionalDescription="Бесплатно" IsPromotional="false" IsCommonContact="true" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <Email Value="chel_uptc@mail.ru" Alias="Заказать столик" Description="Бронирование столиков" PromotionalDescription="Бесплатно" IsPromotional="false" IsCommonContact="false" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <Skype Value="KafeGarrrik" Description="Бронирование столиков" PromotionalDescription="Бесплатно" IsPromotional="true" IsCommonContact="false" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <ICQ Value="567235" Description="Бронирование столиков" PromotionalDescription="Бесплатно" IsPromotional="true" IsCommonContact="false" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <Jabber Value="KafeGarrrik" Description="Бронирование столиков" PromotionalDescription="Бесплатно" IsPromotional="true" IsCommonContact="false" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <VKontakte Value="vk.com/page_name" IsPromotional="false" IsCommonContact="false" IsHidden="false" IsArchived="false" NotPublish="false"/>
+    <Twitter Value="twitter.com/@page_name" IsPromotional="false" IsCommonContact="true" IsHidden="false" IsArchived="true" NotPublish="false"/>
+    <Facebook Value="www.facebook.com/page_name" IsPromotional="false" IsCommonContact="false" IsHidden="true" IsArchived="true" NotPublish="true"/>
+    <Instagram Value="instagram.com/page_name" IsPromotional="false" IsCommonContact="false" IsHidden="false" IsArchived="false" NotPublish="false"/>
+  </Contacts>
+  <Rubrics>
+    <Rubric Code="450" IsPrimary="true" IsPromotional="false"/>
+    <Rubric Code="132" IsPromotional="true"/>
+  </Rubrics>
+  <Schedules>
+    <Schedule Name="График приема юр.лиц" Comment="Внешние клиенты">
+      <Day Label="Mon" From="08:00:00" To="19:00:00" Comment="Первый рабочий день недели">
+        <Break From="13:00:00" To="13:45:00"/>
+        <Break From="16:15:00" To="16:45:00"/>
+      </Day>
+      <Day Label="Tue" From="08:00:00" To="19:00:00"/>
+      <Day Label="Wed" From="08:00:00" To="19:00:00"/>
+      <Day Label="Thu" From="08:00:00" To="19:00:00"/>
+      <Day Label="Fri" From="08:00:00" To="19:00:00"/>
+      <Day Label="Sat" />
+      <Day Label="Sun" />
+    </Schedule>
+  </Schedules>
+  <Fields>
+    <TextField Value="Уралпромтехцентр" Code="LegalName" IsHidden="false" />
+    <ReferenceField ReferenceCode="OrganizationLegalForm" Value="50000" Code="OrganizationLegalForm" IsHidden="false" />
+    <TextField Value="научно-производственное предприятие" Code="NameDescription" IsHidden="false" />
+    <BoolField Value="true" Code="FlampLink" IsHidden="false" />
+    <BoolField Value="false" Code="LocalityVerification" IsHidden="false" />
+    <ReferenceListField ReferenceCode="PaymentMethod" Code="PaymentMethod" IsHidden="false">
+      <Items>
+        <Item Code="7" />
+      </Items>
+    </ReferenceListField>
+    <ReferenceField ReferenceCode="NumberOfEmployees" Value="1" Code="NumberOfEmployees" IsHidden="false" />
+    <BoolField Value="false" Comment="" Code="WarmingClient" IsHidden="false" />
+    <ReferenceField ReferenceCode="IsToLicense" Value="2" Code="ToBeLicensing" IsHidden="false" />
+    <ReferenceField ReferenceCode="LicenseConfirmation" Value="1" Comment="" Code="RefToLicense" IsHidden="false" />
+    <ReferenceField ReferenceCode="UpdateSource" Value="23001" Code="UpdateSource" IsHidden="false" />
+    <TextField Value="http://portal.2gis.local/zc/ektb/Lists/List/DispForm.aspx?ID=21876&amp;Source=http%3A%2F%2Fportal%2E2gis%2Elocal%2Fzc%2Fektb%2Fdefault%2Easpx%3FView%3D%7B11987FE0-01B9-4E38-9397-5A4723D65CAE%7D%26FilterField1%3D%255Fx0421%255F%255Fx043e%255F%255Fx0441%255F%255Fx0442%255F%255Fx04%26FilterValue1%3D%25D0%259D%25D0%25B5%2520%25D0%25BE%25D0%25B1%25D1%2580%25D0%25B0%25D0%25B1%25D0%25BE%25D1%2582%25D0%25B0%25D0%25BD%25D0%25BE%26FilterField2%3D%255Fx0418%255F%255Fx0441%255F%255Fx043f%255F%255Fx043e%255F%255Fx04%26FilterValue2%3D%25D0%25A1%25D0%25BF%25D0%25B5%25D1%2586%252E%2520%25D0%25BF%25D0%25BE%25D0%25B4%25D0%25B4%25D0%25B5%25D1%2580%25D0%25B6%25D0%25BA%25D0%25B8%2520%25D0%259E%25D0%259A&amp;ContentTypeId=0x01008687DD2FEDD46348B190E19813F2181F" Code="ClipLink" IsHidden="false" />
+    <TextField Value="15" Code="Office" IsHidden="false" />
+    <TextField Value="2" Code="Floor" IsHidden="false" />
+    <TextField Value="научно-производственное предприятие" Code="PromotionalNameDescription" IsHidden="false" />
+    <DateField Code="some_date_field" Value="2013-06-14T09:35:22.54"/>
+    <DecimalField Code="Bill" Value="500" />
+    <LongField Code="some_long_field" Value="165048062135"/>
+    <LongRangeField Code="some_long_range_field" From="15" To="4842187469"/>
+    <DateRangeField Code="date_range_field" From="2013-01-10T09:35:22.54" To="2013-06-10T09:35:22.54"/>
+    <DecimalRangeField Code="business_lunch_cost" From="120" To="210"/>
+    <TimeRangeField Code="business_lunch_time" From="12:00:00" To="16:00:00"/>
+  </Fields>
+</Card>

@@ -1,0 +1,6 @@
+﻿<Building Code="1267273050360457" Name="КОЛИЗЕЙ, кинотеатр" BranchCode="9" PurposeCode="16" Floors="2" Synonym="Кинотеатр Колизей" ZipCode="620075" SaleTerritoryCode="1267539338330118" IsAgreed="false" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="КОЛИЗЕЙ, кинотеатр"  />
+    <Localization Lang="it" Name="КОЛИЗЕЙ"  />
+  </Localizations>
+</Building>

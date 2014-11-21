@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://tempuri.org/XMLSchema.xsd" elementFormDefault="qualified" xmlns="http://tempuri.org/XMLSchema.xsd" xmlns:mstns="http://tempuri.org XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+
+  <xs:element name="NomenclatureElementRelation" type="ChildPosition">
+    <xs:annotation>
+      <xs:documentation>Связка Элементов номенклатуры</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  
+  <xs:complexType name="ChildPosition">
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Id записи о дочернем элементе. Необходим т.к. может быть 2 одинаковых позиции в составе сложной</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="MasterPositionCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>ID мастер элемента номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ChildPositionCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>ID дочернего элемента номенклатуры</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак активности дочернего элемента номенклатуры.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак удаленного дочернего элемента номенклатуры.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+</xs:schema>

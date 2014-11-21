@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project>
+  <configuration createBackupFiles="False" hideEmptyRows="False" hideTranslatedRows="False" useSpellChecker="True" neutralLanguageCode="ru" languagesToDisplay="">
+    <globalSetting name="ReadOnlyFileOverwriteBehaviour">0</globalSetting>
+    <globalSetting name="OmitEmptyItems">False</globalSetting>
+    <globalSetting name="ShowCommentsColumnInGrid">True</globalSetting>
+    <globalSetting name="IgnoreWindowsFormsResourcesWithDesignerFiles">True</globalSetting>
+    <globalSetting name="HideInternalDesignerRows">True</globalSetting>
+    <globalSetting name="UseShallowGridDataCumulation">True</globalSetting>
+    <globalSetting name="HideFileGroupFilesInTree">False</globalSetting>
+    <globalSetting name="NeutralLanguageFileNamePattern">[basename][optionaldefaulttypes].[extension]</globalSetting>
+    <globalSetting name="NonNeutralLanguageFileNamePattern">[basename][optionaldefaulttypes].[languagecode].[extension]</globalSetting>
+    <globalSetting name="BaseNameDotCount">0</globalSetting>
+    <globalSetting name="DefaultFileTypesToIgnore">.aspx;.ascx;.asmx;.master;.sitemap</globalSetting>
+    <globalSetting name="Project-PersistGridSettings">True</globalSetting>
+    <globalSetting name="ColorifyNullCells">True</globalSetting>
+    <globalSetting name="EnableExcelExportSnapshots">True</globalSetting>
+    <globalSetting name="Filter-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion" /&gt;
+  &lt;property name="ActiveFilterString" /&gt;
+&lt;/XtraSerializer&gt;</globalSetting>
+    <globalSetting name="Sort-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion" /&gt;
+  &lt;property name="SortInfo"&gt;~Xtra#Base64AAEAAAD/////AQAAAAAAAAAMAgAAAF5EZXZFeHByZXNzLlh0cmFHcmlkLnYxMS4xLCBWZXJzaW9uPTExLjEuMTIuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iODhkMTc1NGQ3MDBlNDlhBQEAAAA4RGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mb0NvbGxlY3Rpb24EAAAACmdyb3VwQ291bnQFY2xvbmUPY2xvbmVHcm91cENvdW50E0NvbGxlY3Rpb25CYXNlK2xpc3QAAwADCLMBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tEZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvLCBEZXZFeHByZXNzLlh0cmFHcmlkLnYxMS4xLCBWZXJzaW9uPTExLjEuMTIuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iODhkMTc1NGQ3MDBlNDlhXV0IHFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QCAAAAAAAAAAkDAAAAAAAAAAkEAAAABAMAAACzAVN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mbywgRGV2RXhwcmVzcy5YdHJhR3JpZC52MTEuMSwgVmVyc2lvbj0xMS4xLjEyLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YV1dAwAAAAZfaXRlbXMFX3NpemUIX3ZlcnNpb24EAAAwRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mb1tdAgAAAAgICQUAAAAAAAAAAAAAAAQEAAAAHFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QDAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgUAAAgICQYAAAABAAAABAAAAAcFAAAAAAEAAAAAAAAABC5EZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvAgAAABAGAAAABAAAAAkHAAAADQMMCAAAABlEZXZFeHByZXNzLlh0cmFHcmlkLnYxMS4xBQcAAAAuRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mbwIAAAAJU29ydE9yZGVyCkNvbHVtbk5hbWUAAQgIAAAAAQAAAAYJAAAAB2NvbE5hbWUL&lt;/property&gt;
+&lt;/XtraSerializer&gt;</globalSetting>
+    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="4926954448" /&gt;&lt;item type="2" checksum="5738213552" /&gt;&lt;/items&gt;</globalSetting>
+    <userSetting name="i.maslennikov@2GIS.filesInitialDir">D:\TFS\Old\Main\BLFlex</userSetting>
+    <userSetting name="i.maslennikov@2GIS.FindText">bargainnumbertemplate</userSetting>
+    <userSetting name="i.maslennikov@2GIS.RecentFiles">D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.resx;D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.cs.resx;D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.en.resx;D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.ru.resx###***###D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.resx;D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.cs.resx;D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.en.resx;D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.ru.resx</userSetting>
+    <description>
+    </description>
+  </configuration>
+  <fileGroups>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="25434afa-c5f2-44b5-bd0a-7fcd498ad469">
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.resx" uniqueID="58266179-19e9-4793-aa40-96917771d1e5" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.cs.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.cs.resx" uniqueID="40c68b23-f8f9-4dc3-959e-99ceb426fad2" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.en.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.en.resx" uniqueID="8f93baf4-95fa-4753-ba29-dca715e65b41" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.ru.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Client\Properties\Resources.ru.resx" uniqueID="a0ff4441-403c-4e00-8528-417996d0ba64" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="a09d6392-e08e-4d76-aba3-bacc12d909a9">
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.resx" uniqueID="bdb1d01b-a404-4c4d-9004-e93a3bfe9d9c" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.cs.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.cs.resx" uniqueID="b1bf5294-944a-4654-95de-9a08391de7ee" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.en.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.en.resx" uniqueID="bcc179de-b222-42ea-b9af-47a09de2a822" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.ru.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\MetadataResources.ru.resx" uniqueID="b3c72294-3d77-4518-b346-863140e3a750" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="438400c3-b743-4f95-a46f-d6002c5fe816">
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.resx" uniqueID="c669e5b9-7f4d-4ee9-a634-6ab43df8462a" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.cs.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.cs.resx" uniqueID="9985e3c3-4232-4c8b-8084-3dbbd8469eaa" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.en.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.en.resx" uniqueID="0a4a8786-2751-4a8b-beec-5b212a39b213" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.ru.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\ErmConfigLocalization.ru.resx" uniqueID="6ba57533-7416-4689-8ec6-db207b391491" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="de23b35f-37ce-4d25-b6ed-0174fb1148dd">
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.resx" uniqueID="ba0a737c-2492-48dc-8a19-f1e18983eead" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.cs.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.cs.resx" uniqueID="345477b5-3b72-41d2-80ab-029be21a0848" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.en.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.en.resx" uniqueID="43f0f43d-b7ab-4b52-9f46-a672a79c849d" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.ru.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\EnumResources.ru.resx" uniqueID="e81337f9-700b-489f-86ae-eea19415b08c" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="69796312-6558-40a6-94fb-4f326a56a503">
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.resx" uniqueID="012459e4-af13-41f6-bfa0-200b10c16e06" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.cs.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.cs.resx" uniqueID="0c9fd2c4-d60d-4ec3-b4cb-95f884df4830" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.en.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.en.resx" uniqueID="d78a1d7e-9c8c-476d-a9b2-fb8d0f3fb89a" />
+      <file filePath="..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.ru.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\Properties\BLResources.ru.resx" uniqueID="6c9512c7-740c-40e1-8cb8-aeed19d39bf3" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="1879b24c-65d8-434a-876a-6fb16c85e85f">
+      <file filePath="..\..\BLCore\Source\EntryPoints\UI\Desktop\2Gis.Erm.BLCore.UI.WPF.Client\Properties\Resources.resx" absoluteFilePath="D:\TFS\2.0\BLCore\Source\EntryPoints\UI\Desktop\2Gis.Erm.BLCore.UI.WPF.Client\Properties\Resources.resx" uniqueID="9b6e1062-db51-448e-ae47-24ce23682bdc" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="1ed697b2-9c52-4751-9d27-f835fe503989">
+      <file filePath="..\..\Platform\Source\EntryPoints\UI\Desktop\2Gis.Platform.UI.WPF.Resources\Properties\Resources.resx" absoluteFilePath="D:\TFS\2.0\Platform\Source\EntryPoints\UI\Desktop\2Gis.Platform.UI.WPF.Resources\Properties\Resources.resx" uniqueID="e3c2b34f-341b-43dd-8dc4-3e5c817bea2a" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="ad691dd7-34b5-4f7e-9c39-7c977952a992">
+      <file filePath="..\..\Platform\Source\EntryPoints\UI\Desktop\2Gis.Platform.UI.WPF.Shell\Properties\Resources.resx" absoluteFilePath="D:\TFS\2.0\Platform\Source\EntryPoints\UI\Desktop\2Gis.Platform.UI.WPF.Shell\Properties\Resources.resx" uniqueID="f7844d83-e97f-47af-be8a-b092cfcc695d" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+  </fileGroups>
+  <projectFolders />
+</project>

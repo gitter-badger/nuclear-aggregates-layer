@@ -1,0 +1,28 @@
+﻿
+@model Models.CategoryGroupViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    <div style="display: none">
+        @Html.HiddenFor(m => m.IdentityServiceUrl)
+    </div>
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CategoryGroupName, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.GroupRate, FieldFlex.lone)
+        </div>
+    </div>
+}

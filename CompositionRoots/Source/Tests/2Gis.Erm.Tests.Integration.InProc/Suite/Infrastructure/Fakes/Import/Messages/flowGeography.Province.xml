@@ -1,0 +1,9 @@
+﻿<Province Code="1267651007479819" Name="Верх-Нейвинский городской округ" RegionCode="1267655302447178" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Верх-Нейвинский городской округ" />
+    <Localization Lang="it" Name="Верх-Нейвинский" />
+  </Localizations>
+  <OldCodes>
+    <OldCode Code="1267651007479819" BranchCode="9" />
+  </OldCodes>
+</Province>

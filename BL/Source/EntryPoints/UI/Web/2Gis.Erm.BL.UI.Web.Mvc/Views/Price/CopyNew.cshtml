@@ -1,0 +1,100 @@
+﻿
+@model CopyNewPriceViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.PriceCopyNewConfirmationLabel }
+@section TopBarTitle { @BLResources.PriceCopyNewConfirmationLabel }
+@section TopBarMessage { @BLResources.PriceCopyNewConfirmation }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.DoubleGis.ValidatorRegistry.validators["checkDate"] = function (rule)
+        {
+            return function (value, context)
+            {
+                var date = new Date(Ext.getCmp(rule.ValidationParameters.dateField) ? Ext.getCmp(rule.ValidationParameters.dateField).getValue() : Ext.getDom(rule.ValidationParameters.dateField).value);
+                var expectedDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0); //first day
+                if (rule.ValidationParameters.isFirstDay == false)
+                {
+                    var tmpDate = new Date((new Date(date.getFullYear(), date.getMonth() + 1, 1)) - 1);
+                    expectedDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0);
+                }
+                return (date.getTime() == expectedDate.getTime());
+            };
+        };
+
+
+        var setVisualFeatures = function ()
+        {
+            var divRows = window.Ext.query("div.field-wrapper");
+            var i;
+            for (i = 0; i < divRows.length; i++)
+            {
+                window.Ext.fly(divRows[i]).addClassOnOver("field-wrapper-over");
+            }
+
+            var inputs = window.Ext.query(".inputfields");
+            for (i = 0; i < inputs.length; i++)
+            {
+                window.Ext.fly(inputs[i]).addClassOnFocus("inputfields-selected");
+            }
+        };
+        var SubmitForm = function ()
+        {
+            if (Ext.DoubleGis.FormValidator.validate(EntityForm, null))
+            {
+                Ext.getDom("Id").value = window.dialogArguments.sourcePriceId;
+
+                Ext.getDom("BeginDate").value = new Date(Ext.getCmp("BeginDate").getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern);
+                Ext.getDom("PublishDate").value = new Date(Ext.getCmp("PublishDate").getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern);
+
+                Ext.getDom("OK").disabled = "disabled";
+                Ext.getDom("Cancel").disabled = "disabled";
+
+                Ext.DoubleGis.FormValidator.validate(EntityForm, null);
+
+                EntityForm.submit();
+            }
+        };
+
+        Ext.onReady(function ()
+        {
+            setVisualFeatures();
+
+            //Show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
+            {
+                window.close();
+                return;
+            }
+            else if (Ext.getDom("Notifications").innerHTML.trim() != "")
+            {
+                Ext.get("Notifications").addClass("Notifications");
+            }
+
+            //write eventhandlers for buttons
+            Ext.get("Cancel").on("click", function () { window.returnValue = "Cancel"; window.close(); });
+            Ext.get("OK").on("click", SubmitForm);
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    @Html.HiddenFor(m => m.Id)
+    <div style="height: 15px;" id="Notifications">
+        @Model.Message
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.BeginDate, FieldFlex.lone, new DateTimeSettings { MinDate = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1), ShiftOffset = false})
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.PublishDate, FieldFlex.lone, new DateTimeSettings { MinDate = DateTime.Now, ShiftOffset = false })
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+    </div>
+    }
+}

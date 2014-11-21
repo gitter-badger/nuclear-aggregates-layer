@@ -1,0 +1,80 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates.EmiratesChangeLegalPersonRequisitesViewModel
+
+@{
+    Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.ControlChangeLegalPersonRequisites }
+@section TopBarTitle { @BLResources.ControlChangeLegalPersonRequisites }
+@section TopBarMessage {  }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            if (Ext.getDom("Notifications").innerHTML.trim() == "OK") {
+                window.returnValue = 'OK';
+                window.close();
+                return;
+            } else if (Ext.getDom("Notifications").innerHTML.trim() != "") {
+                Ext.getDom("Notifications").style.display = "block";
+            }
+
+            var depList = window.Ext.getDom("ViewConfig_DependencyList");
+            if (depList.value) {
+                this.DependencyHandler = new window.Ext.DoubleGis.DependencyHandler();
+                this.DependencyHandler.register(window.Ext.decode(depList.value), window.EntityForm);
+            }
+            depList.value = null;
+            Ext.get("Cancel").on("click", function() {
+                window.returnValue = 'CANCELED';
+                window.close();
+            });
+            Ext.get("OK").on("click", function () {
+
+                window.Ext.each(window.Ext.query("input.x-calendar", this.form), function (node) {
+                    var cmp = window.Ext.getCmp(node.id);
+                    node.value = cmp.getValue() ? cmp.getValue().format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
+                }, this);
+                
+                if (Ext.DoubleGis.FormValidator.validate(window.EntityForm)) {
+                    Ext.getDom("OK").disabled = "disabled";
+                    Ext.getDom("Cancel").disabled = "disabled";
+                    EntityForm.submit();
+                }
+
+                // Обеспечивает возвращаение дат к форматированному по локальным правилам виду после (не)отсылки формы
+                window.Ext.each(window.Ext.query("input.x-calendar", this.form), function (node) {
+                    var cmp = window.Ext.getCmp(node.id);
+                    cmp.setValue(cmp.getValue());
+                }, this);
+            });
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <div class="Tab">
+            @Html.HiddenFor(m => m.LegalPersonP)
+        
+            @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList)
+            <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+                @Model.Message
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.LegalName, FieldFlex.lone)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.CommercialLicense, FieldFlex.lone)
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.CommercialLicenseBeginDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false })
+            </div>
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.CommercialLicenseEndDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false })
+            </div>
+        </div>
+    }
+}

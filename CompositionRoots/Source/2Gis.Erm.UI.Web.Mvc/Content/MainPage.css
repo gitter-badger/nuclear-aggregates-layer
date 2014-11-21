@@ -1,0 +1,310 @@
+﻿button.x-btn-text
+{
+color: #15428b!important;
+}
+
+.x-btn-over .x-btn-tl
+{
+ 	background-image:url("images/CommonUI/Button/tl-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-tc
+{
+ 	background-image:url("images/CommonUI/Button/tc-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-tr
+{
+ 	background-image:url("images/CommonUI/Button/tr-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-over .x-btn-ml
+{
+ 	background-image:url("images/CommonUI/Button/ml-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-mc
+{
+ 	background-image:url("images/CommonUI/Button/mc-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-mr
+{
+ 	background-image:url("images/CommonUI/Button/mr-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-over .x-btn-bl
+{
+ 	background-image:url("images/CommonUI/Button/bl-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-bc
+{
+ 	background-image:url("images/CommonUI/Button/bc-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-br
+{
+ 	background-image:url("images/CommonUI/Button/br-over.gif") !important;
+ 	background-position:0 0 !important;
+}	
+
+
+.x-btn-pressed .x-btn-tl
+{
+ 	background-image:url("images/CommonUI/Button/tl-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-tc
+{
+ 	background-image:url("images/CommonUI/Button/tc-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-tr
+{
+ 	background-image:url("images/CommonUI/Button/tr-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-pressed .x-btn-ml
+{
+ 	background-image:url("images/CommonUI/Button/ml-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-mc
+{
+ 	background-image:url("images/CommonUI/Button/mc-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-mr
+{
+ 	background-image:url("images/CommonUI/Button/mr-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-pressed .x-btn-bl
+{
+ 	background-image:url("images/CommonUI/Button/bl-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-bc
+{
+ 	background-image:url("images/CommonUI/Button/bc-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-br
+{
+ 	background-image:url("images/CommonUI/Button/br-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+
+TABLE.main-header
+{
+width: 100%;
+height: 100%;
+background-repeat: repeat-x;
+background-color: #39497A;
+background-image: url("images/Configuration/CommonUI/mast_back.gif");
+}
+
+TD.main-header-Logo
+{
+height: 58px;
+background-repeat: no-repeat;
+padding: 0px 15px;
+background-position: top left;
+background-image: url("images/Configuration/CommonUI/masthead.jpg");
+}
+
+TD.main-header-sign-in
+{
+font-size: 11px;
+color: #d6e8ff;
+vertical-align: top;
+padding: 5px 4px;
+text-align:right;
+}
+.main-header-sign-in-User
+{
+height: 16px;
+font-weight: bold;
+}
+
+SPAN.main-header-sign-in,
+.main-header-sign-in-org
+{
+height: 16px;
+}
+
+DIV.nav-header-title
+{
+border-right:1px solid #6893CF;
+background-repeat: repeat-x;
+background-image: url("images/CommonUI/app_titlebar.gif");
+height:         22px;
+vertical-align: middle;
+font-weight:    bold;
+font-size:      14px;
+color:          #15428b;
+font-family: Tahoma;
+overflow:       hidden;
+padding-top: 5px;
+padding-left: 5px;
+padding-bottom: 0px;
+}
+
+.x-tree-node-leaf
+{
+ border: #ffffff 1px solid!important;
+}
+
+LI.x-tree-node-over
+{
+ background: repeat-x 0px 0px!important;
+}
+
+DIV.x-tree-node-leaf.x-tree-node-over
+{
+ background: repeat-x 0px 2px!important;
+ border: #ffbd69 1px solid!important;
+ background-image:url("images/Configuration/CommonUI/treeitem_hover_highlight.gif")!important;
+ }
+DIV.x-tree-node-leaf.x-tree-selected 
+{
+	border: #ffb74c 1px solid!important;
+	background-color: #ffe6a0!important;
+}
+
+.x-tree-node a span
+{
+ font-weight: normal!important;
+ font-family: Tahoma, Verdana, Arial;
+}
+.x-tool 
+{
+ float: left!important;
+}
+.x-toolbar{
+border-color:#6893cf!important; 
+ background-color:#e3efff!important;
+ background-repeat: repeat-x!important;
+ background-image:url("images/Configuration/CommonUI/gridtoolbar_back.gif");
+}
+
+DIV.x-tree-node-expanded, DIV.x-tree-node-collapsed
+{
+border-top: #6693cf 1px solid!important;
+background-image:url("images/Configuration/CommonUI/nav_header_back.gif")!important;
+background-repeat: repeat-x!important;
+background-color: #fff!important;
+cursor: pointer!important;
+border-left: #fff 0px!important;
+border-right: #fff 0px!important;
+border-bottom: #fff 0px!important;
+height: 19px;
+}
+
+DIV.x-tree-node-collapsed
+{
+padding-bottom: 7px!important;
+}
+
+DIV.x-tree-node-expanded
+{
+padding-bottom: 0px!important;
+}
+
+.x-tree-node-expanded A SPAN, .x-tree-node-collapsed A SPAN{
+ color: #15428b!important;
+ font-size: 11px!important;
+ font-weight: bold!important;
+ cursor: pointer!important;
+ height: 19px!important;
+}
+
+.x-tree-elbow-end-minus, .x-tree-elbow-minus{
+	background-image:url("images/Configuration/CommonUI/navUp.gif")!important;
+}
+.x-tree-elbow-end-plus, .x-tree-elbow-plus{
+	background-image:url("images/Configuration/CommonUI/navDown.gif")!important;
+}
+
+.x-tree-node-el
+{
+padding-left: 10px; 
+}
+
+.x-tree-elbow, .x-tree-elbow-end, .x-tree-elbow-line, .x-tree-icon, .x-tree-node-collapsed .x-tree-node-icon, .x-tree-node-expanded .x-tree-node-icon
+{
+display: none!important;
+}
+
+.x-panel-body
+{
+background-color: White;
+border: 0!important;
+}
+
+.x-splitbar-h
+{
+    width:2px;
+}
+
+.x-splitbar-v
+{
+    height:1px;
+}
+.x-nav-ctx-add {
+background-image:url("images/Configuration/CommonUI/Toolbar/Add.gif") !important;
+}
+.x-nav-ctx-delete {
+background-image:url("images/Configuration/CommonUI/Toolbar/Delete.gif") !important;
+}
+.x-nav-ctx-edit {
+background-image:url("images/Configuration/Entity/en_ico_16_NavigationArea.gif") !important;
+}
+td.x-date-middle button.x-btn-text
+{
+ color: #fff!important;   
+}
+
+td.x-date-middle table.x-btn-over button.x-btn-text
+{
+color: #15428b!important;
+}
+div.x-multiselect-list-body
+{
+    border: #d1cdbb 1px solid;
+    background-color:white;
+}
+div.x-multiselect-list-body nobr
+{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+img.x-multiselect-icon
+{
+    height: 16px; 
+    width: 16px; 
+    margin-right:5px; 
+    margin-left:2px; 
+    vertical-align:middle;
+}
+.tooltip{  
+position: absolute;  
+border: solid #AAAAAA 1px;  
+background-color: #FBFBFB;  
+font-family: Tahoma, sans-serif;  
+font-size: 11px;  
+line-height: 16px;  
+padding: 2px 5px;  
+overflow: hidden;  
+margin: 25px 0px 0px 5px;  
+}  

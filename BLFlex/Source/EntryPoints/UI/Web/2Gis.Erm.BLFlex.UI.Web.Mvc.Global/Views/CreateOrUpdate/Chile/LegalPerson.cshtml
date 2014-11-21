@@ -1,0 +1,48 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileLegalPersonViewModel
+
+@{
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.LegalPerson.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Chile/Ext.DoubleGis.UI.LegalPerson.Chile.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <style type="text/css">
+        div.label-wrapper {
+            width: 150px !important;
+        }
+    </style>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.HasProfiles)
+
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalName, FieldFlex.twins)
+            @Html.TemplateField(m => m.LegalPersonType, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.OperationsKind, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Rut, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Commune, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Commune })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 } })
+        </div>
+    </div>
+}

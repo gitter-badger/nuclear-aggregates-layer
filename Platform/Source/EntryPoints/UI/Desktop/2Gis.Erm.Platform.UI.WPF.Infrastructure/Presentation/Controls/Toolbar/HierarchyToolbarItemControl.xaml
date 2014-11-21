@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Toolbar.HierarchyToolbarItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Util.Converters;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" 
+             Margin="7 5 7 5" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:SingleToCollectionConverter x:Key="SingleToCollectionConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+        <Menu ItemsSource="{Binding RelativeSource={RelativeSource Self}, Path=DataContext, Converter={StaticResource SingleToCollectionConverter}}">
+        <Menu.Resources>
+            <!--<Image x:Key="MenuIconResource" Height="16" Width="16" Source="{Binding MenuIcon}" x:Shared="False" />-->
+            <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+                <Setter Property="Command" Value="{Binding NavigateCommand}" />
+                <!--<Setter Property="InputGestureText" Value="{Binding ShortcutText}" />
+                <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />-->
+                <Setter Property="Icon" Value="{Binding Icon}" />
+                <Setter Property="Header" Value="{Binding Title}" />
+                <Setter Property="ItemsSource" Value="{Binding Items}"/>
+            <Style.Triggers>
+                    <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Separator Style="{StaticResource {x:Static MenuItem.SeparatorStyleKey}}" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Menu.Resources>
+    </Menu>
+</UserControl>
+

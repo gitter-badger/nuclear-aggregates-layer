@@ -1,0 +1,24 @@
+﻿<ComboBox x:Class="DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Basic.EnumSelectionComboBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:wpfApplication="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Basic"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="300">
+    <ComboBox.ItemTemplate>
+        <DataTemplate>
+            <Border x:Name="_border" BorderThickness="1">
+                <TextBlock>
+                    <TextBlock.Text>
+                        <!-- Данный код полагается на то, что где-то сверху есть UserControl с DataContext, имеющим свойство Culture -->
+                        <MultiBinding Converter="{x:Static wpfApplication:EnumFieldToDescriptionConverter.Instance}">
+                            <Binding Path="."/>
+                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" Path="DataContext.Culture" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Border>
+        </DataTemplate>
+    </ComboBox.ItemTemplate>
+</ComboBox>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Entrance Code="70000001000138126" BuildingCode="1267273050360457" IsDefault="true" IsDeleted="false">
+  <Name EntranceName="Центральный вход" AddressCode="1267569403101599">
+    <Localizations>
+      <Localization Lang="ru" EntranceName="Центральный вход" />
+      <Localization Lang="it" EntranceName="Выход" />
+    </Localizations>
+  </Name>
+</Entrance>

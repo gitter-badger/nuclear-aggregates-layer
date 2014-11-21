@@ -1,0 +1,81 @@
+﻿.icon_48 
+{
+    width: 100%;
+    height: 48;
+    background-repeat: no-repeat;
+}
+
+.icon_department
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Department.gif");
+}
+
+.icon_role
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Role.gif");
+}
+
+.icon_user
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_User.gif");
+}
+
+.icon_platform
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Platform.gif");
+}
+
+.icon_price
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Price.gif");
+}
+
+.icon_position
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Position.gif");
+}
+
+.icon_position_category
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_PositionCategory.gif");
+}
+
+.icon_category
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Category.gif");
+}
+
+.icon_default
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Default.gif");
+}
+
+.icon_country
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Country.gif");
+}
+
+.icon_currency
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_Currency.gif");
+}
+
+.icon_org_unit
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_OrganizationUnit.gif");
+}
+
+.icon_branch_office
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_BranchOffice.gif");
+}
+
+.icon_bargain_type
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_BargainType.gif");
+}
+
+.icon_contribution_type
+{
+    background-image: url("images/Configuration/Entity/Tools/ico_ContributionType.gif");
+}

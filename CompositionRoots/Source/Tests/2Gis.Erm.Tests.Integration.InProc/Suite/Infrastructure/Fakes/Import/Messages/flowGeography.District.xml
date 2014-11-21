@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<District Code="4504209512726530" Name="Арбат" TypeCode="1" CityCode="1267230100684813" Synonym="Заельцовский" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Арбат" />
+    <Localization Lang="it" Name="Советский" />
+  </Localizations>
+  <OldCodes>
+    <OldCode Code="4504209512726530" BranchCode="1" />
+  </OldCodes>
+</District>
+

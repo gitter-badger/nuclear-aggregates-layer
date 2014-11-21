@@ -1,0 +1,8 @@
+﻿<HousingEstateType Code="1" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="жилмассив" ShortName="ж/м" />
+  </Localizations>
+  <Branches>
+    <Branch Code="1" />
+  </Branches>
+</HousingEstateType>
