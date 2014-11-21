@@ -15,7 +15,7 @@ using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {
-    public class IntegrationServicesMassProcessor : IMassProcessor
+    public sealed class IntegrationServicesMassProcessor : IMassProcessor
     {
         private static readonly Type DeserializeBusObjectServiceMarker = typeof(IDeserializeServiceBusObjectService);
         private static readonly Type GenericDeserializeBusObjectServiceMarker = typeof(IDeserializeServiceBusObjectService<>);

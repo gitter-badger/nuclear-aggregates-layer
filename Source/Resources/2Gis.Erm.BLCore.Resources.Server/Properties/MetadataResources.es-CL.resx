@@ -1453,30 +1453,30 @@
     <value>Vínculos cancelados</value>
   </data>
   <data name="BinIin" xml:space="preserve">
-    <value>БИН/ИИН</value>
+    <value>RUT</value>
   </data>
   <data name="Bin" xml:space="preserve">
-    <value>БИН</value>
+    <value>RUT</value>
   </data>
   <data name="Iin" xml:space="preserve">
-    <value>ИИН</value>
+    <value>RUT</value>
   </data>
   <data name="IdentityCardNumber" xml:space="preserve">
-    <value>Номер удостоверения личности</value>
+    <value>Cédula de Identidad</value>
   </data>
   <data name="IdentityCardIssuedOn" xml:space="preserve">
-    <value>Дата выдачи</value>
+    <value>Fecha de emisión</value>
   </data>
   <data name="IdentityCardIssuedBy" xml:space="preserve">
-    <value>Выдано</value>
+    <value>Emitido</value>
   </data>
   <data name="DecreeNumber" xml:space="preserve">
-    <value>Номер приказа</value>
+    <value>Número del decreto</value>
   </data>
   <data name="DecreeDate" xml:space="preserve">
-    <value>Дата приказа</value>
+    <value>Fecha del decreto</value>
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
-    <value>Другое</value>
+    <value>Otro</value>
   </data>
 </root>
