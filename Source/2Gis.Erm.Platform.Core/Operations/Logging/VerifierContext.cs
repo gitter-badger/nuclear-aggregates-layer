@@ -6,22 +6,22 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         where TComparableContext : class
     {
         private readonly TComparableContext _comparableContext;
-        private readonly OperationScopeNode _operationScopesHierarchy;
+        private readonly TrackedUseCase _useCase;
 
-        public VerifierContext(OperationScopeNode operationScopesHierarchy, TComparableContext comparableContext)
+        public VerifierContext(TrackedUseCase useCase, TComparableContext comparableContext)
         {
-            _operationScopesHierarchy = operationScopesHierarchy;
+            _useCase = useCase;
             _comparableContext = comparableContext;
+        }
+        
+        public TrackedUseCase UseCase
+        {
+            get { return _useCase; }
         }
 
         public TComparableContext ComparableContext
         {
             get { return _comparableContext; }
-        }
-
-        public OperationScopeNode OperationScopesHierarchy
-        {
-            get { return _operationScopesHierarchy; }
         }
     }
 }

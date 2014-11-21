@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
         public static class Indicator
         {
             public const string Name = "TrackedUseCaseMessageIndicator";
-            public readonly static Guid Value = new Guid("A68C1063-2F31-4F43-B069-F24139CDC982");
+            public static readonly Guid Value = new Guid("A68C1063-2F31-4F43-B069-F24139CDC982");
         }
 
         public static class Names
