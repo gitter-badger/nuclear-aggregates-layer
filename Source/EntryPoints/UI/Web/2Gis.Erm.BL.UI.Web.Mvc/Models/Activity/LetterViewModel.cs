@@ -12,6 +12,9 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
     public sealed class LetterViewModel : EntityViewModelBase<Letter>, IActivityViewModel
@@ -47,7 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         public string Description { get; set; }
 
-        [Calendar, RequiredLocalized]
+        [Calendar, JsonConverter(typeof(IsoDateTimeConverter)), RequiredLocalized]
         public DateTime ScheduledStart { get; set; }
 
         public LookupField Client { get; set; }
@@ -63,7 +66,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Id = modelDto.Id;
             Title = modelDto.Header;
             Description = modelDto.Description;
-            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset();
+            ScheduledStart = modelDto.ScheduledOn.UpdateKindIfUnset().ToUniversalTime().Date;
             Priority = modelDto.Priority;
             Status = modelDto.Status;
 
@@ -102,7 +105,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Status = Status,
                     Header = Title,
                     Description = Description,
-                    ScheduledOn = ScheduledStart,
+                    ScheduledOn = ScheduledStart.UpdateKindIfUnset().ToUniversalTime().Date,
                     RegardingObjects = regardingObjects,
                     SenderRef = Sender.ToReference(EntityName.User),
                     RecipientRef = Recipient.ToReference(EntityName.Contact),

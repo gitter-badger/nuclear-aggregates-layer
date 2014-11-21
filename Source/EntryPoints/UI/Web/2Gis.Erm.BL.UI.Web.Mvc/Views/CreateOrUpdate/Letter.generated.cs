@@ -252,7 +252,7 @@ WriteLiteral("        ");
             
             #line 41 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute }),
+            @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager)));
 
             
@@ -280,12 +280,12 @@ WriteLiteral("        ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n\r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 47 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -296,7 +296,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 49 "..\..\Views\CreateOrUpdate\Letter.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\Letter.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             
