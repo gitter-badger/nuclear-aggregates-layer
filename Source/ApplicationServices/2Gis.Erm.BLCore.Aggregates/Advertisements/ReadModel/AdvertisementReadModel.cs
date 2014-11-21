@@ -112,9 +112,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                           .Single();
         }
 
-        public long[] GetDependedOrderIds(IEnumerable<long> advertisementIds)
+        public IReadOnlyCollection<long> GetDependedOrderIds(IEnumerable<long> advertisementIds)
         {
-            var orderIds = _finder.Find<Advertisement>(x => advertisementIds.Contains(x.Id))
+            return _finder.Find<Advertisement>(x => advertisementIds.Contains(x.Id))
                                   .SelectMany(x => x.OrderPositionAdvertisements)
                                   .Select(x => x.OrderPosition)
                                   .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
@@ -123,13 +123,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                                   .Select(x => x.Id)
                                   .Distinct()
                                   .ToArray();
-
-            return orderIds;
         }
 
-        public long[] GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds)
+        public IReadOnlyCollection<long> GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds)
         {
-            var orderIds = _finder.Find(Specs.Find.ByIds<AdvertisementElement>(advertisementElementIds))
+            return _finder.Find(Specs.Find.ByIds<AdvertisementElement>(advertisementElementIds))
                                   .SelectMany(x => x.Advertisement.OrderPositionAdvertisements)
                                   .Select(x => x.OrderPosition)
                                   .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
@@ -138,8 +136,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                                   .Select(x => x.Id)
                                   .Distinct()
                                   .ToArray();
-
-            return orderIds;
         }
     }
 }

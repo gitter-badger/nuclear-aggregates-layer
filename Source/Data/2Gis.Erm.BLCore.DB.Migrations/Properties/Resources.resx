@@ -496,4 +496,31 @@
   <data name="_BusinessDirectory___ReplicateFirmAddresses_25335" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.10.19 rev. 25335\[businessdirectory].[replicatefirmaddresses].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="_Billing___ReplicateAccountDetails_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicateaccountdetails].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateAccounts_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicateaccounts].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateLimits_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicatelimits].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateOrders_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicateorders].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateDeals_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicatedeals].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateClients_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicateclients].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateLegalPersons_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicatelegalpersons].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateOrderPositions_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicateorderpositions].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="_Billing___ReplicateBargains_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2014.09.19 rev. 24442\[billing].[replicatebargains].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>

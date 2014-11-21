@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// Самореклама только для ПК; 
     /// Выгодные покупки с 2ГИС.
     /// </summary>
-    public sealed class AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         public const int AdvantageousPurchasesPositionCategoryExportCode = 25; // Выгодные покупки с 2ГИС.
         public const int AdvantageousPurchasesCategoryId = 18599; // Выгодные покупки с 2ГИС.
@@ -33,34 +34,19 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var currentFilter = filterPredicate;
+            var currentFilter = ruleContext.OrdersFilterPredicate;
             long organizationUnitId;
             long? firmIdForSingleValidation = null;
 
-            if (request == null)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                throw new ArgumentNullException("request");
-            }
-
-            if (!IsCheckMassive)
-            {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentNullException("OrderId");
-                }
-
-                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, request.OrderId.Value, out organizationUnitId, out firmIdForSingleValidation);
+                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmIdForSingleValidation);
             }
             else
             {
-                if (request.OrganizationUnitId == null)
-                {
-                    throw new ArgumentNullException("OrganizationUnitId");
-                }
-
-                organizationUnitId = request.OrganizationUnitId.Value;
+                organizationUnitId = ruleContext.ValidationParams.Mass.OrganizationUnitId;
             }
 
             var advantageousPurchasesFirmIds =
@@ -85,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                        .Select(x => x.Key)
                        .ToArray();
 
-            var firmsWithoutPurchases =
+            var firmsWithoutPurchasesErrors =
                 _finder.Find<Firm>(firm => firm.OrganizationUnitId == organizationUnitId &&
                                            firm.IsActive &&
                                            !firm.IsDeleted &&
@@ -97,19 +83,16 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                                                                                     addressCategory.Category.Id ==
                                                                                                                     AdvantageousPurchasesCategoryId)) &&
                                            !advantageousPurchasesFirmIds.Contains(firm.Id) &&
-                                           (IsCheckMassive || (firmIdForSingleValidation.HasValue && firm.Id == firmIdForSingleValidation.Value)))
+                                           (ruleContext.ValidationParams.IsMassValidation || (firmIdForSingleValidation.HasValue && firm.Id == firmIdForSingleValidation.Value)))
                       .Select(x => new { x.Id, x.Name })
-                      .ToArray();
+                      .AsEnumerable()
+                      .Select(x => new OrderValidationMessage
+                      {
+                          Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning,
+                          MessageText = string.Format(BLResources.ThereIsNoAdvertisementForAdvantageousPurchasesCategory, GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Firm, x.Name, x.Id))
+                      });
 
-            foreach (var firm in firmsWithoutPurchases)
-            {
-                var firmDescription = GenerateDescription(EntityName.Firm, firm.Name, firm.Id);
-                messages.Add(new OrderValidationMessage
-                    {
-                        Type = IsCheckMassive ? MessageType.Error : MessageType.Warning,
-                        MessageText = string.Format(BLResources.ThereIsNoAdvertisementForAdvantageousPurchasesCategory, firmDescription)
-                    });
-            }
+            return firmsWithoutPurchasesErrors;
         }
     }
 }

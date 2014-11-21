@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class AdvertisementsWithoutWhiteListOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class AdvertisementsWithoutWhiteListOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -24,11 +22,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             const int AdditionalPackageDgppId = 11572; // ДгппИд элемента номенклатуры "пакет "Дополнительный"" нужен для костыля-исключения на 2+2 месяца (до Июля)
 
-            var orderInfos = _finder.Find(filterPredicate).Select(x => new
+            var orderInfos = _finder.Find(ruleContext.OrdersFilterPredicate).Select(x => new
             {
                 x.Id,
                 x.Number,
@@ -83,12 +81,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 }),
             }).ToArray();
 
+            var results = new List<OrderValidationMessage>();
+
             foreach (var orderInfo in orderInfos)
             {
                 // order positions fails
                 foreach (var orderPosition in orderInfo.OrderPositions)
                 {
-                    var orderPositionDescription = GenerateDescription(EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
+                    var orderPositionDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
 
                     // position fails
                     foreach (var positionFail in orderPosition.RequiredPositionFails)
@@ -99,9 +99,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                 string.Format(CultureInfo.CurrentCulture, BLResources.OrderCheckPositionMustHaveAdvertisements, orderPositionDescription) :
                                 string.Format(CultureInfo.CurrentCulture, BLResources.OrderCheckCompositePositionMustHaveAdvertisements, orderPositionDescription, positionFail.Name);
 
-                            messages.Add(new OrderValidationMessage
+                            results.Add(new OrderValidationMessage
                             {
-                                Type = (IsCheckMassive || orderInfo.IsRegionalOrder) ? MessageType.Error : MessageType.Warning,
+                                Type = (ruleContext.ValidationParams.IsMassValidation || orderInfo.IsRegionalOrder) ? MessageType.Error : MessageType.Warning,
                                 OrderId = orderInfo.Id,
                                 OrderNumber = orderInfo.Number,
 
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                             var messageText =
                                 string.Format(CultureInfo.CurrentCulture, BLResources.OrderCheckCompositePositionMustHaveLinkingObject, orderPositionDescription, positionFail.Name);
 
-                            messages.Add(new OrderValidationMessage
+                            results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.Id,
@@ -126,11 +126,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     foreach (var advertisementFail in orderPosition.AdvertisementFails)
                     {
-                        var advertisementDescription = GenerateDescription(EntityName.Advertisement, advertisementFail.Name, advertisementFail.Id);
+                        var advertisementDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Advertisement, advertisementFail.Name, advertisementFail.Id);
 
                         if (advertisementFail.AdvertisementIsDeleted)
                         {
-                            messages.Add(new OrderValidationMessage
+                            results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.Id,
@@ -144,9 +144,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                         if (advertisementFail.AdvertisementNotBelongsToFirm)
                         {
-                            var firmDescription = GenerateDescription(EntityName.Firm, orderInfo.FirmName, orderInfo.FirmId);
+                            var firmDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Firm, orderInfo.FirmName, orderInfo.FirmId);
 
-                            messages.Add(new OrderValidationMessage
+                            results.Add(new OrderValidationMessage
                             {
                                 Type = MessageType.Error,
                                 OrderId = orderInfo.Id,
@@ -161,13 +161,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         // element fails
                         foreach (var elementFail in advertisementFail.ElementFails)
                         {
-                            var elementDescription = GenerateDescription(EntityName.AdvertisementElement, elementFail.Name, elementFail.Id);
+                            var elementDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.AdvertisementElement, elementFail.Name, elementFail.Id);
 
                             if (elementFail.ElementIsRequired)
                             {
-                                messages.Add(new OrderValidationMessage
+                                results.Add(new OrderValidationMessage
                                 {
-                                    Type = (IsCheckMassive || orderInfo.IsRegionalOrder) ? MessageType.Error : MessageType.Warning,
+                                    Type = (ruleContext.ValidationParams.IsMassValidation || orderInfo.IsRegionalOrder) ? MessageType.Error : MessageType.Warning,
                                     OrderId = orderInfo.Id,
                                     OrderNumber = orderInfo.Number,
 
@@ -177,9 +177,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                             if (elementFail.ElementIsInvalid == true)
                             {
-                                messages.Add(new OrderValidationMessage
+                                results.Add(new OrderValidationMessage
                                 {
-                                    Type = IsCheckMassive ? MessageType.Error : MessageType.Warning,
+                                    Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning,
                                     OrderId = orderInfo.Id,
                                     OrderNumber = orderInfo.Number,
                                     MessageText = string.Format(CultureInfo.CurrentCulture, BLResources.OrdersCheckAdvertisementElementWasInvalidated, advertisementDescription, elementDescription)
@@ -188,9 +188,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                             if (elementFail.ElementIsDraft == true)
                             {
-                                messages.Add(new OrderValidationMessage
+                                results.Add(new OrderValidationMessage
                                 {
-                                    Type = IsCheckMassive ? MessageType.Error : MessageType.Warning,
+                                    Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning,
                                     OrderId = orderInfo.Id,
                                     OrderNumber = orderInfo.Number,
                                     MessageText = string.Format(CultureInfo.CurrentCulture, BLResources.OrdersCheckAdvertisementElementIsDraft, advertisementDescription, elementDescription)
@@ -200,6 +200,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     }                    
                 }
             }
+
+            return results;
         }
     }
 }
