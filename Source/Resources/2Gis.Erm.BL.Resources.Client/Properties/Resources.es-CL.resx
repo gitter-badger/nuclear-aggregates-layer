@@ -966,4 +966,7 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value> Esta razón social ya figura como principal</value>
   </data>
+  <data name="ErrorOnServiceAccess" xml:space="preserve">
+    <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
+  </data>
 </root>
