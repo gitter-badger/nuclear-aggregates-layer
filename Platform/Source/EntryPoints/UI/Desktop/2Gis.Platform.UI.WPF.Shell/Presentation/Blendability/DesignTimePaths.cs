@@ -1,1 +1,1 @@
-namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability { static public class DesignTimePaths { public static readonly string LocalPath = @"D:\TFS\Composition\Prerelease\CompositionRoots\Source\2Gis.Erm.UI.Desktop.WPF\bin\Debug";} } 
+namespace DoubleGis.Platform.UI.WPF.Shell.Presentation.Blendability { static public class DesignTimePaths { public static readonly string LocalPath = @"C:\Ветки\CR\Features\ERM-5156-RemoveSomeEntitiesAndCode\CompositionRoots\Source\2Gis.Erm.UI.Desktop.WPF\bin\Debug";} } 
