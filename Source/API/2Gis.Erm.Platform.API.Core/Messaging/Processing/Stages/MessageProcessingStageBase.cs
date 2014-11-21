@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
         public abstract MessageProcessingStage Stage { get; }
 
         public bool TryProcess(
-            IMessageFlow messageFlow, 
+            IMessageFlow messageFlow,
             IEnumerable<MessageProcessingContext> targetMessageProcessingContexts, 
             out IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> stageResults)
         {
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages
                 Logger.ErrorFormatEx(ex, "Can't create actor for processing flow {0} executing stage {1}", actorContext.MessageFlow, Stage);
                 return false;
             }
-            
+
             try
             {
                 var result = Execute(actors, actorContext);
