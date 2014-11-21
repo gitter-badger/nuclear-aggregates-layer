@@ -30,7 +30,7 @@ using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
 
-namespace DoubleGis.Erm.BLCore.DI.Infrastructure.Operations
+namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
 {
     public sealed class UnityOperationServicesManager : IOperationServicesManager
     {

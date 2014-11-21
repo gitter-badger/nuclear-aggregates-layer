@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
-using DoubleGis.Erm.BLCore.DI.Infrastructure.Integration;
+using DoubleGis.Erm.BLCore.DI.Factories.Integration;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Operations;
