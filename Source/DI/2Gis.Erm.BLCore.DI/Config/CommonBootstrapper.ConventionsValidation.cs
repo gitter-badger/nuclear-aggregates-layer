@@ -22,11 +22,13 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 throw new InvalidOperationException("Resources usage conventions violated. Duplicated resource entries detected. " + report);
             }
         }
-        
-        public static void EnsureMetadataCorrectness(this IUnityContainer container)
+
+        public static IUnityContainer EnsureMetadataCorrectness(this IUnityContainer container)
         {
             var suite = container.Resolve<IMetadataValidatorsSuite>();
             suite.Validate();
+
+            return container;
         }
     }
 }

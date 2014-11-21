@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class SelfAdvertisementOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class SelfAdvertisementOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         // Самореклама только для ПК
         private const int SelfAdvertisementPositionCategoryId = 287;
@@ -26,19 +24,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var predicate = filterPredicate;
+            var predicate = ruleContext.OrdersFilterPredicate;
             long? firmId = null;
-            if (!IsCheckMassive)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentNullException("request.OrderId");
-                }
-
                 long organizationUnitId;
-                predicate = GetFilterPredicateToGetLinkedOrders(_finder, request.OrderId.Value, out organizationUnitId, out firmId);
+                predicate = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
             var orderGroupsToVerify = _finder.Find(predicate)
@@ -62,24 +55,16 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                         .Where(x => x.SelectMany(y => y.Positions).Any(y => y.PositionCategoryId == SelfAdvertisementPositionCategoryId))
                                         .ToArray();
 
-            foreach (var ordersGroup in orderGroupsToVerify)
-            {
-                var isOnlyValidPlatforms = ordersGroup.SelectMany(x => x.Positions).All(x => ValidPositionPlatforms.Contains(x.PlatformDgppId));
-                if (isOnlyValidPlatforms)
-                {
-                    continue;
-                }
-
-                var selfAdvertisementOrder = ordersGroup.First(x => x.Positions.Any(y => y.PositionCategoryId == SelfAdvertisementPositionCategoryId));
-
-                messages.Add(new OrderValidationMessage
-                {
-                    OrderId = selfAdvertisementOrder.Id,
-                    OrderNumber = selfAdvertisementOrder.Number,
-                    Type = MessageType.Error,
-                    MessageText = BLResources.SelfAdvertisementOrderValidationRuleMessage,
-                });
-            }
+            return orderGroupsToVerify
+                    .Where(o => !o.SelectMany(x => x.Positions).All(x => ValidPositionPlatforms.Contains(x.PlatformDgppId)))
+                    .Select(o => o.First(x => x.Positions.Any(y => y.PositionCategoryId == SelfAdvertisementPositionCategoryId)))
+                    .Select(x => new OrderValidationMessage
+                                     {
+                                         OrderId = x.Id,
+                                         OrderNumber = x.Number,
+                                         Type = MessageType.Error,
+                                         MessageText = BLResources.SelfAdvertisementOrderValidationRuleMessage,
+                                     });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
@@ -16,6 +17,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
 {
     public interface IOrderReadModel : IAggregateReadModel<Order>
     {
+        IReadOnlyDictionary<long, byte[]> GetOrdersCurrentVersions(Expression<Func<Order, bool>> ordersPredicate);
+        IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds);
         IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period);
         IEnumerable<Order> GetOrdersForRelease(long organizationUnitId, TimePeriod period);
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
@@ -54,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         bool IsBranchToBranchOrder(Order order);
         bool TryGetActualPriceIdForOrder(long orderId, out long actualPriceId);
         bool TryGetActualPriceId(long organizationUnitId, DateTime beginDistributionDate, out long actualPriceId);
-        Order GetOrder(long orderId);
+        Order GetOrderSecure(long orderId);
         OrderLinkingObjectsDto GetOrderLinkingObjectsDto(long orderId);
         bool OrderPriceWasPublished(long organizationUnitId, DateTime orderBeginDistributionDate);
         OrderForProlongationDto GetOrderForProlongationInfo(long orderId);

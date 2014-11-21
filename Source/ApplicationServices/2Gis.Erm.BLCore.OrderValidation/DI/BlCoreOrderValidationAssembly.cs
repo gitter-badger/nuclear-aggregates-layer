@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.API.OrderValidation.DI;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.DI
@@ -10,7 +11,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.DI
                                                         IZoneAnchor<OrderValidationZone>,
                                                         IContainsType<IOrderValidationRule>,
                                                         IContainsType<IRequestHandler>,
-                                                        IContainsType<IOperation>
+                                                        IContainsType<IOperation>,
+                                                        IContainsType<IMetadataSource>
     {
     }
 }

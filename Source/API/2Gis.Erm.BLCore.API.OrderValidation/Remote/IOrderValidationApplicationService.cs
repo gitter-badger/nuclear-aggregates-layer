@@ -8,9 +8,9 @@ namespace DoubleGis.Erm.BLCore.API.OrderValidation.Remote
     public interface IOrderValidationApplicationService
     {
         [OperationContract]
-        ValidateOrdersResult ValidateSingleOrder(long orderId);
+        ValidationResult ValidateSingleOrder(long orderId);
 
         [OperationContract]
-        ValidateOrdersResult ValidateOrders(ValidationType validationType, long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants);
+        ValidationResult ValidateOrders(ValidationType validationType, long organizationUnitId, TimePeriod period, long? ownerCode, bool includeOwnerDescendants);
     }
 }

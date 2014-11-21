@@ -5198,13 +5198,13 @@ Periodo de la publicación: {3}.</value>
     <value>Actualmente ya existe un vínculo inactivo de la sucursal de la empresa {0} con la razón social {1}</value>
   </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
-    <value>Сущность {0} ({1}) уже активна</value>
+    <value>Entidad {0} ({1}) ya está activada</value>
   </data>
   <data name="EntityIsAlreadyInactive" xml:space="preserve">
-    <value>Сущность {0} ({1}) уже скрыта</value>
+    <value>Entidad {0} ({1}) ya está oculta</value>
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
-    <value>{0} №{1} от {2}</value>
+    <value>{0} №{1} del {2}</value>
   </data>
   <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
     <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>

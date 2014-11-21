@@ -1447,30 +1447,30 @@
     <value>Deleted links</value>
   </data>
   <data name="BinIin" xml:space="preserve">
-    <value>БИН/ИИН</value>
+    <value>BIN/IIN</value>
   </data>
   <data name="Bin" xml:space="preserve">
-    <value>БИН</value>
+    <value>BIN</value>
   </data>
   <data name="Iin" xml:space="preserve">
-    <value>ИИН</value>
+    <value>IIN</value>
   </data>
   <data name="IdentityCardNumber" xml:space="preserve">
-    <value>Номер удостоверения личности</value>
+    <value>Personal ID No.</value>
   </data>
   <data name="IdentityCardIssuedOn" xml:space="preserve">
-    <value>Дата выдачи</value>
+    <value>Issue date</value>
   </data>
   <data name="IdentityCardIssuedBy" xml:space="preserve">
-    <value>Выдано</value>
+    <value>Issued by</value>
   </data>
   <data name="DecreeNumber" xml:space="preserve">
-    <value>Номер приказа</value>
+    <value>Order No.</value>
   </data>
   <data name="DecreeDate" xml:space="preserve">
-    <value>Дата приказа</value>
+    <value>Order date</value>
   </data>
   <data name="OtherAuthorityDocument" xml:space="preserve">
-    <value>Другое</value>
+    <value>Other</value>
   </data>
 </root>
