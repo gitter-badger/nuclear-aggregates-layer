@@ -1,6 +1,9 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
+﻿using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -18,20 +21,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
     public sealed class EditAdvertisementHandler : RequestHandler<EditRequest<Advertisement>, EmptyResponse>
     {
         private readonly IAdvertisementReadModel _advertisementReadModel;
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IBulkCreateAdvertisementElementsForAdvertisementAggregateService _elementsForAdvertisementService;
 
         public EditAdvertisementHandler(
             IAdvertisementReadModel advertisementReadModel,
-            IOrderValidationInvalidator orderValidationInvalidator,
+            IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             IOperationScopeFactory scopeFactory,
             IAdvertisementRepository advertisementRepository,
             IBulkCreateAdvertisementElementsForAdvertisementAggregateService elementsForAdvertisementService)
         {
             _advertisementReadModel = advertisementReadModel;
-            _orderValidationInvalidator = orderValidationInvalidator;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _scopeFactory = scopeFactory;
             _advertisementRepository = advertisementRepository;
             _elementsForAdvertisementService = elementsForAdvertisementService;
@@ -71,9 +74,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                     _elementsForAdvertisementService.Create(elementsToCreate, advertisement.Id, advertisement.OwnerCode);
                 }
 
-                // сбрасываем кеш проверок заказов
+                // фиксируем факт косвенного влияния изменений на некоторые заказы
                 var orderIds = _advertisementReadModel.GetDependedOrderIds(new[] { advertisement.Id });
-                _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+
+                _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
+                                                                                           {
+                                                                                               OrderId = x,
+                                                                                               ChangedAspects =
+                                                                                                   new[]
+                                                                                                       {
+                                                                                                           OrderValidationRuleGroup
+                                                                                                               .AdvertisementMaterialsValidation
+                                                                                                       }
+                                                                                           }));
 
                 operationScope.Complete();
             }

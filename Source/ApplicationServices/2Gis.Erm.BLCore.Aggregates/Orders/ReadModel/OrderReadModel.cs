@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
@@ -40,6 +41,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             _secureFinder = secureFinder;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
+        }
+
+        public IReadOnlyDictionary<long, byte[]> GetOrdersCurrentVersions(Expression<Func<Order, bool>> ordersPredicate)
+        {
+            return _finder.FindAll<Order>().Where(ordersPredicate).ToDictionary(x => x.Id, x => x.Timestamp);
+        }
+
+        public IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Order>(orderIds))
+                          .Select(o => new
+                                            {
+                                                OrderId = o.Id,
+                                                RelatedOrderIds = o.Firm.Orders.Where(x => x.Id != o.Id).Select(x => x.Id)
+                                            })
+                          .ToDictionary(x => x.OrderId, x => x.RelatedOrderIds);
         }
 
         public IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period)
@@ -397,7 +414,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return priceId != 0;
         }
 
-        public Order GetOrder(long orderId)
+        public Order GetOrderSecure(long orderId)
         {
             return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Single();
         }

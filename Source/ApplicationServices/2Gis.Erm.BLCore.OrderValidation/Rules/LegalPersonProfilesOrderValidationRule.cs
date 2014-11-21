@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
-
-using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class LegalPersonProfilesOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class LegalPersonProfilesOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -21,21 +17,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var badOrders = _finder.Find(filterPredicate)
-                .Where(x => !x.LegalPerson.LegalPersonProfiles.Any(y => y.IsActive && !y.IsDeleted));
-
-            foreach (var order in badOrders)
-            {
-                messages.Add(new OrderValidationMessage
-                {
-                    Type = MessageType.Error,
-                    OrderId = order.Id,
-                    OrderNumber = order.Number,
-                    MessageText = BLResources.MustMakeLegalPersonProfile
-                });
-            }
+            return _finder.Find(ruleContext.OrdersFilterPredicate)
+                          .Where(x => !x.LegalPerson.LegalPersonProfiles.Any(y => y.IsActive && !y.IsDeleted))
+                          .AsEnumerable()
+                          .Select(x => new OrderValidationMessage
+                                           {
+                                               Type = MessageType.Error,
+                                               OrderId = x.Id,
+                                               OrderNumber = x.Number,
+                                               MessageText = BLResources.MustMakeLegalPersonProfile
+                                           });
         }
     }
 }

@@ -232,6 +232,7 @@
     <Compile Include="2.1\2014.09.01 rev. 23819 - Add discount value in MsCRM order.cs" />
     <Compile Include="2.1\2014.09.08 rev. 24116 - MsCRM delete print regional orders button.cs" />
     <Compile Include="2.1\2014.09.03 rev. 23953 - Sync UserProfile.IsActive with User.IsActive.cs" />
+    <Compile Include="2.1\2014.09.02 rev. 23892 - Drop order validation rules config from DB.cs" />
     <Compile Include="2.1\2014.08.06 rev. 23002 - Boost SPs for batch replication.cs" />
     <Compile Include="2.1\2014.05.30 rev. 20842 - Delete FasComment values Smoke And Abortion.cs" />
     <Compile Include="2.1\2014.05.23 rev. 20638 - create ChargeSessionId column in Billing.LockDetails.cs" />
@@ -752,6 +753,10 @@
     <Compile Include="2.1\2014.11.05 rev. 25786 - Remove obsolete SPs and tables.cs" />
     <Compile Include="2.1\2014.10.24 rev. 25530 - Turn on some order validation rules.cs" />
     <Compile Include="2.1\2014.10.19 rev. 25335 - Alter ReplicateFirmAddresses.cs" />
+    <Compile Include="2.1\2014.10.20 rev. 25380 - Alter OrderValidationResults table.cs" />
+    <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
+    <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
+    <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
@@ -1135,6 +1140,15 @@
     <Content Include="Resources\2014.09.01 rev. 23822\ReplicateOrder.sql" />
     <Content Include="Resources\2014.09.01 rev. 23820\customizations_23820.xml" />
     <Content Include="Resources\2014.09.01 rev. 23819\customizations_23819.xml" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateAccountDetails].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateAccounts].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateBargains].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateClients].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateDeals].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateLegalPersons].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateLimits].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateOrderPositions].sql" />
+    <Content Include="Resources\2014.09.19 rev. 24442\[Billing].[ReplicateOrders].sql" />
     <None Include="Resources\Migration14488.xml" />
     <EmbeddedResource Include="Resources\2013.12.16 rev. 14362\ImportCardsFromXml.sql" />
     <Content Include="Resources\2013.12.12 rev. 14286\GetFirmTerritories.sql" />
