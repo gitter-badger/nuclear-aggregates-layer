@@ -1,0 +1,29 @@
+<ImportExportXml version="4.0.0.0" languagecode="1049" generatedBy="OnPremise">
+  <Entities>
+  </Entities>
+  <Roles>
+  </Roles>
+  <Workflows>
+  </Workflows>
+  <IsvConfig>
+    <configuration version="3.0.0000.0">
+      <Root>
+        <ToolBar>
+          <Button Icon="/_imgs/AdvFind/new.GIF" JavaScript="openStdWin('https://web-app.prod.erm.russia/Grid/View/Order?singleDataView=DListOrdersFast', 'FastSearch', 1000, 600)"  Client="Web">
+             <Titles>
+                <Title LCID="1049" Text="Быстрый поиск заказов" />
+             </Titles>
+             <ToolTips>
+                <ToolTip LCID="1049" Text="Быстрый поиск заказов" />
+             </ToolTips>
+          </Button>
+        </ToolBar>
+      </Root>
+    </configuration>
+  </IsvConfig>
+  <EntityMaps />
+  <EntityRelationships />
+  <Languages>
+    <Language>1049</Language>
+  </Languages>
+</ImportExportXml>

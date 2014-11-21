@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.API.Operations.Special</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.API.Operations.Special</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="DI\BlCoreApiOperationsSpecialAssembly.cs" />
+    <Compile Include="CostCalculation\BizAccountCostResult.cs" />
+    <Compile Include="CostCalculation\BizAccountCostWithVatResult.cs" />
+    <Compile Include="CostCalculation\BizAccountEmptyCostResult.cs" />
+    <Compile Include="CostCalculation\CalcPositionInfo.cs" />
+    <Compile Include="CostCalculation\CalcPositionRequest.cs" />
+    <Compile Include="CostCalculation\CostCalculationWcfResultType.cs" />
+    <Compile Include="CostCalculation\ICalculateOrderCostService.cs" />
+    <Compile Include="CostCalculation\ICalculateOrderPositionCostService.cs" />
+    <Compile Include="CostCalculation\ICostCalculationResult.cs" />
+    <Compile Include="CostCalculation\ICostCalculator.cs" />
+    <Compile Include="CostCalculation\PositionIsNotRepresentedException.cs" />
+    <Compile Include="FirmInfo\CategoryInfoDto.cs" />
+    <Compile Include="FirmInfo\FirmGuidDto.cs" />
+    <Compile Include="FirmInfo\FirmInfoDto.cs" />
+    <Compile Include="FirmInfo\IGetFirmInfoService.cs" />
+    <Compile Include="FirmInfo\ProjectInfoDto.cs" />
+    <Compile Include="DI\OperationsSpecialZone.cs" />
+    <Compile Include="OrderProcessingRequests\CancelledOrderRequestStateDescription.cs" />
+    <Compile Include="OrderProcessingRequests\CompletedOrderRequestStateDescription.cs" />
+    <Compile Include="OrderProcessingRequests\IBasicOrderProlongationOperationLogic.cs" />
+    <Compile Include="OrderProcessingRequests\ICancelOrderProcessingRequestOperationService.cs" />
+    <Compile Include="OrderProcessingRequests\IClientDealSelectionService.cs" />
+    <Compile Include="OrderProcessingRequests\ICreatedOrderProcessingRequestEmailSender.cs" />
+    <Compile Include="OrderProcessingRequests\ICreateOrderCreationRequestOperationService.cs" />
+    <Compile Include="OrderProcessingRequests\ICreateOrderProlongationRequestOperationService.cs" />
+    <Compile Include="OrderProcessingRequests\IGetOrderRequestMessagesOperationService.cs" />
+    <Compile Include="OrderProcessingRequests\IObtainDealForBizzacountOrderOperationService.cs" />
+    <Compile Include="OrderProcessingRequests\IOrderProcessingOwnerSelectionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="OrderProcessingRequests\IOrderProcessingRequestEmailSender.cs" />
+    <Compile Include="OrderProcessingRequests\IOrderProcessingRequestNotificationFormatter.cs" />
+    <Compile Include="OrderProcessingRequests\IOrderProcessingSettings.cs" />
+    <Compile Include="OrderProcessingRequests\IProcessOrderCreationRequestSingleOperation.cs" />
+    <Compile Include="OrderProcessingRequests\IProcessOrderProlongationRequestMassOperation.cs" />
+    <Compile Include="OrderProcessingRequests\IProcessOrderProlongationRequestOperationService.cs" />
+    <Compile Include="OrderProcessingRequests\IReadOrderRequestMessagesService.cs" />
+    <Compile Include="OrderProcessingRequests\MessageWithType.cs" />
+    <Compile Include="OrderProcessingRequests\ObtainDealForBizzacountOrderResult.cs" />
+    <Compile Include="OrderProcessingRequests\OpenedOrderRequestStateDescription.cs" />
+    <Compile Include="OrderProcessingRequests\OrderCreationResult.cs" />
+    <Compile Include="OrderProcessingRequests\OrderProcessingRequestEmailSendResult.cs" />
+    <Compile Include="OrderProcessingRequests\OrderProcessingRequestFirmDto.cs" />
+    <Compile Include="OrderProcessingRequests\OrderProcessingRequestNotificationData.cs" />
+    <Compile Include="OrderProcessingRequests\OrderProcessingRequestOrderDto.cs" />
+    <Compile Include="OrderProcessingRequests\OrderProcessingResult.cs" />
+    <Compile Include="OrderProcessingRequests\OrderRequestStateDescription.cs" />
+    <Compile Include="OrderProcessingRequests\PendingOrderRequestStateDescription.cs" />
+    <Compile Include="CostCalculation\CalcPositionWithDiscountInfo.cs" />
+    <Compile Include="CostCalculation\CalculationResult.cs" />
+    <Compile Include="CostCalculation\DiscountInfo.cs" />
+    <Compile Include="OrderProcessingRequests\RequestMessagesDto.cs" />
+    <Compile Include="Remote\AdsManagement\HandleAdsStateErrorDescription.cs" />
+    <Compile Include="Remote\AdsManagement\IHandleAdsStateApplicationService.cs" />
+    <Compile Include="Remote\AdsManagement\IHandleAdsStateApplicationRestService.cs" />
+    <Compile Include="Remote\AdsManagement\IManageTextAdsApplicationRestService.cs" />
+    <Compile Include="Remote\AdsManagement\IManageTextAdsApplicationService.cs" />
+    <Compile Include="Remote\AdsManagement\ManageTextAdsErrorDescription.cs" />
+    <Compile Include="Remote\CostCalculation\CostCalculatonErrorDescription.cs" />
+    <Compile Include="Remote\CostCalculation\ICostCalculationApplicationService.cs" />
+    <Compile Include="OrderProcessingRequests\IOrderProcessingRequestService.cs" />
+    <Compile Include="Remote\FirmInfo\FirmInfoOperationErrorDescription.cs" />
+    <Compile Include="Remote\FirmInfo\IFirmInfoApplicationRestService.cs" />
+    <Compile Include="Remote\OrderProcessing\IOrderProcessingApplicationService.cs" />
+    <Compile Include="Remote\OrderProcessing\IRequestStateApplicationService.cs" />
+    <Compile Include="Remote\OrderProcessing\OrderProcessingErrorDescription.cs" />
+    <Compile Include="Remote\Settings\APISpecialOperationsServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPISpecialOperationsServiceSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

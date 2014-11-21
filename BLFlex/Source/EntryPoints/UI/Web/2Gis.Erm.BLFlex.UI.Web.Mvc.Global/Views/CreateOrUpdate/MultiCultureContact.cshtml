@@ -1,0 +1,71 @@
+﻿@using Newtonsoft.Json
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureContactViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.Contact.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ReplicationCode)
+    @Html.HiddenFor(m => m.FullName)
+
+    @* used by client js *@
+    @Html.HiddenFor(m => m.BusinessModelArea)
+    @Html.Hidden("Salutations", JsonConvert.SerializeObject(Model.AvailableSalutations))
+    @Html.Hidden("InitialSalutation", Model.Salutation)
+
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Gender, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.MainPhoneNumber, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Salutation, FieldFlex.twins, new Dictionary<string, object> { { "combobox", "true" } })
+            @Html.TemplateField(m => m.MobilePhoneNumber, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LastName, FieldFlex.twins)
+            @Html.TemplateField(m => m.AdditionalPhoneNumber, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FirstName, FieldFlex.twins)
+            @Html.TemplateField(m => m.Fax, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.WorkEmail, FieldFlex.twins)
+            @Html.TemplateField(m => m.Im, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) })
+        </div>
+        @Html.SectionHead("SectionHead1", @BLResources.TitleServiceInformation)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.JobTitle, FieldFlex.twins)
+            @Html.TemplateField(m => m.AccountRole, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Department, FieldFlex.twins)
+            @Html.TemplateField(m => m.IsFired, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.WorkAddress, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "3" } })
+        </div>
+        @Html.SectionHead("SectionHead2", @BLResources.AdditionalTabTitle)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BirthDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
+            @Html.TemplateField(m => m.Website, FieldFlex.twins)
+        </div>
+    </div>
+}
+
+@RenderBody()

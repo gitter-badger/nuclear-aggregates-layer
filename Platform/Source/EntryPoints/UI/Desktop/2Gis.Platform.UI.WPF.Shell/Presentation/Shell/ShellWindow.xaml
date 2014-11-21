@@ -1,0 +1,17 @@
+﻿<mui:ModernWindow x:Class="DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell.ShellWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mui="clr-namespace:FirstFloor.ModernUI.Windows.Controls;assembly=FirstFloor.ModernUI"
+                  xmlns:resources="clr-namespace:DoubleGis.Platform.UI.WPF.Resources;assembly=2Gis.Platform.UI.WPF.Resources"
+                  ContentSource="/2Gis.Platform.UI.WPF.Shell;component/Presentation/Shell/ShellView.xaml">
+    <mui:ModernWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="{x:Static resources:DictionaryUrls.ModernWindow}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </mui:ModernWindow.Resources>
+    <mui:ModernWindow.Style>
+        <StaticResource ResourceKey="ModernWindowStyle"/>
+    </mui:ModernWindow.Style>
+</mui:ModernWindow>

@@ -1,0 +1,100 @@
+﻿@model AdvertisementElementViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <style type="text/css">
+        #TxtContainer TABLE TD
+        {
+            padding-bottom: 0px !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+        DIV.row-wrapper TABLE TD
+        {
+            padding-left: 5px;
+        }
+        TD.span-wrapper
+        {
+            padding-left: 10px !important;
+            padding-right: 10px;
+        }
+        DIV.Tab TABLE
+        {
+            table-layout: auto;
+            border-spacing: inherit;
+            width: auto;
+        }
+
+        DIV.Tab TABLE TD
+        {
+            padding-bottom: inherit;
+        }
+    </style>
+    
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="/Scripts/TinyMCE/tiny_mce_src.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.js?@ThisAssembly.Build" type="text/javascript"></script>
+    }
+    else
+    {
+        <script src="/Scripts/TinyMCE/tiny_mce.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TinyMCE/Ext.ux.TinyMCE.min.js?@ThisAssembly.Build" type="text/javascript"></script>
+    }
+    
+    <script src="/Scripts/Ext.DoubleGis.UI.AdvertisementElement.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.CanUserChangeStatus)
+            @Html.HiddenFor(m => m.NeedsValidation)
+
+            @*скрытое поле ActualType служит двум целям: 1. определить тип ЭРМ; 2. опредлить префикс DOM-элементов*@
+            @Html.HiddenFor(m => m.ActualType)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdvertisementElementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementElementTemplate, ReadOnly = true })
+        </div>
+    
+        @if (Model.NeedsValidation)
+        {
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.Status, FieldFlex.lone, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager)
+            </div>
+        }
+
+        @switch (Model.ActualType)
+        {
+            case AdvertisementElementRestrictionActualType.File:
+                @Html.EditorFor(m => m.File)
+                break;
+            case AdvertisementElementRestrictionActualType.Date:
+            @Html.EditorFor(m => m.Period)
+                break;
+            case AdvertisementElementRestrictionActualType.FasComment:
+            @Html.EditorFor(m => m.FasComment)
+                break;
+            case AdvertisementElementRestrictionActualType.FormattedText:
+            @Html.EditorFor(m => m.FormattedText)
+                break;
+            case AdvertisementElementRestrictionActualType.Image:
+            @Html.EditorFor(m => m.Image)
+                break;
+            case AdvertisementElementRestrictionActualType.Link:
+            @Html.EditorFor(m => m.Link)
+                break;
+            case AdvertisementElementRestrictionActualType.PlainText:
+            @Html.EditorFor(m => m.PlainText)
+                break;
+        }
+    </div>
+}

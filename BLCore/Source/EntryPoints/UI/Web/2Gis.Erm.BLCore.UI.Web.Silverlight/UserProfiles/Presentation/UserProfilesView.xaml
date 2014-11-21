@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="DoubleGis.Erm.BLCore.UI.Web.Silverlight.UserProfiles.Presentation.UserProfilesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:presentation="clr-namespace:DoubleGis.Erm.BLCore.UI.Web.Silverlight.UserProfiles.Presentation"
+    mc:Ignorable="d"
+    d:DesignHeight="480" d:DesignWidth="640">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Styles/CommonStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <presentation:UserPersonalInfoView Grid.Row="0" DataContext="{Binding PersonalInfoViewModel}"/>
+        <presentation:UserLocaleInfoView Grid.Row="1" DataContext="{Binding LocaleInfoViewModel}"/>
+    </Grid>
+</UserControl>

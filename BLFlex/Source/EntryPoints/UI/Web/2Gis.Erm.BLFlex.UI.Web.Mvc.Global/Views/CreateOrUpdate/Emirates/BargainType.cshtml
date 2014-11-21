@@ -1,0 +1,22 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates.EmiratesBargainTypeViewModel
+
+@{
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+    </div>
+}

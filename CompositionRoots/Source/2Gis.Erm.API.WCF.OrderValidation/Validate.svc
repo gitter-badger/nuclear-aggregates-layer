@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#" 
+                Debug="true" 
+                Service="DoubleGis.Erm.BLCore.WCF.OrderValidation.OrderValidationApplicationService" 
+                Factory="DoubleGis.Erm.API.WCF.OrderValidation.UnityServiceHostFactory" %>

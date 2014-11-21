@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DoSearchFirmsButtonCaption" xml:space="preserve">
+    <value>Search</value>
+    <comment>Заголовок кнопки панели поиска, по которой запускается непосредственно процесс поиска</comment>
+  </data>
+  <data name="EnumMarketType_B2B" xml:space="preserve">
+    <value>B2B</value>
+    <comment>Локализация MarketType.B2B</comment>
+  </data>
+  <data name="EnumMarketType_B2C" xml:space="preserve">
+    <value>B2C</value>
+    <comment>Локализация MarketType.B2C</comment>
+  </data>
+  <data name="EnumMarketType_FMCG" xml:space="preserve">
+    <value>FMCG</value>
+    <comment>Локализация MarketType.FMCG</comment>
+  </data>
+  <data name="EnumMarketType_None" xml:space="preserve">
+    <value />
+    <comment>Локализация MarketType.None</comment>
+  </data>
+  <data name="EnumProductType_ConsideredDemand" xml:space="preserve">
+    <value>Considered Demand</value>
+    <comment>Локализация ProductType.ConsideredDemand "Обдуманный спрос"</comment>
+  </data>
+  <data name="EnumProductType_Mass" xml:space="preserve">
+    <value>Mass services</value>
+    <comment>Локализация ProductType.Mass "Массовые услуги"</comment>
+  </data>
+  <data name="EnumProductType_None" xml:space="preserve">
+    <value>---</value>
+    <comment>Локализация ProductType.None</comment>
+  </data>
+  <data name="EnumProductType_PulseDemand" xml:space="preserve">
+    <value>Pulse Demand</value>
+    <comment>Локализация ProductType.PulseDemand "Импульсный спрос"</comment>
+  </data>
+  <data name="ERM_FirmsModuleTab" xml:space="preserve">
+    <value>ERM</value>
+    <comment>Заголовок таба риббона, в который добавляется группа Firms</comment>
+  </data>
+  <data name="ERM_FirmsSearchDocumentTitle" xml:space="preserve">
+    <value>Firms Search</value>
+    <comment>Заголовок таба для грида поиска фирмы</comment>
+  </data>
+  <data name="FirmDocumentHeaderFormat" xml:space="preserve">
+    <value>Company: {0}</value>
+    <comment>Шаблон названия таба для документа "Фирма"</comment>
+  </data>
+  <data name="FirmEditAnalytics_BranchesInCity" xml:space="preserve">
+    <value>Branches in City</value>
+    <comment>Метка "Филиалов в городе"</comment>
+  </data>
+  <data name="FirmEditAnalytics_BranchesOutCity" xml:space="preserve">
+    <value>Branches out of City</value>
+    <comment>Метка "Филиалов в других городах</comment>
+  </data>
+  <data name="FirmEditAnalytics_BudgetType" xml:space="preserve">
+    <value>Budget</value>
+    <comment>Метка "Бюджет"</comment>
+  </data>
+  <data name="FirmEditAnalytics_GoodsLabel" xml:space="preserve">
+    <value>Goods/Services</value>
+    <comment>Метка "Продукт/Услуга"</comment>
+  </data>
+  <data name="FirmEditAnalytics_MarketsLabel" xml:space="preserve">
+    <value>Markets</value>
+    <comment>Метка "Рынок"</comment>
+  </data>
+  <data name="FirmEditAnanlytics_ExpanderHeader" xml:space="preserve">
+    <value>Analytics</value>
+    <comment>Заголовок экспандера для раздела "Аналитика"</comment>
+  </data>
+  <data name="FirmEditFieldName_Client" xml:space="preserve">
+    <value>Client</value>
+    <comment>Заголовок поля "Клиент"</comment>
+  </data>
+  <data name="FirmEditFieldName_Comment" xml:space="preserve">
+    <value>Comment</value>
+    <comment>Заголовок поля "Комментарий"</comment>
+  </data>
+  <data name="FirmEditFieldName_FirmName" xml:space="preserve">
+    <value>Firm name</value>
+    <comment>Заголовок поля "Название фирмы"</comment>
+  </data>
+  <data name="FirmSearchOptionsRibbonGroupHeader" xml:space="preserve">
+    <value>Firm search options</value>
+    <comment>Заголовок группы параметров поиска фирм</comment>
+  </data>
+  <data name="FirmSearchRibbonOptions" xml:space="preserve">
+    <value>Firms Search Options</value>
+    <comment>Заголовок группы риббона с опциями поиска</comment>
+  </data>
+  <data name="FirmsRibbonGroupHeader" xml:space="preserve">
+    <value>Firms</value>
+    <comment>Заголовок группы риббона,отвечающей за операции с фирмами</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Branch" xml:space="preserve">
+    <value>Branch</value>
+    <comment>Заголовок столбца результатов поиска "Отделение организации"</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Client" xml:space="preserve">
+    <value>Client</value>
+    <comment>Заголовок столбца результатов поиска "Клиент"</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Disqualified" xml:space="preserve">
+    <value>Disqualified at</value>
+    <comment>Заголовок столбца результатов поиска "Возвращен в резерв"</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Firm" xml:space="preserve">
+    <value>Firm</value>
+    <comment>Заголовок столбца результатов поиска "Фирма"</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Owner" xml:space="preserve">
+    <value>Curator</value>
+    <comment>Заголовок столбца результатов поиска "Куратор"</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Qualified" xml:space="preserve">
+    <value>Qualified at</value>
+    <comment>Заголовок столбца результатов поиска "Взят из резерва"</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Score" xml:space="preserve">
+    <value>Score</value>
+    <comment>Заголовок столбца результатов поиска "Оценка перспективности"</comment>
+  </data>
+  <data name="SearchFirmResultHeader_Territory" xml:space="preserve">
+    <value>Territory</value>
+    <comment>Заголовок столбца результатов поиска "Территория"</comment>
+  </data>
+  <data name="SearchFirmRibbonButtonHeader" xml:space="preserve">
+    <value>Search Firms</value>
+    <comment>Заголовок кнопки риббона, запускающий или открывающий страницу поиска фирм.</comment>
+  </data>
+  <data name="SearchFirmRibbonCuratorPatternCaption" xml:space="preserve">
+    <value>Curator</value>
+    <comment>Метка "Куратор" для группы риббона поиска фирмы</comment>
+  </data>
+  <data name="SearchFirmRibbonIdPatternCaption" xml:space="preserve">
+    <value>Id</value>
+    <comment>Метка "Id:" для группы риббона поиска фирм</comment>
+  </data>
+  <data name="SearchFirmRibbonNameMaxScore" xml:space="preserve">
+    <value>Max Score</value>
+    <comment>Метка "Максимальная перспективность"</comment>
+  </data>
+  <data name="SearchFirmRibbonNameMinScore" xml:space="preserve">
+    <value>Min Score</value>
+    <comment>Метка "Минимальная перспективность"</comment>
+  </data>
+  <data name="SearchFirmRibbonNamePatternCaption" xml:space="preserve">
+    <value>Name</value>
+    <comment>Метка "Шаблон названия фирмы" для группы риббона поиска фирм</comment>
+  </data>
+  <data name="EnumBudgetType_100To500000" xml:space="preserve">
+    <value>100,000 - 500,000</value>
+    <comment>Локализация BudgetType.OneToFiveHundredThousand "100 000 - 500 000"</comment>
+  </data>
+  <data name="EnumBudgetType_10To30000" xml:space="preserve">
+    <value>10,000 - 30,000</value>
+    <comment>Локализация BudgetType.TenToThirtyThousand "10 000 - 30 000"</comment>
+  </data>
+  <data name="EnumBudgetType_30To100000" xml:space="preserve">
+    <value>30,000 - 100,000</value>
+    <comment>Локализация BudgetType.ThirtyToHundredThousand "30 000 - 100 000"</comment>
+  </data>
+  <data name="EnumBudgetType_Less10000" xml:space="preserve">
+    <value>Less 10,000</value>
+    <comment>Локализация BudgetType.LessTenThousand "Менее 10 000"</comment>
+  </data>
+  <data name="EnumBudgetType_More500000" xml:space="preserve">
+    <value>More 500,000</value>
+    <comment>Локализация BudgetType.MoreFiveHundredThousand "Более 500 000"</comment>
+  </data>
+  <data name="EnumBudgetType_None" xml:space="preserve">
+    <value />
+    <comment>Локализация BudgetType.None</comment>
+  </data>
+  <data name="EnumInCityBranchesAmount_FromThreeToTen" xml:space="preserve">
+    <value>3 - 10</value>
+    <comment>Локализация InCityBranchesAmount.FromThreeToTen "3-10"</comment>
+  </data>
+  <data name="EnumInCityBranchesAmount_LessThree" xml:space="preserve">
+    <value>Less than 3</value>
+    <comment>Локализация InCityBranchesAmount.LessThree "Менее 3"</comment>
+  </data>
+  <data name="EnumInCityBranchesAmount_MoreTen" xml:space="preserve">
+    <value>More than 10</value>
+    <comment>Локализация InCityBranchesAmount.MoreTen "Более 10"</comment>
+  </data>
+  <data name="EnumInCityBranchesAmount_None" xml:space="preserve">
+    <value />
+    <comment>Локализация InCityBranchesAmount.None</comment>
+  </data>
+  <data name="FirmEditAdditionalData_ExpanderHeader" xml:space="preserve">
+    <value>Additional Data</value>
+    <comment>Заголовок экспандера "Дополнительные" (видимо "данные")</comment>
+  </data>
+  <data name="FirmEditAdditionalData_OrgBranchLabel" xml:space="preserve">
+    <value>Organization Branch</value>
+    <comment>Метка "Отделение организации"</comment>
+  </data>
+  <data name="FirmEditAdditionalData_ScoreLabel" xml:space="preserve">
+    <value>Score</value>
+    <comment>Метка "Оценка перспективности"</comment>
+  </data>
+  <data name="FirmEditAdministration_ExpanderHeader" xml:space="preserve">
+    <value>Administration</value>
+    <comment>Заголовок экспандера "Администрирование"</comment>
+  </data>
+  <data name="FirmEditAnalytics_UsingOtherMediaLabel" xml:space="preserve">
+    <value>Placement</value>
+    <comment>Метка "Канал размещения"</comment>
+  </data>
+  <data name="FirmEditNotes_ExpanderHeader" xml:space="preserve">
+    <value>Notes</value>
+    <comment>Заголовок экспандера "Примечания"</comment>
+  </data>
+  <data name="FirmEditRibbonChangeClientButton_Label" xml:space="preserve">
+    <value>Change client</value>
+    <comment>Метка кнопки "Сменить клиента"</comment>
+  </data>
+  <data name="FirmEditRibbonChangeCuratorButton_Label" xml:space="preserve">
+    <value>Change curator</value>
+    <comment>Метка кнопки "Сменить куратора"</comment>
+  </data>
+  <data name="FirmEditRibbonRefreshButton_Label" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>Метка кнопки "Обновить"</comment>
+  </data>
+  <data name="FirmEditRibbonSaveAndCloseButton_Label" xml:space="preserve">
+    <value>Save and close</value>
+    <comment>Метка кнопки "Сохранить и закрыть"</comment>
+  </data>
+  <data name="FirmEditRibbonSaveButton_Label" xml:space="preserve">
+    <value>Save</value>
+    <comment>Метка кнопки "Сохранить"</comment>
+  </data>
+  <data name="FirmEditRibbonViewSelector_Label" xml:space="preserve">
+    <value>Select View</value>
+    <comment>Заголовок комбобокса "Выберите представление"</comment>
+  </data>
+  <data name="FirmEditOrderListColumnHeader_DestOU" xml:space="preserve">
+    <value>Destination OU</value>
+    <comment>Заголовок столбца "Город назначения"</comment>
+  </data>
+  <data name="FirmEditOrderListColumnHeader_FirmName" xml:space="preserve">
+    <value>Firm Name</value>
+    <comment>Заголовок столбца "Название фирмы"</comment>
+  </data>
+  <data name="FirmEditOrderListColumnHeader_OrderNumber" xml:space="preserve">
+    <value>Order Number</value>
+    <comment>Заголовок столбца "Номер заказа"</comment>
+  </data>
+  <data name="FirmEditOrderListColumnHeader_SrcOU" xml:space="preserve">
+    <value>Source OU</value>
+    <comment>Заголовок столбца "Город-источник"</comment>
+  </data>
+  <data name="FirmEditOrderList_ExpanderHeader" xml:space="preserve">
+    <value>Orders</value>
+    <comment>Заголовок экспандера "Заказы"</comment>
+  </data>
+  <data name="FirmSearchTotalRows_Label" xml:space="preserve">
+    <value>Loaded {0} of {1}</value>
+    <comment>Шаблон вывода для сообщения "Загружено строк ... из ..."</comment>
+  </data>
+  <data name="ErrorMessage_FirmNameEmpty" xml:space="preserve">
+    <value>Firm Name must be filled</value>
+    <comment>Сообщение об ошибке "Имя фирмы не должно быть пустым"</comment>
+  </data>
+  <data name="FirmNameFieldName" xml:space="preserve">
+    <value>Firm Name</value>
+    <comment>Название поля "Имя фирмы" для отображения в списке ошибок.</comment>
+  </data>
+  <data name="BusinessErrorMessage_IncompatibleValues" xml:space="preserve">
+    <value>Incompatible values: {0} and {1}</value>
+  </data>
+  <data name="ErrorMessage_ClientNameEmpty" xml:space="preserve">
+    <value>Client Name must be filled</value>
+  </data>
+  <data name="WarningMessage_ClientIsEmpty" xml:space="preserve">
+    <value>Client is empty</value>
+    <comment>Предупреждение "Клиент не указан"</comment>
+  </data>
+  <data name="EnumGeolocation_Downtown" xml:space="preserve">
+    <value>Downtown</value>
+    <comment>Локализация Geolocation.DownTown (Центр)</comment>
+  </data>
+  <data name="EnumGeolocation_IndustrialZone" xml:space="preserve">
+    <value>Industrial Zone</value>
+    <comment>Локализация Geolocation.IndustrialZone(Промышленный район)</comment>
+  </data>
+  <data name="EnumGeolocation_None" xml:space="preserve">
+    <value />
+    <comment>Локализация Geolocation.None</comment>
+  </data>
+  <data name="EnumGeolocation_SleepingQuarter" xml:space="preserve">
+    <value>Sleeping Quarter</value>
+    <comment>Локализация Geolocation.SleepingQuarter (Спальный район)</comment>
+  </data>
+  <data name="EnumGeolocation_Turnpike" xml:space="preserve">
+    <value>Turnpike</value>
+    <comment>Локализация Geolocation.Turnpike (Магистрали)</comment>
+  </data>
+  <data name="EnumOutCityBranchAmount_FromThreeToTen" xml:space="preserve">
+    <value>3 - 10</value>
+    <comment>Локализация OutCityBranchAmount.FromThreeToTen</comment>
+  </data>
+  <data name="EnumOutCityBranchAmount_LessThree" xml:space="preserve">
+    <value>&lt; 3</value>
+    <comment>Локализация OutCityBranchAmount.LessThenThree</comment>
+  </data>
+  <data name="EnumOutCityBranchAmount_MoreTen" xml:space="preserve">
+    <value>&gt; 10</value>
+    <comment>Локализация OutCityBranchAmount.MoreTen</comment>
+  </data>
+  <data name="EnumOutCityBranchAmount_None" xml:space="preserve">
+    <value />
+    <comment>Локализация OutCityBranchAmount.None</comment>
+  </data>
+  <data name="EnumShowFlampLinkMode_Default" xml:space="preserve">
+    <value>Default</value>
+    <comment>Локализация ShowFlampLinkMode.Default</comment>
+  </data>
+  <data name="EnumShowFlampLinkMode_FlampAbsence" xml:space="preserve">
+    <value>Absence</value>
+    <comment>Локализация ShowFlampLinkMode.FlampAbsence</comment>
+  </data>
+  <data name="EnumShowFlampLinkMode_FlampNotPublished" xml:space="preserve">
+    <value>Not published</value>
+    <comment>Локализация ShowFlampLinkMode.FlampNotPublished</comment>
+  </data>
+  <data name="EnumShowFlampLinkMode_FlampPublished" xml:space="preserve">
+    <value>Published</value>
+    <comment>Локализация ShowFlampLinkMode.Published</comment>
+  </data>
+  <data name="EnumStaffAmount_100_300" xml:space="preserve">
+    <value>100 - 300</value>
+    <comment>Локализация StaffAmount.OneHundredToThreeHundred</comment>
+  </data>
+  <data name="EnumStaffAmount_20_50" xml:space="preserve">
+    <value>20 - 50</value>
+    <comment>Локализация StaffAmount.TwentyToFifty</comment>
+  </data>
+  <data name="EnumStaffAmount_300_500" xml:space="preserve">
+    <value>300 - 500</value>
+    <comment>Локализация StaffAmount.ThreeHundredToFiveHundred</comment>
+  </data>
+  <data name="EnumStaffAmount_50_100" xml:space="preserve">
+    <value>50 - 100</value>
+    <comment>Локализация StaffAmount.FiftyToOneHundred</comment>
+  </data>
+  <data name="EnumStaffAmount_Less20" xml:space="preserve">
+    <value>Less 20</value>
+    <comment>Локализация StaffAmount.LessTwenty</comment>
+  </data>
+  <data name="EnumStaffAmount_More500" xml:space="preserve">
+    <value>More 500</value>
+    <comment>Локализация StaffAmount.MoreFiveHundred</comment>
+  </data>
+  <data name="EnumStaffAmount_None" xml:space="preserve">
+    <value />
+    <comment>Локализация StaffAmount.None</comment>
+  </data>
+  <data name="EnumUsingOtherMedia_Internet" xml:space="preserve">
+    <value>Internet</value>
+    <comment>Локализация UsingOtherMediaOption.Internet</comment>
+  </data>
+  <data name="EnumUsingOtherMedia_None" xml:space="preserve">
+    <value />
+    <comment>Локализация UsingOtherMediaOption.None</comment>
+  </data>
+  <data name="EnumUsingOtherMedia_OutdoorAds" xml:space="preserve">
+    <value>Outdoor Advertisements</value>
+    <comment>Локализация UsingOtherMediaOption.OutdoorAds</comment>
+  </data>
+  <data name="EnumUsingOtherMedia_PrintMedia" xml:space="preserve">
+    <value>Print Media</value>
+    <comment>Локализация UsingOtherMediaOption.PrintMedia</comment>
+  </data>
+  <data name="EnumUsingOtherMedia_Radio" xml:space="preserve">
+    <value>Radio</value>
+    <comment>Локализация UsingOtherMediaOption.Radio</comment>
+  </data>
+  <data name="EnumUsingOtherMedia_TV" xml:space="preserve">
+    <value>TV</value>
+    <comment>Локализация UsingOtherMediaOption.TV</comment>
+  </data>
+  <data name="FirmEditAdditionalData_HiddenLabel" xml:space="preserve">
+    <value>Hidden</value>
+    <comment>Метка "Скрыта до выяснения"</comment>
+  </data>
+  <data name="FirmEditAdditionalData_LastDequalifiedLabel" xml:space="preserve">
+    <value>Last dequalified</value>
+    <comment>Метка "Возвращена в резерв"</comment>
+  </data>
+  <data name="FirmEditAdditionalData_LastQualifiedLabel" xml:space="preserve">
+    <value>Last qualified</value>
+    <comment>Метка "Взята из резерва"</comment>
+  </data>
+  <data name="FirmEditAnalytics_GeolocationLabel" xml:space="preserve">
+    <value>Geolocation</value>
+    <comment>Метка "Георасположение"</comment>
+  </data>
+  <data name="FirmEditAnalytics_StaffAmountLabel" xml:space="preserve">
+    <value>Staff Amount</value>
+    <comment>Метка "Численность персонала"</comment>
+  </data>
+  <data name="ClientMainAddressField" xml:space="preserve">
+    <value>Main address</value>
+    <comment>Заголовок поля "Основной адрес клиента"</comment>
+  </data>
+  <data name="ClientNameField" xml:space="preserve">
+    <value>Name</value>
+    <comment>Заголовок поля "Имя клиента"</comment>
+  </data>
+  <data name="ClientOwnerField" xml:space="preserve">
+    <value>Curator</value>
+    <comment>Заголовок поля "Куратор клиента"</comment>
+  </data>
+  <data name="ClientTerritoryNameField" xml:space="preserve">
+    <value>Territory</value>
+    <comment>Заголовок поля "Территория клиента"</comment>
+  </data>
+  <data name="SearchFirmRibbonCurElement_Label" xml:space="preserve">
+    <value>Loaded</value>
+    <comment>Метка "Загружено" для пейджинга поиска фирм</comment>
+  </data>
+  <data name="SearchFirmRibbonNextPage_Label" xml:space="preserve">
+    <value>Next page</value>
+    <comment>Метка "Следующая страница" для кнопки пейджинга поиска фирм</comment>
+  </data>
+  <data name="SearchFirmRibbonPrevPage_Label" xml:space="preserve">
+    <value>Previous page</value>
+    <comment>Метка "Предыдущая странца для кнопки пейджинга поиска фирм</comment>
+  </data>
+  <data name="SearchFirmRibbonTotalElement_Label" xml:space="preserve">
+    <value>Total</value>
+    <comment>Метка "Всего элементов" для пейджинга поиска фирм</comment>
+  </data>
+  <data name="SearchFirmRibbonClientPatternCaption" xml:space="preserve">
+    <value>Client</value>
+    <comment>Метка "Клиент" для группы риббона поиска фирмы</comment>
+  </data>
+</root>

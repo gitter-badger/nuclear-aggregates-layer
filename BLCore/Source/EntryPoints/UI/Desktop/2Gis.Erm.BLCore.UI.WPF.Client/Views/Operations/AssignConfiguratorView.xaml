@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Operations.AssignConfiguratorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:operations="clr-namespace:DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance concrete:AssignConfiguratorViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NotStartedAvailableStyle" TargetType="FrameworkElement">
+                <Setter Property="Visibility" Value="Collapsed"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="{x:Static operations:OperationProcessingStatus.NotStarted}">
+                        <Setter Property="Visibility" Value="Visible"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <controls:BriefGrid Columns="150,200" Rows="35,35,35" Style="{StaticResource NotStartedAvailableStyle}" HorizontalAlignment="Stretch">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding OwnerCodeTitle.Title}" Margin="5"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding OwnerCode}" Margin="5"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding IsPartialAssignTitle.Title}" Margin="5"/>
+        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding IsPartialAssign}" Margin="5"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding BypassValidationTitle.Title}" Margin="5"></TextBlock>
+        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding BypassValidation}" Margin="5"/>
+        </controls:BriefGrid>
+</UserControl>

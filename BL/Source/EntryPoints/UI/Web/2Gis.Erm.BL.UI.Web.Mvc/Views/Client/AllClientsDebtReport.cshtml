@@ -1,0 +1,67 @@
+﻿
+@model  AllClientsDebtReportViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.AllClientsDebtReport }
+@section TopBarTitle { @BLResources.ReportParametersAccepting }
+@section TopBarMessage { @BLResources.ReportParametersAcceptingLegend }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        var submitForm = function ()
+        {
+            if (Ext.DoubleGis.FormValidator.validate(window.EntityForm))
+            {
+                window.close();
+            }
+        };
+        var setVisualFeatures = function ()
+        {
+            var divRows = window.Ext.query("div.field-wrapper");
+            var i;
+            for (i = 0; i < divRows.length; i++)
+            {
+                window.Ext.fly(divRows[i]).addClassOnOver("field-wrapper-over");
+            }
+
+            var inputs = window.Ext.query(".inputfields");
+            for (i = 0; i < inputs.length; i++)
+            {
+                window.Ext.fly(inputs[i]).addClassOnFocus("inputfields-selected");
+            }
+        };
+        Ext.onReady(function ()
+        {
+            setVisualFeatures();
+            window.Ext.get("Cancel").on("click", function () { window.close(); });
+            window.Ext.get("OK").on("click", submitForm);
+        });
+        
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <div class="row-wrapper">
+        @Html.TemplateField(m=>m.Owner, FieldFlex.lone, new LookupSettings{EntityName = EntityName.User})
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+    </div>
+    @Html.SectionHead("debtType", BLResources.DebtTypes)
+    <div class="row-wrapper">
+        @Html.TemplateField(m=>m.WithPaymentDebt, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m=>m.WithDocDebtOrder, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m=>m.WithDocDebtBargain, FieldFlex.lone)
+    </div>
+    <div class="row-wrapper">
+        @Html.TemplateField(m=>m.WithDocDebtTermination, FieldFlex.lone)
+    </div>
+    }
+}

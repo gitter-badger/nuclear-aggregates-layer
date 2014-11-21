@@ -1,0 +1,3395 @@
+<ImportExportXml version="4.0.0.0" languagecode="1049" generatedBy="OnPremise">
+  <Entities>
+    <Entity>
+      <Name LocalizedName="Встреча" OriginalName="Appointment">Appointment</Name>
+      <ObjectTypeCode>4201</ObjectTypeCode>
+      <EntityInfo>
+        <entity Name="Appointment">
+          <HasRelatedNotes>True</HasRelatedNotes>
+          <HasRelatedActivities>False</HasRelatedActivities>
+          <ObjectTypeCode>4201</ObjectTypeCode>
+          <CollectionName>Appointments</CollectionName>
+          <LogicalCollectionName>appointments</LogicalCollectionName>
+          <BaseTableName>AppointmentBase</BaseTableName>
+          <WorkflowEventMask>-1</WorkflowEventMask>
+          <IsCustomizable>1</IsCustomizable>
+          <IsCollaboration>1</IsCollaboration>
+          <IsActivity>1</IsActivity>
+          <IsImportable>1</IsImportable>
+          <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
+          <OwnershipTypeMask>UserOwned</OwnershipTypeMask>
+          <IsAudited>1</IsAudited>
+          <IsReplicated>1</IsReplicated>
+          <IsReplicationUserFiltered>1</IsReplicationUserFiltered>
+          <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
+          <ExtensionTableName>AppointmentExtensionBase</ExtensionTableName>
+          <ReportViewName>FilteredAppointment</ReportViewName>
+          <IsRenameable>1</IsRenameable>
+          <CanTriggerWorkflow>1</CanTriggerWorkflow>
+          <CanBeChildInCustomRelationship>1</CanBeChildInCustomRelationship>
+          <CanBeInCustomReflexiveRelationship>1</CanBeInCustomReflexiveRelationship>
+          <EntityClassName>Microsoft.Crm.Entities.Appointment</EntityClassName>
+          <EntityAssembly>Microsoft.Crm.Entities</EntityAssembly>
+          <ServiceClassName>Microsoft.Crm.ObjectModel.AppointmentService</ServiceClassName>
+          <ServiceAssembly>Microsoft.Crm.ObjectModel</ServiceAssembly>
+          <WorkflowSupport>15</WorkflowSupport>
+          <DbCascadeMask>0</DbCascadeMask>
+          <LocalizedNames>
+            <LocalizedName description="Встреча" languagecode="1049" />
+          </LocalizedNames>
+          <LocalizedCollectionNames>
+            <LocalizedCollectionName description="Встречи" languagecode="1049" />
+          </LocalizedCollectionNames>
+          <Descriptions>
+            <Description description="Commitment representing a time interval with start/end times and duration." languagecode="1049" />
+          </Descriptions>
+          <attributes>
+            <attribute PhysicalName="ActivityId">
+              <Type>primarykey</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsPKAttribute>1</IsPKAttribute>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000032</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|RequiredForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <displaynames>
+                <displayname description="Встреча" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ActualDurationMinutes">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Фактическая длительность встречи в минутах." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>duration</Format>
+              <MinValue>0</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <displaynames>
+                <displayname description="Фактическая длительность" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ActualDurationMinutes</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="ActualEnd">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Фактическое время окончания встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>datetime</Format>
+              <displaynames>
+                <displayname description="Фактическое окончание" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ActualEnd</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="ActualStart">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Фактическое время начала встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>datetime</Format>
+              <displaynames>
+                <displayname description="Фактическое начало" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ActualStart</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="Category">
+              <Type>nvarchar</Type>
+              <Length>500</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Категория встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+              <displaynames>
+                <displayname description="Категория" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="CreatedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор пользователя, создавшего встречу." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="76aac7f4-2241-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Создано" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>CreatedBy</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="CreatedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время создания встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата создания" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>CreatedOn</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="DeletionStateCode">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <DefaultValue>(0)</DefaultValue>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>DeletionStateCode</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="Description">
+              <Type>ntext</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001c</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Описание встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MaxLength>2000</MaxLength>
+              <displaynames>
+                <displayname description="Описание" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>Description</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="Dg_aftersaletype">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="ППС1" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="ППС2" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="ППС3" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="ППС4" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Тип ППС" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_aftersaletypeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_aftersaletype</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectiondontfamiliar">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Не знакомы с ДубльГИС" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectiondontfamiliarName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectiondontfamiliar</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectiondontneed">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Нас и так знают/Не нуждаемся в рекламе" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectiondontneedName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectiondontneed</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectionexpensive">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Нет денег/Дорого" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectionexpensiveName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectionexpensive</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectioninefficiently">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Реклама неэффективна" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectioninefficientlyName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectioninefficiently</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectionnotaseason">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Не сезон" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectionnotaseasonName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectionnotaseason</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectionnotourauditory">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Не наша целевая аудитория" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectionnotourauditoryName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectionnotourauditory</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectionother">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Другое" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectionotherName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectionother</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_objectionusingothermedia">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Размещаемся в других СМИ" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_objectionusingothermediaName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_objectionusingothermedia</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_purpose">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="3">
+                  <labels>
+                    <label description="Проведение презентации продукта" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Проведение презентации рекламных возможностей" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Согласование и отправка КП" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="6">
+                  <labels>
+                    <label description="Согласование сроков принятия решения" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="8">
+                  <labels>
+                    <label description="Сервис" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="9">
+                  <labels>
+                    <label description="Допродажа" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="7">
+                  <labels>
+                    <label description="Продление" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Цель встречи" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_purposeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_purpose</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_result">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Достижение цели 0%" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Достижение цели 100%" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Результат" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_resultName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_result</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="GlobalObjectId">
+              <Type>nvarchar</Type>
+              <Length>600</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <Descriptions>
+                <Description description="Unique Outlook identifier to correlate appointments across Exchange mailboxes." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>300</MaxLength>
+              <displaynames>
+                <displayname description="Встреча Outlook" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ImportSequenceNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Уникальный идентификатор импорта или переноса данных, создавшего эту запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <displaynames>
+                <displayname description="Порядковый номер импорта" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="IsAllDayEvent">
+              <Type>bit</Type>
+              <DefaultValue>(0)</DefaultValue>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Сведения о том, является ли встреча событием на целый день." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Событие на целый день" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="IsAllDayEventName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>IsAllDayEvent</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="IsBilled">
+              <Type>bit</Type>
+              <DefaultValue>(0)</DefaultValue>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <Descriptions>
+                <Description description="Сведения о том, был ли выставлен счет по встрече как часть разрешения обращения." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Выставлен счет" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>IsBilled</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="IsBilledName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>IsBilled</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="IsWorkflowCreated">
+              <Type>bit</Type>
+              <DefaultValue>(0)</DefaultValue>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <Descriptions>
+                <Description description="Сведения о том, была ли встреча создана из бизнес-процесса." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Создан ли бизнес-процесс" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>IsWorkflowCreated</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="IsWorkflowCreatedName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>IsWorkflowCreated</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="Location">
+              <Type>nvarchar</Type>
+              <Length>400</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Место проведения встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>200</MaxLength>
+              <displaynames>
+                <displayname description="Место встречи" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ModifiedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор последнего пользователя, изменившего встречу." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="97e0eed0-2241-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Изменено" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ModifiedBy</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="ModifiedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время последнего изменения встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата изменения" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ModifiedOn</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="OptionalAttendees">
+              <Type>partylist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000039</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Список необязательных участников встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>ActivityRecipient</LookupClass>
+              <LookupStyle>multi</LookupStyle>
+              <LookupTypes>
+                <LookupType id="3e9aba00-2341-db11-898a-0007e9e17ebd">1</LookupType>
+                <LookupType id="3f9aba00-2341-db11-898a-0007e9e17ebd">2</LookupType>
+                <LookupType id="409aba00-2341-db11-898a-0007e9e17ebd">4</LookupType>
+                <LookupType id="419aba00-2341-db11-898a-0007e9e17ebd">8</LookupType>
+                <LookupType id="429aba00-2341-db11-898a-0007e9e17ebd">9</LookupType>
+                <LookupType id="439aba00-2341-db11-898a-0007e9e17ebd">10</LookupType>
+                <LookupType id="449aba00-2341-db11-898a-0007e9e17ebd">4000</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Необязательные участники" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Organizer">
+              <Type>partylist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000039</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Лицо, организовавшее встречу." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>Allsystemusers</LookupClass>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="db40b506-2341-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Организатор" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OutlookOwnerApptId">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Unique identifier of the Microsoft Office Outlook appointment owner that correlates to the PR_OWNER_APPT_ID MAPI property." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <displaynames>
+                <displayname description="Ответственный встречи Outlook" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OverriddenCreatedOn">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время переноса записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата создания записи" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwnerId">
+              <Type>owner</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000035</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор пользователей или рабочих групп, ответственных за встречу." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <LookupClass>BasicOwner</LookupClass>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="361ed7e8-2241-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Куратор" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwnerIdDsc">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>dsc</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="OwnerIdName">
+              <Type>nvarchar</Type>
+              <Length>320</Length>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+            </attribute>
+            <attribute PhysicalName="OwnerIdType">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ObjectTypeCode</DisplayMask>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>type</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="OwnerIdYomiName">
+              <Type>nvarchar</Type>
+              <Length>320</Length>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>yomi</XmlAbbreviation>
+              <YomiOf>OwnerIdName</YomiOf>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+            </attribute>
+            <attribute PhysicalName="OwningBusinessUnit">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>10</ReferencedEntityObjectTypeCode>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <Descriptions>
+                <Description description="Уникальный идентификатор подразделения, ответственного за встречу." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="52d8dee2-2241-db11-898a-0007e9e17ebd">10</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Ответственное подразделение" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>OwningBusinessUnit</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="OwningUser">
+              <Type>lookup</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind</DisplayMask>
+              <AggregateOf>OwnerId</AggregateOf>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes>
+                <LookupType id="0d1d9b1e-2341-db11-898a-0007e9e17ebd">8</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Ответственный пользователь" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>OwningUser</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="PriorityCode">
+              <Type>picklist</Type>
+              <DefaultValue>(1)</DefaultValue>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>QueueItemPriority|ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Приоритет встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Locked>1</Locked>
+              <Format />
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Низкий" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Обычный" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Высокий" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Приоритет" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>PriorityCode</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="PriorityCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>PriorityCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="RegardingObjectIdDsc">
+              <Type>int</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <AttributeOf>RegardingObjectId</AttributeOf>
+              <XmlAbbreviation>dsc</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>RegardingObjectIdDsc</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="RegardingObjectIdName">
+              <Type>nvarchar</Type>
+              <Length>800</Length>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>RegardingObjectId</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>RegardingObjectIdName</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="RegardingObjectIdYomiName">
+              <Type>nvarchar</Type>
+              <Length>800</Length>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>RegardingObjectId</AttributeOf>
+              <XmlAbbreviation>yomi</XmlAbbreviation>
+              <YomiOf>RegardingObjectIdName</YomiOf>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>RegardingObjectIdYomiName</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="RegardingObjectTypeCode">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ObjectTypeCode</DisplayMask>
+              <AttributeOf>RegardingObjectId</AttributeOf>
+              <XmlAbbreviation>type</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>RegardingObjectTypeCode</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="requiredattendees">
+              <Type>partylist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000039</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Список обязательных участников встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>ActivityRecipient</LookupClass>
+              <LookupStyle>multi</LookupStyle>
+              <LookupTypes>
+                <LookupType id="071c9b1e-2341-db11-898a-0007e9e17ebd">1</LookupType>
+                <LookupType id="081c9b1e-2341-db11-898a-0007e9e17ebd">2</LookupType>
+                <LookupType id="091c9b1e-2341-db11-898a-0007e9e17ebd">4</LookupType>
+                <LookupType id="0a1c9b1e-2341-db11-898a-0007e9e17ebd">8</LookupType>
+                <LookupType id="0b1c9b1e-2341-db11-898a-0007e9e17ebd">9</LookupType>
+                <LookupType id="0c1c9b1e-2341-db11-898a-0007e9e17ebd">10</LookupType>
+                <LookupType id="0d1c9b1e-2341-db11-898a-0007e9e17ebd">4000</LookupType>
+              </LookupTypes>
+              <displaynames>
+                <displayname description="Обязательные участники" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ScheduledDurationMinutes">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Запланированная длительность встречи в минутах." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>duration</Format>
+              <MinValue>0</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <displaynames>
+                <displayname description="Длительность" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ScheduledDurationMinutes</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="ScheduledEnd">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+              <Descriptions>
+                <Description description="Плановое время окончания встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>datetime</Format>
+              <displaynames>
+                <displayname description="Время окончания" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ScheduledEnd</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="ScheduledStart">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+              <Descriptions>
+                <Description description="Плановое время начала встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>datetime</Format>
+              <displaynames>
+                <displayname description="Время начала" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>ScheduledStart</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="StateCode">
+              <Type>state</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000036</AttributeTypeId>
+              <DisplayMask>QueueItemState|ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Статус встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <AppDefaultValue>0</AppDefaultValue>
+              <states>
+                <state value="0" defaultstatus="1" invariantname="Open">
+                  <labels>
+                    <label description="Открыть" languagecode="1049" />
+                  </labels>
+                </state>
+                <state value="1" defaultstatus="3" invariantname="Completed">
+                  <labels>
+                    <label description="Завершено" languagecode="1049" />
+                  </labels>
+                </state>
+                <state value="2" defaultstatus="4" invariantname="Canceled">
+                  <labels>
+                    <label description="Отменено" languagecode="1049" />
+                  </labels>
+                </state>
+                <state value="3" defaultstatus="5" invariantname="Scheduled">
+                  <labels>
+                    <label description="Запланировано" languagecode="1049" />
+                  </labels>
+                </state>
+              </states>
+              <displaynames>
+                <displayname description="Состояние действия" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>StateCode</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="StateCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>StateCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="StatusCode">
+              <Type>status</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000037</AttributeTypeId>
+              <DisplayMask>QueueItemStatus|ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Состояние встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Locked>1</Locked>
+              <Format />
+              <AppDefaultValue>-1</AppDefaultValue>
+              <statuses>
+                <status value="1" state="0">
+                  <labels>
+                    <label description="Свободно" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="2" state="0">
+                  <labels>
+                    <label description="Под вопросом" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="3" state="1">
+                  <labels>
+                    <label description="Завершено" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="4" state="2">
+                  <labels>
+                    <label description="Отменено" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="5" state="3">
+                  <labels>
+                    <label description="Занято" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="6" state="3">
+                  <labels>
+                    <label description="Не на работе" languagecode="1049" />
+                  </labels>
+                </status>
+              </statuses>
+              <displaynames>
+                <displayname description="Состояние" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>StatusCode</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="StatusCodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>StatusCode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="Subcategory">
+              <Type>nvarchar</Type>
+              <Length>500</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Подкатегория встречи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>250</MaxLength>
+              <displaynames>
+                <displayname description="Подкатегория" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Subject">
+              <Type>nvarchar</Type>
+              <Length>512</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>QueueItemTitle|PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm|RequiredForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Тема, связанная со встречей." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>200</MaxLength>
+              <displaynames>
+                <displayname description="Тема" languagecode="1049" />
+              </displaynames>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>Subject</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="SubscriptionId">
+              <Type>uniqueidentifier</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000027</AttributeTypeId>
+              <Descriptions>
+                <Description description="Только для внутреннего использования." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+            </attribute>
+            <attribute PhysicalName="TimeZoneRuleVersionNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Только для внутреннего использования." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>TimeZoneRuleVersionNumber</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="UTCConversionTimeZoneCode">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Код часового пояса, используемый при создании записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>UTCConversionTimeZoneCode</RemoteAttributeName>
+            </attribute>
+            <attribute PhysicalName="VersionNumber">
+              <Type>timestamp</Type>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000025</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <RelationshipName>activity_pointer_appointment</RelationshipName>
+              <RemoteAttributeName>VersionNumber</RemoteAttributeName>
+            </attribute>
+          </attributes>
+        </entity>
+      </EntityInfo>
+      <FormXml id="{A2600D58-2D15-43E4-B067-16BCAFAB002C}">
+        <forms>
+          <entity name="appointment" objecttypecode="4201">
+            <form type="main" id="{f5af0c79-97db-4c3f-8d7e-62b53d9062d4}" enablerelatedinformation="true" relatedInformationCollapsed="true">
+              <tabs>
+                <tab verticallayout="true" id="{6C7EDBF5-39CD-437c-A2D5-BA02355D285A}" IsUserDefined="0">
+                  <labels>
+                    <label description="Встреча" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="true" showbar="true" locklevel="0" id="{844DE7EE-AD12-4301-B10F-9CC5D1EA1F0F}" IsUserDefined="0" layout="varwidth" columns="11" labelwidth="115">
+                      <labels>
+                        <label description="Встреча" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="2" id="{02db07aa-8245-4c98-b6e0-9ca3b524eb5f}">
+                            <labels>
+                              <label description="Тема" languagecode="1049" />
+                            </labels>
+                            <control id="subject" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="subject" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="1" rowspan="1" colspan="2" id="{44049430-b656-4f77-a9e0-d7faf6eed732}">
+                            <labels>
+                              <label description="Обязательные" languagecode="1049" />
+                            </labels>
+                            <control id="requiredattendees" classid="{CBFB742C-14E7-4a17-96BB-1A13F7F64AA2}" datafieldname="requiredattendees" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="1" rowspan="1" colspan="1" id="{138e47a8-3b2f-4065-a209-57fc6ff5ea47}">
+                            <labels>
+                              <label description="Отображать время как" languagecode="1049" />
+                            </labels>
+                            <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="false" />
+                          </cell>
+                          <cell id="{7170de67-64ac-4ad4-af55-87023557ff61}">
+                            <labels>
+                              <label description="" languagecode="1049" />
+                            </labels>
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="2" id="{267cbd23-f2ac-441c-b313-2e8763dec053}">
+                            <labels>
+                              <label description="Необязательные" languagecode="1049" />
+                            </labels>
+                            <control id="optionalattendees" classid="{CBFB742C-14E7-4a17-96BB-1A13F7F64AA2}" datafieldname="optionalattendees" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="2" id="{519bac68-777c-43cf-8b5f-dad8e6fcfa0f}">
+                            <labels>
+                              <label description="Организатор" languagecode="1049" />
+                            </labels>
+                            <control id="organizer" classid="{CBFB742C-14E7-4a17-96BB-1A13F7F64AA2}" datafieldname="organizer" disabled="false">
+                              <parameters>
+                                <AutoResolve>true</AutoResolve>
+                              </parameters>
+                            </control>
+                          </cell>
+                        </row>
+                        <row>
+                          <cell colspan="2" id="{d1d86802-ae88-4c0c-a87e-ce3860c395d5}">
+                            <labels>
+                              <label description="Место встречи" languagecode="1049" />
+                            </labels>
+                            <control id="location" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="location" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    <section showlabel="true" showbar="true" locklevel="1" id="{4F40F21E-AB16-446f-9EFD-BD3F3FAAB634}" IsUserDefined="0" layout="varwidth" columns="11">
+                      <labels>
+                        <label description="Сведения о планировании" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{b56cec0d-f4bd-4c32-b109-a8493827ec29}">
+                            <labels>
+                              <label description="Время начала" languagecode="1049" />
+                            </labels>
+                            <control id="scheduledstart" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="scheduledstart" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{2aded54d-2ada-4f81-8b6c-bf882895a53c}">
+                            <labels>
+                              <label description="Длительность" languagecode="1049" />
+                            </labels>
+                            <control id="scheduleddurationminutes" classid="{AA987274-CE4E-4271-A803-66164311A958}" datafieldname="scheduleddurationminutes" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{6bc51b1c-566c-44ee-b036-b051e3159842}">
+                            <labels>
+                              <label description="Время окончания" languagecode="1049" />
+                            </labels>
+                            <control id="scheduledend" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="scheduledend" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{cd8ba373-9a85-467c-9e74-04795af7755c}">
+                            <labels>
+                              <label description="Событие на целый день" languagecode="1049" />
+                            </labels>
+                            <events>
+                              <event name="onchange" application="true" active="true">
+                                <script>
+                                  <![CDATA[
+							crmForm.all.scheduledstart.ForceSubmit = true;
+							crmForm.all.scheduledend.ForceSubmit = true;
+						]]>
+                                </script>
+                                <dependencies>
+                                  <dependency id="scheduledstart" />
+                                  <dependency id="scheduledend" />
+                                </dependencies>
+                              </event>
+                            </events>
+                            <control id="isalldayevent" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="isalldayevent" disabled="false" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    <section showlabel="true" showbar="true" locklevel="0" id="{86EB037C-1F69-44b4-920E-7DE3B1641F8C}" IsUserDefined="0" layout="varwidth" columns="11" labelwidth="115">
+                      <labels>
+                        <label description="Сведения о встрече" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" id="{40562f1c-267e-44ba-9c16-754331ee48be}">
+                            <labels>
+                              <label description="Цель встречи" languagecode="1049" />
+                            </labels>
+                            <control id="dg_purpose" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="dg_purpose" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{985a4dde-2128-48d2-8286-6f8cc465ecf1}">
+                            <labels>
+                              <label description="Тип ППС" languagecode="1049" />
+                            </labels>
+                            <control id="dg_aftersaletype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="dg_aftersaletype" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="2" id="{35a0cfbf-2b39-47aa-be5a-be9bbf790bd6}">
+                            <labels>
+                              <label description="Результат" languagecode="1049" />
+                            </labels>
+                            <control id="dg_result" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="dg_result" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="1" rowspan="1" colspan="2" id="{92926298-9fda-4cfe-b390-3737bddc1bbc}">
+                            <labels>
+                              <label description="В отношении" languagecode="1049" />
+                            </labels>
+                            <control id="regardingobjectid" classid="{F3015350-44A2-4aa0-97B5-00166532B5E9}" datafieldname="regardingobjectid" disabled="false">
+                              <parameters>
+                                <AutoResolve>false</AutoResolve>
+                              </parameters>
+                            </control>
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="4" colspan="2" id="{eeaf7edc-1ff2-4a23-b3e9-cbc4d544ef12}">
+                            <labels>
+                              <label description="Описание" languagecode="1049" />
+                            </labels>
+                            <control id="description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="description" disabled="false" />
+                          </cell>
+                        </row>
+                        <row />
+                        <row />
+                        <row />
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+                <tab id="{A0A52124-8019-4a51-9DAE-D85CD6227FFF}" IsUserDefined="0" locklevel="0">
+                  <labels>
+                    <label description="Администрирование" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="false" showbar="false" locklevel="0" id="{6DAA79FB-7C18-428f-9219-7A146BAC5AE8}" IsUserDefined="0" layout="varwidth" columns="11">
+                      <labels>
+                        <label description="Сведения о встрече" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" id="{fd93e5cf-7611-457e-a8de-34165406b5fe}" colspan="2">
+                            <labels>
+                              <label description="Куратор" languagecode="1049" />
+                            </labels>
+                            <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false">
+                              <parameters>
+                                <AutoResolve>true</AutoResolve>
+                              </parameters>
+                            </control>
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{781e2997-fb2c-4ea0-a6c9-ad8e76058f0d}">
+                            <labels>
+                              <label description="Изменено" languagecode="1049" />
+                            </labels>
+                            <control id="modifiedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedby" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{08044592-f676-4726-835d-b7c919fdbf9c}">
+                            <labels>
+                              <label description="Дата изменения" languagecode="1049" />
+                            </labels>
+                            <control id="modifiedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{b470ecb2-b040-4957-bd6a-264be95468dd}">
+                            <labels>
+                              <label description="Создано" languagecode="1049" />
+                            </labels>
+                            <control id="createdby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdby" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{e418253a-7a6f-44af-9a41-1343a64f0423}">
+                            <labels>
+                              <label description="Дата создания" languagecode="1049" />
+                            </labels>
+                            <control id="createdon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+                <tab id="{32f14e18-9a3a-4544-8543-8ec73039739b}" IsUserDefined="0" locklevel="0">
+                  <labels>
+                    <label description="Примечания" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="true" showbar="true" locklevel="1" id="{6F415A8B-509B-4e16-A519-A2A88F1AB943}" IsUserDefined="0" height="auto" columns="11">
+                      <labels>
+                        <label description="Примечания" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="2" showlabel="false" rowspan="5" auto="true" id="{b19a4b23-a8b0-4762-afaf-c551cb209837}">
+                            <labels>
+                              <label description="Текст примечания" languagecode="1049" />
+                            </labels>
+                            <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" />
+                          </cell>
+                        </row>
+                        <row />
+                        <row />
+                        <row />
+                        <row height="auto" />
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+                <tab id="{88537eae-b735-e011-8afe-080027af214f}" IsUserDefined="1" locklevel="0">
+                  <labels>
+                    <label description="Возражения" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="true" showbar="true" locklevel="0" id="{c4c5d4b8-b735-e011-8afe-080027af214f}" IsUserDefined="1" layout="varwidth" columns="11" labelwidth="115">
+                      <labels>
+                        <label description="Возражения" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{41e40abc-c171-4726-a96a-e9a6707dbce7}">
+                            <labels>
+                              <label description="Нет денег/Дорого" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectionexpensive" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectionexpensive" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{ab52cf04-6f4f-476b-9451-7f0759a928d7}">
+                            <labels>
+                              <label description="Реклама неэффективна" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectioninefficiently" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectioninefficiently" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{fc90b7aa-4923-488e-a7eb-9186a8aaf0be}">
+                            <labels>
+                              <label description="Нас и так знают/Не нуждаемся в рекламе" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectiondontneed" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectiondontneed" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{c5ad21d7-5b10-45dc-af12-5c3c5fedb1f5}">
+                            <labels>
+                              <label description="Размещаемся в других СМИ" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectionusingothermedia" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectionusingothermedia" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{91dfa733-498a-4023-a219-e8f4383cc2a1}">
+                            <labels>
+                              <label description="Не наша целевая аудитория" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectionnotourauditory" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectionnotourauditory" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{43640845-a999-45aa-ab60-ed1d51a6df17}">
+                            <labels>
+                              <label description="Не знакомы с ДубльГИС" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectiondontfamiliar" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectiondontfamiliar" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{58c8b7ae-21e5-45eb-9cf1-5bb8234d1587}">
+                            <labels>
+                              <label description="Не сезон" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectionnotaseason" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectionnotaseason" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{b5b89f22-f9eb-41fe-b8fe-ac76f55f3bc2}">
+                            <labels>
+                              <label description="Другое" languagecode="1049" />
+                            </labels>
+                            <control id="dg_objectionother" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="dg_objectionother" disabled="false" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+              <events>
+                <event name="onload" application="false" active="true">
+                  <script>
+                    <![CDATA[if (crmFormSubmit.crmFormSubmitId.value == "" &#38;&#38; window.opener &#38;&#38; window.opener.document.getElementById("ViewConfig_EntityName"))
+{
+    var ermForm = window.opener.EntityForm;
+    switch (window.opener.document.getElementById("ViewConfig_EntityName").value)
+    {
+        case "Firm":
+            if (window.opener.Ext.getCmp("Client").getValue())
+                crmForm.all.requiredattendees.DataValue = [{ id: ermForm.ClientReplicationCode.value, name: window.opener.Ext.getCmp("Client").getValue().name, typename: "account"}];
+            break;
+        case "Contact":
+            if (window.opener.Ext.getCmp("Client").getValue())
+                crmForm.all.requiredattendees.DataValue = [{ id: ermForm.ClientReplicationCode.value, name: window.opener.Ext.getCmp("Client").getValue().name, typename: "account" }, { id: ermForm.ReplicationCode.value, name: ermForm.FullName.value, typename: "contact"}];
+            break;
+        case "Deal":
+            if (window.opener.Ext.getCmp("Client").getValue())
+                crmForm.all.requiredattendees.DataValue = [{ id: ermForm.ClientReplicationCode.value, name: window.opener.Ext.getCmp("Client").getValue().name, typename: "account"}];
+            break;
+        case "Client":
+            crmForm.all.requiredattendees.DataValue = [{ id: ermForm.ReplicationCode.value, name: ermForm.Name.value, typename: "account"}];
+            break;
+    }
+}
+
+crmForm.AutoCompleteSubject = function() 
+{
+	if(crmForm.all.subject.value.length == 0 &#38;&#38; crmForm.all.regardingobjectid.DataValue &#38;&#38; crmForm.all.regardingobjectid.DataValue.length &#62; 0 &#38;&#38; crmForm.all.dg_purpose.value)
+	{
+		var selectedPurpose;
+		var purposeOptions = crmForm.all.dg_purpose.options;
+		for(var i = 0; i &#60; purposeOptions.length; i++)
+		{
+			if(crmForm.all.dg_purpose.options[i].selected)
+			{
+				selectedPurpose = crmForm.all.dg_purpose.options[i].text;
+				break;
+			}
+		}
+	crmForm.all.subject.value = crmForm.all.regardingobjectid.DataValue[0].name + ' - ' + selectedPurpose;
+	}
+}
+
+crmForm.UpdateAfterSaleTypeFieldVisibility = function()
+{
+    var purpose = crmForm.all.dg_purpose.value;
+    var ppsComboBox = crmForm.all.dg_aftersaletype;
+
+    if(purpose == 7 || purpose == 8) {
+        crmForm.all.dg_aftersaletype_c.style.visibility = 'visible';
+        crmForm.all.dg_aftersaletype.style.visibility = 'visible';
+
+        var needToChangeSelected = false;
+        for(var i = 1; i &#60; ppsComboBox.length; i++) {
+
+          // Для "Допродажа" должно отображаться ППС4, для "Сервис" -- ППС1-3.
+            ppsComboBox[i].disabled = (purpose == 7) ? i &#60; 4 : i &#62; 3;
+            if(ppsComboBox[i].selected == true &#38;&#38; ppsComboBox[i].disabled) {
+                 needToChangeSelected = true;}
+        }
+        if(needToChangeSelected) {
+             ppsComboBox[(purpose == 7) ? 4 : 1].selected = true;
+        }
+    }
+    else {
+        crmForm.all.dg_aftersaletype_c.style.visibility = 'hidden';
+        crmForm.all.dg_aftersaletype.style.visibility = 'hidden';
+    }
+}
+
+crmForm.UpdateAfterSaleTypeFieldVisibility();
+
+crmForm.dg_purpose.onchange = function() { 
+    crmForm.AutoCompleteSubject(); 
+    crmForm.UpdateAfterSaleTypeFieldVisibility();
+}
+crmForm.regardingobjectid.onchange = function() {crmForm.AutoCompleteSubject();}]]>
+                  </script>
+                  <dependencies />
+                </event>
+                <event name="onsave" application="false" active="true">
+                  <script>
+                    <![CDATA[var CRM_FORM_SAVE_MODE_SAVE = 1;
+var CRM_FORM_SAVE_MODE_SAVEANDCLOSE = 2;
+
+switch (event.Mode)
+{
+    case CRM_FORM_SAVE_MODE_SAVE:
+    case CRM_FORM_SAVE_MODE_SAVEANDCLOSE:
+    if(crmForm.all.dg_aftersaletype.value != 0 &#38;&#38; crmForm.all.dg_purpose.value != 8 &#38;&#38; crmForm.all.dg_purpose.value != 7) {
+        crmForm.all.dg_aftersaletype.value = 0;         
+    }
+    break;
+}]]>
+                  </script>
+                  <dependencies />
+                </event>
+              </events>
+            </form>
+          </entity>
+          <entity name="appointment" objecttypecode="4201">
+            <form type="appointmentBook" id="{fcfde47d-4951-4fea-bcd9-e5b5d673911f}" hasmargin="false">
+              <tabs showlabels="false">
+                <tab name="appointment" verticallayout="true" id="{2E6F7476-F144-40b7-8A87-FA0BE1D8FBD6}" IsUserDefined="0">
+                  <labels>
+                    <label description="Встреча" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section name="general information" showlabel="false" showbar="false" locklevel="0" id="{698B3F45-F81B-4e97-9516-A0CEE29FCDC3}" IsUserDefined="0" layout="varwidth" columns="11">
+                      <labels>
+                        <label description="Общие сведения" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="2" id="{6a54f0cc-6999-4cca-bb13-085ca2486ad6}">
+                            <labels>
+                              <label description="Тема" languagecode="1049" />
+                            </labels>
+                            <control id="subject" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="subject" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="1" rowspan="1" colspan="2" id="{1852e3c6-7221-4fd7-8579-180d3eea667c}">
+                            <labels>
+                              <label description="Обязательные" languagecode="1049" />
+                            </labels>
+                            <control id="requiredattendees" classid="{CBFB742C-14E7-4a17-96BB-1A13F7F64AA2}" datafieldname="requiredattendees" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="2" id="{33111a18-1733-4d89-8e75-26a860fc9505}">
+                            <labels>
+                              <label description="Необязательные" languagecode="1049" />
+                            </labels>
+                            <control id="optionalattendees" classid="{CBFB742C-14E7-4a17-96BB-1A13F7F64AA2}" datafieldname="optionalattendees" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell colspan="2" id="{650c1488-411d-4a39-bdf9-e92dacf250d5}">
+                            <labels>
+                              <label description="Место встречи" languagecode="1049" />
+                            </labels>
+                            <control id="location" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="location" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{3212e29e-d780-4376-af33-e8107870d242}">
+                            <labels>
+                              <label description="Отображать время как" languagecode="1049" />
+                            </labels>
+                            <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="false" />
+                          </cell>
+                          <cell id="{f7eb0732-d99e-4280-ab8d-31d458f942c5}">
+                            <labels>
+                              <label description="" languagecode="1049" />
+                            </labels>
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+          <entity name="appointment" objecttypecode="4201">
+            <form id="{64e8f36c-5bda-4096-9f43-5ddf4327598b}" type="preview">
+              <tabs>
+                <tab name="general" verticallayout="true" id="{1C18BC0A-33B1-441c-8B92-66C67D6F490F}" IsUserDefined="0">
+                  <labels>
+                    <label description="Общие сведения" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section name="information" showlabel="false" showbar="false" locklevel="0" id="{4A42ADAE-05D1-4698-A0EB-11CEC27B34DC}" IsUserDefined="0" layout="varheight" columns="11">
+                      <labels>
+                        <label description="Сведения" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{52840fe4-33e6-455a-a55b-f5fb9980cc4a}">
+                            <labels>
+                              <label description="Приоритет" languagecode="1049" />
+                            </labels>
+                            <control id="prioritycode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="prioritycode" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{3e7f0341-3cf6-42f9-a105-ed80f8658c57}">
+                            <labels>
+                              <label description="Куратор" languagecode="1049" />
+                            </labels>
+                            <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{acd66fff-498f-4fe8-93d4-8f3ddba469e8}">
+                            <labels>
+                              <label description="Создано" languagecode="1049" />
+                            </labels>
+                            <control id="createdby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdby" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{ccd9f185-b7e7-4e35-99bb-4c93ae02674e}">
+                            <labels>
+                              <label description="Дата создания" languagecode="1049" />
+                            </labels>
+                            <control id="createdon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+        </forms>
+      </FormXml>
+      <SavedQueries>
+        <savedqueries entity="SavedQuery" morerecords="0" paging-cookie="" version="3.0">
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{5B5F75F6-B585-4212-952A-B4CBB64E2627}</savedqueryid>
+            <savedqueryidunique>{13ED67F0-62AA-4D2F-97B0-0BECE2AD0E09}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="300" />
+                  <cell name="statecode" width="125" />
+                  <cell name="regardingobjectid" width="125" />
+                  <cell name="dg_purpose" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="requiredattendees" disableSorting="1" width="150" />
+                  <cell name="scheduledstart" width="125" />
+                  <cell name="scheduledend" width="125" />
+                  <cell name="dg_result" width="150" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="location" width="150" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical">
+                <entity name="appointment">
+                  <attribute name="subject" />
+                  <order attribute="scheduledstart" descending="false" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="requiredattendees" />
+                  <attribute name="prioritycode" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="location" />
+                  <attribute name="ownerid" />
+                  <attribute name="dg_purpose" />
+                  <attribute name="dg_result" />
+                  <attribute name="statecode" />
+                  <attribute name="createdby" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Все встречи" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{79CD2C9B-FBFA-E011-B636-00155D163D35}</savedqueryid>
+            <savedqueryidunique>{6449E808-6401-482E-982E-1E65BB3B9115}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="300" />
+                  <cell name="statecode" width="125" />
+                  <cell name="regardingobjectid" width="125" />
+                  <cell name="dg_purpose" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="requiredattendees" width="150" disableSorting="1" />
+                  <cell name="scheduledstart" width="125" />
+                  <cell name="scheduledend" width="125" />
+                  <cell name="dg_result" width="150" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="location" width="150" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+                <entity name="appointment">
+                  <attribute name="dg_purpose" />
+                  <attribute name="statecode" />
+                  <attribute name="prioritycode" />
+                  <attribute name="ownerid" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="dg_result" />
+                  <attribute name="requiredattendees" />
+                  <attribute name="scheduledend" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="location" />
+                  <attribute name="subject" />
+                  <order attribute="subject" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="in">
+                      <value>3</value>
+                      <value>0</value>
+                    </condition>
+                  </filter>
+                  <link-entity name="activityparty" from="activityid" to="activityid" alias="aa">
+                    <filter type="and">
+                      <condition attribute="partyid" operator="eq-userid" />
+                      <condition attribute="participationtypemask" operator="in">
+                        <value>7</value>
+                        <value>9</value>
+                      </condition>
+                    </filter>
+                  </link-entity>
+                  <attribute name="createdby" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Все завершённые встречи" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{8D52D575-FCFA-E011-B636-00155D163D35}</savedqueryid>
+            <savedqueryidunique>{C19F7452-F3DC-4F7C-9C9F-1877F5DD7956}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="300" />
+                  <cell name="statecode" width="125" />
+                  <cell name="regardingobjectid" width="125" />
+                  <cell name="dg_purpose" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="requiredattendees" width="150" disableSorting="1" />
+                  <cell name="scheduledstart" width="125" />
+                  <cell name="scheduledend" width="125" />
+                  <cell name="dg_result" width="150" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="location" width="150" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+                <entity name="appointment">
+                  <attribute name="dg_purpose" />
+                  <attribute name="statecode" />
+                  <attribute name="dg_result" />
+                  <attribute name="prioritycode" />
+                  <attribute name="requiredattendees" />
+                  <attribute name="ownerid" />
+                  <attribute name="scheduledend" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="location" />
+                  <attribute name="subject" />
+                  <order attribute="scheduledstart" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="in">
+                      <value>0</value>
+                      <value>3</value>
+                    </condition>
+                  </filter>
+                  <attribute name="createdby" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Все открытые встречи" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{606EEA12-0C33-47D3-96E1-BA1529EE8205}</savedqueryid>
+            <savedqueryidunique>{953E316A-8D4D-4235-88AF-F3F9ACCF4B2B}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="300" />
+                  <cell name="statecode" width="125" />
+                  <cell name="regardingobjectid" width="125" />
+                  <cell name="dg_purpose" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="requiredattendees" width="150" disableSorting="1" />
+                  <cell name="scheduledstart" width="125" />
+                  <cell name="scheduledend" width="125" />
+                  <cell name="dg_result" width="150" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="location" width="125" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+                <entity name="appointment">
+                  <attribute name="subject" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="prioritycode" />
+                  <attribute name="location" />
+                  <order attribute="scheduledstart" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="in">
+                      <value>0</value>
+                      <value>3</value>
+                    </condition>
+                  </filter>
+                  <link-entity name="activityparty" from="activityid" to="activityid" alias="aa">
+                    <filter type="and">
+                      <condition attribute="partyid" operator="eq-userid" />
+                      <condition attribute="participationtypemask" operator="in">
+                        <value>7</value>
+                        <value>9</value>
+                        <value>5</value>
+                        <value>6</value>
+                      </condition>
+                    </filter>
+                  </link-entity>
+                  <attribute name="dg_purpose" />
+                  <attribute name="statecode" />
+                  <attribute name="dg_result" />
+                  <attribute name="requiredattendees" />
+                  <attribute name="ownerid" />
+                  <attribute name="createdby" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Мои встречи" languagecode="1049" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Отображение встреч, ответственным за которые является текущий пользователь." languagecode="1049" />
+            </Descriptions>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{939D9171-7353-4DC7-804E-CBB31A2B2448}</savedqueryid>
+            <savedqueryidunique>{A9E031AF-FC6F-443E-8A52-440C7E1CBD12}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="300" />
+                  <cell name="statecode" width="125" />
+                  <cell name="regardingobjectid" width="125" />
+                  <cell name="dg_purpose" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="requiredattendees" disableSorting="1" width="150" />
+                  <cell name="scheduledstart" width="125" />
+                  <cell name="scheduledend" width="125" />
+                  <cell name="dg_result" width="150" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="location" width="150" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+                <entity name="appointment">
+                  <attribute name="subject" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="location" />
+                  <attribute name="requiredattendees" />
+                  <order attribute="scheduledstart" descending="true" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="1" />
+                  </filter>
+                  <link-entity name="activityparty" from="activityid" to="activityid" alias="aa">
+                    <filter type="and">
+                      <condition attribute="partyid" operator="eq-userid" />
+                      <condition attribute="participationtypemask" operator="in">
+                        <value>7</value>
+                        <value>9</value>
+                        <value>5</value>
+                        <value>6</value>
+                      </condition>
+                    </filter>
+                  </link-entity>
+                  <attribute name="dg_purpose" />
+                  <attribute name="statecode" />
+                  <attribute name="dg_result" />
+                  <attribute name="prioritycode" />
+                  <attribute name="ownerid" />
+                  <attribute name="createdby" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Мои завершенные встречи" languagecode="1049" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Отображение завершенных встреч, ответственным за которые является текущий пользователь." languagecode="1049" />
+            </Descriptions>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{F8743266-FDFA-E011-B636-00155D163D35}</savedqueryid>
+            <savedqueryidunique>{7A1EEEFC-9EA6-4D43-B931-CC735AE9E2C3}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="300" />
+                  <cell name="statecode" width="125" />
+                  <cell name="regardingobjectid" width="125" />
+                  <cell name="dg_purpose" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="requiredattendees" width="150" disableSorting="1" />
+                  <cell name="scheduledstart" width="125" />
+                  <cell name="scheduledend" width="125" />
+                  <cell name="dg_result" width="150" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="location" width="150" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+                <entity name="appointment">
+                  <attribute name="dg_purpose" />
+                  <attribute name="statecode" />
+                  <attribute name="dg_result" />
+                  <attribute name="prioritycode" />
+                  <attribute name="location" />
+                  <attribute name="ownerid" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="scheduledend" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="subject" />
+                  <order attribute="scheduledstart" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="in">
+                      <value>0</value>
+                      <value>3</value>
+                    </condition>
+                    <condition attribute="ownerid" operator="eq-userid" />
+                  </filter>
+                  <attribute name="requiredattendees" />
+                  <attribute name="createdby" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Мои открытые встречи" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{56339419-5FAE-4048-80B5-3278E420D375}</savedqueryid>
+            <savedqueryidunique>{7BD1A460-D497-48F7-BF2C-94D8AD1788ED}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="250" />
+                  <cell name="regardingobjectid" width="100" />
+                  <cell name="statecode" width="100" />
+                  <cell name="ownerid" width="150" />
+                  <cell name="scheduledstart" width="100" />
+                  <cell name="scheduledend" width="100" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="1">1</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical">
+                <entity name="appointment">
+                  <attribute name="subject" />
+                  <order attribute="subject" descending="false" />
+                  <attribute name="statecode" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="createdby" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="ownerid" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Представление для расширенного поиска встреч" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset version="3.0">
+                <column>subject</column>
+                <column>ownerid</column>
+                <column>scheduledend</column>
+                <column>createdon</column>
+                <column>createdby</column>
+                <column>prioritycode</column>
+                <column>statecode</column>
+                <column>activityid</column>
+                <ascend>subject</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{D0479533-05A4-4BD3-AFFC-5767379A344D}</savedqueryid>
+            <queryapi>AUTO</queryapi>
+            <savedqueryidunique>{FCF7E728-81E7-42FD-9439-455A39E01912}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" icon="1" preview="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="250" />
+                  <cell name="statecode" width="100" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="scheduledend" width="100" />
+                  <cell name="ownerid" width="150" />
+                  <cell name="createdby" width="125" />
+                  <cell name="createdon" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="2">2</querytype>
+            <LocalizedNames>
+              <LocalizedName description="Представление связанных встреч" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Да">1</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{2AEB5A3E-CB75-4734-8D0C-6873FA8D5126}</savedqueryid>
+            <savedqueryidunique>{A898C28E-6C2D-4DB1-AC7C-D5B5456B387F}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="250" />
+                  <cell name="requiredattendees" disableSorting="1" width="150" />
+                  <cell name="scheduledstart" width="100" />
+                  <cell name="scheduledend" width="100" />
+                  <cell name="location" width="100" />
+                  <cell name="createdon" width="125" />
+                  <cell name="createdby" width="150" />
+                  <cell name="ownerid" width="150" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="4">4</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical">
+                <entity name="appointment">
+                  <attribute name="subject" />
+                  <order attribute="subject" descending="false" />
+                  <attribute name="requiredattendees" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="location" />
+                  <filter type="and">
+                    <filter type="or" isquickfindfields="1">
+                      <condition attribute="subject" operator="like" value="{0}" />
+                    </filter>
+                  </filter>
+                  <attribute name="createdby" />
+                  <attribute name="ownerid" />
+                  <attribute name="createdon" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Быстрый поиск всех встреч" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{DE2E5182-841C-43BF-8D21-46CFFF36F706}</savedqueryid>
+            <savedqueryidunique>{60D8B37F-87CF-41B9-A0A0-0E8D7F43189B}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="0" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="subject" width="250" />
+                  <cell name="ownerid" width="150" />
+                  <cell name="scheduledend" width="100" />
+                  <cell name="statecode" width="100" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="64">64</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical">
+                <entity name="appointment">
+                  <attribute name="subject" />
+                  <order attribute="subject" descending="false" />
+                  <attribute name="scheduledend" />
+                  <attribute name="statecode" />
+                  <attribute name="activityid" />
+                  <filter type="or" isquickfindfields="1">
+                    <condition attribute="subject" operator="like" value="{0}" />
+                  </filter>
+                  <attribute name="ownerid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Представление для поиска встреч" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{BC829D10-A49D-409D-9A61-918FEDADBAD9}</savedqueryid>
+            <queryapi />
+            <savedqueryidunique>{E64F3E55-76D0-4CA0-ABC6-9BD30EE83435}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="regardingobjectid" width="100" />
+                  <cell name="requiredattendees" disableSorting="1" width="150" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="scheduledstart" width="100" />
+                  <cell name="scheduledend" width="100" />
+                  <cell name="location" width="100" />
+                  <cell name="statecode" width="100" />
+                  <cell name="ownerid" width="100" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="1 024">1024</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical">
+                <entity name="appointment">
+                  <order attribute="scheduledstart" descending="false" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="requiredattendees" />
+                  <attribute name="prioritycode" />
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="location" />
+                  <attribute name="statecode" />
+                  <attribute name="ownerid" />
+                  <attribute name="activityid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Все встречи" languagecode="1049" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Все встречи (которые будут использоваться асинхронно)." languagecode="1049" />
+            </Descriptions>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{9C3008E6-0FC1-4B8C-98B1-A4859EFD1333}</savedqueryid>
+            <queryapi />
+            <savedqueryidunique>{2E2945D5-6CAC-4578-9C31-7536F8C20B7E}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="requiredattendees" disableSorting="1" width="150" />
+                  <cell name="regardingobjectid" width="100" />
+                  <cell name="location" width="100" />
+                  <cell name="scheduledstart" width="100" />
+                  <cell name="scheduledend" width="100" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="1 024">1024</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+                <entity name="appointment">
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="activityid" />
+                  <attribute name="location" />
+                  <attribute name="requiredattendees" />
+                  <order attribute="scheduledstart" descending="true" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="1" />
+                  </filter>
+                  <link-entity name="activityparty" from="activityid" to="activityid" alias="aa">
+                    <filter type="and">
+                      <condition attribute="partyid" operator="eq-userid" />
+                      <condition attribute="participationtypemask" operator="in">
+                        <value>7</value>
+                        <value>9</value>
+                        <value>5</value>
+                        <value>6</value>
+                      </condition>
+                    </filter>
+                  </link-entity>
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Мои завершенные встречи" languagecode="1049" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Отображает завершенные встречи, за которые является ответственным текущий пользователь (будут использоваться асинхронно)." languagecode="1049" />
+            </Descriptions>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="4 201">4201</returnedtypecode>
+            <savedqueryid>{840DC305-B29C-4639-BD7A-DC43B489C084}</savedqueryid>
+            <queryapi />
+            <savedqueryidunique>{C0E788EE-01EC-4315-8B8D-CAB1BF65A040}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="4201" jump="subject" select="1" preview="1" icon="1">
+                <row name="result" id="activityid">
+                  <cell name="regardingobjectid" width="100" />
+                  <cell name="location" width="100" />
+                  <cell name="prioritycode" width="100" />
+                  <cell name="scheduledstart" width="100" />
+                  <cell name="scheduledend" width="100" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="1 024">1024</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+                <entity name="appointment">
+                  <attribute name="scheduledstart" />
+                  <attribute name="scheduledend" />
+                  <attribute name="regardingobjectid" />
+                  <attribute name="prioritycode" />
+                  <attribute name="activityid" />
+                  <attribute name="location" />
+                  <order attribute="scheduledstart" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="in">
+                      <value>0</value>
+                      <value>3</value>
+                    </condition>
+                  </filter>
+                  <link-entity name="activityparty" from="activityid" to="activityid" alias="aa">
+                    <filter type="and">
+                      <condition attribute="partyid" operator="eq-userid" />
+                      <condition attribute="participationtypemask" operator="in">
+                        <value>7</value>
+                        <value>9</value>
+                        <value>5</value>
+                        <value>6</value>
+                      </condition>
+                    </filter>
+                  </link-entity>
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Мои контракты" languagecode="1049" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Отображает встречи, за которые является ответственным текущий пользователь (будут использоваться асинхронно)." languagecode="1049" />
+            </Descriptions>
+          </savedquery>
+        </savedqueries>
+      </SavedQueries>
+      <Strings>
+        <Strings ResourceKey="Error_Message_0x800400a7" />
+        <Strings ResourceKey="Error_Message_0x80040274" />
+        <Strings ResourceKey="Error_Message_0x80040275" />
+        <Strings ResourceKey="OfflineData_Dlg_Desc" />
+        <Strings ResourceKey="Area_Label_Appointment" />
+        <Strings ResourceKey="Menu_Label_Appointments" />
+        <Strings ResourceKey="Appointments_ShortDesc" />
+        <Strings ResourceKey="Appointments_DetailedDesc" />
+        <Strings ResourceKey="Appointment_Conflict_Detected" />
+        <Strings ResourceKey="Area_Label_Appointments" />
+        <Strings ResourceKey="Tab_Label_Appointments" />
+        <Strings ResourceKey="MA_MenuItem_Appointment" />
+        <Strings ResourceKey="Dialog_ListAppointment_Title" />
+        <Strings ResourceKey="Dialog_ListAppointment_Header" />
+        <Strings ResourceKey="Dialog_ListAppointment_Description" />
+        <Strings ResourceKey="Error_Title_0x8004031a" />
+        <Strings ResourceKey="Error_Title_0x8004031c" />
+        <Strings ResourceKey="Error_Message_0x8004031a" />
+        <Strings ResourceKey="Error_Message_0x8004031c" />
+        <Strings ResourceKey="Error_Message_0x80040321" />
+        <Strings ResourceKey="Outlook_Message_0x19c" />
+        <Strings ResourceKey="Outlook_Message_0x3ec" />
+        <Strings ResourceKey="Outlook_Message_0x3f1" />
+        <Strings ResourceKey="Outlook_Message_0x44f" />
+        <Strings ResourceKey="Outlook_Message_0x450" />
+        <Strings ResourceKey="Outlook_Message_0x451" />
+        <Strings ResourceKey="Outlook_Message_0x453" />
+        <Strings ResourceKey="RelatedInformation_Tips_appointment_requiredattendees" />
+        <Strings ResourceKey="RelatedInformation_Tips_appointment_optionalattendees" />
+        <Strings ResourceKey="RelatedInformation_Tips_appointment_regardingobjectid" />
+        <Strings ResourceKey="RelatedInformation_Tips_appointment_organizer" />
+        <Strings ResourceKey="SM_Schedule_Plans" />
+        <Strings ResourceKey="SM_Appointment_Rules" />
+        <Strings ResourceKey="SM_Title_Appointment_Rules" />
+        <Strings ResourceKey="Search_DialogTitle" />
+        <Strings ResourceKey="Search_DialogDescription" />
+        <Strings ResourceKey="Dialog_ChangeApptStatus_Title" />
+        <Strings ResourceKey="SM_Title_Change_Appointment_Status" />
+        <Strings ResourceKey="SM_MenuItem_ToolTip_CopyAppointment" />
+        <Strings ResourceKey="SM_MenuItem_Button_CopyAppointment" />
+        <Strings ResourceKey="Search_MakeAppointmentConfirmation" />
+        <Strings ResourceKey="Search_RescheduleAppointmentConfirmation" />
+        <Strings ResourceKey="Appointment_Reassign_Select_At_Least_One" />
+        <Strings ResourceKey="Appointment_Select_Start_Date" />
+        <Strings ResourceKey="Appointment_Select_Start_Time" />
+        <Strings ResourceKey="Gantt_Overlapped_Appointments" />
+        <Strings ResourceKey="Appointment_Book_Type_Appointments_And_Service_Activities" />
+        <Strings ResourceKey="ErrorCode.InvalidAppointmentDuration" />
+        <Strings ResourceKey="Web.Tools.personalsettings.dialogs.personalsettings.UseCrmFormForAppointmentLabel" />
+        <Strings ResourceKey="Web.Tools.personalsettings.dialogs.personalsettings.OutlookSyncSettingsTitle" />
+        <Strings ResourceKey="Web.Tools.personalsettings.dialogs.personalsettings.htm_192" />
+        <Strings ResourceKey="SystemCustomization.SystemSettingsDialog.CalendarSection.Scheduling.Label.MaximumAppointmentDuration" />
+      </Strings>
+    </Entity>
+  </Entities>
+  <Roles>
+  </Roles>
+  <Workflows>
+  </Workflows>
+  <EntityMaps />
+  <EntityRelationships>
+    <EntityRelationship Name="Appointment_QueueItem">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>QueueItem</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <ReferencingAttributeName>objectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the activity, case, or article in the queue." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="objectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="Объект" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Invoice_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Invoice</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Appointment_Annotation">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Annotation</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>objectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object with which the note is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="objectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Incident_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Incident</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="business_unit_appointment_activities">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>BusinessUnit</ReferencedEntityName>
+      <ReferencingAttributeName>owningbusinessunit</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор подразделения, ответственного за встречу." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="owningbusinessunit" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="10">
+        <displaynames>
+          <displayname description="Ответственное подразделение" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Appointment_DuplicateBaseRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <ReferencingAttributeName>baserecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор базовой записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="baserecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор базовой записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="appointment_activity_parties">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ActivityParty</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <ReferencingAttributeName>activityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the activity associated with the activity party. (A &quot;party&quot; is any person who is associated with an activity.)" languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="activityid" requiredlevel="required" imemode="auto" lookupclass="alllookups" lookupstyle="single" lookupbrowse="0" lookuptypes="4200">
+        <displaynames>
+          <displayname description="Действие" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Quote_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Quote</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Contract_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Contract</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Appointment_AsyncOperations">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>AsyncOperation</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано это системное задание." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Appointment_DuplicateMatchingRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <ReferencingAttributeName>duplicaterecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор возможной повторной записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="duplicaterecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор повторной записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="lk_appointment_modifiedby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>modifiedby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор последнего пользователя, изменившего встречу." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="modifiedby" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="8">
+        <displaynames>
+          <displayname description="Изменено" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Appointment_BulkDeleteFailures">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>BulkDeleteFailure</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор записи, которая не может быть удалена." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="Имя" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Lead_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Lead</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Opportunity_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Contact_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Contact</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="service_appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Service</ReferencedEntityName>
+      <ReferencingAttributeName>serviceid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор связанного сервиса." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="serviceid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Сервис" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="Account_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Account</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="activity_pointer_appointment">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>ActivityPointer</ReferencedEntityName>
+      <ReferencingAttributeName>activityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор встречи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="activityid" requiredlevel="none" imemode="auto">
+        <displaynames>
+          <displayname description="Встреча" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="lk_appointment_createdby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>createdby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор пользователя, создавшего встречу." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="createdby" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="8">
+        <displaynames>
+          <displayname description="Создано" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="SalesOrder_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>SalesOrder</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="BulkOperation_Appointment">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>BulkOperation</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="CampaignActivity_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>CampaignActivity</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="appointment_campaignresponse">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>CampaignResponse</ReferencingEntityName>
+      <ReferencedEntityName>Appointment</ReferencedEntityName>
+      <ReferencingAttributeName>originatingactivityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the originating activity for the campaign response." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="originatingactivityid" requiredlevel="none" imemode="auto" lookupclass="alllookups" lookupstyle="single" lookupbrowse="0" lookuptypes="4204, 4210, 4202, 4207, 4201">
+        <displaynames>
+          <displayname description="Источник действия" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="user_appointment">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>owninguser</ReferencingAttributeName>
+      <RelationshipDescription />
+      <field name="owninguser" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" lookuptypes="8">
+        <displaynames>
+          <displayname description="Ответственный пользователь" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+  </EntityRelationships>
+  <Languages>
+    <Language>1049</Language>
+  </Languages>
+</ImportExportXml>

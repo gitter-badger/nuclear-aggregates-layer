@@ -1,0 +1,1082 @@
+<ImportExportXml version="4.0.0.0" languagecode="1049" generatedBy="OnPremise">
+  <Entities>
+    <Entity>
+      <Name LocalizedName="Рубрика" OriginalName="">Dg_category</Name>
+      <ObjectTypeCode>10008</ObjectTypeCode>
+      <EntityInfo>
+        <entity Name="Dg_category">
+          <HasRelatedNotes>True</HasRelatedNotes>
+          <HasRelatedActivities>True</HasRelatedActivities>
+          <ObjectTypeCode>10008</ObjectTypeCode>
+          <CollectionName>Dg_categories</CollectionName>
+          <LogicalCollectionName>dg_categories</LogicalCollectionName>
+          <BaseTableName>Dg_categoryBase</BaseTableName>
+          <WorkflowEventMask>-1</WorkflowEventMask>
+          <IsCustomizable>1</IsCustomizable>
+          <IsMappable>1</IsMappable>
+          <IsImportable>1</IsImportable>
+          <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
+          <OwnershipTypeMask>OrgOwned</OwnershipTypeMask>
+          <IsAudited>1</IsAudited>
+          <EntityMask>ActivityPointer</EntityMask>
+          <IsCustomEntity>1</IsCustomEntity>
+          <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
+          <ExtensionTableName>Dg_categoryExtensionBase</ExtensionTableName>
+          <ReportViewName>FilteredDg_category</ReportViewName>
+          <IsRenameable>1</IsRenameable>
+          <CanTriggerWorkflow>1</CanTriggerWorkflow>
+          <CanBeChildInCustomRelationship>1</CanBeChildInCustomRelationship>
+          <CanBeInCustomEntityAssociation>1</CanBeInCustomEntityAssociation>
+          <CanBeInCustomReflexiveRelationship>1</CanBeInCustomReflexiveRelationship>
+          <IsMailMergeEnabled>1</IsMailMergeEnabled>
+          <EntityClassName>Microsoft.Crm.Entities.CustomBusinessEntity</EntityClassName>
+          <EntityAssembly>Microsoft.Crm.Entities</EntityAssembly>
+          <ServiceClassName>Microsoft.Crm.ObjectModel.CustomBusinessEntityService</ServiceClassName>
+          <ServiceAssembly>Microsoft.Crm.ObjectModel</ServiceAssembly>
+          <WorkflowSupport>15</WorkflowSupport>
+          <LocalizedNames>
+            <LocalizedName description="Рубрика" languagecode="1049" />
+          </LocalizedNames>
+          <LocalizedCollectionNames>
+            <LocalizedCollectionName description="Рубрики" languagecode="1049" />
+          </LocalizedCollectionNames>
+          <Descriptions>
+            <Description description="" languagecode="1049" />
+          </Descriptions>
+          <attributes>
+            <attribute PhysicalName="CreatedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор пользователя, создавшего запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>SystemUsers</LookupClass>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Создано" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="CreatedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время создания записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Создано" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="DeletionStateCode">
+              <Type>int</Type>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+            </attribute>
+            <attribute PhysicalName="Dg_categoryId">
+              <Type>primarykey</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsPKAttribute>1</IsPKAttribute>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000032</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|RequiredForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор экземпляров объекта" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <displaynames>
+                <displayname description="Рубрика" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_level">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="1" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="2" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="3" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Уровень рубрики" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_levelName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_level</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_name">
+              <Type>nvarchar</Type>
+              <Length>512</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ActivityPointerRegardingName|PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="The name of the custom entity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>256</MaxLength>
+              <displaynames>
+                <displayname description="Имя" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_uniquecategoryid">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>0</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <displaynames>
+                <displayname description="Уникальный идентификатор рубрики" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ImportSequenceNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Порядковый номер импорта, в результате которого была создана эта запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <displaynames>
+                <displayname description="Порядковый номер импорта" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ModifiedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор пользователя, изменившего запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>SystemUsers</LookupClass>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Изменено" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ModifiedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время изменения записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Изменено" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OrganizationId">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>1019</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <Descriptions>
+                <Description description="Уникальный идентификатор организации" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Идентификатор организации" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OverriddenCreatedOn">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время переноса записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Запись создана" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="statecode">
+              <Type>state</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000036</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Состояние Рубрика" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <states>
+                <state value="0" defaultstatus="1" invariantname="Active">
+                  <labels>
+                    <label description="Активный" languagecode="1049" />
+                  </labels>
+                </state>
+                <state value="1" defaultstatus="2" invariantname="Inactive">
+                  <labels>
+                    <label description="Неактивные" languagecode="1049" />
+                  </labels>
+                </state>
+              </states>
+              <displaynames>
+                <displayname description="Состояние" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="statecodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>statecode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="statuscode">
+              <Type>status</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000037</AttributeTypeId>
+              <DisplayMask>ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Причина состояния Рубрика" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <statuses>
+                <status value="1" state="0">
+                  <labels>
+                    <label description="Активный" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="2" state="1">
+                  <labels>
+                    <label description="Неактивные" languagecode="1049" />
+                  </labels>
+                </status>
+              </statuses>
+              <displaynames>
+                <displayname description="Причина состояния" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="statuscodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>statuscode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="TimeZoneRuleVersionNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="UTCConversionTimeZoneCode">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="VersionNumber">
+              <Type>timestamp</Type>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000025</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+          </attributes>
+        </entity>
+      </EntityInfo>
+      <FormXml id="{06AF2500-7592-41E6-8172-AB35AE869A40}">
+        <forms>
+          <entity name="dg_category" objecttypecode="10008">
+            <form type="main" enablerelatedinformation="true" relatedInformationCollapsed="true" id="{80d40cda-0dcb-4888-bc4e-2506b879adce}">
+              <tabs>
+                <tab verticallayout="true" id="{c45d1b22-ecd8-49fe-a4c9-c88c5dde83ee}" IsUserDefined="1" locklevel="0">
+                  <labels>
+                    <label description="Общие сведения" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="false" showbar="false" IsUserDefined="0" id="{914c2f0b-abdc-4052-8587-d616a7f087d6}">
+                      <labels>
+                        <label description="Общие" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell showlabel="true" locklevel="0" id="{3c7df6c1-a48f-417b-85dd-39eb2351136d}">
+                            <labels>
+                              <label description="Имя" languagecode="1049" />
+                            </labels>
+                            <control id="dg_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="dg_name" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{7c25edb9-e97d-4bb2-afde-1b1b012b0d31}">
+                            <labels>
+                              <label description="Уровень рубрики" languagecode="1049" />
+                            </labels>
+                            <control id="dg_level" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="dg_level" disabled="false" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    <section showlabel="true" showbar="true" locklevel="1" id="{c2e5f6e0-2de4-4b97-86f9-ce0eb58f39e8}" IsUserDefined="0" height="auto" labelwidth="115">
+                      <labels>
+                        <label description="Заметки" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="2" showlabel="false" rowspan="5" auto="true" id="{976e6f93-cbe4-4745-bc6d-4288474ca0cb}">
+                            <labels>
+                              <label description="Текст заметок" languagecode="1049" />
+                            </labels>
+                            <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" />
+                          </cell>
+                        </row>
+                        <row />
+                        <row />
+                        <row />
+                        <row height="auto" />
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+          <entity name="dg_category" objecttypecode="10008">
+            <form type="preview" id="{7ef8a979-d00d-40b2-948b-7c83c49dacdf}">
+              <tabs>
+                <tab verticallayout="true" id="{9b3a9e0b-dcab-4b98-93de-5baab925fd8a}" IsUserDefined="1">
+                  <labels>
+                    <label description="Общие" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="false" showbar="false" IsUserDefined="1" id="{09ab8903-9dc2-49f6-81f9-9cf027897130}">
+                      <labels>
+                        <label description="Сведения" languagecode="1049" />
+                      </labels>
+                      <rows />
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+        </forms>
+      </FormXml>
+      <SavedQueries>
+        <savedqueries entity="SavedQuery" morerecords="0" paging-cookie="" version="3.0">
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 008">10008</returnedtypecode>
+            <savedqueryid>{5168F0B2-7427-4FE0-AD18-BEB554AB2D7A}</savedqueryid>
+            <savedqueryidunique>{CBE3D3AC-A70C-42BE-B038-0C4D4C66CD05}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="10008" jump="dg_name" select="1" icon="1" preview="1">
+                <row name="result" id="dg_categoryid">
+                  <cell name="dg_name" width="300" />
+                  <cell name="dg_parentcategory" width="100" />
+                  <cell name="dg_level" width="100" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_category">
+                  <attribute name="dg_name" />
+                  <attribute name="createdon" />
+                  <order attribute="dg_name" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="0" />
+                  </filter>
+                  <attribute name="dg_level" />
+                  <attribute name="dg_parentcategory" />
+                  <attribute name="dg_categoryid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Активные Рубрики" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <column>dg_name</column>
+                <column>createdon</column>
+                <ascend>dg_name</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Нет">0</isdefault>
+            <returnedtypecode formattedvalue="10 008">10008</returnedtypecode>
+            <savedqueryid>{7DE4257A-0A03-44A9-968C-2AFA4A340303}</savedqueryid>
+            <savedqueryidunique>{F6B507CC-FC6D-4ED5-AEDD-8F52EEC520B8}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="10008" jump="dg_name" select="1" icon="1" preview="1">
+                <row name="result" id="dg_categoryid">
+                  <cell name="dg_name" width="300" />
+                  <cell name="dg_parentcategory" width="100" />
+                  <cell name="dg_level" width="100" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_category">
+                  <attribute name="dg_name" />
+                  <attribute name="createdon" />
+                  <order attribute="dg_name" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="1" />
+                  </filter>
+                  <attribute name="dg_level" />
+                  <attribute name="dg_parentcategory" />
+                  <attribute name="dg_categoryid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Неактивные Рубрики" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <column>dg_name</column>
+                <column>createdon</column>
+                <ascend>dg_name</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 008">10008</returnedtypecode>
+            <savedqueryid>{9138DFC5-463B-4C30-9A60-85282C8D4E30}</savedqueryid>
+            <savedqueryidunique>{1B2CD21E-AF78-4199-AE15-098914D027A5}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="10008" jump="dg_name" select="1" icon="1" preview="1">
+                <row name="result" id="dg_categoryid">
+                  <cell name="dg_name" width="300" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="1">1</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_category">
+                  <attribute name="dg_categoryid" />
+                  <attribute name="dg_name" />
+                  <attribute name="createdon" />
+                  <order attribute="dg_name" descending="false" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Рубрика представление расширенного поиска" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <filter type="and">
+                  <condition column="statecode" operator="eq" value="0" />
+                </filter>
+                <column>dg_name</column>
+                <column>createdon</column>
+                <ascend>dg_name</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 008">10008</returnedtypecode>
+            <savedqueryid>{33A65844-040D-4647-83D2-55253126469A}</savedqueryid>
+            <queryapi>AUTO</queryapi>
+            <savedqueryidunique>{79E41F3E-3EBF-4B0B-BB4F-EB5E0E4B4190}</savedqueryidunique>
+            <layoutxml>
+              <grid name="dg_categories" object="10008" jump="dg_name" select="1" icon="1" preview="1">
+                <row name="dg_category" id="dg_categoryid">
+                  <cell name="dg_name" width="300" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="2">2</querytype>
+            <LocalizedNames>
+              <LocalizedName description="Рубрика связанное представление" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <column>dg_name</column>
+                <column>createdon</column>
+                <ascend>dg_name</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Да">1</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 008">10008</returnedtypecode>
+            <savedqueryid>{ACB46193-C115-4743-AC1D-A3E237262850}</savedqueryid>
+            <savedqueryidunique>{7500DB26-6ED2-4768-AB54-BD7F6E61C685}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="10008" jump="dg_name" select="1" icon="1" preview="1">
+                <row name="result" id="dg_categoryid">
+                  <cell name="dg_name" width="300" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="4">4</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_category">
+                  <attribute name="dg_categoryid" />
+                  <attribute name="dg_name" />
+                  <attribute name="createdon" />
+                  <order attribute="dg_name" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="0" />
+                  </filter>
+                  <filter type="or" isquickfindfields="1">
+                    <condition attribute="dg_name" operator="like" value="{0}" />
+                  </filter>
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Быстрый поиск активных Рубрики" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <column>dg_name</column>
+                <column>createdon</column>
+                <ascend>dg_name</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 008">10008</returnedtypecode>
+            <savedqueryid>{5DBB04F7-3FD6-41F9-A237-0640631DF2E3}</savedqueryid>
+            <savedqueryidunique>{FCB9D6A6-06CB-41C1-AB51-B010CDBEA901}</savedqueryidunique>
+            <layoutxml>
+              <grid name="dg_categories" object="10008" jump="dg_name" select="1" icon="1" preview="0">
+                <row name="dg_category" id="dg_categoryid">
+                  <cell name="dg_name" width="300" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="64">64</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_category">
+                  <attribute name="dg_categoryid" />
+                  <attribute name="dg_name" />
+                  <attribute name="createdon" />
+                  <filter type="or" isquickfindfields="1">
+                    <condition attribute="dg_name" operator="like" value="{0}" />
+                  </filter>
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Рубрика представление поиска" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+        </savedqueries>
+      </SavedQueries>
+      <Icons>
+        <Icon type="GridIcon">R0lGODlhEAAQAOYAAK+/3j1RbP///zVJY/f5/W+Al5KhtoGRp4KSp/D0/PDz/Ofu+r7L55OhtlNmf3mJn/r7/mZ3j0RYcv3+/6e0yExfeKa0x+zx+9/n+HiJn4qZr/7///T3/KGvw/39/11uhvn7/qCvwqu4y5qpvWV3j5qovfz8/4uarl1vh3PpMbbK8nLmMO3y++rv+/OUJVGqJYPAa0mcI+6vPFiRTZGw7nChW9Ld9dnj9pLde5258mzRQOXr+eTr+WCrT1CMPy9YIeju+qrD8r7a1/C/M8HR89vk95HbevP2/N3m942q5dbg9mCrUObs+c3a9DuXHZOx7WLbJ+T43EahIXHkL22jWzyLH1XGI+u5P/KSH5y48dfh9dHSzuHp+bfL86rC8unt+vLRXePq+IWh2VXMI2m9We3w+ilWH+67KIqp5fKRIP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAGoALAAAAAAQABAAAAeygGoiFB0jBicIDwUkH2qOjhYCkgITJiAEAAGPjiECg4WHiYuNjiUCkZOVl5mPDRudUUZLPlQER6yOGh6mODorUFYzCbhqBxCuZCkvUk5mZcQZBLo9UzFgZ2lfxAUcxjBjVUNYVzzEEQrRQjU/LjJbGMQoF9wJLC1MYRhFxA4L50RdguR4kkQLsQoM5AHZwQXJDSU2iEkY0E+Flyw00IhpQswRQgAgQ4LUtGnigJMoT5IMBAA7</Icon>
+        <Icon type="LargeEntityIcon">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</Icon>
+      </Icons>
+    </Entity>
+  </Entities>
+  <Roles>
+  </Roles>
+  <Workflows>
+  </Workflows>
+  <EntityMaps>
+    <EntityMap>
+      <EntitySource>dg_category</EntitySource>
+      <EntityTarget>dg_category</EntityTarget>
+      <AttributeMaps />
+    </EntityMap>
+  </EntityMaps>
+  <EntityRelationships>
+    <EntityRelationship Name="lk_dg_category_createdby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_category</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>createdby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор пользователя, создавшего запись." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="createdby" requiredlevel="none" imemode="auto" lookupclass="SystemUsers" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Создано" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="lk_dg_category_modifiedby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_category</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>modifiedby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор пользователя, изменившего запись." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="modifiedby" requiredlevel="none" imemode="auto" lookupclass="SystemUsers" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Изменено" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="organization_dg_category">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_category</ReferencingEntityName>
+      <ReferencedEntityName>Organization</ReferencedEntityName>
+      <ReferencingAttributeName>organizationid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор организации" languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="organizationid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор организации" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_ActivityPointers">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ActivityPointer</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_Emails">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Email</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object with which the e-mail is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_Faxes">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Fax</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие факса." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_Letters">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Letter</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие письма." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_PhoneCalls">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>PhoneCall</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие звонка." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_ServiceAppointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ServiceAppointment</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие сервиса." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_Tasks">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Task</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана задача." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegardingForTask" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_Annotations">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Annotation</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>objectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object with which the note is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="objectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_AsyncOperations">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>AsyncOperation</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано это системное задание." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_BulkDeleteFailures">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>BulkDeleteFailure</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор записи, которая не может быть удалена." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="Имя" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_DuplicateMatchingRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>duplicaterecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор возможной повторной записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="duplicaterecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор повторной записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_category_DuplicateBaseRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <ReferencingAttributeName>baserecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор базовой записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="baserecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор базовой записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_dg_category_dg_category">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_category</ReferencingEntityName>
+      <ReferencedEntityName>Dg_category</ReferencedEntityName>
+      <CascadeAssign>NoCascade</CascadeAssign>
+      <CascadeDelete>RemoveLink</CascadeDelete>
+      <CascadeReparent>NoCascade</CascadeReparent>
+      <CascadeShare>NoCascade</CascadeShare>
+      <CascadeUnshare>NoCascade</CascadeUnshare>
+      <ReferencingAttributeName>dg_parentcategory</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор для объекта Рубрика, связанного с объектом Рубрика." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="dg_parentcategory" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Головная рубрика" languagecode="1049" />
+        </displaynames>
+      </field>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <CustomLabels>
+            <CustomLabel description="" languagecode="1049" />
+          </CustomLabels>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_dg_category_dg_organizationunit">
+      <EntityRelationshipType>ManyToMany</EntityRelationshipType>
+      <FirstEntityName>Dg_category</FirstEntityName>
+      <SecondEntityName>Dg_organizationunit</SecondEntityName>
+      <IntersectEntityName>dg_dg_category_dg_organizationunit</IntersectEntityName>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <CustomLabels>
+            <CustomLabel description="" languagecode="1049" />
+          </CustomLabels>
+          <AssociationRoleOrdinal>1</AssociationRoleOrdinal>
+        </EntityRelationshipRole>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <CustomLabels>
+            <CustomLabel description="" languagecode="1049" />
+          </CustomLabels>
+          <AssociationRoleOrdinal>2</AssociationRoleOrdinal>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_dg_category_dg_firmaddress">
+      <EntityRelationshipType>ManyToMany</EntityRelationshipType>
+      <FirstEntityName>Dg_category</FirstEntityName>
+      <SecondEntityName>Dg_firmaddress</SecondEntityName>
+      <IntersectEntityName>dg_dg_category_dg_firmaddress</IntersectEntityName>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <CustomLabels>
+            <CustomLabel description="" languagecode="1049" />
+          </CustomLabels>
+          <AssociationRoleOrdinal>1</AssociationRoleOrdinal>
+        </EntityRelationshipRole>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <CustomLabels>
+            <CustomLabel description="" languagecode="1049" />
+          </CustomLabels>
+          <AssociationRoleOrdinal>2</AssociationRoleOrdinal>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+  </EntityRelationships>
+  <Languages>
+    <Language>1049</Language>
+  </Languages>
+</ImportExportXml>

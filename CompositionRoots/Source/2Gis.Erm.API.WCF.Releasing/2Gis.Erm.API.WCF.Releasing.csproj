@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B9227BD9-9CFC-4306-9FBE-5E1DA7040A2B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.API.WCF.Releasing</RootNamespace>
+    <AssemblyName>2Gis.Erm.API.WCF.Releasing</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44305</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Release.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Config\ServiceClientConfig.cs" />
+    <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DI\WcfReleasingRoot.cs" />
+    <Compile Include="Settings\ReleasingSettings.cs" />
+    <Compile Include="UnityServiceHostFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
+      <Project>{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}</Project>
+      <Name>2Gis.Erm.BLCore.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
+      <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Releasing\2Gis.Erm.BLCore.WCF.Releasing.csproj">
+      <Project>{b1285bd0-c821-4321-9698-cf95a0079b23}</Project>
+      <Name>2Gis.Erm.BLCore.WCF.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427a-8a9d-80123d41e30a}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
+      <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
+      <Name>2Gis.Erm.Platform.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
+      <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
+      <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
+      <Project>{E97BC051-BC95-4183-950B-0685DDE66D7D}</Project>
+      <Name>2Gis.Erm.Platform.AppFabric</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.WCF\2Gis.Erm.Platform.DI.WCF.csproj">
+      <Project>{9772E28E-C4C2-4C99-B98D-B2267DE0CCD2}</Project>
+      <Name>2Gis.Erm.Platform.DI.WCF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
+      <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
+      <Name>2Gis.Erm.BLCore.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Extensions\2Gis.Erm.Platform.WCF.Extensions.csproj">
+      <Project>{f09e7148-2f47-4bca-bf3c-410cda8018a4}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{d62c3159-8538-4398-9e7f-5bd2b48a6c20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650ea07f-6725-46e5-b996-b5882e4fcd33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
+      <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Security\2Gis.Erm.Platform.Security.csproj">
+      <Project>{ECCE98AA-864A-44BC-8779-56DEF5731E7E}</Project>
+      <Name>2Gis.Erm.Platform.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>10337</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44305/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\Buildscript\Erm.Web.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

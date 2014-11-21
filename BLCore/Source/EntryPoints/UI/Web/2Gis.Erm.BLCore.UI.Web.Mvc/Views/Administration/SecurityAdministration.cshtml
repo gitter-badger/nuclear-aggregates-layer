@@ -1,0 +1,84 @@
+﻿@inherits WebViewPage
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    
+    <link rel="stylesheet" type="text/css" href="/Content/Global.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/Administration.css?@ThisAssembly.Build"/>
+
+</head>
+<body>
+    <table cellspacing="0" cellpadding="0" width="100%" height="100%">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="content">
+                        <div class="subtitle">@BLResources.SecurityAdministrationPage_Header</div>
+                            <div class="headline"/>
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table style="cursor: hand" id="_L01" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td onclick="window.location.href='../Grid/View/Department'" width="51">
+                                                        <div class="icon_48 icon_department"/>
+                                                    </td>
+                                                    <td style="padding-left: 2px">
+                                                        <a id="_A01" class="linktitle ms-crm-Link" onclick="window.location.href='../Grid/View/Department'" href="#">@BLResources.SecurityAdministrationPage_Departments</a>
+                                                        <div id="_I01" onclick="window.location.href='../Grid/View/Department'">@BLResources.SecurityAdministrationPage_DepartmentDetails</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table style="cursor: hand" id="Table1" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td onclick="window.location.href='../Grid/View/Role'" width="51">
+                                                        <div class="icon_48 icon_role"/>
+                                                    </td>
+                                                    <td style="padding-left: 2px">
+                                                        <a id="A1" class="linktitle ms-crm-Link" onclick="window.location.href='../Grid/View/Role'" href="#">@BLResources.SecurityAdministrationPage_Roles</a>
+                                                        <div id="_I02" class="linkhelp" onclick="window.location.href='../Grid/View/Role'">@BLResources.SecurityAdministrationPage_RoleDetails</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="cursor: hand" id="Table2" tabindex="0" cellspacing="0" cellpadding="12" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td onclick="window.location.href='../Grid/View/User'" width="51">
+                                                        <div class="icon_48 icon_user"/>
+                                                    </td>
+                                                    <td style="padding-left: 2px">
+                                                        <a id="A2" class="linktitle ms-crm-Link" onclick="window.location.href='../Grid/View/User'" href="#">@BLResources.SecurityAdministrationPage_Users</a>
+                                                        <div id="Div1" class="linkhelp" onclick="window.location.href='../Grid/View/User'">@BLResources.SecurityAdministrationPage_UserDetails</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

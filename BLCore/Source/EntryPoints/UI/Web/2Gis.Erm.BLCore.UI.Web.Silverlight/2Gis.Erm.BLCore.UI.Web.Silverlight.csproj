@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{95623B29-3F92-491C-B735-6F42255A00AC}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.UI.Web.Silverlight</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.UI.Web.Silverlight</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>en;en-US;ru;ru-RU;</SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>2Gis.Erm.BLCore.UI.Web.Silverlight.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>DoubleGis.Erm.BLCore.UI.Web.Silverlight.App</SilverlightAppEntry>
+    <TestPageFileName>DoubleGis.Erm.UI.SilverlightTestPage.html</TestPageFileName>
+    <CreateTestPage>true</CreateTestPage>
+    <ValidateXaml>true</ValidateXaml>
+    <EnableOutOfBrowser>false</EnableOutOfBrowser>
+    <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
+    <UsePlatformExtensions>false</UsePlatformExtensions>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <LinkedServerProject>
+    </LinkedServerProject>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkDirectory>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\Silverlight\v5.0</TargetFrameworkDirectory>
+    <TargetFrameworkSDKDirectory>C:\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0</TargetFrameworkSDKDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;MAINSILVERLIGHTASSEMBLY</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Interactivity">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Silverlight, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.2.1.505.2\lib\SL30\Microsoft.Practices.Unity.Silverlight.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Prism.4.1.0.0\lib\SL5\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\Attributes\PresentationLayerPropertyAttribute.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\PresentationLayerPropertyAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\Utils\LookupField.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\LookupField.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\IViewModel.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\IViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\MessageType.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\MessageType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\ValidationMessage.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\ValidationMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\ViewModel.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\ViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\Entities\EntityName.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\EntityName.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Models\UserProfileViewModel.cs">
+      <Link>UserProfileViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\CardJson.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardJson.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\CardRelatedItemsAreaJson.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardRelatedItemsAreaJson.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\CardRelatedItemsJson.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardRelatedItemsJson.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\ToolbarJson.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\ToolbarJson.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\CultureInfoDto.cs">
+      <Link>UserProfiles\DomainModel\CultureInfoDto.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\DateTimeFormatInfoDto.cs">
+      <Link>UserProfiles\DomainModel\DateTimeFormatInfoDto.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\LocalSettingsDto.cs">
+      <Link>UserProfiles\DomainModel\LocalSettingsDto.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\NumberFormatInfoDto.cs">
+      <Link>UserProfiles\DomainModel\NumberFormatInfoDto.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\SupportedLocalSettingsDto.cs">
+      <Link>UserProfiles\DomainModel\SupportedLocalSettingsDto.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\TimeZoneDto.cs">
+      <Link>UserProfiles\DomainModel\TimeZoneDto.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\UserGender.cs">
+      <Link>UserProfiles\DomainModel\UserGender.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\UserPersonalInfoDto.cs">
+      <Link>UserProfiles\DomainModel\UserPersonalInfoDto.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\ViewModels\EntityViewConfig.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\EntityViewConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\ViewModels\EntityViewModelBase.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\EntityViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\ViewModels\IEntityViewModelBase.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\IEntityViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Infrastructure\Controls\GroupBox.cs" />
+    <Compile Include="Infrastructure\Controls\NamedComboBox.cs" />
+    <Compile Include="Infrastructure\Controls\NamedReadonlyTextProperty.cs" />
+    <Compile Include="Infrastructure\Controls\SectionTitle.cs" />
+    <Compile Include="Infrastructure\DI\Lifetime.cs" />
+    <Compile Include="Infrastructure\Interaction\ReflectionUtils.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\AsyncDelegation.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\GetWrapper.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\Int64ToStringConverter.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\IRestService.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\DotNetDateTimeConverter.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\PostWrapper.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\RestConverter.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\RestFacilitator.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\RestService.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\RestWrapper.cs" />
+    <Compile Include="Infrastructure\Interaction\REST\SynchronousCallRestService.cs" />
+    <Compile Include="Infrastructure\Interaction\ServerJSBridge\Configuration\EntityViewConfig.Client.cs" />
+    <Compile Include="Infrastructure\Interaction\ServerJSBridge\ViewModels\EntityViewModelBase.Client.cs" />
+    <Compile Include="Infrastructure\Interaction\ServerJSBridge\ViewModels\LookupField.Client.cs" />
+    <Compile Include="Infrastructure\Interaction\ServerJSBridge\ViewModels\ViewModel.Client.cs" />
+    <Compile Include="Infrastructure\MarkupExtensions\StaticExtension.cs" />
+    <Compile Include="Infrastructure\MVVM\ViewModelBase.cs" />
+    <Compile Include="MainUI\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\ApplicationInitParamsAppSettings.cs" />
+    <Compile Include="Settings\IAppSettings.cs" />
+    <Compile Include="UserProfiles\Presentation\IUserLocaleInfoViewModel.cs" />
+    <Compile Include="UserProfiles\Presentation\IUserPersonalInfoViewModel.cs" />
+    <Compile Include="UserProfiles\DomainModel\UserProfileViewModel.Client.cs" />
+    <Compile Include="UserProfiles\Services\FakeProfileDataProvider.cs" />
+    <Compile Include="UserProfiles\Services\IUserProfileDataProvider.cs" />
+    <Compile Include="UserProfiles\Presentation\IUserProfilesMainViewModel.cs" />
+    <Compile Include="UserProfiles\Presentation\UserLocaleInfoView.xaml.cs">
+      <DependentUpon>UserLocaleInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfiles\Presentation\UserLocaleInfoViewModel.cs" />
+    <Compile Include="UserProfiles\Presentation\UserPersonalInfoView.xaml.cs">
+      <DependentUpon>UserPersonalInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfiles\Services\UserProfileDataProvider.cs" />
+    <Compile Include="UserProfiles\Presentation\UserPersonalInfoViewModel.cs" />
+    <Compile Include="UserProfiles\Presentation\UserProfilesView.xaml.cs">
+      <DependentUpon>UserProfilesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfiles\Presentation\UserProfilesMainViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="Infrastructure\Controls\GroupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>GroupBox.cs</DependentUpon>
+    </Page>
+    <Page Include="Infrastructure\Controls\NamedComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>NamedComboBox.cs</DependentUpon>
+    </Page>
+    <Page Include="Infrastructure\Controls\NamedReadonlyTextProperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>NamedReadonlyTextProperty.cs</DependentUpon>
+    </Page>
+    <Page Include="Infrastructure\Controls\SectionTitle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>SectionTitle.cs</DependentUpon>
+    </Page>
+    <Page Include="MainUI\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CommonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserProfiles\Presentation\UserLocaleInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserProfiles\Presentation\UserPersonalInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserProfiles\Presentation\UserProfilesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\AppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.UI.Web.Silverlight.Resources\2Gis.Erm.BLCore.UI.Web.Silverlight.Resources.csproj">
+      <Project>{40A6D43C-94D7-4719-BDB1-76B0C6065F6E}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Silverlight.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

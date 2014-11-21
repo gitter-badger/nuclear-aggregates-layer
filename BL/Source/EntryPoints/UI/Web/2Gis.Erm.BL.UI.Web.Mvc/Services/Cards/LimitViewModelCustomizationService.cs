@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
+{
+    public class LimitViewModelCustomizationService : IGenericViewModelCustomizationService<Limit>
+    {
+        private readonly IUserContext _userContext;
+        private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
+        private readonly IAccountRepository _accountRepository;
+
+        public LimitViewModelCustomizationService(IUserContext userContext,
+                                                  ISecurityServiceUserIdentifier userIdentifierService,
+                                                  ISecurityServiceFunctionalAccess functionalAccessService,
+                                                  IAccountRepository accountRepository)
+        {
+            _userContext = userContext;
+            _userIdentifierService = userIdentifierService;
+            _functionalAccessService = functionalAccessService;
+            _accountRepository = accountRepository;
+        }
+
+        public void CustomizeViewModel(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
+        {
+            var entityViewModel = (LimitViewModel)viewModel;
+
+            if (entityViewModel.Inspector != null)
+            {
+                entityViewModel.Inspector.Value = _userIdentifierService.GetUserInfo(entityViewModel.Inspector.Key).DisplayName;
+            }
+
+            if (entityViewModel.Status != LimitStatus.Opened)
+            {
+                entityViewModel.ViewConfig.ReadOnly = true;
+            }
+
+            entityViewModel.HasEditPeriodPrivelege = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LimitPeriodChanging,
+                                                                                                            _userContext.Identity.Code);
+
+            var toolbar = entityViewModel.ViewConfig.CardSettings.CardToolbar.ToArray();
+
+            if (entityViewModel.IsNew)
+            {
+                DisableButtons(toolbar, new[] { "OpenLimit", "RejectLimit", "ApproveLimit", "RecalculateLimit" });
+                return;
+            }
+
+            switch (entityViewModel.Status)
+            {
+                case LimitStatus.Opened:
+                    DisableButtons(toolbar, new[] { "OpenLimit" });
+                    break;
+                case LimitStatus.Approved:
+                case LimitStatus.Rejected:
+                    DisableButtons(toolbar, new[] { "RejectLimit", "ApproveLimit" });
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("model");
+            }
+
+            // Кнопка "Пересчитать" в карточке лимита должна быть доступна с момента создания лимита и до тех пор пока за период по которому выставлен лимит отсутствует финальная,
+            // успешная сборка по городам назначения заказов входящих в расчёт суммы лимита.
+            if (!_accountRepository.IsLimitRecalculationAvailable(entityViewModel.Id))
+            {
+                DisableButtons(toolbar, new[] { "RecalculateLimit" });
+            }
+        }
+
+        private static void DisableButtons(IEnumerable<ToolbarJson> toolbar, IEnumerable<string> statusButtons)
+        {
+            var buttonsToDisable = toolbar.Where(item => statusButtons.Contains(item.Name, StringComparer.OrdinalIgnoreCase));
+            foreach (var item in buttonsToDisable)
+            {
+                item.Disabled = true;
+            }
+        }
+    }
+}

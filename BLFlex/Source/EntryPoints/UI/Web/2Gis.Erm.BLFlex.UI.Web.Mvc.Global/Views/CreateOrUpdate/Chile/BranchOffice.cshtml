@@ -1,0 +1,32 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile.ChileBranchOfficeViewModel
+
+@{
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Rut, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true})
+            @Html.TemplateField(m => m.ContributionType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.ContributionType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true })
+        </div>
+    </div>
+}

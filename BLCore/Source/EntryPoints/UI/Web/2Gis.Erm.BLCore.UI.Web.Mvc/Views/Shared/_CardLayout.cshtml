@@ -1,0 +1,121 @@
+﻿@model EntityViewModelBase
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <base target="_self" />
+
+    <meta id="meta_IsDebug" name="meta_IsDebug" content="@HttpContext.Current.IsDebuggingEnabled" />
+    <meta id="meta_Revision" name="meta_Revision" content="@ThisAssembly.Build" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    
+    <link rel="stylesheet" type="text/css" href="/Content/ext-all.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/CRM4.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/MainPage.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/ext-mask.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/LookupStyle.css?@ThisAssembly.Build" />
+    
+    <link rel="stylesheet" type="text/css" href="/Content/Card.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/ext-extend.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/AsyncFileUpload.css?@ThisAssembly.Build" />
+
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="/Scripts/ext-base-debug.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all-debug-w-comments.js?@ThisAssembly.Build" type="text/javascript"></script>
+    }
+    else
+    {
+        <script src="/Scripts/ext-base.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all.js?@ThisAssembly.Build" type="text/javascript"></script>
+    }
+    
+    <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.USER_ID = @ViewData.GetUserIdentityInfo().Code;
+        Ext.USER_NAME = @ViewData.GetUserIdentityDisplayName();
+        Ext.CultureInfo = @Html.WriteJson(ViewData.GetUserLocaleInfo());
+        Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
+        Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
+        Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
+        Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
+    </script>
+    
+    <script src="/Scripts/DoubleGis.GlobalVariables.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Common.ErrorHandler.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.FitToParent.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.MvcFormValidator.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.DependencyHandler.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.LookupField.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.AsyncFileUpload.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.LinkField.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.Calendar.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.LookupFieldOwner.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.NotePanel.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.ActionsHistoryTab.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.Card.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.IdField.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    @RenderSection("CardScripts")
+
+</head>
+    <body>
+        @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "autocomplete", "off" }, { "target", "_self" } }))
+        {
+            <div style="display: none">
+                <div id="ContentTab_holder" class="Holder">
+                    <div style="display: none; height: 24px;" id="Notifications" class="Notifications">
+                    </div>
+                    <div id="MainTab_holder">
+                        
+                        @RenderSection("CardBody")
+                        
+                        @if (Model is IEntityViewModelBase && Model.ViewConfig.CardSettings.HasAdminTab)
+                        {
+                            Html.RenderPartial("AdministrationTab");
+                        }
+
+                    </div>
+
+                    @Html.CheckBoxFor(x => x.ViewConfig.ReadOnly)
+                    @Html.HiddenFor(m => m.ViewConfig.EntityName)
+                    @Html.HiddenFor(m => m.ViewConfig.Id)
+                    @Html.HiddenFor(m => m.ViewConfig.PId)
+                    @Html.HiddenFor(m => m.ViewConfig.PType)
+                    @Html.HiddenFor(m => m.ViewConfig.ExtendedInfo)
+                    @Html.HiddenFor(m => m.IsNew)
+                    @Html.Hidden("EntityStatus", ViewData["EntityStatus"])
+                    @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList)
+                    @Html.HiddenFor(m => m.EntityStateToken)
+                    @Html.HiddenFor(m => m.IsDeleted)
+                    @Html.HiddenFor(m => m.IsActive)
+
+                    <div id="MessageType">@Model.MessageType</div>
+                    <div id="Message">@Model.Message</div>
+                </div>
+            </div>            
+        }   
+        
+        @if (IsSectionDefined("CustomCard"))
+        {
+            @RenderSection("CustomCard");
+        }
+        else
+        {
+            <script type="text/javascript">
+                Ext.onReady(function()
+                {
+                    
+                    var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
+                    window.Card = new window.Ext.DoubleGis.UI.SharableCard(cardSettings);
+                    window.Card.Build();
+                    
+                });
+            </script>
+        }
+    </body>
+</html>

@@ -1,0 +1,2301 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Xrm.Portal</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Xrm.Portal.Data.Services.DelegatedCrmDataContext">
+            <summary>
+            Provides a wrapper/adapter for a <see cref="T:Microsoft.Xrm.Client.Data.Services.ICrmDataContext"/> that forwards the core methods of the
+            data context. May be used as a base class to implement <see cref="T:Microsoft.Xrm.Client.Data.Services.ICrmDataContext"/>-like classes that
+            implement custom behaviour and functionality.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.CacheableCrmEntityUrlHelper.GetUrl(Microsoft.Xrm.Client.ICrmEntity,System.String,System.String,System.Func{Microsoft.Xrm.Client.ICrmEntity,System.String})">
+            <summary>
+            Gets a cached URL of a given entity, given a partial URL/slug string property, an association though which
+            a URL-having "parent" can be retrieved, and a method of retrieving the URL of that parent entity if
+            necessary.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.CacheableCrmEntityUrlHelper.GetUrlCacheDependencies(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Gets the cache dependency collection for the URL of a given <see cref="T:Microsoft.Xrm.Client.ICrmEntity"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.CmsDataContext.GetVisibleChildPagesBySiteMarker(System.String)">
+            <summary>
+            Retrieves visible child Web Page entities for a given site-marker.
+            </summary>
+            <param name="siteMarker"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.CmsDataContext.GetVisibleChildPagesBySiteMarker(Microsoft.Xrm.Client.ICrmEntity,System.String)">
+            <summary>
+            Retrieves visible child Web Page entities for a given site-marker.
+            </summary>
+            <param name="website"></param>
+            <param name="siteMarker"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebFileExtensions.GetNote(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Retrieves the CRM note that the file is uploaded to.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebFileExtensions.GetUrl(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Gets the URL path of a given adx_webfile.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebLinkExtensions.GetUrl(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Retrieves the URL for this web link.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebLinkExtensions.GetVisibleChildPagesForWebLink(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Retrieves a list of visible child pages for this web link.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebPageExtensions.GetChildFiles(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Retrieves the child files of this page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebPageExtensions.GetChildPages(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Retrieves the child pages of this page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebPageExtensions.GetVisibleChildPages(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Retrieves the visible child pages of this page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebPageExtensions.GetUrl(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Gets the URL path of a given adx_webpage.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Cms.WebsiteSelectors.NameWebsiteSelector">
+            <summary>
+            Selects website based on a website's name.
+            The name is matched to the configuration appSetting "crm-site".
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Cms.WebsiteSelectors.NameWebsiteSelector.GetWebsite">
+            <summary>
+            Selects website based on a website's name.
+            The name is matched to the configuration appSetting "crm-site".
+            </summary>
+            <remarks>If more than one website matches, the first match is returned.</remarks>
+            <exception cref="T:System.ApplicationException">thrown if a website match cannot be found</exception> 
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Cms.WebsiteSelectors.NameWebsiteSelector.ConfiguredWebsiteName">
+            <summary>
+            Gets the value of the app setting key "crm-site".
+            </summary>
+            <exception cref="T:System.Configuration.ConfigurationErrorsException">thrown if the app setting value is not found</exception>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Configuration.CrmEntitySecurityProviderElement.CreateCrmEntitySecurityProvider">
+            <summary>
+            Returns a new instance of the configured <see cref="T:Microsoft.Xrm.Client.Security.ICrmEntitySecurityProvider"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Configuration.CrmEntitySecurityProviderElement.CrmEntitySecurityProviderType">
+            <summary>
+            Gets the <see cref="P:Microsoft.Xrm.Portal.Configuration.CrmEntitySecurityProviderElement.Type"/> of the configured <see cref="T:Microsoft.Xrm.Client.Security.ICrmEntitySecurityProvider"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Configuration.DependencyProviderElement.DependencyProviderType">
+            <summary>
+            Gets the <see cref="P:Microsoft.Xrm.Portal.Configuration.DependencyProviderElement.Type"/> of the configured provider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Configuration.PortalCrmSection">
+            <summary>
+            Represents a collection of site configuration nodes and settings for all sites in general.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Configuration.WebsiteSelectorElement.WebsiteSelectorType">
+            <summary>
+            Gets the <see cref="P:Microsoft.Xrm.Portal.Configuration.WebsiteSelectorElement.Type"/> of the configured WebsiteSelector.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Core.CoreDataContext.AddNoteAndSave(Microsoft.Xrm.Client.ICrmEntity,System.String,System.String)">
+            <summary>
+            Add a Note to an entity.
+            </summary>
+            <param name="entity">The entity to which a note will be attached.</param>
+            <param name="noteTitle"></param>
+            <param name="noteText">The text of the note.</param>
+            <returns>True if successful; otherwise, false.</returns>
+            <remarks>
+            <para>The provided <paramref name="entity"/> must already be persisted to the CRM for this operation to succeed.</para>
+            <para>It it not necessary to SaveChanges after this operation--this operation fully persists this note to CRM.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Core.CoreDataContext.AddNoteAndSave(Microsoft.Xrm.Client.ICrmEntity,System.String,System.String,System.Web.HttpPostedFile)">
+            <summary>
+            Add a note to an entity.
+            </summary>
+            <param name="entity">The entity to which a note will be attached.</param>
+            <param name="noteTitle"></param>
+            <param name="noteText">The text of the note.</param>
+            <param name="file">The file to attach with this note.</param>
+            <returns>True if successful; otherwise, false.</returns>
+            <remarks>
+            <para>The provided <paramref name="entity"/> must already be persisted to the CRM for this operation to succeed.</para>
+            <para>It it not necessary to SaveChanges after this operation--this operation fully persists this note to CRM.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Core.CoreDataContext.SetCaseStatusAndSave(Microsoft.Xrm.Client.ICrmEntity,System.String,System.String)">
+            <summary>
+            Change the state of a case.
+            </summary>
+            <param name="incident">The Case to change.</param>
+            <param name="state">The state to change to.</param>
+            <param name="resolutionSubject"></param>
+            <returns>The updated Case.</returns>
+            <remarks>
+            <para>The provided <paramref name="incident"/> must already be persisted to the CRM for this operation to succeed.</para>
+            <para>It it not necessary to SaveChanges after this operation--this operation fully persists the state change to CRM.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Core.CoreDataContext.SetOpportunityStatusAndSave(Microsoft.Xrm.Client.ICrmEntity,System.String,System.Decimal)">
+            <summary>
+            Change the state of an opportunity.
+            </summary>
+            <param name="opportunity">The Opportunity to change.</param>
+            <param name="state">The state to change to.</param>
+            <returns>The updated Opportunity.</returns>
+            <remarks>
+            <para>The provided <paramref name="opportunity"/> must already be persisted to the CRM for this operation to succeed.</para>
+            <para>It it not necessary to SaveChanges after this operation--this operation fully persists the state change to CRM.</para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Core.CoreDataContext.SetActivityStatusAndSave(Microsoft.Xrm.Client.ICrmEntity,System.String)">
+            <summary>
+            Change the state of an activity.
+            </summary>
+            <param name="serviceActivity">The activity to change.</param>
+            <param name="state">The state to change to.</param>
+            <returns>The updated activity.</returns>
+            <remarks>
+            <para>The provided <paramref name="serviceActivity"/> must already be persisted to the CRM for this operation to succeed.</para>
+            <para>It it not necessary to SaveChanges after this operation--this operation fully persists the state change to CRM.</para>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Core.CoreDataContext.CaseAccessScopeOption">
+            <summary>
+             (Enumeration for Case Access adx_scope)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Core.NoteExtensions.GetRewriteUrl(Microsoft.Xrm.Client.ICrmEntity)">
+            <summary>
+            Retrieve the url to emit that will download this attached file from the website.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.ICrmSiteMapNodeValidator">
+            <summary>
+            Interface representing validation logic for a <see cref="T:Microsoft.Xrm.Portal.Web.CrmSiteMapNode"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.CompositeCrmSiteMapNodeValidator">
+            <summary>
+            Composes multiple <see cref="T:Microsoft.Xrm.Portal.Web.ICrmSiteMapNodeValidator"/>s into a single validator for which
+            the <see cref="M:Microsoft.Xrm.Portal.Web.CompositeCrmSiteMapNodeValidator.Validate(Microsoft.Xrm.Portal.Web.CrmSiteMapNode)"/> method on each composed validator must return true.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.CrmSiteMapNode">
+            <summary>
+            Represents a SiteMap node for the site map providers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.CrmSiteMapNode.#ctor(System.Web.SiteMapProvider,System.String,System.String,System.String,System.String,System.String,System.DateTime)">
+            <summary>
+            Constructs a new site map node.
+            </summary>
+            <param name="provider">Provider used to construct this site map node.</param>
+            <param name="key">Unique key.</param>
+            <param name="url">Url to render.</param>
+            <param name="title">Title of page.</param>
+            <param name="description">Description of page.</param>
+            <param name="rewriteUrl">Url to use for url rewriting.</param>
+            <param name="lastModified">Last modification date.</param>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.CrmSiteMapNode.RewriteUrl">
+            <summary>
+            The real url to use for url rewriting for site map node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.CrmSiteMapNode.LastModified">
+            <summary>
+            The last modification date of the data for site map node.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.CrmSiteMapProviderBase">
+            <summary>
+            Abstract base class for XRM <see cref="T:System.Web.SiteMapProvider"/>s, containing shared configuration and
+            security validation logic.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute">
+            <summary>
+            Represents an assembly attribute that registers another assembly of statically served embedded resource files.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute.Assembly">
+            <summary>
+            Gets the name of the assembly containing the embedded resources.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute.Namespace">
+            <summary>
+            Gets the default namespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute.VirtualPathMask">
+            <summary>
+            Gets the virtual directory path pattern to match against.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute.AllowOverride">
+            <summary>
+            Gets the flag allowing the previous virtual path provider to take precedence.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute.AllowDefaultDocument">
+            <summary>
+            Gets the flag allowing a default document transfer to occur.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute.Resources">
+            <summary>
+            Gets the set of resources contained in the assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.EmbeddedResourceAssemblyAttribute.ResourceLookup">
+            <summary>
+            Gets a lookup from resource name to resource node.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.EmbeddedResourceVirtualPathProvider">
+            <summary>
+            A path provider for serving static files from embedded resources of a registered assembly.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.ICrmEntityContentFormatter">
+            <summary>
+            Provides an interface through which CRM entity content can be transformed before it is rendered.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.ICrmEntityContentFormatter.Format(System.String,Microsoft.Xrm.Client.ICrmEntity,System.Object)">
+            <summary>
+            Formats/transforms content for rendering.
+            </summary>
+            <param name="content">The content to be formatted. This value may be null, and implementations should handle this as a valid case.</param>
+            <param name="entity">The <see cref="T:Microsoft.Xrm.Client.ICrmEntity"/> to which the content being formatted belongs.</param>
+            <param name="context">The context from which this method is called (usually the caller). This value may be null, and implementations should handle this as a valid case.</param>
+            <returns>The transformed content.</returns>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.QueryStringCollection">
+            <summary>
+            Loads the current querystring when instantiated and can output a flat formatted string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.QueryStringCollection.#ctor(System.String)">
+            <summary>
+            Parses a string querystring representation.
+            </summary>
+            <param name="url"></param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.QueryStringCollection.ToString">
+            <summary>
+            Returns a formatted querystring.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.SecurityCrmSiteMapNodeValidator">
+            <summary>
+            Validates that a given <see cref="T:Microsoft.Xrm.Client.Security.ICrmEntitySecurityProvider"/> grants <see cref="F:Microsoft.Xrm.Client.Security.CrmEntityRight.Read"/>
+            privileges to the <see cref="T:Microsoft.Xrm.Client.ICrmEntity"/> attached to any <see cref="T:Microsoft.Xrm.Portal.Web.CrmSiteMapNode"/> to be validated.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.SiteContextModule.GetClientUrl(System.Web.HttpContext)">
+            <summary>
+            Retrieves the client URL taking into account the possibility of a 404 request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.SiteSettings">
+            <summary>
+            Static centralized location for various XRM site constants and configuration values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Xrm.Portal.Web.SiteSettings.XrmFilesRootPath">
+            <summary>
+            The reserved root path for XRM file resources served through the virtual path provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.SiteSettings.CmsServiceBaseUri">
+            <summary>
+            Gets the ADO.NET Data Services service base URI for front-side editing functionality.
+            </summary>
+            <remarks>
+            This value is configured through the appSetting "Microsoft.Xrm.Portal.Web.CmsServiceBaseUri".
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UrlBuilder">
+            <summary>
+            Builds out a url.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UrlBuilder.ValidateUri(System.String)">
+            <summary>
+            Prepares a raw string URL to be valid for the base UriBuilder contstructor.
+            </summary>
+            <param name="uri"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UrlBuilder.PageName">
+            <summary>
+            The name of the aspx page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.WebsitePathUtility.ToAbsolute(System.String)">
+            <summary>
+            Converts the given URL path into a website specific path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.WebsitePathUtility.ToAbsolute(Microsoft.Xrm.Client.ICrmEntity,System.String)">
+            <summary>
+            Converts the given URL path into a website specific path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.WebsitePathUtility.ToRelative(System.String)">
+            <summary>
+            Removes the current website's path from the given URL path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.WebsitePathUtility.ToRelative(Microsoft.Xrm.Client.ICrmEntity,System.String)">
+            <summary>
+            Removes the website's path from the given URL path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.WebsitePathUtility.ToRelative(Microsoft.Xrm.Portal.Web.UrlBuilder)">
+            <summary>
+            Removes the current website's path from the given URL.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.WebsitePathUtility.ToRelative(Microsoft.Xrm.Client.ICrmEntity,Microsoft.Xrm.Portal.Web.UrlBuilder)">
+            <summary>
+            Removes the website's path from the given URL.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Compilation.CrmSiteMapExpressionBuilder">
+            <summary>
+            Expression builder for getting various values from the <see cref="T:Microsoft.Xrm.Portal.Web.CrmSiteMapProvider"/>, given
+            one of several supported node selectors.
+            </summary>
+            <remarks>
+            Usage: (expressionPrefix): (Current|SiteMarker={siteMarker}) [, Node|Entity|Url]
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Compilation.SiteSettingExpressionBuilder">
+            <summary>
+            Expression builder for getting various values from the Site Settings
+            </summary>
+            <remarks>
+            Usage: SiteSetting: (SettingName) [, DefaultValue]
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataService`1">
+            <summary>
+            Base class for ADO.NET Data Services to support CMS front-side editing features.
+            </summary>
+            <typeparam name="TDataContext">
+            The <see cref="T:Microsoft.Xrm.Client.Data.Services.ICrmDataContext"/> whose entities are exposed by this service.
+            </typeparam>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataService`1.AttachFilesToEntity(System.String,System.Guid)">
+            <summary>
+            Service operation to add a file attachment annotation to an entity, by Guid and entity set name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataService`1.DeleteEntity(System.String,System.Guid)">
+            <summary>
+            Service operation to delete an entity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataService`1.GetEntityUrl(System.String,System.Guid)">
+            <summary>
+            Service operation to get a URL for an entity, by Guid and entity set name.
+            </summary>
+            <returns>Entity URL as a string.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataService`1.InterceptChange``1(``0,System.Data.Services.UpdateOperations)">
+            <summary>
+            Intercepts changes on the entity types we care about (through codegen <see cref="T:System.Data.Services.ChangeInterceptorAttribute">Change Interceptors</see>).
+            </summary>
+            <exception cref="T:System.Data.Services.DataServiceException">
+            Throws 403 <see cref="T:System.Data.Services.DataServiceException"/> on any security permission failure, of when passed a <see cref="T:Microsoft.Xrm.Client.ICrmEntity"/> of
+            a CRM entity type that is not explicitly handled by this implementation.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataServiceProvider.DeleteEntity(Microsoft.Xrm.Client.Data.Services.ICrmDataContext,System.String,System.Guid)">
+            <summary>
+            Service operation to soft-delete an entity. ("Soft" in that it may not actually delete the entity,
+            but may instead change it to a different state, archive it, etc.)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataServiceProvider.GetEntitySetsWithRights``1(System.Collections.Generic.Dictionary{System.String,System.Data.Services.EntitySetRights})">
+            <summary>
+            Gets mappings of <see cref="T:System.Linq.IQueryable`1"/> entity set names exposed by TDataContext and
+            the <see cref="T:System.Data.Services.EntitySetRights"/> to assign to those sets at service initialization.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Data.Services.ICrmEntityExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.Xrm.Client.ICrmEntity"/> for building <see cref="T:Microsoft.Xrm.Portal.Web.Data.Services.CmsDataService`1"/> service URIs.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Handlers.CacheInvalidationHandler">
+            <summary>
+            Used to invalidate cache items based on the type of message (publish, create, update, or delete) and the entity type and id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Handlers.CacheInvalidationHandler.IsReusable">
+            <summary>Gets whether this handler is reusable.</summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Handlers.LiveIdWebAuthenticationHandler.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            Enables processing of HTTP Web requests by a custom HttpHandler that implements the <see cref="T:System.Web.IHttpHandler" /> interface.
+            </summary>
+            <param name="context">An <see cref="T:System.Web.HttpContext" /> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests. </param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Handlers.LiveIdWebAuthenticationHandler.ProcessLogin(System.Web.HttpContext)">
+            <summary>
+            Set the Live ID cookie and redirect to the login destination or the registration destination.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Handlers.LiveIdWebAuthenticationHandler.IsReusable">
+            <summary>
+            Gets a value indicating whether another request can use the <see cref="T:System.Web.IHttpHandler" /> instance.
+            </summary>
+            <returns>
+            true if the <see cref="T:System.Web.IHttpHandler" /> instance is reusable; otherwise, false.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Handlers.MediaHandler">
+            <summary>
+            Used to retrieve a single media item from an annotation in Microsoft's Crm
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Handlers.MediaHandler.RetrieveMedia(System.Web.HttpContext)">
+            <summary>
+            Writes media back to client if it is available; otherwise, sets status code to not found.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Handlers.MediaHandler.SetResponseParameters(System.Web.HttpContext)">
+            <summary>
+             Sets the http response parameters for status code, caching, and headers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Handlers.MediaHandler.IsReusable">
+            <summary>Gets whether this handler is reusable.</summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes the provider with the property values specified in the ASP.NET application's configuration file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.AddUsersToRoles(System.String[],System.String[])">
+            <summary>
+            Adds the specified user names to the specified roles for the configured applicationName.
+            </summary>
+            <param name="roleNames">A string array of the role names to add the specified user names to. </param>
+            <param name="usernames">A string array of user names to be added to the specified roles. </param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.CreateRole(System.String)">
+            <summary>
+            Adds a new role to the data source for the configured applicationName.
+            </summary>
+            <param name="roleName">The name of the role to create.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.DeleteRole(System.String,System.Boolean)">
+            <summary>
+            Removes a role from the data source for the configured applicationName.
+            </summary>
+            <returns>
+            True if the role was successfully deleted; otherwise, false.
+            </returns>
+            <param name="throwOnPopulatedRole">If true, then an exception will be thrown if the role has one or more members and the role will not be deleted.</param>
+            <param name="roleName">The name of the role to delete.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.FindUsersInRole(System.String,System.String)">
+            <summary>
+            Gets an array of user names in a role where the user name contains the specified user name to match.
+            </summary>
+            <returns>
+            A string array containing the names of all the users where the user name matches usernameToMatch and the user is a member of the specified role.
+            </returns>
+            <param name="usernameToMatch">The user name to search for.</param>
+            <param name="roleName">The role to search in.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.GetAllRoles">
+            <summary>
+            Gets an array of all the roles for the configured applicationName.
+            </summary>
+            <returns>
+            A string array containing the names of all the roles stored in the data source for the configured applicationName.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.GetRolesForUser(System.String)">
+            <summary>
+            Gets an array of the roles that a specified user is in for the configured applicationName.
+            </summary>
+            <returns>
+            A string array containing the names of all the roles that the specified user is in for the configured applicationName.
+            </returns>
+            <param name="username">The user to return a list of roles for.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.GetUsersInRole(System.String)">
+            <summary>
+            Gets an array of users in the specified role for the configured applicationName.
+            </summary>
+            <returns>
+            A string array containing the names of all the users who are members of the specified role for the configured applicationName.
+            </returns>
+            <param name="roleName">The name of the role to get the list of users for. </param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.IsUserInRole(System.String,System.String)">
+            <summary>
+            Gets a value indicating whether the specified user is in the specified role for the configured applicationName.
+            </summary>
+            <returns>
+            True if the specified user is in the specified role for the configured applicationName; otherwise, false.
+            </returns>
+            <param name="username">The user name to search for.</param>
+            <param name="roleName">The role to search in.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.RemoveUsersFromRoles(System.String[],System.String[])">
+            <summary>
+            Removes the specified user names from the specified roles for the configured applicationName.
+            </summary>
+            <param name="roleNames">A string array of role names to remove the specified user names from. </param>
+            <param name="usernames">A string array of user names to be removed from the specified roles. </param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.RoleExists(System.String)">
+            <summary>
+            Gets a value indicating whether the specified role name already exists in the role data source for the configured applicationName.
+            </summary>
+            <returns>
+            True if the role name already exists in the data source for the configured applicationName; otherwise, false.
+            </returns>
+            <param name="roleName">The name of the role to search for in the data source. </param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.ForEachUserAndRole(Microsoft.Xrm.Client.Data.Services.ICrmDataContext,System.String[],System.String[],System.Action{Microsoft.Xrm.Client.ICrmEntity,Microsoft.Xrm.Client.ICrmEntity})">
+            <summary>
+            Finds each user and role entity specified by the usernames and role names provided, respectively, and calls a delegate for each possible pairing.
+            </summary>
+            <exception cref="T:System.Configuration.Provider.ProviderException">
+            Thrown if any of the specified users or roles are not found.
+            </exception>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.ApplicationName">
+            <summary>
+            Gets or sets the name of the application to store and retrieve role information for.
+            </summary>
+            <returns>
+            The name of the application to store and retrieve role information for.
+            </returns>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.CrmDataContextName">
+            <summary>
+            The data context name to use to connect to the CRM.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.CrmRoleProvider.WebsiteID">
+            <summary>
+            Gets the configured adx_website ID to which the operations of this provider are scoped.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider">
+            <summary>
+            A pseudo membership provider to enable the use of some .NET login controls.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes the provider with the property values specified in the ASP.NET application's configuration file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.CreateUser(System.String,System.Boolean)">
+            <summary>
+            Creates the Live ID user and authenticates with forms authentication if <paramref name="setUserOnline"/> is true.
+            </summary>
+            <param name="token">The token returned from Live ID that contains information about the user.</param>
+            <param name="setUserOnline">If true, the user will be authenticated once created.</param>
+            <returns>
+            A <see cref="T:System.Web.Security.MembershipUser"/> object populated with the information for the newly created user.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)">
+            <summary>
+            Adds a new membership user to the data source.
+            </summary>
+            <returns>
+            A <see cref="T:System.Web.Security.MembershipUser" /> object populated with the information for the newly created user.
+            </returns>
+            <param name="username">The user name for the new user.</param>
+            <param name="password">NOT SUPPORTED.</param>
+            <param name="email">NOT SUPPORTED.</param>
+            <param name="passwordQuestion">NOT SUPPORTED.</param>
+            <param name="passwordAnswer">NOT SUPPORTED.</param>
+            <param name="isApproved">NOT SUPPORTED.</param>
+            <param name="providerUserKey">NOT SUPPORTED.</param>
+            <param name="status">A <see cref="T:System.Web.Security.MembershipCreateStatus" /> enumeration value indicating whether the user was created successfully.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.DeleteUser(System.String,System.Boolean)">
+            <summary>
+            Removes a user from the membership data source. 
+            </summary>
+            <returns>
+            true if the user was successfully deleted; otherwise, false.
+            </returns>
+            <param name="username">The name of the user to delete.</param>
+            <param name="deleteAllRelatedData">true to delete data related to the user from the database; false to leave data related to the user in the database.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.GetPuid(System.String)">
+            <summary>
+            Gets the Passport Unique Identifier from a Windows Live ID token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.GetUser(System.Object,System.Boolean)">
+            <summary>
+            Gets user information from the data source based on the unique identifier for the membership user. Provides an option to update the last-activity date/time stamp for the user.
+            </summary>
+            <returns>
+            A <see cref="T:System.Web.Security.MembershipUser" /> object populated with the specified user's information from the data source.
+            </returns>
+            <param name="providerUserKey">The unique identifier for the membership user to get information for.</param>
+            <param name="userIsOnline">true to update the last-activity date/time stamp for the user; false to return user information without updating the last-activity date/time stamp for the user.</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.GetUser(System.String,System.Boolean)">
+            <summary>
+            Gets information from the data source for a user. Provides an option to update the last-activity date/time stamp for the user.
+            </summary>
+            <returns>
+            A <see cref="T:System.Web.Security.MembershipUser" /> object populated with the specified user's information from the data source.
+            </returns>
+            <param name="username">The name of the user to get information for. </param>
+            <param name="userIsOnline">true to update the last-activity date/time stamp for the user; false to return user information without updating the last-activity date/time stamp for the user. </param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.SetUserOnline(System.String)">
+            <summary>
+            Sets a user as authenticated using forms authentication and the Windows Live ID token.
+            </summary>
+            <param name="token">The Windows Live ID token that contains the user to set as authenticated.</param>
+            <returns>true if successful; otherwise, false</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.UpdateUser(System.Web.Security.MembershipUser)">
+            <summary>
+            Updates information about a user in the data source.
+            </summary>
+            <param name="user">A <see cref="T:System.Web.Security.MembershipUser" /> object that represents the user to update and the updated information for the user. </param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.ValidateUser(System.String,System.String)">
+            <summary>
+            Verifies that the specified user id exists in the data source and is approved.
+            </summary>
+            <returns>
+            true if the specified username exists and is approved; otherwise, false.
+            </returns>
+            <param name="username">The id of the user.</param>
+            <param name="password">NOT SUPPORTED.</param>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.AppId">
+            <summary>
+            The Windows Live Application ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider.ApplicationName">
+            <summary>
+            The name of the application using the membership provider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin">
+            <summary>
+            Sample implementation of Web Authentication and Delegated Authentication 
+            protocol. Also includes trusted sign-in and application 
+            verification sample implementations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.debug(System.String)">
+            <summary>
+            Stub implementation for logging debug output. You can run
+            a tool such as 'dbmon' to see the output.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.String,System.String)">
+             <summary>
+             Initialize the WindowsLiveLogin module with the
+             application ID and secret key.
+            
+             We recommend that you employ strong measures to protect
+             the secret key. The secret key should never be
+             exposed to the Web or other users.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.String,System.String,System.String)">
+             <summary>
+             Initialize the WindowsLiveLogin module with the
+             application ID, secret key, and security algorithm.
+            
+             We recommend that you employ strong measures to protect
+             the secret key. The secret key should never be
+             exposed to the Web or other users.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.Boolean,System.String,System.String)">
+            <summary>
+            Initialize the WindowsLiveLogin module with the
+            forceDelAuthNonProvisioned flag, policy URL, and return URL.
+            
+            The 'force_delauth_nonprovisioned' flag indicates whether
+            your application is registered for Delegated Authentication 
+            (that is, whether it uses an application ID and secret key). We 
+            recommend that your Delegated Authentication application always 
+            be registered for enhanced security and functionality. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.String,System.String,System.String,System.Boolean)">
+             <summary>
+             Initialize the WindowsLiveLogin module with the
+             application ID, secret key, security algorithm and 
+             forceDelAuthNonProvisioned flag.
+            
+             We recommend that you employ strong measures to protect
+             the secret key. The secret key should never be
+             exposed to the Web or other users.
+             
+             The 'force_delauth_nonprovisioned' flag indicates whether
+             your application is registered for Delegated Authentication 
+             (that is, whether it uses an application ID and secret key). We 
+             recommend that your Delegated Authentication application always 
+             be registered for enhanced security and functionality. 
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.String,System.String,System.String,System.Boolean,System.String)">
+             <summary>
+             Initialize the WindowsLiveLogin module with the
+             application ID, secret key, security algorithm,    
+             forceDelAuthNonProvisioned and policy URL use.
+            
+             We recommend that you employ strong measures to protect
+             the secret key. The secret key should never be
+             exposed to the Web or other users.
+             
+             The 'force_delauth_nonprovisioned' flag indicates whether
+             your application is registered for Delegated Authentication 
+             (that is, whether it uses an application ID and secret key). We 
+             recommend that your Delegated Authentication application always 
+             be registered for enhanced security and functionality. 
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.String,System.String,System.String,System.Boolean,System.String,System.String)">
+             <summary>
+             Initialize the WindowsLiveLogin module with the
+             application ID, secret key, security algorithm,    
+             forceDelAuthNonProvisioned, policy URL and return URL.
+            
+             We recommend that you employ strong measures to protect
+             the secret key. The secret key should never be
+             exposed to the Web or other users.
+             
+             The 'force_delauth_nonprovisioned' flag indicates whether
+             your application is registered for Delegated Authentication 
+             (that is, whether it uses an application ID and secret key). We 
+             recommend that your Delegated Authentication application always 
+             be registered for enhanced security and functionality.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.Boolean)">
+            <summary>
+            Initialize the WindowsLiveLogin module from the
+            web.config file if loadAppSettings is true. Otherwise,
+            you will have to manually set the AppId, Secret and
+            SecurityAlgorithm properties.
+            
+            In a Delegated Authentication scenario, you may also specify
+            the return and privacy policy URLs to use, as shown in the 
+            Delegated Authentication samples.     
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.#ctor(System.String)">
+            <summary><![CDATA[
+            Initialize the WindowsLiveLogin module from a settings file. 
+            
+            'settingsFile' specifies the location of the XML settings
+            file containing the application ID, secret key, an optional
+            security algorithm and a privacy policy URL (required for
+            Delegated Auth).  The file is of the following format:
+            
+            <windowslivelogin>
+              <appid>APPID</appid>
+              <secret>SECRET</secret>
+              <securityalgorithm>wsignin1.0</securityalgorithm>
+              <policyurl>http://[your domain]/[your privacy policy]</policyurl>
+              <returnurl>http://[your domain]/[your return url]</policyurl>
+            </windowslivelogin>
+            
+            In a Delegated Authentication scenario, you may also specify
+            'returnurl' and 'policyurl' in the settings file. 
+             
+            We recommend that you store the Windows Live Login settings file
+            in an area on your server that cannot be accessed through
+            the Internet. This file contains important confidential
+            information.      
+            ]]></summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetLoginUrl">
+            <summary>
+            Returns the sign-in URL to use for the Windows Live Login server.
+            We recommend that you use the Sign In control instead.
+            </summary>
+            <returns>Sign-in URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetLoginUrl(System.String)">
+            <summary>
+            Returns the sign-in URL to use for the Windows Live Login server.
+            We recommend that you use the Sign In control instead.
+            </summary>
+            <param name="context">If you specify it, <paramref
+            name="context"/> will be returned as-is in the sign-in
+            response for site-specific use.</param>
+            <returns>Sign-in URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetLoginUrl(System.String,System.String)">
+            <summary>
+            Returns the sign-in URL to use for the Windows Live Login server.
+            We recommend that you use the Sign In control instead.
+            </summary>
+            <param name="context">If you specify it, <paramref
+            name="context"/> will be returned as-is in the sign-in
+            response for site-specific use.</param>
+            <param name="market">The language in which the sign-in page is 
+            displayed is configured by culture ID (For example, 'fr-fr' or 
+            'en-us') specified in the 'market' parameter.</param>
+            <returns>Sign-in URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetLogoutUrl">
+            <summary>
+            Returns the sign-out URL to use for the Windows Live Login server.
+            We recommend that you use the Sign In control instead.
+            </summary>
+            <returns>Sign-out URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetLogoutUrl(System.String)">
+            <summary>
+            Returns the sign-out URL to use for the Windows Live Login server.
+            We recommend that you use the Sign In control instead.
+            </summary>
+            <param name="market">The language in which the sign-in page is 
+            displayed is configured by culture ID (For example, 'fr-fr' or 
+            'en-us') specified in the 'market' parameter.</param>
+            <returns>Sign-out URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ProcessLogin(System.Collections.Specialized.NameValueCollection)">
+             <summary>
+             Processes the sign-in response from the Windows Live Login server.
+             </summary>
+            
+             <param name="query">Contains the preprocessed POST query
+             such as that returned by HttpRequest.Form</param>
+             
+             <returns>The method returns a User object on successful
+             sign-in; otherwise null.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ProcessToken(System.String)">
+            <summary>
+            Decodes and validates a Web Authentication token. Returns a User
+            object on success.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ProcessToken(System.String,System.String)">
+            <summary>
+            Decodes and validates a Web Authentication token. Returns a User
+            object on success. If a context is passed in, it will be
+            returned as the context field in the User object.
+            </summary>
+            <param name="token">Web Authentication token</param>
+            <param name="context">If you specify it, <paramref
+            name="context"/> will be returned as-is in the sign-in
+            response for site-specific use.</param>        
+            <returns>User object</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetClearCookieResponse(System.String@,System.Byte[]@)">
+            <summary>
+            Returns an appropriate content type and body
+            response that the application handler can return to
+            signify a successful sign-out from the application.
+            
+            When a user signs out of Windows Live or a Windows Live
+            application, a best-effort attempt is made to sign the user out
+            from all other Windows Live applications the user might be signed
+            in to. This is done by calling the handler page for each
+            application with 'action' parameter set to 'clearcookie' in the query
+            string. The application handler is then responsible for clearing
+            any cookies or data associated with the sign-in. After successfully
+            signing the user out, the handler should return a GIF (any
+            GIF) as response to the action=clearcookie query.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetConsentUrl(System.String)">
+            <summary>
+            Returns the consent URL to use for Delegated Authentication for
+            the given comma-delimited list of offers.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <returns>Consent URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetConsentUrl(System.String,System.String)">
+            <summary>
+            Returns the consent URL to use for Delegated Authentication for
+            the given comma-delimited list of offers.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <param name="context">If you specify it, <paramref
+            name="context"/> will be returned as-is in the consent 
+            response for site-specific use.</param>
+            <returns>Consent URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetConsentUrl(System.String,System.String,System.String)">
+            <summary>
+            Returns the consent URL to use for Delegated Authentication for
+            the given comma-delimited list of offers.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <param name="context">If you specify it, <paramref
+            name="context"/> will be returned as-is in the consent 
+            response for site-specific use.</param>
+            <param name="ru">The registered/configured return URL will be 
+            overridden by 'ru' specified here.</param>
+            <returns>Consent URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetConsentUrl(System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns the consent URL to use for Delegated Authentication for
+            the given comma-delimited list of offers.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <param name="context">If you specify it, <paramref
+            name="context"/> will be returned as-is in the sign-in
+            response for site-specific use.</param>
+            <param name="ru">The registered/configured return URL will be 
+            overridden by 'ru' specified here.</param>
+            <param name="market">The language in which the consent page is 
+            displayed is configured by culture ID (For example, 'fr-fr' or 
+            'en-us') specified in the 'market' parameter.</param>
+            <returns>Consent URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetRefreshConsentTokenUrl(System.String,System.String)">
+            <summary>
+            Returns the URL to use to download a new consent token, given the 
+            offers and refresh token.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <param name="refreshToken">Refresh token.</param>
+            <returns>Refresh consent token URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetRefreshConsentTokenUrl(System.String,System.String,System.String)">
+            <summary>
+            Returns the URL to use to download a new consent token, given the 
+            offers and refresh token.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <param name="refreshToken">Refresh token.</param>
+            <returns>Refresh consent token URL</returns>
+            <param name="ru">The registered/configured return URL will be 
+            overridden by 'ru' specified here.</param>
+            <returns>Refresh consent token URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetManageConsentUrl">
+            <summary>
+            Returns the URL for the consent-management user interface.
+            </summary>
+            <returns>Manage consent URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetManageConsentUrl(System.String)">
+            <summary>
+            Returns the URL for the consent-management user interface.
+            </summary>
+            <param name="market">The language in which the consent page is 
+            displayed is configured by culture ID (For example, 'fr-fr' or 
+            'en-us') specified in the 'market' parameter.</param>
+            <returns>Manage consent URL</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ProcessConsent(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Processes the POST response from the Delegated Authentication 
+            service after a user has granted consent. The processConsent
+            function extracts the consent token string and returns the result 
+            of invoking the processConsentToken method. 
+            </summary>
+            <param name="query">Response from the Delegated Authentication service.</param>
+            <returns>ConsentToken</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ProcessConsentToken(System.String)">
+            <summary>
+            Processes the consent token string that is returned in the POST 
+            response by the Delegated Authentication service after a 
+            user has granted consent.
+            </summary>
+            <param name="token">Raw token.</param>
+            <returns>ConsentToken</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ProcessConsentToken(System.String,System.String)">
+            <summary>
+            Processes the consent token string that is returned in the POST 
+            response by the Delegated Authentication service after a 
+            user has granted consent.
+            </summary>
+            <param name="token">Raw token.</param>
+            <param name="context">If you specify it, <paramref
+            name="context"/> will be returned as-is in the sign-in
+            response for site-specific use.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.RefreshConsentToken(Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken)">
+            <summary>
+            Attempts to obtain a new, refreshed token and return it. The 
+            original token is not modified.
+            </summary>
+            <param name="token">ConsentToken object.</param>
+            <returns>Refreshed ConsentToken object.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.RefreshConsentToken(Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken,System.String)">
+            <summary>
+            Attempts to obtain a new, refreshed token and return it. The 
+            original token is not modified.
+            </summary>
+            <param name="token">ConsentToken object.</param>
+            <param name="ru">The registered/configured return URL will be 
+            overridden by 'ru' specified here.</param>
+            <returns>Refreshed ConsentToken object.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.RefreshConsentToken(System.String,System.String)">
+            <summary>
+            Attempts to obtain a new, refreshed token and return it using 
+            the offers and refresh token. The original token is not modified.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <param name="refreshToken">Refresh token.</param>
+            <returns>Refreshed ConsentToken object.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.RefreshConsentToken(System.String,System.String,System.String)">
+            <summary>
+            Attempts to obtain a new, refreshed token and return it using 
+            the offers and refresh token. The original token is not modified.
+            </summary>
+            <param name="offers">Comma-delimited list of offers.</param>
+            <param name="refreshToken">Refresh token.</param>
+            <param name="ru">The registered/configured return URL will be 
+            overridden by 'ru' specified here.</param>
+            <returns>Refreshed ConsentToken object.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.DecodeAndValidateToken(System.String)">
+            <summary>
+            Decodes and validates the raw token.
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.DecodeAndValidateToken(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            Decodes and validates the raw token with appropriate crypt key 
+            and sign key.
+            </summary>
+            <param name="token">Raw token.</param>
+            <param name="cryptKey">Crypt key.</param>
+            <param name="signKey">Sign key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.DecodeToken(System.String)">
+             <summary>
+             Decode the given token. Returns null on failure.
+             </summary>
+            
+             <list type="number">
+             <item>First, the string is URL unescaped and base64
+             decoded.</item>
+             <item>Second, the IV is extracted from the first 16 bytes
+             of the string.</item>
+             <item>Finally, the string is decrypted by using the
+             encryption key.</item> 
+             </list>
+             <param name="token">Raw token.</param>
+             <returns>Decoded token.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.DecodeToken(System.String,System.Byte[])">
+             <summary>
+             Decode the given token. Returns null on failure.
+             </summary>
+            
+             <list type="number">
+             <item>First, the string is URL unescaped and base64
+             decoded.</item>
+             <item>Second, the IV is extracted from the first 16 bytes
+             of the string.</item>
+             <item>Finally, the string is decrypted by using the
+             encryption key.</item> 
+             </list>
+             <param name="token">Raw token.</param>
+             <param name="cryptKey">Crypt key.</param>
+             <returns>Decoded token.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.SignToken(System.String)">
+            <summary>
+            Creates a signature for the given string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.SignToken(System.String,System.Byte[])">
+            <summary>
+            Creates a signature for the given string by using the
+            signature key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ValidateToken(System.String)">
+            <summary>
+            Extracts the signature from the token and validates it.
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ValidateToken(System.String,System.Byte[])">
+            <summary>
+            Extracts the signature from the token and validates it by using the 
+            signature key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppVerifier">
+            <summary>
+            Generates an Application Verifier token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppVerifier(System.String)">
+            <summary>
+            Generates an Application Verifier token. An IP address
+            can be included in the token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppLoginUrl">
+             <summary>
+             Returns the URL needed to retrieve the application
+             security token. The application security token
+             will be generated for the Windows Live site.
+            
+             JavaScript Output Notation (JSON) output is returned:
+            
+             {"token":"&lt;value&gt;"}
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppLoginUrl(System.String)">
+             <summary>
+             Returns the URL needed to retrieve the application
+             security token.
+            
+             By default, the application security token will be
+             generated for the Windows Live site; a specific Site ID
+             can optionally be specified in 'siteId'.
+            
+             JSON output is returned:
+            
+             {"token":"&lt;value&gt;"}
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppLoginUrl(System.String,System.String)">
+             <summary>
+             Returns the URL needed to retrieve the application
+             security token.
+            
+             By default, the application security token will be
+             generated for the Windows Live site; a specific Site ID
+             can optionally be specified in 'siteId'. The IP address
+             can also optionally be included in 'ip'.
+            
+             JSON output is returned:
+            
+             {"token":"&lt;value&gt;"}
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppLoginUrl(System.String,System.String,System.Boolean)">
+             <summary>
+             Returns the URL needed to retrieve the application
+             security token.
+            
+             By default, the application security token will be
+             generated for the Windows Live site; a specific Site ID
+             can optionally be specified in 'siteId'. The IP address
+             can also optionally be included in 'ip'.
+            
+             If 'js' is false, then JSON output is returned: 
+            
+             {"token":"&lt;value&gt;"}
+            
+             Otherwise, a JavaScript response is returned. It is assumed
+             that WLIDResultCallback is a custom function implemented to
+             handle the token value:
+             
+             WLIDResultCallback("&lt;tokenvalue&gt;");
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppSecurityToken">
+            <summary>
+            Retrieves the application security token for application
+            verification from the application sign-in URL. The
+            application security token will be generated for the
+            Windows Live site.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppSecurityToken(System.String)">
+             <summary>
+             Retrieves the application security token for application
+             verification from the application sign-in URL.
+            
+             By default, the application security token will be
+             generated for the Windows Live site; a specific Site ID
+             can optionally be specified in 'siteId'.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppSecurityToken(System.String,System.String)">
+             <summary>
+             Retrieves the application security token for application
+             verification from the application sign-in URL.
+            
+             By default, the application security token will be
+             generated for the Windows Live site; a specific Site ID
+             can optionally be specified in 'siteId'. The IP address
+             can also optionally be included in 'ip'.
+            
+             Implementation note: The application security token is
+             downloaded from the application sign-in URL in JSON format
+             {"token":"&lt;value&gt;"}, so we need to extract
+             &lt;value&gt; from the string and return it as seen here.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetAppRetCode">
+            <summary>
+            Returns a string that can be passed to the GetTrustedParams
+            function as the 'retcode' parameter. If this is specified as
+            the 'retcode', then the app will be used as return URL
+            after it finishes trusted sign-in.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetTrustedParams(System.String)">
+            <summary>
+            Returns a table of key-value pairs that must be posted to
+            the sign-in URL for trusted sign-in. Use HTTP POST to do
+            this. Be aware that the values in the table are neither
+            URL nor HTML escaped and may have to be escaped if you are
+            inserting them in code such as an HTML form.
+            
+            The user to be trusted on the local site is passed in as
+            string 'user'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetTrustedParams(System.String,System.String)">
+            <summary>
+            Returns a table of key-value pairs that must be posted to
+            the sign-in URL for trusted sign-in. Use HTTP POST to do
+            this. Be aware that the values in the table are neither
+            URL nor HTML escaped and may have to be escaped if you are
+            inserting them in code such as an HTML form.
+            
+            The user to be trusted on the local site is passed in as
+            string 'user'.
+            
+            Optionally, 'retcode' specifies the resource to which
+            successful sign-in is redirected, such as Windows Live Mail,
+            and is typically a string in the format 'id=2000'. If you
+            pass in the value from GetAppRetCode instead, sign-in will
+            be redirected to the application. Otherwise, an HTTP 200
+            response is returned.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetTrustedToken(System.String)">
+             <summary>
+             Returns the trusted sign-in token in the format needed by the
+             trusted sign-in gadget.
+            
+             User to be trusted on the local site is passed in as string
+             'user'.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetTrustedLoginUrl">
+            <summary>
+            Returns the trusted sign-in URL to use for the Windows Live
+            Login server. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.GetTrustedLogoutUrl">
+            <summary>
+            Returns the trusted sign-out URL to use for the Windows Live
+            Login server. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.parseSettings(System.String)">
+            <summary>
+            Function to parse the settings file.
+            </summary>
+            <param name="settingsFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.derive(System.String,System.String)">
+            <summary>
+            Derives the key, given the secret key and prefix as described in the 
+            Web Authentication SDK documentation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.parse(System.String)">
+            <summary>
+            Parses query string and return a table representation of 
+            the key and value pairs.  Similar to 
+            HttpUtility.ParseQueryString, except that no URL decoding
+            is done and only the last value is considered in the case
+            of multiple values with one key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.getTimestamp">
+            <summary>
+            Generates a timestamp suitable for the application
+            verifier token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.e64(System.Byte[])">
+            <summary>
+            Base64-encodes and URL-escapes a byte array.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.u64(System.String)">
+            <summary>
+            URL-unescapes and Base64-decodes a string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.fetch(System.String)">
+            <summary>
+            Fetches the contents given a URL.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.AppId">
+            <summary>
+            Gets or sets the application ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.Secret">
+            <summary>
+            Sets your secret key. Use this method if you did not specify 
+            a secret key at initialization.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.OldSecret">
+            <summary>
+            Sets your old secret key.
+            
+            Use this property to set your old secret key if you are in the
+            process of transitioning to a new secret key. You may need this 
+            property because the Windows Live ID servers can take up to 
+            24 hours to propagate a new secret key after you have updated 
+            your application settings.
+            
+            If an old secret key is specified here and has not expired
+            (as determined by the OldSecretExpiry setting), it will be used
+            as a fallback if token decryption fails with the new secret 
+            key.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.OldSecretExpiry">
+             <summary>
+             Sets or gets the expiry time for your old secret key.
+             
+             After this time has passed, the old secret key will no longer be
+             used even if token decryption fails with the new secret key.
+            
+             The old secret expiry time is represented as the number of seconds
+             elapsed since January 1, 1970. 
+             </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.SecurityAlgorithm">
+            <summary>
+            Sets or gets the version of the security algorithm being used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ForceDelAuthNonProvisioned">
+            <summary>
+            Sets or gets a flag that indicates whether Delegated Authentication
+            is non-provisioned (i.e. does not use an application ID or secret
+            key).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.PolicyUrl">
+            <summary>
+            Sets or gets the privacy policy URL.
+            
+            Set the property for Delegated Authentication, if you did 
+            not provide one at initialization time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ReturnUrl">
+            <summary>
+            Sets or gets the return URL--the URL on your site to which the consent 
+            service redirects users (along with the action, consent token, 
+            and application context) after they have successfully provided 
+            consent information for Delegated Authentication. 
+            
+            This value will override the return URL specified during 
+            registration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.BaseUrl">
+            <summary>
+            Sets or gets the URL to use for the Windows Live Login server. 
+            You should not have to use or change this. Furthermore, we
+            recommend that you use the Sign In control instead of
+            the URL methods provided here.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.SecureUrl">
+            <summary>
+            Sets or gets the secure (HTTPS) URL to use for the Windows Live
+            Login server.  You should not have to use or change this
+            directly.  
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentUrl">
+            <summary>
+            Sets or gets the URL to use for the Windows Live Consent server. You
+            should not have to use or change this directly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.SignedOutUrl">
+            <summary>
+            Sets or gets the URL to redirect to after the user has signed out. You
+            should not have to use or change this directly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.AutoRegister">
+            <summary>
+            Gets or sets whether or not users can be created automatically when they login.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User">
+            <summary>
+            Holds the user information after a successful sign-in.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.setTimestamp(System.String)">
+            <summary>
+            Sets the Unix timestamp.
+            </summary>
+            <param name="timestamp"></param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.setId(System.String)">
+            <summary>
+            Sets the pairwise unique ID for the user.
+            </summary>
+            <param name="id">User id</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.setFlags(System.String)">
+            <summary>
+            Sets the usePersistentCookie flag for the user.
+            </summary>
+            <param name="flags"></param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.setContext(System.String)">
+            <summary>
+            Sets the the Application context.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.setToken(System.String)">
+            <summary>
+            Sets the the User token.
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.Timestamp">
+            <summary>
+             Returns the timestamp as obtained from the SSO token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.Id">
+            <summary>
+            Returns the pairwise unique ID for the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.UsePersistentCookie">
+            <summary>
+            Indicates whether the application
+            is expected to store the user token in a session or
+            persistent cookie.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.Context">
+            <summary>
+            Returns the application context that was originally passed
+            to the sign-in request, if any.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.User.Token">
+            <summary>
+            Returns the encrypted Web Authentication token containing 
+            the UID. This can be cached in a cookie and the UID can be
+            retrieved by calling the ProcessToken method.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken">
+            <summary>
+            Holds the Consent Token object corresponding to consent granted. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.#ctor(Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initialize the ConsentToken.
+            </summary>
+            <param name="wll">WindowsLiveLogin</param>
+            <param name="delegationToken">Delegation token</param>
+            <param name="refreshToken">Refresh token</param>
+            <param name="sessionKey">Session key</param>
+            <param name="expiry">Expiry</param>
+            <param name="offers">Offers</param>
+            <param name="locationID">Location ID</param>
+            <param name="context">Application context</param>
+            <param name="decodedToken">Decoded token</param>
+            <param name="token">Raw token</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setDelegationToken(System.String)">
+            <summary>
+            Sets the Delegation token.
+            </summary>
+            <param name="delegationToken">Delegation token</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setRefreshToken(System.String)">
+            <summary>
+            Sets the refresh token.
+            </summary>
+            <param name="refreshToken">Refresh token</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setSessionKey(System.String)">
+            <summary>
+            Sets the session key.
+            </summary>
+            <param name="sessionKey">Session key</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setExpiry(System.String)">
+            <summary>
+            Sets the expiry time of delegation token.
+            </summary>
+            <param name="expiry">Expiry time</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setOffers(System.String)">
+            <summary>
+            Sets the offers/actions for which user granted consent.
+            </summary>
+            <param name="offers">Comma-delimited list of offers</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setLocationID(System.String)">
+            <summary>
+            Sets the location ID.
+            </summary>
+            <param name="locationID">Location ID</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setContext(System.String)">
+            <summary>
+            Sets the application context.
+            </summary>
+            <param name="context">Application context</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setDecodedToken(System.String)">
+            <summary>
+            Sets the decoded token.
+            </summary>
+            <param name="decodedToken">Decoded token</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.setToken(System.String)">
+            <summary>
+            Sets the raw token.
+            </summary>
+            <param name="token">Raw token</param>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.IsValid">
+            <summary>
+            Indicates whether the delegation token is set and has not expired.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.Refresh">
+            <summary>
+            Attempt to refresh the current token and replace it. If operation succeeds 
+            true is returned to signify success.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.copy(Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken)">
+            <summary>
+            Makes a copy of the ConsentToken object.
+            </summary>
+            <param name="consentToken"></param>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.DelegationToken">
+            <summary>
+            Gets the Delegation token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.RefreshToken">
+            <summary>
+            Gets the refresh token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.SessionKey">
+            <summary>
+            Gets the session key.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.Expiry">
+            <summary>
+            Gets the expiry time of delegation token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.Offers">
+            <summary>
+            Gets the list of offers/actions for which the user granted consent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.OffersString">
+            <summary>
+            Gets the string representation of all the offers/actions for which 
+            the user granted consent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.LocationID">
+            <summary>
+            Gets the location ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.Context">
+            <summary>
+            Returns the application context that was originally passed 
+            to the consent request, if any.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.DecodedToken">
+            <summary>
+            Gets the decoded token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.Security.LiveId.WindowsLiveLogin.ConsentToken.Token">
+            <summary>
+            Gets the raw token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheItemParameter">
+            <summary>
+            Binds the value of a property of a collection item to a parameter object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheItemParameter.PropertyName">
+            <summary>
+            Gets or sets the name of the property from which to obtain the value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheItemParameter.Format">
+            <summary>
+            Gets or sets an optional format string for augmenting the value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKeyDependency">
+            <summary>
+            Represents settings for a cache key based cache dependency.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey">
+            <summary>
+            Represents settings for describing a cache key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.GetCacheKey(System.Web.HttpContext,System.Web.UI.Control,System.Object)">
+            <summary>
+            Retrieves the cache key based on the current property values.
+            </summary>
+            <param name="context"></param>
+            <param name="control"></param>
+            <param name="container"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.GetCacheKey(System.Web.HttpContext,System.Web.UI.Control,System.Object,System.Converter{System.String,System.String})">
+            <summary>
+            Retrieves the cache key based on the current property values.
+            </summary>
+            <param name="context"></param>
+            <param name="control"></param>
+            <param name="container"></param>
+            <param name="getDefaultKey"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.Name">
+            <summary>
+            Gets or sets the name used for applying a property as a parameter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.PropertyName">
+            <summary>
+            Gets or sets the name of the property from which to obtain the value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.KeyFormat">
+            <summary>
+            Gets or sets the format string describing the cache key.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.VaryByUser">
+            <summary>
+            Gets or sets the flag for caching by user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.VaryByParam">
+            <summary>
+            Gets or sets the set of querystring parameter names. The names are separated by a semi-colon character.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheKey.Parameters">
+            <summary>
+            Gets the parameters collection that contains the parameters that are used by the KeyFormat property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CacheParameters.GetExpiration">
+            <summary>
+            Retrieves the absolute expiration or the duration expiration.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource">
+            <summary>
+            Represents a CRM web service to data-bound controls.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.Delete(System.Collections.IDictionary,System.Collections.IDictionary)">
+            <summary>
+            Removes an entity from the CRM.
+            </summary>
+            <param name="keys">The keys by which to find the entity in the CRM. "ID" and "Name" must be specified.</param>
+            <param name="oldValues">The entity properties before the update. Key: Property name e.g. "firstname" Value: Value of the property e.g. "Jane"</param>
+            <returns>1 if successful; otherwise, 0.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.Insert(System.Collections.IDictionary,System.String)">
+            <summary>
+            Creates a new entity in the CRM.
+            </summary>
+            <param name="values">The entity properties. Key: Property name e.g. "firstname" Value: Value of the property e.g. "Jane"</param>
+            <param name="entityName">The type of entity to create e.g. "contact"</param>
+            <returns>1 if successful; otherwise, 0.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.Update(System.Collections.IDictionary,System.Collections.IDictionary,System.Collections.IDictionary)">
+            <summary>
+            Updates an entity in the CRM.
+            </summary>
+            <param name="keys">The keys by which to find the entity in the CRM. "ID" and "Name" must be specified.</param>
+            <param name="values">The entity properties to update. Key: Property name e.g. "firstname" Value: Value of the property e.g. "Jane"</param>
+            <param name="oldValues">The entity properties before the update.</param>
+            <returns>1 if successful; otherwise, 0.</returns>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.CrmDataContextName">
+            <summary>
+            Gets or sets the name of the data context for the CRM.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.FetchXml">
+            <summary>
+            Gets or sets the fetch XML query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.QueryByAttribute">
+            <summary>
+            Gets the QueryByAttribute parameters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.SelectParameters">
+            <summary>
+            Gets the parameters collection that contains the parameters that are used when selecting data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.QueryParameters">
+            <summary>
+            Gets the parameters collection that contains the parameters that are used when querying data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.EncodeParametersEnabled">
+            <summary>
+            Gets or sets the option to HtmlEncode the parameter values when constructing the FetchXml as a means of input validation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.StaticEntityWrapperTypeName">
+            <summary>
+            Gets or sets the type name of the static class type to emit. The DynamicEntityWrapper is converted to an object of this type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource.CacheParameters">
+            <summary>
+            Gets the cache settings.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSourceView">
+            <summary>
+            Supports the <see cref="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource"/> control and provides an interface for data-bound controls to retrieve data from the <see cref="T:Microsoft.Crm.SdkTypeProxy.CrmService"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSourceView.Delete(System.Collections.IDictionary,System.Collections.IDictionary)">
+            <summary>
+            Removes an entity from the CRM.
+            </summary>
+            <param name="keys">The keys by which to find the entity in the CRM. "ID" and "Name" must be specified.</param>
+            <param name="oldValues">The entity properties before the update. Key: Property name e.g. "firstname" Value: Value of the property e.g. "Jane"</param>
+            <returns>1 if successful; otherwise, 0.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSourceView.Insert(System.Collections.IDictionary,System.String)">
+            <summary>
+            Creates a new entity in the CRM.
+            </summary>
+            <param name="values">The entity properties. Key: Property name e.g. "firstname" Value: Value of the property e.g. "Jane"</param>
+            <param name="entityName">The type of entity to create e.g. "contact"</param>
+            <returns>1 if successful; otherwise, 0.</returns>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSourceView.Update(System.Collections.IDictionary,System.Collections.IDictionary,System.Collections.IDictionary)">
+            <summary>
+            Updates an entity in the CRM.
+            </summary>
+            <param name="keys">The keys by which to find the entity in the CRM. "ID" and "Name" must be specified.</param>
+            <param name="values">The entity properties to update. Key: Property name e.g. "firstname" Value: Value of the property e.g. "Jane"</param>
+            <param name="oldValues">The entity properties before the update.</param>
+            <returns>1 if successful; otherwise, 0.</returns>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityDataBoundControl">
+            <summary>
+            Abstract base class for databound controls that bind to a single CRM entity (or to a property of
+            a single CRM entity).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityDataBoundControl.DataItem">
+            <summary>
+            Gets or sets the entity data item to which this control will bind.
+            </summary>
+            <remarks>
+            If this property is set, the control will databind to this object automatically.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityDataBoundControl.Format">
+            <summary>
+            Gets or sets a custom format string through which the rendered value will be formatted.
+            </summary>
+            <remarks>
+            The object value to which this control is bound will be passed through <see cref="M:System.String.Format(System.String,System.Object)"/>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityDataBoundControl.HtmlEncode">
+            <summary>
+            Gets or sets the flag to perform an HtmlEncode on the output.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityDataBoundControl.ItemTemplate">
+            <summary>
+            Gets or sets the template that defines how the contained controls are displayed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityDataBoundControl.PropertyName">
+            <summary>
+            Gets or sets the property name to retrieve a value from.
+            This attribute can be a comma-delimited set of property names of which the first not null value will be retrieved.
+            </summary>
+            <example>
+            "Title" will attempt to retrieve the Title property of the bound CrmEntity.
+            "Summary, Description, Copy" will attempt to retrieve the Summary property followed by the Description and lastly the Copy property, if both Summary and Description were null.
+            </example>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityDataSource.DataItem">
+            <summary>
+            Gets or sets the entity data item to which this control will bind.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityEditingManager">
+            <summary>
+            Coordinates rendering of hidden DOM metadata for a bound entity, to support XRM inline editing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.EditableCrmEntityDataBoundControl.CmsServiceBaseUri">
+            <summary>
+            Gets or sets the base URI of the data service to be used for front-side editing functionality
+            provided by this control. Set to use a data service other than the system global/default service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.EditableCrmEntityDataBoundControl.Editable">
+            <summary>
+            Gets or sets a Boolean value indication whether or not this property value will be inline editable
+            (provided the user has edit permission, and no other properties have been set on this control which
+            disable inline editing support).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmEntityFormView">
+            <summary>
+            Renders a form for a given CRM entity name, using CRM metadata.
+            </summary>
+            <remarks>
+            <para>
+            This control currently only supports insertion (no updates, etc.), and should generally use
+            a <see cref="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmDataSource"/> for its data source.
+            </para>
+            <para>
+            This control currently supports the following field types: single-line text (with required
+            field validation), multi-line text (with required field validation), picklists, boolean
+            (i.e., checkboxes), datetime (supports date-only fields), integer (with required field
+            and range validation), and money (with required field and range validation).
+            </para>
+            <para>
+            Other field types (e.g., lookups) will not be rendered.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmListViewListMode">
+            <summary>
+            The set of options for auto-generated container elements.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmListView">
+            <summary>
+            The base <see cref="T:System.Web.UI.WebControls.ListView"></see> control for rendering XRM entity content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmListView.ListMode">
+            <summary>
+            Gets or sets the mode for controlling auto-generated container elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmListView.ListCssClass">
+            <summary>
+            Gets or sets the CSS class to be applied to the container list element if auto-generated containers is enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmListView.ItemCssClass">
+            <summary>
+            Gets or sets the CSS class to be applied to the list item elements if auto-generated containers is enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmListView.ListTagName">
+            <summary>
+            Gets or sets the element name used to render the container element. Overrides the name selected by the ListMode setting.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmListView.ItemTagName">
+            <summary>
+            Gets or sets the element name used to render the item elements. Overrides the name selected by the ListMode setting.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmMetadataDataSource">
+            <summary>
+            Represents a CRM web service to data-bound controls.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmMetadataDataSource.CrmDataContextName">
+            <summary>
+            Gets or sets the name of the data context for the CRM.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmMetadataDataSource.CacheParameters">
+            <summary>
+            Gets the cache settings.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmMetadataDataSourceView">
+            <summary>
+            Supports the <see cref="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmMetadataDataSource"/> control and provides an interface for data-bound controls to retrieve data from the <see cref="T:Microsoft.Crm.SdkTypeProxy.CrmService"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmSiteMapChildView">
+            <summary>
+            Displays the child <see cref="T:System.Web.SiteMapNode"/>s of a given starting <see cref="T:System.Web.SiteMapNode"/>, using user-defined templates.
+            </summary>
+            <remarks>
+            <para>
+            Though this control inherits from <see cref="T:System.Web.UI.WebControls.ListView"/>, which supports explicit custom data sources, this control only
+            uses its own implicit data source. Attempting to set the data source of this control externally will cause exceptions.
+            </para>
+            <para>
+            This control supports ADXSTUDIO XRM front-side editing, in the form of an interface to update the display orders of the
+            rendered children. This interface will appear if the current user has <see cref="F:Microsoft.Xrm.Client.Security.CrmEntityRight.Change"/> access for the
+            <see cref="T:Microsoft.Xrm.Client.ICrmEntity"/> associated with the starting <see cref="T:Microsoft.Xrm.Portal.Web.CrmSiteMapNode"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmSiteMapChildView.GetStartingNode">
+            <summary>
+            Gets the starting <see cref="T:System.Web.SiteMapNode"/> of this control.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmSiteMapChildView.CmsServiceBaseUri">
+            <summary>
+            Gets or sets the base URI of the data service to be used for front-side editing functionality
+            provided by this control. Set to use a data service other than the system global/default service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmSiteMapChildView.Editable">
+            <summary>
+            Gets or sets a Boolean value indication whether or not this property value will be inline editable
+            (provided the user has edit permission, and no other properties have been set on this control which
+            disable inline editing support).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.CrmSiteMapChildView.HasEditPermission">
+            <summary>
+            Gets a Boolean indicating whether or not the current user has Change permission for the CRM entity
+            associated with the starting site map node of this control.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.EntityRightsView">
+            <summary>
+            Templated <see cref="T:System.Web.UI.WebControls.WebControl"/> to render alternate views based on whether
+            the current user has specified <see cref="P:Microsoft.Xrm.Portal.Web.UI.WebControls.EntityRightsView.Rights"/> (<see cref="T:Microsoft.Xrm.Client.Security.CrmEntityRight"/>) over a given
+            <see cref="P:Microsoft.Xrm.Portal.Web.UI.WebControls.EntityRightsView.Entity"/>. If no entity is specified the NoRightsTemplate will be rendered.
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+            <adx:EntityRightsView Rights="Change" runat="server">
+            	<RightsTemplate>
+            		<p>You have permissions to change this entity.</p>
+            	</RightsTemplate>
+            	<NoRightsTemplate>
+            		<p>You do not have permissions to change this entity.</p>
+            	</NoRightsTemplate>
+            </adx:EntityRightsView>
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.EntityRightsView.Entity">
+            <summary>
+            Gets or sets the CRM Entity to be used the target of the rights assertion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.EntityRightsView.Rights">
+            <summary>
+            The <see cref="T:Microsoft.Xrm.Client.Security.CrmEntityRight"/> to be asserted against the target entity, in order to
+            determine whether or not this control will render its contents.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus">
+            <summary>
+            The LiveIdLoginStatus control displays a login link for users who are not authenticated and a logout link for users who are authenticated.
+            When anonymous, the link takes the user to Windows Live or optionally (using LoginNavigateUrl) to a specified landing page that lets the user know they're going to Windows Live.
+            When authenticated, the logout link resets the current user's identity to be an anonymous user.
+            </summary>
+            <remarks>
+            When a LoginNavigateUrl is not specified, the link takes the user directly to Windows Live.
+            
+            If a landing page is desired, set the LoginNavigateUrl to be your landing page, and then place this control on your landing page with no LoginNavigateUrl.
+            
+            The application ID and secret key from your Live ID site registration must be provided in the connection string the <see cref="T:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider"/> uses.
+            See the example below for the connection string syntax.
+            
+            If you wish to provide a logout page URL, it must be provided in the connection string the <see cref="T:Microsoft.Xrm.Portal.Web.Security.LiveIdMembershipProvider"/> uses.
+            See the example below for the connection string syntax.
+            
+            When returning from sign-in, if the user is authenticated but has never registered, they can be sent to a specified RegistrationUrl.
+            If no RegistrationUrl is given, the user can be automatically registered if the Auto Register connection string setting is true.
+            If there is no RegistrationUrl, and automatic registration is disabled, the user will be signed out.
+            
+            <example>
+            <![CDATA[
+            <connectionStrings>
+            	<add name="LiveId" connectionString="Application Id=???; Secret=???; Signed Out Url=???; Auto Register=true"/>
+            </connectionStrings>
+            ]]>
+            The Signed Out Url and Auto Register settings are optional.
+            </example>
+            
+            The return URL for your Live ID site registration should be the url to the LiveIdWebAuthenticationHandler that must be specified in the web.config.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus.LoginDestinationUrl">
+            <summary>
+            When returning from sign-in, if the user is authenticated and registered, they will be sent to the specified URL.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus.LoginImageUrl">
+            <summary>
+            Gets or sets the URL of the image used for the login link.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus.LoginText">
+            <summary>
+            Gets or sets the text used for the login link.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus.LogoutImageUrl">
+            <summary>
+            Gets or sets the URL of the image used for the logout button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus.LogoutText">
+            <summary>
+            Gets or sets the text used for the logout link.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus.LoginNavigateUrl">
+            <summary>
+            When a LoginNavigateUrl is not specified, the link takes the user directly to Windows Live.
+            
+            If a landing page is desired, set the LoginNavigateUrl to be your landing page, and then place this control on your landing page with no LoginNavigateUrl.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.LiveIdLoginStatus.RegistrationUrl">
+            <summary>
+            When returning from sign-in, if the user is authenticated but has never registered, they will be sent to the specified URL.
+            The URL must be one that exists that the server can POST to. It cannot be a custom URL or one that will cause a 404 redirect.
+            </summary>
+            <remarks>If no registration URL is given, the user can be automatically registered if one sets the AutoRegister connection string setting to true.</remarks>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.Property">
+            <summary>
+            Renders the value of an <see cref="T:Microsoft.Xrm.Client.ICrmEntity"/>'s property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.Property.DefaultText">
+            <summary>
+            Gets or sets a default text string to be rendered if the property value(s) targeted by this control
+            is(are) null or empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.Property.EditType">
+            <summary>
+            Gets or sets the string identifier of the type of editing interface to provide for this
+            property (e.g., "html" or "text").
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.Property.Literal">
+            <summary>
+            Gets or sets a Boolean value indicating whether or not this control should render as a literal
+            value, i.e., only the raw text value of the bound property will be rendered, with no surrounding
+            DOM nodes.
+            </summary>
+            <remarks>
+            Setting this value to true disables any inline editing support for the bound property.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.SavedQueryDataSource.CrmDataContextName">
+            <summary>
+            Gets or sets the name of the data context for the CRM.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.SavedQueryDataSource.SavedQueryName">
+            <summary>
+            Gets or sets the name of the saved query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.SavedQueryDataSourceView.Owner">
+            <summary>
+            Gets the owner data source.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.SiteEditingManager">
+            <summary>
+            Coordinates loading of script dependencies for controls that request XRM inline editing support.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.SiteEditingManager.DependencyScripts">
+            <summary>
+            Gets a collection of framework dependency <see cref="T:System.Web.UI.ScriptReference">script references</see> to be loaded prior
+            to the XRM inline editing scripts.
+            </summary>
+            <remarks>
+            These scripts will only be loaded if XRM inline editing support is requested by another control on the page.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.SiteEditingManager.DependencyStyles">
+            <summary>
+            Gets a collection of <see cref="T:Microsoft.Xrm.Portal.Web.UI.WebControls.StyleReference">style references</see> to be linked by the page if XRM inline
+            editing support is request by a control on the page.
+            </summary>
+            <remarks>
+            These styles will be loaded prior to any styles included by the framework.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.SiteEditingManager.ExtensionScripts">
+            <summary>
+            Gets a collection of <see cref="T:System.Web.UI.ScriptReference">script references</see> to be loaded after the XRM inline
+            editing scripts.
+            </summary>
+            <remarks>
+            These scripts will only be loaded if XRM inline editing support is requested by another control on the page.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.SiteEditingManager.ExtensionStyles">
+            <summary>
+            Gets a collection of <see cref="T:Microsoft.Xrm.Portal.Web.UI.WebControls.StyleReference">style references</see> to be linked by the page if XRM inline
+            editing support is request by a control on the page.
+            </summary>
+            <remarks>
+            These styles will be loaded after to any styles included by the framework.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.Snippet">
+            <summary>
+            Renders the value (adx_value) property of a content snippet (adx_contentsnippet).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinkHyperLink">
+            <summary>
+            Renders a hyperlink for a given adx_weblink CRM entity.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinkHyperLink.CurrentSiteMapNodeCssClass">
+            <summary>
+            Gets or sets a CSS class value to be added to the hyperlink if the target node of
+            the hyperlink is the current site map node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinkHyperLink.ParentOfCurrentSiteMapNodeCssClass">
+            <summary>
+            Gets or sets a CSS class value to be added to the hyperlink if the current site map
+            node is a descendant of the target node of the hyperlink.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinkHyperLink.ShowImage">
+            <summary>
+            Gets or sets a Boolean indicating whether or not this hyperlink should render an image
+            link, if an image is associated with the given adx_weblink.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinkHyperLink.WebLink">
+            <summary>
+            Gets or sets the adx_weblink entity for which a corresponding hyperlink will be rendered.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinks">
+            <summary>
+            Renders a web link set (adx_weblinkset) as a list of links.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinks.CurrentSiteMapNodeCssClass">
+            <summary>
+            Gets or sets a CSS class value to be added to the hyperlink if the target node of
+            the hyperlink is the current site map node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Portal.Web.UI.WebControls.WebLinks.ParentOfCurrentSiteMapNodeCssClass">
+            <summary>
+            Gets or sets a CSS class value to be added to the hyperlink if the current site map
+            node is a descendant of the target node of the hyperlink.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1062 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{21120B29-E708-4CB7-B582-A52043BEAEC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BL.UI.Web.Mvc</RootNamespace>
+    <AssemblyName>2Gis.Erm.BL.UI.Web.Mvc</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\RazorGenerator.Mvc.2.2.1\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="Attributes\RutValidationAttribute.cs" />
+    <Compile Include="Controllers\PrintController.cs" />
+    <Compile Include="DI\BlUiWebMvcAssembly.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdditionalFirmServiceController.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\AdvertisementController.cs" />
+    <Compile Include="Controllers\AdvertisementTemplateController.cs" />
+    <Compile Include="Controllers\AfterSaleServiceController.cs" />
+    <Compile Include="Controllers\BargainController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
+    <Compile Include="Controllers\BranchOfficeOrganizationUnitController.cs" />
+    <Compile Include="Controllers\CategoryGroupsMembershipController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\DealController.cs" />
+    <Compile Include="Controllers\Helpers\ProfileChooseHelper.cs" />
+    <Compile Include="Controllers\LegalPersonProfileController.cs" />
+    <Compile Include="Controllers\LimitController.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\OrderFileController.cs" />
+    <Compile Include="Controllers\OrderPositionController.cs" />
+    <Compile Include="Controllers\OrderProcessingRequestController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
+    <Compile Include="Controllers\PricePositionController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ThemeController.cs" />
+    <Compile Include="Models\AccountDetailViewModel.cs" />
+    <Compile Include="Models\ActivateDealViewModel.cs" />
+    <Compile Include="Models\AdditionalFirmServiceViewModel.cs" />
+    <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
+    <Compile Include="Models\AdvertisementElementTemplateViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementViewModel.cs" />
+    <Compile Include="Models\AdvertisementTemplateViewModel.cs" />
+    <Compile Include="Models\AdvertisementViewModel.cs" />
+    <Compile Include="Models\AfterSaleServiceCreateDialogModel.cs" />
+    <Compile Include="Models\AllClientsDebtReportViewModel.cs" />
+    <Compile Include="Models\AssociatedPositionsGroupViewModel.cs" />
+    <Compile Include="Models\AssociatedPositionViewModel.cs" />
+    <Compile Include="Models\BargainFileViewModel.cs" />
+    <Compile Include="Models\CategoryGroupMembershipViewModel.cs" />
+    <Compile Include="Models\CategoryGroupViewModel.cs" />
+    <Compile Include="Models\CategoryOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\ChangeOrderDealViewModel.cs" />
+    <Compile Include="Models\ChangeOrderStateDefaultViewModel.cs" />
+    <Compile Include="Models\ChangeOrderStateOnApprovalViewModel.cs" />
+    <Compile Include="Models\ChangeOrderStateOnTerminationRejectionModel.cs" />
+    <Compile Include="Models\CheckOrdersReadinessForReleaseDialogViewModel.cs" />
+    <Compile Include="Models\CloseBargainsViewModel.cs" />
+    <Compile Include="Models\CloseDealViewModel.cs" />
+    <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
+    <Compile Include="Models\ContributionTypeViewModel.cs" />
+    <Compile Include="Models\CopyNewPriceViewModel.cs" />
+    <Compile Include="Models\CopyPricePositionModel.cs" />
+    <Compile Include="Models\CopyPriceViewModel.cs" />
+    <Compile Include="Models\CountryViewModel.cs" />
+    <Compile Include="Models\CurrencyRateViewModel.cs" />
+    <Compile Include="Models\CurrencyViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\PeriodViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FasCommentViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FileViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FormattedTextViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\ImageViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\LinkViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\PlainTextViewModel.cs" />
+    <Compile Include="Models\DeactivateUserViewModel.cs" />
+    <Compile Include="Models\DealCreateReasonViewModel.cs" />
+    <Compile Include="Models\DeleteAllBillsViewModel.cs" />
+    <Compile Include="Models\DeniedPositionViewModel.cs" />
+    <Compile Include="Models\DepartmentViewModel.cs" />
+    <Compile Include="Models\ExportAccountTo1CViewModel.cs" />
+    <Compile Include="Models\FirmContactViewModel.cs" />
+    <Compile Include="Models\GetOrdersWithDummyAdvertisementDialogModel.cs" />
+    <Compile Include="Models\LimitViewModel.cs" />
+    <Compile Include="Models\LockDetailViewModel.cs" />
+    <Compile Include="Models\LockViewModel.cs" />
+    <Compile Include="Models\NoteViewModel.cs" />
+    <Compile Include="Models\OperationTypeViewModel.cs" />
+    <Compile Include="Models\OrderFileViewModel.cs" />
+    <Compile Include="Models\OrderProcessingRequestViewModel.cs" />
+    <Compile Include="Models\OrganizationUnitViewModel.cs" />
+    <Compile Include="Models\PlatformViewModel.cs" />
+    <Compile Include="Models\PositionCategoryViewModel.cs" />
+    <Compile Include="Models\PositionChildrenViewModel.cs" />
+    <Compile Include="Models\PositionViewModel.cs" />
+    <Compile Include="Models\PrepareJointBillViewModel.cs" />
+    <Compile Include="Models\PricePositionViewModel.cs" />
+    <Compile Include="Models\PriceViewModel.cs" />
+    <Compile Include="Models\PrintFormTemplateViewModel.cs" />
+    <Compile Include="Models\PrintLimitsViewModel.cs" />
+    <Compile Include="Models\PrintOrderType.cs" />
+    <Compile Include="Models\ChooseProfileViewModel.cs" />
+    <Compile Include="Models\DenialReasonViewModel.cs" />
+    <Compile Include="Models\ProjectViewModel.cs" />
+    <Compile Include="Models\PublishAdvertisementTemplateModel.cs" />
+    <Compile Include="Models\PublishPriceViewModel.cs" />
+    <Compile Include="Models\Report\DelayedReportModel.cs" />
+    <Compile Include="Models\Report\ReportModel.cs" />
+    <Compile Include="Models\SetBranchOfficeOrganizationUnitStatusViewModel.cs" />
+    <Compile Include="Models\SetLimitStatusViewModel.cs" />
+    <Compile Include="Models\TerritoryViewModel.cs" />
+    <Compile Include="Models\ThemeTemplateViewModel.cs" />
+    <Compile Include="Models\ThemeViewModel.cs" />
+    <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
+    <Compile Include="Models\UnpublishPriceViewModel.cs" />
+    <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AdvertisementViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\CategoryViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\DeniedPositionViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\FirmContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\OrderProcessingRequestViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\PricePositionViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
+    <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
+    <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />
+    <Compile Include="Services\Grid\OrderGridViewService.cs" />
+    <Compile Include="Services\Grid\BillViewService.cs" />
+    <Compile Include="Services\Grid\BargainGridViewService.cs" />
+    <Compile Include="Services\Grid\FirmGridViewService.cs" />
+    <Compile Include="Services\Grid\LegalPersonProfileViewService.cs" />
+    <Compile Include="Services\Grid\LimitGridViewService.cs" />
+    <Compile Include="Services\Grid\OrderFileViewService.cs" />
+    <Compile Include="Utils\ModelBinderProvider.cs" />
+    <Compile Include="Views\Account\ExportTo1CDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExportTo1CDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ExportToServiceBusDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExportToServiceBusDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\PeriodViewModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PeriodViewModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\ImageViewModel.generated.cs">
+      <DependentUpon>ImageViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\FileViewModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileViewModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\LinkViewModel.generated.cs">
+      <DependentUpon>LinkViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\PlainTextViewModel.generated.cs">
+      <DependentUpon>PlainTextViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\FormattedTextViewModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormattedTextViewModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditorTemplates\FasCommentViewModel.generated.cs">
+      <DependentUpon>FasCommentViewModel.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Advertisement\PreviewGrym.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreviewGrym.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Advertisement\PreviewIsNotSupported.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreviewIsNotSupported.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Advertisement\PreviewOnline.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreviewOnline.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateAfterSaleServiceActivitiesDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Bargain\CloseBargains.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CloseBargains.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Bill\DeleteAll.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeleteAll.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BranchOfficeOrganizationUnit\SetAsPrimary.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetAsPrimary.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BranchOfficeOrganizationUnit\SetAsPrimaryForRegSales.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetAsPrimaryForRegSales.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryGroupsMembership\Manage.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Manage.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Client\AllClientsDebtReport.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllClientsDebtReport.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AccountDetail.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountDetail.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AdditionalFirmService.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdditionalFirmService.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AdsTemplatesAdsElementTemplate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdsTemplatesAdsElementTemplate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Advertisement.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Advertisement.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AdvertisementElement.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdvertisementElement.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AdvertisementElementTemplate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdvertisementElementTemplate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AdvertisementTemplate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdvertisementTemplate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AssociatedPosition.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssociatedPosition.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\AssociatedPositionsGroup.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssociatedPositionsGroup.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\BargainFile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BargainFile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Category.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Category.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CategoryGroup.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CategoryGroup.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\ContributionType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContributionType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Country.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Country.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Currency.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Currency.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\CurrencyRate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CurrencyRate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\DeniedPosition.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeniedPosition.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Department.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Department.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\FirmContact.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FirmContact.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Limit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Limit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Lock.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lock.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\LockDetail.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LockDetail.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Note.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Note.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\OperationType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OperationType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\OrderFile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderFile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\OrderProcessingRequest.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderProcessingRequest.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\OrganizationUnit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrganizationUnit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Platform.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Platform.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Position.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Position.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\PositionCategory.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PositionCategory.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\PositionChildren.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PositionChildren.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Price.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Price.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\PricePosition.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PricePosition.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\PrintFormTemplate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrintFormTemplate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\DenialReason.generated.cs">
+      <DependentUpon>DenialReason.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Project.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Project.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Territory.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Territory.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Theme.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Theme.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\ThemeTemplate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ThemeTemplate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Deal\Close.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Close.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Deal\PickCreateReason.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PickCreateReason.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Deal\ReopenDeal.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReopenDeal.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Limit\PrintLimits.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrintLimits.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Limit\SetStatus.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetStatus.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\ChangeOrderDeal.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeOrderDeal.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\ChangeStateDefault.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeStateDefault.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\ChangeStateOnApproval.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeStateOnApproval.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\ChangeStateOnTermination.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeStateOnTermination.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\CheckOrdersReadinessForReleaseDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CheckOrdersReadinessForReleaseDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\CloseWithDenial.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CloseWithDenial.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\GetOrdersWithDummyAdvertisementDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetOrdersWithDummyAdvertisementDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Print\ChooseProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChooseProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Print\PrepareJointBill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrepareJointBill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PricePosition\Copy.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Copy.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Price\Copy.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Copy.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Price\CopyNew.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CopyNew.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Price\Publish.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Publish.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Price\Unpublish.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Unpublish.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Report\Complex.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Complex.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Report\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
+      <Project>{a0c25240-0c68-4434-94c0-f35b0806fe5b}</Project>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
+      <Project>{946c96bf-a7bd-46c1-879c-c80e3223334b}</Project>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{a46e837a-d855-4d0b-b7e7-9f1f4c23fc32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
+      <Project>{b268f8cb-8aef-4402-8cf5-a8e6ac5eec0b}</Project>
+      <Name>2Gis.Erm.BL.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Account\ExportTo1CDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ExportTo1CDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Account\ExportToServiceBusDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ExportToServiceBusDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\PeriodViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PeriodViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\ImageViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ImageViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\FileViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FileViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\LinkViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LinkViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\PlainTextViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PlainTextViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\FormattedTextViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FormattedTextViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\FasCommentViewModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FasCommentViewModel.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Advertisement\PreviewGrym.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PreviewGrym.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Advertisement\PreviewIsNotSupported.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PreviewIsNotSupported.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Advertisement\PreviewOnline.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PreviewOnline.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CreateAfterSaleServiceActivitiesDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Bargain\CloseBargains.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CloseBargains.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Bill\DeleteAll.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DeleteAll.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\BranchOfficeOrganizationUnit\SetAsPrimary.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SetAsPrimary.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\BranchOfficeOrganizationUnit\SetAsPrimaryForRegSales.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SetAsPrimaryForRegSales.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CategoryGroupsMembership\Manage.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Manage.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Client\AllClientsDebtReport.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AllClientsDebtReport.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AccountDetail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AccountDetail.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AdditionalFirmService.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdditionalFirmService.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AdsTemplatesAdsElementTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdsTemplatesAdsElementTemplate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Advertisement.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Advertisement.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AdvertisementElement.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdvertisementElement.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AdvertisementElementTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdvertisementElementTemplate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AdvertisementTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdvertisementTemplate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AssociatedPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AssociatedPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\AssociatedPositionsGroup.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AssociatedPositionsGroup.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\BargainFile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainFile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Category.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Category.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CategoryGroup.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CategoryGroup.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\ContributionType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ContributionType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Country.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Country.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Currency.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Currency.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\CurrencyRate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CurrencyRate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\DeniedPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DeniedPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Department.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Department.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\FirmContact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmContact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Limit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Limit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Lock.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Lock.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\LockDetail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LockDetail.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Note.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Note.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\OperationType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OperationType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\OrderFile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderFile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\OrderProcessingRequest.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderProcessingRequest.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\OrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Platform.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Platform.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Position.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Position.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\PositionCategory.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PositionCategory.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\PositionChildren.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PositionChildren.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Price.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Price.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\PricePosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PricePosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\PrintFormTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PrintFormTemplate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\DenialReason.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DenialReason.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Project.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Project.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Territory.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Territory.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Theme.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Theme.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\ThemeTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ThemeTemplate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Deal\Close.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Close.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Deal\PickCreateReason.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PickCreateReason.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Deal\ReopenDeal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ReopenDeal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Limit\PrintLimits.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PrintLimits.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Limit\SetStatus.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SetStatus.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\ChangeOrderDeal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeOrderDeal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\ChangeStateDefault.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeStateDefault.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\ChangeStateOnApproval.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeStateOnApproval.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\ChangeStateOnTermination.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeStateOnTermination.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\CheckOrdersReadinessForReleaseDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CheckOrdersReadinessForReleaseDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\CloseWithDenial.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CloseWithDenial.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Order\GetOrdersWithDummyAdvertisementDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>GetOrdersWithDummyAdvertisementDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Print\PrepareJointBill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PrepareJointBill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Print\ChooseProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChooseProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\PricePosition\Copy.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Copy.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Price\Copy.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Copy.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Price\CopyNew.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CopyNew.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Price\Publish.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Publish.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Price\Unpublish.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Unpublish.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Report\Complex.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Complex.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Report\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Web.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

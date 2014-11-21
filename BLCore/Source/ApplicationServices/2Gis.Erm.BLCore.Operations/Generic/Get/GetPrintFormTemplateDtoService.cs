@@ -1,0 +1,54 @@
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
+{
+    public class GetPrintFormTemplateDtoService : GetDomainEntityDtoServiceBase<PrintFormTemplate>
+    {
+        private readonly ISecureFinder _finder;
+
+        public GetPrintFormTemplateDtoService(IUserContext userContext, ISecureFinder finder) : base(userContext)
+        {
+            _finder = finder;
+        }
+
+        protected override IDomainEntityDto<PrintFormTemplate> GetDto(long entityId)
+        {
+            return _finder.Find<PrintFormTemplate>(x => x.Id == entityId)
+                          .Select(entity => new PrintFormTemplateDomainEntityDto
+                                                {
+                                                    Id = entity.Id,
+                                                    BranchOfficeOrganizationUnitRef = new EntityReference { Id = entity.BranchOfficeOrganizationUnitId, Name = null },
+                                                    FileId = entity.FileId, 
+                                                    FileName = entity.File.FileName,
+                                                    FileContentType = entity.File.ContentType,
+                                                    FileContentLength = entity.File.ContentLength,
+                                                    TemplateCode = (TemplateCode)entity.TemplateCode,
+                                                    OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
+                                                    CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
+                                                    CreatedOn = entity.CreatedOn,
+                                                    IsActive = entity.IsActive,
+                                                    IsDeleted = entity.IsDeleted,
+                                                    ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
+                                                    ModifiedOn = entity.ModifiedOn,
+                                                    Timestamp = entity.Timestamp
+                                                })
+                          .Single();
+        }
+
+        protected override IDomainEntityDto<PrintFormTemplate> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        {
+            return new PrintFormTemplateDomainEntityDto
+            {
+                BranchOfficeOrganizationUnitRef = new EntityReference { Id = (parentEntityName == EntityName.BranchOfficeOrganizationUnit) ? parentEntityId : null }
+            };
+        }
+    }
+}

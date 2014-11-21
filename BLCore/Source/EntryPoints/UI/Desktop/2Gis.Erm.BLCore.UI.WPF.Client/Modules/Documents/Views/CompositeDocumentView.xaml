@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views.CompositeDocumentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Util.Converters;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:controls="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:contextualNavigation="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.ContextualNavigation;assembly=2Gis.Erm.Platform.UI.WPF.Infrastructure"
+             mc:Ignorable="d"
+             d:DesignHeight="1000" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <converters:NullToVisibilityConverter ValueForNull="Visible" ValueForNotNull="Collapsed" x:Key="DirectNullToVisibiltyConverter" />
+        <converters:NullToVisibilityConverter ValueForNull="Collapsed" ValueForNotNull="Visible" x:Key="InvertedNullToVisibiltyConverter" />
+    </UserControl.Resources>
+    <controls:BriefGrid Rows="*" Columns="*">
+        <ScrollViewer Grid.Row="0" Grid.Column="0" Visibility="{Binding Path=(contextualNavigation:IContextualNavigationViewModel.ReferencedItemContext), Converter={StaticResource DirectNullToVisibiltyConverter}}">
+            <ItemsControl ItemsSource="{Binding ComposedViewModels}" ItemTemplateSelector="{Binding ComposedViewSelector}"/>
+        </ScrollViewer>
+        <ContentControl Grid.Row="0" Grid.Column="0"
+                        Content="{Binding Path=(contextualNavigation:IContextualNavigationViewModel.ReferencedItemContext)}"
+                        ContentTemplateSelector="{Binding Path=(contextualNavigation:IContextualNavigationViewModel.ReferencedItemViewSelector)}"
+                        Visibility="{Binding Path=(contextualNavigation:IContextualNavigationViewModel.ReferencedItemContext), Converter={StaticResource InvertedNullToVisibiltyConverter}}"/>
+    </controls:BriefGrid>
+</UserControl>

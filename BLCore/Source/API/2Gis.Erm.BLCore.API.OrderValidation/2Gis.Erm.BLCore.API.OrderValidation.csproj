@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{650EA07F-6725-46E5-B996-B5882E4FCD33}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.API.OrderValidation</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.API.OrderValidation</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="DI\BlCoreApiOrderValidationAssembly.cs" />
+    <Compile Include="CheckOrderReleasePeriodRequest.cs" />
+    <Compile Include="CheckOrderReleasePeriodResponse.cs" />
+    <Compile Include="CheckOrdersReadinessForReleaseRequest.cs" />
+    <Compile Include="CheckOrdersReadinessForReleaseResponse.cs" />
+    <Compile Include="DI\OrderValidationZone.cs" />
+    <Compile Include="IOrderValidationRule.cs" />
+    <Compile Include="IValidaionRuleDescriptor.cs" />
+    <Compile Include="IValidationResultsBrowser.cs" />
+    <Compile Include="MassOrdersValidationParams.cs" />
+    <Compile Include="IOrderValidationRuleFactory.cs" />
+    <Compile Include="IOrderValidationRuleProvider.cs" />
+    <Compile Include="Metadata\Features\AvailableForValidationTypeFeature.cs" />
+    <Compile Include="Metadata\Features\CommonRuleFeature.cs" />
+    <Compile Include="Metadata\Features\DisabledForBusinessModelFeature.cs" />
+    <Compile Include="Metadata\Features\EnableCachingForValidationTypeFeature.cs" />
+    <Compile Include="Metadata\Features\NonManualRuleFeature.cs" />
+    <Compile Include="Metadata\Features\SingleOrderValidationRuleFeature.cs" />
+    <Compile Include="Metadata\Features\UseCachingFeature.cs" />
+    <Compile Include="Metadata\MetadataOrderValidationIdentity.cs" />
+    <Compile Include="Metadata\OrderValidationRuleGroupMetadata.cs" />
+    <Compile Include="Metadata\OrderValidationRuleGroupMetadataBuilder.cs" />
+    <Compile Include="Metadata\OrderValidationRuleMetadata.cs" />
+    <Compile Include="Metadata\OrderValidationRuleMetadataBuilder.cs" />
+    <Compile Include="Remote\IOrderValidationApplicationRestService.cs" />
+    <Compile Include="Remote\IOrderValidationApplicationService.cs" />
+    <Compile Include="IOrderValidationPredicateFactory.cs" />
+    <Compile Include="IValidateOrdersOperationService.cs" />
+    <Compile Include="MessageType.cs" />
+    <Compile Include="OrderValidationAdditionalInfo.cs" />
+    <Compile Include="OrderValidationMessage.cs" />
+    <Compile Include="OrderValidationPredicate.cs" />
+    <Compile Include="OrderValidationRuleGroups.cs" />
+    <Compile Include="Remote\Settings\APIOrderValidationServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPIOrderValidationServiceSettings.cs" />
+    <Compile Include="Settings\IOrderValidationCachingSettings.cs" />
+    <Compile Include="Settings\OrderValidationCachingSettingsAspect.cs" />
+    <Compile Include="SingleOrderValidationParams.cs" />
+    <Compile Include="ValidationParams.cs" />
+    <Compile Include="ValidationResult.cs" />
+    <Compile Include="ValidationResultsContainer.cs" />
+    <Compile Include="ValidationType.cs" />
+    <Compile Include="ValidationUtils.cs" />
+    <Compile Include="ValidatorDescriptor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
