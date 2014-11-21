@@ -151,12 +151,12 @@
     <value>The user id=[{0}] has no right {1} to entity {2}</value>
   </data>
   <data name="AccessToOperationIsDenied" xml:space="preserve">
-    <value>Доступ на выполнение операции '{0}' запрещен</value>
+    <value>Access for performing operation '{0}' denied</value>
   </data>
   <data name="InvalidFieldFormat" xml:space="preserve">
-    <value>Значения поля "{0}" имеет неверный формат</value>
+    <value>The value of the "{0}" field is not in a correct format</value>
   </data>
   <data name="InvalidFieldValue" xml:space="preserve">
-    <value>Значение поля "{0}" имеет невалидное значение</value>
+    <value>The value of the "{0}" field is invalid</value>
   </data>
 </root>

@@ -92,6 +92,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenerateErmDomainEntityDTOs.log</LastGenOutput>
       <CustomToolNamespace>DoubleGis.Erm.Platform.Model.Entities.DTOs</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -673,16 +674,12 @@
       <Link>Entities\Erm\OrdersRegionalAdvertisingSharing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationCacheEntry.cs">
+      <Link>Entities\Erm\OrderValidationCacheEntry.cs</Link>
+      <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationResult.cs">
       <Link>Entities\Erm\OrderValidationResult.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroup.cs">
-      <Link>Entities\Erm\OrderValidationRuleGroup.cs</Link>
-      <DependentUpon>Erm.tt</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationRuleGroupDetail.cs">
-      <Link>Entities\Erm\OrderValidationRuleGroupDetail.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnit.cs">
@@ -700,6 +697,10 @@
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessing.cs">
       <Link>Entities\Erm\PerformedOperationFinalProcessing.cs</Link>
       <DependentUpon>Erm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationFinalProcessingDomainEntityDto.cs">
+      <Link>Entities\DTOs\PerformedOperationFinalProcessingDomainEntityDto.cs</Link>
+      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\PerformedOperationPrimaryProcessing.cs">
       <Link>Entities\Erm\PerformedOperationPrimaryProcessing.cs</Link>
@@ -975,7 +976,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderCreationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\RequestOrderProlongationIdentity .cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderProcessingRequest\SelectOrderProcessingOwnerIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ResetOrderValidationResultsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\RegisterOrderStateChangesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CopyOrderIdentity.cs" />
@@ -988,6 +989,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Price\GetRatedPricesForCategoryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Project\ImportBranchIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Territory\ImportSaleTerritoryIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\PerformedOperationProcessingAnalysisIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringRevertingWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeAccountsDuringWithdrawalIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\ActualizeDealsDuringRevertingWithdrawalIdentity.cs" />
@@ -1340,10 +1342,6 @@
       <Link>Entities\DTOs\OrderReleaseTotalDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrderValidationResultDomainEntityDto.cs">
-      <Link>Entities\DTOs\OrderValidationResultDomainEntityDto.cs</Link>
-      <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
-    </Compile>
     <Compile Include="..\..\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\Erm\OrganizationUnitDomainEntityDto.cs">
       <Link>Entities\DTOs\OrganizationUnitDomainEntityDto.cs</Link>
       <DependentUpon>GenerateErmDomainEntityDTOs.tt</DependentUpon>
@@ -1572,7 +1570,6 @@
     <Compile Include="Aggregates\Aliases\LegalPersonAggregate.cs" />
     <Compile Include="Aggregates\Aliases\LocalMessageAggregate.cs" />
     <Compile Include="Aggregates\Aliases\OrderAggregate.cs" />
-    <Compile Include="Aggregates\Aliases\OrderValidationResultAggregate.cs" />
     <Compile Include="Aggregates\Aliases\PositionAggregate.cs" />
     <Compile Include="Aggregates\Aliases\PriceAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ReleaseAggregate.cs" />
@@ -1690,7 +1687,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

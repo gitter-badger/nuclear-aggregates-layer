@@ -4,7 +4,6 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 
 namespace DoubleGis.Erm.Platform.Core.Identities
 {
-    // TODO {a.tukaev, 30.07.2013}: Реализация IIdentityProvider не должна быть в сборке бизнес-логики, т.к. является инфраструктурой системы
     public sealed class IdentityServiceIdentityProvider : IdentityProviderBase
     {
         // Максимальное количество идентификаторов, которое можно запросить у сервиса генерации идентификаторов

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel.DTOs;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Transformers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB
 {
@@ -33,8 +32,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 
             var useCase = new TrackedUseCase();
 
-            var operations = new List<OperationScopeNode>();
-            var operationsMap = new Dictionary<StrictOperationIdentity, List<OperationScopeNode>>();
             foreach (var operation in originalMessage.Operations)
             {
                 var operationIdentity = _operationResolver.ResolveOperation(operation);
@@ -49,8 +46,6 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
                 if (operation.Parent == null)
                 {
                     operationNode = new OperationScopeNode(operation.UseCaseId, true, operationIdentity, changesContext);
-                    useCase.RootNode = operationNode;
-                    useCase.Description = operationIdentity.OperationIdentity.Description;
                 }
                 else
                 {
@@ -66,15 +61,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
                     childSet.Add(operation.Id);
                 }
 
-                List<OperationScopeNode> operationsList;
-                if (!operationsMap.TryGetValue(operationIdentity, out operationsList))
-                {
-                    operationsList = new List<OperationScopeNode>();
-                    operationsMap.Add(operationIdentity, operationsList);
-                }
-
-                operations.Add(operationNode);
-                operationsList.Add(operationNode);
+                useCase.Tracker.AddOperation(operationNode);
                 operationNodesMap.Add(operation.Id, operationNode);
             }
             
@@ -90,18 +77,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
                     operationsHierarchy.Add(parentOperation.ScopeId, childsBucket);
                 }
 
-                foreach (var childOperationId in operationsBucket.Value)
+                if (operationsBucket.Value.Any())
                 {
-                    var childOperation = operationNodesMap[childOperationId];
-                    childsBucket.Add(childOperation.ScopeId);
-                    parentOperation.AddChild(childOperation);
+                    useCase.Tracker.AttachToParent(parentOperation.ScopeId, operationsBucket.Value.Select(id => operationNodesMap[id].ScopeId));
                 }
             }
 
-            useCase.Operations = operations;
-            useCase.OperationsMap = operationsMap;
-            useCase.OperationsHierarchy = operationsHierarchy;
-
+            useCase.Tracker.Complete();
             return useCase;
         }
     }
