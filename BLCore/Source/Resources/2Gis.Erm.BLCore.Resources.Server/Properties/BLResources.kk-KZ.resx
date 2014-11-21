@@ -3179,6 +3179,9 @@ Cумма по операции: {5}.
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value>У текущего пользователя отсутствуют права на чтение сущности</value>
   </data>
+  <data name="RegionalAdvertisingSharing" xml:space="preserve">
+    <value>Обмен региональной рекламой</value>
+  </data>
   <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
     <value>Обработано сделок : {0}, создано звонков: {1}</value>
   </data>
@@ -4527,6 +4530,12 @@ Cумма по операции: {5}.
   </data>
   <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
     <value>Другие</value>
+  </data>
+  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
+    <value>Обмен региональной рекламой</value>
+  </data>
+  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
+    <value>Журнал обмена региональной рекламой</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>Список</value>
