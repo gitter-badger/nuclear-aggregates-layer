@@ -1626,6 +1626,7 @@
         <ToolbarItem ParentName="Actions" Name="RejectLimit" NameLocaleResourceId="ControlRejectLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.RejectLimit" />
         <ToolbarItem ParentName="Actions" Name="OpenLimit" NameLocaleResourceId="ControlOpenLimit" ControlType="TextButton" LockOnInactive="true" LockOnNew="true" Action="scope.OpenLimit" />
         <ToolbarItem ParentName="Actions" Name="RecalculateLimit" NameLocaleResourceId="ControlRecalculateLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.RecalculateLimit" SecurityPrivelegeFlag="638" />
+        <ToolbarItem ParentName="Actions" Name="IncreaseLimit" NameLocaleResourceId="ControlIncreaseLimit" ControlType="TextButton" LockOnInactive="false" LockOnNew="true" Action="scope.IncreaseLimit" SecurityPrivelegeFlag="189"/>
       </ToolbarItems>
     </Card>
     <DataLists>
