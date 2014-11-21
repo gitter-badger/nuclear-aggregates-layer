@@ -35,6 +35,34 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _filterHelper = filterHelper;
         }
 
+        protected override IRemoteCollection List(QuerySettings querySettings)
+        {
+            bool filterByParent;
+            var parentEntityId = querySettings.ParentEntityId;
+            var parentEntityName = querySettings.ParentEntityName;
+            querySettings.TryGetExtendedProperty("filterByParents", out filterByParent);
+
+            var appointmentDtos = ListAppointments(filterByParent, parentEntityName, parentEntityId);
+            var letterDtos = ListLetters(filterByParent, parentEntityName, parentEntityId);
+            var phonecalls = ListPhonecalls(filterByParent, parentEntityName, parentEntityId);
+            var taskDtos = ListTasks(filterByParent, parentEntityName, parentEntityId);
+
+            var activities = appointmentDtos.Concat(letterDtos).Concat(phonecalls).Concat(taskDtos);
+
+            bool forSubordinates;
+            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
+            {
+                activities = _filterHelper.ForSubordinates(activities);
+            }
+
+            return activities.QuerySettings(_filterHelper, querySettings);
+        }
+
+        protected override void Transform(ListActivityDto dto)
+        {
+            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
+        }
+
         private IQueryable<ListActivityDto> ListAppointments(bool filterByParent, EntityName entityName, long? entityId)
         {
             Expression<Func<Appointment, bool>> filter = _ => true;
@@ -240,34 +268,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             }
 
             throw new NotSupportedException();
-        }
-
-        protected override IRemoteCollection List(QuerySettings querySettings)
-        {
-            bool filterByParent;
-            var parentEntityId = querySettings.ParentEntityId;
-            var parentEntityName = querySettings.ParentEntityName;
-            querySettings.TryGetExtendedProperty("filterByParents", out filterByParent);
-
-            var appointmentDtos = ListAppointments(filterByParent, parentEntityName, parentEntityId);
-            var letterDtos = ListLetters(filterByParent, parentEntityName, parentEntityId);
-            var phonecalls = ListPhonecalls(filterByParent, parentEntityName, parentEntityId);
-            var taskDtos = ListTasks(filterByParent, parentEntityName, parentEntityId);
-
-            var activities = appointmentDtos.Concat(letterDtos).Concat(phonecalls).Concat(taskDtos);
-
-            bool forSubordinates;
-            if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
-            {
-                activities = _filterHelper.ForSubordinates(activities);
-            }
-
-            return activities.QuerySettings(_filterHelper, querySettings);
-        }
-
-        protected override void Transform(ListActivityDto dto)
-        {
-            dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
     }
 }
