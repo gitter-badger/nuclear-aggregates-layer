@@ -109,17 +109,17 @@
                         @if ((Model.ArticleRef != null || Model.AdComment != null) && Model.ImgDiscountRef == null)
                         { 
                         @:<div>
-                            @:<img style="margin-left: -12px; float: left; display: inline; margin-top: 3px;" tooltip_icon='DirOrgAd16.png' src='/Content/images/Erm/Preview/Grym/DirOrgAd16.png?@SolutionInfo.ProductVersion.Build' /></div>
+                            @:<img style="margin-left: -12px; float: left; display: inline; margin-top: 3px;" tooltip_icon='DirOrgAd16.png' src='/Content/images/Erm/Preview/Grym/DirOrgAd16.png?@ThisAssembly.Build' /></div>
                         }
                         else if ((Model.ArticleRef != null || Model.AdComment != null) && Model.ImgDiscountRef != null)
                         { 
                         @:<div>
-                            @:<img style="margin-left: -12px; float: left; display: inline; margin-top: 3px;" tooltip_icon='DirOrgAdDiscnt16.png' src='/Content/images/Erm/Preview/Grym/DirOrgAdDiscnt16.png?@SolutionInfo.ProductVersion.Build' /></div>
+                            @:<img style="margin-left: -12px; float: left; display: inline; margin-top: 3px;" tooltip_icon='DirOrgAdDiscnt16.png' src='/Content/images/Erm/Preview/Grym/DirOrgAdDiscnt16.png?@ThisAssembly.Build' /></div>
                         }
                         else if (Model.ArticleRef != null && Model.AdComment == null && Model.ImgDiscountRef == null)
                         { 
                         @:<div>
-                            @:<img style="margin-left: -12px; float: left; display: inline; margin-top: 3px;" tooltip_icon='DirOrgAdDiscnt16.png' src='/Content/images/Erm/Preview/Grym/DirOrgAdDiscnt16.png?@SolutionInfo.ProductVersion.Build' /></div>
+                            @:<img style="margin-left: -12px; float: left; display: inline; margin-top: 3px;" tooltip_icon='DirOrgAdDiscnt16.png' src='/Content/images/Erm/Preview/Grym/DirOrgAdDiscnt16.png?@ThisAssembly.Build' /></div>
                         } 
                         @Model.AdditionalTitleContent 
                       <a style="color: #323232; text-decoration: none; border-bottom: 1px dotted #6d8f81; line-height: 1.4;
@@ -138,7 +138,7 @@
                              @:<br />
                          @:<div style="margin-bottom: -2px; margin-top: -8px;">
                              @:<a href='#'>
-                                 @:<img tooltip_icon='DirOrgAdDiscnt16.png' align='middle' src='/Content/images/Erm/Preview/Grym/DirOrgAdDiscnt16.png?@SolutionInfo.ProductVersion.Build'>
+                                 @:<img tooltip_icon='DirOrgAdDiscnt16.png' align='middle' src='/Content/images/Erm/Preview/Grym/DirOrgAdDiscnt16.png?@ThisAssembly.Build'>
                              @:</a><a style='color: #1f91a2;' tooltip_icon='DirOrgAdDiscnt16.png' href='#'>
                                 @BLResources.PreviewCouponText 
                              @:</a>
@@ -270,7 +270,7 @@
             { 
              @:<div style="margin: 2px 10px 5px 16px; text-align: right;">
                  @:<a href="<% = Model.FeedbackRef %>">
-                   @:<img src='/Content/images/Erm/Preview/Grym/FeedbackEntryPoint16.png?@SolutionInfo.ProductVersion.Build' tooltip_icon="FeedbackEntryPoint16.png">
+                   @:<img src='/Content/images/Erm/Preview/Grym/FeedbackEntryPoint16.png?@ThisAssembly.Build' tooltip_icon="FeedbackEntryPoint16.png">
                     @:</a>
              @:</div>
 
@@ -296,7 +296,7 @@
                  @:&nbsp;&mdash;&nbsp;@Model.Office 
              }
 			 @:<a style="color:#333333" href="@Model.InfocardRef">
-				 @:<img align="middle" src='/Content/images/Erm/Preview/Grym/infocard.png?@SolutionInfo.ProductVersion.Build'>
+				 @:<img align="middle" src='/Content/images/Erm/Preview/Grym/infocard.png?@ThisAssembly.Build'>
 			 @:</a>
 		 }
         else
@@ -385,7 +385,7 @@ else if (Model.Office != null)
 					<a style="color:#222222; text-decoration:none;" >
 						
 						 
-						<img align="center" style="vertical-align:top;" src='/Content/images/Erm/Preview/Grym/infocard.png?@SolutionInfo.ProductVersion.Build'>
+						<img align="center" style="vertical-align:top;" src='/Content/images/Erm/Preview/Grym/infocard.png?@ThisAssembly.Build'>
 					</a>
 				</td>
 				<td style="padding-top: -4px;">
@@ -415,7 +415,7 @@ else if (Model.Office != null)
 		 @:<td valign="top">
 		for (int i = 0; i < Model.Payments.Length; i++)
         { 
-			 @:<img src='/Content/@Model.Payments[i].Image?@SolutionInfo.ProductVersion.Build' tooltip_caption="@Model.Payments[i].Name" tooltip_icon="@Model.Payments[i].TooltipImage">
+			 @:<img src='/Content/@Model.Payments[i].Image?@ThisAssembly.Build' tooltip_caption="@Model.Payments[i].Name" tooltip_icon="@Model.Payments[i].TooltipImage">
 		 } 
 		 @:</td>
 	 @:</tr>
