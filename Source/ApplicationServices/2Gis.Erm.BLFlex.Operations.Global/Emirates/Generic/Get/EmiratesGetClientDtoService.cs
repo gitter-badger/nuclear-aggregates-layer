@@ -42,10 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new EmiratesClientDomainEntityDto
-                       {
-                           LastQualifyTime = DateTime.UtcNow
-                       };
+            return new EmiratesClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow };
         }
     }
 }

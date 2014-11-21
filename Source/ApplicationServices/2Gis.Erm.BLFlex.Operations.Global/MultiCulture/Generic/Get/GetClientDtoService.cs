@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new MultiCultureClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow.Date };
+            return new MultiCultureClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow };
         }
     }
 }

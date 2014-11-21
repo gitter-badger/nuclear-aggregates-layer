@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new ClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow.Date };
+            return new ClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow };
         }
     }
 }
