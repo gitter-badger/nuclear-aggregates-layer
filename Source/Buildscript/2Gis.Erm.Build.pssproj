@@ -47,7 +47,6 @@
     <Compile Include="modules\dynamics.psm1" />
     <Compile Include="modules\metadata.dynamics.psm1" />
     <Compile Include="modules\metadata.psm1" />
-    <Compile Include="modules\metadata.reports.psm1" />
     <Compile Include="modules\metadata.servicebus.psm1" />
     <Compile Include="modules\metadata.taskservice.psm1" />
     <Compile Include="modules\metadata.transform.psm1" />
