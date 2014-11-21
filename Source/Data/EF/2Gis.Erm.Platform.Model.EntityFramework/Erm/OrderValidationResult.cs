@@ -17,13 +17,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         IEntity, 
         IEntityKey
     {
-        public long Id { get; set; }
         public long OrderId { get; set; }
+        public long Id { get; set; }
         public long OrderValidationGroupId { get; set; }
-        public int OrderValidationType { get; set; }
         public bool IsValid { get; set; }
-    
-        public Order Order { get; set; }
     
     	public override bool Equals(object obj)
         {

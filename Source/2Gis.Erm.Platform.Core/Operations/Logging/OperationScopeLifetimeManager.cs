@@ -51,17 +51,17 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
                 if (scope.Completed)
                 {
-                    LogScopeChanges(scope);
+                    LogScopeChanges(_operationScopeContextsStorage.UseCase);
                 }
             }
         }
 
-        private void LogScopeChanges(IOperationScope scope)
-        {        
-            var verifierContexts = _verifierContextsProvider.GetContexts(_operationScopeContextsStorage.RootScope);
+        private void LogScopeChanges(TrackedUseCase useCase)
+        {
+            var verifierContexts = _verifierContextsProvider.GetContexts(useCase);
             if (!_operationConsistencyVerifier.IsOperationContextConsistent(verifierContexts))
             {
-                var msg = string.Format("Operation verifier. Operation context is not consistent. Root operation identity: {0}", scope.OperationIdentity);
+                var msg = string.Format("Operation verifier. Operation context is not consistent. Use case root operation identity: {0}", useCase.RootNode.OperationIdentity);
                 _logger.ErrorEx(msg);
 
                 // TODO {all, 07.08.2013}: подумать в каких условиях бросать exception, в каких нет (например, development и test environment - бросаем exception, production - просто логируем)
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 }
             }
 
-            _operationLogger.Log(_operationScopeContextsStorage.RootScope);
+            _operationLogger.Log(useCase);
         }
 
         private void ClearScopeDataFromProcessingContext()

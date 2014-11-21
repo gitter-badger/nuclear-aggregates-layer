@@ -126,7 +126,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Common\Utils\CompareObjectsHelperSpecs.cs" />
-    <Compile Include="Core\Infrastructure\StubOperationScope.cs" />
     <Compile Include="Core\Infrastructure\StubOperationScopeFactory.cs" />
     <Compile Include="Core\Operations\Processing\Final\ReplicateToMsCRMHandlerSlicerSpecs.cs" />
     <Compile Include="Core\Services\Operations\Metadata\Security\AccessRequirementBuilderSpecs.cs" />
