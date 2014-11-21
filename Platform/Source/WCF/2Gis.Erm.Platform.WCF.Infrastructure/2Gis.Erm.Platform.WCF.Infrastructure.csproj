@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.WCF.Infrastructure</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.WCF.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Discovery" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="BindingConfiguration.cs" />
+    <Compile Include="Config\BindingConfig.cs" />
+    <Compile Include="Config\DiscoveryEndpointContainer.cs" />
+    <Compile Include="Config\IDiscoveryEndpointContainer.cs" />
+    <Compile Include="Config\IServiceClientSettingsProvider.cs" />
+    <Compile Include="Config\ServiceClientSettingsProvider.cs" />
+    <Compile Include="CustomMapping.cs" />
+    <Compile Include="Logging\IErrorHandlerFactory.cs" />
+    <Compile Include="Logging\Log4NetConfigurationOperationContextExtension.cs" />
+    <Compile Include="Logging\Log4NetErrorHandler.cs" />
+    <Compile Include="Logging\ErrorHandlerFactory.cs" />
+    <Compile Include="Logging\LoggerContextEntryWcfProvider.cs" />
+    <Compile Include="MultipartStreamWrapper.cs" />
+    <Compile Include="NullableQueryStringConverter.cs" />
+    <Compile Include="Proxy\ClientProxyFactory.cs" />
+    <Compile Include="Proxy\DesktopClientProxyFactory.cs" />
+    <Compile Include="Proxy\IClientProxyFactory.cs" />
+    <Compile Include="Proxy\IClientProxy.cs" />
+    <Compile Include="Proxy\ClientProxy.cs" />
+    <Compile Include="Proxy\IDesktopClientProxyFactory.cs" />
+    <Compile Include="Security\WcfWindowsPrincipal.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Jsonp\JsonpEndpointBehavior.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Jsonp\JsonpBehaviorExtension.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Jsonp\JsonpBindingElement.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Jsonp\JsonpBindingExtension.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Jsonp\JsonpEncoderFactory.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Jsonp\JsonpMessageProperty.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Json\JsonResponseFormatterBehaviorExtension.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\Json\JsonResponseFormatterEndpointBehavior.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\SharedTypes\GenericSharedTypesBehaviorFactory.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\SharedTypes\ISharedTypesBehaviorFactory.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\SharedTypes\SharedTypeResolver.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\SharedTypes\SharedTypesMessageInspector.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\SharedTypes\SharedTypesMessageInspectorEndpointBehavior.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\SharedTypes\SharedTypesWsdlExportEndpointBehavior.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\SharedTypes\SoapTypeNameConveter.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\WebHttpOperationSelection\WebHttpOperationSelectionBehavior.cs" />
+    <Compile Include="ServiceModel\EndpointBehaviors\WebHttpOperationSelection\OperationSelectionBehaviorExtension.cs" />
+    <Compile Include="ServiceModel\Formatters\JsonSerializerServerFormatterWrapper.cs" />
+    <Compile Include="ServiceModel\ServiceHost\CustomAuthorizationServiceHost.cs" />
+    <Compile Include="ServiceModel\ServiceBehaviors\ErmDispatchMessageInspectorFactory.cs" />
+    <Compile Include="ServiceModel\ServiceBehaviors\ErmOperationContextMessageInspector.cs" />
+    <Compile Include="ServiceModel\ServiceBehaviors\IDispatchMessageInspectorFactory.cs" />
+    <Compile Include="ServiceModel\ServiceBehaviors\IInstanceProviderFactory.cs" />
+    <Compile Include="ServiceModel\ServiceBehaviors\Lifetime\LifetimeManagementOperationContextExtension.cs" />
+    <Compile Include="ServiceModel\WcfKeyValueExtension.cs" />
+    <Compile Include="ServiceModel\ServiceBehaviors\ErmServiceBehavior.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceModel\OperationBehaviors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

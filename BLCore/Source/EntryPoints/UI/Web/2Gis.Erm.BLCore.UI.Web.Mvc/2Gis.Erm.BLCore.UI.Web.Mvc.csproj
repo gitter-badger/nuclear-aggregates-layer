@@ -1,0 +1,819 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D99ED849-3585-45F0-A596-0118D0A70C28}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.UI.Web.Mvc</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.UI.Web.Mvc</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\RazorGenerator.Mvc.2.2.1\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attributes\CheckDayOfMonthAttribute.cs" />
+    <Compile Include="Attributes\DeserializeOriginalModelAttribute.cs" />
+    <Compile Include="Attributes\DisplayNameLocalizedAttribute.cs" />
+    <Compile Include="Attributes\SerializeOriginalModelAttribute.cs" />
+    <Compile Include="Attributes\UseDependencyFieldsAttribute.cs" />
+    <Compile Include="Attributes\ValidationAttributes.cs" />
+    <Compile Include="Controllers\Base\ControllerBase.cs" />
+    <Compile Include="Controllers\EntityOperations\CreateOrUpdateController.cs" />
+    <Compile Include="Controllers\EntityOperations\CrmCreateOrUpdateController.cs" />
+    <Compile Include="Controllers\EntityOperations\EditController.cs" />
+    <Compile Include="Controllers\EntityOperations\GroupOperationController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\LocalMessageController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\MetadataController.cs" />
+    <Compile Include="Controllers\OperationController.cs" />
+    <Compile Include="Controllers\PrivilegeController.cs" />
+    <Compile Include="Controllers\ReleaseInfoController.cs" />
+    <Compile Include="Controllers\UI\GridController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
+    <Compile Include="Controllers\WithdrawalInfoController.cs" />
+    <Compile Include="DI\InterceptionExtensions.cs" />
+    <Compile Include="DI\UnityControllerActivator.cs" />
+    <Compile Include="DI\UnityDependencyResolver.cs" />
+    <Compile Include="DI\UnityUIServicesManager.cs" />
+    <Compile Include="Logging\LogControllerCallHandler.cs" />
+    <Compile Include="Logging\LoggerContextEntryWebProvider.cs" />
+    <Compile Include="Logging\LogWebRequestAttribute.cs" />
+    <Compile Include="Logging\LogWebRequestHandler.cs" />
+    <Compile Include="Logging\WebLoggerContextInitializerExtension.cs" />
+    <Compile Include="MetaData\LocalizedMetaDataProvider.cs" />
+    <Compile Include="Models\AccessSharingModel.cs" />
+    <Compile Include="Models\Administration\MessageQueueManagementViewModel.cs" />
+    <Compile Include="Models\CorporateQueueViewModel.cs" />
+    <Compile Include="Models\CrudStatus.cs" />
+    <Compile Include="Models\EditableIdEntityViewModelBase.cs" />
+    <Compile Include="Models\EditPrivilegeViewModel.cs" />
+    <Compile Include="Models\FileViewModel.cs" />
+    <Compile Include="Models\GroupOperation\AssignViewModel.cs" />
+    <Compile Include="Models\GroupOperation\ChangeClientViewModel.cs" />
+    <Compile Include="Models\GroupOperation\ChangeTerritoryViewModel.cs" />
+    <Compile Include="Models\GroupOperation\DeactivateTerritoryViewModel.cs" />
+    <Compile Include="Models\GroupOperation\GroupOperationViewModel.cs" />
+    <Compile Include="Models\GroupOperation\OwnerGroupOperationViewModel.cs" />
+    <Compile Include="Models\GroupOperation\QualifyFirmViewModel.cs" />
+    <Compile Include="Models\IdModel.cs" />
+    <Compile Include="Models\LocalMessageExportViewModel.cs" />
+    <Compile Include="Models\LocalMessageImportFromFileViewModel.cs" />
+    <Compile Include="Models\LocalMessageViewModel.cs" />
+    <Compile Include="Models\MainPageViewModel.cs" />
+    <Compile Include="Models\OperationViewModel.cs" />
+    <Compile Include="Models\ReleaseDialogViewModel.cs" />
+    <Compile Include="Models\ReleaseInfoViewModel.cs" />
+    <Compile Include="Models\ReleaseRevertDialogViewModel.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\ServicesViewModel.cs" />
+    <Compile Include="Models\UserProfileViewModel.cs" />
+    <Compile Include="Models\UserProfileViewModel.Server.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\WithdrawalDialogViewModel.cs" />
+    <Compile Include="Models\WithdrawalInfoViewModel.cs" />
+    <Compile Include="Models\WithdrawalRevertDialogViewModel.cs" />
+    <Compile Include="Security\WebCookieSignInService.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomizationProvider.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\LocalMessageViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\NullViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\ReleaseInfoViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\UserViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\WithdrawalInfoViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\EnumCustomizationBase.cs" />
+    <Compile Include="Services\Grid\GenericEntityGridViewService.cs" />
+    <Compile Include="Services\Grid\IGenericEntityGridViewService.cs" />
+    <Compile Include="Services\IUIServicesManager.cs" />
+    <Compile Include="Settings\ConfigurationDto\CardJson.cs" />
+    <Compile Include="Settings\ConfigurationDto\CardJson.Server.cs" />
+    <Compile Include="Settings\ConfigurationDto\CardRelatedItemsAreaJson.cs" />
+    <Compile Include="Settings\ConfigurationDto\CardRelatedItemsJson.cs" />
+    <Compile Include="Settings\ConfigurationDto\DataListScriptsJson.cs" />
+    <Compile Include="Settings\ConfigurationDto\DataViewFieldJson.cs" />
+    <Compile Include="Settings\ConfigurationDto\DataViewJson.cs" />
+    <Compile Include="Settings\ConfigurationDto\DtoUtils.cs" />
+    <Compile Include="Settings\ConfigurationDto\EntityViewSet.cs" />
+    <Compile Include="Settings\ConfigurationDto\NavigationDto.cs" />
+    <Compile Include="Settings\ConfigurationDto\ToolbarJson.cs" />
+    <Compile Include="Settings\ConfigurationDto\ToolbarJson.Server.cs" />
+    <Compile Include="Settings\IReportsSettings.cs" />
+    <Compile Include="Settings\IWebAppProcesingSettings.cs" />
+    <Compile Include="Settings\WebAppSettingsExtension.cs" />
+    <Compile Include="UserProfiles\CultureInfoDto.cs" />
+    <Compile Include="UserProfiles\DateTimeFormatInfoDto.cs" />
+    <Compile Include="UserProfiles\LocalSettingsDto.cs" />
+    <Compile Include="UserProfiles\NumberFormatInfoDto.cs" />
+    <Compile Include="UserProfiles\SupportedLocalSettingsDto.cs" />
+    <Compile Include="UserProfiles\TimeZoneDto.cs" />
+    <Compile Include="UserProfiles\UserGender.cs" />
+    <Compile Include="UserProfiles\UserLocaleInfo.cs" />
+    <Compile Include="UserProfiles\UserLocaleInfoExtensions.cs" />
+    <Compile Include="UserProfiles\UserPersonalInfoDto.cs" />
+    <Compile Include="Utils\ExceptionFilter.cs" />
+    <Compile Include="Utils\GenericContollerFactory.cs" />
+    <Compile Include="Utils\HtmlHelperExtensions.cs" />
+    <Compile Include="Utils\ModelBinderProvider.cs" />
+    <Compile Include="Utils\ToolbarUtils.cs" />
+    <Compile Include="Validators\GreaterOrEqualThanValidator.cs" />
+    <Compile Include="ViewModels\ControlSettings.cs" />
+    <Compile Include="ViewModels\EntityViewConfig.cs" />
+    <Compile Include="ViewModels\EntityViewConfig.Server.cs" />
+    <Compile Include="ViewModels\EntityViewModelBase.cs" />
+    <Compile Include="ViewModels\EntityViewModelBase.Server.cs" />
+    <Compile Include="ViewModels\ErrorHandlerModel.cs" />
+    <Compile Include="ViewModels\IConfigurableViewModel.cs" />
+    <Compile Include="ViewModels\IEntityViewModelBase.cs" />
+    <Compile Include="ViewModels\IEntityViewModelBase.Server.cs" />
+    <Compile Include="ViewModels\ModelUtils.cs" />
+    <Compile Include="Views\Administration\Administration.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Administration.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\CatalogueManagement.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CatalogueManagement.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\MessageQueueManagement.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageQueueManagement.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\SecurityAdministration.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecurityAdministration.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\LocalMessage.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalMessage.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Operation.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Operation.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\ReleaseInfo.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReleaseInfo.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Role.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Role.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\User.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>User.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\UserProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\WithdrawalInfo.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WithdrawalInfo.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Edit\AdditionalFirmAddressServices.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdditionalFirmAddressServices.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Edit\AdditionalFirmServices.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdditionalFirmServices.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Edit\EntityPrivileges.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityPrivileges.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Edit\FunctionalPrivileges.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FunctionalPrivileges.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Grid\Search.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Search.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Grid\SearchMultiple.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchMultiple.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Grid\View.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>View.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\Activate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Activate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\Assign.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Assign.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\ChangeClientTerritory.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeClientTerritory.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\ChangeDealClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeDealClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\ChangeFirmClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeFirmClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\ChangeFirmTerritory.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeFirmTerritory.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\ChangeLegalPersonClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\Deactivate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Deactivate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\DeactivateTerritory.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeactivateTerritory.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\DeactivateUser.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeactivateUser.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\Delete.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\DisqualifyClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisqualifyClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\DisqualifyFirm.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisqualifyFirm.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\QualifyClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QualifyClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupOperation\QualifyFirm.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QualifyFirm.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LocalMessage\Export.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Export.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LocalMessage\ImportFromFile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImportFromFile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LocalMessage\ProcessMessages.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProcessMessages.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Metadata\Services.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Services.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReleaseInfo\ReleaseDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReleaseDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReleaseInfo\ReleaseRevertDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReleaseRevertDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\AdministrationTab.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdministrationTab.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\EditAccessSharings.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditAccessSharings.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Error.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Error.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\QuickFindControl.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuickFindControl.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\SearchList.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchList.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\SearchListMultiple.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchListMultiple.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_CardLayout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_CardLayout.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_DialogLayout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_DialogLayout.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_SiteLayout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_SiteLayout.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WithdrawalInfo\WithdrawalDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WithdrawalDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WithdrawalInfo\WithdrawalRevertDialog.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WithdrawalRevertDialog.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="DI\BlCoreUiWebMvcAssembly.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Administration\Administration.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Administration.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Administration\CatalogueManagement.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CatalogueManagement.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Administration\MessageQueueManagement.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MessageQueueManagement.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Administration\SecurityAdministration.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SecurityAdministration.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\LocalMessage.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LocalMessage.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Operation.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Operation.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\ReleaseInfo.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ReleaseInfo.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Role.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Role.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\User.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>User.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\UserProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>UserProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\WithdrawalInfo.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>WithdrawalInfo.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Edit\AdditionalFirmAddressServices.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdditionalFirmAddressServices.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Edit\AdditionalFirmServices.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdditionalFirmServices.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Edit\EntityPrivileges.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>EntityPrivileges.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Edit\FunctionalPrivileges.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FunctionalPrivileges.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Grid\Search.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Search.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Grid\SearchMultiple.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SearchMultiple.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Grid\View.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>View.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\Activate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Activate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\Assign.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Assign.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\ChangeClientTerritory.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeClientTerritory.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\ChangeDealClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeDealClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\ChangeFirmClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeFirmClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\ChangeFirmTerritory.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeFirmTerritory.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\ChangeLegalPersonClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\Deactivate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deactivate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\DeactivateTerritory.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DeactivateTerritory.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\DeactivateUser.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DeactivateUser.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Delete.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\DisqualifyClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DisqualifyClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\DisqualifyFirm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DisqualifyFirm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\QualifyClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>QualifyClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\GroupOperation\QualifyFirm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>QualifyFirm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\LocalMessage\Export.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Export.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\LocalMessage\ImportFromFile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ImportFromFile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\LocalMessage\ProcessMessages.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ProcessMessages.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Main\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Metadata\Services.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Services.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\ReleaseInfo\ReleaseDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ReleaseDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\ReleaseInfo\ReleaseRevertDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ReleaseRevertDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\AdministrationTab.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdministrationTab.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditAccessSharings.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>EditAccessSharings.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\Error.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Error.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\QuickFindControl.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>QuickFindControl.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\SearchList.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SearchList.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\SearchListMultiple.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SearchListMultiple.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_CardLayout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_CardLayout.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_DialogLayout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_DialogLayout.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_SiteLayout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_SiteLayout.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Web.config" />
+    <None Include="Views\WithdrawalInfo\WithdrawalDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>WithdrawalDialog.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>WithdrawalRevertDialog.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6b8617e4-f688-45ed-a874-6692806dbf71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Interception\2Gis.Erm.Platform.DI.Interception.csproj">
+      <Project>{035e4aa9-9547-4b1c-b105-902ecad7e53f}</Project>
+      <Name>2Gis.Erm.Platform.DI.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3b5f5e41-b438-435e-91b5-005b2a88237c}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
+      <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Client\2Gis.Erm.BLCore.Resources.Client.csproj">
+      <Project>{153868E3-4C4C-45FE-86D6-6B4FBD39249C}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{f662d986-079c-469c-8a01-0d2cd1092eab}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

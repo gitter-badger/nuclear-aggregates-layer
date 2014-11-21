@@ -1,0 +1,55 @@
+﻿@model MainPageViewModel
+
+@{
+    Layout = "../Shared/_SiteLayout.cshtml";
+}
+
+@section TitleContent { @BLResources.MainPageTitle }
+
+@section HeadContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/ext-ux-MSOfficeAccordion.css?@ThisAssembly.Build" />
+    <link rel="stylesheet" type="text/css" href="/Content/ext-ux-ribbon.css?@ThisAssembly.Build" />
+    
+    <script src="/Scripts/Ext.ux.Ribbon.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.MSOfficeAccordion.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.MainPage.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+            window.MainPage = null;
+            var set = @Html.WriteJson(Model.Settings);
+            if (set)
+            {
+                window.MainPage = new Ext.DoubleGis.UI.MainPage(set);
+            }
+            else
+            { 
+                Logger.HandleError("Не удалось получить настройки для главной страницы.", window.location, 0); 
+            }
+        });
+    </script>
+}
+
+@section MainContent
+{
+    <div style="display: none">
+        <div id="MasterHead" style="width: 100%">
+            <table class="main-header" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td id="tdLogoMastHeadBar" class="main-header-Logo main-header-sign-in">
+                            <span id="lblUserName" class="main-header-sign-in-User">
+                                @(Request.IsAuthenticated ? ViewData.GetUserIdentityInfo().DisplayName : BLResources.NonAuthenticated)
+                            </span>
+                            <br />
+                            <span id="lblOrgName" class="main-header-sign-in-org">@BLResources.MainPageHeader</span>
+                            <br/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

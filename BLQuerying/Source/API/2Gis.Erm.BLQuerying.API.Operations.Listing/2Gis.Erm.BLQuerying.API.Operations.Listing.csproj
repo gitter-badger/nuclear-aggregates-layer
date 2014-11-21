@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53B07CCC-9824-480F-833C-39A2F9A3314B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLQuerying.API.Operations.Listing</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLQuerying.API.Operations.Listing</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="DI\BlQueryingApiOperationsListingAssembly.cs" />
+    <Compile Include="List\DTO\ListAdvertisementElementDenialReasonsDto.cs" />
+    <Compile Include="List\DTO\ListBranchOfficeDto.cs" />
+    <Compile Include="List\DTO\ListLegalPersonDealDto.cs" />
+    <Compile Include="List\DTO\ListFirmDealDto.cs" />
+    <Compile Include="List\DTO\ListClientLinkDto.cs" />
+    <Compile Include="List\DTO\ListDenialReasonDto.cs" />
+    <Compile Include="List\DTO\ListClientDto.cs" />
+    <Compile Include="List\DTO\ListDepartmentDto.cs" />
+    <Compile Include="List\DTO\ListFirmDto.cs" />
+    <Compile Include="List\DTO\ListThemeCategoryDto.cs" />
+    <Compile Include="List\DTO\ListThemeOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListRoleDto.cs" />
+    <Compile Include="List\DTO\ListProjectDto.cs" />
+    <Compile Include="List\DTO\ListPositionChildrenDto.cs" />
+    <Compile Include="List\DTO\ListPositionCategoryDto.cs" />
+    <Compile Include="List\DTO\ListPlatformDto.cs" />
+    <Compile Include="List\DTO\ListOrderPositionDto.cs" />
+    <Compile Include="List\DTO\ListOrderPositionAdvertisementDto.cs" />
+    <Compile Include="List\DTO\ListCurrencyDto.cs" />
+    <Compile Include="List\DTO\ListCountryDto.cs" />
+    <Compile Include="List\DTO\ListContributionTypeDto.cs" />
+    <Compile Include="List\DTO\ListCategoryOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListCategoryGroupDto.cs" />
+    <Compile Include="List\DTO\ListBargainTypeDto.cs" />
+    <Compile Include="List\DTO\ListAssociatedPositionsGroupDto.cs" />
+    <Compile Include="List\DTO\ListAssociatedPositionDto.cs" />
+    <Compile Include="List\DTO\ListAdsTemplatesAdsElementTemplateDto.cs" />
+    <Compile Include="List\DTO\ListAccountDetailDto.cs" />
+    <Compile Include="List\DTO\ListAccountDto.cs" />
+    <Compile Include="List\DTO\ListActivityDto.cs" />
+    <Compile Include="List\DTO\ListAdditionalFirmServiceDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementElementDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementElementTemplateDto.cs" />
+    <Compile Include="List\DTO\ListAdvertisementTemplateDto.cs" />
+    <Compile Include="List\DTO\ListBargainDto.cs" />
+    <Compile Include="List\DTO\ListBranchOfficeOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListBargainFileDto.cs" />
+    <Compile Include="List\DTO\ListBillDto.cs" />
+    <Compile Include="List\DTO\ListCategoryDto.cs" />
+    <Compile Include="List\DTO\ListCategoryFirmAddressDto.cs" />
+    <Compile Include="List\DTO\ListContactDto.cs" />
+    <Compile Include="List\DTO\ListCurrencyRateDto.cs" />
+    <Compile Include="List\DTO\ListDealDto.cs" />
+    <Compile Include="List\DTO\ListDeniedPositionDto.cs" />
+    <Compile Include="List\DTO\ListFirmAddressDto.cs" />
+    <Compile Include="List\DTO\ListFirmContactDto.cs" />
+    <Compile Include="List\DTO\ListLegalPersonDto.cs" />
+    <Compile Include="List\DTO\ListLegalPersonProfileDto.cs" />
+    <Compile Include="List\DTO\ListLimitDto.cs" />
+    <Compile Include="List\DTO\ListLocalMessageDto.cs" />
+    <Compile Include="List\DTO\ListLockDetailDto.cs" />
+    <Compile Include="List\DTO\ListLockDto.cs" />
+    <Compile Include="List\DTO\ListOperationDto.cs" />
+    <Compile Include="List\DTO\ListOperationTypeDto.cs" />
+    <Compile Include="List\DTO\ListOrderDto.cs" />
+    <Compile Include="List\DTO\ListOrderFileDto.cs" />
+    <Compile Include="List\DTO\ListOrderProcessingRequestDto.cs" />
+    <Compile Include="List\DTO\ListOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListPositionDto.cs" />
+    <Compile Include="List\DTO\ListPriceDto.cs" />
+    <Compile Include="List\DTO\ListPricePositionDto.cs" />
+    <Compile Include="List\DTO\ListPrintFormTemplateDto.cs" />
+    <Compile Include="List\DTO\ListRegionalAdvertisingSharingDto.cs" />
+    <Compile Include="List\DTO\ListReleaseInfoDto.cs" />
+    <Compile Include="List\DTO\ListTerritoryDto.cs" />
+    <Compile Include="List\DTO\ListThemeDto.cs" />
+    <Compile Include="List\DTO\ListUserOrganizationUnitDto.cs" />
+    <Compile Include="List\DTO\ListThemeTemplateDto.cs" />
+    <Compile Include="List\DTO\ListUserDto.cs" />
+    <Compile Include="List\DTO\ListUserTerritoryDto.cs" />
+    <Compile Include="List\DTO\ListUserRoleDto.cs" />
+    <Compile Include="List\DTO\ListWithdrawalInfoDto.cs" />
+    <Compile Include="List\Metadata\IExtendedInfoFilterMetadata.cs" />
+    <Compile Include="List\Metadata\ExtendedInfoMetadata.cs" />
+    <Compile Include="List\Metadata\FilteredFieldsMetadata.cs" />
+    <Compile Include="List\Metadata\MethodInfos.cs" />
+    <Compile Include="List\Metadata\QuerySettings.cs" />
+    <Compile Include="List\Metadata\QuerySettingsExtensions.cs" />
+    <Compile Include="List\Metadata\RelationalMetadata.cs" />
+    <Compile Include="DI\QueryingZone.cs" />
+    <Compile Include="Remote\List\IListApplicationRestService.cs" />
+    <Compile Include="Remote\List\IListApplicationService.cs" />
+    <Compile Include="Remote\List\ListOperationErrorDescription.cs" />
+    <Compile Include="SearchListModelExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Qds.API.Operations\2Gis.Erm.Qds.API.Operations.csproj">
+      <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
+      <Name>2Gis.Erm.Qds.API.Operations</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

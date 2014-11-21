@@ -1,0 +1,205 @@
+﻿button.x-btn-text
+{
+color: #15428b!important;
+}
+
+.x-btn-over .x-btn-tl
+{
+ 	background-image:url("images/CommonUI/Button/tl-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-over .x-btn-tc
+{
+ 	background-image:url("images/CommonUI/Button/tc-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-tr
+{
+ 	background-image:url("images/CommonUI/Button/tr-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-over .x-btn-ml
+{
+ 	background-image:url("images/CommonUI/Button/ml-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-mc
+{
+ 	background-image:url("images/CommonUI/Button/mc-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-mr
+{
+ 	background-image:url("images/CommonUI/Button/mr-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-over .x-btn-bl
+{
+ 	background-image:url("images/CommonUI/Button/bl-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-bc
+{
+ 	background-image:url("images/CommonUI/Button/bc-over.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-over .x-btn-br
+{
+ 	background-image:url("images/CommonUI/Button/br-over.gif") !important;
+ 	background-position:0 0 !important;
+}	
+
+
+.x-btn-pressed .x-btn-tl
+{
+ 	background-image:url("images/CommonUI/Button/tl-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-tc
+{
+ 	background-image:url("images/CommonUI/Button/tc-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-tr
+{
+ 	background-image:url("images/CommonUI/Button/tr-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-pressed .x-btn-ml
+{
+ 	background-image:url("images/CommonUI/Button/ml-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-mc
+{
+ 	background-image:url("images/CommonUI/Button/mc-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-mr
+{
+ 	background-image:url("images/CommonUI/Button/mr-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+.x-btn-pressed .x-btn-bl
+{
+ 	background-image:url("images/CommonUI/Button/bl-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-bc
+{
+ 	background-image:url("images/CommonUI/Button/bc-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+.x-btn-pressed .x-btn-br
+{
+ 	background-image:url("images/CommonUI/Button/br-pressed.gif") !important;
+ 	background-position:0 0 !important;
+}
+
+
+.x-menu-item-active
+{
+border-top-color: #ffb74c!important;
+border-bottom-color: #ffb74c!important;
+border-left-color: #ffb74c!important;
+border-right-color: #ffb74c!important;
+
+border-left-style: solid!important;
+border-right-style: solid!important;
+border-bottom-style: solid!important;
+border-top-style: solid!important;
+
+border-bottom-width: 1px!important;
+border-top-width: 1px!important;
+border-left-width: 1px!important;
+border-right-width: 1px!important;
+background-color: #ffe6a0!important;
+}
+
+
+.x-menu-item-active A.x-menu-item
+{
+border-top-color: #ffb74c!important;
+border-bottom-color: #ffb74c!important;
+border-left-color: #ffb74c!important;
+border-right-color: #ffb74c!important;
+
+border-left-style: solid!important;
+border-right-style: solid!important;
+border-bottom-style: solid!important;
+border-top-style: solid!important;
+
+border-bottom-width: 1px!important;
+border-top-width: 1px!important;
+border-left-width: 1px!important;
+border-right-width: 1px!important;
+background-color: #ffe6a0!important;
+}
+
+.x-menu-list-item
+{
+border-top-color:transparent!important;
+border-bottom-color: transparent!important;
+border-left-color: transparent!important;
+border-right-color: transparent!important;
+
+border-left-style: solid!important;
+border-right-style: solid!important;
+border-bottom-style: solid!important;
+border-top-style: solid!important;
+
+border-bottom-width: 1px!important;
+border-top-width: 1px!important;
+border-left-width: 1px!important;
+border-right-width: 1px!important;
+
+font-family: Tahoma!important;
+font-weight: normal!important;
+font-size: 11!important;
+color: #15428B!important;
+}
+.x-menu-item A.x-menu-item
+{
+border-top-color:transparent!important;
+border-bottom-color: transparent!important;
+border-left-color: transparent!important;
+border-right-color: transparent!important;
+
+border-left-style: solid!important;
+border-right-style: solid!important;
+border-bottom-style: solid!important;
+border-top-style: solid!important;
+
+border-bottom-width: 1px!important;
+border-top-width: 1px!important;
+border-left-width: 1px!important;
+border-right-width: 1px!important;
+background-color: #ffe6a0!important;
+}
+A.x-menu-item
+{
+font-family: Tahoma!important;
+font-weight: normal!important;
+font-size: 11!important;
+color: #15428B!important;
+}
+
+.x-menu
+{
+    background-image:url("images/CommonUI/crm-menu-back.gif") !important;
+}
+
+td.x-date-middle button.x-btn-text
+{
+ color: #fff!important;   
+}
+
+td.x-date-middle table.x-btn-over button.x-btn-text
+{
+color: #15428b!important;
+}

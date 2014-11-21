@@ -1,0 +1,64 @@
+﻿@model Models.ActivateDealViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @string.Format(BLResources.ConfirmActivation, MetadataResources.Deal) }
+@section TopBarTitle { @string.Format(BLResources.ConfirmActivation, MetadataResources.Deal) }
+@section TopBarMessage { @string.Format(BLResources.ConfirmActivationLegend, 1, MetadataResources.Deal) }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(
+    function ()
+    {
+        //Show error messages
+        if (Ext.getDom("Notifications").innerHTML.trim() == "OK")
+        {
+            window.returnValue = true;
+            window.close();
+            return;
+        }
+        else if (Ext.getDom("Notifications").innerHTML.trim() != "")
+        {
+            Ext.get("Notifications").addClass("Notifications");
+        }
+
+        Ext.getDom("DealId").value = window.dialogArguments;
+
+        Ext.get("Cancel").on("click", function () { window.returnValue = null; window.close(); });
+        Ext.get("OK").on("click",
+        function ()
+        {
+            Ext.getDom("OK").disabled = "disabled";
+            Ext.getDom("Cancel").disabled = "disabled";
+            EntityForm.submit();
+        });
+    });
+
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    @Html.HiddenFor(m => m.DealId)
+    <table cellspacing="5" cellpadding="5" width="100%" height="100px">
+        <colgroup>
+            <col width="100%" />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <div style="height: 24px;" id="Notifications">
+                        @Model.Message</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @string.Format(BLResources.ConfirmActivationMessage, MetadataResources.Deal)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

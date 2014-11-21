@@ -1,0 +1,25 @@
+﻿<Orders>
+<Order Number="БЗ_25-25-91454" CategoryRate="0.6" />
+<Order Number="БЗ_33-33-112923" CategoryRate="0.6" />
+<Order Number="БЗ_33-33-112927" CategoryRate="0.6" />
+<Order Number="БЗ_52-25-95418" CategoryRate="1" />
+<Order Number="БЗ_25-25-78687" CategoryRate="1" />
+<Order Number="БЗ_25-25-91454" CategoryRate="0.6" />
+<Order Number="БЗ_25-25-83958" CategoryRate="1" />
+<Order Number="БЗ_25-25-69789" CategoryRate="1" />
+<Order Number="БЗ_25-25-99310" CategoryRate="1" />
+<Order Number="БЗ_09-15-92208" CategoryRate="1" />
+<Order Number="БЗ_09-21-83499" CategoryRate="1" />
+<Order Number="БЗ_29-21-91561" CategoryRate="1" />
+<Order Number="БЗ_21-21-68069" CategoryRate="0.6" />
+<Order Number="БЗ_15-15-94972" CategoryRate="1.0" />
+<Order Number="БЗ_25-25-83745" CategoryRate="1.2" />
+<Order Number="БЗ_33-33-87503" CategoryRate="1.0" />
+<Order Number="БЗ_33-33-89805" CategoryRate="1.0" />
+<Order Number="БЗ_33-33-92236" CategoryRate="1.1" />
+<Order Number="БЗ_44-44-64087" CategoryRate="1.0" />
+<Order Number="БЗ_44-44-64137" CategoryRate="1.0" />
+<Order Number="БЗ_44-44-64525" CategoryRate="1.0" />
+<Order Number="БЗ_44-44-71397" CategoryRate="1.0" />
+<Order Number="БЗ_44-44-84923" CategoryRate="1.1" />
+</Orders>

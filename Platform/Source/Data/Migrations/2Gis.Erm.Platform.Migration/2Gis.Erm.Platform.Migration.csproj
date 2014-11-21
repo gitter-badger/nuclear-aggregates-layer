@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6EE01928-8E79-4882-9410-9A6C5E266C1F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.Migration</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.Migration</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="microsoft.crm.sdk">
+      <HintPath>..\..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.crm.sdktypeproxy">
+      <HintPath>..\..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.crm.sdktypeproxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\MW\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\MW\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\MW\Libs\SQL Server SMO 10.0\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.xrm.client">
+      <HintPath>..\..\..\Libs\Microsoft Dynamics CRM SDK 4.0.13\microsoft.xrm.client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Base\ConnectionStringsKnower.cs" />
+    <Compile Include="Base\IContextedMigration.cs" />
+    <Compile Include="Base\MigrationContextManager.cs" />
+    <Compile Include="CRM\CrmImportAndPublishCustomizationMigration.cs" />
+    <Compile Include="Base\ErmConnectionStringKey.cs" />
+    <Compile Include="Base\ExceptionHelper.cs" />
+    <Compile Include="Base\IMigrationContextBase.cs" />
+    <Compile Include="Base\IMigrationContext.cs" />
+    <Compile Include="Base\INonDefaultDatabaseMigration.cs" />
+    <Compile Include="Base\MigrationKnownException.cs" />
+    <Compile Include="CRM\CrmMigrationContext.cs" />
+    <Compile Include="CRM\ICrmMigrationContext.cs" />
+    <Compile Include="MW\ActivityMigrationContext.cs" />
+    <Compile Include="MW\IActivityMigrationContext.cs" />
+    <Compile Include="Runner\IMigrationContextProvider.cs" />
+    <Compile Include="Sql\ExpressionsExtension.cs" />
+    <Compile Include="Sql\InsertDataExpression.cs" />
+    <Compile Include="Base\DatabaseMigrationContext.cs" />
+    <Compile Include="Base\TransactedMigration.cs" />
+    <Compile Include="Base\VersionTableMetaData.cs" />
+    <Compile Include="Extensions\SmoExtensions.cs" />
+    <Compile Include="Runner\MigrationRunResult.cs" />
+    <Compile Include="Sql\InsertDataExpressionExtension.cs" />
+    <Compile Include="Sql\InsertionDataDefinition.cs" />
+    <Compile Include="Sql\Quoter.cs" />
+    <Compile Include="Sql\SchemaQualifiedObjectName.cs" />
+    <Compile Include="Sql\SqlHelper.cs" />
+    <Compile Include="Runner\SmoAppliedVersionsManager.cs" />
+    <Compile Include="Runner\MigrationRunner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
+      <Project>{2ee6dcd3-218d-4eea-8902-8cf501c7e034}</Project>
+      <Name>2Gis.Erm.Platform.Migration.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

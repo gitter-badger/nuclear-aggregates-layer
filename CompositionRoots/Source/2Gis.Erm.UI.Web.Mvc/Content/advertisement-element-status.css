@@ -1,0 +1,38 @@
+﻿body {
+    overflow: hidden;
+}
+
+#MainTab {
+    overflow-x: hidden;
+}
+
+.title{
+    font-family: Tahoma;
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #6693CF;
+    padding: 20px 20px;
+}
+
+#Notifications {
+    display: none;
+    height: 24px;
+}
+
+#TxtContainer .mceToolbar {
+    table-layout: auto;
+    border-spacing: inherit;
+    width: auto;
+}
+
+DIV.Tab TABLE
+{
+    table-layout: auto;
+    border-spacing: inherit;
+    width: auto;
+}
+
+.x-splitbar-v { 
+    height: 5px; 
+}

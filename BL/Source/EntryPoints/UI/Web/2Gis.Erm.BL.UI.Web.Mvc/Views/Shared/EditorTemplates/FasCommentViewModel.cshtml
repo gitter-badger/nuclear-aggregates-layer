@@ -1,0 +1,12 @@
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.AdvertisementElementModels.FasCommentViewModel
+
+@Html.HiddenFor(m => m.TemplateTextLengthRestriction)
+
+<div class="row-wrapper">
+    @Html.TemplateField(m => m.FasComment, FieldFlex.lone, null, EnumResources.ResourceManager)
+    @Html.Hidden("FasCommentDisplayTextItems", Model.FasCommentDisplayTextItemsJson)
+</div>
+
+<div class="row-wrapper">
+    @Html.TemplateField(m => m.PlainText, FieldFlex.lone, new Dictionary<string, object> { { "rows", "15" } })
+</div>

@@ -1,0 +1,42 @@
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get;
+using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
+using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
+{
+    public class EmiratesGetClientDtoService : GetDomainEntityDtoServiceBase<Client>, IEmiratesAdapted
+    {
+        private readonly IClientReadModel _clientReadModel;
+        private readonly IFirmReadModel _firmReadModel;
+
+        public EmiratesGetClientDtoService(IUserContext userContext, IClientReadModel clientReadModel, IFirmReadModel firmReadModel)
+            : base(userContext)
+        {
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
+        }
+
+        protected override IDomainEntityDto<Client> GetDto(long entityId)
+        {
+            var client = _clientReadModel.GetClient(entityId);
+
+            var modelDto = ClientFlexSpecs.Clients.Emirates.Project.DomainEntityDto().Project(client);
+            modelDto.MainFirmRef.Name = modelDto.MainFirmRef.Id.HasValue ? _firmReadModel.GetFirmName(modelDto.MainFirmRef.Id.Value) : null;
+            modelDto.TerritoryRef.Name = modelDto.TerritoryRef.Id.HasValue ? _firmReadModel.GetTerritoryName(modelDto.TerritoryRef.Id.Value) : null;
+
+            return modelDto;
+        }
+
+        protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        {
+            return new EmiratesClientDomainEntityDto();
+        }
+    }
+}

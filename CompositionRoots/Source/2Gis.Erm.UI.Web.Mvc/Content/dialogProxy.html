@@ -1,0 +1,106 @@
+<!-- В IE в режиме совместимости (используется по умолчанию для сайтов интрасети) появление тэга DOCTYPE приводит к задержке при открытии данного документа в 20 сек - по этой причине тэг DOCTYPE закоментриован
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+-->
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	(function()
+	{
+		ensureJSONSerializerAvailability();
+		attachProxyListener();
+
+		var message = {
+				Type: "ready",
+				Value: null
+			};
+
+		
+		var strMessage = serialize(message);
+		window.parent.postMessage(strMessage, "*");
+
+		function attachProxyListener()
+		{
+			if (window.addEventListener) {
+			  window.addEventListener('message', onDialogCallerMessageHandler, false);
+			}
+			else { // IE8 or earlier
+			  window.attachEvent('onmessage', onDialogCallerMessageHandler, false);
+			}
+		}
+
+		function detachProxyListener()
+		{
+			if (window.addEventListener) {
+			  window.removeEventListener('message', onDialogCallerMessageHandler, false);
+			}
+			else { // IE8 or earlier
+			  window.detachEvent ('onmessage', onDialogCallerMessageHandler, false);
+			}
+		}
+
+		function onDialogCallerMessageHandler(e)
+		{
+			var message = deserialize(e.data);
+			if (message.Type == 'dialogSettings') {
+					show(message.Value);
+			}
+		}
+
+		function show(settings)
+		{
+			var result = window.showModalDialog(settings.Url, settings.Args, settings.Options);
+			detachProxyListener();
+
+			var message = {
+				Type: "dialogClosed",
+				Value: result
+			};
+
+			var strMessage = serialize(message);
+			window.parent.postMessage(strMessage, "*");
+		}
+
+		function serialize(data)
+		{
+			return JSON.stringify(data);
+		}
+
+		function deserialize(sData)
+		{
+			return JSON.parse(sData);
+		}
+
+		function ensureJSONSerializerAvailability()
+	    {
+	        if (!window.JSON) {
+	          window.JSON = {
+	            parse: function (sJSON) { return eval("(" + sJSON + ")"); },
+	            stringify: function (vContent) {
+	              if (vContent instanceof Object) {
+	                var sOutput = "";
+	                if (vContent.constructor === Array) {
+	                  for (var nId = 0; nId < vContent.length; sOutput += this.stringify(vContent[nId]) + ",", nId++);
+	                    return "[" + sOutput.substr(0, sOutput.length - 1) + "]";
+	                }
+	                if (vContent.toString !== Object.prototype.toString) { 
+	                  return "\"" + vContent.toString().replace(/"/g, "\\$&") + "\"";
+	                }
+	                for (var sProp in vContent) { 
+	                  sOutput += "\"" + sProp.replace(/"/g, "\\$&") + "\":" + this.stringify(vContent[sProp]) + ",";
+	                }
+	                return "{" + sOutput.substr(0, sOutput.length - 1) + "}";
+	             }
+	             return typeof vContent === "string" ? "\"" + vContent.replace(/"/g, "\\$&") + "\"" : String(vContent);
+	            }
+	          };
+	        }
+	    }
+	})();
+</script>
+</body>
+</html>

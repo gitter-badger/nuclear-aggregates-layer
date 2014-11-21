@@ -1,0 +1,93 @@
+﻿
+@model OrderFileViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script type="text/javascript">
+        function beforeFileUpload() {
+            this.Items.Toolbar.disable();
+            this.Mask.show();
+        }
+
+        function afterFileUpload() {
+            // После заливки файла поменялась модель в базе данных, поэтому скрытый ste объект надо синхронизировать, чтобы не получить ConcurrencyException
+            if (this.form.Id.value == 0 || this.form.Id.value == '0') {
+                this.Mask.hide();
+                this.Items.Toolbar.enable();
+                return;
+            }
+
+            Ext.Ajax.request({
+                timeout: 1200000,
+                method: 'GET',
+                url: '/OrderFile/GetSteObject/' + this.form.Id.value,
+                params: { id: this.form.Id.value },
+                scope: this,
+                success: function (xhr) {
+                    var response = Ext.decode(xhr.responseText);
+                    this.form.EntityStateToken.value = response.EntityStateToken;
+                    this.Mask.hide();
+                    this.Items.Toolbar.enable();
+                },
+                failure: function() {
+                    Ext.Msg.show({
+                        title: Ext.LocalizedResources.Error,
+                        msg: Ext.LocalizedResources.AcquireOrderExtensionFailed,
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                }
+            });
+        }
+
+        window.InitPage = function() {
+            this.on("afterbuild", function () {
+                var readOnly = window.Ext.getDom("ViewConfig_ReadOnly").checked;
+                var u = new Ext.ux.AsyncFileUpload(
+                    {
+                        readOnly: readOnly,
+                        applyTo: 'FileId',
+                        uploadUrl: '/Upload/OrderFile',
+                        downloadUrl: Ext.BasicOperationsServiceRestUrl + 'DownloadBinary.svc/Rest/OrderFile/{0}',
+                        listeners: {
+                            fileuploadbegin: beforeFileUpload,
+                            fileuploadcomplete: afterFileUpload,
+                            scope: this
+                        },
+                        fileInfo:
+                        {
+                            fileId: '@Model.FileId',
+                            fileName: '@Model.FileName',
+                            contentType: '@Model.FileContentType',
+                            fileSize: '@Model.FileContentLength'
+                        }
+                    });
+            }, this);
+        };
+    </script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.OrderId)
+            @Html.HiddenFor(m => m.FileContent)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FileKind, FieldFlex.lone, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FileId, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> {{"rows", "5"}})
+        </div>
+    </div>
+}

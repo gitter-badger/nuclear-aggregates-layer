@@ -1,0 +1,1888 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7ADB939C-1B49-41DC-A8B0-79E1EB670CBD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLFlex.UI.Web.Mvc.Global</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\RazorGenerator.Mvc.2.2.1\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="Areas\AreaRegistrations.cs" />
+    <Compile Include="Areas\Chile\AreaRegistrator.cs" />
+    <Compile Include="Areas\Chile\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Chile\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Emirates\Controllers\AcceptanceReportController.cs" />
+    <Compile Include="Areas\Emirates\Views\AcceptanceReport\Generate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Generate.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Kazakhstan\AreaRegistrator.cs" />
+    <Compile Include="Areas\Kazakhstan\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Kazakhstan\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\MultiCulture\Controllers\ChangeBindingObjectsController.cs" />
+    <Compile Include="Areas\MultiCulture\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeBindingObjects.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\MultiCulture\Views\ClientsMerging\Merge.generated.cs">
+      <DependentUpon>Merge.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\MultiCulture\Views\ClientsMerging\MergeClientsGetData.generated.cs">
+      <DependentUpon>MergeClientsGetData.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Models\Kazakhstan\KazakhstanChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\MultiCultureDealViewModel.cs" />
+    <Compile Include="Services\Cards\Kazakhstan\KazakhstanLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Kazakhstan\KazakhstanContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureDeal.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureDeal.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Kazakhstan\KazakhstanBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Kazakhstan\KazakhstanBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Kazakhstan\KazakhstanLegalPersonViewModel.cs" />
+    <Compile Include="Models\Kazakhstan\KazakhstanLegalPersonProfileViewModel.cs" />
+    <Compile Include="Services\Cards\Kazakhstan\KazakhstanLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanTemplateCodeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
+    <Compile Include="DI\ViewModelCustomizationsMassProcessor.cs" />
+    <Compile Include="Services\Cards\Russia\EditIsAdvertisingAgencyViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationProvider.cs" />
+    <Compile Include="Services\Cards\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Account.generated.cs">
+      <DependentUpon>Account.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Bargain.generated.cs">
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\BargainType.generated.cs">
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Bill.generated.cs">
+      <DependentUpon>Bill.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\BranchOffice.generated.cs">
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\BranchOfficeOrganizationUnit.generated.cs">
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Contact.generated.cs">
+      <DependentUpon>Contact.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Firm.generated.cs">
+      <DependentUpon>Firm.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\LegalPerson.generated.cs">
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\LegalPersonProfile.generated.cs">
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Kazakhstan\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdvertisementElementStatus.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\Views\ClientsMerging\Merge.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Merge.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\Views\ClientsMerging\MergeClientsGetData.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MergeClientsGetData.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Ukraine\AreaRegistrator.cs" />
+    <Compile Include="Areas\Ukraine\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Ukraine\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\Emirates\AreaRegistrator.cs" />
+    <Compile Include="Areas\Emirates\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Areas\Emirates\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Emirates\Views\ClientsMerging\Merge.generated.cs">
+      <DependentUpon>Merge.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\Emirates\Views\ClientsMerging\MergeClientsGetData.generated.cs">
+      <DependentUpon>MergeClientsGetData.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Areas\Emirates\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DI\BlflexUiWebMvcAssembly.cs" />
+    <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
+    <Compile Include="Models\Chile\CommuneViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesGenerateAcceptanceReportViewModel.cs" />
+    <Compile Include="Models\MultiCultureMergeClientsViewModel.cs" />
+    <Compile Include="Models\MultiCultureClientViewModel.cs" />
+    <Compile Include="Models\MultiCultureFirmAddressViewModel.cs" />
+    <Compile Include="Models\MultiCultureOrderPositionViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesBargainTypeViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesMergeClientsViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesFirmAddressViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesClientViewModel.cs" />
+    <Compile Include="Models\MultiCultureCreateBillViewModel.cs" />
+    <Compile Include="Areas\Chile\Views\CreateBill\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Cyprus\AreaRegistrator.cs" />
+    <Compile Include="Areas\Cyprus\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\MultiCulture\AreaRegistrator.cs" />
+    <Compile Include="Areas\MultiCulture\Views\CreateBill\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Chile\ChileBillViewModel.cs" />
+    <Compile Include="Models\MultiCultureBillViewModel.cs" />
+    <Compile Include="Models\Chile\ChileBankViewModel.cs" />
+    <Compile Include="Models\Chile\ChileLegalPersonViewModel.cs" />
+    <Compile Include="Models\Chile\ChileLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Chile\ChileBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Chile\ChileBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Chile\ChileChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\MultiCultureOrderViewModel.cs" />
+    <Compile Include="Models\Russia\AccountViewModel.cs" />
+    <Compile Include="Models\Russia\AdvertisementElementStatusViewModel.cs" />
+    <Compile Include="Models\Russia\AppointmentViewModel.cs" />
+    <Compile Include="Models\Russia\BargainTypeViewModel.cs" />
+    <Compile Include="Models\Russia\BargainViewModel.cs" />
+    <Compile Include="Models\Russia\BranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Russia\BranchOfficeViewModel.cs" />
+    <Compile Include="Models\Russia\ChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\Russia\FirmViewModel.cs" />
+    <Compile Include="Models\Russia\LegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Russia\MergeClientsViewModel.cs" />
+    <Compile Include="Models\Russia\ClientViewModel.cs" />
+    <Compile Include="Models\Russia\OrderViewModel.cs" />
+    <Compile Include="Models\Russia\PhonecallViewModel.cs" />
+    <Compile Include="Models\Russia\TaskViewModel.cs" />
+    <Compile Include="Models\Emirates\EmiratesLegalPersonViewModel.cs" />
+    <Compile Include="Models\Ukraine\Extensions.cs" />
+    <Compile Include="Models\Ukraine\UkraineChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineKazakhstanContactViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Ukraine\UkraineLegalPersonViewModel.cs" />
+    <Compile Include="Services\Cards\MultiCultureOrderPositionViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Czech\CzechContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Chile\ChileContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Chile\ChileLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Chile\ChileLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureAppointmentViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCulturePhonecallViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureTaskViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaClientCustomizationsListViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\ActivityViewModelCustomizationServiceHelper.cs" />
+    <Compile Include="Services\Cards\Russia\AppointmentViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\FirmViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\LegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\OrderViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\PhonecallViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\TaskViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Chile\ChileOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Czech\AreaRegistrator.cs" />
+    <Compile Include="Areas\Czech\Controllers\LegalPersonController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Enumeration\Cyprus\CyprusPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechTemplateCodeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesTemplateCodeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureIntegrationTypeExportEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureIntegrationTypeImportEnumCustomization.cs" />
+    <Compile Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\AreaRegistrator.cs" />
+    <Compile Include="Areas\Russia\Controllers\LegalPersonController.cs" />
+    <Compile Include="Areas\Russia\Views\LegalPerson\ChangeLegalPersonRequisites.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeLegalPersonRequisites.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\Views\LegalPerson\Merge.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Merge.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Russia\Views\LegalPerson\MergeLegalPersonsGetData.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MergeLegalPersonsGetData.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Russia\ContactViewModel.cs" />
+    <Compile Include="Models\Cyprus\CyprusAccountViewModel.cs" />
+    <Compile Include="Models\ActivityBaseViewModelAbstract.cs" />
+    <Compile Include="Models\MultiCultureAppointmentViewModel.cs" />
+    <Compile Include="Models\Cyprus\CyprusBargainViewModel.cs" />
+    <Compile Include="Models\Cyprus\CyprusBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Cyprus\CyprusBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Cyprus\CyprusChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\MultiCultureFirmViewModel.cs" />
+    <Compile Include="Models\Cyprus\CyprusLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Cyprus\CyprusLegalPersonViewModel.cs" />
+    <Compile Include="Models\MultiCulturePhonecallViewModel.cs" />
+    <Compile Include="Models\MultiCultureTaskViewModel.cs" />
+    <Compile Include="Models\MultiCultureAccountViewModel.cs" />
+    <Compile Include="Models\MultiCultureBargainTypeViewModel.cs" />
+    <Compile Include="Models\MultiCultureBargainViewModel.cs" />
+    <Compile Include="Models\Czech\CzechBranchOfficeOrganizationUnitViewModel.cs" />
+    <Compile Include="Models\Czech\CzechBranchOfficeViewModel.cs" />
+    <Compile Include="Models\Czech\CzechChangeLegalPersonRequisitesViewModel.cs" />
+    <Compile Include="Models\MultiCultureContactViewModel.cs" />
+    <Compile Include="Models\Czech\CzechLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Czech\CzechLegalPersonViewModel.cs" />
+    <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
+    <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
+    <Compile Include="Services\Cards\MultiCultureClientCustomizationsListViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusAccountViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\MultiCultureAccountViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Czech\CzechLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Czech\CzechLegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Russia\LegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureFasCommentCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Cyprus\CyprusOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Czech\CzechPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineTemplateCodeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineOperatesOnTheBasisTypesEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkrainePaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Ukraine\UkraineDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesOrderTypeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesPaymentMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesDocumentsDeliveryMethodEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Emirates\EmiratesLegalPersonTypeEnumCustomization.cs" />
+    <Compile Include="Views\CreateOrUpdate\Chile\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureBargainType.generated.cs">
+      <DependentUpon>MultiCultureBargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\BargainType.generated.cs">
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureBill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureBill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\BargainType.generated.cs">
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureFirmAddress.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureFirmAddress.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureOrderPosition.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureOrderPosition.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Deal.generated.cs">
+      <DependentUpon>Deal.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\BranchOffice.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Account.generated.cs">
+      <DependentUpon>Account.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Bargain.generated.cs">
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\BargainType.generated.cs">
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Bill.generated.cs">
+      <DependentUpon>Bill.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\BranchOffice.generated.cs">
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\BranchOfficeOrganizationUnit.generated.cs">
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Contact.generated.cs">
+      <DependentUpon>Contact.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Firm.generated.cs">
+      <DependentUpon>Firm.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\FirmAddress.generated.cs">
+      <DependentUpon>FirmAddress.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\LegalPerson.generated.cs">
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\BargainType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Bank.generated.cs">
+      <DependentUpon>Bank.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Account.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Account.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Appointment.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Bargain.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\BargainType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Bill.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bill.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\BranchOffice.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\BranchOfficeOrganizationUnit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Contact.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contact.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Firm.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Firm.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\LegalPersonProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Order.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Order.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Phonecall.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Account.generated.cs">
+      <DependentUpon>Account.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\BranchOfficeOrganizationUnit.generated.cs">
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\BranchOffice.generated.cs">
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Bargain.generated.cs">
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\LegalPerson.generated.cs">
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Firm.generated.cs">
+      <DependentUpon>Firm.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Firm.generated.cs">
+      <DependentUpon>Firm.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Bargain.generated.cs">
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Account.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Account.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureAppointment.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureAppointment.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Bargain.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\BargainType.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BargainType.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\BranchOffice.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\BranchOfficeOrganizationUnit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureClient.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureClient.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\Contact.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contact.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Account.generated.cs">
+      <DependentUpon>Account.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureFirm.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureFirm.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\LegalPerson.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Cyprus\LegalPersonProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureOrder.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureOrder.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCulturePhonecall.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCulturePhonecall.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureTask.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureTask.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureAccount.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureAccount.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Appointment.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureBargain.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiCultureBargain.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\BranchOffice.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchOffice.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\BranchOfficeOrganizationUnit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Client.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Client.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Contact.generated.cs">
+      <DependentUpon>Contact.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\MultiCultureContact.generated.cs">
+      <DependentUpon>MultiCultureContact.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Contact.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contact.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Firm.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Firm.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\LegalPerson.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\LegalPersonProfile.generated.cs">
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\LegalPersonProfile.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Chile\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Phonecall.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Czech\Task.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Task.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Russia\LegalPerson.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Account.generated.cs">
+      <DependentUpon>Account.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Appointment.generated.cs">
+      <DependentUpon>Appointment.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Bargain.generated.cs">
+      <DependentUpon>Bargain.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Bill.generated.cs">
+      <DependentUpon>Bill.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\BranchOfficeOrganizationUnit.generated.cs">
+      <DependentUpon>BranchOfficeOrganizationUnit.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Client.generated.cs">
+      <DependentUpon>Client.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Contact.generated.cs">
+      <DependentUpon>Contact.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Firm.generated.cs">
+      <DependentUpon>Firm.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\LegalPerson.generated.cs">
+      <DependentUpon>LegalPerson.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\LegalPersonProfile.generated.cs">
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Ukraine\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\LegalPersonProfile.generated.cs">
+      <DependentUpon>LegalPersonProfile.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Order.generated.cs">
+      <DependentUpon>Order.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\OrderPosition.generated.cs">
+      <DependentUpon>OrderPosition.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Phonecall.generated.cs">
+      <DependentUpon>Phonecall.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\CreateOrUpdate\Emirates\Task.generated.cs">
+      <DependentUpon>Task.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Areas\Chile\Views\CreateBill\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Emirates\Views\AcceptanceReport\Generate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Generate.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Kazakhstan\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeBindingObjects.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\MultiCulture\Views\ClientsMerging\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\MultiCulture\Views\ClientsMerging\MergeClientsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeClientsGetData.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\MultiCulture\Views\CreateBill\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Chile\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureDeal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureDeal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Kazakhstan\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\AdvertisementElementStatus.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdvertisementElementStatus.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\ClientsMerging\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\ClientsMerging\MergeClientsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeClientsGetData.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Ukraine\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Emirates\Views\ClientsMerging\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Emirates\Views\ClientsMerging\MergeClientsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeClientsGetData.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Emirates\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Web.config" />
+    <None Include="Views\CreateOrUpdate\Chile\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureBargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureBargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureBill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureBill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureFirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureOrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Deal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Deal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\FirmAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FirmAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Bank.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bank.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureAppointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureAppointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\BargainType.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BargainType.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureClient.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureClient.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureFirm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureFirm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Cyprus\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureOrder.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureOrder.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCulturePhonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCulturePhonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureTask.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureTask.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Cyprus\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureAccount.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureAccount.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureBargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureBargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\BranchOffice.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOffice.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\MultiCultureContact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiCultureContact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Chile\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Czech\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Czech\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Russia\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\LegalPerson\ChangeLegalPersonRequisites.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangeLegalPersonRequisites.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\LegalPerson\Merge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Merge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Areas\Russia\Views\LegalPerson\MergeLegalPersonsGetData.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MergeLegalPersonsGetData.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Account.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Account.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Appointment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Appointment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Bargain.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bargain.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Bill.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Bill.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\BranchOfficeOrganizationUnit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BranchOfficeOrganizationUnit.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Client.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Client.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Contact.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Firm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Firm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\LegalPerson.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPerson.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Ukraine\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\LegalPersonProfile.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LegalPersonProfile.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Order.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Order.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\OrderPosition.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>OrderPosition.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Phonecall.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Phonecall.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\CreateOrUpdate\Emirates\Task.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Task.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3b5f5e41-b438-435e-91b5-005b2a88237c}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63cf3872-b242-45bf-9b90-a724fd1c96d9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLFlex.API.Operations.Global\2Gis.Erm.BLFlex.API.Operations.Global.csproj">
+      <Project>{A012AC28-EBEB-4D9A-963A-7CEB72F54266}</Project>
+      <Name>2Gis.Erm.BLFlex.API.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5FC26F81-5100-43B5-B55B-E470308338D2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.BLFlex.Model\2Gis.Erm.BLFlex.Model.csproj">
+      <Project>{47EDC4EC-654B-4219-9099-3394DB6C65DB}</Project>
+      <Name>2Gis.Erm.BLFlex.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLFlex.Resources.Server\2Gis.Erm.BLFlex.Resources.Server.csproj">
+      <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
+      <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Czech\EnumCustomization\" />
+    <Folder Include="Areas\Kazakhstan\Models\" />
+    <Folder Include="Areas\Russia\Views\AdvertisementElementStatus\" />
+    <Folder Include="Services\Cards\Contact\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{88EBB4F9-9A20-42C7-9D50-5B350AFDBAD6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.UI.Web.Mvc</RootNamespace>
+    <AssemblyName>2Gis.Erm.UI.Web.Mvc</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <UseIISExpress>true</UseIISExpress>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SilverlightApplicationList>{95623B29-3F92-491C-B735-6F42255A00AC}|..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Silverlight\2Gis.Erm.BLCore.UI.Web.Silverlight.csproj|ClientBin|False</SilverlightApplicationList>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
+    <PublishDatabases>false</PublishDatabases>
+    <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Config\ServiceClientConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DI\Bootstrapper.Chile.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Cyprus.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Czech.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Global.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Emirates.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Kazakhstan.Mvc.Interception.cs" />
+    <Compile Include="DI\Bootstrapper.Ukraine.Mvc.Interception.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DI\WebMvcRoot.cs" />
+    <Compile Include="Settings\WebAppSettings.cs" />
+    <Content Include="ClientBin\2Gis.Erm.BLCore.UI.Web.Silverlight.xap" />
+    <Content Include="Content\Administration.css" />
+    <Content Include="Content\input-overlay.css" />
+    <Content Include="Content\time-period.css" />
+    <Content Include="Content\advertisement-element-status.css" />
+    <Content Include="Content\AsyncFileUpload.css" />
+    <Content Include="Content\Card.css" />
+    <Content Include="Content\CRM4.css" />
+    <Content Include="Content\DataList.css" />
+    <Content Include="Content\debug.css" />
+    <Content Include="Content\dialogProxy.html" />
+    <Content Include="Content\EditAccessSharingList.css" />
+    <Content Include="Content\ErrorPage.css" />
+    <Content Include="Content\ext-all.css" />
+    <Content Include="Content\ext-extend.css" />
+    <Content Include="Content\ext-mask.css" />
+    <Content Include="Content\ext-ux-MSOfficeAccordion.css" />
+    <Content Include="Content\ext-ux-ribbon.css" />
+    <Content Include="Content\ext-ux-treegrid.css" />
+    <Content Include="Content\Ext.ux.DetailedProgressWindow.css" />
+    <Content Include="Content\Global.css" />
+    <Content Include="Content\GridStyle.css" />
+    <Content Include="Content\images\CommonUI\app_back.gif" />
+    <Content Include="Content\images\CommonUI\app_titlebar.gif" />
+    <Content Include="Content\images\CommonUI\attach.png" />
+    <Content Include="Content\images\CommonUI\btn_dis_cal.gif" />
+    <Content Include="Content\images\CommonUI\btn_dis_lookup.gif" />
+    <Content Include="Content\images\CommonUI\btn_lookup_resolving.gif" />
+    <Content Include="Content\images\CommonUI\btn_off_cal.gif" />
+    <Content Include="Content\images\CommonUI\btn_off_lookup.gif" />
+    <Content Include="Content\images\CommonUI\btn_on_cal.gif" />
+    <Content Include="Content\images\CommonUI\btn_on_lookup.gif" />
+    <Content Include="Content\images\CommonUI\btn_rest.gif" />
+    <Content Include="Content\images\CommonUI\Button\bc-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\bc-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\bl-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\bl-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\br-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\br-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\mc-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\mc-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\ml-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\ml-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\mr-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\mr-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\tc-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\tc-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\tl-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\tl-pressed.gif" />
+    <Content Include="Content\images\CommonUI\Button\tr-over.gif" />
+    <Content Include="Content\images\CommonUI\Button\tr-pressed.gif" />
+    <Content Include="Content\images\CommonUI\crm-menu-back.gif" />
+    <Content Include="Content\images\CommonUI\done.gif" />
+    <Content Include="Content\images\CommonUI\Error\critical.png" />
+    <Content Include="Content\images\CommonUI\Error\notification.png" />
+    <Content Include="Content\images\CommonUI\Error\ok.png" />
+    <Content Include="Content\images\CommonUI\Error\warning.png" />
+    <Content Include="Content\images\CommonUI\form_back.gif" />
+    <Content Include="Content\images\CommonUI\progress.gif" />
+    <Content Include="Content\images\CommonUI\qfind.gif" />
+    <Content Include="Content\images\CommonUI\qfindclear.gif" />
+    <Content Include="Content\images\CommonUI\qfindcleardown.gif" />
+    <Content Include="Content\images\CommonUI\qfindclearhover.gif" />
+    <Content Include="Content\images\CommonUI\qfinddown.gif" />
+    <Content Include="Content\images\CommonUI\qfindhover.gif" />
+    <Content Include="Content\images\CommonUI\Ribbon\ribbon-bg.gif" />
+    <Content Include="Content\images\CommonUI\Ribbon\ribbon-group-bt.gif" />
+    <Content Include="Content\images\CommonUI\Ribbon\ribbon-tabs-sprite.gif" />
+    <Content Include="Content\images\CommonUI\Validation\validate.png" />
+    <Content Include="Content\images\CommonUI\Validation\accept.png" />
+    <Content Include="Content\images\CommonUI\wunderbar_hover.gif" />
+    <Content Include="Content\images\CommonUI\wunderbar_rest.gif" />
+    <Content Include="Content\images\CommonUI\wunderbar_sel.gif" />
+    <Content Include="Content\images\CommonUI\xp.gif" />
+    <Content Include="Content\images\CommonUI\xp_back.gif" />
+    <Content Include="Content\images\Configuration\Attachments\acrobat.png" />
+    <Content Include="Content\images\Configuration\Attachments\attach.png" />
+    <Content Include="Content\images\Configuration\Attachments\compressed.png" />
+    <Content Include="Content\images\Configuration\Attachments\excel.png" />
+    <Content Include="Content\images\Configuration\Attachments\exe.png" />
+    <Content Include="Content\images\Configuration\Attachments\flash.png" />
+    <Content Include="Content\images\Configuration\Attachments\generic.png" />
+    <Content Include="Content\images\Configuration\Attachments\html.png" />
+    <Content Include="Content\images\Configuration\Attachments\image.png" />
+    <Content Include="Content\images\Configuration\Attachments\media.png" />
+    <Content Include="Content\images\Configuration\Attachments\powerpoint.png" />
+    <Content Include="Content\images\Configuration\Attachments\secHead.png" />
+    <Content Include="Content\images\Configuration\Attachments\text.png" />
+    <Content Include="Content\images\Configuration\Attachments\visio.png" />
+    <Content Include="Content\images\Configuration\Attachments\word.png" />
+    <Content Include="Content\images\Configuration\Attachments\zip.png" />
+    <Content Include="Content\images\Configuration\CommonUI\app_invalid.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\email.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\formnav_header_back.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\gridtoolbar_back.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\headrow_underline.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\link.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\masthead.jpg" />
+    <Content Include="Content\images\Configuration\CommonUI\mast_back.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\navDown.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\navUp.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\nav_header_back.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\notif_icn_critical.png" />
+    <Content Include="Content\images\Configuration\CommonUI\statusbar_back.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\Toolbar\Add.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\Toolbar\CrmRefresh.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\Toolbar\Delete.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\Toolbar\DeleteDisabled.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\Toolbar\DeleteRed.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\Toolbar\Print.gif" />
+    <Content Include="Content\images\Configuration\CommonUI\treeitem_hover_highlight.gif" />
+    <Content Include="Content\images\Configuration\Entity\Activate.png" />
+    <Content Include="Content\images\Configuration\Entity\Billing.gif" />
+    <Content Include="Content\images\Configuration\Entity\btn_lrg_Default.gif" />
+    <Content Include="Content\images\Configuration\Entity\BusinessDirectory.gif" />
+    <Content Include="Content\images\Configuration\Entity\Check.gif" />
+    <Content Include="Content\images\Configuration\Entity\Close.gif" />
+    <Content Include="Content\images\Configuration\Entity\Deactivate.png" />
+    <Content Include="Content\images\Configuration\Entity\Default.gif" />
+    <Content Include="Content\images\Configuration\Entity\Delete.gif" />
+    <Content Include="Content\images\Configuration\Entity\Delete.png" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Account.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Links.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Action.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Advertisement.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElement.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElementTemplate.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementTemplate.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Appointment.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Assembly.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Assign.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Bargain.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_BargainType.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Binding.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_BranchOffice.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_BranchOfficeOrganizationUnit.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Card.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_CardRelatedItems.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_CardToolbar.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Category.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Client.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Contact.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_ContributionType.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Country.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Currency.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_DataList.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_DataListToolbar.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Deal.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Default.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Department.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Disqualify.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Entity.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_ExportAccountDetails.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_FieldType.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Firm.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_history.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_LegalPerson.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_LocalMessage.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Metadata.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Module.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_NavigationArea.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_NavigationGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Note.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Order.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_OrganizationUnit.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Phonecall.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Platform.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Position.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_PositionCategory.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Price.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_PricePosition.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Qualify.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Report.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Task.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Territory.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_User.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccount.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccountGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Assembly.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Bargain.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_BargainType.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Binding.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_BranchOffice.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Card.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_CardRelatedItems.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_CardToolbar.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Category.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Contact.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_ContributionType.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Country.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Currency.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_DataList.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_DataListToolbar.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Deal.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Default.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Department.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Entity.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_FieldType.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_LegalPerson.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_LocalMessage.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Module.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_NavigationArea.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_NavigationGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Note.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_OrganizationUnit.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Platform.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Position.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_PositionCategory.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Price.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_PricePosition.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Territory.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_User.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccount.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccountGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_importCustomizations.gif" />
+    <Content Include="Content\images\Configuration\Entity\Merge.gif" />
+    <Content Include="Content\images\Configuration\Entity\NavCalendar.gif" />
+    <Content Include="Content\images\Configuration\Entity\PreviewAd.png" />
+    <Content Include="Content\images\Configuration\Entity\References.gif" />
+    <Content Include="Content\images\Configuration\Entity\Refresh.gif" />
+    <Content Include="Content\images\Configuration\Entity\Save.gif" />
+    <Content Include="Content\images\Configuration\Entity\SaveAndClose.gif" />
+    <Content Include="Content\images\Configuration\Entity\SaveAndOpen.gif" />
+    <Content Include="Content\images\Configuration\Entity\Settings.gif" />
+    <Content Include="Content\images\Configuration\Entity\Share.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_BargainType.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_BranchOffice.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Category.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_ContributionType.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Country.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Currency.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Default.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Department.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_LegalPerson.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_OrganizationUnit.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Platform.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Position.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_PositionCategory.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Price.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_Role.gif" />
+    <Content Include="Content\images\Configuration\Entity\Tools\ico_User.gif" />
+    <Content Include="Content\images\Configuration\Entity\Workplace.gif" />
+    <Content Include="Content\images\default\blank-image.gif" />
+    <Content Include="Content\images\default\box\corners-blue.gif" />
+    <Content Include="Content\images\default\box\corners.gif" />
+    <Content Include="Content\images\default\box\l-blue.gif" />
+    <Content Include="Content\images\default\box\l.gif" />
+    <Content Include="Content\images\default\box\r-blue.gif" />
+    <Content Include="Content\images\default\box\r.gif" />
+    <Content Include="Content\images\default\box\tb-blue.gif" />
+    <Content Include="Content\images\default\box\tb.gif" />
+    <Content Include="Content\images\default\button\arrow.gif" />
+    <Content Include="Content\images\default\button\btn.gif" />
+    <Content Include="Content\images\default\button\group-cs.gif" />
+    <Content Include="Content\images\default\button\group-lr.gif" />
+    <Content Include="Content\images\default\button\group-tb.gif" />
+    <Content Include="Content\images\default\button\s-arrow-b-noline.gif" />
+    <Content Include="Content\images\default\button\s-arrow-b.gif" />
+    <Content Include="Content\images\default\button\s-arrow-bo.gif" />
+    <Content Include="Content\images\default\button\s-arrow-noline.gif" />
+    <Content Include="Content\images\default\button\s-arrow-o.gif" />
+    <Content Include="Content\images\default\button\s-arrow.gif" />
+    <Content Include="Content\images\default\dd\drop-add.gif" />
+    <Content Include="Content\images\default\dd\drop-no.gif" />
+    <Content Include="Content\images\default\dd\drop-yes.gif" />
+    <Content Include="Content\images\default\editor\tb-sprite.gif" />
+    <Content Include="Content\images\default\form\checkbox.gif" />
+    <Content Include="Content\images\default\form\clear-trigger.gif" />
+    <Content Include="Content\images\default\form\date-trigger.gif" />
+    <Content Include="Content\images\default\form\error-tip-corners.gif" />
+    <Content Include="Content\images\default\form\exclamation.gif" />
+    <Content Include="Content\images\default\form\radio.gif" />
+    <Content Include="Content\images\default\form\search-trigger.gif" />
+    <Content Include="Content\images\default\form\text-bg.gif" />
+    <Content Include="Content\images\default\form\trigger-square.gif" />
+    <Content Include="Content\images\default\form\trigger-tpl.gif" />
+    <Content Include="Content\images\default\form\trigger.gif" />
+    <Content Include="Content\images\default\gradient-bg.gif" />
+    <Content Include="Content\images\default\grid\arrow-left-white.gif" />
+    <Content Include="Content\images\default\grid\arrow-right-white.gif" />
+    <Content Include="Content\images\default\grid\col-move-bottom.gif" />
+    <Content Include="Content\images\default\grid\col-move-top.gif" />
+    <Content Include="Content\images\default\grid\columns.gif" />
+    <Content Include="Content\images\default\grid\dirty.gif" />
+    <Content Include="Content\images\default\grid\done.gif" />
+    <Content Include="Content\images\default\grid\drop-no.gif" />
+    <Content Include="Content\images\default\grid\drop-yes.gif" />
+    <Content Include="Content\images\default\grid\footer-bg.gif" />
+    <Content Include="Content\images\default\grid\grid-blue-hd.gif" />
+    <Content Include="Content\images\default\grid\grid-blue-split.gif" />
+    <Content Include="Content\images\default\grid\grid-hrow.gif" />
+    <Content Include="Content\images\default\grid\grid-loading.gif" />
+    <Content Include="Content\images\default\grid\grid-split.gif" />
+    <Content Include="Content\images\default\grid\grid-vista-hd.gif" />
+    <Content Include="Content\images\default\grid\grid3-hd-btn.gif" />
+    <Content Include="Content\images\default\grid\grid3-hrow-over.gif" />
+    <Content Include="Content\images\default\grid\grid3-hrow.gif" />
+    <Content Include="Content\images\default\grid\grid3-rowheader.gif" />
+    <Content Include="Content\images\default\grid\grid3-special-col-bg.gif" />
+    <Content Include="Content\images\default\grid\grid3-special-col-sel-bg.gif" />
+    <Content Include="Content\images\default\grid\group-by.gif" />
+    <Content Include="Content\images\default\grid\group-collapse.gif" />
+    <Content Include="Content\images\default\grid\group-expand-sprite.gif" />
+    <Content Include="Content\images\default\grid\group-expand.gif" />
+    <Content Include="Content\images\default\grid\hd-pop.gif" />
+    <Content Include="Content\images\default\grid\hmenu-asc.gif" />
+    <Content Include="Content\images\default\grid\hmenu-desc.gif" />
+    <Content Include="Content\images\default\grid\hmenu-lock.gif" />
+    <Content Include="Content\images\default\grid\hmenu-lock.png" />
+    <Content Include="Content\images\default\grid\hmenu-unlock.gif" />
+    <Content Include="Content\images\default\grid\hmenu-unlock.png" />
+    <Content Include="Content\images\default\grid\invalid_line.gif" />
+    <Content Include="Content\images\default\grid\loading.gif" />
+    <Content Include="Content\images\default\grid\mso-hd.gif" />
+    <Content Include="Content\images\default\grid\nowait.gif" />
+    <Content Include="Content\images\default\grid\page-first-disabled.gif" />
+    <Content Include="Content\images\default\grid\page-first.gif" />
+    <Content Include="Content\images\default\grid\page-last-disabled.gif" />
+    <Content Include="Content\images\default\grid\page-last.gif" />
+    <Content Include="Content\images\default\grid\page-next-disabled.gif" />
+    <Content Include="Content\images\default\grid\page-next.gif" />
+    <Content Include="Content\images\default\grid\page-prev-disabled.gif" />
+    <Content Include="Content\images\default\grid\page-prev.gif" />
+    <Content Include="Content\images\default\grid\pick-button.gif" />
+    <Content Include="Content\images\default\grid\refresh-disabled.gif" />
+    <Content Include="Content\images\default\grid\refresh.gif" />
+    <Content Include="Content\images\default\grid\row-check-sprite.gif" />
+    <Content Include="Content\images\default\grid\row-expand-sprite.gif" />
+    <Content Include="Content\images\default\grid\row-over.gif" />
+    <Content Include="Content\images\default\grid\row-sel.gif" />
+    <Content Include="Content\images\default\grid\sort-hd.gif" />
+    <Content Include="Content\images\default\grid\sort_asc.gif" />
+    <Content Include="Content\images\default\grid\sort_desc.gif" />
+    <Content Include="Content\images\default\grid\wait.gif" />
+    <Content Include="Content\images\default\layout\collapse.gif" />
+    <Content Include="Content\images\default\layout\expand.gif" />
+    <Content Include="Content\images\default\layout\gradient-bg.gif" />
+    <Content Include="Content\images\default\layout\mini-bottom.gif" />
+    <Content Include="Content\images\default\layout\mini-left.gif" />
+    <Content Include="Content\images\default\layout\mini-right.gif" />
+    <Content Include="Content\images\default\layout\mini-top.gif" />
+    <Content Include="Content\images\default\layout\ns-collapse.gif" />
+    <Content Include="Content\images\default\layout\ns-expand.gif" />
+    <Content Include="Content\images\default\layout\panel-close.gif" />
+    <Content Include="Content\images\default\layout\panel-title-bg.gif" />
+    <Content Include="Content\images\default\layout\panel-title-light-bg.gif" />
+    <Content Include="Content\images\default\layout\stick.gif" />
+    <Content Include="Content\images\default\layout\stuck.gif" />
+    <Content Include="Content\images\default\layout\tab-close-on.gif" />
+    <Content Include="Content\images\default\layout\tab-close.gif" />
+    <Content Include="Content\images\default\menu\checked.gif" />
+    <Content Include="Content\images\default\menu\group-checked.gif" />
+    <Content Include="Content\images\default\menu\item-over.gif" />
+    <Content Include="Content\images\default\menu\menu-parent.gif" />
+    <Content Include="Content\images\default\menu\menu.gif" />
+    <Content Include="Content\images\default\menu\unchecked.gif" />
+    <Content Include="Content\images\default\panel\corners-sprite.gif" />
+    <Content Include="Content\images\default\panel\left-right.gif" />
+    <Content Include="Content\images\default\panel\light-hd.gif" />
+    <Content Include="Content\images\default\panel\tool-sprite-tpl.gif" />
+    <Content Include="Content\images\default\panel\tool-sprites.gif" />
+    <Content Include="Content\images\default\panel\tools-sprites-trans.gif" />
+    <Content Include="Content\images\default\panel\top-bottom.gif" />
+    <Content Include="Content\images\default\panel\top-bottom.png" />
+    <Content Include="Content\images\default\panel\white-corners-sprite.gif" />
+    <Content Include="Content\images\default\panel\white-left-right.gif" />
+    <Content Include="Content\images\default\panel\white-top-bottom.gif" />
+    <Content Include="Content\images\default\progress\progress-bg.gif" />
+    <Content Include="Content\images\default\qtip\bg.gif" />
+    <Content Include="Content\images\default\qtip\close.gif" />
+    <Content Include="Content\images\default\qtip\tip-anchor-sprite.gif" />
+    <Content Include="Content\images\default\qtip\tip-sprite.gif" />
+    <Content Include="Content\images\default\s.gif" />
+    <Content Include="Content\images\default\shadow-c.png" />
+    <Content Include="Content\images\default\shadow-lr.png" />
+    <Content Include="Content\images\default\shadow.png" />
+    <Content Include="Content\images\default\shared\blue-loading.gif" />
+    <Content Include="Content\images\default\shared\calendar.gif" />
+    <Content Include="Content\images\default\shared\glass-bg.gif" />
+    <Content Include="Content\images\default\shared\hd-sprite.gif" />
+    <Content Include="Content\images\default\shared\large-loading.gif" />
+    <Content Include="Content\images\default\shared\left-btn.gif" />
+    <Content Include="Content\images\default\shared\loading-balls.gif" />
+    <Content Include="Content\images\default\shared\right-btn.gif" />
+    <Content Include="Content\images\default\shared\warning.gif" />
+    <Content Include="Content\images\default\sizer\e-handle-dark.gif" />
+    <Content Include="Content\images\default\sizer\e-handle.gif" />
+    <Content Include="Content\images\default\sizer\ne-handle-dark.gif" />
+    <Content Include="Content\images\default\sizer\ne-handle.gif" />
+    <Content Include="Content\images\default\sizer\nw-handle-dark.gif" />
+    <Content Include="Content\images\default\sizer\nw-handle.gif" />
+    <Content Include="Content\images\default\sizer\s-handle-dark.gif" />
+    <Content Include="Content\images\default\sizer\s-handle.gif" />
+    <Content Include="Content\images\default\sizer\se-handle-dark.gif" />
+    <Content Include="Content\images\default\sizer\se-handle.gif" />
+    <Content Include="Content\images\default\sizer\square.gif" />
+    <Content Include="Content\images\default\sizer\sw-handle-dark.gif" />
+    <Content Include="Content\images\default\sizer\sw-handle.gif" />
+    <Content Include="Content\images\default\slider\slider-bg.png" />
+    <Content Include="Content\images\default\slider\slider-thumb.png" />
+    <Content Include="Content\images\default\slider\slider-v-bg.png" />
+    <Content Include="Content\images\default\slider\slider-v-thumb.png" />
+    <Content Include="Content\images\default\tabs\scroll-left.gif" />
+    <Content Include="Content\images\default\tabs\scroll-right.gif" />
+    <Content Include="Content\images\default\tabs\scroller-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-btm-inactive-left-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-btm-inactive-right-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-btm-left-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-btm-over-left-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-btm-over-right-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-btm-right-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-close.gif" />
+    <Content Include="Content\images\default\tabs\tab-strip-bg.gif" />
+    <Content Include="Content\images\default\tabs\tab-strip-bg.png" />
+    <Content Include="Content\images\default\tabs\tab-strip-btm-bg.gif" />
+    <Content Include="Content\images\default\tabs\tabs-sprite.gif" />
+    <Content Include="Content\images\default\toolbar\bg.gif" />
+    <Content Include="Content\images\default\toolbar\btn-arrow-light.gif" />
+    <Content Include="Content\images\default\toolbar\btn-arrow.gif" />
+    <Content Include="Content\images\default\toolbar\btn-over-bg.gif" />
+    <Content Include="Content\images\default\toolbar\gray-bg.gif" />
+    <Content Include="Content\images\default\toolbar\more.gif" />
+    <Content Include="Content\images\default\toolbar\tb-bg.gif" />
+    <Content Include="Content\images\default\toolbar\tb-btn-sprite.gif" />
+    <Content Include="Content\images\default\toolbar\tb-xl-btn-sprite.gif" />
+    <Content Include="Content\images\default\toolbar\tb-xl-sep.gif" />
+    <Content Include="Content\images\default\tree\arrows.gif" />
+    <Content Include="Content\images\default\tree\drop-add.gif" />
+    <Content Include="Content\images\default\tree\drop-between.gif" />
+    <Content Include="Content\images\default\tree\drop-no.gif" />
+    <Content Include="Content\images\default\tree\drop-over.gif" />
+    <Content Include="Content\images\default\tree\drop-under.gif" />
+    <Content Include="Content\images\default\tree\drop-yes.gif" />
+    <Content Include="Content\images\default\tree\elbow-end-minus-nl.gif" />
+    <Content Include="Content\images\default\tree\elbow-end-minus.gif" />
+    <Content Include="Content\images\default\tree\elbow-end-plus-nl.gif" />
+    <Content Include="Content\images\default\tree\elbow-end-plus.gif" />
+    <Content Include="Content\images\default\tree\elbow-end.gif" />
+    <Content Include="Content\images\default\tree\elbow-line.gif" />
+    <Content Include="Content\images\default\tree\elbow-minus-nl.gif" />
+    <Content Include="Content\images\default\tree\elbow-minus.gif" />
+    <Content Include="Content\images\default\tree\elbow-plus-nl.gif" />
+    <Content Include="Content\images\default\tree\elbow-plus.gif" />
+    <Content Include="Content\images\default\tree\elbow.gif" />
+    <Content Include="Content\images\default\tree\folder-open.gif" />
+    <Content Include="Content\images\default\tree\folder.gif" />
+    <Content Include="Content\images\default\tree\leaf.gif" />
+    <Content Include="Content\images\default\tree\loading.gif" />
+    <Content Include="Content\images\default\tree\s.gif" />
+    <Content Include="Content\images\default\window\icon-error.gif" />
+    <Content Include="Content\images\default\window\icon-info.gif" />
+    <Content Include="Content\images\default\window\icon-question.gif" />
+    <Content Include="Content\images\default\window\icon-warning.gif" />
+    <Content Include="Content\images\default\window\left-corners.png" />
+    <Content Include="Content\images\default\window\left-right.png" />
+    <Content Include="Content\images\default\window\right-corners.png" />
+    <Content Include="Content\images\default\window\top-bottom.png" />
+    <Content Include="Content\images\Erm\draft.png" />
+    <Content Include="Content\images\Erm\green.png" />
+    <Content Include="Content\images\Erm\order-copy-with-termination.png" />
+    <Content Include="Content\images\Erm\order-copy.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\AdCorn.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgAd16.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgAdArt16.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgAdComment16.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgAdDiscnt16.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgAddr16.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgFeaturedBottom.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgFeaturedTop.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcBottom.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcBottom_exp.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcCenter.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcCenter_exp.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcPointer.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcPointer_exp.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcTop.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\DirOrgMcTop_exp.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\FeedbackEntryPoint16.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\Flamp16.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\infocard.png" />
+    <Content Include="Content\images\Erm\Preview\Grym\Payments.png" />
+    <Content Include="Content\images\Erm\Preview\Online\dg_sprite.png" />
+    <Content Include="Content\images\Erm\Preview\Online\micro-comment-arrow.png" />
+    <Content Include="Content\images\Erm\red.png" />
+    <Content Include="Content\images\Erm\ticks.gif" />
+    <Content Include="Content\images\Security\Check.png" />
+    <Content Include="Content\images\Security\checkbox_checked_disabled.png" />
+    <Content Include="Content\images\Security\checkbox_intermediate.png" />
+    <Content Include="Content\images\Security\checkbox_intermediate_disabled.png" />
+    <Content Include="Content\images\Security\Clear.png" />
+    <Content Include="Content\images\Security\Delete.png" />
+    <Content Include="Content\images\Security\User.png" />
+    <Content Include="Content\LookupStyle.css" />
+    <Content Include="Content\MainPage.css" />
+    <Content Include="Content\order-position.css" />
+    <Content Include="Content\order.css" />
+    <Content Include="Content\Progress.css" />
+    <Content Include="Content\QuickFindStyle.css" />
+    <Content Include="Content\images\Configuration\Entity\Reschedule.gif" />
+    <Content Include="Content\slider.css" />
+    <Content Include="Content\Spinner.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Scripts\Chile\DataList\Bill.DataList.js" />
+    <Content Include="Scripts\Chile\Ext.DoubleGis.UI.BillPayments.js" />
+    <Content Include="Scripts\Chile\Ext.DoubleGis.UI.LegalPerson.Chile.js" />
+    <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.LegalPerson.Cyprus.js" />
+    <Content Include="Scripts\Czech\Ext.DoubleGis.UI.LegalPerson.Czech.js" />
+    <Content Include="Scripts\DataList\AdvertisementElementDenialReason.DataList.js" />
+    <Content Include="Scripts\DataList\ClientLink.DataList.js" />
+    <Content Include="Scripts\DataList\FirmDeal.DataList.js" />
+    <Content Include="Scripts\DataList\LegalPersonDeal.DataList.js" />
+    <Content Include="Scripts\Emirates\DataList\Order.DataList.js" />
+    <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
+    <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Deal.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Bargain.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementTemplate.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Price.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.LegalPerson.js" />
+    <Content Include="Scripts\Ext.LocalizedResources.ar.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Ext.LocalizedResources.kk.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.KazakhstanOrder.js" />
+    <Content Include="Scripts\Kazakhstan\Ext.DoubleGis.UI.LegalPerson.Kazakhstan.js" />
+    <Content Include="Scripts\MultiCulture\DataList\Client.DataList.js" />
+    <Content Include="Scripts\MultiCulture\DataList\LegalPerson.DataList.js" />
+    <Content Include="Scripts\Chile\Ext.DoubleGis.UI.ChileOrder.js" />
+    <Content Include="Scripts\Czech\Ext.DoubleGis.UI.CzechOrder.js" />
+    <Content Include="Scripts\Cyprus\Ext.DoubleGis.UI.CyprusOrder.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.ActivityBase.js" />
+    <Content Include="Scripts\DoubleGis.UI.Services.js" />
+    <Content Include="Scripts\DataList\Activity.DataList.js" />
+    <Content Include="Scripts\DataList\Contact.DataList.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementElement.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Bill.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Contact.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Client.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.BranchOfficeOrganizationUnit.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.OrderProcessingRequest.js" />
+    <Compile Include="DI\Bootstrapper.Russia.Mvc.Interception.cs" />
+    <Content Include="Scripts\Ext.DoubleGis.Print.js" />
+    <None Include="Scripts\JsResourcesGeneration.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>JsResourcesGeneration.log</LastGenOutput>
+    </None>
+    <Content Include="Scripts\Ext.LocalizedResources.cs.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Ext.LocalizedResources.el.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Ext.LocalizedResources.en.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Ext.LocalizedResources.es.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Ext.LocalizedResources.ru.js">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\JsResourcesGeneration.log">
+      <DependentUpon>JsResourcesGeneration.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Scripts\Ext.ux.RequestMessagesTab.js" />
+    <Content Include="Scripts\Ext.ux.TimeComboBox.js" />
+    <Content Include="Scripts\DataList\Bargain.DataList.js" />
+    <Content Include="Scripts\DataList\Account.DataList.js" />
+    <Content Include="Scripts\MultiCulture\DataList\Order.DataList.js" />
+    <Content Include="Scripts\MultiCulture\Ext.DoubleGis.UI.Client.MultiCulture.js" />
+    <Content Include="Scripts\MultiCulture\MergeClients.MultiCulture.js" />
+    <Content Include="Scripts\Russia\DataList\Client.DataList.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.AdvertisementElementStatus.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.Client.Russia.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.LegalPerson.Russia.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.RussiaActivityBase.js" />
+    <Content Include="Scripts\Ext.ux.IdField.js" />
+    <Content Include="Scripts\DataList\CategoryFirmAddress.DataList.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Report.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Territory.js" />
+    <Content Include="Scripts\DoubleGis.UI.Reports.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.CategoryGroupsMembershipControl.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.ThemeTemplate.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Theme.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Limit.js" />
+    <Content Include="Scripts\Ext.DoubleGis.Order.UpgradeResultWindow.js" />
+    <Content Include="Scripts\DataList\LegalPersonProfile.DataList.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.AdditionalFirmServicesControl.js" />
+    <Content Include="Scripts\DataList\Advertisement.DataList.js" />
+    <Content Include="Scripts\DataList\Bill.DataList.js" />
+    <Content Include="Scripts\DataList\Client.DataList.js" />
+    <Content Include="Scripts\Common.ErrorHandler.js" />
+    <Content Include="Scripts\DoubleGis.DependencyHandler.js" />
+    <Content Include="Scripts\DoubleGis.GlobalVariables.js" />
+    <Content Include="Scripts\DoubleGis.MvcFormValidator.js" />
+    <Content Include="Scripts\DoubleGis.UI.Card.js" />
+    <Content Include="Scripts\DoubleGis.UI.DataList.js" />
+    <Content Include="Scripts\DoubleGis.UI.DialogWindow.js" />
+    <Content Include="Scripts\DoubleGis.UI.GroupOperations.js" />
+    <Content Include="Scripts\DoubleGis.UI.MainPage.js" />
+    <Content Include="Scripts\DoubleGis.UI.QuickFind.js" />
+    <Content Include="Scripts\ErrorPage.js" />
+    <Content Include="Scripts\ext-all-debug-w-comments.js" />
+    <Content Include="Scripts\ext-all-debug.js" />
+    <Content Include="Scripts\ext-all.js" />
+    <Content Include="Scripts\ext-base-debug.js" />
+    <Content Include="Scripts\ext-base.js" />
+    <Content Include="Scripts\Ext.Ajax.syncRequest.js" />
+    <Content Include="Scripts\Ext.DoubleGis.Order.CheckManager.js" />
+    <Content Include="Scripts\Ext.DoubleGis.Order.CheckResultWindow.js" />
+    <Content Include="Scripts\Ext.DoubleGis.Order.CopyOrderDialog.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.BillPayments.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.BindingObject.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Firm.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Order.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.OrderPosition.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.OrderPosition.LinkingObject.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.RelatedOrdersSelectorControl.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.ReleaseInfo.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Security.AccessSharingGrid.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Security.EntityPrivilegeControl.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.Security.FunctionalPrivilegeControl.js" />
+    <Content Include="Scripts\Ext.grid.CheckColumn.js" />
+    <Content Include="Scripts\Ext.ux.ActionsHistoryTab.js" />
+    <Content Include="Scripts\Ext.ux.AdvertisementBagPanel.js" />
+    <Content Include="Scripts\Ext.ux.AsyncFileUpload.js" />
+    <Content Include="Scripts\Ext.ux.AsyncOperationClientManager.js" />
+    <Content Include="Scripts\Ext.ux.Calendar.js" />
+    <Content Include="Scripts\Ext.ux.DetailedProgressWindow.js" />
+    <Content Include="Scripts\Ext.ux.FitToParent.js" />
+    <Content Include="Scripts\Ext.ux.LinkField.js" />
+    <Content Include="Scripts\Ext.ux.LookupField.js" />
+    <Content Include="Scripts\Ext.ux.LookupFieldOwner.js" />
+    <Content Include="Scripts\Ext.ux.MSOfficeAccordion.js" />
+    <Content Include="Scripts\Ext.ux.MultiSelectionList.js" />
+    <Content Include="Scripts\Ext.ux.NotePanel.js" />
+    <Content Include="Scripts\Ext.ux.Ribbon.js" />
+    <Content Include="Scripts\Ext.ux.SearchControl.js" />
+    <Content Include="Scripts\Ext.ux.SearchForm.js" />
+    <Content Include="Scripts\Ext.ux.SearchFormMultiple.js" />
+    <Content Include="Scripts\Ext.ux.TabularButton.js" />
+    <Content Include="Scripts\Ext.ux.TinyMCE\Ext.ux.TinyMCE.js" />
+    <Content Include="Scripts\Ext.ux.TinyMCE\Ext.ux.TinyMCE.min.js" />
+    <Content Include="Scripts\Ext.ux.TreeGrid.js" />
+    <Content Include="Scripts\Ext.ux.TreeGridColumnResizer.js" />
+    <Content Include="Scripts\Ext.ux.TreeGridColumns.js" />
+    <Content Include="Scripts\Ext.ux.TreeGridLoader.js" />
+    <Content Include="Scripts\Ext.ux.TreeGridNodeUI.js" />
+    <Content Include="Scripts\Ext.ux.TreeGridSorter.js" />
+    <Content Include="Scripts\DataList\Firm.DataList.js" />
+    <Content Include="Scripts\Russia\DataList\LegalPerson.DataList.js" />
+    <Content Include="Scripts\DataList\Limit.DataList.js" />
+    <Content Include="Scripts\DataList\LocalMessage.DataList.js" />
+    <Content Include="Scripts\LocalMessage.ProcessMessages.js" />
+    <Content Include="Scripts\MergeClients.js" />
+    <Content Include="Scripts\MergeLegalPersons.js" />
+    <Content Include="Scripts\DataList\Order.DataList.js" />
+    <Content Include="Scripts\DataList\ReleaseInfo.DataList.js" />
+    <Content Include="Scripts\Russia\Ext.DoubleGis.UI.RussiaOrder.js" />
+    <Content Include="Scripts\Russia\MergeClients.Russia.js" />
+    <Content Include="Scripts\Silverlight.js" />
+    <Content Include="Scripts\tinymce\langs\cs.js" />
+    <Content Include="Scripts\tinymce\langs\el.js" />
+    <Content Include="Scripts\tinymce\langs\en.js" />
+    <Content Include="Scripts\tinymce\langs\ru.js" />
+    <Content Include="Scripts\tinymce\license.txt" />
+    <Content Include="Scripts\tinymce\plugins\advhr\css\advhr.css" />
+    <Content Include="Scripts\tinymce\plugins\advhr\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\js\rule.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advhr\rule.htm" />
+    <Content Include="Scripts\tinymce\plugins\advimage\css\advimage.css" />
+    <Content Include="Scripts\tinymce\plugins\advimage\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\image.htm" />
+    <Content Include="Scripts\tinymce\plugins\advimage\img\sample.gif" />
+    <Content Include="Scripts\tinymce\plugins\advimage\js\image.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advimage\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\css\advlink.css" />
+    <Content Include="Scripts\tinymce\plugins\advlink\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\js\advlink.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\advlink\link.htm" />
+    <Content Include="Scripts\tinymce\plugins\advlist\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advlist\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\langs\en.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\emotions.htm" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-cool.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-cry.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-embarassed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-frown.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-innocent.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-kiss.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-laughing.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-money-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-sealed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-smile.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-surprised.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-tongue-out.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-wink.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\img\smiley-yell.gif" />
+    <Content Include="Scripts\tinymce\plugins\emotions\js\emotions.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\emotions\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\example\dialog.htm" />
+    <Content Include="Scripts\tinymce\plugins\example\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\example\img\example.gif" />
+    <Content Include="Scripts\tinymce\plugins\example\js\dialog.js" />
+    <Content Include="Scripts\tinymce\plugins\example\langs\en.js" />
+    <Content Include="Scripts\tinymce\plugins\example\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\css\fullpage.css" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\fullpage.htm" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\js\fullpage.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\fullscreen.htm" />
+    <Content Include="Scripts\tinymce\plugins\iespell\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\iespell\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\img\alert.gif" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\img\button.gif" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\img\buttons.gif" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\img\confirm.gif" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\img\corners.gif" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\img\horizontal.gif" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\img\vertical.gif" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\skins\clearlooks2\window.css" />
+    <Content Include="Scripts\tinymce\plugins\inlinepopups\template.htm" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\media\css\media.css" />
+    <Content Include="Scripts\tinymce\plugins\media\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\media\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\media\js\embed.js" />
+    <Content Include="Scripts\tinymce\plugins\media\js\media.js" />
+    <Content Include="Scripts\tinymce\plugins\media\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\media\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\media\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\media\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\media\media.htm" />
+    <Content Include="Scripts\tinymce\plugins\media\moxieplayer.swf" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\js\pastetext.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\js\pasteword.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\pastetext.htm" />
+    <Content Include="Scripts\tinymce\plugins\paste\pasteword.htm" />
+    <Content Include="Scripts\tinymce\plugins\preview\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\example.html" />
+    <Content Include="Scripts\tinymce\plugins\preview\jscripts\embed.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\preview.html" />
+    <Content Include="Scripts\tinymce\plugins\print\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\print\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\save\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\save\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\css\searchreplace.css" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\js\searchreplace.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\searchreplace.htm" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\css\content.css" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\img\wline.gif" />
+    <Content Include="Scripts\tinymce\plugins\style\css\props.css" />
+    <Content Include="Scripts\tinymce\plugins\style\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\style\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\style\js\props.js" />
+    <Content Include="Scripts\tinymce\plugins\style\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\style\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\style\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\style\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\style\props.htm" />
+    <Content Include="Scripts\tinymce\plugins\style\readme.txt" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\table\cell.htm" />
+    <Content Include="Scripts\tinymce\plugins\table\css\cell.css" />
+    <Content Include="Scripts\tinymce\plugins\table\css\row.css" />
+    <Content Include="Scripts\tinymce\plugins\table\css\table.css" />
+    <Content Include="Scripts\tinymce\plugins\table\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\table\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\table\js\cell.js" />
+    <Content Include="Scripts\tinymce\plugins\table\js\merge_cells.js" />
+    <Content Include="Scripts\tinymce\plugins\table\js\row.js" />
+    <Content Include="Scripts\tinymce\plugins\table\js\table.js" />
+    <Content Include="Scripts\tinymce\plugins\table\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\table\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\table\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\table\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\table\merge_cells.htm" />
+    <Content Include="Scripts\tinymce\plugins\table\row.htm" />
+    <Content Include="Scripts\tinymce\plugins\table\table.htm" />
+    <Content Include="Scripts\tinymce\plugins\template\blank.htm" />
+    <Content Include="Scripts\tinymce\plugins\template\css\template.css" />
+    <Content Include="Scripts\tinymce\plugins\template\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\template\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\template\js\template.js" />
+    <Content Include="Scripts\tinymce\plugins\template\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\template\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\template\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\template\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\template\template.htm" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\abbr.htm" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\acronym.htm" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\attributes.htm" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\cite.htm" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\css\attributes.css" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\css\popup.css" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\del.htm" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\editor_plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\editor_plugin_src.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\ins.htm" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\abbr.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\acronym.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\attributes.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\cite.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\del.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\element_common.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\js\ins.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\plugins\xhtmlxtras\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\about.htm" />
+    <Content Include="Scripts\tinymce\themes\advanced\anchor.htm" />
+    <Content Include="Scripts\tinymce\themes\advanced\charmap.htm" />
+    <Content Include="Scripts\tinymce\themes\advanced\color_picker.htm" />
+    <Content Include="Scripts\tinymce\themes\advanced\editor_template.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\editor_template_src.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\image.htm" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\colorpicker.jpg" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\flash.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\icons.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\iframe.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\pagebreak.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\quicktime.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\realmedia.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\shockwave.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\trans.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\img\video.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\js\about.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\js\anchor.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\js\charmap.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\js\color_picker.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\js\image.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\js\link.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\js\source_editor.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\el.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\en.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\ru.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\cs.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\cs_dlg.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\el_dlg.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\en_dlg.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\langs\ru_dlg.js" />
+    <Content Include="Scripts\tinymce\themes\advanced\link.htm" />
+    <Content Include="Scripts\tinymce\themes\advanced\shortcuts.htm" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\content.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\dialog.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\img\buttons.png" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\img\items.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\img\menu_arrow.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\img\menu_check.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\img\progress.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\img\tabs.gif" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\default\ui.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\highcontrast\content.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\highcontrast\dialog.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\highcontrast\ui.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\content.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\dialog.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\img\button_bg.png" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\img\button_bg_black.png" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\img\button_bg_silver.png" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\ui.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\ui_black.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\skins\o2k7\ui_silver.css" />
+    <Content Include="Scripts\tinymce\themes\advanced\source_editor.htm" />
+    <Content Include="Scripts\tinymce\themes\simple\editor_template.js" />
+    <Content Include="Scripts\tinymce\themes\simple\editor_template_src.js" />
+    <Content Include="Scripts\tinymce\themes\simple\img\icons.gif" />
+    <Content Include="Scripts\tinymce\themes\simple\langs\el.js" />
+    <Content Include="Scripts\tinymce\themes\simple\langs\en.js" />
+    <Content Include="Scripts\tinymce\themes\simple\langs\ru.js" />
+    <Content Include="Scripts\tinymce\themes\simple\langs\cs.js" />
+    <Content Include="Scripts\tinymce\themes\simple\skins\default\content.css" />
+    <Content Include="Scripts\tinymce\themes\simple\skins\default\ui.css" />
+    <Content Include="Scripts\tinymce\themes\simple\skins\o2k7\content.css" />
+    <Content Include="Scripts\tinymce\themes\simple\skins\o2k7\img\button_bg.png" />
+    <Content Include="Scripts\tinymce\themes\simple\skins\o2k7\ui.css" />
+    <Content Include="Scripts\tinymce\tiny_mce.js" />
+    <Content Include="Scripts\tinymce\tiny_mce_popup.js" />
+    <Content Include="Scripts\tinymce\tiny_mce_src.js" />
+    <Content Include="Scripts\tinymce\utils\editable_selects.js" />
+    <Content Include="Scripts\tinymce\utils\form_utils.js" />
+    <Content Include="Scripts\tinymce\utils\mctabs.js" />
+    <Content Include="Scripts\tinymce\utils\validate.js" />
+    <Content Include="Scripts\Tooltip.js" />
+    <Content Include="Scripts\DataList\WithdrawalInfo.DataList.js" />
+    <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\Ukraine\Ext.DoubleGis.UI.LegalPerson.Ukraine.js" />
+    <Content Include="Scripts\Ukraine\Ext.DoubleGis.UI.UkraineOrder.js" />
+    <Content Include="Scripts\Emirates\DataList\Client.DataList.js" />
+    <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.LegalPerson.Emirates.js" />
+    <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.EmiratesOrder.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\images\default\form\clear-trigger.psd" />
+    <Content Include="Content\images\default\form\date-trigger.psd" />
+    <Content Include="Content\images\default\form\search-trigger.psd" />
+    <Content Include="Content\images\default\form\trigger-square.psd" />
+    <Content Include="Content\images\default\form\trigger.psd" />
+    <Content Include="Content\images\default\window\left-corners.psd" />
+    <Content Include="Content\images\default\window\left-right.psd" />
+    <Content Include="Content\images\default\window\right-corners.psd" />
+    <Content Include="Content\images\default\window\top-bottom.psd" />
+    <Content Include="Content\Web.config" />
+    <None Include="log4net.Release.config">
+      <DependentUpon>log4net.config</DependentUpon>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Scripts\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Aggregates\2Gis.Erm.BLCore.API.Aggregates.csproj">
+      <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
+      <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
+      <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
+      <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Releasing\2Gis.Erm.BLCore.API.Releasing.csproj">
+      <Project>{7BA9237F-5018-4C37-A783-98CB2FFD1387}</Project>
+      <Name>2Gis.Erm.BLCore.API.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
+      <Project>{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}</Project>
+      <Name>2Gis.Erm.BLCore.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Aggregates\2Gis.Erm.BL.Aggregates.csproj">
+      <Project>{0645CAB5-47BE-4D67-BA49-751BCBEF1241}</Project>
+      <Name>2Gis.Erm.BL.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations\2Gis.Erm.BL.Operations.csproj">
+      <Project>{247FAE89-D1E0-4C16-BFEF-667E1D3655D1}</Project>
+      <Name>2Gis.Erm.BL.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\Reports\2Gis.Erm.BL.Reports\2Gis.Erm.BL.Reports.csproj">
+      <Project>{f4ebf77d-7aa2-4241-b605-beff01e0a4de}</Project>
+      <Name>2Gis.Erm.BL.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
+      <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
+      <Name>2Gis.Erm.BL.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Aggregates.Global\2Gis.Erm.BLFlex.Aggregates.Global.csproj">
+      <Project>{5fc26f81-5100-43b5-b55b-e470308338d2}</Project>
+      <Name>2Gis.Erm.BLFlex.Aggregates.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
+      <Project>{f4fb1c82-f644-45c6-a351-8b9a994ee3dd}</Project>
+      <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\DI\2Gis.Erm.BLFlex.DI\2Gis.Erm.BLFlex.DI.csproj">
+      <Project>{B87F1E7F-F375-452D-9055-2E9AB60254C9}</Project>
+      <Name>2Gis.Erm.BLFlex.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\EntryPoints\UI\Common\2Gis.Erm.BLFlex.UI.Metadata\2Gis.Erm.BLFlex.UI.Metadata.csproj">
+      <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
+      <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Mvc.Global\2Gis.Erm.BLFlex.UI.Web.Mvc.Global.csproj">
+      <Project>{7adb939c-1b49-41dc-a8b0-79e1eb670cbd}</Project>
+      <Name>2Gis.Erm.BLFlex.UI.Web.Mvc.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
+      <Project>{DD4D387B-5ED9-482D-A704-D664EE16E9EF}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
+      <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
+      <Name>2Gis.Erm.BLCore.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations.Special\2Gis.Erm.BLCore.Operations.Special.csproj">
+      <Project>{13700FDC-7D78-4105-B382-1B824BB608D1}</Project>
+      <Name>2Gis.Erm.BLCore.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.OrderValidation\2Gis.Erm.BLCore.OrderValidation.csproj">
+      <Project>{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}</Project>
+      <Name>2Gis.Erm.BLCore.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DAL.PersistenceServices\2Gis.Erm.BLCore.DAL.PersistenceServices.csproj">
+      <Project>{946C96BF-A7BD-46C1-879C-C80E3223334B}</Project>
+      <Name>2Gis.Erm.BLCore.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
+      <Project>{B268F8CB-8AEF-4402-8CF5-A8E6AC5EEC0B}</Project>
+      <Name>2Gis.Erm.BL.Operations.Special</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Data\2Gis.Erm.BL.DB.Migrations\2Gis.Erm.BL.DB.Migrations.csproj">
+      <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
+      <Name>2Gis.Erm.BL.DB.Migrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Client\2Gis.Erm.BL.Resources.Client.csproj">
+      <Project>{3033cfd9-fcdc-41f5-8448-8555336acd4a}</Project>
+      <Name>2Gis.Erm.BL.Resources.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427a-8a9d-80123d41e30a}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
+      <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
+      <Name>2Gis.Erm.Platform.API.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
+      <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
+      <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
+      <Project>{10122143-5187-44b7-99ea-c91f739cf3f1}</Project>
+      <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
+      <Project>{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}</Project>
+      <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
+      <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>
+      <Name>2Gis.Erm.Platform.DAL.PersistenceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
+      <Project>{2ee6dcd3-218d-4eea-8902-8cf501c7e034}</Project>
+      <Name>2Gis.Erm.Platform.Migration.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
+      <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
+      <Name>2Gis.Erm.Platform.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.MoDi\2Gis.Erm.BLCore.API.MoDi.csproj">
+      <Project>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</Project>
+      <Name>2Gis.Erm.BLCore.API.MoDi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DB.Migrations\2Gis.Erm.BLCore.DB.Migrations.csproj">
+      <Project>{29068fb9-201b-409d-9a63-a7e06ac9dfef}</Project>
+      <Name>2Gis.Erm.BLCore.DB.Migrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
+      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
+      <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Interception\2Gis.Erm.Platform.DI.Interception.csproj">
+      <Project>{035E4AA9-9547-4B1C-B105-902ECAD7E53F}</Project>
+      <Name>2Gis.Erm.Platform.DI.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
+      <Project>{e97bc051-bc95-4183-950b-0685dde66d7d}</Project>
+      <Name>2Gis.Erm.Platform.AppFabric</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Client\2Gis.Erm.Platform.Resources.Client.csproj">
+      <Project>{b12c39b4-050b-476f-9c80-e5757226b926}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\WCF\2Gis.Erm.Platform.WCF.Infrastructure\2Gis.Erm.Platform.WCF.Infrastructure.csproj">
+      <Project>{A46E837A-D855-4D0B-B7E7-9F1F4C23FC32}</Project>
+      <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.OrderValidation\2Gis.Erm.BLCore.API.OrderValidation.csproj">
+      <Project>{650ea07f-6725-46e5-b996-b5882e4fcd33}</Project>
+      <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Security\2Gis.Erm.Platform.Security.csproj">
+      <Project>{ECCE98AA-864A-44BC-8779-56DEF5731E7E}</Project>
+      <Name>2Gis.Erm.Platform.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Operations\2Gis.Erm.BLCore.Operations.csproj">
+      <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
+      <Name>2Gis.Erm.BLCore.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\DI\2Gis.Erm.BLCore.DI\2Gis.Erm.BLCore.DI.csproj">
+      <Project>{2C631161-68AF-49E3-9924-B2894E8FD63B}</Project>
+      <Name>2Gis.Erm.BLCore.DI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Card\" />
+    <Folder Include="Scripts\Cyprus\DataList\" />
+    <Folder Include="Scripts\Czech\DataList\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>2017</DevelopmentServerPort>
+          <DevelopmentServerVPath>/ErmTest</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44300</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\Buildscript\Erm.Web.targets" />
+</Project>

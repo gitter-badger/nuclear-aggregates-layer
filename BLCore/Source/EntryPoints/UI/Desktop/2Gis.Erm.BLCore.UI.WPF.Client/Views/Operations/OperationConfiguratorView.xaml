@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Operations.OperationConfiguratorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Util.Converters;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:controls="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:operations="clr-namespace:DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations"
+             MinHeight="240" MinWidth="480" Margin="5"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NotStartedAvailableStyle" TargetType="FrameworkElement">
+                <Setter Property="Visibility" Value="Collapsed"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="{x:Static operations:OperationProcessingStatus.NotStarted}">
+                        <Setter Property="Visibility" Value="Visible"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+        </ResourceDictionary>
+        </UserControl.Resources>
+
+        <controls:BriefGrid Columns="*" Rows="*,35" HorizontalAlignment="Stretch">
+            
+            <controls:BriefGrid Grid.Row="0" Grid.Column="0" Columns="*" Rows="35, *" Background="Khaki" HorizontalAlignment="Stretch">
+                <controls:BriefGrid.Style>
+                    <Style TargetType="controls:BriefGrid">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}" Value="{x:Static operations:OperationProcessingStatus.Finished}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:BriefGrid.Style>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding OperationResultMessage}"/>
+                <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Results, Mode=OneWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="operations:OperationItemViewModel">
+                            <controls:BriefGrid Columns="50, *" Rows="25">
+                                <controls:BriefGrid.Style>
+                                    <Style TargetType="controls:BriefGrid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Result, Converter={StaticResource NullToBooleanConverter}}" Value="True" />
+                                                    <Condition Binding="{Binding Result.Succeeded}" Value="False" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </controls:BriefGrid.Style>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ItemId}" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" Margin="5 0 0 0" Text="{Binding Result.Message}" TextAlignment="Left" TextWrapping="Wrap" />
+                            </controls:BriefGrid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </controls:BriefGrid>
+            
+            <controls:BriefGrid Grid.Row="0" Grid.Column="0" Columns="*" Rows="35,35,*">
+                <controls:BriefGrid.Style>
+                    <Style TargetType="controls:BriefGrid">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}" Value="{x:Static operations:OperationProcessingStatus.NotStarted}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:BriefGrid.Style>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding OperationConfirmMessage.Title}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding OperationOperationTopBarMessage}" TextAlignment="Left" TextWrapping="Wrap"/>
+                <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding}" ContentTemplateSelector="{Binding ConfiguratorViewSelector}" />
+            </controls:BriefGrid>
+
+            <ProgressBar Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="35" Value="{Binding Progress, Mode=OneWay}" Orientation="Horizontal" Minimum="0" Maximum="100">
+                <ProgressBar.Style>
+                    <Style TargetType="ProgressBar">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}" Value="{x:Static operations:OperationProcessingStatus.Processing}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ProgressBar.Style>
+            </ProgressBar>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding OkCommand}" Margin="5" MinWidth="50" Content="{Binding OkTitle.Title}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static operations:OperationProcessingStatus.Finished}">
+                                    <Setter Property="Content" Value="{Binding CloseTitle.Title}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Command="{Binding CancelCommand}" Margin="5" MinWidth="50" Content="{Binding CancelTitle.Title}" Style="{StaticResource NotStartedAvailableStyle}" />
+            </StackPanel>
+
+        </controls:BriefGrid>
+</UserControl>

@@ -1,0 +1,299 @@
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.QualifyFirmViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.Qualify }
+@section TopBarTitle { @BLResources.QualifyFirm }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@ThisAssembly.Build" />
+
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Firm');
+        Ext.DoubleGis.UI.Firm.QualifyProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            UserId: 0,
+            ClientId: 0,
+            UserCodeLookup: {},
+            ClientCodeLookup: {},
+            IsCreateNewClients: false,
+            ClientCardsToOpen: [],
+            constructor: function(config) {
+                Ext.apply(config, {
+                    listeners: {
+                        configspecificcontrols: function() {
+                            this.ConfigCustomControls();
+                        },
+                        applyusersettings: function() {
+                            this.ApplyUserSettings();
+                        },
+                        entityprocessingsuccess: function (responseText) {
+                            this.EntityProcessingSuccess(responseText);
+                        },
+                        entityprocessingfail: function (message) {
+                            this.EntityProcessingFail(message);
+                        },
+                        processingfinished: function() {
+                            this.ProcessingFinished();
+                        }
+                    }
+                });
+                Ext.DoubleGis.UI.Firm.QualifyProcessor.superclass.constructor.call(this, config);
+            },
+            ConfigCustomControls: function() {
+                // show error messages
+                if (Ext.getDom("Notifications").innerHTML.trim() == "OK") {
+                    window.close();
+                    return;
+                } else if (Ext.getDom("Notifications").innerHTML.trim() != "" && Ext.getDom("Notifications").innerHTML.trim() != "OK") {
+                    Ext.get("Notifications").addClass("Notifications");
+                }
+
+                var onRadioClick = this.RadioClick.createDelegate(this);
+                Ext.get("rdoNewAccount").on("click", onRadioClick);
+                Ext.get("rdoOther").on("click", onRadioClick);
+                Ext.get("rdoAssignToMe").on("click", onRadioClick);
+                Ext.get("rdoAssignToUser").on("click", onRadioClick);
+
+                this.UserCodeLookup = Ext.getCmp("UserCode");
+                this.ClientCodeLookup = Ext.getCmp("ClientCode");
+
+                // filter client lookup
+                this.UserCodeLookup.on("change", function() {
+                    if (this.UserCodeLookup.getValue())
+                        this.ClientCodeLookup.extendedInfo = "userId=" + this.UserCodeLookup.getValue().id;
+                    else
+                        this.ClientCodeLookup.extendedInfo = "";
+
+                    this.ClientCodeLookup.clearValue();
+                }, this);
+
+                // set checkboxes initial values
+                Ext.getDom("rdoOther").checked = false;
+                Ext.getDom("rdoAssignToUser").checked = false;
+            },
+            RadioClick: function() {
+                if (Ext.getDom("rdoAssignToMe").checked) {
+                    this.UserCodeLookup.disable();
+                } else if (Ext.getDom("rdoAssignToUser").checked) {
+                    this.UserCodeLookup.enable();
+                }
+
+                if (Ext.getDom("rdoNewAccount").checked) {
+                    this.ClientCodeLookup.disable();
+                } else if (Ext.getDom("rdoOther").checked) {
+                    this.ClientCodeLookup.enable();
+                }
+
+                if (Ext.getDom("rdoAssignToMe").checked) {
+                    this.ClientCodeLookup.extendedInfo = "filterToCurrentUser=true";
+                    this.UserCodeLookup.disable();
+                } else if (Ext.getDom("rdoAssignToUser").checked) {
+                    if (this.UserCodeLookup.getValue())
+                        this.ClientCodeLookup.extendedInfo = "userId=" + this.UserCodeLookup.getValue().id;
+                    else
+                        this.ClientCodeLookup.extendedInfo = "";
+
+                    this.UserCodeLookup.enable();
+                }
+            },
+            IsUserSettingsValid: function() {
+                // warning if client to set
+                if (Ext.getDom("rdoOther").checked) {
+                    if (Ext.getDom("ClientCode").value == "") {
+                        Ext.MessageBox.show({
+                            title: '',
+                            msg: Ext.LocalizedResources.QualifyMustPickClient,
+                            buttons: window.Ext.MessageBox.OK,
+                            width: 300,
+                            icon: window.Ext.MessageBox.ERROR
+                        });
+                        return false;
+                    }
+                }
+
+                // warning if owner to set
+                if (Ext.getDom("rdoAssignToUser").checked) {
+                    if (Ext.getDom("UserCode").value == "") {
+                        Ext.MessageBox.show({
+                            title: '',
+                            msg: Ext.LocalizedResources.QualifyMustPickUser,
+                            buttons: window.Ext.MessageBox.OK,
+                            width: 300,
+                            icon: window.Ext.MessageBox.ERROR
+                        });
+                        return false;
+                    }
+                }
+
+                return true;
+            },
+            ApplyUserSettings: function() {
+                this.IsCreateNewClients = window.Ext.getDom("rdoNewAccount").checked;
+                this.UserId = Ext.getDom("rdoAssignToUser").checked ? this.UserCodeLookup.getValue().id : "";
+                this.ClientId = Ext.getDom("rdoOther").checked ? this.ClientCodeLookup.getValue().id : "";
+
+                Ext.getDom("rdoAssignToMe").disabled = "disabled";
+                Ext.getDom("rdoAssignToUser").disabled = "disabled";
+                Ext.getDom("rdoNewAccount").disabled = "disabled";
+                Ext.getDom("rdoOther").disabled = "disabled";
+                this.UserCodeLookup.disable();
+                this.ClientCodeLookup.disable();
+            },
+            CreateParamsForControllerCall: function(entityId) {
+                return { entityId: entityId, userId: this.UserId, clientId: this.ClientId };
+            },
+            EntityProcessingSuccess: function(responseText) {
+                var response = Ext.decode(responseText);
+                if (this.IsCreateNewClients) {
+                    this.ClientCardsToOpen.push(response.RelatedEntityId); // открываем карточки всех вновь созданных клиентов
+                } else if (this.ClientCardsToOpen.length == 0) {
+                    this.ClientCardsToOpen.push(response.RelatedEntityId); // открываем карточку клиента - к которому привязали фирмы
+                }
+            },
+            EntityProcessingFail: function (message) {
+            },
+            ProcessingFinished: function() {
+                if (!this.IsSingleEntityProcessing || this.ClientCardsToOpen.length != 1) {
+                    return;
+                }
+
+                Ext.DoubleGis.Global.Helpers.OpenEntity('Client', this.ClientCardsToOpen[0]);
+            }
+        });
+        Ext.onReady(function() {
+
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+
+            var config = {
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
+            };
+            var qualifyProcessor = new Ext.DoubleGis.UI.Firm.QualifyProcessor(config);
+            if (!qualifyProcessor.CheckProcessingPossibility()) {
+                return;
+            }
+
+            qualifyProcessor.Process();
+        });
+    </script>
+
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+            <colgroup>
+                <col width="26" />
+                <col />
+            </colgroup>
+            <tbody  id="qualifysettings">
+                <tr>
+                    <td colspan="2">
+                        <div style="height: 24px;" id="Notifications">@Model.Message</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoNewAccount" class="radio" checked="checked" type="radio" name="AssignedClient" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoNewAccount">@BLResources.QualifyCreateNewClient</label>
+                        <br />
+                        <div style="color: #444444; padding-top: 5px">@BLResources.QualifyCreateNewClientLegend</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoOther" class="radio" type="radio" name="AssignedClient" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoOther">
+                            @BLResources.QualifyPickClient</label>
+                        <br />
+                        <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
+                            <label for="rdoOther">
+                                @BLResources.QualifyPickClientLegend</label></div>
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "filterToCurrentUser=true" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToMe" class="radio" checked="checked" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignTome">
+                            @BLResources.QualifyAssignToMe</label>
+                        <br />
+                        <div style="color: #444444; padding-top: 5px">
+                            @BLResources.QualifyAssignToMeLegend</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToUser" class="radio" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignToUser">
+                            @BLResources.QualifyAssignToOtherUser</label>
+                        <br />
+                        <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
+                            <label for="rdoAssignToUser">
+                                @BLResources.QualifyAssignToOtherUserLegend</label></div>
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="display: none;">
+                    <td colspan="2">
+                        @Html.HiddenFor(m => m.EntityTypeName)
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="2" style="padding-left: 10px;">
+                        <div id="pbDiv">
+                            <div id="pbInner">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}

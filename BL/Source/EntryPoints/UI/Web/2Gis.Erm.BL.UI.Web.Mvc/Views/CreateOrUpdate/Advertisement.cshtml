@@ -1,0 +1,106 @@
+﻿@model AdvertisementViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+<script src="/Scripts/Ext.ux.AdvertisementBagPanel.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+<style type="text/css">
+    div.x-ads-richtext strong, div.x-ads-richtext b
+    {
+        font-weight: bold;
+    }
+    div.x-ads-richtext ol
+    {
+        list-style-type: decimal;
+    }
+    div.x-ads-richtext ul
+    {
+        list-style-type: disc;
+    }
+    div.x-ads-richtext em, div.x-ads-richtext i
+    {
+        font-style: italic;
+    }
+</style>
+<script type="text/javascript">
+        window.InitPage = function() {
+        Ext.apply(this,
+            {
+                    showAdsElemBag: function() {
+                        if (window.Ext.getDom("Id").value != '0') {
+                            if (!this.adsElemBag) {
+                            var cnt = Ext.getCmp('ContentTab_holder');
+                            var tp = Ext.getCmp('TabWrapper');
+
+                            tp.anchor = "100%, 40%";
+                            delete tp.anchorSpec;
+
+                            window.Entity = this.adsElemBag = cnt.add(new Ext.ux.AdvertisementBagPanel({
+                                autoScroll: true,
+                                anchor: '100%, 60%',
+                                title: Ext.LocalizedResources.AdvertisementElements
+                            }));
+                                window.Entity.store.load({ params: { id: Ext.getDom("Id").value } });
+                            cnt.doLayout();
+                            } else {
+                                window.Entity.store.load({ params: { id: Ext.getDom("Id").value } });
+                        }
+                        }
+                },
+                    Preview: function() {
+                    window.open("/Advertisement/Preview?advertisementId=" + window.Ext.getDom("Id").value, "", "width=360, height=600, resizable=1");
+                }
+                });
+            this.on("afterbuild", function() {
+                this.showAdsElemBag();
+                if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
+
+                    this.Items.TabPanel.add(
+                        {
+                            xtype: "actionshistorytab",
+                            pCardInfo:
+                            {
+                                pTypeId: this.Settings.EntityId,
+                                pId: window.Ext.getDom("ViewConfig_Id").value,
+                                pTypeName: Ext.get("ViewConfig_EntityName").dom.value
+                            }
+            });
+                }
+            }, this);
+        this.on("formbind", this.showAdsElemBag, this);
+    };
+</script>    
+}
+
+@section CardBody
+{
+
+@if (Model != null)
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.IsReadOnlyTemplate)
+}
+@Html.HiddenFor(m=>m.IsDummy)
+
+<div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+    <div>
+        <div style="display: none; height: 15px;" id="Notifications" class="Notifications">
+            @Model.Message
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = Model.HasAssignedOrder })
+            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AdvertisementTemplate, ReadOnly = Model.Id != 0, ExtendedInfo = "isPublished=true"})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object>{{"rows", "2"}})
+        </div>
+    </div>
+</div>
+}

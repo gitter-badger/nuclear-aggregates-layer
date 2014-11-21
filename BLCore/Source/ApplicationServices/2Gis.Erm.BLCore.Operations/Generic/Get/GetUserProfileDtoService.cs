@@ -1,0 +1,85 @@
+﻿using System;
+using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
+{
+    public class GetUserProfileDtoService : IGetDomainEntityDtoService<UserProfile>
+    {
+        private readonly IFinder _finder;
+        private readonly IAPIIdentityServiceSettings _identityServiceSettings;
+        private readonly IUserContext _userContext;
+
+        public GetUserProfileDtoService(IFinder finder, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext)
+        {
+            _finder = finder;
+            _identityServiceSettings = identityServiceSettings;
+            _userContext = userContext;
+        }
+
+        public IDomainEntityDto GetDomainEntityDto(long entityId, bool readOnly, long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        {
+            var dto = _finder.Find<UserProfile>(x => (entityId != 0 && x.Id == entityId) || (parentEntityId.HasValue && x.UserId == parentEntityId))
+                             .Select(entity => new UserProfileDomainEntityDto
+                             {
+                                 Id = entity.Id,
+                                 UserRef = new EntityReference { Id = entity.UserId },
+                                 ProfileId = entity.Id,
+                                 DomainAccountName = entity.User.Account,
+                                 TimeZoneRef = new EntityReference { Id = entity.TimeZoneId },
+                                 CultureInfoLCID = entity.CultureInfoLCID,
+                                 Email = entity.Email,
+                                 Phone = entity.Phone,
+                                 Mobile = entity.Mobile,
+                                 Address = entity.Address,
+                                 Company = entity.Company,
+                                 Position = entity.Position,
+                                 Birthday = entity.Birthday,
+                                 Gender = entity.Gender,
+                                 PlanetURL = entity.PlanetURL,
+
+                                 CreatedByRef = new EntityReference { Id = entity.CreatedBy },
+                                 CreatedOn = entity.CreatedOn,
+                                 IsActive = entity.IsActive,
+                                 IsDeleted = entity.IsDeleted,
+                                 ModifiedByRef = new EntityReference { Id = entity.ModifiedBy },
+                                 ModifiedOn = entity.ModifiedOn,
+
+                                 Timestamp = entity.Timestamp
+                             })
+                             .FirstOrDefault();
+
+            if (dto != null)
+            {
+                dto.IdentityServiceUrl = _identityServiceSettings.RestUrl;
+                return dto;
+            }
+
+            if (!parentEntityId.HasValue)
+            {
+                throw new NotificationException(BLResources.UserProfileCantCreateForUnspecifiedUser);
+            }
+
+            return new UserProfileDomainEntityDto
+            {
+                Id = 0,
+                UserRef = new EntityReference { Id = parentEntityId.Value },
+                IdentityServiceUrl = _identityServiceSettings.RestUrl,
+                CreatedByRef = new EntityReference { Id = _userContext.Identity.Code, Name = _userContext.Identity.DisplayName },
+                ModifiedByRef = new EntityReference { Id = _userContext.Identity.Code, Name = _userContext.Identity.DisplayName },
+                CreatedOn = DateTime.Now,
+                IsActive = true
+            };
+        }
+    }
+}

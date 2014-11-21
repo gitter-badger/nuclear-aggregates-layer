@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Basic.FieldEditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:basic="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Basic"
+             mc:Ignorable="d" 
+             FocusManager.IsFocusScope="True"
+             d:DesignHeight="30" d:DesignWidth="300">
+    <UserControl.Resources>
+        <system:Int32 x:Key="BindingDelay">500</system:Int32>
+        <basic:FieldEditControlTypeToTemplateConverter x:Key="ControlContentTemplateConverter">
+            <basic:FieldEditControlTypeToTemplateConverter.Templates>
+                <basic:FieldControlTemplate Key="ReadOnlyText">
+                    <basic:FieldControlTemplate.Template>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <PropertyPath x:Key="BindingPropertyPath">.</PropertyPath>
+                            </DataTemplate.Resources>
+                            <TextBlock Text="{Binding Path={StaticResource BindingPropertyPath}, Mode=OneWay, BindsDirectlyToSource=True}" 
+                                       ToolTip="{Binding Path={StaticResource BindingPropertyPath}, Mode=OneWay, BindsDirectlyToSource=True}" 
+                                       VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </basic:FieldControlTemplate.Template>
+                </basic:FieldControlTemplate>
+                <basic:FieldControlTemplate Key="TextBox">
+                    <basic:FieldControlTemplate.Template>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <PropertyPath x:Key="BindingPropertyPath">.</PropertyPath>
+                            </DataTemplate.Resources>
+                            <TextBox Text="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, BindsDirectlyToSource=True, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                     ToolTip="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, BindsDirectlyToSource=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </basic:FieldControlTemplate.Template>
+                </basic:FieldControlTemplate>
+                <basic:FieldControlTemplate Key="CheckBox">
+                    <basic:FieldControlTemplate.Template>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <PropertyPath x:Key="BindingPropertyPath">.</PropertyPath>
+                            </DataTemplate.Resources>
+                            <CheckBox IsChecked="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                      IsThreeState="False" 
+                                      VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </basic:FieldControlTemplate.Template>
+                </basic:FieldControlTemplate>
+
+                <basic:FieldControlTemplate Key="YesNoRadio">
+                    <basic:FieldControlTemplate.Template>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <PropertyPath x:Key="BindingPropertyPath">.</PropertyPath>
+                            </DataTemplate.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="4,0,4,0" VerticalAlignment="Center">Yes</TextBlock>
+                                <RadioButton Margin="4,0,4,0" VerticalAlignment="Center" 
+                                             IsChecked="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, BindsDirectlyToSource=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                                </RadioButton>
+                                <TextBlock Margin="4,0,4,0" VerticalAlignment="Center">No</TextBlock>
+                                <RadioButton Margin="4,0,4,0" VerticalAlignment="Center"></RadioButton>
+                            </StackPanel>
+                        </DataTemplate>
+                    </basic:FieldControlTemplate.Template>
+                </basic:FieldControlTemplate>
+
+                <basic:FieldControlTemplate Key="DateTime">
+                    <basic:FieldControlTemplate.Template>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <PropertyPath x:Key="BindingPropertyPath">.</PropertyPath>
+                            </DataTemplate.Resources>
+                            <DatePicker SelectedDate="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                        ToolTip="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </basic:FieldControlTemplate.Template>
+                </basic:FieldControlTemplate>
+
+                <basic:FieldControlTemplate Key="EnumComboBox">
+                    <basic:FieldControlTemplate.Template>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <PropertyPath x:Key="BindingPropertyPath">.</PropertyPath>
+                            </DataTemplate.Resources>
+                            <basic:EnumSelectionComboBox SelectedValue="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay={StaticResource BindingDelay}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                                         ToolTip="{Binding Path={StaticResource BindingPropertyPath}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </basic:FieldControlTemplate.Template>
+                </basic:FieldControlTemplate>
+
+            </basic:FieldEditControlTypeToTemplateConverter.Templates>
+        </basic:FieldEditControlTypeToTemplateConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition SharedSizeGroup="Text" Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="{Binding LabelText, RelativeSource={RelativeSource AncestorType={x:Type basic:FieldEditControl}}, Mode=OneWay}" 
+                   ToolTip="{Binding LabelText, RelativeSource={RelativeSource AncestorType={x:Type basic:FieldEditControl}}, Mode=OneWay}"
+                   VerticalAlignment="Center" 
+                   Margin="4"/>
+        <TextBlock Text="*" Foreground="Red" HorizontalAlignment="Right">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsRequired, RelativeSource={RelativeSource AncestorType=basic:FieldEditControl}}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ContentPresenter Grid.Column="1"
+                          Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type basic:FieldEditControl}}, Mode=OneWay}"
+                          Margin="4">
+            <ContentPresenter.ContentTemplate>
+                <MultiBinding Converter="{StaticResource ControlContentTemplateConverter}" Mode="OneWay">
+                    <Binding Path="." RelativeSource="{RelativeSource AncestorType={x:Type basic:FieldEditControl}}" Mode="OneWay"/>
+                    <Binding Path="ControlType" RelativeSource="{RelativeSource AncestorType={x:Type basic:FieldEditControl}}" Mode="OneWay"/>
+                    <Binding Path="Binding" RelativeSource="{RelativeSource AncestorType={x:Type basic:FieldEditControl}}" Mode="OneWay"/>
+                    <Binding Path="CustomContentTemplate" RelativeSource="{RelativeSource AncestorType={x:Type basic:FieldEditControl}}" Mode="OneWay"></Binding>
+                </MultiBinding>
+            </ContentPresenter.ContentTemplate>
+        </ContentPresenter>
+    </Grid>
+</UserControl>

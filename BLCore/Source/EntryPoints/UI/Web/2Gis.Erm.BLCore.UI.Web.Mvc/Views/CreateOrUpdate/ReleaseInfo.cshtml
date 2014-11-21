@@ -1,0 +1,35 @@
+﻿
+@model ReleaseInfoViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.ReleaseInfo.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PeriodStartDate, FieldFlex.twins, new DateTimeSettings{ShiftOffset = false})
+            @Html.TemplateField(m => m.PeriodEndDate, FieldFlex.twins, new DateTimeSettings{ShiftOffset = false})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, Disabled = true })
+            @Html.TemplateField(m => m.Status, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsBeta, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object>{{"rows", "5"}})
+        </div>
+    </div>
+}

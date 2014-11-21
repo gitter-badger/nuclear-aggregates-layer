@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.API.Core</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.API.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\ServiceBus.v1_1.1.0.4.0\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.0.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="ActionLogging\ActionType.cs" />
+    <Compile Include="ActionLogging\ChangesDescriptor.cs" />
+    <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
+    <Compile Include="Exceptions\OperationException.cs" />
+    <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
+    <Compile Include="Exceptions\OperationAccessDeniedException.cs" />
+    <Compile Include="Exceptions\EntityNotLinkedException.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\IntegrationException.cs" />
+    <Compile Include="Exceptions\MsCrm\MsCrmIntegrationException.cs" />
+    <Compile Include="Exceptions\MsCrm\ReplicationDisabledException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\FlowBilling\CannotAcquireOrderPositionsForChargesException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\FlowBilling\CannotCreateChargesException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\NonBlockingImportErrorException.cs" />
+    <Compile Include="Exceptions\ServiceBus\ServiceBusIntegrationException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\ServiceBusObjectDeserializerNotFoundException.cs" />
+    <Compile Include="Exceptions\ServiceBus\Import\ServiceBusObjectImportServiceNotFoundException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\InactualChargesForPlannedPositionsException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForPlannedPositionsException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
+    <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
+    <Compile Include="Exceptions\Withdrawal\WithdrawalException.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="Messaging\Flows\IMessageFlow.cs" />
+    <Compile Include="Messaging\MessageBase.cs" />
+    <Compile Include="Messaging\Processing\MessageProcessingContext.cs" />
+    <Compile Include="Messaging\Processing\Processors\IAsyncMessageFlowProcessor.cs" />
+    <Compile Include="Messaging\Processing\Processors\IMessageFlowProcessor.cs" />
+    <Compile Include="Messaging\Processing\Processors\IMessageFlowProcessorFactory.cs" />
+    <Compile Include="Messaging\Processing\Processors\IMessageFlowProcessorSettings.cs" />
+    <Compile Include="Messaging\Flows\IMessageFlowRegistry.cs" />
+    <Compile Include="Messaging\Processing\MessageBatchProcessingContext.cs" />
+    <Compile Include="Messaging\Processing\Processors\ISyncMessageFlowProcessor.cs" />
+    <Compile Include="Messaging\Processing\Processors\Topologies\IMessageProcessingTopology.cs" />
+    <Compile Include="Messaging\Processing\Processors\Topologies\MessageProcessingTopologyBase.cs" />
+    <Compile Include="Messaging\Processing\Processors\Topologies\TopologyProcessingResults.cs" />
+    <Compile Include="Messaging\Processing\Stages\BatchStageResult.cs" />
+    <Compile Include="Messaging\Processing\Stages\IMessageProcessingStage.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageBase.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageActorContext.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageResultUtils.cs" />
+    <Compile Include="Messaging\Processing\Strategies\IMessageProcessingStrategy.cs" />
+    <Compile Include="Messaging\Processing\Strategies\IMessageProcessingStrategyFactory.cs" />
+    <Compile Include="Messaging\Processing\Strategies\MessageProcessingStrategyBase.cs" />
+    <Compile Include="Messaging\Processing\Transformers\MessageTransformerBase.cs" />
+    <Compile Include="Messaging\Processing\Validators\MessageValidatorBase.cs" />
+    <Compile Include="Messaging\Receivers\IMessageReceiver.cs" />
+    <Compile Include="Messaging\Receivers\IMessageReceiverFactory.cs" />
+    <Compile Include="Messaging\Processing\Transformers\IMessageTransformer.cs" />
+    <Compile Include="Messaging\Processing\Transformers\IMessageTransformerFactory.cs" />
+    <Compile Include="Messaging\Processing\Validators\IMessageValidator.cs" />
+    <Compile Include="Messaging\Processing\Validators\IMessageValidatorFactory.cs" />
+    <Compile Include="Messaging\Processing\IProcessingResultMessage.cs" />
+    <Compile Include="Messaging\Processing\Handlers\IMessageAggregatedProcessingResultsHandler.cs" />
+    <Compile Include="Messaging\Processing\Handlers\IMessageAggregatedProcessingResultsHandlerFactory.cs" />
+    <Compile Include="Messaging\Flows\ISourceMessageFlow.cs" />
+    <Compile Include="Messaging\Receivers\IMessageReceiverSettings.cs" />
+    <Compile Include="Messaging\Flows\MessageFlowBase.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStage.cs" />
+    <Compile Include="Messaging\Processing\Stages\MessageProcessingStageResult.cs" />
+    <Compile Include="Messaging\Receivers\MessageReceiverBase.Dispose.cs" />
+    <Compile Include="Messaging\Receivers\MessageReceiverBase.cs" />
+    <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\IServiceBusMessageReceiver.cs" />
+    <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\IServiceBusMessageSender.cs" />
+    <Compile Include="Operations\Logging\ChangesType.cs" />
+    <Compile Include="Operations\Logging\ControlFlowMarkerManager.cs" />
+    <Compile Include="Operations\Logging\EntityChangesContext.cs" />
+    <Compile Include="Operations\Logging\IFlowMarkerManager.cs" />
+    <Compile Include="Operations\Logging\IOperationConsistencyContextsProvider.cs" />
+    <Compile Include="Operations\Logging\IOperationConsistencyVerifier.cs" />
+    <Compile Include="Operations\Logging\IOperationContextParser.cs" />
+    <Compile Include="Operations\Logging\IOperationLogger.cs" />
+    <Compile Include="Operations\Logging\IOperationLoggingSettings.cs" />
+    <Compile Include="Operations\Logging\IOperationLoggingStrategy.cs" />
+    <Compile Include="Operations\Logging\IOperationResolver.cs" />
+    <Compile Include="Operations\Logging\IOperationScopeContextsStorage.cs" />
+    <Compile Include="Operations\Logging\IOperationScopeLifetimeManager.cs" />
+    <Compile Include="Operations\Logging\IOperationScopeRegistrar.cs" />
+    <Compile Include="Operations\Logging\IUseCaseTracker.cs" />
+    <Compile Include="Operations\Logging\IVerifierContext.cs" />
+    <Compile Include="Operations\Logging\LoggingSession.cs" />
+    <Compile Include="Operations\Logging\LoggingTargets.cs" />
+    <Compile Include="Operations\Logging\NullOperationScope.cs" />
+    <Compile Include="Operations\Logging\NullOperationConsistencyVerifier.cs" />
+    <Compile Include="Operations\Logging\OperationLoggingSettingsAspect.cs" />
+    <Compile Include="Operations\Logging\OperationScopeNode.cs" />
+    <Compile Include="Operations\Logging\OperationScopeUtils.cs" />
+    <Compile Include="Operations\Logging\TrackedUseCase.cs" />
+    <Compile Include="Operations\Logging\Transports\DB\ITrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\IServiceBusMessageReceiverSettings.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\IServiceBusMessageSenderSettings.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ITrackedUseCase2BrokeredMessageConverter.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\OperationsLoggingServiceBusTransportUtils.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\PerformedOperationsServiceBusTransportUtils.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusReceiverSettingsAspect.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusSenderSettingsAspect.cs" />
+    <Compile Include="Operations\Processing\Final\FinalProcessingQueueReceiverSettings.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\IFinalProcessingQueueReceiverSettings.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\AsyncMsCRMReplicationSettingsAspect.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\IAsyncMsCRMReplicationSettings.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMFinalProcessingResultsMessage.cs" />
+    <Compile Include="Operations\Processing\Final\PerformedOperationsFinalProcessingMessage.cs" />
+    <Compile Include="Operations\Processing\Final\FinalProcessingResultsMessage.cs" />
+    <Compile Include="Operations\Processing\IPerformedOperationsTransportSettings.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\FinalReplicate2MsCRMPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\ElasticSearch\ElasticRuntimeFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />
+    <Compile Include="Operations\Processing\IPerformedOperationsFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\IPerformedOperationsReceiverSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\PerformedOperationsPrimaryFlowProcessorSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\PerformedOperationsReceiverSettings.cs" />
+    <Compile Include="Operations\Processing\Primary\IPerformedOperationsPrimaryProcessingFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\PrimaryProcessing.Indicators.cs" />
+    <Compile Include="Operations\Processing\Primary\PrimaryProcessingResultsMessage.cs" />
+    <Compile Include="Operations\Processing\Primary\MsCRM\PrimaryReplicate2MsCRMPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\PerformedOperationsTransportSettingsAspect.cs" />
+    <Compile Include="Operations\Processing\PerformedOperationsTransport.cs" />
+    <Compile Include="Settings\APIServices\Config\ErmServiceDescription.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsConfigurationSection.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElement.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceElementCollection.cs" />
+    <Compile Include="Settings\APIServices\RequiredServices.cs" />
+    <Compile Include="Settings\Caching\CachingSettingsAspect.cs" />
+    <Compile Include="Settings\Caching\ICachingSettings.cs" />
+    <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
+    <Compile Include="Settings\CRM\MsCrmIntegrationMode.cs" />
+    <Compile Include="Settings\Globalization\GlobalizationAspect.cs" />
+    <Compile Include="Settings\Globalization\IBusinessModelSettings.cs" />
+    <Compile Include="Settings\Globalization\IGlobalizationSettings.cs" />
+    <Compile Include="Exceptions\BusinessLogicException.cs" />
+    <Compile Include="Exceptions\ErmException.cs" />
+    <Compile Include="Exceptions\ErmSecurityException.cs" />
+    <Compile Include="Exceptions\NotificationException.cs" />
+    <Compile Include="Metadata\IClientCompatibilityProvider.cs" />
+    <Compile Include="Metadata\IDependentEntityProvider.cs" />
+    <Compile Include="Metadata\IOperationAcceptabilityRegistrar.cs" />
+    <Compile Include="Metadata\IOperationApplicabilityByMetadataResolver.cs" />
+    <Compile Include="Metadata\IOperationsMetadataProvider.cs" />
+    <Compile Include="Metadata\Security\EntityAccessRequirement.cs" />
+    <Compile Include="Metadata\Security\FunctionalAccessRequirement.cs" />
+    <Compile Include="Metadata\Security\IAccessRequirement.cs" />
+    <Compile Include="Metadata\Security\IOperationSecurityRegistryReader.cs" />
+    <Compile Include="Notifications\IEmployeeEmailResolver.cs" />
+    <Compile Include="Notifications\IEmployeeEmailResolveStrategy.cs" />
+    <Compile Include="Notifications\INotificationsProcessingSettings.cs" />
+    <Compile Include="Notifications\MailSenderAuthenticationSettings.cs" />
+    <Compile Include="Notifications\MailSenderAuthenticationType.cs" />
+    <Compile Include="Notifications\INotificationsProcessor.cs" />
+    <Compile Include="Notifications\NotificationAddress.cs" />
+    <Compile Include="Notifications\NotificationAttachment.cs" />
+    <Compile Include="Notifications\INotificationSender.cs" />
+    <Compile Include="Notifications\NotificationBody.cs" />
+    <Compile Include="Notifications\NotificationMessage.cs" />
+    <Compile Include="Notifications\NotificationStatus.cs" />
+    <Compile Include="ActionLogging\ActionLog.cs" />
+    <Compile Include="ActionLogging\IActionLogger.cs" />
+    <Compile Include="Identities\IIdentityProvider.cs" />
+    <Compile Include="Identities\IIdentityRequestChecker.cs" />
+    <Compile Include="Identities\IIdentityRequestStrategy.cs" />
+    <Compile Include="Metadata\EndpointDescription.cs" />
+    <Compile Include="Metadata\IServiceAvailabilityProvider.cs" />
+    <Compile Include="Operations\IOperationProgressCallback.cs" />
+    <Compile Include="Operations\Logging\IOldOperationContextParser.cs" />
+    <Compile Include="Operations\Logging\IOperationScope.cs" />
+    <Compile Include="Operations\Logging\IOperationScopeFactory.cs" />
+    <Compile Include="Operations\Logging\OperationScopeFactoryUtils.cs" />
+    <Compile Include="Operations\ICommonOperationParameter.cs" />
+    <Compile Include="Operations\IEntityOperation.cs" />
+    <Compile Include="Operations\IOperation.cs" />
+    <Compile Include="Operations\IOperationParameter.cs" />
+    <Compile Include="Operations\IOperationResult.cs" />
+    <Compile Include="Operations\IOperationSpecificEntityDto.cs" />
+    <Compile Include="Operations\IOperationsRegistry.cs" />
+    <Compile Include="Operations\OperationIndicators.cs" />
+    <Compile Include="Operations\RequestResponse\EmptyResponse.cs" />
+    <Compile Include="Operations\RequestResponse\IPublicService.cs" />
+    <Compile Include="Operations\RequestResponse\Request.cs" />
+    <Compile Include="Operations\RequestResponse\Response.cs" />
+    <Compile Include="PersistenceCleanup\IDBCleanupSettings.cs" />
+    <Compile Include="Settings\APIServices\APIServiceSettingsBase.cs" />
+    <Compile Include="Settings\APIServices\IAPIServiceSettingsInitializer.cs" />
+    <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAspect.cs" />
+    <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAccessors.cs" />
+    <Compile Include="Settings\CRM\MsCRMSettingsAspect.cs" />
+    <Compile Include="Settings\Environments\EnvironmentsAspect.cs" />
+    <Compile Include="Settings\Environments\IEnvironmentSettings.cs" />
+    <Compile Include="Settings\Globalization\ILocalizationSettings.cs" />
+    <Compile Include="Settings\Globalization\LocalizationSettings.cs" />
+    <Compile Include="Settings\Environments\EnvironmentType.cs" />
+    <Compile Include="Settings\ConnectionStrings\ConnectionStringName.cs" />
+    <Compile Include="Settings\ConnectionStrings\DefaultConnectionStringNameExtension.cs" />
+    <Compile Include="Settings\CRM\IMsCrmSettings.cs" />
+    <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsAccessor.cs" />
+    <Compile Include="ServiceNamespaces.cs" />
+    <Compile Include="Settings\SettingsUtils.cs" />
+    <Compile Include="StableContractAttribute.cs" />
+    <Compile Include="TimePeriod.cs" />
+    <Compile Include="UseCases\Context\IContextKey.cs" />
+    <Compile Include="UseCases\Context\IProcessingContext.cs" />
+    <Compile Include="UseCases\IUseCaseResumeContext.cs" />
+    <Compile Include="UseCases\IUseCaseTuner.cs" />
+    <Compile Include="UseCases\Context\Keys\UseCaseDurationKey.cs" />
+    <Compile Include="UseCases\UseCaseAttribute.cs" />
+    <Compile Include="UseCases\UseCaseDuration.cs" />
+    <Compile Include="UseCases\UseCaseUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{F33C2DA3-CF31-4BCE-986E-E198F1C9EA82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Globalization\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="DoubleGis.Erm.BLCore.UI.Web.Silverlight.UserProfiles.Presentation.UserPersonalInfoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:DoubleGis.Erm.BLCore.UI.Web.Silverlight.Infrastructure.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Styles/CommonStyles.xaml" />
+                <ResourceDictionary Source="../../Infrastructure/Controls/SectionTitle.xaml" />
+                <ResourceDictionary Source="../../Infrastructure/Controls/NamedReadonlyTextProperty.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <controls:SectionTitle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Title="Персональная информация пользователя" />
+        <controls:NamedReadonlyTextProperty Grid.Row="1" Grid.Column="0" PropertyName="Имя:" PropertyValue="{Binding FirstName}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="1" Grid.Column="3" PropertyName="Фамилия:" PropertyValue="{Binding LastName}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="2" Grid.Column="0" PropertyName="Компания, (филиал):" PropertyValue="{Binding Company}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="2" Grid.Column="3" PropertyName="Должность:" PropertyValue="{Binding Position}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="3" Grid.Column="0" PropertyName="Email:" PropertyValue="{Binding Email}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="3" Grid.Column="3" PropertyName="Моб.тел:" PropertyValue="{Binding Mobile}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="4" Grid.Column="0" PropertyName="Раб.тел:" PropertyValue="{Binding Phone}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="4" Grid.Column="3" PropertyName="Местонахождение:" PropertyValue="{Binding Address}" />
+        <controls:NamedReadonlyTextProperty Grid.Row="5" Grid.Column="0" PropertyName="Руководитель:" PropertyValue="{Binding Manager}" />
+    </Grid>
+</UserControl>

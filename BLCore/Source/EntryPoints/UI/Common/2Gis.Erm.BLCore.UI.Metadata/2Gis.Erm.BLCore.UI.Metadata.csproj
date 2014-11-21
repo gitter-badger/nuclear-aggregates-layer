@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F662D986-079C-469C-8A01-0D2CD1092EAB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.UI.Metadata</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.UI.Metadata</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Config\DataLists\ExtraDataFieldsFeature.cs" />
+    <Compile Include="Config\DataLists\MetadataListingsIdentity.cs" />
+    <Compile Include="Config\DataLists\UISpecific\IUIMetadataFeature.cs" />
+    <Compile Include="Config\DataLists\BasedOnDataListFeature.cs" />
+    <Compile Include="Config\DataLists\DataFieldExpressionFeature.cs" />
+    <Compile Include="Config\DataLists\DataFieldsFeature.cs" />
+    <Compile Include="Config\DataLists\DataFieldsFeatureAspect.cs" />
+    <Compile Include="Config\DataLists\DataFieldMetadataBuilder.cs" />
+    <Compile Include="Config\DataLists\DataFieldMetadata.cs" />
+    <Compile Include="Config\DataLists\DataListMetadata.cs" />
+    <Compile Include="Config\DataLists\DataListMetadataBuilder.cs" />
+    <Compile Include="Config\DataLists\DefaultFilterFeature.cs" />
+    <Compile Include="Config\DataLists\DisableSortingDataFieldFeature.cs" />
+    <Compile Include="Config\DataLists\FilteredDataFieldFeature.cs" />
+    <Compile Include="Config\DataLists\IDataFieldFeature.cs" />
+    <Compile Include="Config\DataLists\MainAttributeFeature.cs" />
+    <Compile Include="Config\DataLists\ReferenceDataFieldFeature.cs" />
+    <Compile Include="Config\DataLists\SortDescendingFeature.cs" />
+    <Compile Include="Config\DataLists\WebClientSpecific\AttachedScriptsFeature.cs" />
+    <Compile Include="Config\DataLists\WebClientSpecific\ExtTypeNameFeature.cs" />
+    <Compile Include="Config\DataLists\WebClientSpecific\IWebClientMetadataFeature.cs" />
+    <Compile Include="Config\DataLists\WebClientSpecific\JsActionFeature.cs" />
+    <Compile Include="Config\ExpressionUtils.cs" />
+    <Compile Include="Config\Grids\AttachedDataListsFeature.cs" />
+    <Compile Include="Config\Grids\GridMetadata.cs" />
+    <Compile Include="Config\Grids\GridMetadataBuilder.cs" />
+    <Compile Include="Config\Grids\MetadataGridsIdentity.cs" />
+    <Compile Include="Config\ViewModel\ViewModelParts.cs" />
+    <Compile Include="Confirmations\ConfirmationManager.cs" />
+    <Compile Include="DI\BlCoreUiMetadataAssembly.cs" />
+    <Compile Include="Entities\EntitiesMetadataSource.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Account.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AccountDetails.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdditionalFirmService.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdsTemplatesAdsElementTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Advertisement.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdvertisementElement.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdvertisementElementTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AdvertisementTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AssociatedPosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.AssociatedPositionsGroup.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Bargain.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BargainFile.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BargainType.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Bill.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BranchOffice.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.BranchOfficeOrganizationUnit.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Category.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.CategoryGroup.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Client.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Contact.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.ContributionType.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Country.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Currency.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.CurrencyRate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Deal.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.DeniedPosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Department.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Firm.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.FirmAddress.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.FirmContact.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LegalPerson.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LegalPersonProfile.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Limit.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LocalMessage.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Lock.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.LockDetail.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Note.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Operation.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OperationType.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Order.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OrderFile.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OrderPosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.OrganizationUnit.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Platform.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Position.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PositionCategory.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PositionChildren.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Price.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PricePosition.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.PrintFormTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.ReleaseInfo.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Role.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Territory.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.Theme.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.ThemeTemplate.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.User.cs" />
+    <Compile Include="Entities\Properties\EntityProperties.WithdrawalInfo.cs" />
+    <Compile Include="Operations\ClientOperationIdentityIds.cs" />
+    <Compile Include="Operations\Generic\CloseIdentity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
+      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
+      <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5e81778f-67e3-4e23-b35f-f76a2ed728d3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>2Gis.Erm.BLCore.API.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\DataLists\Configuration\" />
+    <Folder Include="Operations\Specific\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

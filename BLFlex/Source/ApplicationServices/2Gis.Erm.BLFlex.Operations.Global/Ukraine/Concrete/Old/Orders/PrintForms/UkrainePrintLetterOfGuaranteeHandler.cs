@@ -1,0 +1,89 @@
+using System.Linq;
+
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
+using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms
+{
+    public class UkrainePrintLetterOfGuaranteeHandler : RequestHandler<PrintLetterOfGuaranteeRequest, Response>, IUkraineAdapted
+    {
+        private readonly IFinder _finder;
+        private readonly ISubRequestProcessor _requestProcessor;
+
+        public UkrainePrintLetterOfGuaranteeHandler(ISubRequestProcessor requestProcessor, IFinder finder)
+        {
+            _requestProcessor = requestProcessor;
+            _finder = finder;
+        }
+
+        protected override Response Handle(PrintLetterOfGuaranteeRequest request)
+        {
+            var orderInfo =
+                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                       .Select(order => new
+                           {
+                               OrderNumber = order.Number,
+                               order.BranchOfficeOrganizationUnitId,
+                           })
+                       .Single();
+
+            var printRequest = new PrintDocumentRequest
+                {
+                    TemplateCode = TemplateCode.LetterOfGuarantee,
+                    FileName = string.Format("{0}-Гарантийное письмо", orderInfo.OrderNumber),
+                    BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId,
+                    PrintData = GetPrintData(request.OrderId, request.LegalPersonProfileId)
+                };
+
+            return _requestProcessor.HandleSubRequest(printRequest, Context);
+        }
+
+        protected PrintData GetPrintData(long orderId, long? legalPersonProfileId)
+        {
+            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+                              .Select(order => new
+                                  {
+                                      Order = order,
+                                      ProfileId = order.LegalPerson.LegalPersonProfiles.FirstOrDefault(y => y.Id == legalPersonProfileId).Id,
+                                      LegalPersonName = order.LegalPerson.LegalName,
+                                      BranchOfficeOrganizationUnitName = order.BranchOfficeOrganizationUnit.ShortLegalName,
+                                  })
+                              .Single();
+
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId));
+
+            return new PrintData
+                {
+                    { "BranchOfficeOrganizationUnitName", data.BranchOfficeOrganizationUnitName },
+                    { "LegalPersonName", data.LegalPersonName },
+                    { "Order", GetOrderData(data.Order) },
+                    { "Profile", GetProfileData(legalPersonProfile) }
+                };
+        }
+
+        private PrintData GetOrderData(Order order)
+        {
+            return new PrintData
+                {
+                    { "Number", order.Number },
+                    { "SignupDate", order.SignupDate },
+                };
+        }
+
+        private PrintData GetProfileData(LegalPersonProfile profile)
+        {
+            return new PrintData
+                {
+                    { "PositionInNominative", profile.PositionInNominative },
+                    { "ChiefNameInNominative", profile.ChiefNameInNominative },
+                };
+        }
+    }
+}
