@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
         public sealed class SlicerSettings
         {
             private const int DefaultRatio = 2;
-            private const int DefaultMinRangeLength = 10;
+            private const int DefaultMinRangeLength = 1;
             private const int DefaultMaxRangeLength = 1000;
 
             public static SlicerSettings Default 

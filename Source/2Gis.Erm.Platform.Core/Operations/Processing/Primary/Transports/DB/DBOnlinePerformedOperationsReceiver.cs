@@ -53,9 +53,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.D
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var flowsStateMap = _performedOperationsProcessingReadModel.GetPrimaryProcessingFlowsState(new IMessageFlow[] { SourceMessageFlow });
-                PrimaryProcessingFlowStateDto sourceFlowState;
-                if (!flowsStateMap.TryGetValue(SourceMessageFlow.Id, out sourceFlowState))
+                var sourceFlowState = _performedOperationsProcessingReadModel.GetPrimaryProcessingFlowState(SourceMessageFlow);
+                if (sourceFlowState == null)
                 {
                     _logger.DebugFormatEx("Primary processing flow {0} is empty, flow processing not required", SourceMessageFlow);
 
