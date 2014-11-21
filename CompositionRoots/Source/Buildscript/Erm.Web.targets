@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup Label="ERM hack: включаем version file как content">
+    <Content Condition="Exists($(VersionFilePath))" Include="$(VersionFilePath)">
+      <Link>$([System.IO.Path]::GetFileName($(VersionFilePath)))</Link>
+    </Content>
+    <Content Condition="Exists($(BranchFilePath))" Include="$(BranchFilePath)">
+      <Link>$([System.IO.Path]::GetFileName($(BranchFilePath)))</Link>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="AddExtraItemsToSourceManifest" AfterTargets="AddContentPathToSourceManifest" Label="Включаем анонимную и Windows аутентификацию">
+    <ItemGroup>
+      <MsDeploySourceManifest Include="ApphostAuthOverride">
+        <Path>$(DeployIisAppPath);anonymousAuthentication=Allow</Path>
+      </MsDeploySourceManifest>
+      <MsDeploySourceManifest Include="ApphostAuthOverride">
+        <Path>$(DeployIisAppPath);windowsAuthentication=Allow</Path>
+      </MsDeploySourceManifest>
+    </ItemGroup>
+  </Target>
+
+</Project>

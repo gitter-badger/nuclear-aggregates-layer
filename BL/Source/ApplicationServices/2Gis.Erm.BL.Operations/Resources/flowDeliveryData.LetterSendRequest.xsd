@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="LetterSendRequest">
+    <xs:sequence>
+      <xs:element name="Recipients" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Информация о получателях рассылки</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Recipient" minOccurs="1" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:attribute name="EmailTo" type="xs:string" use="required">
+                  <xs:annotation>
+                    <xs:documentation>Email-адрес получателя письма</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+
+
+    <xs:attribute name="EmailFrom" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Email-адрес отправителя</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="Subject" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Тема письма</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="Text" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Тело письма</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="Name" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Название рассылки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="IsAutoSend" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Автоматический (true) или ручной (false) режим отправки писем</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:element name="LetterSendRequest" type="LetterSendRequest">
+    <xs:annotation>
+      <xs:documentation>Объект передачи письма</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+</xs:schema>

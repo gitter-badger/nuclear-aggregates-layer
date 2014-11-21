@@ -1,0 +1,26 @@
+﻿
+@model Models.CurrencyRateViewModel
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @if (Model != null)
+        {
+            @Html.HiddenFor(m => m.Id)
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = !Model.IsNew })
+            @Html.TemplateField(m => m.BaseCurrency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Rate, FieldFlex.twins)
+        </div>
+    </div>
+}

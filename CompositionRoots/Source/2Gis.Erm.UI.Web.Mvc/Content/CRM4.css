@@ -1,0 +1,382 @@
+﻿DIV#gridPane
+{
+    border-bottom: #a7cdf0 1px solid!important;
+}
+DIV.gridPane
+{
+    border-bottom: #a7cdf0 1px solid!important;
+}
+DIV#Message
+{
+    background-color: Yellow;
+    color: Red;
+}
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    visibility:hidden;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+INPUT.radio
+{
+    width: 16px;
+    border: 0px;
+    cursor: hand;
+}
+
+body.stage
+{
+    border-top: 1px solid #6893cf;
+    background-color: #d6e8ff;
+    padding: 4px;
+    background-repeat: repeat-x;
+    background-image: url("images/CommonUI/app_back.gif");
+}
+
+DIV.dialog-Main
+{
+    height: 100%;
+    vertical-align: top;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    overflow: auto;
+    border-bottom: solid 1px #A7CDF0;
+}
+
+        DIV.search-header
+        {
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-bottom: 5px;
+            padding-right: 0px;
+            overflow: auto;
+            width: 100%;
+            background-color: #e3efff;
+        }
+
+TR.form-Background
+{
+    background-image: url("images/CommonUI/form_back.gif");
+    background-repeat: repeat-x;
+}
+
+TD.ms-crm-Dialog-Header
+{
+    background-color: #6693CF;
+    color: #ffffff;
+    border-bottom: 1px solid #6693CF;
+    height: 51px;
+    vertical-align: top;
+    padding: 5px;
+}
+
+DIV.ms-crm-Dialog-Header-Title
+{
+    font-weight: bold;
+    font-size: 13px;
+    padding-left: 5px;
+}
+
+DIV.ms-crm-Dialog-Header-Desc
+{
+    padding-top: 4px;
+    padding-left: 5px;
+}
+
+div.x-modal-toolbar
+{
+    background-image: none !important;
+}
+div.x-modal-toolbar div.x-toolbar
+{
+    padding-top: 12px;
+    padding-left: 5px;
+    padding-bottom: 12px;
+    background-image: none !important;
+    border: none;
+}
+        
+TD.ms-crm-Dialog-Footer
+{
+    height: 30px;
+    padding: 10px;
+    border-top: 1px solid #a7cdf0;
+}
+td.ms-crm-Dialog-Footer-Right
+{
+    text-align: right;
+}
+
+TD.QuickFind
+{
+    padding: 0px 5px;
+}
+
+
+input[type="button"]
+{
+    font-family: Tahoma;
+    font-size: 11px;
+    height: 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px #3366CC solid;
+    background-color: #CEE7FF;
+    background-image: url("images/CommonUI/btn_rest.gif");
+    background-repeat: repeat-x;
+    border: 1px #3366CC solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    width: 84px;
+    height: 22px;
+}
+
+input.CrmButton
+{
+    font-family: Tahoma;
+    font-size: 11px;
+    height: 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px #3366CC solid;
+    background-color: #CEE7FF;
+    background-image: url("images/CommonUI/btn_rest.gif");
+    background-repeat: repeat-x;
+    border: 1px #3366CC solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    width: 84px;
+    height: 22px;
+}
+button.CrmButton
+{
+    font-family: Tahoma;
+    font-size: 11px;
+    color: black!important;
+    height: 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px #3366CC solid;
+    background-color: #CEE7FF;
+    background-image: url("images/CommonUI/btn_rest.gif");
+    background-repeat: repeat-x;
+    border: 1px #3366CC solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    width: 84px;
+    height: 22px;
+}
+.inputfields
+{
+    background-color: #fff;
+    font-size: 8pt!important;
+    font-family: tahoma!important;
+    width: 100%;
+    height: 19px;
+    border: 1px solid #6699CC!important;
+}
+
+TEXTAREA.inputfields
+{
+    height: auto;
+    font-size: 8pt;
+    font-family: tahoma;
+    width: 100%;
+    border: 1px solid #6699CC;
+}
+
+INPUT.rad
+{
+    width: 15px;
+    border: 0px;
+    cursor: hand;
+}
+
+TD.sec
+{
+    width: 100%;
+    color: #000000;
+    font-weight: bold;
+    padding-left: 0px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+TD
+{
+    font-size: 11pt;
+    font-family: tahoma;
+}
+
+TD.bar
+{
+    border-bottom: 1px solid #96B3DD;
+}
+
+SPAN.req
+{
+    font-weight: bold;
+    color: #FF0000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 5px;
+}
+
+TABLE.layout
+{
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+}
+BODY
+{
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    font-size: 11px;
+    font-family: tahoma;
+    margin: 0px;
+    border: 0px;
+    background-repeat: repeat-x;
+    background-color: #E3EFFF;
+    cursor: default;
+    scrollbar-3dlight-color: #6699CC;
+    scrollbar-arrow-color: #567DB1;
+    scrollbar-base-color: #D6E8FF;
+    scrollbar-darkshadow-color: #6699CC;
+    scrollbar-face-color: #b6d5fe;
+    scrollbar-highlight-color: #D6E8FF;
+    scrollbar-shadow-color: #D6E8FF;
+    scrollbar-track-color: rgb(220, 234, 254);
+}
+
+td
+{
+    font-size: 11px;
+}
+table
+{
+    cursor: default;
+}
+a
+{
+    color: #0000ff;
+    font-weight: bold;
+}
+span.menu
+{
+    height: 100%;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #7288AC;
+}
+table.topmnuBar
+{
+    background-color: #6693CF;
+    height: 50px;
+    width: 100%;
+}
+
+DIV.modal-top-bar
+{
+    background-color: #6693CF;
+    height: 50px;
+    width: 100%;
+    padding: 5px;
+}
+
+
+span.title
+{
+    font-family: Tahoma;
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+span.regular
+{
+    font-family: Tahoma;
+    font-size: 8pt;
+    color: #FFFFFF;
+}
+/*Кусок который стилизует карточки*/
+DIV.navigation-bar
+{
+    height: 100%;
+    background-color: #d9eaff;
+    vertical-align: top;
+    border-right: #6893cf 1px solid;
+}
+DIV.Holder
+{
+    height: 100%;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 0px;
+    overflow:hidden;
+}
+DIV.Notifications
+{
+    height: 24px;
+    background-color: #ffffae;
+    border: 1px solid #c5c5c5;
+    padding: 1px;
+    overflow: auto;
+}
+DIV.Invisible
+{
+    display: none!important;
+}
+
+DIV.Notification
+{
+    width: 100%;
+    padding: 1px;
+    font-size: 11;
+    color: #000000;
+    display: table-cell;
+}
+DIV.ReadOnly
+{
+    overflow-y: auto !important;
+    height: 19px !important;
+    background-color: #EAF3FF !important;
+    border-color: #C5C5C5 !important;
+}
+
+INPUT.ReadOnly, TEXTAREA.ReadOnly, DIV.ReadOnly, SPAN.ReadOnly, label.ReadOnly
+{
+    background-color: #EAF3FF !important;
+    color: #000000 !important;
+    border-color: #C5C5C5 !important;
+}

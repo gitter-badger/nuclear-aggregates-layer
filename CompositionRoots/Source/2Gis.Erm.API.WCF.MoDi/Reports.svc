@@ -1,0 +1,3 @@
+﻿<%@ ServiceHost Debug="true" 
+                Service="DoubleGis.Erm.BLCore.WCF.MoDi.ReportsApplicationService" 
+                Factory="DoubleGis.Erm.API.WCF.MoDi.UnityServiceHostFactory" %>

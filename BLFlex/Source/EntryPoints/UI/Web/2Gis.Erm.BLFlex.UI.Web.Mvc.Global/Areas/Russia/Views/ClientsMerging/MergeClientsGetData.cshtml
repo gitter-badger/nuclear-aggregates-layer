@@ -1,0 +1,46 @@
+﻿
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.MergeClientsDataViewModel
+
+<table cellspacing="0" cellpadding="0" style="width: 100%; height: 100%; table-layout: fixed;" >
+    
+    
+
+    <colgroup>
+        <col width="165" />
+        <col width="20" />
+        <col />
+        <col width="20" />
+        <col />
+    </colgroup>
+ 
+
+    <tbody>
+        
+        @Html.MergeDataSectionHeader("section_0", BLResources.MergeSelectAllInThisSection, true)
+        @Html.MergeDataRowFor(l => l.Client1.Owner, r => r.Client2.Owner, "section_0", null, true)
+        @Html.MergeDataSectionHeader("section_1", BLResources.MergeSelectAllInThisSection)
+        @Html.MergeDataRowFor(l => l.Client1.Name, r => r.Client2.Name, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.MainAddress, r => r.Client2.MainAddress, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.MainPhoneNumber, r => r.Client2.MainPhoneNumber, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.Fax, r => r.Client2.Fax, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.AdditionalPhoneNumber1, r => r.Client2.AdditionalPhoneNumber1, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.Email, r => r.Client2.Email, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.AdditionalPhoneNumber2, r => r.Client2.AdditionalPhoneNumber2, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.Website, r => r.Client2.Website, "section_1")
+        @Html.MergeDataRowFor(l => l.Client1.Comment, r => r.Client2.Comment, "section_1")
+        @Html.MergeDataSectionHeader("section_2", BLResources.MergeSelectAllInThisSection)
+        @Html.MergeDataRowFor(l => l.Client1.InformationSource, r => r.Client2.InformationSource, "section_2", EnumResources.ResourceManager)
+        @Html.MergeDataRowFor(l => l.Client1.MainFirm, r => r.Client2.MainFirm, "section_2")
+        @Html.MergeDataRowFor(l => l.Client1.Territory, r => r.Client2.Territory, "section_2")
+        
+        
+        <tr>
+            <td colspan="5">
+                @Html.HiddenFor(m=>m.Client1.Timestamp)
+                @Html.HiddenFor(m=>m.Client2.Timestamp)
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+

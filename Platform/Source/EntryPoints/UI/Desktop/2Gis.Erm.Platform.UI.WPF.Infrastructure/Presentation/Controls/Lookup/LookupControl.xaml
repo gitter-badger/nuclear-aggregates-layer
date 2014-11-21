@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Lookup.LookupControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:behaviors="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Util.Behaviors;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+
+
+             x:Name="Root"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="35" d:DataContext="{d:DesignInstance lookup:LookupViewModel}">
+    <UserControl.Resources>
+
+        <ControlTemplate x:Key="EmptyLookupTemplate">
+            <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=100}" behaviors:LostFocusCommandBehavior.Command="{Binding SearchCommand}"
+                                                        behaviors:LostFocusCommandBehavior.CommandParameter="{Binding Text, RelativeSource={RelativeSource Self}}">
+
+            </TextBox>
+        </ControlTemplate>
+        <ControlTemplate x:Key="HyperlinkLookupTemplate">
+            <Grid >
+                <Label behaviors:ClickBehavior.DoubleClickCommand="{Binding DoubleClickCommand}"
+                       BorderBrush="{TemplateBinding BorderBrush}"
+                       BorderThickness="{TemplateBinding BorderThickness}"
+                       Focusable="{TemplateBinding Focusable}"
+                       Margin="{TemplateBinding Margin}"
+                                              Padding="8 0 0 0" 
+                       >
+
+                    <Hyperlink Command="{Binding NavigateCommand}">
+                        <Run Text="{Binding SelectedItem.Value}"></Run>
+                    </Hyperlink>
+                </Label>
+
+            </Grid>
+
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboboxLookupTemplate">
+            <Grid>
+                <ComboBox Name="cb" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Stretch" Text="{Binding Value}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Padding="8 0 0 0"   Name="tb" IsHitTestVisible="False" Text="..." Visibility="Hidden"/>
+            </Grid>
+            
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding SelectedItem}" Value="{x:Null}">
+                    <Setter TargetName="tb" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+            
+        </ControlTemplate>
+
+
+    </UserControl.Resources>
+
+    <Grid Visibility="{Binding Visibility, ElementName=Root}" IsEnabled="{Binding IsEnabled, ElementName=Root}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="25"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- tooltip image -->
+        <Image Grid.Column="0" HorizontalAlignment="Left" Width="Auto" Height="16" Margin="3">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Style.Triggers>
+                        <!-- multiple result by default -->
+                        <DataTrigger Binding="{Binding State}" Value="MultipleResult">
+                            <Setter Property="Source" Value="../../Resources/Images/warning.png"/>
+                        </DataTrigger>
+
+                        <!-- no result -->
+                        <DataTrigger Binding="{Binding State}" Value="Failure">
+                            <Setter Property="Source" Value="../../Resources/Images/error.png"/>
+                        </DataTrigger>
+
+                        <!-- empty -->
+                        <DataTrigger Binding="{Binding State}" Value="Empty">
+                            <Setter Property="Source" Value="../../Resources/Images/information.png"/>
+                        </DataTrigger>
+
+                        <!-- single result - ok -->
+                        <DataTrigger Binding="{Binding State}" Value="SingleResult">
+                            <Setter Property="Source" Value="../../Resources/Images/Accept-icon.png"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+
+        <!-- search/navigation field -->
+        <TextBox Grid.Column="1" HorizontalContentAlignment="Stretch" Name="MainContent" Height="25">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+
+                        <!-- multiple result -->
+                        <DataTrigger Binding="{Binding State}" Value="MultipleResult">
+                            <Setter Property="Template" Value="{StaticResource ComboboxLookupTemplate}"/>
+                        </DataTrigger>
+
+                        <!-- no result -->
+                        <DataTrigger Binding="{Binding State}" Value="Failure">
+                            <Setter Property="Template" Value="{StaticResource EmptyLookupTemplate}"/>
+                        </DataTrigger>
+
+                        <!-- empty -->
+                        <DataTrigger Binding="{Binding State}" Value="Empty">
+                            <Setter Property="Template" Value="{StaticResource EmptyLookupTemplate}"/>
+                        </DataTrigger>
+
+                        <!-- single result - ok -->
+                        <DataTrigger Binding="{Binding State}" Value="SingleResult">
+                            <Setter Property="Template" Value="{StaticResource HyperlinkLookupTemplate}"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+
+        </TextBox>
+
+        <!-- button -->
+        <Button Grid.Column="2" HorizontalAlignment="Right" Height="25" Width="25"
+                Command="{Binding SearchCommand}">
+            <Image Height="16" Width="Auto" >
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Source" Value="../../Resources/Images/Search_32.png"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                <Setter Property="Source" Value="../../Resources/Images/progress.gif"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </Button>
+
+
+        <!-- testing! -->
+        <!--<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+            <Button  Command="{Binding SearchCommand}" CommandParameter="0">LF - no result</Button>
+            <Button  Command="{Binding SearchCommand}" CommandParameter="1">LF - one result</Button>
+            <Button  Command="{Binding SearchCommand}" CommandParameter="2">LF - multiple result</Button>
+
+            <Button Command="{Binding NavigateCommand}">Navigate</Button>
+        </StackPanel>-->
+    </Grid>
+</UserControl>

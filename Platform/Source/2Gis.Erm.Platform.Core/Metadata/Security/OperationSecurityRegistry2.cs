@@ -1,0 +1,136 @@
+﻿namespace DoubleGis.Erm.Platform.Core.Metadata.Security
+{
+    public static partial class OperationSecurityRegistry
+    {
+        //[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma")]
+        //private static readonly AccessRequirementContainer Container =
+        //    new AccessRequirementContainer()
+
+
+        //        .ForOperation<CreateIdentity, Order>(x => x
+        //            .Require(EntityAccessTypes.Create, EntityName.Account)
+        //            .Require(EntityAccessTypes.Read, EntityName.Account)
+        //            .Require(EntityAccessTypes.Read, EntityName.AccountDetail)
+        //            .Require(EntityAccessTypes.Read, EntityName.BargainType)
+        //            .Require(EntityAccessTypes.Read, EntityName.BranchOffice)
+        //            .Require(EntityAccessTypes.Read, EntityName.BranchOfficeOrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.Category)
+        //            .Require(EntityAccessTypes.Read, EntityName.CategoryFirmAddress)
+        //            .Require(EntityAccessTypes.Read, EntityName.CategoryOrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.Deal)
+        //            .Require(EntityAccessTypes.Update, EntityName.Deal)
+        //            .Require(EntityAccessTypes.Read, EntityName.Firm)
+        //            .Require(EntityAccessTypes.Read, EntityName.FirmAddress)
+        //            .Require(EntityAccessTypes.Read, EntityName.LegalPerson)
+        //            .Require(EntityAccessTypes.Read, EntityName.Lock)
+        //            .Require(EntityAccessTypes.Read, EntityName.Note)
+        //            .Require(EntityAccessTypes.Create, EntityName.NotificationAddress)
+        //            .Require(EntityAccessTypes.Create, EntityName.NotificationEmail)
+        //            .Require(EntityAccessTypes.Create, EntityName.NotificationEmailTo)
+        //            .Require(EntityAccessTypes.Create, EntityName.Order)
+        //            .Require(EntityAccessTypes.Read, EntityName.Order)
+        //            .Require(EntityAccessTypes.Update, EntityName.Order)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPosition)
+        //            .Require(EntityAccessTypes.Update, EntityName.OrderPosition)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPositionAdvertisement)
+        //            .Require(EntityAccessTypes.Create, EntityName.OrderReleaseTotal)
+        //            .Require(EntityAccessTypes.Delete, EntityName.OrderReleaseTotal)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderReleaseTotal)
+        //            .Require(EntityAccessTypes.Create, EntityName.OrderValidationResult)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.Position)
+        //            .Require(EntityAccessTypes.Read, EntityName.PricePosition)
+        //            .Require(EntityAccessTypes.Read, EntityName.ReleaseInfo)
+        //            .Require(EntityAccessTypes.Create, EntityName.ReleasesWithdrawalsPosition)
+        //            .Require(EntityAccessTypes.Delete, EntityName.ReleasesWithdrawalsPosition)
+        //            .Require(EntityAccessTypes.Update, EntityName.ReleasesWithdrawalsPosition)
+        //            .Require(EntityAccessTypes.Delete, EntityName.ReleaseWithdrawal)
+        //            .Require(EntityAccessTypes.Read, EntityName.ReleaseWithdrawal)
+        //            .Require(FunctionalPrivilegeName.OrderChangeDocumentsDebt))
+
+        //        .ForOperation<UpdateIdentity, Order>(x => x
+        //            .Require(EntityAccessTypes.Create, EntityName.Account)
+        //            .Require(EntityAccessTypes.Read, EntityName.Account)
+        //            .Require(EntityAccessTypes.Read, EntityName.AccountDetail)
+        //            .Require(EntityAccessTypes.Read, EntityName.BargainType)
+        //            .Require(EntityAccessTypes.Read, EntityName.BranchOffice)
+        //            .Require(EntityAccessTypes.Read, EntityName.BranchOfficeOrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.Category)
+        //            .Require(EntityAccessTypes.Read, EntityName.CategoryFirmAddress)
+        //            .Require(EntityAccessTypes.Read, EntityName.CategoryOrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.Deal)
+        //            .Require(EntityAccessTypes.Update, EntityName.Deal)
+        //            .Require(EntityAccessTypes.Read, EntityName.Firm)
+        //            .Require(EntityAccessTypes.Read, EntityName.FirmAddress)
+        //            .Require(EntityAccessTypes.Read, EntityName.LegalPerson)
+        //            .Require(EntityAccessTypes.Read, EntityName.Lock)
+        //            .Require(EntityAccessTypes.Read, EntityName.Note)
+        //            .Require(EntityAccessTypes.Create, EntityName.NotificationAddress)
+        //            .Require(EntityAccessTypes.Create, EntityName.NotificationEmail)
+        //            .Require(EntityAccessTypes.Create, EntityName.NotificationEmailTo)
+        //            .Require(EntityAccessTypes.Create, EntityName.Order)
+        //            .Require(EntityAccessTypes.Read, EntityName.Order)
+        //            .Require(EntityAccessTypes.Update, EntityName.Order)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPosition)
+        //            .Require(EntityAccessTypes.Update, EntityName.OrderPosition)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPositionAdvertisement)
+        //            .Require(EntityAccessTypes.Create, EntityName.OrderReleaseTotal)
+        //            .Require(EntityAccessTypes.Delete, EntityName.OrderReleaseTotal)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderReleaseTotal)
+        //            .Require(EntityAccessTypes.Create, EntityName.OrderValidationResult)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.Position)
+        //            .Require(EntityAccessTypes.Read, EntityName.PricePosition)
+        //            .Require(EntityAccessTypes.Read, EntityName.ReleaseInfo)
+        //            .Require(EntityAccessTypes.Create, EntityName.ReleasesWithdrawalsPosition)
+        //            .Require(EntityAccessTypes.Delete, EntityName.ReleasesWithdrawalsPosition)
+        //            .Require(EntityAccessTypes.Update, EntityName.ReleasesWithdrawalsPosition)
+        //            .Require(EntityAccessTypes.Delete, EntityName.ReleaseWithdrawal)
+        //            .Require(EntityAccessTypes.Read, EntityName.ReleaseWithdrawal)
+        //            .Require(FunctionalPrivilegeName.OrderChangeDocumentsDebt))
+
+        //        .ForOperation<CreateIdentity, Theme>(x => x
+        //            .Require(EntityAccessTypes.Read, EntityName.Theme)
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeOrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeTemplate)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPositionAdvertisement)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPosition)
+        //            .Require(EntityAccessTypes.Read, EntityName.Order)
+        //            .Require(EntityAccessTypes.Create, EntityName.Theme)
+        //            .Require(EntityAccessTypes.Update, EntityName.Theme))
+
+        //        .ForOperation<UpdateIdentity, Theme>(x => x
+        //            .Require(EntityAccessTypes.Read, EntityName.Theme)
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeOrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrganizationUnit)
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeTemplate)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPositionAdvertisement)
+        //            .Require(EntityAccessTypes.Read, EntityName.OrderPosition)
+        //            .Require(EntityAccessTypes.Read, EntityName.Order)
+        //            .Require(EntityAccessTypes.Create, EntityName.Theme)
+        //            .Require(EntityAccessTypes.Update, EntityName.Theme))
+                    
+        //        .ForOperation<CreateIdentity, ThemeTemplate>(x => x
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeTemplate)
+        //            .Require(EntityAccessTypes.Create, EntityName.ThemeTemplate)
+        //            .Require(EntityAccessTypes.Update, EntityName.ThemeTemplate))
+
+        //        .ForOperation<UpdateIdentity, ThemeTemplate>(x => x
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeTemplate)
+        //            .Require(EntityAccessTypes.Create, EntityName.ThemeTemplate)
+        //            .Require(EntityAccessTypes.Update, EntityName.ThemeTemplate))
+
+        //        .ForOperation<AppendIdentity, Theme, Erm.Model.Entities.Erm.Category>(x => x
+        //            .Require(EntityAccessTypes.Read, EntityName.Theme)
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeCategory)
+        //            .Require(EntityAccessTypes.Create, EntityName.ThemeCategory)
+        //            .Require(EntityAccessTypes.Update, EntityName.ThemeCategory))
+
+        //        .ForOperation<AppendIdentity, Theme, OrganizationUnit>(x => x
+        //            .Require(EntityAccessTypes.Read, EntityName.Theme)
+        //            .Require(EntityAccessTypes.Read, EntityName.ThemeOrganizationUnit)
+        //            .Require(EntityAccessTypes.Create, EntityName.ThemeOrganizationUnit)
+        //            .Require(EntityAccessTypes.Update, EntityName.ThemeOrganizationUnit));
+    }
+}

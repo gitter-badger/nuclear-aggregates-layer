@@ -1,0 +1,31 @@
+﻿using System.Runtime.Serialization;
+
+using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.Platform.Model.Entities;
+
+namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeClient
+{
+    [DataContract(Namespace = ServiceNamespaces.BasicOperations.ChangeClient201303)]
+    public class ChangeClientOperationErrorDescription : IBasicOperationErrorDescription
+    {
+        public ChangeClientOperationErrorDescription(EntityName entityName, string message, long entityId, long clientId, bool? bypassValidation)
+        {
+            EntityName = entityName;
+            Message = message;
+            EntityId = entityId;
+            ClientId = clientId;
+            BypassValidation = bypassValidation;
+        }
+
+        [DataMember]
+        public EntityName EntityName { get; private set; }
+        [DataMember]
+        public string Message { get; private set; }
+        [DataMember]
+        public long EntityId { get; private set; }
+        [DataMember]
+        public long ClientId { get; private set; }
+        [DataMember]
+        public bool? BypassValidation { get; private set; }
+    }
+}

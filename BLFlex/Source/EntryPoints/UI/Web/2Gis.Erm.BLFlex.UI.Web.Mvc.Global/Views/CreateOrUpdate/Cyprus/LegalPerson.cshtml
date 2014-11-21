@@ -1,0 +1,52 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus.CyprusLegalPersonViewModel
+
+@{
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.LegalPerson.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Cyprus/Ext.DoubleGis.UI.LegalPerson.Cyprus.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <style type="text/css">
+        div.label-wrapper {
+            width: 150px !important;
+        }
+    </style>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.HasProfiles)
+
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalName, FieldFlex.twins)
+            @Html.TemplateField(m => m.LegalPersonType, FieldFlex.twins, null, EnumResources.ResourceManager)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Inn, FieldFlex.twins)
+            @Html.TemplateField(m => m.BusinessmanInn, FieldFlex.twins)
+            @Html.TemplateField(m => m.VAT, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PassportNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.PassportIssuedBy, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CardNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.RegistrationAddress, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalAddress, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 3 } })
+        </div>
+    </div>
+}

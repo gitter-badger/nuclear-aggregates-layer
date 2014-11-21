@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A0C25240-0C68-4434-94C0-F35B0806FE5B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BLCore.API.MoDi</RootNamespace>
+    <AssemblyName>2Gis.Erm.BLCore.API.MoDi</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Accounting\ExportAccountDetailsTo1CResponse.cs" />
+    <Compile Include="Accounting\IAccountingSystemService.cs" />
+    <Compile Include="DI\BlCoreApiModiAssembly.cs" />
+    <Compile Include="DI\MoDiZone.cs" />
+    <Compile Include="FileDescription.cs" />
+    <Compile Include="PrintRegional\FirmWithOrders.cs" />
+    <Compile Include="Remote\AccountingSystem\IAccountingSystemApplicationService.cs" />
+    <Compile Include="Remote\Reports\IReportsApplicationService.cs" />
+    <Compile Include="Remote\Settings\APIMoDiServiceSettingsAspect.cs" />
+    <Compile Include="Remote\Settings\IAPIMoDiServiceSettings.cs" />
+    <Compile Include="Remote\WithdrawalInfo\PriceCostInfo.cs" />
+    <Compile Include="Remote\WithdrawalInfo\IWithdrawalInfoApplicationService.cs" />
+    <Compile Include="Dto\OrderPositionDto.cs" />
+    <Compile Include="Enums\ESalesPointTypePair.cs" />
+    <Compile Include="Enums\ESalesPointType.cs" />
+    <Compile Include="Dto\PlatformCost.cs" />
+    <Compile Include="Reports\IReportsService.cs" />
+    <Compile Include="Reports\MoneyDistributionReportItem.cs" />
+    <Compile Include="Reports\MoneyDistributionReportRequest.cs" />
+    <Compile Include="Reports\MoneyDistributionReportResponse.cs" />
+    <Compile Include="Reports\PlatformReportItem.cs" />
+    <Compile Include="Reports\PlatformReportRequest.cs" />
+    <Compile Include="Reports\PlatformReportResponse.cs" />
+    <Compile Include="Reports\PlatformReportType.cs" />
+    <Compile Include="Settings\IMoneyDistributionSettings.cs" />
+    <Compile Include="Enums\PlatformsExtended.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.API.Common\2Gis.Erm.BLCore.API.Common.csproj">
+      <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
+      <Name>2Gis.Erm.BLCore.API.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

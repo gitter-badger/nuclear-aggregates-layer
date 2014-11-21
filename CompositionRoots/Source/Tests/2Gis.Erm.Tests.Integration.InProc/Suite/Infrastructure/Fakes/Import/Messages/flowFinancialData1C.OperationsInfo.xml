@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OperationsInfo StartDate="2013-11-06T09:58:52" EndDate="2013-11-06T11:58:52" LegalEntityBranchCode1C="004">
+  <Operations>
+    <Operation AccountCode="224075643356349704" Amount="10000" TransactionDate="2013-11-06T10:58:52" OperationTypeCode="01" DocumentNumber="Autotest Import" IsPlus="true" />
+    <Operation AccountCode="224075643356349704" Amount="100" TransactionDate="2013-11-06T10:58:52" OperationTypeCode="01" DocumentNumber="Autotest Import" IsPlus="true" />
+    <Operation AccountCode="224075811002689544" Amount="1000" TransactionDate="2013-11-06T10:58:52" OperationTypeCode="01" DocumentNumber="Autotest Import" IsPlus="true" />
+  </Operations>
+</OperationsInfo>

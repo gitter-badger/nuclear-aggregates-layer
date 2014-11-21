@@ -1,0 +1,117 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true" hostSpecific="true"#>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="System.Configuration.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.BL.Resources.Client.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.BLCore.Resources.Client.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.Resources.Client.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.API.Core.dll" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)2Gis.Erm.Platform.UI.Web.Mvc.dll" #>
+<#@ assembly Name="System.Core.dll" #>
+<#@ assembly Name="Microsoft.VisualStudio.TextTemplating.Modeling.12.0.dll" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Configuration" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="DoubleGis.Erm.Platform.API.Core.Settings.Globalization" #>
+<#@ import namespace="DoubleGis.Erm.Platform.UI.Web.Mvc.ResourceHandling" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ output extension=".log" #> 
+
+<#  
+	const string JsResourceFileNameTemplate = "Ext.LocalizedResources.{0}.js";
+
+	// Список локалей, для которых будут создаваться ресурсы.
+    var targetCultures = LocalizationSettings.SupportedCultures2NeutralFallbackToMap;
+
+    EnvDTE.ProjectItem templateItem = Project.DTE.Solution.FindProjectItem(Host.TemplateFile);
+	string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
+
+	var targetResourceEntryHostTypes = new []{ 
+											typeof(DoubleGis.Erm.BL.Resources.Client.Properties.Resources), 
+											typeof(DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources), 
+											typeof(DoubleGis.Erm.Platform.Resources.Client.ResPlatformUI) 
+										};
+	
+	var resourcesResolver = new ResourcesResolver(targetResourceEntryHostTypes, targetCultures.Values);
+
+    foreach(var culture in targetCultures)
+    {
+        string report;
+		var extractedResources = 
+			resourcesResolver
+				.ExtractResources(culture.Key, out report)
+				.OrderBy(pair => pair.Key);
+
+        BuildJsResourceFile(extractedResources, targetResourceEntryHostTypes, string.Empty);
+
+        var outputFileName = string.Format(JsResourceFileNameTemplate, culture.Value.TwoLetterISOLanguageName);
+		var outputFileFullPath = System.IO.Path.Combine(templateDirectory, outputFileName);
+        
+		SaveScript(outputFileFullPath);
+
+        EnvDTE.ProjectItem addedItem = templateItem.ProjectItems.AddFromFile(outputFileFullPath);
+        // Build action - content.
+        addedItem.Properties.Item("BuildAction").Value = 2;
+  }
+#>
+<#+  
+    private static EnvDTE.Project _project;
+    
+    /// <summary>
+    /// Текущий проект.
+    /// </summary>
+    private EnvDTE.Project Project
+    {
+        get
+        {
+            if(_project==null)
+            {
+                EnvDTE.DTE env = (EnvDTE.DTE)((IServiceProvider)this.Host).GetService(typeof(EnvDTE.DTE));
+                _project = (EnvDTE.Project)((Array)env.ActiveSolutionProjects).GetValue(0);
+            }
+            return _project;
+        }
+    }
+
+	private void SaveScript(string outputFileFullPath)
+	{
+		if (!Project.DTE.SourceControl.IsItemCheckedOut(outputFileFullPath))
+		{
+			Project.DTE.SourceControl.CheckOutItem(outputFileFullPath);
+		}
+
+		var currentOutput = this.GenerationEnvironment.ToString();
+		System.IO.File.WriteAllText(outputFileFullPath, currentOutput, System.Text.Encoding.UTF8); 
+		this.GenerationEnvironment = new StringBuilder();
+	}
+
+	private void BuildJsResourceFile(
+		IEnumerable<KeyValuePair<string, string>> extractedResources, 
+		IEnumerable<Type> targetResourceEntryHostTypes,
+		string report)
+	{
+#>
+// File updated : <#= DateTime.Now.ToString(CultureInfo.CurrentCulture) #>
+// Processed resource entry host types:
+<#+
+		foreach(var targetResourceEntryHostType in targetResourceEntryHostTypes)
+		{
+#>
+// <#= targetResourceEntryHostType.FullName #>
+<#+
+		}
+#>
+/* 
+<#= report #>
+*/
+Ext.LocalizedResources =
+{
+	<#= string.Join("," + Environment.NewLine,  
+					extractedResources.Select(r => string.Format("{0} : '{1}'", r.Key, r.Value.Replace('\'', '"')))) #>
+}
+<#+
+	}
+#>

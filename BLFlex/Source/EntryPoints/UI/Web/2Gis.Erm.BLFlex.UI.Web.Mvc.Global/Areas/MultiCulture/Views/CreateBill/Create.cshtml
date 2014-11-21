@@ -1,0 +1,295 @@
+﻿@using BLCore.API.Operations.Concrete.Old.Bills
+@using BLCore.UI.Web.Mvc.Settings
+@model Models.MultiCultureCreateBillViewModel
+
+@{
+    Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.CreateBill }
+@section TopBarTitle { @BLResources.CreateBill }
+@section TopBarMessage { @BLResources.CreateBill }
+
+@section PageContent
+{
+    <link  rel="stylesheet" type="text/css" href="/Content/slider.css?@ThisAssembly.Build" />
+    
+    <script src="/Scripts/Ext.DoubleGis.UI.BillPayments.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.grid.CheckColumn.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.RelatedOrdersSelectorControl.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Bill');
+        Ext.DoubleGis.UI.Bill.Configurator = Ext.extend(Object, {
+        Config: { 
+            OrderId: -1, // идентификатор заказа для которого созается счет на оплату
+            BillPaymentControlElement: null,
+            PaymentsAmountSliderElement: null,
+            OrderSumElement: null,
+            RelatedOrderControlElement: null,
+            RelatedOrderGridHeight: -1,
+            RelatedOrderGridWidth: -1
+        },
+        PaymentsControl: null,
+        RelatedOrderControl: null,
+        Payments: null,
+        RelatedOrders: null,
+        PaymentTypes: {
+                Single: @((int)BillPaymentType.Single),
+                ByPlan: @((int)BillPaymentType.ByPlan),
+                Custom: @((int)BillPaymentType.Custom)
+            },
+        constructor: function(config) {
+            Ext.apply(this.Config, config);
+            
+            this.PaymentsControl = new Ext.DoubleGis.UI.BillPaymentsControl({
+                orderId: this.Config.OrderId, 
+                billPaymentControlElement: this.Config.BillPaymentControlElement,
+                paymentsAmountSliderElement: this.Config.PaymentsAmountSliderElement,
+                orderSumElement: this.Config.OrderSumElement,
+                paymentTypes: this.PaymentTypes
+            });
+
+            this.RelatedOrderControl = new Ext.DoubleGis.UI.RelatedOrdersSelectorControl({
+                RelatedOrderControlElement: this.Config.RelatedOrderControlElement,
+                GridHeight: this.Config.RelatedOrderGridHeight,
+                GridWidth: this.Config.RelatedOrderGridWidth
+            });
+        },
+        GetInitPaymentsInfo: function() {
+            // По-умолчанию считаем, что счета создаются "одним платежом"
+            var paymentType = this.PaymentTypes.Single;
+            
+            if (Ext.getDom("PaymentTypeSingle").checked) {
+                paymentType = this.PaymentTypes.Single;
+            }
+            else if (Ext.getDom("PaymentTypeByPlan").checked) {
+                paymentType = this.PaymentTypes.ByPlan;
+            }
+            this.PaymentsControl.getInitPayments(paymentType);
+        },
+        GetRelatedOrdersForBillOrder: function () {
+            Ext.Ajax.request({
+                timeout: 1200000,
+                method: 'POST',
+                url: '/Bill/GetRelatedOrdersInfoForCreateBill',
+                params: { orderId: this.Config.OrderId},
+                success: function(xhr, options) {
+                    var relatedOrders = Ext.decode(xhr.responseText);
+                    this.RelatedOrderControl.SetRelatedOrders(relatedOrders);
+                },
+                failure: function(xhr, options) {
+                    Ext.MessageBox.show({
+                        title: '',
+                        msg: xhr.responseText,
+                        buttons: Ext.MessageBox.OK,
+                        width: 300,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                },
+                scope: this
+            });
+        },
+        OnRadioClick: function() {
+            this.GetInitPaymentsInfo();
+        },
+        OnBillCreateExecuteStage1: function(){
+            var paymentsResult = this.PaymentsControl.getPayments();
+            if (paymentsResult.HasError) {
+                Ext.MessageBox.show({
+                        title: '',
+                        msg: paymentsResult.ErrorMessage,
+                        buttons: Ext.MessageBox.OK,
+                        width: 300,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                return;
+            }
+            
+            this.Payments = paymentsResult.Payments;
+            if (paymentsResult.ConfirmationRequired) {
+                Ext.MessageBox.show({
+                        title: '',
+                        msg: paymentsResult.ConfirmationMessage,
+                        buttons: Ext.MessageBox.OKCANCEL,
+                        width: 300,
+                        icon: Ext.MessageBox.QUESTION,
+                        fn: function (btn) {
+                            if (btn == 'ok') {
+                                this.OnBillCreateExecuteStage2();
+                            }
+                        },
+                        scope: this
+                    });
+            }
+            else {
+                 this.OnBillCreateExecuteStage2();
+            }
+        },
+        OnBillCreateExecuteStage2: function () {
+            this.RelatedOrders = this.RelatedOrderControl.GetOrders();
+            if (this.RelatedOrders.length > 0) 
+            {
+                if (Ext.getDom("PaymentTypeByPlan").checked) {
+                    var orderSum = this.PaymentsControl.getOrderSum();
+                    if (orderSum == 0) {
+                        // заказ с нулевой суммой не может использоваться как шаблон для массового создания счетов на оплату, с использованием рассрочки
+                        Ext.MessageBox.show({
+                            title: '',
+                            msg: Ext.LocalizedResources.BillMassCreateOrderHasZeroPayablePlan,
+                            buttons: Ext.MessageBox.OK,
+                            width: 300,
+                            icon: Ext.MessageBox.INFO
+                        });
+                        return;
+                    }
+                }
+                
+                Ext.MessageBox.show({
+                    title: '',
+                    msg: Ext.LocalizedResources.BillMassCreateConfirmMessage,
+                    buttons: Ext.MessageBox.OKCANCEL,
+                    width: 300,
+                    icon: Ext.MessageBox.QUESTION,
+                    fn: function(btn) {
+                        if (btn == 'ok') {
+                            this.OnBillCreateExecuteFinal(this.Payments, this.RelatedOrders);
+                        }
+                    },
+                    scope: this
+                });
+            }
+            else {
+                this.OnBillCreateExecuteFinal(this.Payments, null);
+            }
+        },
+        OnBillCreateExecuteFinal: function (payments, orders) {
+            window.Ext.Ajax.request({
+                timeout: 1200000,
+                scope: this,
+                method: 'POST',
+                url: '/Bill/SavePayments',
+                params: {
+                     orderId: this.Config.OrderId, 
+                     paymentsInfo: Ext.encode(payments), 
+                     relatedOrders: Ext.encode(orders)
+                },
+                success: function (xhr, options) {
+                    window.close();
+                },
+                failure: function (xhr, options) {
+                    Ext.MessageBox.show({
+                        title: '',
+                        msg: xhr.responseText,
+                        buttons: window.Ext.MessageBox.OK,
+                        width: 300,
+                        icon: window.Ext.MessageBox.ERROR
+                    });
+                }
+            });
+        },
+        Configure: function () {
+            //Show error messages
+            if (Ext.getDom("Notifications").innerHTML.trim() != "") {
+                Ext.get("Notifications").addClass("Notifications");
+            }
+            
+            Ext.getDom("PaymentTypeSingle").checked = true;
+            this.GetInitPaymentsInfo();
+            
+            Ext.get("PaymentTypeSingle").on("click", this.OnRadioClick, this);
+            Ext.get("PaymentTypeByPlan").on("click", this.OnRadioClick, this);
+            
+            if (Ext.getDom("IsMassBillCreateAvailable").value == 'True') {
+                this.GetRelatedOrdersForBillOrder();
+            }
+
+            //write eventhandlers for buttons
+            Ext.get("Cancel").on("click", function () { window.close(); });
+            Ext.get("OK").on("click", function () {this.OnBillCreateExecuteStage1();}, this);
+        }
+        });
+        Ext.onReady(function () {
+            var config = {
+                OrderId: Ext.getDom("OrderId").value, // идентификатор заказа для которого созается счет на оплату
+                BillPaymentControlElement: 'billPaymentsControl',
+                PaymentsAmountSliderElement: 'paymentsAmountSlider',
+                OrderSumElement: 'orderSum', 
+                RelatedOrderControlElement: 'massCreateBillsControl',
+                RelatedOrderGridHeight: 110,
+                RelatedOrderGridWidth: 760
+            };
+            var billConfigurator = new Ext.DoubleGis.UI.Bill.Configurator(config);
+            billConfigurator.Configure();
+    });
+    </script>
+    
+    <div style="display: none">
+        @Html.HiddenFor(m => m.IsMassBillCreateAvailable)
+        @Html.HiddenFor(m => m.OrderId)
+    </div>
+    <div style="padding: 5px 0 0 10px">
+        @BLResources.BillPaymentType
+        <table width="80%">
+            <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td colspan="4">
+                        <div style="height: 15px;display: none;" id="Notifications">
+                            @Model.Message
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButtonFor(m => m.PaymentType, BillPaymentType.Single, new Dictionary<string, object> { { "id", "PaymentTypeSingle" } } )
+                    </td>
+                    <td>
+                        <label style="font-weight: bold" for="PaymentTypeSingle">
+                            @BLResources.BillPaymentTypeSingle
+                        </label>
+                        <br />
+                        <div style="color: #444444; padding-top: 5px">
+                            @BLResources.BillPaymentTypeSingleLegend
+                        </div>
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(m => m.PaymentType, BillPaymentType.ByPlan, new Dictionary<string, object> { { "id", "PaymentTypeByPlan" } } )
+                    </td>
+                    <td>
+                        <label style="font-weight: bold" for="PaymentTypeByPlan">
+                            @BLResources.BillPaymentTypeByPlan
+                        </label>
+                        <br />
+                        <div style="color: #444444; padding-top: 5px">
+                            @BLResources.BillPaymentTypeByPlanLegend
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="padding: 10px">
+        @MetadataResources.PaymentsAmount
+     </div>
+    <div id="billsAmountWarning" style="padding-left: 100px"></div>
+    <div id="paymentsAmountSlider"></div>
+    <div id="billPaymentsControl" style="margin: 10px"></div>
+    <span style="float: right; padding: 0 10px;">
+        @BLResources.OrderSum, @ViewData.GetErmBaseCurrencySymbol()
+        <span id="orderSum"></span>
+    </span>
+    <div id="massBillsCreate" style="clear: both;">
+       <div style="padding-left: 10px">
+            <span style="font-weight: bold">
+                @BLResources.MassCreateBillsOperationName
+             </span>
+        </div>
+        <div id="massCreateBillsControl" style="margin: 10px"/> 
+    </div>
+}

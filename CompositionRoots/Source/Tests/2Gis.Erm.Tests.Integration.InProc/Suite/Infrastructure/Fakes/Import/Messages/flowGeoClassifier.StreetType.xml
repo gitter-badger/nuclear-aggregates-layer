@@ -1,0 +1,8 @@
+﻿<StreetType Code="2" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="автомагистраль" ShortName="автомаг." />
+  </Localizations>
+  <Branches>
+    <Branch Code="1" />
+  </Branches>
+</StreetType>

@@ -1,0 +1,1075 @@
+
+
+
+
+
+<public:component lightweight="true">
+<public:attach event="ondocumentready" onevent="initializeGrid()"/>
+<public:attach event="onresize" onevent="positionRefreshButton();handleScroll();"/>
+<public:method name="handleResize"/>
+<public:method name="handleResizeCleanup"/>
+<public:method name="handleResizeStartup"/>
+<public:method name="handleAutoResize"/>
+<public:property name="gridXml" get="buildGridXml"/>
+
+<public:property	name="InnerGrid"/>
+<public:property	name="PageNumber" put="setPageNumber" get="getPageNumber"/>
+<public:property	name="MaximumSelectableRecords" get="getMaxSelectable"/>
+<public:property	name="Version" value="3.0"/>
+<public:property	name="AutoHideHScroll" put="setAutoHideHScroll" get="getAutoHideHScroll"/>
+<public:property	name="GridRefreshTime" get="getGridRefreshTime"/>
+<public:method		name="Init"/>
+<public:method		name="GetProperty"/>
+<public:method		name="GetParameter"/>
+<public:method		name="SetParameter"/>
+<public:method		name="Refresh"/>
+<public:method		name="CancelRefresh"/>
+<public:method		name="ClearPagingCookie"/>
+<public:method		name="DisablePaging"/>
+<public:method		name="ShowLoadingMessage"/>
+<public:event		name="onrefresh" id="OnRefresh" />
+<public:event		name="onchangepage" id="OnChangePage" />
+<public:event		name="onbeforerefresh" id="OnBeforeRefresh" />
+
+<script language="JavaScript"></script><script type="text/javascript">
+
+var _oLast, _oLastOver;
+var _currentDragCol = null;
+var _currentDragDataCol = null;
+var _bPagingEnabled = true;
+var _bSelectionEnabled = true;
+var _bRefreshAsynchronous = false;
+var _bAutoHideHScroll = true;
+var _sMessageHtml = "<TABLE class='ms-crm-List-Message' morerecords='0'><TR><TD ID='GridMessage'>{0}</TD></TR></TABLE>";
+var _sLoadingMessageHtml = "<TABLE class='ms-crm-List-Message' morerecords='0'><TR><TD ID='GridLoadingMessage'><IMG alt='' src='/_imgs/AdvFind/progress.gif'><br>{0}</TD></TR></TABLE>";
+var _dtLastRefreshTime = null;
+var _bRefreshing = false;
+var _commandRefreshGrid = null;
+
+function IsNull(o)
+{
+    return ("undefined" == typeof (o) || "unknown" == typeof (o) || null == o)
+}
+
+
+
+
+
+
+function GetProperty(sName)
+{
+    var oTmp = this.all.divGridProps.children[sName];
+    return !IsNull(oTmp) ? oTmp.value : null;
+}
+
+
+
+
+
+function GetParameter(sName)
+{
+    var oTmp = this.all.divGridParams.children[sName];
+    return !IsNull(oTmp) ? oTmp.value : null;
+}
+
+
+
+
+
+
+function SetParameter(sName, sValue)
+{
+    var o = this.all.divGridParams.children[sName];
+    if (IsNull(o))
+    {
+
+        o = element.document.createElement("<div id=\"" + CrmEncodeDecode.CrmHtmlAttributeEncode(sName) + "\">");
+        o.value = sValue;
+        this.all.divGridParams.appendChild(o);
+    }
+    else
+    {
+        o.value = sValue;
+    }
+}
+
+
+
+function CancelRefresh()
+{
+    _commandRefreshGrid.Abort();
+    setGridData(formatString(_sMessageHtml, LOCID_REFRESH_GRID_CANCELLED));
+    _bRefreshing = false;
+}
+
+function Refresh()
+{
+    Refresh(false);
+}
+
+
+
+function Refresh(calledFromPaging)
+{
+    _bRefreshing = true;
+    var oEvent = createEventObject();
+    OnBeforeRefresh.fire(oEvent);
+    if (!IsNull(oEvent.returnValue) && !oEvent.returnValue)
+    {
+        _bRefreshing = false;
+        return;
+    }
+    if (_bPagingEnabled)
+    {
+
+        DisablePaging();
+    }
+
+    if (_commandRefreshGrid == null)
+    {
+        _commandRefreshGrid = new RemoteCommand("AppGridWebService", "Refresh");
+    }
+
+    _commandRefreshGrid.SetParameter("gridXml", CrmEncodeDecode.CrmXmlEncode(buildGridXml(calledFromPaging)));
+
+    if (_bRefreshAsynchronous)
+    {
+
+        _commandRefreshGrid.Execute(onRefreshComplete);
+
+        ShowLoadingMessage();
+    }
+    else
+    {
+
+        ShowLoadingMessage();
+        window.setTimeout(refreshInternal, 1);
+    }
+}
+function refreshInternal()
+{
+    var result = _commandRefreshGrid.Execute();
+    onRefreshComplete(result);
+}
+
+function onRefreshComplete(result)
+{
+    if (result.Success && result.ReturnValue != "")
+    {
+
+        var oXmlDoc = CreateXmlDocument(false);
+        oXmlDoc.loadXML(result.ReturnValue);
+        element.all.divGridProps.children.pagingCookie.value = oXmlDoc.selectSingleNode("gridXml/pagingCookie").text;
+
+        setGridData(oXmlDoc.selectSingleNode("gridXml/gridHtml").text);
+    }
+    else
+    {
+
+        setGridData(formatString(_sMessageHtml, LOCID_LOADING_GRID_FAILED));
+    }
+
+    OnRefresh.fire();
+
+
+    _dtLastRefreshTime = new Date();
+    _bRefreshing = false;
+}
+function ShowLoadingMessage()
+{
+    setGridData(formatString(_sLoadingMessageHtml, LOCID_LOADING_GRID_DATA));
+}
+function setGridData(sHtml)
+{
+
+    element.all["divDataArea"].innerHTML = sHtml;
+
+    initializeData();
+}
+function setAutoHideHScroll(bAutoHide)
+{
+    _bAutoHideHScroll = bAutoHide;
+    var oDataArea = element.all["divDataArea"];
+    if (!_bAutoHideHScroll)
+    {
+        oDataArea.style.overflowX = "scroll";
+    }
+    else
+    {
+        oDataArea.style.overflowX = "auto";
+    }
+}
+function getAutoHideHScroll()
+{
+    return _bAutoHideHScroll;
+}
+
+function ClearPagingCookie()
+{
+    element.all.divGridProps.children.pagingCookie.value = "";
+}
+function getGridRefreshTime()
+{
+    return _dtLastRefreshTime;
+}
+
+
+function Init()
+{
+
+
+
+    this.all.divGridProps.all.pageNum.value = 1;
+    initializeGrid();
+}
+
+
+
+function initializeGrid()
+{
+    if (window.document.media != "print")
+        positionRefreshButton();
+
+    _bPagingEnabled = typeof (this.all["_prevPageImg"]) != "undefined";
+    if (element.all["gridStatusBar"])
+    {
+        _bSelectionEnabled = element.all["gridStatusBar"].rows[0].cells[0].innerText != "";
+    }
+    else
+    {
+        _bSelectionEnabled = false;
+    }
+    _bRefreshAsynchronous = this.all.divGridProps.all.refreshAsync.value == "True";
+    if (_bPagingEnabled)
+    {
+        this.all._prevPageImg.attachEvent("onclick", previousPage);
+        this.all._nextPageImg.attachEvent("onclick", nextPage);
+        this.all.fastRewind.attachEvent("onclick", firstPage);
+    }
+    element.all["divDataArea"].attachEvent("onscroll", handleScroll);
+    initializeColumns();
+    initializeData();
+
+
+    _dtLastRefreshTime = new Date();
+}
+
+function positionRefreshButton()
+{
+
+    var oFixedRow = element.all["fixedrow"];
+    var oRefresh = element.all["refreshButton"];
+    if (!IsNull(oRefresh))
+    {
+
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+            oRefresh.style.right = oFixedRow.offsetWidth - 16;
+        else
+            oRefresh.style.left = oFixedRow.offsetWidth - 16;
+
+        if (oRefresh.style.display != "inline")
+        {
+            oRefresh.style.display = "inline";
+        }
+    }
+}
+
+
+
+
+
+function syncColumnHeaderToTableData()
+{
+    var oFixedRow = element.all["fixedrow"];
+    var oDivDataArea = element.all["divDataArea"];
+    if (!IsNull(oFixedRow) && !IsNull(oDivDataArea))
+    {
+        var marginAdjustment = oFixedRow.scrollLeft - oDivDataArea.scrollLeft;
+
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+        {
+
+            var bVScrollVisible = oDivDataArea.scrollHeight > parseInt(oDivDataArea.clientHeight, 10);
+
+            var BidiPadding = 2;
+            marginAdjustment = oFixedRow.scrollLeft - oDivDataArea.scrollLeft - BidiPadding;
+
+            if (bVScrollVisible)
+            {
+                var scrollWidth = oDivDataArea.clientLeft;
+                marginAdjustment = oFixedRow.scrollLeft - oDivDataArea.scrollLeft + (scrollWidth - BidiPadding);
+            }
+        }
+        if (IsNull(marginAdjustment))
+        {
+            return;
+        }
+        marginAdjustment = parseInt(marginAdjustment, 10);
+
+        if (marginAdjustment != parseInt(oFixedRow.style.marginLeft, 10))
+        {
+            oFixedRow.style.marginLeft = marginAdjustment;
+        }
+
+
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+        {
+            if (oDivDataArea.firstChild.firstChild.tagName != 'COLGROUP')
+            {
+                oFixedRow.scrollLeft = oFixedRow.scrollWidth;
+            }
+        }
+    }
+}
+
+
+
+function initializeColumns()
+{
+    var oGridBar = element.all["gridBar"];
+    if (oGridBar != null)
+    {
+        var oTmp = element.all["gridBar"].rows[0];
+        oTmp.attachEvent("onclick", handleColumnClick);
+        oTmp.attachEvent("onmouseover", handleColumnMouseOver);
+        oTmp.attachEvent("onmouseout", handleColumnMouseOut);
+    }
+}
+
+
+
+function initializeData()
+{
+    InnerGrid = element.all["gridBodyTable"];
+    updatePagingUI();
+    if (InnerGrid == null)
+    {
+        return;
+    }
+
+    InnerGrid.ParentGridControl = this;
+    InnerGrid.ParentGridControlDataArea = element.all["tdDataArea"];
+    if (_bSelectionEnabled)
+    {
+
+        InnerGrid.attachEvent("onselectionchange", updateUIOnSelectionChange)
+    }
+}
+function updateUIOnSelectionChange()
+{
+    updateSelectedItemsUI(InnerGrid.SelectedRecords.length, InnerGrid.NumberOfRecords);
+}
+
+
+
+
+
+
+
+function updateSelectedItemsUI(iNum, iTotal)
+{
+    var oSelected = element.all[element.id + "_ItemsSelected"];
+    if (oSelected != null)
+    {
+        element.all[element.id + "_ItemsSelected"].innerText = iNum;
+    }
+    var oTotal = element.all[element.id + "_ItemsTotal"];
+    if (oTotal != null)
+    {
+        element.all[element.id + "_ItemsTotal"].innerText = iTotal;
+    }
+    var oChkAll = element.all.chkAll
+    if (oChkAll != null)
+    {
+        oChkAll.checked = ((iNum == iTotal) && iTotal > 0);
+        oChkAll.disabled = iTotal == 0;
+    }
+}
+
+
+
+function handleScroll()
+{
+    var oFixedRow = element.all["fixedrow"];
+    var oDivDataArea = element.all["divDataArea"];
+    if (!IsNull(oFixedRow) && !IsNull(oDivDataArea))
+    {
+        oFixedRow.scrollLeft = oDivDataArea.scrollLeft;
+
+        syncColumnHeaderToTableData();
+    }
+}
+
+function buildGridXml()
+{
+    buildGridXml(false);
+}
+
+
+
+
+function buildGridXml(calledFromPaging)
+{
+    var s = "<grid>"
+    var i = 0;
+
+    var oCol = this.all.divGridProps.children;
+    var iLen = oCol.length;
+    for (i = 0; i < iLen; i++)
+    {
+        if (oCol[i].value == "")
+        {
+            s += "<" + oCol[i].id + "/>"
+        }
+        else
+        {
+            s += "<" + oCol[i].id + ">" + CrmEncodeDecode.CrmXmlEncode(oCol[i].value) + "</" + oCol[i].id + ">";
+        }
+    }
+
+    if (IsNull(calledFromPaging) || !calledFromPaging)
+    {
+        s += "<refreshCalledFromRefreshButton>1</refreshCalledFromRefreshButton>";
+    }
+
+    s += "<parameters>";
+    oCol = this.all.divGridParams.children;
+    iLen = oCol.length;
+    for (i = 0; i < iLen; i++)
+    {
+        if (oCol[i].value == "")
+        {
+            s += "<" + oCol[i].id + "/>"
+        }
+        else
+        {
+            s += "<" + oCol[i].id + ">" + CrmEncodeDecode.CrmXmlEncode(oCol[i].value) + "</" + oCol[i].id + ">";
+        }
+    }
+    s += "</parameters>";
+
+    s += "<columns>"
+    var oGridBar = this.all["gridBar"];
+    if (oGridBar != null)
+    {
+        oCol = this.all["gridBar"].rows[0].cells;
+        iLen = oCol.length;
+        for (i = 0; i < iLen; i++)
+        {
+            if (oCol[i].field)
+            {
+                s += "<column width=";
+                if (oCol[i].isHidden)
+                {
+                    s += "\"0\" isHidden=\"true\"";
+                }
+                else
+                {
+                    var iWidth = oCol[i].scrollWidth;
+
+
+
+                    if (iWidth == 0)
+                    {
+                        iWidth = parseInt(oCol[i].currentStyle.width, 10);
+                    }
+
+
+                    s += "\"" + (iWidth) + "\" isHidden=\"false\"";
+                }
+                if (oCol[i].metadataDisabled)
+                {
+                    s += " isMetadataBound=\"false\"";
+                }
+                else
+                {
+                    s += " isMetadataBound=\"true\"";
+                }
+                if (oCol[i].className == "ms-crm-List-Sortable")
+                {
+                    s += " isSortable=\"true\"";
+                }
+                else
+                {
+                    s += " isSortable=\"false\"";
+                }
+                s += " label=\"" + CrmEncodeDecode.CrmXmlEncode(oCol[i].innerText) + "\"";
+                s += " fieldname=\"" + CrmEncodeDecode.CrmXmlEncode(oCol[i].fieldname) + "\"";
+                s += " entityname=\"" + CrmEncodeDecode.CrmXmlEncode(oCol[i].entityname) + "\"";
+                if (oCol[i].relationshipname)
+                {
+                    s += " relationshipname=\"" + CrmEncodeDecode.CrmXmlEncode(oCol[i].relationshipname) + "\"";
+                }
+
+
+                s += ">" + oCol[i].field + "</column>";
+            }
+        }
+    }
+    s += "</columns></grid>"
+    return s;
+}
+
+
+
+
+
+function findColumn(sName)
+{
+    var i = 0;
+    var oCells = this.all["gridBar"].rows[0].cells;
+    var iLen = oCells.length;
+    while (i < iLen)
+    {
+        if (oCells[i].field && oCells[i].field == sName)
+        {
+            return oCells[i];
+        }
+        i++;
+    }
+    return null;
+}
+
+
+
+
+
+
+function setPageNumber(iPage)
+{
+
+    if (_bRefreshing)
+    {
+        return;
+    }
+    if (iPage < 1)
+    {
+        return;
+    }
+
+    var oEvent = createEventObject();
+    oEvent.NewPageNumber = iPage;
+    oEvent.CurrentPageNumber = getPageNumber();
+    OnChangePage.fire(oEvent);
+    this.all.divGridProps.all.pageNum.value = iPage;
+
+    if (!IsNull(oEvent.returnValue) && !oEvent.returnValue)
+    {
+        return;
+    }
+
+    Refresh(true);
+}
+
+
+
+
+function getPageNumber()
+{
+    return _bPagingEnabled ? parseInt(this.all.divGridProps.all.pageNum.value, 10) : -1;
+}
+
+
+
+
+function getMaxSelectable()
+{
+    return parseInt(this.all.divGridProps.all.max.value, 10);
+}
+
+
+
+function DisablePaging()
+{
+
+    with (this.all._prevPageImg)
+    {
+        style.cursor = "auto";
+        firstChild.src = "/_imgs/grid/page_L0.gif";
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+            firstChild.style.filter = "FlipH()";
+        firstChild.disabled = true;
+        disabled = true;
+    }
+
+    with (this.all.fastRewind)
+    {
+        style.cursor = "auto";
+        firstChild.src = "/_imgs/grid/page_FL0.gif";
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+            firstChild.style.filter = "FlipH()";
+        firstChild.disabled = true;
+        disabled = true;
+    }
+
+    with (this.all._nextPageImg)
+    {
+        style.cursor = "auto";
+        firstChild.src = "/_imgs/grid/page_R0.gif";
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+            firstChild.style.filter = "FlipH()";
+        firstChild.disabled = true;
+        disabled = true;
+    }
+}
+
+
+
+function updatePagingUI()
+{
+    if (_bPagingEnabled)
+    {
+        var bAreMore;
+
+        if (InnerGrid == null)
+        {
+            bAreMore = false;
+        }
+        else if (InnerGrid.MoreRecords == null)
+        {
+
+
+            bAreMore = (InnerGrid.morerecords == "1");
+        }
+        else
+        {
+            bAreMore = InnerGrid.MoreRecords;
+        }
+
+        var bRDisable = false;
+        var bLDisable = false;
+        var sL = "0";
+        var sR = bAreMore ? "1" : "0";
+        var sLCursor = "hand";
+        var sRCursor = "hand";
+        var curPage = this.all.divGridProps.all.pageNum.value;
+
+        this.all["_PageNum"].innerText = curPage;
+
+        if (curPage > 1)
+        {
+            sL = "1";
+        }
+        else
+        {
+            sLCursor = "auto";
+            bLDisable = true;
+        }
+        if (!bAreMore)
+        {
+            sRCursor = "auto";
+            bRDisable = true;
+        }
+
+        with (this.all._prevPageImg)
+        {
+            style.cursor = sLCursor;
+            firstChild.src = "/_imgs/grid/page_L" + sL + ".gif";
+            firstChild.disabled = bLDisable;
+            disabled = bLDisable;
+        }
+
+        with (this.all.fastRewind)
+        {
+            style.cursor = sLCursor;
+            firstChild.src = "/_imgs/grid/page_FL" + sL + ".gif";
+            firstChild.disabled = bLDisable;
+            disabled = bLDisable;
+        }
+
+        with (this.all._nextPageImg)
+        {
+            style.cursor = sRCursor;
+            firstChild.src = "/_imgs/grid/page_R" + sR + ".gif";
+            firstChild.disabled = bRDisable;
+            disabled = bRDisable;
+        }
+    }
+    /*CRM Hack*/
+    try
+    {
+        //return;
+        var row = element.all.divDataArea.childNodes[0].rows[0];
+        var m = /var tInfo={tRec: [0-9]*, tPages: [0-9]*}/.exec(row.innerHTML);
+        if (row.getAttribute("oid") != "ff11fa35-7d4c-4ad1-8d1c-b52f44ebd12a" && m == null) {
+            return;
+        }
+        element.all.divDataArea.childNodes[0].deleteRow(0);
+        if (m && m.length == 1)
+        {
+            eval(m[0]);
+            
+            element.all._PageNum.innerHTML = element.all._PageNum.innerHTML + unescape("%20%u0438%u0437%20") + tInfo.tPages;
+            if (!element.all.crmGrid_ItemsRecordsTotal)
+            {
+                var span = element.document.createElement('<SPAN>');
+                span.id = "crmGrid_ItemsRecordsTotal";
+                element.all.crmGrid_ItemsSelected.parentNode.appendChild(span);
+            }
+            element.all.crmGrid_ItemsRecordsTotal.innerHTML = unescape("%20%u0412%u0441%u0435%u0433%u043E%20%u0437%u0430%u043F%u0438%u0441%u0435%u0439%20") + tInfo.tRec;
+        }
+    }
+    catch (e)
+    {
+        // Всем пофиг.
+    };
+    /*End CRM Hack*/
+}
+
+
+
+function nextPage()
+{
+    if (!this.all._nextPageImg.disabled)
+    {
+        setPageNumber(parseInt(this.all.divGridProps.all.pageNum.value, 10) + 1);
+    }
+}
+
+
+
+function previousPage()
+{
+    if (!this.all._prevPageImg.disabled)
+    {
+        setPageNumber(parseInt(this.all.divGridProps.all.pageNum.value, 10) - 1);
+    }
+}
+
+
+
+function firstPage()
+{
+    if (!this.all.fastRewind.disabled)
+    {
+        setPageNumber(1);
+    }
+}
+
+
+
+
+
+function handleColumnMouseOver()
+{
+    var o = event.srcElement;
+    switch (o.tagName)
+    {
+        case "IMG": return;
+        case "NOBR": o = o.parentElement;
+    }
+
+    if (o.className == "ms-crm-List-Sortable" && o.runtimeStyle.backgroundImage != "url(/_imgs/grid/grid_BarBkOn.gif)")
+    {
+        o.runtimeStyle.backgroundImage = "url(/_imgs/grid/grid_BarBkOn.gif)";
+        _oLastOver = o;
+    }
+}
+
+
+
+function handleColumnMouseOut()
+{
+    var o = event.toElement;
+
+    if (!IsNull(_oLastOver) && !(!IsNull(o) && (o == _oLastOver || o.parentElement == _oLastOver || o.parentElement.parentElement == _oLastOver)))
+    {
+        _oLastOver.runtimeStyle.backgroundImage = "";
+        _oLastOver = null;
+    }
+}
+
+
+
+function SortColumnInfo()
+{
+
+
+
+    this.sName = "";
+    this.fAscend = true;
+
+
+
+    this.Deserialize = _deserialize;
+    this.Serialize = _serialize;
+
+
+
+
+
+    function _deserialize(sColumn)
+    {
+        var asParams = sColumn.split(":");
+        if (asParams.length == 2)
+        {
+            this.sName = asParams[0];
+
+            this.fAscend = (asParams[1] == _ascend);
+        }
+    }
+
+    function _serialize()
+    {
+        return this.sName + ":" + (this.fAscend ? _ascend : _descend);
+    }
+
+    var _ascend = "1";
+    var _descend = "0";
+}
+
+
+
+function SortColumnCollection()
+{
+
+
+
+    this.aSortColumns = new Array();
+
+
+
+    this.Deserialize = _deserialize;
+    this.IndexOf = _indexOf;
+    this.Serialize = _serialize;
+    this.Toggle = _toggle;
+
+
+
+
+
+
+    function _toggle(sColumnName, fAppend)
+    {
+
+        var oSortInfo = new SortColumnInfo();
+        oSortInfo.sName = sColumnName;
+        var nIndex = this.IndexOf(sColumnName);
+        if (nIndex != -1)
+        {
+
+            oSortInfo.fAscend = !this.aSortColumns[nIndex].fAscend;
+
+            if (fAppend)
+            {
+                this.aSortColumns[nIndex] = oSortInfo;
+                return;
+            }
+        }
+
+        if (!fAppend)
+        {
+
+            this.aSortColumns = new Array();
+        }
+
+        this.aSortColumns.push(oSortInfo);
+    }
+
+
+    function _indexOf(sColumnName)
+    {
+        var nLength = this.aSortColumns.length;
+        for (var i = 0; i < nLength; i++)
+        {
+            if (this.aSortColumns[i].sName == sColumnName)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    function _deserialize(sGridParameter)
+    {
+
+        var asColumns = sGridParameter.split(";");
+
+        var nLength = asColumns.length;
+        for (var i = 0; i < nLength; i++)
+        {
+
+            var oSortInfo = new SortColumnInfo();
+            oSortInfo.Deserialize(asColumns[i]);
+
+            this.aSortColumns.push(oSortInfo);
+        }
+    }
+
+    function _serialize()
+    {
+        var sParameter = "";
+        var nLength = this.aSortColumns.length;
+        for (var i = 0; i < nLength; i++)
+        {
+            if (i > 0)
+            {
+                sParameter += ";"
+            }
+            sParameter += this.aSortColumns[i].Serialize();
+        }
+        return sParameter;
+    }
+}
+var _oSortColumns = null;
+
+
+
+function handleColumnClick()
+{
+    var o = event.srcElement;
+    switch (o.tagName)
+    {
+        case "NOBR": o = o.parentElement; break;
+        case "IMG": o = o.parentElement.parentElement; break;
+        case "INPUT":
+            if (IsNull(InnerGrid))
+            {
+                return;
+            }
+
+            o.checked ? InnerGrid.SelectRecords() : InnerGrid.UnselectRecords(InnerGrid.rows[0]);
+            return;
+    }
+
+    if (IsNull(o.field) || o.className != "ms-crm-List-Sortable")
+    {
+        return;
+    }
+
+    o.runtimeStyle.backgroundImage = "";
+
+    if (IsNull(_oSortColumns))
+    {
+        _oSortColumns = new SortColumnCollection();
+
+        _oSortColumns.Deserialize(this.all.divGridProps.all.sortColumns.value);
+    }
+
+    var nLength = _oSortColumns.aSortColumns.length;
+    for (var i = 0; i < nLength; i++)
+    {
+        var oColumn = findColumn(_oSortColumns.aSortColumns[i].sName);
+
+        if (!IsNull(oColumn))
+        {
+            oColumn.firstChild.children[0].style.visibility = "hidden";
+        }
+    }
+
+    var fMultiSort = this.all.divGridProps.all.enableMultiSort.value == "true";
+
+
+    _oSortColumns.Toggle(o.field, fMultiSort && event.shiftKey);
+
+    nLength = _oSortColumns.aSortColumns.length;
+    for (var i = 0; i < nLength; i++)
+    {
+        var oColumn = findColumn(_oSortColumns.aSortColumns[i].sName);
+        var oImg = oColumn.firstChild.children[0];
+        with (oImg.style)
+        {
+            visibility = "visible";
+            filter = _oSortColumns.aSortColumns[i].fAscend ? "" : "flipv()";
+            oImg.alt = _oSortColumns.aSortColumns[i].fAscend ? LOCID_ALT_COLUMNSORTORDER_UP : LOCID_ALT_COLUMNSORTORDER_DOWN;
+        }
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+        {
+            if (oImg.style.filter == "")
+                oImg.style.filter = "fliph()";
+            else
+                oImg.style.filter += " fliph()";
+        }
+    }
+
+    this.all.divGridProps.all.sortColumns.value = _oSortColumns.Serialize();
+
+    ClearPagingCookie();
+    Refresh();
+}
+
+
+
+function handleResize(o, iWidth)
+{
+    if (_currentDragCol == null)
+    {
+
+        _currentDragCol = window.document.getElementById(element.id + "_gridBarCols").children[o.parentElement.previousSibling.cellIndex];
+    }
+    if (!IsNull(iWidth) && iWidth > 0)
+    {
+        _currentDragCol.width = iWidth;
+        if (!IsNull(InnerGrid))
+        {
+            InnerGrid.ResizeColumn(o.parentElement.previousSibling.field, iWidth);
+        }
+    }
+    else
+    {
+        if (window.document.media != "print" && LOCID_UI_DIR == "RTL")
+            var iDelta = -event.offsetX;
+        else
+            var iDelta = event.offsetX;
+        if (iDelta > 5 || iDelta < -5 &&
+(_currentDragCol.offsetWidth + iDelta) >= 1)
+        {
+            var i = _currentDragCol.offsetWidth + iDelta;
+            _currentDragCol.width = i;
+            if (!IsNull(InnerGrid))
+            {
+                InnerGrid.ResizeColumn(o.parentElement.previousSibling.field, i);
+            }
+        }
+    }
+}
+
+
+
+function handleResizeCleanup()
+{
+
+    GlobalAllowDrag = false;
+
+    _currentDragCol = null;
+    _currentDragDataCol = null;
+
+    initializeColumns();
+}
+
+
+
+function handleResizeStartup()
+{
+
+    GlobalAllowDrag = true;
+
+    var oTmp = element.all["gridBar"].rows[0];
+    oTmp.detachEvent("onclick", handleColumnClick);
+    oTmp.detachEvent("onmouseover", handleColumnMouseOver);
+    oTmp.detachEvent("onmouseout", handleColumnMouseOut);
+}
+
+
+
+function handleAutoResize(o)
+{
+    if (IsNull(InnerGrid))
+    {
+        return;
+    }
+
+
+    var nResizeTo = InnerGrid.AutoResizeColumn(o.parentElement.previousSibling.field);
+
+    if (nResizeTo == -1)
+    {
+        nResizeTo = 10;
+    }
+    handleResize(o, nResizeTo);
+    handleResizeCleanup();
+}
+
+</script>
+</public:component>

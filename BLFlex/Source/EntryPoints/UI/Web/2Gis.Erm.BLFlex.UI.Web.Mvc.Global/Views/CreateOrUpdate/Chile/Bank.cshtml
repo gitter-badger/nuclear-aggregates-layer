@@ -1,0 +1,19 @@
+﻿@model Models.Chile.ChileBankViewModel
+
+@{
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @Html.HiddenFor(m => m.Id)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone, null, EnumResources.ResourceManager)
+        </div>
+    </div>
+}

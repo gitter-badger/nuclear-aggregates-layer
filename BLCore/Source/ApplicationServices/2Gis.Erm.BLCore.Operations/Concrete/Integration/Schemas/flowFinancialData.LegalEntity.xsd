@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="DocumentDeliveryMethod">
+    <xs:annotation>
+      <xs:documentation>Способ доставки документов</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PostOnly"/>
+      <xs:enumeration value="DeliveryByManager"/>
+      <xs:enumeration value="DeliveryByClient"/>
+      <xs:enumeration value="ByEmail"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="BargainType">
+    <xs:annotation>
+      <xs:documentation>Тип договора</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>Без НДС</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>с НДС</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LegalPerson">
+    <xs:attribute name="TIN" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>ИНН</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="KPP" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>КПП</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LegalAddress" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Юридический адрес</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Profile">
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          Стабильный идентификатор профила юридического лица клиента
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Название юридического лица клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Email" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Электронный адрес</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PaymentDetails" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Платежные реквизиты</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DocumentDeliveryAddress" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Адрес доставки документов</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Phone" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Телефон получателя</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PersonResponsibleForDocuments" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Лицо, ответственное за документы</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PostAddress" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Почтовый адрес</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RecipientName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Получатель</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DocumentDeliveryMethod" type="DocumentDeliveryMethod" use="required"/>
+    <xs:attribute name="DirectorName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Директор</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Position" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Должность</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="OnBasicOf" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Действует на основании</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Curator" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Куратор профиля</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CuratorLogin" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Логин (из AD) куратора профиля</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак неактивности профиля</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="SoleProprietor">
+    <xs:attribute name="TIN" type="xs:string" use="required"/>
+    <xs:attribute name="LegalAddress" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="IndividualPerson">
+    <xs:attribute name="PassportSeries" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Серия паспорта</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PassportNumber" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Номер паспорта</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PassportIssuedBy" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Кем выдан</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Residence" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Прописка</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Account">
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор лицевого счета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Code1C" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Код 1С лицевого счета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BargainTypeCode" type="BargainType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип договора</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LegalEntityBranchCode" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор юридического лица отделения организации</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LegalEntityBranchCode1C" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Код 1С юридического лица отделения организации</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак неактивности лицевого счета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Признак удаленности лицевого счета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="LegalEntity">
+    <xs:sequence>
+      <xs:element name="Profiles" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Profile" type="Profile" minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Объект пеередачи профиля юридического лица клиента</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Accounts" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Account" type="Account" minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Объект передачи лицевого счета</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:choice maxOccurs="1">
+        <xs:element name="LegalPerson" type="LegalPerson"/>
+        <xs:element name="SoleProprietor" type="SoleProprietor"/>
+        <xs:element name="IndividualPerson" type="IndividualPerson"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="Code" type="xs:long" use="required">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор юридического лица клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Название юридического лица клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ShortName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Краткое название юридического лица клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DefaultProfileCode" type="xs:long" use="optional">
+      <xs:annotation>
+        <xs:documentation>Стабильный идентификатор профиля по умолчанию</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Curator" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Куратор юридического лица клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CuratorLogin" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Логин (из AD) куратора юридического лица клиента</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>
+          Признак активности юридического лица клиента. Если атрибут пришел со значением true, то считаем, что юридическое лицо скрыто. В противном случае считаем, что юридическое лицо активно.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsDeleted" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>
+          Признак удаленности юридического лица клиента. Если атрибут пришел со значением true, то считаем, что юридическое лицо клиента удалено. В противном случае считаем, что юридическое лицо клиента не удалено.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="LegalEntity" type="LegalEntity">
+    <xs:annotation>
+      <xs:documentation>Объект передачи юридического лица клиента</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

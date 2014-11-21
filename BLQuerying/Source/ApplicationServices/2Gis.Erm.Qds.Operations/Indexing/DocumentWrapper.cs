@@ -1,0 +1,38 @@
+﻿using System;
+
+using DoubleGis.Erm.Qds.API.Operations.Indexing;
+using DoubleGis.Erm.Qds.Common;
+
+namespace DoubleGis.Erm.Qds.Operations.Indexing
+{
+    public sealed class IndexedDocumentWrapper<TDocument> : DocumentWrapper<TDocument>, IIndexedDocumentWrapper
+        where TDocument : class
+    {
+        private static readonly Type DocumentTypePrivate = typeof(TDocument);
+        
+        public Type DocumentType
+        {
+            get { return DocumentTypePrivate; }
+        }
+
+        public Func<ElasticApi.ErmBulkDescriptor, ElasticApi.ErmBulkDescriptor> IndexFunc
+        {
+            get
+            {
+                if (Version == null)
+                {
+                    return bulkDescriptor => (ElasticApi.ErmBulkDescriptor)bulkDescriptor
+                        .Create<TDocument>(bulkIndexDescriptor => bulkIndexDescriptor
+                            .Id(Id)
+                            .Document(Document));
+                }
+
+                return bulkDescriptor => bulkDescriptor
+                    .UpdateWithMerge<TDocument>(bulkUpdateDescriptor => bulkUpdateDescriptor
+                        .Id(Id)
+                        .Doc(Document)
+                        .Version(Version.Value.ToString()));
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+﻿@model AdvertisementTemplateViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.AdvertisementTemplate.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    @Html.HiddenFor(m => m.IsPublished)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.DummyAdvertisement, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Advertisement, ReadOnly = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsAdvertisementRequired, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsAllowedToWhiteList, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } })
+        </div>
+    </div>
+}

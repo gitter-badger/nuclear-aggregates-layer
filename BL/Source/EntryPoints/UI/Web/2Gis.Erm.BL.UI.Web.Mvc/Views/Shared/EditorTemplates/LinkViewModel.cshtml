@@ -1,0 +1,7 @@
+﻿@model DoubleGis.Erm.BL.UI.Web.Mvc.Models.AdvertisementElementModels.LinkViewModel
+
+@Html.HiddenFor(m => m.TemplateTextLengthRestriction)
+
+<div class="row-wrapper">
+    @Html.TemplateField(m => m.PlainText, FieldFlex.lone, null)
+</div>

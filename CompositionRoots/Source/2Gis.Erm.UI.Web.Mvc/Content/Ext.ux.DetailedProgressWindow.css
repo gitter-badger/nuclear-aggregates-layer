@@ -1,0 +1,55 @@
+﻿table.detailedProgress td.title
+{
+    color:#6699cc;
+    line-height:14px;
+    font-size:14px;
+    font-weight:bold;
+    padding: 8px;
+    height:25px;
+}
+
+table.detailedProgress
+{
+    height:100%;
+    table-layout:fixed;
+}
+
+table.detailedProgress td.details
+{
+    overflow: scroll;
+    vertical-align:top;
+}
+
+table.detailedProgress td.details div.message a
+{
+    font-family:Tahoma;
+    font-size:11px;
+    font-weight:normal;
+}
+
+table.detailedProgress div.firstInGroup
+{
+    border-top-style:dashed;
+    border-top-color:Silver;
+    border-top-width:1px;
+}
+table.detailedProgress div.image
+{
+    float: left;
+    margin-left:10px;
+    margin-top:2px;
+    margin-bottom:3px;
+}
+
+table.detailedProgress div.message
+{
+    float: left;
+    margin-left: 5px;
+    margin-top:3px;
+    margin-bottom:3px;
+    padding-right:5px;
+}
+.clear
+{
+    clear:both;
+}

@@ -1,0 +1,47 @@
+﻿@inherits WebViewPage
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.ProcessMessages }
+@section TopBarTitle { @BLResources.ProcessMessages }
+@section TopBarMessage { @BLResources.ProcessMessagesLegend }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@ThisAssembly.Build" />
+
+    <script src="/Scripts/LocalMessage.ProcessMessages.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.onReady(function ()
+        {
+            Ext.get("Cancel").on("click", function () { window.close(); });
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <table width="100%">
+        <tr height="100px">
+            <td>
+                <table cellspacing="5">
+                    <tr>
+                        <td>
+                            <span id="bodyMessage"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="pbDiv">
+                                <div id="pbInner">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    }
+}

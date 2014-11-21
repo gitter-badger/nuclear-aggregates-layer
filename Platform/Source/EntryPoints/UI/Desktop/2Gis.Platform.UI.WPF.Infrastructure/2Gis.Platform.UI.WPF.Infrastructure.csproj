@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB8A0F30-2084-405F-831E-FEA5A0D3C0B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Platform.UI.WPF.Infrastructure</RootNamespace>
+    <AssemblyName>2Gis.Platform.UI.WPF.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\2Gis.UI.WPF.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nJupiter.Configuration, Version=4.0.1.308, Culture=neutral, PublicKeyToken=3d82e1eef729f753, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\nJupiter.Configuration.4.0.4.516\lib\net40\nJupiter.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfo.WPF.cs">
+      <Link>Properties\AssemblyInfo.WPF.cs</Link>
+    </Compile>
+    <Compile Include="Controls\AdornedControl\AdornedControl.cs" />
+    <Compile Include="Controls\AdornedControl\AdornerPlacement.cs" />
+    <Compile Include="Controls\AdornedControl\FrameworkElementAdorner.cs" />
+    <Compile Include="Controls\BriefGrid.cs" />
+    <Compile Include="Controls\Waiting\LoadingWait.xaml.cs">
+      <DependentUpon>LoadingWait.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Layout\Regions\Dialogs\IDialog.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\ContextualNotification.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\SystemNotification.cs" />
+    <Compile Include="Modules\Layout\Regions\Toolbar\IToolbar.cs" />
+    <Compile Include="Modules\Layout\Regions\Toolbar\IToolbarManager.cs" />
+    <Compile Include="Modules\ResourceInfrastructure\IImageProvider.cs" />
+    <Compile Include="Modules\Settings\ConfigFileSettingsBase.Dispose.cs" />
+    <Compile Include="Util\Behaviors\ClickBehavior.cs" />
+    <Compile Include="Util\Behaviors\SelectionBehavior.cs" />
+    <Compile Include="Util\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="Util\Converters\EmptyCollectionToBoolConverter.cs" />
+    <Compile Include="Util\Converters\InverseBoolConverter.cs" />
+    <Compile Include="Util\Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Util\Converters\SingleToCollectionConverter.cs" />
+    <Compile Include="Util\Converters\TypeToVisibilityConverter.cs" />
+    <Compile Include="Util\Converters\ValueConverterGroup.cs" />
+    <Compile Include="CustomTypeProvider\DynamicPropertyInfo.cs" />
+    <Compile Include="CustomTypeProvider\DynamicPropertiesContainerTypeMetadata.cs" />
+    <Compile Include="CustomTypeProvider\DynamicPropertiesContainer.cs" />
+    <Compile Include="CustomTypeProvider\IDynamicPropertiesContainer.cs" />
+    <Compile Include="CustomTypeProvider\IDynamicPropertiesContainerConfigurator.cs" />
+    <Compile Include="Messaging\FreeProcessingModel.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="Messaging\IMessageHandler.cs" />
+    <Compile Include="Messaging\IMessageProcessingModel.cs" />
+    <Compile Include="Messaging\IMessageProcessingResult.cs" />
+    <Compile Include="Messaging\IMessageSink.cs" />
+    <Compile Include="Messaging\IMessageSource.cs" />
+    <Compile Include="Messaging\MessageBase.cs" />
+    <Compile Include="Messaging\MessageProcessingResult.cs" />
+    <Compile Include="Messaging\MessageUtils.cs" />
+    <Compile Include="Messaging\SequentialProcessingModel.cs" />
+    <Compile Include="Messaging\Concrete\NotificationFeedbackMessage.cs" />
+    <Compile Include="Messaging\ProcessingModel.cs" />
+    <Compile Include="Modules\Blendability\IDesignTimeModule.cs" />
+    <Compile Include="Modules\Blendability\IDesignTimeModuleContainer.cs" />
+    <Compile Include="Modules\Blendability\IDesignTimeStandaloneWorkerModule.cs" />
+    <Compile Include="Localization\DynamicResourceDictionary.cs" />
+    <Compile Include="Modules\Layout\Components\ILayoutComponentRegistry.cs" />
+    <Compile Include="Modules\Layout\Regions\Dialogs\DialogComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\Contextual\ContextualDocumentContext.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\Contextual\IContextualDocumentContext.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\IActionsContainerDocument.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\IActivableDocument.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\Contextual\IContextualDocument.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\IDocumentsStateInfo.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\IDynamicContextualNavigation.cs" />
+    <Compile Include="Modules\Layout\Regions\Navigation\IContextualNavigationArea.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\DocumentValidatedEventArgs.cs" />
+    <Compile Include="Modules\Layout\Regions\Navigation\INavigationAreasRegistry.cs" />
+    <Compile Include="Modules\ResourceInfrastructure\ITitleProvider.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\IContextualNotification.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\ILayoutNotificationsComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\INotificationList.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\INotification.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\INotificationsManager.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\ISystemNotification.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\NotificationLevel.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\NotificationsComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Notifications\NotificationType.cs" />
+    <Compile Include="Modules\Finder\ModulesFinder.cs" />
+    <Compile Include="Modules\Finder\IModulesFinder.cs" />
+    <Compile Include="Modules\Layout\Regions\Dialogs\ILayoutDialogComponent.cs" />
+    <Compile Include="Modules\Settings\IShellSettings.cs" />
+    <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="MVVM\IDelegateCommand.cs" />
+    <Compile Include="Util\Behaviors\LostFocusCommandBehavior.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\DocumentComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\DocumentHeaderComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\ILayoutDocumentHeadersComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Navigation\INavigationItem.cs" />
+    <Compile Include="Modules\Layout\Regions\Navigation\NavigationComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Toolbar\ToolbarComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\UserInfo\ILayoutUserInfoComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\UserInfo\IUserInfo.cs" />
+    <Compile Include="Modules\Layout\Regions\UserInfo\UserInfoComponent.cs" />
+    <Compile Include="Modules\Layout\ViewResolvers\InstanceIndependentLayoutComponentViewResolver.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\IDocument.cs" />
+    <Compile Include="Modules\Layout\Components\InstanceIndependentLayoutComponent.cs" />
+    <Compile Include="Modules\IModule.cs" />
+    <Compile Include="Modules\IModulesContainer.cs" />
+    <Compile Include="Modules\IStandaloneWorkerModule.cs" />
+    <Compile Include="Modules\Manager\IModulesManager.cs" />
+    <Compile Include="Modules\Manager\ModulesManager.cs" />
+    <Compile Include="Modules\Finder\ModulesDescriptor.cs" />
+    <Compile Include="Modules\Finder\SettingsDescriptor.cs" />
+    <Compile Include="Modules\Layout\Components\ILayoutComponent.cs" />
+    <Compile Include="Modules\Layout\ViewModels\ILayoutComponentIndicator.cs" />
+    <Compile Include="Modules\Layout\ViewResolvers\ILayoutComponentViewResolver.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\IDocumentManager.cs" />
+    <Compile Include="Modules\Layout\Regions\Documents\ILayoutDocumentsComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Menu\ILayoutMenuComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Navigation\ILayoutNavigationComponent.cs" />
+    <Compile Include="Modules\Layout\Regions\Navigation\INavigationArea.cs" />
+    <Compile Include="Modules\Layout\Regions\Navigation\INavigationManager.cs" />
+    <Compile Include="Modules\Layout\Regions\Toolbar\ILayoutToolbarComponent.cs" />
+    <Compile Include="Modules\ModuleIndicators.cs" />
+    <Compile Include="Modules\Settings\ConfigFileSettingsBase.cs" />
+    <Compile Include="Modules\Settings\SettingsConstants.cs" />
+    <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="Util\ComponentSelector.cs" />
+    <Compile Include="Util\DesignTimeUtils.cs" />
+    <Compile Include="Util\Threading\IUIDispatcher.cs" />
+    <Compile Include="Util\FocusableBinding\BindingDecoratorBase.cs" />
+    <Compile Include="Util\FocusableBinding\FocusableBinding.cs" />
+    <Compile Include="Util\FocusableBinding\FocusController.cs" />
+    <Compile Include="Util\FocusableBinding\IFocusMover.cs" />
+    <Compile Include="Util\ResourcesUtils.cs" />
+    <Compile Include="Util\TemplateUtils.cs" />
+    <Compile Include="Util\Threading\UIDispatcher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\Waiting\LoadingWait.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

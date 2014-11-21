@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{01DE365D-2340-4071-8701-AAF37878DDC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.API.Security</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.API.Security</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="AccessSharing\IUserEntityService.cs" />
+    <Compile Include="AccessSharing\SharingDescriptor.cs" />
+    <Compile Include="EntityAccess\EntityAccessTypes.cs" />
+    <Compile Include="EntityAccess\EntityPrivilegeDepths.cs" />
+    <Compile Include="FunctionalAccess\FunctionalPrivilegeDepths.cs" />
+    <Compile Include="FunctionalAccess\FunctionalPrivilegeName.cs" />
+    <Compile Include="IUserProfileService.cs" />
+    <Compile Include="UserContext\IUserContextProvider.cs" />
+    <Compile Include="IUserImpersonationService.cs" />
+    <Compile Include="ISignInByIdentityService.cs" />
+    <Compile Include="ISignInService.cs" />
+    <Compile Include="UserContext\Identity\IUserIdentityLogonService.cs" />
+    <Compile Include="UserContext\Identity\UserIdentityLogonService.cs" />
+    <Compile Include="UserContext\Identity\ErmUserIdentity.cs" />
+    <Compile Include="UserContext\Identity\IUserIdentity.cs" />
+    <Compile Include="UserContext\Identity\IUserInfo.cs" />
+    <Compile Include="UserContext\Identity\IUserIdentitySecurityControl.cs" />
+    <Compile Include="UserContext\Identity\NullUserIdentity.cs" />
+    <Compile Include="UserContext\Identity\UserInfo.cs" />
+    <Compile Include="UserContext\Identity\IdentityUtils.cs" />
+    <Compile Include="UserContext\IUserContext.cs" />
+    <Compile Include="ISecurityServiceAuthentication.cs" />
+    <Compile Include="ISecurityServiceEntityAccess.cs" />
+    <Compile Include="ISecurityServiceFunctionalAccess.cs" />
+    <Compile Include="ISecurityServiceEntityAccessInternal.cs" />
+    <Compile Include="AccessSharing\ISecurityServiceSharings.cs" />
+    <Compile Include="ISecurityServiceUserIdentifier.cs" />
+    <Compile Include="PrivilegeType.cs" />
+    <Compile Include="UserContext\IUserContextModifyAccessor.cs" />
+    <Compile Include="UserContext\Profile\ErmUserProfile.cs" />
+    <Compile Include="UserContext\Profile\IUserProfile.cs" />
+    <Compile Include="UserContext\Profile\LocaleInfo.cs" />
+    <Compile Include="UserContext\Profile\NullUserProfile.cs" />
+    <Compile Include="UserContext\UserContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,9 @@
+﻿<Region Code="1267655302447106" Name="Алтай" TypeCode="4" CountryCode="1" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Алтай" />
+    <Localization Lang="it" Name="Советский" />
+  </Localizations>
+  <OldCodes>
+    <OldCode Code="1267655302447106" BranchCode="9" />
+  </OldCodes>
+</Region>

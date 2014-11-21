@@ -1,0 +1,1 @@
+cmd /k netsh http add urlacl url=http://+:8000/erm_{E9AF926E-29E3-4B8A-BA45-512923857199}/ user=%USERDOMAIN%\%USERNAME%

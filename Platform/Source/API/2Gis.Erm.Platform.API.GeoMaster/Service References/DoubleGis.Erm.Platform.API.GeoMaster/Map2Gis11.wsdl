@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://2Gis/GeoMasterApi/2013/1" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://2Gis/GeoMasterApi/2013/1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://2Gis/GeoMasterApi/2013/1/Imports">
+      <xsd:import schemaLocation="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd0" namespace="http://2Gis/GeoMasterApi/2013/1" />
+      <xsd:import schemaLocation="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://uk-dgpp-test05.2gis.local/GMSERVICE/Map2Gis.Service.MasterSystemApi.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMsReadApi_GetCapabilities_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCapabilities" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetCapabilities_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCapabilitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAllPhoneZones_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPhoneZones" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAllPhoneZones_InputMessage_Headers">
+    <wsdl:part name="MyHeader" element="tns:MyHeader" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAllPhoneZones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPhoneZonesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAllPhoneZones_NotSupportedLanguageFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:NotSupportedLanguage" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAddressesString_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddressesString" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAddressesString_InputMessage_Headers">
+    <wsdl:part name="MyHeader" element="tns:MyHeader" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAddressesString_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddressesStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMsReadApi_GetAddressesString_NotSupportedLanguageFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:NotSupportedLanguage" />
+  </wsdl:message>
+  <wsdl:portType name="IMsReadApi">
+    <wsdl:operation name="GetCapabilities">
+      <wsdl:input wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetCapabilities" message="tns:IMsReadApi_GetCapabilities_InputMessage" />
+      <wsdl:output wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetCapabilitiesResponse" message="tns:IMsReadApi_GetCapabilities_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPhoneZones">
+      <wsdl:input wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetAllPhoneZones" message="tns:IMsReadApi_GetAllPhoneZones_InputMessage" />
+      <wsdl:output wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetAllPhoneZonesResponse" message="tns:IMsReadApi_GetAllPhoneZones_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetAllPhoneZonesNotSupportedLanguageFault" name="NotSupportedLanguageFault" message="tns:IMsReadApi_GetAllPhoneZones_NotSupportedLanguageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressesString">
+      <wsdl:input wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetAddressesString" message="tns:IMsReadApi_GetAddressesString_InputMessage" />
+      <wsdl:output wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetAddressesStringResponse" message="tns:IMsReadApi_GetAddressesString_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://2Gis/GeoMasterApi/2013/1/IMsReadApi/GetAddressesStringNotSupportedLanguageFault" name="NotSupportedLanguageFault" message="tns:IMsReadApi_GetAddressesString_NotSupportedLanguageFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

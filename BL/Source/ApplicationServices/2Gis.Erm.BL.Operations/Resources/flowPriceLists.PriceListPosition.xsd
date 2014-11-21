@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="PriceListPosition">
+		<xs:attribute name="Code" type="xs:long" use="required">
+			<xs:annotation>
+				<xs:documentation>Стабильный идентификатор позиции прайс-листа</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="PriceListCode" type="xs:long" use="required">
+			<xs:annotation>
+				<xs:documentation>Идентификатор прайс-листа</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NomenclatureCode" type="xs:long" use="required">
+			<xs:annotation>
+				<xs:documentation>Идентификатор элемента номенклатуры</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Cost" type="xs:float" use="required">
+			<xs:annotation>
+				<xs:documentation>Цена</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>
+					Признак активности позиции прайс-листа.
+					Если атрибут пришел со значением true, то считаем, что позиция прайс-листа неактивна.
+					В противном случае считаем, что позиция активна
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:element name="PriceListPosition" type="PriceListPosition">
+		<xs:annotation>
+			<xs:documentation>Поток передачи позиции прайс-листа</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
