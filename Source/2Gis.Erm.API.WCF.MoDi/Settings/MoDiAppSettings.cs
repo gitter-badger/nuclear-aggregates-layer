@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.WCF.MoDi;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.Common.Settings;
-using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Settings;
 
 namespace DoubleGis.Erm.API.WCF.MoDi.Settings
 {
