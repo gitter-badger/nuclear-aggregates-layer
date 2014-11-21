@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -56,8 +57,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                           Timestamp = entity.Timestamp
                                       })
                                   .Single();
-            modelDto.LastDisqualifyTime = modelDto.LastDisqualifyTime.HasValue ? DateTime.SpecifyKind(modelDto.LastDisqualifyTime.Value, DateTimeKind.Utc) : (DateTime?)null;
-            modelDto.LastQualifyTime = DateTime.SpecifyKind(modelDto.LastQualifyTime, DateTimeKind.Utc);
+
+            modelDto.LastDisqualifyTime = modelDto.LastDisqualifyTime.AssumeUtcKind();
+            modelDto.LastQualifyTime = modelDto.LastQualifyTime.AssumeUtcKind();
 
             return modelDto;
         }
