@@ -12,7 +12,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
-using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -24,6 +23,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using OrderValidationRuleGroup = DoubleGis.Erm.BLCore.API.OrderValidation.OrderValidationRuleGroup;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 {
@@ -83,7 +84,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     x.SourceOrganizationUnitId,
                     x.DestOrganizationUnitId,
                     x.PlatformId,
-                    OrderType = (OrderType)x.OrderType
+                    OrderType = x.OrderType
                 })
                 .Single();
 
@@ -110,7 +111,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 throw new NotificationException(string.Format(BLResources.CannotCreateOrderPositionTemplate, canCreateResponse.Message));
             }
 
-            if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration)
+            if (orderInfo.WorkflowStepId != OrderState.OnRegistration)
             {
                 // Во избежание несанкционированных изменений в позиции заказа, прошедшего этап "на оформлении",
                 // откатываем состояние сущности к тому, что лежит вместо того, что пришло от клиента
@@ -125,11 +126,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                 {
                     SetAdsValidationRuleGroupAsInvalid(orderInfo.Id);
 
-                    var orderIsLocked = orderInfo.WorkflowStepId != (int)OrderState.OnRegistration;
+                    var orderIsLocked = orderInfo.WorkflowStepId != OrderState.OnRegistration;
                     _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                 }
 
-                if (orderInfo.WorkflowStepId == (int)OrderState.OnRegistration)
+                if (orderInfo.WorkflowStepId == OrderState.OnRegistration)
                 {
                     orderPosition.OwnerCode = orderInfo.OwnerCode;
 
@@ -155,7 +156,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
                     if (request.CategoryIds.Any())
                     {
-                        var unsupported = _positionReadModel.GetNewSalesModelDeniedCategories((PositionAccountingMethod)pricePositionInfo.AccountingMethodEnum,
+                        var unsupported = _positionReadModel.GetNewSalesModelDeniedCategories(pricePositionInfo.AccountingMethodEnum,
                                                                                       orderInfo.DestOrganizationUnitId,
                                                                                       request.CategoryIds);
                         if (unsupported.Any())
@@ -232,7 +233,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                         orderPosition.DiscountSum = calculateOrderPositionPricesResponse.DiscountSum;
                     }
 
-                    ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == (int)PositionAccountingMethod.PlannedProvision);
+                    ValidateEntity(orderPosition, pricePositionInfo.AccountingMethodEnum == PositionAccountingMethod.PlannedProvision);
 
                     // Сохраняем изменения OrderPosition в БД
                     _orderRepository.CreateOrUpdate(orderPosition);
@@ -241,7 +242,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
                     {
                         SetAdsValidationRuleGroupAsInvalid(orderInfo.Id);
 
-                        var orderIsLocked = orderInfo.WorkflowStepId != (int)OrderState.OnRegistration;
+                        var orderIsLocked = orderInfo.WorkflowStepId != OrderState.OnRegistration;
                         _orderRepository.CreateOrUpdateOrderPositionAdvertisements(orderPosition.Id, advertisementsLinks, orderIsLocked);
                     }
 

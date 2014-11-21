@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         const long LegalPersonProfileId = 2;
         const long FirmAddressId = 3;
 
-        static readonly FirmContact FirmContact = new FirmContact { ContactType = 1 };
+        static readonly FirmContact FirmContact = new FirmContact { ContactType = FirmAddressContactType.Phone };
         static readonly IDictionary<long, IEnumerable<FirmContact>> FirmContacts = new Dictionary<long, IEnumerable<FirmContact>> { { FirmAddressId, new[] { FirmContact } } };
         static readonly BargainType BargainType = new BargainType();
         static readonly BranchOffice BranchOffice = new BranchOffice { BargainType = BargainType };

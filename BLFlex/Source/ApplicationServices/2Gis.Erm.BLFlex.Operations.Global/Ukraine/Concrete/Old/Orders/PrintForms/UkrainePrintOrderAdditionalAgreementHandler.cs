@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         {
             var orderInfoValidation =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                    .Select(order => new { WorkflowStep = (OrderState)order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
+                    .Select(order => new { WorkflowStep = order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
                     .Single();
 
             if (!orderInfoValidation.IsTerminated)
@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                OrganizationUnitName = order.DestOrganizationUnit.Name,
                                OrderNumber = order.Number,
                                CurrencyISOCode = order.Currency.ISOCode,
-                               LegalPersonType = (LegalPersonType)order.LegalPerson.LegalPersonTypeEnum,
+                               LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
                            })
                        .Single();
 

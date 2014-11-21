@@ -32,12 +32,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
         private readonly ICheckInnService _checkRutService;
 
         public ChileChangeLegalPersonRequisitesHandler(ISubRequestProcessor subRequestProcessor,
-                                                       ISecurityServiceFunctionalAccess functionalAccessService,
-                                                       IUserContext userContext,
-                                                       IOperationScopeFactory scopeFactory,
-                                                       ILegalPersonReadModel legalPersonReadModel,
+            ISecurityServiceFunctionalAccess functionalAccessService,
+            IUserContext userContext,
+            IOperationScopeFactory scopeFactory, 
+            ILegalPersonReadModel legalPersonReadModel, 
                                                        IUpdateAggregateRepository<LegalPerson> updateRepository,
-                                                       ICheckInnService checkRutService)
+            ICheckInnService checkRutService)
         {
             _subRequestProcessor = subRequestProcessor;
             _functionalAccessService = functionalAccessService;
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
                 throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
             }
 
-            var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
+            var legalPersonType = entity.LegalPersonTypeEnum;
 
             // TODO {all, 26.02.2014}: Возможно, стоит кидать ошибку, если к нам пришло что-то кроме ИП и Юр. лица
             if (legalPersonType == LegalPersonType.Businessman || legalPersonType == LegalPersonType.LegalPerson)

@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                                           Bill = bill,
                                           bill.OrderId,
                                           OrderReleaseCountPlan = bill.Order.ReleaseCountPlan,
-                                          LegalPersonType = (LegalPersonType)bill.Order.LegalPerson.LegalPersonTypeEnum,
+                                          LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
                                           bill.Order.BranchOfficeOrganizationUnitId,
                                       })
                                   .SingleOrDefault();
@@ -94,7 +94,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                                                 ? (decimal?)null 
                                                 : x.Order.VatRate,
                                            x.Order,
-                                           PaymentMethod = ((PaymentMethod)x.Order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
+                                           PaymentMethod = (x.Order.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture),
                                            RelatedBargainInfo = (x.Bargain != null)
                                                 ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                 : null,

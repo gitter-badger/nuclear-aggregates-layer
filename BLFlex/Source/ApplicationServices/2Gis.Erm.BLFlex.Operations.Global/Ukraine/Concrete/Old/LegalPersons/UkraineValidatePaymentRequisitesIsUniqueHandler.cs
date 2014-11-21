@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPerso
 
         protected override EmptyResponse Handle(ValidatePaymentRequisitesIsUniqueRequest request)
         {
-            var modelLegalPersonType = (LegalPersonType)request.Entity.LegalPersonTypeEnum;
+            var modelLegalPersonType = request.Entity.LegalPersonTypeEnum;
             var ipn = !string.IsNullOrEmpty(request.Entity.Inn) ? request.Entity.Inn.Trim() : null;
 
             var ipnDublicate = _legalPersonRepository.CheckIfExistsInnDuplicate(request.Entity.Id, ipn);

@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                         return new AssignSpecification<EmiratesLegalPersonDomainEntityDto, LegalPerson>(
                             (dto, legalPerson) =>
                                 {
-                                    legalPerson.LegalPersonTypeEnum = (int)dto.LegalPersonTypeEnum;
+                                    legalPerson.LegalPersonTypeEnum = dto.LegalPersonTypeEnum;
                                     legalPerson.LegalName = dto.LegalName;
                                     legalPerson.LegalAddress = dto.LegalAddress;
                                     legalPerson.Inn = dto.CommercialLicense;
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                             Email = x.AdditionalEmail,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
-                                            DocumentsDeliveryMethod = (DocumentsDeliveryMethod)x.DocumentsDeliveryMethod,
+                                            DocumentsDeliveryMethod = x.DocumentsDeliveryMethod,
                                             LegalPersonRef = new EntityReference { Id = x.LegalPersonId },
                                             PositionInNominative = x.PositionInNominative,
                                             PostAddress = x.PostAddress,
@@ -157,11 +157,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
                                     legalPersonProfile.DocumentsDeliveryAddress = dto.DocumentsDeliveryAddress;
                                     legalPersonProfile.RecipientName = dto.RecipientName;
                                     legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
-                                    legalPersonProfile.DocumentsDeliveryMethod = (int)dto.DocumentsDeliveryMethod;
+                                    legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                     legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
                                     legalPersonProfile.AdditionalEmail = dto.Email;
                                     legalPersonProfile.PostAddress = dto.PostAddress;
-                                    legalPersonProfile.PaymentMethod = (int)dto.PaymentMethod;
+                                    legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                     legalPersonProfile.IBAN = dto.IBAN;
                                     legalPersonProfile.SWIFT = dto.SWIFT;
                                     legalPersonProfile.BankName = dto.BankName;

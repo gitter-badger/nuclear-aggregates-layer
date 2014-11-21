@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.LegalPersons
 
         protected override EmptyResponse Handle(ValidatePaymentRequisitesIsUniqueRequest request)
         {
-            var modelLegalPersonType = (LegalPersonType)request.Entity.LegalPersonTypeEnum;
+            var modelLegalPersonType = request.Entity.LegalPersonTypeEnum;
             var rut = !string.IsNullOrEmpty(request.Entity.Inn) ? request.Entity.Inn.Trim() : null;
 
             var rutDublicate = _legalPersonRepository.CheckIfExistsInnDuplicate(request.Entity.Id, rut);

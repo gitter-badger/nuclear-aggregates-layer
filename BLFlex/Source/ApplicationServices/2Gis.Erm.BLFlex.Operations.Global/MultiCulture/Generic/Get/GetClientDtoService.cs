@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                                           Email = entity.Email,
                                           Fax = entity.Fax,
                                           Website = entity.Website,
-                                          InformationSource = (InformationSource)entity.InformationSource,
+                                          InformationSource = entity.InformationSource,
                                           Comment = entity.Comment,
                                           MainAddress = entity.MainAddress,
                                           LastQualifyTime = entity.LastQualifyTime,
