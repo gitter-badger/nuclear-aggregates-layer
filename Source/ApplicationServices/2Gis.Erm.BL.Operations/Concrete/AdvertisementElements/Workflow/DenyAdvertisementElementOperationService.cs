@@ -6,6 +6,7 @@ using DoubleGis.Erm.BL.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
         private readonly IAdvertisementReadModel _advertisementReadModel;
         private readonly IUpdateAggregateRepository<AdvertisementElementStatus> _updateAdvertisementElementStatusRepository;
         private readonly ICreateAggregateRepository<AdvertisementElementDenialReason> _createAdvertisementDenialReasonsAggregateRepository;
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly IDenialReasonReadModel _denialReasonReadModel;
         private readonly IDeleteAggregateRepository<AdvertisementElementDenialReason> _deleteAdvertisementElementDenialReasonsAggregateRepository;
 
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
             IAdvertisementReadModel advertisementReadModel,
             IUpdateAggregateRepository<AdvertisementElementStatus> updateAdvertisementElementStatusRepository,
             ICreateAggregateRepository<AdvertisementElementDenialReason> createAdvertisementDenialReasonsAggregateRepository,
-            IOrderValidationInvalidator orderValidationInvalidator,
+            IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             INotifyAboutAdvertisementElementValidationStatusChangedOperationService notifyAboutAdvertisementElementValidationStatusChangedOperationService,
             IDenialReasonReadModel denialReasonReadModel,
             IDeleteAggregateRepository<AdvertisementElementDenialReason> deleteAdvertisementElementDenialReasonsAggregateRepository)
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
             _operationScopeFactory = operationScopeFactory;
             _advertisementReadModel = advertisementReadModel;
             _createAdvertisementDenialReasonsAggregateRepository = createAdvertisementDenialReasonsAggregateRepository;
-            _orderValidationInvalidator = orderValidationInvalidator;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
         }
 
         public void Validate(AdvertisementElementStatus currentStatus, IEnumerable<AdvertisementElementDenialReason> denialReasons)
@@ -107,7 +108,19 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                 }
 
                 var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { currentStatus.Id });
-                _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+                if (orderIds.Count > 0)
+                {
+                    _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
+                                                                                                {
+                                                                                                    OrderId = x,
+                                                                                                    ChangedAspects =
+                                                                                                        new[]
+                                                                                                            {
+                                                                                                                OrderValidationRuleGroup
+                                                                                                                    .AdvertisementMaterialsValidation
+                                                                                                            }
+                                                                                                }));
+                }
 
                 _notifyAboutAdvertisementElementValidationStatusChangedOperationService.Notify(currentStatus.Id);
 
