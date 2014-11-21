@@ -39,6 +39,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             this.OrderValidationResults = new HashSet<OrderValidationResult>();
             this.BaseOrderProcessingRequests = new HashSet<OrderProcessingRequest>();
             this.RenewedOrderProcessingRequests = new HashSet<OrderProcessingRequest>();
+            this.OrderValidationCacheEntries = new HashSet<OrderValidationCacheEntry>();
         }
         public long Id { get; set; }
         public System.Guid ReplicationCode { get; set; }
@@ -132,6 +133,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public LegalPerson LegalPerson { get; set; }
         public ICollection<OrderProcessingRequest> BaseOrderProcessingRequests { get; set; }
         public ICollection<OrderProcessingRequest> RenewedOrderProcessingRequests { get; set; }
+        public ICollection<OrderValidationCacheEntry> OrderValidationCacheEntries { get; set; }
     
     	public override bool Equals(object obj)
         {

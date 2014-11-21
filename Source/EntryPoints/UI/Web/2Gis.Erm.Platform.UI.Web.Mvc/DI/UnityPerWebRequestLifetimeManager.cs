@@ -5,12 +5,8 @@ using Microsoft.Practices.Unity;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
 {
-    public class UnityPerWebRequestLifetimeManager : LifetimeManager
+    public sealed class UnityPerWebRequestLifetimeManager : LifetimeManager
     {
-        public UnityPerWebRequestLifetimeManager()
-        {
-        }
-
         private HttpContextBase Context
         {
             get
@@ -25,7 +21,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
             get { return UnityPerWebRequestLifetimeModule.GetValue(Context, this); }
 
             [DebuggerStepThrough]
-            set { UnityPerWebRequestLifetimeModule.SetValue(Context, this, value);}
+            set { UnityPerWebRequestLifetimeModule.SetValue(Context, this, value); }
         }
 
         [DebuggerStepThrough]

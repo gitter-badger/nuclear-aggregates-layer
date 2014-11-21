@@ -151,12 +151,12 @@
     <value>Uživatel id=[{0}] nemá právo {1} na entitu {2}</value>
   </data>
   <data name="AccessToOperationIsDenied" xml:space="preserve">
-    <value>Доступ на выполнение операции '{0}' запрещен</value>
+    <value>Je odepřen přístup k uskutečnění operace '{0}'</value>
   </data>
   <data name="InvalidFieldFormat" xml:space="preserve">
-    <value>Значения поля "{0}" имеет неверный формат</value>
+    <value>Hodnota pole "{0}" nemá správný formát</value>
   </data>
   <data name="InvalidFieldValue" xml:space="preserve">
-    <value>Значение поля "{0}" имеет невалидное значение</value>
+    <value>Hodnota pole "{0}" neobsahuje platnou hodnotu</value>
   </data>
 </root>
