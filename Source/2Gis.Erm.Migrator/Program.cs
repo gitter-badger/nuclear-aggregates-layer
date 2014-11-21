@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.Migrator
             }
             catch (ArgumentException ex)
             {
-                System.Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
     }

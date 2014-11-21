@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.ServiceProcess;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.TaskService.Schedulers;
@@ -28,16 +30,17 @@ namespace DoubleGis.Erm.TaskService
             }
 
             var settingsContainer = new TaskServiceAppSettings(BusinessModels.Supported);
+            var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
 
             var loggerContextEntryProviders =
                 new ILoggerContextEntryProvider[] 
                 {
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SessionId, Guid.Empty.ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserName, "ERM Windows Service"),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserIP, null),
+                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserName, environmentSettings.EnvironmentName + "\\" + environmentSettings.EntryPointName),
+                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserIP, NetworkInfo.ComputerFQDN),
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.UserBrowser, null),
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settingsContainer.AsSettings<IEnvironmentSettings>().EntryPointName)
+                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, environmentSettings.EntryPointName)
                 };
 
             LogUtils.InitializeLoggingInfrastructure(
@@ -45,30 +48,41 @@ namespace DoubleGis.Erm.TaskService
                     LogUtils.DefaultLogConfigFileFullPath,
                     loggerContextEntryProviders);
 
-            var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
-            var schedulerManager = diContainer.Resolve<ISchedulerManager>();
-
-            if (IsConsoleMode(args))
+            IUnityContainer container = null;
+            try
             {
-                schedulerManager.Start();
+                container = Bootstrapper.ConfigureUnity(settingsContainer);
+                var schedulerManager = container.Resolve<ISchedulerManager>();
 
-                Console.WriteLine("ERM сервис запущен.");
-                Console.WriteLine("Нажмите ENTER для останова...");
-
-                Console.ReadLine();
-
-                Console.WriteLine("ERM сервис останавливается...");
-
-                schedulerManager.Stop();
-
-                Console.WriteLine("ERM сервис остановлен. Нажмите ENTER для выхода...");
-                Console.ReadLine();
-            }
-            else
-            {
-                using (var ermNtService = new ErmNtService(schedulerManager))
+                if (IsConsoleMode(args))
                 {
-                    ServiceBase.Run(ermNtService);
+                    schedulerManager.Start();
+
+                    Console.WriteLine("ERM сервис запущен.");
+                    Console.WriteLine("Нажмите ENTER для останова...");
+
+                    Console.ReadLine();
+
+                    Console.WriteLine("ERM сервис останавливается...");
+
+                    schedulerManager.Stop();
+
+                    Console.WriteLine("ERM сервис остановлен. Нажмите ENTER для выхода...");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    using (var ermNtService = new ErmNtService(schedulerManager))
+                    {
+                        ServiceBase.Run(ermNtService);
+                    }
+                }
+            }
+            finally
+            {
+                if (container != null)
+                {
+                    container.Dispose();
                 }
             }
         }

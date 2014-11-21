@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 11/5/2014 5:45:07 PM
+// File updated : 22.09.2014 17:04:46
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -122,6 +122,7 @@ EndDistributionDate : 'Окончание размещения',
 Error : 'Ошибка',
 ErrorDetectedWhenChangingUseCaseState : 'Обнаружена ошибка при попытке изменить состояние сеанса',
 ErrorDuringOperation : 'Во время выполнения операции произошла ошибка',
+ErrorOnServiceAccess : 'Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.',
 ErrorRetrievingDataFromServer : 'Ошибка при получении данных с сервера',
 February : 'Февраль',
 FieldInvalidText : 'Указано неверное значение',

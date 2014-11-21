@@ -288,6 +288,10 @@ Ext.FieldType =
         Period: 'Period'
     };
 
+Ext.CurrencyFormat = {
+    Positive: {KZT:'n $'},
+    Negative: {KZT:'-n $'}
+};
 
 //Небольшое расширение модели Ext
 var extendExt = function () {
@@ -403,6 +407,18 @@ var extendExt = function () {
         },
         clearOffset: function (offsetInMinutes) {
             return this.add(Date.MINUTE, (offsetInMinutes || Ext.CultureInfo.DateTimeFormatInfo.TimeOffsetInMinutes) * -1);
+        },
+        fixDateTime: function () {
+            // // FIXME {all, 30.10.2014}: Откатить после декабрьского обновления поясов
+            // Одинаковая дата сейчас и через час сигнализирует о проблемах перевода стрелок часов.
+            // Наиболее вероятно, что при десериализации даты поимели эту проблему.
+            // Поэтому принудительно добавляем час.
+            // Добавляя один час к внутреннему представлению, меняем внешнее представление на два часа.
+            if (this.add(Date.HOUR, 1).getTime() == this.getTime()) {
+                return new Date(this.getTime() + 60 * 60 * 1000);
+            }
+
+            return this;
         }
     });
 
@@ -419,6 +435,7 @@ var extendExt = function () {
                 if (!Ext.isDate(v)) {
                     v = new Date(Date.parse(v));
                 }
+                v = v.fixDateTime();
                 return v.shiftOffset().dateFormat(formatInfo.PhpFullDateTimePattern || Ext.CultureInfo.DateTimeFormatInfo.PhpFullDateTimePattern);
             },
             reformatDateFromUserLocaleToInvariant: function (v, formatInfo) {
@@ -443,6 +460,7 @@ var extendExt = function () {
                 if (!Ext.isDate(v)) {
                     v = new Date(Date.parse(v));
                 }
+                v = v.fixDateTime(v);
                 return v.dateFormat(format || Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern);
             },
             moneyRenderer: function (formatInfo) {
@@ -462,7 +480,14 @@ var extendExt = function () {
 
                 var fnum = this.getNumberLiteral(v, formatInfo, roundNumber);
 
-                return neg ? formatInfo.CurrencyNegativePattern.replace('-', formatInfo.NegativeSign).replace('n', fnum).replace('$', formatInfo.CurrencySymbol) : formatInfo.CurrencyPositivePattern.replace('n', fnum).replace('$', formatInfo.CurrencySymbol);
+                // COMMENT {all, 13.11.2014}: Костыль, связанный с тем, что есть потребность трёхбуквенные коды располагать не так, как указано в системных настройках культуры.
+                var format = neg
+                    ? (Ext.CurrencyFormat.Negative[formatInfo.CurrencySymbol] || formatInfo.CurrencyNegativePattern)
+                    : (Ext.CurrencyFormat.Positive[formatInfo.CurrencySymbol] || formatInfo.CurrencyPositivePattern);
+
+                return format.replace('-', formatInfo.NegativeSign)
+                             .replace('n', fnum)
+                             .replace('$', formatInfo.CurrencySymbol);
             },
 
             exNumberRenderer: function (formatInfo) {
