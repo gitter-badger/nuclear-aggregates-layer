@@ -1,0 +1,105 @@
+﻿@using System.Globalization
+@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
+@model DateTime?
+
+@{
+    const string ShortIsoFormat = "yyyy-MM-ddTHH:mm:ss";
+    const string FullIsoFormat = "o";
+
+    if (!ViewData.ModelMetadata.AdditionalValues.ContainsKey(CalendarAttribute.Name))
+    {
+        var message = string.Format("Field {0} should contain attribute CalendarAttribute in order to use new calendar control", @Html.IdForModel());
+        throw new InvalidOperationException(message);
+    }
+
+    var settings = (CalendarSettings)ViewData["CalendarSettings"];
+    var isoFormat = settings.Store == CalendarSettings.StoreMode.Relative
+        ? ShortIsoFormat
+        : FullIsoFormat;
+
+    var storeMode = settings.Store.ToString().ToLower();
+    var displayMode = settings.Display.ToString().ToLower();
+    var readOnly = settings.ReadOnly.ToString().ToLower();
+
+    if (Model.HasValue && Model.Value.Kind == DateTimeKind.Unspecified)
+    {
+        throw new ArgumentException(string.Format("DateTimeKind.Unspecified не допустим. Поле {0}", Html.IdForModel()));
+    }
+    
+    var value = Model.HasValue
+                      ? Model.Value.ToString(isoFormat, CultureInfo.InvariantCulture)
+                      : string.Empty;
+
+    var minDate = settings.MinDate.HasValue
+                      ? settings.MinDate.Value.ToString(isoFormat, CultureInfo.InvariantCulture)
+                      : string.Empty;
+
+    var maxDate = settings.MaxDate.HasValue
+                      ? settings.MaxDate.Value.ToString(isoFormat, CultureInfo.InvariantCulture)
+                      : string.Empty;
+
+    var time = settings.Time;
+    if (time != null && time.Start < TimeSpan.FromDays(0))
+    {
+        throw new ArgumentException("Start time must be greater than 0");
+    }
+
+    if (time != null && time.Start >= TimeSpan.FromDays(1))
+    {
+        throw new ArgumentException("End time must be less than 24 hours");
+    }
+}
+
+@Html.Hidden(string.Empty, value)
+<table id="@Html.IdForModel()_wrapper" class="x-calendar-v2" >
+    <tbody>
+        <tr>
+            <td>
+                @Html.TextBox("editor", "", new Dictionary<string, object> { { "class", "inputfields" } })
+            </td>
+            <td style="width: 36px;">
+                <div id="@Html.IdForModel()_btn" class="calendar-button calendar-button-normal"></div>
+            </td>
+
+            @if (time != null)
+            {
+                <td style="width: 10px"></td>
+                <td style="width: 80px;" id="@Html.IdForModel()_time"></td>
+            }
+        </tr>
+    </tbody>
+</table>
+
+@if (time != null)
+{
+    <script type="text/javascript">
+        var time = {
+            min: '@time.Start.ToString("c")',
+            max: '@time.End.ToString("c")',
+            step: @time.Step.TotalMilliseconds
+        };
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        var time = null;
+    </script>
+}
+
+<script type="text/javascript">
+    new Ext.ux.Calendar2({
+        readOnly: @readOnly,
+        storeId: '@Html.IdForModel()',
+        editorId: '@Html.IdForModel()_editor',
+        buttonId: '@Html.IdForModel()_btn',
+        timeId: '@Html.IdForModel()_time',
+        mode: {
+            store: '@storeMode',
+            display: '@displayMode',
+            time: time
+        },
+        minDate: '@minDate',
+        maxDate: '@maxDate'
+    });
+</script>
