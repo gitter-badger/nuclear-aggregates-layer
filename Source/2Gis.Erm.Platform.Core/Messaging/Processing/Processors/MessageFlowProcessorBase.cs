@@ -258,22 +258,23 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     if (effectiveBatchUtilizationPercentage > SufficientBatchUtilizationMinPercentage)
                     {
                         currentDelay = BaseDelayMs;
-                            Logger.DebugFormatEx("Processing flow {0}. {1} messages was handled during the last cycle. Message batch utilization: {2:F1}%. Delay has base value ms: {3}",
-                                             SourceMessageFlow,
-                                                 processingResult.ActuallyProcessedMessageCount,
-                                                 effectiveBatchUtilizationPercentage,
-                                             currentDelay);
+                        Logger.DebugFormatEx(
+                            "Processing flow {0}. {1} messages was handled during the last cycle. Message batch utilization: {2:F1}%. Delay has base value ms: {3}",
+                            SourceMessageFlow,
+                            processingResult.ActuallyProcessedMessageCount,
+                            effectiveBatchUtilizationPercentage,
+                            currentDelay);
                     }
                     else
                     {
                         currentDelay = Math.Min(currentDelay + DelayIncrementMs, MaxDelayMs);
-                            Logger.DebugFormatEx(
-                                "Processing flow {0}. Message batch size {1} utilization is {2:F1}% and lower than min sufficient value {3:F1}%. Delay was incremented and has value ms: {4}",
-                                processingResult.RequestedMessageBatchSize,
-                                effectiveBatchUtilizationPercentage,
-                                SufficientBatchUtilizationMinPercentage,
-                                            SourceMessageFlow,
-                                            currentDelay);
+                        Logger.DebugFormatEx(
+                            "Processing flow {0}. Message batch size {1} utilization is {2:F1}% and lower than min sufficient value {3:F1}%. Delay was incremented and has value ms: {4}",
+                            processingResult.RequestedMessageBatchSize,
+                            effectiveBatchUtilizationPercentage,
+                            SufficientBatchUtilizationMinPercentage,
+                            SourceMessageFlow,
+                            currentDelay);
                     }
                 }
 
