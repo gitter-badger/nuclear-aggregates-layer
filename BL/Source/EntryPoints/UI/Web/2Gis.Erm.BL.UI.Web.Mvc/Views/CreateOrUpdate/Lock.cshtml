@@ -1,0 +1,42 @@
+﻿@model Models.LockViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.AccountId)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ShowReadOnlyCard = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Order, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ShowReadOnlyCard = true })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.PlannedAmount, FieldFlex.twins)
+            @Html.TemplateField(m => m.PeriodStartDate, FieldFlex.twins, new DateTimeSettings{ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Balance, FieldFlex.twins)
+            @Html.TemplateField(m => m.PeriodEndDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyUpperBound })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ClosedBalance, FieldFlex.twins)
+            @Html.TemplateField(m => m.Status, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AccountDetail, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AccountDetail, ShowReadOnlyCard = true})
+            @Html.TemplateField(m => m.CloseDate, FieldFlex.twins)
+        </div>
+    </div>
+}

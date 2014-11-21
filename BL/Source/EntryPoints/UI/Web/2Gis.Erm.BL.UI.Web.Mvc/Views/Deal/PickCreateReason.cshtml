@@ -1,0 +1,52 @@
+﻿
+@model Models.DealCreateReasonViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.CreateNewDeal }
+@section TopBarTitle { @BLResources.PickReasonForNewDeal }
+@section TopBarMessage { @BLResources.PickReasonForNewDeal }
+
+@section PageContent
+{
+    <script type="text/javascript">
+        Ext.onReady(
+    function ()
+    {
+        Ext.get("Cancel").on("click", function () { window.returnValue = null; window.close(); });
+        Ext.get("OK").on("click", function ()
+        {
+            var reason = Ext.getDom("ReasonForNewDeal");
+            if (reason.value == "")
+            {
+                alert("@BLResources.PickReasonForNewDeal");
+                reason.focus();
+                return;
+            }
+            window.returnValue = { ReasonForNewDeal: reason.value };
+            window.close();
+        });
+    });
+
+    </script>
+    <table cellspacing="5" cellpadding="5" width="100%" height="80px">
+        <colgroup>
+            <col width="40px" />
+            <col width="10px" />
+            <col width="300px"/>
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.ReasonForNewDeal):
+                </td>
+                <td></td>
+                <td>
+                    @Html.DropDownListFor(m => m.ReasonForNewDeal, EnumResources.ResourceManager, new Dictionary<string, object> { { "class", "inputfields" } })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

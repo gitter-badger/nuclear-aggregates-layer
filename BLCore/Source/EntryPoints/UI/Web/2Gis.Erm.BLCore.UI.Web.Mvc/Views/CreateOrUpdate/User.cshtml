@@ -1,0 +1,61 @@
+
+@model UserViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script type="text/javascript">
+        window.InitPage = function ()
+        {
+            this.on("beforebuild", function (card)
+            {
+                Ext.apply(this, {
+                    ProcessUserProfile: function ()
+                    {
+                        if (this.form.Id.value == 0)
+                        {
+                            Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
+                            return;
+                        }
+
+                        var params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
+                        var queryString = '?pId=' + this.form.Id.value + '&pType=' + this.EntityName;
+                        var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateUpdateEntityUrlByQueryString('UserProfile', queryString);
+                        window.open(sUrl, "_blank", params);
+                    }
+                });
+            });
+        }
+    </script>    
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.FirstName, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.LastName, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Account, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Department, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Department})
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User, ExtendedInfo = "excludeId={Id}" })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.IsServiceUser, FieldFlex.lone)
+        </div>
+    </div>
+}

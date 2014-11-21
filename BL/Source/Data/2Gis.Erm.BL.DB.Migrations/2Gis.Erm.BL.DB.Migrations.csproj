@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53A13F6F-53A4-4EDC-8284-51ACCF00B51C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.BL.DB.Migrations</RootNamespace>
+    <AssemblyName>2Gis.Erm.BL.DB.Migrations</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>C:\Program Files\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="1.2\2013.11.07 rev. 13432 - ERM-2263 v. 2.cs" />
+    <Compile Include="2.1\2014.09.02 rev. 23836 - Add priveleges.cs" />
+    <Compile Include="2.1\2014.09.01 rev. 23810 - Add LegalPersonDealsLink.cs" />
+    <Compile Include="2.1\2014.08.14 rev. 23209 - CRM category customization.cs" />
+    <Compile Include="2.1\2014.09.10 rev. 23921 - CRM order customization.cs" />
+    <Compile Include="2.1\2014.09.09 rev. 24094 - deactivated legalpersonprofiles to deleted ones.cs" />
+    <Compile Include="2.1\2014.09.05 rev. 24070 - CRM isv customization.cs" />
+    <Compile Include="2.1\2014.09.03 rev. 23946 - Add functional privelege.cs" />
+    <Compile Include="2.1\2014.08.14 rev. 23210 - alter some columns length.cs" />
+    <Compile Include="2.1\2014.08.11 rev. 23049 - Alter BOS.cs" />
+    <Compile Include="2.1\2014.08.07 rev. 23000 - Set dummy advertisement status as valid.cs" />
+    <Compile Include="2.1\2014.08.12 rev. 23100 - Alter deal replication.cs" />
+    <Compile Include="2.1\2014.08.12 rev. 23099 - CRM deal customization.cs" />
+    <Compile Include="2.1\2014.08.11 rev. 23098 - Add FirmDealsLink.cs" />
+    <Compile Include="2.1\2014.08.08 rev. 23097 - Extend Deals table.cs" />
+    <Compile Include="2.1\2014.08.04 rev. 22874 - Remove redundant AdvertisementElementStatus Privilege.cs" />
+    <Compile Include="2.1\2014.07.30 rev. 22797 - Alter BOS for Advertisement export.cs" />
+    <Compile Include="2.1\2014.07.30 rev. 22791 - Set some AE statuses.cs" />
+    <Compile Include="2.1\2014.07.24 rev. 22626 - Set comment nullable in AEDR.cs" />
+    <Compile Include="2.1\2014.07.16 rev. 22367 - Alter bargain replication.cs" />
+    <Compile Include="2.1\2014.07.16 rev. 22366 - CRM bargain customization.cs" />
+    <Compile Include="2.1\2014.07.15 rev. 22361 - Alter bargain replication.cs" />
+    <Compile Include="2.1\2014.07.15 rev. 22356 - CRM bargain customization.cs" />
+    <Compile Include="2.1\2014.07.04 rev. 22016 - add BargainKind and  BargainEndDate columns in Billing.Bargains.cs" />
+    <Compile Include="2.1\2014.07.12 rev. 22222 - remove obsolete bargain print templates.cs" />
+    <Compile Include="2.1\2014.06.26 rev. 21672 - Create flowOrders_DenialReason table.cs" />
+    <Compile Include="2.1\2014.06.26 rev. 21673 - Insert a records into BusinessOperationServices.cs" />
+    <Compile Include="2.1\2014.07.03 rev. 21992 - Alter BOS for Advertisement export.cs" />
+    <Compile Include="2.1\2014.06.30 rev. 21755 - drop status in Billing.AdvertisementElements.cs" />
+    <Compile Include="2.1\2014.06.20 rev. 21390 - Add priveleges.cs" />
+    <Compile Include="2.1\2014.06.20 rev. 21389 - Create AdvertisementDenialReasons tables.cs" />
+    <Compile Include="2.1\2014.10.21 rev. 25404 - Fix fas comments.cs" />
+    <Compile Include="2.1\2014.10.10 rev. 25168 - Merge ReplicateDeal SP - fix.cs" />
+    <Compile Include="2.1\2014.09.22 rev. 24906 - Merge ReplicateDeal SP.cs" />
+    <Compile Include="bb-s2\2014.02.20 rev. 16993 - Expand AcountNumber field up to 24 chars.cs" />
+    <Compile Include="bb-s2\2014.02.11 rev. 16315 - Add Bank permissions.cs" />
+    <Compile Include="bb-s2\2014.01.27 rev. 15501 - ERM-3117.cs" />
+    <Compile Include="bb-s2\2014.01.29 rev. 15518 - ERM-3150.cs" />
+    <Compile Include="bb-s2\2014.01.30 rev. 15632 - Turn client replication on.cs" />
+    <Compile Include="bb-s2\2014.03.14 rev. 18050 - Add rows to BusinessOperationServices to export Prices.cs" />
+    <Compile Include="bb-s2\2014.03.14 rev. 18051 - Add rows to BusinessOperationServices to export PricePositions.cs" />
+    <Compile Include="bb-s2\2014.03.24 rev. 18052 - Add rows to BusinessOperationServices to export Prices and PricePositions.cs" />
+    <Compile Include="bb-s2\2014.04.08 rev. 18053 - Add rows to BusinessOperationServices to export Prices and PricePositions.cs" />
+    <Compile Include="bb-s2\2014.04.10 rev. 18055 - Remove rows from BusinessOperationServices to export Prices and PricePositions.cs" />
+    <Compile Include="bb-s2\2014.04.09 rev. 18054 - Add rows to BusinessOperationServices to export Prices and PricePositions.cs" />
+    <Compile Include="bb-s2\2014.04.15 rev. 19343 - Remove and add rows from BusinessOperationServices to export Prices and PricePositions.cs" />
+    <Compile Include="2.1\2014.06.24 rev. 21516 - Create ExportBirthdaysRequest table.cs" />
+    <Compile Include="2.1\2014.06.25 rev. 21517 - Insert a record into BusinessOperationServices.cs" />
+    <Compile Include="2.1\2014.06.23 rev. 21515 - Create ExportFlowDeliveryData_LetterSendRequest table.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\Data\2Gis.Erm.BLCore.DB.Migrations\2Gis.Erm.BLCore.DB.Migrations.csproj">
+      <Project>{29068FB9-201B-409D-9A63-A7E06AC9DFEF}</Project>
+      <Name>2Gis.Erm.BLCore.DB.Migrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
+      <Project>{2EE6DCD3-218D-4EEA-8902-8CF501C7E034}</Project>
+      <Name>2Gis.Erm.Platform.Migration.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration\2Gis.Erm.Platform.Migration.csproj">
+      <Project>{6EE01928-8E79-4882-9410-9A6C5E266C1F}</Project>
+      <Name>2Gis.Erm.Platform.Migration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration15518.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration15501.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration15632.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_22356.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration22361.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_22366.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration22367.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_23099.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Migration23100.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_23209.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2014.10.02 rev. 24906\[Billing].[ReplicateDeal].sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_23921.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2014.10.10 rev. 25168\[Billing].[ReplicateDeal].sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customizations_24070.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Client Code="1" Name="Пуусепп, парикмахерская" DefaultFirmCode="2533811661335997" CuratorLogin="reserve" IsHidden="false" IsDeleted="false">
+  <Firms>
+    <Firm Code="2533811661335997"/>
+    <Firm Code="2533811661330322"/>
+  </Firms>
+  <LegalEntities>
+    <LegalEntity Code="704"/>
+    <LegalEntity Code="792"/>
+    <LegalEntity Code="8569"/>
+  </LegalEntities>
+  <Contacts>
+    <Contact ContactName="Пуусепп Екатерина Александровна" ContactEmail="puup@ya.ru" PersonType="MakingDecisions" IsHidden="false" IsDeleted="false"/>
+    <Contact ContactName="Людмила" PersonType="None" IsHidden="true" IsDeleted="false"/>
+  </Contacts>
+</Client>

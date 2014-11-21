@@ -1,0 +1,57 @@
+﻿using System;
+using System.Data.Common;
+
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.Common.Settings;
+
+namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
+{
+    public sealed class MsCRMSettingsAspect : ISettingsAspect, IMsCrmSettings
+    {
+        private readonly ConnectionStringsSettingsAspect _connectionStringsSettings;
+
+        private readonly StringSetting _crmHost = ConfigFileSetting.String.Optional("CrmHost", string.Empty);
+        private readonly EnumSetting<MsCrmIntegrationMode> _integrationMode = ConfigFileSetting.Enum.Required<MsCrmIntegrationMode>("MsCrmIntegrationMode");
+
+        private readonly Lazy<string> _crmOrganizationName;
+
+        public MsCRMSettingsAspect(ConnectionStringsSettingsAspect connectionStringsSettings)
+        {
+            _connectionStringsSettings = connectionStringsSettings;
+            _crmOrganizationName = new Lazy<string>(ExtractOrganizationName);
+        }
+
+        public bool EnableReplication
+        {
+            get { return IntegrationMode != MsCrmIntegrationMode.Disabled; }
+        }
+
+        public MsCrmIntegrationMode IntegrationMode
+        {
+            get { return _integrationMode.Value; }
+        }
+
+        public string CrmOrganizationName
+        {
+            get { return _crmOrganizationName.Value; }
+        }
+
+        public string CrmRuntimeConnectionString
+        {
+            get { return _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection); }
+        }
+
+        public string CrmHost
+        {
+            get { return _crmHost.Value; }
+        }
+
+        private string ExtractOrganizationName()
+        {
+            var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = CrmRuntimeConnectionString };
+            var server = (string)connectionStringBuilder["server"];
+            var uriBuilder = new UriBuilder(server);
+            return uriBuilder.Path.Trim('/');
+        }
+    }
+}

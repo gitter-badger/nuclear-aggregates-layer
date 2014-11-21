@@ -1,0 +1,67 @@
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureClientViewModel
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.UI.Client.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/MultiCulture/Ext.DoubleGis.UI.Client.MultiCulture.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.MainAddress, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.MainPhoneNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.Fax, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdditionalPhoneNumber1, FieldFlex.twins)
+            @Html.TemplateField(m => m.Email, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.AdditionalPhoneNumber2, FieldFlex.twins)
+            @Html.TemplateField(m => m.Website, FieldFlex.twins)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
+        </div>
+        @Html.SectionHead("SectionHead2", BLResources.AdditionalTabTitle)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.InformationSource, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.LastQualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" })
+            @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+        </div>
+    </div>
+    <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
+        @Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle)
+        @if (Model.IsCurated && Model.IsSecurityRoot)
+        {
+            <div class="row-wrapper">
+                @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+                @Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Territory, ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) })
+            </div>
+        }
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User })
+            @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings())
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User })
+            @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings())
+        </div>
+    </div>
+}
+
+@RenderBody()

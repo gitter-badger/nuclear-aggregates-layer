@@ -1,0 +1,225 @@
+<ImportExportXml version="4.0.0.0" languagecode="1049" generatedBy="OnPremise">
+  <Entities>
+  </Entities>
+  <Roles>
+  </Roles>
+  <Workflows>
+  </Workflows>
+  <SiteMap>
+    <SiteMap>
+      <Area Id="Workplace" ResourceId="Area_Workplace" ShowGroups="true" Icon="/_imgs/workplace_24x24.gif" DescriptionResourceId="Workplace_Description">
+        <Group Id="MyWork" Title="История/планы">
+          <SubArea Id="nav_activities" Entity="activitypointer" DescriptionResourceId="Activities_SubArea_Description" Url="/Workplace/home_activities.aspx" />
+          <SubArea Id="nav_calendar" Icon="/_imgs/area/18_calendar.gif" ResourceId="Homepage_Calendar" Url="/workplace/home_calendar.aspx" Client="Web">
+            <Privilege Entity="activitypointer" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_reports_auto" Entity="report" Url="https://web-app.erm.2gis.local/Report/Complex" AvailableOffline="false" DescriptionResourceId="Reports_Description">
+            <Titles>
+              <Title LCID="1049" Title="Отчёты" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="Подсистема отчётов" />
+            </Descriptions>
+            <Privilege Entity="report" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_news" Entity="businessunitnewsarticle" Url="/home/homepage/home_news.aspx" DescriptionResourceId="News_SubArea_Description" />
+        </Group>
+        <Group Id="Customers" ResourceId="Group_Customers" DescriptionResourceId="Customers_Description">
+          <SubArea Id="nav_accts" Entity="account" DescriptionResourceId="Account_SubArea_Description" />
+          <SubArea Id="nav_conts" Entity="contact" DescriptionResourceId="Contact_SubArea_Description" />
+          <SubArea Id="dg_firm" Entity="dg_firm" />
+        </Group>
+        <Group Id="SFA" ResourceId="Area_Sales" IsProfile="true" DescriptionResourceId="Sales_Description">
+          <SubArea Id="nav_oppts" Entity="opportunity" DescriptionResourceId="Opportunity_SubArea_Description" />
+          <!--<SubArea Id="nav_orders" Entity="salesorder" DescriptionResourceId="Orders_SubArea_Description"/>-->
+          <!--<SubArea Id="dg_order" Entity="salesorder" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="Заказы"/>
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="Управление Заказами"/>
+            </Descriptions>
+          </SubArea>-->
+          <SubArea Id="dg_legalperson" Entity="dg_legalperson" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="Юридические лица" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="Управление Юрлицами" />
+            </Descriptions>
+          </SubArea>
+        </Group>
+        <Group Id="MA" ResourceId="Area_Marketing" IsProfile="true" DescriptionResourceId="Marketing_Description">
+          <SubArea Id="nav_lists" Entity="list" DescriptionResourceId="MarketingList_SubArea_Description" />
+          <SubArea Id="nav_campaigns" Entity="campaign" DescriptionResourceId="Campaign_SubArea_Description" Url="/MA/home_camps.aspx" />
+          <SubArea Id="nav_minicamps" Entity="bulkoperation" DescriptionResourceId="Quick_Campaign_Description" Icon="/_imgs/ico_18_minicamps.gif" OutlookShortcutIcon="/_imgs/olk_4400.ico" Url="/MA/home_minicamps.aspx">
+            <Privilege Privilege="AllowQuickCampaign" />
+          </SubArea>
+        </Group>
+        <!-- <Group Id="Extensions" ResourceId="Group_Extensions">
+          <SubArea Id="dg_customconfiguration" Entity="dg_customconfiguration" />
+          <SubArea Id="dg_branchoffice_organizationunit" Entity="dg_branchoffice_organizationunit" />
+          <SubArea Id="dg_organizationunit" Entity="dg_organizationunit" />
+          </Group> -->
+        <Group Id="Extensions" ResourceId="Group_Extensions">
+        </Group>
+      </Area>
+      <Area Id="SFA" ResourceId="Area_Sales" Icon="/_imgs/sales_24x24.gif" DescriptionResourceId="Sales_Description">
+        <Group Id="SFA">
+          <SubArea Id="nav_oppts" Entity="opportunity" DescriptionResourceId="Opportunity_SubArea_Description" />
+          <SubArea Id="nav_accts" Entity="account" DescriptionResourceId="Account_SubArea_Description" />
+          <SubArea Id="nav_conts" Entity="contact" DescriptionResourceId="Contact_SubArea_Description" />
+          <SubArea Id="nav_orders" Entity="dg_order" />
+          <SubArea Id="dg_firm" Entity="dg_firm" />
+          <SubArea Id="dg_legalperson" Entity="dg_legalperson" />
+          <SubArea Id="dg_bargain" Entity="dg_bargain" />
+          <SubArea Id="dg_limit" Entity="dg_limit" />
+        </Group>
+        <Group Id="Extensions" ResourceId="Group_Extensions">
+          <SubArea Id="dg_account" Entity="dg_account" />
+        </Group>
+      </Area>
+      <Area Id="MA" ResourceId="Area_Marketing" Icon="/_imgs/marketing_24x24.gif" DescriptionResourceId="Marketing_Description">
+        <Group Id="MA">
+          <SubArea Id="dg_firm" Entity="dg_firm" />
+          <SubArea Id="nav_accts" Entity="account" DescriptionResourceId="Account_SubArea_Description" />
+          <SubArea Id="nav_conts" Entity="contact" DescriptionResourceId="Contact_SubArea_Description" />
+          <SubArea Id="nav_lists" Entity="list" DescriptionResourceId="MarketingList_SubArea_Description" />
+          <SubArea Id="nav_campaigns" Entity="campaign" DescriptionResourceId="Campaign_SubArea_Description" Url="/MA/home_camps.aspx" />
+          <SubArea Id="nav_minicamps" Entity="bulkoperation" DescriptionResourceId="Quick_Campaign_Description" Icon="/_imgs/ico_18_minicamps.gif" Url="/MA/home_minicamps.aspx">
+            <Privilege Privilege="AllowQuickCampaign" />
+          </SubArea>
+        </Group>
+      </Area>
+      <Area Id="Settings" ResourceId="Area_Settings" Icon="/_imgs/settings_24x24.gif" DescriptionResourceId="Settings_Area_Description">
+        <Group Id="Settings">
+          <!--<SubArea Id="nav_administration" ResourceId="Homepage_Administration"
+            DescriptionResourceId="Administration_SubArea_Description"
+            Icon="/_imgs/ico_18_administration.gif" Url="/tools/Admin/admin.aspx"
+            AvailableOffline="false"/>-->
+          <SubArea Id="nav_administration_erm" Icon="/_imgs/ico_16_4001.gif" Url="https://web-app.erm.2gis.local/Administration/Administration" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="ERM: Администрирование" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="Администрирование Учетной Системы" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_administration_security" Icon="/_imgs/ico_16_4002.gif" Url="https://web-app.erm.2gis.local/Administration/SecurityAdministration" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="ERM: Безопасность" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="Администрирование Безопасности" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_administration_billing_catalogue" Icon="/_imgs/ico_18_productcatalog.gif" Url="https://web-app.erm.2gis.local/Administration/CatalogueManagement" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="ERM: Управление Каталогом" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="Управление Каталогом" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_administration_message_queue" Icon="/_imgs/ico_16_2020.gif" Url="https://web-app.erm.2gis.local/Administration/MessageQueueManagement" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="ERM: Управление Очередью Сообщений" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="Управление Очередью Сообщений" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_administration_crm" Icon="/_imgs/ico_18_administration.gif" Url="/tools/Admin/admin.aspx" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Администрирование" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Администрирование" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_businessmanagement" Icon="/_imgs/ico_18_busmanagement.gif" Url="/tools/business/business.aspx" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Управление Бизнесом" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Управление Бизнесом" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_syscust" Icon="/_imgs/area/18_syscust.gif" Url="/tools/systemcustomization/systemcustomization.aspx" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Настройка" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Настройка" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_template" Url="/tools/templates/templates.aspx" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Шаблоны" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Шаблоны" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <!--<SubArea Id="nav_productcatalog" ResourceId="Homepage_ProductCatalog"
+            DescriptionResourceId="ProductCatalog_SubArea_Description"
+            Icon="/_imgs/ico_18_productcatalog.gif" Url="/tools/productcatalog/productcatalog.aspx"
+            AvailableOffline="false">
+            <Privilege Entity="product" Privilege="Read"/>
+            </SubArea>-->
+          <SubArea Id="nav_workflow" Entity="workflow" DescriptionResourceId="Workflow_SubArea_Description" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Бизнес-процессы" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Бизнес-процессы" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_datamanagement" Icon="/_imgs/ico_18_datamanagement.gif" Url="/tools/DataManagement/datamanagement.aspx" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Управление данными" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Управление данными" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_systemjobs" Url="/tools/business/home_asyncoperation.aspx" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Системные задания" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Системные задания" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+          <SubArea Id="nav_dg_customconfiguration" Entity="dg_customconfiguration" AvailableOffline="false">
+            <Titles>
+              <Title LCID="1049" Title="CRM: Конфигуратор настроек" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1049" Description="CRM: Конфигуратор настроек" />
+            </Descriptions>
+            <Privilege Entity="dg_customconfiguration" Privilege="Read" />
+          </SubArea>
+        </Group>
+        <Group Id="Extensions" ResourceId="Group_Extensions">
+        </Group>
+      </Area>
+    </SiteMap>
+  </SiteMap>
+  <EntityMaps />
+  <EntityRelationships />
+  <Languages>
+    <Language>1049</Language>
+  </Languages>
+</ImportExportXml>

@@ -1,0 +1,128 @@
+﻿@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
+@using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles
+@using DoubleGis.Erm.Platform.UI.Web.Mvc.Security
+@model  DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderPositionViewModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <base target="_self" />
+
+        <meta id="meta_IsDebug" name="meta_IsDebug" content="@HttpContext.Current.IsDebuggingEnabled" />
+        <meta id="meta_Revision" name="meta_Revision" content="@ThisAssembly.Build" />
+    
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+        
+        @if (HttpContext.Current.IsDebuggingEnabled)
+        {
+        <script src="/Scripts/ext-base-debug.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all-debug-w-comments.js?@ThisAssembly.Build" type="text/javascript"></script>
+        }
+        else
+        {
+        <script src="/Scripts/ext-base.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/ext-all.js?@ThisAssembly.Build" type="text/javascript"></script>
+        }
+
+        <script src="/Scripts/@("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js")?@ThisAssembly.Build" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            Ext.USER_ID = @ViewData.GetUserIdentityInfo().Code;
+            Ext.USER_NAME = @ViewData.GetUserIdentityDisplayName();
+            Ext.CultureInfo = @Html.WriteJson(ViewData.GetUserLocaleInfo());
+            Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
+            Ext.CRM_URL = '@ViewData.GetMsCrmSettingsUrl()';
+            Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
+            Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
+        </script>
+        
+        <link rel="stylesheet" type="text/css" href="/Content/ext-all.css?@ThisAssembly.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/ext-mask.css?@ThisAssembly.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/ext-extend.css?@ThisAssembly.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/ext-ux-treegrid.css?@ThisAssembly.Build" />
+        
+        <link rel="stylesheet" type="text/css" href="/Content/CRM4.css?@ThisAssembly.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/Card.css?@ThisAssembly.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/order-position.css?@ThisAssembly.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/AsyncFileUpload.css?@ThisAssembly.Build" />
+        <link rel="stylesheet" type="text/css" href="/Content/LookupStyle.css?@ThisAssembly.Build" />
+        
+        <script src="/Scripts/DoubleGis.GlobalVariables.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Common.ErrorHandler.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.LookupField.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.LinkField.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.Calendar.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.LookupFieldOwner.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/DoubleGis.MvcFormValidator.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/DoubleGis.DependencyHandler.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/DoubleGis.UI.DialogWindow.js?@ThisAssembly.Build" type="text/javascript"></script>
+        
+        <script src="/Scripts/Ext.ux.TreeGridSorter.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridColumnResizer.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridNodeUI.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridLoader.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGridColumns.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.TreeGrid.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.ux.FitToParent.js?@ThisAssembly.Build" type="text/javascript"></script>
+        
+        <script src="/Scripts/DoubleGis.UI.Card.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?@ThisAssembly.Build" type="text/javascript"></script>
+        <script src="/Scripts/Ext.DoubleGis.UI.BindingObject.js?@ThisAssembly.Build" type="text/javascript"></script>
+    
+        <style type="text/css">
+            .display-wrapper .captionRadioDiv { padding-top: 0px; }
+            div.label-wrapper { width: 140px; }
+            div.Tab { padding: 0px; }
+        </style>
+        
+        <title>@BLResources.BindingObjectChange</title>
+    </head>
+    <body>
+        <table width="100%" height="100%" border="0" cellspacing="0">
+            <tr>
+                <td id="PageContentCell">
+                    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "autocomplete", "off" }, { "target", "_self" } }))
+                    {
+                        @Html.HiddenFor(m => m.Id)
+                        @Html.HiddenFor(m => m.OrderId)
+                        @Html.HiddenFor(m => m.OrderFirmId)
+                        @Html.HiddenFor(m => m.OrganizationUnitId)
+                        @Html.HiddenFor(m => m.IsLocked)
+                        @Html.HiddenFor(m => m.DiscountSum)
+                        @Html.HiddenFor(m => m.IsComposite)
+
+                        @Html.HiddenFor(m => m.DiscountPercent)
+                        @Html.HiddenFor(m => m.AdvertisementsJson)
+                        @Html.HiddenFor(m => m.PricePosition)
+                        @Html.HiddenFor(m => m.PricePerUnit)
+                        @Html.HiddenFor(m => m.PricePerUnitWithVat)
+                        @Html.HiddenFor(m => m.Amount)
+                        @Html.HiddenFor(m => m.ShipmentPlan)
+                        @Html.HiddenFor(m => m.PayablePrice)
+                        @Html.HiddenFor(m => m.PayablePlan)
+                        @Html.HiddenFor(m => m.CalculateDiscountViaPercent)
+                        @Html.HiddenFor(m => m.DiscountSum)
+                        @Html.HiddenFor(m => m.Comment)
+                        <table style="height: 100%; table-layout: fixed">
+                            <tr>
+                                <td>
+                                    <div id='linkingObjectContainer' style="height: 100%; margin: 0px 5px 5px 5px; overflow: hidden; width: 100%;">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    }   
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="right" width="100%" class="ms-crm-Dialog-Footer">
+                    <input class="CrmButton" type="button" id="OK" value="@BLResources.OK" />
+                    <input class="CrmButton" type="button" id="Cancel" value="@BLResources.Cancel" />
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

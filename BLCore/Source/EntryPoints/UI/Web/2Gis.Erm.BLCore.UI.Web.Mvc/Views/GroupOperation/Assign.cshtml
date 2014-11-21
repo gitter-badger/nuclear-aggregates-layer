@@ -1,0 +1,285 @@
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.AssignViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.GroupOperationConfirm }
+@section TopBarTitle { @string.Format(BLResources.AssignAssignMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@ThisAssembly.Build" />
+
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Tooltip.js?@ThisAssembly.Build" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Assign');
+        Ext.DoubleGis.UI.Assign.AssignProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            FailedEntitiesMessages: [],
+            OwnerCode: 0,
+            IsPartialAssign: false,
+            UserCodeLookup: {},
+            bypassValidationInfo: false, // информация о том, есть ли привилегия "Обработка лицевых счетов с задолжностью"
+            BypassValidationView: {},   // представление для Предложенния продолжить операцию, если есть задолженность по лицевым счетам
+            EntitiesToProcess: {},
+            constructor: function (config) {
+                Ext.apply(config, {
+                    listeners: {
+                        configspecificcontrols: function () {
+                            this.ConfigCustomControls();
+                        },
+                        applyusersettings: function () {
+                            this.ApplyUserSettings();
+                        },
+                        processingfinished: function () {
+                            this.ProcessingFinished();
+                        },
+                        entityprocessingfail: function (msg) {
+                            this.EntityAssignFailed(msg);
+                        }
+                    }
+                });
+                Ext.DoubleGis.UI.Assign.AssignProcessor.superclass.constructor.call(this, config);
+                if (config.EntitiesToProcess) {
+                	var entitiesToProcess = {};
+                	Ext.each(config.EntitiesToProcess, function (x) {
+                		entitiesToProcess[x.entityId] = x.entityName;
+                	});
+                	this.EntitiesToProcess = entitiesToProcess;
+                }
+            },
+            ConfigCustomControls: function () {
+                var onRadioClick = this.RadioClick.createDelegate(this);
+                Ext.get("rdoAssignToMe").on("click", onRadioClick);
+                Ext.get("rdoAssignToUser").on("click", onRadioClick);
+                this.UserCodeLookup = Ext.getCmp("UserCode");
+            },
+            RadioClick: function () {
+                if (Ext.getDom("rdoAssignToMe").checked) {
+                    this.UserCodeLookup.disable();
+                }
+                else if (Ext.getDom("rdoAssignToUser").checked) {
+                    this.UserCodeLookup.enable();
+                }
+            },
+            IsUserSettingsValid: function () {
+                if (Ext.getDom("rdoAssignToUser").checked) {
+                    if (Ext.getDom("UserCode").value == "") {
+                        Ext.MessageBox.show({
+                            title: '',
+                            msg: Ext.LocalizedResources.AssignMustPickUser,
+                            buttons: window.Ext.MessageBox.OK,
+                            width: 300,
+                            icon: window.Ext.MessageBox.ERROR
+                        });
+                        return false;
+                    }
+                }
+
+                return true;
+            },
+            ApplyUserSettings: function () {
+                this.OwnerCode = Ext.getDom("rdoAssignToUser").checked ? this.UserCodeLookup.getValue().id : "";
+
+                var ctx = Ext.getDom("rdoCascadeAssign");
+                this.IsPartialAssign = ctx && !ctx.checked;
+
+                Ext.getDom("rdoAssignToMe").disabled = "disabled";
+                Ext.getDom("rdoAssignToUser").disabled = "disabled";
+                this.UserCodeLookup.disable();
+            },
+            ResolveEntityName: function (entityId) {
+            	if (this.EntitiesToProcess.hasOwnProperty(entityId))
+            		return this.EntitiesToProcess[entityId];
+            	else 
+            		return this.superclass().ResolveEntityName.call(this, entityId);
+            },
+            CreateParamsForControllerCall: function (entityId) {
+                return { entityId: entityId, ownerCode: this.OwnerCode, isPartialAssign: this.IsPartialAssign, bypassValidation: null };
+            },
+            ValidateEntryProcessingSuccessStatus: function (message) {
+                var bypassValidationInfo = window.Ext.decode(message);
+                if (bypassValidationInfo.CanProceed && bypassValidationInfo.CanProceed == true) {
+                    var isOperationContinue = confirm(bypassValidationInfo.Message);
+                    if (isOperationContinue) {
+                        var params = this.CreateParamsForControllerCall(bypassValidationInfo.EntityId);
+                        params.bypassValidation = true;
+                        var url = this.EvaluateOperationUrl();
+                        this.ProcessSingleEntity(url, params);
+
+                        return this.SuccessStatus.ReprocessingRequired;
+                    }
+
+                    return this.SuccessStatus.Rejected;
+                }
+                return this.SuccessStatus.Approved;
+            },
+            ProcessingFinished: function () {
+                // innerHTML элемента Notifications присваивается по окончании операции (см. файл GroupOperations.js),
+                // динамически засовываем туда линк.
+                if (this.SuccessProcessed < this.EntitiesCount && !this.IsSingleEntityProcessing) {
+
+                    this.FinishOperation(this.FailedEntitiesMessages.join('\r\n'));
+
+                    var notifications = Ext.getDom('Notifications');
+                    var errorsLinkNode = document.createElement("a");
+                    errorsLinkNode.id = 'ErrorsLink';
+                    errorsLinkNode.href = '#';
+                    errorsLinkNode.appendChild(document.createTextNode(Ext.LocalizedResources.DisplayErrorsList));
+                    notifications.appendChild(errorsLinkNode);
+                    Ext.getDom('ErrorsLink').onclick = function () {
+                        Ext.getDom('ErrorsForm').submit();
+                    };
+                    Ext.getDom('ErrorsLink').onclick();
+                }
+                else {
+                    this.FinishOperation();
+                }
+            },
+            EntityAssignFailed: function (msg) {
+                this.FailedEntitiesMessages[this.FailedEntitiesMessages.length] = msg;
+            },
+            FinishOperation: function (msg) {
+                var finishOperationResponse = window.Ext.Ajax.syncRequest({
+                    method: 'POST',
+                    url: '/Operation/CreateOperationWithErrorLog',
+                    params: { operationId: Ext.getDom("operationId").value, log: msg, contentType: 'text/csv', logFileName: 'Assign_errors.csv' }
+                });
+                if ((finishOperationResponse.conn.status >= 200 && finishOperationResponse.conn.status < 300) || (Ext.isIE && finishOperationResponse.conn.status == 1223)) {
+                }
+                else {
+                    alert(finishOperationResponse.conn.responseText);
+                    return;
+                }
+            }
+        });
+
+        Ext.onReady(function ()
+        {
+            var dialogArguments = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+            var ids = dialogArguments;
+
+            var isExtendedMode = (dialogArguments != null && dialogArguments.length > 0 && dialogArguments[0].hasOwnProperty('entityId'));
+            if (isExtendedMode) {
+            	ids = [];
+            	Ext.each(dialogArguments, function (x) { ids.push(x.entityId); });
+            }
+
+            //window.Tooltip = new Ext.DoubleGis.UI.Tooltip(document);
+            Ext.getDom('DivErrors').style.visibility = 'hidden';
+            Ext.getDom('PageContentCell').style["vertical-align"] = "top";
+            var config = {
+            	EntitiesToProcess: isExtendedMode ? dialogArguments : null,
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
+            };
+            var assignProcessor = new Ext.DoubleGis.UI.Assign.AssignProcessor(config);
+            if (!assignProcessor.CheckProcessingPossibility())
+            {
+                return;
+            }
+            assignProcessor.Process();
+        });
+    </script>
+    
+    <div style="height: 8px; padding-left: 5px;padding-top: 4px;position: fixed;" id="DivErrors">
+    @using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
+    {
+        <input type="hidden" name="operationId" value="@Guid.NewGuid()" />
+    }
+        
+   </div>
+
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+        <table cellspacing="5" cellpadding="5" width="100%" style="position: fixed;">
+            <colgroup>
+                <col width="32" />
+                <col />
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div style="height: 30px;" id="Notifications" 
+                             onmouseover="AddTooltip(Ext.getDom('Notifications').childNodes.length > 0 ? Ext.getDom('Notifications').childNodes[0].data : '');" 
+                             onmouseout="RemoveTooltip();">
+                            @Model.Message
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToMe" class="radio" checked="checked" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignTome">
+                            @BLResources.AssignAssignToMe</label>
+                        <br />
+                        <div style="color: #444444; padding-top: 5px">
+                            @String.Format(BLResources.AssignAssignToMeLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture))</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToUser" class="radio" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignToUser">
+                            @BLResources.AssignAssignToOther</label>
+                        <br />
+                        <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
+                            <label for="rdoAssignToUser">
+                                @String.Format(BLResources.AssignAssignToOtherLegend, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture))</label></div>
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                @if (Model.PartialAssignSupported)
+                {
+                    <tr>
+                        <td valign="top">
+                            <input id="rdoCascadeAssign" class="checkbox" type="checkbox" name="IsPartialAssign" disabled="@Model.IsCascadeAssignForbidden" />
+                        </td>
+                        <td >
+                            <label style="font-weight: bold" for="rdoCascadeAssign">
+                                @BLResources.AssignInAllHierarchy
+                            </label>
+                        </td>
+                    </tr>
+
+                }
+                <tr>
+                    <td colspan="2" style="padding-left: 10px;">
+                        <div id="pbDiv">
+                            <div id="pbInner">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @Html.HiddenFor(m => m.EntityTypeName)
+        @Html.HiddenFor(m => m.PartialAssignSupported)
+    }
+}

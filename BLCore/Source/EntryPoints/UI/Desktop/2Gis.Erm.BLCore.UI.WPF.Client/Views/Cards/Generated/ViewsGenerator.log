@@ -1,0 +1,125 @@
+﻿ 
+
+
+ 
+
+
+
+
+Processing start at 24.04.2014 15:16:30
+1). Processing card for entity Account
+For entity  Account new view generating 
+2). Processing card for entity AccountDetail
+For entity  AccountDetail new view generating 
+3). Processing card for entity AdditionalFirmService
+For entity  AdditionalFirmService new view generating 
+4). Processing card for entity AdsTemplatesAdsElementTemplate
+For entity  AdsTemplatesAdsElementTemplate new view generating 
+5). Processing card for entity Advertisement
+For entity  Advertisement new view generating 
+6). Processing card for entity AdvertisementElement
+For entity  AdvertisementElement new view generating 
+7). Processing card for entity AdvertisementElementTemplate
+For entity  AdvertisementElementTemplate new view generating 
+8). Processing card for entity AdvertisementTemplate
+For entity  AdvertisementTemplate new view generating 
+9). Processing card for entity AssociatedPosition
+For entity  AssociatedPosition new view generating 
+10). Processing card for entity AssociatedPositionsGroup
+For entity  AssociatedPositionsGroup new view generating 
+11). Processing card for entity Bargain
+For entity  Bargain new view generating 
+12). Processing card for entity BargainFile
+For entity  BargainFile new view generating 
+13). Processing card for entity BargainType
+For entity  BargainType new view generating 
+14). Processing card for entity Bill
+For entity  Bill new view generating 
+15). Processing card for entity BranchOffice
+For entity  BranchOffice new view generating 
+16). Processing card for entity BranchOfficeOrganizationUnit
+For entity  BranchOfficeOrganizationUnit new view generating 
+17). Processing card for entity Category
+For entity  Category new view generating 
+18). Processing card for entity CategoryGroup
+For entity  CategoryGroup new view generating 
+19). Processing card for entity Client
+For entity  Client new view generating 
+20). Processing card for entity Contact
+For entity  Contact new view generating 
+21). Processing card for entity ContributionType
+For entity  ContributionType new view generating 
+22). Processing card for entity Country
+For entity  Country new view generating 
+23). Processing card for entity Currency
+For entity  Currency new view generating 
+24). Processing card for entity CurrencyRate
+For entity  CurrencyRate new view generating 
+25). Processing card for entity Deal
+For entity  Deal new view generating 
+26). Processing card for entity DeniedPosition
+For entity  DeniedPosition new view generating 
+27). Processing card for entity Department
+For entity  Department new view generating 
+28). Processing card for entity Firm
+For entity  Firm new view generating 
+29). Processing card for entity FirmAddress
+For entity  FirmAddress new view generating 
+30). Processing card for entity FirmContact
+For entity  FirmContact new view generating 
+31). Processing card for entity LegalPerson
+For entity  LegalPerson new view generating 
+32). Processing card for entity LegalPersonProfile
+For entity  LegalPersonProfile new view generating 
+33). Processing card for entity Limit
+For entity  Limit new view generating 
+34). Processing card for entity LocalMessage
+For entity  LocalMessage new view generating 
+35). Processing card for entity Lock
+For entity  Lock new view generating 
+36). Processing card for entity LockDetail
+For entity  LockDetail new view generating 
+37). Processing card for entity Note
+For entity  Note new view generating 
+38). Processing card for entity Operation
+For entity  Operation new view generating 
+39). Processing card for entity OperationType
+For entity  OperationType new view generating 
+40). Processing card for entity Order
+For entity  Order new view generating 
+41). Processing card for entity OrderFile
+For entity  OrderFile new view generating 
+42). Processing card for entity OrderPosition
+For entity  OrderPosition new view generating 
+43). Processing card for entity OrganizationUnit
+For entity  OrganizationUnit new view generating 
+44). Processing card for entity Platform
+For entity  Platform new view generating 
+45). Processing card for entity Position
+For entity  Position new view generating 
+46). Processing card for entity PositionCategory
+For entity  PositionCategory new view generating 
+47). Processing card for entity PositionChildren
+For entity  PositionChildren new view generating 
+48). Processing card for entity Price
+For entity  Price new view generating 
+49). Processing card for entity PricePosition
+For entity  PricePosition new view generating 
+50). Processing card for entity PrintFormTemplate
+For entity  PrintFormTemplate new view generating 
+51). Processing card for entity ReleaseInfo
+For entity  ReleaseInfo new view generating 
+52). Processing card for entity Role
+For entity  Role new view generating 
+53). Processing card for entity Territory
+For entity  Territory new view generating 
+54). Processing card for entity Theme
+For entity  Theme new view generating 
+55). Processing card for entity ThemeTemplate
+For entity  ThemeTemplate new view generating 
+56). Processing card for entity User
+For entity  User new view generating 
+57). Processing card for entity WithdrawalInfo
+For entity  WithdrawalInfo new view generating 
+Processing finished at 24.04.2014 15:16:31. Working time sec: 1,4613675
+

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Branch Code="1" NameLat="novosibirsk" DefaultCountryCode="1" DefaultCityCode="238579235623756" DefaultLang="ru" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Новосибирск" />
+    <Localization Lang="en" Name="Novosibirsk" />
+  </Localizations>
+  <EnabledLanguages>
+    <EnabledLanguage Lang="ru" />
+  </EnabledLanguages>
+</Branch>

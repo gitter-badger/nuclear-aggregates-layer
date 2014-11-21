@@ -1,0 +1,69 @@
+﻿/*legacy*/
+body, input, select, textarea
+{
+    font-size: 11px;
+    font-family: Tahoma;
+}
+/*new*/
+div.errorPage button
+{
+    width:105px;
+}
+div.errorPage
+{
+    width:100%;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-color:White;
+}
+div.errorPage div.textOuter 
+{
+    width:500px;
+    padding:10px 20px 20px 20px;
+}
+div.errorPage div.imageOuter 
+{
+    padding:10px 0px 10px 10px;
+}
+div.errorPage div.textOuter div
+{
+    overflow:auto;
+    width:100%;
+}
+div.errorPage div.textOuter div.title
+{
+    font-size:2em;
+    margin-bottom:5px;
+}
+div.errorPage div.errorText
+{
+    max-height:410px;
+}
+div.floatLeft
+{
+    float:left;
+}
+div.floatRight
+{
+    float:right;
+}
+div.clear
+{
+    clear:both;
+}
+body
+{
+    background-color:White;
+}
+
+.icon_error 
+{
+    background-image: url("images/Configuration/CommonUI/notif_icn_critical.png");
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    height: 32px;
+    width: 32px;
+}

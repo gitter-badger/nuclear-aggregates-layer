@@ -1,0 +1,144 @@
+﻿@using DoubleGis.Erm.Platform.Common.Utils
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeTerritoryViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.ChangeTerritory }
+@section TopBarTitle { @BLResources.ChangeTerritory }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@ThisAssembly.Build" />
+    
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Client');
+        Ext.DoubleGis.UI.Client.ChangeTerritoryProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            TerritoryId: -1,
+            TerritoryLookup: {},
+            constructor: function (config)
+            {
+                Ext.apply(config, {
+                    listeners: {
+                        configspecificcontrols: function ()
+                        {
+                            this.ConfigCustomControls();
+                        },
+                        applyusersettings: function ()
+                        {
+                            this.ApplyUserSettings();
+                        }
+                    }
+                });
+                Ext.DoubleGis.UI.Client.ChangeTerritoryProcessor.superclass.constructor.call(this, config);
+            },
+            ConfigCustomControls: function ()
+            {
+                this.TerritoryLookup = Ext.getCmp("Territory");
+            },
+            IsUserSettingsValid: function ()
+            {
+                this.TerritoryId = this.TerritoryLookup.getValue() ? this.TerritoryLookup.getValue().id : this.TerritoryId;
+                if (this.TerritoryId === -1)
+                {
+                    Ext.MessageBox.show({
+                        title: '',
+                        msg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems,
+                        buttons: window.Ext.MessageBox.OK,
+                        width: 300,
+                        icon: window.Ext.MessageBox.ERROR
+                    });
+                    return false;
+                }
+
+                return true;
+            },
+            ApplyUserSettings: function ()
+            {
+                this.TerritoryLookup.disable();
+            },
+            CreateParamsForControllerCall: function (entityId)
+            {
+                return { entityId: entityId, territoryId: this.TerritoryId };
+            }
+        });
+        Ext.onReady(function ()
+        {
+            var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+
+            var config = {
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
+            };
+            var changeTerritoryProcessor = new Ext.DoubleGis.UI.Client.ChangeTerritoryProcessor(config);
+            if (!changeTerritoryProcessor.CheckProcessingPossibility())
+            {
+                return;
+            }
+
+            changeTerritoryProcessor.Process();
+        });
+    </script>
+    @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
+    {
+    <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+        <colgroup>
+            <col width="26" />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <div style="height: 24px;" id="Notifications">@Model.Message</div>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+
+                </td>
+                <td valign="top">
+                    <label style="font-weight: bold">
+                        @BLResources.CrmTerritory</label>
+                    <br />
+                    <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
+                        <label>@BLResources.ClientTerritoryChangeLegend</label>
+                    </div>
+                    <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityName.Territory})
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr style="display:none;">
+                <td colspan="2">
+                    @Html.HiddenFor(m => m.EntityTypeName)
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="2" style="padding-left: 10px;">
+                    <div id="pbDiv">
+                        <div id="pbInner">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8776ff1c-6355-446a-a44b-bff89b328464" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://uk-erm-sql:8082/BrokerApiService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BrokerApiService.disco" MetadataType="Disco" ID="846a40ea-a957-4be6-af58-e81ee9d188e7" SourceId="1" SourceUrl="http://uk-erm-sql:8082/BrokerApiService?disco" />
+    <MetadataFile FileName="BrokerApiService.wsdl" MetadataType="Wsdl" ID="36cf1a96-c70a-4d34-96f9-20a9e9903f22" SourceId="1" SourceUrl="http://uk-erm-sql:8082/BrokerApiService?wsdl" />
+    <MetadataFile FileName="BrokerApiService.xsd" MetadataType="Schema" ID="6b09850a-2594-45df-8f55-d8e8eefebf22" SourceId="1" SourceUrl="http://uk-erm-sql:8082/BrokerApiService?xsd=xsd1" />
+    <MetadataFile FileName="BrokerApiService1.xsd" MetadataType="Schema" ID="d22fd7dc-a31f-47f3-bd15-4103dbffafac" SourceId="1" SourceUrl="http://uk-erm-sql:8082/BrokerApiService?xsd=xsd3" />
+    <MetadataFile FileName="BrokerApiService2.xsd" MetadataType="Schema" ID="7b969f34-b8b4-49b4-805f-7b1cb2076357" SourceId="1" SourceUrl="http://uk-erm-sql:8082/BrokerApiService?xsd=xsd0" />
+    <MetadataFile FileName="BrokerApiService3.xsd" MetadataType="Schema" ID="f67354d8-af47-4630-93b7-87c50a07feb0" SourceId="1" SourceUrl="http://uk-erm-sql:8082/BrokerApiService?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,10 @@
+﻿<City Code="1267230100684817" Name="Новосибирск (Новосибирская обл.)" OriginalName="Новосибирск" CountryCode="1" TypeCode="1" BranchCode="9" Synonym="Москва" Priority="100" IsDeleted="false">
+  <Localizations>
+    <Localization Lang="ru" Name="Новосибирск (Новосибирская обл.)" OriginalName="Новосибирск" />
+    <Localization Lang="en" Name="Novosibirsk (Novosibirskaya)" OriginalName="Novosibirsk" />
+  </Localizations>
+  <Region RegionCode="1267655302447106" />
+  <OldCodes>
+    <OldCode Code="1267230100684817" BranchCode="9"/>
+  </OldCodes>
+</City>

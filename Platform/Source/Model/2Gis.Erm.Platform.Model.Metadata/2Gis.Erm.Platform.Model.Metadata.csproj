@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoubleGis.Erm.Platform.Model.Metadata</RootNamespace>
+    <AssemblyName>2Gis.Erm.Platform.Model.Metadata</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="Boundaries\IPrintingBoundedContext.cs" />
+    <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
+    <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\IUniqueMetadataFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Identities\IdentifiableAspect.cs" />
+    <Compile Include="Common\Elements\Concrete\References\MetadataReference.cs" />
+    <Compile Include="Common\Elements\Concrete\References\MetadataReferenceBuilder.cs" />
+    <Compile Include="Common\Elements\Identities\IdBuilder.cs" />
+    <Compile Include="Common\Elements\MetadataElement.cs" />
+    <Compile Include="Common\Elements\MetadataElementBuilder.cs" />
+    <Compile Include="Common\Elements\MetadataElementBuilderAspectBase.cs" />
+    <Compile Include="Common\Elements\MetadataElementUtils.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\IImageBoundElement.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\ImageFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Handler\IHandlerBoundElement.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Handler\HandlerFeatureAspect.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Mode\ISharable.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Mode\SharedFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Mode\SharedFeatureAspect.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Operations\OperationsSetFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeatureAspect.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Operations\OperatiosFeatureUtils.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\ITitledElement.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\TitleFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\TitleFeatureAspect.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Handler\IHandlerFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\ShowGridHandlerFeature.cs" />
+    <Compile Include="Common\Elements\Concrete\Hierarchy\HierarchyMetadata.cs" />
+    <Compile Include="Common\Elements\Concrete\Hierarchy\HierarchyMetadataBuilder.cs" />
+    <Compile Include="Common\Elements\IMetadataElement.cs" />
+    <Compile Include="Common\Elements\IMetadataElementAspect.cs" />
+    <Compile Include="Common\Elements\Identities\IMetadataElementIdentity.cs" />
+    <Compile Include="Common\Elements\IMetadataElementUpdater.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\IMetadataFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\IImageDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\ResourceImageDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\StaticPathImageDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Operations\IOperationsBoundElement.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\ImageFeatureAspect.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\IResourceDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\ITitleDescriptor.cs" />
+    <Compile Include="Common\Elements\Identities\Concrete\MetadataElementIdentity.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\ResourceTitleDescriptor.cs" />
+    <Compile Include="Common\Kinds\IMetadataKindIdentity.cs" />
+    <Compile Include="Common\Kinds\MetadataKindIdentityBase.cs" />
+    <Compile Include="Common\Processors\Concrete\Feature2PropertiesLinkerProcessor.cs" />
+    <Compile Include="Common\Processors\Concrete\ReferencesEvaluatorProcessor.cs" />
+    <Compile Include="Common\Processors\IMetadataProcessor.cs" />
+    <Compile Include="Common\Processors\MetadataProcessorBase.cs" />
+    <Compile Include="Common\Provider\MetadataProvider.cs" />
+    <Compile Include="Common\Provider\MetadataProviderUtils.cs" />
+    <Compile Include="Common\Provider\MetadataSet.cs" />
+    <Compile Include="Common\Provider\Sources\MetadataExtractorUtils.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\StaticTitleDescriptor.cs" />
+    <Compile Include="Common\Provider\IMetadataProvider.cs" />
+    <Compile Include="Common\Provider\Sources\IMetadataSource.cs" />
+    <Compile Include="Common\Provider\Sources\MetadataSourceBase.cs" />
+    <Compile Include="Common\Validators\IMetadataValidator.cs" />
+    <Compile Include="Common\Validators\IMetadataValidatorsSuite.cs" />
+    <Compile Include="Common\Validators\MetadataValidatorBase.cs" />
+    <Compile Include="Common\Validators\MetadataValidatorsSuite.cs" />
+    <Compile Include="DI\PlatformModelMetadataAssembly.cs" />
+    <Compile Include="DI\MetadataZone.cs" />
+    <Compile Include="Entities\Configuration\LookupAttributeProvider.cs" />
+    <Compile Include="Entities\EAV\DynamicEntityPropertyAccessor.cs" />
+    <Compile Include="Entities\EAV\DynamicEntityPropertyMapper.cs" />
+    <Compile Include="Entities\EAV\DynamicEntityMetadataRegistry.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\AccountTypeIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\ActualAddressIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\BankIdIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\BusinessModelIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\CommercialLicenseEndDateIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\DecreeDateIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\DecreeNumberIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\EndDistributionDateIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\AuthorIdIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\DocumentsAmountIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\OtherAuthorityDocumentIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IdentityCardIssuedByIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IdentityCardIssuedOnIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IdentityCardNumberIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\PhoneIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\OrganizationUnitIdIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\CommuneIdIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\DescriptionIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\EgrpouIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\HeaderIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\CommercialLicenseBeginDateIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\FaxIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\PoBoxIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\IpnIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\MfoIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\PropertyIdentityIds.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedByIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeAuthorityDocumentIssuedOnIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\NameIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\EntityTypeNameIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\OperationsKindIndentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeRutIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\RnnIdentity.cs" />
+    <Compile Include="Entities\EAV\PropertyIdentities\TaxationTypeIdentity.cs" />
+    <Compile Include="Entities\EntityPropertyMetadata.cs" />
+    <Compile Include="Entities\ErrorDescription.cs" />
+    <Compile Include="Entities\IDataFieldFeature.cs" />
+    <Compile Include="Entities\IPropertyFeature.cs" />
+    <Compile Include="Entities\IValidatablePropertyFeature.cs" />
+    <Compile Include="Entities\MetadataEntitiesIdentity.cs" />
+    <Compile Include="Entities\PropertyFeatures\CheckDatePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\ComboBoxPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\DatePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\DefaultValueProperty.cs" />
+    <Compile Include="Entities\PropertyFeatures\DigitsOnlyPropertyFeature.cs" />
+    <Compile Include="Entities\CommonFeatures\DisplayNameLocalizedFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\EmailPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\EnumPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\ExcludeZeroValuePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\FilePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\GroupedPropertyFeature.cs" />
+    <Compile Include="Entities\CommonFeatures\HiddenFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\LimitedLengthPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\LookupPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\MultilinePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\MustBeGreaterOrEqualPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\NonZeroPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\OnlyValuePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\PresentationLayerPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\RangePropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\ReadOnlyPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\RegularExpressionPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\RequiredPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\UrlPropertyFeature.cs" />
+    <Compile Include="Entities\PropertyFeatures\YesNoRadioPropertyFeature.cs" />
+    <Compile Include="Enums\CheckDayOfMonthType.cs" />
+    <Compile Include="Enums\DependencyType.cs" />
+    <Compile Include="Enums\DisplayStyle.cs" />
+    <Compile Include="Enums\FlowGeographyObject.cs" />
+    <Compile Include="Enums\PeriodType.cs" />
+    <Compile Include="Globalization\BusinessModelCountryMapping.cs" />
+    <Compile Include="Globalization\BusinessModels.cs" />
+    <Compile Include="Globalization\BusinessModelsIndicators.cs" />
+    <Compile Include="Globalization\BusinessModelsUtils.cs" />
+    <Compile Include="Globalization\EntityAdaptationMapping.cs" />
+    <Compile Include="Globalization\GlobalizationSpecsAttribute.cs" />
+    <Compile Include="Globalization\IAdapted.cs" />
+    <Compile Include="Globalization\IKazakhstanAdapted.cs" />
+    <Compile Include="Globalization\IChileAdapted.cs" />
+    <Compile Include="Globalization\IEmiratesAdapted.cs" />
+    <Compile Include="Globalization\ICyprusAdapted.cs" />
+    <Compile Include="Globalization\ICzechAdapted.cs" />
+    <Compile Include="Globalization\IRussiaAdapted.cs" />
+    <Compile Include="Globalization\IUkraineAdapted.cs" />
+    <Compile Include="Messages\MessageCodes.cs" />
+    <Compile Include="Messages\MessageCodesToTemplatesMapper.cs" />
+    <Compile Include="Operations\Applicability\OperationApplicability.cs" />
+    <Compile Include="Operations\Applicability\Resolvers\OperationApplicabilityOverrides.cs" />
+    <Compile Include="Operations\Detail\Concrete\ActionHistoryMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ActivateMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\AppendMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\AssignMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ChangeClientMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ChangeTerritoryMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\CheckForDebtsMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DeactivateMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DeleteMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DisqualifyMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ModifyBusinessModelEntityMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\ModifySimplifiedModelEntityMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\UploadFileMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\DownloadFileMetadata.cs" />
+    <Compile Include="Operations\Detail\EmptyOperationMetadata.cs" />
+    <Compile Include="Operations\Detail\IOperationMetadata.cs" />
+    <Compile Include="Operations\Detail\Concrete\QualifyMetadata.cs" />
+    <Compile Include="Operations\Detail\OperationMetadataDetailContainer.cs" />
+    <Compile Include="Operations\Detail\OperationMetadataDetailRegistry.cs" />
+    <Compile Include="Replication\Metadata\EntityReplicationInfo.cs" />
+    <Compile Include="Replication\Metadata\EntityReplicationMetadata.cs" />
+    <Compile Include="Replication\Metadata\IMsCrmReplicationMetadataProvider.cs" />
+    <Compile Include="Replication\Metadata\MsCrmReplicationMetadataProvider.cs" />
+    <Compile Include="Replication\Metadata\NullMsCrmReplicationMetadataProvider.cs" />
+    <Compile Include="Replication\Metadata\ReplicationMode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
+      <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
+      <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\2Gis.Erm.Platform.Resources.Server\2Gis.Erm.Platform.Resources.Server.csproj">
+      <Project>{f33c2da3-cf31-4bce-986e-e198f1c9ea82}</Project>
+      <Name>2Gis.Erm.Platform.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
+      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
+      <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

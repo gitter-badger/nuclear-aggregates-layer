@@ -1,0 +1,26 @@
+﻿.icon_16
+{
+    width: 100%;
+    height: 16;
+    background-repeat: no-repeat;
+}
+
+.icon_user
+{
+    background-image: url("images/Security/User.png");
+}
+
+.icon_delete
+{
+    background-image: url("images/Security/Delete.png");
+}
+
+.icon_check
+{
+    background-image: url("images/Security/Check.png");
+}
+
+.icon_clear
+{
+    background-image: url("images/Security/Clear.png");
+}

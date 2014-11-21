@@ -1,0 +1,26 @@
+﻿
+@model Models.DepartmentViewModel
+
+@{
+    Layout = "../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+}
+
+@section CardBody
+{
+    @Html.HiddenFor(m => m.IdentityServiceUrl)
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        <div class="row-wrapper">
+            @Html.EditableId(m => m.Id)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Department, ShowReadOnlyCard = true, ExtendedInfo = "excludeId={Id}" })
+        </div>
+    </div>
+}

@@ -1,0 +1,18 @@
+﻿using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using DoubleGis.Erm.Platform.UI.Metadata.Operations;
+
+namespace DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic
+{
+    public class CloseIdentity : OperationIdentityBase<CloseIdentity>, INonCoupledOperationIdentity, IClientOperationIdentity
+    {
+        public override int Id
+        {
+            get { return ClientOperationIdentityIds.CloseIdentity; }
+        }
+
+        public override string Description
+        {
+            get { return "Close action (Close dialog, window, view and etc.)"; }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.ViewSelector.ListSelectorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:DoubleGis.Platform.UI.WPF.Infrastructure.Controls;assembly=2Gis.Platform.UI.WPF.Infrastructure"
+             xmlns:blendability="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid.Blendability"
+             mc:Ignorable="d" 
+             d:DataContext="{x:Static blendability:DesignTimeProvider.ViewSelector}">
+    <controls:BriefGrid Rows="Auto" Columns="Auto,*">
+        <TextBlock Grid.Column="0" Text="{Binding ViewText.Title}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,10,0" />
+        <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableViews, Mode=OneWay}" SelectedItem="{Binding SelectedView, Mode=TwoWay}" MinWidth="150" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="grid:DataViewViewModel">
+                    <TextBlock Text="{Binding LocalizedName}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </controls:BriefGrid>
+</UserControl>

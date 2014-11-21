@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:accessors="clr-namespace:DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Resources.Accessors">
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavAreaBilling}" UriSource="../Images/Navigation/Billing.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupOrders}" UriSource="../Images/Navigation/en_ico_16_Default.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupDeals}" UriSource="../Images/Navigation/en_ico_16_Deal.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupAccounts}" UriSource="../Images/Navigation/en_ico_16_Default.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupReports}" UriSource="../Images/Navigation/en_ico_16_Default.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavAreaSettings}" UriSource="../Images/Navigation/Settings.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupServices}" UriSource="../Images/Navigation/en_ico_16_Default.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupUsers}" UriSource="../Images/Navigation/en_ico_16_UserAccount.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupRoles}" UriSource="../Images/Navigation/en_ico_16_UserGroup.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupDepartments}" UriSource="../Images/Navigation/en_ico_16_Department.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+    <BitmapImage x:Key="{x:Static accessors:Images+Navigation.NavGroupLegalPersons}" UriSource="../Images/Navigation/en_ico_16_LegalPerson.gif" CreateOptions="DelayCreation" CacheOption="OnDemand" />
+</ResourceDictionary>
