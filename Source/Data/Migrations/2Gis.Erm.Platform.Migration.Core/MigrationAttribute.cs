@@ -2,7 +2,11 @@ using System;
 
 namespace DoubleGis.Erm.Platform.Migration.Core
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    /// <summary>
+    /// Номер миграции - время в локальном часовом поясе в формате yyyyMMddhhmm
+    /// powershell snippet: [System.DateTime]::Now.ToString("yyyyMMddhhmm")
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public sealed class MigrationAttribute : Attribute
     {
         [Obsolete("Теперь нужно использовать конструктор с указанием авторства миграции")]

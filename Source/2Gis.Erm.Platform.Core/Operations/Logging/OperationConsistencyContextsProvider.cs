@@ -19,12 +19,12 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             _operationsSecurityRequirements = operationsSecurityRequirements;
         }
 
-        public IEnumerable<IVerifierContext> GetContexts(OperationScopeNode operationContextsRoot)
+        public IEnumerable<IVerifierContext> GetContexts(TrackedUseCase useCase)
         {
             var contexts = new IVerifierContext[]
                 {
-                    new VerifierContext<IPersistenceChangesRegistry>(operationContextsRoot, _persistenceChangesRegistry),
-                    new VerifierContext<IOperationSecurityRegistryReader>(operationContextsRoot, _operationsSecurityRequirements)
+                    new VerifierContext<IPersistenceChangesRegistry>(useCase, _persistenceChangesRegistry),
+                    new VerifierContext<IOperationSecurityRegistryReader>(useCase, _operationsSecurityRequirements)
                 };
             return contexts;
         }

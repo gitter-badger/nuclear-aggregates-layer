@@ -58,25 +58,22 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             var inconsistencyReport = new StringBuilder();
             var severalModificationsReport = new StringBuilder();
             var addedInconsistency =
-                IsDeclaredChangesInconsistent(
-                                              checkerContext.ComparableContext.AddedChanges,
-                                              checkerContext.OperationScopesHierarchy,
+                IsDeclaredChangesInconsistent(checkerContext.ComparableContext.AddedChanges,
+                                              checkerContext.UseCase,
                                               changesContext => changesContext.AddedChanges,
                                               ChangesType.Added,
                                               inconsistencyReport,
                                               severalModificationsReport);
             var deletedInconsistency =
-                IsDeclaredChangesInconsistent(
-                                              checkerContext.ComparableContext.DeletedChanges,
-                                              checkerContext.OperationScopesHierarchy,
+                IsDeclaredChangesInconsistent(checkerContext.ComparableContext.DeletedChanges,
+                                              checkerContext.UseCase,
                                               changesContext => changesContext.DeletedChanges,
                                               ChangesType.Deleted,
                                               inconsistencyReport,
                                               severalModificationsReport);
             var updatedInconsistency =
-                IsDeclaredChangesInconsistent(
-                                              checkerContext.ComparableContext.UpdatedChanges,
-                                              checkerContext.OperationScopesHierarchy,
+                IsDeclaredChangesInconsistent(checkerContext.ComparableContext.UpdatedChanges,
+                                              checkerContext.UseCase,
                                               changesContext => changesContext.UpdatedChanges,
                                               ChangesType.Updated,
                                               inconsistencyReport,
@@ -113,21 +110,27 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 
         private bool IsDeclaredChangesInconsistent(
             IEnumerable<KeyValuePair<Type, ConcurrentDictionary<long, int>>> trackedChanges,
-            OperationScopeNode targetScopeContext,
+            TrackedUseCase useCase,
             Func<EntityChangesContext, IReadOnlyDictionary<Type, ConcurrentDictionary<long, int>>> declaredChangesExtractor,
             ChangesType changesType,
             StringBuilder inconsistencyReport,
             StringBuilder severalModificationsReport)
         {
+            OperationScopeNode operationNode;
+            if (!useCase.TryGetRootOperation(out operationNode))
+            {
+                throw new InvalidOperationException("Can't find root operation node for specified us case " + useCase);
+            }
+
             bool hasInconsistency = false;
             foreach (var changeEntry in trackedChanges)
             {
                 foreach (var changedEntityId in changeEntry.Value)
                 {
-                    if (IsDeclaredChangesInconsistentDeep(
-                                                          changeEntry.Key,
+                    if (IsDeclaredChangesInconsistentDeep(changeEntry.Key,
                                                           changedEntityId.Key,
-                                                          targetScopeContext,
+                                                          useCase,
+                                                          operationNode,
                                                           declaredChangesExtractor,
                                                           changesType,
                                                           severalModificationsReport))
@@ -149,12 +152,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         private bool IsDeclaredChangesInconsistentDeep(
             Type entityType,
             long entityId,
-            OperationScopeNode targetScopeContext,
+            TrackedUseCase useCase,
+            OperationScopeNode operationNode,
             Func<EntityChangesContext, IReadOnlyDictionary<Type, ConcurrentDictionary<long, int>>> declaredChangesExtractor,
             ChangesType changesType,
             StringBuilder severalModificationsReport)
         {
-            var targetScopeChanges = declaredChangesExtractor(targetScopeContext.ChangesContext);
+            var targetScopeChanges = declaredChangesExtractor(operationNode.ChangesContext);
 
             ConcurrentDictionary<long, int> changedEntities;
             if (targetScopeChanges.TryGetValue(entityType, out changedEntities)
@@ -174,16 +178,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 return false;
             }
 
-            return targetScopeContext.Childs != null
+            var nestedOperations = useCase.GetNestedOperations(operationNode.ScopeId);
+            return nestedOperations != null
                    &&
-                   targetScopeContext.Childs.All(
-                                                 node =>
-                                                 IsDeclaredChangesInconsistentDeep(entityType,
-                                                                                   entityId,
-                                                                                   node,
-                                                                                   declaredChangesExtractor,
-                                                                                   changesType,
-                                                                                   severalModificationsReport));
+                   nestedOperations.All(node => IsDeclaredChangesInconsistentDeep(entityType,
+                                                                                 entityId,
+                                                                                 useCase,
+                                                                                 node,
+                                                                                 declaredChangesExtractor,
+                                                                                 changesType,
+                                                                                 severalModificationsReport));
         }
     }
 }
