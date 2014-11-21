@@ -4,10 +4,9 @@ using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Common.Prerequisites;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
