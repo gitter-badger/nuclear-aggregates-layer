@@ -3179,6 +3179,9 @@ Cумма по операции: {5}.
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value>У текущего пользователя отсутствуют права на чтение сущности</value>
   </data>
+  <data name="RegionalAdvertisingSharing" xml:space="preserve">
+    <value>Обмен региональной рекламой</value>
+  </data>
   <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
     <value>Обработано сделок : {0}, создано звонков: {1}</value>
   </data>
@@ -5196,5 +5199,14 @@ Cумма по операции: {5}.
   </data>
   <data name="OperatesOnBasisOfDecreeTemplate" xml:space="preserve">
     <value>{0} №{1} от {2}</value>
+  </data>
+  <data name="LegalPersonFieldsMustBeFilled" xml:space="preserve">
+    <value>Для работы с профилями требуется, чтобы были указаны юридические лица</value>
+  </data>
+  <data name="TitlePrinting" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="LegalPersonProfileMustBeSpecified" xml:space="preserve">
+    <value>Должен быть указан профиль юридического лица</value>
   </data>
 </root>

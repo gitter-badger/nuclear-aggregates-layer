@@ -11,8 +11,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
@@ -1304,6 +1306,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             }
         }
 
+        public long? GetOrderLegalPersonProfileId(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(order => order.LegalPersonProfileId)
+                          .SingleOrDefault();
+        }
+
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
         {
             var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
@@ -1423,6 +1432,52 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public long GetBargainLegalPersonId(long bargainId)
         {
             return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
+        }
+
+        public OrderLegalPersonProfileDto GetOrderLegalPersonProfile(long orderId)
+        {
+            var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
+                                   .Select(order => new 
+                                       {
+                                           LegalPersonId = order.LegalPersonId,
+                                           LegalPersonName = order.LegalPerson.LegalName,
+                                           LegalPersonProfileId = order.LegalPersonProfileId,
+                                           LegalPersonProfileName = order.LegalPersonProfile.Name,
+                                       })
+                                   .Single();
+
+            if (dto.LegalPersonId == null)
+            {
+                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
+            }
+
+            return new OrderLegalPersonProfileDto
+                       {
+                           LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                           LegalPersonProfile = new EntityReference(dto.LegalPersonProfileId, dto.LegalPersonProfileName)
+                       };
+        }
+
+        public OrderLegalPersonProfileDto GetBargainLegalPersonProfile(long bargainId)
+        {
+            var dto = _secureFinder.Find(Specs.Find.ById<Bargain>(bargainId))
+                                   .Select(x => new
+                                   {
+                                       LegalPersonId = x.CustomerLegalPersonId,
+                                       LegalPersonName = x.LegalPerson.LegalName
+                                   })
+                                   .Single();
+
+            if (dto.LegalPersonId == null)
+            {
+                throw new EntityNotLinkedException(BLResources.LegalPersonFieldsMustBeFilled);
+            }
+
+            return new OrderLegalPersonProfileDto
+            {
+                LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
+                LegalPersonProfile = new EntityReference()
+            };
         }
 
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)

@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -84,17 +85,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
                                         order.Bargain,
                                         order.EndDistributionDateFact,
                                         order.LegalPersonId,
-                                        LegalPersonProfileId = order.LegalPerson.LegalPersonProfiles
-                                                                    .FirstOrDefault(y => request.LegalPersonProfileId.HasValue && y.Id == request.LegalPersonProfileId.Value)
-                                                                    .Id,
+                                        order.LegalPersonProfileId,
                                         order.Firm,
                                         CurrencyISOCode = order.Currency.ISOCode,
                                     })
                 .Single();
 
+            if (data.LegalPersonProfileId == null)
+            {
+                throw new LegalPersonProfileMustBeSpecifiedException();
+            }
+
             var sourceBranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.SourceBranchOfficeId));
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.LegalPersonProfileId));
+            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.LegalPersonProfileId.Value));
             var sourceBranchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.SourceBranchOfficeOrganizationUnitId));
             var destinationBranchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.DestinationBranchOfficeOrganizationUnitId));
 
