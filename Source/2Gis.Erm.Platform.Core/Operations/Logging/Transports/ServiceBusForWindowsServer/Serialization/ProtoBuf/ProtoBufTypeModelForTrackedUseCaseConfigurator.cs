@@ -12,12 +12,14 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
         {
             var typeModel = TypeModel.Create();
             typeModel.Add(typeof(TrackedUseCase), false)
-                     .Add<TrackedUseCase>(1, useCase => useCase.Description)
-                     .Add<TrackedUseCase>(2, useCase => useCase.RootNode);
+                     .Add(1, "_rootNodeId")
+                     .Add(2, "_operations")
+                     .Add(3, "_operationsHierarchy");
             typeModel.Add(typeof(OperationScopeNode), false)
-                     .Add(1, "_operationScope")
-                     .Add(2, "_scopeChanges")
-                     .Add(3, "_childs")
+                     .Add(1, "_operationIdentity")
+                     .Add(2, "_isRoot")
+                     .Add(3, "_scopeId")
+                     .Add(4, "_changesContext")
                      .UseConstructor = false;
             typeModel.Add(typeof(IOperationScope), false)
                      .AddSubType(1, typeof(TransactedOperationScope));

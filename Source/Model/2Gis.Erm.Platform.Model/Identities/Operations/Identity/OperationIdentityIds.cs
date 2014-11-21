@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ActualizeDealsDuringRevertingWithdrawalIdentity = 1021;
         public const int GetFirmInfoIdentity = 1022;
         public const int ValidateOrdersIdentity = 1023;
-        public const int ResetOrderValidationResultsIdentity = 1024;
+        public const int RegisterOrderStateChangesIdentity = 1024;
 
         // EntityName.ReleaseWithdrawal = 215
         public const int CalculateReleaseWithdrawalsIdentity = 21501;
@@ -236,5 +236,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         // EntityName.ClientLink = 609
         public const int UpdateOrganizationStructureDenormalization = 60901;
+
+        public const int PerformedOperationProcessingAnalysisIdentity = 19500;
     }
 }

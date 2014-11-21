@@ -19,7 +19,6 @@ namespace DoubleGis.Erm.Platform.Core.Metadata.Security
                   .Require(EntityAccessTypes.Create, EntityName.NotificationEmail)
                   .Require(EntityAccessTypes.Create, EntityName.NotificationEmailTo)
                   .Require(EntityAccessTypes.Create, EntityName.NotificationEmailTo)
-                  .Require(EntityAccessTypes.Create, EntityName.OrderValidationResult)
                   .Require(EntityAccessTypes.Update, EntityName.AdvertisementElement));
 
         private static readonly IOperationAccessRequirement UpdateAdvertisementElement = AccessRequirementBuilder.ForOperation<UpdateIdentity, AdvertisementElement>(
@@ -34,7 +33,6 @@ namespace DoubleGis.Erm.Platform.Core.Metadata.Security
                   .Require(EntityAccessTypes.Create, EntityName.NotificationEmail)
                   .Require(EntityAccessTypes.Create, EntityName.NotificationEmailTo)
                   .Require(EntityAccessTypes.Create, EntityName.NotificationEmailTo)
-                  .Require(EntityAccessTypes.Create, EntityName.OrderValidationResult)
                   .Require(EntityAccessTypes.Update, EntityName.AdvertisementElement));
 
         private static readonly IOperationAccessRequirement CreateAdvertisement = AccessRequirementBuilder.ForOperation<CreateIdentity, Advertisement>(

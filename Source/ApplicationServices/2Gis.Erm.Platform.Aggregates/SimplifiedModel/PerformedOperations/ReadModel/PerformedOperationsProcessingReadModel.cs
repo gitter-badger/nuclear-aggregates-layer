@@ -21,23 +21,16 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
             _finder = finder;
         }
 
-        public IReadOnlyDictionary<Guid, PrimaryProcessingFlowStateDto> GetPrimaryProcessingFlowsState(IMessageFlow[] messageFlows)
+        public PrimaryProcessingFlowStateDto GetPrimaryProcessingFlowState(IMessageFlow messageFlow)
         {
-            var messageFlowsIds = messageFlows.Select(x => x.Id);
-            return _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowIds(messageFlowsIds))
+            return _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowId(messageFlow.Id))
                           .GroupBy(processing => processing.MessageFlowId)
-                          .Select(grouping => new
+                          .Select(grouping => new PrimaryProcessingFlowStateDto
                               {
-                                  Flow = grouping.Key,
                                   OldestProcessingTargetCreatedDate = grouping.Min(processing => processing.CreatedOn),
                                   ProcessingTargetsCount = grouping.Count()
                               })
-                          .ToDictionary(x => x.Flow,
-                                        x => new PrimaryProcessingFlowStateDto
-                                            {
-                                                OldestProcessingTargetCreatedDate = x.OldestProcessingTargetCreatedDate,
-                                                ProcessingTargetsCount = x.ProcessingTargetsCount
-                                            });
+                          .FirstOrDefault();
         }
 
         public IReadOnlyList<DBPerformedOperationsMessage> GetOperationsForPrimaryProcessing(
@@ -46,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
             int maxUseCaseCount)
         {
             var performedOperations = _finder.Find(OperationSpecs.Performed.Find.AfterDate(oldestOperationBoundaryDate));
-            var processingTargetUseCases = _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowIds(new[] { sourceMessageFlow.Id }))
+            var processingTargetUseCases = _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowId(sourceMessageFlow.Id))
                                                   .OrderBy(targetUseCase => targetUseCase.CreatedOn)
                                                   .Take(maxUseCaseCount);
 
@@ -79,6 +72,16 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
                 .ToList();
 
             return result;
+        }
+
+        private DateTime Truncate(DateTime dateTime, TimeSpan timeSpan)
+        {
+            if (timeSpan == TimeSpan.Zero)
+            {
+                return dateTime; // Or could throw an ArgumentException
+            }
+
+            return dateTime.AddTicks(-(dateTime.Ticks % timeSpan.Ticks));
         }
 
         private static IEnumerable<PerformedOperationsFinalProcessingMessage> GetTargetMessages(IQueryable<PerformedOperationFinalProcessing> sourceOperations, int batchSize)

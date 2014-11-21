@@ -2,7 +2,7 @@
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <edmx:Designer>
     <edmx:Diagrams>
-      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="100">
+      <edmx:Diagram DiagramId="0c210f7de77f4a2b8fee24cefd93c31b" Name="Diagram1" ZoomLevel="65">
         <edmx:EntityTypeShape EntityType="ErmModel.CurrencyRate" Width="1.5" PointX="3" PointY="80.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.MessageType" Width="1.5" PointX="8.25" PointY="101.25" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.AssociatedPositionsGroup" Width="1.5" PointX="18" PointY="77.125" IsExpanded="true" />
@@ -73,9 +73,7 @@
         <edmx:EntityTypeShape EntityType="ErmModel.NotificationEmailsTo" Width="1.5" PointX="13.25" PointY="8" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.NotificationProcessings" Width="1.5" PointX="10.25" PointY="21.125" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.CityPhoneZone" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationRuleGroupDetail" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationRuleGroup" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationResult" Width="1.5" PointX="31.5" PointY="130" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationResult" Width="2.75" PointX="31.5" PointY="130" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.DepCard" Width="1.5" PointX="32.25" PointY="107" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.PrintFormTemplate" Width="1.5" PointX="15.75" PointY="82.375" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="ErmModel.Building" Width="1.5" PointX="9.75" PointY="112.5" IsExpanded="true" />
@@ -214,7 +212,6 @@
         <edmx:AssociationConnector Association="ErmModel.FK_NotificationEmailsCc_NotificationEmailsCc" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_NotificationEmailsTo_NotificationEmailsTo" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_NotificationProcessings_NotificationEmails" ManuallyRouted="false" />
-        <edmx:AssociationConnector Association="ErmModel.FK_OrderValidationRuleGroupDetails_OrderValidationRuleGroups" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_OrderValidationResults_Orders" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_Contacts_DepCards" ManuallyRouted="false" />
         <edmx:AssociationConnector Association="ErmModel.FK_PrintFormTemplates_BranchOfficeOrganizationUnits" ManuallyRouted="false" />
@@ -309,6 +306,8 @@
         <edmx:AssociationConnector Association="ErmModel.FK_LegalPersonDeals_Deals" />
         <edmx:AssociationConnector Association="ErmModel.FK_FirmDeals_Firms" />
         <edmx:AssociationConnector Association="ErmModel.FK_LegalPersonDeals_LegalPersons" />
+        <edmx:EntityTypeShape EntityType="ErmModel.OrderValidationCacheEntry" Width="1.5" PointX="5.375" PointY="0.75" />
+        <edmx:AssociationConnector Association="ErmModel.OrderOrderValidationCacheEntry" />
         </edmx:Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

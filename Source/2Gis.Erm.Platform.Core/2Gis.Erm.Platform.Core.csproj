@@ -40,12 +40,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.ServiceBus">
-      <HintPath>..\..\..\CompositionRoots\Source\packages\WindowsAzure.ServiceBus.2.3.4.0\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration">
-      <HintPath>..\..\..\CompositionRoots\Source\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\ServiceBus.v1_1.1.0.4.0\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.0.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\Libs\protobuf-net_2.0.0.669\protobuf-net.dll</HintPath>
@@ -94,21 +100,12 @@
     <Compile Include="Metadata\ServiceAvailabilityProvider.cs" />
     <Compile Include="Notifications\NullEmployeeEmailResolver.cs" />
     <Compile Include="Notifications\NullNotificationSender.cs" />
-    <Compile Include="Operations\Logging\ControlFlowMarkerManager.cs" />
-    <Compile Include="Operations\Logging\IFlowMarkerManager.cs" />
-    <Compile Include="Operations\Logging\IOperationScopeRegistrar.cs" />
-    <Compile Include="Operations\Logging\IOperationScopeContextsStorage.cs" />
-    <Compile Include="Operations\Logging\IOperationScopeLifetimeManager.cs" />
     <Compile Include="Operations\Logging\OldOperationContextParser.cs" />
     <Compile Include="Operations\Logging\OperationContextParser.cs" />
     <Compile Include="Operations\Logging\OperationLogger.cs" />
     <Compile Include="Operations\Logging\OperationResolver.cs" />
     <Compile Include="Operations\Logging\OperationScopesStorage.cs" />
     <Compile Include="Operations\Logging\OperationScopesStorageKey.cs" />
-    <Compile Include="Operations\Logging\IOperationConsistencyContextsProvider.cs" />
-    <Compile Include="Operations\Logging\IOperationConsistencyVerifier.cs" />
-    <Compile Include="Operations\Logging\IVerifierContext.cs" />
-    <Compile Include="Operations\Logging\NullOperationConsistencyVerifier.cs" />
     <Compile Include="Operations\Logging\OperationConsistencyContextsProvider.cs" />
     <Compile Include="Operations\Logging\OperationConsistencyVerifier.cs" />
     <Compile Include="Operations\Logging\OperationScopeLifetimeManager.cs" />
@@ -116,52 +113,45 @@
     <Compile Include="Operations\Logging\PersistenceChangesRegistryKey.cs" />
     <Compile Include="Operations\Logging\PersistenceChangesRegistryProvider.cs" />
     <Compile Include="Operations\Logging\TransactedOperationScope.cs" />
+    <Compile Include="Operations\Logging\Transports\DB\DBLoggingSession.cs" />
     <Compile Include="Operations\Logging\Transports\DB\DirectDBLoggingStrategy.cs" />
-    <Compile Include="Operations\Logging\Transports\DB\DirectDbEnqueUseCaseForProcessingLoggingStrategy.cs" />
-    <Compile Include="Operations\Logging\Transports\DB\ITrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
+    <Compile Include="Operations\Logging\Transports\DB\DirectDBEnqueUseCaseForProcessingLoggingStrategy.cs" />
     <Compile Include="Operations\Logging\Transports\DB\TrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\IServiceBusMessageSenderSettings.cs" />
+    <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.Dispose.cs" />
+    <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusLoggingSession.cs" />
+    <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageSender.Dispose.cs" />
+    <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusConnectionSlotPool.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\MessageBodyType.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\OperationsLoggingServiceBusTransportUtils.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\BinaryEntireTrackedUseCase2BrokeredMessageConverter.cs" />
-    <Compile Include="Operations\Processing\Final\MsCRM\AsyncMsCRMReplicationSettingsAspect.cs" />
-    <Compile Include="Operations\Processing\Final\MsCRM\IAsyncMsCRMReplicationSettings.cs" />
-    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMMessageAggregatedProcessingResultHandler.Slicer.cs" />
-    <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\Settings\PerformedOperationsServiceBusTransportUtils.cs" />
-    <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\Settings\ServiceBusReceiverSettingsAspect.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Settings\ServiceBusSenderSettingsAspect.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\Settings\IServiceBusMessageReceiverSettings.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\IServiceBusMessageSender.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ITrackedUseCase2BrokeredMessageConverter.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusForWindowsServiceLoggingStrategy.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Sender\ServiceBusMessageSender.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\BinaryEntireTrackedUseCase2BrokeredMessageConverter.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusLoggingStrategy.cs" />
+    <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageSender.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\OperationIdentitySurrogate.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\ProtoBufTypeModelForTrackedUseCaseConfigurator.cs" />
-    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\ProtoBufUtils.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\TrackedUseCaseMessageFormatVersion.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\TrackedUseCaseMessageIndicator.cs" />
     <Compile Include="Operations\Logging\VerifierContext.cs" />
-    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMPerformedOperationsFinalProcessingStrategy.cs" />
+    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMMessageAggregatedProcessingResultHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMMessageAggregatedProcessingResultHandler.Slicer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMPerformedOperationsFinalProcessingStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessor.cs" />
-    <Compile Include="Operations\Processing\Final\MsCRM\ReplicateToCRMMessageAggregatedProcessingResultHandler.cs" />
-    <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\FinalProcessingQueueReceiver.cs" />
-    <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\FinalProcessingQueueReceiverSettings.cs" />
-    <Compile Include="Operations\Processing\Final\Transports\FinalProcessing\IFinalProcessingQueueReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Primary\MsCRM\ReplicateToCRMPerformedOperationsPrimaryProcessingStrategy.cs" />
+    <Compile Include="Operations\Processing\Final\Transports\FinalProcessingQueueReceiver.cs" />
     <Compile Include="Operations\Processing\Primary\HotClient\HotClientPerformedOperationsPrimaryProcessingStrategy.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsFlowProcessor.cs" />
     <Compile Include="Operations\Processing\Primary\PerformedOperationsMessageAggregatedProcessingResultHandler.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\ServiceBusPerformedOperationsMessage.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\DB\DBOnlinePerformedOperationsReceiver.cs" />
-    <Compile Include="Operations\Processing\Primary\PerformedOperationsReceiverSettings.cs" />
-    <Compile Include="Operations\Processing\Primary\IPerformedOperationsReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\DB\PerformedBusinessOperations2TrackedUseCaseTransformer.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\BinaryEntireBrokeredMessage2TrackedUseCaseTransformer.cs" />
     <Compile Include="Operations\Processing\Primary\Transports\ServiceBusForWindowsServer\ServiceBusOperationsReceiver.cs" />
     <Compile Include="PlatformCoreAssembly.cs" />
-    <Compile Include="Operations\Logging\IOperationLogger.cs" />
     <Compile Include="Metadata\Security\OperationSecurityRegistry2.LegalPerson.cs" />
     <Compile Include="Metadata\Security\OperationSecurityRegistry2.Advertisement.cs" />
     <Compile Include="Metadata\Security\OperationAccessRequirement.cs" />
@@ -225,9 +215,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-    <None Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
