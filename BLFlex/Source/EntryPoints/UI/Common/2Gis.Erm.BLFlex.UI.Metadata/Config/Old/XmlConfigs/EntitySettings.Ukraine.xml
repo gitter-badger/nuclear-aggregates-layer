@@ -1947,6 +1947,7 @@
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintTerminationNoticeAction" NameLocaleResourceId="ControlPrintTermNoticeAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintTerminationNotice" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintAdditionalAgreementAction" NameLocaleResourceId="ControlPrintAdditAgreementAction" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintAdditionalAgreement" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="PrintActionsAdditional" Name="PrintLetterOfGuarantee" NameLocaleResourceId="ControlPrintLetterOfGuaranteeAction" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.PrintLetterOfGuarantee" SecurityPrivelegeFlag="0" />
+        <ToolbarItem ParentName="Actions" Name="ChangeProfiles" NameLocaleResourceId="ControlChangeProfiles" ControlType="ImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.ChangeLegalPersonProfile" />
         <ToolbarItem ParentName="Actions" Name="ChangeDeal" NameLocaleResourceId="ControlChangeDeal" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.ChangeDeal" SecurityPrivelegeFlag="34" />
         <ToolbarItem ParentName="Actions" Name="CheckOrder" NameLocaleResourceId="ControlCheckOrder" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.CheckOrder" />
         <ToolbarItem ParentName="Actions" Name="ChangeOwner" NameLocaleResourceId="ControlChangeOwner" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.ChangeOwner" SecurityPrivelegeFlag="524288" />
@@ -2412,7 +2413,7 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="CreateDate" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="CreateDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="PublishDate" NameLocaleResourceId="PricePublishDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BeginDate" NameLocaleResourceId="PublishBeginDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" />
