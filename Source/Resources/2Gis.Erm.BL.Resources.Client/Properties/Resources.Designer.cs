@@ -997,6 +997,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ошибка при обращении к сервису {0}. Обратитесь к разработчикам..
+        /// </summary>
+        public static string ErrorOnServiceAccess {
+            get {
+                return ResourceManager.GetString("ErrorOnServiceAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string ErrorRetrievingDataFromServer {

@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
         public ChooseProfileDialogState GetChooseProfileDialogStateForOrder(long orderId)
         {
-            var order = _orderReadModel.GetOrder(orderId);
+            var order = _orderReadModel.GetOrderSecure(orderId);
             return GetChooseProfileDialogState(order.LegalPersonProfileId, order.LegalPersonId);
         }
 
@@ -49,18 +49,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
             if (!entityLegalPersonId.HasValue)
             {
                 return new ChooseProfileDialogState
-                    {
-                        IsChooseProfileNeeded = true,
-                        LegalPersonProfileId = null
-                    };
+                {
+                    IsChooseProfileNeeded = true,
+                    LegalPersonProfileId = null
+                };
             }
 
             var profileIds = _legalPersonReadModel.GetLegalPersonProfileIds(entityLegalPersonId.Value);
             return new ChooseProfileDialogState
-                {
+            {
                     IsChooseProfileNeeded = IsChooseProfileNeeded(entityLegalPersonProfileId, profileIds),
                     LegalPersonProfileId = GetLegalPersonProfileId(entityLegalPersonProfileId, entityLegalPersonId, profileIds)
-                };
+            };
         }
 
         private bool IsChooseProfileNeeded(long? entityLegalPersonProfileId, IEnumerable<long> profileIds)
@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers.Helpers
 
         public ChooseProfileViewModel GetViewModelByOrder(long orderId, long userId, long? profileId)
         {
-            var order = _orderReadModel.GetOrder(orderId);
+            var order = _orderReadModel.GetOrderSecure(orderId);
             return CreateViewModel(order.LegalPersonId, profileId, !OrderUpdateAccessAllowed(order, userId));
         }
 
