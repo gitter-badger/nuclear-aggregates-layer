@@ -140,7 +140,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                     ReplicationCode = ReplicationCode,
 
                     Name = Name,
-                    ClientReplicationCode = ClientReplicationCode.Value,
+                    ClientReplicationCode = ClientReplicationCode.HasValue ? ClientReplicationCode.Value : Guid.Empty,
                     CloseDate = CloseDate,
                     CloseReasonOther = CloseReasonOther,
                     Comment = Comment,
