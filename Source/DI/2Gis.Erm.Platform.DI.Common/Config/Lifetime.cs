@@ -6,7 +6,7 @@ namespace DoubleGis.Erm.Platform.DI.Common.Config
     {
         public static LifetimeManager Singleton
         {
-            get { return new ContainerControlledLifetimeManager();}
+            get { return new ContainerControlledLifetimeManager(); }
         }
 
         public static LifetimeManager PerResolve

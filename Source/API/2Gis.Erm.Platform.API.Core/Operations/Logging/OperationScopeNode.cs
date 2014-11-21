@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
@@ -12,9 +10,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
         private readonly bool _isRoot;
         private readonly Guid _scopeId;
         private readonly EntityChangesContext _changesContext = new EntityChangesContext();
- 
-        private readonly object _childsSync = new object();
-        private readonly IList<OperationScopeNode> _childs = new List<OperationScopeNode>();
  
         public OperationScopeNode(Guid scopeId, bool isRoot, StrictOperationIdentity operationIdentity)
             : this(scopeId, isRoot, operationIdentity, new EntityChangesContext())
@@ -33,17 +28,6 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
         {
             get { return _changesContext; }
         }
-        
-        public IEnumerable<OperationScopeNode> Childs
-        {
-            get 
-            {
-                lock (_childsSync)
-                {
-                    return _childs.ToArray();
-                }
-            }
-        }
 
         public StrictOperationIdentity OperationIdentity
         {
@@ -59,13 +43,5 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
         {
             get { return _isRoot; }
         }
-
-        public void AddChild(OperationScopeNode childNode)
-        {
-            lock (_childsSync)
-            {
-            _childs.Add(childNode);
-        }
     }
-}
 }

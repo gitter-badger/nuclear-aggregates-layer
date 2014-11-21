@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
         private static readonly object SynchObject = new object();
         private static readonly object Key = new object();
 
-        private HttpContextBase Context
+        private static HttpContextBase Context
         {
             get
             {
@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
             return instances;
         }
 
-        private void RemoveAllInstances()
+        private static void RemoveAllInstances()
         {
             var httpContext = Context;
             ConcurrentDictionary<UnityPerWebRequestLifetimeManager, object> instances = null;
@@ -126,9 +126,9 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
                             if (Context.Response.StatusCode != 500)
                             {
                                 httpContext.AddError(ex);
-                            }
                         }
                     }
+                }
                 }
 
                 instances.Clear();
