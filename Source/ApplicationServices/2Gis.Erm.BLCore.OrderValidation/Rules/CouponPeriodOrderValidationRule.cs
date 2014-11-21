@@ -20,6 +20,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         {
             _finder = finder;
         }
+
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             const int PeriodLengthInDays = 4;
@@ -29,8 +30,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                 : ruleContext.ValidationParams.Single.Period.Start;
 
             var periodEnd = ruleContext.ValidationParams.IsMassValidation
-                                ? ruleContext.ValidationParams.Mass.Period.Start
-                                : ruleContext.ValidationParams.Single.Period.Start;
+                                ? ruleContext.ValidationParams.Mass.Period.End
+                                : ruleContext.ValidationParams.Single.Period.End;
 
             var badAdvertisemements =
                 _finder.Find(ruleContext.OrdersFilterPredicate)
