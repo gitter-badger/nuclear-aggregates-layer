@@ -1,0 +1,122 @@
+﻿using System;
+using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Name;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+
+namespace DoubleGis.Erm.Platform.UI.Metadata
+{
+    public sealed class UiElementMetadataBuilder : MetadataElementBuilder<UiElementMetadataBuilder, UiElementMetadata>
+    {
+        private readonly IdentifiableAspect<UiElementMetadataBuilder, UiElementMetadata> _id;
+        private readonly NameFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _name;
+        private readonly TitleFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _title;
+        private readonly ImageFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _icon;
+        private readonly HandlerFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _handler;
+        private readonly OperationFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> _operation;
+
+        public UiElementMetadataBuilder()
+        {
+            _id = new IdentifiableAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
+            _name = new NameFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
+            _title = new TitleFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
+            _icon = new ImageFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
+            _handler = new HandlerFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
+            _operation = new OperationFeatureAspect<UiElementMetadataBuilder, UiElementMetadata>(this);
+        }
+
+        public NameFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Name
+        {
+            get { return _name; }
+        }
+
+        public TitleFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Title
+        {
+            get { return _title; }
+        }
+
+        public ImageFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Icon
+        {
+            get { return _icon; }
+        }
+
+        public HandlerFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Handler
+        {
+            get { return _handler; }
+        }
+
+        public OperationFeatureAspect<UiElementMetadataBuilder, UiElementMetadata> Operation
+        {
+            get { return _operation; }
+        }
+
+        public IdentifiableAspect<UiElementMetadataBuilder, UiElementMetadata> Id
+        {
+            get { return _id; }
+        }
+
+        protected override UiElementMetadata Create()
+        {
+            if (_id.HasValue)
+            {
+                return new UiElementMetadata(_id.Value, Features.ToArray());
+            }
+
+            var name = Features.OfType<NameFeature>().SingleOrDefault();
+            var title = Features.OfType<TitleFeature>().SingleOrDefault();
+            if (name == null && title == null)
+            {
+                return new UiElementMetadata(IdBuilder.StubUnique, Features.ToArray());
+            }
+
+            string relativePath = null;
+
+            if (name != null)
+            {
+                var resourceDescriptor = name.NameDescriptor as ResourceDescriptor;
+                if (resourceDescriptor != null)
+                {
+                    relativePath = resourceDescriptor.ResourceEntryKey.ResourceHostType.Name + "." + resourceDescriptor.ResourceEntryKey.ResourceEntryName;
+                }
+                else
+                {
+                    var staticDescriptor = name.NameDescriptor as StaticResourceDescriptor;
+                    if (staticDescriptor != null)
+                    {
+                        relativePath = staticDescriptor.Value;
+                    }
+                }    
+            }
+            else 
+            {
+                var resourceDescriptor = title.TitleDescriptor as ResourceTitleDescriptor;
+                if (resourceDescriptor != null)
+                {
+                    relativePath = resourceDescriptor.ResourceEntryKey.ResourceHostType.Name + "." + resourceDescriptor.ResourceEntryKey.ResourceEntryName;
+                }
+                else
+                {
+                    var staticDescriptor = title.TitleDescriptor as StaticTitleDescriptor;
+                    if (staticDescriptor != null)
+                    {
+                        relativePath = staticDescriptor.Title;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(relativePath))
+                {
+                    throw new NotSupportedException(title.TitleDescriptor.GetType().Name + " title descriptor is not supported");
+                }
+            }
+            
+            return new UiElementMetadata(new Uri(relativePath, UriKind.Relative), Features.ToArray());
+        }
+    }
+}

@@ -51,6 +51,12 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\Common\Card\Features\LockOnInactiveFeature.cs" />
+    <Compile Include="Config\Common\Card\Features\Parts\EntityMainAttributeFeature.cs" />
+    <Compile Include="Config\Common\Card\Features\Parts\IPartsContainerElement.cs" />
+    <Compile Include="Config\Common\Card\Features\Parts\IPartFeature.cs" />
+    <Compile Include="Config\Common\Card\Features\Parts\PartFeature.cs" />
+    <Compile Include="Config\Common\Card\MetadataCardsIdentity.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\IBoundViewModelView.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\IViewModelViewMappingFeature.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMappingAspect.cs" />
@@ -59,9 +65,9 @@
     <Compile Include="Config\Common\Hierarchy\HierarchyElementsBuilderExtensions.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\IViewModelViewMapping.cs" />
     <Compile Include="Config\Common\Features\ViewModelViewMap\ViewModelViewMapping.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\Actions\ActionsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\Actions\ActionsFeatureAspect.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\Actions\IActionsContained.cs" />
+    <Compile Include="Config\Common\Features\Actions\ActionsFeature.cs" />
+    <Compile Include="Config\Common\Features\Actions\ActionsFeatureAspect.cs" />
+    <Compile Include="Config\Common\Features\Actions\IActionsContained.cs" />
     <Compile Include="Config\Common\ViewModel\Features\DynamicPropertiesFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\IViewModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\LocalizeViewModelFeature.cs" />
@@ -69,10 +75,10 @@
     <Compile Include="Config\Common\ViewModel\Features\Parts\IViewModelPartsFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Parts\ViewModelPartsFeatureAspect.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Parts\ViewModelPartsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\IRelatedItemsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\IRelatedItemsHost.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\RelatedItemsFeature.cs" />
-    <Compile Include="Config\Common\ViewModel\Features\RelatedItems\RelatedItemsFeatureAspect.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\IRelatedItemsFeature.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\IRelatedItemsHost.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\RelatedItemsFeature.cs" />
+    <Compile Include="Config\Common\Features\RelatedItems\RelatedItemsFeatureAspect.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\CompositeValidatorViewModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\DynamicValidatorModelFeature.cs" />
     <Compile Include="Config\Common\ViewModel\Features\Validator\IDynamicValidatorModelFeature.cs" />
@@ -89,11 +95,16 @@
     <Compile Include="Indicators\IDynamicViewModel.cs" />
     <Compile Include="Indicators\IView.cs" />
     <Compile Include="Indicators\IViewModel.cs" />
+    <Compile Include="Indicators\IViewModelBase.cs" />
     <Compile Include="Indicators\IViewModelIdentity.cs" />
     <Compile Include="Indicators\IViewModelProperty.cs" />
     <Compile Include="Indicators\MVVMIndicators.cs" />
     <Compile Include="Operations\IClientOperationIdentity.cs" />
     <Compile Include="Operations\OperationUtils.cs" />
+    <Compile Include="UiElements\UiElementMetadata.cs" />
+    <Compile Include="UiElements\UiElementMetadataBuilder.cs" />
+    <Compile Include="UiElements\Features\DisableExpressionFeature.cs" />
+    <Compile Include="Config\Common\Card\Features\LockOnNewFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

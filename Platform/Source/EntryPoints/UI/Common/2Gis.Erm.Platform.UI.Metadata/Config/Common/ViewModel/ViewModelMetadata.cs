@@ -8,10 +8,10 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
@@ -126,11 +126,11 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public HierarchyMetadata[] ActionsDescriptors 
+        public UiElementMetadata[] ActionsDescriptors 
         {
             get
             {
-                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new HierarchyMetadata[0];
+                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new UiElementMetadata[0];
             }
         }
     }

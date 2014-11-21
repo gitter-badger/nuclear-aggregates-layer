@@ -55,9 +55,17 @@
     <Compile Include="Boundaries\IPrintingBoundedContext.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Entities\IPropertyDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Entities\PropertyDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\NamedHandlerFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\IUniqueMetadataFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Name\INamedElement.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\ResourceTitleDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\StaticTitleDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeatureAspect.cs" />
     <Compile Include="Common\Elements\Aspects\Identities\IdentifiableAspect.cs" />
     <Compile Include="Common\Elements\Concrete\References\MetadataReference.cs" />
     <Compile Include="Common\Elements\Concrete\References\MetadataReferenceBuilder.cs" />

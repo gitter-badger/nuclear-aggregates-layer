@@ -31,5 +31,12 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
 
             return AspectHostBuilder.AddOperation<TBuilder, TMetadataElement>(ListIdentity.Instance.SpecificFor(entityName));
         }
+
+        public TBuilder Name(string handlerName)
+        {
+            AspectHostBuilder.WithFeatures(new NamedHandlerFeature(handlerName));
+                
+            return AspectHostBuilder;
+        }
     }
 }

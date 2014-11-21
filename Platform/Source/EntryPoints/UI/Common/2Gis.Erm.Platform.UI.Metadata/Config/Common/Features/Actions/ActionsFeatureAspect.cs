@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions
+namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions
 {
     public sealed class ActionsFeatureAspect<TBuilder, TMetadataElement> : MetadataElementBuilderAspectBase<TBuilder, IActionsContained, TMetadataElement>
         where TBuilder : MetadataElementBuilder<TBuilder, TMetadataElement>, new()
@@ -12,7 +11,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Ac
         {
         }
 
-        public TBuilder Attach(params HierarchyMetadata[] actions)
+        public TBuilder Attach(params UiElementMetadata[] actions)
         {
             if (actions == null || actions.Length == 0)
             {
