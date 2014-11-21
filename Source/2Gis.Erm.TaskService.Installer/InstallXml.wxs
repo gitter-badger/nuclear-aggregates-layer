@@ -15,10 +15,10 @@
     <?define EnvironmentName = "Dev" ?>
     <?define UpgradeCode = "91F6EBD1-8ADA-4FFF-BB5E-D506C35D04DC" ?>
     <?define ServiceStartType = "auto" ?>
-    <?define ServiceName = "$(var.EnvironmentName)_$(var.SemanticVersion)" ?>
   <?endif ?>
 
   <!-- calculated properties -->
+  <?define ServiceName = "$(var.EnvironmentName)_$(var.SemanticVersion)" ?>
   <?define ProductLongNameWithVersion = "$(var.ManufacturerProjectName) Task Service ($(var.EnvironmentName)) ($(var.SemanticVersion))" ?>
 
   <!-- detect platform -->
@@ -88,6 +88,9 @@
       <Component>
         <File Source="!(bindpath.LibsDir)\AppFabric 1.1 for Windows Server\Microsoft.WindowsFabric.Data.Common.dll" />
       </Component>
+	  <Component>
+        <File Source="$(var.LibsDir)\protobuf-net_2.0.0.669\protobuf-net.dll" />
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="NugetThirdParty" Directory="INSTALLFOLDER">
@@ -117,16 +120,19 @@
         <File Source="!(bindpath.PackagesDir)\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll" />
+        <File Source="$(var.PackagesDir)\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll" />
       </Component>
       <Component>
         <File Source="!(bindpath.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
@@ -159,9 +165,14 @@
         <File Source="!(bindpath.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Caching.dll" />
       </Component>
       <Component>
+        <File Source="!(bindpath.PackagesDir)\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus.dll" />
+      </Component>
+      <Component>
         <File Source="!(bindpath.PackagesDir)\FastMember.Signed.1.0.0.11\lib\net40\FastMember.dll" />
       </Component>
-
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\ServiceBus.v1_1.1.0.4.0\lib\net40-full\Microsoft.ServiceBus.dll" />
+      </Component>
     </ComponentGroup>
     
     <ComponentGroup Id="TaskService" Directory="INSTALLFOLDER">
