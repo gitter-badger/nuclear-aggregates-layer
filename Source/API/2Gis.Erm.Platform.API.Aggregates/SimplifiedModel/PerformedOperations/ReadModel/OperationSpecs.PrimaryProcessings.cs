@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,9 +11,9 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
         {
             public static class Find
             {
-                public static FindSpecification<PerformedOperationPrimaryProcessing> ByFlowIds(IEnumerable<Guid> flowIds)
+                public static FindSpecification<PerformedOperationPrimaryProcessing> ByFlowId(Guid flowId)
                 {
-                    return new FindSpecification<PerformedOperationPrimaryProcessing>(o => flowIds.Contains(o.MessageFlowId));
+                    return new FindSpecification<PerformedOperationPrimaryProcessing>(o => flowId == o.MessageFlowId);
                 }
             }
         }
