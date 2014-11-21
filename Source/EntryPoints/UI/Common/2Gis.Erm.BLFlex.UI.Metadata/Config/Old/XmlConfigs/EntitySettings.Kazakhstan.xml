@@ -2022,8 +2022,6 @@
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyOrdersOnApproval" HideInCardRelatedGrid="*"  />
       <!--Мои неактивные (заказы закрытые отказом)-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyTerminatedOrders" HideInCardRelatedGrid="*"/>
-      <!--Мои заказы, у которых отсутствуют подписанные документы-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListMyOrdersWithDocumentsDebt" HideInCardRelatedGrid="*"/>
       <!--Все заказы моих подчиненных-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersForSubordinates" HideInCardRelatedGrid="*" />
       <!--Региональные заказы моих подчиненных -->
@@ -2055,8 +2053,6 @@
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListApprovedOrdersWithoutAdvertisement" HideInCardRelatedGrid="*" />
       <!--Заказы в выпуск следующего месяца закрытые отказом-->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListTerminatedOrdersForNextMonthEdition" HideInCardRelatedGrid="*" ExtendedInfo="ForNextMonthEdition=true" />
-      <!--Неподписанные БЗ за текущий выпуск-->
-      <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListOrdersWithDocumentsDebtForNextMonth" HideInCardRelatedGrid="*" ExtendedInfo="ForNextEdition=true"/>
       <!--Список технических расторжений -->
       <DataList BasedOn="DListAllOrders" NameLocaleResourceId="DListTechnicalTerminatedOrders" HideInCardRelatedGrid="*"/>
       <!--Список действительных расторжений -->
