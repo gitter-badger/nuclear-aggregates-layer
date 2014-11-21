@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperati
 {
     public interface IPerformedOperationsProcessingReadModel : ISimplifiedModelConsumerReadModel
     {
-        IReadOnlyDictionary<Guid, PrimaryProcessingFlowStateDto> GetPrimaryProcessingFlowsState(IMessageFlow[] messageFlows);
+        PrimaryProcessingFlowStateDto GetPrimaryProcessingFlowState(IMessageFlow messageFlow);
         IReadOnlyList<DBPerformedOperationsMessage> GetOperationsForPrimaryProcessing(
             IMessageFlow sourceMessageFlow,
             DateTime oldestOperationBoundaryDate,
