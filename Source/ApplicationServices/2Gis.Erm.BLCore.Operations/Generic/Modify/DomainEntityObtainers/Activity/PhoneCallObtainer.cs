@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             phoneCall.ScheduledOn = dto.ScheduledOn;
             phoneCall.Status = dto.Status;
             phoneCall.OwnerCode = dto.OwnerRef.GetId();
+            phoneCall.Timestamp = dto.Timestamp;
 
             return phoneCall;
         }

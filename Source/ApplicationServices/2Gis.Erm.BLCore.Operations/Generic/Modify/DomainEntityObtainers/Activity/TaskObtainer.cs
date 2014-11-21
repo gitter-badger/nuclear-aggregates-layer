@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             task.ScheduledOn = dto.ScheduledOn;
             task.Status = dto.Status;
             task.OwnerCode = dto.OwnerRef.GetId();
+            task.Timestamp = dto.Timestamp;
 
             return task;
         }

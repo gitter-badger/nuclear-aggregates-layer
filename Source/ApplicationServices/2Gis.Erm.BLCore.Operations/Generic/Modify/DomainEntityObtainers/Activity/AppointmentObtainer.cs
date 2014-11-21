@@ -35,6 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             appointment.Status = dto.Status;
             appointment.Location = dto.Location;
             appointment.OwnerCode = dto.OwnerRef.GetId();
+            appointment.Timestamp = dto.Timestamp;
 
             return appointment;
         }

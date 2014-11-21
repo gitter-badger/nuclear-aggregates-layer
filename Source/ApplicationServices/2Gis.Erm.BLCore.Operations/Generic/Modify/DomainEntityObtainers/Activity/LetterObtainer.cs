@@ -33,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             letter.ScheduledOn = dto.ScheduledOn;
             letter.Status = dto.Status;
             letter.OwnerCode = dto.OwnerRef.GetId();
+            letter.Timestamp = dto.Timestamp;
 
             return letter;
         }
