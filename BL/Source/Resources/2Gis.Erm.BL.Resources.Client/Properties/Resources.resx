@@ -969,4 +969,10 @@
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
   </data>
+  <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LimitWillBeIncreased" xml:space="preserve">
+    <value />
+  </data>
 </root>

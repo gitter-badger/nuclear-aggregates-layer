@@ -1860,4 +1860,7 @@
   <data name="DFieldIsMainLegalPerson" xml:space="preserve">
     <value>Основное</value>
   </data>
+  <data name="ControlIncreaseLimit" xml:space="preserve">
+    <value>Увеличить</value>
+  </data>
 </root>

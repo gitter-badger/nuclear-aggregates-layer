@@ -1395,6 +1395,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string LimitIncreasingIsNotRequired {
+            get {
+                return ResourceManager.GetString("LimitIncreasingIsNotRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string LimitStatusApproved {
             get {
                 return ResourceManager.GetString("LimitStatusApproved", resourceCulture);
@@ -1434,6 +1443,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         public static string LimitStatusRejected {
             get {
                 return ResourceManager.GetString("LimitStatusRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LimitWillBeIncreased {
+            get {
+                return ResourceManager.GetString("LimitWillBeIncreased", resourceCulture);
             }
         }
         
