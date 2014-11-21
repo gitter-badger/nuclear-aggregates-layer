@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -14,7 +13,7 @@ using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class ThemeCategoriesValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class ThemeCategoriesValidationRule : OrderValidationRuleBase<MassOverridibleValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -23,15 +22,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(MassOverridibleValidationRuleContext ruleContext)
         {
-            if (!IsCheckMassive)
-            {
-                throw new InvalidOperationException("Check must be massive");
-            }
-
             // Все тематики, использованные в заказах, которые удовлетворяют фильтру, переданному нам свыше
-            var themes = _finder.Find(filterPredicate)
+            var themes = _finder.Find(ruleContext.CombinedPredicate.GetCombinedPredicate())
                                .SelectMany(order => order.OrderPositions)
                                .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                                .SelectMany(position => position.OrderPositionAdvertisements)
@@ -46,17 +40,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                           .Select(link => new { link.Theme, link.Category })
                           .ToArray();
 
-            foreach (var invalid in invalidCategories)
-            {
-                var themeLabel = GenerateDescription(EntityName.Theme, invalid.Theme.Name, invalid.Theme.Id);
-                var categoryLabel = GenerateDescription(EntityName.Category, invalid.Category.Name, invalid.Category.Id);
-                var message = new OrderValidationMessage
-                    {
-                        Type = MessageType.Error,
-                        MessageText = string.Format(BLResources.ThemeUsesInactiveCategory, themeLabel, categoryLabel)
-                    };
-                messages.Add(message);
-            }
+            return invalidCategories.Select(x => new OrderValidationMessage
+                                                     {
+                                                         Type = MessageType.Error,
+                                                         MessageText =
+                                                             string.Format(BLResources.ThemeUsesInactiveCategory,
+                                                                           GenerateDescription(true, EntityName.Theme, x.Theme.Name, x.Theme.Id),
+                                                                           GenerateDescription(true, EntityName.Category, x.Category.Name, x.Category.Id))
+                                                     });
         }
     }
 }

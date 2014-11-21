@@ -697,7 +697,7 @@
     <value>101-300</value>
   </data>
   <data name="StaffAmountFromThreeHundredToFiveHundred" xml:space="preserve">
-    <value>301 - 500</value>
+    <value>301-500</value>
   </data>
   <data name="StaffAmountFromTwentyToFifty" xml:space="preserve">
     <value>21-50</value>
@@ -2012,12 +2012,12 @@
     <value>A link between the legal entity and the deal</value>
   </data>
   <data name="FunctionalPrivilegeNameLegalPersonDeactivationOrActivation" xml:space="preserve">
-    <value>Деактивация/активация юр. лица клиента</value>
+    <value>Deactivation/activation of the customer's legal entity</value>
   </data>
   <data name="OperatesOnTheBasisTypeDecree" xml:space="preserve">
-    <value>Приказа</value>
+    <value>Order</value>
   </data>
   <data name="OperatesOnTheBasisTypeOther" xml:space="preserve">
-    <value>Другое</value>
+    <value>Other</value>
   </data>
 </root>

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.DAL;
@@ -15,7 +14,7 @@ using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class DefaultThemeMustBeSpecifiedValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class DefaultThemeMustBeSpecifiedValidationRule : OrderValidationRuleBase<MassOverridibleValidationRuleContext>
     {
         private readonly IFinder _finder;
 
@@ -24,71 +23,56 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(MassOverridibleValidationRuleContext ruleContext)
         {
-            if (!IsCheckMassive)
-            {
-                throw new InvalidOperationException("Check must be massive");
-            }
-
-            var defaultThemes = GetDefaultThemes(request.OrganizationUnitId, request.Period);
-            GetValidationMessage(request.OrganizationUnitId, defaultThemes, messages);
+            var defaultThemes = GetDefaultThemes(ruleContext.ValidationParams.OrganizationUnitId, ruleContext.ValidationParams.Period);
+            return GetValidationMessage(ruleContext.ValidationParams.OrganizationUnitId, defaultThemes);
         }
 
-        private void GetValidationMessage(long? organizationUnitId, long[] defaultThemes, IList<OrderValidationMessage> messages)
+        private IEnumerable<OrderValidationMessage> GetValidationMessage(long organizationUnitId, long[] defaultThemes)
         {
             switch (defaultThemes.Length)
             {
                 // Нет тематик по-умолчанию
                 case 0:
-                    messages.Add(new OrderValidationMessage
-                    {
-                        Type = MessageType.Error,
-                        MessageText = string.Format(BLResources.DefaultThemeIsNotSpecified, GetOrganizationUnitDescription(organizationUnitId)),
-                    });
-                    break;
+                    return new[]
+                               {
+                                   new OrderValidationMessage
+                                       {
+                                           Type = MessageType.Error,
+                                           MessageText = string.Format(BLResources.DefaultThemeIsNotSpecified, GetOrganizationUnitDescription(organizationUnitId)),
+                                       }
+                               };
 
                 // Ровно одна тематика. Ок.
                 case 1:
-                    break;
+                    return Enumerable.Empty<OrderValidationMessage>();
 
                 // Более одной тематики по умолчанию. Перестраховка.
                 default:
-                    messages.Add(new OrderValidationMessage
-                    {
-                        Type = MessageType.Error,
-                        MessageText = string.Format(BLResources.MoreThanOneDefaultTheme, GetOrganizationUnitDescription(organizationUnitId)),
-                    });
-                    break;
+                    return new[]
+                               {
+                                   new OrderValidationMessage
+                                       {
+                                           Type = MessageType.Error,
+                                           MessageText = string.Format(BLResources.MoreThanOneDefaultTheme, GetOrganizationUnitDescription(organizationUnitId))
+                                       }
+                               };
             }
         }
 
-        private string GetOrganizationUnitDescription(long? organizationUnitId)
+        private string GetOrganizationUnitDescription(long organizationUnitId)
         {
-            if (!organizationUnitId.HasValue)
-            {
-                throw new ArgumentNullException("organizationUnitId");
-            }
-
-            var name = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId.Value))
+            var name = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                          .Select(unit => unit.Name)
                          .SingleOrDefault();
 
-            return GenerateDescription(EntityName.OrganizationUnit, name, organizationUnitId.Value);
+            return GenerateDescription(true, EntityName.OrganizationUnit, name, organizationUnitId);
         }
 
-        private long[] GetDefaultThemes(long? organizationUnitId, TimePeriod period)
+        // TODO {all, 02.10.2014}: разобраться почему не используется organizationUnitId 
+        private long[] GetDefaultThemes(long organizationUnitId, TimePeriod period)
         {
-            if (!organizationUnitId.HasValue)
-            {
-                throw new ArgumentNullException("organizationUnitId");
-            }
-
-            if (period == null)
-            {
-                throw new ArgumentNullException("period");
-            }
-
             // Ищем тематику, установленную по умолчанию, которая действует в течении всего указанного периода для указанного отделения 2гис.
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Theme>())
                          .Where(theme => theme.IsDefault &&
@@ -97,5 +81,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                          .Select(theme => theme.Id)
                          .ToArray();
         }
+
+       
     }
 }
