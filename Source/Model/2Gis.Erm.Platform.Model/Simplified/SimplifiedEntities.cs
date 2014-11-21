@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
 {
     public static class SimplifiedEntities
     {
+        // FIXME {all, 23.09.2014}: в списке simplified model смешаны несколько подтипов сущностей ERM, справочные (валюты и т.п.), чисто системые (primaryprocessing, ordervalidationresults и т.п.), необходимо более четко структурировать DomainModel, и все такие сущности явно класифицировать, системная справочная, или, все таки часть какого-то агрегата
         public static readonly EntityName[] Entities =
             {
                 EntityName.AdditionalFirmService,
@@ -61,7 +62,9 @@ namespace DoubleGis.Erm.Platform.Model.Simplified
                 EntityName.DenialReason,
                 EntityName.PerformedOperationPrimaryProcessing,
                 EntityName.PerformedOperationFinalProcessing,
-                EntityName.BirthdayCongratulation
+                EntityName.BirthdayCongratulation,
+                EntityName.OrderValidationResult,
+                EntityName.OrderValidationCacheEntry
             };
 
         private static readonly IDictionary<EntityName, Type> SimplifiedEntitiesMap = new Dictionary<EntityName, Type>();

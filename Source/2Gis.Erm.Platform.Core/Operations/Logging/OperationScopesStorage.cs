@@ -10,19 +10,19 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
     public sealed class OperationScopesStorage : IOperationScopeContextsStorage, IOperationScopeRegistrar
     {
         private readonly IFlowMarkerManager _flowMarkerManager;
-        private readonly ConcurrentDictionary<Guid, OperationScopeNode> _scopesMap = new ConcurrentDictionary<Guid, OperationScopeNode>();
         private readonly ConcurrentDictionary<Guid, FlowDescriptor> _flowsMap = new ConcurrentDictionary<Guid, FlowDescriptor>();
 
-        private OperationScopeNode _rootScope;
+        private readonly TrackedUseCase _useCase;
 
         public OperationScopesStorage(IFlowMarkerManager flowMarkerManager)
         {
             _flowMarkerManager = flowMarkerManager;
+            _useCase = new TrackedUseCase();
         }
-
-        OperationScopeNode IOperationScopeContextsStorage.RootScope 
+        
+        TrackedUseCase IOperationScopeContextsStorage.UseCase 
         {
-            get { return _rootScope; }
+            get { return _useCase; }
         }
 
         void IOperationScopeContextsStorage.Added<TEntity>(IOperationScope targetScope, IEnumerable<long> changedEntities)
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                                                                   targetEntityType.Name));
             }
 
-            ResolveScopeNode(targetScope.Id).ChangesContext.Added<TEntity>(changedEntities);
+            ResolveOperationNode(targetScope.Id).ChangesContext.Added<TEntity>(changedEntities);
         }
 
         void IOperationScopeContextsStorage.Deleted<TEntity>(IOperationScope targetScope, IEnumerable<long> changedEntities)
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                                                                   targetEntityType.Name));
             }
 
-            ResolveScopeNode(targetScope.Id).ChangesContext.Deleted<TEntity>(changedEntities);
+            ResolveOperationNode(targetScope.Id).ChangesContext.Deleted<TEntity>(changedEntities);
         }
 
         void IOperationScopeContextsStorage.Updated<TEntity>(IOperationScope targetScope, IEnumerable<long> changedEntities)
@@ -58,22 +58,29 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                                                                   targetEntityType.Name));
             }
 
-            ResolveScopeNode(targetScope.Id).ChangesContext.Updated<TEntity>(changedEntities);
+            ResolveOperationNode(targetScope.Id).ChangesContext.Updated<TEntity>(changedEntities);
         }
 
         void IOperationScopeRegistrar.RegisterRoot(IOperationScope rootScope)
         {
-            if (_rootScope != null)
+            OperationScopeNode rootScopeNode;
+            if (_useCase.TryGetRootOperation(out rootScopeNode) && rootScopeNode != null)
             {
                 throw new InvalidOperationException(
-                    string.Format("Can't register scope with id {0} as root. Storage already contains root scope wit id {1}. Possibly info about flow marker was lost because of thread switching and etc.", rootScope.Id, _rootScope.ScopeId));
+                    string.Format("Can't register scope with id {0} as root. Storage already contains root scope with id {1}. Possibly info about flow marker was lost because of thread switching and etc.", rootScope.Id, rootScopeNode.ScopeId));
             }
 
-            _rootScope = new OperationScopeNode(rootScope.Id, rootScope.IsRoot, rootScope.OperationIdentity);
-            _scopesMap.TryAdd(rootScope.Id, _rootScope);
+            if (!rootScope.IsRoot)
+            {
+                throw new InvalidOperationException(
+                    string.Format("Can't register scope with id {0} as root. Scope internally declared is not root", rootScope.Id));
+            }
+
+            rootScopeNode = new OperationScopeNode(rootScope.Id, rootScope.IsRoot, rootScope.OperationIdentity);
+            _useCase.Tracker.AddOperation(rootScopeNode);
 
             var flow = StartFlow();
-            AttachScope2Flow(flow, rootScope);
+            AttachScope2Flow(flow, rootScopeNode);
         }
 
         void IOperationScopeRegistrar.RegisterChild(IOperationScope childScope, IOperationScope parentScope)
@@ -91,12 +98,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 throw new InvalidOperationException("Can't register scope with explicit parent - flow already contains marker");
             }
 
-            var parentScopeNode = ResolveScopeNode(parentScope.Id);
-            var childScopeNode = RegisterNewScope(childScope);
-            parentScopeNode.AddChild(childScopeNode);
+            var childScopeNode = RegisterNewNestedOperationNode(childScope, parentScope.Id);
 
             currentFlow = StartFlow();
-            AttachScope2Flow(currentFlow, childScope);
+            AttachScope2Flow(currentFlow, childScopeNode);
         }
 
         void IOperationScopeRegistrar.RegisterAutoResolvedChild(IOperationScope childScope)
@@ -113,10 +118,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 throw new InvalidOperationException("Can't resolve parent scope - can't get parent scope id from current flow");
             }
 
-            var parentScopeNode = ResolveScopeNode(scopeId);
-            var childScopeNode = RegisterNewScope(childScope);
-            parentScopeNode.AddChild(childScopeNode);
-            AttachScope2Flow(currentFlow, childScope);
+            var childScopeNode = RegisterNewNestedOperationNode(childScope, scopeId);
+            AttachScope2Flow(currentFlow, childScopeNode);
         }
 
         void IOperationScopeRegistrar.Unregister(IOperationScope scope)
@@ -127,14 +130,20 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 throw new InvalidOperationException("Can't get current flow for specified scope " + scope.Id);
             }
 
-            if (TryDeattachScopeFromFlow(currentFlow, scope))
+            if (TryDeattachOperationNodeFromFlow(currentFlow, scope.Id))
             {
                 CloseFlowIfEmpty(currentFlow);
             }
 
-            if (scope.Id == _rootScope.ScopeId && !_flowsMap.IsEmpty)
+            var isRootScope = scope.Id == _useCase.RootNode.ScopeId;
+            if (isRootScope)
             {
-                throw new InvalidOperationException("Can't close root scope with active flows in map. Check child scope exits for correctness.");
+                if (!_flowsMap.IsEmpty)
+                {
+                    throw new InvalidOperationException("Can't close root scope with active flows in map. Check child scope exits for correctness.");
+                }
+
+                _useCase.Tracker.Complete();
             }
         }
 
@@ -155,22 +164,22 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             _flowMarkerManager.ClearMarker(removedDescriptor.Id);
         }
 
-        private bool TryDeattachScopeFromFlow(FlowDescriptor flowDescriptor, IOperationScope scope)
+        private bool TryDeattachOperationNodeFromFlow(FlowDescriptor flowDescriptor, Guid targetOperationNodeId)
         {
             byte stubValue;
-            if (!flowDescriptor.FlowScopes.TryGetValue(scope.Id, out stubValue))
+            if (!flowDescriptor.FlowScopes.TryGetValue(targetOperationNodeId, out stubValue))
             {
                 return false;
             }
 
-            Guid scopeId;
-            if (flowDescriptor.FlowOrder.TryPeek(out scopeId) 
-                && scopeId == scope.Id
-                && flowDescriptor.FlowOrder.TryPop(out scopeId))
+            Guid operationNodeId;
+            if (flowDescriptor.FlowOrder.TryPeek(out operationNodeId)
+                && operationNodeId == targetOperationNodeId
+                && flowDescriptor.FlowOrder.TryPop(out operationNodeId))
             {
-                if (scopeId != scope.Id)
+                if (operationNodeId != targetOperationNodeId)
                 {
-                    throw new InvalidOperationException(string.Format("Deattached scope id:{0} != target scope id:{1}", scopeId, scope.Id));
+                    throw new InvalidOperationException(string.Format("Deattached operation node id:{0} != target operation node id:{1}", operationNodeId, targetOperationNodeId));
                 }
 
                 return true;
@@ -179,26 +188,29 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             return false;
         }
 
-        private OperationScopeNode ResolveScopeNode(Guid scopeId)
+        private OperationScopeNode ResolveOperationNode(Guid operationNodeId)
         {
-            OperationScopeNode targetScopeNode;
-            if (!_scopesMap.TryGetValue(scopeId, out targetScopeNode))
+            OperationScopeNode operationNode;
+            if (!_useCase.TryGetOperation(operationNodeId, out operationNode))
             {
-                throw new InvalidOperationException("Can't find registered operation scope for specified id: " + scopeId);
+                throw new InvalidOperationException("Can't find registered operation scope for specified id: " + operationNodeId);
             }
 
-            return targetScopeNode;
+            return operationNode;
         }
 
-        private OperationScopeNode RegisterNewScope(IOperationScope operationScope)
+        private OperationScopeNode RegisterNewNestedOperationNode(IOperationScope operationScope, Guid parentOperationNodeId)
         {
-            var scopeNode = new OperationScopeNode(operationScope.Id, operationScope.IsRoot, operationScope.OperationIdentity);
-            if (!_scopesMap.TryAdd(operationScope.Id, scopeNode))
+            OperationScopeNode parentOperationNode;
+            if (!_useCase.TryGetOperation(parentOperationNodeId, out parentOperationNode))
             {
-                throw new InvalidOperationException("Can't add same scope more than one times: " + operationScope.Id);
+                throw new InvalidOperationException("Can't find registered operation node for specified parent operation node id: " + parentOperationNodeId);
             }
 
-            return scopeNode;
+            var operationNode = new OperationScopeNode(operationScope.Id, operationScope.IsRoot, operationScope.OperationIdentity);
+            _useCase.Tracker.AddOperation(operationNode);
+            _useCase.Tracker.AttachToParent(parentOperationNodeId, operationNode.ScopeId);
+            return operationNode;
         }
 
         private bool TryGetCurrentFlow(out FlowDescriptor flowDescriptor)
@@ -222,10 +234,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             return flow;
         }
 
-        private void AttachScope2Flow(FlowDescriptor flowDescriptor, IOperationScope scope)
+        private void AttachScope2Flow(FlowDescriptor flowDescriptor, OperationScopeNode operationScopeNode)
         {
-            flowDescriptor.FlowOrder.Push(scope.Id);
-            flowDescriptor.FlowScopes.TryAdd(scope.Id, 0);
+            flowDescriptor.FlowOrder.Push(operationScopeNode.ScopeId);
+            flowDescriptor.FlowScopes.TryAdd(operationScopeNode.ScopeId, 0);
         }
 
         private sealed class FlowDescriptor
