@@ -35,6 +35,7 @@ using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Identities;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -51,8 +52,8 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
@@ -306,8 +307,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             return
                 container
                 // sender
-                    .RegisterTypeWithDependencies<IServiceBusMessageSender, ServiceBusMessageSender>(Lifetime.Singleton, null);
+                    .RegisterTypeWithDependencies<IServiceBusMessageSender, ServiceBusMessageSender>(Lifetime.Singleton, null)
                 // receiver                
+                    .RegisterTypeWithDependencies(typeof(IServiceBusMessageReceiver<>), typeof(ServiceBusMessageReceiver<>), Lifetime.Singleton, null);
+                
         }
     }
 }
