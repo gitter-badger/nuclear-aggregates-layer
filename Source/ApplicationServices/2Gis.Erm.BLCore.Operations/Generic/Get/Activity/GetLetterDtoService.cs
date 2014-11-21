@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var userInfo = UserContext.Identity as IUserInfo ?? UserInfo.Empty;
             var dto = new LetterDomainEntityDto
                 {
-                    ScheduledOn = DateTime.Now.Date,
+                    ScheduledOn = DateTime.Now,
                     Priority = ActivityPriority.Average,
                     Status = ActivityStatus.InProgress,
                     SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User }

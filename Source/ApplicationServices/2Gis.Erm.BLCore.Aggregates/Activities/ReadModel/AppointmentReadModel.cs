@@ -35,12 +35,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Appointment, AppointmentRegardingObject>(entityName, entityId)).Any();
+            return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId)).Any();
         }
         
         public bool CheckIfOpenAppointmentExistsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
                 .ToArray();
 
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
                 .ToArray();
 

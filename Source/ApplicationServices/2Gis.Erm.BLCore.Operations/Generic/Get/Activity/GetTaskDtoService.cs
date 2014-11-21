@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             var dto = new TaskDomainEntityDto
                 {
-                    ScheduledOn = DateTime.Now.Date,
+                    ScheduledOn = DateTime.Now,
                     Priority = ActivityPriority.Average,
                     Status = ActivityStatus.InProgress,
                 };

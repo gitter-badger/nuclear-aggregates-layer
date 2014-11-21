@@ -35,12 +35,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfPhonecallExistsRegarding(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Phonecall, PhonecallRegardingObject>(entityName, entityId)).Any();
+            return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId)).Any();
         }
 
         public bool CheckIfOpenPhonecallExistsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
                 .ToArray();
 
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Phonecall> LookupPhonecallsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
                 .ToArray();
 

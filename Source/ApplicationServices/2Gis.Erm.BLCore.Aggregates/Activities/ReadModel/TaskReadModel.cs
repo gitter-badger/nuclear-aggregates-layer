@@ -30,12 +30,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public bool CheckIfTaskExistsRegarding(EntityName entityName, long entityId)
         {
-            return _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Task, TaskRegardingObject>(entityName, entityId)).Any();
+            return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId)).Any();
         }
 
         public bool CheckIfOpenTaskExistsRegarding(EntityName entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Task, TaskRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
                 .ToArray();
 
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Task> LookupTasksRegarding(EntityName entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByRegardingObject<Task, TaskRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
                 .ToArray();
 
