@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,9 +32,9 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
         private AutoResetEvent _asyncWorkerSignal;
 
         protected MessageFlowProcessorBase(TMessageFlowProcessorSettings processorSettings,
-                                           IMessageReceiverFactory messageReceiverFactory,
-                                           IMessageProcessingTopology processingTopology,
-                                           ICommonLog logger)
+            IMessageReceiverFactory messageReceiverFactory,
+            IMessageProcessingTopology processingTopology,
+            ICommonLog logger)
         {
             ProcessorSettings = processorSettings;
             _messageReceiverFactory = messageReceiverFactory;
@@ -83,6 +84,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 try
                 {
                     _workerTask.Wait();
+                    _asyncWorkerSignal.Close();
                 }
                 catch (Exception ex)
                 {
@@ -194,6 +196,15 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                     Logger.ErrorFormatEx("Messages form flow {0} after processing has failed elements. {1}", SourceMessageFlow, processingSummary);
                 }
 
+                /* проверка скорости работы транспорта при исключении топологии 
+                topologyProcessingResults = new TopologyProcessingResults()
+                    {
+                        Failed = new IMessage[0],
+                        Passed = flowMessages,
+                        Succeeded = flowMessages
+                    };*/
+
+
                 messageReceiver.Complete(topologyProcessingResults.Succeeded, topologyProcessingResults.Failed);
 
                 return new ProcessingResult
@@ -214,7 +225,7 @@ namespace DoubleGis.Erm.Platform.Core.Messaging.Processing.Processors
                 var batchProcessingTime = stopwatch.ElapsedMilliseconds / 1000.0;
                 var rateMsg = flowMessages == null || flowMessages.Count == 0
                                   ? "not measured 0 messages was provided by receiver"
-                                  : (ProcessorSettings.MessageBatchSize / batchProcessingTime).ToString();
+                                  : (flowMessages.Count / batchProcessingTime).ToString();
                 _logger.DebugFormatEx("Processing flow {0} rate msg/sec: {1}", SourceMessageFlow, rateMsg);
 
                 var disposableMessageReceiver = messageReceiver as IDisposable; 

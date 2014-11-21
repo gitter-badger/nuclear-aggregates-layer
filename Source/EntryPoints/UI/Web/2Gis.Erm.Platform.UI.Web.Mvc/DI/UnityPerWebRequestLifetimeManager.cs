@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI
 {
     public sealed class UnityPerWebRequestLifetimeManager : LifetimeManager
     {
-        private HttpContextBase Context
+        private static HttpContextBase Context
         {
             get
             {

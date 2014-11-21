@@ -33,6 +33,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             _strictOperationIdentity = strictOperationIdentity;
             _operationScopeContextsStorage = operationScopeContextsStorage;
             _operationScopeLifetimeManager = operationScopeLifetimeManager;
+
+            // COMMENT {all, 28.07.2014}: хотя инфраструктура operationscopes содержит базу для работы в режиме многопоточности (на уровне контрактов, использование callcontext и т.п.) - здесь используется transctionscope в самом простом виде,  при реальном начале использования многопоточных usecases необходимы доработки - dependent transaction и т.п.
             _transactionScope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default);
         }
 
