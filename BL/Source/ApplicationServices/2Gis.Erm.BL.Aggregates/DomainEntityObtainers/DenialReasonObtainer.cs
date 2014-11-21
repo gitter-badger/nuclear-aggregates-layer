@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BL.Aggregates.DomainEntityObtainers
             entity.Name = dto.Name;
             entity.Description = dto.Description;
             entity.ProofLink = dto.ProofLink;
-            entity.Type = (int)dto.Type;
+            entity.Type = dto.Type;
             entity.Timestamp = dto.Timestamp;
             return entity;
         }

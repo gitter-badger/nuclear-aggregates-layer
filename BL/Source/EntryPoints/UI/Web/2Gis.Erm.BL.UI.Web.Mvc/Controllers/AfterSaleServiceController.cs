@@ -88,8 +88,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                         StartTime = DateTime.UtcNow,
                         Guid = Guid.NewGuid(),
                         OrganizationUnitId = model.OrganizationUnit.Key,
-                        Status = (byte)OperationStatus.InProgress,
-                        Type = (short)BusinessOperation.AfterSaleServiceActivitiesCreation,
+                        Status = OperationStatus.InProgress,
+                        Type = BusinessOperation.AfterSaleServiceActivitiesCreation,
                     };
                 _operationService.Add(operation);
 
@@ -163,7 +163,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             operation.Description = operation.Description + " " + operationAdditionalInfo;
             model.Message = operationAdditionalInfo;
 
-            operation.Status = (byte)operationStatus;
+            operation.Status = operationStatus;
         }
     }
 }
