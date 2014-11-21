@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Transactions;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
@@ -30,9 +30,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
         private const int BatchSize = 1500;
 
         private static readonly XNamespace SqlServerNamespace = "http://schemas.microsoft.com/sqlserver/2004/07/showplan";
-        private static readonly IMessageFlow SourceMessageFlow = PrimaryReplicate2ElasticSearchPerformedOperationsFlow.Instance;
-        private static readonly DateTime IgnoreOperationsPrecedingDate = DateTime.UtcNow.AddDays(-5);
-                                                                        //new DateTime(2014, 10, 21, 8, 49, 06, 08, DateTimeKind.Utc).AddHours(-2);
+        private static readonly IMessageFlow SourceMessageFlow = PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance;
 
         private readonly IConnectionStringSettings _connectionStringSettings;
         private readonly IFinder _finder;
@@ -79,32 +77,22 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
         {
             _useCaseTuner.AlterDuration<PerformedOperationsProcessingReadModelTest>();
 
-            IReadOnlyList<DBPerformedOperationsMessage> operations = null;
+            var sourceFlowState = _readModel.GetPrimaryProcessingFlowState(SourceMessageFlow);
+            var oldestOperationBoundaryWithOffset = (sourceFlowState != null ? sourceFlowState.OldestProcessingTargetCreatedDate : DateTime.UtcNow).AddHours(-2);
+
             _producedQueryLogContainer.Reset();
+            var operations = _readModel.GetOperationsForPrimaryProcessing(SourceMessageFlow, oldestOperationBoundaryWithOffset, BatchSize);
+            var operationsForPrimaryProcessingByReadModelQuery = _producedQueryLogContainer.Queries.Single();
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            try
-            {
-                operations = _readModel.GetOperationsForPrimaryProcessing(SourceMessageFlow, IgnoreOperationsPrecedingDate, BatchSize);
-                stopwatch.Stop();
-                _logger.InfoEx("Get operations for primaryprocessing in " + stopwatch.Elapsed.TotalSeconds);
-            }
-            catch (Exception ex)
-            {
-                stopwatch.Stop();
-                _logger.ErrorEx(ex, "Can't get operations for primaryprocessing, failed after " + stopwatch.Elapsed.TotalSeconds);
-            }
-
-            var operationsForPrimaryProcessingByReadModel = _producedQueryLogContainer.Queries.Single();
-
-             _producedQueryLogContainer.Reset();
-            var operationsAlternative = GetOperationsForPrimaryProcessingAlternative(SourceMessageFlow, IgnoreOperationsPrecedingDate, BatchSize);
-            var operationsForPrimaryProcessingByAlternativeMethod = _producedQueryLogContainer.Queries.Single();
+            /*
+            _producedQueryLogContainer.Reset();
+            var operationsAlternative = GetOperationsForPrimaryProcessingAlternative(SourceMessageFlow, oldestOperationBoundaryWithOffset, BatchSize);
+            var operationsForPrimaryProcessingByAlternativeMethodQuery = _producedQueryLogContainer.Queries.Single();
 
             using (new TransactionScope(TransactionScopeOption.RequiresNew))
             {
-                ExecuteLoggedQueries(new[] { operationsForPrimaryProcessingByReadModel, operationsForPrimaryProcessingByAlternativeMethod });
-            }
+                ExecuteLoggedQueries(new[] { operationsForPrimaryProcessingByReadModelQuery, operationsForPrimaryProcessingByAlternativeMethodQuery });
+            }*/
 
             return operations != null;
         }
@@ -149,8 +137,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             int maxUseCaseCount)
         {
             var performedOperations = _finder.Find(OperationSpecs.Performed.Find.AfterDate(oldestOperationBoundaryDate));
-            var processingTargetUseCases =
-                _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowIds(new[] { sourceMessageFlow.Id }))
+            var processingTargetUseCases = _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowId(sourceMessageFlow.Id))
                        .OrderBy(targetUseCase => targetUseCase.CreatedOn)
                        .Take(maxUseCaseCount);
 
