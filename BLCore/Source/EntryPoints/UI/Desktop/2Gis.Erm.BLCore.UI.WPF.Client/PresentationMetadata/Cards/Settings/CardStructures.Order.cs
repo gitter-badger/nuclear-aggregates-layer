@@ -4,12 +4,12 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards.Generated;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using DoubleGis.Erm.Platform.UI.Metadata;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation;
 
@@ -29,26 +29,26 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
                     () => BLResources.TitleControl,
                     () => BLResources.AdministrationTabTitle)
                 .Actions.Attach(
-                    HierarchyMetadata.Config
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlSave)
                         .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>(),
-                    HierarchyMetadata.Config
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlSaveAndClose)
                         .Operation.SpecificFor<ModifyBusinessModelEntityIdentity, Order>()
                         .Operation.NonCoupled<CloseIdentity>(),
-                    HierarchyMetadata.Config
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
                         .Operation.SpecificFor<GetDomainEntityDtoIdentity, Order>(),
-                    HierarchyMetadata.Config
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlAssign)
                         .Operation.SpecificFor<AssignIdentity, Order>(),
-                    HierarchyMetadata.Config
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlClose)
                         .Operation.NonCoupled<CloseIdentity>(),
-                    HierarchyMetadata.Config
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.ControlActions)
                         .Childs(
-                            HierarchyMetadata.Config
+                            UiElementMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                 .Operation.SpecificFor<PrintIdentity, Order>()))
                 .RelatedItems.Attach(
