@@ -756,6 +756,7 @@
     <Compile Include="2.1\2014.10.20 rev. 25380 - Alter OrderValidationResults table.cs" />
     <Compile Include="2.1\2014.10.20 rev. 25393 - Alter OrderValidationResults.cs" />
     <Compile Include="2.1\2014.09.19 rev. 24442 - Batch replication.cs" />
+    <Compile Include="2.1\2014.11.12 rev. 25950 - Create index for primary processings table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12459 - manage BusinessOperationServices.cs" />
     <Compile Include="1.2\2013.10.07 rev. 12468 - manage BusinessOperationServices.cs" />
