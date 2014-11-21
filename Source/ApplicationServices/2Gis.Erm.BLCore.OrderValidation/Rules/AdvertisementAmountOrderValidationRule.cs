@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -16,7 +17,7 @@ using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class AdvertisementAmountOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class AdvertisementAmountOrderValidationRule : OrderValidationRuleBase<BrowsableResultsValidationRuleContext>
     {
         private readonly IFinder _finder;
         private readonly IPriceRepository _priceRepository;
@@ -29,30 +30,20 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _logger = logger;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(BrowsableResultsValidationRuleContext ruleContext)
         {
             long organizationUnitId;
             long actualPriceId;
             Expression<Func<Order, bool>> orderFilter;
             Expression<Func<PricePosition, bool>> pricePositionFilter;
 
-            if (request == null)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                throw new ArgumentNullException("request");
-            }
-
-            if (!IsCheckMassive)
-            {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentNullException("OrderId");
-                }
-
                 long? firmId;
-                orderFilter = GetFilterPredicateToGetLinkedOrders(_finder, request.OrderId.Value, out organizationUnitId, out firmId);
+                orderFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
 
                 var singleOrderCategoryPositionIds =
-                    _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)) // request.OrderId is not null for individual check
+                    _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId))
                 
                            .SelectMany(x => x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).SelectMany(y => y.OrderPositionAdvertisements))
                            .Select(x => x.Position.CategoryId)
@@ -62,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     x => x.IsActive && x.IsDeleted == false && x.Position.IsControlledByAmount && singleOrderCategoryPositionIds.Contains(x.Position.CategoryId);
 
                 // Для единичной проверки берём прайс-лист, связанный с позициями проверяемого заказа
-                var prices = _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)) // request.OrderId is not null for individual check
+                var prices = _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId))
                                     .SelectMany(order => order.OrderPositions)
                                     .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                                     .Select(orderPosition => orderPosition.PricePosition.PriceId)
@@ -72,8 +63,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // Если не найдено прайс-листа для проверки, то и проверять нечего
                 if (prices.Length == 0)
                 {
-                    _logger.WarnFormatEx("Для единичной проверки по заказу {0} не было найдено прайс-листов.", request.OrderId);
-                    return;
+                    _logger.WarnFormatEx("Для единичной проверки по заказу {0} не было найдено прайс-листов.", ruleContext.ValidationParams.Single.OrderId);
+                    return Enumerable.Empty<OrderValidationMessage>();
                 }
 
                 // Заказ не должен иметь позиции из разных прайс-листов, но так случиться может.
@@ -83,31 +74,26 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 if (prices.Length > 1)
                 {
                     _logger.WarnFormatEx("Для единичной проверки по заказу {0} было {1} прайс-листов. Использован {2}",
-                                         request.OrderId,
+                                         ruleContext.ValidationParams.Single.OrderId,
                                          prices.Length,
                                          actualPriceId);
                 }
             }
             else
             {
-                if (request.OrganizationUnitId == null)
-                {
-                    throw new ArgumentNullException("OrganizationUnitId");
-                }
+                orderFilter = ruleContext.OrdersFilterPredicate;
 
-                orderFilter = filterPredicate;
-
-                organizationUnitId = request.OrganizationUnitId.Value;
+                organizationUnitId = ruleContext.ValidationParams.Mass.OrganizationUnitId;
 
                 pricePositionFilter = x => x.IsActive && x.IsDeleted == false && x.Position.IsControlledByAmount;
 
                 // Для массовой проверки берём прайс-лист, актуальный прайс-лист на указанный в проверке месяц
-                if (!_priceRepository.TryGetActualPriceId(organizationUnitId, request.Period.Start, out actualPriceId))
+                if (!_priceRepository.TryGetActualPriceId(organizationUnitId, ruleContext.ValidationParams.Mass.Period.Start, out actualPriceId))
                 {
-                    throw new NotificationException(string.Format(BLResources.ActualPriceNotFound, organizationUnitId, request.Period.Start));
+                    throw new BusinessLogicException(string.Format(BLResources.ActualPriceNotFound, organizationUnitId, ruleContext.ValidationParams.Mass.Period.Start));
                 }
 
-                _logger.InfoFormatEx("Для массовой проверки по городу {0} за {1} выбран прайс-лист {2}", organizationUnitId, request.Period.Start, actualPriceId);
+                _logger.InfoFormatEx("Для массовой проверки по городу {0} за {1} выбран прайс-лист {2}", organizationUnitId, ruleContext.ValidationParams.Mass.Period.Start, actualPriceId);
             }
 
             var pricePositions = _finder.Find(Specs.Find.ById<Price>(actualPriceId))
@@ -159,14 +145,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             DateTime beginCheckPeriod;
             DateTime endCheckPeriod;
-            if (IsCheckMassive)
+            if (ruleContext.ValidationParams.IsMassValidation)
             {
-                beginCheckPeriod = request.Period.Start;
-                endCheckPeriod = request.Period.End;
+                beginCheckPeriod = ruleContext.ValidationParams.Mass.Period.Start;
+                endCheckPeriod = ruleContext.ValidationParams.Mass.Period.End;
             }
             else
             {
-                var orderToCheck = _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)).Single();
+                var orderToCheck = _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).Single();
                 beginCheckPeriod = orderToCheck.BeginDistributionDate;
                 endCheckPeriod = orderToCheck.EndDistributionDateFact;
             }
@@ -194,13 +180,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 }
             }
 
+            var results = new List<OrderValidationMessage>();
+
             foreach (var pricePosition in pricePositions)
             {
                 if (pricePosition.MinAdvertisementAmount == null)
                 {
-                    messages.Add(new OrderValidationMessage
+                    results.Add(new OrderValidationMessage
                         {
-                            Type = IsCheckMassive ? MessageType.Error : MessageType.Warning,
+                            Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning,
                             OrderNumber = string.Empty,
                             MessageText = string.Format(BLResources.PricePositionHasNoMinAdvertisementAmount, pricePosition.Name)
                         });
@@ -214,7 +202,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     var key = new CategoryCompositeKey(pricePosition.CategoryId, monthToCheck);
                     if (!advertisementDistributioins.ContainsKey(key) && pricePosition.MinAdvertisementAmount > 0)
                     {
-                        messages.Add(GetMessage(pricePosition.Name,
+                        results.Add(GetMessage(pricePosition.Name,
                                                 pricePosition.MinAdvertisementAmount.Value,
                                                 pricePosition.MaxAdvertisementAmount,
                                         0,
@@ -229,9 +217,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         continue;
                     }
 
-                    var invalidOrderPositionsAmount = !IsCheckMassive
+                    var invalidOrderIds = GetInvalidOrderIdsFromValidationResults(ruleContext.ResultsBrowser);
+
+                    var invalidOrderPositionsAmount = !ruleContext.ValidationParams.IsMassValidation
                                                           ? 0
-                                                          : advertisementDistributioins[key].Count(x => invalidOrderIds != null && invalidOrderIds.Contains(x.OrderId));
+                                                          : advertisementDistributioins[key].Count(x => invalidOrderIds.Contains(x.OrderId));
                     var totalOrderPositionsAmount = advertisementDistributioins[key].Count;
                     var validOrderPositionsAmount = totalOrderPositionsAmount - invalidOrderPositionsAmount;
 
@@ -246,14 +236,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                             totalOrderPositionsAmount,
                                        monthToCheck);
 
-                        message.Type = IsCheckMassive ? MessageType.Error : MessageType.Warning;
+                        message.Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning;
 
-                        messages.Add(message);
+                        results.Add(message);
                     }
                     else if (pricePosition.MaxAdvertisementAmount != null &&
                              validOrderPositionsAmount > pricePosition.MaxAdvertisementAmount)
                     {
-                        messages.Add(GetMessage(pricePosition.Name,
+                        results.Add(GetMessage(pricePosition.Name,
                                                 pricePosition.MinAdvertisementAmount.Value,
                                                 pricePosition.MaxAdvertisementAmount,
                                                 invalidOrderPositionsAmount,
@@ -263,6 +253,41 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     }
                 }
             }
+
+            return results;
+        }
+
+        private static IEnumerable<long> GetInvalidOrderIdsFromValidationResults(IValidationResultsBrowser validationResultsBrowser)
+        {
+            var invalidOrderIds = new HashSet<long>();
+
+            foreach (var validator in validationResultsBrowser.ScheduledValidatorsSequence)
+            {
+                IReadOnlyDictionary<long, byte[]> validatorTargetOrders;
+                IReadOnlyList<OrderValidationMessage> validatorResults;
+                if (!validationResultsBrowser.TryGetValidatorReport(validator, out validatorTargetOrders, out validatorResults))
+                {
+                    throw new InvalidOperationException("Can't get report for validator. " + validator);
+                }
+
+                if (validatorResults == null)
+                {   // т.е. проверка через rule была запущена, однако, результатов проверки нет в контейнере, возможно во время работы возникло исключение, т.е. фактически проверка не выполнена
+                    // в данном контексте может не быть результатов данного validation rule, т.к. он ещё выполняется
+                    continue;
+                }
+
+                foreach (var result in validatorResults)
+                {
+                    if (!result.IsOrderSpecific() || !result.IsInvalid())
+                    {
+                        continue;
+                    }
+
+                    invalidOrderIds.Add(result.OrderId);
+                }
+            }
+
+            return invalidOrderIds;
         }
 
         private static OrderValidationMessage GetMessage(string positionName,

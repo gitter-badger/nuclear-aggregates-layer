@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
+using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
-    public sealed class CouponIsUniqueForFirmOrderValidationRule : OrderValidationRuleCommonPredicate
+    public sealed class CouponIsUniqueForFirmOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         // Выгодные покупки с 2ГИС
         private const int BargainWith2GisPositionCategoryId = 14;
@@ -25,62 +22,54 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             _finder = finder;
         }
 
-        protected override void ValidateInternal(ValidateOrdersRequest request, Expression<Func<Order, bool>> filterPredicate, IEnumerable<long> invalidOrderIds, IList<OrderValidationMessage> messages)
+        protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            var predicate = filterPredicate;
+            var predicate = ruleContext.OrdersFilterPredicate;
             long? firmId = null;
-            if (!IsCheckMassive)
+            if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                if (request.OrderId == null)
-                {
-                    throw new ArgumentNullException("request.OrderId");
-                }
-
                 long organizationUnitId;
-                predicate = GetFilterPredicateToGetLinkedOrders(_finder, request.OrderId.Value, out organizationUnitId, out firmId);
+                predicate = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
             var couponFails = _finder.Find(predicate)
-            .Where(x => IsCheckMassive || (firmId.HasValue && x.FirmId == firmId.Value))
-            .SelectMany(x => x.OrderPositions)
-            .Where(x => x.IsActive && !x.IsDeleted)
-            .SelectMany(x => x.OrderPositionAdvertisements)
-            .Where(x => x.Position.CategoryId == BargainWith2GisPositionCategoryId && x.AdvertisementId.HasValue && x.AdvertisementId != x.Advertisement.AdvertisementTemplate.DummyAdvertisementId)
-            .GroupBy(x => new
-            {
-                // advertidement description
-                AdvertisementId = x.AdvertisementId.Value,
-                AdvertisementName = x.Advertisement.Name,
-                x.OrderPosition.Order.FirmId
-            },
-            x => new
-            {
-                // order position description
-                x.OrderPositionId,
-                OrderPositionName = x.Position.Name,
+                                    .Where(x => ruleContext.ValidationParams.IsMassValidation || (firmId.HasValue && x.FirmId == firmId.Value))
+                                    .SelectMany(x => x.OrderPositions)
+                                    .Where(x => x.IsActive && !x.IsDeleted)
+                                    .SelectMany(x => x.OrderPositionAdvertisements)
+                                    .Where(x => x.Position.CategoryId == BargainWith2GisPositionCategoryId && x.AdvertisementId.HasValue && x.AdvertisementId != x.Advertisement.AdvertisementTemplate.DummyAdvertisementId)
+                                    .GroupBy(x => new
+                                    {
+                                        // advertidement description
+                                        AdvertisementId = x.AdvertisementId.Value,
+                                        AdvertisementName = x.Advertisement.Name,
+                                        x.OrderPosition.Order.FirmId
+                                    },
+                                    x => new
+                                    {
+                                        // order position description
+                                        x.OrderPositionId,
+                                        OrderPositionName = x.Position.Name,
 
-                // order description
-                x.OrderPosition.OrderId,
-                OrderNumber = x.OrderPosition.Order.Number,
-            })
-            .Where(x => x.Count() > 1)
-            .ToArray();
+                                        // order description
+                                        x.OrderPosition.OrderId,
+                                        OrderNumber = x.OrderPosition.Order.Number,
+                                    })
+                                    .Where(x => x.Count() > 1)
+                                    .ToArray();
 
-            foreach (var couponFail in couponFails)
-            {
-                var advertisementDescription = GenerateDescription(EntityName.Advertisement, couponFail.Key.AdvertisementName, couponFail.Key.AdvertisementId);
-
-                var orderPositions = string.Join(", ", couponFail.Select(x => GenerateDescription(EntityName.OrderPosition, x.OrderPositionName, x.OrderPositionId)));
-
-                messages.Add(new OrderValidationMessage
+            return couponFails.Select(x => new OrderValidationMessage
                 {
                     Type = MessageType.Error,
-                    OrderId = couponFail.First().OrderId,
-                    OrderNumber = couponFail.First().OrderNumber,
+                    OrderId = x.First().OrderId,
+                    OrderNumber = x.First().OrderNumber,
 
-                    MessageText = string.Format(CultureInfo.CurrentCulture, BLResources.CouponIsBoundToMultiplePositionTemplate, advertisementDescription, orderPositions),
+                    MessageText = 
+                        string.Format(
+                            BLResources.CouponIsBoundToMultiplePositionTemplate,
+                            GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Advertisement, x.Key.AdvertisementName, x.Key.AdvertisementId),
+                            string.Join(", ", x.Select(p => GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.OrderPosition, p.OrderPositionName, p.OrderPositionId)))),
                 });
-            }
         }
     }
 }

@@ -1,41 +1,66 @@
-using System.Text;
+using System;
+using System.Collections.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {
     public static class ValidationUtils
     {
-        public static bool IsMassive(this ValidationType validationType)
+        public static bool IsOrderSpecific(this OrderValidationMessage orderValidationMessage)
         {
-            return validationType == ValidationType.PreReleaseBeta ||
-                   validationType == ValidationType.PreReleaseFinal ||
-                   validationType == ValidationType.ManualReport ||
-                   validationType == ValidationType.ManualReportWithAccountsCheck;
+            return orderValidationMessage.OrderId != 0;
         }
 
-        public static string AsDescription(this ValidateOrdersRequest validateOrdersRequest)
+        public static bool IsInvalid(this OrderValidationMessage orderValidationMessage)
         {
-            var description = new StringBuilder();
+            return orderValidationMessage.Type == MessageType.Error || orderValidationMessage.Type == MessageType.Warning;
+        }
 
-            description.AppendFormat("ValidationType: {0}. Token: {1}. ", validateOrdersRequest.Type, validateOrdersRequest.Token);
-            if (validateOrdersRequest.Type.IsMassive())
+        public static ValidationResult ToValidationResult(this IValidationResultsBrowser validationResultsBrowser)
+        {
+            var validatedOrders = new HashSet<long>();
+
+            var errorsWithOrderSpecifed = new List<OrderValidationMessage>();
+            var errorsWithoutOrders = new List<OrderValidationMessage>();
+
+            foreach (var validator in validationResultsBrowser.ScheduledValidatorsSequence)
             {
-                description.AppendFormat(
-                    "OrganizationUnitId: {0}. Period: {1}. Owner: {2}. IncludeOwnerDescendants: {3}", 
-                    validateOrdersRequest.OrganizationUnitId, 
-                    validateOrdersRequest.Period, 
-                    validateOrdersRequest.OwnerId.HasValue ? validateOrdersRequest.OwnerId.Value.ToString() : "Not used",
-                    validateOrdersRequest.OwnerId.HasValue ? "IncludeOwnerDescendants: " + validateOrdersRequest.IncludeOwnerDescendants : string.Empty);
-            }
-            else
-            {
-                description.AppendFormat(
-                    "OrderId: {0}. CurrentState: {1}. TargetState: {2}",
-                    validateOrdersRequest.OrderId,
-                    validateOrdersRequest.CurrentOrderState,
-                    validateOrdersRequest.NewOrderState);
+                IReadOnlyDictionary<long, byte[]> validatorTargetOrders;
+                IReadOnlyList<OrderValidationMessage> validatorResults;
+                if (!validationResultsBrowser.TryGetValidatorReport(validator, out validatorTargetOrders, out validatorResults))
+                {
+                    throw new InvalidOperationException("Can't get report for validator. " + validator);
+                }
+
+                foreach (var orderId in validatorTargetOrders.Keys)
+                {
+                    validatedOrders.Add(orderId);
+                }
+
+                if (validatorResults == null)
+                {   // т.е. проверка через rule была запущена, однако, результатов проверки нет в контейнере, возможно во время работы возникло исключение, т.е. фактически проверка не выполнена
+                    // TODO {all, 01.10.2014}: подумать какая реакция здесь нужна 
+                    throw new NotSupportedException();
+                }
+
+                foreach (var result in validatorResults)
+                {
+                    if (result.IsOrderSpecific())
+                    {
+                        errorsWithOrderSpecifed.Add(result);
+                    }
+                    else
+                    {
+                        errorsWithoutOrders.Add(result);
+                    }
+                }
             }
 
-            return description.ToString();
+            // Вынесем ошибки не связанные с заказом в конец, сохраняя порядок
+            var messages = new OrderValidationMessage[errorsWithOrderSpecifed.Count + errorsWithoutOrders.Count];
+            errorsWithOrderSpecifed.CopyTo(messages);
+            errorsWithoutOrders.CopyTo(messages, errorsWithOrderSpecifed.Count);
+
+            return new ValidationResult { OrderCount = validatedOrders.Count, Messages = messages };
         }
     }
 }
