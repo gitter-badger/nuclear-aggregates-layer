@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 _dealChangeStageAggregateService.ChangeStage(
                     dealInfos
-                        .Where(i => i.Deal.DealStage != (int)DealStage.OrderApprovedForRelease && !i.HasInactiveLocks)
+                        .Where(i => i.Deal.DealStage != DealStage.OrderApprovedForRelease && !i.HasInactiveLocks)
                         .Select(i => new DealChangeStageDto
                             {
                                 Deal = i.Deal,

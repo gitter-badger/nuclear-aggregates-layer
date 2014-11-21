@@ -49,20 +49,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
         public void SetProcessingState(LocalMessage localMessage)
         {
-            localMessage.Status = (int)LocalMessageStatus.Processing;
+            localMessage.Status = LocalMessageStatus.Processing;
             _localMessageGenericRepository.Update(localMessage);
             _localMessageGenericRepository.Save();
         }
 
         public LocalMessageDto GetMessageToProcess()
         {
-            var hasProcessingMessages = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == (int)LocalMessageStatus.Processing).Any();
+            var hasProcessingMessages = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.Processing).Any();
             if (hasProcessingMessages)
             {
                 return null;
             }
 
-            var localMessage = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == (int)LocalMessageStatus.WaitForProcess)
+            var localMessage = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.WaitForProcess)
                                 .OrderBy(x => x.CreatedOn)
                                 .Select(x => new LocalMessageDto
                                 {
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
         public void SetWaitForProcessState(long localMessageId)
         {
             var localMessage = _finder.Find(Specs.Find.ById<LocalMessage>(localMessageId)).Single();
-            localMessage.Status = (int)LocalMessageStatus.WaitForProcess;
+            localMessage.Status = LocalMessageStatus.WaitForProcess;
             _localMessageGenericRepository.Update(localMessage);
             _localMessageGenericRepository.Save();
         }
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
         {
             var period = DateTime.UtcNow.AddMinutes(-periodInMinutes);
 
-            var localMessages = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == (int)LocalMessageStatus.Processing &&
+            var localMessages = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.Processing &&
                                                                 (x.ModifiedOn.HasValue ? x.ModifiedOn <= period : x.CreatedOn <= period))
                 .OrderBy(x => x.CreatedOn)
                 .ToArray();
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
         public void SetResult(LocalMessage localMessage, LocalMessageStatus localMessageStatus, IEnumerable<string> messages, long processingTime)
         {
-            localMessage.Status = (int)localMessageStatus;
+            localMessage.Status = localMessageStatus;
             localMessage.ProcessingTime = processingTime;
 
             var stringBuilder = new StringBuilder();

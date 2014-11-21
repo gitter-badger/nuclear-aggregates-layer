@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.Operations
                         PeriodStartDate = period.Start,
                         PeriodEndDate = period.End,
                         OrganizationUnitId = organizationUnitId,
-                        Status = (short)targetStatus,
+                        Status = targetStatus,
                         IsBeta = isBeta,
                         OwnerCode = _userContext.Identity.Code,
                         IsActive = true

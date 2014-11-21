@@ -153,12 +153,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             report = null;
 
-            if (withdrawal == null || withdrawal.Status == (int)WithdrawalStatus.Error || withdrawal.Status == (int)WithdrawalStatus.Reverted)
+            if (withdrawal == null || withdrawal.Status == WithdrawalStatus.Error || withdrawal.Status == WithdrawalStatus.Reverted)
             {
                 return true;
             }
 
-            report = "Forbidden previous withdrawal status " + (WithdrawalStatus)withdrawal.Status;
+            report = "Forbidden previous withdrawal status " + withdrawal.Status;
             return false;
         }
 
@@ -170,7 +170,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                             new TimePeriod(acquiredWithdrawal.PeriodStartDate, acquiredWithdrawal.PeriodEndDate));
             return lockedWithdrawal != null
                     && lockedWithdrawal.Id == acquiredWithdrawal.Id
-                    && (WithdrawalStatus)lockedWithdrawal.Status == WithdrawalStatus.Withdrawing
+                    && lockedWithdrawal.Status == WithdrawalStatus.Withdrawing
                     && acquiredWithdrawal.SameVersionAs(lockedWithdrawal);
         }
 

@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                              {
-                        WorkflowStep = (OrderState)order.WorkflowStepId,
+                        WorkflowStep = order.WorkflowStepId,
                                  order.SourceOrganizationUnitId,
                                  order.DestOrganizationUnitId,
                                  order.IsTerminated

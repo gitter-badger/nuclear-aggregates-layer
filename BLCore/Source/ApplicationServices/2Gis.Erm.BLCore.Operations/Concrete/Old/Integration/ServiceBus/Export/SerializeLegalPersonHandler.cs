@@ -255,12 +255,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                         {
                             Code = lpp.Id, 
                             DirectorName = lpp.ChiefNameInNominative, 
-                            DocumentDeliveryMethod = (DocumentsDeliveryMethod)lpp.DocumentsDeliveryMethod, 
+                            DocumentDeliveryMethod = lpp.DocumentsDeliveryMethod, 
                             DocumentDeliveryAddress = lpp.DocumentsDeliveryAddress, 
                             Email = lpp.EmailForAccountingDocuments ?? lpp.AdditionalEmail, 
                             PaymentDetails = lpp.PaymentEssentialElements,
                             IsHidden = !lpp.IsActive, 
-                            OperatesOnTheBasisInGenitive = (OperatesOnTheBasisType?)lpp.OperatesOnTheBasisInGenitive,
+                            OperatesOnTheBasisInGenitive = lpp.OperatesOnTheBasisInGenitive,
                             OwnerCode = lpp.OwnerCode,
                             WarrantyBeginDate = lpp.WarrantyBeginDate,
                             WarrantyNumber = lpp.WarrantyNumber,
@@ -305,7 +305,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     DefaultProfileCode = lp.LegalPersonProfiles.Where(x => x.IsMainProfile).Select(x => (long?)x.Id).FirstOrDefault(),
                     IsHidden = !lp.IsActive, 
                     IsDeleted = lp.IsDeleted, 
-                    LegalEntityType = (LegalPersonType)lp.LegalPersonTypeEnum, 
+                    LegalEntityType = lp.LegalPersonTypeEnum, 
                 });
         }
 
@@ -674,7 +674,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                     }
 
                     // FIXME {all, 25.10.2013}: явно используется локаль ru-RU
-                    switch ((OperatesOnTheBasisType)OperatesOnTheBasisInGenitive)
+                    switch (OperatesOnTheBasisInGenitive)
                     {
                         case OperatesOnTheBasisType.Undefined:
                             return OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, RussianCultureInfo);

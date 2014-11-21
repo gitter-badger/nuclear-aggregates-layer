@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                   PaymentDatePlan = x.PaymentDatePlan,
                                   PayablePlan = x.PayablePlan,
                                   Comment = x.Comment,
-                                  IsOrderActive = x.Order.WorkflowStepId == (int)OrderState.OnRegistration,
+                                  IsOrderActive = x.Order.WorkflowStepId == OrderState.OnRegistration,
                                   OwnerRef = new EntityReference { Id = x.OwnerCode },
                                   CreatedByRef = new EntityReference { Id = x.CreatedBy },
                                   CreatedOn = x.CreatedOn,

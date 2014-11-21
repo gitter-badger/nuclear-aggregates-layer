@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         private User GetBaseOrderOwner(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest, ICollection<IMessageWithType> messages)
         {
-            if (orderProcessingRequest.RequestType != (int)OrderProcessingRequestType.ProlongateOrder)
+            if (orderProcessingRequest.RequestType != OrderProcessingRequestType.ProlongateOrder)
             {
                 return null;
             }

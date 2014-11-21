@@ -38,9 +38,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations
                 {
                     var targetOrderState = order.IsTerminated ? OrderState.OnTermination : OrderState.Approved;
 
-                    changes.Add(ChangesDescriptor.Create(order, x => x.WorkflowStepId, order.WorkflowStepId, (int)targetOrderState));
+                    changes.Add(ChangesDescriptor.Create(order, x => x.WorkflowStepId, order.WorkflowStepId, targetOrderState));
 
-                    order.WorkflowStepId = (int)targetOrderState;
+                    order.WorkflowStepId = targetOrderState;
 
                     _orderRepository.Update(order);
                     scope.Updated<Order>(order.Id);

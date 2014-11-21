@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Deals
                 }
 
                 var deal = _dealReadModel.GetDeal(dealReplicationCode);
-                if (deal.DealStage != (int)dealStage)
+                if (deal.DealStage != dealStage)
                 {
                     var changes = _dealChangeStageAggregateService.ChangeStage(new[] { new DealChangeStageDto { Deal = deal, NextStage = dealStage } });
                     _actionLogger.LogChanges(changes);

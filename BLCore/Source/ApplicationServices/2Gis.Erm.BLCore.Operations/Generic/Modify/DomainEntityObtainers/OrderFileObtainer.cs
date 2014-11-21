@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             entity.OrderId = dto.OrderId;
             entity.FileId = dto.FileId;
-            entity.FileKind = (int)dto.FileKind;
+            entity.FileKind = dto.FileKind;
             entity.Comment = dto.Comment;
             entity.Timestamp = dto.Timestamp;
 

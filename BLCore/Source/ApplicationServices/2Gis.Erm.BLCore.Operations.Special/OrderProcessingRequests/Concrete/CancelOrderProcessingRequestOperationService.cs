@@ -35,19 +35,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         public void CancelRequest(long requestId)
         {
             var orderProcessingRequest = _finder.Find(Specs.Find.ById<OrderProcessingRequest>(requestId)).Single();
-            if (orderProcessingRequest.State == (int)OrderProcessingRequestState.Completed)
+            if (orderProcessingRequest.State == OrderProcessingRequestState.Completed)
             {
                 throw new BusinessLogicException(BLResources.CannotCancelCompletedOrderRequest);
             }
 
-            if (orderProcessingRequest.State == (int)OrderProcessingRequestState.Cancelled)
+            if (orderProcessingRequest.State == OrderProcessingRequestState.Cancelled)
             {
                 throw new BusinessLogicException(BLResources.CannotCancelCanceledOrderRequest);
             }
 
             using (var scope = _scopeFactory.CreateNonCoupled<CancelOrderProcessingRequestIdentity>())
             {
-                orderProcessingRequest.State = (int)OrderProcessingRequestState.Cancelled;
+                orderProcessingRequest.State = OrderProcessingRequestState.Cancelled;
                 _orderProcessingRequestService.Update(orderProcessingRequest);
 
                 var message = new MessageWithType
