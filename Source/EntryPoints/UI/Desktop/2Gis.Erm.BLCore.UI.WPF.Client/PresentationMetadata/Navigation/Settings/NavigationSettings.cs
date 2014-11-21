@@ -1,4 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+﻿
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Settings

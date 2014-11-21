@@ -758,6 +758,10 @@
       <Project>{035e4aa9-9547-4b1c-b105-902ecad7e53f}</Project>
       <Name>2Gis.Erm.Platform.DI.Interception</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
       <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>

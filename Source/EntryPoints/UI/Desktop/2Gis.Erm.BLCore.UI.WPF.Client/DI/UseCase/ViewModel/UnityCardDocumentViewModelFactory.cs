@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;

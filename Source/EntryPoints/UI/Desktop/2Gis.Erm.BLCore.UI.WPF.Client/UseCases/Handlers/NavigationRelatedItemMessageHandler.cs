@@ -1,21 +1,24 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Metadata.Common;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.ContextualNavigation;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
+
+using CardMetadata = DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.CardMetadata;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
 {

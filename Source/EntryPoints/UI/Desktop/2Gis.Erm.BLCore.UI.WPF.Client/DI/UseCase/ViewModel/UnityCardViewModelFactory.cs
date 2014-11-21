@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Simplified;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 
 using Microsoft.Practices.Unity;

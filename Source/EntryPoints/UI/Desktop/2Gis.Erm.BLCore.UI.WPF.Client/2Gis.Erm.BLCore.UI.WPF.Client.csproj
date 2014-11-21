@@ -144,7 +144,6 @@
     <Compile Include="Modules\Documents\ViewModels\ICompositeDocumentViewModel.cs" />
     <Compile Include="Modules\Toolbar\ToolbarModule.cs" />
     <Compile Include="PresentationMetadata\Cards\CardsMetadataValidator.cs" />
-    <Compile Include="PresentationMetadata\Cards\MetadataCardsIdentity.cs" />
     <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.OrderPosition.cs" />
     <Compile Include="PresentationMetadata\Cards\UseGeneratorView.xaml.cs">
       <DependentUpon>UseGeneratorView.xaml</DependentUpon>

@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
 {
