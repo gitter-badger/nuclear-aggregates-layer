@@ -324,6 +324,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AfterSalesServiceOperationStartedMessage {
+            get {
+                return ResourceManager.GetString("AfterSalesServiceOperationStartedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Alert {
             get {
                 return ResourceManager.GetString("Alert", resourceCulture);
@@ -819,6 +828,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DealMustPickOtherReason {
+            get {
+                return ResourceManager.GetString("DealMustPickOtherReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string December {
             get {
                 return ResourceManager.GetString("December", resourceCulture);
@@ -900,6 +918,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DisabledFunctionality {
+            get {
+                return ResourceManager.GetString("DisabledFunctionality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DiscountResetWarning {
             get {
                 return ResourceManager.GetString("DiscountResetWarning", resourceCulture);
@@ -966,6 +993,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         public static string ErrorDuringOperation {
             get {
                 return ResourceManager.GetString("ErrorDuringOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при обращении к сервису {0}. Обратитесь к разработчикам..
+        /// </summary>
+        public static string ErrorOnServiceAccess {
+            get {
+                return ResourceManager.GetString("ErrorOnServiceAccess", resourceCulture);
             }
         }
         
