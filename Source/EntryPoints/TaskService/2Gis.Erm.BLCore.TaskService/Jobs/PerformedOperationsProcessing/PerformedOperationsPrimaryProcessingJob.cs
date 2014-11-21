@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Processors;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
+using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Logging;
@@ -88,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PerformedOperationsProcessing
 
             try
             {
-                var processorSettings = new PerformedOperationsFlowProcessorSettings
+                var processorSettings = new PerformedOperationsPrimaryFlowProcessorSettings
                     {
                         MessageBatchSize = BatchSize,
                         AppropriatedStages = new[] { MessageProcessingStage.Transforming, MessageProcessingStage.Processing, MessageProcessingStage.Handle },

@@ -182,7 +182,8 @@
     <Compile Include="Orders\Operations\OrderChangeStateOrders2ArchiveAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
-    <Compile Include="Orders\Operations\Validation\OrderValidationRepository.cs" />
+    <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
+    <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />
     <Compile Include="Orders\ReadModel\OrderReadModel.cs" />
     <Compile Include="OrganizationUnits\ReadModel\OrganizationUnitReadModel.cs" />
@@ -251,6 +252,10 @@
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
+      <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>
+      <Name>2Gis.Erm.Platform.DAL.PersistenceServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
@@ -303,7 +308,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Orders\Operations\Validation\" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

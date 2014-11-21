@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var order = _orderReadModel.GetOrder(request.OrderId);
+                var order = _orderReadModel.GetOrderSecure(request.OrderId);
                 if (order == null)
                 {
                     throw new NotificationException(BLResources.EntityNotFound);

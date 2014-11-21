@@ -7,14 +7,17 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
-using DoubleGis.Erm.BLCore.DI.Infrastructure.Operations;
+using DoubleGis.Erm.BLCore.DI.Factories.Operations;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
+using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.DB;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
@@ -23,13 +26,14 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.Core.Notifications;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB;
-using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer.Sender;
+using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.UseCases;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
@@ -245,11 +249,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
             if (loggingSettings.OperationLoggingTargets.HasFlag(LoggingTargets.Queue))
             {
-                    container.RegisterOne2ManyTypesPerTypeUniqueness<IOperationLoggingStrategy, ServiceBusForWindowsServiceLoggingStrategy>(
-                                    Lifetime.Singleton)
-                             .RegisterTypeWithDependencies<ITrackedUseCase2BrokeredMessageConverter, BinaryEntireTrackedUseCase2BrokeredMessageConverter>( 
-                                    Lifetime.Singleton, 
-                                    null);
+                container.RegisterOne2ManyTypesPerTypeUniqueness<IOperationLoggingStrategy, ServiceBusLoggingStrategy>(Lifetime.Singleton)
+                         .RegisterType<ITrackedUseCase2BrokeredMessageConverter, BinaryEntireTrackedUseCase2BrokeredMessageConverter>(Lifetime.Singleton)
+                         .RegisterType<IServiceBusMessageSender, ServiceBusMessageSender>(Lifetime.Singleton);
             }
 
             return container;

@@ -129,7 +129,6 @@
     <Compile Include="BL\OrderPositionAdvertisementValidation\CorrectAddressOrderPositionAdvertisementValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderPositionAdvertisementValidation\IsTemplatePublishedOrderPositionAdvertisementValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderPositionAdvertisementValidation\RequiredAdvertisementOrderPositionAdvertisementValidationRuleSpecs.cs" />
-    <Compile Include="BL\OrderValidations\AdvertisementTextFormattingOrderValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderValidations\AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderValidations\IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRuleSpecs.cs" />
     <Compile Include="BL\OrderValidations\SelfAdvertisementOrderValidationRuleSpecs.cs" />

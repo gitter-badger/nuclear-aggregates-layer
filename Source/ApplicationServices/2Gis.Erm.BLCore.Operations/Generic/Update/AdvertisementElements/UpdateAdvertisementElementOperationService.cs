@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Update;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
         private readonly IAdvertisementReadModel _advertisementReadModel;
         private readonly IAdvertisementUpdateElementAggregateService _advertisementUpdateElementAggregateService;
         private readonly IModifyingAdvertisementElementValidator _modifyingAdvertisementElementValidator;
-        private readonly IOrderValidationInvalidator _orderValidationInvalidator;
+        private readonly IRegisterOrderStateChangesOperationService _registerOrderStateChangesOperationService;
         private readonly IAdvertisementElementPlainTextHarmonizer _advertisementElementPlainTextHarmonizer;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IBusinessModelEntityObtainer<AdvertisementElement> _entityObtainer;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
             IAdvertisementUpdateElementAggregateService advertisementUpdateElementAggregateService,
             IBusinessModelEntityObtainer<AdvertisementElement> entityObtainer,
             IModifyingAdvertisementElementValidator modifyingAdvertisementElementValidator,
-            IOrderValidationInvalidator orderValidationInvalidator,
+            IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
             IAdvertisementElementPlainTextHarmonizer advertisementElementPlainTextHarmonizer,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
             _advertisementReadModel = advertisementReadModel;
             _advertisementUpdateElementAggregateService = advertisementUpdateElementAggregateService;
             _modifyingAdvertisementElementValidator = modifyingAdvertisementElementValidator;
-            _orderValidationInvalidator = orderValidationInvalidator;
+            _registerOrderStateChangesOperationService = registerOrderStateChangesOperationService;
             _advertisementElementPlainTextHarmonizer = advertisementElementPlainTextHarmonizer;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
@@ -71,7 +72,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements
                                    ? UpdateRegularElement(advertisementInfo, updatedAdvertisementElement, plainTextHarmonized, dto.FormattedText)
                                    : UpdateDummyElement(advertisementInfo, updatedAdvertisementElement, plainTextHarmonized, dto.FormattedText);
 
-                _orderValidationInvalidator.Invalidate(orderIds, OrderValidationRuleGroup.AdvertisementMaterialsValidation);
+                _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
+                                                                                            {
+                                                                                                OrderId = x,
+                                                                                                ChangedAspects =
+                                                                                                    new[]
+                                                                                                        {
+                                                                                                            OrderValidationRuleGroup
+                                                                                                                .AdvertisementMaterialsValidation
+                                                                                                        }
+                                                                                            }));
 
                 scope.Complete();
             }
