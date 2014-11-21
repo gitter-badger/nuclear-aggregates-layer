@@ -168,6 +168,15 @@
     <Compile Include="Models\CloseBargainsViewModel.cs" />
     <Compile Include="Models\CloseDealViewModel.cs" />
     <Compile Include="Models\CloseOrderWithDenialViewModel.cs" />
+    <Compile Include="Models\AdvertisementElementModels\FasCommentViewModelHelper.cs" />
+    <Compile Include="Models\Contracts\ICustomizableContactViewModel.cs" />
+    <Compile Include="Models\Contracts\ICustomizableFirmViewModel.cs" />
+    <Compile Include="Models\Contracts\ICustomizableLegalPersonProfileViewModel.cs" />
+    <Compile Include="Models\Contracts\ICustomizableActivityViewModel.cs" />
+    <Compile Include="Models\Contracts\ICustomizableOrderPositionViewModel.cs" />
+    <Compile Include="Models\Contracts\ICustomizableLegalPersonViewModel.cs" />
+    <Compile Include="Models\Contracts\ICustomizableOrderViewModel.cs" />
+    <Compile Include="Models\Contracts\OrderViewModelExtensions.cs" />
     <Compile Include="Models\ContributionTypeViewModel.cs" />
     <Compile Include="Models\CopyNewPriceViewModel.cs" />
     <Compile Include="Models\CopyPricePositionModel.cs" />
@@ -222,24 +231,67 @@
     <Compile Include="Models\ThemeViewModel.cs" />
     <Compile Include="Models\UnpublishAdvertisementTemplateModel.cs" />
     <Compile Include="Models\UnpublishPriceViewModel.cs" />
-    <Compile Include="Services\Cards\AdvertisementElementViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\AdvertisementTemplateViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\OrderFileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\AdvertisementViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\AssociatedPositionsGroupViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\AssociatedPositionViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\CategoryViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\DeniedPositionViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\FirmContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LimitViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LockDetailViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LockViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\OrderProcessingRequestViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\PositionViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\PricePositionViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\PriceViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\TerritoryViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\ThemeViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Accounts\AccountIsInactiveCustomization.cs" />
+    <Compile Include="Services\Cards\Activities\DisableActivityButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\AdvertisementElements\ManageAdvertisementElementWorkflowButtonsCustomizations.cs" />
+    <Compile Include="Services\Cards\AdvertisementElements\CheckIfAdvertisementElementReadOnly.cs" />
+    <Compile Include="Services\Cards\AdvertisementElements\AdvertisementElementFasCommentCustomization.cs" />
+    <Compile Include="Services\Cards\Advertisements\DummyAdvertisementCustomization.cs" />
+    <Compile Include="Services\Cards\Advertisements\AdvertisementAccessCustomization.cs" />
+    <Compile Include="Services\Cards\Advertisements\SelectedToWhiteListAdvertisementCustomization.cs" />
+    <Compile Include="Services\Cards\AdvertisementTemplates\ManageAdvertisementTemplatePublicationButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\AdvertisementTemplates\PublishedAdvertisementTemplateCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupIsDeletedCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupsPriceIsDeletedCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupsPriceIsPublishedCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositions\AssociatedPositionsPriceIsPublishedCustomization.cs" />
+    <Compile Include="Services\Cards\AssociatedPositions\AssociatedPositionsPriceIsDeletedCustomization.cs" />
+    <Compile Include="Services\Cards\Contacts\BusinessModelAreaCustomization.cs" />
+    <Compile Include="Services\Cards\Contacts\ContactSalutationsCustomization.cs" />
+    <Compile Include="Services\Cards\Deals\DisableReopenDealButtonCustomization.cs" />
+    <Compile Include="Services\Cards\DeniedPositions\InactiveDeniedPositionsCustomization.cs" />
+    <Compile Include="Services\Cards\DeniedPositions\DeniedPositionsPriceIsPublishedCustomization.cs" />
+    <Compile Include="Services\Cards\Firms\ChangeTerritoryPrivilegeCustomization.cs" />
+    <Compile Include="Services\Cards\Firms\FirmIsInactiveCustomization.cs" />
+    <Compile Include="Services\Cards\LegalPersonProfiles\MainLegalPersonProfileCustomization.cs" />
+    <Compile Include="Services\Cards\LegalPersons\LegalPersonIsInactiveCustomization.cs" />
+    <Compile Include="Services\Cards\LegalPersons\LegalPersonDoesntHaveAnyProfilesCustomization.cs" />
+    <Compile Include="Services\Cards\Limits\CheckLimitPrivilegeCustomization.cs" />
+    <Compile Include="Services\Cards\Limits\CheckIfLimitRecalculationAvailableCustomization.cs" />
+    <Compile Include="Services\Cards\Limits\ManageLimitWorkflowButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\Limits\SetLimitInspectorNameCustomization.cs" />
+    <Compile Include="Services\Cards\Limits\LockLimitByWorkflowCustomization.cs" />
+    <Compile Include="Services\Cards\LockDetails\NewLockDetailCustomization.cs" />
+    <Compile Include="Services\Cards\LockDetails\LocalizeLockDetailsPriceCustomization.cs" />
+    <Compile Include="Services\Cards\Locks\NewLockCustomization.cs" />
+    <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
+    <Compile Include="Services\Cards\OrderFiles\OrderFileAccessCustomization.cs" />
+    <Compile Include="Services\Cards\OrderProcessingRequests\CheckIfUserCanCreateOrderForRequestCustomization.cs" />
+    <Compile Include="Services\Cards\OrderProcessingRequests\ManageRequestStateButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\Prices\InactivePriceCustomization.cs" />
+    <Compile Include="Services\Cards\Prices\PublishedPriceCustomization.cs" />
+    <Compile Include="Services\Cards\Prices\ManagePricePublicationButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\Shared\EntityIsInactiveCustomization.cs" />
+    <Compile Include="Services\Cards\Shared\SetReadonlyCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\InitOrderPositionDiscountCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\MoneySignificantDigitsNumberCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\HideChangeBindingObjectsButtonCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\OrderPositionRateCustomization.cs" />
+    <Compile Include="Services\Cards\OrderPositions\LockOrderPositionByReleaseCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\LockByWorkflowCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\SignupDateCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\InactiveOrderCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\InspectorNameCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\PrivilegesCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\LockOrderByReleaseCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\WorkflowStepsCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\OrderValidationCustomization.cs" />
+    <Compile Include="Services\Cards\Positions\CheckIfPositionTemplateIsReadOnlyCustomization.cs" />
+    <Compile Include="Services\Cards\PricePositions\InactivePricePositionCustomization.cs" />
+    <Compile Include="Services\Cards\Territories\ActiveTerritoryCustomization.cs" />
+    <Compile Include="Services\Cards\Themes\ManageDefaultThemeButtonsCustomization.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationsMetadataSource.cs" />
+    <Compile Include="Services\Cards\Clients\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
     <Compile Include="Services\Grid\AccountDetailGridViewService.cs" />
     <Compile Include="Services\Grid\AdsTemplatesAdsElementTemplateGridViewService.cs" />
     <Compile Include="Services\Grid\OrderGridViewService.cs" />
@@ -719,6 +771,10 @@
       <Project>{a46e837a-d855-4d0b-b7e7-9f1f4c23fc32}</Project>
       <Name>2Gis.Erm.Platform.WCF.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BL.API.Aggregates\2Gis.Erm.BL.API.Aggregates.csproj">
+      <Project>{EE2770E5-5EC2-4D4A-84EE-81301E6C81DF}</Project>
+      <Name>2Gis.Erm.BL.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\ApplicationServices\2Gis.Erm.BL.Operations.Special\2Gis.Erm.BL.Operations.Special.csproj">
       <Project>{b268f8cb-8aef-4402-8cf5-a8e6ac5eec0b}</Project>
       <Name>2Gis.Erm.BL.Operations.Special</Name>
@@ -728,7 +784,9 @@
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\Cards\Categories\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
