@@ -2,7 +2,6 @@
 using System.Web.Helpers;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models.AdvertisementElementModels;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -54,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                 case AdvertisementElementRestrictionActualType.FasComment:
                     FasComment = new FasCommentViewModel();
                     FasComment.LoadDomainEntityDto(dto);
-                    FasComment.FasCommentDisplayTextItemsJson = AdvertisementElementViewModelCustomizationService.GetDisplayTextItemsJson();
+                    FasComment.FasCommentDisplayTextItemsJson = FasCommentViewModelHelper.GetDisplayTextItemsJson();
                     break;
                 case AdvertisementElementRestrictionActualType.FormattedText:
                     FormattedText = new FormattedTextViewModel();

@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -17,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureOrderPositionViewModel : EntityViewModelBase<OrderPosition>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureOrderPositionViewModel : EntityViewModelBase<OrderPosition>, ICustomizableOrderPositionViewModel, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings() { Converters = { new Int64ToStringConverter() } };
 

@@ -1,9 +1,11 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
@@ -38,6 +40,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     .RegisterType<ILegalPersonProfileConsistencyRuleContainer, RussiaLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                     .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IValidateBillsService, NullValidateBillsService>(Lifetime.Singleton)
+                    .RegisterType<IContactSalutationsProvider, RussiaContactSalutationsProvider>(Lifetime.Singleton)
                     .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                     .ConfigureRussiaSpecificNumberServices();
         }

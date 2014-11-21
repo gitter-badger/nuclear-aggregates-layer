@@ -437,9 +437,6 @@
   <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
     <value>No se permite crear las ordenes regionales</value>
   </data>
-  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
-    <value>Con este cliente trabaja la agencia de publicidad:</value>
-  </data>
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
     <value>Смена реквизитов скрытого юр. лица запрещена</value>
   </data>

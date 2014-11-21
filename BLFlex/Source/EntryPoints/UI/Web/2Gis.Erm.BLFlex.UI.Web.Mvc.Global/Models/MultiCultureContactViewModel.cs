@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -14,7 +15,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureContactViewModel : EntityViewModelBase<Contact>, ICzechAdapted, IChileAdapted, ICyprusAdapted, IEmiratesAdapted
+    public sealed class MultiCultureContactViewModel : EntityViewModelBase<Contact>, ICustomizableContactViewModel, ICzechAdapted, IChileAdapted, ICyprusAdapted, IEmiratesAdapted
     {
         [PresentationLayerProperty]
         public Guid? ReplicationCode { get; set; }
