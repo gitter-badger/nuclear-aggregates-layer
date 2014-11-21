@@ -65,46 +65,26 @@ WriteLiteral("\r\n    <script");
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(@">
-
-        // saving of for additionalFirmAddressServices control
-        window.InitPage = function ()
-        {
-            this.on('beforepost', function ()
-            {
-                this.genericSave(this.submitMode);
-                return false;
-            });
-
-            Ext.apply(this,
-                {
-                    genericSave: function (submitMode)
-                    {
-                        var card = this;
-                        var onSuccess = function ()
-                        {
-                            card.refresh();
-                        };
-
-                        var onFailure = function ()
-                        {
-                            alert(Ext.LocalizedResources.SaveError);
-                            card.Items.Toolbar.enable();
-                        };
-
-                        var additionalFirmAddressServicesIFrame = Ext.getDom('AdditionalFirmAddressServices_frame');
-                        if (additionalFirmAddressServicesIFrame)
-                        {
-                            var contentWindow = additionalFirmAddressServicesIFrame.contentWindow;
-                            contentWindow.Ext.DoubleGis.UI.AdditionalFirmServicesControlInstance.Save(onSuccess, onFailure);
-                        }
-                        else
-                            onSuccess();
-                    }
-                });
-        }
-    </script>
-");
+WriteLiteral(">\r\n\r\n        // saving of for additionalFirmAddressServices control\r\n        wind" +
+"ow.InitPage = function ()\r\n        {\r\n            this.on(\'beforepost\', function" +
+" ()\r\n            {\r\n                this.genericSave(this.submitMode);\r\n        " +
+"        return false;\r\n            });\r\n\r\n            Ext.apply(this,\r\n         " +
+"       {\r\n                    genericSave: function (submitMode)\r\n              " +
+"      {\r\n                        var card = this;\r\n                        var o" +
+"nSuccess = function ()\r\n                        {\r\n                            c" +
+"ard.refresh();\r\n                        };\r\n\r\n                        var onFail" +
+"ure = function ()\r\n                        {\r\n                            // TOD" +
+"O {all, 18.12.2013}: alert можно заменить на ext\'овый messagebox\r\n              " +
+"              alert(Ext.LocalizedResources.SaveError);\r\n                        " +
+"    card.Items.Toolbar.enable();\r\n                        };\r\n\r\n                " +
+"        var additionalFirmAddressServicesIFrame = Ext.getDom(\'AdditionalFirmAddr" +
+"essServices_frame\');\r\n                        if (additionalFirmAddressServicesI" +
+"Frame)\r\n                        {\r\n                            var contentWindow" +
+" = additionalFirmAddressServicesIFrame.contentWindow;\r\n                         " +
+"   contentWindow.Ext.DoubleGis.UI.AdditionalFirmServicesControlInstance.Save(onS" +
+"uccess, onFailure);\r\n                        }\r\n                        else\r\n  " +
+"                          onSuccess();\r\n                    }\r\n                }" +
+");\r\n        }\r\n    </script>\r\n");
 
 });
 
@@ -117,7 +97,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+            #line 54 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
 Write(Html.HiddenFor(m => m.Id));
 
             
@@ -129,14 +109,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"Div1\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1745), Tuple.Create("\"", 1781)
+WriteAttribute("title", Tuple.Create(" title=\"", 1845), Tuple.Create("\"", 1881)
             
-            #line 54 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
-, Tuple.Create(Tuple.Create("", 1753), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 55 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+, Tuple.Create(Tuple.Create("", 1853), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1753), false)
+, 1853), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -148,7 +128,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 56 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+            #line 57 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
        Write(Html.TemplateField(m => m.Firm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = true }));
 
             
@@ -163,7 +143,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 59 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+            #line 60 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
        Write(Html.TemplateField(m => m.Address, FieldFlex.lone, new Dictionary<string, object> { { "readonly", "readonly" } }));
 
             
@@ -178,7 +158,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 62 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+            #line 63 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
        Write(Html.TemplateField(m => m.PaymentMethods, FieldFlex.lone, new Dictionary<string, object> { { "readonly", "readonly" } }));
 
             
@@ -193,7 +173,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 65 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+            #line 66 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
        Write(Html.TemplateField(m => m.WorkingTime, FieldFlex.lone, new Dictionary<string, object> { { "readonly", "readonly" } }));
 
             
@@ -208,7 +188,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 68 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+            #line 69 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
        Write(Html.TemplateField(m => m.ClosedForAscertainment, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } }));
 
             
@@ -221,7 +201,7 @@ WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 73 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
+            #line 74 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
 Write(RenderBody());
 
             

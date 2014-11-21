@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -14,6 +15,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
     public class EmiratesChangeLegalPersonRequisitesViewModel : EntityViewModelBase<LegalPerson>, IEmiratesAdapted
     {
+        private DateTime? _commercialLicenseBeginDate;
+        private DateTime? _commercialLicenseEndDate;
+
         [RequiredLocalized]
         public string LegalName { get; set; }
 
@@ -25,12 +29,22 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         [OnlyDigitsLocalized]
         public string CommercialLicense { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
-        public DateTime? CommercialLicenseBeginDate { get; set; }
+        public DateTime? CommercialLicenseBeginDate
+        {
+            get { return _commercialLicenseBeginDate; }
+            set { _commercialLicenseBeginDate = value.AssumeUtcKind(); }
+        }
 
+        [Calendar]
         [RequiredLocalized]
         [GreaterOrEqualThan("CommercialLicenseBeginDate", ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "EndDateMustntBeLessThanBeginDate")]
-        public DateTime? CommercialLicenseEndDate { get; set; }
+        public DateTime? CommercialLicenseEndDate
+        {
+            get { return _commercialLicenseEndDate; }
+            set { _commercialLicenseEndDate = value.AssumeUtcKind(); }
+        }
 
         [Dependency(DependencyType.ReadOnly, "CommercialLicense", "this.value!='Granted'")]
         public LegalPersonChangeRequisitesAccess LegalPersonP { get; set; }

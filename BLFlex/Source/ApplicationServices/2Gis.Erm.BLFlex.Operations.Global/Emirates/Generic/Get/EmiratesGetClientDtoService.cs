@@ -1,9 +1,12 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -31,12 +34,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
             modelDto.MainFirmRef.Name = modelDto.MainFirmRef.Id.HasValue ? _firmReadModel.GetFirmName(modelDto.MainFirmRef.Id.Value) : null;
             modelDto.TerritoryRef.Name = modelDto.TerritoryRef.Id.HasValue ? _firmReadModel.GetTerritoryName(modelDto.TerritoryRef.Id.Value) : null;
 
+            modelDto.LastDisqualifyTime = modelDto.LastDisqualifyTime.AssumeUtcKind();
+            modelDto.LastQualifyTime = modelDto.LastQualifyTime.AssumeUtcKind();
+
             return modelDto;
         }
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new EmiratesClientDomainEntityDto();
+            return new EmiratesClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow };
         }
     }
 }
