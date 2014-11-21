@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
             get
             {
                 return base.ModelEntitySpec &&
-                       new FindSpecification<Order>(o => o.WorkflowStepId == (int)OrderState.OnRegistration && o.Bills.Any(b => b.IsActive && !b.IsDeleted));
+                       new FindSpecification<Order>(o => o.WorkflowStepId == OrderState.OnRegistration && o.Bills.Any(b => b.IsActive && !b.IsDeleted));
             }
         }
 

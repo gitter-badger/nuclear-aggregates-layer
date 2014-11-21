@@ -21,7 +21,9 @@ using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.DI;
+using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
@@ -65,6 +67,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                           .UseAnchor<BlCoreDalPersistenceServicesAssembly>()
                                           .UseAnchor<PlatformModelAssembly>()
                                           .UseAnchor<PlatformCoreAssembly>()
+                                          .UseAnchor<PlatformModelEntityFrameworkAssembly>()
                                       .RequireZone<MetadataZone>()
                                           .UseAnchor<PlatformModelMetadataAssembly>()
                                       .RequireZone<AppFabricZone>()
