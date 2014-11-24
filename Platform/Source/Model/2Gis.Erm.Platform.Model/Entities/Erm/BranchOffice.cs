@@ -18,7 +18,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     {
         public BranchOffice()
         {
-            Bargains = new HashSet<Bargain>();
             BranchOfficeOrganizationUnits = new HashSet<BranchOfficeOrganizationUnit>();
         }
 
@@ -41,7 +40,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public byte[] Timestamp { get; set; }
         public string Ic { get; set; }
 
-        public ICollection<Bargain> Bargains { get; set; }
         public BargainType BargainType { get; set; }
         public ContributionType ContributionType { get; set; }
         public ICollection<BranchOfficeOrganizationUnit> BranchOfficeOrganizationUnits { get; set; }
