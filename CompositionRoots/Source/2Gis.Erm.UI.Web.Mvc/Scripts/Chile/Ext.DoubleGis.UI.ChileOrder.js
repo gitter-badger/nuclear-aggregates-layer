@@ -20,9 +20,6 @@
     PrintTerminationBargainNoticeWithoutReason: function () {
         this.Print('PrintTerminationBargainNoticeWithoutReason');
     },
-    PrintRegionalTerminationNotice: function () {
-        this.Print('PrintRegionalTerminationNotice');
-    },
     PrintAdditionalAgreement: function () {
         this.Print('PrintAdditionalAgreement');
     },
@@ -46,8 +43,6 @@
         else {
             item.disable();
         }
-
-        Ext.get("RegionalNumber").setReadOnly(!Ext.getDom('EditRegionalNumber').checked);
     },
 
     onLegalPersonChanged: function (cmp) {

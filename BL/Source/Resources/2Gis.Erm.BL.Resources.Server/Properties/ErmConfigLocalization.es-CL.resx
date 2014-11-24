@@ -1146,9 +1146,6 @@
   <data name="ControlPrintTermNoticeAction" xml:space="preserve">
     <value>Notificación de anulación</value>
   </data>
-  <data name="ControlPrintRegTermNoticeAction" xml:space="preserve">
-    <value>Notificación de anulación regional</value>
-  </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
     <value>Acuerdo adicional</value>
   </data>

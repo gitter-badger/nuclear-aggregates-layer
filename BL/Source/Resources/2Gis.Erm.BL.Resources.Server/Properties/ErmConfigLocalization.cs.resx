@@ -1146,9 +1146,6 @@
   <data name="ControlPrintTermNoticeAction" xml:space="preserve">
     <value>Oznámení o zrušení objednávky s uvedením důvodu</value>
   </data>
-  <data name="ControlPrintRegTermNoticeAction" xml:space="preserve">
-    <value>Oznámení o reg. zrušení</value>
-  </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
     <value>Dohoda o zrušení objednávky</value>
   </data>

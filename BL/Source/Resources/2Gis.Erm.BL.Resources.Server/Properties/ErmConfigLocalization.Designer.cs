@@ -693,15 +693,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ControlPrintRegTermNoticeAction {
-            get {
-                return ResourceManager.GetString("ControlPrintRegTermNoticeAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string ControlPrintSwornStatementAction {
             get {
                 return ResourceManager.GetString("ControlPrintSwornStatementAction", resourceCulture);
