@@ -19,6 +19,8 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;

@@ -5,6 +5,8 @@ using System.Text;
 using System.Windows;
 
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Shell;
@@ -51,7 +53,7 @@ namespace DoubleGis.Erm.UI.Desktop.WPF
         {
             var logConfigFileFullPath = Path.Combine(Bootstrapper.GetApplicationWorkingDirectory, LogUtils.DefaultLogConfigFileName);
             XmlConfigurator.Configure(new FileInfo(logConfigFileFullPath));
-            return Log4NetImpl.GetLogger(LoggerConstants.Erm);
+            return Log4NetCommonLog.GetLogger(LoggerConstants.Erm);
         }
     }
 }

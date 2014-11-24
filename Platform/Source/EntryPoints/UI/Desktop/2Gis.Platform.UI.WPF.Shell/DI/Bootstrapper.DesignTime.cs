@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
@@ -128,7 +129,7 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
             coreLogger.AddAppender(traceAppender);
             coreLogger.Hierarchy.Configured = true;
 
-            return Log4NetImpl.GetLogger(ErmWpfClientDebugLogger);
+            return Log4NetCommonLog.GetLogger(ErmWpfClientDebugLogger);
         }
 
 

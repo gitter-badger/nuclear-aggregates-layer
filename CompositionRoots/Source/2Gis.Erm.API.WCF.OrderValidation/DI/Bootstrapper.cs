@@ -27,6 +27,7 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL;
@@ -117,7 +118,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                        typeof(EnumResources),
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .RegisterType<ICommonLog, Log4NetImpl>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
+                .RegisterType<ICommonLog, Log4NetCommonLog>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)

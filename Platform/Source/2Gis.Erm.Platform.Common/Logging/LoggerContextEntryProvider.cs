@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging
     {
         private readonly string _loggerContextKey;
 
-        protected LoggerContextEntryProvider(String loggerContextKey)
+        protected LoggerContextEntryProvider(string loggerContextKey)
         {
             _loggerContextKey = loggerContextKey;
         }

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
@@ -26,7 +25,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         [STAThread]
         public static void Main(string[] args)
         {
-            //PrintOperationEntitiesMap();
             var settings = new TestAPIInProcOperationsSettings(BusinessModels.Supported);
             var logger = CreateLogger();
 
@@ -123,42 +121,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
             coreLogger.AddAppender(consoleAppender);
             coreLogger.Hierarchy.Configured = true;
 
-            return Log4NetImpl.GetLogger(LoggerConstants.Erm);
-        }
-
-        private static void PrintOperationEntitiesMap()
-        {
-            var operationEntitiesMap =
-                EntityName.All
-                          .GetDecomposed()
-                          .Where(x => !x.IsVirtual())
-                          .Select(x => x.ToEntitySet())
-                          .ToDictionary(entitySet => entitySet.Entities.EvaluateHash());
-
-            var openEntitiesSet2Placeholders = new EntitySet(EntityName.All, EntityName.All);
-            foreach (var entitySet in openEntitiesSet2Placeholders.ToConcreteSets())
-            {
-                operationEntitiesMap.Add(entitySet.Entities.EvaluateHash(), entitySet);
-            }
-
-            using (var writer = new StreamWriter("D:\\OperationEntitiesMap.txt", false))
-            {
-                int counter = 0;
-                foreach (var entitiesBucket in operationEntitiesMap)
-                {
-                    var operationEntitiesValue = string.Join(";", entitiesBucket.Value.Entities.Cast<int>());
-                    if (counter == 0)
-                    {
-                        writer.WriteLine(@"INSERT INTO @OperationEntitiesMap VALUES ({0},N'{1}')", entitiesBucket.Key, operationEntitiesValue);
-                        counter = 999;
-                    }
-                    else
-                    {
-                        writer.WriteLine(",({0},N'{1}'),", entitiesBucket.Key, operationEntitiesValue);
-                        --counter;
-                    }
-                }   
-            }
+            return Log4NetCommonLog.GetLogger(LoggerConstants.Erm);
         }
     }
 }

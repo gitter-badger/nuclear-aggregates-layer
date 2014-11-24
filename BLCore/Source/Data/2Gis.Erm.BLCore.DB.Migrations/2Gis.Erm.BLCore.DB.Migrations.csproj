@@ -330,6 +330,7 @@
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrderPosition].sql" />
     <Content Include="Resources\2014.10.01 rev. 24898\[Billing].[ReplicateOrder].sql" />
     <Content Include="Resources\2014.10.19 rev. 25335\[BusinessDirectory].[ReplicateFirmAddresses].sql" />
+    <Content Include="Resources\2014.11.24 rev. 201411241430\[ErmLogging].[dbo].[WriteSeanceData].sql" />
     <EmbeddedResource Include="0.17 - Gasherbrum\2013.02.06 rev. 6766 - Create CleanupERM SP.sql">
       <LogicalName>Migration6766CreateCleanupERM</LogicalName>
       <DependentUpon>2013.02.06 rev. 6766 - Create stored procedures for DB cleanup.cs</DependentUpon>
@@ -815,6 +816,7 @@
     <Compile Include="0.15 - HangzhouBay\2012.11.30 rev. 5419 alter impotFim and updateBuilding SPs.cs" />
     <Compile Include="0.18\2013.06.14 rev. 9337 - Alter AdvertisementElements.cs" />
     <Compile Include="2.1\2014.07.24 rev. 22717 - Create ClientLinks table.cs" />
+    <Compile Include="2.1\2014.11.24 rev. 201411241430 - Drop config logger infrastructure.cs" />
     <None Include="Resources\DoubleGis.Erm.SqlClr.dll" />
   </ItemGroup>
   <ItemGroup>
