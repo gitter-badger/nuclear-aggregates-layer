@@ -471,9 +471,6 @@
   <data name="DListOperations" xml:space="preserve">
     <value>Все операции</value>
   </data>
-  <data name="DListOperationsAfterSaleService" xml:space="preserve">
-    <value>Операции формирования ППС</value>
-  </data>
   <data name="DListThemeCategory" xml:space="preserve">
     <value>Рубрики</value>
   </data>
@@ -1838,6 +1835,12 @@
   </data>
   <data name="DocumentsAmount" xml:space="preserve">
     <value>Количество документов</value>
+  </data>
+  <data name="EnLetter" xml:space="preserve">
+    <value>Письмо</value>
+  </data>
+  <data name="ControlCreateLetter" xml:space="preserve">
+    <value>Создать Письмо</value>
   </data>
   <data name="CrdRelClientLinks" xml:space="preserve">
     <value>Связи</value>

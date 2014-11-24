@@ -1242,6 +1242,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string InvalidDateTimeText {
+            get {
+                return ResourceManager.GetString("InvalidDateTimeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string InvalidSelectedPositionsCount {
             get {
                 return ResourceManager.GetString("InvalidSelectedPositionsCount", resourceCulture);
@@ -2424,15 +2433,6 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         public static string TabPanelItemCloseText {
             get {
                 return ResourceManager.GetString("TabPanelItemCloseText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string Task {
-            get {
-                return ResourceManager.GetString("Task", resourceCulture);
             }
         }
         
