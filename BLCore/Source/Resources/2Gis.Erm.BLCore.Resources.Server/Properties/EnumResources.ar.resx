@@ -1200,19 +1200,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Territory</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>After-sale service1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>After-sale service2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>After-sale service3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>After-sale service4</value>
-  </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Taking from the reserve</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1992,6 +1980,9 @@
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Contract Extension Agreement</value>
+  </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Письмо</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Postponement</value>

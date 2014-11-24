@@ -51,9 +51,7 @@
 
                             <%
                                 RenderListItem(Util.Task, Privileges.CreateActivity);
-                                RenderListItem(Util.Fax, Privileges.CreateActivity);
                                 RenderListItem(Util.PhoneCall, Privileges.CreateActivity);
-                                RenderListItem(Util.Email, Privileges.CreateActivity);
                                 RenderListItem(Util.Letter, Privileges.CreateActivity);
                                 RenderListItem(Util.Appointment, Privileges.CreateActivity);
                                 //RenderServiceAppointment();

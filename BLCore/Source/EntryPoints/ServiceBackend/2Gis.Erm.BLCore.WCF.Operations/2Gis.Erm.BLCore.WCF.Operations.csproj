@@ -70,7 +70,6 @@
     <Compile Include="DownloadBinary.svc.cs" />
     <Compile Include="GetDomainEntityDto.svc.cs" />
     <Compile Include="GroupAssign.svc.cs" />
-    <Compile Include="MsCrm.svc.cs" />
     <Compile Include="Qualify.svc.cs" />
     <Compile Include="SharedTypesMessageInspectorEndpointBehaviorExtensionElement.cs" />
     <Compile Include="SharedTypesProvider.cs" />

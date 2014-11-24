@@ -549,8 +549,8 @@
   <data name="TitlePlan" xml:space="preserve">
     <value>Plánování</value>
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
-    <value>Cíl/výsledek</value>
+  <data name="TitleResult" xml:space="preserve">
+    <value>Výsledek</value>
   </data>
   <data name="TitleRegarding" xml:space="preserve">
     <value>Vztahující se</value>
@@ -689,9 +689,6 @@
   </data>
   <data name="Number" xml:space="preserve">
     <value>Číslo</value>
-  </data>
-  <data name="AfterSalesServiceOperationDescriptionFormat" xml:space="preserve">
-    <value>Vytvoření PPS pro oddělení organizace v {0} za {1}</value>
   </data>
   <data name="UnableToDeleteAssignedAdvertisementElementTemplate" xml:space="preserve">
     <value>Prvek šablony reklamního materiálu využívá jedna nebo více šablon reklamního materiálu, proto nemůže být odstraněn.</value>
@@ -1048,9 +1045,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="IncorrectBeginDistributionDateMax" xml:space="preserve">
     <value>Toto datum začátku zveřejnění objednávky nemůže být uvedeno</value>
-  </data>
-  <data name="AfterSalesServiceOperationErrorsMessage" xml:space="preserve">
-    <value>Počet chyb při uskutečňování hovorů: {0}{1}{2}</value>
   </data>
   <data name="LockListByAccount" xml:space="preserve">
     <value>Zobrazit seznam všech blokací na osobním účtu</value>
@@ -1802,9 +1796,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="DisqualifyOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Operace vrácení do rezervy není určena pro uvedený typ entity</value>
   </data>
-  <data name="AfterSalesServiceCreationErrorFormat" xml:space="preserve">
-    <value>Při vytváření PPS došlo k chybě, ID: {0}, {1}{2}</value>
-  </data>
   <data name="OrdersCheckOrderPositionContainsCategoriesFromWrongOrganizationUnit" xml:space="preserve">
     <value>Objednávka {0} obsahuje položku objednávky spojenou s rubrikou, která není propojená s oddělením organizace cílového města objednávky</value>
   </data>
@@ -2092,9 +2083,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   </data>
   <data name="OrderAmountFact" xml:space="preserve">
     <value>Skutečná hodnota objednávky</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesEmpty" xml:space="preserve">
-    <value>Nebyly nalezeny objednávky pro vytvoření plánů PPS.</value>
   </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>Odpis</value>
@@ -2614,9 +2602,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="SystemID" xml:space="preserve">
     <value>Patří systému</value>
-  </data>
-  <data name="AfterSaleServiceActivitiesCreate" xml:space="preserve">
-    <value>Vytvoření PPS</value>
   </data>
   <data name="OrderCheckWhiteListedAdvertismentIsRequired" xml:space="preserve">
     <value>Je třeba uvést RM pro bílý seznam</value>
@@ -3182,9 +3167,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="RegionalAdvertisingSharing" xml:space="preserve">
     <value>Výměna regionální reklamy</value>
   </data>
-  <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
-    <value>Zpracováno obchodních transakcí: {0}, provedeno hovorů: {1}</value>
-  </data>
   <data name="OrderCheckResults" xml:space="preserve">
     <value>Výsledky kontroly objednávky</value>
   </data>
@@ -3533,9 +3515,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="MergeLegalPersonsMainNotFoundError" xml:space="preserve">
     <value>Není možné provést sloučení, protože nebyla nalezena hlavní právnická osoba.</value>
   </data>
-  <data name="ViewAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Nemáte dostatečné oprávnění pro zobrazení protokolu PPS</value>
-  </data>
   <data name="CannotRevertWithdrawalBecauseAnotherWithdrawalIsRunning" xml:space="preserve">
     <value>Zrušení není možné spustit, vyčkejte na skončení předchozí operace</value>
   </data>
@@ -3562,9 +3541,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="AdsCheckInvalidImageDimension" xml:space="preserve">
     <value>Rozlišení načítaného obrázku neodpovídá ani jednomu z uvedených omezení</value>
-  </data>
-  <data name="CreateAfterSalesActivitiesAccessDeniedError" xml:space="preserve">
-    <value>Nemáte dostatečné oprávnění pro vytvoření PPS</value>
   </data>
   <data name="UserControllerDefaultDeactivateError" xml:space="preserve">
     <value>Objekt „Uživatel“ nemá k dispozici standardní funkci deaktivace</value>
@@ -3721,9 +3697,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="OrderFirmHiddenForAscertainmentTemplate" xml:space="preserve">
     <value>Firma {0} je skrytá do vyjasnění.</value>
-  </data>
-  <data name="CreateAfterSaleServiceActivitiesCompleted" xml:space="preserve">
-    <value>Byly vytvořeny plány PPS. Zpracováno obchodních transakcí: {0}, provedeno hovorů: {1}</value>
   </data>
   <data name="ProcessOrderRejected_TerminationReasonNeeds" xml:space="preserve">
     <value>V poli „Komentář“ není uveden důvod zrušení</value>

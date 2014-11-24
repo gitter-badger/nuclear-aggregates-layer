@@ -2791,6 +2791,175 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE NONCLUSTERED INDEX IX_Appointments_ReplicationCode
+        ///ON [Activity].[AppointmentBase] ([ReplicationCode])
+        ///
+        ///CREATE NONCLUSTERED INDEX IX_Phonecalls_ReplicationCode
+        ///ON [Activity].[PhonecallBase] ([ReplicationCode])
+        ///
+        ///CREATE NONCLUSTERED INDEX IX_Tasks_ReplicationCode
+        ///ON [Activity].[TaskBase] ([ReplicationCode])
+        ///
+        ///CREATE NONCLUSTERED INDEX IX_Letters_ReplicationCode
+        ///ON [Activity].[LetterBase] ([ReplicationCode])
+        ///.
+        /// </summary>
+        internal static string Migration_22766_AddIndexes {
+            get {
+                return ResourceManager.GetString("Migration_22766_AddIndexes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF object_id(&apos;[Activity].[LetterReferences]&apos;) IS NOT NULL DROP TABLE [Activity].[LetterReferences];
+        ///IF object_id(&apos;[Activity].[LetterBase]&apos;) IS NOT NULL DROP TABLE [Activity].[LetterBase];
+        ///
+        ///CREATE TABLE [Activity].[LetterBase](
+        ///	[Id] [bigint] NOT NULL CONSTRAINT [PK_Letters] PRIMARY KEY CLUSTERED,
+        ///	[ReplicationCode] [uniqueidentifier] NOT NULL,
+        ///
+        ///	[OwnerCode] [bigint] NOT NULL,
+        ///	[Subject] [nvarchar](256) NULL,
+        ///	[Description] [nvarchar](max) NULL,
+        ///	[ScheduledStart] [datetime2] NOT NULL,
+        ///	[ScheduledE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22766_AlterSchema {
+            get {
+                return ResourceManager.GetString("Migration_22766_AlterSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- drop appointment ActualEnd, AfterSaleType and IsAllDayEvent columns with constraints
+        ///ALTER TABLE [Activity].[AppointmentBase] 
+        ///DROP 
+        ///	CONSTRAINT [DF_Appointment_AfterSaleType], [DF_Appointment_IsAllDayEvent],
+        ///	COLUMN [ActualEnd], [AfterSaleType], [IsAllDayEvent];
+        ///
+        ///-- alter appointment Priority constraint to set Normal as the default
+        ///ALTER TABLE [Activity].[AppointmentBase] DROP CONSTRAINT [DF_Appointment_Priority];
+        ///ALTER TABLE [Activity].[AppointmentBase] ADD CONSTRAINT [DF_Appointment_Priority]  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_22776_AlterSchema {
+            get {
+                return ResourceManager.GetString("Migration_22776_AlterSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateAppointment]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    IF @Id IS NULL RETURN 0;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4201 as [ActivityTypeCode]
+        ///	            , [appointments].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [appointments].[Subject]
+        ///	            , [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_24481_ReplicateAppointment {
+            get {
+                return ResourceManager.GetString("Migration_24481_ReplicateAppointment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateLetter]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    IF @Id IS NULL RETURN 0;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4207 as [ActivityTypeCode]
+        ///	            , [letters].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [letters].[Subject]
+        ///	            , [letters].[Des [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_24481_ReplicateLetter {
+            get {
+                return ResourceManager.GetString("Migration_24481_ReplicateLetter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicatePhonecall]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    IF @Id IS NULL RETURN 0;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4210 as [ActivityTypeCode]
+        ///	            , [phonecalls].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [phonecalls].[Subject]
+        ///	            , [phon [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_24481_ReplicatePhonecall {
+            get {
+                return ResourceManager.GetString("Migration_24481_ReplicatePhonecall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE PROCEDURE [Activity].[ReplicateTask]
+        ///	@Id bigint = NULL
+        ///AS
+        ///    IF @Id IS NULL RETURN 0;
+        ///
+        ///    SET NOCOUNT ON;
+        ///    SET XACT_ABORT ON;
+        ///
+        ///    BEGIN TRY
+        ///        BEGIN TRAN;
+        ///
+        ///        -- обновляем общую таблицу
+        ///        MERGE INTO [DoubleGis_MSCRM].[dbo].[ActivityPointerBase] AS [Current]
+        ///        USING (
+        ///            SELECT 
+        ///                4212 as [ActivityTypeCode]
+        ///	            , [tasks].[ReplicationCode] as [ActivityId]
+        ///
+        ///	            , [tasks].[Subject]
+        ///	            , [tasks].[Description [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Migration_24481_ReplicateTask {
+            get {
+                return ResourceManager.GetString("Migration_24481_ReplicateTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///    &lt;Entity&gt;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1191,19 +1191,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Территория</value>
   </data>
-  <data name="AfterSaleServiceTypeASS1" xml:space="preserve">
-    <value>ППС1</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS2" xml:space="preserve">
-    <value>ППС2</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS3" xml:space="preserve">
-    <value>ППС3</value>
-  </data>
-  <data name="AfterSaleServiceTypeASS4" xml:space="preserve">
-    <value>ППС4</value>
-  </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Взятие из резерва</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1983,6 +1971,9 @@
   </data>
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
+  </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Письмо</value>
   </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Отсрочка</value>

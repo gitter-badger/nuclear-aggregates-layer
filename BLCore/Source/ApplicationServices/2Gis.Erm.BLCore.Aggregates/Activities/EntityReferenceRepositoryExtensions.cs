@@ -16,20 +16,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities
         /// <summary>
         /// Updates the references building the differences.
         /// </summary>
-        public static void Update<T>(this IRepository<RegardingObject<T>> repository,
-                                     IEnumerable<RegardingObject<T>> oldReferences,
-                                     IEnumerable<RegardingObject<T>> newReferences)
-            where T : class, IEntity, IEntityKey
+        public static void Update<TEntity, TEntityReference>(this IRepository<TEntityReference> repository,
+                                                             IEnumerable<TEntityReference> oldReferences,
+                                                             IEnumerable<TEntityReference> newReferences)
+            where TEntity : IEntity
+            where TEntityReference : EntityReference<TEntity>, IEntity
         {
             if (repository == null)
             {
                 throw new ArgumentNullException("repository");
             }
 
-            var oldRefs = (oldReferences ?? Enumerable.Empty<RegardingObject<T>>()).ToList();
-            var newRefs = (newReferences ?? Enumerable.Empty<RegardingObject<T>>()).ToList();
-            var removingLinks = oldRefs.Except(newRefs, EqualityComparer<RegardingObject<T>>.Default).ToList();
-            var addingLinks = newRefs.Except(oldRefs, EqualityComparer<RegardingObject<T>>.Default).ToList();
+            var oldRefs = (oldReferences ?? Enumerable.Empty<TEntityReference>()).Where(x => x != null).ToArray();
+            var newRefs = (newReferences ?? Enumerable.Empty<TEntityReference>()).Where(x => x != null).ToArray();
+            var removingLinks = oldRefs.Except(newRefs, EqualityComparer<TEntityReference>.Default).ToArray();
+            var addingLinks = newRefs.Except(oldRefs, EqualityComparer<TEntityReference>.Default).ToArray();
 
             repository.AddRange(addingLinks);
             repository.DeleteRange(removingLinks);

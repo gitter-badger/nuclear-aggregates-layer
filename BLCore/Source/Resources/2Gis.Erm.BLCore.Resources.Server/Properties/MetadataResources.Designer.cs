@@ -124,24 +124,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Состояние.
-        /// </summary>
-        public static string ActivityBaseViewModelAbstract_Status {
-            get {
-                return ResourceManager.GetString("ActivityBaseViewModelAbstract_Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Тип.
-        /// </summary>
-        public static string ActivityBaseViewModelAbstract_Type {
-            get {
-                return ResourceManager.GetString("ActivityBaseViewModelAbstract_Type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Вид деятельности.
         /// </summary>
         public static string ActivityType {
@@ -372,6 +354,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string AssociatedPositionsGroupName {
             get {
                 return ResourceManager.GetString("AssociatedPositionsGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Участник.
+        /// </summary>
+        public static string Attendee {
+            get {
+                return ResourceManager.GetString("Attendee", resourceCulture);
             }
         }
         
@@ -1157,7 +1148,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonName", resourceCulture);
             }
         }
-        
+       
         /// <summary>
         ///   Looks up a localized string similar to Ссылка на параграф правил.
         /// </summary>
@@ -1175,7 +1166,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
                 return ResourceManager.GetString("DenialReasonType", resourceCulture);
             }
         }
-        
+       
         /// <summary>
         ///   Looks up a localized string similar to Подразделение.
         /// </summary>
@@ -2356,6 +2347,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Место встречи.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Использованная сумма (текущая).
         /// </summary>
         public static string LockBalance {
@@ -3393,6 +3393,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Получатель.
         /// </summary>
+        public static string Recipient {
+            get {
+                return ResourceManager.GetString("Recipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получатель.
+        /// </summary>
         public static string RecipientName {
             get {
                 return ResourceManager.GetString("RecipientName", resourceCulture);
@@ -3657,6 +3666,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ScheduledStart {
             get {
                 return ResourceManager.GetString("ScheduledStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправитель.
+        /// </summary>
+        public static string Sender {
+            get {
+                return ResourceManager.GetString("Sender", resourceCulture);
             }
         }
         
