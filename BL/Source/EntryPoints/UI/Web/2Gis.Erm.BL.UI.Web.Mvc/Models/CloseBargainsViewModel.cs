@@ -7,6 +7,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
     public class CloseBargainsViewModel : ViewModel
     {
+        [Calendar]
         [RequiredLocalized]
         public DateTime? CloseDate { get; set; }
 
