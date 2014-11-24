@@ -8,5 +8,10 @@
         }
 
         public string HandlerName { get; private set; }
+
+        public override string ToString()
+        {
+            return HandlerName;
+        }
     }
 }

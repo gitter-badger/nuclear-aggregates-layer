@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto
         public string Icon { get; set; }
         public string LargeIcon { get; set; }
 
-        public string CardLocalizedName { get; set; }
+        public string Title { get; set; }
 
         public string EntityName { get; set; }
         public string EntityLocalizedName { get; set; }

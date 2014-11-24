@@ -2,11 +2,11 @@
 {
     public sealed class NameFeature : IUniqueMetadataFeature
     {
-        public NameFeature(IResourceDescriptor nameDescriptor)
+        public NameFeature(IStringResourceDescriptor nameDescriptor)
         {
             NameDescriptor = nameDescriptor;
         }
 
-        public IResourceDescriptor NameDescriptor { get; private set; }
+        public IStringResourceDescriptor NameDescriptor { get; private set; }
     }
 }

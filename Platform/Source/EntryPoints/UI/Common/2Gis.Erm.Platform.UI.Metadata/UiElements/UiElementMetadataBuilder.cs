@@ -7,7 +7,6 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Name;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
@@ -116,35 +115,11 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
 
             if (name != null)
             {
-                var resourceDescriptor = name.NameDescriptor as ResourceDescriptor;
-                if (resourceDescriptor != null)
-                {
-                    relativePath = resourceDescriptor.ResourceEntryKey.ResourceHostType.Name + "." + resourceDescriptor.ResourceEntryKey.ResourceEntryName;
-                }
-                else
-                {
-                    var staticDescriptor = name.NameDescriptor as StaticResourceDescriptor;
-                    if (staticDescriptor != null)
-                    {
-                        relativePath = staticDescriptor.Value;
-                    }
-                }
+                relativePath = name.NameDescriptor.ResourceKeyToString(); 
             }
             else
             {
-                var resourceDescriptor = title.TitleDescriptor as ResourceTitleDescriptor;
-                if (resourceDescriptor != null)
-                {
-                    relativePath = resourceDescriptor.ResourceEntryKey.ResourceHostType.Name + "." + resourceDescriptor.ResourceEntryKey.ResourceEntryName;
-                }
-                else
-                {
-                    var staticDescriptor = title.TitleDescriptor as StaticTitleDescriptor;
-                    if (staticDescriptor != null)
-                    {
-                        relativePath = staticDescriptor.Title;
-                    }
-                }
+                relativePath = title.TitleDescriptor.ResourceKeyToString();
 
                 if (string.IsNullOrEmpty(relativePath))
                 {

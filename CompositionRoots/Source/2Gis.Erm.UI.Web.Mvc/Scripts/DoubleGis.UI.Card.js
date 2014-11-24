@@ -152,7 +152,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 }
             }
         }
-        document.title = this.Settings.CardLocalizedName ? this.Settings.CardLocalizedName
+        document.title = this.Settings.Title ? this.Settings.Title
             : this.Settings.EntityLocalizedName + ": " + (mainAttributeValue || window.Ext.LocalizedResources.Create);
 
         var s = new Ext.Panel(

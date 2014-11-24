@@ -620,7 +620,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             {
                 Icon = cardSettings.Icon,
                 LargeIcon = cardSettings.LargeIcon,
-                CardLocalizedName = GetLocalizedName(cardSettings.CardNameLocaleResourceId, culture),
+                Title = GetLocalizedName(cardSettings.TitleResourceId, culture),
                 EntityName = cardSettings.EntityName,
                 EntityLocalizedName = GetLocalizedName(cardSettings.EntityNameLocaleResourceId, culture),
                 EntityMainAttribute = cardSettings.EntityMainAttribute,
@@ -665,7 +665,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                     }).ToArray(),
                 }).ToArray(),
 
-                CardNameLocaleResourceId = cardSettings.CardNameLocaleResourceId,
+                TitleResourceId = cardSettings.TitleResourceId,
                 EntityNameLocaleResourceId = cardSettings.EntityNameLocaleResourceId,
             };
 
@@ -733,10 +733,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
             var cardJson = new CardStructure { EntityName = entityName.ToString() };
 
+            // Сейчас нигде не задается
             var cardNameLocaleResourceId = cardEl.Attribute("CardNameLocaleResourceId");
             if (cardNameLocaleResourceId != null)
             {
-                cardJson.CardNameLocaleResourceId = cardNameLocaleResourceId.Value;
+                cardJson.TitleResourceId = cardNameLocaleResourceId.Value;
             }
 
             var entityNameLocaleResourceId = cardEl.Attribute("EntityNameLocaleResourceId");

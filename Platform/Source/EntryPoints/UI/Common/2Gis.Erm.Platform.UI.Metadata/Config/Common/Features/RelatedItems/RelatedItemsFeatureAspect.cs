@@ -23,13 +23,13 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems
 
         public RelatedItemsFeatureAspect<TBuilder, TMetadataElement> Name<TKey>(Expression<Func<TKey>> resourceKeyExpression)
         {
-            this.NameDescriptor = ResourceDescriptor.Create(resourceKeyExpression);
+            this.NameDescriptor = StringResourceDescriptor.Create(resourceKeyExpression);
             return this;
         }
 
         public RelatedItemsFeatureAspect<TBuilder, TMetadataElement> Name(string value)
         {
-            this.NameDescriptor = new StaticResourceDescriptor(value);
+            this.NameDescriptor = new StaticStringResourceDescriptor(value);
             return this;
         }
 

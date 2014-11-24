@@ -2,6 +2,6 @@
 {
     public interface INamedElement : IMetadataElementAspect
     {
-        IResourceDescriptor NameDescriptor { get; }
+        IStringResourceDescriptor NameDescriptor { get; }
     }
 }

@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
@@ -45,6 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         }
 
         public ITitleDescriptor TitleDescriptor { get; private set; }
+        public IStringResourceDescriptor EntityLocalizationDescriptor { get; private set; }
         public bool HasRelatedItems { get; private set; }
         public UiElementMetadata[] RelatedItems { get; private set; }
         public bool HasActions { get; private set; }

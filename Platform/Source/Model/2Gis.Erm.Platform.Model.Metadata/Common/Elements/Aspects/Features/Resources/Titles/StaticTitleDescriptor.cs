@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles
+﻿using System.Globalization;
+
+namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles
 {
     public sealed class StaticTitleDescriptor : ITitleDescriptor
     {
@@ -15,6 +17,16 @@
             {
                 return _title;
             }
+        }
+
+        public string GetValue(CultureInfo culture)
+        {
+            return Title;
+        }
+
+        public string ResourceKeyToString()
+        {
+            return Title;
         }
     }
 }

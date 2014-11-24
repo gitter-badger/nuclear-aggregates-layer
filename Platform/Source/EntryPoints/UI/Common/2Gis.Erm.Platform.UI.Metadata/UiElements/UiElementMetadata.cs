@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
             }
         }
 
-        public IResourceDescriptor NameDescriptor
+        public IStringResourceDescriptor NameDescriptor
         {
             get
             {

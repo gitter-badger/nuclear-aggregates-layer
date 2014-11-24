@@ -61,8 +61,9 @@
     <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\NamedHandlerFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\IUniqueMetadataFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\IStringResourceDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\Name\INamedElement.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\ResourceTitleDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\StringResourceDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\StaticResourceDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeatureAspect.cs" />

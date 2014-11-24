@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+﻿using System.Globalization;
+
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes
 {
@@ -10,5 +12,19 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes
         }
 
         public ControlType Type { get; private set; }
+        public object GetValue(CultureInfo culture)
+        {
+            return Type;
+        }
+
+        public override string ToString()
+        {
+            return Type.ToString();
+        }
+
+        public string ResourceKeyToString()
+        {
+            return Type.ToString();
+        }
     }
 }
