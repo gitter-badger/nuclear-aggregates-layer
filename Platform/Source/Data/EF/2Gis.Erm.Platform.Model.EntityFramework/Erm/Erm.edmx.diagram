@@ -288,6 +288,9 @@
         <edmx:AssociationConnector Association="ErmModel.FK_Appointments" />
         <edmx:AssociationConnector Association="ErmModel.FK_Phonecalls" />
         <edmx:AssociationConnector Association="ErmModel.FK_Tasks" />
+        <edmx:EntityTypeShape EntityType="ErmModel.LetterBase" Width="1.5" PointX="21.375" PointY="15" />
+        <edmx:EntityTypeShape EntityType="ErmModel.LetterReference" Width="1.5" PointX="23.625" PointY="16.25" />
+        <edmx:AssociationConnector Association="ErmModel.FK_Letters" />
         <edmx:EntityTypeShape EntityType="ErmModel.ClientLink" Width="1.5" PointX="18" PointY="98" />
         <edmx:AssociationConnector Association="ErmModel.FK_ClientLinks_ChildClientId_Clients" />
         <edmx:AssociationConnector Association="ErmModel.FK_ClientLinks_MasterClientId_Clients" />

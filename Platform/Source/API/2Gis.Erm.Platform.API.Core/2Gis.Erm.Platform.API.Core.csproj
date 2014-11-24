@@ -159,7 +159,7 @@
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusReceiverSettingsAspect.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusSenderSettingsAspect.cs" />
     <Compile Include="Operations\Processing\Final\FinalProcessingQueueReceiverSettings.cs" />
-    <Compile Include="Operations\Processing\Final\HotClient\FinalReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalProcessingOfHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IFinalProcessingQueueReceiverSettings.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\AsyncMsCRMReplicationSettingsAspect.cs" />
     <Compile Include="Operations\Processing\Final\MsCRM\IAsyncMsCRMReplicationSettings.cs" />
@@ -171,8 +171,8 @@
     <Compile Include="Operations\Processing\Final\MsCRM\FinalStorageReplicate2MsCRMPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Final\IPerformedOperationsFinalFlowProcessorSettings.cs" />
     <Compile Include="Operations\Processing\Final\PerformedOperationsFinalFlowProcessorSettings.cs" />
-    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageReplicateHotClientPerformedOperationsFlow.cs" />
-    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryReplicateHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Final\HotClient\FinalStorageProcessingOfHotClientPerformedOperationsFlow.cs" />
+    <Compile Include="Operations\Processing\Primary\HotClient\PrimaryProcessingOfHotClientPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ElasticRuntimeFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\PrimaryReplicate2ElasticSearchPerformedOperationsFlow.cs" />
     <Compile Include="Operations\Processing\Primary\ElasticSearch\ReplicateToElasticSearchPrimaryProcessingResultsMessage.cs" />

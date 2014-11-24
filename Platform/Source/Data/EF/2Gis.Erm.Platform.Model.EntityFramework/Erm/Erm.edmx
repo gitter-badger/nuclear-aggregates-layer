@@ -11,25 +11,22 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ActualEnd" Type="datetime2" Precision="7" />
-          <Property Name="Priority" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="IsAllDayEvent" Type="bit" Nullable="false" />
-          <Property Name="Location" Type="nvarchar" MaxLength="256" />
-          <Property Name="Purpose" Type="int" Nullable="false" />
-          <Property Name="AfterSaleType" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="256" />
+          <Property Name="Purpose" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AppointmentReferences">
           <Key>
@@ -43,31 +40,58 @@
           <Property Name="ReferencedType" Type="int" Nullable="false" />
           <Property Name="ReferencedObjectId" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="LetterBase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ScheduledOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LetterReferences">
+          <Key>
+            <PropertyRef Name="LetterId" />
+            <PropertyRef Name="Reference" />
+            <PropertyRef Name="ReferencedType" />
+            <PropertyRef Name="ReferencedObjectId" />
+          </Key>
+          <Property Name="LetterId" Type="bigint" Nullable="false" />
+          <Property Name="Reference" Type="int" Nullable="false" />
+          <Property Name="ReferencedType" Type="int" Nullable="false" />
+          <Property Name="ReferencedObjectId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="PhonecallBase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ActualEnd" Type="datetime2" Precision="7" />
-          <Property Name="Priority" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="Direction" Type="bit" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="200" />
-          <Property Name="Purpose" Type="int" Nullable="false" />
-          <Property Name="AfterSaleType" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ScheduledOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Purpose" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PhonecallReferences">
           <Key>
@@ -87,22 +111,20 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ReplicationCode" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ScheduledStart" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ScheduledEnd" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ActualEnd" Type="datetime2" Precision="7" />
-          <Property Name="Priority" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="TaskType" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OwnerCode" Type="bigint" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ScheduledOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="TaskType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskReferences">
           <Key>
@@ -3083,6 +3105,18 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Letters">
+          <End Role="LetterBase" Type="Self.LetterBase" Multiplicity="1" />
+          <End Role="LetterReferences" Type="Self.LetterReferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LetterBase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LetterReferences">
+              <PropertyRef Name="LetterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Limits_Accounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
           <End Role="Limits" Type="Self.Limits" Multiplicity="*" />
@@ -4205,6 +4239,8 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntityContainer Name="ErmModelStoreContainer">
           <EntitySet Name="AppointmentBase" EntityType="Self.AppointmentBase" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="AppointmentReferences" EntityType="Self.AppointmentReferences" Schema="Activity" store:Type="Tables" />
+          <EntitySet Name="LetterBase" EntityType="Self.LetterBase" Schema="Activity" store:Type="Tables" />
+          <EntitySet Name="LetterReferences" EntityType="Self.LetterReferences" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="PhonecallBase" EntityType="Self.PhonecallBase" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="PhonecallReferences" EntityType="Self.PhonecallReferences" Schema="Activity" store:Type="Tables" />
           <EntitySet Name="TaskBase" EntityType="Self.TaskBase" Schema="Activity" store:Type="Tables" />
@@ -4647,6 +4683,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_LegalPersons_Clients" Association="Self.FK_LegalPersons_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="LegalPersons" EntitySet="LegalPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Letters" Association="Self.FK_Letters">
+            <End Role="LetterBase" EntitySet="LetterBase" />
+            <End Role="LetterReferences" EntitySet="LetterReferences" />
           </AssociationSet>
           <AssociationSet Name="FK_Limits_Accounts" Association="Self.FK_Limits_Accounts">
             <End Role="Accounts" EntitySet="Accounts" />
@@ -5837,6 +5877,12 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <AssociationSet Name="FK_Tasks" Association="ErmModel.FK_Tasks">
             <End Role="TaskBase" EntitySet="TaskBases" />
             <End Role="TaskReference" EntitySet="TaskReferences" />
+          </AssociationSet>
+          <EntitySet Name="LetterBases" EntityType="ErmModel.LetterBase" />
+          <EntitySet Name="LetterReferences" EntityType="ErmModel.LetterReference" />
+          <AssociationSet Name="FK_Letters" Association="ErmModel.FK_Letters">
+            <End Role="LetterBase" EntitySet="LetterBases" />
+            <End Role="LetterReference" EntitySet="LetterReferences" />
           </AssociationSet>
           <AssociationSet Name="FK_Client_ClientLink" Association="ErmModel.FK_Client_ClientLink">
             <End Role="Client" EntitySet="Clients" />
@@ -8853,7 +8899,7 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
       </EntityType>
       <EntityType Name="OrderValidationResult">
         <Key>
-            <PropertyRef Name="Id" />
+          <PropertyRef Name="Id" />
         </Key>
         <Property Type="Int64" Name="OrderId" Nullable="false" />
           <Property Name="Id" Type="Int64" Nullable="false" />
@@ -10112,14 +10158,11 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ActualEnd" Type="DateTime" Precision="7" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="IsAllDayEvent" Type="Boolean" Nullable="false" />
           <Property Name="Location" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Purpose" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AppointmentReferences" Relationship="ErmModel.FK_Appointments" FromRole="AppointmentBase" ToRole="AppointmentReference" />
-          <Property Name="AfterSaleType" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="AppointmentReference">
           <Key>
@@ -10150,16 +10193,11 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="OwnerCode" Type="Int64" Nullable="false" />
           <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ActualEnd" Type="DateTime" Precision="7" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="Direction" Type="Boolean" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Purpose" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PhonecallReferences" Relationship="ErmModel.FK_Phonecalls" FromRole="PhonecallBase" ToRole="PhonecallReference" />
-          <Property Name="AfterSaleType" Type="Int32" Nullable="false" />
+          <Property Name="ScheduledOn" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="PhonecallReference">
           <Key>
@@ -10190,13 +10228,11 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <Property Name="OwnerCode" Type="Int64" Nullable="false" />
           <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ScheduledStart" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ScheduledEnd" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ActualEnd" Type="DateTime" Precision="7" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="TaskType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TaskReferences" Relationship="ErmModel.FK_Tasks" FromRole="TaskBase" ToRole="TaskReference" />
+          <Property Name="ScheduledOn" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="TaskReference">
           <Key>
@@ -10335,6 +10371,52 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
             </Principal>
             <Dependent Role="TaskReference">
               <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LetterBase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="ReplicationCode" Type="Guid" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="OwnerCode" Type="Int64" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LetterReferences" Relationship="ErmModel.FK_Letters" FromRole="LetterBase" ToRole="LetterReference" />
+          <Property Name="ScheduledOn" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="LetterReference">
+          <Key>
+            <PropertyRef Name="LetterId" />
+            <PropertyRef Name="Reference" />
+            <PropertyRef Name="ReferencedType" />
+            <PropertyRef Name="ReferencedObjectId" />
+          </Key>
+          <Property Name="LetterId" Type="Int64" Nullable="false" />
+          <Property Name="Reference" Type="Int32" Nullable="false" />
+          <Property Name="ReferencedType" Type="Int32" Nullable="false" />
+          <Property Name="ReferencedObjectId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="LetterBase" Relationship="ErmModel.FK_Letters" FromRole="LetterReference" ToRole="LetterBase" />
+        </EntityType>
+        <Association Name="FK_Letters">
+          <End Type="ErmModel.LetterBase" Role="LetterBase" Multiplicity="1" />
+          <End Type="ErmModel.LetterReference" Role="LetterReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LetterBase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LetterReference">
+              <PropertyRef Name="LetterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11925,10 +12007,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
         <EntitySetMapping Name="OrderValidationResults">
           <EntityTypeMapping TypeName="ErmModel.OrderValidationResult">
             <MappingFragment StoreEntitySet="OrderValidationResults">
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
+              <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+              <ScalarProperty Name="OrderValidationGroupId" ColumnName="OrderValidationGroupId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
             </MappingFragment>
           </EntityTypeMapping>
         </EntitySetMapping>
@@ -12588,13 +12670,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySetMapping Name="AppointmentBases">
             <EntityTypeMapping TypeName="ErmModel.AppointmentBase">
               <MappingFragment StoreEntitySet="AppointmentBase">
-                <ScalarProperty Name="AfterSaleType" ColumnName="AfterSaleType" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="IsAllDayEvent" ColumnName="IsAllDayEvent" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="ActualEnd" ColumnName="ActualEnd" />
                 <ScalarProperty Name="ScheduledEnd" ColumnName="ScheduledEnd" />
                 <ScalarProperty Name="ScheduledStart" ColumnName="ScheduledStart" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -12625,15 +12704,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySetMapping Name="PhonecallBases">
             <EntityTypeMapping TypeName="ErmModel.PhonecallBase">
               <MappingFragment StoreEntitySet="PhonecallBase">
-                <ScalarProperty Name="AfterSaleType" ColumnName="AfterSaleType" />
+                <ScalarProperty Name="ScheduledOn" ColumnName="ScheduledOn" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Direction" ColumnName="Direction" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="ActualEnd" ColumnName="ActualEnd" />
-                <ScalarProperty Name="ScheduledEnd" ColumnName="ScheduledEnd" />
-                <ScalarProperty Name="ScheduledStart" ColumnName="ScheduledStart" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="OwnerCode" ColumnName="OwnerCode" />
@@ -12662,12 +12736,10 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
           <EntitySetMapping Name="TaskBases">
             <EntityTypeMapping TypeName="ErmModel.TaskBase">
               <MappingFragment StoreEntitySet="TaskBase">
+                <ScalarProperty Name="ScheduledOn" ColumnName="ScheduledOn" />
                 <ScalarProperty Name="TaskType" ColumnName="TaskType" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="ActualEnd" ColumnName="ActualEnd" />
-                <ScalarProperty Name="ScheduledEnd" ColumnName="ScheduledEnd" />
-                <ScalarProperty Name="ScheduledStart" ColumnName="ScheduledStart" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="OwnerCode" ColumnName="OwnerCode" />
@@ -12747,6 +12819,37 @@ warning 6002: The table/view 'Erm.Security.vwUserTerritoriesOrganizationUnits' d
                 <ScalarProperty Name="ReferencedType" ColumnName="ReferencedType" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LetterBases">
+            <EntityTypeMapping TypeName="ErmModel.LetterBase">
+              <MappingFragment StoreEntitySet="LetterBase">
+                <ScalarProperty Name="ScheduledOn" ColumnName="ScheduledOn" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="OwnerCode" ColumnName="OwnerCode" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ReplicationCode" ColumnName="ReplicationCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LetterReferences">
+            <EntityTypeMapping TypeName="ErmModel.LetterReference">
+              <MappingFragment StoreEntitySet="LetterReferences">
+                <ScalarProperty Name="ReferencedObjectId" ColumnName="ReferencedObjectId" />
+                <ScalarProperty Name="ReferencedType" ColumnName="ReferencedType" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

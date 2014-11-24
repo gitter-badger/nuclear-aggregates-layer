@@ -173,11 +173,19 @@
         // Ambivalent
         FileWithContent = 400,
 
-        Activity = 500,
-        Appointment = 501,
+		Activity = 500,
+		Appointment = 501,
+        AppointmentRegardingObject = 510,
+        AppointmentAttendee = 511,
         Phonecall = 502,
+        PhonecallRegardingObject = 521,
+        PhonecallRecipient = 522,
         Task = 503,
-        RegardingObjectReference = 510,
+        TaskRegardingObject = 531,
+        Letter = 504,
+        LetterRegardingObject = 541,
+        LetterSender = 542,
+        LetterRecipient = 543,
 
         // заявка на создание или продление заказа от Личного кабинета
         OrderProcessingRequest = 550,

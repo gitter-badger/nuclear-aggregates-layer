@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -54,16 +55,28 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 		public static readonly EntityName[] MappingEntities =
             {
                 EntityName.Appointment,
+                EntityName.AppointmentRegardingObject,
+				EntityName.AppointmentAttendee,
                 EntityName.Phonecall,
+                EntityName.PhonecallRegardingObject,
+				EntityName.PhonecallRecipient,
                 EntityName.Task,
-				EntityName.RegardingObjectReference
+                EntityName.TaskRegardingObject,
+                EntityName.Letter,
+                EntityName.LetterRegardingObject,
+                EntityName.LetterSender,
+                EntityName.LetterRecipient,
             };
 
         public static readonly Type[] AsyncReplicated2MsCrmEntities =
             {
                 typeof(Firm),
                 typeof(FirmAddress),
-                typeof(Territory)
+                typeof(Territory),
+                typeof(Appointment),
+                typeof(Letter),
+                typeof(Phonecall),
+                typeof(Task)
             };
 
         public static readonly Type[] AllReplicated2MsCrmEntities =
@@ -113,6 +126,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 				typeof(PhonecallReference),
 				typeof(TaskBase),
 				typeof(TaskReference),
+				typeof(LetterBase),
+				typeof(LetterReference),
             };
 
         /// <summary>

@@ -123,9 +123,17 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 // Activity subsystem
                 { EntityName.Activity, typeof(Activity.Activity) },
                 { EntityName.Appointment, typeof(Appointment) },
+                { EntityName.AppointmentRegardingObject, typeof(AppointmentRegardingObject) },
+                { EntityName.AppointmentAttendee, typeof(AppointmentAttendee) },
                 { EntityName.Phonecall, typeof(Phonecall) },
+                { EntityName.PhonecallRegardingObject, typeof(PhonecallRegardingObject) },
+                { EntityName.PhonecallRecipient, typeof(PhonecallRecipient) },
                 { EntityName.Task, typeof(Task) },
-                { EntityName.RegardingObjectReference, typeof(RegardingObject<>) },
+                { EntityName.TaskRegardingObject, typeof(TaskRegardingObject) },
+                { EntityName.Letter, typeof(Letter) },
+                { EntityName.LetterRegardingObject, typeof(LetterRegardingObject) },
+                { EntityName.LetterSender, typeof(LetterSender) },
+                { EntityName.LetterRecipient, typeof(LetterRecipient) },
 
                 // Security
                 { EntityName.User, typeof(User) },
@@ -222,13 +230,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         public static bool TryGetEntityName(this Type type, out EntityName entityName)
         {
             entityName = EntityName.None;
-
-	        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(RegardingObject<>))
-	        {
-		        entityName = EntityName.RegardingObjectReference;
-		        return true;
-	        }
-
             return !type.IsPersistenceOnly() && ReverseTypeMap.TryGetValue(type, out entityName);
         }
 

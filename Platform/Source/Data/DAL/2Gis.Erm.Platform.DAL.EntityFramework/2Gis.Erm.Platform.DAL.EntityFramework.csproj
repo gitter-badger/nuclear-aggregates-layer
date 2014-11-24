@@ -73,6 +73,10 @@
     <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="Activity\AppointmentReferenceType.cs" />
+    <Compile Include="Activity\LetterReferenceType.cs" />
+    <Compile Include="Activity\PhonecallReferenceType.cs" />
+    <Compile Include="Activity\TaskReferenceType.cs" />
     <Compile Include="EFEntityEntry.cs" />
     <Compile Include="EFMappingRepository.cs" />
     <Compile Include="EFGenericRepository.cs" />
