@@ -20,11 +20,9 @@ using System.Runtime.InteropServices;
 #if DEBUG
 
 [assembly: AssemblyConfiguration("Debug")]
-[assembly: AssemblyDescription("This is Debug version of assembly")]
 
 #else
 
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyDescription("This is Release version of assembly")]
 
 #endif
