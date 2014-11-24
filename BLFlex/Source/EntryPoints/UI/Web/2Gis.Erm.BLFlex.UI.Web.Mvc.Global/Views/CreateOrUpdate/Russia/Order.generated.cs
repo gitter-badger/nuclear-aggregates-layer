@@ -85,11 +85,11 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 346), Tuple.Create("\"", 406)
+WriteAttribute("href", Tuple.Create(" href=\"", 346), Tuple.Create("\"", 391)
 , Tuple.Create(Tuple.Create("", 353), Tuple.Create("/Content/order.css?", 353), true)
             
             #line 14 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 372), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 372), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
@@ -98,105 +98,105 @@ WriteAttribute("href", Tuple.Create(" href=\"", 346), Tuple.Create("\"", 406)
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 425), Tuple.Create("\"", 513)
-, Tuple.Create(Tuple.Create("", 431), Tuple.Create("/Scripts/Russia/Ext.DoubleGis.UI.RussiaOrder.js?", 431), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 410), Tuple.Create("\"", 483)
+, Tuple.Create(Tuple.Create("", 416), Tuple.Create("/Scripts/Russia/Ext.DoubleGis.UI.RussiaOrder.js?", 416), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 479), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 464), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 479), false)
+, 464), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 560), Tuple.Create("\"", 632)
-, Tuple.Create(Tuple.Create("", 566), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 566), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 530), Tuple.Create("\"", 587)
+, Tuple.Create(Tuple.Create("", 536), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 536), true)
             
             #line 17 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 598), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 568), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 598), false)
+, 568), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>   \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 682), Tuple.Create("\"", 757)
-, Tuple.Create(Tuple.Create("", 688), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 688), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 637), Tuple.Create("\"", 697)
+, Tuple.Create(Tuple.Create("", 643), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 643), true)
             
             #line 18 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 723), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 678), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 723), false)
+, 678), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 804), Tuple.Create("\"", 892)
-, Tuple.Create(Tuple.Create("", 810), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CopyOrderDialog.js?", 810), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 744), Tuple.Create("\"", 817)
+, Tuple.Create(Tuple.Create("", 750), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CopyOrderDialog.js?", 750), true)
             
             #line 19 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 858), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 798), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 858), false)
+, 798), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 939), Tuple.Create("\"", 1024)
-, Tuple.Create(Tuple.Create("", 945), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckManager.js?", 945), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 864), Tuple.Create("\"", 934)
+, Tuple.Create(Tuple.Create("", 870), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckManager.js?", 870), true)
             
             #line 20 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 990), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 915), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 990), false)
+, 915), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1071), Tuple.Create("\"", 1161)
-, Tuple.Create(Tuple.Create("", 1077), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckResultWindow.js?", 1077), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 981), Tuple.Create("\"", 1056)
+, Tuple.Create(Tuple.Create("", 987), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckResultWindow.js?", 987), true)
             
             #line 21 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 1127), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1037), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1127), false)
+, 1037), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1208), Tuple.Create("\"", 1300)
-, Tuple.Create(Tuple.Create("", 1214), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 1214), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1103), Tuple.Create("\"", 1180)
+, Tuple.Create(Tuple.Create("", 1109), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 1109), true)
             
             #line 22 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 1266), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1161), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1266), false)
+, 1161), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -509,14 +509,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3173), Tuple.Create("\"", 3209)
+WriteAttribute("title", Tuple.Create(" title=\"", 3053), Tuple.Create("\"", 3089)
             
             #line 76 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 3181), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 3061), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 3181), false)
+, 3061), false)
 );
 
 WriteLiteral(">\r\n        <br />\r\n        <div");
@@ -1150,14 +1150,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14887), Tuple.Create("\"", 14926)
+WriteAttribute("title", Tuple.Create(" title=\"", 14767), Tuple.Create("\"", 14806)
             
             #line 244 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 14895), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14775), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14895), false)
+, 14775), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1378,14 +1378,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17725), Tuple.Create("\"", 17768)
+WriteAttribute("title", Tuple.Create(" title=\"", 17605), Tuple.Create("\"", 17648)
             
             #line 280 "..\..\Views\CreateOrUpdate\Russia\Order.cshtml"
-, Tuple.Create(Tuple.Create("", 17733), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17613), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17733), false)
+, 17613), false)
 );
 
 WriteLiteral(">\r\n");

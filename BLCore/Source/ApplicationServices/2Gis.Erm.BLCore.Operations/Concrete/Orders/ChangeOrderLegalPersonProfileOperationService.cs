@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         {
             using (var scope = _scopeFactory.CreateNonCoupled<ChangeOrderLegalPersonProfileIdentity>())
             {
-                var order = _orderReadModel.GetOrder(orderId);
+                var order = _orderReadModel.GetOrderSecure(orderId);
                 order.LegalPersonProfileId = profileId;
 
                 _orderRepository.Update(order);

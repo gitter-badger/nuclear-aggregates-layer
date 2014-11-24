@@ -115,11 +115,11 @@ DefineSection("PageScript", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 387), Tuple.Create("\"", 475)
+WriteAttribute("src", Tuple.Create(" src=\"", 387), Tuple.Create("\"", 460)
 , Tuple.Create(Tuple.Create("", 393), Tuple.Create("/Scripts/Ext.DoubleGis.UI.SelectOrderProfile.js?", 393), true)
             
             #line 14 "..\..\Views\Shared\SelectLegalPersonProfile.cshtml"
-, Tuple.Create(Tuple.Create("", 441), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 441), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden

@@ -77,11 +77,11 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 315), Tuple.Create("\"", 375)
+WriteAttribute("href", Tuple.Create(" href=\"", 315), Tuple.Create("\"", 360)
 , Tuple.Create(Tuple.Create("", 322), Tuple.Create("/Content/order.css?", 322), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 341), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 341), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
@@ -101,90 +101,90 @@ Write(RenderSection("CultureSpecificScript", true));
             #line hidden
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 445), Tuple.Create("\"", 517)
-, Tuple.Create(Tuple.Create("", 451), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 451), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 430), Tuple.Create("\"", 487)
+, Tuple.Create(Tuple.Create("", 436), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 436), true)
             
             #line 14 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 483), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 468), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 483), false)
+, 468), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>   \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 567), Tuple.Create("\"", 642)
-, Tuple.Create(Tuple.Create("", 573), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 573), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 537), Tuple.Create("\"", 597)
+, Tuple.Create(Tuple.Create("", 543), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 543), true)
             
             #line 15 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 608), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 578), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 608), false)
+, 578), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 689), Tuple.Create("\"", 777)
-, Tuple.Create(Tuple.Create("", 695), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CopyOrderDialog.js?", 695), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 644), Tuple.Create("\"", 717)
+, Tuple.Create(Tuple.Create("", 650), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CopyOrderDialog.js?", 650), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 743), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 698), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 743), false)
+, 698), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 824), Tuple.Create("\"", 909)
-, Tuple.Create(Tuple.Create("", 830), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckManager.js?", 830), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 764), Tuple.Create("\"", 834)
+, Tuple.Create(Tuple.Create("", 770), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckManager.js?", 770), true)
             
             #line 17 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 875), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 815), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 875), false)
+, 815), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 956), Tuple.Create("\"", 1046)
-, Tuple.Create(Tuple.Create("", 962), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckResultWindow.js?", 962), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 881), Tuple.Create("\"", 956)
+, Tuple.Create(Tuple.Create("", 887), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckResultWindow.js?", 887), true)
             
             #line 18 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 1012), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 937), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1012), false)
+, 937), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1093), Tuple.Create("\"", 1185)
-, Tuple.Create(Tuple.Create("", 1099), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 1099), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1003), Tuple.Create("\"", 1080)
+, Tuple.Create(Tuple.Create("", 1009), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 1009), true)
             
             #line 19 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 1151), Tuple.Create<System.Object, System.Int32>(SolutionInfo.ProductVersion.Build
+, Tuple.Create(Tuple.Create("", 1061), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1151), false)
+, 1061), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -532,14 +532,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3243), Tuple.Create("\"", 3279)
+WriteAttribute("title", Tuple.Create(" title=\"", 3138), Tuple.Create("\"", 3174)
             
             #line 78 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 3251), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 3146), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 3251), false)
+, 3146), false)
 );
 
 WriteLiteral(">\r\n        <br />\r\n        <div");
@@ -1173,14 +1173,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14948), Tuple.Create("\"", 14987)
+WriteAttribute("title", Tuple.Create(" title=\"", 14843), Tuple.Create("\"", 14882)
             
             #line 246 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 14956), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14851), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14956), false)
+, 14851), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1386,14 +1386,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17658), Tuple.Create("\"", 17701)
+WriteAttribute("title", Tuple.Create(" title=\"", 17553), Tuple.Create("\"", 17596)
             
             #line 279 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 17666), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17561), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17666), false)
+, 17561), false)
 );
 
 WriteLiteral(">\r\n");
