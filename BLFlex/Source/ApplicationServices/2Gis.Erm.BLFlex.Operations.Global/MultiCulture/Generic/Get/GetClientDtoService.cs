@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -54,12 +55,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                                       })
                                   .Single();
 
+            modelDto.LastDisqualifyTime = modelDto.LastDisqualifyTime.AssumeUtcKind();
+            modelDto.LastQualifyTime = modelDto.LastQualifyTime.AssumeUtcKind();
+
             return modelDto;
         }
 
         protected override IDomainEntityDto<Client> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            return new MultiCultureClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow.Date };
+            return new MultiCultureClientDomainEntityDto { LastQualifyTime = DateTime.UtcNow };
         }
     }
 }
