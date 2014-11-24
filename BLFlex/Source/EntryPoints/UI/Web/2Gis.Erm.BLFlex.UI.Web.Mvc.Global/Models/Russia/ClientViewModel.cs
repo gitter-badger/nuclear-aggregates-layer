@@ -11,6 +11,9 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
     public sealed class ClientViewModel : EntityViewModelBase<Client>, IRussiaAdapted
@@ -70,9 +73,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public int PromisingScore { get; set; }
 
         // Дата взятия из резерва
+        [Calendar, JsonConverter(typeof(IsoDateTimeConverter))]
         public DateTime LastQualifyTime { get; set; }
 
         // Дата возврата в резерв
+        [Calendar, JsonConverter(typeof(IsoDateTimeConverter))]
         public DateTime? LastDisqualifyTime { get; set; }
 
         // Является ли клиент рекламным агентством
