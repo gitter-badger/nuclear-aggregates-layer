@@ -176,7 +176,6 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                                 html: '<table><tbody><tr><td class="title-icon">' +
                                     '<img alt="" src="' + Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.Settings.LargeIcon) + '"/>' +
                                     '</td><td class="title-bar"><span class="title-bar">' + document.title + '</span><br /><span class="title-breadcrumb">' +
-                                    '<img class="title-breadcrumb-nav" alt="" src="' + Ext.DoubleGis.Global.Helpers.GetEntityIconPath(this.Settings.LargeIcon) + '"/>' +
                                     '<span class="title-breadcrumb" id="leftNavBreadcrumbText">' + Ext.LocalizedResources.Information + '</span></span></td></tr></tbody></table>'
                             } : undefined,
                             items: [

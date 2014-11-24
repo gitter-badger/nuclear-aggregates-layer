@@ -101,6 +101,7 @@
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Accounts\AccountReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Activities\ActivityReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Deals\DealReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Aggregates\ReadModel\Advertisements\AdvertisementReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Orders\OrderReadModelTest.cs" />
     <Compile Include="Suite\Concrete\Aggregates\ReadModel\Release\ReleaseReadModelTest.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.SparseElementFeatues.cs" />
@@ -109,7 +110,6 @@
     <Compile Include="Suite\Concrete\API\Metadata\Sources\StandaloneEntitiesMetadataSource.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\MetadataProviderTest.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\OperationsMetadataProviderTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\AfterSaleService\UpdateAfterSaleServiceOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
@@ -158,14 +158,11 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Advertisements\SelectAdvertisementToWhiteListHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\AdvertisementTemplates\PublishAdvertisementTemplateHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\AdvertisementTemplates\UnpublishAdvertisementTemplateHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\AfterSaleService\CreateAfterSaleServiceActivitiesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\DeleteBillsHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\PrintBillHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Bills\PrintJointBillHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\AssignClientRelatedEntitiesHandlerTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CheckClientActivitiesHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\CheckIsWarmClientHandlerTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\GetHotClientTaskToReplicateOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Old\Clients\MergeClientsHandlerTest.cs" />
