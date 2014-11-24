@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata
+namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
 {
     // TODO {all, 20.11.2014}: Перекликается с реализацией HierarchyMetadata.
     public sealed class UiElementMetadata : MetadataElement<UiElementMetadata, UiElementMetadataBuilder>,

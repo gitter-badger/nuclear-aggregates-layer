@@ -3,7 +3,7 @@
     /// <summary>
     /// Базовый интерфейс viewmodel
     /// </summary>
-    public interface IViewModel : IViewModelBase
+    public interface IViewModel 
     {
         IViewModelIdentity Identity { get; }
     }

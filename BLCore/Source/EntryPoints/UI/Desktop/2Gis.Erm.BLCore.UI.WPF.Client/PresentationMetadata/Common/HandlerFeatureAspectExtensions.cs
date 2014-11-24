@@ -11,13 +11,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common
     {
         public static TBuilder ShowGrid<TBuilder, TElement>(
             this HandlerFeatureAspect<TBuilder, TElement> builderAspect,
-            EntityName entityName,
-            string filterExpression,
-            string disableExpression) 
+            EntityName entityName) 
             where TBuilder : MetadataElementBuilder<TBuilder, TElement>, new() 
             where TElement : MetadataElement, IHandlerBoundElement
         {
-            builderAspect.ShowGridByConvention(entityName, filterExpression, disableExpression);
+            builderAspect.ShowGridByConvention(entityName);
             builderAspect.AspectHostBuilder.WithFeatures(new ViewModelViewMappingFeature<GridViewModel, GridView>());
             return builderAspect.AspectHostBuilder;
         }

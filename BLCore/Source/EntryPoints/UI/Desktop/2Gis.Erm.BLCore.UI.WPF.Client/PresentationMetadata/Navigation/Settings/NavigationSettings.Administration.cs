@@ -39,15 +39,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Set
                             HierarchyMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.NavGroupUsers)
                                 .Icon.Resource(Images.Navigation.NavGroupUsers)
-                                .Handler.ShowGrid(UserAggregate.User.AsEntityName(), null, null),
+                                .Handler.ShowGrid(UserAggregate.User.AsEntityName()),
                             HierarchyMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.NavGroupRoles)
                                 .Icon.Resource(Images.Navigation.NavGroupRoles)
-                                .Handler.ShowGrid(RoleAggregate.Role.AsEntityName(), null, null),
+                                .Handler.ShowGrid(RoleAggregate.Role.AsEntityName()),
                             HierarchyMetadata.Config
                                 .Title.Resource(() => ErmConfigLocalization.NavGroupDepartments)
                                 .Icon.Resource(Images.Navigation.NavGroupDepartments)
-                                .Handler.ShowGrid(UserAggregate.Department.AsEntityName(), null, null)));
+                                .Handler.ShowGrid(UserAggregate.Department.AsEntityName())));
         
     }
 }

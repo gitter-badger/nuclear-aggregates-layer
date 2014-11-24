@@ -52,9 +52,19 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Cards\CardMetadataSource.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Account.cs" />
     <Compile Include="Cards\UiElementMetadataBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
       <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
       <Name>2Gis.Erm.Platform.UI.Metadata</Name>

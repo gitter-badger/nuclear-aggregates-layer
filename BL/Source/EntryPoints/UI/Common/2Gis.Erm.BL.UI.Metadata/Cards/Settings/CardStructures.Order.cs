@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 
 namespace DoubleGis.Erm.BL.UI.Metadata.Cards.Settings
 {

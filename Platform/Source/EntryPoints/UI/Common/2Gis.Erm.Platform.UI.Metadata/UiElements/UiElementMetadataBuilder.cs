@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
@@ -10,8 +13,11 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
 
-namespace DoubleGis.Erm.Platform.UI.Metadata
+namespace DoubleGis.Erm.Platform.UI.Metadata.UiElements
 {
     public sealed class UiElementMetadataBuilder : MetadataElementBuilder<UiElementMetadataBuilder, UiElementMetadata>
     {
@@ -62,6 +68,36 @@ namespace DoubleGis.Erm.Platform.UI.Metadata
             get { return _id; }
         }
 
+        public UiElementMetadataBuilder AccessWithPrivelege(FunctionalPrivilegeName privilege)
+        {
+            AddFeatures(new SecuredByFunctionalPrivelegeFeature(privilege));
+            return this;
+        }
+
+        public UiElementMetadataBuilder AccessWithPrivelege(EntityAccessTypes privilege, EntityName entity)
+        {
+            AddFeatures(new SecuredByEntityPrivelegeFeature(privilege, entity));
+            return this;
+        }
+
+        public UiElementMetadataBuilder ControlType(ControlType type)
+        {
+            AddFeatures(new ControlTypeFeature(new EnumControlTypeDescriptor(type)));
+            return this;
+        }
+
+        public UiElementMetadataBuilder LockOnNew()
+        {
+            AddFeatures(new LockOnNewFeature());
+            return this;
+        }
+
+        public UiElementMetadataBuilder LockOnInactive()
+        {
+            AddFeatures(new LockOnInactiveFeature());
+            return this;
+        }
+
         protected override UiElementMetadata Create()
         {
             if (_id.HasValue)
@@ -92,9 +128,9 @@ namespace DoubleGis.Erm.Platform.UI.Metadata
                     {
                         relativePath = staticDescriptor.Value;
                     }
-                }    
+                }
             }
-            else 
+            else
             {
                 var resourceDescriptor = title.TitleDescriptor as ResourceTitleDescriptor;
                 if (resourceDescriptor != null)
@@ -115,7 +151,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata
                     throw new NotSupportedException(title.TitleDescriptor.GetType().Name + " title descriptor is not supported");
                 }
             }
-            
+
             return new UiElementMetadata(new Uri(relativePath, UriKind.Relative), Features.ToArray());
         }
     }

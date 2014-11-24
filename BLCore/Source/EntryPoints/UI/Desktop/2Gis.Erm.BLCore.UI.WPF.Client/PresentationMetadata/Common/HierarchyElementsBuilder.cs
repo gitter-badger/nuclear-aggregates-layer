@@ -23,11 +23,9 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common
 
         public static HierarchyMetadataBuilder ShowGrid(
              this HandlerFeatureAspect<HierarchyMetadataBuilder, HierarchyMetadata> builderAspect,
-             EntityName entityName,
-             string filterExpression,
-             string disableExpression)
+             EntityName entityName)
         {
-            builderAspect.ShowGrid<HierarchyMetadataBuilder, HierarchyMetadata>(entityName, filterExpression, disableExpression);
+            builderAspect.ShowGrid<HierarchyMetadataBuilder, HierarchyMetadata>(entityName);
             return builderAspect.AspectHostBuilder;
         }
     }

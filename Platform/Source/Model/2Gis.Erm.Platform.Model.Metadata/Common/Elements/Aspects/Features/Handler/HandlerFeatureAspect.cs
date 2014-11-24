@@ -21,13 +21,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
             return AspectHostBuilder;
         }
 
-        public TBuilder ShowGridByConvention(EntityName entityName, string filterExpression, string disableExpression)
+        public TBuilder ShowGridByConvention(EntityName entityName)
         {
-            AspectHostBuilder.WithFeatures(new ShowGridHandlerFeature(entityName)
-                {
-                    FilterExpression = filterExpression, 
-                    DisableExpression = disableExpression
-                });
+            AspectHostBuilder.WithFeatures(new ShowGridHandlerFeature(entityName));
 
             return AspectHostBuilder.AddOperation<TBuilder, TMetadataElement>(ListIdentity.Instance.SpecificFor(entityName));
         }

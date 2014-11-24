@@ -7,11 +7,11 @@ using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             items.AddRange(metadata.RelatedItems.Select(relatedItem => ConvertItem(relatedItem, relatedItemNavigateCommand)));
         }
 
-        private INavigationItem ConvertItem(HierarchyMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
+        private INavigationItem ConvertItem(UiElementMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
         {
             var item = new NavigationItem(
                 metadata.Identity.Id,
@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             };
             if (metadata.Elements != null && metadata.Elements.Any())
             {
-                item.Items = metadata.Elements.OfType<HierarchyMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
+                item.Items = metadata.Elements.OfType<UiElementMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
             }
 
             return item;

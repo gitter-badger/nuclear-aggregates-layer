@@ -1,10 +1,14 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems
 {
     public interface IRelatedItemsFeature : IViewModelFeature
     {
-        HierarchyMetadata[] RelatedItems { get; }
+        IResourceDescriptor NameDescriptor { get;  }
+        ITitleDescriptor TitleDescriptor { get; }
+        UiElementMetadata[] RelatedItems { get; }
     }
 }

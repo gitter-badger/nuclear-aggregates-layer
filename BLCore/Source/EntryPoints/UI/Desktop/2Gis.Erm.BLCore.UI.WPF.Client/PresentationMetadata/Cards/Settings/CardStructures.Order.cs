@@ -8,8 +8,7 @@ using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
-using DoubleGis.Erm.Platform.UI.Metadata;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation;
 
@@ -52,15 +51,15 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
                                 .Title.Resource(() => ErmConfigLocalization.ControlPrintOrderAction)
                                 .Operation.SpecificFor<PrintIdentity, Order>()))
                 .RelatedItems.Attach(
-                    HierarchyMetadata.Config
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
-                        .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName(), "OrderId={Id}", "Id == 0"),
-                    HierarchyMetadata.Config
+                        .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName()),
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
-                        .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName(), "OrderId={Id}", "Id == 0"),
-                    HierarchyMetadata.Config
+                        .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName()),
+                    UiElementMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
-                        .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName(), "OrderId={Id}", "Id == 0"))
+                        .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName()))
                 .MVVM.Bind<DynamicCardViewModel, OrderView>()
                 .WithDynamicProperties()
                 .Validator.Dynamic<DynamicViewModelValidator<DynamicViewModel>, DynamicViewModel>()

@@ -25,6 +25,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents.Sett
                     AttachedMetadata.Config
                             .Title.Resource(() => ErmConfigLocalization.EnMOrderPositions)
                             .ApplyCondition(new StringConditionCondition("{Id} != 0"))
-                            .Handler.ShowGrid(OrderAggregate.OrderPosition.AsEntityName(), "OrderId={Id}", null));
+                            .Handler.ShowGrid(OrderAggregate.OrderPosition.AsEntityName()));
     }
 }

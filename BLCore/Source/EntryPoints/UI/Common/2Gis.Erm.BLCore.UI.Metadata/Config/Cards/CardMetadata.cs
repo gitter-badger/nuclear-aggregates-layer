@@ -7,13 +7,12 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.UI.Metadata;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
+using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
@@ -47,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         public ITitleDescriptor TitleDescriptor { get; private set; }
         public bool HasRelatedItems { get; private set; }
-        public HierarchyMetadata[] RelatedItems { get; private set; }
+        public UiElementMetadata[] RelatedItems { get; private set; }
         public bool HasActions { get; private set; }
         public UiElementMetadata[] ActionsDescriptors { get; private set; }
 

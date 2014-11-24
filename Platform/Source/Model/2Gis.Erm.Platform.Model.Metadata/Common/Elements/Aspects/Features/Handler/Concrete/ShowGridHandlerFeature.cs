@@ -18,8 +18,5 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
                 return _entityName;
             }
         }
-
-        public string FilterExpression { get; set; }
-        public string DisableExpression { get; set; }
     }
 }

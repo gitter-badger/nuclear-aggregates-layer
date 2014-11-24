@@ -63,7 +63,7 @@
     <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\Name\INamedElement.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\ResourceTitleDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\StaticTitleDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Resources\StaticResourceDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeatureAspect.cs" />
     <Compile Include="Common\Elements\Aspects\Identities\IdentifiableAspect.cs" />
