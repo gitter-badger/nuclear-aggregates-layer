@@ -129,8 +129,8 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             HasOptional(t => t.Platform)
                 .WithMany(t => t.Orders)
                 .HasForeignKey(d => d.PlatformId);
-            HasRequired(t => t.DestOrganizationUnit)
-                .WithMany(t => t.OrdersByDestination)
+            HasRequired(t => t.SourceOrganizationUnit)
+                .WithMany(t => t.OrdersBySource)
                 .HasForeignKey(d => d.SourceOrganizationUnitId);
         }
     }
