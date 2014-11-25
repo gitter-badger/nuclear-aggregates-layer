@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                 throw new ArgumentException("Cannot save inactive Order");
             }
 
-            if (order.WorkflowStepId == (int)OrderState.Approved || order.WorkflowStepId == (int)OrderState.OnTermination)
+            if (order.WorkflowStepId == OrderState.Approved || order.WorkflowStepId == OrderState.OnTermination)
             {
                 var isReleaseInProgress = _releaseRepository.HasFinalReleaseInProgress(
                     order.DestOrganizationUnitId,

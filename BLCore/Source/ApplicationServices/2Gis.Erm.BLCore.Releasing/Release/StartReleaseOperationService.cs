@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             {
                 report = "Period have to start at first day of month";
                 return false;
-            }
+        }
 
             if (period.Start != period.End.GetFirstDateOfMonth())
             {
@@ -287,7 +287,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 }
 
                 scope.Complete();
-            }
+                }
 
             return true;
         }
@@ -303,7 +303,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             report = string.Empty;
 
             var lastFinalRelease = _releaseReadModel.GetLastFinalRelease(organizationUnitId, period);
-            if (lastFinalRelease != null && lastFinalRelease.Status == (int)ReleaseStatus.Success)
+            if (lastFinalRelease != null && lastFinalRelease.Status == ReleaseStatus.Success)
             {
                 previuosReleaseId = lastFinalRelease.Id;
                 report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} is final and success status. " +
@@ -349,10 +349,10 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     if (isBeta == lastRelease.IsBeta)
                     {
                         usingPreviouslyNotFinishedReleasing = true;
-                    }
+            }
 
-                    return true;
-                }
+            return true;
+        }
                 default:
                 {
                     report = string.Format("Previous release with id {0} for organization unit with id {1} by period {2} has status {3}, " +
@@ -474,7 +474,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             return lockedRelease != null &&
                    lockedRelease.Id == acquiredRelease.Id &&
                    lockedRelease.IsBeta == acquiredRelease.IsBeta &&
-                   (ReleaseStatus)lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
+                   lockedRelease.Status == ReleaseStatus.InProgressInternalProcessingStarted &&
                    acquiredRelease.SameVersionAs(lockedRelease);
         }
     }

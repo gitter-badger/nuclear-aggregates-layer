@@ -75,13 +75,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.LegalPe
 
 
             if ((entity.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson ||
-                 entity.LegalPersonTypeEnum == (int)LegalPersonType.Businessman) &&
+                 entity.LegalPersonTypeEnum == LegalPersonType.Businessman) &&
                 string.IsNullOrEmpty(entity.LegalAddress))
             {
                 throw new NotificationException(string.Format(ResPlatform.RequiredFieldMessage, MetadataResources.LegalAddress));
             }
 
-            if (entity.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson)
+            if (entity.LegalPersonTypeEnum == LegalPersonType.NaturalPerson)
             {
                 ValidateIdentityCardNumber(entity.Within<KazakhstanLegalPersonPart>().GetPropertyValue(x => x.IdentityCardNumber));
             }
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.LegalPe
             entity.Inn = request.Bin;
             entity.LegalAddress = request.LegalAddress;
             entity.LegalName = request.LegalName;
-            entity.LegalPersonTypeEnum = (int)request.LegalPersonType;
+            entity.LegalPersonTypeEnum = request.LegalPersonType;
             entity.Within<KazakhstanLegalPersonPart>().SetPropertyValue(x => x.IdentityCardNumber, request.IdentityCardNumber);
             entity.Within<KazakhstanLegalPersonPart>().SetPropertyValue(x => x.IdentityCardIssuedBy, request.IdentityCardIssuedBy);
             entity.Within<KazakhstanLegalPersonPart>().SetPropertyValue(x => x.IdentityCardIssuedOn, request.IdentityCardIssuedOn);

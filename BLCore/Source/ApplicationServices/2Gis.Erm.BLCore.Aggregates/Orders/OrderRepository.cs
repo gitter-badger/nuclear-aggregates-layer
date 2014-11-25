@@ -170,9 +170,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             order.RegionalNumber = null;
 
             // Чтобы заказ по логике являлся новым
-            order.WorkflowStepId = (int)OrderState.OnRegistration;
-            order.TerminationReason = (int)OrderTerminationReason.None;
-            order.HasDocumentsDebt = (byte)DocumentsDebt.Absent;
+            order.WorkflowStepId = OrderState.OnRegistration;
+            order.TerminationReason = OrderTerminationReason.None;
+            order.HasDocumentsDebt = DocumentsDebt.Absent;
             order.SignupDate = DateTime.UtcNow;
             order.Comment = null;
             order.ApprovalDate = null;
@@ -373,7 +373,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         public int SetOrderState(Order order, OrderState orderState)
         {
-            order.WorkflowStepId = (int)orderState;
+            order.WorkflowStepId = orderState;
 
             CheckOrderApprovalDateSpecified(order);
             CheckOrderPlatformSpecified(order);
@@ -476,7 +476,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(bill.OrderId))
                 .Select(x => new
                     {
-                        IsOrderActive = x.WorkflowStepId == (int)OrderState.OnRegistration,
+                        IsOrderActive = x.WorkflowStepId == OrderState.OnRegistration,
                         SignupDate = x.SignupDate,
                     })
                 .Single();
@@ -660,7 +660,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         private static void CheckOrderApprovalDateSpecified(Order order)
         {
-            var state = (OrderState)order.WorkflowStepId;
+            var state = order.WorkflowStepId;
             switch (state)
             {
                 case OrderState.OnTermination:
@@ -679,7 +679,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         private static void CheckOrderPlatformSpecified(Order order)
         {
-            if (order.WorkflowStepId != (int)OrderState.OnRegistration && !order.PlatformId.HasValue)
+            if (order.WorkflowStepId != OrderState.OnRegistration && !order.PlatformId.HasValue)
             {
                 throw new ArgumentException(BLResources.PlatformMustBeSpecified, "order");
             }

@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
             {
                 foreach (var advertisementElement in advertisementElements)
                 {
-                    var templateRestrictionType = (AdvertisementElementRestrictionType)elementTemplate.RestrictionType;
+                    var templateRestrictionType = elementTemplate.RestrictionType;
                     if (templateRestrictionType == AdvertisementElementRestrictionType.FasComment
                         || templateRestrictionType == AdvertisementElementRestrictionType.Text)
                     {

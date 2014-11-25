@@ -76,8 +76,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                     { "LegalPerson", CzechPrintHelper.LegalPersonFields(legalPerson) },
                     { "Order", CzechPrintHelper.OrderFieldsForLetterOfGuarantee(data.Order) },
                     { "Profile", CzechPrintHelper.LegalPersonProfileFields(legalPersonProfile) },
-                    { "LegalAddressPrefix", GetLegalAddressPrefix((LegalPersonType)legalPerson.LegalPersonTypeEnum) },
-                    { "PersonPrefix", GetPersonPrefix((LegalPersonType)legalPerson.LegalPersonTypeEnum) },
+                    { "LegalAddressPrefix", GetLegalAddressPrefix(legalPerson.LegalPersonTypeEnum) },
+                    { "PersonPrefix", GetPersonPrefix(legalPerson.LegalPersonTypeEnum) },
                     { "OperatesOnTheBasis", GetOperatesOnTheBasisString(legalPersonProfile) },
                 };
         }
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         private static string GetOperatesOnTheBasisString(LegalPersonProfile profile)
         {
-            if (profile.OperatesOnTheBasisInGenitive != (int)OperatesOnTheBasisType.Warranty)
+            if (profile.OperatesOnTheBasisInGenitive != OperatesOnTheBasisType.Warranty)
             {
                 return string.Empty;
             }
@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
             return string.Format(
                 CultureInfo.CurrentCulture,
                 BLResources.CzechPrintLetterOfGuaranteeHandler_OperatesOnTheBasisStringTemplate,
-                ((OperatesOnTheBasisType)profile.OperatesOnTheBasisInGenitive).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                profile.OperatesOnTheBasisInGenitive.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
                 profile.WarrantyBeginDate.Value.ToShortDateString());
         }
     }

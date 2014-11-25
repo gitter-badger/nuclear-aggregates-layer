@@ -109,11 +109,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.AfterSalesService
                                                  DealReplicationCode = d.ReplicationCode,
                                                  Orders = d.Orders
                                                            .Where(o => o.IsActive && !o.IsDeleted &&
-                                                                       (o.WorkflowStepId == (int)OrderState.Approved ||
-                                                                        o.WorkflowStepId == (int)OrderState.OnTermination) &&
-                                                                       o.OrderType != (int)OrderType.SelfAds &&
-                                                                       o.OrderType != (int)OrderType.None &&
-                                                                       o.OrderType != (int)OrderType.ProductAdsService &&
+                                                                       (o.WorkflowStepId == OrderState.Approved ||
+                                                                        o.WorkflowStepId == OrderState.OnTermination) &&
+                                                                       o.OrderType != OrderType.SelfAds &&
+                                                                       o.OrderType != OrderType.None &&
+                                                                       o.OrderType != OrderType.ProductAdsService &&
                                                                        o.Locks.Count(l => l.IsActive && !l.IsDeleted && l.PeriodStartDate == request.Month.Start) == 1 &&
                                                                        o.Locks.Count(l => !l.IsDeleted) == 1)
                                                            .Select(x => new OrderDto

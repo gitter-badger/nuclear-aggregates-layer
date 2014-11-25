@@ -1,35 +1,41 @@
-﻿using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
+﻿using System.Data.SqlClient;
+
+using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-    public abstract class EFDomainContextFactory : IReadDomainContextFactory, IModifiableDomainContextFactory
+    public sealed class EFDomainContextFactory : IReadDomainContextFactory, IModifiableDomainContextFactory
     {
         private readonly IDomainContextMetadataProvider _domainContextMetadataProvider;
-        private readonly IEFConnectionFactory _connectionFactory;
+        private readonly IConnectionStringSettings _connectionStringSettings;
+        private readonly IEfDbModelFactory _efDbModelFactory;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
+        private readonly IProcessingContext _processingContext;
         private readonly IProducedQueryLogAccessor _producedQueryLogAccessor;
         private readonly ICommonLog _logger;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
-        protected EFDomainContextFactory(
-            IEFConnectionFactory connectionFactory,
-            IDomainContextMetadataProvider domainContextMetadataProvider,
-            IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            IProducedQueryLogAccessor producedQueryLogAccessor,
-            ICommonLog logger,
-            IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
+        public EFDomainContextFactory(IDomainContextMetadataProvider domainContextMetadataProvider,
+                                      IConnectionStringSettings connectionStringSettings,
+                                      IEfDbModelFactory efDbModelFactory,
+                                      IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
+                                      IProcessingContext processingContext,
+                                      IProducedQueryLogAccessor producedQueryLogAccessor,
+                                      ICommonLog logger,
+                                      IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
-            _connectionFactory = connectionFactory;
             _domainContextMetadataProvider = domainContextMetadataProvider;
+            _connectionStringSettings = connectionStringSettings;
+            _efDbModelFactory = efDbModelFactory;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
+            _processingContext = processingContext;
             _producedQueryLogAccessor = producedQueryLogAccessor;
             _logger = logger;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
         }
-
-        protected abstract IProcessingContext ProcessingContext { get; }
 
         IReadDomainContext IReadDomainContextFactory.Create(DomainContextMetadata domainContextMetadata)
         {
@@ -47,12 +53,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         private EFDomainContext CreateDomainContext(DomainContextMetadata domainContextMetadata)
         {
-            var entityConnection = _connectionFactory.CreateEntityConnection(domainContextMetadata);
-            var objectContext = new EFDbContext(entityConnection, _producedQueryLogAccessor);
+            var connectionString = _connectionStringSettings.GetConnectionString(domainContextMetadata.ConnectionStringName);
+            var connection = new SqlConnection(connectionString);
+            var model = _efDbModelFactory.Create(domainContextMetadata.EntityContainerName, connection);
+            var dbContext = new EFDbContext(connection, model, _producedQueryLogAccessor, true);
 
-            return new EFDomainContext(ProcessingContext,
+            return new EFDomainContext(_processingContext,
                                        domainContextMetadata.EntityContainerName,
-                                       objectContext,
+                                       dbContext,
                                        _pendingChangesHandlingStrategy,
                                        _msCrmReplicationMetadataProvider,
                                        _logger);

@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                                     {
                                         Id = x.Id,
                                         LegalName = x.LegalName,
-                                        LegalPersonTypeEnum = (LegalPersonType)x.LegalPersonTypeEnum,
+                                        LegalPersonTypeEnum = x.LegalPersonTypeEnum,
                                         LegalAddress = x.LegalAddress,
                                         PassportSeries = x.PassportSeries,
                                         PassportNumber = x.PassportNumber,
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
                         return new AssignSpecification<ChileLegalPersonDomainEntityDto, LegalPerson>(
                             (dto, legalPerson) =>
                                 {
-                                    legalPerson.LegalPersonTypeEnum = (int)dto.LegalPersonTypeEnum;
+                                    legalPerson.LegalPersonTypeEnum = dto.LegalPersonTypeEnum;
                                     legalPerson.LegalName = dto.LegalName;
                                     legalPerson.LegalAddress = dto.LegalAddress;
                                     legalPerson.PassportNumber = dto.PassportNumber;

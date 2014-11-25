@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -56,7 +57,8 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
-                    new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm)
+                    new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
+                    new EfDbModelMassProcessor(container)
                 };
 
             CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());

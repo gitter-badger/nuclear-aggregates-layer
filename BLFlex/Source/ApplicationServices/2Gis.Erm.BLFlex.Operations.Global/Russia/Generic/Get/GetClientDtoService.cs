@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                           Email = entity.Email,
                                           Fax = entity.Fax,
                                           Website = entity.Website,
-                                          InformationSource = (InformationSource)entity.InformationSource,
+                                          InformationSource = entity.InformationSource,
                                           ReplicationCode = entity.ReplicationCode,
                                           PromisingValue = entity.PromisingValue,
                                           Comment = entity.Comment,

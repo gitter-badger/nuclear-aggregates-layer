@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
                 CardNumber = legalPerson.CardNumber,
                 LegalAddress = legalPerson.LegalAddress,
                 LegalName = legalPerson.LegalName,
-                LegalPersonType = (LegalPersonType)legalPerson.LegalPersonTypeEnum,
+                LegalPersonType = legalPerson.LegalPersonTypeEnum,
                 Timestamp = legalPerson.Timestamp
             })
             .Single();

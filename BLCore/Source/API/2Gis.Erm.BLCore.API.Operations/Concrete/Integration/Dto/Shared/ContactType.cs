@@ -1,5 +1,6 @@
 ﻿namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Shared
 {
+    // TODO {all, 10.11.2014}: может быть вообще избавиться от данного типа использовать в импорте напрямую FirmAddressContactType, при необходимости изменив их строковые представления, либо схему
     // Should be in sync with FirmAddressContactType
     public enum ContactType
     {

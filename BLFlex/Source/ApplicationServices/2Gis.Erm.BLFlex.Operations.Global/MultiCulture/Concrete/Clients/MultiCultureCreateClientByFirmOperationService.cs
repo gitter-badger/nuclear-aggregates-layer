@@ -48,15 +48,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Clients
             using (var operationScope = _scopeFactory.CreateNonCoupled<CreateClientByFirmIdentity>())
             {
                 var client = new Client
-                                 {
-                                     MainFirmId = firm.Id,
-                                     Name = firm.Name,
-                                     TerritoryId = firm.TerritoryId,
-                                     InformationSource = (int)InformationSource.SalesDepartment,
-                                     OwnerCode = ownerCode,
-                                     LastQualifyTime = firm.LastQualifyTime.Value,
-                                     IsActive = true
-                                 };
+                {
+                    MainFirmId = firm.Id,
+                    Name = firm.Name,
+                    TerritoryId = firm.TerritoryId,
+                    InformationSource = InformationSource.SalesDepartment,
+                    OwnerCode = ownerCode,
+                    LastQualifyTime = firm.LastQualifyTime.Value,
+                    IsActive = true
+                };
 
                 FirmAddress mainFirmAddress;
                 _createClientAggregateService.Create(client, out mainFirmAddress);

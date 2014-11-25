@@ -128,17 +128,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             {
                 organizationUnitQuery = _finder.FindAll<OrganizationUnit>()
                                                .Select(x => new
-                                                                {
-                                                                    OrganizationUnit = x,
+                {
+                    OrganizationUnit = x,
                                                                     ContributionType = x.BranchOfficeOrganizationUnits
                                                                                         .Where(y => y.IsActive && !y.IsDeleted &&
                                                                                                     y.IsPrimaryForRegionalSales)
-                                                                                        .Select(y => y.BranchOffice)
-                                                                                        .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
-                                                                                        .FirstOrDefault(),
-                                                                })
-                                               .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
-                                               .Select(x => x.OrganizationUnit);
+                                        .Select(y => y.BranchOffice)
+                                        .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
+                                        .FirstOrDefault(),
+                })
+                .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
+                .Select(x => x.OrganizationUnit);
             }
             else
             {
@@ -149,7 +149,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
                                                            .Any(x => x.IsActive && !x.IsDeleted &&
                                                                      !x.IsBeta &&
                                                                      x.PeriodStartDate >= periodStartDate &&
-                                                                     x.Status == (int)ReleaseStatus.Success);
+                                                                     x.Status == ReleaseStatus.Success);
             return hasSuccessedRelease;
         }
 

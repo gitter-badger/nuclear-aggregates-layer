@@ -12,8 +12,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified
             public static FindSpecification<OrderProcessingRequest> ForProlongateAndOpened()
             {
                 return new FindSpecification<OrderProcessingRequest>(x =>
-                                                                     x.State == (int)OrderProcessingRequestState.Opened &&
-                                                                     x.RequestType == (int)OrderProcessingRequestType.ProlongateOrder);
+                                                                     x.State == OrderProcessingRequestState.Opened &&
+                                                                     x.RequestType == OrderProcessingRequestType.ProlongateOrder);
             }
         }
     }

@@ -145,6 +145,14 @@
       <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
       <Name>2Gis.Erm.Platform.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.EntityFramework\2Gis.Erm.Platform.DAL.EntityFramework.csproj">
+      <Project>{1DAF0763-543A-49D3-93D2-04F43A79D538}</Project>
+      <Name>2Gis.Erm.Platform.DAL.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
+      <Project>{DAE94B56-59E8-4907-A2BB-6372707C0B3B}</Project>
+      <Name>2Gis.Erm.Platform.Model.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI\2Gis.Erm.Platform.DI.csproj">
       <Project>{BAC5E6CA-9F56-4557-A0FE-88E96D27E047}</Project>
       <Name>2Gis.Erm.Platform.DI</Name>

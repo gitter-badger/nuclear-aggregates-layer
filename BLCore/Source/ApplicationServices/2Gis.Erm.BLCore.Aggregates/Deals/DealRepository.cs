@@ -69,9 +69,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
                 var dealWithRelated = _secureFinder.Find(Specs.Find.ById<Deal>(deal.Id))
                                              .Select(x => new
                                                  {
-                                                     Orders = x.Orders.Where(y => !y.IsDeleted && y.WorkflowStepId != (int)OrderState.Archive && y.IsActive),
+                                                     Orders = x.Orders.Where(y => !y.IsDeleted && y.WorkflowStepId != OrderState.Archive && y.IsActive),
                                                      OrderPositions = x.Orders
-                                                                       .Where(y => !y.IsDeleted && y.WorkflowStepId != (int)OrderState.Archive && y.IsActive)
+                                                                       .Where(y => !y.IsDeleted && y.WorkflowStepId != OrderState.Archive && y.IsActive)
                                                                        .SelectMany(y => y.OrderPositions).Where(op => !op.IsDeleted && op.IsActive),
                                                  })
                                              .Single();
@@ -112,13 +112,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             var releaseInfoQuery = _secureFinder.FindAll<ReleaseInfo>();
 
             return _secureFinder.Find<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive)
-                .Any(o => o.WorkflowStepId != (int)OrderState.Rejected
-                          && o.WorkflowStepId != (int)OrderState.Archive
-                          && !(o.WorkflowStepId == (int)OrderState.OnTermination &&
+                .Any(o => o.WorkflowStepId != OrderState.Rejected
+                          && o.WorkflowStepId != OrderState.Archive
+                          && !(o.WorkflowStepId == OrderState.OnTermination &&
                                releaseInfoQuery.Any(r => r.IsActive && !r.IsDeleted && !r.IsBeta &&
-                                                         (r.Status == (int)ReleaseStatus.InProgressInternalProcessingStarted 
-                                                         || r.Status == (int)ReleaseStatus.InProgressWaitingExternalProcessing 
-                                                         || r.Status == (int)ReleaseStatus.Success)
+                                                         (r.Status == ReleaseStatus.InProgressInternalProcessingStarted 
+                                                         || r.Status == ReleaseStatus.InProgressWaitingExternalProcessing 
+                                                         || r.Status == ReleaseStatus.Success)
                                                          && r.OrganizationUnit == o.DestOrganizationUnit &&
                                                          r.PeriodStartDate <= o.RejectionDate
                                                          && o.RejectionDate <= r.PeriodEndDate)));
@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public void CloseDeal(Deal deal, CloseDealReason closeReason, string closeReasonOther, string comment)
         {
-            deal.CloseReason = (int)closeReason;
+            deal.CloseReason = closeReason;
             deal.CloseReasonOther = closeReasonOther;
             deal.Comment = comment;
             deal.IsActive = false;
@@ -141,7 +141,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         {
             deal.CloseDate = null;
             deal.IsActive = true;
-            deal.CloseReason = (int)CloseDealReason.None;
+            deal.CloseReason = CloseDealReason.None;
             deal.CloseReasonOther = null;
             deal.Comment = null;
             Update(deal);
@@ -150,14 +150,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         public int SetOrderApprovedForReleaseStage(long dealId)
         {
             var deal = _secureFinder.Find(Specs.Find.ById<Deal>(dealId)).Single();
-            if (deal.DealStage == (int)DealStage.Service || deal.DealStage == (int)DealStage.OrderApprovedForRelease)
+            if (deal.DealStage == DealStage.Service || deal.DealStage == DealStage.OrderApprovedForRelease)
             {
                 return 0;
             }
 
             using (var operationScope = _operationScopeFactory.CreateOrUpdateOperationFor(deal))
             {
-                deal.DealStage = (int)DealStage.OrderApprovedForRelease;
+                deal.DealStage = DealStage.OrderApprovedForRelease;
                 _dealGenericSecureRepository.Update(deal);
                 var result = _dealGenericSecureRepository.Save();
                 operationScope.Updated<Deal>(deal.Id).Complete();
@@ -167,7 +167,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public int SetOrderFormedStage(long dealId, long orderId)
         {
-            var orderStates = new[] { (int)OrderState.Approved, (int)OrderState.OnTermination, (int)OrderState.Archive };
+            var orderStates = new[] { OrderState.Approved, OrderState.OnTermination, OrderState.Archive };
 
             var otherOrdersExists = _secureFinder.Find(OrderSpecs.Orders.Find.ForDeal(dealId)
                                                     && Specs.Find.ActiveAndNotDeleted<Order>())
@@ -181,7 +181,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             var deal = _secureFinder.Find(Specs.Find.ById<Deal>(dealId)).Single();
             using (var operationScope = _operationScopeFactory.CreateOrUpdateOperationFor(deal))
             {
-                deal.DealStage = (int)DealStage.OrderFormed;
+                deal.DealStage = DealStage.OrderFormed;
                 _dealGenericSecureRepository.Update(deal);
                 var result = _dealGenericSecureRepository.Save();
                 operationScope.Updated<Deal>(deal.Id).Complete();

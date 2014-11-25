@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
-    public class EFDbContext : IDbContext
+    public sealed class EFDbContext : IDbContext
     {
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed. Suppression is OK here.")]
         private readonly DbContext _dbContext;
         private bool _isDisposed;
 
-        public EFDbContext(EntityConnection connection, IProducedQueryLogAccessor producedQueryLogAccessor)
+        public EFDbContext(DbConnection connection, DbCompiledModel model, IProducedQueryLogAccessor producedQueryLogAccessor, bool contextOwnsConnection)
         {
-            _dbContext = new DbContext(new ObjectContext(connection), true);
+            _dbContext = new DbContext(connection, model, contextOwnsConnection);
             _dbContext.Configuration.ValidateOnSaveEnabled = true;
             _dbContext.Configuration.UseDatabaseNullSemantics = true;
             _dbContext.Configuration.LazyLoadingEnabled = false;
@@ -29,8 +26,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public int? CommandTimeout
         {
-            get { return ((IObjectContextAdapter)_dbContext).ObjectContext.CommandTimeout; }
-            set { ((IObjectContextAdapter)_dbContext).ObjectContext.CommandTimeout = value; }
+            get { return _dbContext.Database.CommandTimeout; }
+            set { _dbContext.Database.CommandTimeout = value; }
         }
 
         public IQueryable Set(Type entityType)
@@ -84,14 +81,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             return ((IObjectContextAdapter)_dbContext).ObjectContext.SaveChanges(options.ToEFSaveOptions());
         }
 
-        public int ExecuteFunction(string functionName, params ObjectParameter[] parameters)
+        public int ExecuteSql(string functionName, params object[] parameters)
         {
-            return ((IObjectContextAdapter)_dbContext).ObjectContext.ExecuteFunction(functionName, parameters);
-        }
-
-        public ObjectResult<TElement> ExecuteFunction<TElement>(string functionName, params ObjectParameter[] parameters)
-        {
-            return ((IObjectContextAdapter)_dbContext).ObjectContext.ExecuteFunction<TElement>(functionName, parameters);
+            return _dbContext.Database.ExecuteSqlCommand(functionName, parameters);
         }
     }
 }

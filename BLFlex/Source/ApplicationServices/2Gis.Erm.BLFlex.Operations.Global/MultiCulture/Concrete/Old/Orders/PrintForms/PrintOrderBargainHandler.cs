@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                                              _dataExtractor.GetUngroupedFields(bargainQuery));
 
             printData.GetObject("LegalPersonProfile")
-                     .Add("OperatesOnTheBasisInGenitive", _printHelper.GetOperatesOnTheBasisInGenitive(profile, (LegalPersonType)legalPerson.LegalPersonTypeEnum));
+                     .Add("OperatesOnTheBasisInGenitive", _printHelper.GetOperatesOnTheBasisInGenitive(profile, legalPerson.LegalPersonTypeEnum));
 
             return printData;
         }

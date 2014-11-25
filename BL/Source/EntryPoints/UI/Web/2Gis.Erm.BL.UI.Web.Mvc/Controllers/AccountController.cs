@@ -131,8 +131,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             StartTime = DateTime.UtcNow,
                             FinishTime = DateTime.UtcNow,
                             OwnerCode = UserContext.Identity.Code,
-                            Status = (byte)OperationStatus.Success,
-                            Type = (short)BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
+                            Status = OperationStatus.Success,
+                            Type = BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
                             Description = BLResources.ExportSucceeded,
                             OrganizationUnitId = viewModel.OrganizationUnit.Key
                         };
@@ -220,8 +220,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                         StartTime = DateTime.UtcNow,
                         FinishTime = DateTime.UtcNow,
                         OwnerCode = UserContext.Identity.Code,
-                        Status = (byte)OperationStatus.Success,
-                        Type = (short)BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
+                        Status = OperationStatus.Success,
+                        Type = BusinessOperation.ExportAccountDetailsTo1CForFranchisees,
                         Description = BLResources.ExportSucceeded,
                         OrganizationUnitId = viewModel.OrganizationUnit.Key
                     };

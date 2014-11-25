@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                             o.BranchOfficeOrganizationUnitId == null ||
                             o.InspectorCode == null ||
                             o.OwnerCode <= 0 ||
-                            ((o.DiscountPercent > 0M || o.DiscountSum > 0M) && o.DiscountReasonEnum == (int)OrderDiscountReason.None) ||
+                            ((o.DiscountPercent > 0M || o.DiscountSum > 0M) && o.DiscountReasonEnum == OrderDiscountReason.None) ||
                             o.CurrencyId == null ||
                             o.ReleaseCountPlan == 0)
                     .Select(o => new
@@ -61,68 +61,68 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             var results = new List<OrderValidationMessage>();
 
-            foreach (var orderDetail in orderDetails)
-            {
-                var sb = new StringBuilder(50);
-
-                Action<string> addFieldErrorAction = txt =>
-                                                            {
-                                                                if (sb.Length > 0)
-                                                                {
-                                                                    sb.Append(BLResources.ListSeparator);
-                                                                }
-                                                                sb.Append(txt);
-                                                            };
-
-
-                if (orderDetail.BeginDistributionDate.Day != 1)
+                foreach (var orderDetail in orderDetails)
                 {
-                    addFieldErrorAction(MetadataResources.BeginDistributionDate);
-                }
+                    var sb = new StringBuilder(50);
 
-                if (orderDetail.LegalPersonId == null)
-                {
-                    addFieldErrorAction(MetadataResources.LegalPerson);
-                }
+                    Action<string> addFieldErrorAction = txt =>
+                                                             {
+                                                                 if (sb.Length > 0)
+                                                                 {
+                                                                     sb.Append(BLResources.ListSeparator);
+                                                                 }
+                                                                 sb.Append(txt);
+                                                             };
 
-                if (orderDetail.BranchOfficeOrganizationUnitId == null)
-                {
-                    addFieldErrorAction(MetadataResources.BranchOfficeOrganizationUnitName);
-                }
 
-                if (orderDetail.OwnerCode < 1)
-                {
-                    addFieldErrorAction(MetadataResources.Owner);
-                }
+                    if (orderDetail.BeginDistributionDate.Day != 1)
+                    {
+                        addFieldErrorAction(MetadataResources.BeginDistributionDate);
+                    }
 
-                if (orderDetail.InspectorCode == null)
-                {
-                    addFieldErrorAction(MetadataResources.Inspector);
-                }
+                    if (orderDetail.LegalPersonId == null)
+                    {
+                        addFieldErrorAction(MetadataResources.LegalPerson);
+                    }
 
-                if ((orderDetail.DiscountPercent > 0M || orderDetail.DiscountSum > 0) && orderDetail.DiscountReasonEnum == (int)OrderDiscountReason.None)
-                {
-                    addFieldErrorAction(MetadataResources.DiscountSum);
-                }
+                    if (orderDetail.BranchOfficeOrganizationUnitId == null)
+                    {
+                        addFieldErrorAction(MetadataResources.BranchOfficeOrganizationUnitName);
+                    }
 
-                if (orderDetail.ReleaseCountPlan == 0)
-                {
-                    addFieldErrorAction(MetadataResources.PlanReleaseCount);
-                }
+                    if (orderDetail.OwnerCode < 1)
+                    {
+                        addFieldErrorAction(MetadataResources.Owner);
+                    }
 
-                if (orderDetail.CurrencyId == null)
-                {
-                    addFieldErrorAction(MetadataResources.Currency);
-                }
+                    if (orderDetail.InspectorCode == null)
+                    {
+                        addFieldErrorAction(MetadataResources.Inspector);
+                    }
+
+                    if ((orderDetail.DiscountPercent > 0M || orderDetail.DiscountSum > 0) && orderDetail.DiscountReasonEnum == OrderDiscountReason.None)
+                    {
+                        addFieldErrorAction(MetadataResources.DiscountSum);
+                    }
+
+                    if (orderDetail.ReleaseCountPlan == 0)
+                    {
+                        addFieldErrorAction(MetadataResources.PlanReleaseCount);
+                    }
+
+                    if (orderDetail.CurrencyId == null)
+                    {
+                        addFieldErrorAction(MetadataResources.Currency);
+                    }
 
                 results.Add(new OrderValidationMessage
-                                    {
-                                        Type = MessageType.Error,
-                                        MessageText = string.Format(BLResources.OrderCheckOrderHasUnspecifiedFields, sb),
-                                        OrderId = orderDetail.Id,
-                                        OrderNumber = orderDetail.Number
-                                    });
-            }
+                                     {
+                                         Type = MessageType.Error,
+                                         MessageText = string.Format(BLResources.OrderCheckOrderHasUnspecifiedFields, sb),
+                                         OrderId = orderDetail.Id,
+                                         OrderNumber = orderDetail.Number
+                                     });
+                }
 
             return results;
         }

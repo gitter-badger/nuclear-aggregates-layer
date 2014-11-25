@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
                 if (isTechnicalTermination)
                 {
-                    if (orderToCopy.WorkflowStepId != (int)OrderState.OnTermination)
+                    if (orderToCopy.WorkflowStepId != OrderState.OnTermination)
                     {
                         throw new InvalidOperationException(BLResources.CannotCreateOderInsteadOfTerminatedIfSourceOrderIsnNotOnTermination);
                     }
