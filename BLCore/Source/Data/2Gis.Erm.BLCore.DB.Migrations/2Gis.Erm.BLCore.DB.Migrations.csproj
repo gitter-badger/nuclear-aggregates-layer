@@ -751,6 +751,7 @@
     <Compile Include="2.1\2014.09.22 rev. 24551 - Alter territory replication.cs" />
     <Compile Include="2.1\2014.10.27 rev. 25550 - Alter Department CUD.cs" />
     <Compile Include="2.1\2014.10.01 rev. 24898 - Alter replicate order and order position.cs" />
+    <Compile Include="2.1\2014.10.22 rev. 25477 - Remove RegionalAdvertisingSharing.cs" />
     <Compile Include="2.1\2014.10.23 rev. 25523 - Add new some new TimeZones.cs" />
     <Compile Include="2.1\2014.10.23 rev. 25519 - Remove description of TimeZone.cs" />
     <Compile Include="2.1\2014.11.05 rev. 25786 - Remove obsolete SPs and tables.cs" />

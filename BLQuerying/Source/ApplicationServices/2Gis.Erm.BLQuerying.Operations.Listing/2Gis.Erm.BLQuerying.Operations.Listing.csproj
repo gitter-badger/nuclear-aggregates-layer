@@ -114,7 +114,6 @@
     <Compile Include="List\ListPricePositionService.cs" />
     <Compile Include="List\ListPriceService.cs" />
     <Compile Include="List\ListPrintFormTemplateService.cs" />
-    <Compile Include="List\ListRegionalAdvertisingSharingService.cs" />
     <Compile Include="List\ListReleaseInfoService.cs" />
     <Compile Include="List\ListTerritoryService.cs" />
     <Compile Include="List\ListThemeService.cs" />

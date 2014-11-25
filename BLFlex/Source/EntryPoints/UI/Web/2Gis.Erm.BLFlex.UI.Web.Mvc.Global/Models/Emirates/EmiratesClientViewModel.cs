@@ -9,6 +9,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
     public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, IEmiratesAdapted
@@ -65,9 +68,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         public InformationSource InformationSource { get; set; }
 
         // Дата взятия из резерва
+        [Calendar, JsonConverter(typeof(IsoDateTimeConverter))]
         public DateTime LastQualifyTime { get; set; }
 
         // Дата возврата в резерв
+        [Calendar, JsonConverter(typeof(IsoDateTimeConverter))]
         public DateTime? LastDisqualifyTime { get; set; }
 
         // Куратор

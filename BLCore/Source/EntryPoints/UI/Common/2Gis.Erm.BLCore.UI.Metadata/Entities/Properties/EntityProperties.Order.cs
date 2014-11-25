@@ -306,11 +306,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                             new ReadOnlyPropertyFeature(),
                             new HiddenFeature()),
 
-                    new EntityPropertyMetadata("EditRegionalNumber", typeof(bool))
-                        .WithFeatures(
-                            new ReadOnlyPropertyFeature(),
-                            new HiddenFeature()),
-
                     new EntityPropertyMetadata("HasOrderBranchOfficeOrganizationUnitSelection", typeof(bool))
                         .WithFeatures(
                             new ReadOnlyPropertyFeature(),

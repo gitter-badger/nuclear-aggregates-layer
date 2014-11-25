@@ -76,7 +76,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
             // Проверить функциональные разрешения
             entityViewModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
             entityViewModel.HasOrderBranchOfficeOrganizationUnitSelection = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection);
-            entityViewModel.EditRegionalNumber = functionalPrivilegeValidator(FunctionalPrivilegeName.MakeRegionalAdsDocs);
 
             entityViewModel.HasOrderDocumentsDebtChecking = _functionalAccessService.HasOrderChangeDocumentsDebtAccess(entityViewModel.SourceOrganizationUnit.Key ?? 0, currentUserCode);
 
@@ -138,14 +137,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
                 {
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintTerminationNoticeAction");
                     entityViewModel.ViewConfig.DisableCardToolbarItem("PrintAdditionalAgreementAction");
-                }
-
-                var isReqionalOrder = entityViewModel.SourceOrganizationUnit.Key !=
-                                      entityViewModel.DestinationOrganizationUnit.Key;
-
-                if (isActionDisabledBasedOnWorkflowStepId || !isReqionalOrder)
-                {
-                    entityViewModel.ViewConfig.DisableCardToolbarItem("PrintRegTerminationNoticeAction");
                 }
             }
 

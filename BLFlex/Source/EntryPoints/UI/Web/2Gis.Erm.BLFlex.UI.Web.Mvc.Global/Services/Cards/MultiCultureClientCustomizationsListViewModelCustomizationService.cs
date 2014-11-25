@@ -14,7 +14,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards
                                                                    ICzechAdapted,
                                                                    IChileAdapted,
                                                                    IUkraineAdapted,
-                                                                   IEmiratesAdapted
+                                                                   IEmiratesAdapted,
+                                                                   IKazakhstanAdapted
     {
         private readonly IEnumerable<IViewModelCustomization> _customizations;
 

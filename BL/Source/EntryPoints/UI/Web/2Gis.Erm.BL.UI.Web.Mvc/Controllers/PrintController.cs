@@ -272,13 +272,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult PrintRegionalTerminationNotice(long id, long profileId)
-        {
-            return
-                TryPrintDocument(id, profileId, new PrintRegionalOrderTerminationNoticeRequest { OrderId = id, LegalPersonProfileId = profileId }, true);
-        }
-
-        [HttpGet]
         public ActionResult PrintAdditionalAgreement(long id, long profileId)
         {
             return

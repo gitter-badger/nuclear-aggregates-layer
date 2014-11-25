@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         {
             var model = new WithdrawalDialogViewModel
             {
-                PeriodStart = DateTime.UtcNow.Date.AddMonths(1).GetFirstDateOfMonth()
+                PeriodStart = DateTime.UtcNow.Date.GetNextMonthFirstDate()
             };
 
             return View(model);
@@ -82,10 +82,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
             try
             {
-                var processingResult = 
-                    _withdrawalOperationService.Withdraw(
-                            viewModel.OrganizationUnit.Key.Value, 
-                            new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()));
+                var processingResult =
+                    _withdrawalOperationService.Withdraw(viewModel.OrganizationUnit.Key.Value,
+                                                         new TimePeriod(viewModel.PeriodStart.GetFirstDateOfMonth(), viewModel.PeriodStart.GetEndPeriodOfThisMonth()));
 
                 viewModel.Message = processingResult.Succeded
                                         ? "Withdrawal successfully finished"
@@ -108,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         {
             var model = new WithdrawalRevertDialogViewModel
             {
-                PeriodStart = DateTime.UtcNow.Date.AddMonths(1).GetFirstDateOfMonth()
+                PeriodStart = DateTime.UtcNow.Date.GetNextMonthFirstDate()
             };
 
             return View(model);
