@@ -46,10 +46,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         TerminationNoticeBargainWithoutReasonLegalPerson = 77,
         TerminationNoticeBargainWithoutReasonBusinessman = 78,
 
-        // региональное уведомление о расторжении
-        RegionalTerminationNoticeBranch2Branch = 80,
-        RegionalTerminationNoticeNotBranch2Branch = 81,
-
         // заявка на лимит
         LimitRequest = 90,
 

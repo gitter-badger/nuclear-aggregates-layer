@@ -810,12 +810,6 @@
   <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
     <value>Единый счёт на оплату для физ. лица</value>
   </data>
-  <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
-    <value>Региональное уведомление о расторжении (Филиал-Филиал)</value>
-  </data>
-  <data name="TemplateCodeRegionalTerminationNoticeNotBranch2Branch" xml:space="preserve">
-    <value>Региональное уведомление о расторжении (отличное от Филиал-Филиал)</value>
-  </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Договор</value>
   </data>
@@ -1112,9 +1106,6 @@
   </data>
   <data name="FunctionalPrivilegeNameWithdrawalAccess" xml:space="preserve">
     <value>Списание</value>
-  </data>
-  <data name="FunctionalPrivilegeNameMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Формирования исходящей региональной рекламы</value>
   </data>
   <data name="FunctionalPrivilegeNameProcessAccountsWithDebts" xml:space="preserve">
     <value>Обработка лицевых счетов с задолжностью</value>

@@ -34,7 +34,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             this.OrderPositions = new HashSet<OrderPosition>();
             this.OrderReleaseTotals = new HashSet<OrderReleaseTotal>();
             this.ReplacingOrders = new HashSet<Order>();
-            this.OrdersRegionalAdvertisingSharings = new HashSet<OrdersRegionalAdvertisingSharing>();
             this.ReleaseValidationResults = new HashSet<ReleaseValidationResult>();
             this.OrderValidationResults = new HashSet<OrderValidationResult>();
             this.BaseOrderProcessingRequests = new HashSet<OrderProcessingRequest>();
@@ -125,7 +124,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public Firm Firm { get; set; }
         public ICollection<Order> ReplacingOrders { get; set; }
         public Order TechnicallyTerminatedOrder { get; set; }
-        public ICollection<OrdersRegionalAdvertisingSharing> OrdersRegionalAdvertisingSharings { get; set; }
         public ICollection<ReleaseValidationResult> ReleaseValidationResults { get; set; }
         public ICollection<OrderValidationResult> OrderValidationResults { get; set; }
         public Platform Platform { get; set; }

@@ -60,7 +60,6 @@
         @Html.HiddenFor(m => m.CurrenctUserCode)
         @Html.HiddenFor(m => m.HasOrderBranchOfficeOrganizationUnitSelection)
         @Html.HiddenFor(m => m.CanEditOrderType)
-        @Html.CheckBoxFor(m => m.EditRegionalNumber)
         @Html.CheckBoxFor(m => m.ShowRegionalAttributes)
         @Html.CheckBoxFor(m => m.CanSwitchToAccount)
         @Html.HiddenFor(m => m.HasOrderDocumentsDebtChecking)
@@ -70,9 +69,9 @@
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
         @Html.HiddenFor(m => m.LegalPersonProfileId)
+        @Html.HiddenFor(m => m.RegionalNumber)
 
         @*Скрыты в международной версии*@
-        @Html.HiddenFor(m => m.RegionalNumber)
         @Html.HiddenFor(m => m.HasDocumentsDebt)
         @Html.HiddenFor(m => m.DocumentsComment)
     </div>
