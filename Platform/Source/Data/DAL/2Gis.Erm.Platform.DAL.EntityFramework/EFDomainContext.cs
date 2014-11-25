@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases;
@@ -105,11 +105,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.AcceptAllChanges();
         }
 
-        public ObjectResult<TElement> ExecuteFunction<TElement>(string functionName, params ObjectParameter[] parameters)
-        {
-            return _dbContext.ExecuteFunction<TElement>(functionName, parameters);
-        }
-
         public DbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return _dbContext.Set<TEntity>();
@@ -157,7 +152,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 return;
             }
 
-            _replicableHashSet.Add(Tuple.Create((IEntityKey)entity, string.Format("{0}.{1}", _defaultContextName, replicationInfo.StoredProcedureName)));
+            _replicableHashSet.Add(Tuple.Create((IEntityKey)entity, string.Format("EXEC {0} @Id", replicationInfo.SchemaQualifiedStoredProcedureName)));
         }
 
         private void Replicate()
@@ -173,11 +168,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             foreach (var entityReplicationInfo in replicableHashSetCopy)
             {
                 var entity = entityReplicationInfo.Item1;
-                var replicationFunctionName = entityReplicationInfo.Item2;
+                var replicationProcedureCallSql = entityReplicationInfo.Item2;
 
                 try
                 {
-                    _dbContext.ExecuteFunction(replicationFunctionName, new ObjectParameter("Id", entity.Id));
+                    _dbContext.ExecuteSql(replicationProcedureCallSql, new SqlParameter("Id", entity.Id));
                     _replicableHashSet.Remove(entityReplicationInfo);
                 }
                 catch (Exception ex)

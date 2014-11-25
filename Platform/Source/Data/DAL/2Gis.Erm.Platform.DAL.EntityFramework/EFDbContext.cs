@@ -81,14 +81,9 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             return ((IObjectContextAdapter)_dbContext).ObjectContext.SaveChanges(options.ToEFSaveOptions());
         }
 
-        public int ExecuteFunction(string functionName, params ObjectParameter[] parameters)
+        public int ExecuteSql(string functionName, params object[] parameters)
         {
-            return ((IObjectContextAdapter)_dbContext).ObjectContext.ExecuteFunction(functionName, parameters);
-        }
-
-        public ObjectResult<TElement> ExecuteFunction<TElement>(string functionName, params ObjectParameter[] parameters)
-        {
-            return ((IObjectContextAdapter)_dbContext).ObjectContext.ExecuteFunction<TElement>(functionName, parameters);
+            return _dbContext.Database.ExecuteSqlCommand(functionName, parameters);
         }
     }
 }

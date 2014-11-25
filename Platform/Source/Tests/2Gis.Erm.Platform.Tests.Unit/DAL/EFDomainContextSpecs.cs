@@ -125,19 +125,19 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
 
             It replicate_deal_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteFunction(Moq.It.Is<string>(y => y == "Erm.ReplicateDeal"), Moq.It.IsAny<ObjectParameter[]>()),
+                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateDeal"), Moq.It.IsAny<object[]>()),
                                          Times.Once());
 
             It replicate_order_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteFunction(Moq.It.Is<string>(y => y == "Erm.ReplicateOrder"), Moq.It.IsAny<ObjectParameter[]>()),
+                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateOrder"), Moq.It.IsAny<object[]>()),
                                          Times.Once());
 
             It replicate_order_position_stored_proc_should_be_called_once = () =>
-                ObjectContextMock.Verify(x => x.ExecuteFunction(Moq.It.Is<string>(y => y == "Erm.ReplicateOrderPosition"), Moq.It.IsAny<ObjectParameter[]>()),
+                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.Is<string>(y => y == "Erm.ReplicateOrderPosition"), Moq.It.IsAny<object[]>()),
                                          Times.Once());
 
             It should_be_two_replicate_stored_procs_called = () =>
-                ObjectContextMock.Verify(x => x.ExecuteFunction(Moq.It.IsAny<string>(), Moq.It.IsAny<ObjectParameter[]>()),
+                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.IsAny<string>(), Moq.It.IsAny<object[]>()),
                                          Times.Exactly(3));
         }
 
@@ -168,8 +168,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             Because of = () => _domainContext.SaveChanges(SaveOptions.None);
 
-            It any_replicate_stored_procs_should_not_be_called = () => 
-                ObjectContextMock.Verify(x => x.ExecuteFunction(Moq.It.IsAny<string>(), Moq.It.IsAny<ObjectParameter[]>()), Times.Never());
+            It any_replicate_stored_procs_should_not_be_called = () =>
+                ObjectContextMock.Verify(x => x.ExecuteSql(Moq.It.IsAny<string>(), Moq.It.IsAny<object[]>()), Times.Never());
         }
 
         [Tags("DAL")]

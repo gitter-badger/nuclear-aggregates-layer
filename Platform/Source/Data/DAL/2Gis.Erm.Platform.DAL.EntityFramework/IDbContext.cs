@@ -22,7 +22,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         void AcceptAllChanges();
         int SaveChanges(SaveOptions options);
         
-        int ExecuteFunction(string functionName, params ObjectParameter[] parameters);
-        ObjectResult<TElement> ExecuteFunction<TElement>(string functionName, params ObjectParameter[] parameters);
+        int ExecuteSql(string functionName, params object[] parameters);
     }
 }
