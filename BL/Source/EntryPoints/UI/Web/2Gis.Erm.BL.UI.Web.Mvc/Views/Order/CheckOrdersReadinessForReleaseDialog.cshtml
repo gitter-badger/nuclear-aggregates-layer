@@ -18,56 +18,6 @@
     <script src="/Scripts/Ext.ux.AsyncOperationClientManager.js?@ThisAssembly.Build" type="text/javascript"></script>
 
     <script type="text/javascript">
-
-    Ext.DoubleGis.ValidatorRegistry.validators["validatePeriod"] = function (rule)
-    {
-        return function (value, context)
-        {
-            var getValue = function (id) { return Ext.getCmp(id) ? Ext.getCmp(id).getValue() : Ext.getDom(id).value; };
-
-            var startDate = new Date(getValue(rule.ValidationParameters.startDateField));
-            var endDate = new Date(getValue(rule.ValidationParameters.endDateField));
-
-            var expectedStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1, 0, 0, 0, 0);
-
-            var tmpDate = new Date((new Date(expectedStartDate.getFullYear(), expectedStartDate.getMonth() + 1, 1)) - 1);
-            var expectedEndDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0);
-
-            if (startDate.getTime() != expectedStartDate.getTime())
-                return false;
-
-            if (endDate.getTime() != expectedEndDate.getTime())
-                return false;
-
-            return true;
-        };
-    };
-
-    Ext.DoubleGis.ValidatorRegistry.validators["checkPeriod"] = function (rule)
-    {
-        return function (value, context)
-        {
-            var startDate = new Date(Ext.getCmp(rule.ValidationParameters.startDateField) ? Ext.getCmp(rule.ValidationParameters.startDateField).getValue() : Ext.getDom(rule.ValidationParameters.startDateField).value);
-            var endDate = new Date(Ext.getCmp(rule.ValidationParameters.endDateField) ? Ext.getCmp(rule.ValidationParameters.endDateField).getValue() : Ext.getDom(rule.ValidationParameters.endDateField).value);
-            return (startDate.getTime() < endDate.getTime());
-        };
-    };
-
-    Ext.DoubleGis.ValidatorRegistry.validators["checkDate"] = function (rule)
-    {
-        return function (value, context)
-        {
-            var date = new Date(Ext.getCmp(rule.ValidationParameters.dateField) ? Ext.getCmp(rule.ValidationParameters.dateField).getValue() : Ext.getDom(rule.ValidationParameters.dateField).value);
-            var expectedDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0); //first day
-            if (rule.ValidationParameters.isFirstDay == false)
-            {
-                var tmpDate = new Date((new Date(date.getFullYear(), date.getMonth() + 1, 1)) - 1);
-                expectedDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0);
-            }
-            return (date.getTime() == expectedDate.getTime());
-        };
-    };
-
     Ext.onReady(function ()
     {
         if (Ext.getDom('ErrorsLink'))
@@ -97,10 +47,8 @@
         {
             if (Ext.DoubleGis.FormValidator.validate(EntityForm))
             {
-                Ext.getDom("StartPeriodDate").value = new Date(Ext.getCmp("StartPeriodDate").getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern);
                 Ext.getDom("OK").disabled = true;
                 EntityForm.submit();
-                Ext.getDom("StartPeriodDate").value = Date.parseDate(Ext.getDom("StartPeriodDate").value, Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern).format(Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern);
             }
         });
 
@@ -135,7 +83,7 @@
             }
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber })
+            @Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
