@@ -157,7 +157,6 @@
     <Compile Include="Entities\DTOs\ProjectDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ReferenceDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ReferenceItemDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\RegionalAdvertisingSharingDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ReleaseInfoDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ReleasesWithdrawalsPositionDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\ReleaseValidationResultDomainEntityDto.cs" />
@@ -300,7 +299,6 @@
     <Compile Include="Entities\Erm\OrderProcessingRequest.cs" />
     <Compile Include="Entities\Erm\OrderProcessingRequestMessage.cs" />
     <Compile Include="Entities\Erm\OrderReleaseTotal.cs" />
-    <Compile Include="Entities\Erm\OrdersRegionalAdvertisingSharing.cs" />
     <Compile Include="Entities\Erm\OrderValidationCacheEntry.cs" />
     <Compile Include="Entities\Erm\OrderValidationResult.cs" />
     <Compile Include="Entities\Erm\OrganizationUnit.cs" />
@@ -319,7 +317,6 @@
     <Compile Include="Entities\Erm\Project.cs" />
     <Compile Include="Entities\Erm\Reference.cs" />
     <Compile Include="Entities\Erm\ReferenceItem.cs" />
-    <Compile Include="Entities\Erm\RegionalAdvertisingSharing.cs" />
     <Compile Include="Entities\Erm\ReleaseInfo.cs" />
     <Compile Include="Entities\Erm\ReleasesWithdrawalsPosition.cs" />
     <Compile Include="Entities\Erm\ReleaseValidationResult.cs" />

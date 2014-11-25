@@ -25,8 +25,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             Accounts = new HashSet<Account>();
             Bargains = new HashSet<Bargain>();
             Orders = new HashSet<Order>();
-            RegionalAdvertisingSharings = new HashSet<RegionalAdvertisingSharing>();
-            RegionalAdvertisingSharings1 = new HashSet<RegionalAdvertisingSharing>();
             PrintFormTemplates = new HashSet<PrintFormTemplate>();
         }
 
@@ -81,8 +79,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public BranchOffice BranchOffice { get; set; }
         public OrganizationUnit OrganizationUnit { get; set; }
         public ICollection<Order> Orders { get; set; }
-        public ICollection<RegionalAdvertisingSharing> RegionalAdvertisingSharings { get; set; }
-        public ICollection<RegionalAdvertisingSharing> RegionalAdvertisingSharings1 { get; set; }
         public ICollection<PrintFormTemplate> PrintFormTemplates { get; set; }
 
         public override bool Equals(object obj)

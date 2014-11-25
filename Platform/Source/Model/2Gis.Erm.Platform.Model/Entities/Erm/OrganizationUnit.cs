@@ -27,8 +27,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
             BranchOfficeOrganizationUnits = new HashSet<BranchOfficeOrganizationUnit>();
             Firms = new HashSet<Firm>();
             WithdrawalInfos = new HashSet<WithdrawalInfo>();
-            RegionalAdvertisingSharings = new HashSet<RegionalAdvertisingSharing>();
-            RegionalAdvertisingSharings1 = new HashSet<RegionalAdvertisingSharing>();
             LocalMessages = new HashSet<LocalMessage>();
             Operations = new HashSet<Operation>();
             ThemeOrganizationUnits = new HashSet<ThemeOrganizationUnit>();
@@ -67,8 +65,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public ICollection<BranchOfficeOrganizationUnit> BranchOfficeOrganizationUnits { get; set; }
         public ICollection<Firm> Firms { get; set; }
         public ICollection<WithdrawalInfo> WithdrawalInfos { get; set; }
-        public ICollection<RegionalAdvertisingSharing> RegionalAdvertisingSharings { get; set; }
-        public ICollection<RegionalAdvertisingSharing> RegionalAdvertisingSharings1 { get; set; }
         public ICollection<LocalMessage> LocalMessages { get; set; }
         public ICollection<Operation> Operations { get; set; }
         public ICollection<ThemeOrganizationUnit> ThemeOrganizationUnits { get; set; }

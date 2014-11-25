@@ -104,7 +104,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(OrderProcessingRequest),
     		typeof(OrderProcessingRequestMessage),
     		typeof(OrderReleaseTotal),
-    		typeof(OrdersRegionalAdvertisingSharing),
     		typeof(OrderValidationCacheEntry),
     		typeof(OrderValidationResult),
     		typeof(OrganizationUnit),
@@ -123,7 +122,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(Project),
     		typeof(Reference),
     		typeof(ReferenceItem),
-    		typeof(RegionalAdvertisingSharing),
     		typeof(ReleaseInfo),
     		typeof(ReleasesWithdrawalsPosition),
     		typeof(ReleaseValidationResult),
@@ -138,7 +136,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(ThemeTemplate),
     		typeof(UsersDescendant),
     		typeof(UserTerritoriesOrganizationUnits),
-                typeof(WithdrawalInfo)
+            typeof(WithdrawalInfo)
     	};
     }
 }

@@ -153,7 +153,6 @@
     <Compile Include="Config\Erm\OrderProcessingRequestMap.cs" />
     <Compile Include="Config\Erm\OrderProcessingRequestMessageMap.cs" />
     <Compile Include="Config\Erm\OrderReleaseTotalMap.cs" />
-    <Compile Include="Config\Erm\OrdersRegionalAdvertisingSharingMap.cs" />
     <Compile Include="Config\Erm\OrderValidationResultMap.cs" />
     <Compile Include="Config\Erm\OrganizationUnitMap.cs" />
     <Compile Include="Config\Erm\PerformedBusinessOperationMap.cs" />
@@ -172,7 +171,6 @@
     <Compile Include="Config\Erm\ProjectMap.cs" />
     <Compile Include="Config\Erm\ReferenceItemMap.cs" />
     <Compile Include="Config\Erm\ReferenceMap.cs" />
-    <Compile Include="Config\Erm\RegionalAdvertisingSharingMap.cs" />
     <Compile Include="Config\Erm\ReleaseInfoMap.cs" />
     <Compile Include="Config\Erm\ReleasesWithdrawalMap.cs" />
     <Compile Include="Config\Erm\ReleasesWithdrawalsPositionMap.cs" />
