@@ -1,6 +1,7 @@
 using System;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
@@ -9,14 +10,21 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 {
     public sealed class ReleaseDialogViewModel : ViewModel
     {
+        private DateTime _periodStart;
+
         [RequiredLocalized]
         public LookupField OrganizationUnit { get; set; }
 
         [YesNoRadio]
         public bool IsBeta { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         [DisplayNameLocalized("PaymentMonth")]
-        public DateTime PeriodStart { get; set; }
+        public DateTime PeriodStart
+        {
+            get { return _periodStart; }
+            set { _periodStart = value.AssumeUtcKind(); }
+        }
     }
 }

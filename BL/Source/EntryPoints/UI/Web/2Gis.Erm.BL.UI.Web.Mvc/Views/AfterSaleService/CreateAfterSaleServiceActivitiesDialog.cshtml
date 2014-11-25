@@ -46,10 +46,6 @@
                 {
                     Ext.getDom("OK").disabled = "disabled";
                     Ext.getDom("Cancel").disabled = "disabled";
-                    window.Ext.each(window.Ext.query("input.x-calendar", window.EntityForm), function (node)
-                    {
-                        node.value = window.Ext.getCmp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : "";
-                    });
 
                     Ext.getDom("Notifications").innerHTML = Ext.LocalizedResources.AfterSalesServiceOperationStartedMessage;
                     Ext.get("Notifications").addClass("Notifications");
@@ -74,7 +70,7 @@
                 @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit, ExtendedInfo = "userId=" + Model.UserId + "&filterMovedToErm=true" })
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.Month, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber })
+                @Html.TemplateField(m => m.Month, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month })
             </div>
         </div>
     }

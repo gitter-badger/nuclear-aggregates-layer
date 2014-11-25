@@ -1,0 +1,37 @@
+.calendar-button {
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 19px;
+}
+
+.calendar-button-normal {
+    background-image: url("/Content/images/CommonUI/btn_off_cal.gif");
+}
+
+.calendar-button-hover {
+    background-image: url("/Content/images/CommonUI/btn_on_cal.gif");
+}
+
+.calendar-button-disabled {
+    background-image: url("/Content/images/CommonUI/btn_dis_cal.gif");
+}
+
+/* Некторые фиксы для более аккуратного внешнего вида кнопки комбобокса выбора времени */
+.calendar-time-button {
+    margin-top: 1px;
+    height: 18px !important;
+}
+
+table.x-calendar-v2
+{
+    border-collapse: collapse;
+    table-layout: fixed;
+    border-spacing: 0;
+    width: 100%;
+    border: 0;
+}
+
+table.x-calendar-v2 TD
+{
+    padding: 0;
+}

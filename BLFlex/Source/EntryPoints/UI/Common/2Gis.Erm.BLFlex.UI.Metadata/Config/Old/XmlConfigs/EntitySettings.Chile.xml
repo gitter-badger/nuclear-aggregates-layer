@@ -2439,7 +2439,7 @@
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="CreateDate" Width="200" FieldType="DateTime" ExtTypeName="Date" />
+          <Field Name="CreateDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="PublishDate" NameLocaleResourceId="PricePublishDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="BeginDate" NameLocaleResourceId="PublishBeginDate" Width="200" FieldType="Period" ExtTypeName="Date" />
           <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="200" FieldType="String" ExtTypeName="String" />
