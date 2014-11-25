@@ -6,8 +6,10 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
+using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
@@ -57,6 +59,12 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         public CardMetadataBuilder<TEntity> MainAttribute(Expression<Func<TEntity, object>> propertyNameExpression)
         {
             AddFeatures(new EntityMainAttributeFeature(PropertyDescriptor.Create(propertyNameExpression)));
+            return this;
+        }
+
+        public CardMetadataBuilder<TEntity> EntityLocalization<TKey>(Expression<Func<TKey>> resourceKeyExpression)
+        {
+            AddFeatures(new EntityNameLocalizationFeature(StringResourceDescriptor.Create(resourceKeyExpression)));
             return this;
         }
 

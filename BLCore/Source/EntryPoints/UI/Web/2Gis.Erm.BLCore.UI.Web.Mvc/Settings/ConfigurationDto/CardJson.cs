@@ -5,7 +5,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto
     public sealed partial class CardJson
     {
         public string Icon { get; set; }
-        public string LargeIcon { get; set; }
 
         public string Title { get; set; }
 

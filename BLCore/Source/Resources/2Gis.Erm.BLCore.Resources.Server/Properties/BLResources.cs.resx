@@ -1398,9 +1398,6 @@ Blokujících chyb:{2}</value>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>Vybraná položka nemůže být zakázaná, protože je hlavní</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Velká ikona</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Není možné přidat položku do zveřejněného ceníku</value>
   </data>

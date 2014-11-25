@@ -8,7 +8,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Account =
             CardMetadata.For<Account>()
-                        .Title.Resource(() => ErmConfigLocalization.EnAccounts)
+                        .EntityLocalization(() => ErmConfigLocalization.EnAccounts)
                         .Icon.Path("en_ico_16_Account.gif")
                         .MainAttribute(x => x.Id);
     }

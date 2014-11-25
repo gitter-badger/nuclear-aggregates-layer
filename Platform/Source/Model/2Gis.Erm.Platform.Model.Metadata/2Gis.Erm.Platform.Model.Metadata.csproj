@@ -126,6 +126,7 @@
     <Compile Include="Common\Validators\MetadataValidatorsSuite.cs" />
     <Compile Include="DI\PlatformModelMetadataAssembly.cs" />
     <Compile Include="DI\MetadataZone.cs" />
+    <Compile Include="Entities\CommonFeatures\EntityNameLocalizationFeature.cs" />
     <Compile Include="Entities\Configuration\LookupAttributeProvider.cs" />
     <Compile Include="Entities\EAV\DynamicEntityPropertyAccessor.cs" />
     <Compile Include="Entities\EAV\DynamicEntityPropertyMapper.cs" />

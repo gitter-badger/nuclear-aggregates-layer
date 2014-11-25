@@ -1395,9 +1395,6 @@
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value />
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value />
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value />
   </data>

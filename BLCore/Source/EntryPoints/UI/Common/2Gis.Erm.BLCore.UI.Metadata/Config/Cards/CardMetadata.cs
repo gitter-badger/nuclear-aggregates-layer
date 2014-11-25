@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
@@ -45,12 +46,32 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             get { return _entity; }
         }
 
-        public ITitleDescriptor TitleDescriptor { get; private set; }
-        public IStringResourceDescriptor EntityLocalizationDescriptor { get; private set; }
+        public ITitleDescriptor TitleDescriptor
+        {
+            get
+            {
+                var feature = Features.OfType<TitleFeature>().SingleOrDefault();
+                return feature != null ? feature.TitleDescriptor : null;
+            }
+        }
+
+        public IStringResourceDescriptor EntityLocalizationDescriptor
+        {
+            get
+            {
+                var localizationFeature = Features.OfType<EntityNameLocalizationFeature>().SingleOrDefault();
+                return localizationFeature != null ? localizationFeature.Descriptor : null;
+            }
+        }
+
         public bool HasRelatedItems { get; private set; }
         public UiElementMetadata[] RelatedItems { get; private set; }
         public bool HasActions { get; private set; }
-        public UiElementMetadata[] ActionsDescriptors { get; private set; }
+
+        public UiElementMetadata[] ActionsDescriptors
+        {
+            get { return Features.OfType<ActionsFeature>().SelectMany(x => x.ActionsDescriptors).ToArray(); }
+        }
 
         public bool HasParts
         {
@@ -73,6 +94,13 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             throw new System.NotImplementedException();
         }
 
-        public IImageDescriptor ImageDescriptor { get; private set; }
+        public IImageDescriptor ImageDescriptor
+        {
+            get
+            {
+                var feature = Features.OfType<ImageFeature>().SingleOrDefault();
+                return feature != null ? feature.ImageDescriptor : null;
+            }
+        }
     }
 }

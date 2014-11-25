@@ -619,7 +619,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             var localizedCardSettings = new CardStructure
             {
                 Icon = cardSettings.Icon,
-                LargeIcon = cardSettings.LargeIcon,
                 Title = GetLocalizedName(cardSettings.TitleResourceId, culture),
                 EntityName = cardSettings.EntityName,
                 EntityLocalizedName = GetLocalizedName(cardSettings.EntityNameLocaleResourceId, culture),
@@ -776,16 +775,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 cardJson.DecimalDigits = (int)decimalDigits;
             }
 
-            var icon = cardEl.Attribute("Icon");
+            var icon = cardEl.Attribute("LargeIcon");
             if (icon != null)
             {
                 cardJson.Icon = icon.Value;
-            }
-
-            var largeIcon = cardEl.Attribute("LargeIcon");
-            if (largeIcon != null)
-            {
-                cardJson.LargeIcon = largeIcon.Value;
             }
 
             cardJson.CardToolbar = ParseToolbarItems(cardEl);

@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
@@ -25,7 +26,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             if (card.ImageDescriptor != null)
             {
                 result.Icon = card.ImageDescriptor.ToString();
-                result.LargeIcon = card.ImageDescriptor.ToString();
             }
 
             result.EntityName = card.Entity.ToString();
@@ -36,11 +36,20 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.Title = card.TitleDescriptor.GetValue(culture);
             }
 
+            if (card.EntityLocalizationDescriptor != null)
+            {
+                result.EntityNameLocaleResourceId = card.EntityLocalizationDescriptor.ResourceKeyToString();
+                result.EntityLocalizedName = card.EntityLocalizationDescriptor.GetValue(culture);
+            }
+
             var mainAttributeFeature = card.Features<EntityMainAttributeFeature>().SingleOrDefault();
             if (mainAttributeFeature != null)
             {
                 result.EntityMainAttribute = mainAttributeFeature.Property.PropertyName;
             }
+
+            result.CardToolbar = card.ActionsDescriptors.Select(x => x.ToToolbarStructure(culture)).ToArray();
+            result.CardRelatedItems = card.Features<RelatedItemsFeature>().Select(x => x.ToCardRelatedItemsGroupStructure(culture)).ToArray();
 
             return result;
         }
@@ -104,6 +113,48 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             {
                 result.NameLocaleResourceId = relatedItemsElement.TitleDescriptor.ResourceKeyToString();
                 result.LocalizedName = relatedItemsElement.TitleDescriptor.GetValue(culture);
+            }
+
+            result.Items = relatedItemsElement.RelatedItems.Select(x => x.ToCardRelatedItemStructure(culture));
+
+            return result;
+        }
+
+        public static CardRelatedItemStructure ToCardRelatedItemStructure(this UiElementMetadata element, CultureInfo culture)
+        {
+            var result = new CardRelatedItemStructure();
+            if (element.NameDescriptor != null)
+            {
+                result.Name = element.NameDescriptor.GetValue(culture);
+            }
+
+            if (element.HasHandler)
+            {
+                var showGridHandler = element.Handler as ShowGridHandlerFeature;
+                if (showGridHandler != null)
+                {
+                    result.RequestUrl = showGridHandler.ToRequestUrl();
+                    
+                    // Есть подозрение, что над этим нужно подумать
+                    result.AppendExtendedInfo("filterToParent=true");
+                }
+            }
+
+            if (element.ImageDescriptor != null)
+            {
+                result.Icon = element.ImageDescriptor.ToString();
+            }
+
+            if (element.TitleDescriptor != null)
+            {
+                result.NameLocaleResourceId = element.TitleDescriptor.ResourceKeyToString();
+                result.LocalizedName = element.TitleDescriptor.GetValue(culture);
+            }
+
+            var lockOnNewFeature = element.Features<LockOnNewFeature>().SingleOrDefault();
+            if (lockOnNewFeature != null)
+            {
+                result.AppendDisabledExpression(lockOnNewFeature.ToDisabledExpression());
             }
 
             return result;

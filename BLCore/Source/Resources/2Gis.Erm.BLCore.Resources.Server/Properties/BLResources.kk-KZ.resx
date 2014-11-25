@@ -1398,9 +1398,6 @@
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>Выбранная позиция не может быть запрещающей, так как является основной</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Большая иконка</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Невозможно добавить позицию в опубликованный прайс-лист</value>
   </data>

@@ -1,14 +1,17 @@
-﻿namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
+﻿using System;
+
+namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
 {
     public sealed class CardStructure
     {
         public string Icon { get; set; }
-        public string LargeIcon { get; set; }
 
         public string Title { get; set; }
 
         public string EntityName { get; set; }
         public string EntityLocalizedName { get; set; }
+        
+        [Obsolete]
         public string EntityMainAttribute { get; set; }
         public int? CrmEntityCode { get; set; }
 
@@ -22,7 +25,9 @@
         public CardRelatedItemsGroupStructure[] CardRelatedItems { get; set; }
 
         // [JsonIgnore] fields
+        [Obsolete]
         public string TitleResourceId { get; set; }
+        [Obsolete]
         public string EntityNameLocaleResourceId { get; set; }
     }
 }

@@ -1398,9 +1398,6 @@ Errores de bloqueo:{2}</value>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>La posición seleccionada no puede ser bloqueada, ya que es la principal</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Icono grande</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Imposible agregar una posición en la lista de precios publicada</value>
   </data>
