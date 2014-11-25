@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
                 ResultRequests = SimplifiedModelConsumer.GetProlongationRequestsToProcess();
 
             It should_return_only_opened_order_processing_requests = () =>
-                ResultRequests.All(x => x.RequestType == (int)OrderProcessingRequestState.Opened).Should().BeTrue();
+                ResultRequests.All(x => x.State == OrderProcessingRequestState.Opened).Should().BeTrue();
                 
             private static OrderProcessingRequest CreateNotActiveOpenedOrderProlongateRequest(long id)
             {
@@ -93,8 +93,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
                 return new OrderProcessingRequest
                     {
                         Id = id,
-                        State = (int)state,
-                        RequestType = (int)type,
+                        State = state,
+                        RequestType = type,
                         IsActive = true,
                         IsDeleted = false
                     };

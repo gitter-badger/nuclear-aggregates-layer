@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -37,14 +36,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     Id = x.Id,
                     StartTime = x.StartTime,
                     FinishTime = x.FinishTime,
-                    TypeEnum = (BusinessOperation)x.Type,
+                    TypeEnum = x.Type,
                     OrganizationUnitId = x.OrganizationUnitId,
                     OrganizationUnitName = x.OrganizationUnit.Name,
                     OwnerCode = x.OwnerCode,
                     Description = x.Description,
                     Owner = null,
-                    Status = ((OperationStatus)x.Status).ToStringLocalizedExpression(),
-                    Type = ((BusinessOperation)x.Type).ToStringLocalizedExpression(),
+                    Status = x.Status.ToStringLocalizedExpression(),
+                    Type = x.Type.ToStringLocalizedExpression(),
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

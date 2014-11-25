@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                 Kpp = modelEntity.Kpp,
                 LegalAddress = modelEntity.LegalAddress,
                 LegalName = modelEntity.LegalName,
-                LegalPersonType = (LegalPersonType)modelEntity.LegalPersonTypeEnum,
+                LegalPersonType = modelEntity.LegalPersonTypeEnum,
                 PassportNumber = modelEntity.PassportNumber,
                 PassportSeries = modelEntity.PassportSeries,
                 RegistrationAddress = modelEntity.RegistrationAddress,

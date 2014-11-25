@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var barterOrdersFilter = querySettings.CreateForExtendedProperty<Deal, bool>("WithBarterOrders", info =>
             {
-                return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && (y.OrderType == (int)OrderType.AdsBarter || y.OrderType == (int)OrderType.ProductBarter || y.OrderType == (int)OrderType.ServiceBarter));
+                return x => x.Orders.Any(y => !y.IsDeleted && y.IsActive && (y.OrderType == OrderType.AdsBarter || y.OrderType == OrderType.ProductBarter || y.OrderType == OrderType.ServiceBarter));
             });
 
             var myBranchFilter = querySettings.CreateForExtendedProperty<Deal, bool>("MyBranch", info =>

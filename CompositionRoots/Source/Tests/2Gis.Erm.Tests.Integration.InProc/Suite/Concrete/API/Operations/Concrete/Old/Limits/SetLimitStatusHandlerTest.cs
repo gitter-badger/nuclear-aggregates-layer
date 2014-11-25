@@ -21,10 +21,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
         {
             get 
             { 
-                return base.ModelEntitySpec && new FindSpecification<Limit>(l => l.Status != (int)LimitStatus.Opened
+                return base.ModelEntitySpec && new FindSpecification<Limit>(l => l.Status != LimitStatus.Opened
                     && !l.Account.Orders
                         .Any(o => o.BeginDistributionDate <= l.StartPeriodDate && o.EndDistributionDateFact >= l.EndPeriodDate
-                        && (o.WorkflowStepId == (int)OrderState.Approved || o.WorkflowStepId == (int)OrderState.OnTermination || o.WorkflowStepId == (int)OrderState.Archive)));
+                        && (o.WorkflowStepId == OrderState.Approved || o.WorkflowStepId == OrderState.OnTermination || o.WorkflowStepId == OrderState.Archive)));
             }
         }
 

@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Ukraine.Controllers
                     Ipn = legalPerson.Inn,
                     LegalAddress = legalPerson.LegalAddress,
                     LegalName = legalPerson.LegalName,
-                    LegalPersonType = (LegalPersonType)legalPerson.LegalPersonTypeEnum,
+                    LegalPersonType = legalPerson.LegalPersonTypeEnum,
                     Timestamp = legalPerson.Timestamp,
                     TaxationType = legalPerson.Within<UkraineLegalPersonPart>().GetPropertyValue(x => x.TaxationType),
                     LegalPersonP =

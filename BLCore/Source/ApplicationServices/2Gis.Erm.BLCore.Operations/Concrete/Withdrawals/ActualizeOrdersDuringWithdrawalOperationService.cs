@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var ordersForArchive = 
                     _orderReadModel
                         .GetOrdersCompletelyReleasedBySourceOrganizationUnit(withdrawalOrganizationUnitId)
-                        .Where(o => actualizedOrdersMap.ContainsKey(o.Id) || o.WorkflowStepId == (int)OrderState.OnTermination);
+                        .Where(o => actualizedOrdersMap.ContainsKey(o.Id) || o.WorkflowStepId == OrderState.OnTermination);
                 var changesForArchivied = _orderChangeStateOrders2ArchiveAggregateService.Archiving(ordersForArchive);
                 _actionLogger.LogChanges(changesForArchivied);
 

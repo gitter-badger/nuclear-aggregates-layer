@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
             private Establish context = () =>
                 {
-                    OrderProcessingRequest.RequestType = (int)OrderProcessingRequestType.ProlongateOrder;
+                    OrderProcessingRequest.RequestType = OrderProcessingRequestType.ProlongateOrder;
                     OrderProcessingRequest.BaseOrderId = BASE_ORDER_ID;
                 };
         }
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         {
             private Establish context = () =>
                 {
-                    OrderProcessingRequest.RequestType = (int)OrderProcessingRequestType.CreateOrder;
+                    OrderProcessingRequest.RequestType = OrderProcessingRequestType.CreateOrder;
                 };
         }
 

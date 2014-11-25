@@ -45,13 +45,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
                 throw new ArgumentException("Order must be supplied");
             }
 
-            if (order.TerminationReason == (int)OrderTerminationReason.None)
+            if (order.TerminationReason == OrderTerminationReason.None)
             {
                 throw new NotificationException(BLResources.TerminationReasonIsEmpty);
             }
 
             if (string.IsNullOrWhiteSpace(order.Comment) &&
-                (order.TerminationReason == (int)OrderTerminationReason.RejectionOther || order.TerminationReason == (int)OrderTerminationReason.TemporaryRejectionOther))
+                (order.TerminationReason == OrderTerminationReason.RejectionOther || order.TerminationReason == OrderTerminationReason.TemporaryRejectionOther))
             {
                 throw new NotificationException(BLResources.ProcessOrderRejected_TerminationReasonNeeds);
             }

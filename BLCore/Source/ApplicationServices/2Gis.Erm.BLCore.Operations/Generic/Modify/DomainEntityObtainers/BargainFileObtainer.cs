@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var entity = _finder.FindOne(Specs.Find.ById<BargainFile>(dto.Id)) 
                 ?? new BargainFile { IsActive = true };
             
-            entity.FileKind = (int)dto.FileKind;
+            entity.FileKind = dto.FileKind;
             entity.FileId = dto.FileId;
             entity.BargainId = dto.BargainRef.Id.Value;
             entity.Comment = dto.Comment;

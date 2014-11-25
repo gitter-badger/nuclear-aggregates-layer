@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
 {
@@ -37,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
         /// Тип заказа (r)
         /// </summary>
         [DataMember]
-        public OrderType OrderType { get; set; }
+        public int OrderType { get; set; }
 
         /// <summary>
         /// Номер заказа (r)
@@ -87,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.AccountDetails.Dto
                     this.ToXAttribute(() => AccountCode, AccountCode),
                     this.ToXAttribute(() => LegalEntityBranchCode1C, LegalEntityBranchCode1C),
                     this.ToXAttribute(() => ProfileCode, ProfileCode),
-                    this.ToXAttribute(() => OrderType, (int)OrderType),
+                    this.ToXAttribute(() => OrderType, OrderType),
                     this.ToXAttribute(() => OrderNumber, OrderNumber),
                     this.ToXAttribute(() => SignupDate, SignupDate),
                     this.ToXAttribute(() => Amount, Amount),

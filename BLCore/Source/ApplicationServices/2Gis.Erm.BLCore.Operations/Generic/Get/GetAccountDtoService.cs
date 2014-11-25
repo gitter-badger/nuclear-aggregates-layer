@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      BranchOfficeOrganizationUnitRef = new EntityReference { Id = entity.BranchOfficeOrganizationUnitId, Name = entity.BranchOfficeOrganizationUnit.ShortLegalName },
                                      LegalPersonRef = new EntityReference { Id = entity.LegalPersonId, Name = entity.LegalPerson.LegalName },
                                      CurrencyRef = new EntityReference { Id = entity.BranchOfficeOrganizationUnit.OrganizationUnit.Country.CurrencyId, Name = entity.BranchOfficeOrganizationUnit.OrganizationUnit.Country.Currency.Name },
-                                     LegalPesonSyncCode1C = entity.LegalPesonSyncCode1C,
+                                     LegalPersonSyncCode1C = entity.LegalPesonSyncCode1C,
                                      Timestamp = entity.Timestamp,
                                      CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
                                      CreatedOn = entity.CreatedOn,

@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         {
             var deal = _dealObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            if (deal.StartReason == (int)ReasonForNewDeal.None)
+            if (deal.StartReason == ReasonForNewDeal.None)
             {
                 throw new NotificationException(BLResources.PickReasonForNewDeal);
             }

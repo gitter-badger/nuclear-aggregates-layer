@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.LegalPerson
 
         protected override EmptyResponse Handle(ValidatePaymentRequisitesIsUniqueRequest request)
         {
-            var modelLegalPersonType = (LegalPersonType)request.Entity.LegalPersonTypeEnum;
+            var modelLegalPersonType = request.Entity.LegalPersonTypeEnum;
             var inn = !string.IsNullOrEmpty(request.Entity.Inn) ? request.Entity.Inn.Trim() : null;
             var kpp = !string.IsNullOrEmpty(request.Entity.Kpp) ? request.Entity.Kpp.Trim() : null;
 

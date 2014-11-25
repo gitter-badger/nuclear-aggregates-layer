@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.LegalPerso
                 throw new ChangeInactiveLegalPersonRequisitesException(BLFlexResources.ChangingRequisitesOfInactiveLegalPersonIsForbidden);
             }
 
-            var legalPersonType = (LegalPersonType)entity.LegalPersonTypeEnum;
+            var legalPersonType = entity.LegalPersonTypeEnum;
 
             // TODO {all, 26.02.2014}: Возможно, стоит кидать ошибку, если к нам пришло что-то кроме ИП и Юр. лица
             if (legalPersonType == LegalPersonType.Businessman || legalPersonType == LegalPersonType.LegalPerson)

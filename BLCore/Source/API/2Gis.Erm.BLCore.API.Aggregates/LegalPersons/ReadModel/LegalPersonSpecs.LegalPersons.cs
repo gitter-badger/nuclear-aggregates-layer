@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
             {
                 public static FindSpecification<LegalPerson> OfType(LegalPersonType legalPersonType)
                 {
-                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == (int)legalPersonType);
+                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == legalPersonType);
                 }
 
                 public static FindSpecification<LegalPerson> ByInnAndKpp(string inn, string kpp)
@@ -58,20 +58,20 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel
 
                 public static FindSpecification<LegalPerson> LegalPersonByInnAndKpp(string inn, string kpp)
                 {
-                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson &&
+                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == LegalPersonType.LegalPerson &&
                                                                    x.Inn == inn &&
                                                                    x.Kpp == kpp);
                 }
 
                 public static FindSpecification<LegalPerson> BusinessmanByInn(string inn)
                 {
-                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == (int)LegalPersonType.Businessman &&
+                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == LegalPersonType.Businessman &&
                                                                    x.Inn == inn);
                 }
 
                 public static FindSpecification<LegalPerson> NaturalPersonByPassport(string passportSeries, string passportNumber)
                 {
-                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+                    return new FindSpecification<LegalPerson>(x => x.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                                                                    x.PassportSeries == passportSeries &&
                                                                    x.PassportNumber == passportNumber);
                 }

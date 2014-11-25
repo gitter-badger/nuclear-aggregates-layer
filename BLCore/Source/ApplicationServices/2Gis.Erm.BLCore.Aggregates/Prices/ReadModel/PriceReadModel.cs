@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 
         public PricePositionRateType GetPricePositionRateType(long pricePositionId)
         {
-            return (PricePositionRateType)_finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.RateType).Single();
+            return _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.RateType).Single();
         }
 
         public decimal GetCategoryRateByFirm(long firmId)
@@ -240,20 +240,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                                                PricePositionCost = item.Cost,
                                                item.Position.IsComposite,
                                                LinkingObjectType = item.Position.BindingObjectTypeEnum,
-                                               AccountingMethod = (PositionAccountingMethod)item.Position.AccountingMethodEnum
+                                               AccountingMethod = item.Position.AccountingMethodEnum
                                            })
                                            .Single();
 
             return new PricePositionDetailedInfo
             {
                 Amount = pricePositionInfo.Amount,
-                AmountSpecificationMode = pricePositionInfo.AmountSpecificationMode,
+                AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
                 IsComposite = pricePositionInfo.IsComposite,
                 Platform = pricePositionInfo.Platform ?? string.Empty,
                 PricePositionCost = pricePositionInfo.PricePositionCost,
-                RateType = (PricePositionRateType)pricePositionInfo.RateType,
+                RateType = pricePositionInfo.RateType,
 
-                LinkingObjectType = (PositionBindingObjectType)pricePositionInfo.LinkingObjectType,
+                LinkingObjectType = pricePositionInfo.LinkingObjectType,
                 AccountingMethod = pricePositionInfo.AccountingMethod,
                 PositionId = pricePositionInfo.PositionId,
             };

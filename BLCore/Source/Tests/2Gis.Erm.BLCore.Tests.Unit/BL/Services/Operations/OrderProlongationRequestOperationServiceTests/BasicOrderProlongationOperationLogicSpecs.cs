@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
                             FirmId = FIRM_ID,
                             BaseOrder = BaseOrder, 
                             BaseOrderId = BASE_ORDER_ID,
-                            RequestType = (int)OrderProcessingRequestType.ProlongateOrder,
+                            RequestType = OrderProcessingRequestType.ProlongateOrder,
                             BeginDistributionDate = DateTime.Today
                         };
                 };
@@ -258,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
             private It should_set_order_processing_request_renewed_order_id = () => OrderProcessingRequest.RenewedOrderId.Should().Be(COPIED_ORDER_ID);
 
-            private It should_complete_order_processing_request = () => OrderProcessingRequest.State.Should().Be((int)OrderProcessingRequestState.Completed);
+            private It should_complete_order_processing_request = () => OrderProcessingRequest.State.Should().Be(OrderProcessingRequestState.Completed);
 
             private It should_update_persistance_order_processing_request = () => Mock.Get(OrderProcessingRequestService)
                                                                                       .Verify(x => x.Update(OrderProcessingRequest), Times.Once);

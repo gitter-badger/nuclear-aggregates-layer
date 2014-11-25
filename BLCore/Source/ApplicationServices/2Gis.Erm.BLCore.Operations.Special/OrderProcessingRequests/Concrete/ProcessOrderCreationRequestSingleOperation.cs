@@ -52,10 +52,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         public OrderCreationResult ProcessSingle(long requestId)
         {
             var request = _orderProcessingRequestService.GetProlongationRequestToProcess(requestId);
-            if (request.RequestType != (int)OrderProcessingRequestType.CreateOrder)
+            if (request.RequestType != OrderProcessingRequestType.CreateOrder)
             {
                 var message = string.Format(BLResources.OrderCreationRequestTypeMismatch,
-                                            (OrderProcessingRequestType)request.RequestType);
+                                            request.RequestType);
                 throw new InvalidOperationException(message);
             }
 
@@ -251,13 +251,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         private void CompleteOrderProcessingRequest(OrderProcessingRequest orderProcessingRequest, long createdOrderId)
         {
             orderProcessingRequest.RenewedOrderId = createdOrderId;
-            orderProcessingRequest.State = (int)OrderProcessingRequestState.Completed;
+            orderProcessingRequest.State = OrderProcessingRequestState.Completed;
             _orderProcessingRequestService.Update(orderProcessingRequest);
         }
 
         private void SetOrderProcessingRequestPending(OrderProcessingRequest orderProcessingRequest)
         {
-            orderProcessingRequest.State = (int)OrderProcessingRequestState.Pending;
+            orderProcessingRequest.State = OrderProcessingRequestState.Pending;
             _orderProcessingRequestService.Update(orderProcessingRequest);
         }
     }

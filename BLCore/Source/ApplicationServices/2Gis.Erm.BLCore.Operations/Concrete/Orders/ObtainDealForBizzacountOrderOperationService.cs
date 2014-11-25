@@ -95,8 +95,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                       MainFirmId = _clientDealSelectionService.GetMainFirmId(clientId),
                                       ClientId = clientId,
                                       CurrencyId = _currencyService.GetBaseCurrency().Id,
-                                      StartReason = (int)ReasonForNewDeal.Bizaccount,
-                                      DealStage = (int)DealStage.OrderFormed,
+                                      StartReason = ReasonForNewDeal.Bizaccount,
+                                      DealStage = DealStage.OrderFormed,
                                       OwnerCode = ownerCode,
                                       IsActive = true,
                                       IsDeleted = false
