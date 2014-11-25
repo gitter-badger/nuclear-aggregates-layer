@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DoubleGis.Erm.Platform.Model.Entities
+﻿namespace DoubleGis.Erm.Platform.Model.Entities
 {
     public enum EntityName
     {
