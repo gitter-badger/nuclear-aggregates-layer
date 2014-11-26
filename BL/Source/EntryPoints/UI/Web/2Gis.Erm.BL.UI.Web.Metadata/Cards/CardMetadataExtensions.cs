@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 
             if (card.ImageDescriptor != null)
             {
-                result.Icon = card.ImageDescriptor.ToString();
+                result.Icon = card.ImageDescriptor.ResourceKeyToString(); 
             }
 
             result.EntityName = card.Entity.ToString();
@@ -98,6 +98,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 SecurityPrivelegeFlag |= (int)feature.Privilege;
             }
 
+            result.SecurityPrivelege = SecurityPrivelegeFlag;
+
             return result;
         }
 
@@ -142,7 +144,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 
             if (element.ImageDescriptor != null)
             {
-                result.Icon = element.ImageDescriptor.ToString();
+                result.Icon = element.ImageDescriptor.ResourceKeyToString();
             }
 
             if (element.TitleDescriptor != null)

@@ -57,6 +57,7 @@
     <Compile Include="Cards\Settings\CardStructures.Account.cs" />
     <Compile Include="Cards\Settings\CardStructures.cs" />
     <Compile Include="Cards\UiElementMetadataBuilderExtensions.cs" />
+    <Compile Include="DI\BlUiMetadataAssembly.cs" />
     <Compile Include="FeatureExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

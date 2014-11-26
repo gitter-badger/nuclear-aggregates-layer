@@ -58,6 +58,7 @@
     <Compile Include="Cards\Settings\CardStructures.LegalPerson.cs" />
     <Compile Include="Cards\Settings\CardStructures.Order.cs" />
     <Compile Include="Cards\Settings\CardStructures.OrderPosition.cs" />
+    <Compile Include="DI\BlUiMetadataAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">

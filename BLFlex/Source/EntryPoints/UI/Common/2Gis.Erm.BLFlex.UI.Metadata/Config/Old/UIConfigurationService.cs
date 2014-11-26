@@ -7,12 +7,17 @@ using System.Reflection;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 
 namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 {
@@ -29,9 +34,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         private readonly IGlobalizationSettings _globalizationSettings;
 
-        public UIConfigurationService(IGlobalizationSettings globalizationSettings)
+        private readonly IMetadataProvider _metadataProvider;
+
+        public UIConfigurationService(IGlobalizationSettings globalizationSettings, IMetadataProvider metadataProvider)
         {
             _globalizationSettings = globalizationSettings;
+            _metadataProvider = metadataProvider;
         }
 
         #region NavigationArea
@@ -506,13 +514,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 throw new ArgumentException("Cannot find metadata for adaptation " + adaptation);
             }
 
-            CardStructure cardJson;
-            if (!container.TryGetValue(entityName, out cardJson))
+            CardStructure xmlCardJson;
+            if (!container.TryGetValue(entityName, out xmlCardJson))
             {
                 throw new ArgumentException("Cannot find metadata for entity");
             }
 
-            return cardJson;
+            return xmlCardJson;
         }
 
         public IEnumerable<NavigationElementStructure> GetNavigationSettings(CultureInfo culture)
@@ -667,6 +675,14 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 TitleResourceId = cardSettings.TitleResourceId,
                 EntityNameLocaleResourceId = cardSettings.EntityNameLocaleResourceId,
             };
+
+            CardMetadata metadata;
+            if (_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataCardsIdentity>(entityName.ToString()).AsIdentity().Id, out metadata))
+            {
+                var metadataCardJson = metadata.ToCardStructure(culture);
+                EnsureCardSettingsCorrectness(localizedCardSettings, metadataCardJson);
+                return metadataCardJson;
+            }
 
             return localizedCardSettings;
         }
@@ -1001,6 +1017,215 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 {
                     return reader.ReadToEnd();
                 }
+            }
+        }
+
+        private void EnsureCardSettingsCorrectness(CardStructure xmlData, CardStructure metadataData)
+        {
+            if (xmlData.HasAdminTab != metadataData.HasAdminTab)
+            {
+                throw new InvalidDataException("HasAdminTab");
+            }
+
+            if (xmlData.HasComments != metadataData.HasComments)
+            {
+                throw new InvalidDataException("HasComments");
+            }
+
+            if (xmlData.DecimalDigits != metadataData.DecimalDigits)
+            {
+                throw new InvalidDataException("DecimalDigits");
+            }
+
+            if (xmlData.EntityName != metadataData.EntityName)
+            {
+                throw new InvalidDataException("EntityName");
+            }
+
+            if (xmlData.CrmEntityCode != metadataData.CrmEntityCode)
+            {
+                throw new InvalidDataException("CrmEntityCode");
+            }
+
+            if (xmlData.EntityLocalizedName != metadataData.EntityLocalizedName)
+            {
+                throw new InvalidDataException("EntityLocalizedName");
+            }
+
+            if (xmlData.EntityMainAttribute != metadataData.EntityMainAttribute)
+            {
+                throw new InvalidDataException("EntityMainAttribute");
+            }
+
+            if (xmlData.EntityNameLocaleResourceId != metadataData.EntityNameLocaleResourceId)
+            {
+                throw new InvalidDataException("EntityNameLocaleResourceId");
+            }
+
+            if (xmlData.Icon != metadataData.Icon)
+            {
+                throw new InvalidDataException("Icon");
+            }
+
+            if (xmlData.Title != metadataData.Title)
+            {
+                throw new InvalidDataException("Title");
+            }
+
+            if (xmlData.TitleResourceId != metadataData.TitleResourceId)
+            {
+                throw new InvalidDataException("TitleResourceId");
+            }
+
+            EnsureCardRelatedItemsGroupCorrectness(xmlData.CardRelatedItems.Single(), metadataData.CardRelatedItems.Single());
+
+            if (xmlData.CardToolbar.Count() != metadataData.CardToolbar.Count())
+            {
+                throw new InvalidDataException("CardToolbar");
+            }
+
+            for (var i = 0; i < xmlData.CardToolbar.Count(); i++)
+            {
+                EnsureToolbarElementCorrectness(xmlData.CardToolbar.ToArray()[i], metadataData.CardToolbar.ToArray()[i]);
+            }
+        }
+
+        private void EnsureCardRelatedItemsGroupCorrectness(CardRelatedItemsGroupStructure xmlData, CardRelatedItemsGroupStructure metadataData)
+        {
+            if (xmlData.Name != metadataData.Name)
+            {
+                throw new InvalidDataException("Name");
+            }
+
+            if (xmlData.LocalizedName != metadataData.LocalizedName)
+            {
+                throw new InvalidDataException("LocalizedName");
+            }
+
+            if (xmlData.NameLocaleResourceId != metadataData.NameLocaleResourceId)
+            {
+                throw new InvalidDataException("NameLocaleResourceId");
+            }
+
+            if (xmlData.Items.Count() != metadataData.Items.Count())
+            {
+                throw new InvalidDataException("Items");
+            }
+
+            for (var i = 0; i < xmlData.Items.Count(); i++)
+            {
+                EnsureCardRelatedItemStructureCorrectness(xmlData.Items.ToArray()[i], metadataData.Items.ToArray()[i]);
+            }
+        }
+
+        private void EnsureCardRelatedItemStructureCorrectness(CardRelatedItemStructure xmlData, CardRelatedItemStructure metadataData)
+        {
+            if (xmlData.Name != metadataData.Name)
+            {
+                throw new InvalidDataException("Name");
+            }
+
+            if (xmlData.LocalizedName != metadataData.LocalizedName)
+            {
+                throw new InvalidDataException("LocalizedName");
+            }
+
+            if (xmlData.NameLocaleResourceId != metadataData.NameLocaleResourceId)
+            {
+                throw new InvalidDataException("NameLocaleResourceId");
+            }
+
+            if (xmlData.RequestUrl != metadataData.RequestUrl)
+            {
+                throw new InvalidDataException("RequestUrl");
+            }
+
+            if (xmlData.Icon != metadataData.Icon)
+            {
+                throw new InvalidDataException("Icon");
+            }
+
+            if (xmlData.AppendableEntity != metadataData.AppendableEntity)
+            {
+                throw new InvalidDataException("AppendableEntity");
+            }
+
+            if (xmlData.DisabledExpression != metadataData.DisabledExpression)
+            {
+                throw new InvalidDataException("DisabledExpression");
+            }
+
+            if (xmlData.ExtendedInfo != metadataData.ExtendedInfo)
+            {
+                throw new InvalidDataException("ExtendedInfo");
+            }
+
+            if (xmlData.IsCrmView != metadataData.IsCrmView)
+            {
+                throw new InvalidDataException("IsCrmView");
+            }
+        }
+
+        private void EnsureToolbarElementCorrectness(ToolbarElementStructure xmlData, ToolbarElementStructure metadataData)
+        {
+            if (xmlData.Name != metadataData.Name)
+            {
+                throw new InvalidDataException("Name");
+            }
+
+            if (xmlData.LocalizedName != metadataData.LocalizedName)
+            {
+                throw new InvalidDataException("LocalizedName");
+            }
+
+            if (xmlData.NameLocaleResourceId != metadataData.NameLocaleResourceId)
+            {
+                throw new InvalidDataException("NameLocaleResourceId");
+            }
+
+            if (xmlData.Icon != metadataData.Icon)
+            {
+                throw new InvalidDataException("Icon");
+            }
+
+            if (xmlData.DisableOnEmpty != metadataData.DisableOnEmpty)
+            {
+                throw new InvalidDataException("DisableOnEmpty");
+            }
+
+            if (xmlData.Disabled != metadataData.Disabled)
+            {
+                throw new InvalidDataException("Disabled");
+            }
+
+            if (xmlData.LockOnInactive != metadataData.LockOnInactive)
+            {
+                throw new InvalidDataException("LockOnInactive");
+            }
+
+            if (xmlData.LockOnNew != metadataData.LockOnNew)
+            {
+                throw new InvalidDataException("LockOnNew");
+            }
+
+            if (xmlData.Action != metadataData.Action)
+            {
+                throw new InvalidDataException("Action");
+            }
+
+            if (xmlData.ControlType != metadataData.ControlType)
+            {
+                throw new InvalidDataException("ControlType");
+            }
+
+            if (xmlData.HideInCardRelatedGrid != metadataData.HideInCardRelatedGrid)
+            {
+                throw new InvalidDataException("HideInCardRelatedGrid");
+            }
+
+            if (xmlData.SecurityPrivelege != metadataData.SecurityPrivelege && (xmlData.SecurityPrivelege != null && metadataData.SecurityPrivelege != 0))
+            {
+                throw new InvalidDataException("SecurityPrivelege");
             }
         }
     }

@@ -25,5 +25,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
         {
             return IconPath;
         }
+
+        public override string ToString()
+        {
+            return IconPath;
+        }
     }
 }

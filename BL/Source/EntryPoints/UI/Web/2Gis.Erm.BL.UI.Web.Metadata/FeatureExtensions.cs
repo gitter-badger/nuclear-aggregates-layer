@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
 
         public static string ToDisabledExpression(this LockOnNewFeature feature)
         {
-            return "Ext.getDom('Id').value==0";
+            return @"Ext.getDom(""Id"").value==0";
         }
     }
 }
