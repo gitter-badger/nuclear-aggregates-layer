@@ -13,6 +13,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
     public sealed class CopyNewPriceViewModel : ViewModel
     {
         private DateTime _publishDate;
+        private DateTime _beginDate;
 
         [PresentationLayerProperty]
         public long Id { get; set; }
@@ -36,8 +37,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         [CheckDayOfMonth(CheckDayOfMonthType.FirstDay, ErrorMessageResourceType = typeof(BLResources), ErrorMessageResourceName = "RequiredFirstDayOfMonthMessage")]
         public DateTime BeginDate
         {
-            get { return _publishDate; }
-            set { _publishDate = value.AssumeUtcKind(); }
+            get { return _beginDate; }
+            set { _beginDate = value.AssumeUtcKind(); }
         }
     }
 }
