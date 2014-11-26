@@ -296,6 +296,7 @@ SumRemainingMustBeNull : 'Zůstatek objednávky se nerovná nule. Zůstatek je t
 Sunday : 'Neděle',
 SymbolsLeft : 'Zbyvajici symboly: {0}',
 TabPanelItemCloseText : 'Zavřít záložku',
+Task : 'Úkol',
 TextEditorLineBreaksOverflow : 'Pocet radku presahuje povoleny pocet {0} o {1}.',
 TextEditorOverflow : 'Pocet symbolu presahuje povoleny pocet {0} symbolu o {1}.',
 TheAdvertisement : 'Reklamní materiál',

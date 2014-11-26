@@ -296,6 +296,7 @@ SumRemainingMustBeNull : 'El resto del importe de la orden no es igual a cero. E
 Sunday : 'Domingo',
 SymbolsLeft : 'Caracteres restantes: {0}',
 TabPanelItemCloseText : 'Cerrar pestaña',
+Task : 'Tarea',
 TextEditorLineBreaksOverflow : 'El número de líneas excede el permitido {0} en {1}.',
 TextEditorOverflow : 'El número de caracteres excede el permitido {0} en {1} caracteres.',
 TheAdvertisement : 'Material publicitario',

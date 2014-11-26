@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
             {
                 return base.ModelEntitySpec &&
                        new FindSpecification<OrderProcessingRequest>(
-                           r => r.State != (int)OrderProcessingRequestState.Completed && r.State != (int)OrderProcessingRequestState.Cancelled);
+                           r => r.State != OrderProcessingRequestState.Completed && r.State != OrderProcessingRequestState.Cancelled);
             }
         }
 

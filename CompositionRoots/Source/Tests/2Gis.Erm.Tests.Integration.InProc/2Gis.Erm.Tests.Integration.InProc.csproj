@@ -197,6 +197,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
     <Compile Include="Suite\Concrete\OrderValidation\AdvertisementsOnlyWhiteListOrderValidationRuleTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\DAL\QueryAllRegisteredEntitiesTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />
@@ -499,9 +500,17 @@
       <Project>{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}</Project>
       <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.EntityFramework\2Gis.Erm.Platform.DAL.EntityFramework.csproj">
+      <Project>{1DAF0763-543A-49D3-93D2-04F43A79D538}</Project>
+      <Name>2Gis.Erm.Platform.DAL.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
+      <Project>{DAE94B56-59E8-4907-A2BB-6372707C0B3B}</Project>
+      <Name>2Gis.Erm.Platform.Model.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
       <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
