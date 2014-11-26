@@ -88,12 +88,12 @@
     <Compile Include="Identities\IIdentityProviderService.cs" />
     <Compile Include="Identities\IIdentityProviderSettings.cs" />
     <Compile Include="Logging\ILoggerContextManager.cs" />
+    <Compile Include="Logging\Log4Net\Config\Log4NetLoggerBuilder.cs" />
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Warning.cs" />
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Fatal.cs" />
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Error.cs" />
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Info.cs" />
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Debug.cs" />
-    <Compile Include="Logging\Log4Net\Config\LogUtils.cs" />
     <Compile Include="Logging\SystemInfo\AssemblyVersionInfo.cs" />
     <Compile Include="Logging\SystemInfo\EnvironmentInfo.cs" />
     <Compile Include="Logging\SystemInfo\NetworkInfo.cs" />

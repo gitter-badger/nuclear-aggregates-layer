@@ -52,7 +52,6 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
-using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
@@ -82,7 +81,6 @@ using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Migration.Core;
-using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Security;
@@ -100,7 +98,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -132,7 +130,9 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                                    settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                   settingsContainer.AsSettings<IWebAppProcesingSettings>()))
+                                                                   settingsContainer.AsSettings<IWebAppProcesingSettings>(),
+                                                                   logger,
+                                                                   loggerContextManager))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
                      .ConfigureServiceClient();
                 
@@ -187,16 +187,20 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             return interception.Container;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container,
+        private static IUnityContainer ConfigureUnity(
+            this IUnityContainer container,
             IEnvironmentSettings environmentSettings,
             IConnectionStringSettings connectionStringSettings,
             IGlobalizationSettings globalizationSettings,
             IMsCrmSettings msCrmSettings,
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
-            IWebAppProcesingSettings webAppProcessingSettings)
+            IWebAppProcesingSettings webAppProcessingSettings,
+            ICommonLog logger,
+            ILoggerContextManager loggerContextManager)
         {
             return container
+                     .ConfigureLogging(logger, loggerContextManager)
                      .ConfigureGlobal(globalizationSettings)
                      .CreateErmSpecific(connectionStringSettings, msCrmSettings)
                      .CreateErmReportsSpecific(connectionStringSettings)

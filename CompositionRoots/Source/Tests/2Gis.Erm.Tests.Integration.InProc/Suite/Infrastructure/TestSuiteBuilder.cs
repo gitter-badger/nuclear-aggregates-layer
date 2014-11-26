@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
             
             try
             {
-                var diContainer = Bootstrapper.ConfigureUnity(settingsContainer);
+                var diContainer = Bootstrapper.ConfigureUnity(settingsContainer, logger);
                 logger.InfoEx("SignIn current user");
                 SignIn(diContainer);
                 logger.InfoEx("Resolving tests runner");

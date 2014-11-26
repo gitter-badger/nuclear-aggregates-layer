@@ -44,6 +44,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
+            ICommonLog logger,
             ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -71,6 +72,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                          logger,
                                                                           loggerContextManager))
                      .ConfigureServiceClient();
         }
@@ -87,10 +89,11 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
             ICachingSettings cachingSettings, 
             IOperationLoggingSettings operationLoggingSettings,
             IMsCrmSettings msCrmSettings,
+            ICommonLog logger,
             ILoggerContextManager loggerContextManager)
         {
             return container
-                .ConfigureLogging(loggerContextManager)
+                .ConfigureLogging(logger, loggerContextManager)
                 .CreateSecuritySpecific()
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureReleasingInfrastructure()
@@ -107,7 +110,6 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                        typeof(MetadataResources),
                                        typeof(EnumResources),
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
-                .RegisterType<ICommonLog, Log4NetCommonLog>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
@@ -126,11 +128,6 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
-        {
-            return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)

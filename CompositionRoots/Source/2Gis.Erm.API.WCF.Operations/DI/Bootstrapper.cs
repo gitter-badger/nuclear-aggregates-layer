@@ -63,7 +63,6 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Identities;
@@ -94,7 +93,10 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(
+            ISettingsContainer settingsContainer,
+            ICommonLog logger,
+            ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -128,6 +130,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<INestSettings>(),
+                                                                   logger,
                                                                    loggerContextManager))
                      .ConfigureInterception()
                      .ConfigureServiceClient();
@@ -216,10 +219,11 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             INestSettings nestSettings,
+            ICommonLog logger,
             ILoggerContextManager loggerContextManager)
         {
             return container
-                .ConfigureLogging(loggerContextManager)
+                .ConfigureLogging(logger, loggerContextManager)
                 .ConfigureGlobal(globalizationSettings)
                 .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()
@@ -236,7 +240,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                        typeof(MetadataResources),
                                        typeof(EnumResources),
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
-                .RegisterType<ICommonLog, Log4NetCommonLog>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, BasicOperationsSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
@@ -258,11 +261,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-        }
-
-        private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
-        {
-            return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)

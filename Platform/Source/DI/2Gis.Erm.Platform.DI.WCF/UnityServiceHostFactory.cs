@@ -8,7 +8,6 @@ using System.ServiceModel.Description;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
@@ -26,26 +25,26 @@ namespace DoubleGis.Erm.Platform.DI.WCF
 
         protected UnityServiceHostFactoryBase(
             TConcreteSettings settingsContainer,
-            Func<ISettingsContainer, ILoggerContextManager, IUnityContainer> unityContainerFactory)
+            Func<ISettingsContainer, ICommonLog, ILoggerContextManager, IUnityContainer> unityContainerFactory)
         {
             var loggerContextEntryProviders =
-                new ILoggerContextEntryProvider[] 
-                {
-                    new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.SessionId),
-                    new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserName),
-                    new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserIP),
-                    new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserBrowser),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
-                    new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settingsContainer.AsSettings<IEnvironmentSettings>().EntryPointName)
-                };
+                    new ILoggerContextEntryProvider[] 
+                    {
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.SessionId),
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserName),
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserIP),
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserBrowser),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settingsContainer.AsSettings<IEnvironmentSettings>().EntryPointName)
+                    };
 
-            LoggerContextManager = 
-                LogUtils.InitializeLoggingInfrastructure(
-                    settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
-                    LogUtils.DefaultLogConfigFileFullPath,
-                    loggerContextEntryProviders);
+            LoggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+            var logger = Log4NetLoggerBuilder.Use
+                                             .EventLog
+                                             .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
+                                             .Build;
 
-            DIContainer = unityContainerFactory(settingsContainer, LoggerContextManager);
+            DIContainer = unityContainerFactory(settingsContainer, logger, LoggerContextManager);
         }
 
         protected override ServiceHost CreateServiceHost(Type serviceType, Uri[] baseAddresses)

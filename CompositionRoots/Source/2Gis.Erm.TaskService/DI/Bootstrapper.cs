@@ -45,6 +45,7 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
+using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
@@ -82,7 +83,7 @@ namespace DoubleGis.Erm.TaskService.DI
 {
     public static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -117,7 +118,8 @@ namespace DoubleGis.Erm.TaskService.DI
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                          settingsContainer.AsSettings<IIntegrationSettings>()))
+                                                                          logger, 
+                                                                          loggerContextManager))
                             .ConfigureServiceClient();
 
             container.ConfigureElasticApi(settingsContainer.AsSettings<INestSettings>())
@@ -131,9 +133,19 @@ namespace DoubleGis.Erm.TaskService.DI
             return Lifetime.PerScope;
         }
 
-        private static IUnityContainer ConfigureUnity(this IUnityContainer container, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings, IGlobalizationSettings globalizationSettings, IMsCrmSettings msCrmSettings, ICachingSettings cachingSettings, IOperationLoggingSettings operationLoggingSettings, IIntegrationSettings integrationSettings)
+        private static IUnityContainer ConfigureUnity(
+            this IUnityContainer container, 
+            IEnvironmentSettings environmentSettings, 
+            IConnectionStringSettings connectionStringSettings, 
+            IGlobalizationSettings globalizationSettings, 
+            IMsCrmSettings msCrmSettings, 
+            ICachingSettings cachingSettings, 
+            IOperationLoggingSettings operationLoggingSettings,
+            ICommonLog logger, 
+            ILoggerContextManager loggerContextManager)
         {
             return container
+                    .ConfigureLogging(logger, loggerContextManager)
                     .ConfigureGlobal(globalizationSettings)
                     .CreateErmSpecific(msCrmSettings)
                     .CreateSecuritySpecific()
@@ -155,14 +167,14 @@ namespace DoubleGis.Erm.TaskService.DI
         private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
         {
             var checkingResourceStorages = new[]
-        {
+            {
                     typeof(BLResources),
                     typeof(MetadataResources),
                     typeof(EnumResources)
                 };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-            }
+        }
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {

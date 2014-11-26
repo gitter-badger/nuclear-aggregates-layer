@@ -4,19 +4,11 @@ using System.Reflection;
 using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
+using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.Common.Settings;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
-
-using log4net;
-using log4net.Appender;
-using log4net.Core;
-using log4net.Layout;
-using log4net.Repository.Hierarchy;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc
 {
@@ -26,11 +18,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         public static void Main(string[] args)
         {
             var settings = new TestAPIInProcOperationsSettings(BusinessModels.Supported);
-            var logger = CreateLogger();
+            var environmentSettings = settings.AsSettings<IEnvironmentSettings>();
+            var logger = Log4NetLoggerBuilder.Use
+                                             .Console
+                                             .File(environmentSettings.EnvironmentName + "_" + environmentSettings.EntryPointName)
+                                             .Build;
 
             logger.InfoEx("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
-
-            var environmentSettings = settings.AsSettings<IEnvironmentSettings>();
             logger.InfoEx(new StringBuilder()
                             .AppendLine("Runtime description:")
                             .AppendLine("TargetEnvironment: " + environmentSettings.Type)
@@ -101,27 +95,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
             }
 
             return sb.ToString();
-        }
-
-        private static ICommonLog CreateLogger()
-        {
-            var patternLayout =
-                new PatternLayout
-                {
-                    ConversionPattern = "%date [%thread] %-5level %message %newline %exception"
-                };
-
-            patternLayout.ActivateOptions();
-
-            var consoleAppender = new ConsoleAppender { Name = "Console", Layout = patternLayout, Threshold = Level.All };
-            consoleAppender.ActivateOptions();
-
-            var logger = LogManager.GetLogger(LoggerConstants.Erm);
-            var coreLogger = (Logger)logger.Logger;
-            coreLogger.AddAppender(consoleAppender);
-            coreLogger.Hierarchy.Configured = true;
-
-            return Log4NetCommonLog.GetLogger(LoggerConstants.Erm);
         }
     }
 }

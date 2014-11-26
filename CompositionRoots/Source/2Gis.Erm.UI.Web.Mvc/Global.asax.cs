@@ -12,14 +12,12 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Validators;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Migration.Core;
@@ -83,14 +81,15 @@ namespace DoubleGis.Erm.UI.Web.Mvc
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settings.AsSettings<IEnvironmentSettings>().EntryPointName)
                 };
 
-            _loggerContextManager = 
-                LogUtils.InitializeLoggingInfrastructure(
-                    settings.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
-                    LogUtils.DefaultLogConfigFileFullPath,
-                    loggerContextEntryProviders);
+            _loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+            var logger = Log4NetLoggerBuilder.Use
+                                             .DefaultXmlConfig
+                                             .EventLog
+                                             .DB(settings.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
+                                             .Build;
 
             // initialize unity
-            _container = Bootstrapper.ConfigureUnity(settings);
+            _container = Bootstrapper.ConfigureUnity(settings, logger, _loggerContextManager);
 
             // set global dependency resolver
             DependencyResolver.SetResolver(_container.Resolve<UnityDependencyResolver>());

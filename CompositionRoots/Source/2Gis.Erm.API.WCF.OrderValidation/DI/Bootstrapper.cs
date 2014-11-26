@@ -27,7 +27,6 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL;
@@ -51,7 +50,10 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(
+            ISettingsContainer settingsContainer,
+            ICommonLog logger,
+            ILoggerContextManager loggerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -80,6 +82,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                                                           settingsContainer.AsSettings<ICachingSettings>(),
                                                                           settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                           settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                          logger,
                                                                           loggerContextManager))
                         .ConfigureServiceClient()
                         .EnsureMetadataCorrectness();
@@ -97,10 +100,11 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             IMsCrmSettings msCrmSettings,
+            ICommonLog logger,
             ILoggerContextManager loggerContextManager)
         {
             return container
-                .ConfigureLogging(loggerContextManager)
+                .ConfigureLogging(logger, loggerContextManager)
                 .CreateErmSpecific()
                 .CreateSecuritySpecific()
                 .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
@@ -118,7 +122,6 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                        typeof(EnumResources),
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .RegisterType<ICommonLog, Log4NetCommonLog>(Lifetime.Singleton, new InjectionConstructor(LoggerConstants.Erm))
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)
@@ -144,11 +147,6 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 
             // validators
             return container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataValidator, OrderValidationMetadataValidator>(Lifetime.Singleton);
-        }
-
-        private static IUnityContainer ConfigureLogging(this IUnityContainer container, ILoggerContextManager loggerContextManager)
-        {
-            return container.RegisterInstance<ILoggerContextManager>(loggerContextManager);
         }
 
         private static IUnityContainer ConfigureReadWriteModels(this IUnityContainer container)

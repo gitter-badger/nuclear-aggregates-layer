@@ -45,15 +45,18 @@ namespace DoubleGis.Erm.TaskService
                     new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, environmentSettings.EntryPointName)
                 };
 
-            LogUtils.InitializeLoggingInfrastructure(
-                    settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString(),
-                    LogUtils.DefaultLogConfigFileFullPath,
-                    loggerContextEntryProviders);
+            var loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
+            var logger = Log4NetLoggerBuilder.Use
+                                             .DefaultXmlConfig
+                                             .Console
+                                             .EventLog
+                                             .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
+                                             .Build;
 
             IUnityContainer container = null;
             try
             {
-                container = Bootstrapper.ConfigureUnity(settingsContainer);
+                container = Bootstrapper.ConfigureUnity(settingsContainer, logger, loggerContextManager);
                 var schedulerManager = container.Resolve<ISchedulerManager>();
 
                 if (IsConsoleMode(args))
