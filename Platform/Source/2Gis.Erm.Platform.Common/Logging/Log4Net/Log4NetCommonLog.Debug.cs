@@ -18,10 +18,10 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net
 
             if (methodName != null)
             {
-                using (ThreadContext.Stacks[LoggerContextKeys.Optional.MethodName].Push(methodName))
+                using (ThreadContext.Stacks["methodName"].Push(methodName))
                 {
                     _log.Debug(message);
-            }
+                }
             }
             else
             {

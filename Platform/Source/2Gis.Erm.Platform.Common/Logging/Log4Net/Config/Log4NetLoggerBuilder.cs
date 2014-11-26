@@ -114,6 +114,7 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
                 debugAppender.Name = "DebugDB";
                 debugAppender.AddFilter(new LevelMatchFilter { LevelToMatch = Level.Debug, AcceptOnMatch = true, Next = new DenyAllFilter() });
                 debugAppender.BufferSize = 5;
+                debugAppender.Lossy = false;
                 ApplySharedSettings(debugAppender);
             },
             infoAppender =>
@@ -194,11 +195,6 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
         private static Log4NetCommonLog Create(Log4NetLoggerBuilder builder)
         {
             var loggersHierarchy = (Hierarchy)LogManager.GetRepository();
-            foreach (var appender in builder._loggerAppendersMap.SelectMany(x => x.Value))
-            {
-                loggersHierarchy.Root.AddAppender(appender);
-            }
-
             if (!string.IsNullOrEmpty(builder._xmlConfigFullPath))
             {
                 var targetXmlConfigFileInfo = new FileInfo(builder._xmlConfigFullPath);
@@ -208,6 +204,11 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
                 }
                 
                 XmlConfigurator.Configure(loggersHierarchy, targetXmlConfigFileInfo);
+            }
+            
+            foreach (var appender in builder._loggerAppendersMap.SelectMany(x => x.Value))
+            {
+                loggersHierarchy.Root.AddAppender(appender);
             }
 
             var adonetAppenders = loggersHierarchy.GetAppenders().OfType<AdoNetAppender>();
@@ -224,20 +225,22 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
         private void ApplySharedSettings(AdoNetAppender adoNetAppender)
         {
             adoNetAppender.ConnectionType = "System.Data.SqlClient.SqlConnection";
+            adoNetAppender.CommandText = "[dbo].[WriteLogMessageNew]";
             adoNetAppender.CommandType = CommandType.StoredProcedure;
             adoNetAppender.ReconnectOnError = true;
             adoNetAppender.UseTransactions = false;
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@SeanceCode", DbType = DbType.String, Size = 36, Layout = new RawPropertyLayout { Key = "%property{seanceCode}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@SessionId", DbType = DbType.String, Size = 24, Layout = new RawPropertyLayout { Key = "%property{sessionId}" } });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageDate", DbType = DbType.DateTime2, Size = 36, Precision = 7, Layout = new RawTimeStampLayout() });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageLevel", DbType = DbType.String, Size = 5, Layout = new RawPropertyLayout { Key = "%level" } });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageText", DbType = DbType.String, Size = 8000, Layout = new RawPropertyLayout { Key = "%property{message}" } });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@ExceptionData", DbType = DbType.String, Size = 8000, Layout = new RawPropertyLayout { Key = "%exception" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MethodName", DbType = DbType.String, Size = 250, Layout = new RawPropertyLayout { Key = "%property{methodName}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@InputParameters", DbType = DbType.String, Size = 1024, Layout = new RawPropertyLayout { Key = "%property{methodParameters}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserName", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userName}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserIP", DbType = DbType.String, Size = 50, Layout = new RawPropertyLayout { Key = "%property{userIP}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserBrowser", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userBrowser}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Environment", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{environment}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPoint", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{entryPointName}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointHost", DbType = DbType.String, Size = 250, Layout = new RawPropertyLayout { Key = "%property{entryPointHost}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointInstanceId", DbType = DbType.Guid, Layout = new RawPropertyLayout { Key = "%property{entryPointInstanceId}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAccount", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userAccount}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserSession", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userSession}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAddress", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userAddress}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAgent", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userAgent}" } });
         }
 
         private void AttachOnce<TAppender>(params Action<TAppender>[] initializers) where TAppender : class, IAppender, IOptionHandler, new()

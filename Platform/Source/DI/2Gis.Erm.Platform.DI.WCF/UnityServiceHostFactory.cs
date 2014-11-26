@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
+using DoubleGis.Erm.Platform.Common.Logging.SystemInfo;
 using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceHost;
@@ -27,15 +28,18 @@ namespace DoubleGis.Erm.Platform.DI.WCF
             TConcreteSettings settingsContainer,
             Func<ISettingsContainer, ICommonLog, ILoggerContextManager, IUnityContainer> unityContainerFactory)
         {
+            var environmentSettings = settingsContainer.AsSettings<IEnvironmentSettings>();
             var loggerContextEntryProviders =
                     new ILoggerContextEntryProvider[] 
                     {
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.SessionId),
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserName),
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserIP),
-                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserBrowser),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.SeanceCode, Guid.NewGuid().ToString()),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Module, settingsContainer.AsSettings<IEnvironmentSettings>().EntryPointName)
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Required.UserAccount),
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Optional.UserSession),
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Optional.UserAddress),
+                        new LoggerContextEntryWcfProvider(LoggerContextKeys.Optional.UserAgent)
                     };
 
             LoggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
