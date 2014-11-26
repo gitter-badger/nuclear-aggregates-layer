@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                         UiElementMetadata.Config.SplitterAction(),
                                         UiElementMetadata.Config.SaveAndCloseAction<Account>(),
                                         UiElementMetadata.Config.SplitterAction(),
-                                        UiElementMetadata.Config.RefreshAction(),
+                                        UiElementMetadata.Config.RefreshAction<Account>(),
                                         UiElementMetadata.Config.CloseAction());
     }
 }

@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Cards\CardMetadataExtensions.cs" />
     <Compile Include="Cards\CardMetadataSource.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AccountDetail.cs" />
     <Compile Include="Cards\Settings\CardStructures.Account.cs" />
     <Compile Include="Cards\Settings\CardStructures.cs" />
     <Compile Include="Cards\UiElementMetadataBuilderExtensions.cs" />

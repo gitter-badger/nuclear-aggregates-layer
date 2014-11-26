@@ -49,13 +49,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                           .Operation.NonCoupled<CloseIdentity>();
         }
 
-        public static UiElementMetadataBuilder RefreshAction(this UiElementMetadataBuilder builder)
+        public static UiElementMetadataBuilder RefreshAction<TEntity>(this UiElementMetadataBuilder builder)
+            where TEntity : class, IEntity
         {
             return builder.Name.Static("Refresh")
                           .Title.Resource(() => ErmConfigLocalization.ControlRefresh)
                           .ControlType(ControlType.TextImageButton)
                           .Handler.Name("scope.refresh")
-                          .Icon.Path("Refresh.gif");
+                          .Icon.Path("Refresh.gif")
+                          .Operation.SpecificFor<GetDomainEntityDtoIdentity, TEntity>();
         }
 
         public static UiElementMetadataBuilder CloseAction(this UiElementMetadataBuilder builder)

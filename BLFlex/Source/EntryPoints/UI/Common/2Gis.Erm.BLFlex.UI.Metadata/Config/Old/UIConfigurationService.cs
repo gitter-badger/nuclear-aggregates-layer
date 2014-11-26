@@ -1077,7 +1077,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 throw new InvalidDataException("TitleResourceId");
             }
 
-            EnsureCardRelatedItemsGroupCorrectness(xmlData.CardRelatedItems.Single(), metadataData.CardRelatedItems.Single());
+            EnsureCardRelatedItemsGroupCorrectness(xmlData.CardRelatedItems.SingleOrDefault(), metadataData.CardRelatedItems.SingleOrDefault());
 
             if (xmlData.CardToolbar.Count() != metadataData.CardToolbar.Count())
             {
@@ -1092,6 +1092,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         private void EnsureCardRelatedItemsGroupCorrectness(CardRelatedItemsGroupStructure xmlData, CardRelatedItemsGroupStructure metadataData)
         {
+            if (xmlData == null && metadataData == null)
+            {
+                return;    
+            }
+
             if (xmlData.Name != metadataData.Name)
             {
                 throw new InvalidDataException("Name");

@@ -53,11 +53,8 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Cards\CardMetadataSource.cs" />
-    <Compile Include="Cards\Settings\CardStructures.Account.cs" />
     <Compile Include="Cards\Settings\CardStructures.cs" />
-    <Compile Include="Cards\Settings\CardStructures.LegalPerson.cs" />
     <Compile Include="Cards\Settings\CardStructures.Order.cs" />
-    <Compile Include="Cards\Settings\CardStructures.OrderPosition.cs" />
     <Compile Include="DI\BlUiMetadataAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
