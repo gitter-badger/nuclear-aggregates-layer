@@ -3176,9 +3176,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="CurrentUserHasNoReadEntityPermission" xml:space="preserve">
     <value>Aktuální uživatel nemá oprávnění pro čtení entity</value>
   </data>
-  <data name="RegionalAdvertisingSharing" xml:space="preserve">
-    <value>Výměna regionální reklamy</value>
-  </data>
   <data name="AfterSalesServiceOperationCompletedDetailsMessage" xml:space="preserve">
     <value>Zpracováno obchodních transakcí: {0}, provedeno hovorů: {1}</value>
   </data>
@@ -4526,12 +4523,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
     <value>Ostatní</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
-    <value>Výměna regionální reklamy</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
-    <value>Historie výměn regionální reklamy</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>Seznam</value>

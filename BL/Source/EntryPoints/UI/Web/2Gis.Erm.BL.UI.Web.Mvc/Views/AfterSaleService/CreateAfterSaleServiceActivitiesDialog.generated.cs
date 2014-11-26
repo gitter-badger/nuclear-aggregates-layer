@@ -125,36 +125,48 @@ WriteLiteral(">\r\n        td.itemCaption\r\n        {\r\n            vertical-a
 
 WriteLiteral(" type=\"text/javascript\"");
 
-WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {\r\n            // show error messages" +
-"\r\n            if (Ext.getDom(\"Notifications\").innerHTML.trim() != \"\")\r\n         " +
-"   {\r\n                Ext.getDom(\"Notifications\").style.display = \"block\";\r\n    " +
-"            Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n               " +
-" Ext.getDom(\"OK\").style.display = \"none\";\r\n                Ext.getDom(\"Cancel\")." +
-"value = Ext.LocalizedResources.Close;\r\n            }\r\n            else\r\n        " +
-"    {\r\n                Ext.get(\"Notifications\").removeClass(\"Notifications\");\r\n " +
-"           }\r\n\r\n            Ext.get(\"Cancel\").on(\"click\", function () { window.c" +
-"lose(); });\r\n            Ext.get(\"OK\").on(\"click\", function ()\r\n            {\r\n " +
-"               if (Ext.DoubleGis.FormValidator.validate(EntityForm))\r\n          " +
-"      {\r\n                    Ext.getDom(\"OK\").disabled = \"disabled\";\r\n          " +
-"          Ext.getDom(\"Cancel\").disabled = \"disabled\";\r\n                    windo" +
-"w.Ext.each(window.Ext.query(\"input.x-calendar\", window.EntityForm), function (no" +
-"de)\r\n                    {\r\n                        node.value = window.Ext.getC" +
-"mp(node.id).getValue() ? new Date(window.Ext.getCmp(node.id).getValue()).format(" +
-"Ext.CultureInfo.DateTimeFormatInfo.PhpInvariantDateTimePattern) : \"\";\r\n         " +
-"           });\r\n\r\n                    Ext.getDom(\"Notifications\").innerHTML = Ex" +
-"t.LocalizedResources.AfterSalesServiceOperationStartedMessage;\r\n                " +
-"    Ext.get(\"Notifications\").addClass(\"Notifications\");\r\n                    Ext" +
-".getDom(\"Notifications\").style.display = \"block\";\r\n                    EntityFor" +
-"m.submit();\r\n                }\r\n            });\r\n        });\r\n    </script>\r\n");
+WriteLiteral(@">
+        Ext.onReady(function ()
+        {
+            // show error messages
+            if (Ext.getDom(""Notifications"").innerHTML.trim() != """")
+            {
+                Ext.getDom(""Notifications"").style.display = ""block"";
+                Ext.get(""Notifications"").addClass(""Notifications"");
+                Ext.getDom(""OK"").style.display = ""none"";
+                Ext.getDom(""Cancel"").value = Ext.LocalizedResources.Close;
+            }
+            else
+            {
+                Ext.get(""Notifications"").removeClass(""Notifications"");
+            }
+
+            Ext.get(""Cancel"").on(""click"", function () { window.close(); });
+            Ext.get(""OK"").on(""click"", function ()
+            {
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
+                {
+                    Ext.getDom(""OK"").disabled = ""disabled"";
+                    Ext.getDom(""Cancel"").disabled = ""disabled"";
+
+                    Ext.getDom(""Notifications"").innerHTML = Ext.LocalizedResources.AfterSalesServiceOperationStartedMessage;
+                    Ext.get(""Notifications"").addClass(""Notifications"");
+                    Ext.getDom(""Notifications"").style.display = ""block"";
+                    EntityForm.submit();
+                }
+            });
+        });
+    </script>
+");
 
             
-            #line 62 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+            #line 58 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 62 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+            #line 58 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -174,7 +186,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 66 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+            #line 62 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
            Write(Html.Hidden("now", DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)));
 
             
@@ -185,7 +197,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                ");
 
             
-            #line 67 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+            #line 63 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
            Write(Html.HiddenFor(m => m.UserId));
 
             
@@ -204,7 +216,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 71 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+            #line 67 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
            Write(Model.Message);
 
             
@@ -219,7 +231,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 74 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+            #line 70 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
            Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit, ExtendedInfo = "userId=" + Model.UserId + "&filterMovedToErm=true" }));
 
             
@@ -234,8 +246,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 77 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
-           Write(Html.TemplateField(m => m.Month, FieldFlex.lone, new DateTimeSettings { ShiftOffset = false, PeriodType = PeriodType.MonthlyLowerBound, DisplayStyle = DisplayStyle.WithoutDayNumber }));
+            #line 73 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+           Write(Html.TemplateField(m => m.Month, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month }));
 
             
             #line default
@@ -243,7 +255,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 80 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
+            #line 76 "..\..\Views\AfterSaleService\CreateAfterSaleServiceActivitiesDialog.cshtml"
     }
 
             

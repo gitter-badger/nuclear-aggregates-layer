@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
 
         protected override OrdinaryTestResult ExecuteWithModel(Erm.Platform.Model.Entities.Erm.Platform modelEntity)
         {
-            modelEntity.MinPlacementPeriodEnum = (int)PositionPlatformMinPlacementPeriod.FourMonths;
+            modelEntity.MinPlacementPeriodEnum = PositionPlatformMinPlacementPeriod.FourMonths;
             _platformService.CreateOrUpdate(modelEntity);
 
             _platformService.GetPlatform(modelEntity.Id)

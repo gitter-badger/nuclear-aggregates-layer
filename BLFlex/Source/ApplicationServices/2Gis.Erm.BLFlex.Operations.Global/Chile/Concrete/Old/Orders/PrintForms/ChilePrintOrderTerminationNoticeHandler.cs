@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
-                                           OrderState = (OrderState)order.WorkflowStepId, 
+                                           OrderState = order.WorkflowStepId, 
                                            order.IsTerminated, 
                                            CurrencyISOCode = order.Currency.ISOCode, 
                                            order.BranchOfficeOrganizationUnitId,

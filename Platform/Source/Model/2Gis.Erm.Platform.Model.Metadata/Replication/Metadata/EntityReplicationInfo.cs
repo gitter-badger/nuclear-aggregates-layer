@@ -22,11 +22,6 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata
             get { return _entityType; }
         }
 
-        public string StoredProcedureName
-        {
-            get { return _storedProcedureName; }
-        }
-
         public string SchemaQualifiedStoredProcedureName
         {
             get { return _schemaQualifiedStoredProcedureName; }

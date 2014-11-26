@@ -12791,15 +12791,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string RegionalAdvertisingSharing {
-            get {
-                return ResourceManager.GetString("RegionalAdvertisingSharing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string RegionalApiError {
             get {
                 return ResourceManager.GetString("RegionalApiError", resourceCulture);
@@ -13361,24 +13352,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string SecurityAdministrationPage_LocalMessages {
             get {
                 return ResourceManager.GetString("SecurityAdministrationPage_LocalMessages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string SecurityAdministrationPage_RegionalAdvertisingSharingDetails {
-            get {
-                return ResourceManager.GetString("SecurityAdministrationPage_RegionalAdvertisingSharingDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string SecurityAdministrationPage_RegionalAdvertisingSharings {
-            get {
-                return ResourceManager.GetString("SecurityAdministrationPage_RegionalAdvertisingSharings", resourceCulture);
             }
         }
         

@@ -125,7 +125,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                             Entity = new LocalMessage
                                 {
                                     EventDate = DateTime.UtcNow,
-                                    Status = (int)LocalMessageStatus.NotProcessed,
+                                    Status = LocalMessageStatus.NotProcessed,
                                 },
                         });
 
@@ -163,11 +163,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             // Если дата не удовлетворяет вышеуказанным constraint, то генеряться alert с сообщениями об ошибке
             // На клиенте же в контроле календаря указан диапазон допустимых значений даты и туда не попадает default(DateTime) - генеряться alert с сообщениями об ошибке
             // Чтобы этого избежать проблем с constraint контрола календаря отправляем заведомо корректное значение - дату начала текущего месяца 
-            var dateTime = DateTime.UtcNow;
+            var date = DateTime.UtcNow.GetFirstDateOfMonth();
             var model = new LocalMessageExportViewModel
                 {
-                    PeriodStart = new DateTime(dateTime.Year, dateTime.Month, 1),
-                    PeriodStartFor1C = new DateTime(dateTime.Year, dateTime.Month, 1),
+                    PeriodStart = date,
+                    PeriodStartFor1C = date,
                     MailSendingType = MailSendingType.Statistic
                 };
             return View(model);

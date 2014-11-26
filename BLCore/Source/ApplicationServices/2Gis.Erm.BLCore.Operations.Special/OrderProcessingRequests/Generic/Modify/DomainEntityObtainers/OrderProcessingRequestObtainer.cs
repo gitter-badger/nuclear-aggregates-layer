@@ -36,9 +36,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generi
             result.OwnerCode = dto.OwnerRef.Id.Value;
             result.ReplicationCode = dto.ReplicationCode;
             result.SourceOrganizationUnitId = dto.SourceOrganizationUnitRef.Id.Value;
-            result.State = (int)dto.State;
+            result.State = dto.State;
             result.Title = dto.Title;
-            result.RequestType = (int)dto.RequestType;
+            result.RequestType = dto.RequestType;
             result.Timestamp = dto.Timestamp;
 
             return result;

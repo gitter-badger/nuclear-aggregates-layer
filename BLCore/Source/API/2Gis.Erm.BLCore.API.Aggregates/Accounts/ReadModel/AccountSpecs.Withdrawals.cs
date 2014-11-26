@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
 
                 public static FindSpecification<WithdrawalInfo> InStates(params WithdrawalStatus[] states)
                 {
-                    return new FindSpecification<WithdrawalInfo>(x => states.Contains((WithdrawalStatus)x.Status));
+                    return new FindSpecification<WithdrawalInfo>(x => states.Contains(x.Status));
                 }
                 
                 public static FindSpecification<WithdrawalInfo> ForOrganizationUnit(IEnumerable<long> orgUnits)

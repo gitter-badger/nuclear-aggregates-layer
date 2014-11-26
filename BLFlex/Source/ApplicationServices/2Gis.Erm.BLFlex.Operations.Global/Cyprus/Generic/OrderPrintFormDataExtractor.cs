@@ -126,19 +126,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
                 .Single();
 
             var parintData = new PrintData
-                                 {
-                                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate) },
-                                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
-                                     { "ElectronicMedia", stuff.ElectronicMedia },
-                                     { "Firm.Name", stuff.FirmName },
+                {
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate) },
+                    { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
+                    { "ElectronicMedia", stuff.ElectronicMedia },
+                    { "Firm.Name", stuff.FirmName },
                                      {
                                          "PaymentMethod",
-                                         stuff.PaymentMethod != 0
-                                             ? ((PaymentMethod)stuff.PaymentMethod).ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
+                                         stuff.PaymentMethod != PaymentMethod.Undefined
+                                             ? stuff.PaymentMethod.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)
                                              : string.Empty
                                      },
-                                     { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
-                                 };
+                    { "RelatedBargainInfo", bargain != null ? GetRelatedBargainInfo(bargain.Number, bargain.CreatedOn) : null },
+                };
 
             return PrintData.Concat(categories, parintData);
         }
@@ -150,7 +150,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
 
         private static string GetClientRequisitesParagraph(LegalPerson legalPerson, LegalPersonProfile profile)
         {
-            switch ((LegalPersonType)legalPerson.LegalPersonTypeEnum)
+            switch (legalPerson.LegalPersonTypeEnum)
             {
                 case LegalPersonType.NaturalPerson:
                     return string.Format(

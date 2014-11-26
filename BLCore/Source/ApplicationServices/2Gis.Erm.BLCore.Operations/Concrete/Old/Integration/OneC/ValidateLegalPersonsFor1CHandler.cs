@@ -17,48 +17,48 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC
         {
             x => string.IsNullOrEmpty(x.LegalName) ? "Не указано юридическое название" : null,
             x => string.IsNullOrEmpty(x.ShortName) ? "Не указано короткое название" : null,
-            x => x.LegalPersonTypeEnum != (int)LegalPersonType.NaturalPerson &&
+            x => x.LegalPersonTypeEnum != LegalPersonType.NaturalPerson &&
                   string.IsNullOrEmpty(x.LegalAddress)
                         ? "Не указан юридический адрес"
                         : null,
-            x => x.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+            x => x.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                   string.IsNullOrEmpty(x.RegistrationAddress)
                         ? "Не указана прописка"
                         : null,
-            x => (x.LegalPersonTypeEnum == (int)LegalPersonType.Businessman ||
-                   x.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson) &&
+            x => (x.LegalPersonTypeEnum == LegalPersonType.Businessman ||
+                   x.LegalPersonTypeEnum == LegalPersonType.LegalPerson) &&
                   string.IsNullOrEmpty(x.Inn)
                         ? "Не указан ИНН"
                         : null,
-            x => (x.LegalPersonTypeEnum == (int)LegalPersonType.Businessman &&
+            x => (x.LegalPersonTypeEnum == LegalPersonType.Businessman &&
                    !string.IsNullOrEmpty(x.Inn) && x.Inn.Replace(" ", string.Empty).Length != 12) ||
-                  (x.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson &&
+                  (x.LegalPersonTypeEnum == LegalPersonType.LegalPerson &&
                    !string.IsNullOrEmpty(x.Inn) && x.Inn.Replace(" ", string.Empty).Length != 10)
                         ? "ИНН не соответствует формату"
                         : null,
-            x => x.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson &&
+            x => x.LegalPersonTypeEnum == LegalPersonType.LegalPerson &&
                   string.IsNullOrEmpty(x.Kpp)
                         ? "Не указан КПП"
                         : null,
-            x => (x.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson &&
+            x => (x.LegalPersonTypeEnum == LegalPersonType.LegalPerson &&
                    !string.IsNullOrEmpty(x.Kpp) &&
                    x.Kpp.Replace(" ", string.Empty).Length != 9)
                         ? "КПП не соответствует формату"
                         : null,
-            x => x.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+            x => x.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                   string.IsNullOrEmpty(x.PassportSeries)
                         ? "Не указана серия паспорта"
                         : null,
-            x => x.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+            x => x.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                   !string.IsNullOrEmpty(x.PassportSeries) &&
                   x.PassportSeries.Replace(" ", string.Empty).Length != 4
                         ? "Серия паспорта не соответствуют формату"
                         : null,
-            x => x.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+            x => x.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                   string.IsNullOrEmpty(x.PassportNumber)
                         ? "Не указан номер паспорта"
                         : null,
-            x => x.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson &&
+            x => x.LegalPersonTypeEnum == LegalPersonType.NaturalPerson &&
                   !string.IsNullOrEmpty(x.PassportNumber) &&
                   x.PassportNumber.Replace(" ", string.Empty).Length != 6
                         ? "Номер паспорта не соответствуют формату"

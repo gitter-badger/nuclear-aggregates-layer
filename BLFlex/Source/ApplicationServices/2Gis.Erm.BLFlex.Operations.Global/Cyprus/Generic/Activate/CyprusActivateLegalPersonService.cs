@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Activate
                 LegalPerson dublicateLegalPerson = null;
 
                 // FIXME {all, 06.08.2013}: В кипрской версии логику ещё никто не обговаривал. - был fixme в нестандартном формате - просто актуалиация
-                switch ((LegalPersonType)restoringLegalPerson.LegalPersonTypeEnum)
+                switch (restoringLegalPerson.LegalPersonTypeEnum)
                 {
                     case LegalPersonType.LegalPerson:
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))

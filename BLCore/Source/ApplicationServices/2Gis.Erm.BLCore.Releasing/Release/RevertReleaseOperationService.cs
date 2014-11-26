@@ -70,11 +70,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 string report;
                 AcquiredReleaseDescriptor acquiredReleaseDescriptor;
                 if (!TryAcquireTargetRelease(organizationUnitId,
-                                             period,
-                                             comment,
-                                             out acquiredRelease,
-                                             out acquiredReleaseDescriptor,
-                                             out report))
+                                            period,
+                                            comment,
+                                            out acquiredRelease,
+                                            out acquiredReleaseDescriptor,
+                                            out report))
                 {
                     var msg = string.Format("Reverting release failed. " +
                                             "Can't acquire release for organization unit with id {0} by period {1}. Details: {2}",
@@ -190,19 +190,19 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private bool LockSuccessfullyAcquired(ReleaseInfo acquiredRelease)
         {
             var lockedRelease = _releaseReadModel.GetLastFinalRelease(acquiredRelease.OrganizationUnitId,
-                                                                      new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
+                                            new TimePeriod(acquiredRelease.PeriodStartDate, acquiredRelease.PeriodEndDate));
             return lockedRelease != null &&
                    lockedRelease.Id == acquiredRelease.Id &&
-                   (ReleaseStatus)lockedRelease.Status == ReleaseStatus.Reverting &&
+                   lockedRelease.Status == ReleaseStatus.Reverting &&
                    acquiredRelease.SameVersionAs(lockedRelease);
         }
 
         private bool TryAcquireTargetRelease(long organizationUnitId,
-                                             TimePeriod period,
-                                             string comment,
-                                             out ReleaseInfo acquiredRelease,
-                                             out AcquiredReleaseDescriptor acquiredReleaseDescriptor,
-                                             out string report)
+            TimePeriod period,
+            string comment,
+            out ReleaseInfo acquiredRelease,
+            out AcquiredReleaseDescriptor acquiredReleaseDescriptor,
+            out string report)
         {
             acquiredRelease = null;
             acquiredReleaseDescriptor = new AcquiredReleaseDescriptor();
@@ -226,9 +226,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                 if (_accountReadModel.HasInactiveLocksForDestinationOrganizationUnit(organizationUnitId, period))
                 {
                     report = string.Format(BLResources.InactiveLocksExistsForPeriodAndOrganizatonUnit,
-                                           period.Start,
-                                           period.End,
-                                           acquiredReleaseDescriptor.OrganizationUnitName);
+                                            period.Start,
+                                            period.End,
+                                            acquiredReleaseDescriptor.OrganizationUnitName);
                     _logger.ErrorEx(report);
                     return false;
                 }
@@ -240,9 +240,9 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             }
 
             _logger.InfoFormatEx("Reverting release process for organization unit {0} and period {1} is granted. Acquired release entry id {2}",
-                                 organizationUnitId,
-                                 period,
-                                 acquiredRelease.Id);
+                    organizationUnitId,
+                    period,
+                    acquiredRelease.Id);
 
             return true;
         }

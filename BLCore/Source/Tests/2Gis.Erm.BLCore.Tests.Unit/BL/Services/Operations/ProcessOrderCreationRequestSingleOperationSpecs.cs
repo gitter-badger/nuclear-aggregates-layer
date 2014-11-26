@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations
                         LegalPersonId = LegalPersonId,
                         BeginDistributionDate = BeginDistributionDate,
                         ReleaseCountPlan = ReleaseCountPlanValid,
-                        RequestType = (int)OrderProcessingRequestType.CreateOrder,
+                        RequestType = OrderProcessingRequestType.CreateOrder,
                     });
 
             Mock.Get(orderProcessingRequestService)

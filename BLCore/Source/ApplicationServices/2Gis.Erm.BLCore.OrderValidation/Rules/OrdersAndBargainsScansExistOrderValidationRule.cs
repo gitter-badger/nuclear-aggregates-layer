@@ -30,9 +30,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                      {
                                          OrderId = order.Id,
                                          OrderNuber = order.Number,
-                                         HasOrderScan = order.OrderFiles.Any(y => y.IsActive && !y.IsDeleted && y.FileKind == (int)OrderFileKind.OrderScan),
+                                         HasOrderScan = order.OrderFiles.Any(y => y.IsActive && !y.IsDeleted && y.FileKind == OrderFileKind.OrderScan),
                                          HasBargain = order.Bargain != null,
-                                         HasBargainScan = order.Bargain != null && order.Bargain.BargainFiles.Any(y => y.IsActive && !y.IsDeleted && y.FileKind == (int)BargainFileKind.BargainScan)
+                                         HasBargainScan = order.Bargain != null && order.Bargain.BargainFiles.Any(y => y.IsActive && !y.IsDeleted && y.FileKind == BargainFileKind.BargainScan)
                                      })
                 .Where(order => !order.HasOrderScan || (order.HasBargain && !order.HasBargainScan))
                 .ToArray();

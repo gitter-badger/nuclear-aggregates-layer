@@ -138,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         {
             private Establish context = () =>
                 {
-                    OrderProcessingRequest.RequestType = (int)OrderProcessingRequestType.CreateOrder;
+                    OrderProcessingRequest.RequestType = OrderProcessingRequestType.CreateOrder;
                     ExpectedSubject = BLResources.OrderProcessingRequestCreationResultEmailSubject;
 
                     var header = BLResources.OrderProcessingRequestCreationResultEmailHeader;
@@ -211,7 +211,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
             private Establish context = () =>
                 {
-                    OrderProcessingRequest.RequestType = (int)OrderProcessingRequestType.ProlongateOrder;
+                    OrderProcessingRequest.RequestType = OrderProcessingRequestType.ProlongateOrder;
                     OrderProcessingRequestNotificationData.BaseOrderNumber = BASE_ORDER_NUMBER;
 
                     ExpectedSubject = BLResources.OrderProcessingRequestProlongationResultEmailSubject;

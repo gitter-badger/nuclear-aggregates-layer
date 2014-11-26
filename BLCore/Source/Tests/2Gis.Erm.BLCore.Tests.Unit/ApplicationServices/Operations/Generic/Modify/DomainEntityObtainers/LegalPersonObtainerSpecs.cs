@@ -166,7 +166,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
             private It should_return_expected_legal_person_LegalAddress = () => Result.LegalAddress.Should().Be(TestLegalAddress);
             private It should_return_expected_legal_person_LegalName = () => Result.LegalName.Should().Be(TestLegalName);
             private It should_return_expected_legal_person_ShortName = () => Result.ShortName.Should().Be(TestShortName);
-            private It should_return_expected_legal_person_LegalPersonTypeEnum = () => Result.LegalPersonTypeEnum.Should().Be((int)TestLegalPersonTypeEnum);
+            private It should_return_expected_legal_person_LegalPersonTypeEnum = () => Result.LegalPersonTypeEnum.Should().Be(TestLegalPersonTypeEnum);
             private It should_return_expected_legal_person_Timestamp = () => Result.Timestamp.Should().BeEquivalentTo(TestTimestamp);
             private It should_return_expected_legal_person_Owner = () => Result.OwnerCode.Should().Be(TestOwner.Id);
             private It should_return_expected_legal_person_Client = () => Result.ClientId.Should().Be(TestClient.Id);

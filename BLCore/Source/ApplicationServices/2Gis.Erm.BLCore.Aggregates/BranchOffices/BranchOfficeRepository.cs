@@ -186,7 +186,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 
         public long? GetPrintFormTemplateId(long branchOfficeOrganizationUnitId, TemplateCode templateCode)
         {
-            var templates = _finder.Find<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == (int)templateCode)
+            var templates = _finder.Find<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode)
                                    .OrderByDescending(x => x.Id);
 
             var templateId = templates

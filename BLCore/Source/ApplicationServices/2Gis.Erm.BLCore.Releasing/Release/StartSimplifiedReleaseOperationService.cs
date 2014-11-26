@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             var previousReleaseInfo = _releaseReadModel.GetLastRelease(organizationUnitId, period);
             if (previousReleaseInfo != null)
             {
-                switch ((ReleaseStatus)previousReleaseInfo.Status)
+                switch (previousReleaseInfo.Status)
                 {
                     case ReleaseStatus.InProgressInternalProcessingStarted:
                     {

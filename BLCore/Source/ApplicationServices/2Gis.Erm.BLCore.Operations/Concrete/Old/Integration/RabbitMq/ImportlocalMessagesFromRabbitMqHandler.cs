@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.RabbitMq
                             Entity = new LocalMessage
                             {
                                 EventDate = DateTime.UtcNow,
-                                        Status = (int) LocalMessageStatus.WaitForProcess,
+                                        Status = LocalMessageStatus.WaitForProcess,
                             }
                         }, Context);
 

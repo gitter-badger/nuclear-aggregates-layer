@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel
                 public static FindSpecification<Limit> ApprovedForPeriod(TimePeriod period)
                 {
                     return new FindSpecification<Limit>(x =>
-                                                        x.Status == (int)LimitStatus.Approved
+                                                        x.Status == LimitStatus.Approved
                                                         && x.StartPeriodDate == period.Start
                                                         && x.EndPeriodDate == period.End);
                 }

@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 throw new NotificationException(BLResources.EntityNotFound);
             }
 
-            if (!(order.WorkflowStepId == (int)OrderState.OnRegistration || order.WorkflowStepId == (int)OrderState.Rejected))
+            if (!(order.WorkflowStepId == OrderState.OnRegistration || order.WorkflowStepId == OrderState.Rejected))
             {
                 throw new NotificationException(BLResources.OrderCloseIncorrectState);
             }

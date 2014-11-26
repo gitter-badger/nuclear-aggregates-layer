@@ -26,8 +26,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             entity.Description = dto.Description;
             entity.FinishTime = dto.FinishTime;
             entity.StartTime = dto.StartTime;
-            entity.Status = (byte)dto.Status;
-            entity.Type = (short)dto.Type;
+            entity.Status = dto.Status;
+            entity.Type = dto.Type;
             entity.OrganizationUnitId = dto.OrganizationUnitRef.Id;
             entity.Timestamp = dto.Timestamp;
 

@@ -1146,9 +1146,6 @@
   <data name="ControlPrintTermNoticeAction" xml:space="preserve">
     <value>Уведомление о расторжении</value>
   </data>
-  <data name="ControlPrintRegTermNoticeAction" xml:space="preserve">
-    <value>Уведомление о рег. расторжении</value>
-  </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
     <value>Дополнительное соглашение</value>
   </data>
@@ -1322,6 +1319,9 @@
   </data>
   <data name="DFieldTotalAmount" xml:space="preserve">
     <value>Сумма по всем заказам</value>
+  </data>
+  <data name="DListRegionalAdvertisingSharing" xml:space="preserve">
+    <value>Обмен региональной рекламой</value>
   </data>
   <data name="DListAllUsers" xml:space="preserve">
     <value>Все пользователи</value>

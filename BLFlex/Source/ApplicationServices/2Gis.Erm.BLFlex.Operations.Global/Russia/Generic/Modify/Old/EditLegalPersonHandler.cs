@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.Old
 
         protected override EmptyResponse Handle(EditRequest<LegalPerson> request)
         {
-            var modelLegalPersonType = (LegalPersonType)request.Entity.LegalPersonTypeEnum;
+            var modelLegalPersonType = request.Entity.LegalPersonTypeEnum;
             if (modelLegalPersonType == LegalPersonType.LegalPerson || modelLegalPersonType == LegalPersonType.Businessman)
             {
                 string innErrorMessage;

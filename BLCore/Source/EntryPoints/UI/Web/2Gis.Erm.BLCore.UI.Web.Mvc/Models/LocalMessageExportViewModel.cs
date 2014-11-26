@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -14,6 +15,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 {
     public sealed class LocalMessageExportViewModel : EntityViewModelBase
     {
+        private DateTime _periodStart;
+        private DateTime _periodStartFor1C;
+
         [RequiredLocalized, ExcludeZeroValue]
         [Dependency(DependencyType.NotRequiredDisableHide, "PeriodStart", "this.value=='FirmsWithActiveOrdersToDgpp' || this.value=='LegalPersonsTo1C'")]
         [Dependency(DependencyType.NotRequiredDisableHide, "PeriodStartFor1C", "this.value!='LegalPersonsTo1C'")]
@@ -26,13 +30,23 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
         [RequiredLocalized]
         public LookupField OrganizationUnit { get; set; }
 
+        [Calendar]
         [RequiredLocalized]
         [DisplayNameLocalized("PaymentMonth")]
-        public DateTime PeriodStart { get; set; }
+        public DateTime PeriodStart 
+        {
+            get { return _periodStart; }
+            set { _periodStart = value.AssumeUtcKind(); }
+        }
 
+        [Calendar]
         [RequiredLocalized]
         [DisplayNameLocalized("ExportLegalPersonsTo1CPeriodStart")]
-        public DateTime PeriodStartFor1C { get; set; }
+        public DateTime PeriodStartFor1C
+        {
+            get { return _periodStartFor1C; }
+            set { _periodStartFor1C = value.AssumeUtcKind(); }
+        }
 
         [RequiredLocalized]
         public MailSendingType MailSendingType { get; set; }

@@ -26,8 +26,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         {
             return new PrintData
                 {
-                    { "UseLegalPerson", legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson || legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman },
-                    { "UseNaturalPerson", legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson },
+                    { "UseLegalPerson", legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson || legalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman },
+                    { "UseNaturalPerson", legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson },
                 };
         }
 
