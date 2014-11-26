@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLFlex.Operation
                 var minBeginDistributionDate = DateTime.UtcNow.GetNextMonthFirstDate();
                 return base.ModelEntitySpec &&
                        new FindSpecification<OrderProcessingRequest>(
-                           x => x.RequestType == (int)OrderProcessingRequestType.ProlongateOrder && x.State == (int)OrderProcessingRequestState.Pending && x.BeginDistributionDate >= minBeginDistributionDate);
+                           x => x.RequestType == OrderProcessingRequestType.ProlongateOrder && x.State == OrderProcessingRequestState.Pending && x.BeginDistributionDate >= minBeginDistributionDate);
             }
         }
 

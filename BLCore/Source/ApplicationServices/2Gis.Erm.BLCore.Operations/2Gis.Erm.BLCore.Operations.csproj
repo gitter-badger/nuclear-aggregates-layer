@@ -203,7 +203,6 @@
     <Compile Include="Concrete\Old\Orders\GetOrdersWithDummyAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderBillsHandler.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintOrderJointBillsHandler.cs" />
-    <Compile Include="Concrete\Old\Orders\PrintForms\PrintRegionalOrderTerminationNoticeHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetADPositionsValidationAsInvalidHandler.cs" />
     <Compile Include="Concrete\Old\Orders\SetLegalPersonProfileForOrderHandler.cs" />
     <Compile Include="Concrete\Old\Orders\WorkflowProcessing\ProcessOrderOnApprovalToApprovedHandler.cs" />

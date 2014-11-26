@@ -47,8 +47,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                                   pricePosition.MinAdvertisementAmount,
                                   pricePosition.MaxAdvertisementAmount,
                                   pricePosition.Amount,
-                                  (PricePositionAmountSpecificationMode)pricePosition.AmountSpecificationMode,
-                                  (PricePositionRateType)pricePosition.RateType);
+                                  pricePosition.AmountSpecificationMode,
+                                  pricePosition.RateType);
 
             if (pricePosition.IsNew())
             {

@@ -42,8 +42,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
                                                                           o =>
                                                                           o.BeginDistributionDate <= timePeriod.Start &&
                                                                           o.BeginDistributionDate >= timePeriod.End &&
-                                                                          (o.WorkflowStepId == (int)OrderState.Approved ||
-                                                                           o.WorkflowStepId == (int)OrderState.OnTermination) &&
+                                                                          (o.WorkflowStepId == OrderState.Approved ||
+                                                                           o.WorkflowStepId == OrderState.OnTermination) &&
                                                                           o.LegalPersonId != null && o.IsActive && !o.IsDeleted)));
 
             var releaseInfo = _releaseInfoProvider.Get(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() && ReleaseSpecs.Releases.Find.ForPeriod(timePeriod));

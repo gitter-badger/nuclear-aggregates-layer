@@ -71,15 +71,15 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 LessStartDate = x.BeginDistributionDate < request.StartDate,
                 EqualsStartDate = x.BeginDistributionDate == request.StartDate,
             })
-            .Where(x => x.LessStartDate && lessStartDateStates.Contains((OrderState)x.Order.WorkflowStepId) ||
-                        x.EqualsStartDate && equalsStartDateStates.Contains((OrderState)x.Order.WorkflowStepId))
+            .Where(x => x.LessStartDate && lessStartDateStates.Contains(x.Order.WorkflowStepId) ||
+                        x.EqualsStartDate && equalsStartDateStates.Contains(x.Order.WorkflowStepId))
             .Select(x => x.Order)
             .Select(x => new
             {
                 FirmName = x.Firm.Name,
                 DestOrganizationUnitName = x.DestOrganizationUnit.Name,
                 SourceOrganizationUnitName = x.SourceOrganizationUnit.Name,
-                OrderType = (OrderType)x.OrderType,
+                OrderType = x.OrderType,
                 x.DiscountPercent,
                 ClientName = x.Deal.Client.Name,
                 x.OwnerCode,
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 x.BeginDistributionDate,
                 x.EndDistributionDatePlan,
                 x.ReleaseCountPlan,
-                OrderState = (OrderState)x.WorkflowStepId,
+                OrderState = x.WorkflowStepId,
                 x.EndDistributionDateFact,
                 x.ReleaseCountFact,
 
@@ -242,15 +242,15 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 LessStartDate = x.BeginDistributionDate < request.StartDate,
                 EqualsStartDate = x.BeginDistributionDate == request.StartDate,
             })
-            .Where(x => x.LessStartDate && lessStartDateStates.Contains((OrderState)x.Order.WorkflowStepId) ||
-                        x.EqualsStartDate && equalsStartDateStates.Contains((OrderState)x.Order.WorkflowStepId))
+            .Where(x => x.LessStartDate && lessStartDateStates.Contains(x.Order.WorkflowStepId) ||
+                        x.EqualsStartDate && equalsStartDateStates.Contains(x.Order.WorkflowStepId))
             .Select(x => x.Order)
             .Select(x => new
             {
                 FirmName = x.Firm.Name,
                 DestOrganizationUnitName = x.DestOrganizationUnit.Name,
                 SourceOrganizationUnitName = x.SourceOrganizationUnit.Name,
-                OrderType = (OrderType)x.OrderType,
+                OrderType = x.OrderType,
                 x.DiscountPercent,
                 ClientName = x.Deal.Client.Name,
                 x.OwnerCode,
@@ -261,7 +261,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 x.BeginDistributionDate,
                 x.EndDistributionDatePlan,
                 x.ReleaseCountPlan,
-                OrderState = (OrderState)x.WorkflowStepId,
+                OrderState = x.WorkflowStepId,
                 x.EndDistributionDateFact,
                 x.ReleaseCountFact,
                 Platform = (PlatformEnum)x.Platform.DgppId,
@@ -447,7 +447,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
                 _finder.Find<Order>(x => x.IsActive && !x.IsDeleted)
                 //.Where(x => allowedOrgUnits.Contains(x.DestOrganizationUnitId) || allowedOrgUnits.Contains(x.SourceOrganizationUnitId)) // uncomment to test
-                    .Where(x => allowedOrderStates.Contains((OrderState)x.WorkflowStepId) && x.Locks.Any(y => !y.IsDeleted && y.PeriodStartDate == startDate && y.PeriodEndDate == endDate))
+                    .Where(x => allowedOrderStates.Contains(x.WorkflowStepId) && x.Locks.Any(y => !y.IsDeleted && y.PeriodStartDate == startDate && y.PeriodEndDate == endDate))
                     .Select(x => new
                     {
                         Order = x,

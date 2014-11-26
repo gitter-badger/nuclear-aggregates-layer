@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                     x =>
                         {
                             var accessor = x.BasedOn<Order>();
-                            var orderState = (OrderState)accessor.Get(c => c.WorkflowStepId);
+                            var orderState = accessor.Get(c => c.WorkflowStepId);
                             return new IndexedDocumentWrapper<OrderGridDoc>
                                        {
                                            Id = accessor.Get(c => c.Id).ToString(),

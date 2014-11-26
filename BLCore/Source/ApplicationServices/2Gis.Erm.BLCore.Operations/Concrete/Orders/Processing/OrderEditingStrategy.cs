@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
         protected override void ValidateOrderStateInternal(Order order, long currentUserCode)
         {
             // todo {all, 2013-08-05}: эта самая проверка выполняется в хендлере. действительно есть необходимость её выпонять ещё раз?
-            if (order.WorkflowStepId == (int)OrderState.Approved || order.WorkflowStepId == (int)OrderState.OnTermination)
+            if (order.WorkflowStepId == OrderState.Approved || order.WorkflowStepId == OrderState.OnTermination)
             {
                 var isReleaseInProgress = _releaseRepository.HasFinalReleaseInProgress(order.DestOrganizationUnitId,
                                                                                        new TimePeriod(order.BeginDistributionDate, order.EndDistributionDateFact));

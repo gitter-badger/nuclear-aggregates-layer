@@ -30,8 +30,6 @@
         else {
             item.disable();
         }
-
-        Ext.get("RegionalNumber").setReadOnly(!Ext.getDom('EditRegionalNumber').checked);
     },
     
     onLegalPersonChanged: function (cmp) {

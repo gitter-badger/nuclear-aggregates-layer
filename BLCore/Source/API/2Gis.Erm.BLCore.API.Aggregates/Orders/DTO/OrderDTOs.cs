@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public long? BranchOfficeOrganizationUnitId { get; set; }
         public long SourceOrganizationUnitId { get; set; }
         public long DestOrganizationUnitId { get; set; }
-        public byte HasDocumentsDebt { get; set; }
+        public DocumentsDebt HasDocumentsDebt { get; set; }
         public bool AnyPositions { get; set; }
     }
 

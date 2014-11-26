@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             if (!dto.IsInSyncWith1C)
             {
-                legalPerson.LegalPersonTypeEnum = (int)dto.LegalPersonTypeEnum;
+                legalPerson.LegalPersonTypeEnum = dto.LegalPersonTypeEnum;
                 legalPerson.LegalName = dto.LegalName.Ensure—leanness();
                 legalPerson.ShortName = dto.ShortName.Ensure—leanness();
                 legalPerson.LegalAddress = dto.LegalAddress.Ensure—leanness();

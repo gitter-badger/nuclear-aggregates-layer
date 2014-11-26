@@ -125,7 +125,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                             Entity = new LocalMessage
                                 {
                                     EventDate = DateTime.UtcNow,
-                                    Status = (int)LocalMessageStatus.NotProcessed,
+                                    Status = LocalMessageStatus.NotProcessed,
                                 },
                         });
 

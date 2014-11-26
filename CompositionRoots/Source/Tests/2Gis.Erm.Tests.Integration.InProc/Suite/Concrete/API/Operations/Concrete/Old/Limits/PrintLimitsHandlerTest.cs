@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                 return base.ModelEntitySpec &&
                        new FindSpecification<Limit>(
                            l => l.Account.BranchOfficeOrganizationUnit.PrintFormTemplates.Any(
-                               pft => pft.IsActive && !pft.IsDeleted && pft.TemplateCode == (int)TemplateCode.LimitRequest));
+                               pft => pft.IsActive && !pft.IsDeleted && pft.TemplateCode == TemplateCode.LimitRequest));
             }
         }
 

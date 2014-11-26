@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 {
                     MessageTemplateCode = MessageCodes.GeneralMessage,
                     MessageParameters = MessageHelper.PrepareParametersContext(message.MessageText),
-                    MessageType = (int)GetOrderProcessingRequestMessageType(message.Type),
+                    MessageType = GetOrderProcessingRequestMessageType(message.Type),
                     OrderRequestId = orderProcessingRequestId,
                     IsActive = true
                 };

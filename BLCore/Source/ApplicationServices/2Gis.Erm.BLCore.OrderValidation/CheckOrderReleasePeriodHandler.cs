@@ -43,12 +43,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 
             var isReleaseExist = request.InProgressOnly
                                      ? _finder.Find(expression)
-                                                .Any(ri => ri.Status == (int)ReleaseStatus.InProgressInternalProcessingStarted 
-                                                    || ri.Status == (int)ReleaseStatus.InProgressWaitingExternalProcessing)
+                                                .Any(ri => ri.Status == ReleaseStatus.InProgressInternalProcessingStarted 
+                                                    || ri.Status == ReleaseStatus.InProgressWaitingExternalProcessing)
                                      : _finder.Find(expression)
-                                                .Any(ri => ri.Status == (int)ReleaseStatus.InProgressInternalProcessingStarted 
-                                                    || ri.Status == (int)ReleaseStatus.InProgressWaitingExternalProcessing
-                                                    || ri.Status == (int)ReleaseStatus.Success);
+                                                .Any(ri => ri.Status == ReleaseStatus.InProgressInternalProcessingStarted 
+                                                    || ri.Status == ReleaseStatus.InProgressWaitingExternalProcessing
+                                                    || ri.Status == ReleaseStatus.Success);
 
             if (isReleaseExist)
             {

@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             return _domainContextSaveStrategy.IsSaveDeferred
                        ? 0
-                       : DomainContext.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+                       : ((IModifiableDomainContext)DomainContext).SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
         }
 
         protected DbSet<TPersistentEntity> Set()
@@ -172,12 +172,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
             // logically delete from database
             deletableEntity.IsDeleted = true;
-        }
-
-        protected T ExecuteStoredProcedure<T>(string procedureName, params Tuple<string, object>[] parameters)
-        {
-            var result = DomainContext.ExecuteFunction<T>(procedureName, parameters.Select(x => new ObjectParameter(x.Item1, x.Item2)).ToArray());
-            return result.FirstOrDefault();
         }
     }
 }

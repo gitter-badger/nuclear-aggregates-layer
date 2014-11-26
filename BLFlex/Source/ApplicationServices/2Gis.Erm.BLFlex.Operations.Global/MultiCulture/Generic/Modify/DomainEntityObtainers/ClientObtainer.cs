@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
             client.Email = dto.Email;
             client.Fax = dto.Fax;
             client.Website = dto.Website;
-            client.InformationSource = (int)dto.InformationSource;
+            client.InformationSource = dto.InformationSource;
             client.LastQualifyTime = dto.LastQualifyTime;
             client.LastDisqualifyTime = dto.LastDisqualifyTime;
             client.MainFirmId = dto.MainFirmRef.Id;

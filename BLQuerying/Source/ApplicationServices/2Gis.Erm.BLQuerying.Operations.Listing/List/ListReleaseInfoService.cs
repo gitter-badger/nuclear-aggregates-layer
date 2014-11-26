@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -43,10 +42,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     OrganizationUnitId = x.OrganizationUnitId,
                     OrganizationUnitName = x.OrganizationUnit.Name,
                     IsBeta = x.IsBeta,
-                    StatusEnum = (ReleaseStatus)x.Status,
+                    StatusEnum = x.Status,
                     OwnerCode = x.OwnerCode,
                     Comment = x.Comment,
-                    Status = ((ReleaseStatus)x.Status).ToStringLocalizedExpression(),
+                    Status = x.Status.ToStringLocalizedExpression(),
                     Owner = null,
                     OperationType = (x.IsBeta ? ReleaseInfoOperationType.Beta : ReleaseInfoOperationType.Release).ToStringLocalizedExpression(),
                 })

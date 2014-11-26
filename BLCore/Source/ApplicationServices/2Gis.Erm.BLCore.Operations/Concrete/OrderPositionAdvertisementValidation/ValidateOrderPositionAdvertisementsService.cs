@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementVal
             var boundCategoryChildPositionIds =
                 _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId) &&
                              Specs.Find.Custom<OrderPosition>(
-                                 x => x.PricePosition.RateType == (int)PricePositionRateType.BoundCategory && x.PricePosition.Position.IsComposite))
+                                 x => x.PricePosition.RateType == PricePositionRateType.BoundCategory && x.PricePosition.Position.IsComposite))
                        .SelectMany(
                            x =>
                            x.PricePosition.Position.ChildPositions.Where(cp => cp.IsActive && !cp.IsDeleted)

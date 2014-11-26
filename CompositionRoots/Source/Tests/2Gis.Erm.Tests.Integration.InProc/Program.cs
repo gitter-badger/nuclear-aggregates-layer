@@ -118,9 +118,20 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
             var consoleAppender = new ConsoleAppender { Name = "Console", Layout = patternLayout, Threshold = Level.All };
             consoleAppender.ActivateOptions();
 
+            var fileAppender = new FileAppender
+                                   {
+                                       File = Path.Combine(AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory, "log.txt"),
+                                       Layout = patternLayout,
+                                       Threshold = Level.All,
+                                       Encoding = Encoding.UTF8,
+                                       AppendToFile = false
+                                   };
+            fileAppender.ActivateOptions();
+
             var logger = LogManager.GetLogger(LoggerConstants.Erm);
             var coreLogger = (Logger)logger.Logger;
             coreLogger.AddAppender(consoleAppender);
+            coreLogger.AddAppender(fileAppender);
             coreLogger.Hierarchy.Configured = true;
 
             return Log4NetImpl.GetLogger(LoggerConstants.Erm);

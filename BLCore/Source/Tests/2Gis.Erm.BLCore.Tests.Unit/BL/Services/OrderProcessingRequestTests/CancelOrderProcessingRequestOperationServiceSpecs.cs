@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
 
             private Establish context = () =>
                 {
-                    OrderProcessingRequest.State = (int)OrderProcessingRequestState.Cancelled;
+                    OrderProcessingRequest.State = OrderProcessingRequestState.Cancelled;
                 };
 
             private Because of = () => exception = Catch.Exception(() => CancelOrderProcessingRequestOperationService.CancelRequest(OrderProcessingRequest.Id));
@@ -90,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
 
             private Establish context = () =>
                 {
-                    OrderProcessingRequest.State = (int)OrderProcessingRequestState.Completed;
+                    OrderProcessingRequest.State = OrderProcessingRequestState.Completed;
                 };
 
             private Because of = () => exception = Catch.Exception(() => CancelOrderProcessingRequestOperationService.CancelRequest(OrderProcessingRequest.Id));
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
 
             private Establish context = () =>
                 {
-                    OrderProcessingRequest.State = (int)OrderProcessingRequestState.Opened;
+                    OrderProcessingRequest.State = OrderProcessingRequestState.Opened;
                 };
 
             private Because of = () => CancelOrderProcessingRequestOperationService.CancelRequest(OrderProcessingRequest.Id);
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
             private It operation_scope_should_be_created =
                 () => ScopeFactoryMock.Verify(x => x.CreateNonCoupled<CancelOrderProcessingRequestIdentity>(), Times.Once);
 
-            private It request_state_should_become_cancelled = () => OrderProcessingRequest.State.Should().Be((int)OrderProcessingRequestState.Cancelled);
+            private It request_state_should_become_cancelled = () => OrderProcessingRequest.State.Should().Be(OrderProcessingRequestState.Cancelled);
 
             private It save_request_method_should_be_called =
                 () => OrderProcessingRequestServiceMock.Verify(x => x.Update(OrderProcessingRequest), Times.Once);

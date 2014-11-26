@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                                                 {
                                                     AdsTemplatesAdsElementTemplateId = y.Id,
                                                     AdvertisementElementTemplateId = y.AdsElementTemplateId,
-                                                    IsFasComment = y.AdvertisementElementTemplate.RestrictionType == (int)AdvertisementElementRestrictionType.FasComment,
+                                                    IsFasComment = y.AdvertisementElementTemplate.RestrictionType == AdvertisementElementRestrictionType.FasComment,
                                                     NeedsValidation = y.AdvertisementElementTemplate.NeedsValidation,
                                                     IsRequired = y.AdvertisementElementTemplate.IsRequired,
                                                     DummyAdvertisementId = y.AdvertisementTemplate.DummyAdvertisementId

@@ -46,15 +46,158 @@
     <Compile Include="..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="EFDomainContextMetadataProvider.cs" />
-    <Compile Include="Erm\Erm.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Erm.edmx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="ErmSecurity\ErmSecurity.edmx" />
+    <Compile Include="Config\Erm\ClientLinkMap.cs" />
+    <Compile Include="Config\Erm\Conventions\DateTimePropertiesConvention.cs" />
+    <Compile Include="Config\Erm\Conventions\DecimalPropertiesConvention.cs" />
+    <Compile Include="Config\Erm\DenormalizedClientLinkMap.cs" />
+    <Compile Include="Config\Erm\FirmDealMap.cs" />
+    <Compile Include="Config\Erm\LegalPersonDealMap.cs" />
+    <Compile Include="Config\Erm\OrderValidationCacheEntryMap.cs" />
+    <Compile Include="DI\PlatformModelEntityFrameworkAssembly.cs" />
+    <Compile Include="EntityConfig.cs" />
+    <Compile Include="EntityConvention.cs" />
+    <Compile Include="IEfDbModelConfiguration.cs" />
+    <Compile Include="Config\Erm\AccountDetailMap.cs" />
+    <Compile Include="Config\Erm\AccountMap.cs" />
+    <Compile Include="Config\Erm\ActionsHistoryDetailMap.cs" />
+    <Compile Include="Config\Erm\ActionsHistoryMap.cs" />
+    <Compile Include="Config\Erm\AdditionalFirmServiceMap.cs" />
+    <Compile Include="Config\Erm\AdsTemplatesAdsElementTemplateMap.cs" />
+    <Compile Include="Config\Erm\AdvertisementElementDenialReasonMap.cs" />
+    <Compile Include="Config\Erm\AdvertisementElementMap.cs" />
+    <Compile Include="Config\Erm\AdvertisementElementStatusMap.cs" />
+    <Compile Include="Config\Erm\AdvertisementElementTemplateMap.cs" />
+    <Compile Include="Config\Erm\AdvertisementMap.cs" />
+    <Compile Include="Config\Erm\AdvertisementTemplateMap.cs" />
+    <Compile Include="Config\Erm\AfterSaleServiceActivityMap.cs" />
+    <Compile Include="Config\Erm\AppointmentBaseMap.cs" />
+    <Compile Include="Config\Erm\AppointmentReferenceMap.cs" />
+    <Compile Include="Config\Erm\AssociatedPositionMap.cs" />
+    <Compile Include="Config\Erm\AssociatedPositionsGroupMap.cs" />
+    <Compile Include="Config\Erm\BargainFileMap.cs" />
+    <Compile Include="Config\Erm\BargainMap.cs" />
+    <Compile Include="Config\Erm\BargainTypeMap.cs" />
+    <Compile Include="Config\Erm\BillMap.cs" />
+    <Compile Include="Config\Erm\BirthdayCongratulationMap.cs" />
+    <Compile Include="Config\Erm\BranchOfficeMap.cs" />
+    <Compile Include="Config\Erm\BranchOfficeOrganizationUnitMap.cs" />
+    <Compile Include="Config\Erm\BuildingMap.cs" />
+    <Compile Include="Config\Erm\BusinessEntityInstanceMap.cs" />
+    <Compile Include="Config\Erm\BusinessEntityPropertyInstanceMap.cs" />
+    <Compile Include="Config\Erm\BusinessOperationServiceMap.cs" />
+    <Compile Include="Config\Erm\CardRelationMap.cs" />
+    <Compile Include="Config\Erm\CategoryFirmAddressMap.cs" />
+    <Compile Include="Config\Erm\CategoryGroupMap.cs" />
+    <Compile Include="Config\Erm\CategoryMap.cs" />
+    <Compile Include="Config\Erm\CategoryOrganizationUnitMap.cs" />
+    <Compile Include="Config\Erm\ChargeMap.cs" />
+    <Compile Include="Config\Erm\ChargesHistoryMap.cs" />
+    <Compile Include="Config\Erm\CityPhoneZoneMap.cs" />
+    <Compile Include="Config\Erm\ClientMap.cs" />
+    <Compile Include="Config\Erm\ContactMap.cs" />
+    <Compile Include="Config\Erm\ContributionTypeMap.cs" />
+    <Compile Include="Config\Erm\CountryMap.cs" />
+    <Compile Include="Config\Erm\CurrencyMap.cs" />
+    <Compile Include="Config\Erm\CurrencyRateMap.cs" />
+    <Compile Include="Config\Erm\DealMap.cs" />
+    <Compile Include="Config\Erm\DenialReasonMap.cs" />
+    <Compile Include="Config\Erm\DeniedPositionMap.cs" />
+    <Compile Include="Config\ErmSecurity\DepartmentMap.cs" />
+    <Compile Include="Config\Erm\DepCardMap.cs" />
+    <Compile Include="Config\Erm\DictionaryEntityInstanceMap.cs" />
+    <Compile Include="Config\Erm\DictionaryEntityPropertyInstanceMap.cs" />
+    <Compile Include="Config\Erm\ExportFailedEntityMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowCardExtensions_CardCommercialMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowDeliveryData_LetterSendRequestMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowFinancialData_ClientMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowFinancialData_LegalEntityMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowNomenclatures_NomenclatureElementMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowNomenclatures_NomenclatureElementRelationMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowOrders_AdvMaterialMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowOrders_DenialReasonMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowOrders_InvoiceMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowOrders_OrderMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowOrders_ResourceMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowOrders_ThemeBranchMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowOrders_ThemeMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowPriceLists_PriceListMap.cs" />
+    <Compile Include="Config\Erm\ExportFlowPriceLists_PriceListPositionMap.cs" />
+    <Compile Include="Config\Erm\FileMap.cs" />
+    <Compile Include="Config\Erm\FirmAddressMap.cs" />
+    <Compile Include="Config\Erm\FirmAddressServiceMap.cs" />
+    <Compile Include="Config\Erm\FirmContactMap.cs" />
+    <Compile Include="Config\Erm\FirmMap.cs" />
+    <Compile Include="Config\ErmSecurity\FunctionalPrivilegeDepthMap.cs" />
+    <Compile Include="Config\Erm\HotClientRequestMap.cs" />
+    <Compile Include="Config\Erm\ImportedFirmAddressMap.cs" />
+    <Compile Include="Config\Erm\LegalPersonMap.cs" />
+    <Compile Include="Config\Erm\LegalPersonProfileMap.cs" />
+    <Compile Include="Config\Erm\LimitMap.cs" />
+    <Compile Include="Config\Erm\LocalMessageMap.cs" />
+    <Compile Include="Config\Erm\LockDetailMap.cs" />
+    <Compile Include="Config\Erm\LockMap.cs" />
+    <Compile Include="Config\Erm\MessageTypeMap.cs" />
+    <Compile Include="Config\Erm\NoteMap.cs" />
+    <Compile Include="Config\Erm\NotificationAddressMap.cs" />
+    <Compile Include="Config\Erm\NotificationEmailMap.cs" />
+    <Compile Include="Config\Erm\NotificationEmailsAttachmentMap.cs" />
+    <Compile Include="Config\Erm\NotificationEmailsCcMap.cs" />
+    <Compile Include="Config\Erm\NotificationEmailsToMap.cs" />
+    <Compile Include="Config\Erm\NotificationProcessingMap.cs" />
+    <Compile Include="Config\Erm\OperationMap.cs" />
+    <Compile Include="Config\Erm\OperationTypeMap.cs" />
+    <Compile Include="Config\Erm\OrderFileMap.cs" />
+    <Compile Include="Config\Erm\OrderMap.cs" />
+    <Compile Include="Config\Erm\OrderPositionAdvertisementMap.cs" />
+    <Compile Include="Config\Erm\OrderPositionMap.cs" />
+    <Compile Include="Config\Erm\OrderProcessingRequestMap.cs" />
+    <Compile Include="Config\Erm\OrderProcessingRequestMessageMap.cs" />
+    <Compile Include="Config\Erm\OrderReleaseTotalMap.cs" />
+    <Compile Include="Config\Erm\OrderValidationResultMap.cs" />
+    <Compile Include="Config\Erm\OrganizationUnitMap.cs" />
+    <Compile Include="Config\Erm\PerformedBusinessOperationMap.cs" />
+    <Compile Include="Config\Erm\PerformedOperationFinalProcessingMap.cs" />
+    <Compile Include="Config\Erm\PerformedOperationPrimaryProcessingMap.cs" />
+    <Compile Include="Config\Erm\PhonecallBaseMap.cs" />
+    <Compile Include="Config\Erm\PhonecallReferenceMap.cs" />
+    <Compile Include="Config\Erm\PlatformMap.cs" />
+    <Compile Include="Config\Erm\PositionCategoryMap.cs" />
+    <Compile Include="Config\Erm\PositionChildrenMap.cs" />
+    <Compile Include="Config\Erm\PositionMap.cs" />
+    <Compile Include="Config\Erm\PriceMap.cs" />
+    <Compile Include="Config\Erm\PricePositionMap.cs" />
+    <Compile Include="Config\Erm\PrintFormTemplateMap.cs" />
+    <Compile Include="Config\ErmSecurity\PrivilegeMap.cs" />
+    <Compile Include="Config\Erm\ProjectMap.cs" />
+    <Compile Include="Config\Erm\ReferenceItemMap.cs" />
+    <Compile Include="Config\Erm\ReferenceMap.cs" />
+    <Compile Include="Config\Erm\ReleaseInfoMap.cs" />
+    <Compile Include="Config\Erm\ReleasesWithdrawalMap.cs" />
+    <Compile Include="Config\Erm\ReleasesWithdrawalsPositionMap.cs" />
+    <Compile Include="Config\Erm\ReleaseValidationResultMap.cs" />
+    <Compile Include="Config\ErmSecurity\RoleMap.cs" />
+    <Compile Include="Config\ErmSecurity\RolePrivilegeMap.cs" />
+    <Compile Include="Config\Erm\TaskBaseMap.cs" />
+    <Compile Include="Config\Erm\TaskReferenceMap.cs" />
+    <Compile Include="Config\Erm\TerritoryMap.cs" />
+    <Compile Include="Config\Erm\ThemeCategoryMap.cs" />
+    <Compile Include="Config\Erm\ThemeMap.cs" />
+    <Compile Include="Config\Erm\ThemeOrganizationUnitMap.cs" />
+    <Compile Include="Config\Erm\ThemeTemplateMap.cs" />
+    <Compile Include="Config\ErmSecurity\TimeZoneMap.cs" />
+    <Compile Include="Config\ErmSecurity\UserEntityMap.cs" />
+    <Compile Include="Config\ErmSecurity\UserMap.cs" />
+    <Compile Include="Config\ErmSecurity\UserOrganizationUnitMap.cs" />
+    <Compile Include="Config\ErmSecurity\UserProfileMap.cs" />
+    <Compile Include="Config\ErmSecurity\UserRoleMap.cs" />
+    <Compile Include="Config\ErmSecurity\UserTerritoryMap.cs" />
+    <Compile Include="Config\ErmSecurity\vwOrganizationUnitMap.cs" />
+    <Compile Include="Config\Erm\vwSecurityAcceleratorMap.cs" />
+    <Compile Include="Config\ErmSecurity\vwTerritoryMap.cs" />
+    <Compile Include="Config\Erm\vwUsersDescendantMap.cs" />
+    <Compile Include="Config\Erm\vwUserTerritoriesOrganizationUnitMap.cs" />
+    <Compile Include="Config\Erm\WithdrawalInfoMap.cs" />
+    <Compile Include="IEfDbModelConvention.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -64,40 +207,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ErmSecurity\ErmSecurity.edmx.diagram">
-      <DependentUpon>ErmSecurity.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Erm\Erm.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Erm.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Erm\Erm.edmx.diagram">
-      <DependentUpon>Erm.edmx</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
-      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
-      <Name>2Gis.Erm.Platform.API.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
-      <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
-      <Name>2Gis.Erm.Platform.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

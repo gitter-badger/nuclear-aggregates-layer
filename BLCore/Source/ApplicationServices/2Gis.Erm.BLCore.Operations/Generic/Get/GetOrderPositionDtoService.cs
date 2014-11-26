@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                        })
                                    .Single();
 
-            if (orderInfo.WorkflowStepId != (int)OrderState.OnRegistration && modelDto.Id == 0)
+            if (orderInfo.WorkflowStepId != OrderState.OnRegistration && modelDto.Id == 0)
             {
                 throw new NotificationException(BLResources.CannotCreateOrderPositionWhenOrderIsNotOnRegistration);
             }
@@ -152,13 +152,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             modelDto.RequiredPlatformId = orderInfo.OrderPositionCount > (modelDto.Id == 0 ? 0 : 1) ? orderInfo.PlatformId : null;
 
             // Сборка в статусе "InProgress" за период, который пересекается с периодом размещения заказа или заказ в Архиве 
-            if (orderInfo.WorkflowStepId == (int)OrderState.Approved || orderInfo.WorkflowStepId == (int)OrderState.OnTermination)
+            if (orderInfo.WorkflowStepId == OrderState.Approved || orderInfo.WorkflowStepId == OrderState.OnTermination)
             {
                 modelDto.IsBlockedByRelease = _releaseReadModel.HasFinalReleaseInProgress(orderInfo.DestOrganizationUnitId,
                                                                                           new TimePeriod(orderInfo.BeginDistributionDate, orderInfo.EndDistributionDateFact));
             }
 
-            modelDto.OrderWorkflowStepId = orderInfo.WorkflowStepId;
+            modelDto.OrderWorkflowStepId = (int)orderInfo.WorkflowStepId;
             modelDto.IsRated = modelDto.PricePositionRef != null &&
                                _finder.Find<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id).Select(x => x.RateType != 0).Single();
         }

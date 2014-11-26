@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.Discounts
                 // очищаем причину скидки
                 if (order.DiscountSum == 0m || order.DiscountPercent == 0m)
                 {
-                    order.DiscountReasonEnum = (int)OrderDiscountReason.None;
+                    order.DiscountReasonEnum = OrderDiscountReason.None;
                     order.DiscountComment = null;
                 }
 

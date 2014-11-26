@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                   FirmAddressClosedForAscertainment = entity.FirmAddress.ClosedForAscertainment,
                                   FirmClosedForAscertainment = entity.FirmAddress.Firm.ClosedForAscertainment,
                                   Id = entity.Id,
-                                  ContactType = (FirmAddressContactType)entity.ContactType,
+                                  ContactType = entity.ContactType,
                                   Contact = entity.Contact,
                                   CreatedByRef = new EntityReference { Id = entity.CreatedBy },
                                   CreatedOn = entity.CreatedOn,

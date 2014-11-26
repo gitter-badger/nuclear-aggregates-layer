@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 
                 var orderRepository = Mock.Of<IOrderRepository>();
 
-                OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = (int)OrderState.OnTermination };
+                OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = OrderState.OnTermination };
 
                 Mock.Get(orderRepository)
                     .Setup(x => x.CreateCopiedOrder(Moq.It.IsAny<Order>(), Moq.It.IsAny<OrderPositionWithAdvertisementsDto[]>()))
@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 var distributiuonDatesDto = new DistributionDatesDto();
                 var releaseNumbersDto = new ReleaseNumbersDto();
 
-                OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = (int)OrderState.OnTermination };
+                OrderToCopy = new Order { Id = ORDER_TO_COPY_ID, WorkflowStepId = OrderState.OnTermination };
 
                 Mock.Get(orderReadModel).Setup(x => x.GetOrderSecure(ORDER_TO_COPY_ID)).Returns(OrderToCopy);
 

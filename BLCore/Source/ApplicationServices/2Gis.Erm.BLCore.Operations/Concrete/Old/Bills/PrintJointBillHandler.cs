@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Bills
                                             x.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                             x.Order.LegalPersonId,
                                             CurrencyISOCode = x.Order.Currency.ISOCode,
-                                            LegalPersonType = (LegalPersonType)x.Order.LegalPerson.LegalPersonTypeEnum,
+                                            LegalPersonType = x.Order.LegalPerson.LegalPersonTypeEnum,
                                             x.Order.BranchOfficeOrganizationUnitId,
                                             ProfileId = x.Order.LegalPerson.LegalPersonProfiles
                                                          .FirstOrDefault(y => request.ProfileId.HasValue && y.Id == request.ProfileId.Value)

@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
                                             Id = x.Id,
                                             LegalName = x.LegalName,
                                             ShortName = x.ShortName,
-                                            LegalPersonTypeEnum = (LegalPersonType)x.LegalPersonTypeEnum,
+                                            LegalPersonTypeEnum = x.LegalPersonTypeEnum,
                                             LegalAddress = x.LegalAddress,
                                             Inn = x.Inn,
                                             Kpp = x.Kpp,

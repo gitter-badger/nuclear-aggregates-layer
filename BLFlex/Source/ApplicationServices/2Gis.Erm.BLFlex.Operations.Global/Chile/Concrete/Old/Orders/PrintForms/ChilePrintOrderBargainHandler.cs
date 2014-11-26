@@ -148,7 +148,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
             return accountType.ToStringLocalized(EnumResources.ResourceManager, CultureInfo.CurrentCulture);
         }
 
-        private static string LocalizeOperatesOnTheBasisInGenitive(int? operatesOnTheBasisInGenitive)
+        private static string LocalizeOperatesOnTheBasisInGenitive(OperatesOnTheBasisType? operatesOnTheBasisInGenitive)
         {
             return (operatesOnTheBasisInGenitive.HasValue
                         ? (OperatesOnTheBasisType)operatesOnTheBasisInGenitive.Value

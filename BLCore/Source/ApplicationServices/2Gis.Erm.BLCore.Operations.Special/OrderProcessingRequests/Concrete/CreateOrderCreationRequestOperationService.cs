@@ -120,8 +120,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
             var orderProcessingRequest = new OrderProcessingRequest
                 {
                     Description = description,
-                    State = (int)OrderProcessingRequestState.Opened,
-                    RequestType = (int)OrderProcessingRequestType.CreateOrder,
+                    State = OrderProcessingRequestState.Opened,
+                    RequestType = OrderProcessingRequestType.CreateOrder,
                     ReplicationCode = Guid.NewGuid(),
                     ReleaseCountPlan = releaseCountPlan,
                     Title = BLResources.NewOrder,

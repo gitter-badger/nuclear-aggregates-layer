@@ -31,11 +31,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             legalPersonProfile.Registered = dto.Registered;
             legalPersonProfile.ChiefNameInNominative = dto.ChiefNameInNominative;
             legalPersonProfile.ChiefNameInGenitive = dto.ChiefNameInGenitive;
-            legalPersonProfile.OperatesOnTheBasisInGenitive = (int)dto.OperatesOnTheBasisInGenitive;
+            legalPersonProfile.OperatesOnTheBasisInGenitive = dto.OperatesOnTheBasisInGenitive;
             legalPersonProfile.DocumentsDeliveryAddress = dto.DocumentsDeliveryAddress;
             legalPersonProfile.PostAddress = dto.PostAddress;
             legalPersonProfile.RecipientName = dto.RecipientName;
-            legalPersonProfile.DocumentsDeliveryMethod = (int)dto.DocumentsDeliveryMethod;
+            legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
             legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
             legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
             legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             legalPersonProfile.IBAN = dto.IBAN;
             legalPersonProfile.SWIFT = dto.SWIFT;
             legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
-            legalPersonProfile.PaymentMethod = (int?)dto.PaymentMethod;
+            legalPersonProfile.PaymentMethod = dto.PaymentMethod;
             legalPersonProfile.LegalPersonId = dto.LegalPersonRef.Id.Value;
             legalPersonProfile.CertificateDate = dto.CertificateDate;
             legalPersonProfile.CertificateNumber = dto.CertificateNumber;

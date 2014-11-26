@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var entity = _finder.FindOne(Specs.Find.ById<PrintFormTemplate>(dto.Id)) 
                 ?? new PrintFormTemplate { IsActive = true };
 
-            entity.TemplateCode = (int)dto.TemplateCode;
+            entity.TemplateCode = dto.TemplateCode;
             entity.FileId = dto.FileId;
             entity.BranchOfficeOrganizationUnitId = dto.BranchOfficeOrganizationUnitRef.Id;
             entity.Timestamp = dto.Timestamp;

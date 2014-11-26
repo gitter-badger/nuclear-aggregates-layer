@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         private static string GetMessageSubject(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest)
         {
-            return orderProcessingRequest.RequestType == (int)OrderProcessingRequestType.CreateOrder
+            return orderProcessingRequest.RequestType == OrderProcessingRequestType.CreateOrder
                        ? BLResources.OrderProcessingRequestCreationResultEmailSubject
                        : BLResources.OrderProcessingRequestProlongationResultEmailSubject;
         }
@@ -60,14 +60,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         private static string GetFooter(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest)
         {
-            return orderProcessingRequest.RenewedOrderId == null && orderProcessingRequest.RequestType == (int)OrderProcessingRequestType.CreateOrder
+            return orderProcessingRequest.RenewedOrderId == null && orderProcessingRequest.RequestType == OrderProcessingRequestType.CreateOrder
                        ? BLResources.OrderProcessingRequestCreationResultEmailFooter
                        : null;
         }
 
         private static string GetHeader(Platform.Model.Entities.Erm.OrderProcessingRequest orderProcessingRequest, OrderProcessingRequestNotificationData data)
         {
-            return orderProcessingRequest.RequestType == (int)OrderProcessingRequestType.CreateOrder
+            return orderProcessingRequest.RequestType == OrderProcessingRequestType.CreateOrder
                        ? BLResources.OrderProcessingRequestCreationResultEmailHeader
                        : string.Format(BLResources.OrderProcessingRequestProlongationResultEmailHeaderTemplate, data.BaseOrderNumber);
         }

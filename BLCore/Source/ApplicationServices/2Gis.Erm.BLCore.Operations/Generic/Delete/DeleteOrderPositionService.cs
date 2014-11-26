@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 throw new ArgumentException(BLResources.EntityNotFound);
             }
 
-            if (orderPositionInfo.OrderWorkflowStepId != (int)OrderState.OnRegistration)
+            if (orderPositionInfo.OrderWorkflowStepId != OrderState.OnRegistration)
             {
                 throw new ArgumentException(BLResources.CannotRemoveOrderPositionOfRegisteredOrder);
             }
@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                     };
             }
 
-            if (orderPositionInfo.OrderWorkflowStepId != (int)OrderState.OnRegistration)
+            if (orderPositionInfo.OrderWorkflowStepId != OrderState.OnRegistration)
             {
                 return new DeleteConfirmationInfo
                     {

@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
                     // TODO: косяк что значение по умолчанию это 6, из-за этого его теперь надо excplicitly проставлять, должен быть 0
                     if (elementToCreate.IsFasComment)
                     {
-                        advertisementElement.FasCommentType = (int)FasComment.NewFasComment;
+                        advertisementElement.FasCommentType = FasComment.NewFasComment;
                     }
 
                     // заглушку или не требующий выверки или не обязательный для заполнения ЭРМ создаем в статусе  - валиден
