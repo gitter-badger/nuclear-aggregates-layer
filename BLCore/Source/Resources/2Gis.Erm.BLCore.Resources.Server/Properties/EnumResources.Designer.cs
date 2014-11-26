@@ -5461,24 +5461,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Региональное уведомление о расторжении (Филиал-Филиал).
-        /// </summary>
-        public static string TemplateCodeRegionalTerminationNoticeBranch2Branch {
-            get {
-                return ResourceManager.GetString("TemplateCodeRegionalTerminationNoticeBranch2Branch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Региональное уведомление о расторжении (отличное от Филиал-Филиал).
-        /// </summary>
-        public static string TemplateCodeRegionalTerminationNoticeNotBranch2Branch {
-            get {
-                return ResourceManager.GetString("TemplateCodeRegionalTerminationNoticeNotBranch2Branch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Уведомление о расторжении договора с указанием причины для ИП.
         /// </summary>
         public static string TemplateCodeTerminationNoticeBargainBusinessman {

@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
         {
             var position = request.Entity;
 
-            if (position.IsComposite && !AllowedBindingObjectTypes.Contains((PositionBindingObjectType)position.BindingObjectTypeEnum))
+            if (position.IsComposite && !AllowedBindingObjectTypes.Contains(position.BindingObjectTypeEnum))
             {
                 throw new NotificationException(
                     string.Format(BLResources.CompositePositionLinkingObjectTypeMustOneOf,

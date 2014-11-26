@@ -49,7 +49,10 @@
     <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="ConnectionStringNameResolver.cs" />
+    <Compile Include="DefaultConnectionStringNameResolver.cs" />
     <Compile Include="DomainContextMetadata.cs" />
+    <Compile Include="DomainContextMetadataProvider.cs" />
     <Compile Include="EAV\DynamicStorageRepository.cs" />
     <Compile Include="EAV\ConsistentRepositoryDecorator.cs" />
     <Compile Include="EAV\ConsistentSecureFinderDecorator.cs" />
@@ -65,6 +68,8 @@
     <Compile Include="EAV\DynamicStorageFinder.cs" />
     <Compile Include="ICompositeEntityDecorator.cs" />
     <Compile Include="EAV\SpecsBundle.cs" />
+    <Compile Include="IConnectionStringNameResolver.cs" />
+    <Compile Include="IEntityContainerNameResolver.cs" />
     <Compile Include="IFileContentFinder.cs" />
     <Compile Include="IDynamicEntityRepository.cs" />
     <Compile Include="IPersistenceChangesRegistry.cs" />

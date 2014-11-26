@@ -81,7 +81,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Bill, typeof(Bill) },
                 { EntityName.Lock, typeof(Lock) },
                 { EntityName.LockDetail, typeof(LockDetail) },
-                { EntityName.RegionalAdvertisingSharing, typeof(RegionalAdvertisingSharing) },
                 { EntityName.Contact, typeof(Contact) },
                 { EntityName.WithdrawalInfo, typeof(WithdrawalInfo) },
                 { EntityName.ReleaseInfo, typeof(ReleaseInfo) },

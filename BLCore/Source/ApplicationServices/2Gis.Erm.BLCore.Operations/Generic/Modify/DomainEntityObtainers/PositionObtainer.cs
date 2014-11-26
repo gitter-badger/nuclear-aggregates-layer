@@ -38,9 +38,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             position.IsControlledByAmount = dto.IsControlledByAmount;
             position.PlatformId = dto.PlatformRef.Id.Value;
             position.CategoryId = dto.CategoryRef.Id.Value;
-            position.BindingObjectTypeEnum = (int)dto.BindingObjectTypeEnum;
-            position.CalculationMethodEnum = (int)dto.CalculationMethodEnum;
-            position.AccountingMethodEnum = (int)dto.AccountingMethodEnum;
+            position.BindingObjectTypeEnum = dto.BindingObjectTypeEnum;
+            position.CalculationMethodEnum = dto.CalculationMethodEnum;
+            position.AccountingMethodEnum = dto.AccountingMethodEnum;
             position.AdvertisementTemplateId = dto.AdvertisementTemplateRef != null ? dto.AdvertisementTemplateRef.Id : null;
             position.ExportCode = dto.ExportCode;
             position.DgppId = dto.DgppId;

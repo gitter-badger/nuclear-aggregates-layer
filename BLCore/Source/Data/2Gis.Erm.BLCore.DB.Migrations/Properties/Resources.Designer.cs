@@ -2333,6 +2333,70 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALTER PROCEDURE [Security].[DepartmentInsert] @i_DepartmentID BIGINT,
+        ///@i_Name NVARCHAR(200),
+        ///@i_ParentID BIGINT,
+        ///@CreatedBy BIGINT,
+        ///@CreatedOn SMALLDATETIME,
+        ///
+        ///-- ignored, but needed parameters
+        ///@LeftBorder INT,
+        ///@RightBorder INT,
+        ///@IsActive BIT,
+        ///@IsDeleted BIT,
+        ///@ModifiedBy BIGINT,
+        ///@ModifiedOn SMALLDATETIME
+        ///
+        ///AS
+        ///BEGIN
+        ///	SET NOCOUNT ON
+        ///	DECLARE @Result TABLE (
+        ///		Timestamp BINARY(8)
+        ///	);
+        ///	IF (@i_ParentID IS NULL)
+        ///	BEGIN
+        ///		INSERT INTO Departments (id, Name, LeftBorder, RightBorder, CreatedBy, Cr [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Security___DepartmentInsert_25550 {
+            get {
+                return ResourceManager.GetString("_Security___DepartmentInsert_25550", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ALTER PROCEDURE [Security].[DepartmentUpdate] @i_DepartmentID BIGINT,
+        ///@i_Name NVARCHAR(200),
+        ///@i_ParentId BIGINT,
+        ///@i_IsActive BIT,
+        ///@i_timestamp TIMESTAMP,
+        ///@ModifiedBy BIGINT,
+        ///@ModifiedOn SMALLDATETIME,
+        ///
+        ///-- ignored, but needed parameters
+        ///@LeftBorder INT,
+        ///@RightBorder INT,
+        ///@IsDeleted BIT,
+        ///@CreatedBy BIGINT,
+        ///@CreatedOn SMALLDATETIME,
+        ///
+        ///-- used by EF
+        ///@RowsAffected INT OUTPUT
+        ///AS
+        ///BEGIN
+        ///	SET NOCOUNT ON
+        ///	BEGIN TRAN
+        ///		IF NOT EXISTS (SELECT
+        ///				*
+        ///			FROM [Security].[Departments]
+        ///			WHERE id = @i [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _Security___DepartmentUpdate_25550 {
+            get {
+                return ResourceManager.GetString("_Security___DepartmentUpdate_25550", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- changes
         ///--   24.06.2013, a.rechkalov: замена int -&gt; bigint
         ///--	 16.09.2013, v.lapeev: Перевел строки в Unicode

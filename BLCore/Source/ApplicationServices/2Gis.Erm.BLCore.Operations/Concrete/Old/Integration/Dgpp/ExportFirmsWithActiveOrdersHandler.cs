@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Dgpp
                         Entity = new LocalMessage
                             {
                                 EventDate = DateTime.UtcNow,
-                                Status = (int)LocalMessageStatus.WaitForProcess,
+                                Status = LocalMessageStatus.WaitForProcess,
                                 OrganizationUnitId = organizationUnitDto.Id,
                             }
                     },

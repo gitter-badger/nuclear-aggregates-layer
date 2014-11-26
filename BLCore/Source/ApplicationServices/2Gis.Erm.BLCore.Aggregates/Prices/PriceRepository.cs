@@ -213,7 +213,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                                               .Select(z => new PricePositionDto.RelatedItemDto
                                               {
                                                   PositionId = z.PositionId,
-                                                  BindingCheckMode = (ObjectBindingType)z.ObjectBindingType,
+                                                  BindingCheckMode = z.ObjectBindingType,
                                               })),
                     DeniedPositions = x.Price.DeniedPositions
                              .Where(y => y.PositionId == x.PositionId && y.IsActive && !y.IsDeleted)

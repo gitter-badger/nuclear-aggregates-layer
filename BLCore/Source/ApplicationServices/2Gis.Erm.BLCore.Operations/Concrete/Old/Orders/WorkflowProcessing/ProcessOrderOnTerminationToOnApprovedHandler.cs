@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.WorkflowProcessing
             order.IsTerminated  = false;
             order.RejectionDate = null;
             order.PayableFact = order.PayablePlan;
-            order.TerminationReason = (int)OrderTerminationReason.None;
+            order.TerminationReason = OrderTerminationReason.None;
             order.Comment = null;
 
             _subRequestProcessor.HandleSubRequest(new CalculateReleaseWithdrawalsRequest { Order = request.Order }, Context);

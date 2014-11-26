@@ -4503,12 +4503,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
     <value>Ostatní</value>
   </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
-    <value>Výměna regionální reklamy</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
-    <value>Historie výměn regionální reklamy</value>
-  </data>
   <data name="List" xml:space="preserve">
     <value>Seznam</value>
   </data>

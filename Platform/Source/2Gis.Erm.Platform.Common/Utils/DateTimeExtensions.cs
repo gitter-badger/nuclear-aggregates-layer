@@ -7,6 +7,20 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 {
     public static class DateTimeExtensions
     {
+        public static DateTime AssumeUtcKind(this DateTime dateTime)
+        {
+            return dateTime.Kind == DateTimeKind.Unspecified
+                       ? DateTime.SpecifyKind(dateTime, DateTimeKind.Utc)
+                       : dateTime;
+        }
+
+        public static DateTime? AssumeUtcKind(this DateTime? dateTime)
+        {
+            return dateTime.HasValue
+                       ? AssumeUtcKind(dateTime.Value)
+                       : (DateTime?)null;
+        }
+
         public static DateTime UpdateKindIfUnset(this DateTime dateTime, DateTimeKind dateTimeKind = DateTimeKind.Utc)
         {
             return dateTime.Kind == DateTimeKind.Unspecified ? DateTime.SpecifyKind(dateTime, dateTimeKind) : dateTime;

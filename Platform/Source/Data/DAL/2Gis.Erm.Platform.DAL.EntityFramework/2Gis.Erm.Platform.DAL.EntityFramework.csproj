@@ -55,6 +55,16 @@
       <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -73,6 +83,9 @@
     <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="DI\EfDbModelMassProcessor.cs" />
+    <Compile Include="EfDbModelFactory.cs" />
+    <Compile Include="EfDbModelConfigurationsProvider.cs" />
     <Compile Include="Activity\AppointmentReferenceType.cs" />
     <Compile Include="Activity\LetterReferenceType.cs" />
     <Compile Include="Activity\PhonecallReferenceType.cs" />
@@ -84,13 +97,13 @@
     <Compile Include="EFDbContext.cs" />
     <Compile Include="EFRepository.cs" />
     <Compile Include="EFDomainContextFactory.cs" />
-    <Compile Include="EFConnectionFactory.cs" />
     <Compile Include="EFSecureGenericRepository.cs" />
     <Compile Include="EFUtils.cs" />
     <Compile Include="EFDomainContext.cs" />
     <Compile Include="IDbEntityEntry.cs" />
+    <Compile Include="IEfDbModelConfigurationsProvider.cs" />
     <Compile Include="IDomainEntityEntryAccessor.cs" />
-    <Compile Include="IEFConnectionFactory.cs" />
+    <Compile Include="IEfDbModelFactory.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepositoryProxy.cs" />
     <Compile Include="CompositeEntityDecorator.cs" />
@@ -101,6 +114,10 @@
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DI\2Gis.Erm.Platform.DI.Common\2Gis.Erm.Platform.DI.Common.csproj">
+      <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
+      <Name>2Gis.Erm.Platform.DI.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
@@ -117,6 +134,10 @@
     <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
+      <Project>{DAE94B56-59E8-4907-A2BB-6372707C0B3B}</Project>
+      <Name>2Gis.Erm.Platform.Model.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>

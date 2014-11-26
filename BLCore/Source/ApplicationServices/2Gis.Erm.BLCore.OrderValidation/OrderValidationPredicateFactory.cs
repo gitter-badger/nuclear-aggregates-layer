@@ -30,12 +30,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             var massOrdersValidationParams = validationParams as MassOrdersValidationParams;
             if (massOrdersValidationParams != null)
             {
-                const int Approved = (int)OrderState.Approved;
-                const int OnTermination = (int)OrderState.OnTermination;
-
-                Expression<Func<Order, bool>> orgUnitPart = 
-                    x => x.DestOrganizationUnitId == massOrdersValidationParams.OrganizationUnitId 
-                            || x.SourceOrganizationUnitId == massOrdersValidationParams.OrganizationUnitId;
+                Expression<Func<Order, bool>> orgUnitPart =
+                    x => x.DestOrganizationUnitId == massOrdersValidationParams.OrganizationUnitId
+                         || x.SourceOrganizationUnitId == massOrdersValidationParams.OrganizationUnitId;
 
                 OrderValidationPredicate validationPredicate;
                 if (massOrdersValidationParams.OwnerId.HasValue)
@@ -45,10 +42,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                     // необходимо уточнить условия фильтрации для заказов уходящих в выпуск
                     validationPredicate = new OrderValidationPredicate(
                         x => x.IsActive && !x.IsDeleted &&
-                             (x.WorkflowStepId == Approved || (x.WorkflowStepId == OnTermination && x.EndDistributionDateFact >= massOrdersValidationParams.Period.End)) &&
+                             (x.WorkflowStepId == OrderState.Approved ||
+                              (x.WorkflowStepId == OrderState.OnTermination && x.EndDistributionDateFact >= massOrdersValidationParams.Period.End)) &&
                              x.BeginDistributionDate < massOrdersValidationParams.Period.End && x.EndDistributionDateFact > massOrdersValidationParams.Period.Start &&
                              (x.OwnerCode == massOrdersValidationParams.OwnerId || (massOrdersValidationParams.IncludeOwnerDescendants &&
-                                                           userDescendantsQuery.Any(ud => ud.AncestorId == massOrdersValidationParams.OwnerId && ud.DescendantId == x.OwnerCode))),
+                                                                                    userDescendantsQuery.Any(
+                                                                                                             ud =>
+                                                                                                             ud.AncestorId == massOrdersValidationParams.OwnerId &&
+                                                                                                             ud.DescendantId == x.OwnerCode))),
                         orgUnitPart,
                         null);
                 }
@@ -56,7 +57,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 {
                     validationPredicate = new OrderValidationPredicate(
                         x => x.IsActive && !x.IsDeleted &&
-                             (x.WorkflowStepId == Approved || (x.WorkflowStepId == OnTermination && x.EndDistributionDateFact >= massOrdersValidationParams.Period.End)) &&
+                             (x.WorkflowStepId == OrderState.Approved ||
+                              (x.WorkflowStepId == OrderState.OnTermination && x.EndDistributionDateFact >= massOrdersValidationParams.Period.End)) &&
                              x.BeginDistributionDate < massOrdersValidationParams.Period.End && x.EndDistributionDateFact > massOrdersValidationParams.Period.Start,
                         orgUnitPart,
                         null);

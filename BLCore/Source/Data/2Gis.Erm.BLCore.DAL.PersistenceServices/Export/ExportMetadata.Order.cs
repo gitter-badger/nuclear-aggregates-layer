@@ -66,19 +66,19 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                   .NonCoupledOperation<ImportCardIdentity>()
                   .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
                                               .SelectMany(firm => firm.Orders)
-                                              .Where(order => order.WorkflowStepId != (int)OrderState.Archive && order.IsActive && !order.IsDeleted)),
+                                              .Where(order => order.WorkflowStepId != OrderState.Archive && order.IsActive && !order.IsDeleted)),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityName.Firm)
                   .NonCoupledOperation<ImportCardForErmIdentity>()
                   .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
                                               .SelectMany(firm => firm.Orders)
-                                              .Where(order => order.WorkflowStepId != (int)OrderState.Archive && order.IsActive && !order.IsDeleted)),
+                                              .Where(order => order.WorkflowStepId != OrderState.Archive && order.IsActive && !order.IsDeleted)),
      
             () => EntityOperationMapping<Order>.ForEntity(EntityName.WithdrawalInfo)
                   .NonCoupledOperation<WithdrawalIdentity>()
                   .Use((finder, ids) => finder.Find(Specs.Find.ByIds<WithdrawalInfo>(ids))
                                               .SelectMany(info => info.OrganizationUnit.OrdersBySource
-                                                                    .Where(order => order.WorkflowStepId == (int)OrderState.Archive &&
+                                                                    .Where(order => order.WorkflowStepId == OrderState.Archive &&
                                                                                     order.Locks.Count(l => !l.IsDeleted && !l.IsActive) == order.ReleaseCountFact &&
                                                                                     order.EndDistributionDateFact == info.PeriodEndDate))),
 
@@ -86,8 +86,8 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                   .NonCoupledOperation<RevertWithdrawalIdentity>()
                   .Use((finder, ids) => finder.Find(Specs.Find.ByIds<WithdrawalInfo>(ids))
                                               .SelectMany(info => info.OrganizationUnit.OrdersBySource
-                                                                        .Where(order => (order.WorkflowStepId == (int)OrderState.Approved || 
-                                                                                         order.WorkflowStepId == (int)OrderState.OnTermination) &&
+                                                                        .Where(order => (order.WorkflowStepId == OrderState.Approved || 
+                                                                                         order.WorkflowStepId == OrderState.OnTermination) &&
                                                                                          order.Locks.Count(l => !l.IsDeleted && !l.IsActive) + 1 == order.ReleaseCountFact && 
                                                                                          order.EndDistributionDateFact == info.PeriodEndDate))));
     }

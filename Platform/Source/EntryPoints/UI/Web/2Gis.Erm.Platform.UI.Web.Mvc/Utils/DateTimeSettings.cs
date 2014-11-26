@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 {
-    [Obsolete("Используется со старым контролом календаря - в новых рекомендуется CalendarSettings+DateTimeOffset")]
+    [Obsolete("Используется со старым контролом календаря - в новых рекомендуется CalendarSettings")]
     public sealed class DateTimeSettings
     {
         private bool _shiftOffset = true;

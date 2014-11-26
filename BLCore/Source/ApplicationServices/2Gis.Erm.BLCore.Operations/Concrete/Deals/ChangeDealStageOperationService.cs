@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Deals
             _logger.DebugFormatEx("Deal replication. DealId: {0}, DealStage: {1}", dealId, dealStage);
 
             var deal = _dealReadModel.GetDeal(dealId);
-            if (deal.DealStage == (int)dealStage) return;
+            if (deal.DealStage == dealStage) return;
 
             if (IsPreparationStage(dealStage))
             {

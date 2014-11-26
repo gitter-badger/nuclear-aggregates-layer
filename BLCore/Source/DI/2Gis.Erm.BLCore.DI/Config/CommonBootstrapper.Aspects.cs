@@ -94,11 +94,16 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterType<IMsCrmReplicationMetadataProvider, NullMsCrmReplicationMetadataProvider>();
             }
 
+            if (!container.IsRegistered<IConnectionStringNameResolver>())
+            {
+                container.RegisterInstance<IConnectionStringNameResolver>(new DefaultConnectionStringNameResolver(ConnectionStringName.Erm));
+            }
+
             return container
-                        .RegisterType<IEFConnectionFactory, EFConnectionFactory>(Lifetime.Singleton)
-                        .RegisterType<IDomainContextMetadataProvider, EFDomainContextMetadataProvider>(Lifetime.Singleton)
-                        .RegisterType<IReadDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IModifiableDomainContextFactory, UnityDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IEfDbModelFactory, EfDbModelFactory>(Lifetime.Singleton)
+                        .RegisterType<IDomainContextMetadataProvider, DomainContextMetadataProvider>(Lifetime.Singleton)
+                        .RegisterType<IReadDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IModifiableDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUnitOfWork, UnityUnitOfWork>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(entryPointSpecificLifetimeManagerFactory(), new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))

@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler
             }
             else
             {
-                originalOrderState = _finder.Find(Specs.Find.ById<Order>(dto.Id)).Select(x => (OrderState)x.WorkflowStepId).Single();
+                originalOrderState = _finder.Find(Specs.Find.ById<Order>(dto.Id)).Select(x => x.WorkflowStepId).Single();
             }
 
             // При операциях из UI политики безопасности НЕ игнорируем

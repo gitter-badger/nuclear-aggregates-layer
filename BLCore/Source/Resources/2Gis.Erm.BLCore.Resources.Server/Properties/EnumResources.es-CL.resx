@@ -813,12 +813,6 @@
   <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
     <value>Factura única para una persona natural</value>
   </data>
-  <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
-    <value>Notificación regional de anulación (Sucursal-Sucursal)</value>
-  </data>
-  <data name="TemplateCodeRegionalTerminationNoticeNotBranch2Branch" xml:space="preserve">
-    <value>Notificación regional de anulación (diferente de Sucursal-Sucursal)</value>
-  </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contrato</value>
   </data>
@@ -1118,9 +1112,6 @@
   </data>
   <data name="FunctionalPrivilegeNameWithdrawalAccess" xml:space="preserve">
     <value>Amortización</value>
-  </data>
-  <data name="FunctionalPrivilegeNameMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Formación de la publicidad regional de salida</value>
   </data>
   <data name="FunctionalPrivilegeNameProcessAccountsWithDebts" xml:space="preserve">
     <value>Procesamiento de cuentas personales con deudas</value>

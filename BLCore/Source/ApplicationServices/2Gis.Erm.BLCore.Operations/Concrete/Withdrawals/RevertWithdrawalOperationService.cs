@@ -141,7 +141,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                             new TimePeriod(acquiredWithdrawal.PeriodStartDate, acquiredWithdrawal.PeriodEndDate));
             return lockedWithdrawal != null
                     && lockedWithdrawal.Id == acquiredWithdrawal.Id
-                    && (WithdrawalStatus)lockedWithdrawal.Status == WithdrawalStatus.Reverting
+                    && lockedWithdrawal.Status == WithdrawalStatus.Reverting
                     && acquiredWithdrawal.SameVersionAs(lockedWithdrawal);
         }
 
@@ -277,7 +277,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
 
             bool canBeReverted = false;
-            switch ((WithdrawalStatus)withdrawal.Status)
+            switch (withdrawal.Status)
             {
                 case WithdrawalStatus.Withdrawing:
                 {

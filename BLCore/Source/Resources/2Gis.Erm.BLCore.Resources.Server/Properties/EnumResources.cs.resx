@@ -801,12 +801,6 @@
   <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
     <value>Jednotná faktura pro fyz. osobu</value>
   </data>
-  <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
-    <value>Regionální oznámení o zrušení (pobočka - pobočka)</value>
-  </data>
-  <data name="TemplateCodeRegionalTerminationNoticeNotBranch2Branch" xml:space="preserve">
-    <value>Regionální oznámení o zrušení (jiné než pobočka - pobočka)</value>
-  </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Smlouva</value>
   </data>
@@ -1106,9 +1100,6 @@
   </data>
   <data name="FunctionalPrivilegeNameWithdrawalAccess" xml:space="preserve">
     <value>Odpis</value>
-  </data>
-  <data name="FunctionalPrivilegeNameMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Vytvoření odchozí regionální reklamy</value>
   </data>
   <data name="FunctionalPrivilegeNameProcessAccountsWithDebts" xml:space="preserve">
     <value>Zpracování osobních účtů s pohledávkami</value>

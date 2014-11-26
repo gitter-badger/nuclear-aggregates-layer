@@ -801,12 +801,6 @@
   <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
     <value>Joint payment for an individual</value>
   </data>
-  <data name="TemplateCodeRegionalTerminationNoticeBranch2Branch" xml:space="preserve">
-    <value>Regional cancellation notice (Branch-Branch)</value>
-  </data>
-  <data name="TemplateCodeRegionalTerminationNoticeNotBranch2Branch" xml:space="preserve">
-    <value>Regional cancellation notice (different from Branch-Branch)</value>
-  </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contract</value>
   </data>
@@ -1106,9 +1100,6 @@
   </data>
   <data name="FunctionalPrivilegeNameWithdrawalAccess" xml:space="preserve">
     <value>Writing off</value>
-  </data>
-  <data name="FunctionalPrivilegeNameMakeRegionalAdsDocs" xml:space="preserve">
-    <value>Formation of outgoing regional advertisement</value>
   </data>
   <data name="FunctionalPrivilegeNameProcessAccountsWithDebts" xml:space="preserve">
     <value>Processing of personal accounts with indebtedness</value>

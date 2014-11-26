@@ -178,7 +178,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                            OrdersWithPositions = from firm in client.Firms
                                                                  from order in firm.Orders
                                                                  where order.IsActive && !order.IsDeleted &&
-                                                                       order.WorkflowStepId != (int)OrderState.Archive && (clientPrevOwner == null || order.OwnerCode == clientPrevOwner)
+                                                                       order.WorkflowStepId != OrderState.Archive && (clientPrevOwner == null || order.OwnerCode == clientPrevOwner)
                                                                  select new
                                                                  {
                                                                      Order = order,
