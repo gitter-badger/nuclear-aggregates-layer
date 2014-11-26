@@ -1128,25 +1128,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
     }
                     }
                 },
-// FIXME {s.pomadin, 26.11.2014}: delete or restore
-//                new UseCase
-//                {
-//                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.OrderController\PrintRegionalTerminationNotice",
-//                    MaxUseCaseDepth = 1,
-//                    Root = new UseCaseNode(0)
-//                    {
-//                        ContainingClass = typeof(PrintRegionalOrderTerminationNoticeHandler),
-//                        Request = typeof(PrintRegionalOrderTerminationNoticeRequest),
-//                        ChildNodes = new[]
-//    {
-//        new UseCaseNode(1)
-//        {
-//            ContainingClass = typeof(PrintDocumentHandler),
-//            Request = typeof(PrintDocumentRequest)
-//        }
-//    }
-//                    }
-//                },
                 new UseCase
                 {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.TaskService.Jobs.Olap.ImportFirmPromising\ExecuteInternal",
@@ -1594,30 +1575,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                         Request = typeof(SetBranchOfficeOrganizationUnitAsPrimaryRequest)
                     }
                 },
-// FIXME {s.pomadin, 26.11.2014}: delete or restore
-//                new UseCase
-//                {
-//                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.ClientController\Merge",
-//                    MaxUseCaseDepth = 1,
-//                    Root = new UseCaseNode(0)
-//                    {
-//                        ContainingClass = typeof(MergeClientsHandler),
-//                        Request = typeof(MergeClientsRequest),
-//                        ChildNodes = new[]
-//    {
-//        new UseCaseNode(1)
-//        {
-//            ContainingClass = typeof(AssignClientRelatedEntitiesHandler),
-//            Request = typeof(AssignClientRelatedEntitiesRequest)
-//        },
-//        new UseCaseNode(1)
-//        {
-//            ContainingClass = typeof(UpdateRelatedCrmActivitiesHandler),
-//            Request = typeof(UpdateRelatedCrmActivitiesRequest)
-//        }
-//    }
-//                    }
-//                },
                 new UseCase
                 {
                     Description = @"PublicService_Explicitly. DoubleGis.Erm.BLCore.Services.Operations.List.ListTerritoryService\List",
