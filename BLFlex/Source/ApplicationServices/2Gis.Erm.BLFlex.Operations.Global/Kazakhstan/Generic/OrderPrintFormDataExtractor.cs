@@ -92,8 +92,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic
         {
             return new PrintData
                 {
-                    { "UseLegalPersonOrBusinessman", legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.Businessman || legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.LegalPerson },
-                    { "UseNaturalPerson", legalPerson.LegalPersonTypeEnum == (int)LegalPersonType.NaturalPerson },
+                    { "UseLegalPersonOrBusinessman", legalPerson.LegalPersonTypeEnum == LegalPersonType.Businessman || legalPerson.LegalPersonTypeEnum == LegalPersonType.LegalPerson },
+                    { "UseNaturalPerson", legalPerson.LegalPersonTypeEnum == LegalPersonType.NaturalPerson },
                     { "LegalPerson", PrintHelper.LegalPersonFields(legalPerson) },
                 };
         }

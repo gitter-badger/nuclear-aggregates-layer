@@ -21,6 +21,11 @@
     var displayMode = settings.Display.ToString().ToLower();
     var readOnly = settings.ReadOnly.ToString().ToLower();
 
+    if (Model.HasValue && Model.Value.Kind == DateTimeKind.Unspecified)
+    {
+        throw new ArgumentException(string.Format("DateTimeKind.Unspecified не допустим. Поле {0}", Html.IdForModel()));
+    }
+    
     var value = Model.HasValue
                       ? Model.Value.ToString(isoFormat, CultureInfo.InvariantCulture)
                       : string.Empty;

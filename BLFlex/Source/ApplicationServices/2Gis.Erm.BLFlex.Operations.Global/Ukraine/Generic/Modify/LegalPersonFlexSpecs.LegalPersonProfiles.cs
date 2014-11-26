@@ -39,13 +39,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                             ChiefNameInGenitive = x.ChiefNameInGenitive,
                                             ChiefNameInNominative = x.ChiefNameInNominative,
                                             DocumentsDeliveryAddress = x.DocumentsDeliveryAddress,
-                                            DocumentsDeliveryMethod = (DocumentsDeliveryMethod)x.DocumentsDeliveryMethod,
+                                            DocumentsDeliveryMethod = x.DocumentsDeliveryMethod,
                                             LegalPersonRef = new EntityReference { Id = x.LegalPersonId, Name = null },
                                             PositionInNominative = x.PositionInNominative,
                                             PositionInGenitive = x.PositionInGenitive,
-                                            OperatesOnTheBasisInGenitive = x.OperatesOnTheBasisInGenitive == null
-                                                                               ? OperatesOnTheBasisType.Undefined
-                                                                               : (OperatesOnTheBasisType)x.OperatesOnTheBasisInGenitive,
+                                            OperatesOnTheBasisInGenitive = x.OperatesOnTheBasisInGenitive ?? OperatesOnTheBasisType.Undefined,
                                             CertificateDate = x.CertificateDate,
                                             CertificateNumber = x.CertificateNumber,
                                             WarrantyNumber = x.WarrantyNumber,
@@ -92,11 +90,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                     legalPersonProfile.PositionInNominative = dto.PositionInNominative;
                                     legalPersonProfile.ChiefNameInNominative = dto.ChiefNameInNominative;
                                     legalPersonProfile.ChiefNameInGenitive = dto.ChiefNameInGenitive;
-                                    legalPersonProfile.OperatesOnTheBasisInGenitive = (int)dto.OperatesOnTheBasisInGenitive;
+                                    legalPersonProfile.OperatesOnTheBasisInGenitive = dto.OperatesOnTheBasisInGenitive;
                                     legalPersonProfile.DocumentsDeliveryAddress = dto.DocumentsDeliveryAddress;
                                     legalPersonProfile.PostAddress = dto.PostAddress;
                                     legalPersonProfile.RecipientName = dto.RecipientName;
-                                    legalPersonProfile.DocumentsDeliveryMethod = (int)dto.DocumentsDeliveryMethod;
+                                    legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
                                     legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
                                     legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
                                     legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
@@ -106,7 +104,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                     legalPersonProfile.AccountNumber = dto.AccountNumber;
                                     legalPersonProfile.BankName = dto.BankName;
                                     legalPersonProfile.AdditionalPaymentElements = dto.AdditionalPaymentElements;
-                                    legalPersonProfile.PaymentMethod = (int?)dto.PaymentMethod;
+                                    legalPersonProfile.PaymentMethod = dto.PaymentMethod;
                                     legalPersonProfile.LegalPersonId = dto.LegalPersonRef.Id.Value;
                                     legalPersonProfile.CertificateDate = dto.CertificateDate;
                                     legalPersonProfile.CertificateNumber = dto.CertificateNumber;

@@ -109,8 +109,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                             return null;
                         }
 
-                        var onApprovalState = ((int)OrderState.OnApproval).ToString();
-                        var rejectedState = ((int)OrderState.Rejected).ToString();
+                        var onApprovalState = (OrderState.OnApproval).ToString();
+                        var rejectedState = (OrderState.Rejected).ToString();
 
                         var loqQuery = _finder.Find<ActionsHistoryDetail>(
                             x =>

@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                                             Id = x.Id,
                                             LegalName = x.LegalName,
                                             ShortName = x.ShortName,
-                                            LegalPersonTypeEnum = (LegalPersonType)x.LegalPersonTypeEnum,
+                                            LegalPersonTypeEnum = x.LegalPersonTypeEnum,
                                             LegalAddress = x.LegalAddress,
                                             PassportSeries = x.PassportSeries,
                                             PassportNumber = x.PassportNumber,
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify
                         return new AssignSpecification<UkraineLegalPersonDomainEntityDto, LegalPerson>(
                             (dto, legalPerson) =>
                                 {
-                                    legalPerson.LegalPersonTypeEnum = (int)dto.LegalPersonTypeEnum;
+                                    legalPerson.LegalPersonTypeEnum = dto.LegalPersonTypeEnum;
                                     legalPerson.LegalName = dto.LegalName;
                                     legalPerson.ShortName = dto.ShortName;
                                     legalPerson.LegalAddress = dto.LegalAddress;

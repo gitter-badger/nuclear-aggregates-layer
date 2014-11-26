@@ -143,7 +143,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
                 }
 
                 var amountToWithdraw = 0m;
-                if (order.WorkflowStepId != (int)OrderState.Archive)
+                if (order.WorkflowStepId != OrderState.Archive)
                 {
                     amountToWithdraw = orderReleaseTotals.Where(x => x.ReleaseNumber == order.BeginReleaseNumber
                                                                      + orderInfo.LocksCount).Select(x => x.AmountToWithdraw).FirstOrDefault();
@@ -174,7 +174,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Order
 
         private void UpdateOrderAmountToWithdrawOnly(Order order, IOperationScope operationScope)
         {
-            if (order.WorkflowStepId == (int)OrderState.Archive)
+            if (order.WorkflowStepId == OrderState.Archive)
             {
                 order.AmountToWithdraw = 0m;
             }

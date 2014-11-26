@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
         const long LegalPersonProfileId = 2;
         const long FirmAddressId = 3;
 
-        static readonly FirmContact FirmContact = new FirmContact { ContactType = 1 };
+        static readonly FirmContact FirmContact = new FirmContact { ContactType = FirmAddressContactType.Phone };
         static readonly IDictionary<long, IEnumerable<FirmContact>> FirmContacts = new Dictionary<long, IEnumerable<FirmContact>> { { FirmAddressId, new[] { FirmContact } } };
         static readonly BargainType BargainType = new BargainType();
         static readonly BranchOffice BranchOffice = new BranchOffice { BargainType = BargainType };

@@ -1143,9 +1143,6 @@
   <data name="ControlPrintTermNoticeAction" xml:space="preserve">
     <value>Notificación de anulación</value>
   </data>
-  <data name="ControlPrintRegTermNoticeAction" xml:space="preserve">
-    <value>Notificación de anulación regional</value>
-  </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
     <value>Acuerdo adicional</value>
   </data>
@@ -1319,9 +1316,6 @@
   </data>
   <data name="DFieldTotalAmount" xml:space="preserve">
     <value>Importe total de todas las órdenes</value>
-  </data>
-  <data name="DListRegionalAdvertisingSharing" xml:space="preserve">
-    <value>Cambio de la publicidad regional</value>
   </data>
   <data name="DListAllUsers" xml:space="preserve">
     <value>Todos los usuarios</value>
