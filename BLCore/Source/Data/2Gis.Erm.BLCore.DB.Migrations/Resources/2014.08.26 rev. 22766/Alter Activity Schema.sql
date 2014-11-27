@@ -5,7 +5,6 @@ CREATE TABLE [Activity].[LetterBase](
 	[Id] [bigint] NOT NULL CONSTRAINT [PK_Letters] PRIMARY KEY CLUSTERED,
 	[ReplicationCode] [uniqueidentifier] NOT NULL,
 
-	[OwnerCode] [bigint] NOT NULL,
 	[Subject] [nvarchar](256) NULL,
 	[Description] [nvarchar](max) NULL,
 	[ScheduledStart] [datetime2] NOT NULL,
@@ -16,6 +15,7 @@ CREATE TABLE [Activity].[LetterBase](
 
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_Letter_IsActive]  DEFAULT 1,
 	[IsDeleted] [bit] NOT NULL CONSTRAINT [DF_Letter_IsDeleted]  DEFAULT 0,
+	[OwnerCode] [bigint] NOT NULL,
 	[CreatedBy] [bigint] NOT NULL,
 	[CreatedOn] [datetime2] NOT NULL,
 	[ModifiedBy] [bigint] NULL,
