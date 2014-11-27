@@ -52,12 +52,26 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Cards\CardMetadataExtensions.cs" />
+    <Compile Include="Cards\Extensions\CardMetadataBuilderExtensions.cs" />
+    <Compile Include="Cards\Extensions\CardMetadataExtensions.cs" />
     <Compile Include="Cards\CardMetadataSource.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AdvertisementElementStatus.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Bargain.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AssociatedPositionsGroup.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AssociatedPosition.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Appointment.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AdvertisementElement.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AdvertisementElementTemplate.cs" />
+    <Compile Include="Cards\Settings\CardStructures.Advertisement.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AdvertisementTemplate.cs" />
+    <Compile Include="Cards\Settings\CardStructures.DenialReason.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AdsTemplatesAdsElementTemplate.cs" />
+    <Compile Include="Cards\Settings\CardStructures.AdditionalFirmService.cs" />
     <Compile Include="Cards\Settings\CardStructures.AccountDetail.cs" />
     <Compile Include="Cards\Settings\CardStructures.Account.cs" />
     <Compile Include="Cards\Settings\CardStructures.cs" />
-    <Compile Include="Cards\UiElementMetadataBuilderExtensions.cs" />
+    <Compile Include="Cards\Extensions\UiElementMetadataExtensions.cs" />
+    <Compile Include="Cards\Extensions\UiElementMetadataBuilderExtensions.cs" />
     <Compile Include="DI\BlUiMetadataAssembly.cs" />
     <Compile Include="FeatureExtensions.cs" />
   </ItemGroup>
@@ -70,9 +84,21 @@
       <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
       <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
+      <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
+      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
+      <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
@@ -81,6 +107,10 @@
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
       <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
       <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
+      <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
+      <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
@@ -93,6 +123,10 @@
     <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

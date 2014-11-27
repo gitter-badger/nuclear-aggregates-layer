@@ -62,6 +62,10 @@
       <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
       <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
+      <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
+      <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
       <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
       <Name>2Gis.Erm.Platform.UI.Metadata</Name>

@@ -1,11 +1,10 @@
 ﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
-    public class EntityMainAttributeFeature : IMetadataFeature
+    public class CardMainAttributeFeature : IMetadataFeature
     {
-        public EntityMainAttributeFeature(IPropertyDescriptor property)
+        public CardMainAttributeFeature(IPropertyDescriptor property)
         {
             Property = property;
         }

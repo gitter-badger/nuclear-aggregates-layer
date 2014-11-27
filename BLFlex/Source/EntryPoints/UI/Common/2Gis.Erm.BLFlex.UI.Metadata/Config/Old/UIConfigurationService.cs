@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
-using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -679,7 +679,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             CardMetadata metadata;
             if (_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataCardsIdentity>(entityName.ToString()).AsIdentity().Id, out metadata))
             {
-                var metadataCardJson = metadata.ToCardStructure(culture);
+                var metadataCardJson = metadata.ToCardStructure(culture, _globalizationSettings);
                 EnsureCardSettingsCorrectness(localizedCardSettings, metadataCardJson);
                 return metadataCardJson;
             }

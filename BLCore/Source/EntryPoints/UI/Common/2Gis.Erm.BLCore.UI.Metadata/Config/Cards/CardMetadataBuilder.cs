@@ -56,12 +56,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             get { return _actions; }
         }
 
-        public CardMetadataBuilder<TEntity> MainAttribute(Expression<Func<TEntity, object>> propertyNameExpression)
-        {
-            AddFeatures(new EntityMainAttributeFeature(PropertyDescriptor.Create(propertyNameExpression)));
-            return this;
-        }
-
         public CardMetadataBuilder<TEntity> EntityLocalization<TKey>(Expression<Func<TKey>> resourceKeyExpression)
         {
             AddFeatures(new EntityNameLocalizationFeature(StringResourceDescriptor.Create(resourceKeyExpression)));

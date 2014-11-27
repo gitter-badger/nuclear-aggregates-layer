@@ -55,10 +55,11 @@
     <Compile Include="Boundaries\IPrintingBoundedContext.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
     <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Entities\IPropertyDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Entities\PropertyDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\PropertyDescriptor.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\Entities\DomainEntityPropertyDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\NamedHandlerFeature.cs" />
+    <Compile Include="Common\Elements\Aspects\Features\IPropertyDescriptor.cs" />
     <Compile Include="Common\Elements\Aspects\Features\IUniqueMetadataFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeature.cs" />
     <Compile Include="Common\Elements\Aspects\Features\Resources\IStringResourceDescriptor.cs" />

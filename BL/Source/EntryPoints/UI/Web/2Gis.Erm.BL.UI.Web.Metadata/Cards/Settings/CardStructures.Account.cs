@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -10,6 +11,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Account =
             CardMetadata.For<Account>()
+                        .MainAttribute(x => x.Id)
                         .RelatedItems
                             .Name("Information")
                             .Title(() => ErmConfigLocalization.CrdRelInformationHeader)
@@ -35,11 +37,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                      .Icon.Path("en_ico_16_Order.gif")
                                                      .LockOnNew()
                                                     .Handler.ShowGridByConvention(EntityName.Order))
-                        .Actions.Attach(UiElementMetadata.Config.SaveAction<Account>(),
-                                        UiElementMetadata.Config.SplitterAction(),
-                                        UiElementMetadata.Config.SaveAndCloseAction<Account>(),
-                                        UiElementMetadata.Config.SplitterAction(),
-                                        UiElementMetadata.Config.RefreshAction<Account>(),
-                                        UiElementMetadata.Config.CloseAction());
+                        .Actions
+                            .Attach(UiElementMetadataHelper.ConfigCommonCardToolbarButtons<Account>());
     }
 }

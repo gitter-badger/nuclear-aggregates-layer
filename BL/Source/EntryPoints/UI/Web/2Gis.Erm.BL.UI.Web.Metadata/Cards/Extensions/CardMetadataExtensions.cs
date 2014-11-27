@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features;
@@ -11,16 +12,15 @@ using DoubleGis.Erm.Platform.UI.Metadata.UiElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Metadata.UiElements.Features;
 
-namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
+namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
     public static class CardMetadataExtensions
     {
-        public static CardStructure ToCardStructure(this CardMetadata card, CultureInfo culture)
+        public static CardStructure ToCardStructure(this CardMetadata card, CultureInfo culture, IBusinessModelSettings businessModelSettings)
         {
             var result = new CardStructure
                              {
-                                 // Это странная штука
-                                 DecimalDigits = 2
+                                 DecimalDigits = businessModelSettings.SignificantDigitsNumber
                              };
 
             if (card.ImageDescriptor != null)
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.EntityLocalizedName = card.EntityLocalizationDescriptor.GetValue(culture);
             }
 
-            var mainAttributeFeature = card.Features<EntityMainAttributeFeature>().SingleOrDefault();
+            var mainAttributeFeature = card.Features<CardMainAttributeFeature>().SingleOrDefault();
             if (mainAttributeFeature != null)
             {
                 result.EntityMainAttribute = mainAttributeFeature.Property.PropertyName;
@@ -87,18 +87,18 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             result.LockOnNew = toolbarElement.Uses<LockOnNewFeature>();
             result.LockOnInactive = toolbarElement.Uses<LockOnInactiveFeature>();
 
-            int SecurityPrivelegeFlag = 0;
+            int securityPrivelegeFlag = 0;
             foreach (var feature in toolbarElement.Features<SecuredByFunctionalPrivelegeFeature>())
             {
-                SecurityPrivelegeFlag |= (int)feature.Privilege;
+                securityPrivelegeFlag |= (int)feature.Privilege;
             }
 
             foreach (var feature in toolbarElement.Features<SecuredByEntityPrivelegeFeature>())
             {
-                SecurityPrivelegeFlag |= (int)feature.Privilege;
+                securityPrivelegeFlag |= (int)feature.Privilege;
             }
 
-            result.SecurityPrivelege = SecurityPrivelegeFlag;
+            result.SecurityPrivelege = securityPrivelegeFlag;
 
             return result;
         }
@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 {
                     result.RequestUrl = showGridHandler.ToRequestUrl();
                     
-                    // Есть подозрение, что над этим нужно подумать
+                    // Над этим нужно подумать
                     result.AppendExtendedInfo("filterToParent=true");
                 }
             }
