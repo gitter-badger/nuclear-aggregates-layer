@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 using log4net;
 using log4net.Appender;
@@ -30,7 +31,14 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
 
         private readonly PatternLayout _eventLogPatternLayout = new PatternLayout
         {
-            ConversionPattern = "%date [%thread] %-5level%newline %message%newline%newline %exception"
+            ConversionPattern = new StringBuilder("%date %-5level %message")
+                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.Environment))
+                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPoint))
+                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPointHost))
+                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.EntryPointInstanceId))
+                                        .Append(" " + PatternSegmentForContextProperty(LoggerContextKeys.Required.UserAccount))
+                                        .Append("%newline %exception")
+                                        .ToString()
         };
 
         private readonly IDictionary<Type, List<IAppender>> _loggerAppendersMap = new Dictionary<Type, List<IAppender>>();
@@ -83,18 +91,25 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
             }
         }
 
+        public Log4NetLoggerBuilder DefaultXmlConfig
+        {
+            get
+            {
+                _xmlConfigFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultLogConfigFileName);
+                return this;
+            }
+        }
+
         public Log4NetLoggerBuilder EventLog
         {
             get
             {
-                var rangeFilter = new LevelRangeFilter { LevelMin = Level.Warn, LevelMax = Level.Fatal, Next = new DenyAllFilter() };
-
                 AttachOnce<EventLogAppender>(appender =>
                 {
                     appender.Name = "EventLog";
-                    appender.ApplicationName = "ErmNtService";
-                    appender.LogName = "2Gis Erm";
-                    appender.AddFilter(rangeFilter);
+                    appender.ApplicationName = "Erm";
+                    appender.LogName = "2Gis.Erm";
+                    appender.AddFilter(new LevelRangeFilter { LevelMin = Level.Warn, LevelMax = Level.Fatal, AcceptOnMatch  = true, Next = new DenyAllFilter() });
                     appender.AddMapping(new EventLogAppender.Level2EventLogEntryType { Level = Level.Warn, EventLogEntryType = EventLogEntryType.Warning });
                     appender.AddMapping(new EventLogAppender.Level2EventLogEntryType { Level = Level.Error, EventLogEntryType = EventLogEntryType.Error });
                     appender.AddMapping(new EventLogAppender.Level2EventLogEntryType { Level = Level.Fatal, EventLogEntryType = EventLogEntryType.Error });
@@ -114,11 +129,11 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
                 debugAppender.Name = "DebugDB";
                 debugAppender.AddFilter(new LevelMatchFilter { LevelToMatch = Level.Debug, AcceptOnMatch = true, Next = new DenyAllFilter() });
                 debugAppender.BufferSize = 5;
-                ApplySharedSettings(debugAppender);
+                ApplySharedSettings(debugAppender, connectionString);
             },
             infoAppender =>
             {
-                infoAppender.Name = "InfoDB";
+                infoAppender.Name = "InfoAndWarnDB";
                 infoAppender.AddFilter(
                     new LevelMatchFilter
                         {
@@ -135,14 +150,15 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
                                 }
                             }
                         });
-                ApplySharedSettings(infoAppender);
+                infoAppender.BufferSize = 1;
+                ApplySharedSettings(infoAppender, connectionString);
             },
             errorAppender =>
             {
                 errorAppender.Name = "ErrorDB";
-                errorAppender.BufferSize = 1;
                 errorAppender.AddFilter(new LevelRangeFilter { LevelMin = Level.Error, LevelMax = Level.Fatal, AcceptOnMatch = true, Next = new DenyAllFilter() });
-                ApplySharedSettings(errorAppender);
+                errorAppender.BufferSize = 1;
+                ApplySharedSettings(errorAppender, connectionString);
             });
 
             return this;
@@ -170,15 +186,6 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
             return this;
         }
 
-        public Log4NetLoggerBuilder DefaultXmlConfig
-        {
-            get
-            {
-                _xmlConfigFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultLogConfigFileName);
-                return this;
-            }
-        }
-
         public Log4NetLoggerBuilder XmlConfig(string xmlConfigFullPath)
         {
             _xmlConfigFullPath = xmlConfigFullPath;
@@ -195,50 +202,69 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
                 {
                     throw new InvalidOperationException("Can't find specified logger config file " + builder._xmlConfigFullPath); 
                 }
-                
+
+                // если включен импорт конфигруации из xml файла, то делаем импорт до применения конфигурации задаваемой в коде, 
+                // т.к. режим импорта merge не работает как заявлено (атрибут update="Merge" тэга log4net в конфиге не срабатывает) => если первыми будут применены настройки из кода, 
+                // то после импорта из xml они будут перезатерты
                 XmlConfigurator.Configure(loggersHierarchy, targetXmlConfigFileInfo);
             }
-            
-            foreach (var appender in builder._loggerAppendersMap.SelectMany(x => x.Value))
+
+            var xmlConfiguredAppendersRegistrar = new HashSet<string>();
+            foreach (var appender in loggersHierarchy.GetAppenders())
             {
-                loggersHierarchy.Root.AddAppender(appender);
+                xmlConfiguredAppendersRegistrar.Add(appender.GetType().Name + appender.Name);
+                var adoNetAppender = appender as AdoNetAppender;
+                if (adoNetAppender != null)
+                {   // явно проставляем connectionstring для БД хранилища логов, чтобы не зависеть от окружения (наличия в config файле connectionStrings нужной строчки)
+                    adoNetAppender.ConnectionString = builder._dbAppenderConnectionString;
+                    adoNetAppender.ActivateOptions();
+                }
             }
 
-            var adonetAppenders = loggersHierarchy.GetAppenders().OfType<AdoNetAppender>();
-            foreach (var adoNetAppender in adonetAppenders)
+            foreach (var appender in builder._loggerAppendersMap.SelectMany(x => x.Value))
             {
-                adoNetAppender.ConnectionString = builder._dbAppenderConnectionString;
-                adoNetAppender.ActivateOptions();
+                if (xmlConfiguredAppendersRegistrar.Contains(appender.GetType().Name + appender.Name))
+                {
+                    continue;
+                }
+
+                loggersHierarchy.Root.AddAppender(appender);
             }
 
             loggersHierarchy.Configured = true;
             return new Log4NetCommonLog(LoggingHierarchyName, builder._loggingCulture);
         }
 
-        private void ApplySharedSettings(AdoNetAppender adoNetAppender)
+        private static IRawLayout LayoutForContextProperty(string contextPropertyKey)
+        {
+            return new Layout2RawLayoutAdapter(new PatternLayout(PatternSegmentForContextProperty(contextPropertyKey)));
+        }
+
+        private static string PatternSegmentForContextProperty(string contextPropertyKey)
+        {
+            return "%property{" + contextPropertyKey + "}";
+        }
+
+        private void ApplySharedSettings(AdoNetAppender adoNetAppender, string loggingDbConnectionString)
         {
             adoNetAppender.ConnectionType = "System.Data.SqlClient.SqlConnection";
-            adoNetAppender.CommandText = "[dbo].[WriteLogMessageNew]";
+            adoNetAppender.CommandText = "[Log].[AddEvent]";
             adoNetAppender.CommandType = CommandType.StoredProcedure;
             adoNetAppender.ReconnectOnError = true;
             adoNetAppender.UseTransactions = false;
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageDate", DbType = DbType.DateTime2, Size = 36, Precision = 7, Layout = new RawTimeStampLayout() });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageLevel", DbType = DbType.String, Size = 5, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level")) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageText", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message")) });
+            adoNetAppender.ConnectionString = loggingDbConnectionString;
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Date", DbType = DbType.DateTime2, Size = 36, Precision = 7, Layout = new RawTimeStampLayout() });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Level", DbType = DbType.String, Size = 5, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level")) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Message", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message")) });
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@ExceptionData", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new ExceptionLayout()) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Environment", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Required.Environment) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPoint", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Required.EntryPoint) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointHost", DbType = DbType.String, Size = 250, Layout = LayoutForContextKey(LoggerContextKeys.Required.EntryPointHost) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointInstanceId", DbType = DbType.String, Size = 36, Layout = LayoutForContextKey(LoggerContextKeys.Required.EntryPointInstanceId) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAccount", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Required.UserAccount) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserSession", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Optional.UserSession) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAddress", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Optional.UserAddress) });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAgent", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Optional.UserAgent) });
-        }
-
-        private IRawLayout LayoutForContextKey(string contextKey)
-        {
-            return new Layout2RawLayoutAdapter(new PatternLayout("%property{" + contextKey + "}"));
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Environment", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Required.Environment) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPoint", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Required.EntryPoint) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointHost", DbType = DbType.String, Size = 250, Layout = LayoutForContextProperty(LoggerContextKeys.Required.EntryPointHost) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointInstanceId", DbType = DbType.String, Size = 36, Layout = LayoutForContextProperty(LoggerContextKeys.Required.EntryPointInstanceId) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAccount", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Required.UserAccount) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserSession", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Optional.UserSession) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAddress", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Optional.UserAddress) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAgent", DbType = DbType.String, Size = 100, Layout = LayoutForContextProperty(LoggerContextKeys.Optional.UserAgent) });
         }
 
         private void AttachOnce<TAppender>(params Action<TAppender>[] initializers) where TAppender : class, IAppender, IOptionHandler, new()

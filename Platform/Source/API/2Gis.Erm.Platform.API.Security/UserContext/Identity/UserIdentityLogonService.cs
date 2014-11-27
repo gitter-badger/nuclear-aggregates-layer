@@ -5,10 +5,12 @@ namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
     public sealed class UserIdentityLogonService : IUserIdentityLogonService
     {
         private readonly IUserContext _userContext;
+        private readonly IUserLogonAuditor _userLogonAuditor;
 
-        public UserIdentityLogonService(IUserContext userContext)
+        public UserIdentityLogonService(IUserContext userContext, IUserLogonAuditor userLogonAuditor)
         {
             _userContext = userContext;
+            _userLogonAuditor = userLogonAuditor;
         }
 
         public void Logon(IUserIdentity identity)
@@ -22,6 +24,7 @@ namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
             }
 
             userContextAccessor.Identity = identity;
+            _userLogonAuditor.LoggedIn(identity);
         }
     }
 }

@@ -394,9 +394,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///INSERT INTO [dbo].[Seances]([Id], [ModuleId], [MessageDate]) 
         ///	VALUES(CAST(@SeanceCode as uniqueidentifier), @ModuleId, @MessageDate).
         /// </summary>
-        internal static string _201411241430_ErmLogging___dbo___WriteSeanceData_ {
+        internal static string _201411241430_UpgradeLoggingStorage_ {
             get {
-                return ResourceManager.GetString("_201411241430_ErmLogging___dbo___WriteSeanceData_", resourceCulture);
+                return ResourceManager.GetString("_201411241430_UpgradeLoggingStorage_", resourceCulture);
             }
         }
         

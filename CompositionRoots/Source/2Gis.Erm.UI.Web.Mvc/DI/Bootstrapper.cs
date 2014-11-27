@@ -331,11 +331,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                  typeof(ICommonLog)))
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerRequest, new InjectionFactory(c => new UserContext(null, null)))
-
-
-
-
-
+                .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<ISignInService, WebCookieSignInService>(CustomLifetime.PerRequest,
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
