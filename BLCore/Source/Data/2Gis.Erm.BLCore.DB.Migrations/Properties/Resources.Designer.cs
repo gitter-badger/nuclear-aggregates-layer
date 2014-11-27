@@ -2539,6 +2539,28 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///  &lt;IsvConfig&gt;
         ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
         ///      &lt;Root&gt;
+        ///        &lt;ToolBar&gt;
+        ///          &lt;Button Icon=&quot;/_imgs/AdvFind/new.GIF&quot; JavaScript=&quot;openStdWin(&apos;https://web-app05.test.erm.2gis.ru/Grid/View/Order?singleDataView=DListOrdersFast&apos;, &apos;FastSearch&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
+        ///            &lt;Titles&gt;
+        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Customizations_201411271239 {
+            get {
+                return ResourceManager.GetString("Customizations_201411271239", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///  &lt;/Entities&gt;
+        ///  &lt;Roles&gt;
+        ///  &lt;/Roles&gt;
+        ///  &lt;Workflows&gt;
+        ///  &lt;/Workflows&gt;
+        ///  &lt;IsvConfig&gt;
+        ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
+        ///      &lt;Root&gt;
         ///        &lt;!-- 		Application Level Tool Bar, не удалять !		--&gt;
         ///      &lt;/Root&gt;
         ///      &lt;Entities&gt;
@@ -2882,11 +2904,11 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	[Id] [bigint] NOT NULL CONSTRAINT [PK_Letters] PRIMARY KEY CLUSTERED,
         ///	[ReplicationCode] [uniqueidentifier] NOT NULL,
         ///
-        ///	[OwnerCode] [bigint] NOT NULL,
         ///	[Subject] [nvarchar](256) NULL,
         ///	[Description] [nvarchar](max) NULL,
         ///	[ScheduledStart] [datetime2] NOT NULL,
-        ///	[ScheduledE [rest of string was truncated]&quot;;.
+        ///	[ScheduledEnd] [datetime2] NOT NULL,
+        ///	[Actu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration_22766_AlterSchema {
             get {
