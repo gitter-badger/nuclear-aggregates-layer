@@ -12,6 +12,9 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
     public sealed class AppointmentViewModel : EntityViewModelBase<Appointment>, IActivityViewModel
@@ -41,10 +44,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         public string Description { get; set; }
 
-        [Calendar, RequiredLocalized]
+        [Calendar, JsonConverter(typeof(IsoDateTimeConverter)), RequiredLocalized]
         public DateTime ScheduledStart { get; set; }
 
-        [Calendar, RequiredLocalized]
+        [Calendar, JsonConverter(typeof(IsoDateTimeConverter)), RequiredLocalized]
         public DateTime ScheduledEnd { get; set; }
 
         public LookupField Client { get; set; }
