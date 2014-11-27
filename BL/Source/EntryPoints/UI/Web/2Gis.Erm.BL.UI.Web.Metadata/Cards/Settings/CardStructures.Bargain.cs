@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -10,11 +11,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardStructures
     {
-        // TODO {y.baranihin, 26.11.2014}: Заполнить MainAttribute
-        // .MainAttribute<Bargain, BargainViewModel>(x => x.Number)
         public static readonly CardMetadata Bargain =
             CardMetadata.For<Bargain>()
-                        
+                        .MainAttribute<Bargain, IBargainViewModel>(x => x.Number)                
                         .Actions
                             .Attach(UiElementMetadata.Config.SaveAction<Bargain>(),
                                     UiElementMetadata.Config.SplitterAction(),
