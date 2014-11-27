@@ -38,7 +38,8 @@ namespace DoubleGis.Erm.TaskService
                         new LoggerContextConstEntryProvider(LoggerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
                         new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
                         new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
-                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString())
+                        new LoggerContextConstEntryProvider(LoggerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new LoggerContextSelfHostedEntryProvider(LoggerContextKeys.Required.UserAccount)
                     };
 
             var loggerContextManager = new LoggerContextManager(loggerContextEntryProviders);
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.TaskService
                                              .DB(settingsContainer.AsSettings<IConnectionStringSettings>().LoggingConnectionString())
                                              .Build;
 
-            logger.ErrorFormatEx(new Exception(), "Test message {0}", "Placeholder folder");
+            logger.ErrorFormatEx(new Exception(), "Test message {0}", "Placeholder value");
 
             IUnityContainer container = null;
             try

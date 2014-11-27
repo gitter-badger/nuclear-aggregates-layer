@@ -94,6 +94,7 @@
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Error.cs" />
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Info.cs" />
     <Compile Include="Logging\Log4Net\Log4NetCommonLog.Debug.cs" />
+    <Compile Include="Logging\LoggerContextSelfHostedEntryProvider.cs" />
     <Compile Include="Logging\SystemInfo\AssemblyVersionInfo.cs" />
     <Compile Include="Logging\SystemInfo\EnvironmentInfo.cs" />
     <Compile Include="Logging\SystemInfo\NetworkInfo.cs" />

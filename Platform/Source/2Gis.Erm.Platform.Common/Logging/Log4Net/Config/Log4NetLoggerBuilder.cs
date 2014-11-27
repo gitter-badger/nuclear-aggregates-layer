@@ -114,7 +114,6 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
                 debugAppender.Name = "DebugDB";
                 debugAppender.AddFilter(new LevelMatchFilter { LevelToMatch = Level.Debug, AcceptOnMatch = true, Next = new DenyAllFilter() });
                 debugAppender.BufferSize = 5;
-                debugAppender.Lossy = false;
                 ApplySharedSettings(debugAppender);
             },
             infoAppender =>
@@ -136,14 +135,13 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
                                 }
                             }
                         });
-                infoAppender.BufferSize = 1;
                 ApplySharedSettings(infoAppender);
             },
             errorAppender =>
             {
                 errorAppender.Name = "ErrorDB";
-                errorAppender.AddFilter(new LevelRangeFilter { LevelMin = Level.Error, LevelMax = Level.Fatal, Next = new DenyAllFilter() });
                 errorAppender.BufferSize = 1;
+                errorAppender.AddFilter(new LevelRangeFilter { LevelMin = Level.Error, LevelMax = Level.Fatal, AcceptOnMatch = true, Next = new DenyAllFilter() });
                 ApplySharedSettings(errorAppender);
             });
 
@@ -187,11 +185,6 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
             return this;
         }
 
-        public static implicit operator Log4NetCommonLog(Log4NetLoggerBuilder builder)
-        {
-            return Create(builder);
-        }
-
         private static Log4NetCommonLog Create(Log4NetLoggerBuilder builder)
         {
             var loggersHierarchy = (Hierarchy)LogManager.GetRepository();
@@ -230,17 +223,22 @@ namespace DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config
             adoNetAppender.ReconnectOnError = true;
             adoNetAppender.UseTransactions = false;
             adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageDate", DbType = DbType.DateTime2, Size = 36, Precision = 7, Layout = new RawTimeStampLayout() });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageLevel", DbType = DbType.String, Size = 5, Layout = new RawPropertyLayout { Key = "%level" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageText", DbType = DbType.String, Size = 8000, Layout = new RawPropertyLayout { Key = "%property{message}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@ExceptionData", DbType = DbType.String, Size = 8000, Layout = new RawPropertyLayout { Key = "%exception" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Environment", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{environment}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPoint", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{entryPointName}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointHost", DbType = DbType.String, Size = 250, Layout = new RawPropertyLayout { Key = "%property{entryPointHost}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointInstanceId", DbType = DbType.Guid, Layout = new RawPropertyLayout { Key = "%property{entryPointInstanceId}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAccount", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userAccount}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserSession", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userSession}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAddress", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userAddress}" } });
-            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAgent", DbType = DbType.String, Size = 100, Layout = new RawPropertyLayout { Key = "%property{userAgent}" } });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageLevel", DbType = DbType.String, Size = 5, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level")) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@MessageText", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message")) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@ExceptionData", DbType = DbType.String, Size = 8000, Layout = new Layout2RawLayoutAdapter(new ExceptionLayout()) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@Environment", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Required.Environment) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPoint", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Required.EntryPoint) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointHost", DbType = DbType.String, Size = 250, Layout = LayoutForContextKey(LoggerContextKeys.Required.EntryPointHost) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@EntryPointInstanceId", DbType = DbType.String, Size = 36, Layout = LayoutForContextKey(LoggerContextKeys.Required.EntryPointInstanceId) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAccount", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Required.UserAccount) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserSession", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Optional.UserSession) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAddress", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Optional.UserAddress) });
+            adoNetAppender.AddParameter(new AdoNetAppenderParameter { ParameterName = "@UserAgent", DbType = DbType.String, Size = 100, Layout = LayoutForContextKey(LoggerContextKeys.Optional.UserAgent) });
+        }
+
+        private IRawLayout LayoutForContextKey(string contextKey)
+        {
+            return new Layout2RawLayoutAdapter(new PatternLayout("%property{" + contextKey + "}"));
         }
 
         private void AttachOnce<TAppender>(params Action<TAppender>[] initializers) where TAppender : class, IAppender, IOptionHandler, new()
